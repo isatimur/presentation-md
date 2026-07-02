@@ -8,6 +8,7 @@ import { SlideList } from "./components/SlideList.js";
 import { SlideForm } from "./components/SlideForm.js";
 import { Preview } from "./components/Preview.js";
 import { PresentMode } from "./components/PresentMode.js";
+import { GenerateModal } from "./components/GenerateModal.js";
 
 const STORAGE_KEY = "psp-studio-deck-v1";
 
@@ -30,6 +31,7 @@ export function App() {
   const [deck, setDeck] = useState<DeckJson>(loadInitialDeck);
   const [selected, setSelected] = useState(0);
   const [presenting, setPresenting] = useState(false);
+  const [generating, setGenerating] = useState(false);
 
   // Autosave to localStorage so work survives refreshes.
   useEffect(() => {
@@ -66,7 +68,13 @@ export function App() {
 
   return (
     <div className="app">
-      <Toolbar deck={deck} onChange={setDeck} onLoadExample={loadExample} onPresent={() => setPresenting(true)} />
+      <Toolbar
+        deck={deck}
+        onChange={setDeck}
+        onLoadExample={loadExample}
+        onPresent={() => setPresenting(true)}
+        onGenerate={() => setGenerating(true)}
+      />
       <div className="workspace">
         <aside className="panel panel-left">
           <SlideList slides={deck.slides} selected={selected} onSelect={setSelected} onChange={setSlides} />
@@ -84,6 +92,16 @@ export function App() {
       </div>
       {presenting && (
         <PresentMode html={html} slideCount={deck.slides.length} onClose={() => setPresenting(false)} />
+      )}
+      {generating && (
+        <GenerateModal
+          currentTheme={deck.meta?.theme ?? "claude"}
+          onGenerate={(next) => {
+            setDeck(next);
+            setSelected(0);
+          }}
+          onClose={() => setGenerating(false)}
+        />
       )}
     </div>
   );

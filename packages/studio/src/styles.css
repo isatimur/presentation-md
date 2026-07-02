@@ -99,6 +99,14 @@ body {
 .btn-sm { padding: 4px 10px; font-size: 12px; }
 .btn-icon { padding: 4px 7px; font-size: 12px; line-height: 1; }
 .btn-danger:hover { border-color: var(--danger); color: var(--danger); }
+.btn-block { width: 100%; justify-content: center; }
+/* Generate is the marquee action — coral outline that lifts on hover. */
+.btn-generate {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line-2));
+  color: #f3d9cc;
+  background: color-mix(in srgb, var(--accent) 12%, var(--panel-2));
+}
+.btn-generate:hover { border-color: var(--accent); box-shadow: 0 0 20px -8px var(--accent); }
 
 /* ── Inputs ────────────────────────────────────────────────────────── */
 .text-input {
@@ -183,3 +191,46 @@ select.text-input { cursor: pointer; }
   .workspace { grid-template-columns: 1fr; grid-template-rows: auto 320px auto; }
   .panel-center { padding: 12px; }
 }
+
+/* ── Generate modal ────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 60;
+  background: rgba(8, 7, 6, 0.72); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+}
+.modal {
+  width: min(560px, 100%); max-height: 90vh; overflow-y: auto;
+  background: var(--panel); border: 1px solid var(--line-2); border-radius: 16px;
+  box-shadow: 0 30px 80px -20px rgba(0,0,0,0.7); position: relative;
+}
+.modal::after {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; border-radius: 16px 16px 0 0;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.8;
+}
+.modal-head {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+  padding: 20px 22px 14px; border-bottom: 1px solid var(--line);
+}
+.modal-head strong { font-family: var(--serif); font-size: 19px; display: block; }
+.modal-head .small { display: block; margin-top: 3px; }
+.modal-body { padding: 18px 22px 22px; display: flex; flex-direction: column; gap: 14px; }
+.field-label { font-size: 12px; font-weight: 550; color: var(--muted); letter-spacing: 0.02em; }
+.brief-input { resize: vertical; min-height: 84px; line-height: 1.45; font-family: var(--serif); }
+.field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: -4px; }
+.chip {
+  background: var(--panel-2); border: 1px solid var(--line-2); color: var(--muted);
+  border-radius: 999px; padding: 4px 11px; font-size: 11.5px; cursor: pointer; font-family: inherit;
+}
+.chip:hover { border-color: var(--accent); color: var(--text); }
+.gen-panel {
+  display: flex; flex-direction: column; gap: 10px;
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: 12px; padding: 14px;
+}
+.checkbox-field { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.checkbox-field input { accent-color: var(--accent); }
+.privacy-note { line-height: 1.5; margin: 0; }
+.privacy-note a { color: var(--info); }
+.gen-divider { display: flex; align-items: center; gap: 12px; color: var(--faint); font-size: 11px; }
+.gen-divider::before, .gen-divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.gen-status { margin: 0; }
