@@ -641,7 +641,7 @@
         <span class="step-icon"><i class="fa-solid fa-palette"></i></span>
         <span class="step-num">Step 02</span>
         <h3>Pick a vibe</h3>
-        <p>Choose a theme: dark edgy tech, formal corporate, playful creative, luxury minimalist, or retro arcade. Same data, completely different look. You can override any theme later without re-writing your content.</p>
+        <p>Choose a theme: the warm Claude-inspired flagship, dark edgy tech, formal corporate, playful creative, luxury minimalist, or retro arcade. Same data, completely different look. You can override any theme later without re-writing your content.</p>
       </div>
       <div class="step">
         <span class="step-icon"><i class="fa-regular fa-circle-check"></i></span>
@@ -653,11 +653,47 @@
   </div>
 </section>
 
+<!-- ── STUDIO ──────────────────────────────────────────────────────────────── -->
+<section id="studio-feature">
+  <div class="container">
+    <span class="eyebrow">Studio</span>
+    <h2>Generate, edit, present — in the browser.</h2>
+    <p class="section-lead">
+      The free browser <a href="studio" class="inline-code">Studio</a> is a full deck workbench.
+      No account, no upload — your deck and your API key never leave your browser.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <span class="step-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+        <h3>Generate from a prompt</h3>
+        <p>Describe your deck and get an editable one back. Bring your own Claude API key to generate in-browser, or copy a ready-made prompt into the agent you already use. Pick Opus 4.8, Sonnet 4.6, or Haiku 4.5.</p>
+      </div>
+      <div class="step">
+        <span class="step-icon"><i class="fa-solid fa-pen-ruler"></i></span>
+        <h3>Edit any deck, losslessly</h3>
+        <p>Every rendered deck embeds its own source spec, so you can reopen a created <span class="inline-code">.html</span> and edit it with live preview. Change layouts, swap themes, rewrite copy — autosaved to your browser.</p>
+      </div>
+      <div class="step">
+        <span class="step-icon"><i class="fa-solid fa-expand"></i></span>
+        <h3>Present &amp; export</h3>
+        <p>Present fullscreen with keyboard navigation, or export native, editable <strong>PowerPoint</strong> that opens in Keynote and imports into Google Slides — real shapes and text, not screenshots.</p>
+      </div>
+    </div>
+
+    <div class="ctas" style="margin-top:32px;">
+      <a href="studio" class="btn btn-primary">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Open Studio
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ── THEMES ──────────────────────────────────────────────────────────────── -->
 <section id="themes">
   <div class="container">
     <span class="eyebrow">Themes</span>
-    <h2>Five vibes. One JSON field.</h2>
+    <h2>Six vibes. One JSON field.</h2>
     <p class="section-lead">
       Swap the entire look of a deck by changing a single <span class="inline-code">"theme"</span> key.
       Each theme is a versioned JSON package: color roles, typography, geometry. Install community themes
@@ -665,6 +701,27 @@
     </p>
 
     <div class="themes-grid">
+
+      <!-- claude (flagship) -->
+      <div class="theme-card">
+        <div class="theme-preview" style="background:#faf9f5; border-bottom:1px solid #e8e6dc;">
+          <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:#141413;
+                       letter-spacing:-0.01em;">
+            claude
+          </span>
+        </div>
+        <div class="theme-body">
+          <span class="theme-name">claude</span>
+          <p class="theme-vibe">Anthropic-inspired — warm cream paper, clay-coral accent, grotesk + editorial serif. Calm, human, high-craft.</p>
+          <div class="palette">
+            <div class="swatch" style="background:#faf9f5; border-color:rgba(20,20,19,0.12);" title="bg"></div>
+            <div class="swatch" style="background:#141413;" title="text"></div>
+            <div class="swatch" style="background:#d97757;" title="accent"></div>
+            <div class="swatch" style="background:#6a9bcc;" title="accent2"></div>
+            <div class="swatch" style="background:#73706a;" title="muted"></div>
+          </div>
+        </div>
+      </div>
 
       <!-- default-tech -->
       <div class="theme-card">
