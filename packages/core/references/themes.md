@@ -6,6 +6,7 @@ data intact. List installed themes at runtime with the `list_themes` MCP tool or
 
 | theme | vibe |
 |-------|------|
+| `claude` | Anthropic / Claude-inspired — warm cream paper, clay-coral accent, grotesk + editorial serif (bundled). |
 | `default-tech` | Edgy tech startup — dark, violet + cyan, bold geometric sans (bundled). |
 | `corporate` | Formal corporate — light, navy, restrained single accent, clean. |
 | `playful` | Playful/creative — bright multi-color, rounded, big type. |

@@ -7,10 +7,14 @@ export function Toolbar({
   deck,
   onChange,
   onLoadExample,
+  onPresent,
+  onGenerate,
 }: {
   deck: DeckJson;
   onChange: (next: DeckJson) => void;
   onLoadExample: () => void;
+  onPresent: () => void;
+  onGenerate: () => void;
 }) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [status, setStatus] = useState<string>("");
@@ -90,8 +94,10 @@ export function Toolbar({
 
       <div className="spacer" />
 
+      <button className="btn btn-generate" onClick={onGenerate} title="Generate a deck from a prompt">✨ Generate</button>
       <button className="btn" onClick={onLoadExample}>Example</button>
       <button className="btn" onClick={() => fileRef.current?.click()} title="Open a deck .html or .json">Open</button>
+      <button className="btn" onClick={onPresent} title="Present fullscreen">Present</button>
       <button className="btn" onClick={() => downloadJson(deck)}>JSON</button>
       <button className="btn" onClick={() => downloadHtml(deck)}>HTML</button>
       <button className="btn btn-primary" disabled={busy} onClick={exportPptx}>

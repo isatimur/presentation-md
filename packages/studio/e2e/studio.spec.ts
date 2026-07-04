@@ -29,6 +29,26 @@ test("edit a slide, see the live preview update, and export .pptx", async ({ pag
   expect(htmlDownload.suggestedFilename()).toMatch(/\.html$/);
 });
 
+test("Generate modal opens, validates input, and offers the agent-handoff path", async ({ page }) => {
+  await page.goto("/");
+
+  // Opening the Generate modal.
+  await page.getByRole("button", { name: /Generate/ }).first().click();
+  await expect(page.getByRole("heading", { name: "Generate a deck" }).or(page.getByText("Generate a deck"))).toBeVisible();
+
+  // The agent-handoff copy button is disabled until there's a brief.
+  const copyBtn = page.getByRole("button", { name: /Copy prompt for your agent/ });
+  await expect(copyBtn).toBeDisabled();
+
+  // Typing a brief enables the agent path…
+  await page.locator("textarea.brief-input").fill("A launch deck for a developer CLI.");
+  await expect(copyBtn).toBeEnabled();
+
+  // …and generating without an API key surfaces a clear error (no network call).
+  await page.getByRole("button", { name: /^Generate deck$/ }).click();
+  await expect(page.getByText(/Enter your Anthropic API key/)).toBeVisible();
+});
+
 test("opens a created .html and recovers the editable deck from embedded source", async ({ page }) => {
   await page.goto("/");
   const frame = page.frameLocator(".preview-frame");

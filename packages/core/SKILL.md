@@ -24,6 +24,13 @@ The best presentation you've ever seen had ONE thing in common with every other 
 - Snap-scroll between full-viewport slides
 - NO Tailwind, Bootstrap, React, or external CSS frameworks
 
+**What the deck can then do** (deck-spec path only): every rendered deck embeds its
+source spec, so it round-trips. The browser **Studio**
+([presentation-skill-pack.vercel.app/studio](https://presentation-skill-pack.vercel.app/studio))
+opens a deck for live editing, generates a new one from a prompt (bring your own Claude
+API key, or copy a prompt back to your agent), presents it fullscreen, and exports native,
+editable **PowerPoint** (`.pptx`) that opens in Keynote and imports into Google Slides.
+
 ---
 
 ## Narrative Architecture — Before You Write One Slide
@@ -131,9 +138,16 @@ Each layout is a tool. Match the layout to the job, not to the order.
 
 ---
 
-## The 5 Themes — Visual Identity System
+## The Themes — Visual Identity System
 
 Each theme is a complete design language: colors, typography, geometry, motion, and soul.
+
+### `claude` (flagship reference)
+**Soul:** The warm, human, high-craft studio — calm confidence, nothing shouty. The reference design for slide generation.
+**Palette:** `#faf9f5` cream paper · `#141413` ink · `#d97757` clay-coral accent · `#6a9bcc` blue · `#73706a` muted
+**Fonts:** Space Grotesk headings · Lora editorial serif body
+**Geometry:** 12px radius, cream card surfaces, hairline borders, restrained coral signal
+**Use for:** AI products, developer tools, editorial and thought-leadership decks, anything that should feel considered rather than loud
 
 ### `default-tech`
 **Soul:** The confident startup that's shipping faster than you can blink.
