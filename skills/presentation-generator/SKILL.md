@@ -206,13 +206,17 @@ Great presentations use exactly 4 type sizes, never more:
 
 ---
 
-## Color Strategy — 3 Rules That Separate Good from Great
+## Color & Consistency — The Rules That Separate Good from Great
 
 **Rule 1 — The 60-30-10 ratio.** 60% background neutral, 30% secondary (cards, surfaces), 10% accent (calls to action, data highlights, emphasis). Never invert this.
 
 **Rule 2 — One warm, one cool.** Every great palette pairs one warm tone with one cool tone. Violet + cyan. Navy + gold. Coral + lime. They create visual tension that keeps eyes moving.
 
 **Rule 3 — Earn your accent.** If you use your accent color on more than 15% of any slide's surface area, it stops being an accent. It becomes noise. Make the audience work for the highlight.
+
+**Rule 4 — Token discipline.** Every color and font on every slide comes from the chosen theme's tokens — nothing else. No off-palette one-off, no hand-picked hex "just for this slide," no default-to-blue because it feels safe. One deck, one palette, one type system, applied identically from cover to close. Inconsistency is the fastest way to look unfinished.
+
+**Rule 5 — One motif, repeated.** Pick a single distinctive visual device — a card frame, an icon-in-circle treatment, a corner tick, a consistent chart style — and repeat it on every slide. Repetition reads as craft; a brand-new decorative idea on each slide reads as chaos. Let the subject inform the accent, not habit.
 
 ---
 
@@ -314,7 +318,7 @@ Use `@keyframes fadeUp` universally: `from { opacity:0; transform:translateY(20p
 
 ---
 
-## The 12 Deadly Sins of Presentation Design
+## The Deadly Sins of Presentation Design
 
 1. **The Wall of Text** — More than 40 words on a slide is a document, not a slide.
 2. **The Identical Grid** — Every slide using the same layout is a PowerPoint funeral.
@@ -328,6 +332,16 @@ Use `@keyframes fadeUp` universally: `from { opacity:0; transform:translateY(20p
 10. **The Crowded Canvas** — Padding under 32px on any edge. Margins are not wasted space.
 11. **The Inconsistent Accent** — Using your accent color on 8 different things. It signals everything and means nothing.
 12. **The Slide Count Ego** — 47 slides for a 30-minute meeting. Edit ruthlessly. The best decks have the fewest slides that get the job done.
+
+### The AI-Slop Tells — instant credibility killers
+
+These are the details that make a deck read as machine-generated. A reviewer clocks them in under a second, and every one is avoidable.
+
+13. **The Accent Line Under the Title** — a thin decorative rule slapped beneath every heading is the single clearest fingerprint of an AI-generated slide. Let type size, weight, and whitespace establish the hierarchy. Never draw a line under a title just to fill the gap.
+14. **The Text-Only Slide** — every slide earns at least one deliberate visual element: a chart, an icon, an image, a shape, a pull-stat. Words floating alone in the middle of a slide are a memo, not a presentation. (The `section` and `manifesto` layouts are the intentional exceptions — there the *type itself* is the visual.)
+15. **The Centered Paragraph** — center a hero headline if you like, but body copy, bullets, and multi-line captions are always left-aligned. Centered running text has a ragged left edge the eye can't track.
+16. **The Overflow** — nothing falls off the slide and nothing overlaps. Every element sits inside the safe margin with real breathing room around it. Text clipped at the edge or a chart crashing into a caption instantly reads as broken.
+17. **The Low-Contrast Whisper** — light text on a light surface, or dark on dark. Body text must clear a genuine contrast ratio (aim WCAG AA, ~4.5:1). "It looks fine on my monitor" fails in a bright conference room every time.
 
 ---
 
@@ -369,3 +383,21 @@ Fill gaps with intelligent defaults. Never ask more than 3 clarifying questions.
 - **Always scroll-snapped** — each slide is `100vh`, `scroll-snap-align: start`
 - **Always keyboard-navigable** — arrow key handler in a 3-line `<script>` at the bottom
 - **Always print-safe** — `@media print` block that removes `.nav-hint` and sets `page-break-after: always`
+
+---
+
+## Self-Review Before You Ship
+
+You have been staring at this deck while building it, so you now see what you *intended*, not what is actually on the slide. Assume there are problems and go find them — a deliberate review pass is not optional, even for a 3-slide deck.
+
+Walk every slide against this checklist and fix before delivering:
+
+- **Placeholder sweep** — search the output for leftover scaffolding: `Lorem`, `ipsum`, `XXXX`, `TODO`, `[`, `placeholder`, dummy numbers. Zero may survive.
+- **Overflow & overlap** — nothing clipped at an edge, nothing colliding, every element inside the safe margin.
+- **Contrast** — every text block is legible against its actual background (see AI-Slop Tell #17).
+- **AI-slop tells** — no accent line under a title, no text-only content slide, no centered paragraphs.
+- **Token discipline** — colors and fonts all trace back to the chosen theme; no off-palette one-offs.
+- **The 3-second test** — pick any slide at random: is its single point obvious in three seconds?
+- **Arc integrity** — the deck still follows one narrative arc end to end; every slide sets up or pays off the one before it.
+
+For a rigorous, scored pass, run the **`deck-design-judge`** skill: it grades the deck against the design rubric, tells you exactly what to fix, and lets you re-score after the fix. Self-score → fix → re-score, then deliver.
