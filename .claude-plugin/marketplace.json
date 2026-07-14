@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace-manifest.json",
+  "name": "presentation-skill-pack",
+  "owner": {
+    "name": "Timur Isachenko",
+    "url": "https://github.com/isatimur"
+  },
+  "description": "Turn rough notes into a polished, editable slide deck — exports to PowerPoint, Keynote, and Google Slides.",
+  "plugins": [
+    {
+      "name": "presentation-skill-pack",
+      "source": "./",
+      "description": "The presentation-generator skill: the agent authors decks as structured JSON, then exports to native PPTX/Keynote/Slides.",
+      "homepage": "https://presentation-skill-pack.vercel.app",
+      "license": "MIT",
+      "keywords": ["presentation", "slides", "deck-generator", "pptx", "keynote"]
+    }
+  ]
+}

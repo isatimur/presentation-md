@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "presentation-skill-pack",
+  "displayName": "Presentation Skill Pack",
+  "version": "0.1.0",
+  "description": "Turn rough notes into a polished slide deck inside any AI agent, then export to native, editable PowerPoint, Keynote, and Google Slides. The agent authors decks as structured JSON.",
+  "author": {
+    "name": "Timur Isachenko",
+    "url": "https://github.com/isatimur"
+  },
+  "homepage": "https://presentation-skill-pack.vercel.app",
+  "repository": "https://github.com/isatimur/presentation-skill-pack",
+  "license": "MIT",
+  "keywords": [
+    "presentation",
+    "slides",
+    "deck-generator",
+    "pptx",
+    "keynote",
+    "claude-code",
+    "claude-skill",
+    "ai-agent"
+  ]
+}
