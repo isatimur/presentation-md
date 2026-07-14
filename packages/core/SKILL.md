@@ -1,6 +1,9 @@
 ---
 name: presentation-generator
 description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 5 radically different visual identities. Use whenever the user wants to build any kind of presentation.
+license: MIT
+metadata:
+  author: isatimur
 ---
 
 # Presentation Generator — Master Class
