@@ -8,7 +8,11 @@
 [![Gallery](https://img.shields.io/badge/gallery-25%20decks-7C3AED)](https://presentation-skill-pack.vercel.app/#gallery)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-<!-- TODO: hero GIF — notes → rendered slide. Pull the single best deck from the 25-deck gallery and embed an animated preview here. -->
+<p align="center">
+  <img src="docs/hero-demo.gif" alt="Six decks the pack rendered — pitch, brand, pricing, keynote — cycling to show the range" width="820" />
+  <br/>
+  <em>Six real decks the pack rendered — same structured spec, swappable themes. No screenshots, no lock-in.</em>
+</p>
 
 🌐 **[presentation-skill-pack.vercel.app](https://presentation-skill-pack.vercel.app)** — live gallery of 25 showcase decks · **[Studio](https://presentation-skill-pack.vercel.app/studio)** — edit decks in the browser
 
