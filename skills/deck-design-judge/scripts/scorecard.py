@@ -108,7 +108,13 @@ def main():
 
     # ---- markdown ----
     L = []
-    L.append(f"# Design Scorecard — {weighted}/100 · Grade {grade}")
+    if dims_covered < MIN_DIMS_FOR_READY:
+        # The caveat must live in the headline itself: a cropped screenshot of a
+        # thin-panel run must not read as a clean full-coverage grade.
+        L.append(f"# Design Scorecard — {weighted}/100 · Grade {grade} "
+                 f"(INCOMPLETE: {dims_covered}/{len(WEIGHTS)} dimensions)")
+    else:
+        L.append(f"# Design Scorecard — {weighted}/100 · Grade {grade}")
     L.append("")
     if ready:
         verdict = "✅ **Ready**"

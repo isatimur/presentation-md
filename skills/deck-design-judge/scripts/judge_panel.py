@@ -49,10 +49,17 @@ DIMENSION_KEYS = ["narrative", "clarity", "typography", "color", "layout_flat",
                   "brand", "craft", "proof", "variety", "close"]
 GATE_KEYS = ["orphan_stat", "identical_grid", "graveyard_outro", "layout_overflow"]
 
-# Matches a "DECK SOURCE" delimiter line embedded in the deck itself (a spoofing
-# attempt trying to escape the untrusted-content block). Deliberately liberal on
-# the dashes / spacing so obfuscated variants are still caught.
-DELIM_SCAN_RE = re.compile(r"-{2,}\s*(?:BEGIN|END)\s+DECK\s+SOURCE", re.IGNORECASE)
+# Best-effort heuristic scan for "DECK SOURCE" delimiter text embedded in the
+# deck itself (a spoofing attempt). This is a FLAG, not the enforcement
+# boundary — the per-run nonce is what actually makes the real delimiters
+# unforgeable. The scan normalizes unicode dashes and collapses whitespace
+# (including newlines) before matching, so common obfuscations are caught,
+# but a sufficiently creative phrasing can evade the flag without ever
+# escaping the nonce-gated block.
+DELIM_SCAN_RE = re.compile(r"(?:[-‐-―−]\s*){2,}.{0,40}?(?:BEGIN|END)\s+DECK\s+SOURCE"
+                           r"|(?:BEGIN|END)\s+DECK\s+SOURCE",
+                           re.IGNORECASE)
+_DASH_NORMALIZE = dict.fromkeys(map(ord, "‐‑‒–—―−"), "-")
 
 
 class ModelError(Exception):
@@ -65,11 +72,20 @@ class ModelError(Exception):
 
 # ---------- prompt ----------
 def scan_for_delimiter_spoofing(deck_src):
-    """Deterministic pre-check: return the deck's own lines that look like a
-    "DECK SOURCE" delimiter. A clean deck has none; any hit means the author
-    embedded a fake delimiter to try to break out of the untrusted-content block."""
-    return [ln.strip() for ln in (deck_src or "").splitlines()
-            if DELIM_SCAN_RE.search(ln)]
+    """Best-effort pre-check: return fragments of the deck that look like a
+    "DECK SOURCE" delimiter. A clean deck has none; a hit means the author
+    embedded delimiter-like text, presumably to break out of the untrusted-content
+    block. Bypassing this scan gains an attacker nothing structural (the nonce is
+    the boundary) — it only avoids the injection_suspect flag."""
+    text = (deck_src or "").translate(_DASH_NORMALIZE)
+    # collapse all whitespace (incl. newlines) so split-across-lines variants match
+    flat = re.sub(r"\s+", " ", text)
+    hits = []
+    for m in DELIM_SCAN_RE.finditer(flat):
+        frag = m.group(0).strip()
+        if frag and frag not in hits:
+            hits.append(frag)
+    return hits
 
 
 def build_prompt(rubric, deck_src, metrics_json=None, nonce=None):

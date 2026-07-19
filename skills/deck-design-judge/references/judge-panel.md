@@ -90,6 +90,10 @@ than being silently out-voted by a missing quorum. `evidence` reads `"panel: <hi
   are listed under `panel.injection_matches`, and a warning is printed to stderr. The run still
   proceeds — this flags gaming, it does not refuse. (The real delimiters carry a per-run
   `secrets.token_hex` nonce, so an embedded bare delimiter can never escape the untrusted block.)
+  The scanner is a best-effort heuristic (unicode dashes normalized, whitespace collapsed); a
+  creative phrasing can evade the *flag*. That is a disclosed residual risk, not a boundary breach:
+  the nonce — not the scanner — is the enforcement boundary, and it is unforgeable regardless of
+  how the deck is phrased.
 - `anomalies` (list, top-level, mirrored under `panel.anomalies`) — every per-model score problem,
   each `{model, dimension, issue, raw, ...}`. `issue` is either `"invalid_type"` (a score that is
   neither numeric nor a numeric string — that vote is excluded, never counted as zero) or `"clamped"`
