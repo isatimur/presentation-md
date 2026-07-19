@@ -1,0 +1,61 @@
+{
+  "models": [
+    {
+      "id": "claude-sonnet-5",
+      "display": "Claude Sonnet 5",
+      "provider": "anthropic",
+      "key_env": "ANTHROPIC_API_KEY",
+      "max_tokens": 2048,
+      "enabled": true
+    },
+    {
+      "id": "claude-haiku-4-5",
+      "display": "Claude Haiku 4.5",
+      "provider": "anthropic",
+      "key_env": "ANTHROPIC_API_KEY",
+      "max_tokens": 2048,
+      "enabled": true
+    },
+    {
+      "id": "deepseek/deepseek-chat",
+      "display": "DeepSeek Chat",
+      "provider": "openrouter",
+      "key_env": "OPENROUTER_API_KEY",
+      "max_tokens": 2048,
+      "enabled": true
+    },
+    {
+      "id": "qwen/qwen3-235b-a22b-2507",
+      "display": "Qwen3 235B A22B",
+      "provider": "openrouter",
+      "key_env": "OPENROUTER_API_KEY",
+      "max_tokens": 2048,
+      "enabled": true
+    },
+    {
+      "id": "z-ai/glm-4.7",
+      "display": "GLM-4.7",
+      "provider": "openrouter",
+      "key_env": "OPENROUTER_API_KEY",
+      "max_tokens": 2048,
+      "enabled": true
+    },
+    {
+      "id": "moonshotai/kimi-k2-0905",
+      "display": "Kimi K2",
+      "provider": "openrouter",
+      "key_env": "OPENROUTER_API_KEY",
+      "max_tokens": 2048,
+      "enabled": true
+    },
+    {
+      "id": "gpt-5-chat-latest",
+      "display": "GPT-5 Chat",
+      "provider": "openai-compatible",
+      "base_url": "https://api.openai.com/v1",
+      "key_env": "OPENAI_API_KEY",
+      "max_tokens": 2048,
+      "enabled": true
+    }
+  ]
+}

@@ -10,10 +10,10 @@
     {
       "name": "presentation-skill-pack",
       "source": "./",
-      "description": "The presentation-generator skill: the agent authors decks as structured JSON, then exports to native PPTX/Keynote/Slides.",
+      "description": "The presentation-generator skill (author decks as structured JSON, export to native PPTX/Keynote/Slides) plus deck-design-judge: a tiered deck scorecard with deterministic gates, a 10-dimension rubric, and an optional cross-vendor multi-model judge panel that emits shareable scorecard.json results.",
       "homepage": "https://presentation-skill-pack.vercel.app",
       "license": "MIT",
-      "keywords": ["presentation", "slides", "deck-generator", "pptx", "keynote"]
+      "keywords": ["presentation", "slides", "deck-generator", "pptx", "keynote", "design-review", "llm-judge", "eval"]
     }
   ]
 }
