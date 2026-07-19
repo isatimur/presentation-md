@@ -43,7 +43,8 @@ python3 <skill>/scripts/deck_metrics.py <deck.html> \
   [--tokens <colors_and_type.css>] -o <workspace>/metrics.json
 ```
 
-Swiirl HTML (when pack present):
+Swiirl HTML (optional — `swiirl-design` is internal brand-token tooling; skip this step if you
+don't have it):
 
 ```bash
 python3 <swiirl-design>/scripts/check_brand_html.py <deck.html> \

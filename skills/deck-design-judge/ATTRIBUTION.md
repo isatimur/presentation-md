@@ -10,14 +10,14 @@ fixes) before ship. Provenance and the wider ecosystem it plugs into:
 |---|---|
 | Public home (this skill lives here) | https://github.com/isatimur/presentation-skill-pack |
 | Sibling skill (generates the decks this one judges) | https://github.com/isatimur/presentation-skill-pack — `presentation-generator` |
-| Umbrella marketplace (all skill packs) | https://github.com/isatimur/skill-packs |
+| Umbrella marketplace (all skill packs) | coming soon — repo not yet public |
 
 ## Benchmark
 
 | Role | Project |
 |---|---|
-| Public benchmark (methodology + fixtures) | https://github.com/isatimur/swiirl-deck-benchmark |
-| Live results | https://swiirl-deck-benchmark.vercel.app |
+| Cross-model benchmark results (public site) | https://swiirl-deck-benchmark.vercel.app |
+| Benchmark source (private; opening is planned) | — |
 
 ## Upstream & compared skills
 

@@ -34,8 +34,9 @@ hallucinate brand-fidelity and contrast calls.
 
 ## T3 — multi-model consensus panel
 
-Single judges have biases (one model is harsh, another generous; the AI-book lab saw Sonnet sit as
-the harsh outlier). A panel cancels that: **N independent judges, take the median per dimension.**
+Single judges have biases — in our internal calibration runs one model family consistently sat
+several points below the others on the same decks. A panel cancels that: **N independent judges,
+take the median per dimension.**
 
 ### Option A *(default — no external keys)* — diverse Claude subagents
 Spawn 3 subagents with the **same** judge prompt + inputs but **different lenses** so they don't
@@ -44,7 +45,7 @@ fail the same way. Then median each dimension; a gate fires if **≥2** panellis
 - Panellist 2 — *audience lens*: "you're a tired exec seeing each slide for 3 seconds."
 - Panellist 3 — *brand lens*: "you wrote the design system; where does this deviate?"
 
-### Option B — cross-vendor panel via `scripts/judge_panel.py` (the book-lab pattern)
+### Option B — cross-vendor panel via `scripts/judge_panel.py`
 Cheaper, genuinely independent architectures. `judge_panel.py` (pure stdlib) sends the judge
 prompt — `rubric.md` + the deck source (+ optional `metrics.json`) — to every configured model at
 **temperature 0** with an **explicit `max_tokens`**, parses each model's `judge.json` (tolerating
@@ -92,7 +93,6 @@ Notes: **median, not mean** (resists a single outlier). Text-only models can't s
 T3-visual either use vision-capable models or run Option A. Cost is ~a few cents/run.
 
 ## Calibrating the judge
-If scores feel off, re-anchor on the bundle's own exemplars: score one of the
-`uploads/pitch deck example*.svg` reference decks — a strong on-brand deck should land ~A/B with no
-gates. If the judge grades a known-good exemplar harshly, the rubric reading is mis-calibrated, not
+If scores feel off, re-anchor on a deck you already trust: score a known-good deck from your own
+library — it should land ~A/B with no gates. If the judge grades a known-good exemplar harshly, the rubric reading is mis-calibrated, not
 the deck.
