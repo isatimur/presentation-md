@@ -87,3 +87,49 @@ def test_scorecard_json_without_deck_has_null_deck(tmp_path):
     _, out_json, _ = _run(tmp_path, _judge_panel(), deck=False)
     sc = json.loads(out_json.read_text())
     assert sc["deck"] == {"file": None, "sha256": None}
+
+
+# ---------- Finding 2: coverage floor for `ready` ----------
+_ALL_DIMS = ["narrative", "clarity", "typography", "color", "layout_flat",
+             "brand", "craft", "proof", "variety", "close"]
+
+
+def _judge_with(dim_scores):
+    """A T3 judge.json scoring only the given {dimension: score} subset."""
+    dims = {k: {"score": s, "median": float(s), "evidence": f"ev-{k}"}
+            for k, s in dim_scores.items()}
+    return {"tier": "T3", "dimensions": dims,
+            "gates": {"orphan_stat": {"hit": False}, "layout_overflow": {"hit": None}},
+            "summary": "s"}
+
+
+def test_thin_panel_not_ready_despite_perfect_score(tmp_path):
+    # 2 dimensions at 5/5 renormalises to 100/100 — but coverage floor blocks `ready`
+    out_md, out_json, _ = _run(tmp_path, _judge_with({"narrative": 5, "clarity": 5}))
+    sc = json.loads(out_json.read_text())
+    assert sc["overall"] == 100.0
+    assert sc["ready"] is False
+    assert sc["dimensions_covered"] == {"count": 2, "of": 10,
+                                        "missing": [k for k in _ALL_DIMS
+                                                    if k not in ("narrative", "clarity")]}
+    md = out_md.read_text()
+    assert "Not ready" in md
+    assert "2/10 dimensions" in md   # coverage reason on the verdict line itself
+
+
+def test_full_coverage_ready_unaffected(tmp_path):
+    out_md, out_json, _ = _run(tmp_path, _judge_with({k: 5 for k in _ALL_DIMS}))
+    sc = json.loads(out_json.read_text())
+    assert sc["overall"] == 100.0
+    assert sc["ready"] is True
+    assert sc["dimensions_covered"] == {"count": 10, "of": 10, "missing": []}
+    assert "dimensions" in out_md.read_text()
+    assert "scored over" not in out_md.read_text()   # no coverage caveat at full coverage
+
+
+def test_dimensions_covered_field_shape(tmp_path):
+    _, out_json, _ = _run(tmp_path, _judge_panel())   # full 10-dim panel
+    sc = json.loads(out_json.read_text())
+    dc = sc["dimensions_covered"]
+    assert set(dc.keys()) == {"count", "of", "missing"}
+    assert dc["count"] == 10 and dc["of"] == 10 and dc["missing"] == []

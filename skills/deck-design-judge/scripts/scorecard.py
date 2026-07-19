@@ -15,6 +15,11 @@ import argparse, datetime, hashlib, json, os
 SKILL_VERSION = "0.2.0"
 SKILL_REPO = "https://github.com/isatimur/presentation-skill-pack"
 
+# A deck scored over too few dimensions cannot be called "ready": renormalising the
+# weighted score over a handful of survivors (e.g. one 5/5 dimension -> 100/100) is
+# not evidence of a shippable deck. Require most of the rubric to be covered.
+MIN_DIMS_FOR_READY = 7  # of 10
+
 WEIGHTS = {
     "narrative": 12, "clarity": 12, "typography": 11, "color": 11, "layout_flat": 11,
     "brand": 10, "craft": 10, "proof": 9, "variety": 8, "close": 6,
@@ -64,6 +69,11 @@ def main():
     weighted = sum(WEIGHTS[k] * (dims[k]["score"] / 5.0) for k in WEIGHTS if k in dims)
     weighted = round(weighted * (100.0 / tw), 1)  # normalise if some dims missing
 
+    # coverage floor — how much of the 10-dimension rubric was actually scored
+    covered = [k for k in WEIGHTS if k in dims]
+    missing = [k for k in WEIGHTS if k not in dims]
+    dims_covered = len(covered)
+
     # gates
     gates = []
     for f in metrics.get("flags", []):
@@ -78,7 +88,9 @@ def main():
     grade = letter(weighted)
     if gated and grade in ("A", "B"):
         grade = "C"  # cap
-    ready = (not gated) and weighted >= a.target
+    # ready requires: no gate failures, weighted at/above target, AND enough of the
+    # rubric actually scored — a thin panel can hit 100/100 on renormalisation alone.
+    ready = (not gated) and weighted >= a.target and dims_covered >= MIN_DIMS_FOR_READY
 
     # ranked fixes: gates first, then lowest weighted-contribution dimensions
     fixes = []
@@ -98,9 +110,19 @@ def main():
     L = []
     L.append(f"# Design Scorecard — {weighted}/100 · Grade {grade}")
     L.append("")
-    verdict = "✅ **Ready**" if ready else ("⛔ **Not ready** — gate failure(s)" if gated
-                                            else f"⚠️ **Below target** ({a.target:.0f})")
-    L.append(f"{verdict}  ·  {judge.get('summary','').strip()}")
+    if ready:
+        verdict = "✅ **Ready**"
+    elif gated:
+        verdict = "⛔ **Not ready** — gate failure(s)"
+    elif dims_covered < MIN_DIMS_FOR_READY:
+        verdict = (f"⚠️ **Not ready** — scored over only {dims_covered}/{len(WEIGHTS)} "
+                   f"dimensions (need ≥{MIN_DIMS_FOR_READY})")
+    else:
+        verdict = f"⚠️ **Below target** ({a.target:.0f})"
+    # When coverage is partial, the verdict line itself carries the caveat (not a footnote).
+    cov_note = (f"  ·  scored over {dims_covered}/{len(WEIGHTS)} dimensions"
+                if dims_covered < len(WEIGHTS) else "")
+    L.append(f"{verdict}  ·  {judge.get('summary','').strip()}{cov_note}")
     L.append(f"\n*Tier {judge.get('tier','?')} · weighted over {len(dims)}/10 dimensions*")
 
     L.append("\n## Gates")
@@ -187,6 +209,7 @@ def build_scorecard_json(a, judge, metrics, dims, gates, fixes,
             entry["disagreement"] = True
         dimensions[k] = entry
 
+    missing = [k for k in WEIGHTS if k not in dims]
     return {
         "schema_version": "1.0",
         "skill": {"name": "deck-design-judge", "version": SKILL_VERSION, "repo": SKILL_REPO},
@@ -196,6 +219,8 @@ def build_scorecard_json(a, judge, metrics, dims, gates, fixes,
         "metrics": metrics.get("metrics", {}),
         "gates": gates,
         "dimensions": dimensions,
+        "dimensions_covered": {"count": len(dimensions), "of": len(WEIGHTS),
+                               "missing": missing},
         "overall": weighted,
         "grade": grade,
         "ready": ready,

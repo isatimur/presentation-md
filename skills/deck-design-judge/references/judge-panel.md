@@ -72,11 +72,29 @@ python3 <skill>/scripts/judge_panel.py <deck.html> \
 ```
 
 **Output** — a scorecard.py-compatible `judge.json`: `tier` ("T3"), `dimensions` (each with the
-integer `score`, the `median`, the closest-to-median `evidence`, and per-model `votes`), `gates`
-(a gate `hit` is true when **≥2** panellists flag it; all-null → `"not assessed by panel"`),
-`summary`, plus a `panel` block (models, per-model votes, `disagreements`, `errors`, `skipped`).
+integer `score`, the `median`, the closest-to-median `evidence`, and per-model `votes`), `gates`,
+`summary`, two top-level integrity fields — `injection_suspect` and `anomalies` (see below) — plus a
+`panel` block (models, per-model votes, `disagreements`, `errors`, `skipped`, `injection_matches`).
 A dimension is flagged `disagreement` when its vote spread (max−min) exceeds 2. Feed it straight to
 `scorecard.py` — the per-model votes flow through into `scorecard.json`.
+
+**Gate rule (fail-closed on thin panels).** A gate `hit` is `null` (`"not assessed by panel"`) when
+no panellist returned a verdict for it. Otherwise it fires when **≥2** panellists flag it — OR, when
+the panel is too thin to reach that 2-vote quorum (fewer than 2 valid verdicts for the gate) and **at
+least one** panellist flags it. A single honest flag on a thin panel therefore fires the gate rather
+than being silently out-voted by a missing quorum. `evidence` reads `"panel: <hits>/<verdicts> flagged"`.
+
+**Integrity fields (never silently absorbed).**
+- `injection_suspect` (bool, top-level) — set when the deck source embeds its own `BEGIN/END DECK
+  SOURCE` delimiter-like lines (a prompt-injection / delimiter-spoofing attempt). The matched lines
+  are listed under `panel.injection_matches`, and a warning is printed to stderr. The run still
+  proceeds — this flags gaming, it does not refuse. (The real delimiters carry a per-run
+  `secrets.token_hex` nonce, so an embedded bare delimiter can never escape the untrusted block.)
+- `anomalies` (list, top-level, mirrored under `panel.anomalies`) — every per-model score problem,
+  each `{model, dimension, issue, raw, ...}`. `issue` is either `"invalid_type"` (a score that is
+  neither numeric nor a numeric string — that vote is excluded, never counted as zero) or `"clamped"`
+  (an out-of-range score pulled into `[0,5]`, still counted, with `clamped_to`). Numeric-string
+  scores like `"4"` are coerced silently and are **not** anomalies. Each anomaly is also warned to stderr.
 
 **Two operational caveats (learned the hard way):**
 1. **Explicit `max_tokens` prevents gateway 402s.** Without a `max_tokens`, some gateways
