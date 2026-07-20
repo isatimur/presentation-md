@@ -443,3 +443,13 @@ class TestScannerObfuscationVariants:
     def test_clean_deck_not_flagged(self):
         assert not jp.scan_for_delimiter_spoofing(
             "<html><body><h1>Q3 Review</h1><p>END of quarter. Source: finance deck.</p></body></html>")
+
+
+class TestHugeIntScore:
+    def test_overflow_int_excluded_not_crash(self):
+        val, issue = jp._coerce_score(10**400)
+        assert val is None and issue == "invalid_type"
+
+    def test_overflow_string_excluded(self):
+        val, issue = jp._coerce_score("1e999")
+        assert val is None and issue == "invalid_type"

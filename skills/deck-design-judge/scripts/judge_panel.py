@@ -241,11 +241,15 @@ def _coerce_score(raw):
     if isinstance(raw, bool):
         return None, "invalid_type"
     if isinstance(raw, (int, float)):
-        return (float(raw), None) if math.isfinite(raw) else (None, "invalid_type")
+        try:
+            val = float(raw)  # int over float-max raises OverflowError
+        except OverflowError:
+            return None, "invalid_type"
+        return (val, None) if math.isfinite(val) else (None, "invalid_type")
     if isinstance(raw, str):
         try:
             val = float(raw.strip())
-        except ValueError:
+        except (ValueError, OverflowError):
             return None, "invalid_type"
         return (val, None) if math.isfinite(val) else (None, "invalid_type")
     return None, "invalid_type"

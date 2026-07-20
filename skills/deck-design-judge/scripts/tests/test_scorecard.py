@@ -301,3 +301,33 @@ class TestIntegrityFieldPropagation:
         out_md, _, _ = _run(tmp_path, _judge_panel())
         h1 = out_md.read_text().splitlines()[0]
         assert "INCOMPLETE" not in h1
+
+
+class TestCodexRound6Findings:
+    """Regression pins for the second-family round-6 findings."""
+
+    def test_huge_int_score_no_crash_and_excluded(self, tmp_path):
+        j = _judge_panel()
+        j["dimensions"]["craft"]["score"] = 10**400
+        _, out_json, _ = _run(tmp_path, j)
+        sc = json.loads(out_json.read_text())
+        assert "craft" not in sc["dimensions"]
+        assert any(a["issue"] == "invalid_score_in_judge_json" for a in sc["anomalies"])
+
+    def test_html_and_links_neutralized_in_md(self, tmp_path):
+        j = _judge_panel()
+        j["summary"] = 'fine <img src=x onerror=alert(1)> deck'
+        j["dimensions"]["craft"]["evidence"] = "see ![pixel](https://evil.example/p.png) here"
+        out_md, _, _ = _run(tmp_path, j)
+        md = out_md.read_text()
+        assert "<img" not in md
+        assert "![pixel](" not in md
+
+    def test_tampered_verdict_and_headline(self, tmp_path):
+        j = _judge_panel()
+        j["dimensions"]["craft"]["score"] = 999
+        out_md, out_json, _ = _run(tmp_path, j)
+        md = out_md.read_text()
+        assert "TAMPERED judge.json" in md.splitlines()[0]
+        assert "possible tampering" in md
+        assert json.loads(out_json.read_text())["ready"] is False

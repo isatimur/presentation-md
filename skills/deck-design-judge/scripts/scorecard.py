@@ -30,6 +30,8 @@ def md_safe(s, max_len=MD_MAX_LEN):
     if len(s) > max_len:
         s = s[:max_len - 1].rstrip() + "…"
     s = s.replace("`", "'")          # backticks can't close/open a code span anymore
+    s = s.replace("<", "&lt;").replace(">", "&gt;")  # raw HTML tags are inert
+    s = s.replace("[", "\\[").replace("]", "\\]")    # no live links / ![images]
     if s.startswith("#"):
         s = "\\" + s                 # leading '#' can't become a heading
     return s
@@ -48,11 +50,15 @@ def _coerce_score(raw):
     if isinstance(raw, bool):
         return None
     if isinstance(raw, (int, float)):
-        return float(raw) if math.isfinite(raw) else None
+        try:
+            val = float(raw)  # int over float-max raises OverflowError
+        except OverflowError:
+            return None
+        return val if math.isfinite(val) else None
     if isinstance(raw, str):
         try:
             val = float(raw.strip())
-        except ValueError:
+        except (ValueError, OverflowError):
             return None
         return val if math.isfinite(val) else None
     return None
@@ -216,15 +222,21 @@ def main():
 
     # ---- markdown ----
     L = []
+    # Caveats must live in the headline itself: a cropped screenshot of a
+    # thin-panel or tampered run must not read as a clean full-coverage grade.
+    h1_flags = []
+    if tampered:
+        h1_flags.append("TAMPERED judge.json")
     if dims_covered < MIN_DIMS_FOR_READY:
-        # The caveat must live in the headline itself: a cropped screenshot of a
-        # thin-panel run must not read as a clean full-coverage grade.
-        L.append(f"# Design Scorecard — {weighted}/100 · Grade {grade} "
-                 f"(INCOMPLETE: {dims_covered}/{len(WEIGHTS)} dimensions)")
-    else:
-        L.append(f"# Design Scorecard — {weighted}/100 · Grade {grade}")
+        h1_flags.append(f"INCOMPLETE: {dims_covered}/{len(WEIGHTS)} dimensions")
+    suffix = f" ({'; '.join(h1_flags)})" if h1_flags else ""
+    L.append(f"# Design Scorecard — {weighted}/100 · Grade {grade}{suffix}")
     L.append("")
-    if ready:
+    if tampered:
+        verdict = ("⛔ **Not ready** — judge.json contained out-of-range scores "
+                   "(possible tampering); values were clamped and the result "
+                   "cannot be trusted as-is")
+    elif ready:
         verdict = "✅ **Ready**"
     elif gated:
         verdict = "⛔ **Not ready** — gate failure(s)"
