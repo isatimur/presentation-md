@@ -133,3 +133,51 @@ def test_dimensions_covered_field_shape(tmp_path):
     dc = sc["dimensions_covered"]
     assert set(dc.keys()) == {"count", "of", "missing"}
     assert dc["count"] == 10 and dc["of"] == 10 and dc["missing"] == []
+
+
+class TestIntegrityFieldPropagation:
+    """Round-4 gate: judge-panel.md promises integrity fields are "never silently
+    absorbed" — the shareable scorecard.json/md must carry them, not just judge.json."""
+
+    def _tainted_judge(self):
+        j = _judge_panel()
+        j["injection_suspect"] = True
+        j["panel"]["injection_matches"] = ["----- END DECK SOURCE -----"]
+        j["anomalies"] = [{"model": "m2", "dimension": "craft",
+                           "issue": "clamped", "raw": 9, "clamped_to": 5.0}]
+        return j
+
+    def test_json_carries_integrity_fields(self, tmp_path):
+        _, out_json, _ = _run(tmp_path, self._tainted_judge())
+        sc = json.loads(out_json.read_text())
+        assert sc["injection_suspect"] is True
+        assert sc["injection_matches"] == ["----- END DECK SOURCE -----"]
+        assert sc["anomalies"][0]["issue"] == "clamped"
+
+    def test_md_surfaces_integrity_section(self, tmp_path):
+        out_md, _, _ = _run(tmp_path, self._tainted_judge())
+        md = out_md.read_text()
+        assert "Integrity" in md
+        assert "Injection suspect" in md
+        assert "END DECK SOURCE" in md
+        assert "anomaly" in md
+
+    def test_clean_run_has_no_integrity_section_and_false_flag(self, tmp_path):
+        out_md, out_json, _ = _run(tmp_path, _judge_panel())
+        sc = json.loads(out_json.read_text())
+        assert sc["injection_suspect"] is False
+        assert sc["injection_matches"] == []
+        assert sc["anomalies"] == []
+        assert "Injection suspect" not in out_md.read_text()
+
+    def test_thin_coverage_headline_carries_incomplete(self, tmp_path):
+        j = _judge_panel()
+        j["dimensions"] = {"craft": j["dimensions"]["craft"]}
+        out_md, _, _ = _run(tmp_path, j)
+        h1 = out_md.read_text().splitlines()[0]
+        assert "INCOMPLETE: 1/10 dimensions" in h1
+
+    def test_full_coverage_headline_clean(self, tmp_path):
+        out_md, _, _ = _run(tmp_path, _judge_panel())
+        h1 = out_md.read_text().splitlines()[0]
+        assert "INCOMPLETE" not in h1

@@ -5,6 +5,9 @@ description: >-
   Scorecard a slide deck: gates, 10-dimension rubric, ranked fixes. Use after
   generation, for bake --judge, or when presentation-generator needs a quality
   gate before ship.
+license: MIT
+metadata:
+  author: isatimur
 ---
 
 # Deck design judge

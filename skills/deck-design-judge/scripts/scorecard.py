@@ -131,6 +131,24 @@ def main():
     L.append(f"{verdict}  ·  {judge.get('summary','').strip()}{cov_note}")
     L.append(f"\n*Tier {judge.get('tier','?')} · weighted over {len(dims)}/10 dimensions*")
 
+    # Integrity findings surface in the shareable card, not only in raw judge.json.
+    injection_matches = judge.get("panel", {}).get("injection_matches", [])
+    anomalies = judge.get("anomalies", [])
+    if judge.get("injection_suspect"):
+        L.append("\n## ⚠️ Integrity")
+        L.append("**Injection suspect** — the deck embeds delimiter-like text "
+                 "(a possible attempt to game the judge):")
+        for frag in injection_matches[:5]:
+            L.append(f"- `{frag}`")
+    if anomalies:
+        if not judge.get("injection_suspect"):
+            L.append("\n## ⚠️ Integrity")
+        L.append(f"**{len(anomalies)} score anomaly(ies)** from the panel "
+                 "(invalid or clamped votes — see scorecard.json `anomalies`):")
+        for an in anomalies[:5]:
+            L.append(f"- {an.get('model','?')} · {an.get('dimension','?')} · "
+                     f"{an.get('issue','?')} (raw: {an.get('raw','?')!r})")
+
     L.append("\n## Gates")
     if not gates:
         L.append("All gates pass — no correctness-level design bugs found.")
@@ -227,6 +245,11 @@ def build_scorecard_json(a, judge, metrics, dims, gates, fixes,
         "dimensions": dimensions,
         "dimensions_covered": {"count": len(dimensions), "of": len(WEIGHTS),
                                "missing": missing},
+        # Integrity fields — the judge-panel docs promise these are "never
+        # silently absorbed", so the shareable artifact must carry them too.
+        "injection_suspect": bool(judge.get("injection_suspect", False)),
+        "injection_matches": list(panel.get("injection_matches", [])),
+        "anomalies": list(judge.get("anomalies", [])),
         "overall": weighted,
         "grade": grade,
         "ready": ready,
