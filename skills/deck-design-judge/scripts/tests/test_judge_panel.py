@@ -334,6 +334,96 @@ def test_gate_does_not_fire_one_of_three():
     assert gates["orphan_stat"]["hit"] is False
 
 
+# ---------- Finding 4: non-finite (nan / inf) scores must not crash ----------
+def test_aggregate_nan_score_excluded_not_crash():
+    # a model returns nan for one dimension: it must be excluded as invalid_type,
+    # recorded as an anomaly, and MUST NOT crash int(med + 0.5) during aggregation.
+    v1 = json.loads(vote_text({"narrative": 4}))
+    v2 = json.loads(vote_text({"narrative": 4}))
+    v3 = json.loads(vote_text({"narrative": 4}))
+    v1["dimensions"]["narrative"]["score"] = "nan"     # float("nan") passes a naive check
+    dims, _, _, anoms = jp.aggregate({"a": v1, "b": v2, "c": v3})
+    assert any(x["model"] == "a" and x["dimension"] == "narrative"
+               and x["issue"] == "invalid_type" and x["raw"] == "nan" for x in anoms)
+    assert dims["narrative"]["votes"] == {"b": 4, "c": 4}   # nan vote excluded, not zeroed
+    assert dims["narrative"]["score"] == 4
+
+
+def test_aggregate_inf_score_excluded():
+    v1 = json.loads(vote_text({"clarity": 3}))
+    v2 = json.loads(vote_text({"clarity": 3}))
+    v1["dimensions"]["clarity"]["score"] = float("inf")   # real non-finite float
+    dims, _, _, anoms = jp.aggregate({"a": v1, "b": v2})
+    assert any(x["model"] == "a" and x["issue"] == "invalid_type" for x in anoms)
+    assert "clarity" not in dims                           # only one valid vote left -> skipped
+
+
+def test_full_run_with_nan_score_does_not_crash(tmp_path, monkeypatch):
+    # end-to-end: a model whose narrative score is "nan" must not crash the run.
+    good = vote_text()
+    nan_vote = json.loads(vote_text())
+    nan_vote["dimensions"]["narrative"]["score"] = "nan"
+    responses = {"m1": json.dumps(nan_vote), "m2": good, "m3": good}
+    out = run_panel(tmp_path, monkeypatch, three_openrouter(), responses)
+    jp.main()                                             # must not raise ValueError
+    data = json.loads(out.read_text())
+    assert data["dimensions"]["narrative"]["votes"] == {"m2": 4, "m3": 4}
+    assert any(a["issue"] == "invalid_type" and a["dimension"] == "narrative"
+               for a in data["anomalies"])
+
+
+# ---------- Finding 5: stringified gate verdicts ----------
+def test_gate_stringified_false_does_not_fire():
+    # two models return the STRING "false" — bool("false") is truthy, the old bug.
+    # Strict parsing must coerce them to real False (anomaly) and NOT fire the gate.
+    a = json.loads(vote_text(gates=gates_cfg(orphan_stat="false")))
+    b = json.loads(vote_text(gates=gates_cfg(orphan_stat="false")))
+    _, gates, _, anoms = jp.aggregate({"a": a, "b": b})
+    assert gates["orphan_stat"]["hit"] is False
+    coerced = [x for x in anoms if x.get("gate") == "orphan_stat"
+               and x["issue"] == "coerced_gate_string"]
+    assert len(coerced) == 2 and all(x["raw"] == "false" for x in coerced)
+
+
+def test_gate_stringified_true_fires_and_records_anomaly():
+    a = json.loads(vote_text(gates=gates_cfg(orphan_stat="true")))
+    b = json.loads(vote_text(gates=gates_cfg(orphan_stat="true")))
+    _, gates, _, anoms = jp.aggregate({"a": a, "b": b})
+    assert gates["orphan_stat"]["hit"] is True             # two real trues still fire
+    assert sum(1 for x in anoms if x.get("gate") == "orphan_stat"
+               and x["issue"] == "coerced_gate_string") == 2
+
+
+def test_gate_real_bool_trues_still_fire_no_anomaly():
+    a = json.loads(vote_text(gates=gates_cfg(orphan_stat=True)))
+    b = json.loads(vote_text(gates=gates_cfg(orphan_stat=True)))
+    _, gates, _, anoms = jp.aggregate({"a": a, "b": b})
+    assert gates["orphan_stat"]["hit"] is True
+    assert not any(x.get("gate") == "orphan_stat" for x in anoms)   # clean, no anomaly
+
+
+def test_gate_garbage_verdict_excluded():
+    # a nonsense verdict is neither counted nor allowed to fire; it's an excluded anomaly.
+    a = json.loads(vote_text(gates=gates_cfg(orphan_stat={"weird": 1})))
+    b = json.loads(vote_text(gates=gates_cfg(orphan_stat=True)))
+    _, gates, _, anoms = jp.aggregate({"a": a, "b": b})
+    # b's single real flag on a now-thin panel (1 valid verdict) fires fail-closed;
+    # a's garbage is excluded and recorded, never silently truthy.
+    assert gates["orphan_stat"]["hit"] is True
+    assert any(x.get("gate") == "orphan_stat" and x["issue"] == "invalid_gate_type"
+               for x in anoms)
+
+
+def test_gate_two_garbage_verdicts_do_not_fire():
+    # both verdicts garbage -> zero valid verdicts -> gate not assessed, cannot fire.
+    a = json.loads(vote_text(gates=gates_cfg(orphan_stat=5)))
+    b = json.loads(vote_text(gates=gates_cfg(orphan_stat="maybe")))
+    _, gates, _, anoms = jp.aggregate({"a": a, "b": b})
+    assert gates["orphan_stat"]["hit"] is None
+    assert sum(1 for x in anoms if x.get("gate") == "orphan_stat"
+               and x["issue"] == "invalid_gate_type") == 2
+
+
 class TestScannerObfuscationVariants:
     """Regression: the exact bypass variants reproduced in the round-3 gate review."""
 

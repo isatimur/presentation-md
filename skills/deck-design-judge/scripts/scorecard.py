@@ -10,9 +10,99 @@ Usage:
 
 judge.json schema: see references/rubric.md § Output.
 """
-import argparse, datetime, hashlib, json, os
+import argparse, datetime, hashlib, json, math, os, re
 
 SKILL_VERSION = "0.2.0"
+
+MD_MAX_LEN = 300  # cap on any model-derived string interpolated into scorecard.md
+
+
+def md_safe(s, max_len=MD_MAX_LEN):
+    """Sanitize a model-/deck-derived string before it is written into scorecard.md.
+
+    Model output and deck copy are untrusted: embedded newlines could forge a fake
+    heading or a second verdict line, a leading '#' could become a heading, and
+    backticks could open/close code spans and smuggle markdown. We collapse all
+    whitespace to single spaces, neutralize a leading '#', replace backticks (so a
+    value placed inside a code span cannot break out), and cap the length. The md is
+    a shareable artifact; the raw values still live verbatim in scorecard.json."""
+    s = re.sub(r"\s+", " ", str(s)).strip()
+    if len(s) > max_len:
+        s = s[:max_len - 1].rstrip() + "…"
+    s = s.replace("`", "'")          # backticks can't close/open a code span anymore
+    if s.startswith("#"):
+        s = "\\" + s                 # leading '#' can't become a heading
+    return s
+
+
+def md_safe_raw(raw):
+    """md-safe rendering of an anomaly's raw value (repr, then sanitized). repr keeps
+    strings quoted and escapes control chars; md_safe then caps and de-fangs it."""
+    return md_safe(repr(raw))
+
+
+def _coerce_score(raw):
+    """Coerce a judge.json dimension score to a finite float in spirit of judge_panel:
+    accept ints/floats and numeric strings, reject bools, nan/inf, and non-numeric.
+    Returns the float or None (unusable)."""
+    if isinstance(raw, bool):
+        return None
+    if isinstance(raw, (int, float)):
+        return float(raw) if math.isfinite(raw) else None
+    if isinstance(raw, str):
+        try:
+            val = float(raw.strip())
+        except ValueError:
+            return None
+        return val if math.isfinite(val) else None
+    return None
+
+
+def _coerce_gate_hit(raw):
+    """Strict gate-verdict parsing (mirrors judge_panel._coerce_gate). Returns
+    (verdict, issue): real bool -> (bool, None); null/missing -> (None, None);
+    "true"/"false" strings -> (bool, "coerced_gate_string"); else (None,
+    "invalid_gate_type"). Stops a JSON-stringified "false" from being truthy."""
+    if raw is None:
+        return None, None
+    if isinstance(raw, bool):
+        return raw, None
+    if isinstance(raw, str):
+        s = raw.strip().lower()
+        if s == "true":
+            return True, "coerced_gate_string"
+        if s == "false":
+            return False, "coerced_gate_string"
+    return None, "invalid_gate_type"
+
+
+def validate_dims(raw_dims):
+    """Validate/repair judge.json dimensions before they are trusted for scoring.
+
+    A forged or corrupt judge.json (score 999, -3, "abc", nan) must not silently
+    yield a >100 grade-A ready deck. For each dimension:
+      - non-numeric / non-finite  -> the dimension is EXCLUDED, anomaly recorded
+      - out of [0,5]              -> CLAMPED into range, still counted, anomaly recorded
+    Returns (clean_dims, anomalies, tampered). `tampered` is True if any score
+    arrived out of range — a tampering signal that must force ready=False."""
+    dims, anomalies, tampered = {}, [], False
+    for k, d in raw_dims.items():
+        raw = d.get("score") if isinstance(d, dict) else d
+        val = _coerce_score(raw) if isinstance(d, dict) else None
+        if not isinstance(d, dict) or "score" not in d or val is None:
+            anomalies.append({"model": "scorecard", "dimension": k,
+                              "issue": "invalid_score_in_judge_json", "raw": raw})
+            continue
+        if val < 0.0 or val > 5.0:
+            clamped = max(0.0, min(5.0, val))
+            anomalies.append({"model": "scorecard", "dimension": k,
+                              "issue": "invalid_score_in_judge_json",
+                              "raw": raw, "clamped_to": clamped})
+            tampered, val = True, clamped
+        nd = dict(d)
+        nd["score"] = int(val) if val == int(val) else round(val, 1)
+        dims[k] = nd
+    return dims, anomalies, tampered
 SKILL_REPO = "https://github.com/isatimur/presentation-skill-pack"
 
 # A deck scored over too few dimensions cannot be called "ready": renormalising the
@@ -62,9 +152,13 @@ def main():
 
     metrics = json.load(open(a.metrics))
     judge = json.load(open(a.judge))
-    dims = judge.get("dimensions", {})
 
-    # weighted score over present dimensions
+    # judge.json is untrusted (may be forged/corrupt): validate every dimension score
+    # before it touches the weighted total. Invalid scores are excluded, out-of-range
+    # scores clamped; both are recorded as anomalies, and out-of-range trips `tampered`.
+    dims, score_anomalies, tampered = validate_dims(judge.get("dimensions", {}))
+
+    # weighted score over present (validated) dimensions
     tw = sum(WEIGHTS[k] for k in WEIGHTS if k in dims) or 1
     weighted = sum(WEIGHTS[k] * (dims[k]["score"] / 5.0) for k in WEIGHTS if k in dims)
     weighted = round(weighted * (100.0 / tw), 1)  # normalise if some dims missing
@@ -81,16 +175,30 @@ def main():
             gates.append({"id": f["id"], "detail": f["detail"], "slide": f.get("slide")})
     for jk, gid in JUDGE_GATE_MAP.items():
         g = judge.get("gates", {}).get(jk)
-        if g and g.get("hit") is True:
+        if not isinstance(g, dict) or "hit" not in g:
+            continue
+        hit, gerr = _coerce_gate_hit(g["hit"])
+        if gerr is not None:
+            score_anomalies.append({"model": "scorecard", "gate": jk,
+                                    "issue": gerr, "raw": g["hit"]})
+        if gerr == "invalid_gate_type":
+            continue   # unparseable verdict — excluded, never silently truthy
+        if hit is True:
             gates.append({"id": gid, "detail": g.get("evidence", ""), "slide": None})
+
+    # Anomalies the panel already recorded, plus the ones scorecard just found.
+    anomalies = list(judge.get("anomalies", [])) + score_anomalies
 
     gated = len(gates) > 0
     grade = letter(weighted)
     if gated and grade in ("A", "B"):
         grade = "C"  # cap
-    # ready requires: no gate failures, weighted at/above target, AND enough of the
-    # rubric actually scored — a thin panel can hit 100/100 on renormalisation alone.
-    ready = (not gated) and weighted >= a.target and dims_covered >= MIN_DIMS_FOR_READY
+    # ready requires: no gate failures, weighted at/above target, enough of the rubric
+    # actually scored (a thin panel can hit 100/100 on renormalisation alone), AND no
+    # tampering signal — an out-of-range score in judge.json means the input was
+    # forged/corrupt, so the deck cannot be called ready on it.
+    ready = ((not gated) and weighted >= a.target
+             and dims_covered >= MIN_DIMS_FOR_READY and not tampered)
 
     # ranked fixes: gates first, then lowest weighted-contribution dimensions
     fixes = []
@@ -128,26 +236,27 @@ def main():
     # When coverage is partial, the verdict line itself carries the caveat (not a footnote).
     cov_note = (f"  ·  scored over {dims_covered}/{len(WEIGHTS)} dimensions"
                 if dims_covered < len(WEIGHTS) else "")
-    L.append(f"{verdict}  ·  {judge.get('summary','').strip()}{cov_note}")
-    L.append(f"\n*Tier {judge.get('tier','?')} · weighted over {len(dims)}/10 dimensions*")
+    L.append(f"{verdict}  ·  {md_safe(judge.get('summary',''))}{cov_note}")
+    L.append(f"\n*Tier {md_safe(judge.get('tier','?'))} · weighted over {len(dims)}/10 dimensions*")
 
     # Integrity findings surface in the shareable card, not only in raw judge.json.
+    # `anomalies` was merged above (panel anomalies + scorecard's own validation).
     injection_matches = judge.get("panel", {}).get("injection_matches", [])
-    anomalies = judge.get("anomalies", [])
     if judge.get("injection_suspect"):
         L.append("\n## ⚠️ Integrity")
         L.append("**Injection suspect** — the deck embeds delimiter-like text "
                  "(a possible attempt to game the judge):")
         for frag in injection_matches[:5]:
-            L.append(f"- `{frag}`")
+            L.append(f"- `{md_safe(frag)}`")
     if anomalies:
         if not judge.get("injection_suspect"):
             L.append("\n## ⚠️ Integrity")
-        L.append(f"**{len(anomalies)} score anomaly(ies)** from the panel "
-                 "(invalid or clamped votes — see scorecard.json `anomalies`):")
+        L.append(f"**{len(anomalies)} score anomaly(ies)** "
+                 "(invalid, clamped, or coerced votes — see scorecard.json `anomalies`):")
         for an in anomalies[:5]:
-            L.append(f"- {an.get('model','?')} · {an.get('dimension','?')} · "
-                     f"{an.get('issue','?')} (raw: {an.get('raw','?')!r})")
+            where = an.get("dimension") or an.get("gate") or "?"
+            L.append(f"- {md_safe(an.get('model','?'))} · {md_safe(where)} · "
+                     f"{md_safe(an.get('issue','?'))} (raw: {md_safe_raw(an.get('raw','?'))})")
 
     L.append("\n## Gates")
     if not gates:
@@ -156,7 +265,8 @@ def main():
         L.append(f"**{len(gates)} gate failure(s)** — these cap the grade at C and block shipping:\n")
         for g in gates:
             where = f" (slide {g['slide']})" if g.get("slide") else ""
-            L.append(f"- **{g['id']} — {GATE_LABEL.get(g['id'], g['id'])}**{where}: {g['detail']}")
+            L.append(f"- **{g['id']} — {GATE_LABEL.get(g['id'], g['id'])}**{where}: "
+                     f"{md_safe(g['detail'])}")
 
     L.append("\n## Dimensions")
     L.append("| Dimension | Score | Weight | Contribution | Evidence |")
@@ -165,7 +275,7 @@ def main():
         if k in dims:
             sc = dims[k]["score"]
             contrib = WEIGHTS[k] * sc / 5.0
-            ev = dims[k].get("evidence", "").replace("|", "/")
+            ev = md_safe(str(dims[k].get("evidence", "")).replace("|", "/"))
             L.append(f"| {LABELS[k]} | {sc}/5 | {WEIGHTS[k]} | {contrib:.1f} | {ev} |")
 
     L.append("\n## Top fixes (ranked by impact)")
@@ -173,7 +283,7 @@ def main():
         L.append("Nothing material — the deck is in good shape.")
     else:
         for i, fx in enumerate(fixes, 1):
-            L.append(f"{i}. **{fx['label']}** — {fx['detail']}  _( {fx['gain']} )_")
+            L.append(f"{i}. **{fx['label']}** — {md_safe(fx['detail'])}  _( {fx['gain']} )_")
 
     m = metrics.get("metrics", {})
     L.append("\n## Metrics appendix")
@@ -192,7 +302,7 @@ def main():
 
     if a.json:
         json.dump(build_scorecard_json(a, judge, metrics, dims, gates, fixes,
-                                       weighted, grade, ready, gated),
+                                       weighted, grade, ready, gated, anomalies),
                   open(a.json, "w"), indent=2)
 
 def sha256_file(path):
@@ -203,7 +313,7 @@ def sha256_file(path):
     return h.hexdigest()
 
 def build_scorecard_json(a, judge, metrics, dims, gates, fixes,
-                         weighted, grade, ready, gated):
+                         weighted, grade, ready, gated, anomalies):
     """Shareable scorecard.json — schema_version 1.0."""
     panel = judge.get("panel", {})
     models = list(panel.get("display", {}).values()) or list(panel.get("models", []))
@@ -249,7 +359,8 @@ def build_scorecard_json(a, judge, metrics, dims, gates, fixes,
         # silently absorbed", so the shareable artifact must carry them too.
         "injection_suspect": bool(judge.get("injection_suspect", False)),
         "injection_matches": list(panel.get("injection_matches", [])),
-        "anomalies": list(judge.get("anomalies", [])),
+        # merged: panel-recorded anomalies + scorecard's own judge.json validation
+        "anomalies": list(anomalies),
         "overall": weighted,
         "grade": grade,
         "ready": ready,

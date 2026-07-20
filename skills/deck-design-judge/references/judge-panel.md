@@ -86,19 +86,38 @@ than being silently out-voted by a missing quorum. `evidence` reads `"panel: <hi
 
 **Integrity fields (never silently absorbed).**
 - `injection_suspect` (bool, top-level) — set when the deck source embeds its own `BEGIN/END DECK
-  SOURCE` delimiter-like lines (a prompt-injection / delimiter-spoofing attempt). The matched lines
-  are listed under `panel.injection_matches`, and a warning is printed to stderr. The run still
-  proceeds — this flags gaming, it does not refuse. (The real delimiters carry a per-run
-  `secrets.token_hex` nonce, so an embedded bare delimiter can never escape the untrusted block.)
-  The scanner is a best-effort heuristic (unicode dashes normalized, whitespace collapsed); a
-  creative phrasing can evade the *flag*. That is a disclosed residual risk, not a boundary breach:
-  the nonce — not the scanner — is the enforcement boundary, and it is unforgeable regardless of
-  how the deck is phrased.
-- `anomalies` (list, top-level, mirrored under `panel.anomalies`) — every per-model score problem,
-  each `{model, dimension, issue, raw, ...}`. `issue` is either `"invalid_type"` (a score that is
-  neither numeric nor a numeric string — that vote is excluded, never counted as zero) or `"clamped"`
-  (an out-of-range score pulled into `[0,5]`, still counted, with `clamped_to`). Numeric-string
-  scores like `"4"` are coerced silently and are **not** anomalies. Each anomaly is also warned to stderr.
+  SOURCE` delimiter-like lines (a delimiter-spoofing attempt). The matched lines are listed under
+  `panel.injection_matches`, and a warning is printed to stderr. The run still proceeds — this flags
+  gaming, it does not refuse.
+
+  **What the nonce does and does not do.** The real delimiters carry a per-run `secrets.token_hex`
+  nonce, so the **block boundary is unforgeable**: a delimiter the deck embeds cannot carry this
+  run's nonce, so it cannot open or close the real data block. That is the *only* property the nonce
+  guarantees. It is **not a semantic firewall.** Injection phrased as ordinary deck copy — no
+  delimiters at all — still reaches the judges as text inside the data block. That semantic
+  prompt-injection is a **disclosed, model-dependent residual risk**, only *partially* mitigated by
+  (a) the explicit treat-as-data instruction in the prompt and (b) the multi-model median: to move a
+  dimension, an injection must sway **≥ half the panel**, not just one model. The delimiter scanner is
+  a separate best-effort heuristic (unicode dashes normalized, whitespace collapsed) over the
+  *delimiter* attack only; a creative phrasing can evade the *flag*, and it does not cover semantic
+  injection at all. None of this is a boundary breach — the nonce boundary holds regardless of phrasing.
+- `anomalies` (list, top-level, mirrored under `panel.anomalies`) — every per-model coercion problem,
+  never silently absorbed. Score anomalies are keyed by `{model, dimension, issue, raw, ...}`; gate
+  anomalies by `{model, gate, issue, raw}`. `issue` is one of:
+  - `"invalid_type"` — a dimension score that is neither numeric nor a numeric string, **or a
+    non-finite `nan`/`inf`** (which would otherwise crash aggregation). That vote is **excluded**,
+    never counted as zero.
+  - `"clamped"` — an out-of-range dimension score pulled into `[0,5]`, still counted, with `clamped_to`.
+  - `"coerced_gate_string"` — a gate verdict given as the string `"true"`/`"false"` (JSON-stringified);
+    coerced to the real boolean and still counted. (Prevents the `bool("false") == True` trap.)
+  - `"invalid_gate_type"` — a gate verdict that is neither a real bool/null nor `"true"`/`"false"`;
+    that verdict is **excluded**.
+
+  Numeric-string scores like `"4"` are coerced silently and are **not** anomalies. Each anomaly is
+  also warned to stderr. `scorecard.py` re-validates `judge.json` on load (it does not trust the file
+  blindly) and appends its own anomalies with `issue: "invalid_score_in_judge_json"` — a dimension
+  score that is non-numeric/non-finite (excluded) or out of `[0,5]` (clamped, with `clamped_to`); an
+  out-of-range score there is treated as a tampering signal that forces `ready: false`.
 
 **Two operational caveats (learned the hard way):**
 1. **Explicit `max_tokens` prevents gateway 402s.** Without a `max_tokens`, some gateways

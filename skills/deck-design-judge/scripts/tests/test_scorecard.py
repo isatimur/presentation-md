@@ -135,6 +135,126 @@ def test_dimensions_covered_field_shape(tmp_path):
     assert dc["count"] == 10 and dc["of"] == 10 and dc["missing"] == []
 
 
+# ---------- Finding 2: scorecard must not trust judge.json blindly ----------
+def _full_judge(dim_scores):
+    """A full 10-dim T3 judge.json with the given raw {dim: score} values (which may
+    be forged/out-of-range/non-numeric) and clean passing gates."""
+    dims = {k: {"score": dim_scores.get(k, 5), "median": 5.0, "evidence": f"ev-{k}"}
+            for k in _ALL_DIMS}
+    return {"tier": "T3", "dimensions": dims,
+            "gates": {"orphan_stat": {"hit": False}, "layout_overflow": {"hit": None}},
+            "summary": "s"}
+
+
+def test_forged_high_score_clamped_and_not_ready(tmp_path):
+    # score 999 previously produced >100 weighted, grade A, ready:true, 0 anomalies.
+    out_md, out_json, _ = _run(tmp_path, _full_judge({"narrative": 999}))
+    sc = json.loads(out_json.read_text())
+    assert sc["overall"] <= 100.0                     # no longer blows past 100
+    assert sc["ready"] is False                       # out-of-range => tampering => not ready
+    an = [a for a in sc["anomalies"] if a.get("dimension") == "narrative"]
+    assert an and an[0]["issue"] == "invalid_score_in_judge_json"
+    assert an[0]["raw"] == 999 and an[0]["clamped_to"] == 5.0
+    assert "Integrity" in out_md.read_text()
+
+
+def test_forged_negative_score_clamped_to_zero(tmp_path):
+    _, out_json, _ = _run(tmp_path, _full_judge({"color": -3}))
+    sc = json.loads(out_json.read_text())
+    assert sc["ready"] is False
+    an = [a for a in sc["anomalies"] if a.get("dimension") == "color"]
+    assert an and an[0]["clamped_to"] == 0.0
+    # color clamped to 0 -> its contribution is 0
+    assert sc["dimensions"]["color"]["score"] == 0
+
+
+def test_nonnumeric_score_excluded_with_anomaly(tmp_path):
+    _, out_json, _ = _run(tmp_path, _full_judge({"typography": "abc"}))
+    sc = json.loads(out_json.read_text())
+    assert "typography" not in sc["dimensions"]        # excluded, not scored
+    assert sc["dimensions_covered"]["count"] == 9
+    an = [a for a in sc["anomalies"] if a.get("dimension") == "typography"]
+    assert an and an[0]["issue"] == "invalid_score_in_judge_json" and an[0]["raw"] == "abc"
+
+
+def test_numeric_string_score_accepted_no_anomaly(tmp_path):
+    # consistent with judge_panel: a stringified number is coerced, not an anomaly.
+    _, out_json, _ = _run(tmp_path, _full_judge({"brand": "4"}))
+    sc = json.loads(out_json.read_text())
+    assert sc["dimensions"]["brand"]["score"] == 4
+    assert not [a for a in sc["anomalies"] if a.get("dimension") == "brand"]
+
+
+def test_nan_score_excluded(tmp_path):
+    # a non-finite score is unusable: excluded, recorded, never crashes the render.
+    j = _full_judge({})
+    j["dimensions"]["proof"]["score"] = "nan"
+    _, out_json, _ = _run(tmp_path, j)
+    sc = json.loads(out_json.read_text())
+    assert "proof" not in sc["dimensions"]
+    assert [a for a in sc["anomalies"] if a.get("dimension") == "proof"]
+
+
+def test_stringified_false_gate_does_not_fire(tmp_path):
+    # forged judge.gates with the STRING "false" must not be truthy in scorecard either.
+    j = _full_judge({})
+    j["gates"]["orphan_stat"] = {"hit": "false", "evidence": "forged"}
+    _, out_json, _ = _run(tmp_path, j)
+    sc = json.loads(out_json.read_text())
+    assert sc["gated"] is False
+    assert not any(g["id"] == "G6" for g in sc["gates"])
+    assert any(a.get("gate") == "orphan_stat" and a["issue"] == "coerced_gate_string"
+               for a in sc["anomalies"])
+
+
+def test_stringified_true_gate_fires(tmp_path):
+    j = _full_judge({})
+    j["gates"]["orphan_stat"] = {"hit": "true", "evidence": "e"}
+    _, out_json, _ = _run(tmp_path, j)
+    sc = json.loads(out_json.read_text())
+    assert sc["gated"] is True and any(g["id"] == "G6" for g in sc["gates"])
+
+
+# ---------- Finding 3: markdown injection via model-derived strings ----------
+def test_md_evidence_newline_hash_cannot_forge_heading(tmp_path):
+    j = _full_judge({})
+    j["dimensions"]["narrative"]["evidence"] = "slide 3 is fine\n# PWNED HEADING\nmore"
+    out_md, _, _ = _run(tmp_path, j)
+    md = out_md.read_text()
+    # the embedded '# PWNED HEADING' must not become a real heading line
+    assert not any(line.strip().startswith("# PWNED") for line in md.splitlines())
+    assert "PWNED HEADING" in md   # content preserved, just neutralised (collapsed inline)
+
+
+def test_md_summary_newline_cannot_forge_verdict_line(tmp_path):
+    j = _full_judge({})
+    j["summary"] = "Broadly agreed.\n# FAKE VERDICT: everything perfect"
+    out_md, _, _ = _run(tmp_path, j)
+    md = out_md.read_text()
+    assert not any(line.strip().startswith("# FAKE VERDICT") for line in md.splitlines())
+
+
+def test_md_injection_fragment_backticks_neutralised(tmp_path):
+    j = _judge_panel()
+    j["injection_suspect"] = True
+    # a fragment that tries to close its code span and inject a heading/backticks
+    j["panel"]["injection_matches"] = ["evil`code` and `more"]
+    out_md, _, _ = _run(tmp_path, j)
+    lines = [l for l in out_md.read_text().splitlines() if "evil" in l]
+    assert lines, "fragment must be rendered"
+    # exactly the two wrapping backticks remain — the fragment's own backticks are gone
+    assert lines[0].count("`") == 2
+
+
+def test_md_long_evidence_capped(tmp_path):
+    j = _full_judge({})
+    j["dimensions"]["clarity"]["evidence"] = "x" * 5000
+    out_md, _, _ = _run(tmp_path, j)
+    # no single rendered line carries the full 5000-char blob
+    assert all(len(line) < 4000 for line in out_md.read_text().splitlines())
+    assert "…" in out_md.read_text()   # capped with an ellipsis
+
+
 class TestIntegrityFieldPropagation:
     """Round-4 gate: judge-panel.md promises integrity fields are "never silently
     absorbed" — the shareable scorecard.json/md must carry them, not just judge.json."""

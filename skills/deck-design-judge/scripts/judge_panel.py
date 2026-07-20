@@ -30,7 +30,7 @@ Behaviour:
 Output judge.json is scorecard.py-compatible (tier / dimensions / gates / summary)
 plus a `panel` block: per-model votes, disagreements, errors, skipped.
 """
-import argparse, json, os, re, secrets, statistics, sys, time
+import argparse, json, math, os, re, secrets, statistics, sys, time
 import urllib.request, urllib.error
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -50,12 +50,18 @@ DIMENSION_KEYS = ["narrative", "clarity", "typography", "color", "layout_flat",
 GATE_KEYS = ["orphan_stat", "identical_grid", "graveyard_outro", "layout_overflow"]
 
 # Best-effort heuristic scan for "DECK SOURCE" delimiter text embedded in the
-# deck itself (a spoofing attempt). This is a FLAG, not the enforcement
-# boundary — the per-run nonce is what actually makes the real delimiters
-# unforgeable. The scan normalizes unicode dashes and collapses whitespace
-# (including newlines) before matching, so common obfuscations are caught,
-# but a sufficiently creative phrasing can evade the flag without ever
-# escaping the nonce-gated block.
+# deck itself (a delimiter-spoofing attempt). This is a FLAG, not the
+# enforcement boundary — the per-run nonce is what makes the BLOCK BOUNDARY
+# unforgeable: a delimiter the deck embeds cannot carry this run's nonce, so it
+# cannot open or close the real data block. That is the only property the nonce
+# guarantees. It is NOT a semantic firewall: injection phrased as ordinary deck
+# copy (no delimiters at all) still reaches the judges as text inside the data
+# block — a disclosed, model-dependent residual risk, only partially mitigated
+# by the treat-as-data instruction and the multi-model median (an injection must
+# sway >= half the panel to move the score). The scan normalizes unicode dashes
+# and collapses whitespace (including newlines) before matching, so common
+# delimiter obfuscations are caught, but a sufficiently creative phrasing can
+# evade the flag.
 DELIM_SCAN_RE = re.compile(r"(?:[-‐-―−]\s*){2,}.{0,40}?(?:BEGIN|END)\s+DECK\s+SOURCE"
                            r"|(?:BEGIN|END)\s+DECK\s+SOURCE",
                            re.IGNORECASE)
@@ -75,8 +81,10 @@ def scan_for_delimiter_spoofing(deck_src):
     """Best-effort pre-check: return fragments of the deck that look like a
     "DECK SOURCE" delimiter. A clean deck has none; a hit means the author
     embedded delimiter-like text, presumably to break out of the untrusted-content
-    block. Bypassing this scan gains an attacker nothing structural (the nonce is
-    the boundary) — it only avoids the injection_suspect flag."""
+    block. Bypassing this scan gains an attacker nothing structural — the nonce is
+    the block boundary, and an embedded delimiter cannot carry it — so bypassing
+    the scan only avoids the injection_suspect flag. (Semantic injection written as
+    plain deck copy is a separate, disclosed residual risk this scan does not cover.)"""
     text = (deck_src or "").translate(_DASH_NORMALIZE)
     # collapse all whitespace (incl. newlines) so split-across-lines variants match
     flat = re.sub(r"\s+", " ", text)
@@ -89,8 +97,12 @@ def scan_for_delimiter_spoofing(deck_src):
 
 
 def build_prompt(rubric, deck_src, metrics_json=None, nonce=None):
-    # A per-run nonce makes the real delimiters unforgeable: the deck author cannot
-    # know this run's nonce, so any BEGIN/END DECK SOURCE line they embed will lack it.
+    # A per-run nonce makes the BLOCK BOUNDARY unforgeable: the deck author cannot
+    # know this run's nonce, so any BEGIN/END DECK SOURCE line they embed will lack
+    # it and cannot open or close the real data block. The nonce does NOT stop
+    # semantic prompt-injection phrased as ordinary deck copy (no delimiters) — that
+    # text still reaches the judges as data. The treat-as-data instruction below and
+    # the multi-model median are the (partial, model-dependent) mitigations for it.
     nonce = nonce or secrets.token_hex(8)
     parts = [
         "You are a senior presentation designer reviewing a slide deck against an "
@@ -222,25 +234,55 @@ def call_model(cfg, prompt):
 def _coerce_score(raw):
     """Return (value, None) for a usable numeric score, or (None, "invalid_type").
     Numeric strings like "4" / "4.5" are coerced (a model that JSON-stringifies a
-    number must not be silently dropped). Bools are rejected — `true` is not a score."""
+    number must not be silently dropped). Bools are rejected — `true` is not a score.
+    Non-finite values (nan / inf, whether numeric or a "nan"/"inf" string) are also
+    rejected: they pass a naive numeric check but crash aggregation at int(med + 0.5),
+    and a non-finite "score" is meaningless anyway."""
     if isinstance(raw, bool):
         return None, "invalid_type"
     if isinstance(raw, (int, float)):
-        return float(raw), None
+        return (float(raw), None) if math.isfinite(raw) else (None, "invalid_type")
     if isinstance(raw, str):
         try:
-            return float(raw.strip()), None
+            val = float(raw.strip())
         except ValueError:
             return None, "invalid_type"
+        return (val, None) if math.isfinite(val) else (None, "invalid_type")
     return None, "invalid_type"
+
+
+def _coerce_gate(raw):
+    """Strict gate-verdict parsing. Returns (verdict, issue):
+      - real JSON booleans        -> (True/False, None)
+      - null / missing            -> (None, None)      # not assessed, no verdict
+      - the strings "true"/"false"-> (True/False, "coerced_gate_string")
+      - anything else             -> (None, "invalid_gate_type")   # excluded vote
+    Prevents the classic bug where bool("false") is truthy, so a JSON-stringified
+    "false" verdict would silently count as a gate HIT."""
+    if raw is None:
+        return None, None
+    if isinstance(raw, bool):
+        return raw, None
+    if isinstance(raw, str):
+        s = raw.strip().lower()
+        if s == "true":
+            return True, "coerced_gate_string"
+        if s == "false":
+            return False, "coerced_gate_string"
+    return None, "invalid_gate_type"
 
 
 def aggregate(votes_by_model):
     """votes_by_model: {model_id: parsed judge.json}. Returns (dimensions, gates,
     disagreements, anomalies). A dimension with < MIN_VOTES valid votes is skipped.
     Every coercion problem is surfaced in `anomalies`, never silently absorbed:
-      - invalid_type: a score that is neither numeric nor a numeric string (excluded)
-      - clamped:      an out-of-range score, pulled into [0,5] and still counted."""
+      - invalid_type:        a score that is neither numeric nor a numeric string,
+                             or a non-finite nan/inf (that vote is excluded)
+      - clamped:             an out-of-range score, pulled into [0,5] and still counted
+      - coerced_gate_string: a gate verdict given as the string "true"/"false"
+                             (coerced to the real bool, still counted)
+      - invalid_gate_type:   a gate verdict that is neither bool/null nor "true"/"false"
+                             (that verdict is excluded)."""
     dimensions, disagreements, anomalies = {}, [], []
     for key in DIMENSION_KEYS:
         scored, ev = [], {}
@@ -278,10 +320,17 @@ def aggregate(votes_by_model):
     gates = {}
     for gk in GATE_KEYS:
         verdicts = []
-        for v in votes_by_model.values():
+        for mid, v in votes_by_model.items():
             g = v.get("gates", {}).get(gk)
-            if isinstance(g, dict) and g.get("hit") is not None:
-                verdicts.append(bool(g["hit"]))
+            if not isinstance(g, dict) or "hit" not in g:
+                continue   # gate simply not assessed by this model
+            verdict, gerr = _coerce_gate(g["hit"])
+            if gerr is not None:
+                anomalies.append({"model": mid, "gate": gk, "issue": gerr,
+                                  "raw": g["hit"]})
+            if gerr == "invalid_gate_type" or verdict is None:
+                continue   # excluded vote, or a real null (not assessed)
+            verdicts.append(verdict)
         n_hits, n_verdicts = sum(verdicts), len(verdicts)
         if n_verdicts == 0:
             gates[gk] = {"hit": None, "evidence": "not assessed by panel"}
@@ -385,7 +434,8 @@ def main():
 
     dimensions, gates, disagreements, anomalies = aggregate(votes)
     for an in anomalies:
-        print(f"anomaly {an['model']}/{an['dimension']}: {an['issue']} "
+        where = an.get("dimension") or an.get("gate") or "?"
+        print(f"anomaly {an['model']}/{where}: {an['issue']} "
               f"raw={an['raw']!r}", file=sys.stderr)
     summary = (f"Panel median of {len(votes)} model(s): "
                f"{', '.join(display.get(m, m) for m in votes)}. "
