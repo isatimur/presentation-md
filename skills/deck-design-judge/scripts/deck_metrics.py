@@ -221,16 +221,23 @@ def analyze(html, tokens_css=None):
     if len(slides) < 2:
         flags.append({"id": "slides", "severity": "warn",
                       "detail": "Found <2 slides — slide detection may have missed this deck's structure; inspect manually."})
+    # When NO .slide-classed container exists at all (a single-scroller deck, or
+    # one using a different structural convention), measuring zero slides must
+    # not silently skip G1: fall back to measuring the whole document as one
+    # block so a genuine wall of text still gates, instead of reporting
+    # words_max=0 with no warning.
+    measure_units = slides if slides else [html]
+    unit_label = "Slide" if slides else "Document (no .slide containers found)"
     wps, mbs = [], []
-    for i, s in enumerate(slides, 1):
+    for i, s in enumerate(measure_units, 1):
         total = count_words(visible_text(s)); wps.append(total)
         mb = max_block_words(s); mbs.append(mb)
         if mb > WORD_GATE:  # a single block over the limit is a genuine wall of text
             flags.append({"id": "G1", "severity": "gate", "slide": i,
-                          "detail": f"Slide {i}: one text block has {mb} words (>{WORD_GATE}) — wall of text."})
+                          "detail": f"{unit_label} {i}: one text block has {mb} words (>{WORD_GATE}) — wall of text."})
         elif total > 70:    # distributed but dense — judge decides via `clarity`
             flags.append({"id": "words", "severity": "warn", "slide": i,
-                          "detail": f"Slide {i}: {total} words total (dense, but structured) — verify it isn't over-stuffed."})
+                          "detail": f"{unit_label} {i}: {total} words total (dense, but structured) — verify it isn't over-stuffed."})
     metrics["words_per_slide"] = wps
     metrics["max_block_per_slide"] = mbs
     metrics["words_max"] = max(wps) if wps else 0

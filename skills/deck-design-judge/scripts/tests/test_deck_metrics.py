@@ -126,3 +126,24 @@ class TestHyphenatedClassNotSlide:
                 '</body></html>')
         result = dm.analyze(html)
         assert result["metrics"]["slide_count"] == 1
+
+
+class TestNoSlideFallbackStillGatesWallOfText:
+    """Codex GitHub review round 3, P2: when NO .slide container exists at all
+    (a single-scroller deck, or a different structural convention), the
+    word-density loop must not silently skip — it should fall back to
+    measuring the whole document so a genuine wall of text still gates."""
+
+    def test_no_slides_but_wall_of_text_still_gates_g1(self):
+        big_block = "word " * 60  # > WORD_GATE (40) in one untagged block
+        html = f"<html><body><p>{big_block}</p></body></html>"
+        result = dm.analyze(html)
+        assert result["metrics"]["slide_count"] == 0
+        assert result["metrics"]["words_max"] > 0
+        assert "G1" in _gate_ids(result)
+
+    def test_no_slides_short_text_no_false_gate(self):
+        html = "<html><body><p>Just a short paragraph.</p></body></html>"
+        result = dm.analyze(html)
+        assert result["metrics"]["slide_count"] == 0
+        assert "G1" not in _gate_ids(result)

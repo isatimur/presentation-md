@@ -331,3 +331,36 @@ class TestCodexRound6Findings:
         assert "TAMPERED judge.json" in md.splitlines()[0]
         assert "possible tampering" in md
         assert json.loads(out_json.read_text())["ready"] is False
+
+
+class TestMetricsAppendixSanitization:
+    """Codex GitHub review round 3, P2: font_families and contrast_ratios keys
+    come from the deck's own CSS (untrusted) and must go through md_safe
+    before landing in the shareable scorecard.md, same as judge evidence."""
+
+    def test_font_families_html_neutralized(self, tmp_path):
+        metrics_p = tmp_path / "metrics.json"
+        judge_p = tmp_path / "judge.json"
+        out_md = tmp_path / "scorecard.md"
+        m = _metrics()
+        m["metrics"]["font_families"] = ["<img src=x onerror=alert(1)>", "Inter"]
+        metrics_p.write_text(json.dumps(m))
+        judge_p.write_text(json.dumps(_judge_panel()))
+        subprocess.run([sys.executable, SCRIPT, str(metrics_p), str(judge_p),
+                        "-o", str(out_md)], check=True, capture_output=True, text=True)
+        md = out_md.read_text()
+        assert "<img" not in md
+        assert "Inter" in md
+
+    def test_contrast_token_name_html_neutralized(self, tmp_path):
+        metrics_p = tmp_path / "metrics.json"
+        judge_p = tmp_path / "judge.json"
+        out_md = tmp_path / "scorecard.md"
+        m = _metrics()
+        m["metrics"]["contrast_ratios"] = {"--<script>alert(1)</script>": 4.5}
+        metrics_p.write_text(json.dumps(m))
+        judge_p.write_text(json.dumps(_judge_panel()))
+        subprocess.run([sys.executable, SCRIPT, str(metrics_p), str(judge_p),
+                        "-o", str(out_md)], check=True, capture_output=True, text=True)
+        md = out_md.read_text()
+        assert "<script>" not in md

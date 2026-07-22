@@ -300,12 +300,18 @@ def main():
     m = metrics.get("metrics", {})
     L.append("\n## Metrics appendix")
     L.append(f"- Slides: **{m.get('slide_count','?')}**  ·  words/slide max **{m.get('words_max','?')}**, mean **{m.get('words_mean','?')}**")
-    L.append(f"- Type families: {', '.join(m.get('font_families', [])) or '—'}  ·  distinct sizes: {m.get('type_sizes_distinct','?')}")
+    # font_families is extracted from the deck's own CSS (untrusted, same as
+    # judge-derived strings) — it must go through md_safe before joining, or a
+    # quoted font-family value can smuggle live HTML into the shareable card.
+    families = ", ".join(md_safe(f) for f in m.get("font_families", [])) or "—"
+    L.append(f"- Type families: {families}  ·  distinct sizes: {m.get('type_sizes_distinct','?')}")
     L.append(f"- Elevation shadows: {len(m.get('elevation_shadows', []))}  ·  frameworks: {', '.join(m.get('frameworks', [])) or 'none'}")
     cf = m.get("craft_features", {})
     L.append(f"- Craft: print {tick(cf.get('print_css'))} · keyboard {tick(cf.get('keyboard_nav'))} · reduced-motion {tick(cf.get('reduced_motion'))} · scroll-snap {tick(cf.get('scroll_snap'))} · viewport {tick(cf.get('viewport_meta'))}")
     if m.get("contrast_ratios"):
-        cr = ", ".join(f"{k.replace('--','')} {v}:1" for k, v in m["contrast_ratios"].items())
+        # token names are also deck-derived CSS variable names — same untrusted
+        # class as font_families, so the same md_safe treatment applies.
+        cr = ", ".join(f"{md_safe(k.replace('--',''))} {v}:1" for k, v in m["contrast_ratios"].items())
         L.append(f"- Contrast (tokens): {cr}")
 
     md = "\n".join(L) + "\n"
