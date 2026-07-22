@@ -348,11 +348,19 @@ def analyze(html, tokens_css=None):
     # frameworks — search only the code surface (script/link/style tags), never
     # visible slide text. Searching the whole HTML trips this gate on a slide
     # that simply *talks about* React or Tailwind, incorrectly marking an
-    # ordinary deck about these topics as not-ready.
+    # ordinary deck about these topics as not-ready. A <script type="application/
+    # json"> block is data, not code, even though it's inside a <script> tag —
+    # this pack's own renderer embeds the deck's full source JSON that way for
+    # round-tripping, which duplicates every slide's visible text verbatim. If
+    # that JSON-data content were included, a slide merely titled "Why We Chose
+    # React" would trip the gate again through its own embedded copy.
+    html_without_json_scripts = re.sub(
+        r"""<script\b[^>]*type\s*=\s*["']application/(?:ld\+)?json["'][^>]*>.*?</script>""",
+        " ", html, flags=re.I | re.S)
     code_surface = " ".join(
         m.group(0) for m in re.finditer(
             r"<script\b[^>]*>.*?</script>|<script\b[^>]*/?>|<link\b[^>]*/?>|<style\b[^>]*>.*?</style>",
-            html, flags=re.I | re.S))
+            html_without_json_scripts, flags=re.I | re.S))
     fw = []
     for pat, label in [(r"tailwind", "Tailwind"), (r"bootstrap", "Bootstrap"),
                        (r"\breact\b|react-dom", "React"), (r"vue(\.js|@)", "Vue"),

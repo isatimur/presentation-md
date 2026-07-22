@@ -194,3 +194,33 @@ class TestWhitespaceAroundClassEquals:
         html = '<html><body><section class="slide"><h1>Hi</h1></section></body></html>'
         result = dm.analyze(html)
         assert result["metrics"]["slide_count"] == 1
+
+
+class TestEmbeddedDeckJsonExcludedFromFrameworkGate:
+    """Codex GitHub review round 6, P2: this pack's own renderer embeds the
+    deck's full source as <script type="application/json" id="psp-deck">
+    for round-tripping. That JSON duplicates every slide's visible text, so
+    the code_surface framework scan must exclude it or the exact false-
+    positive fixed in round 1 (a slide merely titled 'Why We Chose React')
+    comes back through the embedded copy."""
+
+    def test_framework_word_only_in_embedded_json_does_not_gate(self):
+        html = ('<html><body>'
+                '<section class="slide"><h1>Why We Chose React</h1></section>'
+                '<script type="application/json" id="psp-deck">'
+                '{"slides":[{"heading":"Why We Chose React"}]}</script>'
+                '</body></html>')
+        result = dm.analyze(html)
+        assert "G5" not in _gate_ids(result)
+        assert result["metrics"]["frameworks"] == []
+
+    def test_real_script_src_still_gates_alongside_json_script(self):
+        html = ('<html><head>'
+                '<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>'
+                '</head><body>'
+                '<section class="slide"><h1>Hi</h1></section>'
+                '<script type="application/json" id="psp-deck">{"slides":[]}</script>'
+                '</body></html>')
+        result = dm.analyze(html)
+        assert "G5" in _gate_ids(result)
+        assert "React" in result["metrics"]["frameworks"]
