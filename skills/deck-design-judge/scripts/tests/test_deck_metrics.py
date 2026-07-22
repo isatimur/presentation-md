@@ -285,3 +285,26 @@ class TestMergedRootVarsFromTokensAndInline:
         result = dm.analyze(html, tokens_css=tokens)
         assert "--text" in result["metrics"]["contrast_ratios"]
         assert "G3" in _gate_ids(result)
+
+
+class TestVarFallbackResolution:
+    """Codex GitHub review round 9, P2: --text: var(--brand-text, #eee) with
+    --brand-text undefined must resolve to the fallback color, matching what
+    a real browser renders, instead of leaving 'var(...)' unresolved."""
+
+    def test_undefined_var_uses_fallback_for_contrast(self):
+        html = ("<html><head><style>:root { --bg: #ffffff; "
+                "--text: var(--brand-text, #eeeeee); }</style></head>"
+                "<body><section class='slide'><h1>Title</h1>"
+                "<p>Body copy here for the slide.</p></section></body></html>")
+        result = dm.analyze(html)
+        assert "--text" in result["metrics"]["contrast_ratios"]
+        assert "G3" in _gate_ids(result)
+
+    def test_defined_var_still_takes_precedence_over_fallback(self):
+        html = ("<html><head><style>:root { --bg: #ffffff; "
+                "--brand-text: #000000; --text: var(--brand-text, #eeeeee); }"
+                "</style></head><body><section class='slide'><h1>Title</h1>"
+                "<p>Body copy.</p></section></body></html>")
+        result = dm.analyze(html)
+        assert result["metrics"]["contrast_ratios"]["--text"] > 10

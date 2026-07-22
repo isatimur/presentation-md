@@ -170,9 +170,17 @@ def parse_root_vars(css):
 def resolve(val, vars, depth=0):
     if depth > 5 or not val:
         return val
-    m = re.search(r"var\(\s*(--[\w-]+)\s*(?:,[^)]*)?\)", val)
-    if m and m.group(1) in vars:
-        return resolve(vars[m.group(1)], vars, depth + 1)
+    m = re.search(r"var\(\s*(--[\w-]+)\s*(?:,(.*))?\)", val)
+    if m:
+        if m.group(1) in vars:
+            return resolve(vars[m.group(1)], vars, depth + 1)
+        if m.group(2) is not None:
+            # The referenced variable is undefined — a real browser falls back
+            # to the second var() argument, not to leaving "var(...)" as the
+            # literal value. Without this, --text: var(--brand-text, #eee)
+            # with no --brand-text defined never resolved to a color at all,
+            # so contrast silently went unassessed instead of using #eee.
+            return resolve(m.group(2).strip(), vars, depth + 1)
     return val.strip()
 
 def to_rgb(val, bg=None):
