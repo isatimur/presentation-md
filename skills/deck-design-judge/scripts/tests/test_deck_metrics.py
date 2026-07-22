@@ -174,3 +174,23 @@ class TestModernRgbSyntax:
         result = dm.analyze(self._deck("rgb(255, 255, 255)", "rgb(238, 238, 238)"))
         assert "--text" in result["metrics"]["contrast_ratios"]
         assert "G3" in _gate_ids(result)
+
+
+class TestWhitespaceAroundClassEquals:
+    """Codex GitHub review round 5, P2: formatter-produced HTML can write
+    class = "slide" with spaces around '=' — a literal class= misses it."""
+
+    def test_spaced_equals_double_quoted(self):
+        html = '<html><body><section class = "slide"><h1>Hi</h1></section></body></html>'
+        result = dm.analyze(html)
+        assert result["metrics"]["slide_count"] == 1
+
+    def test_spaced_equals_single_quoted(self):
+        html = "<html><body><section class = 'slide'><h1>Hi</h1></section></body></html>"
+        result = dm.analyze(html)
+        assert result["metrics"]["slide_count"] == 1
+
+    def test_no_space_still_works(self):
+        html = '<html><body><section class="slide"><h1>Hi</h1></section></body></html>'
+        result = dm.analyze(html)
+        assert result["metrics"]["slide_count"] == 1

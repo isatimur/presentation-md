@@ -41,7 +41,9 @@ BLOCK_SPLIT = re.compile(r"</(?:p|li|h[1-6]|div|section|a|blockquote|figcaption|
 def max_block_words(chunk):
     return max((count_words(visible_text(p)) for p in BLOCK_SPLIT.split(chunk)), default=0)
 
-_OPEN_TAG_RE = re.compile(r"""<(section|div)\b[^>]*class=("[^"]*"|'[^']*')[^>]*>""", re.I)
+# \s* around '=' matters: formatter-produced HTML sometimes writes
+# `class = "slide"` with spaces, and a literal `class=` misses it entirely.
+_OPEN_TAG_RE = re.compile(r"""<(section|div)\b[^>]*class\s*=\s*("[^"]*"|'[^']*')[^>]*>""", re.I)
 
 
 def _has_slide_class(quoted_class_attr):

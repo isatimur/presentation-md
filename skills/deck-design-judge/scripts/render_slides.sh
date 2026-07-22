@@ -33,7 +33,7 @@ N="$(python3 -c "
 import re, sys
 html = open(sys.argv[1], encoding='utf-8', errors='ignore').read()
 n = 0
-for m in re.finditer(r'''<(section|div)\b[^>]*class=(\"[^\"]*\"|'[^']*')[^>]*>''', html, re.I):
+for m in re.finditer(r'''<(section|div)\b[^>]*class\s*=\s*(\"[^\"]*\"|'[^']*')[^>]*>''', html, re.I):
     if 'slide' in m.group(2)[1:-1].split():
         n += 1
 print(n)
