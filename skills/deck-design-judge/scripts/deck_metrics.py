@@ -45,9 +45,13 @@ def max_block_words(chunk):
 def find_slides(html):
     """Return list of slide inner-HTML chunks. Matches top-level <section|div class=...slide...>."""
     slides = []
-    # find each opening tag whose class contains a whole word 'slide'
+    # find each opening tag whose class contains a whole word 'slide'. Accept both
+    # quote styles: third-party/self-authored decks often use single-quoted
+    # attributes (class='slide'), and a double-quote-only pattern silently finds
+    # zero slides on them — skipping every per-slide metric and the G1 gate.
     opens = [m for m in re.finditer(
-        r"<(section|div)\b[^>]*class=\"[^\"]*\bslide\b[^\"]*\"[^>]*>", html, flags=re.I)]
+        r"""<(section|div)\b[^>]*class=("[^"]*\bslide\b[^"]*"|'[^']*\bslide\b[^']*')[^>]*>""",
+        html, flags=re.I)]
     for i, m in enumerate(opens):
         start = m.end()
         end = opens[i + 1].start() if i + 1 < len(opens) else len(html)
@@ -298,8 +302,16 @@ def analyze(html, tokens_css=None):
                 continue
             ratio = contrast(rgb, bg)
             contrasts[name] = ratio
-            is_body = any(k in low for k in ("primary", "secondary")) or low in ("--ink", "--ink-2")
-            is_minor = any(k in low for k in ("tertiary", "quaternary", "placeholder", "disabled", "ink-3", "ink-4"))
+            is_minor = any(k in low for k in ("tertiary", "quaternary", "placeholder", "disabled",
+                                              "ink-3", "ink-4", "muted", "subtle", "caption", "hint"))
+            # Body text isn't always named with a primary/secondary qualifier — a token
+            # simply called --text/--fg/--foreground/--ink is a base text color and must
+            # gate on low contrast too (a deck using --text: #eee on --bg: #fff should not
+            # silently pass at 1.16:1).
+            is_body = (not is_minor) and (
+                any(k in low for k in ("primary", "secondary", "body", "copy"))
+                or low in ("--ink", "--ink-2", "--text", "--fg", "--foreground")
+            )
             if is_body and not is_minor and ratio < 4.5:
                 flags.append({"id": "G3", "severity": "gate",
                               "detail": f"Body text token {name} ({val}) = {ratio}:1 on bg (<4.5). "
@@ -309,12 +321,19 @@ def analyze(html, tokens_css=None):
                               "detail": f"Minor text token {name} = {ratio}:1 (<3.0)."})
     metrics["contrast_ratios"] = contrasts
 
-    # frameworks
+    # frameworks — search only the code surface (script/link/style tags), never
+    # visible slide text. Searching the whole HTML trips this gate on a slide
+    # that simply *talks about* React or Tailwind, incorrectly marking an
+    # ordinary deck about these topics as not-ready.
+    code_surface = " ".join(
+        m.group(0) for m in re.finditer(
+            r"<script\b[^>]*>.*?</script>|<script\b[^>]*/?>|<link\b[^>]*/?>|<style\b[^>]*>.*?</style>",
+            html, flags=re.I | re.S))
     fw = []
     for pat, label in [(r"tailwind", "Tailwind"), (r"bootstrap", "Bootstrap"),
                        (r"\breact\b|react-dom", "React"), (r"vue(\.js|@)", "Vue"),
                        (r"@angular|ng-version", "Angular"), (r"cdn\.jsdelivr.*(tailwind|bootstrap)", "CDN-framework")]:
-        if re.search(pat, html, flags=re.I):
+        if re.search(pat, code_surface, flags=re.I):
             fw.append(label)
     metrics["frameworks"] = fw
     if fw:
