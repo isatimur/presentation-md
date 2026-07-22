@@ -226,9 +226,14 @@ def contrast(c1, c2):
 # ---------- main ----------
 def analyze(html, tokens_css=None):
     metrics, flags = {}, []
-    # contrast must reflect what the DECK actually renders — use the deck's own :root.
-    # The tokens file informs the flat-system (G2) check, not contrast.
-    css_for_vars = html if re.search(r":root\s*\{", html or "") else (tokens_css or html)
+    # contrast must reflect what the DECK actually renders — the deck's own :root
+    # wins on any variable it defines. But a deck can have an inline :root for one
+    # unrelated variable while still relying on an external --tokens file for
+    # --bg/--text: picking only one source (rather than merging) used to discard
+    # the external file entirely in that case, silently disabling G3 contrast.
+    inline_vars = parse_root_vars(html) if re.search(r":root\s*\{", html or "") else {}
+    tokens_vars = parse_root_vars(tokens_css) if tokens_css else {}
+    merged_vars = {**tokens_vars, **inline_vars}
 
     # slides + words
     slides = find_slides(html)
@@ -307,7 +312,7 @@ def analyze(html, tokens_css=None):
                           "detail": f"{len(elevation)} elevation shadow(s); confirm the brand system permits depth."})
 
     # contrast
-    vars = parse_root_vars(css_for_vars)
+    vars = merged_vars
     resolved = {k: resolve(v, vars) for k, v in vars.items()}
     # primary background
     bg = None

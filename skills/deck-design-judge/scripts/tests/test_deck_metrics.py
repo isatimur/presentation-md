@@ -253,3 +253,35 @@ class TestAlphaHexColors:
     def test_4digit_rgba_hex_parses(self):
         result = dm.analyze(self._deck("#0004"))  # ~25% alpha black shorthand
         assert "--text" in result["metrics"]["contrast_ratios"]
+
+
+class TestMergedRootVarsFromTokensAndInline:
+    """Codex GitHub review round 8, P2: a deck with even one unrelated inline
+    :root variable used to silently discard the entire external --tokens
+    file (either/or, not merged), disabling contrast checking entirely."""
+
+    def test_unrelated_inline_root_does_not_discard_tokens_file(self):
+        html = ("<html><head><style>:root { --unrelated: 1; }</style></head>"
+                "<body><section class='slide'><h1>Title</h1>"
+                "<p>Body copy here for the slide.</p></section></body></html>")
+        tokens = ":root { --bg: #ffffff; --text: #eeeeee; }"
+        result = dm.analyze(html, tokens_css=tokens)
+        assert "--text" in result["metrics"]["contrast_ratios"]
+        assert "G3" in _gate_ids(result)
+
+    def test_inline_root_wins_over_tokens_on_overlap(self):
+        html = ("<html><head><style>:root { --bg: #ffffff; --text: #000000; }"
+                "</style></head><body><section class='slide'><h1>Title</h1>"
+                "<p>Body copy.</p></section></body></html>")
+        tokens = ":root { --bg: #ffffff; --text: #eeeeee; }"
+        result = dm.analyze(html, tokens_css=tokens)
+        # inline --text (#000000, high contrast) wins, not the tokens file's #eeeeee
+        assert result["metrics"]["contrast_ratios"]["--text"] > 10
+
+    def test_no_inline_root_uses_tokens_file(self):
+        html = ("<html><body><section class='slide'><h1>Title</h1>"
+                "<p>Body copy here for the slide.</p></section></body></html>")
+        tokens = ":root { --bg: #ffffff; --text: #eeeeee; }"
+        result = dm.analyze(html, tokens_css=tokens)
+        assert "--text" in result["metrics"]["contrast_ratios"]
+        assert "G3" in _gate_ids(result)
