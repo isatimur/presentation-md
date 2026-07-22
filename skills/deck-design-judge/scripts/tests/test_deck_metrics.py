@@ -224,3 +224,32 @@ class TestEmbeddedDeckJsonExcludedFromFrameworkGate:
         result = dm.analyze(html)
         assert "G5" in _gate_ids(result)
         assert "React" in result["metrics"]["frameworks"]
+
+
+class TestAlphaHexColors:
+    """Codex GitHub review round 7, P2: #RRGGBBAA/#RGBA alpha was dropped
+    (treated as opaque), so a translucent --text color that renders as light
+    gray on white was measured as fully opaque and never gated on contrast."""
+
+    def _deck(self, text_hex):
+        return f"""<html><head><style>
+        :root {{ --bg: #ffffff; --text: {text_hex}; }}
+        </style></head><body>
+        <section class="slide"><h1>Title</h1><p>Body copy here for the slide.</p></section>
+        </body></html>"""
+
+    def test_translucent_8digit_hex_gates_contrast(self):
+        result = dm.analyze(self._deck("#00000040"))  # ~25% alpha black on white
+        assert "G3" in _gate_ids(result)
+
+    def test_opaque_8digit_hex_no_gate(self):
+        result = dm.analyze(self._deck("#000000ff"))  # fully opaque black on white
+        assert "G3" not in _gate_ids(result)
+
+    def test_3digit_hex_still_works(self):
+        result = dm.analyze(self._deck("#000"))  # opaque black, shorthand
+        assert "G3" not in _gate_ids(result)
+
+    def test_4digit_rgba_hex_parses(self):
+        result = dm.analyze(self._deck("#0004"))  # ~25% alpha black shorthand
+        assert "--text" in result["metrics"]["contrast_ratios"]

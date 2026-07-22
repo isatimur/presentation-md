@@ -181,10 +181,19 @@ def to_rgb(val, bg=None):
     m = re.match(r"#([0-9a-fA-F]{3,8})$", val)
     if m:
         h = m.group(1)
-        if len(h) == 3:
+        if len(h) in (3, 4):  # #RGB / #RGBA short forms — expand each nibble
             h = "".join(c * 2 for c in h)
-        if len(h) >= 6:
-            return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
+        if len(h) in (6, 8):
+            r, g, b = (int(h[i:i + 2], 16) for i in (0, 2, 4))
+            if len(h) == 8:
+                # #RRGGBBAA carries an alpha byte too — dropping it silently
+                # treated a translucent color (e.g. --text: #00000040) as
+                # fully opaque black, so G3 never fired on text that actually
+                # renders as light, low-contrast gray.
+                a = int(h[6:8], 16) / 255.0
+                if a < 1 and bg:
+                    return tuple(round(c * a + bc * (1 - a)) for c, bc in zip((r, g, b), bg))
+            return (r, g, b)
     m = re.match(r"rgba?\(([^)]+)\)", val)
     if m:
         # Modern CSS Color 4 syntax is space-separated with an optional '/ alpha'
