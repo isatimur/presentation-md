@@ -41,17 +41,28 @@ BLOCK_SPLIT = re.compile(r"</(?:p|li|h[1-6]|div|section|a|blockquote|figcaption|
 def max_block_words(chunk):
     return max((count_words(visible_text(p)) for p in BLOCK_SPLIT.split(chunk)), default=0)
 
+_OPEN_TAG_RE = re.compile(r"""<(section|div)\b[^>]*class=("[^"]*"|'[^']*')[^>]*>""", re.I)
+
+
+def _has_slide_class(quoted_class_attr):
+    """True iff 'slide' appears as its own space-separated class token — not as
+    a substring of a hyphenated class like 'title-slide' or 'slide-inner'. A
+    naive \\bslide\\b regex treats '-' as a word-boundary character, so it
+    wrongly matches those compounds too."""
+    classes = quoted_class_attr[1:-1].split()  # strip the surrounding quote char
+    return "slide" in classes
+
+
 # ---------- slide detection ----------
 def find_slides(html):
     """Return list of slide inner-HTML chunks. Matches top-level <section|div class=...slide...>."""
     slides = []
-    # find each opening tag whose class contains a whole word 'slide'. Accept both
-    # quote styles: third-party/self-authored decks often use single-quoted
-    # attributes (class='slide'), and a double-quote-only pattern silently finds
-    # zero slides on them — skipping every per-slide metric and the G1 gate.
-    opens = [m for m in re.finditer(
-        r"""<(section|div)\b[^>]*class=("[^"]*\bslide\b[^"]*"|'[^']*\bslide\b[^']*')[^>]*>""",
-        html, flags=re.I)]
+    # find each opening tag with a class attribute (either quote style — a
+    # double-quote-only pattern silently finds zero slides on third-party/
+    # self-authored decks that use class='slide'), then check the class LIST
+    # for an exact 'slide' token, not merely a 'slide' substring: hyphenated
+    # classes like 'title-slide' or 'slide-inner' must not count as a slide.
+    opens = [m for m in _OPEN_TAG_RE.finditer(html) if _has_slide_class(m.group(2))]
     for i, m in enumerate(opens):
         start = m.end()
         end = opens[i + 1].start() if i + 1 < len(opens) else len(html)

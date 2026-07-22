@@ -97,3 +97,32 @@ class TestFrameworkGateIgnoresSlideCopy:
         result = dm.analyze(html)
         assert "G5" in _gate_ids(result)
         assert "Tailwind" in result["metrics"]["frameworks"]
+
+
+class TestHyphenatedClassNotSlide:
+    """Codex GitHub review round 2, P2: \\bslide\\b treats '-' as a word
+    boundary, so hyphenated classes like 'title-slide' or 'slide-inner'
+    falsely count as a slide. Must match only an exact 'slide' class token."""
+
+    def test_title_slide_class_not_counted(self):
+        html = ('<html><body>'
+                '<section class="title-slide"><h1>Not a slide</h1></section>'
+                '<section class="slide"><h1>Real</h1></section>'
+                '</body></html>')
+        result = dm.analyze(html)
+        assert result["metrics"]["slide_count"] == 1
+
+    def test_slide_inner_class_not_counted(self):
+        html = ('<html><body>'
+                '<div class="slide-inner"><h1>Not a slide</h1></div>'
+                "<section class='slide'><h1>Real</h1></section>"
+                '</body></html>')
+        result = dm.analyze(html)
+        assert result["metrics"]["slide_count"] == 1
+
+    def test_slide_with_other_classes_still_counted(self):
+        html = ('<html><body>'
+                '<section class="deck-slide slide active"><h1>Real</h1></section>'
+                '</body></html>')
+        result = dm.analyze(html)
+        assert result["metrics"]["slide_count"] == 1
