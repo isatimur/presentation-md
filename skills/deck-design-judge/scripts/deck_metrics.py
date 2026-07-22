@@ -185,7 +185,11 @@ def to_rgb(val, bg=None):
             return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
     m = re.match(r"rgba?\(([^)]+)\)", val)
     if m:
-        parts = [p.strip() for p in m.group(1).replace("/", ",").split(",") if p.strip()]
+        # Modern CSS Color 4 syntax is space-separated with an optional '/ alpha'
+        # (e.g. `rgb(255 255 255 / 0.5)`), not just the legacy comma form. A
+        # comma-only split leaves "255 255 255" as one element on that syntax,
+        # so contrast silently stopped being checked for decks using it.
+        parts = [p for p in re.split(r"[\s,/]+", m.group(1).strip()) if p]
         try:
             r, g, b = (float(parts[0]), float(parts[1]), float(parts[2]))
             a = float(parts[3]) if len(parts) > 3 else 1.0

@@ -364,3 +364,31 @@ class TestMetricsAppendixSanitization:
                         "-o", str(out_md)], check=True, capture_output=True, text=True)
         md = out_md.read_text()
         assert "<script>" not in md
+
+
+class TestUnassessedGatesDisclosed:
+    """Codex GitHub review round 4, P2: a gate the judge legitimately never
+    assessed (hit: null, e.g. layout_overflow with no screenshots) must be
+    disclosed, not silently treated the same as a passed gate. Note: the base
+    _judge_panel() fixture already sets layout_overflow.hit=null (the
+    documented source-only-judge behavior), so it exercises this by default."""
+
+    def test_null_gate_disclosed_in_json(self, tmp_path):
+        _, out_json, _ = _run(tmp_path, _judge_panel())
+        sc = json.loads(out_json.read_text())
+        assert "layout_overflow" not in [g["id"] for g in sc["gates"]]  # not a failure
+        assert "G7" in sc["gates_unassessed"]
+        assert sc["gated"] is False  # an unassessed gate is not a gate failure
+
+    def test_null_gate_disclosed_in_md(self, tmp_path):
+        out_md, _, _ = _run(tmp_path, _judge_panel())
+        md = out_md.read_text()
+        assert "Not assessed" in md
+        assert "G7" in md
+
+    def test_no_unassessed_gates_no_disclosure_note(self, tmp_path):
+        j = _judge_panel()
+        j["gates"]["layout_overflow"] = {"hit": False}  # explicitly assessed, clean
+        out_md, out_json, _ = _run(tmp_path, j)
+        assert "Not assessed" not in out_md.read_text()
+        assert json.loads(out_json.read_text())["gates_unassessed"] == []

@@ -147,3 +147,30 @@ class TestNoSlideFallbackStillGatesWallOfText:
         result = dm.analyze(html)
         assert result["metrics"]["slide_count"] == 0
         assert "G1" not in _gate_ids(result)
+
+
+class TestModernRgbSyntax:
+    """Codex GitHub review round 4, P2: CSS Color 4 space-separated rgb()
+    (e.g. rgb(255 255 255) or rgb(255 255 255 / 0.5)) was silently unparsed,
+    so contrast checks stopped working for decks using this syntax."""
+
+    def _deck(self, bg, text):
+        return f"""<html><head><style>
+        :root {{ --bg: {bg}; --text: {text}; }}
+        </style></head><body>
+        <section class="slide"><h1>Title</h1><p>Body copy here for the slide.</p></section>
+        </body></html>"""
+
+    def test_space_separated_rgb_low_contrast_gates(self):
+        result = dm.analyze(self._deck("rgb(255 255 255)", "rgb(238 238 238)"))
+        assert "--text" in result["metrics"]["contrast_ratios"]
+        assert "G3" in _gate_ids(result)
+
+    def test_space_separated_rgb_with_alpha_parses(self):
+        result = dm.analyze(self._deck("rgb(255 255 255)", "rgb(17 17 17 / 1.0)"))
+        assert "--text" in result["metrics"]["contrast_ratios"]
+
+    def test_legacy_comma_rgb_still_parses(self):
+        result = dm.analyze(self._deck("rgb(255, 255, 255)", "rgb(238, 238, 238)"))
+        assert "--text" in result["metrics"]["contrast_ratios"]
+        assert "G3" in _gate_ids(result)

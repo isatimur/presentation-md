@@ -25,8 +25,19 @@ fi
 
 ABS_DECK="$(cd "$(dirname "$DECK")" && pwd)/$(basename "$DECK")"
 
-# Count slides (top-level elements whose class contains the word 'slide')
-N="$(grep -oE '<(section|div)[^>]*class="[^"]*\bslide\b' "$ABS_DECK" | wc -l | tr -d ' ')"
+# Count slides the same way deck_metrics.py's find_slides() does: accept
+# either quote style, and require an exact 'slide' class token (not a
+# substring match — a plain grep -E '\bslide\b' also counts 'title-slide'
+# and 'slide-inner' as slides, and misses single-quoted class='slide').
+N="$(python3 -c "
+import re, sys
+html = open(sys.argv[1], encoding='utf-8', errors='ignore').read()
+n = 0
+for m in re.finditer(r'''<(section|div)\b[^>]*class=(\"[^\"]*\"|'[^']*')[^>]*>''', html, re.I):
+    if 'slide' in m.group(2)[1:-1].split():
+        n += 1
+print(n)
+" "$ABS_DECK")"
 if [ "$N" -lt 1 ]; then N=1; fi
 echo "Rendering $N slide(s) at ${W}x${H} -> $OUT"
 

@@ -176,6 +176,11 @@ def main():
 
     # gates
     gates = []
+    # Gates the judge legitimately never assessed (hit: null — e.g. layout_overflow
+    # at T1/T3-source-only, per the judge prompt) must not read as "passed": ready
+    # can still be true, but the shareable card has to disclose what was and
+    # wasn't checked, rather than silently treating "unknown" as "clean".
+    unassessed_gates = []
     for f in metrics.get("flags", []):
         if f.get("severity") == "gate":
             gates.append({"id": f["id"], "detail": f["detail"], "slide": f.get("slide")})
@@ -191,6 +196,8 @@ def main():
             continue   # unparseable verdict — excluded, never silently truthy
         if hit is True:
             gates.append({"id": gid, "detail": g.get("evidence", ""), "slide": None})
+        elif hit is None:
+            unassessed_gates.append(gid)
 
     # Anomalies the panel already recorded, plus the ones scorecard just found.
     anomalies = list(judge.get("anomalies", [])) + score_anomalies
@@ -279,6 +286,10 @@ def main():
             where = f" (slide {g['slide']})" if g.get("slide") else ""
             L.append(f"- **{g['id']} — {GATE_LABEL.get(g['id'], g['id'])}**{where}: "
                      f"{md_safe(g['detail'])}")
+    if unassessed_gates:
+        names = ", ".join(f"{GATE_LABEL.get(g, g)} ({g})" for g in unassessed_gates)
+        L.append(f"\n*Not assessed this run (no screenshots / source-only judge): {md_safe(names)}. "
+                 f"A gate here would not have been caught — it is unknown, not clean.*")
 
     L.append("\n## Dimensions")
     L.append("| Dimension | Score | Weight | Contribution | Evidence |")
@@ -320,7 +331,8 @@ def main():
 
     if a.json:
         json.dump(build_scorecard_json(a, judge, metrics, dims, gates, fixes,
-                                       weighted, grade, ready, gated, anomalies),
+                                       weighted, grade, ready, gated, anomalies,
+                                       unassessed_gates),
                   open(a.json, "w"), indent=2)
 
 def sha256_file(path):
@@ -331,7 +343,8 @@ def sha256_file(path):
     return h.hexdigest()
 
 def build_scorecard_json(a, judge, metrics, dims, gates, fixes,
-                         weighted, grade, ready, gated, anomalies):
+                         weighted, grade, ready, gated, anomalies,
+                         unassessed_gates=None):
     """Shareable scorecard.json — schema_version 1.0."""
     panel = judge.get("panel", {})
     models = list(panel.get("display", {}).values()) or list(panel.get("models", []))
@@ -369,6 +382,7 @@ def build_scorecard_json(a, judge, metrics, dims, gates, fixes,
         "run": {"date": datetime.date.today().isoformat(),
                 "tier": judge.get("tier", "?"), "models": models},
         "metrics": metrics.get("metrics", {}),
+        "gates_unassessed": list(unassessed_gates or []),
         "gates": gates,
         "dimensions": dimensions,
         "dimensions_covered": {"count": len(dimensions), "of": len(WEIGHTS),
