@@ -33,4 +33,4 @@ the latest published release of each package on its registry.
 
 - 0.1.0 — Python renderer CLI for agents and pipelines running outside Node.js.
 
-[Unreleased]: https://github.com/isatimur/presentation-skill-pack/compare/HEAD...HEAD
+[Unreleased]: https://github.com/isatimur/presentation-md/compare/HEAD...HEAD

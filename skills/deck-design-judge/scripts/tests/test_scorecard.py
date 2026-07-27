@@ -52,7 +52,7 @@ def test_scorecard_json_shape(tmp_path):
 
     assert sc["schema_version"] == "1.0"
     assert sc["skill"] == {"name": "deck-design-judge", "version": "0.2.0",
-                           "repo": "https://github.com/isatimur/presentation-skill-pack"}
+                           "repo": "https://github.com/isatimur/presentation-md"}
     # deck file + sha256
     assert sc["deck"]["file"] == "deck.html"
     assert sc["deck"]["sha256"] == hashlib.sha256(deck_p.read_bytes()).hexdigest()

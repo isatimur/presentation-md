@@ -34,8 +34,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/isatimur/presentation-skill-pack.git"
+    "url": "https://github.com/isatimur/presentation-md.git"
   },
   "homepage": "https://presentation-skill-pack.vercel.app",
-  "bugs": "https://github.com/isatimur/presentation-skill-pack/issues"
+  "bugs": "https://github.com/isatimur/presentation-md/issues"
 }

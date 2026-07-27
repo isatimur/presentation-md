@@ -27,5 +27,5 @@ Replace `<agent>` with: `claude-code`, `cursor`, `copilot`, `codex`, or `gemini-
 ### Links
 
 - npm: https://www.npmjs.com/package/@presentation-skill-pack/install
-- GitHub: https://github.com/isatimur/presentation-skill-pack
+- GitHub: https://github.com/isatimur/presentation-md
 - Gallery: https://presentation-skill-pack.vercel.app/

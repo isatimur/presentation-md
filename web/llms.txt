@@ -19,7 +19,7 @@ presentation-skill-pack gives AI agents a schema-validated workflow for creating
 - **Themes:** Swappable, publishable npm packages
 - **MCP server:** Exposes 5 typed tools (`render_deck`, `list_themes`, `get_theme`, `validate_deck`, `create_deck`)
 - **npm package:** `@presentation-skill-pack/install`
-- **GitHub:** https://github.com/isatimur/presentation-skill-pack
+- **GitHub:** https://github.com/isatimur/presentation-md
 - **Author:** Timur Isachenko
 
 ## Pricing

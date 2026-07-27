@@ -3,7 +3,7 @@
 ## Setup
 
 ```bash
-git clone https://github.com/isatimur/presentation-skill-pack.git
+git clone https://github.com/isatimur/presentation-md.git
 cd presentation-skill-pack
 pnpm install
 ```

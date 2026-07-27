@@ -4,7 +4,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@presentation-skill-pack/core)](https://www.npmjs.com/package/@presentation-skill-pack/core)
 [![PyPI](https://img.shields.io/pypi/v/presentation-skill-pack-render)](https://pypi.org/project/presentation-skill-pack-render/)
-[![CI](https://github.com/isatimur/presentation-skill-pack/actions/workflows/ci.yml/badge.svg)](https://github.com/isatimur/presentation-skill-pack/actions/workflows/ci.yml)
+[![CI](https://github.com/isatimur/presentation-md/actions/workflows/ci.yml/badge.svg)](https://github.com/isatimur/presentation-md/actions/workflows/ci.yml)
 [![Gallery](https://img.shields.io/badge/gallery-25%20decks-7C3AED)](https://presentation-skill-pack.vercel.app/#gallery)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -161,7 +161,7 @@ This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a q
     {
       "layout": "closing",
       "heading": "Questions?",
-      "subheading": "deck source at github.com/isatimur/presentation-skill-pack"
+      "subheading": "deck source at github.com/isatimur/presentation-md"
     }
   ]
 }

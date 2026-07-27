@@ -8,8 +8,8 @@ fixes) before ship. Provenance and the wider ecosystem it plugs into:
 
 | Role | Project |
 |---|---|
-| Public home (this skill lives here) | https://github.com/isatimur/presentation-skill-pack |
-| Sibling skill (generates the decks this one judges) | https://github.com/isatimur/presentation-skill-pack — `presentation-generator` |
+| Public home (this skill lives here) | https://github.com/isatimur/presentation-md |
+| Sibling skill (generates the decks this one judges) | https://github.com/isatimur/presentation-md — `presentation-generator` |
 | Umbrella marketplace (all skill packs) | coming soon — repo not yet public |
 
 ## Benchmark

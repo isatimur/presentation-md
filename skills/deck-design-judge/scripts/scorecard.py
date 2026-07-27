@@ -109,7 +109,7 @@ def validate_dims(raw_dims):
         nd["score"] = int(val) if val == int(val) else round(val, 1)
         dims[k] = nd
     return dims, anomalies, tampered
-SKILL_REPO = "https://github.com/isatimur/presentation-skill-pack"
+SKILL_REPO = "https://github.com/isatimur/presentation-md"
 
 # A deck scored over too few dimensions cannot be called "ready": renormalising the
 # weighted score over a handful of survivors (e.g. one 5/5 dimension -> 100/100) is
