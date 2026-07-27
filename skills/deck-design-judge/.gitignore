@@ -1,0 +1,5 @@
+.superpowers/
+__pycache__/
+*.pyc
+.design-eval/
+.pytest_cache/

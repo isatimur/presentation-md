@@ -1,0 +1,14 @@
+{
+  "$schema": "presentation-studio/brand-tokens/v1",
+  "name": "Swiirl",
+  "primary": "#7c3aed",
+  "accent": "#22d3ee",
+  "bg": "#0e0e12",
+  "bg2": "#17171d",
+  "text": "#f4f4f5",
+  "muted": "#a1a1aa",
+  "radius": "18px",
+  "fontHeading": "Inter",
+  "fontBody": "Inter",
+  "logo": "swiirl.svg"
+}

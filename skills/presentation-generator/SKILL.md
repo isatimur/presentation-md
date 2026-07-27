@@ -342,6 +342,7 @@ These are the details that make a deck read as machine-generated. A reviewer clo
 15. **The Centered Paragraph** — center a hero headline if you like, but body copy, bullets, and multi-line captions are always left-aligned. Centered running text has a ragged left edge the eye can't track.
 16. **The Overflow** — nothing falls off the slide and nothing overlaps. Every element sits inside the safe margin with real breathing room around it. Text clipped at the edge or a chart crashing into a caption instantly reads as broken.
 17. **The Low-Contrast Whisper** — light text on a light surface, or dark on dark. Body text must clear a genuine contrast ratio (aim WCAG AA, ~4.5:1). "It looks fine on my monitor" fails in a bright conference room every time.
+18. **The Italic Crutch** — reaching for `italic` to signal emphasis, a quote, or "elegance" is a font-rendering roulette: most of the display fonts in these themes don't ship a true italic, so the browser fake-slants the roman weight and it reads as broken, not intentional. Get emphasis from weight, size, color, or space instead.
 
 ---
 
@@ -383,6 +384,18 @@ Fill gaps with intelligent defaults. Never ask more than 3 clarifying questions.
 - **Always scroll-snapped** — each slide is `100vh`, `scroll-snap-align: start`
 - **Always keyboard-navigable** — arrow key handler in a 3-line `<script>` at the bottom
 - **Always print-safe** — `@media print` block that removes `.nav-hint` and sets `page-break-after: always`
+- **Never `display: grid` (or `flex`) directly on an `<li>` that contains inline elements** (`<code>`, `<span>`, `<a>`) — the browser wraps each inline child in an anonymous block box to satisfy the grid formatting context, which silently breaks bullet alignment and spacing. Put the grid/flex on a wrapper `<div>` inside the `<li>` instead, or keep the `<li>` a plain block and let its child own the layout.
+
+---
+
+## Export & Share
+
+Once a deck is done, it can leave the browser two ways. Both scripts live inside *this skill's own directory*, not the user's project — resolve `<skill-dir>` to wherever this `SKILL.md` is installed (e.g. `~/.claude/skills/presentation-generator/` or the plugin's skill path) and invoke them from there, passing the deck's path as an argument:
+
+- **PDF** — `bash <skill-dir>/scripts/export-pdf.sh ./deck.html [./output.pdf]`. Renders through headless Chromium's print pipeline (not screenshots): vector output, selectable text, one page per slide via the deck's own `@media print` rule. Installs Playwright on first run. Good for email, Slack, Notion, or printing.
+- **Live URL** — `bash <skill-dir>/scripts/deploy.sh ./deck.html` (or a deck directory). Deploys to Vercel and prints a shareable URL that works on any device. Defaults to a **preview** deployment, not production — pass `--prod` only once the human has confirmed it's fine to publish permanently. **Confirm with the human before running this**: it's an externally-visible action, and decks are often confidential drafts. Requires `npx vercel login` once, interactively, beforehand. A single-file deck that references local images/fonts will be refused (they'd 404 once deployed) — inline them as `data:` URLs first, or deploy the deck's whole directory instead.
+
+For native, editable PowerPoint, use the Studio export mentioned above instead — it's a different fidelity trade-off (editable shapes vs. exact CSS rendering).
 
 ---
 
