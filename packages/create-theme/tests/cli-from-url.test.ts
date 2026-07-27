@@ -3,6 +3,12 @@ import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { validateThemeJson } from "@presentation-skill-pack/core";
+
+const lookupMock = vi.fn();
+vi.mock("node:dns/promises", () => ({
+  lookup: (...args: unknown[]) => lookupMock(...args),
+}));
+
 import { buildProgram } from "../src/index.js";
 
 function mockResponse(text: string): Response {
@@ -20,6 +26,8 @@ describe("create-theme CLI --from-url", () => {
   beforeEach(() => {
     outDir = mkdtempSync(join(tmpdir(), "create-theme-test-"));
     vi.stubGlobal("fetch", vi.fn());
+    lookupMock.mockReset();
+    lookupMock.mockResolvedValue([{ address: "93.184.216.34", family: 4 }]);
   });
 
   afterEach(() => {
