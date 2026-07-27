@@ -93,6 +93,47 @@ export async function fetchText(url: string, redirectsLeft = MAX_REDIRECTS): Pro
   }
 }
 
+/**
+ * Follow `url`'s redirect chain without keeping the body, validating every hop's
+ * hostname, and return the final URL.
+ *
+ * Used by the computed-style fallback so Chromium can navigate straight to the
+ * resolved URL. That keeps the document's base URL correct: the request guard
+ * there fulfills responses against the *requesting* URL, which would otherwise
+ * pin the document to the pre-redirect URL and silently break relative
+ * subresource hrefs (`<link href="style.css">` on a `/` -> `/en/home` redirect).
+ */
+export async function resolvePublicUrl(url: string, redirectsLeft = MAX_REDIRECTS): Promise<string> {
+  if (!/^https?:\/\//i.test(url)) {
+    throw new Error(`Unsupported URL scheme: ${url}`);
+  }
+  await assertPublicHostname(new URL(url).hostname);
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  try {
+    const res = await fetch(url, { redirect: "manual", signal: controller.signal });
+    try {
+      await res.body?.cancel();
+    } catch {
+      // Body already consumed or unsupported by the runtime; nothing to release.
+    }
+    if (res.status >= 300 && res.status < 400) {
+      const location = res.headers.get("location");
+      if (!location) return url;
+      if (redirectsLeft <= 0) throw new Error(`Too many redirects resolving ${url}`);
+      return resolvePublicUrl(new URL(location, url).toString(), redirectsLeft - 1);
+    }
+    return url;
+  } catch (err) {
+    if (err instanceof Error && err.name === "AbortError") {
+      throw new Error(`Timed out resolving ${url} (>${TIMEOUT_MS}ms)`);
+    }
+    throw err;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 export async function fetchStylesheetsFromUrl(url: string): Promise<string> {
   const html = await fetchText(url);
   const hrefs = [...html.matchAll(/<link\b[^>]*rel=["']?stylesheet["']?[^>]*>/gi)]

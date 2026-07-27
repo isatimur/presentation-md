@@ -4,7 +4,7 @@ import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { assertPublicHostname } from "./fetch-css.js";
+import { assertPublicHostname, resolvePublicUrl } from "./fetch-css.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PACKAGE_ROOT = join(__dirname, "..");
@@ -171,8 +171,16 @@ export async function extractComputedStyles(url: string): Promise<ComputedStyleR
   // Done FIRST, before anything is installed or launched, so a private target
   // never gets as far as spawning a browser.
   const target = new URL(url);
+  let navigationUrl = url;
   if (!NON_NETWORK_SCHEMES.has(target.protocol)) {
     await assertPublicHostname(target.hostname);
+    // Resolve the navigation's redirect chain here, validating every hop, so
+    // Chromium navigates directly to the final URL and the document's base URL
+    // is correct. guardRoute below fulfills against the requesting URL, so
+    // letting it handle the navigation redirect would pin the document to the
+    // pre-redirect URL and break relative subresource hrefs — which would
+    // silently yield UA-default colors instead of the brand's.
+    navigationUrl = await resolvePublicUrl(url);
   }
 
   ensurePlaywrightInstalled();
@@ -201,7 +209,7 @@ export async function extractComputedStyles(url: string): Promise<ComputedStyleR
         }
       }
     });
-    await page.goto(url, { waitUntil: "networkidle", timeout: 15_000 });
+    await page.goto(navigationUrl, { waitUntil: "networkidle", timeout: 15_000 });
     return await page.evaluate(() => {
       function rgbToHex(rgb: string): string | undefined {
         const m = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);

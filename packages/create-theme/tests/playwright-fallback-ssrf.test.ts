@@ -30,15 +30,31 @@ describe.skipIf(!!process.env.CI)("extractComputedStyles request guard", () => {
         res.writeHead(302, { Location: "http://169.254.169.254/latest/meta-data/" });
         res.end();
       } else if (req.url === "/redirect-ok") {
-        res.writeHead(302, { Location: "/final" });
+        // Path-depth-changing redirect: the relative stylesheet href below only
+        // resolves correctly if the document's base URL is the POST-redirect
+        // URL. Guards against the route.fetch/fulfill rewrite silently pinning
+        // the document to the pre-redirect URL.
+        res.writeHead(302, { Location: "/en/home" });
         res.end();
-      } else if (req.url === "/final") {
+      } else if (req.url === "/en/home") {
         res.writeHead(200, { "Content-Type": "text/html" });
         res.end(
-          `<html><body style="background:#123456;color:#abcdef;font-family:Georgia">` +
-            `<h1 style="font-family:'Helvetica Neue'">H</h1>` +
+          `<html><head><link rel="stylesheet" href="style.css">` +
+            // A subresource on a public host that redirects into a private one.
+            // Only guardRoute's per-hop check can catch this.
+            `<link rel="stylesheet" href="/redirect-css"></head>` +
+            `<body><h1>H</h1>` +
             `<img src="http://169.254.169.254/latest/meta-data/">` +
             `</body></html>`
+        );
+      } else if (req.url === "/redirect-css") {
+        res.writeHead(302, { Location: "http://10.0.0.7/evil.css" });
+        res.end();
+      } else if (req.url === "/en/style.css") {
+        res.writeHead(200, { "Content-Type": "text/css" });
+        res.end(
+          `body { background: #123456; color: #abcdef; font-family: Georgia; }` +
+            `h1 { font-family: 'Helvetica Neue'; }`
         );
       } else {
         res.writeHead(404);
@@ -62,11 +78,21 @@ describe.skipIf(!!process.env.CI)("extractComputedStyles request guard", () => {
     expect(lookupMock).toHaveBeenCalledWith("169.254.169.254");
   }, 60_000);
 
-  it("still follows a redirect that stays on a public host, and blocks only the private subresource", async () => {
+  it("still follows a redirect that stays on a public host, and blocks only the private requests", async () => {
     const result = await extractComputedStyles(`http://localhost:${port}/redirect-ok`);
+    // The navigation redirect changes path depth (/redirect-ok -> /en/home), so
+    // these values are only correct if the document's base URL is the
+    // POST-redirect one — otherwise the relative <link href="style.css">
+    // resolves to /style.css, 404s, and we silently report UA defaults
+    // (#000000 on #ffffff, Times) as the brand.
     expect(result.bg?.toLowerCase()).toBe("#123456");
     expect(result.text?.toLowerCase()).toBe("#abcdef");
     expect(result.headingFont).toBe("Helvetica Neue");
     expect(result.bodyFont).toBe("Georgia");
+    // A subresource that 302s from the public host into a private one is caught
+    // at the hop by guardRoute, without breaking the rest of the page.
+    expect(lookupMock).toHaveBeenCalledWith("10.0.0.7");
+    // ...as is a subresource pointing straight at a private address.
+    expect(lookupMock).toHaveBeenCalledWith("169.254.169.254");
   }, 60_000);
 });
