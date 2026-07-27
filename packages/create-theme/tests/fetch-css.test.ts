@@ -56,6 +56,7 @@ describe("fetchText", () => {
       );
     }
     await expect(fetchText("https://example.com/style.css")).rejects.toThrow(/too many redirects/i);
+    expect(fetchMock).toHaveBeenCalledTimes(6);
   });
 
   it("throws on a non-ok response", async () => {
@@ -69,6 +70,34 @@ describe("fetchText", () => {
     const huge = "a".repeat(6 * 1024 * 1024);
     (fetch as unknown as ReturnType<typeof vi.fn>).mockResolvedValueOnce(mockResponse({ text: huge }));
     await expect(fetchText("https://example.com/big.css")).rejects.toThrow(/too large/i);
+  });
+
+  it("times out if the response body never arrives", async () => {
+    vi.useFakeTimers();
+    try {
+      const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
+      fetchMock.mockImplementation(
+        (url, opts: { signal?: AbortSignal }) =>
+          new Promise((resolve) => {
+            if (opts?.signal) {
+              opts.signal.addEventListener("abort", () => {
+                resolve({
+                  ok: true,
+                  status: 200,
+                  headers: new Headers(),
+                  arrayBuffer: () => Promise.reject(new DOMException("The operation was aborted.", "AbortError")),
+                } as unknown as Response);
+              });
+            }
+          })
+      );
+
+      const promise = fetchText("https://example.com/style.css");
+      vi.advanceTimersByTime(10_000);
+      await expect(promise).rejects.toThrow(/timed out/i);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
 

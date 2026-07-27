@@ -11,23 +11,28 @@ export async function fetchText(url: string, redirectsLeft = MAX_REDIRECTS): Pro
   let res: Response;
   try {
     res = await fetch(url, { redirect: "manual", signal: controller.signal });
+    if (res.status >= 300 && res.status < 400) {
+      const location = res.headers.get("location");
+      if (!location) throw new Error(`Redirect with no Location header: ${url}`);
+      if (redirectsLeft <= 0) throw new Error(`Too many redirects fetching ${url}`);
+      return fetchText(new URL(location, url).toString(), redirectsLeft - 1);
+    }
+    if (!res.ok) {
+      throw new Error(`Fetch failed (${res.status}): ${url}`);
+    }
+    const buf = await res.arrayBuffer();
+    if (buf.byteLength > MAX_BYTES) {
+      throw new Error(`Response too large (${buf.byteLength} bytes) fetching ${url}`);
+    }
+    return new TextDecoder("utf-8").decode(buf);
+  } catch (err) {
+    if (err instanceof Error && err.name === "AbortError") {
+      throw new Error(`Timed out fetching ${url} (>${TIMEOUT_MS}ms)`);
+    }
+    throw err;
   } finally {
     clearTimeout(timer);
   }
-  if (res.status >= 300 && res.status < 400) {
-    const location = res.headers.get("location");
-    if (!location) throw new Error(`Redirect with no Location header: ${url}`);
-    if (redirectsLeft <= 0) throw new Error(`Too many redirects fetching ${url}`);
-    return fetchText(new URL(location, url).toString(), redirectsLeft - 1);
-  }
-  if (!res.ok) {
-    throw new Error(`Fetch failed (${res.status}): ${url}`);
-  }
-  const buf = await res.arrayBuffer();
-  if (buf.byteLength > MAX_BYTES) {
-    throw new Error(`Response too large (${buf.byteLength} bytes) fetching ${url}`);
-  }
-  return new TextDecoder("utf-8").decode(buf);
 }
 
 export async function fetchStylesheetsFromUrl(url: string): Promise<string> {
