@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { parseCssVariables } from "@presentation-skill-pack/core";
 
 const lookupMock = vi.fn();
 vi.mock("node:dns/promises", () => ({
@@ -183,5 +184,35 @@ describe("fetchStylesheetsFromUrl", () => {
     (fetch as unknown as ReturnType<typeof vi.fn>).mockResolvedValueOnce(mockResponse({ text: "<html></html>" }));
     const css = await fetchStylesheetsFromUrl("https://example.com/");
     expect(css).toBe("");
+  });
+
+  // Next.js/Vite/Astro inline critical CSS into <style> rather than linking it.
+  // Ignoring that HTML made the static pass report "found nothing" and trigger
+  // an unnecessary ~150MB Chromium download for data already in memory.
+  it("extracts :root variables from an inline <style> block with no linked stylesheets", async () => {
+    const html = `<html><head><style>:root { --bg: #123456; --accent: #ff0000; }</style></head></html>`;
+    const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
+    fetchMock.mockResolvedValueOnce(mockResponse({ text: html }));
+
+    const css = await fetchStylesheetsFromUrl("https://example.com/");
+    expect(fetchMock).toHaveBeenCalledTimes(1); // no extra network requests
+    expect(parseCssVariables(css).bg).toBe("#123456");
+    expect(parseCssVariables(css).accent).toBe("#ff0000");
+  });
+
+  it("combines inline <style> blocks with linked stylesheets", async () => {
+    const html = `<html><head>
+      <link rel="stylesheet" href="/a.css">
+      <style type="text/css">:root { --accent: #00ff00; }</style>
+    </head></html>`;
+    const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
+    fetchMock
+      .mockResolvedValueOnce(mockResponse({ text: html }))
+      .mockResolvedValueOnce(mockResponse({ text: ":root { --bg: #222222; }" }));
+
+    const css = await fetchStylesheetsFromUrl("https://example.com/");
+    const vars = parseCssVariables(css);
+    expect(vars.bg).toBe("#222222");
+    expect(vars.accent).toBe("#00ff00");
   });
 });
