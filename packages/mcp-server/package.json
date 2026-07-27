@@ -21,6 +21,7 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
     "@presentation-skill-pack/core": "workspace:*",
+    "@presentation-skill-pack/create-theme": "workspace:*",
     "@presentation-skill-pack/render": "workspace:*",
     "zod": "^3.23.0"
   },

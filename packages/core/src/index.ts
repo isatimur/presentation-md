@@ -12,3 +12,15 @@ export type {
   DiscoveredTheme,
   DiscoveryOptions
 } from "./theme-loader.js";
+export {
+  parseCssVariables,
+  parseFontDeclarations,
+  mapPaletteToRoles,
+  ensureContrastSafe,
+} from "./brand-extract.js";
+export type {
+  BrandColorCandidates,
+  BrandFontCandidates,
+  ContrastAdjustment,
+  ContrastSafeResult,
+} from "./brand-extract.js";
