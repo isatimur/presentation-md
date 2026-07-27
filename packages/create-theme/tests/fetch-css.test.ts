@@ -1,5 +1,11 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { fetchText, fetchStylesheetsFromUrl } from "../src/fetch-css.js";
+
+const lookupMock = vi.fn();
+vi.mock("node:dns/promises", () => ({
+  lookup: (...args: unknown[]) => lookupMock(...args),
+}));
+
+const { fetchText, fetchStylesheetsFromUrl } = await import("../src/fetch-css.js");
 
 function mockResponse(opts: {
   ok?: boolean;
@@ -18,6 +24,8 @@ function mockResponse(opts: {
 describe("fetchText", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn());
+    lookupMock.mockReset();
+    lookupMock.mockResolvedValue([{ address: "93.184.216.34", family: 4 }]);
   });
   afterEach(() => {
     vi.unstubAllGlobals();
@@ -93,17 +101,50 @@ describe("fetchText", () => {
       );
 
       const promise = fetchText("https://example.com/style.css");
-      vi.advanceTimersByTime(10_000);
-      await expect(promise).rejects.toThrow(/timed out/i);
+      // Attach the rejection assertion before advancing timers so the rejection
+      // is never observed as "unhandled" while we're still awaiting the advance.
+      const assertion = expect(promise).rejects.toThrow(/timed out/i);
+      // The DNS lookup precheck now runs (and resolves via a microtask) before the
+      // timeout timer is created, so we need an async-aware timer advance here to
+      // let that microtask flush before the timer exists.
+      await vi.advanceTimersByTimeAsync(10_000);
+      await assertion;
     } finally {
       vi.useRealTimers();
     }
+  });
+
+  it("rejects a hostname that resolves to a private IPv4 address", async () => {
+    lookupMock.mockResolvedValue([{ address: "10.0.0.5", family: 4 }]);
+    await expect(fetchText("https://internal.example.com/style.css")).rejects.toThrow(
+      /private\/internal address/i
+    );
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it("rejects the cloud metadata address", async () => {
+    lookupMock.mockResolvedValue([{ address: "169.254.169.254", family: 4 }]);
+    await expect(fetchText("https://metadata.example.com/style.css")).rejects.toThrow(
+      /private\/internal address/i
+    );
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it("allows a hostname that resolves to a public IP", async () => {
+    lookupMock.mockResolvedValue([{ address: "93.184.216.34", family: 4 }]);
+    (fetch as unknown as ReturnType<typeof vi.fn>).mockResolvedValueOnce(
+      mockResponse({ text: "body { color: blue; }" })
+    );
+    const result = await fetchText("https://example.com/style.css");
+    expect(result).toBe("body { color: blue; }");
   });
 });
 
 describe("fetchStylesheetsFromUrl", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", vi.fn());
+    lookupMock.mockReset();
+    lookupMock.mockResolvedValue([{ address: "93.184.216.34", family: 4 }]);
   });
   afterEach(() => {
     vi.unstubAllGlobals();

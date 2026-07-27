@@ -1,4 +1,5 @@
-import { join } from "node:path";
+import { extname, join, resolve, sep } from "node:path";
+import { realpath } from "node:fs/promises";
 import {
   extractBrand,
   buildThemeViewFromBrand,
@@ -34,6 +35,22 @@ export const importBrandThemeTool: ToolDefinition = {
     const cssPath = input.cssPath as string | undefined;
     if (!url && !cssPath) throw new Error("Provide either 'url' or 'cssPath'.");
     if (url && cssPath) throw new Error("Provide only one of 'url' or 'cssPath', not both.");
+
+    if (cssPath) {
+      if (extname(cssPath).toLowerCase() !== ".css") {
+        throw new Error("'cssPath' must point to a .css file.");
+      }
+      const root = await realpath(process.cwd());
+      let resolvedPath: string;
+      try {
+        resolvedPath = await realpath(resolve(process.cwd(), cssPath));
+      } catch {
+        throw new Error(`'cssPath' not found: ${cssPath}`);
+      }
+      if (resolvedPath !== root && !resolvedPath.startsWith(root + sep)) {
+        throw new Error(`'cssPath' must be within the current working directory (${root}).`);
+      }
+    }
 
     let name = input.name as string | undefined;
     if (!name) {
