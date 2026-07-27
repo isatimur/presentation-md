@@ -74,6 +74,9 @@ export const importBrandThemeTool: ToolDefinition = {
       theme,
       source: extraction.source,
       contrastAdjustments: extraction.adjustments,
+      // Pairs that remain below WCAG AA (4.5:1) even after the contrast pass.
+      // Always present so the response shape is stable; empty means fully safe.
+      contrastStillFailing: extraction.stillFailing,
       writtenTo,
     };
   },

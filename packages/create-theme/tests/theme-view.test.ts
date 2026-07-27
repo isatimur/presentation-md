@@ -17,6 +17,7 @@ const EXTRACTION: BrandExtractionResult = {
   bodyFont: "Inter",
   source: "static",
   adjustments: [],
+  stillFailing: [],
 };
 
 describe("buildThemeViewFromBrand", () => {

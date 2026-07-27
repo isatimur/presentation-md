@@ -244,6 +244,11 @@ export function buildProgram(): Command {
               `  contrast: ${adj.pair} adjusted from ${adj.from} to ${adj.to} (ratio ${adj.ratio})\n`
             );
           }
+          if (extraction.stillFailing.length > 0) {
+            process.stdout.write(
+              `  warning: still below WCAG AA (4.5:1) after adjustment: ${extraction.stillFailing.join(", ")}\n`
+            );
+          }
           view = buildThemeViewFromBrand(name, extraction);
         } else {
           if (!name) {

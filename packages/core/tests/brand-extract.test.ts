@@ -89,6 +89,7 @@ describe("ensureContrastSafe", () => {
     const result = ensureContrastSafe(palette);
     expect(result.adjustments).toEqual([]);
     expect(result.palette).toEqual(palette);
+    expect(result.stillFailing).toEqual([]);
   });
 
   it("adjusts low-contrast text against the background and reports it", () => {
@@ -140,6 +141,74 @@ describe("ensureContrastSafe", () => {
       const actualRatio = contrastRatio(result.palette.text, bgColor);
       // The reported ratio in adjustments must match what's actually in the final palette
       expect(Math.abs(actualRatio - adjustment.ratio)).toBeLessThan(0.01);
+    }
+  });
+
+  // Regression: `muted` is derived in mapPaletteToRoles from text's ORIGINAL
+  // lightness and, on light backgrounds, is pushed toward the background — so
+  // this palette used to ship muted: #ffffff on bg: #ffffff (ratio 1.0,
+  // completely invisible) even though text was correctly fixed.
+  it("keeps muted legible against bg when the derived value collapses into the background", () => {
+    const palette = mapPaletteToRoles({ bg: "#ffffff", text: "#e0e0e0" });
+    expect(palette.muted).toBe("#ffffff"); // the raw derivation really is invisible
+    const result = ensureContrastSafe(palette);
+    expect(contrastRatio(result.palette.muted, result.palette.bg)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it("also guards muted against cardBg and reports the adjusted pair", () => {
+    const palette = mapPaletteToRoles({ bg: "#ffffff", text: "#e0e0e0" });
+    const result = ensureContrastSafe(palette);
+    expect(contrastRatio(result.palette.muted, result.palette.cardBg)).toBeGreaterThanOrEqual(4.5);
+    expect(result.adjustments.map((a) => a.pair)).toContain("muted on bg");
+    expect(result.adjustments.map((a) => a.pair)).toContain("muted on cardBg");
+    expect(result.stillFailing).toEqual([]);
+  });
+
+  // Regression for the fallback branch: when the 40pp lightness-shift cap is
+  // exhausted against a mid-gray background, the old hardcoded #1a1a1a only
+  // reached 4.41:1 while #000000 reaches 5.32:1.
+  it("picks the higher-contrast extreme when the lightness-shift cap is exhausted", () => {
+    const palette = mapPaletteToRoles({ bg: "#808080", text: "#8a8a8a" });
+    const result = ensureContrastSafe(palette);
+    for (const [fg, bg] of [
+      ["text", "bg"],
+      ["text", "cardBg"],
+      ["muted", "bg"],
+      ["muted", "cardBg"],
+    ] as const) {
+      const ratio = contrastRatio(result.palette[fg], result.palette[bg]);
+      const label = `${fg} on ${bg}`;
+      // Either the pair clears AA, or it is honestly reported in stillFailing.
+      if (ratio < 4.5) {
+        expect(result.stillFailing).toContain(label);
+      } else {
+        expect(result.stillFailing).not.toContain(label);
+      }
+    }
+    // The improved fallback makes this palette fully reachable.
+    expect(result.stillFailing).toEqual([]);
+    expect(contrastRatio(result.palette.text, result.palette.bg)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it("reports a pair that remains below the threshold after every fix attempt", () => {
+    // bg and cardBg sit on opposite sides of the lightness midpoint, so a single
+    // foreground value cannot satisfy both. bg wins; cardBg is disclosed.
+    const palette = {
+      bg: "#ffffff",
+      bg2: "#f5f5f5",
+      text: "#999999",
+      muted: "#6b6b6b",
+      accent: "#2563eb",
+      accent2: "#7c3aed",
+      cardBg: "#1a1a1a",
+      border: "#e0e0e0",
+    };
+    const result = ensureContrastSafe(palette);
+    expect(result.stillFailing).toContain("text on cardBg");
+    expect(result.stillFailing).not.toContain("text on bg");
+    for (const label of result.stillFailing) {
+      const [fg, , bg] = label.split(" ") as ["text" | "muted", string, "bg" | "cardBg"];
+      expect(contrastRatio(result.palette[fg], result.palette[bg])).toBeLessThan(4.5);
     }
   });
 });

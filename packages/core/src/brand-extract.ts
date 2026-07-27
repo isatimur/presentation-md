@@ -142,7 +142,27 @@ export interface ContrastAdjustment {
 export interface ContrastSafeResult {
   palette: Palette;
   adjustments: ContrastAdjustment[];
+  /**
+   * Labels of guarded pairs (same vocabulary as `ContrastAdjustment.pair`) that
+   * are STILL below `minRatio` in the returned palette after every fix attempt.
+   * Empty when the palette is fully contrast-safe. Callers should disclose this
+   * rather than claim success.
+   */
+  stillFailing: string[];
 }
+
+/**
+ * Foreground/background pairs the contrast pass guarantees. Both `text` and
+ * `muted` carry real body copy in the rendered decks (`.card p`, `.quote-by`,
+ * `.stat .label`, timeline captions, subtitles, the attribution footer), so
+ * both get the same treatment against both surfaces.
+ */
+const GUARDED_PAIRS: Array<{ fg: "text" | "muted"; bg: "bg" | "cardBg"; label: string }> = [
+  { fg: "text", bg: "bg", label: "text on bg" },
+  { fg: "text", bg: "cardBg", label: "text on cardBg" },
+  { fg: "muted", bg: "bg", label: "muted on bg" },
+  { fg: "muted", bg: "cardBg", label: "muted on cardBg" },
+];
 
 const MAX_LIGHTNESS_SHIFT = 40; // percentage points
 const STEP = 2;
@@ -166,71 +186,82 @@ function fixPair(fgHex: string, bgHex: string, minRatio: number): { color: strin
       return { color: candidate, adjusted: true };
     }
   }
-  // Cap reached without clearing the bar — fall back to a safe neutral value
-  // rather than ship an illegible pairing.
-  return { color: bgL >= 50 ? "#1a1a1a" : "#f5f5f5", adjusted: true };
+  // Cap reached without clearing the bar — fall back to whichever extreme
+  // actually maximizes contrast against this background. A hardcoded neutral
+  // (#1a1a1a / #f5f5f5) is not always the best reachable option: against a
+  // mid-gray bg (#808080) #1a1a1a only reaches 4.41:1 while #000000 reaches
+  // 5.32:1.
+  const blackRatio = contrastRatio("#000000", bgHex);
+  const whiteRatio = contrastRatio("#ffffff", bgHex);
+  return { color: blackRatio >= whiteRatio ? "#000000" : "#ffffff", adjusted: true };
+}
+
+/**
+ * Resolve a single foreground role to one final value that satisfies both the
+ * `bg` and `cardBg` pairs where possible. Fixes for the two pairs are computed
+ * independently from the original color (never sequentially, which would let
+ * the second fix undo the first); when they conflict, the `bg` pair wins
+ * because it is the dominant surface.
+ */
+function resolveForeground(original: string, bgHex: string, cardBgHex: string, minRatio: number): string {
+  const onBg = fixPair(original, bgHex, minRatio);
+  const onCardBg = fixPair(original, cardBgHex, minRatio);
+  if (!onBg.adjusted && !onCardBg.adjusted) return original;
+
+  let final: string;
+  if (onBg.adjusted && onCardBg.adjusted) {
+    const startL = rgbToHsl(hexToRgb(original))[2];
+    const bgShift = rgbToHsl(hexToRgb(onBg.color))[2] - startL;
+    const cardBgShift = rgbToHsl(hexToRgb(onCardBg.color))[2] - startL;
+    const sameDirection = (bgShift >= 0 && cardBgShift >= 0) || (bgShift <= 0 && cardBgShift <= 0);
+    if (sameDirection) {
+      // Both push the same way — the larger shift satisfies both.
+      final = Math.abs(bgShift) >= Math.abs(cardBgShift) ? onBg.color : onCardBg.color;
+    } else {
+      // Opposite directions; prioritize bg.
+      final = onBg.color;
+    }
+  } else if (onBg.adjusted) {
+    final = onBg.color;
+  } else {
+    final = onCardBg.color;
+  }
+
+  // Same "bg wins" priority, applied to the remaining case: never let a fix
+  // chosen for cardBg regress a bg pair that was already clearing the bar.
+  if (contrastRatio(final, bgHex) < minRatio && contrastRatio(onBg.color, bgHex) >= minRatio) {
+    final = onBg.color;
+  }
+  return final;
 }
 
 export function ensureContrastSafe(palette: Palette, minRatio = 4.5): ContrastSafeResult {
   const next: Palette = { ...palette };
-  const originalText = palette.text;
-
-  // Compute fixes for both pairs independently from the original text
-  const textOnBgFix = fixPair(originalText, palette.bg, minRatio);
-  const textOnCardBgFix = fixPair(originalText, palette.cardBg, minRatio);
-
-  // Decide which adjustment to apply: if both need adjustment, choose based on direction
-  let finalText = originalText;
-  if (textOnBgFix.adjusted || textOnCardBgFix.adjusted) {
-    if (textOnBgFix.adjusted && textOnCardBgFix.adjusted) {
-      // Both need adjustment; determine if they're in the same direction
-      const textL = rgbToHsl(hexToRgb(originalText))[2];
-
-      // Extract lightness of the two fixes
-      const bgFixL = rgbToHsl(hexToRgb(textOnBgFix.color))[2];
-      const cardBgFixL = rgbToHsl(hexToRgb(textOnCardBgFix.color))[2];
-
-      // Check if fixes push in the same direction
-      const bgShift = bgFixL - textL;
-      const cardBgShift = cardBgFixL - textL;
-      const sameDirection = (bgShift >= 0 && cardBgShift >= 0) || (bgShift <= 0 && cardBgShift <= 0);
-
-      if (sameDirection) {
-        // Both push in same direction; use the one with larger shift
-        finalText = Math.abs(bgShift) >= Math.abs(cardBgShift) ? textOnBgFix.color : textOnCardBgFix.color;
-      } else {
-        // Opposite directions; prioritize bg
-        finalText = textOnBgFix.color;
-      }
-    } else if (textOnBgFix.adjusted) {
-      finalText = textOnBgFix.color;
-    } else {
-      finalText = textOnCardBgFix.color;
-    }
-
-    next.text = finalText;
-  }
-
-  // Recompute adjustments from the final palette
-  const pairs: Array<[keyof Palette, keyof Palette, string]> = [
-    ["text", "bg", "text on bg"],
-    ["text", "cardBg", "text on cardBg"],
-  ];
-
   const adjustments: ContrastAdjustment[] = [];
-  // Record adjustments only if text was actually changed from the original
-  if (finalText !== originalText) {
-    for (const [, bgKey, label] of pairs) {
-      const bgColor = next[bgKey];
-      const ratio = contrastRatio(finalText, bgColor);
+
+  // `bg` and `cardBg` are never modified, so each foreground role can be
+  // resolved independently against the original surfaces.
+  for (const role of ["text", "muted"] as const) {
+    const original = palette[role];
+    const final = resolveForeground(original, palette.bg, palette.cardBg, minRatio);
+    if (final === original) continue;
+    next[role] = final;
+    for (const pair of GUARDED_PAIRS) {
+      if (pair.fg !== role) continue;
       adjustments.push({
-        pair: label,
-        from: originalText,
-        to: finalText,
-        ratio,
+        pair: pair.label,
+        from: original,
+        to: final,
+        ratio: contrastRatio(final, next[pair.bg]),
       });
     }
   }
 
-  return { palette: next, adjustments };
+  // Final verification against the fully-fixed palette: anything still below
+  // the bar is reported rather than silently shipped as "safe".
+  const stillFailing = GUARDED_PAIRS.filter(
+    (pair) => contrastRatio(next[pair.fg], next[pair.bg]) < minRatio
+  ).map((pair) => pair.label);
+
+  return { palette: next, adjustments, stillFailing };
 }

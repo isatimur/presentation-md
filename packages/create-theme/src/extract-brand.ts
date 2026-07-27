@@ -21,6 +21,12 @@ export interface BrandExtractionResult {
   bodyFont: string;
   source: "static" | "computed-fallback";
   adjustments: ContrastAdjustment[];
+  /**
+   * Guarded contrast pairs (e.g. "muted on cardBg") that are still below WCAG
+   * AA in the returned palette even after the contrast-safety pass. Empty when
+   * the palette is fully safe. Surfaced to callers so they can disclose it.
+   */
+  stillFailing: string[];
 }
 
 const FALLBACK_HEADING_FONT = "Inter";
@@ -56,7 +62,7 @@ export async function extractBrand(input: BrandExtractionInput): Promise<BrandEx
   }
 
   const rawPalette = mapPaletteToRoles(colors);
-  const { palette, adjustments } = ensureContrastSafe(rawPalette);
+  const { palette, adjustments, stillFailing } = ensureContrastSafe(rawPalette);
 
   return {
     palette,
@@ -64,5 +70,6 @@ export async function extractBrand(input: BrandExtractionInput): Promise<BrandEx
     bodyFont: fonts.body ?? FALLBACK_BODY_FONT,
     source,
     adjustments,
+    stillFailing,
   };
 }
