@@ -25,7 +25,7 @@ export function toUnderscored(name: string): string {
 }
 
 /** Locate the template directory — works in both dist/ and src/ layouts. */
-function getTemplateDir(): string {
+export function getTemplateDir(): string {
   const candidates = [
     join(__dirname, "template"),
     join(__dirname, "..", "src", "template"),
@@ -43,7 +43,30 @@ export function renderTemplate(templateDir: string, filename: string, view: Reco
   return Mustache.render(src, view);
 }
 
-interface ThemeView {
+const THEME_TEMPLATE_FILES: Array<{ template: string; output: string }> = [
+  { template: "theme.json.mustache", output: "theme.json" },
+  { template: "package.json.mustache", output: "package.json" },
+  { template: "pyproject.toml.mustache", output: "pyproject.toml" },
+  { template: "README.md.mustache", output: "README.md" },
+];
+
+export async function scaffoldTheme(view: ThemeView, outputDir: string): Promise<string[]> {
+  const templateDir = getTemplateDir();
+  mkdirSync(outputDir, { recursive: true });
+  const created: string[] = [];
+  for (const { template, output } of THEME_TEMPLATE_FILES) {
+    const rendered = renderTemplate(templateDir, template, view as unknown as Record<string, unknown>);
+    writeFileSync(join(outputDir, output), rendered, "utf-8");
+    created.push(output);
+  }
+  return created;
+}
+
+export function buildThemeManifestJson(view: ThemeView): string {
+  return renderTemplate(getTemplateDir(), "theme.json.mustache", view as unknown as Record<string, unknown>);
+}
+
+export interface ThemeView {
   name: string;
   underscored: string;
   description: string;
@@ -186,22 +209,9 @@ export function buildProgram(): Command {
         rl.close();
       }
 
-      const templateDir = getTemplateDir();
-
-      mkdirSync(outputDir, { recursive: true });
-
-      const files: Array<{ template: string; output: string }> = [
-        { template: "theme.json.mustache", output: "theme.json" },
-        { template: "package.json.mustache", output: "package.json" },
-        { template: "pyproject.toml.mustache", output: "pyproject.toml" },
-        { template: "README.md.mustache", output: "README.md" },
-      ];
-
-      for (const { template, output } of files) {
-        const rendered = renderTemplate(templateDir, template, view as unknown as Record<string, unknown>);
-        const outPath = join(outputDir, output);
-        writeFileSync(outPath, rendered, "utf-8");
-        process.stdout.write(`  created  ${output}\n`);
+      const created = await scaffoldTheme(view, outputDir);
+      for (const file of created) {
+        process.stdout.write(`  created  ${file}\n`);
       }
 
       process.stdout.write(`\nTheme "${name}" scaffolded successfully!\n`);
