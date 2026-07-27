@@ -342,6 +342,7 @@ These are the details that make a deck read as machine-generated. A reviewer clo
 15. **The Centered Paragraph** — center a hero headline if you like, but body copy, bullets, and multi-line captions are always left-aligned. Centered running text has a ragged left edge the eye can't track.
 16. **The Overflow** — nothing falls off the slide and nothing overlaps. Every element sits inside the safe margin with real breathing room around it. Text clipped at the edge or a chart crashing into a caption instantly reads as broken.
 17. **The Low-Contrast Whisper** — light text on a light surface, or dark on dark. Body text must clear a genuine contrast ratio (aim WCAG AA, ~4.5:1). "It looks fine on my monitor" fails in a bright conference room every time.
+18. **The Italic Crutch** — reaching for `italic` to signal emphasis, a quote, or "elegance" is a font-rendering roulette: most of the display fonts in these themes don't ship a true italic, so the browser fake-slants the roman weight and it reads as broken, not intentional. Get emphasis from weight, size, color, or space instead.
 
 ---
 
@@ -383,6 +384,7 @@ Fill gaps with intelligent defaults. Never ask more than 3 clarifying questions.
 - **Always scroll-snapped** — each slide is `100vh`, `scroll-snap-align: start`
 - **Always keyboard-navigable** — arrow key handler in a 3-line `<script>` at the bottom
 - **Always print-safe** — `@media print` block that removes `.nav-hint` and sets `page-break-after: always`
+- **Never `display: grid` (or `flex`) directly on an `<li>` that contains inline elements** (`<code>`, `<span>`, `<a>`) — the browser wraps each inline child in an anonymous block box to satisfy the grid formatting context, which silently breaks bullet alignment and spacing. Put the grid/flex on a wrapper `<div>` inside the `<li>` instead, or keep the `<li>` a plain block and let its child own the layout.
 
 ---
 
