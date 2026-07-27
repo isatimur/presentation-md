@@ -371,6 +371,9 @@ Fill gaps with intelligent defaults. Never ask more than 3 clarifying questions.
 | `validate_deck` | Check deck JSON against schema before rendering |
 | `list_themes` | See all 5 themes with palette summaries |
 | `get_theme` | Fetch full JSON for a specific theme |
+| `import_brand_theme` | Generate a theme from a brand's URL or CSS file, with a contrast-safety pass |
+
+Note: when using `import_brand_theme` with a local CSS file, the `cssPath` parameter must be a `.css` file that resolves within the MCP server's working directory.
 
 ---
 

@@ -57,7 +57,7 @@ This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a q
 | [`@presentation-skill-pack/studio`](packages/studio) 🚧 _coming soon (not yet published)_ | Browser editor studio: edit, live-preview, and export decks (Vite SPA) |
 | [`@presentation-skill-pack/mcp-server`](packages/mcp-server) | MCP server exposing all tools to any MCP-compatible agent (`presentation-skill-pack-mcp`) |
 | [`@presentation-skill-pack/install`](packages/install) | One-command installer that wires the skill + MCP server into your agent (`presentation-skill-pack-install`) |
-| [`@presentation-skill-pack/create-theme`](packages/create-theme) | Scaffold a new publishable theme package (`create-presentation-theme`) |
+| [`@presentation-skill-pack/create-theme`](packages/create-theme) | Scaffold a new publishable theme package (`create-presentation-theme`), interactively or from a brand's URL/CSS (`--from-url`/`--from-css`) |
 | [`@presentation-skill-pack/theme-corporate`](packages/themes/corporate) | Formal corporate theme |
 | [`@presentation-skill-pack/theme-playful`](packages/themes/playful) | Playful creative-agency theme |
 | [`@presentation-skill-pack/theme-luxury-minimalist`](packages/themes/luxury-minimalist) | Luxury minimalist theme |
