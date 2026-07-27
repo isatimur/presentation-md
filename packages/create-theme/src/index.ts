@@ -5,6 +5,9 @@ import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
 import { Command } from "commander";
 import Mustache from "mustache";
+import { extractBrand } from "./extract-brand.js";
+import { buildThemeViewFromBrand } from "./theme-view.js";
+import { deriveNameFromUrl } from "./name-from-url.js";
 
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
@@ -176,49 +179,104 @@ export function buildProgram(): Command {
   program
     .name("create-presentation-theme")
     .description("Scaffold a new presentation-skill-pack theme package.")
-    .argument("<name>", "Theme name in kebab-case (e.g. my-brand-dark)")
-    .option(
-      "--output-dir <path>",
-      "Output directory for the scaffolded theme package"
+    .argument(
+      "[name]",
+      "Theme name in kebab-case (e.g. my-brand-dark). Optional with --from-url (derived from the hostname)."
     )
-    .action(async (name: string, options: { outputDir?: string }) => {
-      try {
-        validateThemeName(name);
-      } catch (err) {
-        process.stderr.write(`Error: ${(err as Error).message}\n`);
-        process.exit(1);
+    .option("--output-dir <path>", "Output directory for the scaffolded theme package")
+    .option("--from-url <url>", "Generate the theme from a brand's live URL instead of interactive prompts")
+    .option("--from-css <path>", "Generate the theme from a local CSS file instead of interactive prompts")
+    .action(
+      async (
+        nameArg: string | undefined,
+        options: { outputDir?: string; fromUrl?: string; fromCss?: string }
+      ) => {
+        if (options.fromUrl && options.fromCss) {
+          process.stderr.write("Error: pass only one of --from-url or --from-css, not both.\n");
+          process.exit(1);
+          return;
+        }
+
+        let name = nameArg;
+        let view: ThemeView;
+
+        if (options.fromUrl || options.fromCss) {
+          if (!name) {
+            if (options.fromUrl) {
+              try {
+                name = deriveNameFromUrl(options.fromUrl);
+              } catch (err) {
+                process.stderr.write(`Error: ${(err as Error).message}\n`);
+                process.exit(1);
+                return;
+              }
+            } else {
+              process.stderr.write("Error: a theme name is required when using --from-css.\n");
+              process.exit(1);
+              return;
+            }
+          }
+          try {
+            validateThemeName(name);
+          } catch (err) {
+            process.stderr.write(`Error: ${(err as Error).message}\n`);
+            process.exit(1);
+            return;
+          }
+
+          process.stdout.write(`\nExtracting brand from ${options.fromUrl ?? options.fromCss}...\n`);
+          let extraction;
+          try {
+            extraction = await extractBrand({ url: options.fromUrl, cssPath: options.fromCss });
+          } catch (err) {
+            process.stderr.write(`Error: ${(err as Error).message}\n`);
+            process.exit(1);
+            return;
+          }
+          process.stdout.write(`  source: ${extraction.source}\n`);
+          for (const adj of extraction.adjustments) {
+            process.stdout.write(
+              `  contrast: ${adj.pair} adjusted from ${adj.from} to ${adj.to} (ratio ${adj.ratio})\n`
+            );
+          }
+          view = buildThemeViewFromBrand(name, extraction);
+        } else {
+          if (!name) {
+            process.stderr.write("Error: a theme name is required.\n");
+            process.exit(1);
+            return;
+          }
+          try {
+            validateThemeName(name);
+          } catch (err) {
+            process.stderr.write(`Error: ${(err as Error).message}\n`);
+            process.exit(1);
+            return;
+          }
+          const rl = createInterface({ input: process.stdin, output: process.stdout });
+          try {
+            view = await collectView(rl, name);
+          } finally {
+            rl.close();
+          }
+        }
+
+        const outputDir = resolve(process.cwd(), options.outputDir ?? join("packages", "themes", name));
+
+        process.stdout.write(`\nScaffolding theme: ${name}\n`);
+        process.stdout.write(`Output:            ${outputDir}\n`);
+
+        const created = await scaffoldTheme(view, outputDir);
+        for (const file of created) {
+          process.stdout.write(`  created  ${file}\n`);
+        }
+
+        process.stdout.write(`\nTheme "${name}" scaffolded successfully!\n`);
+        process.stdout.write(`\nNext steps:\n`);
+        process.stdout.write(`  cd ${outputDir}\n`);
+        process.stdout.write(`  npm publish --access public\n`);
       }
-
-      const outputDir = resolve(
-        process.cwd(),
-        options.outputDir ?? join("packages", "themes", name)
-      );
-
-      process.stdout.write(`\nScaffolding theme: ${name}\n`);
-      process.stdout.write(`Output:            ${outputDir}\n`);
-
-      const rl = createInterface({
-        input: process.stdin,
-        output: process.stdout,
-      });
-
-      let view: ThemeView;
-      try {
-        view = await collectView(rl, name);
-      } finally {
-        rl.close();
-      }
-
-      const created = await scaffoldTheme(view, outputDir);
-      for (const file of created) {
-        process.stdout.write(`  created  ${file}\n`);
-      }
-
-      process.stdout.write(`\nTheme "${name}" scaffolded successfully!\n`);
-      process.stdout.write(`\nNext steps:\n`);
-      process.stdout.write(`  cd ${outputDir}\n`);
-      process.stdout.write(`  npm publish --access public\n`);
-    });
+    );
 
   return program;
 }
