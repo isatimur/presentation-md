@@ -1,0 +1,7 @@
+:root {
+  --bg: #0a0a0a;
+  --text: #fafafa;
+  --accent: #22c55e;
+}
+h1, h2 { font-family: 'Poppins', sans-serif; }
+body { font-family: 'Inter', sans-serif; }

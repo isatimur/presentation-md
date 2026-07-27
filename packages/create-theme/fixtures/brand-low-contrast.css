@@ -1,0 +1,6 @@
+:root {
+  --bg: #ffffff;
+  --text: #e0e0e0;
+  --accent: #f0f0f0;
+}
+body { font-family: 'Arial', sans-serif; }
