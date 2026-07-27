@@ -44,7 +44,7 @@ function isPrivateIPv6(ip: string): boolean {
 // custom undici dispatcher; this precheck is the standard, much simpler
 // mitigation and matches what most SSRF-prevention guidance recommends as a
 // baseline.
-async function assertPublicHostname(hostname: string): Promise<void> {
+export async function assertPublicHostname(hostname: string): Promise<void> {
   let addresses: Array<{ address: string; family: number }>;
   try {
     addresses = await lookup(hostname, { all: true });
@@ -108,5 +108,15 @@ export async function fetchStylesheetsFromUrl(url: string): Promise<string> {
       // One bad stylesheet shouldn't abort the whole extraction.
     }
   }
+
+  // Many frameworks (Next.js, Vite, Astro) inline critical CSS — including the
+  // :root custom properties we're after — into a <style> block instead of a
+  // linked stylesheet. The HTML is already in memory, so read it rather than
+  // reporting "found nothing" and triggering the Chromium fallback.
+  for (const match of html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)) {
+    const inline = (match[1] ?? "").trim();
+    if (inline) cssParts.push(inline);
+  }
+
   return cssParts.join("\n");
 }
