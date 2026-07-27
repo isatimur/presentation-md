@@ -68,6 +68,19 @@ describe("mapPaletteToRoles", () => {
     expect(palette.bg).toMatch(/^#[0-9a-f]{6}$/);
     expect(palette.text).toMatch(/^#[0-9a-f]{6}$/);
   });
+
+  it("normalizes hex values to lowercase 6-digit format", () => {
+    const palette = mapPaletteToRoles({ bg: "#FFFFFF", text: "#000000", accent: "#f80" });
+    expect(palette.bg).toMatch(/^#[0-9a-f]{6}$/);
+    expect(palette.text).toMatch(/^#[0-9a-f]{6}$/);
+    expect(palette.accent).toMatch(/^#[0-9a-f]{6}$/);
+    expect(palette.accent2).toMatch(/^#[0-9a-f]{6}$/);
+    // Verify all derived colors are also normalized
+    expect(palette.bg2).toMatch(/^#[0-9a-f]{6}$/);
+    expect(palette.muted).toMatch(/^#[0-9a-f]{6}$/);
+    expect(palette.cardBg).toMatch(/^#[0-9a-f]{6}$/);
+    expect(palette.border).toMatch(/^#[0-9a-f]{6}$/);
+  });
 });
 
 describe("ensureContrastSafe", () => {
@@ -91,5 +104,32 @@ describe("ensureContrastSafe", () => {
     const bgAdjustment = result.adjustments.find((a) => a.pair === "text on bg");
     expect(bgAdjustment).toBeDefined();
     expect(bgAdjustment!.to).toMatch(/^#[0-9a-f]{6}$/);
+  });
+
+  it("does not sequentially mutate text when adjusting opposite-lightness backgrounds", () => {
+    // When bg and cardBg are on opposite sides of the L=50 midpoint, the sequential
+    // mutation bug would cause the second adjustment to undo the first. This test
+    // ensures that does not happen and the final text satisfies at least the primary
+    // bg pair's contrast requirement.
+    const palette = mapPaletteToRoles({ bg: "#ffffff", cardBg: "#1a1a1a", text: "#999999" });
+    const result = ensureContrastSafe(palette);
+
+    // Primary requirement: text on bg must meet WCAG AA (4.5)
+    expect(contrastRatio(result.palette.text, result.palette.bg)).toBeGreaterThanOrEqual(4.5);
+
+    // Adjustments array must accurately reflect the final palette
+    for (const adjustment of result.adjustments) {
+      let bgColor: string;
+      if (adjustment.pair === "text on bg") {
+        bgColor = result.palette.bg;
+      } else if (adjustment.pair === "text on cardBg") {
+        bgColor = result.palette.cardBg;
+      } else {
+        continue;
+      }
+      const actualRatio = contrastRatio(result.palette.text, bgColor);
+      // The reported ratio in adjustments must match what's actually in the final palette
+      expect(Math.abs(actualRatio - adjustment.ratio)).toBeLessThan(0.01);
+    }
   });
 });

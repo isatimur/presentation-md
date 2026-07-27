@@ -1,4 +1,4 @@
-import { contrastRatio, hexToRgb, rgbToHsl, withLightness } from "./color.js";
+import { contrastRatio, hexToRgb, rgbToHex, rgbToHsl, withLightness } from "./color.js";
 import type { Palette } from "./theme-loader.js";
 
 export interface BrandColorCandidates {
@@ -102,10 +102,15 @@ const BASE_PALETTE: Palette = {
   border: "#e0e0e0",
 };
 
+// Normalize hex color to lowercase 6-digit format
+function normalizeHex(hex: string): string {
+  return rgbToHex(hexToRgb(hex));
+}
+
 export function mapPaletteToRoles(colors: BrandColorCandidates): Palette {
-  const bg = colors.bg ?? BASE_PALETTE.bg;
-  const text = colors.text ?? BASE_PALETTE.text;
-  const accent = colors.accent ?? BASE_PALETTE.accent;
+  const bg = normalizeHex(colors.bg ?? BASE_PALETTE.bg);
+  const text = normalizeHex(colors.text ?? BASE_PALETTE.text);
+  const accent = normalizeHex(colors.accent ?? BASE_PALETTE.accent);
 
   const bgRgb = hexToRgb(bg);
   const textRgb = hexToRgb(text);
@@ -167,24 +172,68 @@ function fixPair(fgHex: string, bgHex: string, minRatio: number): { color: strin
 }
 
 export function ensureContrastSafe(palette: Palette, minRatio = 4.5): ContrastSafeResult {
-  const adjustments: ContrastAdjustment[] = [];
   const next: Palette = { ...palette };
+  const originalText = palette.text;
 
+  // Compute fixes for both pairs independently from the original text
+  const textOnBgFix = fixPair(originalText, palette.bg, minRatio);
+  const textOnCardBgFix = fixPair(originalText, palette.cardBg, minRatio);
+
+  // Decide which adjustment to apply: if both need adjustment, choose based on direction
+  let finalText = originalText;
+  if (textOnBgFix.adjusted || textOnCardBgFix.adjusted) {
+    if (textOnBgFix.adjusted && textOnCardBgFix.adjusted) {
+      // Both need adjustment; determine if they're in the same direction
+      const bgL = rgbToHsl(hexToRgb(palette.bg))[2];
+      const cardBgL = rgbToHsl(hexToRgb(palette.cardBg))[2];
+      const textL = rgbToHsl(hexToRgb(originalText))[2];
+
+      // Calculate the direction each fix would push text
+      const bgDirection = bgL >= 50 ? -1 : 1; // If bg is light, darken text; if dark, lighten
+      const cardBgDirection = cardBgL >= 50 ? -1 : 1;
+
+      // Extract lightness of the two fixes
+      const bgFixL = rgbToHsl(hexToRgb(textOnBgFix.color))[2];
+      const cardBgFixL = rgbToHsl(hexToRgb(textOnCardBgFix.color))[2];
+
+      // Check if fixes push in the same direction
+      const bgShift = bgFixL - textL;
+      const cardBgShift = cardBgFixL - textL;
+      const sameDirection = (bgShift >= 0 && cardBgShift >= 0) || (bgShift <= 0 && cardBgShift <= 0);
+
+      if (sameDirection) {
+        // Both push in same direction; use the one with larger shift
+        finalText = Math.abs(bgShift) >= Math.abs(cardBgShift) ? textOnBgFix.color : textOnCardBgFix.color;
+      } else {
+        // Opposite directions; prioritize bg
+        finalText = textOnBgFix.color;
+      }
+    } else if (textOnBgFix.adjusted) {
+      finalText = textOnBgFix.color;
+    } else {
+      finalText = textOnCardBgFix.color;
+    }
+
+    next.text = finalText;
+  }
+
+  // Recompute adjustments from the final palette
   const pairs: Array<[keyof Palette, keyof Palette, string]> = [
     ["text", "bg", "text on bg"],
     ["text", "cardBg", "text on cardBg"],
   ];
 
-  for (const [fgKey, bgKey, label] of pairs) {
-    const from = next[fgKey];
-    const result = fixPair(from, next[bgKey], minRatio);
-    if (result.adjusted) {
-      next[fgKey] = result.color;
+  const adjustments: ContrastAdjustment[] = [];
+  // Record adjustments only if text was actually changed from the original
+  if (finalText !== originalText) {
+    for (const [fgKey, bgKey, label] of pairs) {
+      const bgColor = next[bgKey];
+      const ratio = contrastRatio(finalText, bgColor);
       adjustments.push({
         pair: label,
-        from,
-        to: result.color,
-        ratio: contrastRatio(result.color, next[bgKey]),
+        from: originalText,
+        to: finalText,
+        ratio,
       });
     }
   }
