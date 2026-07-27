@@ -11,6 +11,7 @@ import { listThemesTool } from "./tools/list-themes.js";
 import { applyThemeTool } from "./tools/apply-theme.js";
 import { auditDeckTool } from "./tools/audit-deck.js";
 import { generateDeckPromptTool } from "./tools/generate-deck-prompt.js";
+import { importBrandThemeTool } from "./tools/import-brand-theme.js";
 
 export interface ToolDefinition {
   name: string;
@@ -25,7 +26,8 @@ const TOOLS: ToolDefinition[] = [
   listThemesTool,
   applyThemeTool,
   auditDeckTool,
-  generateDeckPromptTool
+  generateDeckPromptTool,
+  importBrandThemeTool
 ];
 
 export function listToolDefinitions(): ToolDefinition[] {

@@ -117,6 +117,9 @@ importers:
       '@presentation-skill-pack/core':
         specifier: workspace:*
         version: link:../core
+      '@presentation-skill-pack/create-theme':
+        specifier: workspace:*
+        version: link:../create-theme
       '@presentation-skill-pack/render':
         specifier: workspace:*
         version: link:../renderer-node

@@ -9,6 +9,11 @@ import { extractBrand } from "./extract-brand.js";
 import { buildThemeViewFromBrand } from "./theme-view.js";
 import { deriveNameFromUrl } from "./name-from-url.js";
 
+export { extractBrand } from "./extract-brand.js";
+export type { BrandExtractionInput, BrandExtractionResult } from "./extract-brand.js";
+export { buildThemeViewFromBrand } from "./theme-view.js";
+export { deriveNameFromUrl } from "./name-from-url.js";
+
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
 
