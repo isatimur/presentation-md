@@ -6,7 +6,7 @@ vi.mock("node:dns/promises", () => ({
   lookup: (...args: unknown[]) => lookupMock(...args),
 }));
 
-const { fetchText, fetchStylesheetsFromUrl } = await import("../src/fetch-css.js");
+const { fetchText, fetchStylesheetsFromUrl, resolvePublicUrl } = await import("../src/fetch-css.js");
 
 function mockResponse(opts: {
   ok?: boolean;
@@ -214,5 +214,80 @@ describe("fetchStylesheetsFromUrl", () => {
     const vars = parseCssVariables(css);
     expect(vars.bg).toBe("#222222");
     expect(vars.accent).toBe("#00ff00");
+  });
+});
+
+// Used by the computed-style fallback to pin the browser's navigation to an
+// already-validated final URL. Covered here (rather than only in the
+// browser-driven ssrf test) because that test is skipped in CI.
+describe("resolvePublicUrl", () => {
+  beforeEach(() => {
+    vi.stubGlobal("fetch", vi.fn());
+    lookupMock.mockReset();
+    lookupMock.mockResolvedValue([{ address: "93.184.216.34", family: 4 }]);
+  });
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("returns the URL unchanged when there is no redirect", async () => {
+    (fetch as unknown as ReturnType<typeof vi.fn>).mockResolvedValueOnce(mockResponse({ text: "" }));
+    expect(await resolvePublicUrl("https://example.com/")).toBe("https://example.com/");
+  });
+
+  it("follows a redirect chain and returns the final URL", async () => {
+    const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
+    fetchMock
+      .mockResolvedValueOnce(
+        mockResponse({ status: 302, text: "", headers: { location: "/en/" } })
+      )
+      .mockResolvedValueOnce(
+        mockResponse({ status: 301, text: "", headers: { location: "home" } })
+      )
+      .mockResolvedValueOnce(mockResponse({ text: "" }));
+    expect(await resolvePublicUrl("https://example.com/")).toBe("https://example.com/en/home");
+  });
+
+  it("rejects when a redirect hop resolves to a private address", async () => {
+    const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
+    fetchMock.mockResolvedValueOnce(
+      mockResponse({ status: 302, text: "", headers: { location: "http://169.254.169.254/" } })
+    );
+    lookupMock
+      .mockResolvedValueOnce([{ address: "93.184.216.34", family: 4 }])
+      .mockResolvedValueOnce([{ address: "169.254.169.254", family: 4 }]);
+    await expect(resolvePublicUrl("https://example.com/")).rejects.toThrow(
+      /private\/internal address/i
+    );
+  });
+
+  it("rejects a hostname that resolves to a private address before fetching", async () => {
+    lookupMock.mockResolvedValue([{ address: "10.0.0.5", family: 4 }]);
+    await expect(resolvePublicUrl("https://internal.example.com/")).rejects.toThrow(
+      /private\/internal address/i
+    );
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it("throws after exceeding the redirect limit", async () => {
+    const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
+    for (let i = 0; i < 10; i++) {
+      fetchMock.mockResolvedValueOnce(
+        mockResponse({ status: 302, text: "", headers: { location: "/next" } })
+      );
+    }
+    await expect(resolvePublicUrl("https://example.com/")).rejects.toThrow(/too many redirects/i);
+  });
+
+  it("stops at a redirect with no Location header rather than looping", async () => {
+    (fetch as unknown as ReturnType<typeof vi.fn>).mockResolvedValueOnce(
+      mockResponse({ status: 302, text: "" })
+    );
+    expect(await resolvePublicUrl("https://example.com/")).toBe("https://example.com/");
+  });
+
+  it("rejects non-http(s) schemes without calling fetch", async () => {
+    await expect(resolvePublicUrl("file:///etc/passwd")).rejects.toThrow(/unsupported url scheme/i);
+    expect(fetch).not.toHaveBeenCalled();
   });
 });
