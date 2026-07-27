@@ -11,3 +11,4 @@ build/
 web/.vercel/
 out/
 .playwright-cli/
+packages/mcp-server/import-brand-theme-test-*/
