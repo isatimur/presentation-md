@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -8,15 +10,22 @@ const PACKAGE_ROOT = join(__dirname, "..");
 
 function ensurePlaywrightInstalled(): void {
   const marker = join(PACKAGE_ROOT, "node_modules", "playwright");
-  if (existsSync(marker)) return;
-  const install = spawnSync(
-    "npm",
-    ["install", "--prefix", PACKAGE_ROOT, "--no-save", "playwright@^1.46.0"],
-    { stdio: "inherit" }
-  );
-  if (install.status !== 0) {
-    throw new Error("Failed to install Playwright for the brand-import computed-style fallback.");
+  // Only gate npm install on the marker — if node_modules/playwright already exists, skip.
+  // This avoids redundant installs, but leaves room for self-healing if chromium fails.
+  if (!existsSync(marker)) {
+    const install = spawnSync(
+      "npm",
+      ["install", "--prefix", PACKAGE_ROOT, "--no-save", "playwright@^1.46.0"],
+      { stdio: "inherit" }
+    );
+    if (install.status !== 0) {
+      throw new Error("Failed to install Playwright for the brand-import computed-style fallback.");
+    }
   }
+  // Unconditionally run `playwright install chromium` on every call. This is a fast no-op
+  // when already cached, but ensures that a prior partial failure (npm succeeded, chromium
+  // failed) self-heals on the next run. This matches the pattern from
+  // skills/presentation-generator/scripts/export-pdf.sh.
   const chromium = spawnSync(
     join(PACKAGE_ROOT, "node_modules", ".bin", "playwright"),
     ["install", "chromium"],
