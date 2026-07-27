@@ -110,8 +110,18 @@ describe("ensureContrastSafe", () => {
     // When bg and cardBg are on opposite sides of the L=50 midpoint, the sequential
     // mutation bug would cause the second adjustment to undo the first. This test
     // ensures that does not happen and the final text satisfies at least the primary
-    // bg pair's contrast requirement.
-    const palette = mapPaletteToRoles({ bg: "#ffffff", cardBg: "#1a1a1a", text: "#999999" });
+    // bg pair's contrast requirement. We construct the palette directly to control
+    // all fields, including cardBg explicitly (not derived from bg).
+    const palette = {
+      bg: "#ffffff",
+      bg2: "#f5f5f5",
+      text: "#999999",
+      muted: "#6b6b6b",
+      accent: "#2563eb",
+      accent2: "#7c3aed",
+      cardBg: "#1a1a1a",
+      border: "#e0e0e0",
+    };
     const result = ensureContrastSafe(palette);
 
     // Primary requirement: text on bg must meet WCAG AA (4.5)

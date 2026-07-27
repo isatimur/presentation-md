@@ -184,13 +184,7 @@ export function ensureContrastSafe(palette: Palette, minRatio = 4.5): ContrastSa
   if (textOnBgFix.adjusted || textOnCardBgFix.adjusted) {
     if (textOnBgFix.adjusted && textOnCardBgFix.adjusted) {
       // Both need adjustment; determine if they're in the same direction
-      const bgL = rgbToHsl(hexToRgb(palette.bg))[2];
-      const cardBgL = rgbToHsl(hexToRgb(palette.cardBg))[2];
       const textL = rgbToHsl(hexToRgb(originalText))[2];
-
-      // Calculate the direction each fix would push text
-      const bgDirection = bgL >= 50 ? -1 : 1; // If bg is light, darken text; if dark, lighten
-      const cardBgDirection = cardBgL >= 50 ? -1 : 1;
 
       // Extract lightness of the two fixes
       const bgFixL = rgbToHsl(hexToRgb(textOnBgFix.color))[2];
@@ -226,7 +220,7 @@ export function ensureContrastSafe(palette: Palette, minRatio = 4.5): ContrastSa
   const adjustments: ContrastAdjustment[] = [];
   // Record adjustments only if text was actually changed from the original
   if (finalText !== originalText) {
-    for (const [fgKey, bgKey, label] of pairs) {
+    for (const [, bgKey, label] of pairs) {
       const bgColor = next[bgKey];
       const ratio = contrastRatio(finalText, bgColor);
       adjustments.push({
