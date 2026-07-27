@@ -28,7 +28,7 @@ vi.mock("playwright", () => ({
   chromium: { launch: (...args: unknown[]) => launchMock(...(args as [])) },
 }));
 
-const { ensurePlaywrightInstalled, extractComputedStyles } = await import(
+const { ensurePlaywrightInstalled, extractComputedStyles, isPublicHttpUrl } = await import(
   "../src/playwright-fallback.js"
 );
 
@@ -118,5 +118,66 @@ describe("extractComputedStyles SSRF guard", () => {
     ).rejects.toThrow(/launch-stub/);
     expect(lookupMock).not.toHaveBeenCalled();
     expect(launchMock).toHaveBeenCalled();
+  });
+});
+
+// The decision function behind the page.route("**/*") handler that vets every
+// request Chromium makes (subresources and every redirect hop).
+describe("isPublicHttpUrl", () => {
+  let cache: Map<string, boolean>;
+
+  beforeEach(() => {
+    cache = new Map();
+    lookupMock.mockReset();
+  });
+
+  it("allows a public host", async () => {
+    lookupMock.mockResolvedValue([{ address: "93.184.216.34", family: 4 }]);
+    expect(await isPublicHttpUrl("https://example.com/logo.png", cache)).toBe(true);
+  });
+
+  it("blocks the cloud metadata address", async () => {
+    lookupMock.mockResolvedValue([{ address: "169.254.169.254", family: 4 }]);
+    expect(await isPublicHttpUrl("http://169.254.169.254/latest/meta-data/", cache)).toBe(false);
+  });
+
+  it("blocks a host resolving to a private IPv4 address", async () => {
+    lookupMock.mockResolvedValue([{ address: "10.1.2.3", family: 4 }]);
+    expect(await isPublicHttpUrl("http://intranet.example.com/", cache)).toBe(false);
+  });
+
+  it("blocks a host that fails to resolve", async () => {
+    lookupMock.mockRejectedValue(new Error("ENOTFOUND"));
+    expect(await isPublicHttpUrl("https://nope.example.com/", cache)).toBe(false);
+  });
+
+  it("blocks an unparseable URL without attempting a lookup", async () => {
+    expect(await isPublicHttpUrl("not-a-url", cache)).toBe(false);
+    expect(lookupMock).not.toHaveBeenCalled();
+  });
+
+  it("blocks non-http(s) schemes, including a file: redirect target", async () => {
+    expect(await isPublicHttpUrl("file:///etc/passwd", cache)).toBe(false);
+    expect(await isPublicHttpUrl("ftp://example.com/x", cache)).toBe(false);
+    expect(lookupMock).not.toHaveBeenCalled();
+  });
+
+  it("caches per hostname so a page with many subresources resolves each host once", async () => {
+    lookupMock.mockResolvedValue([{ address: "93.184.216.34", family: 4 }]);
+    expect(await isPublicHttpUrl("https://cdn.example.com/a.css", cache)).toBe(true);
+    expect(await isPublicHttpUrl("https://cdn.example.com/b.png", cache)).toBe(true);
+    expect(lookupMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("fails closed when the DNS lookup never settles", async () => {
+    vi.useFakeTimers();
+    try {
+      lookupMock.mockImplementation(() => new Promise(() => {}));
+      const pending = isPublicHttpUrl("https://blackhole.example.com/", cache);
+      await vi.advanceTimersByTimeAsync(2_000);
+      expect(await pending).toBe(false);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });

@@ -52,6 +52,7 @@ describe("import_brand_theme tool", () => {
     const result = (await importBrandThemeTool.handler({ url: "https://acme.com" })) as {
       theme: { name: string; roles: { bg: string } };
       source: string;
+      contrastStillFailing: string[];
       writtenTo?: string;
     };
 
@@ -59,6 +60,28 @@ describe("import_brand_theme tool", () => {
     expect(result.theme.roles.bg.toLowerCase()).toBe("#010101");
     expect(result.source).toBe("static");
     expect(result.writtenTo).toBeUndefined();
+    // Disclosed on every response so callers can't mistake silence for safety.
+    expect(result.contrastStillFailing).toEqual([]);
+  });
+
+  it("reports a fully-safe palette for a mid-gray brand that used to fail the AA floor", async () => {
+    // bg #808080 is the case where the old hardcoded #1a1a1a fallback reached
+    // only 4.41:1. With the improved fallback every guarded pair clears AA, so
+    // nothing is disclosed — and the response says so explicitly.
+    const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
+    fetchMock
+      .mockResolvedValueOnce(mockResponse(`<link rel="stylesheet" href="/s.css">`))
+      .mockResolvedValueOnce(mockResponse(":root { --bg: #808080; --text: #8a8a8a; }"));
+
+    const result = (await importBrandThemeTool.handler({ url: "https://acme.com" })) as {
+      contrastStillFailing: string[];
+      contrastAdjustments: Array<{ pair: string; ratio: number }>;
+    };
+    expect(result.contrastStillFailing).toEqual([]);
+    // Every reported adjustment actually clears the bar it was made for.
+    for (const adjustment of result.contrastAdjustments) {
+      expect(adjustment.ratio).toBeGreaterThanOrEqual(4.5);
+    }
   });
 
   describe("cssPath validation", () => {

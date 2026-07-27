@@ -61,20 +61,22 @@ export function ensurePlaywrightInstalled(): void {
 const NON_NETWORK_SCHEMES = new Set(["file:", "data:", "blob:", "about:"]);
 
 const DNS_TIMEOUT_MS = 2_000;
+const MAX_REDIRECT_HOPS = 5;
 
 /**
- * Whether Chromium should be allowed to issue this request. Fails closed: an
- * unparseable URL, a private/internal address, or a DNS lookup that doesn't
- * answer within DNS_TIMEOUT_MS is blocked rather than allowed through.
+ * Whether Chromium should be allowed to issue this network request. Fails
+ * closed: an unparseable URL, a non-http(s) scheme, a private/internal address,
+ * or a DNS lookup that doesn't answer within DNS_TIMEOUT_MS is blocked rather
+ * than allowed through.
  */
-async function isRequestAllowed(rawUrl: string, cache: Map<string, boolean>): Promise<boolean> {
+export async function isPublicHttpUrl(rawUrl: string, cache: Map<string, boolean>): Promise<boolean> {
   let parsed: URL;
   try {
     parsed = new URL(rawUrl);
   } catch {
     return false;
   }
-  if (NON_NETWORK_SCHEMES.has(parsed.protocol)) return true;
+  if (parsed.protocol !== "http:" && parsed.protocol !== "https:") return false;
   const hostname = parsed.hostname;
   const cached = cache.get(hostname);
   if (cached !== undefined) return cached;
@@ -96,6 +98,64 @@ async function isRequestAllowed(rawUrl: string, cache: Map<string, boolean>): Pr
   }
   cache.set(hostname, allowed);
   return allowed;
+}
+
+function isRedirectStatus(status: number): boolean {
+  return status >= 300 && status < 400;
+}
+
+/**
+ * Guards every request Chromium makes.
+ *
+ * `route.continue()` follows redirects internally WITHOUT re-entering this
+ * handler (verified empirically against Playwright 1.x), so a public,
+ * attacker-controlled page could 302 straight into a private address and never
+ * be seen here. So instead of continuing, the redirect chain is walked
+ * explicitly with `maxRedirects: 0`, re-checking every hop, and only the final
+ * response is fulfilled. Fails closed at every step.
+ */
+async function guardRoute(
+  route: import("playwright").Route,
+  cache: Map<string, boolean>
+): Promise<void> {
+  const requestUrl = route.request().url();
+  let parsed: URL | undefined;
+  try {
+    parsed = new URL(requestUrl);
+  } catch {
+    parsed = undefined;
+  }
+  if (!parsed) {
+    await route.abort();
+    return;
+  }
+  // No network, no DNS hostname, no SSRF surface — and `file:` is how the local
+  // test fixture is loaded.
+  if (NON_NETWORK_SCHEMES.has(parsed.protocol)) {
+    await route.continue();
+    return;
+  }
+  if (!(await isPublicHttpUrl(requestUrl, cache))) {
+    await route.abort();
+    return;
+  }
+
+  let currentUrl = requestUrl;
+  let response = await route.fetch({ maxRedirects: 0 });
+  for (let hop = 0; isRedirectStatus(response.status()); hop++) {
+    const location = response.headers()["location"];
+    if (!location || hop >= MAX_REDIRECT_HOPS) {
+      await route.abort();
+      return;
+    }
+    currentUrl = new URL(location, currentUrl).toString();
+    if (!(await isPublicHttpUrl(currentUrl, cache))) {
+      await route.abort();
+      return;
+    }
+    response = await route.fetch({ url: currentUrl, maxRedirects: 0 });
+  }
+  await route.fulfill({ response });
 }
 
 export interface ComputedStyleResult {
@@ -129,12 +189,16 @@ export async function extractComputedStyles(url: string): Promise<ComputedStyleR
     // a page with many subresources doesn't re-resolve.
     const hostnameCache = new Map<string, boolean>();
     await page.route("**/*", async (route) => {
-      const allowed = await isRequestAllowed(route.request().url(), hostnameCache);
       try {
-        if (allowed) await route.continue();
-        else await route.abort();
+        await guardRoute(route, hostnameCache);
       } catch {
-        // The page may have navigated away or closed; nothing to do.
+        // Fail closed: any error resolving, fetching or fulfilling the request
+        // blocks it rather than letting it through unchecked.
+        try {
+          await route.abort();
+        } catch {
+          // The page may have navigated away or closed; nothing to do.
+        }
       }
     });
     await page.goto(url, { waitUntil: "networkidle", timeout: 15_000 });
