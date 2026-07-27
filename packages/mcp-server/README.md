@@ -32,3 +32,6 @@ Add to your project's `.claude/mcp.json` (or `~/.claude/mcp.json` for global):
 | `apply_theme` | Swap the theme in `meta.theme` while keeping all slide content unchanged. |
 | `audit_deck` | Validate deck JSON against the schema and return structured issues with severity. |
 | `generate_deck_prompt` | Build a system prompt with the active theme's palette and deck schema reference for an agent. |
+| `import_brand_theme` | Generate a theme from a brand's URL or CSS file, with a contrast-safety pass. |
+
+Note: when using `import_brand_theme` with a local CSS file, the `cssPath` parameter must be a `.css` file that resolves within the MCP server's working directory.
