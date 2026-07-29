@@ -568,6 +568,190 @@
   font-style: italic;
 }
 
+/* ── heritage-wash (heritage-editorial) ── */
+.deck[data-surface="heritage-wash"] .slide {
+  --slide-bg: linear-gradient(165deg, var(--bg) 0%, var(--bg-2) 100%);
+  box-shadow: 0 18px 50px rgba(22, 19, 15, 0.08);
+}
+.deck[data-surface="heritage-wash"] .slide::before {
+  left: 64px;
+  right: 64px;
+  top: 52px;
+  height: 1px;
+  background: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.deck[data-surface="heritage-wash"] .slide::after {
+  width: 72px;
+  height: 1px;
+  right: 64px;
+  bottom: 52px;
+  top: auto;
+  background: var(--accent);
+  filter: none;
+}
+
+/* ── fintech-soft ── */
+.deck[data-surface="fintech-soft"] .slide {
+  --slide-bg: radial-gradient(ellipse 80% 60% at 100% 0%, color-mix(in srgb, var(--accent) 10%, var(--bg)), var(--bg));
+  border: 1px solid var(--border);
+  box-shadow: 0 16px 48px rgba(15, 23, 42, 0.06);
+}
+.deck[data-surface="fintech-soft"] .slide::after {
+  width: 280px;
+  height: 280px;
+  right: -80px;
+  top: -100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent2) 22%, transparent), transparent 70%);
+  filter: blur(12px);
+}
+.deck[data-surface="fintech-soft"] .card {
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  border-radius: 12px;
+}
+
+/* ── dev-terminal (developer-dark) ── */
+.deck[data-surface="dev-terminal"] .slide {
+  --slide-bg: var(--bg);
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+.deck[data-surface="dev-terminal"] .slide::before {
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 28px;
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border);
+}
+.deck[data-surface="dev-terminal"] .slide::after {
+  width: 8px;
+  height: 8px;
+  left: 16px;
+  top: 10px;
+  right: auto;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 14px 0 0 #d29922, 28px 0 0 #f85149;
+  filter: none;
+}
+
+/* ── data-rule (data-editorial) ── */
+.deck[data-surface="data-rule"] .slide {
+  --slide-bg: var(--bg);
+  border-radius: 0;
+  border: 1px solid var(--border);
+}
+.deck[data-surface="data-rule"] .slide::before {
+  left: 64px;
+  right: 64px;
+  top: 48px;
+  height: 3px;
+  background: var(--accent);
+}
+.deck[data-surface="data-rule"] .slide::after {
+  width: 3px;
+  height: 48px;
+  left: 64px;
+  top: 48px;
+  right: auto;
+  background: var(--accent2);
+  filter: none;
+}
+
+/* ── hygge-soft (scandinavian) ── */
+.deck[data-surface="hygge-soft"] .slide {
+  --slide-bg: radial-gradient(ellipse 70% 50% at 20% 10%, color-mix(in srgb, var(--accent) 18%, var(--bg)), var(--bg));
+  box-shadow: 0 18px 40px rgba(43, 41, 38, 0.08);
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+}
+.deck[data-surface="hygge-soft"] .slide::after {
+  width: 160px;
+  height: 160px;
+  right: 48px;
+  bottom: 40px;
+  top: auto;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent2) 22%, transparent);
+  filter: blur(8px);
+}
+
+/* ── deco-fan (art-deco) ── */
+.deck[data-surface="deco-fan"] .slide {
+  --slide-bg: radial-gradient(ellipse 100% 80% at 50% 0%, var(--bg-2), var(--bg));
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 0;
+}
+.deck[data-surface="deco-fan"] .slide::before {
+  left: 64px;
+  right: 64px;
+  top: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.deck[data-surface="deco-fan"] .slide::after {
+  width: 56px;
+  height: 56px;
+  left: 50%;
+  top: 36px;
+  right: auto;
+  margin-left: -28px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: transparent;
+  filter: none;
+}
+.deck[data-surface="deco-fan"] .slide h1 {
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ── wrapped-block (kinetic-wrapped) ── */
+.deck[data-surface="wrapped-block"] .slide {
+  --slide-bg: var(--bg);
+  border: 4px solid var(--accent);
+  border-radius: 0;
+  box-shadow: 12px 12px 0 var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide::after {
+  width: 120px;
+  height: 120px;
+  right: -20px;
+  top: -20px;
+  background: var(--accent);
+  filter: none;
+}
+.deck[data-surface="wrapped-block"] .slide h1 {
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+}
+
+/* ── blueprint-grid ── */
+.deck[data-surface="blueprint-grid"] .slide {
+  --slide-bg: var(--bg);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.deck[data-surface="blueprint-grid"] .slide::before {
+  inset: 0;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--accent) 22%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 22%, transparent) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.45;
+}
+.deck[data-surface="blueprint-grid"] .slide::after {
+  width: 64px;
+  height: 64px;
+  right: 40px;
+  top: 40px;
+  border: 1px solid var(--accent);
+  background: transparent;
+  filter: none;
+}
+.deck[data-surface="blueprint-grid"] .slide h1 {
+  text-shadow: 0 0 20px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
 /* Scroll-triggered reveals (populated by document.html script) */
 .slide .reveal {
   opacity: 0;

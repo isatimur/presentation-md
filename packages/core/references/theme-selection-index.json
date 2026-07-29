@@ -620,6 +620,221 @@
         "#bfa55a",
         "#4a7c59"
       ]
+    },
+    {
+      "name": "heritage-editorial",
+      "scheme": "light",
+      "formality": "high",
+      "mood": [
+        "heritage",
+        "serif",
+        "warm",
+        "terracotta"
+      ],
+      "best_for": [
+        "brand stories",
+        "luxury lifestyle",
+        "cultural",
+        "hospitality"
+      ],
+      "avoid_for": [
+        "devtools",
+        "neon nightlife"
+      ],
+      "swatches": [
+        "#f4efe9",
+        "#16130f",
+        "#c98b7a",
+        "#a07854"
+      ]
+    },
+    {
+      "name": "fintech-clean",
+      "scheme": "light",
+      "formality": "medium-high",
+      "mood": [
+        "clean",
+        "violet",
+        "mint",
+        "product"
+      ],
+      "best_for": [
+        "fintech sales",
+        "SaaS pricing",
+        "payments",
+        "B2B product"
+      ],
+      "avoid_for": [
+        "editorial magazines",
+        "retro brands"
+      ],
+      "swatches": [
+        "#fbfbfd",
+        "#0a0a0a",
+        "#635bff",
+        "#00d4b1"
+      ]
+    },
+    {
+      "name": "developer-dark",
+      "scheme": "dark",
+      "formality": "medium",
+      "mood": [
+        "github",
+        "code",
+        "terminal",
+        "green"
+      ],
+      "best_for": [
+        "devtools demos",
+        "API launches",
+        "open source",
+        "engineering"
+      ],
+      "avoid_for": [
+        "luxury PE",
+        "kids products"
+      ],
+      "swatches": [
+        "#0d1117",
+        "#e6edf3",
+        "#3fb950",
+        "#58a6ff"
+      ]
+    },
+    {
+      "name": "data-editorial",
+      "scheme": "light",
+      "formality": "high",
+      "mood": [
+        "report",
+        "navy",
+        "chart",
+        "serif"
+      ],
+      "best_for": [
+        "industry reports",
+        "research",
+        "policy",
+        "benchmarks"
+      ],
+      "avoid_for": [
+        "gaming",
+        "consumer candy brands"
+      ],
+      "swatches": [
+        "#ffffff",
+        "#1a1a1a",
+        "#2b6cb0",
+        "#e63946"
+      ]
+    },
+    {
+      "name": "scandinavian",
+      "scheme": "light",
+      "formality": "medium",
+      "mood": [
+        "hygge",
+        "sage",
+        "linen",
+        "calm"
+      ],
+      "best_for": [
+        "lifestyle brands",
+        "wellness",
+        "home",
+        "sustainable consumer"
+      ],
+      "avoid_for": [
+        "cybersecurity",
+        "arcade"
+      ],
+      "swatches": [
+        "#efe9df",
+        "#2b2926",
+        "#9caf88",
+        "#c9826b"
+      ]
+    },
+    {
+      "name": "art-deco",
+      "scheme": "dark",
+      "formality": "high",
+      "mood": [
+        "deco",
+        "gold",
+        "emerald",
+        "investor"
+      ],
+      "best_for": [
+        "investor prospectus",
+        "private clubs",
+        "luxury real estate"
+      ],
+      "avoid_for": [
+        "playful kids apps",
+        "hacker tools"
+      ],
+      "swatches": [
+        "#0c2a24",
+        "#f5eed8",
+        "#c8a24a",
+        "#e2c47a"
+      ]
+    },
+    {
+      "name": "kinetic-wrapped",
+      "scheme": "dark",
+      "formality": "low",
+      "mood": [
+        "wrapped",
+        "acid",
+        "loud",
+        "year-in-review"
+      ],
+      "best_for": [
+        "year in review",
+        "recaps",
+        "campaign wrap",
+        "social"
+      ],
+      "avoid_for": [
+        "board books",
+        "legal"
+      ],
+      "swatches": [
+        "#0a0a0a",
+        "#ffffff",
+        "#c8ff00",
+        "#ff00cc"
+      ]
+    },
+    {
+      "name": "blueprint",
+      "scheme": "dark",
+      "formality": "medium",
+      "mood": [
+        "engineering",
+        "cyan",
+        "grid",
+        "mission"
+      ],
+      "best_for": [
+        "mission briefs",
+        "hardware",
+        "aerospace-adjacent",
+        "systems design"
+      ],
+      "avoid_for": [
+        "soft lifestyle",
+        "candy consumer"
+      ],
+      "swatches": [
+        "#0a1f3d",
+        "#e8f4ff",
+        "#00e5ff",
+        "#ffffff"
+      ]
     }
   ]
 }

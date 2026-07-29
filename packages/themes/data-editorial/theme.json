@@ -1,0 +1,32 @@
+{
+  "name": "data-editorial",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Data editorial \u2014 white report field, navy + chart red, Source Serif + Inter.",
+  "vibe": "Data editorial \u2014 white/#1a1a1a, navy #2b6cb0 + signal #e63946 (matches Signalbox gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#ffffff",
+    "bg2": "#f5f5f5",
+    "text": "#1a1a1a",
+    "muted": "#616161",
+    "accent": "#2b6cb0",
+    "accent2": "#e63946",
+    "cardBg": "rgba(26,26,26,0.03)",
+    "border": "rgba(26,26,26,0.12)"
+  },
+  "typography": {
+    "headingFont": "'Source Serif 4', Georgia, serif",
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Source+Serif+4:wght@600;700",
+      "Inter:wght@400;600"
+    ]
+  },
+  "geometry": {
+    "radius": "4px",
+    "slideWidth": "1280px"
+  }
+}

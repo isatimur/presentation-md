@@ -79,6 +79,14 @@ This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a q
 | [`@presentation-md/theme-neon-noir`](packages/themes/neon-noir) | Neon noir night rain |
 | [`@presentation-md/theme-vaporwave`](packages/themes/vaporwave) | Vaporwave sunset grid |
 | [`@presentation-md/theme-botanical-luxe`](packages/themes/botanical-luxe) | Botanical forest + gold |
+| [`@presentation-md/theme-heritage-editorial`](packages/themes/heritage-editorial) | Heritage parchment + terracotta |
+| [`@presentation-md/theme-fintech-clean`](packages/themes/fintech-clean) | Fintech violet + mint |
+| [`@presentation-md/theme-developer-dark`](packages/themes/developer-dark) | GitHub-night developer |
+| [`@presentation-md/theme-data-editorial`](packages/themes/data-editorial) | Data report editorial |
+| [`@presentation-md/theme-scandinavian`](packages/themes/scandinavian) | Scandinavian hygge |
+| [`@presentation-md/theme-art-deco`](packages/themes/art-deco) | Art Deco emerald + gold |
+| [`@presentation-md/theme-kinetic-wrapped`](packages/themes/kinetic-wrapped) | Kinetic year-in-review |
+| [`@presentation-md/theme-blueprint`](packages/themes/blueprint) | Engineering blueprint |
 | [`presentation-md-render`](packages/renderer-python) _(PyPI)_ | Python renderer for agents and pipelines running outside Node.js |
 
 ---

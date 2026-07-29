@@ -225,9 +225,13 @@ importers:
 
   packages/themes/aerospace-hud: {}
 
+  packages/themes/art-deco: {}
+
   packages/themes/aurora-glass: {}
 
   packages/themes/bauhaus: {}
+
+  packages/themes/blueprint: {}
 
   packages/themes/botanical-luxe: {}
 
@@ -241,11 +245,21 @@ importers:
 
   packages/themes/crt-terminal: {}
 
+  packages/themes/data-editorial: {}
+
+  packages/themes/developer-dark: {}
+
   packages/themes/editorial-serif: {}
+
+  packages/themes/fintech-clean: {}
 
   packages/themes/ft-editorial: {}
 
   packages/themes/genz-bento: {}
+
+  packages/themes/heritage-editorial: {}
+
+  packages/themes/kinetic-wrapped: {}
 
   packages/themes/luxury-minimalist: {}
 
@@ -258,6 +272,8 @@ importers:
   packages/themes/retro-arcade: {}
 
   packages/themes/risograph-zine: {}
+
+  packages/themes/scandinavian: {}
 
   packages/themes/swiss-typographic: {}
 

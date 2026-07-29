@@ -1,0 +1,33 @@
+{
+  "name": "blueprint",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Engineering blueprint \u2014 deep navy, cyan lines, Space Mono / Space Grotesk.",
+  "vibe": "Blueprint \u2014 #0a1f3d navy, cyan #00e5ff grid (matches Apsis Mission gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#0a1f3d",
+    "bg2": "#0d2548",
+    "text": "#e8f4ff",
+    "muted": "#7aa8c8",
+    "accent": "#00e5ff",
+    "accent2": "#ffffff",
+    "cardBg": "rgba(0,229,255,0.06)",
+    "border": "rgba(0,229,255,0.28)"
+  },
+  "typography": {
+    "headingFont": "'Space Grotesk', system-ui, sans-serif",
+    "bodyFont": "'Space Mono', monospace",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Space+Grotesk:wght@500;700",
+      "Space+Mono:wght@400;700",
+      "IBM+Plex+Mono:wght@500"
+    ]
+  },
+  "geometry": {
+    "radius": "2px",
+    "slideWidth": "1280px"
+  }
+}

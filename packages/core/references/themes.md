@@ -29,6 +29,14 @@ data intact. List installed themes at runtime with the `list_themes` MCP tool or
 | `neon-noir` | Neon noir — #050510 night, pink + cyan, Orbitron (Neon District). |
 | `vaporwave` | Vaporwave — #1a0533 dusk, #ff6ad5 + #5ce1ff, Monoton (Mallsoft). |
 | `botanical-luxe` | Botanical luxe — forest #1d3a2f, gold #bfa55a (Verdant). |
+| `heritage-editorial` | Heritage editorial — parchment, terracotta, Playfair (Atelier). |
+| `fintech-clean` | Fintech clean — white, violet + mint, Inter (Ledgerline). |
+| `developer-dark` | Developer dark — GitHub night, green + blue (Forge). |
+| `data-editorial` | Data editorial — white report, navy + red (Signalbox). |
+| `scandinavian` | Scandinavian — linen, sage + clay, Fraunces (Hygge). |
+| `art-deco` | Art Deco — emerald, gold leaf, Cinzel (Meridian Club). |
+| `kinetic-wrapped` | Kinetic Wrapped — black + acid lime (Pulse). |
+| `blueprint` | Blueprint — navy, cyan engineering grid (Apsis). |
 
 Install more: `npm i @presentation-md/theme-<name>` (or the PyPI mirror
 `presentation-md-theme-<name>`). Scaffold your own: `npx @presentation-md/create-theme`.

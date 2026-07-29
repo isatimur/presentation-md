@@ -1,0 +1,32 @@
+{
+  "name": "art-deco",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Art Deco investor \u2014 deep emerald, gold leaf, Cinzel display.",
+  "vibe": "Art Deco \u2014 #0c2a24 emerald, gold #c8a24a, Cinzel (matches Meridian Club gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#0c2a24",
+    "bg2": "#113530",
+    "text": "#f5eed8",
+    "muted": "#c9bfa0",
+    "accent": "#c8a24a",
+    "accent2": "#e2c47a",
+    "cardBg": "rgba(200,162,74,0.08)",
+    "border": "rgba(200,162,74,0.35)"
+  },
+  "typography": {
+    "headingFont": "'Cinzel', Georgia, serif",
+    "bodyFont": "'Cormorant Garamond', Georgia, serif",
+    "headingWeight": 600,
+    "googleFonts": [
+      "Cinzel:wght@500;600;700",
+      "Cormorant+Garamond:wght@400;600"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

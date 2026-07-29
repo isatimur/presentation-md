@@ -1,0 +1,32 @@
+{
+  "name": "scandinavian",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Scandinavian hygge \u2014 warm linen, sage green, soft clay, Fraunces + Work Sans.",
+  "vibe": "Scandinavian \u2014 #efe9df linen, sage #9caf88 + clay #c9826b (matches Hygge gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#efe9df",
+    "bg2": "#e6ddd1",
+    "text": "#2b2926",
+    "muted": "#7a7470",
+    "accent": "#9caf88",
+    "accent2": "#c9826b",
+    "cardBg": "rgba(43,41,38,0.04)",
+    "border": "rgba(43,41,38,0.1)"
+  },
+  "typography": {
+    "headingFont": "'Fraunces', Georgia, serif",
+    "bodyFont": "'Work Sans', system-ui, sans-serif",
+    "headingWeight": 600,
+    "googleFonts": [
+      "Fraunces:wght@500;600;700",
+      "Work+Sans:wght@400;600"
+    ]
+  },
+  "geometry": {
+    "radius": "16px",
+    "slideWidth": "1280px"
+  }
+}

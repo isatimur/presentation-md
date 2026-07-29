@@ -34,6 +34,14 @@ const PACKAGED_THEMES = [
   "neon-noir",
   "vaporwave",
   "botanical-luxe",
+  "heritage-editorial",
+  "fintech-clean",
+  "developer-dark",
+  "data-editorial",
+  "scandinavian",
+  "art-deco",
+  "kinetic-wrapped",
+  "blueprint",
 ];
 
 function previewDeck(theme: string): string {

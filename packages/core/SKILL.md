@@ -1,6 +1,6 @@
 ---
 name: presentation-generator
-description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 23 themes and 11 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
+description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 31 themes and 11 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
 license: MIT
 metadata:
   author: isatimur
@@ -294,6 +294,63 @@ Each theme is a complete design language: colors, typography, geometry, motion, 
 **Fonts:** Cormorant · DM Sans
 **Surface:** `botanical-leaf`
 **Use for:** impact reports (gallery: Verdant)
+
+
+### `heritage-editorial`
+**Soul:** Warm parchment and terracotta blush.
+**Palette:** `#f4efe9` · `#c98b7a` · `#a07854`
+**Fonts:** Playfair Display · DM Sans
+**Surface:** `heritage-wash`
+**Use for:** brand stories (gallery: Atelier No. 9)
+
+### `fintech-clean`
+**Soul:** Stripe-clean product confidence.
+**Palette:** `#fbfbfd` · `#635bff` · `#00d4b1`
+**Fonts:** Inter
+**Surface:** `fintech-soft`
+**Use for:** fintech sales (gallery: Ledgerline)
+
+### `developer-dark`
+**Soul:** GitHub night mode as a deck.
+**Palette:** `#0d1117` · `#3fb950` · `#58a6ff`
+**Fonts:** Inter · JetBrains Mono
+**Surface:** `dev-terminal`
+**Use for:** developer demos (gallery: Forge)
+
+### `data-editorial`
+**Soul:** Industry report that still has a point of view.
+**Palette:** `#ffffff` · `#2b6cb0` · `#e63946`
+**Fonts:** Source Serif 4 · Inter
+**Surface:** `data-rule`
+**Use for:** research reports (gallery: Signalbox)
+
+### `scandinavian`
+**Soul:** Linen, sage, and soft clay.
+**Palette:** `#efe9df` · `#9caf88` · `#c9826b`
+**Fonts:** Fraunces · Work Sans
+**Surface:** `hygge-soft`
+**Use for:** lifestyle brands (gallery: Hygge)
+
+### `art-deco`
+**Soul:** Emerald walls and gold leaf.
+**Palette:** `#0c2a24` · `#c8a24a` · `#e2c47a`
+**Fonts:** Cinzel · Cormorant Garamond
+**Surface:** `deco-fan`
+**Use for:** investor prospectus (gallery: Meridian Club)
+
+### `kinetic-wrapped`
+**Soul:** Year-in-review acid lime.
+**Palette:** `#0a0a0a` · `#c8ff00` · `#ff00cc`
+**Fonts:** Archivo Black · Inter
+**Surface:** `wrapped-block`
+**Use for:** recaps (gallery: Pulse)
+
+### `blueprint`
+**Soul:** Engineering drawing board.
+**Palette:** `#0a1f3d` · `#00e5ff`
+**Fonts:** Space Grotesk · Space Mono
+**Surface:** `blueprint-grid`
+**Use for:** mission briefs (gallery: Apsis)
 
 ---
 

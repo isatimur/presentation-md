@@ -1,0 +1,32 @@
+{
+  "name": "developer-dark",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Developer dark \u2014 GitHub-night canvas, green success, blue links, JetBrains Mono.",
+  "vibe": "Developer dark \u2014 #0d1117, #3fb950 + #58a6ff, JetBrains Mono + Inter (matches Forge gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#0d1117",
+    "bg2": "#161b22",
+    "text": "#e6edf3",
+    "muted": "#8b949e",
+    "accent": "#3fb950",
+    "accent2": "#58a6ff",
+    "cardBg": "rgba(48,54,61,0.55)",
+    "border": "rgba(48,54,61,0.9)"
+  },
+  "typography": {
+    "headingFont": "'Inter', system-ui, sans-serif",
+    "bodyFont": "'JetBrains Mono', monospace",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Inter:wght@600;700",
+      "JetBrains+Mono:wght@400;600"
+    ]
+  },
+  "geometry": {
+    "radius": "8px",
+    "slideWidth": "1280px"
+  }
+}

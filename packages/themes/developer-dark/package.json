@@ -1,0 +1,27 @@
+{
+  "name": "@presentation-md/theme-developer-dark",
+  "version": "1.0.0",
+  "description": "Developer dark theme \u2014 GitHub night, green + blue, JetBrains Mono.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./theme.json",
+  "files": [
+    "theme.json",
+    "README.md"
+  ],
+  "keywords": [
+    "presentation-md",
+    "theme",
+    "ai-agent",
+    "slides"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/isatimur/presentation-md.git"
+  },
+  "homepage": "https://presentation-md.vercel.app",
+  "bugs": "https://github.com/isatimur/presentation-md/issues"
+}
