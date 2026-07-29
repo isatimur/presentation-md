@@ -1,6 +1,6 @@
 {
   "name": "@presentation-md/install",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "One-command installer for presentation-md adapters.",
   "license": "MIT",
   "type": "module",

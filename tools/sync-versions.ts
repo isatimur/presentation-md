@@ -1,7 +1,7 @@
 #!/usr/bin/env tsx
 /**
  * sync-versions — reads the version from packages/core/package.json and
- * writes it to every other package and theme package.json in the monorepo.
+ * writes it to every other package.json and pyproject.toml in the monorepo.
  *
  * Run via: pnpm sync-versions
  */
@@ -9,7 +9,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { readdirSync, statSync } from "node:fs";
+import { readdirSync, statSync, existsSync } from "node:fs";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const root = join(__dirname, "..");
@@ -22,19 +22,26 @@ function writeJson(filePath: string, data: Record<string, unknown>): void {
   writeFileSync(filePath, JSON.stringify(data, null, 2) + "\n", "utf-8");
 }
 
-function collectPackageJsonPaths(dir: string, depth = 0): string[] {
+function collectPaths(dir: string, fileName: string, depth = 0): string[] {
   if (depth > 2) return [];
   const results: string[] = [];
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry);
     if (statSync(full).isDirectory()) {
-      // recurse into packages/* and packages/themes/*
-      results.push(...collectPackageJsonPaths(full, depth + 1));
-    } else if (entry === "package.json") {
+      results.push(...collectPaths(full, fileName, depth + 1));
+    } else if (entry === fileName) {
       results.push(full);
     }
   }
   return results;
+}
+
+function syncPyprojectVersion(filePath: string, version: string): boolean {
+  const raw = readFileSync(filePath, "utf-8");
+  const next = raw.replace(/^version\s*=\s*"[^"]*"/m, `version = "${version}"`);
+  if (next === raw) return false;
+  writeFileSync(filePath, next);
+  return true;
 }
 
 // Read source-of-truth version from core
@@ -50,7 +57,7 @@ if (!targetVersion) {
 console.log(`Syncing all packages to version ${targetVersion} (from core)\n`);
 
 const packagesDir = join(root, "packages");
-const allPackageJsons = collectPackageJsonPaths(packagesDir);
+const allPackageJsons = collectPaths(packagesDir, "package.json");
 
 let updatedCount = 0;
 let skippedCount = 0;
@@ -72,6 +79,18 @@ for (const pkgPath of allPackageJsons) {
   writeJson(pkgPath, pkg);
   console.log(`  updated    ${relative(root, pkgPath)}  (${current ?? "none"} → ${targetVersion})`);
   updatedCount++;
+}
+
+console.log("\nSyncing pyproject.toml files\n");
+for (const pyPath of collectPaths(packagesDir, "pyproject.toml")) {
+  if (!existsSync(pyPath)) continue;
+  if (syncPyprojectVersion(pyPath, targetVersion)) {
+    console.log(`  updated    ${relative(root, pyPath)}  → ${targetVersion}`);
+    updatedCount++;
+  } else {
+    console.log(`  unchanged  ${relative(root, pyPath)}`);
+    skippedCount++;
+  }
 }
 
 console.log(`\nDone. ${updatedCount} updated, ${skippedCount} already at ${targetVersion}.`);

@@ -1,4 +1,4 @@
-# @presentation-md/mcp-server
+# @presentation-md/export
 
 ## 1.0.0
 
@@ -34,33 +34,7 @@
 - 4dfb90b: Harden PPTX import against review findings: correct assetsDir image refs,
   enforce post-decompress zip size limits, realpath write containment, preserve
   speaker notes, and reopen legacy psp-deck HTML embeds.
-- e9b8afd: Skill craft upgrade inspired by frontend-slides: honest 9-layout schema alignment,
-  theme selection index + show-don't-tell discovery, real MCP tool table (and matching
-  README/marketing copy), install SKILL sync, and keyboard / reduced-motion / entrance
-  motion in the shared HTML renderer.
-- Updated dependencies [e4b502e]
-- Updated dependencies [a3f8544]
 - Updated dependencies [4dfb90b]
 - Updated dependencies [e9b8afd]
 - Updated dependencies [e9b8afd]
-- Updated dependencies [e9b8afd]
-  - @presentation-md/render@1.0.0
-  - @presentation-md/export@1.0.0
   - @presentation-md/core@1.0.0
-  - @presentation-md/create-theme@1.0.0
-
-## 0.2.0
-
-### Minor Changes
-
-- d8d2fb0: Initial release of presentation-md v0.1.0.
-
-  Turn rough notes into a polished, self-contained HTML slide deck for any AI agent.
-  Includes dual-language renderers (Node + Python), MCP server, 5 themes, 5 adapters,
-  installer CLI, and interactive theme scaffolder.
-
-### Patch Changes
-
-- Updated dependencies [d8d2fb0]
-  - @presentation-md/core@0.2.0
-  - @presentation-md/render@0.2.0

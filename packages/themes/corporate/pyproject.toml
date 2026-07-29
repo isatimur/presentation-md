@@ -1,6 +1,6 @@
 [project]
 name = "presentation-md-theme-corporate"
-version = "0.1.0"
+version = "1.0.0"
 description = "Formal corporate presentation theme — crisp white, navy text, restrained blue accent."
 readme = "README.md"
 license = "MIT"

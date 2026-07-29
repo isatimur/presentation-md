@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-playful",
-  "version": "0.1.0",
-  "description": "Playful creative-agency presentation theme \u2014 warm white, coral + lime accents, rounded, big type.",
+  "version": "1.0.0",
+  "description": "Playful creative-agency presentation theme — warm white, coral + lime accents, rounded, big type.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

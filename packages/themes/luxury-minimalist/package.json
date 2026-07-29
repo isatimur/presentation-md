@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-luxury-minimalist",
-  "version": "0.1.0",
-  "description": "Luxury minimalist presentation theme \u2014 warm off-white canvas, charcoal text, hairline borders, no gradients.",
+  "version": "1.0.0",
+  "description": "Luxury minimalist presentation theme — warm off-white canvas, charcoal text, hairline borders, no gradients.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

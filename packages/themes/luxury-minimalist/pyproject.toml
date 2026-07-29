@@ -1,6 +1,6 @@
 [project]
 name = "presentation-md-theme-luxury-minimalist"
-version = "0.1.0"
+version = "1.0.0"
 description = "Luxury minimalist presentation theme — warm off-white canvas, charcoal text, hairline borders, no gradients."
 readme = "README.md"
 license = "MIT"

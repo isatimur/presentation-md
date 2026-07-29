@@ -1,5 +1,15 @@
 # @presentation-md/theme-corporate
 
+## 1.0.0
+
+### Major Changes
+
+- e9b8afd: Rename the pack from presentation-skill-pack to presentation-md to match the GitHub repo.
+
+  Breaking: npm scope is now `@presentation-md/*`, CLIs are `presentation-md-*` /
+  `create-presentation-md-theme`, PyPI packages are `presentation-md-*`, and the site
+  hostname is `presentation-md.vercel.app`.
+
 ## 0.2.0
 
 ### Minor Changes

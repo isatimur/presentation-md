@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-retro-arcade",
-  "version": "0.1.0",
-  "description": "Retro 80s arcade presentation theme \u2014 deep purple-black bg, magenta + cyan neon, pixel fonts.",
+  "version": "1.0.0",
+  "description": "Retro 80s arcade presentation theme — deep purple-black bg, magenta + cyan neon, pixel fonts.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

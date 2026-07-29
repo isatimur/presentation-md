@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-corporate",
-  "version": "0.1.0",
-  "description": "Formal corporate presentation theme \u2014 crisp white, navy text, restrained blue accent.",
+  "version": "1.0.0",
+  "description": "Formal corporate presentation theme — crisp white, navy text, restrained blue accent.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

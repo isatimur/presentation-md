@@ -1,6 +1,6 @@
 {
   "name": "@presentation-md/theme-brutalist-mono",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Raw brutalist theme — concrete-grey background, monospace type, hard corners, hazard-orange accent.",
   "license": "MIT",
   "type": "module",
