@@ -91,4 +91,54 @@ describe("import_pptx tool", () => {
     expect(result.slide_count).toBe(1);
     expect(result.deck.slides[0]?.heading).toBe("Base64 Slide");
   });
+
+  it("rejects pptx_path outside the current working directory", async () => {
+    const { mkdtemp, writeFile, rm } = await import("node:fs/promises");
+    const { join } = await import("node:path");
+    const { tmpdir } = await import("node:os");
+    const outsideDir = await mkdtemp(join(tmpdir(), "import-pptx-outside-"));
+    try {
+      const outsideFile = join(outsideDir, "deck.pptx");
+      await writeFile(outsideFile, "PK\x03\x04fake");
+      await expect(importPptxTool.handler({ pptx_path: outsideFile })).rejects.toThrow(
+        /must be within the current working directory|not found/i
+      );
+    } finally {
+      await rm(outsideDir, { recursive: true, force: true });
+    }
+  });
+
+  it("rejects assets_dir that escapes via symlink", async () => {
+    const { mkdtemp, symlink, writeFile, rm } = await import("node:fs/promises");
+    const { join } = await import("node:path");
+    const { tmpdir } = await import("node:os");
+    const dir = await tempDir();
+    const outsideDir = await mkdtemp(join(tmpdir(), "import-pptx-link-target-"));
+    const linkPath = join(dir, "escape-link");
+    try {
+      await symlink(outsideDir, linkPath);
+      const themesDir = resolve(process.cwd(), "../core/themes");
+      const theme = await loadTheme("default-tech", { themesDir });
+      const buf = await deckToPptxBuffer(
+        { type: "deck", slides: [{ layout: "title", heading: "X" }] },
+        theme
+      );
+      const pptxPath = join(dir, "deck.pptx");
+      await writeFile(pptxPath, buf);
+      await expect(
+        importPptxTool.handler({
+          pptx_path: pptxPath,
+          assets_dir: linkPath,
+        })
+      ).rejects.toThrow(/must be within the current working directory/i);
+    } finally {
+      await rm(outsideDir, { recursive: true, force: true });
+    }
+  });
+
+  it("rejects garbage pptx_base64 that is not a ZIP", async () => {
+    await expect(
+      importPptxTool.handler({ pptx_base64: Buffer.from("hello").toString("base64") })
+    ).rejects.toThrow(/does not look like a valid PPTX/i);
+  });
 });

@@ -57,6 +57,8 @@ export interface Slide {
   stats?: Stat[];
   steps?: Step[];
   cta?: Cta;
+  /** Speaker notes (e.g. from PPTX import); not rendered on the slide. */
+  notes?: string;
   [key: string]: unknown;
 }
 

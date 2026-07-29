@@ -108,10 +108,10 @@ function extForContentType(ct: string): string {
   return "bin";
 }
 
-async function readXml(zip: JSZip, path: string): Promise<Record<string, unknown> | null> {
-  const file = zip.file(path);
-  if (!file) return null;
-  return parser.parse(await file.async("string")) as Record<string, unknown>;
+function declaredUncompressedSize(entry: JSZip.JSZipObject): number {
+  const data = (entry as unknown as { _data?: { uncompressedSize?: number } })._data;
+  const n = data?.uncompressedSize;
+  return typeof n === "number" && n > 0 ? n : 0;
 }
 
 function resolveRelTarget(baseDir: string, target: string): string {
@@ -156,20 +156,62 @@ export async function extractPptx(
 
   const zip = await JSZip.loadAsync(input, { checkCRC32: true });
   const entries = Object.values(zip.files).filter((f) => !f.dir);
-  let totalUncompressed = 0;
   let entryCount = 0;
+  let declaredTotal = 0;
   for (const entry of entries) {
     entryCount += 1;
-    const rawSize =
-      (entry as unknown as { _data?: { uncompressedSize?: number } })._data?.uncompressedSize ?? 0;
-    totalUncompressed += rawSize;
-    assertZipEntrySafe({ entryCount, uncompressedSize: rawSize, totalUncompressed });
+    const declared = declaredUncompressedSize(entry);
+    declaredTotal += declared;
+    assertZipEntrySafe({
+      entryCount,
+      uncompressedSize: declared,
+      totalUncompressed: declaredTotal,
+    });
+  }
+
+  /** Actual decompressed bytes read so far (authoritative vs declared sizes). */
+  let bytesRead = 0;
+  const textCache = new Map<string, string>();
+
+  async function readBytes(
+    path: string,
+    file: JSZip.JSZipObject,
+    options: { isMedia?: boolean } = {}
+  ): Promise<Uint8Array> {
+    const bytes = new Uint8Array(await file.async("uint8array"));
+    bytesRead += bytes.byteLength;
+    assertZipEntrySafe({
+      entryCount,
+      uncompressedSize: bytes.byteLength,
+      totalUncompressed: bytesRead,
+      isMedia: options.isMedia,
+    });
+    return bytes;
+  }
+
+  async function readText(path: string): Promise<string | null> {
+    const cached = textCache.get(path);
+    if (cached !== undefined) return cached;
+    const file = zip.file(path);
+    if (!file) return null;
+    const bytes = await readBytes(path, file);
+    const text = Buffer.from(bytes).toString("utf-8");
+    textCache.set(path, text);
+    return text;
+  }
+
+  async function readXml(path: string): Promise<Record<string, unknown> | null> {
+    const text = await readText(path);
+    if (text == null) return null;
+    return parser.parse(text) as Record<string, unknown>;
   }
 
   const defaults = new Map<string, string>();
   const overrides = new Map<string, string>();
-  const ctDoc = await readXml(zip, "[Content_Types].xml");
-  if (ctDoc) {
+  const ctDoc = await readXml("[Content_Types].xml");
+  if (!ctDoc) {
+    warn("Missing [Content_Types].xml — continuing with filename heuristics.");
+  } else {
     const types = ctDoc["Types"] as Record<string, unknown> | undefined;
     for (const d of asArray(types?.["Default"])) {
       const o = d as Record<string, unknown>;
@@ -181,8 +223,11 @@ export async function extractPptx(
     }
   }
 
-  const pres = await readXml(zip, "ppt/presentation.xml");
-  const presRels = await readXml(zip, "ppt/_rels/presentation.xml.rels");
+  const pres = await readXml("ppt/presentation.xml");
+  if (!pres) {
+    warn("Missing ppt/presentation.xml — falling back to slide filename order.");
+  }
+  const presRels = await readXml("ppt/_rels/presentation.xml.rels");
   const relById = new Map<string, { target: string; external: boolean }>();
   const relRoot = (presRels?.["Relationships"] ?? {}) as Record<string, unknown>;
   for (const rel of asArray(relRoot["Relationship"])) {
@@ -229,13 +274,17 @@ export async function extractPptx(
 
   for (let i = 0; i < slidePaths.length; i++) {
     const slidePath = slidePaths[i]!;
-    const slideDoc = await readXml(zip, slidePath);
+    const slideDoc = await readXml(slidePath);
     if (!slideDoc) {
       warn(`Missing slide part: ${slidePath}`);
       continue;
     }
+    if (!slideDoc["sld"]) {
+      warn(`Unrecognized or empty slide XML root in ${slidePath}`);
+      continue;
+    }
 
-    const sld = (slideDoc["sld"] ?? slideDoc) as Record<string, unknown>;
+    const sld = slideDoc["sld"] as Record<string, unknown>;
     const cSld = sld["cSld"] as Record<string, unknown> | undefined;
     const spTree = cSld?.["spTree"] as Record<string, unknown> | undefined;
 
@@ -259,20 +308,25 @@ export async function extractPptx(
     }
 
     let bestTable: string[][] = [];
+    let tableCount = 0;
     for (const gf of asArray(spTree?.["graphicFrame"])) {
       const gfObj = gf as Record<string, unknown>;
       const graphic = gfObj["graphic"] as Record<string, unknown> | undefined;
       const graphicData = graphic?.["graphicData"] as Record<string, unknown> | undefined;
       const tbl = graphicData?.["tbl"] as Record<string, unknown> | undefined;
       if (tbl) {
+        tableCount += 1;
         const parsed = parseTable(tbl);
         if (parsed.length > bestTable.length) bestTable = parsed;
       }
     }
+    if (tableCount > 1) {
+      warn(`Slide ${i + 1}: ${tableCount - 1} extra table(s) ignored (using largest only)`);
+    }
 
     const slideDir = slidePath.includes("/") ? slidePath.slice(0, slidePath.lastIndexOf("/")) : "";
     const relsPath = `${slideDir}/_rels/${slidePath.slice(slidePath.lastIndexOf("/") + 1)}.rels`;
-    const slideRelsDoc = await readXml(zip, relsPath);
+    const slideRelsDoc = await readXml(relsPath);
     const slideRelById = new Map<string, { target: string; external: boolean; type: string }>();
     const slideRelRoot = (slideRelsDoc?.["Relationships"] ?? {}) as Record<string, unknown>;
     for (const rel of asArray(slideRelRoot["Relationship"])) {
@@ -284,31 +338,31 @@ export async function extractPptx(
       });
     }
 
-    const slideXml = await zip.file(slidePath)!.async("string");
+    const slideXml = (await readText(slidePath)) ?? "";
     const blipIds = embedIdsFromXml(slideXml);
     const images: ExtractedImage[] = [];
     let imgIndex = 0;
     for (const rid of blipIds) {
       const rel = slideRelById.get(rid);
-      if (!rel) continue;
+      if (!rel) {
+        warn(`Missing image relationship ${rid} on slide ${i + 1}`);
+        continue;
+      }
       if (rel.external) {
         warn(`Skipped external image relationship on slide ${i + 1}: ${rel.target}`);
         continue;
       }
-      if (!rel.type.includes("image") && !rel.target.includes("media/")) continue;
+      if (!rel.type.includes("image") && !rel.target.includes("media/")) {
+        warn(`Skipped non-image relationship ${rid} on slide ${i + 1}: ${rel.target}`);
+        continue;
+      }
       const mediaPath = resolveRelTarget(slideDir, rel.target);
       const mediaFile = zip.file(mediaPath);
       if (!mediaFile) {
         warn(`Missing media part: ${mediaPath}`);
         continue;
       }
-      const bytes = new Uint8Array(await mediaFile.async("uint8array"));
-      assertZipEntrySafe({
-        entryCount,
-        uncompressedSize: bytes.byteLength,
-        totalUncompressed: totalUncompressed + bytes.byteLength,
-        isMedia: true,
-      });
+      const bytes = await readBytes(mediaPath, mediaFile, { isMedia: true });
       imgIndex += 1;
       const ct = contentTypeForPath(mediaPath, defaults, overrides);
       images.push({
@@ -319,15 +373,20 @@ export async function extractPptx(
     }
 
     let notes: string | undefined;
+    let notesRelSeen = false;
     for (const rel of slideRelById.values()) {
       if (!rel.type.includes("notesSlide") && !/notesSlide/i.test(rel.target)) continue;
+      notesRelSeen = true;
       if (rel.external) {
         warn(`Skipped external notes relationship on slide ${i + 1}`);
         continue;
       }
       const notesPath = resolveRelTarget(slideDir, rel.target);
-      const notesDoc = await readXml(zip, notesPath);
-      if (!notesDoc) continue;
+      const notesDoc = await readXml(notesPath);
+      if (!notesDoc) {
+        warn(`Missing notes part on slide ${i + 1}: ${notesPath}`);
+        continue;
+      }
       const notesSld = (notesDoc["notes"] ?? notesDoc) as Record<string, unknown>;
       const nCSld = notesSld["cSld"] as Record<string, unknown> | undefined;
       const nTree = nCSld?.["spTree"] as Record<string, unknown> | undefined;
@@ -343,6 +402,7 @@ export async function extractPptx(
         if (t) noteParts.push(t);
       }
       if (noteParts.length) notes = noteParts.join("\n");
+      else if (notesRelSeen) warn(`Empty notes part on slide ${i + 1}`);
     }
 
     slides.push({
@@ -355,7 +415,11 @@ export async function extractPptx(
     });
   }
 
-  const core = await readXml(zip, "docProps/core.xml");
+  if (slides.length === 0) {
+    throw new Error("No slides found in PPTX");
+  }
+
+  const core = await readXml("docProps/core.xml");
   const coreProps = (core?.["coreProperties"] ?? {}) as Record<string, unknown>;
   const meta = {
     title: textOfNode(coreProps["title"]).trim() || undefined,

@@ -1,5 +1,5 @@
 import { mkdir, writeFile } from "node:fs/promises";
-import { join } from "node:path";
+import { join, relative, sep } from "node:path";
 import { validateDeckJson } from "@presentation-md/core";
 import type { DeckJson, Slide, Card, Stat, Step } from "../deck-types.js";
 import type {
@@ -20,6 +20,13 @@ function bytesToDataUri(img: ExtractedImage): string {
   return `data:${img.contentType};base64,${b64}`;
 }
 
+/** Path relative to cwd (posix separators) so deck image refs match write location. */
+function assetsRelativePath(assetsDir: string, fileName: string): string {
+  const dest = join(assetsDir, fileName);
+  const rel = relative(process.cwd(), dest).split(sep).join("/");
+  return rel || fileName;
+}
+
 async function imageToRef(
   img: ExtractedImage,
   slideNumber: number,
@@ -35,7 +42,7 @@ async function imageToRef(
     await mkdir(opts.assetsDir, { recursive: true });
     const dest = join(opts.assetsDir, img.name);
     await writeFile(dest, img.bytes);
-    return img.name.includes("/") ? img.name : `assets/${img.name}`;
+    return assetsRelativePath(opts.assetsDir, img.name);
   }
   return bytesToDataUri(img);
 }
@@ -188,7 +195,11 @@ export async function mapExtractedToDeck(
       warnings.push(`Slide ${slide.number}: extra image ${extra.name} ignored (using first only)`);
       opts.onWarn?.(warnings[warnings.length - 1]!);
     }
-    slides.push(mapSlide(slide, i, extracted.slides.length, imageRef));
+    const mapped = mapSlide(slide, i, extracted.slides.length, imageRef);
+    if (slide.notes?.trim()) {
+      mapped.notes = slide.notes.trim();
+    }
+    slides.push(mapped);
   }
 
   const deck: DeckJson = {

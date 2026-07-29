@@ -63,17 +63,22 @@ export function parseDeckJson(text: string): DeckJson {
 
 /**
  * Recover the source deck embedded in a rendered presentation `.html`
- * (the `<script type="application/json" id="pmd-deck">` written by the renderer).
+ * (`id="pmd-deck"`, or legacy `id="psp-deck"` from pre-rename renders).
  */
 function extractDeckJsonString(html: string): string | undefined {
+  const ids = ["pmd-deck", "psp-deck"];
   if (typeof DOMParser !== "undefined") {
-    const el = new DOMParser().parseFromString(html, "text/html").getElementById("pmd-deck");
-    const text = el?.textContent?.trim();
-    if (text) return text;
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    for (const id of ids) {
+      const text = doc.getElementById(id)?.textContent?.trim();
+      if (text) return text;
+    }
   }
   // Fallback for non-DOM environments. Safe because the renderer escapes `<`
   // inside the embedded JSON, so it can never contain a literal `</script>`.
-  const m = html.match(/<script[^>]*id=["']pmd-deck["'][^>]*>([\s\S]*?)<\/script>/i);
+  const m = html.match(
+    /<script[^>]*id=["'](?:pmd-deck|psp-deck)["'][^>]*>([\s\S]*?)<\/script>/i
+  );
   return m?.[1]?.trim();
 }
 

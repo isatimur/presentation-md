@@ -54,7 +54,10 @@ program
   }) => {
     if (options.listThemes) {
       const themesDir = getBundledThemesDir();
-      const themes = await discoverInstalledThemes({ bundledThemesDir: themesDir });
+      const themes = await discoverInstalledThemes({
+        bundledThemesDir: themesDir,
+        nodeModulesRoot: process.cwd(),
+      });
       if (themes.length === 0) {
         process.stdout.write("No themes found.\n");
       } else {
@@ -76,12 +79,12 @@ program
         const { deck, warnings } = await pptxToDeck(buf, {
           theme: options.theme,
           assetsDir: options.assetsDir ? resolve(process.cwd(), options.assetsDir) : undefined,
-          onWarn: (msg) => process.stderr.write(`  warning: ${msg}\n`),
         });
         const outputPath = resolve(process.cwd(), options.output ?? "deck.json");
         await writeFile(outputPath, JSON.stringify(deck, null, 2), "utf-8");
         for (const w of warnings) process.stderr.write(`  warning: ${w}\n`);
-        process.stdout.write(`Imported ${deck.slides.length} slides → ${outputPath}\n`);
+        const warnNote = warnings.length ? ` (${warnings.length} warnings)` : "";
+        process.stdout.write(`Imported ${deck.slides.length} slides${warnNote} → ${outputPath}\n`);
       } catch (err) {
         process.stderr.write(`Error: ${(err as Error).message}\n`);
         process.exit(1);

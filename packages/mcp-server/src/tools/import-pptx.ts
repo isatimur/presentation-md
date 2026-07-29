@@ -1,24 +1,60 @@
-import { readFile, writeFile } from "node:fs/promises";
-import { extname, resolve, sep } from "node:path";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { basename, dirname, extname, join, resolve, sep } from "node:path";
 import { realpath } from "node:fs/promises";
 import { pptxToDeck } from "@presentation-md/export/import";
 import type { ToolDefinition } from "../server.js";
+
+/**
+ * Resolve a path under cwd using realpath on the nearest existing ancestor so
+ * cwd-relative symlinks cannot escape the workspace on write.
+ */
+async function assertWritablePathInCwd(relPath: string, label: string): Promise<string> {
+  const root = await realpath(process.cwd());
+  const resolved = resolve(process.cwd(), relPath);
+  const segments: string[] = [];
+  let probe = resolved;
+  for (;;) {
+    try {
+      const real = await realpath(probe);
+      if (real !== root && !real.startsWith(root + sep)) {
+        throw new Error(`'${label}' must be within the current working directory (${root}).`);
+      }
+      const finalPath = segments.length ? join(real, ...segments.reverse()) : real;
+      if (finalPath !== root && !finalPath.startsWith(root + sep)) {
+        throw new Error(`'${label}' must be within the current working directory (${root}).`);
+      }
+      return finalPath;
+    } catch (err) {
+      if (err instanceof Error && /must be within/.test(err.message)) throw err;
+      const parent = dirname(probe);
+      if (parent === probe) {
+        throw new Error(`'${label}' not found: ${relPath}`);
+      }
+      segments.push(basename(probe));
+      probe = parent;
+    }
+  }
+}
+
+async function assertExistingPathInCwd(relPath: string, label: string): Promise<string> {
+  const root = await realpath(process.cwd());
+  let resolvedPath: string;
+  try {
+    resolvedPath = await realpath(resolve(process.cwd(), relPath));
+  } catch {
+    throw new Error(`'${label}' not found: ${relPath}`);
+  }
+  if (resolvedPath !== root && !resolvedPath.startsWith(root + sep)) {
+    throw new Error(`'${label}' must be within the current working directory (${root}).`);
+  }
+  return resolvedPath;
+}
 
 async function assertPptxPathInCwd(pptxPath: string): Promise<string> {
   if (extname(pptxPath).toLowerCase() !== ".pptx") {
     throw new Error("'pptx_path' must point to a .pptx file.");
   }
-  const root = await realpath(process.cwd());
-  let resolvedPath: string;
-  try {
-    resolvedPath = await realpath(resolve(process.cwd(), pptxPath));
-  } catch {
-    throw new Error(`'pptx_path' not found: ${pptxPath}`);
-  }
-  if (resolvedPath !== root && !resolvedPath.startsWith(root + sep)) {
-    throw new Error(`'pptx_path' must be within the current working directory (${root}).`);
-  }
-  return resolvedPath;
+  return assertExistingPathInCwd(pptxPath, "pptx_path");
 }
 
 export const importPptxTool: ToolDefinition = {
@@ -65,32 +101,30 @@ export const importPptxTool: ToolDefinition = {
       buffer = await readFile(safePath);
     } else {
       buffer = Buffer.from(pptxBase64!, "base64");
+      if (buffer.length < 4 || buffer[0] !== 0x50 || buffer[1] !== 0x4b) {
+        throw new Error("'pptx_base64' does not look like a valid PPTX (ZIP) file.");
+      }
     }
 
     const theme = input["theme"] as string | undefined;
-    const assetsDir = input["assets_dir"] as string | undefined;
-    const outputPath = input["output_path"] as string | undefined;
+    const assetsDirInput = input["assets_dir"] as string | undefined;
+    const outputPathInput = input["output_path"] as string | undefined;
 
-    if (assetsDir) {
-      const root = await realpath(process.cwd());
-      const resolvedAssets = resolve(process.cwd(), assetsDir);
-      if (resolvedAssets !== root && !resolvedAssets.startsWith(root + sep)) {
-        throw new Error(`'assets_dir' must be within the current working directory (${root}).`);
-      }
+    let assetsDir: string | undefined;
+    if (assetsDirInput) {
+      assetsDir = await assertWritablePathInCwd(assetsDirInput, "assets_dir");
+      await mkdir(assetsDir, { recursive: true });
     }
 
-    if (outputPath) {
-      const root = await realpath(process.cwd());
-      const resolvedOut = resolve(process.cwd(), outputPath);
-      if (resolvedOut !== root && !resolvedOut.startsWith(root + sep)) {
-        throw new Error(`'output_path' must be within the current working directory (${root}).`);
-      }
+    let outputPath: string | undefined;
+    if (outputPathInput) {
+      outputPath = await assertWritablePathInCwd(outputPathInput, "output_path");
     }
 
     const warnings: string[] = [];
     const { deck } = await pptxToDeck(buffer, {
       theme,
-      assetsDir: assetsDir ? resolve(process.cwd(), assetsDir) : undefined,
+      assetsDir,
       onWarn: (msg: string) => warnings.push(msg),
     });
 
@@ -106,9 +140,9 @@ export const importPptxTool: ToolDefinition = {
     };
 
     if (outputPath) {
-      const resolvedOut = resolve(process.cwd(), outputPath);
-      await writeFile(resolvedOut, JSON.stringify(deck, null, 2), "utf-8");
-      result.path = resolvedOut;
+      await mkdir(dirname(outputPath), { recursive: true });
+      await writeFile(outputPath, JSON.stringify(deck, null, 2), "utf-8");
+      result.path = outputPath;
     }
 
     return result;

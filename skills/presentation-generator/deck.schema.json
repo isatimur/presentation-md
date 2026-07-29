@@ -103,6 +103,10 @@
             "label": { "type": "string" },
             "href": { "type": "string" }
           }
+        },
+        "notes": {
+          "type": "string",
+          "description": "Speaker notes preserved from PPTX import (not rendered on the slide)."
         }
       }
     }

@@ -88,6 +88,16 @@ describe("browser renderDeckHtml", () => {
     expect(extractDeckFromHtml(html)).toEqual(deck);
   });
 
+  it("opens legacy psp-deck embeds from pre-rename HTML", () => {
+    const deck: DeckJson = {
+      type: "deck",
+      meta: { title: "Legacy", theme: "default-tech" },
+      slides: [{ layout: "title", heading: "Old" }],
+    };
+    const html = `<!doctype html><html><body><script type="application/json" id="psp-deck">${JSON.stringify(deck)}</script></body></html>`;
+    expect(extractDeckFromHtml(html)).toEqual(deck);
+  });
+
   it("renders the data-table eyebrow (editor/preview consistency)", () => {
     const html = renderDeckHtml(
       { type: "deck", slides: [{ layout: "data-table", eyebrow: "Q3 KPIs", heading: "T", columns: ["A"], rows: [["1"]] }] },
