@@ -25,6 +25,12 @@ Every slide needs `layout`. Fields are per-layout; unused fields are ignored.
 ### two-column
 `{ "layout": "two-column", "eyebrow"?, "heading", "body"?, "image"?, "imageAlt"? }`
 
+### image-hero
+`{ "layout": "image-hero", "eyebrow"?, "heading", "lead"?, "image", "imageAlt"? }`
+
+### comparison
+`{ "layout": "comparison", "eyebrow"?, "heading"?, "leftLabel"?, "left", "rightLabel"?, "right" }`
+
 ### feature-grid
 `{ "layout": "feature-grid", "eyebrow"?, "heading"?, "columns": 2|3|4,
    "cards": [ { "icon"?: "fa-solid fa-bolt", "title", "body"? } ] }`

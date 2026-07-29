@@ -11,7 +11,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json && mkdir -p dist/adapters && cp -R ../../adapters/. dist/adapters/",
+    "build": "tsc -p tsconfig.json && mkdir -p dist/adapters dist/skills/deck-design-judge && cp -R ../../adapters/. dist/adapters/ && cp -R ../../skills/deck-design-judge/. dist/skills/deck-design-judge/",
     "test": "vitest run",
     "lint": "eslint src",
     "typecheck": "tsc --noEmit"

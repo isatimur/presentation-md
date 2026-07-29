@@ -23,6 +23,8 @@ const VALID_LAYOUTS = new Set([
   "timeline",
   "section",
   "closing",
+  "image-hero",
+  "comparison",
 ]);
 
 function structuralValidateDeckJson(json: string): ValidationResult {

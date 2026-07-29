@@ -1,0 +1,102 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Meridian × Hargrove Partners",
+    "company": "Meridian",
+    "description": "Sales deck — data platform for professional services.",
+    "theme": "corporate"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Hargrove Partners",
+      "heading": "Data that moves the needle.",
+      "lead": "A proposal for automated reporting, client intelligence, and forecast clarity."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Agenda · 45 minutes",
+      "heading": "Four sections",
+      "columns": 2,
+      "cards": [
+        { "title": "01 · Cost of inaction", "body": "What manual reporting and fragmented tooling cost Hargrove today." },
+        { "title": "02 · Recommended modules", "body": "Three purpose-built modules scoped to your data environment." },
+        { "title": "03 · Implementation & ROI", "body": "Timeline, savings model, and a similar-client reference." },
+        { "title": "04 · Pricing & next steps", "body": "Commercial terms and a concrete action plan." }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Current cost analysis",
+      "heading": "Projected annual savings",
+      "stats": [
+        { "value": "$118k", "label": "Projected annual save" },
+        { "value": "$95/hr", "label": "Blended analyst rate" },
+        { "value": "400+", "label": "Hours reclaimed / year" }
+      ]
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Recommended modules",
+      "heading": "Built for Hargrove's workflow",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-file-lines", "title": "Automated Reporting", "body": "Client-ready packs on a schedule — no spreadsheet assembly." },
+        { "icon": "fa-solid fa-users", "title": "Client Intelligence", "body": "One dashboard per account: engagement, risk, opportunity." },
+        { "icon": "fa-solid fa-chart-pie", "title": "Pipeline Forecasting", "body": "Revenue forecast tied to fee-earner activity, not gut feel." }
+      ]
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Implementation",
+      "heading": "Discovery to go-live",
+      "steps": [
+        { "title": "2 weeks", "body": "Discovery & data mapping." },
+        { "title": "5 weeks", "body": "Module build & integrations." },
+        { "title": "10 days", "body": "UAT with practice leads." },
+        { "title": "Go-live", "body": "Training + hypercare week." }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Pain → Module",
+      "heading": "How each module lands",
+      "leftLabel": "Today's pain",
+      "left": "Manual reporting packs.\nFragmented CRM + finance views.\nForecasts rebuilt every Monday.",
+      "rightLabel": "With Meridian",
+      "right": "Scheduled, branded reports.\nUnified client intelligence.\nLive pipeline tied to activity."
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "12-month ROI model",
+      "heading": "Savings detail",
+      "columns": ["Line item", "Annual"],
+      "rows": [
+        ["Analyst time — reporting (220 hrs × $95)", "$20,900"],
+        ["Analyst time — data cleaning (180 hrs × $95)", "$17,100"],
+        ["Partner time — forecast rework", "$42,000"],
+        ["Tooling consolidation", "$38,000"],
+        ["Total projected", "$118,000"]
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "We cut weekly reporting from two days to forty minutes — and partners finally trust the numbers.",
+      "by": "COO, mid-size regional professional services firm"
+    },
+    {
+      "layout": "section",
+      "number": "09",
+      "eyebrow": "Pricing & terms",
+      "heading": "Transparent commercial frame",
+      "lead": "Platform + three modules · annual commit · success criteria written into the SOW."
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Next steps",
+      "heading": "Let's lock a start date.",
+      "lead": "Action owners and dates go into the shared tracker this week.",
+      "cta": { "label": "Schedule kickoff", "href": "https://meridian.example/kickoff" }
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "NovaSpark AI — Series A",
+    "company": "NovaSpark AI",
+    "description": "Series A pitch — AI inference infrastructure.",
+    "theme": "default-tech"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Series A · YC W24",
+      "heading": "AI doesn't need more compute.",
+      "lead": "It needs infrastructure that delivers it."
+    },
+    {
+      "layout": "quote",
+      "quote": "Every frontier model today is bottlenecked not by algorithms, but by the infrastructure that delivers them.",
+      "by": "Dr. Maya Reeves, Co-Founder & CEO"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "The Problem",
+      "heading": "Three bottlenecks every AI deployment hits",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-route", "title": "Routing chaos", "body": "Teams juggle 12 providers with brittle failover and unpredictable latency." },
+        { "icon": "fa-solid fa-globe", "title": "Edge distance", "body": "Users wait on distant regions — p95 climbs past 800ms outside the US." },
+        { "icon": "fa-solid fa-receipt", "title": "Cost blindness", "body": "Spend spikes without quality signal. Finance finds out after the invoice." }
+      ]
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "The Solution",
+      "heading": "One unified inference layer",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-shuffle", "title": "Smart routing", "body": "Real-time selection across 12 providers — fastest, cheapest path per request." },
+        { "icon": "fa-solid fa-server", "title": "Global edge", "body": "50+ nodes. Sub-200ms for 95% of the world's population." },
+        { "icon": "fa-solid fa-chart-line", "title": "Live cost & quality", "body": "Dashboards, latency histograms, quality scoring — before the bill." }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Migration",
+      "heading": "Drop in. Route smarter.",
+      "leftLabel": "Before",
+      "left": "Direct OpenAI / Anthropic / custom clients.\nManual failover.\nNo shared observability.",
+      "rightLabel": "With NovaSpark",
+      "right": "Same OpenAI-compatible API.\nAutomatic routing + failover.\nOne pane for cost, latency, quality."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Traction",
+      "heading": "18 months. Zero paid acquisition.",
+      "stats": [
+        { "value": "$2.1M", "label": "ARR" },
+        { "value": "412", "label": "Enterprise customers" },
+        { "value": "99.97%", "label": "Uptime SLA" },
+        { "value": "847ms", "label": "Avg response (global)" }
+      ]
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Market",
+      "heading": "A category being created now",
+      "columns": ["Segment", "2026E"],
+      "rows": [
+        ["AI API Orchestration", "$18.2B"],
+        ["Edge AI Serving", "$9.4B"],
+        ["Inference Observability", "$3.1B"]
+      ]
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Roadmap",
+      "heading": "18 months to Series B readiness",
+      "steps": [
+        { "title": "Now", "body": "Core platform + enterprise SSO." },
+        { "title": "Q+2", "body": "Partnerships with AWS / GCP marketplace." },
+        { "title": "Q+4", "body": "Team 2× · $8M ARR target." },
+        { "title": "Series B", "body": "Category leadership narrative locked." }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "eyebrow": "The Ask",
+      "heading": "$14M Series A",
+      "lead": "Lead $8M · Co-investors filling $6M · 18 months runway to $8M ARR."
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "The Opportunity",
+      "heading": "AI deserves better plumbing.",
+      "lead": "investors@novaspark.ai · novaspark.ai",
+      "cta": { "label": "Book a meeting", "href": "https://novaspark.ai" }
+    }
+  ]
+}

@@ -12,6 +12,8 @@ export const LAYOUTS: LayoutType[] = [
   "timeline",
   "quote",
   "closing",
+  "image-hero",
+  "comparison",
 ];
 
 export const LAYOUT_LABELS: Record<LayoutType, string> = {
@@ -24,6 +26,8 @@ export const LAYOUT_LABELS: Record<LayoutType, string> = {
   timeline: "Timeline",
   quote: "Quote",
   closing: "Closing",
+  "image-hero": "Image hero",
+  comparison: "Comparison",
 };
 
 /** A reasonable starter slide for each layout, so new slides aren't blank. */
@@ -35,6 +39,17 @@ export function blankSlide(layout: LayoutType): Slide {
       return { layout, number: "01", eyebrow: "Part", heading: "Section title", lead: "" };
     case "two-column":
       return { layout, heading: "Heading", body: "Left column body text.", image: "", imageAlt: "Image" };
+    case "image-hero":
+      return { layout, eyebrow: "Story", heading: "Hero moment", lead: "Caption over a full-bleed image.", image: "", imageAlt: "Hero image" };
+    case "comparison":
+      return {
+        layout,
+        heading: "Before vs after",
+        leftLabel: "Before",
+        left: "The old way — slow, manual, error-prone.",
+        rightLabel: "After",
+        right: "The new way — automated, fast, reliable.",
+      };
     case "feature-grid":
       return {
         layout,

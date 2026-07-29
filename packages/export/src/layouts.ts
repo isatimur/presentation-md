@@ -452,6 +452,79 @@ function renderQuote(slide: PSlide, ctx: ExportContext, data: Slide): void {
   }
 }
 
+function renderImageHero(slide: PSlide, ctx: ExportContext, data: Slide): void {
+  addImageOrPlaceholder(slide, ctx, data, 0, 0, ctx.width, ctx.height);
+
+  const x = ctx.margin;
+  const w = ctx.width - ctx.margin * 2;
+  let y = ctx.height * 0.62;
+
+  if (data.eyebrow) {
+    eyebrow(slide, ctx, data.eyebrow, x, y, w);
+    y += 0.45;
+  }
+  if (data.heading) {
+    heading(slide, ctx, data.heading, { x, y, w, h: 1.2, fontSize: 32 });
+    y += 1.25;
+  }
+  if (data.lead) {
+    body(slide, ctx, data.lead, { x, y, w, h: 0.9, fontSize: 17 });
+  }
+}
+
+function renderComparison(slide: PSlide, ctx: ExportContext, data: Slide): void {
+  const colGap = 0.35;
+  const vsW = 0.45;
+  const innerW = ctx.width - ctx.margin * 2;
+  const colW = (innerW - colGap * 2 - vsW) / 2;
+  const leftX = ctx.margin;
+  const rightX = ctx.margin + colW + colGap + vsW + colGap;
+  let y = renderHeaderBlock(slide, ctx, data);
+  const boxY = y + 0.15;
+  const boxH = ctx.height - boxY - ctx.margin;
+
+  const drawCol = (x: number, label: string | undefined, text: string | undefined) => {
+    slide.addShape(ctx.shapeRoundRect, {
+      x,
+      y: boxY,
+      w: colW,
+      h: boxH,
+      fill: { color: ctx.colors.cardBg },
+      line: { color: ctx.colors.border, width: 1 },
+      rectRadius: 0.06,
+    });
+    let innerY = boxY + 0.25;
+    if (label) {
+      eyebrow(slide, ctx, label, x + 0.2, innerY, colW - 0.4);
+      innerY += 0.45;
+    }
+    if (text) {
+      body(slide, ctx, text, {
+        x: x + 0.2,
+        y: innerY,
+        w: colW - 0.4,
+        h: boxH - (innerY - boxY) - 0.25,
+        fontSize: 15,
+      });
+    }
+  };
+
+  drawCol(leftX, data.leftLabel, data.left);
+  slide.addText("vs", {
+    x: leftX + colW + colGap,
+    y: boxY + boxH * 0.42,
+    w: vsW,
+    h: 0.5,
+    fontFace: ctx.fonts.heading,
+    bold: true,
+    color: ctx.colors.accent,
+    fontSize: 14,
+    align: "center",
+    valign: "middle",
+  });
+  drawCol(rightX, data.rightLabel, data.right);
+}
+
 const RENDERERS: Record<string, (s: PSlide, ctx: ExportContext, d: Slide) => void> = {
   title: renderHero,
   closing: renderHero,
@@ -462,6 +535,8 @@ const RENDERERS: Record<string, (s: PSlide, ctx: ExportContext, d: Slide) => voi
   "stat-row": renderStatRow,
   timeline: renderTimeline,
   quote: renderQuote,
+  "image-hero": renderImageHero,
+  comparison: renderComparison,
 };
 
 export function renderSlide(slide: PSlide, ctx: ExportContext, data: Slide): void {

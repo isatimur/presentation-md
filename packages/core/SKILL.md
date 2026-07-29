@@ -1,6 +1,6 @@
 ---
 name: presentation-generator
-description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 9 themes and 9 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
+description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 9 themes and 11 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
 license: MIT
 metadata:
   author: isatimur
@@ -66,12 +66,11 @@ World Before → The Turning Point → The Method → World After → What's Nex
 
 ---
 
-## The 9 Layout Types
+## The 11 Layout Types
 
 Each layout is a tool. Match the layout to the job, not to the order.
-**Only these nine names are valid in deck JSON** (`references/deck-schema.md`). If you need a
-"manifesto", "metric-hero", "before-after", or "comparison" *feeling*, compose it with the
-closest layout below — never invent a layout name.
+**Only these eleven names are valid in deck JSON** (`references/deck-schema.md`). If you need a
+"manifesto" or "metric-hero" *feeling*, compose it with the closest layout below — never invent a layout name.
 
 ### `title` — Single cinematic statement
 **When to use:** opening cover, or a one-idea hero beat.
@@ -85,9 +84,19 @@ closest layout below — never invent a layout name.
 **Design rule:** almost empty is correct — type itself is the visual.
 
 ### `two-column` — Argument + evidence
-**When to use:** explaining a concept with supporting copy, image, or contrast.
+**When to use:** explaining a concept with supporting copy or a side image.
 **Props:** `{ heading, lead?, body?, image?, imageAlt? }`
-**Compose:** "before/after" = heading + body that contrasts two states, or two successive `two-column` slides. "photo-story" = `two-column` with `image` + caption in `lead`/`body`.
+**Compose:** "photo-story" = `two-column` with `image` + caption in `lead`/`body`.
+
+### `image-hero` — Full-bleed cinematic moment
+**When to use:** emotional beat, product shot, team photo, location reveal — one image carries the slide.
+**Props:** `{ heading, lead?, eyebrow?, image, imageAlt? }`
+**Design rule:** the image is the hero; text sits on a bottom scrim. Keep copy short — one headline, one line max.
+
+### `comparison` — Side-by-side contrast
+**When to use:** before/after, old way vs new way, us vs them, option A vs B.
+**Props:** `{ heading?, leftLabel?, left, rightLabel?, right, eyebrow? }`
+**Design rule:** parallel structure in both columns — same kind of claim on each side so the contrast reads instantly.
 
 ### `feature-grid` — Capabilities overview
 **When to use:** product features, service offerings, team skills.
@@ -110,9 +119,9 @@ closest layout below — never invent a layout name.
 **Compose:** a "process" flow = `timeline` with numbered titles (`"01 · Sign up"`, …).
 
 ### `data-table` — Detailed evidence
-**When to use:** financial summary, feature matrix, risk register, comparison grid.
+**When to use:** financial summary, feature matrix, risk register, multi-column comparison grid.
 **Props:** `{ heading, columns: string[], rows: string[][], eyebrow?, lead? }`
-**Compose:** a competitive "comparison" = `data-table` with your product as the **last** column.
+**Compose:** a competitive matrix with 3+ columns = `data-table`; a simple A-vs-B story = `comparison`.
 
 ### `closing` — The ask / CTA
 **When to use:** every deck ends here. Make the next action unmissable.
@@ -454,6 +463,6 @@ Then walk every slide against this checklist and fix before delivering:
 - **Token discipline** — colors and fonts all trace back to the chosen theme; no off-palette one-offs.
 - **The 3-second test** — pick any slide at random: is its single point obvious in three seconds?
 - **Arc integrity** — the deck still follows one narrative arc end to end; every slide sets up or pays off the one before it.
-- **Schema honesty** — every `layout` value is one of the nine enums; no invented layout names.
+- **Schema honesty** — every `layout` value is one of the eleven enums; no invented layout names.
 
 For a rigorous, scored pass, run the **`deck-design-judge`** skill: it grades the deck against the design rubric, tells you exactly what to fix, and lets you re-score after the fix. Self-score → fix → re-score, then deliver.

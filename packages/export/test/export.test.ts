@@ -37,6 +37,15 @@ const fullDeck: DeckJson = {
     { layout: "title", eyebrow: "Q3 2026", heading: "All-hands", lead: "Where we are." },
     { layout: "section", number: "01", eyebrow: "Part one", heading: "Context" },
     { layout: "two-column", heading: "Split", body: "Left text.", image: "https://x/y.png", imageAlt: "Diagram" },
+    { layout: "image-hero", eyebrow: "Moment", heading: "Hero beat", lead: "Caption.", image: "https://x/y.png", imageAlt: "Photo" },
+    {
+      layout: "comparison",
+      heading: "Old vs new",
+      leftLabel: "Before",
+      left: "Manual process.",
+      rightLabel: "After",
+      right: "Automated flow.",
+    },
     {
       layout: "feature-grid",
       heading: "Pillars",
@@ -60,7 +69,7 @@ function isZip(bytes: Uint8Array): boolean {
 }
 
 describe("deckToPptx", () => {
-  it("builds one slide per deck slide across all 9 layouts", async () => {
+  it("builds one slide per deck slide across all 11 layouts", async () => {
     const result = await buildPptx(fullDeck, theme);
     expect(result.slideCount).toBe(fullDeck.slides.length);
   });

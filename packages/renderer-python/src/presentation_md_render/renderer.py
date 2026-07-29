@@ -33,6 +33,7 @@ def _get_shared_dir() -> Path:
 VALID_LAYOUTS = {
     "title", "two-column", "feature-grid", "quote",
     "data-table", "stat-row", "timeline", "section", "closing",
+    "image-hero", "comparison",
 }
 
 DEFAULT_PALETTE: dict[str, str] = {

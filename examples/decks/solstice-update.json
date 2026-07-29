@@ -1,0 +1,87 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Solstice Fund II — LP Update",
+    "company": "Solstice",
+    "description": "Investor update — growth equity LP letter.",
+    "theme": "luxury-minimalist"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Fund II · Q2 2026",
+      "heading": "LP update",
+      "lead": "Performance, portfolio highlights, and climate progress."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Fund snapshot",
+      "heading": "Where we stand",
+      "stats": [
+        { "value": "$280M", "label": "Fund II AUM" },
+        { "value": "+$22M", "label": "vs Q1 NAV" },
+        { "value": "19.4%", "label": "Net IRR (inception)" },
+        { "value": "1.62×", "label": "TVPI" }
+      ]
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Portfolio highlights",
+      "heading": "Three names driving the quarter",
+      "columns": 3,
+      "cards": [
+        { "title": "Vanta Health", "body": "Digital health — expanded payer contracts; ARR +34% YoY." },
+        { "title": "Meridian Freight", "body": "Logistics — new Europe corridor; gross margin +1.2pp." },
+        { "title": "Lumen AI", "body": "Enterprise software — first $10M ARR quarter." }
+      ]
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Vintage status",
+      "heading": "Capital deployment",
+      "columns": ["Vintage", "Deployed"],
+      "rows": [
+        ["2023", "100%"],
+        ["2024", "88%"],
+        ["2025", "52%"]
+      ]
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Climate & ESG",
+      "heading": "Progress this quarter",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-leaf", "title": "Scope 3 tooling", "body": "Corval Climate deployed across 3 portfolio cos — no more manual emissions spreadsheets." },
+        { "icon": "fa-solid fa-clipboard-check", "title": "TCFD for Fund II", "body": "Disclosure framework adopted; Deloitte completed climate scenario analysis." },
+        { "icon": "fa-solid fa-earth-americas", "title": "GP ops", "body": "Carbon-neutral via South Pole offsets. Portfolio on a −34% emissions glide path." }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Outlook",
+      "heading": "Risks we are watching",
+      "leftLabel": "Tailwinds",
+      "left": "Enterprise AI budgets still expanding.\nHealthcare reimbursement clarity improving.\nFreight rates stabilizing in EU.",
+      "rightLabel": "Headwinds",
+      "right": "Later-stage valuation discipline.\nCyber insurance premiums rising.\nRate path uncertainty into H2."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Returns",
+      "heading": "Since inception",
+      "stats": [
+        { "value": "19.4%", "label": "Net IRR" },
+        { "value": "1.62×", "label": "TVPI" },
+        { "value": "0.31×", "label": "DPI" }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Thank you",
+      "heading": "Questions welcome.",
+      "lead": "lps@solstice.example · Full packet in the data room",
+      "cta": { "label": "Open data room", "href": "https://solstice.example/lps" }
+    }
+  ]
+}

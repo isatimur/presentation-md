@@ -40,6 +40,12 @@ EOF
 
 echo "  ✓  presentation-generator.mdc written"
 
+# ── full mode: deck-design-judge quality gate ────────────────────────────────
+if [ "$MODE" = "full" ] && [ -n "${PMD_JUDGE_SKILL_DIR:-}" ]; then
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  bash "$SCRIPT_DIR/../_common/install-judge-skill.sh" "$HOME/.cursor/skills/deck-design-judge"
+fi
+
 # ── full mode: register MCP server ───────────────────────────────────────────
 if [ "$MODE" = "full" ]; then
   MCP_CONFIG="$HOME/.cursor/mcp.json"

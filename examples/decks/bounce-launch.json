@@ -1,0 +1,88 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Bounce — Product Launch",
+    "company": "Bounce",
+    "description": "Gen-Z social app launch deck.",
+    "theme": "playful"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Gen-Z only · Anti-algorithm · Free",
+      "heading": "A social app that doesn't make you feel bad.",
+      "lead": "Intentional design. Real friends. No performance metrics."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "The problem",
+      "heading": "Social media is broken.",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-heart-crack", "title": "Comparison trap", "body": "73% of Gen-Z feel worse after 30 minutes on Instagram." },
+        { "icon": "fa-solid fa-robot", "title": "Algorithm hijacking", "body": "You don't see friends — you see what maximizes outrage and envy." },
+        { "icon": "fa-solid fa-eye", "title": "Public scoreboards", "body": "Follower counts and likes turn every post into a performance." }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "The Bounce difference",
+      "heading": "Rebuilt from zero",
+      "leftLabel": "Legacy feeds",
+      "left": "Public metrics.\nStranger algorithms.\nAds optimized for dwell time.\nAnxiety by design.",
+      "rightLabel": "Bounce",
+      "right": "No follower counts.\nFriends only, chronological.\nZero ads.\nReactions over performance."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Early signals",
+      "heading": "Off the charts — zero paid acquisition",
+      "stats": [
+        { "value": "240k", "label": "Waitlist" },
+        { "value": "4.8★", "label": "Beta App Store" },
+        { "value": "68%", "label": "D7 retention" },
+        { "value": "0$", "label": "Paid ads spent" }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "I open Bounce when I want to feel closer to people — not worse about myself.",
+      "by": "Beta user, age 19"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "How it works",
+      "heading": "Three moves. That's it.",
+      "steps": [
+        { "title": "See", "body": "Open a chronological feed of real friends only — no strangers, no ads." },
+        { "title": "Share", "body": "Drop a photo, voice note, or vibe. No editing theater." },
+        { "title": "React", "body": "Honest reactions. Instant. No public scoreboard." }
+      ]
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Pricing",
+      "heading": "Simple. No dark patterns.",
+      "columns": 3,
+      "cards": [
+        { "title": "Free", "body": "$0 forever — core feed, friends, reactions." },
+        { "title": "Plus", "body": "$4/mo — themes, longer voice notes, custom reacts." },
+        { "title": "Crew", "body": "$9/mo — shared spaces for friend groups up to 12." }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "↓",
+      "eyebrow": "Get Bounce",
+      "heading": "Get your feed back.",
+      "lead": "Free on iOS & Android. No ads. No algorithm. Just friends."
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Be one of the first",
+      "heading": "Built by Gen-Z for Gen-Z.",
+      "lead": "Free forever · No credit card · No ads · No BS",
+      "cta": { "label": "Download Bounce", "href": "https://bounce.example" }
+    }
+  ]
+}

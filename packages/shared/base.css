@@ -100,6 +100,72 @@ h1, h2, h3 {
   display: block;
 }
 
+/* image-hero — full-bleed photo with bottom scrim */
+.image-hero-slide { padding: 0; justify-content: flex-end; }
+.image-hero-bg { position: absolute; inset: 0; z-index: 0; }
+.image-hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.image-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--bg) 0%, rgba(0, 0, 0, 0.15) 55%, transparent 100%);
+}
+.image-hero-content {
+  position: relative;
+  z-index: 1;
+  padding: 64px;
+  width: 100%;
+}
+
+/* comparison — side-by-side contrast */
+.comparison-slide .comparison-cols {
+  display: flex;
+  gap: 20px;
+  align-items: stretch;
+  flex: 1;
+  margin-top: 24px;
+  min-height: 0;
+}
+.comparison-col {
+  flex: 1;
+  padding: 28px 32px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) * 0.75);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.comparison-col p {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.45;
+  white-space: pre-line;
+}
+.comparison-label {
+  display: block;
+  font-weight: 700;
+  color: var(--accent-2);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+.comparison-vs {
+  display: flex;
+  align-items: center;
+  font-family: var(--heading-font);
+  font-weight: var(--heading-weight);
+  font-size: 14px;
+  color: var(--accent);
+  opacity: 0.55;
+  flex-shrink: 0;
+}
+
 /* feature grid */
 .grid { display: grid; gap: 24px; margin-top: 32px; }
 .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }

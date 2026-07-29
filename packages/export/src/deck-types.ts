@@ -16,7 +16,9 @@ export type LayoutType =
   | "stat-row"
   | "timeline"
   | "section"
-  | "closing";
+  | "closing"
+  | "image-hero"
+  | "comparison";
 
 export interface Card {
   icon?: string;
@@ -59,6 +61,11 @@ export interface Slide {
   cta?: Cta;
   /** Speaker notes (e.g. from PPTX import); not rendered on the slide. */
   notes?: string;
+  /** comparison: column labels and body copy. */
+  leftLabel?: string;
+  rightLabel?: string;
+  left?: string;
+  right?: string;
   [key: string]: unknown;
 }
 

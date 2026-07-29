@@ -1,0 +1,80 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "RetroNet — Product Demo",
+    "company": "RetroNet",
+    "description": "Open-source privacy browser layer demo.",
+    "theme": "retro-arcade"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Open source · Free tier · MIT · Privacy first",
+      "heading": "Browse like it's 1999.",
+      "lead": "Strip ads, trackers, and bloat — keep the content."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Alert status",
+      "heading": "The modern web is hostile",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-triangle-exclamation", "title": "CRITICAL", "body": "47 ad units per session on the average page." },
+        { "icon": "fa-solid fa-fingerprint", "title": "URGENT", "body": "380 unique tracking scripts on a news homepage." },
+        { "icon": "fa-solid fa-gauge-high", "title": "RED ALERT", "body": "Median load time: 0.9s (2010) → 9.3s (2026)." }
+      ]
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Demo flow",
+      "heading": "retronet --demo-flow",
+      "steps": [
+        { "title": "01 Intercept", "body": "retronet intercept --url https://news.example.com" },
+        { "title": "02 Filter", "body": "strip ads · trackers · unused scripts" },
+        { "title": "03 Render", "body": "Serve a clean document — content only." },
+        { "title": "04 Verify", "body": "Zero trackers. Sub-second paint." }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Before / After",
+      "heading": "Same URL. Different internet.",
+      "leftLabel": "Before",
+      "left": "Cookie walls.\nProgress bars that lie.\nNotification spam.\nScroll past four ads for one paragraph.",
+      "rightLabel": "After",
+      "right": "RETRONET clean view.\nReadable type.\nNo trackers.\nContent at the top."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Benchmarks",
+      "heading": "Measured on real news sites",
+      "stats": [
+        { "value": "94%", "label": "Faster page loads" },
+        { "value": "ZERO", "label": "Trackers loaded" },
+        { "value": "$0", "label": "Ad revenue served" }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "I finally read the article instead of fighting the page.",
+      "by": "devkat_88 · software engineer · Portland"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Plans",
+      "heading": "Free forever. Pro when you need it.",
+      "columns": 2,
+      "cards": [
+        { "title": "Free tier · $0", "body": "Ad blocking, tracker strip, MIT client. Forever." },
+        { "title": "Pro · $5/mo", "body": "Custom filter lists, team sync, priority updates." }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Join the network",
+      "heading": "github.com/retronet",
+      "lead": "discord.gg/retronet · docs at retronet.dev",
+      "cta": { "label": "Star on GitHub", "href": "https://github.com/retronet" }
+    }
+  ]
+}

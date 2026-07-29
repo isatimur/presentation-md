@@ -59,6 +59,29 @@ export function SlideForm({
           </>
         );
 
+      case "image-hero":
+        return (
+          <>
+            <TextInput label="Eyebrow" value={slide.eyebrow} onChange={(v) => set({ eyebrow: v })} />
+            <TextInput label="Heading" value={slide.heading} onChange={(v) => set({ heading: v })} />
+            <TextArea label="Lead" value={slide.lead} onChange={(v) => set({ lead: v })} rows={3} />
+            <TextInput label="Image URL (data: URIs embed in PPTX)" value={slide.image} onChange={(v) => set({ image: v })} />
+            <TextInput label="Image alt" value={slide.imageAlt} onChange={(v) => set({ imageAlt: v })} />
+          </>
+        );
+
+      case "comparison":
+        return (
+          <>
+            <TextInput label="Eyebrow" value={slide.eyebrow} onChange={(v) => set({ eyebrow: v })} />
+            <TextInput label="Heading" value={slide.heading} onChange={(v) => set({ heading: v })} />
+            <TextInput label="Left label" value={slide.leftLabel} onChange={(v) => set({ leftLabel: v })} />
+            <TextArea label="Left body" value={slide.left} onChange={(v) => set({ left: v })} rows={4} />
+            <TextInput label="Right label" value={slide.rightLabel} onChange={(v) => set({ rightLabel: v })} />
+            <TextArea label="Right body" value={slide.right} onChange={(v) => set({ right: v })} rows={4} />
+          </>
+        );
+
       case "quote":
         return (
           <>

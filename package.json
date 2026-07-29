@@ -13,7 +13,9 @@
     "changeset": "changeset",
     "version": "changeset version",
     "release": "pnpm build && changeset publish",
-    "sync-versions": "tsx tools/sync-versions.ts"
+    "sync-versions": "tsx tools/sync-versions.ts",
+    "generate:previews": "tsx tools/generate-web-previews.ts",
+    "generate:structured": "tsx tools/generate-gallery-structured.ts"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.0",

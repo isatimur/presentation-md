@@ -79,6 +79,21 @@ function resolveCoreDir(): string {
   return dirname(skillPath);
 }
 
+function resolveJudgeSkillDir(): string {
+  const candidates = [
+    join(__dirname, "skills", "deck-design-judge"),
+    join(__dirname, "..", "..", "..", "skills", "deck-design-judge"),
+  ];
+  for (const candidate of candidates) {
+    if (existsSync(join(candidate, "SKILL.md"))) {
+      return candidate;
+    }
+  }
+  throw new Error(
+    `deck-design-judge skill not found. Searched:\n${candidates.map((p) => `  ${p}`).join("\n")}`
+  );
+}
+
 export function buildProgram(): Command {
   const program = new Command();
 
@@ -120,7 +135,18 @@ export function buildProgram(): Command {
         process.exit(1);
       }
 
-      const env = { ...process.env, PMD_CORE_DIR: coreDir };
+      const env: NodeJS.ProcessEnv = { ...process.env, PMD_CORE_DIR: coreDir };
+
+      if (mode === "full") {
+        try {
+          env.PMD_JUDGE_SKILL_DIR = resolveJudgeSkillDir();
+        } catch (err) {
+          process.stderr.write(
+            `Warning: deck-design-judge skill not bundled — skipping quality-gate install.\n` +
+              `  ${(err as Error).message}\n`
+          );
+        }
+      }
 
       let result: ReturnType<typeof spawnSync>;
       if (platform === "win32") {
