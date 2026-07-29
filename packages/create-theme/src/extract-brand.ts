@@ -6,7 +6,7 @@ import {
   ensureContrastSafe,
   type ContrastAdjustment,
   type Palette,
-} from "@presentation-skill-pack/core";
+} from "@presentation-md/core";
 import { fetchStylesheetsFromUrl } from "./fetch-css.js";
 import { extractComputedStyles } from "./playwright-fallback.js";
 

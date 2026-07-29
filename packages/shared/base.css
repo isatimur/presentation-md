@@ -1,4 +1,4 @@
-/* presentation-skill-pack base stylesheet.
+/* presentation-md base stylesheet.
    Theme tokens are injected via the :root block below. Layout fragments in
    ./layouts/*.html consume these CSS variables and class names. */
 
@@ -214,7 +214,51 @@ thead th {
   text-decoration: none;
 }
 
+/* Entrance motion — applied when the deck loads; disabled under reduced-motion */
+.slide {
+  animation: pmd-fade-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.slide:nth-child(1) { animation-delay: 0ms; }
+.slide:nth-child(2) { animation-delay: 40ms; }
+.slide:nth-child(3) { animation-delay: 80ms; }
+.slide:nth-child(n+4) { animation-delay: 100ms; }
+
+@keyframes pmd-fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.nav-hint {
+  position: fixed;
+  right: 20px;
+  bottom: 18px;
+  z-index: 40;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 12px;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .slide { animation: none !important; }
+}
+
 @media print {
   body { padding: 0; gap: 0; }
-  .slide { box-shadow: none; border-radius: 0; page-break-after: always; width: 100vw; }
+  .slide {
+    box-shadow: none;
+    border-radius: 0;
+    page-break-after: always;
+    width: 100vw;
+    animation: none !important;
+  }
+  .nav-hint { display: none !important; }
 }

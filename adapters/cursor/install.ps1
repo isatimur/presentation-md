@@ -1,21 +1,21 @@
-# install.ps1 — Cursor adapter for presentation-skill-pack (Windows)
-# Usage:  $env:PSP_CORE_DIR="<path>"; .\install.ps1 [full|lite]
+# install.ps1 — Cursor adapter for presentation-md (Windows)
+# Usage:  $env:PMD_CORE_DIR="<path>"; .\install.ps1 [full|lite]
 param(
     [string]$Mode = "full"
 )
 
 $ErrorActionPreference = "Stop"
 
-if (-not $env:PSP_CORE_DIR) {
-    Write-Error "PSP_CORE_DIR must be set to the @presentation-skill-pack/core directory"
+if (-not $env:PMD_CORE_DIR) {
+    Write-Error "PMD_CORE_DIR must be set to the @presentation-md/core directory"
     exit 1
 }
 
-$PspCoreDir = $env:PSP_CORE_DIR
+$PmdCoreDir = $env:PMD_CORE_DIR
 $TargetDir  = Join-Path $HOME ".cursor\rules"
 $TargetFile = Join-Path $TargetDir "presentation-generator.mdc"
 
-Write-Host "presentation-skill-pack > cursor adapter"
+Write-Host "presentation-md > cursor adapter"
 Write-Host "  mode:   $Mode"
 Write-Host "  target: $TargetFile"
 Write-Host ""
@@ -23,7 +23,7 @@ Write-Host ""
 New-Item -ItemType Directory -Force -Path $TargetDir | Out-Null
 
 # ── read SKILL.md and strip YAML front-matter ─────────────────────────────────
-$SkillLines  = Get-Content (Join-Path $PspCoreDir "SKILL.md")
+$SkillLines  = Get-Content (Join-Path $PmdCoreDir "SKILL.md")
 $InFront     = $false
 $Seen        = $false
 $BodyLines   = [System.Collections.Generic.List[string]]::new()
@@ -61,18 +61,18 @@ if ($Mode -eq "full") {
         }
         $entry = [PSCustomObject]@{
             command = "npx"
-            args    = @("@presentation-skill-pack/mcp-server")
+            args    = @("@presentation-md/mcp-server")
         }
-        $cfg.mcpServers | Add-Member -NotePropertyName "presentation-skill-pack" `
+        $cfg.mcpServers | Add-Member -NotePropertyName "presentation-md" `
                                       -NotePropertyValue $entry -Force
         $cfg | ConvertTo-Json -Depth 10 | Set-Content $McpConfig -Encoding UTF8
     } else {
         New-Item -ItemType Directory -Force -Path (Split-Path $McpConfig) | Out-Null
         @{
             mcpServers = @{
-                "presentation-skill-pack" = @{
+                "presentation-md" = @{
                     command = "npx"
-                    args    = @("@presentation-skill-pack/mcp-server")
+                    args    = @("@presentation-md/mcp-server")
                 }
             }
         } | ConvertTo-Json -Depth 10 | Set-Content $McpConfig -Encoding UTF8

@@ -12,6 +12,7 @@ import { applyThemeTool } from "./tools/apply-theme.js";
 import { auditDeckTool } from "./tools/audit-deck.js";
 import { generateDeckPromptTool } from "./tools/generate-deck-prompt.js";
 import { importBrandThemeTool } from "./tools/import-brand-theme.js";
+import { importPptxTool } from "./tools/import-pptx.js";
 
 export interface ToolDefinition {
   name: string;
@@ -27,7 +28,8 @@ const TOOLS: ToolDefinition[] = [
   applyThemeTool,
   auditDeckTool,
   generateDeckPromptTool,
-  importBrandThemeTool
+  importBrandThemeTool,
+  importPptxTool,
 ];
 
 export function listToolDefinitions(): ToolDefinition[] {
@@ -36,7 +38,7 @@ export function listToolDefinitions(): ToolDefinition[] {
 
 export async function main() {
   const server = new Server(
-    { name: "presentation-skill-pack", version: "0.1.0" },
+    { name: "presentation-md", version: "0.1.0" },
     { capabilities: { tools: {} } }
   );
 

@@ -1,4 +1,4 @@
-"""CLI entry point for presentation-skill-pack-render."""
+"""CLI entry point for presentation-md-render."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from .renderer import render_deck, get_bundled_themes_dir, RenderOptions
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        prog="presentation-skill-pack-render",
+        prog="presentation-md-render",
         description="Render a deck JSON spec to a self-contained HTML slide deck.",
     )
     parser.add_argument("deck", nargs="?", help="Path to deck.json (reads stdin if omitted)")

@@ -65,14 +65,14 @@ describe("renderTemplate — package.json.mustache", () => {
   it("produces valid JSON with the correct scoped package name", () => {
     const rendered = renderTemplate(TEMPLATE_DIR, "package.json.mustache", SAMPLE_VIEW);
     const parsed = JSON.parse(rendered) as { name: string };
-    expect(parsed.name).toBe("@presentation-skill-pack/theme-ocean-dark");
+    expect(parsed.name).toBe("@presentation-md/theme-ocean-dark");
   });
 });
 
 describe("renderTemplate — pyproject.toml.mustache", () => {
   it("uses underscored name in the wheel packages field", () => {
     const rendered = renderTemplate(TEMPLATE_DIR, "pyproject.toml.mustache", SAMPLE_VIEW);
-    expect(rendered).toContain("presentation-skill-pack-theme-ocean-dark");
+    expect(rendered).toContain("presentation-md-theme-ocean-dark");
     expect(rendered).toContain("ocean_dark");
   });
 });
@@ -80,7 +80,7 @@ describe("renderTemplate — pyproject.toml.mustache", () => {
 describe("renderTemplate — README.md.mustache", () => {
   it("contains an install command and palette table", () => {
     const rendered = renderTemplate(TEMPLATE_DIR, "README.md.mustache", SAMPLE_VIEW);
-    expect(rendered).toContain("@presentation-skill-pack/theme-ocean-dark");
+    expect(rendered).toContain("@presentation-md/theme-ocean-dark");
     expect(rendered).toContain("#00bcd4");
     expect(rendered).toContain("accent");
   });

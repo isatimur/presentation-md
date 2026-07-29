@@ -75,7 +75,7 @@ export function resolveAdapterScript(
 
 function resolveCoreDir(): string {
   const require = createRequire(import.meta.url);
-  const skillPath = require.resolve("@presentation-skill-pack/core/skill");
+  const skillPath = require.resolve("@presentation-md/core/skill");
   return dirname(skillPath);
 }
 
@@ -83,8 +83,8 @@ export function buildProgram(): Command {
   const program = new Command();
 
   program
-    .name("presentation-skill-pack-install")
-    .description("Install a presentation-skill-pack adapter into your AI tool of choice.")
+    .name("presentation-md-install")
+    .description("Install a presentation-md adapter into your AI tool of choice.")
     .argument(
       "<adapter>",
       `Adapter to install. One of: ${VALID_ADAPTERS.join(", ")}`
@@ -114,13 +114,13 @@ export function buildProgram(): Command {
         coreDir = resolveCoreDir();
       } catch (err) {
         process.stderr.write(
-          `Error: could not resolve @presentation-skill-pack/core — is it installed?\n` +
+          `Error: could not resolve @presentation-md/core — is it installed?\n` +
             `  ${(err as Error).message}\n`
         );
         process.exit(1);
       }
 
-      const env = { ...process.env, PSP_CORE_DIR: coreDir };
+      const env = { ...process.env, PMD_CORE_DIR: coreDir };
 
       let result: ReturnType<typeof spawnSync>;
       if (platform === "win32") {

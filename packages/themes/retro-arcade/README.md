@@ -1,6 +1,6 @@
 # retro-arcade
 
-**Retro 80s arcade** presentation theme for presentation-skill-pack.
+**Retro 80s arcade** presentation theme for presentation-md.
 Deep purple-black background, magenta + electric cyan neon accents, glow text-shadow,
 Orbitron display headings + Share Tech Mono body, zero border-radius, scanline feel.
 For presentations that demand attention.
@@ -8,7 +8,7 @@ For presentations that demand attention.
 ## Install
 
 ```bash
-npm i @presentation-skill-pack/theme-retro-arcade
+npm i @presentation-md/theme-retro-arcade
 ```
 
 ## Usage

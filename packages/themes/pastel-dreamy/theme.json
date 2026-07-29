@@ -1,0 +1,29 @@
+{
+  "name": "pastel-dreamy",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Soft pastel theme with lavender-blush background, deep plum text, and a blush/periwinkle accent pair.",
+  "vibe": "Soft pastel dreamy — lavender-blush bg, deep plum text for readability, blush-pink + periwinkle accent pair, generously rounded, gentle.",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#fdf6fb",
+    "bg2": "#f5ecf9",
+    "text": "#3a2e4d",
+    "muted": "#6b5d82",
+    "accent": "#e893c2",
+    "accent2": "#8ab4f8",
+    "cardBg": "#f5ecf9",
+    "border": "rgba(58,46,77,0.10)"
+  },
+  "typography": {
+    "headingFont": "'Quicksand', system-ui, sans-serif",
+    "bodyFont": "'Mulish', system-ui, sans-serif",
+    "headingWeight": 700,
+    "googleFonts": ["Quicksand:wght@500;700", "Mulish:wght@400;600"]
+  },
+  "geometry": {
+    "radius": "28px",
+    "slideWidth": "1280px"
+  }
+}

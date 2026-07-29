@@ -1,11 +1,11 @@
 import Mustache from "mustache";
-import type { ResolvedTheme } from "@presentation-skill-pack/core";
-import type { DeckJson, Slide } from "@presentation-skill-pack/export";
+import type { ResolvedTheme } from "@presentation-md/core";
+import type { DeckJson, Slide } from "@presentation-md/export";
 import baseCssTemplate from "../../../shared/base.css?raw";
 import documentTemplate from "../../../shared/document.html?raw";
 
 /**
- * Browser-side deck → HTML render. A fs-free port of `@presentation-skill-pack/render`
+ * Browser-side deck → HTML render. A fs-free port of `@presentation-md/render`
  * that pulls the shared Mustache layouts and base stylesheet from the monorepo at
  * build time, so the live preview matches the canonical Node renderer output.
  */
@@ -79,15 +79,15 @@ function normalizeSlideData(slide: Slide): Record<string, unknown> {
 }
 
 const ATTRIBUTION_HTML =
-  `<footer class="psp-attribution">Made with ` +
-  `<a href="https://presentation-skill-pack.vercel.app/?ref=studio" target="_blank" rel="noopener">presentation-skill-pack</a>` +
+  `<footer class="pmd-attribution">Made with ` +
+  `<a href="https://presentation-md.vercel.app/?ref=studio" target="_blank" rel="noopener">presentation-md</a>` +
   `</footer>`;
 
 // Kept identical to the canonical renderer (packages/renderer-node) so the
 // studio preview matches a deck downloaded/rendered anywhere else.
 const ATTRIBUTION_CSS = `
-/* presentation-skill-pack attribution footer */
-.psp-attribution {
+/* presentation-md attribution footer */
+.pmd-attribution {
   font-family: var(--body-font);
   font-size: 13px;
   letter-spacing: 0.04em;
@@ -96,14 +96,14 @@ const ATTRIBUTION_CSS = `
   text-align: center;
   padding: 4px 0 16px;
 }
-.psp-attribution a {
+.pmd-attribution a {
   color: var(--muted);
   text-decoration: none;
   border-bottom: 1px solid color-mix(in srgb, var(--muted) 40%, transparent);
   transition: color 0.15s ease, border-color 0.15s ease;
 }
-.psp-attribution a:hover { color: var(--accent); border-color: var(--accent); }
-@media print { .psp-attribution { opacity: 0.5; } }`;
+.pmd-attribution a:hover { color: var(--accent); border-color: var(--accent); }
+@media print { .pmd-attribution { opacity: 0.5; } }`;
 
 /**
  * Embed the source deck as a JSON script tag so a deck downloaded from the studio
@@ -111,7 +111,7 @@ const ATTRIBUTION_CSS = `
  */
 function embedDeckScript(deck: DeckJson): string {
   const json = JSON.stringify(deck).replace(/</g, "\\u003c");
-  return `<script type="application/json" id="psp-deck">${json}</script>`;
+  return `<script type="application/json" id="pmd-deck">${json}</script>`;
 }
 
 export function renderDeckHtml(deck: DeckJson, theme: ResolvedTheme): string {

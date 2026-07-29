@@ -1,5 +1,5 @@
 {
-  "name": "presentation-skill-pack",
+  "name": "presentation-md",
   "short_name": "slide-pack",
   "description": "Turn rough notes into a polished slide deck. Universal skill for Claude Code, Cursor, Codex, Gemini CLI, and any MCP agent.",
   "start_url": "/",

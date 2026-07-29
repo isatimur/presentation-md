@@ -1,0 +1,367 @@
+import JSZip from "jszip";
+import { XMLParser } from "fast-xml-parser";
+import { assertZipEntrySafe } from "./zip-limits.js";
+import type {
+  ExtractedImage,
+  ExtractedPresentation,
+  ExtractedSlide,
+  ExtractOptions,
+} from "./types.js";
+
+const parser = new XMLParser({
+  ignoreAttributes: false,
+  attributeNamePrefix: "@_",
+  removeNSPrefix: true,
+  isArray: (name) =>
+    [
+      "sldId",
+      "Relationship",
+      "sp",
+      "graphicFrame",
+      "pic",
+      "tr",
+      "tc",
+      "p",
+      "r",
+      "Override",
+      "Default",
+    ].includes(name),
+});
+
+function asArray<T>(v: T | T[] | undefined | null): T[] {
+  if (v == null) return [];
+  return Array.isArray(v) ? v : [v];
+}
+
+function textOfNode(node: unknown): string {
+  if (node == null) return "";
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (typeof node !== "object") return "";
+  const obj = node as Record<string, unknown>;
+  if ("#text" in obj && Object.keys(obj).every((k) => k === "#text" || k.startsWith("@_"))) {
+    return String(obj["#text"] ?? "");
+  }
+  let out = "";
+  for (const [k, v] of Object.entries(obj)) {
+    if (k.startsWith("@_")) continue;
+    if (k === "t") {
+      for (const t of asArray(v)) out += textOfNode(t);
+    } else {
+      out += textOfNode(v);
+    }
+  }
+  return out;
+}
+
+function collectShapeText(txBody: unknown): string {
+  if (!txBody || typeof txBody !== "object") return "";
+  const paras = asArray((txBody as Record<string, unknown>)["p"]);
+  const lines: string[] = [];
+  for (const p of paras) {
+    const line = textOfNode(p).replace(/\s+/g, " ").trim();
+    if (line) lines.push(line);
+  }
+  return lines.join("\n");
+}
+
+function isTitlePlaceholder(sp: Record<string, unknown>): boolean {
+  const nvSpPr = sp["nvSpPr"] as Record<string, unknown> | undefined;
+  const nvPr = nvSpPr?.["nvPr"] as Record<string, unknown> | undefined;
+  const ph = nvPr?.["ph"] as Record<string, unknown> | undefined;
+  if (!ph) return false;
+  const type = String(ph["@_type"] ?? "").toLowerCase();
+  return type === "title" || type === "ctrtitle";
+}
+
+function parseTable(tbl: Record<string, unknown>): string[][] {
+  const rows: string[][] = [];
+  for (const tr of asArray(tbl["tr"])) {
+    const trObj = tr as Record<string, unknown>;
+    const cells: string[] = [];
+    for (const tc of asArray(trObj["tc"])) {
+      const tcObj = tc as Record<string, unknown>;
+      cells.push(collectShapeText(tcObj["txBody"]).trim());
+    }
+    if (cells.some((c) => c.length > 0)) rows.push(cells);
+  }
+  return rows;
+}
+
+function contentTypeForPath(
+  path: string,
+  defaults: Map<string, string>,
+  overrides: Map<string, string>
+): string {
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  if (overrides.has(normalized)) return overrides.get(normalized)!;
+  const ext = path.includes(".") ? path.slice(path.lastIndexOf(".") + 1).toLowerCase() : "";
+  return defaults.get(ext) ?? "application/octet-stream";
+}
+
+function extForContentType(ct: string): string {
+  if (ct.includes("png")) return "png";
+  if (ct.includes("jpeg") || ct.includes("jpg")) return "jpg";
+  if (ct.includes("gif")) return "gif";
+  if (ct.includes("svg")) return "svg";
+  if (ct.includes("emf")) return "emf";
+  if (ct.includes("wmf")) return "wmf";
+  return "bin";
+}
+
+async function readXml(zip: JSZip, path: string): Promise<Record<string, unknown> | null> {
+  const file = zip.file(path);
+  if (!file) return null;
+  return parser.parse(await file.async("string")) as Record<string, unknown>;
+}
+
+function resolveRelTarget(baseDir: string, target: string): string {
+  const joined = `${baseDir}/${target}`.replace(/\\/g, "/");
+  const parts: string[] = [];
+  for (const seg of joined.split("/")) {
+    if (!seg || seg === ".") continue;
+    if (seg === "..") parts.pop();
+    else parts.push(seg);
+  }
+  return parts.join("/");
+}
+
+function relIdFromSldId(sldId: Record<string, unknown>): string {
+  for (const [k, v] of Object.entries(sldId)) {
+    if (!k.startsWith("@_")) continue;
+    const val = String(v);
+    if (/^rId\d+$/i.test(val)) return val;
+  }
+  return "";
+}
+
+function embedIdsFromXml(xml: string): string[] {
+  const ids: string[] = [];
+  for (const re of [/r:embed="(rId\d+)"/g, /(?:^|[\s])embed="(rId\d+)"/g]) {
+    for (const m of xml.matchAll(re)) {
+      if (!ids.includes(m[1]!)) ids.push(m[1]!);
+    }
+  }
+  return ids;
+}
+
+export async function extractPptx(
+  input: Uint8Array | Buffer,
+  opts: ExtractOptions = {}
+): Promise<{ extracted: ExtractedPresentation; warnings: string[] }> {
+  const warnings: string[] = [];
+  const warn = (msg: string): void => {
+    warnings.push(msg);
+    opts.onWarn?.(msg);
+  };
+
+  const zip = await JSZip.loadAsync(input, { checkCRC32: true });
+  const entries = Object.values(zip.files).filter((f) => !f.dir);
+  let totalUncompressed = 0;
+  let entryCount = 0;
+  for (const entry of entries) {
+    entryCount += 1;
+    const rawSize =
+      (entry as unknown as { _data?: { uncompressedSize?: number } })._data?.uncompressedSize ?? 0;
+    totalUncompressed += rawSize;
+    assertZipEntrySafe({ entryCount, uncompressedSize: rawSize, totalUncompressed });
+  }
+
+  const defaults = new Map<string, string>();
+  const overrides = new Map<string, string>();
+  const ctDoc = await readXml(zip, "[Content_Types].xml");
+  if (ctDoc) {
+    const types = ctDoc["Types"] as Record<string, unknown> | undefined;
+    for (const d of asArray(types?.["Default"])) {
+      const o = d as Record<string, unknown>;
+      defaults.set(String(o["@_Extension"] ?? "").toLowerCase(), String(o["@_ContentType"] ?? ""));
+    }
+    for (const o of asArray(types?.["Override"])) {
+      const ov = o as Record<string, unknown>;
+      overrides.set(String(ov["@_PartName"] ?? ""), String(ov["@_ContentType"] ?? ""));
+    }
+  }
+
+  const pres = await readXml(zip, "ppt/presentation.xml");
+  const presRels = await readXml(zip, "ppt/_rels/presentation.xml.rels");
+  const relById = new Map<string, { target: string; external: boolean }>();
+  const relRoot = (presRels?.["Relationships"] ?? {}) as Record<string, unknown>;
+  for (const rel of asArray(relRoot["Relationship"])) {
+    const r = rel as Record<string, unknown>;
+    relById.set(String(r["@_Id"]), {
+      target: String(r["@_Target"] ?? ""),
+      external: String(r["@_TargetMode"] ?? "") === "External",
+    });
+  }
+
+  const sldIdLst =
+    ((pres?.["presentation"] as Record<string, unknown> | undefined)?.["sldIdLst"] as
+      | Record<string, unknown>
+      | undefined) ?? {};
+  const slidePaths: string[] = [];
+  for (const sldId of asArray(sldIdLst["sldId"])) {
+    const relId = relIdFromSldId(sldId as Record<string, unknown>);
+    const rel = relById.get(relId);
+    if (!rel) {
+      warn(`Missing relationship for slide id ${relId || "(unknown)"}`);
+      continue;
+    }
+    if (rel.external) {
+      warn(`Skipped external slide relationship: ${rel.target}`);
+      continue;
+    }
+    slidePaths.push(resolveRelTarget("ppt", rel.target));
+  }
+
+  if (slidePaths.length === 0) {
+    const numbered = entries
+      .map((e) => e.name)
+      .filter((n) => /^ppt\/slides\/slide\d+\.xml$/i.test(n))
+      .sort((a, b) => {
+        const na = Number(a.match(/slide(\d+)/i)?.[1] ?? 0);
+        const nb = Number(b.match(/slide(\d+)/i)?.[1] ?? 0);
+        return na - nb;
+      });
+    slidePaths.push(...numbered);
+    if (numbered.length) warn("Fell back to filename slide order (presentation sldIdLst empty).");
+  }
+
+  const slides: ExtractedSlide[] = [];
+
+  for (let i = 0; i < slidePaths.length; i++) {
+    const slidePath = slidePaths[i]!;
+    const slideDoc = await readXml(zip, slidePath);
+    if (!slideDoc) {
+      warn(`Missing slide part: ${slidePath}`);
+      continue;
+    }
+
+    const sld = (slideDoc["sld"] ?? slideDoc) as Record<string, unknown>;
+    const cSld = sld["cSld"] as Record<string, unknown> | undefined;
+    const spTree = cSld?.["spTree"] as Record<string, unknown> | undefined;
+
+    let title: string | undefined;
+    const titleFromPh: string[] = [];
+    const bodyTexts: string[] = [];
+
+    for (const sp of asArray(spTree?.["sp"])) {
+      const spObj = sp as Record<string, unknown>;
+      const text = collectShapeText(spObj["txBody"]).trim();
+      if (!text) continue;
+      if (isTitlePlaceholder(spObj)) titleFromPh.push(text);
+      else bodyTexts.push(text);
+    }
+
+    if (titleFromPh.length) {
+      title = titleFromPh[0];
+      bodyTexts.unshift(...titleFromPh.slice(1));
+    } else if (bodyTexts.length) {
+      title = bodyTexts.shift();
+    }
+
+    let bestTable: string[][] = [];
+    for (const gf of asArray(spTree?.["graphicFrame"])) {
+      const gfObj = gf as Record<string, unknown>;
+      const graphic = gfObj["graphic"] as Record<string, unknown> | undefined;
+      const graphicData = graphic?.["graphicData"] as Record<string, unknown> | undefined;
+      const tbl = graphicData?.["tbl"] as Record<string, unknown> | undefined;
+      if (tbl) {
+        const parsed = parseTable(tbl);
+        if (parsed.length > bestTable.length) bestTable = parsed;
+      }
+    }
+
+    const slideDir = slidePath.includes("/") ? slidePath.slice(0, slidePath.lastIndexOf("/")) : "";
+    const relsPath = `${slideDir}/_rels/${slidePath.slice(slidePath.lastIndexOf("/") + 1)}.rels`;
+    const slideRelsDoc = await readXml(zip, relsPath);
+    const slideRelById = new Map<string, { target: string; external: boolean; type: string }>();
+    const slideRelRoot = (slideRelsDoc?.["Relationships"] ?? {}) as Record<string, unknown>;
+    for (const rel of asArray(slideRelRoot["Relationship"])) {
+      const r = rel as Record<string, unknown>;
+      slideRelById.set(String(r["@_Id"]), {
+        target: String(r["@_Target"] ?? ""),
+        external: String(r["@_TargetMode"] ?? "") === "External",
+        type: String(r["@_Type"] ?? ""),
+      });
+    }
+
+    const slideXml = await zip.file(slidePath)!.async("string");
+    const blipIds = embedIdsFromXml(slideXml);
+    const images: ExtractedImage[] = [];
+    let imgIndex = 0;
+    for (const rid of blipIds) {
+      const rel = slideRelById.get(rid);
+      if (!rel) continue;
+      if (rel.external) {
+        warn(`Skipped external image relationship on slide ${i + 1}: ${rel.target}`);
+        continue;
+      }
+      if (!rel.type.includes("image") && !rel.target.includes("media/")) continue;
+      const mediaPath = resolveRelTarget(slideDir, rel.target);
+      const mediaFile = zip.file(mediaPath);
+      if (!mediaFile) {
+        warn(`Missing media part: ${mediaPath}`);
+        continue;
+      }
+      const bytes = new Uint8Array(await mediaFile.async("uint8array"));
+      assertZipEntrySafe({
+        entryCount,
+        uncompressedSize: bytes.byteLength,
+        totalUncompressed: totalUncompressed + bytes.byteLength,
+        isMedia: true,
+      });
+      imgIndex += 1;
+      const ct = contentTypeForPath(mediaPath, defaults, overrides);
+      images.push({
+        name: `slide${i + 1}_img${imgIndex}.${extForContentType(ct)}`,
+        contentType: ct,
+        bytes,
+      });
+    }
+
+    let notes: string | undefined;
+    for (const rel of slideRelById.values()) {
+      if (!rel.type.includes("notesSlide") && !/notesSlide/i.test(rel.target)) continue;
+      if (rel.external) {
+        warn(`Skipped external notes relationship on slide ${i + 1}`);
+        continue;
+      }
+      const notesPath = resolveRelTarget(slideDir, rel.target);
+      const notesDoc = await readXml(zip, notesPath);
+      if (!notesDoc) continue;
+      const notesSld = (notesDoc["notes"] ?? notesDoc) as Record<string, unknown>;
+      const nCSld = notesSld["cSld"] as Record<string, unknown> | undefined;
+      const nTree = nCSld?.["spTree"] as Record<string, unknown> | undefined;
+      const noteParts: string[] = [];
+      for (const sp of asArray(nTree?.["sp"])) {
+        const spObj = sp as Record<string, unknown>;
+        const nvSpPr = spObj["nvSpPr"] as Record<string, unknown> | undefined;
+        const nvPr = nvSpPr?.["nvPr"] as Record<string, unknown> | undefined;
+        const ph = nvPr?.["ph"] as Record<string, unknown> | undefined;
+        const phType = String(ph?.["@_type"] ?? "");
+        if (phType === "sldImg" || phType === "sldNum") continue;
+        const t = collectShapeText(spObj["txBody"]).trim();
+        if (t) noteParts.push(t);
+      }
+      if (noteParts.length) notes = noteParts.join("\n");
+    }
+
+    slides.push({
+      number: i + 1,
+      title,
+      texts: bodyTexts,
+      tables: bestTable,
+      images,
+      notes,
+    });
+  }
+
+  const core = await readXml(zip, "docProps/core.xml");
+  const coreProps = (core?.["coreProperties"] ?? {}) as Record<string, unknown>;
+  const meta = {
+    title: textOfNode(coreProps["title"]).trim() || undefined,
+    author: textOfNode(coreProps["creator"]).trim() || undefined,
+    subject: textOfNode(coreProps["subject"]).trim() || undefined,
+  };
+
+  return { extracted: { meta, slides }, warnings };
+}

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://presentation-skill-pack.dev/theme.schema.json",
+  "$id": "https://presentation-md.dev/theme.schema.json",
   "title": "Presentation Skill Pack Theme Manifest",
   "type": "object",
   "required": ["name", "version"],

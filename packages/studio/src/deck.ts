@@ -1,4 +1,4 @@
-import type { DeckJson, Slide, LayoutType } from "@presentation-skill-pack/export";
+import type { DeckJson, Slide, LayoutType } from "@presentation-md/export";
 
 export type { DeckJson, Slide, LayoutType };
 

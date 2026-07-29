@@ -1,10 +1,10 @@
-# Marketing Plan — presentation-skill-pack
+# Marketing Plan — presentation-md
 
 *Last updated: 2026-06-29. Foundation: `.agents/product-marketing-context.md`.*
 
 ## Goal
 
-Make presentation-skill-pack the **top / #1 presentation skill** — measured across four fronts the
+Make presentation-md the **top / #1 presentation skill** — measured across four fronts the
 owner wants all of: **discoverability** (skill/MCP directories + AI search), **adoption**
 (npm/PyPI installs + GitHub stars), **web traffic/SEO** (the Vercel site), and a **launch moment**.
 
@@ -49,7 +49,7 @@ PowerPoint/Keynote/Google Slides → edit in the studio."**
 
 ### P2 — Programmatic + comparison pages · skills: programmatic-seo, competitor-alternatives
 - Alternative/vs pages targeting decision keywords: "Gamma alternative for developers", "Tome
-  alternative", "Slidev vs presentation-skill-pack", "AI PowerPoint generator". (The site already has
+  alternative", "Slidev vs presentation-md", "AI PowerPoint generator". (The site already has
   `web/for/` and `web/vs/` — extend with export-led angles.)
 - pSEO templates: "[agent] presentation skill" and "AI deck to [PowerPoint|Keynote|Google Slides]".
 

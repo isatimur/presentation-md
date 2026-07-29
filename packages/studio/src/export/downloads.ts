@@ -1,4 +1,4 @@
-import type { DeckJson } from "@presentation-skill-pack/export";
+import type { DeckJson } from "@presentation-md/export";
 import { resolveTheme } from "../render/themes.js";
 import { renderDeckHtml } from "../render/renderDeck.js";
 
@@ -34,7 +34,7 @@ export async function downloadPptx(deck: DeckJson): Promise<PptxDownloadResult> 
   const theme = resolveTheme(themeName(deck));
   // Lazy-load the exporter (pptxgenjs) so it's a separate chunk fetched only on
   // first export — keeps the studio's initial bundle small.
-  const { deckToPptxBlob } = await import("@presentation-skill-pack/export");
+  const { deckToPptxBlob } = await import("@presentation-md/export");
   const blob = await deckToPptxBlob(deck, theme, { onWarn: (m) => warnings.push(m) });
   triggerDownload(blob, safeName(deck, "pptx"));
   return { warnings };
@@ -63,17 +63,17 @@ export function parseDeckJson(text: string): DeckJson {
 
 /**
  * Recover the source deck embedded in a rendered presentation `.html`
- * (the `<script type="application/json" id="psp-deck">` written by the renderer).
+ * (the `<script type="application/json" id="pmd-deck">` written by the renderer).
  */
 function extractDeckJsonString(html: string): string | undefined {
   if (typeof DOMParser !== "undefined") {
-    const el = new DOMParser().parseFromString(html, "text/html").getElementById("psp-deck");
+    const el = new DOMParser().parseFromString(html, "text/html").getElementById("pmd-deck");
     const text = el?.textContent?.trim();
     if (text) return text;
   }
   // Fallback for non-DOM environments. Safe because the renderer escapes `<`
   // inside the embedded JSON, so it can never contain a literal `</script>`.
-  const m = html.match(/<script[^>]*id=["']psp-deck["'][^>]*>([\s\S]*?)<\/script>/i);
+  const m = html.match(/<script[^>]*id=["']pmd-deck["'][^>]*>([\s\S]*?)<\/script>/i);
   return m?.[1]?.trim();
 }
 
@@ -81,7 +81,7 @@ export function extractDeckFromHtml(html: string): DeckJson {
   const json = extractDeckJsonString(html);
   if (!json) {
     throw new Error(
-      "No editable deck found in this HTML. Only presentations created by presentation-skill-pack (with an embedded source) can be opened."
+      "No editable deck found in this HTML. Only presentations created by presentation-md (with an embedded source) can be opened."
     );
   }
   return parseDeckJson(json);

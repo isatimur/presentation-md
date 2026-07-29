@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
-# install.sh — GitHub Copilot adapter for presentation-skill-pack
+# install.sh — GitHub Copilot adapter for presentation-md
 # Writes/updates a named section in .github/copilot-instructions.md (project-scoped).
 # Multiple skill packs can coexist — each owns its own sentinel-delimited section.
-# Usage:  PSP_CORE_DIR=<path> bash install.sh [full|lite]
+# Usage:  PMD_CORE_DIR=<path> bash install.sh [full|lite]
 set -euo pipefail
 
 MODE="${1:-full}"
-SKILL_NAME="presentation-skill-pack"
-: "${PSP_CORE_DIR:?PSP_CORE_DIR must be set to the @presentation-skill-pack/core directory}"
+SKILL_NAME="presentation-md"
+: "${PMD_CORE_DIR:?PMD_CORE_DIR must be set to the @presentation-md/core directory}"
 
 COPILOT_DIR=".github"
 COPILOT_FILE="$COPILOT_DIR/copilot-instructions.md"
 VSCODE_DIR=".vscode"
 MCP_FILE="$VSCODE_DIR/mcp.json"
 
-echo "presentation-skill-pack › copilot adapter"
+echo "presentation-md › copilot adapter"
 echo "  mode:   $MODE"
 echo "  target: $(pwd)/$COPILOT_FILE"
 echo ""
@@ -26,7 +26,7 @@ SKILL_BODY=$(awk '
   /^---$/ && !seen { seen=1; in_front=1; next }
   in_front && /^---$/ { in_front=0; next }
   !in_front { print }
-' "$PSP_CORE_DIR/SKILL.md")
+' "$PMD_CORE_DIR/SKILL.md")
 
 SECTION_FILE=$(mktemp)
 cat > "$SECTION_FILE" <<EOF
@@ -69,10 +69,10 @@ if [ "$MODE" = "full" ]; then
     UPDATED=$(node -e "
       const cfg = JSON.parse(process.argv[1]);
       cfg.servers = cfg.servers || {};
-      cfg.servers['presentation-skill-pack'] = {
+      cfg.servers['presentation-md'] = {
         type: 'stdio',
         command: 'npx',
-        args: ['@presentation-skill-pack/mcp-server']
+        args: ['@presentation-md/mcp-server']
       };
       process.stdout.write(JSON.stringify(cfg, null, 2));
     " "$EXISTING")
@@ -81,10 +81,10 @@ if [ "$MODE" = "full" ]; then
     cat > "$MCP_FILE" <<'JSON'
 {
   "servers": {
-    "presentation-skill-pack": {
+    "presentation-md": {
       "type": "stdio",
       "command": "npx",
-      "args": ["@presentation-skill-pack/mcp-server"]
+      "args": ["@presentation-md/mcp-server"]
     }
   }
 }

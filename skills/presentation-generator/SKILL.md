@@ -1,6 +1,6 @@
 ---
 name: presentation-generator
-description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 5 radically different visual identities. Use whenever the user wants to build any kind of presentation.
+description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 9 themes and 9 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
 license: MIT
 metadata:
   author: isatimur
@@ -18,7 +18,7 @@ The best presentation you've ever seen had ONE thing in common with every other 
 
 **Deck-spec path** (preferred when tooling is available):
 1. Emit a deck JSON conforming to `references/deck-schema.md`
-2. Render: `npx @presentation-skill-pack/render deck.json -o deck.html --theme <name>`
+2. Render: `npx @presentation-md/render deck.json -o deck.html --theme <name>`
 3. MCP: call `render_deck` with deck JSON and theme name
 
 **Direct-HTML path** (when no tooling):
@@ -29,7 +29,7 @@ The best presentation you've ever seen had ONE thing in common with every other 
 
 **What the deck can then do** (deck-spec path only): every rendered deck embeds its
 source spec, so it round-trips. The browser **Studio**
-([presentation-skill-pack.vercel.app/studio](https://presentation-skill-pack.vercel.app/studio))
+([presentation-md.vercel.app/studio](https://presentation-md.vercel.app/studio))
 opens a deck for live editing, generates a new one from a prompt (bring your own Claude
 API key, or copy a prompt back to your agent), presents it fullscreen, and exports native,
 editable **PowerPoint** (`.pptx`) that opens in Keynote and imports into Google Slides.
@@ -66,77 +66,57 @@ World Before → The Turning Point → The Method → World After → What's Nex
 
 ---
 
-## The 15 Layout Types
+## The 9 Layout Types
 
 Each layout is a tool. Match the layout to the job, not to the order.
+**Only these nine names are valid in deck JSON** (`references/deck-schema.md`). If you need a
+"manifesto", "metric-hero", "before-after", or "comparison" *feeling*, compose it with the
+closest layout below — never invent a layout name.
 
-### `cover` — Single cinematic statement
-**When to use:** opening and closing. One idea. Maximum impact.
-**Props:** `{ headline, subline?, eyebrow?, meta? }`
-**Design rule:** headline fills 60% of the slide height. Nothing competes with it.
-
-### `manifesto` — Full-bleed provocation
-**When to use:** opening hook, section opener, the "why we exist" moment.
-**Props:** `{ statement, attribution? }`
-**Design rule:** one sentence, enormous type (min 4rem), no border, no decoration — the words ARE the design.
-
-### `two-column` — Argument + evidence
-**When to use:** explaining a concept with supporting visual or data.
-**Props:** `{ heading, left: { content }, right: { content, type: 'text'|'visual'|'stat'|'quote' } }`
-
-### `feature-grid` — Capabilities overview
-**When to use:** product features, service offerings, team skills.
-**Props:** `{ heading, features: [{ icon, title, description }] }` (3–6 items)
-**Design rule:** odd numbers (3, 5) feel more dynamic than even.
-
-### `stat-row` — Proof through numbers
-**When to use:** traction, market size, ROI validation.
-**Props:** `{ heading?, stats: [{ value, label, note? }] }` (3–5 stats)
-**Design rule:** the number should be 3–4× the size of the label. The number IS the message.
-
-### `metric-hero` — One number, full stage
-**When to use:** the single most important metric — the one that stops the room.
-**Props:** `{ value, label, context?, delta? }`
-**Design rule:** value fills 40% of viewport height. Nothing else matters on this slide.
-
-### `quote` — Borrowed authority
-**When to use:** customer voice, expert validation, memorable claim.
-**Props:** `{ text, attribution, role?, logo? }`
-**Design rule:** the quote should be so good it would work as a tweet. If it wouldn't, find a better quote.
-
-### `timeline` — Progress and plan
-**When to use:** GTM roadmap, implementation steps, historical trajectory.
-**Props:** `{ heading, items: [{ date, title, description, status?: 'done'|'active'|'planned' }] }`
-
-### `comparison` — The competitive landscape
-**When to use:** feature comparison, before/after, option trade-offs.
-**Props:** `{ heading, rows: string[], columns: [{ name, values: bool[]|string[], highlight?: bool }] }`
-**Design rule:** your column is always last — audiences scan left to right, remembering the final item.
+### `title` — Single cinematic statement
+**When to use:** opening cover, or a one-idea hero beat.
+**Props:** `{ heading, lead?, eyebrow? }`
+**Design rule:** heading fills most of the vertical space. Nothing competes with it.
+**Compose:** a "manifesto" = `title` with an enormous one-sentence `heading` and empty `lead`.
 
 ### `section` — Rhythm break
 **When to use:** between major acts. Resets cognitive load. Creates anticipation.
-**Props:** `{ label, eyebrow?, accent?: bool }`
-**Design rule:** this slide should feel like a pause before a reveal. Almost empty is correct.
+**Props:** `{ heading, number?, eyebrow? }`
+**Design rule:** almost empty is correct — type itself is the visual.
 
-### `process` — How it works
-**When to use:** product flow, methodology, onboarding steps.
-**Props:** `{ heading, steps: [{ number, title, description }] }` (3–5 steps)
+### `two-column` — Argument + evidence
+**When to use:** explaining a concept with supporting copy, image, or contrast.
+**Props:** `{ heading, lead?, body?, image?, imageAlt? }`
+**Compose:** "before/after" = heading + body that contrasts two states, or two successive `two-column` slides. "photo-story" = `two-column` with `image` + caption in `lead`/`body`.
+
+### `feature-grid` — Capabilities overview
+**When to use:** product features, service offerings, team skills.
+**Props:** `{ heading, cards: [{ icon?, title, body? }], columns?: 2|3|4 }` (3–6 cards)
+**Design rule:** odd counts (3, 5) feel more dynamic than even.
+
+### `stat-row` — Proof through numbers
+**When to use:** traction, market size, ROI validation — or a single room-stopping metric.
+**Props:** `{ heading?, stats: [{ value, label }] }` (1–5 stats)
+**Design rule:** the number is 3–4× the label. For a "metric-hero", use **one** stat and a short heading.
+
+### `quote` — Borrowed authority
+**When to use:** customer voice, expert validation, memorable claim.
+**Props:** `{ quote, by? }`
+**Design rule:** the quote should work as a tweet. If it wouldn't, find a better quote.
+
+### `timeline` — Progress and plan
+**When to use:** GTM roadmap, implementation steps, historical trajectory, "how it works".
+**Props:** `{ heading, steps: [{ title, body? }] }`
+**Compose:** a "process" flow = `timeline` with numbered titles (`"01 · Sign up"`, …).
 
 ### `data-table` — Detailed evidence
-**When to use:** financial summary, portfolio data, feature matrix with nuance.
-**Props:** `{ heading, columns: string[], rows: [{ cells: string[], highlight?: bool }] }`
-
-### `photo-story` — Visual narrative
-**When to use:** team culture, real-world impact, case study moment.
-**Props:** `{ heading, imagePath, caption, pullQuote? }`
-
-### `before-after` — Transformation proof
-**When to use:** the "world before vs world after" moment. Most emotionally resonant slide in any deck.
-**Props:** `{ heading, before: { label, points: string[] }, after: { label, points: string[] }, bridge? }`
+**When to use:** financial summary, feature matrix, risk register, comparison grid.
+**Props:** `{ heading, columns: string[], rows: string[][], eyebrow?, lead? }`
+**Compose:** a competitive "comparison" = `data-table` with your product as the **last** column.
 
 ### `closing` — The ask / CTA
 **When to use:** every deck ends here. Make the next action unmissable.
-**Props:** `{ headline, subline?, actions: [{ label, url? }], contact? }`
+**Props:** `{ heading, lead?, cta?: { label?, href? } }`
 **Design rule:** one primary action. Two is confusion. Three is abandonment.
 
 ---
@@ -187,6 +167,27 @@ Each theme is a complete design language: colors, typography, geometry, motion, 
 **Geometry:** no radius (pixel-sharp), CRT scanlines, neon glow, grid backgrounds
 **Use for:** developer tools, gaming, crypto/Web3, retro-brand launches, hackathons
 
+### `editorial-serif`
+**Soul:** A Sunday magazine cover that still believes in longform.
+**Palette:** `#faf7f2` warm paper · `#1c1a17` ink · `#9c1c1c` masthead crimson · `#a67c1e` brass
+**Fonts:** Playfair Display headings · Source Serif 4 body
+**Geometry:** 2px radius, thin hairline rules, square editorial frames
+**Use for:** media, publishing, thought leadership, cultural brands, annual reports
+
+### `brutalist-mono`
+**Soul:** The terminal that ships — no ornament, all structure.
+**Palette:** `#f0efe9` concrete · `#0a0a0a` near-black · `#ff3600` hazard orange
+**Fonts:** IBM Plex Mono headings + body
+**Geometry:** 0px radius, thick near-black hairlines, hard corners
+**Use for:** infrastructure, security, developer tools, technical launches, architecture reviews
+
+### `pastel-dreamy`
+**Soul:** Soft without being fragile — approachable and readable.
+**Palette:** `#fdf6fb` lavender-blush · `#3a2e4d` deep plum · `#e893c2` blush · `#8ab4f8` periwinkle
+**Fonts:** Quicksand headings · Mulish body
+**Geometry:** 28px radius, gentle cards, airy spacing
+**Use for:** wellness, consumer apps, education, community products, lifestyle brands
+
 ---
 
 ## Typography Hierarchy — The Scale System
@@ -195,7 +196,7 @@ Great presentations use exactly 4 type sizes, never more:
 
 | Role | Size | Weight | Usage |
 |------|------|--------|-------|
-| Display | 4–8rem | 800–900 | Cover headlines, metric-hero values |
+| Display | 4–8rem | 800–900 | Cover headlines, hero metric values |
 | Heading | 2–3rem | 700 | Slide titles |
 | Body | 0.9–1rem | 400–500 | Explanatory copy, bullets |
 | Caption | 0.75–0.85rem | 400 | Sources, labels, footnotes |
@@ -260,15 +261,15 @@ Use `@keyframes fadeUp` universally: `from { opacity:0; transform:translateY(20p
 
 ### Pitch Deck (12 slides)
 ```
-01 cover         — Company name + one-line positioning
-02 manifesto     — The world as it should be (your vision)
+01 title         — Company name + one-line positioning
+02 title         — Manifesto: the world as it should be (one sentence heading)
 03 stat-row      — The size of the problem (3 shocking numbers)
-04 before-after  — Life without you vs life with you
+04 two-column    — Life without you vs life with you
 05 two-column    — How it works + visual
 06 feature-grid  — 3 core capabilities
-07 metric-hero   — Single most impressive traction stat
+07 stat-row      — Single most impressive traction stat (1 stat)
 08 stat-row      — Full traction (ARR, customers, NRR, CAC:LTV)
-09 comparison    — Why not the incumbents
+09 data-table    — Why not the incumbents (your column last)
 10 data-table    — Financials + projections
 11 timeline      — GTM roadmap (4 quarters)
 12 closing       — The ask + contact
@@ -276,10 +277,10 @@ Use `@keyframes fadeUp` universally: `from { opacity:0; transform:translateY(20p
 
 ### Sales Demo (10 slides)
 ```
-01 cover         — Customer-personalised opener
+01 title         — Customer-personalised opener
 02 two-column    — "What we heard from you" + their exact words
 03 stat-row      — Cost of the problem (their numbers)
-04 process       — How it works (5 steps)
+04 timeline      — How it works (5 steps)
 05 feature-grid  — 3 modules that map to their 3 pains
 06 stat-row      — ROI model (their inputs, our math)
 07 quote         — Customer who looks like them
@@ -290,29 +291,29 @@ Use `@keyframes fadeUp` universally: `from { opacity:0; transform:translateY(20p
 
 ### Keynote / Conference Talk (10 slides)
 ```
-01 manifesto     — The provocative thesis
+01 title         — The provocative thesis (manifesto-style heading)
 02 stat-row      — Why this matters now (urgency)
 03 two-column    — The conventional wisdom + why it's wrong
 04 section       — "Part 1: The Problem"
-05 before-after  — The old way vs the new way
+05 two-column    — The old way vs the new way
 06 section       — "Part 2: The Principle"
 07 feature-grid  — 3 things that change when you apply the principle
 08 quote         — The authority who agrees
-09 metric-hero   — The one number that proves it
+09 stat-row      — The one number that proves it (1 stat)
 10 closing       — The invitation to act
 ```
 
 ### Investor Update (10 slides)
 ```
-01 cover         — Fund name + period + confidentiality marker
+01 title         — Fund name + period + confidentiality marker
 02 stat-row      — Quarter in numbers (IRR, deployed, NAV, NRR)
 03 data-table    — Portfolio company performance
 04 two-column    — Key investment deep dive
 05 stat-row      — Capital allocation (deployed, realised, dry powder)
 06 two-column    — Market outlook (tailwinds + headwinds)
 07 timeline      — Forward guidance (4 initiatives)
-08 comparison    — Risk register
-09 photo-story   — ESG / impact highlight
+08 data-table    — Risk register
+09 two-column    — ESG / impact highlight (with image if available)
 10 closing       — Contact + data room
 ```
 
@@ -338,7 +339,7 @@ Use `@keyframes fadeUp` universally: `from { opacity:0; transform:translateY(20p
 These are the details that make a deck read as machine-generated. A reviewer clocks them in under a second, and every one is avoidable.
 
 13. **The Accent Line Under the Title** — a thin decorative rule slapped beneath every heading is the single clearest fingerprint of an AI-generated slide. Let type size, weight, and whitespace establish the hierarchy. Never draw a line under a title just to fill the gap.
-14. **The Text-Only Slide** — every slide earns at least one deliberate visual element: a chart, an icon, an image, a shape, a pull-stat. Words floating alone in the middle of a slide are a memo, not a presentation. (The `section` and `manifesto` layouts are the intentional exceptions — there the *type itself* is the visual.)
+14. **The Text-Only Slide** — every slide earns at least one deliberate visual element: a chart, an icon, an image, a shape, a pull-stat. Words floating alone in the middle of a slide are a memo, not a presentation. (The `section` and manifesto-style `title` layouts are the intentional exceptions — there the *type itself* is the visual.)
 15. **The Centered Paragraph** — center a hero headline if you like, but body copy, bullets, and multi-line captions are always left-aligned. Centered running text has a ragged left edge the eye can't track.
 16. **The Overflow** — nothing falls off the slide and nothing overlaps. Every element sits inside the safe margin with real breathing room around it. Text clipped at the edge or a chart crashing into a caption instantly reads as broken.
 17. **The Low-Contrast Whisper** — light text on a light surface, or dark on dark. Body text must clear a genuine contrast ratio (aim WCAG AA, ~4.5:1). "It looks fine on my monitor" fails in a bright conference room every time.
@@ -346,16 +347,33 @@ These are the details that make a deck read as machine-generated. A reviewer clo
 
 ---
 
+## Theme Discovery (show, don't tell)
+
+Do **not** ask the user to pick a theme from a bare name list when they are unsure.
+Inspired by frontend-slides' progressive style discovery:
+
+1. Read `references/theme-selection-index.json` (mood, best_for, avoid_for, scheme).
+2. Shortlist **3** themes that fit purpose + audience + density.
+3. Briefly describe each in one line (vibe + when to use). If tooling is available, optionally
+   render three 1-slide title decks via `render_deck` so they can *see* the difference.
+4. After they pick, set `meta.theme` and proceed — load full theme details only then
+   (`list_themes` / theme package README).
+
+If they already named a theme or brand URL, skip discovery (`import_brand_theme` for brand match).
+
+---
+
 ## Parameters to Collect
 
-Before generating, confirm:
+Before generating, confirm (ask together when possible — purpose, length/density, content readiness):
 
 | Parameter | What good looks like |
 |-----------|---------------------|
 | **Purpose** | "Raise a Series A" not "show investors stuff" |
 | **Audience** | "Two partners at a16z who've seen 200 AI pitches" not "investors" |
 | **Ask** | "$12M for 18 months of runway" not "funding" |
-| **Vibe** | Pick one of the 5 themes, or describe the soul in 3 adjectives |
+| **Density** | Speaker-led (low density, big type) vs reading-first (higher density, more self-contained) |
+| **Vibe** | Theme discovery above, or describe the soul in 3 adjectives |
 | **Content** | Raw notes, data, existing copy — the messier the better |
 | **Constraints** | Time, slide count, branding rules |
 
@@ -367,11 +385,14 @@ Fill gaps with intelligent defaults. Never ask more than 3 clarifying questions.
 
 | Tool | Use it to |
 |------|-----------|
-| `create_deck` | Scaffold a starter deck from title + theme + key ideas |
 | `render_deck` | Convert deck JSON → polished HTML |
-| `validate_deck` | Check deck JSON against schema before rendering |
-| `list_themes` | See all 5 themes with palette summaries |
-| `get_theme` | Fetch full JSON for a specific theme |
+| `export_deck` | Export deck JSON → `.pptx` (or html) |
+| `audit_deck` | Schema-validate + structured severity issues before shipping |
+| `list_themes` | See installed themes with vibe/description |
+| `apply_theme` | Swap `meta.theme` without rewriting slides |
+| `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
+| `import_pptx` | Import a `.pptx` into deck JSON (see `references/pptx-import.md`) |
+| `import_brand_theme` | Generate a theme from a brand URL or CSS file |
 
 ---
 
@@ -381,10 +402,21 @@ Fill gaps with intelligent defaults. Never ask more than 3 clarifying questions.
 - **Code block** when copy-paste is requested: wrap the rendered HTML in a fenced code block, no surrounding explanation
 - **No framework imports** — all CSS is internal, no Tailwind/Bootstrap/React
 - **No lorem ipsum** — all copy must be plausible, specific, and consistent with the brand
-- **Always scroll-snapped** — each slide is `100vh`, `scroll-snap-align: start`
-- **Always keyboard-navigable** — arrow key handler in a 3-line `<script>` at the bottom
-- **Always print-safe** — `@media print` block that removes `.nav-hint` and sets `page-break-after: always`
+- **Deck-spec path:** use the renderer — it ships 16:9 slides, scroll-snap, keyboard arrows, `.nav-hint`, entrance motion, and `prefers-reduced-motion`
+- **Direct-HTML path:** match that craft — scroll-snap, arrow keys, print-safe `@media print`, hide `.nav-hint` when printing
 - **Never `display: grid` (or `flex`) directly on an `<li>` that contains inline elements** (`<code>`, `<span>`, `<a>`) — the browser wraps each inline child in an anonymous block box to satisfy the grid formatting context, which silently breaks bullet alignment and spacing. Put the grid/flex on a wrapper `<div>` inside the `<li>` instead, or keep the `<li>` a plain block and let its child own the layout.
+
+---
+
+## Import from PowerPoint
+
+When the user already has a `.pptx`, import it into deck JSON first (don't retype slides):
+
+```bash
+presentation-md-render --from-pptx ./board-deck.pptx -o deck.json --theme claude
+```
+
+Or call the `import_pptx` MCP tool. Then review layouts, adjust copy, swap themes, and render/export as usual. Details: `references/pptx-import.md`.
 
 ---
 
@@ -403,7 +435,11 @@ For native, editable PowerPoint, use the Studio export mentioned above instead �
 
 You have been staring at this deck while building it, so you now see what you *intended*, not what is actually on the slide. Assume there are problems and go find them — a deliberate review pass is not optional, even for a 3-slide deck.
 
-Walk every slide against this checklist and fix before delivering:
+**Tooling first (deck-spec path):**
+1. Call `audit_deck` on the deck JSON — fix every `error`, then address `warning`s.
+2. Render with `render_deck` / CLI, open the HTML, and spot-check with keyboard arrows.
+
+Then walk every slide against this checklist and fix before delivering:
 
 - **Placeholder sweep** — search the output for leftover scaffolding: `Lorem`, `ipsum`, `XXXX`, `TODO`, `[`, `placeholder`, dummy numbers. Zero may survive.
 - **Overflow & overlap** — nothing clipped at an edge, nothing colliding, every element inside the safe margin.
@@ -412,5 +448,6 @@ Walk every slide against this checklist and fix before delivering:
 - **Token discipline** — colors and fonts all trace back to the chosen theme; no off-palette one-offs.
 - **The 3-second test** — pick any slide at random: is its single point obvious in three seconds?
 - **Arc integrity** — the deck still follows one narrative arc end to end; every slide sets up or pays off the one before it.
+- **Schema honesty** — every `layout` value is one of the nine enums; no invented layout names.
 
 For a rigorous, scored pass, run the **`deck-design-judge`** skill: it grades the deck against the design rubric, tells you exactly what to fix, and lets you re-score after the fix. Self-score → fix → re-score, then deliver.

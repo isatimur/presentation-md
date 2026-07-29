@@ -1,13 +1,13 @@
 # playful
 
-**Playful / creative-agency** presentation theme for presentation-skill-pack.
+**Playful / creative-agency** presentation theme for presentation-md.
 Bright warm-white base, bold coral + lime accent pair, rounded everything (24 px),
 big Nunito type, sticker-style card shadows. Perfect for pitches with personality.
 
 ## Install
 
 ```bash
-npm i @presentation-skill-pack/theme-playful
+npm i @presentation-md/theme-playful
 ```
 
 ## Usage

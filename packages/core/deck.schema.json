@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://presentation-skill-pack.dev/deck.schema.json",
-  "title": "Presentation Skill Pack Deck",
+  "$id": "https://presentation-md.vercel.app/deck.schema.json",
+  "title": "presentation-md Deck",
   "type": "object",
   "required": ["type", "slides"],
   "additionalProperties": false,

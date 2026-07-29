@@ -5,7 +5,7 @@ const PRESENT_CSS = `
 html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
 body { gap: 0 !important; padding: 0 !important; }
 .slide { min-height: 100vh !important; margin: 0 !important; border-radius: 0 !important; scroll-snap-align: start !important; scroll-snap-stop: always !important; }
-.psp-attribution { display: none !important; }
+.pmd-attribution { display: none !important; }
 `;
 
 export function PresentMode({

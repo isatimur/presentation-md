@@ -1,4 +1,4 @@
-# presentation-skill-pack — Codex adapter
+# presentation-md — Codex adapter
 
 Installs the `presentation-generator` skill into OpenAI Codex so the agent can turn rough notes into polished HTML slide decks on demand.
 
@@ -15,22 +15,22 @@ Installs the `presentation-generator` skill into OpenAI Codex so the agent can t
 
 ```bash
 # full (MCP tools enabled)
-npx @presentation-skill-pack/install codex
+npx @presentation-md/install codex
 
 # lite (skill only, no MCP)
-npx @presentation-skill-pack/install codex lite
+npx @presentation-md/install codex lite
 ```
 
 ### Manual — bash (macOS / Linux)
 
 ```bash
-PSP_CORE_DIR=/path/to/node_modules/@presentation-skill-pack/core bash install.sh full
+PMD_CORE_DIR=/path/to/node_modules/@presentation-md/core bash install.sh full
 ```
 
 ### Manual — PowerShell (Windows)
 
 ```powershell
-$env:PSP_CORE_DIR = "C:\path\to\node_modules\@presentation-skill-pack\core"
+$env:PMD_CORE_DIR = "C:\path\to\node_modules\@presentation-md\core"
 .\install.ps1 full
 ```
 
@@ -57,5 +57,5 @@ Restart Codex. Ask:
 
 ```bash
 rm -rf ~/.codex/skills/presentation-generator
-# edit ~/.codex/config.json to remove the presentation-skill-pack entry if needed
+# edit ~/.codex/config.json to remove the presentation-md entry if needed
 ```

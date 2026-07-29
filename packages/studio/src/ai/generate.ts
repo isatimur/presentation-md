@@ -1,4 +1,4 @@
-import type { DeckJson } from "@presentation-skill-pack/export";
+import type { DeckJson } from "@presentation-md/export";
 import { parseDeckJson } from "../export/downloads.js";
 
 /**
@@ -19,7 +19,7 @@ export const GEN_MODELS = [
 export type GenModelId = (typeof GEN_MODELS)[number]["id"];
 
 /** The deck schema, written for a model. Shared by both generate paths. */
-const SCHEMA_PROMPT = `You author slide decks as a single JSON object matching this schema — the "Deck JSON" spec used by presentation-skill-pack.
+const SCHEMA_PROMPT = `You author slide decks as a single JSON object matching this schema — the "Deck JSON" spec used by presentation-md.
 
 Top level:
 { "type": "deck",

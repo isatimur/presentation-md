@@ -105,7 +105,7 @@ _[Placeholder — fill as traction appears.]_
 **Value themes:**
 | Theme | Proof |
 |-------|-------|
-| Output actually looks good | 25 distinct gallery decks at presentation-skill-pack.vercel.app |
+| Output actually looks good | 25 distinct gallery decks at presentation-md.vercel.app |
 | Truly universal | Adapters for Claude Code, Cursor, Codex, Gemini CLI, Copilot |
 | Not platform-locked | Exports to native editable PowerPoint / Keynote / Google Slides |
 | Editable, not just generated | Browser studio at /studio — open, edit, re-export any created deck |
@@ -113,5 +113,5 @@ _[Placeholder — fill as traction appears.]_
 
 ## Goals
 **Business goal:** Adoption — grow installs, GitHub stars, and decks rendered for the free OSS tool. _[confirm vs. a revenue goal]_
-**Conversion action:** Run `npx @presentation-skill-pack/install <agent>` (and star the repo).
+**Conversion action:** Run `npx @presentation-md/install <agent>` (and star the repo).
 **Current metrics:** _[TBD — drop in current downloads/stars so future skills can calibrate.]_

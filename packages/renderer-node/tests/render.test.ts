@@ -87,14 +87,14 @@ describe("renderDeck", () => {
       ],
     };
     const html = await renderDeck(JSON.stringify(deck));
-    const m = html.match(/<script[^>]*id="psp-deck"[^>]*>([\s\S]*?)<\/script>/);
+    const m = html.match(/<script[^>]*id="pmd-deck"[^>]*>([\s\S]*?)<\/script>/);
     expect(m).toBeTruthy();
     expect(JSON.parse(m![1]!)).toEqual(deck);
   });
 
   it("omits the embedded source when embedSource is false", async () => {
     const html = await renderDeck(MINIMAL_DECK, { embedSource: false });
-    expect(html).not.toContain("psp-deck");
+    expect(html).not.toContain("pmd-deck");
   });
 
   it("renders title layout without throwing", async () => {
@@ -234,8 +234,8 @@ describe("renderDeck", () => {
       slides: [{ layout: "title", heading: "Attributed" }],
     });
     const html = await renderDeck(deck);
-    expect(html).toContain('class="psp-attribution"');
-    expect(html).toContain("presentation-skill-pack.vercel.app/?ref=deck");
+    expect(html).toContain('class="pmd-attribution"');
+    expect(html).toContain("presentation-md.vercel.app/?ref=deck");
     expect(html).toContain("Made with");
   });
 
@@ -245,7 +245,22 @@ describe("renderDeck", () => {
       slides: [{ layout: "title", heading: "Unattributed" }],
     });
     const html = await renderDeck(deck, { attribution: false });
-    expect(html).not.toContain("psp-attribution");
+    expect(html).not.toContain("pmd-attribution");
     expect(html).not.toContain("?ref=deck");
+  });
+
+  it("includes keyboard navigation craft (nav-hint + arrow handler)", async () => {
+    const deck = JSON.stringify({
+      type: "deck",
+      slides: [
+        { layout: "title", heading: "One" },
+        { layout: "closing", heading: "Two" },
+      ],
+    });
+    const html = await renderDeck(deck);
+    expect(html).toContain('class="nav-hint"');
+    expect(html).toContain("ArrowRight");
+    expect(html).toContain("prefers-reduced-motion");
+    expect(html).toContain("pmd-fade-up");
   });
 });

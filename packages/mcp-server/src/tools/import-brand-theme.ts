@@ -7,13 +7,13 @@ import {
   scaffoldTheme,
   validateThemeName,
   deriveNameFromUrl,
-} from "@presentation-skill-pack/create-theme";
+} from "@presentation-md/create-theme";
 import type { ToolDefinition } from "../server.js";
 
 export const importBrandThemeTool: ToolDefinition = {
   name: "import_brand_theme",
   description:
-    "Generate a presentation-skill-pack theme from a brand's website URL or a local CSS file. Extracts colors and fonts, maps them to the theme's 8 semantic roles, and applies a WCAG contrast-safety pass so the result stays legible. Use whenever the user wants a deck theme that matches an existing brand or product.",
+    "Generate a presentation-md theme from a brand's website URL or a local CSS file. Extracts colors and fonts, maps them to the theme's 8 semantic roles, and applies a WCAG contrast-safety pass so the result stays legible. Use whenever the user wants a deck theme that matches an existing brand or product.",
   inputSchema: {
     type: "object",
     properties: {

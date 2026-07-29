@@ -26,4 +26,4 @@ Allow: /
 User-agent: Applebot
 Allow: /
 
-Sitemap: https://presentation-skill-pack.vercel.app/sitemap.xml
+Sitemap: https://presentation-md.vercel.app/sitemap.xml

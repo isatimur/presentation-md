@@ -1,11 +1,11 @@
-# presentation-skill-pack
+# presentation-md
 
 **Turn rough notes into a polished slide deck — in any AI agent. Then export it to PowerPoint, Keynote, or Google Slides.**
 
-[![npm version](https://img.shields.io/npm/v/@presentation-skill-pack/core)](https://www.npmjs.com/package/@presentation-skill-pack/core)
-[![PyPI](https://img.shields.io/pypi/v/presentation-skill-pack-render)](https://pypi.org/project/presentation-skill-pack-render/)
+[![npm version](https://img.shields.io/npm/v/@presentation-md/core)](https://www.npmjs.com/package/@presentation-md/core)
+[![PyPI](https://img.shields.io/pypi/v/presentation-md-render)](https://pypi.org/project/presentation-md-render/)
 [![CI](https://github.com/isatimur/presentation-md/actions/workflows/ci.yml/badge.svg)](https://github.com/isatimur/presentation-md/actions/workflows/ci.yml)
-[![Gallery](https://img.shields.io/badge/gallery-25%20decks-7C3AED)](https://presentation-skill-pack.vercel.app/#gallery)
+[![Gallery](https://img.shields.io/badge/gallery-25%20decks-7C3AED)](https://presentation-md.vercel.app/#gallery)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 <p align="center">
@@ -14,7 +14,7 @@
   <em>Six real decks the pack rendered — same structured spec, swappable themes. No screenshots, no lock-in.</em>
 </p>
 
-🌐 **[presentation-skill-pack.vercel.app](https://presentation-skill-pack.vercel.app)** — live gallery of 25 showcase decks · **[Studio](https://presentation-skill-pack.vercel.app/studio)** — edit decks in the browser
+🌐 **[presentation-md.vercel.app](https://presentation-md.vercel.app)** — live gallery of 25 showcase decks · **[Studio](https://presentation-md.vercel.app/studio)** — edit decks in the browser
 
 > ⭐ If this turned your notes into a deck you'd actually present, star the repo.
 
@@ -23,7 +23,7 @@
 ## Quick start
 
 ```bash
-npx @presentation-skill-pack/install claude-code
+npx @presentation-md/install claude-code
 ```
 
 That single command installs the skill file and registers the MCP server for your agent. Restart your agent and ask it to "create a presentation about…" — it produces a validated deck JSON and renders a self-contained HTML file you can open in any browser, or export to native, editable **PowerPoint** (which opens in Keynote and imports into Google Slides).
@@ -35,15 +35,15 @@ That single command installs the skill file and registers the MCP server for you
 - **Structured JSON your agent edits, not opaque slides.** Every deck is a schema-validated Deck JSON spec — the agent reads it, diffs it, and rewrites a single slide on request, instead of regenerating a black-box layout.
 - **Native, editable PPTX / Keynote / Google Slides export.** Because slides are structured data, each one maps to real native shapes — one exporter produces a `.pptx` that opens in PowerPoint, opens in Keynote, and imports into Google Slides. No screenshots, no lock-in.
 - **Works in any agent, not one app.** Claude Code, Cursor, Codex, Gemini CLI, Copilot, or plain CLI — one `npx` install wires the skill + MCP server into whatever you already use.
-- **25-deck proof gallery, live.** See the output before you install: [25 showcase decks](https://presentation-skill-pack.vercel.app/#gallery) rendered by the pack, editable in the browser [Studio](https://presentation-skill-pack.vercel.app/studio).
+- **25-deck proof gallery, live.** See the output before you install: [25 showcase decks](https://presentation-md.vercel.app/#gallery) rendered by the pack, editable in the browser [Studio](https://presentation-md.vercel.app/studio).
 
 ---
 
 ## What it is
 
-presentation-skill-pack is a universal skill layer that gives AI coding agents (Claude Code, Cursor, Codex, Gemini CLI, Copilot, and plain CLI) a structured, schema-validated way to author slide decks. The agent writes a Deck JSON spec; the renderer turns it into a single self-contained HTML file — no build tool, no slide host. The same deck exports to native, editable **PowerPoint** (which opens in **Keynote** and imports into **Google Slides**), and a browser **studio** lets you open a created deck and edit it with live preview. Themes are swappable, publishable npm packages, and the MCP server exposes the whole workflow as typed tools.
+presentation-md is a universal skill layer that gives AI coding agents (Claude Code, Cursor, Codex, Gemini CLI, Copilot, and plain CLI) a structured, schema-validated way to author slide decks. The agent writes a Deck JSON spec; the renderer turns it into a single self-contained HTML file — no build tool, no slide host. The same deck exports to native, editable **PowerPoint** (which opens in **Keynote** and imports into **Google Slides**), and a browser **studio** lets you open a created deck and edit it with live preview. Themes are swappable, publishable npm packages, and the MCP server exposes the whole workflow as typed tools.
 
-This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a quality gate for any HTML deck (not just ones this pack made): deterministic metrics and hard gates (wall-of-text, contrast, overflow), a 10-dimension design rubric, and an optional **cross-vendor multi-model judge panel** (`judge_panel.py`, configurable across Anthropic / OpenRouter / OpenAI models) that medians per dimension and emits a shareable, versioned `scorecard.json` so results can be tracked and compared publicly. **Not yet wired into `npx @presentation-skill-pack/install`** — for now, copy `skills/deck-design-judge/` into your agent's skills directory manually, or clone the repo and point your agent at it directly ([tracking issue](https://github.com/isatimur/presentation-md/issues/9)). Cross-model results for this pack and comparable skills are published at [swiirl-deck-benchmark.vercel.app](https://swiirl-deck-benchmark.vercel.app) (benchmark source is private for now — it vendors third-party skills with mixed licenses). Full provenance and ecosystem links: [ATTRIBUTION.md](ATTRIBUTION.md).
+This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a quality gate for any HTML deck (not just ones this pack made): deterministic metrics and hard gates (wall-of-text, contrast, overflow), a 10-dimension design rubric, and an optional **cross-vendor multi-model judge panel** (`judge_panel.py`, configurable across Anthropic / OpenRouter / OpenAI models) that medians per dimension and emits a shareable, versioned `scorecard.json` so results can be tracked and compared publicly. **Not yet wired into `npx @presentation-md/install`** — for now, copy `skills/deck-design-judge/` into your agent's skills directory manually, or clone the repo and point your agent at it directly ([tracking issue](https://github.com/isatimur/presentation-md/issues/9)). Cross-model results for this pack and comparable skills are published at [swiirl-deck-benchmark.vercel.app](https://swiirl-deck-benchmark.vercel.app) (benchmark source is private for now — it vendors third-party skills with mixed licenses). Full provenance and ecosystem links: [ATTRIBUTION.md](ATTRIBUTION.md).
 
 ---
 
@@ -51,18 +51,21 @@ This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a q
 
 | Package | Description |
 |---|---|
-| [`@presentation-skill-pack/core`](packages/core) | Deck + theme schemas, theme loader, validator, and bundled default-tech theme |
-| [`@presentation-skill-pack/render`](packages/renderer-node) | Node.js renderer — CLI (`presentation-skill-pack-render`) + programmatic API |
-| [`@presentation-skill-pack/export`](packages/export) 🚧 _coming soon (not yet published)_ | Deck → native, editable PowerPoint (`.pptx`) — opens in PowerPoint & Keynote, imports into Google Slides |
-| [`@presentation-skill-pack/studio`](packages/studio) 🚧 _coming soon (not yet published)_ | Browser editor studio: edit, live-preview, and export decks (Vite SPA) |
-| [`@presentation-skill-pack/mcp-server`](packages/mcp-server) | MCP server exposing all tools to any MCP-compatible agent (`presentation-skill-pack-mcp`) |
-| [`@presentation-skill-pack/install`](packages/install) | One-command installer that wires the skill + MCP server into your agent (`presentation-skill-pack-install`) |
-| [`@presentation-skill-pack/create-theme`](packages/create-theme) | Scaffold a new publishable theme package (`create-presentation-theme`), interactively or from a brand's URL/CSS (`--from-url`/`--from-css`) |
-| [`@presentation-skill-pack/theme-corporate`](packages/themes/corporate) | Formal corporate theme |
-| [`@presentation-skill-pack/theme-playful`](packages/themes/playful) | Playful creative-agency theme |
-| [`@presentation-skill-pack/theme-luxury-minimalist`](packages/themes/luxury-minimalist) | Luxury minimalist theme |
-| [`@presentation-skill-pack/theme-retro-arcade`](packages/themes/retro-arcade) | Retro 80s arcade theme |
-| [`presentation-skill-pack-render`](packages/renderer-python) _(PyPI)_ | Python renderer for agents and pipelines running outside Node.js |
+| [`@presentation-md/core`](packages/core) | Deck + theme schemas, theme loader, validator, and bundled default-tech theme |
+| [`@presentation-md/render`](packages/renderer-node) | Node.js renderer — CLI (`presentation-md-render`) + programmatic API |
+| [`@presentation-md/export`](packages/export) 🚧 _coming soon (not yet published)_ | PPTX round-trip — Deck JSON ↔ editable PowerPoint (`.pptx`) |
+| [`@presentation-md/studio`](packages/studio) 🚧 _coming soon (not yet published)_ | Browser editor studio: edit, live-preview, and export decks (Vite SPA) |
+| [`@presentation-md/mcp-server`](packages/mcp-server) | MCP server exposing all tools to any MCP-compatible agent (`presentation-md-mcp`) |
+| [`@presentation-md/install`](packages/install) | One-command installer that wires the skill + MCP server into your agent (`presentation-md-install`) |
+| [`@presentation-md/create-theme`](packages/create-theme) | Scaffold a new publishable theme package (`create-presentation-md-theme`), interactively or from a brand's URL/CSS (`--from-url`/`--from-css`) |
+| [`@presentation-md/theme-corporate`](packages/themes/corporate) | Formal corporate theme |
+| [`@presentation-md/theme-playful`](packages/themes/playful) | Playful creative-agency theme |
+| [`@presentation-md/theme-luxury-minimalist`](packages/themes/luxury-minimalist) | Luxury minimalist theme |
+| [`@presentation-md/theme-retro-arcade`](packages/themes/retro-arcade) | Retro 80s arcade theme |
+| [`@presentation-md/theme-editorial-serif`](packages/themes/editorial-serif) | Magazine-editorial theme |
+| [`@presentation-md/theme-brutalist-mono`](packages/themes/brutalist-mono) | Raw brutalist monospace theme |
+| [`@presentation-md/theme-pastel-dreamy`](packages/themes/pastel-dreamy) | Soft pastel dreamy theme |
+| [`presentation-md-render`](packages/renderer-python) _(PyPI)_ | Python renderer for agents and pipelines running outside Node.js |
 
 ---
 
@@ -75,6 +78,13 @@ This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a q
 | `playful` | Warm white, coral + lime accents, rounded corners, oversized type — creative-agency energy |
 | `luxury-minimalist` | Off-white canvas, charcoal text, hairline borders, zero gradients — quiet confidence |
 | `retro-arcade` | Deep purple-black background, magenta + cyan neon, pixel fonts — 8-bit nostalgia |
+| `editorial-serif` | Warm cream paper, ink-black serif type, crimson masthead accent — magazine editorial |
+| `brutalist-mono` | Concrete off-white, monospace type, zero radius, hazard-orange accent — raw & technical |
+| `pastel-dreamy` | Lavender-blush canvas, deep plum text, blush + periwinkle accents — soft and approachable |
+
+Need a theme that isn't here? `create-presentation-md-theme --from-url <site>` or `--from-css <file>`
+generates one from any brand's live site or CSS in seconds — see
+[`@presentation-md/create-theme`](packages/create-theme).
 
 ---
 
@@ -82,12 +92,12 @@ This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a q
 
 | Adapter | Description | Install |
 |---|---|---|
-| `claude-code` | Copies skill to `~/.claude/skills/` + registers MCP server in `~/.claude/mcp.json` | `npx @presentation-skill-pack/install claude-code` |
-| `cursor` | Adds `.mdc` rule to `~/.cursor/rules/` + MCP server entry | `npx @presentation-skill-pack/install cursor` |
-| `copilot` | Writes to `.github/copilot-instructions.md` + `.vscode/mcp.json` (run from project root) | `npx @presentation-skill-pack/install copilot` |
-| `codex` | Adds skill to `~/.codex/instructions.md` + MCP server | `npx @presentation-skill-pack/install codex` |
-| `gemini-cli` | Writes GEMINI.md skill to `~/.gemini/instructions/` + MCP server | `npx @presentation-skill-pack/install gemini-cli` |
-| `cli` | Standalone — renders decks via the `presentation-skill-pack-render` CLI, no MCP | `npx @presentation-skill-pack/install cli` |
+| `claude-code` | Copies skill to `~/.claude/skills/` + registers MCP server in `~/.claude/mcp.json` | `npx @presentation-md/install claude-code` |
+| `cursor` | Adds `.mdc` rule to `~/.cursor/rules/` + MCP server entry | `npx @presentation-md/install cursor` |
+| `copilot` | Writes to `.github/copilot-instructions.md` + `.vscode/mcp.json` (run from project root) | `npx @presentation-md/install copilot` |
+| `codex` | Adds skill to `~/.codex/instructions.md` + MCP server | `npx @presentation-md/install codex` |
+| `gemini-cli` | Writes GEMINI.md skill to `~/.gemini/instructions/` + MCP server | `npx @presentation-md/install gemini-cli` |
+| `cli` | Standalone — renders decks via the `presentation-md-render` CLI, no MCP | `npx @presentation-md/install cli` |
 
 ---
 
@@ -176,12 +186,12 @@ slide shapes. One exporter covers all three apps:
 
 ```bash
 # CLI
-presentation-skill-pack-render deck.json --format pptx -o deck.pptx
+presentation-md-render deck.json --format pptx -o deck.pptx
 ```
 
 ```ts
 // Programmatic (Node)
-import { renderDeckPptx } from "@presentation-skill-pack/render";
+import { renderDeckPptx } from "@presentation-md/render";
 await writeFile("deck.pptx", await renderDeckPptx(deckJson));
 ```
 
@@ -196,13 +206,13 @@ Agents can call the `export_deck` MCP tool. Fidelity notes (fonts, colors, image
 
 ## Studio
 
-[`@presentation-skill-pack/studio`](packages/studio) is a browser editor: edit a deck through
+[`@presentation-md/studio`](packages/studio) is a browser editor: edit a deck through
 schema-driven forms, see a live preview, and download HTML or `.pptx`. It's a fully static Vite SPA
 (client-side render + export, no backend).
 
 ```bash
-pnpm --filter @presentation-skill-pack/studio dev      # local editor
-pnpm --filter @presentation-skill-pack/studio build    # static build → dist/ (deploy to Vercel)
+pnpm --filter @presentation-md/studio dev      # local editor
+pnpm --filter @presentation-md/studio build    # static build → dist/ (deploy to Vercel)
 ```
 
 ## MCP tools
@@ -211,10 +221,12 @@ pnpm --filter @presentation-skill-pack/studio build    # static build → dist/ 
 |---|---|
 | `render_deck` | Render a Deck JSON string to a self-contained HTML file |
 | `export_deck` | Export a Deck JSON to a native, editable PowerPoint (`.pptx`) — or html |
-| `list_themes` | Enumerate all available themes (bundled + installed npm packages) with name, version, and vibe |
-| `get_theme` | Return the full theme JSON for a given theme name |
-| `validate_deck` | Validate a Deck JSON against the schema and return structured issues with severity |
-| `create_deck` | Create a new deck JSON spec from a text prompt or structured brief |
+| `audit_deck` | Schema-validate a deck and return structured issues with severity |
+| `list_themes` | Enumerate available themes (bundled + installed) with name, version, and vibe |
+| `apply_theme` | Swap `meta.theme` on a deck without rewriting slides |
+| `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
+| `import_pptx` | Import a `.pptx` into Deck JSON |
+| `import_brand_theme` | Generate a theme from a brand URL or CSS file |
 
 ---
 

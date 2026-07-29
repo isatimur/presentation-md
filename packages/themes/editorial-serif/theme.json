@@ -1,0 +1,29 @@
+{
+  "name": "editorial-serif",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Magazine-editorial theme with warm paper background, ink-black serif text, and a single masthead-crimson accent.",
+  "vibe": "Print magazine editorial — warm cream paper, near-black serif ink, crimson masthead accent, thin hairline rules, square corners.",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#faf7f2",
+    "bg2": "#f2ede3",
+    "text": "#1c1a17",
+    "muted": "#5c574c",
+    "accent": "#9c1c1c",
+    "accent2": "#a67c1e",
+    "cardBg": "#f2ede3",
+    "border": "rgba(28,26,23,0.12)"
+  },
+  "typography": {
+    "headingFont": "'Playfair Display', Georgia, serif",
+    "bodyFont": "'Source Serif 4', Georgia, serif",
+    "headingWeight": 700,
+    "googleFonts": ["Playfair+Display:wght@700;900", "Source+Serif+4:wght@400;600"]
+  },
+  "geometry": {
+    "radius": "2px",
+    "slideWidth": "1280px"
+  }
+}

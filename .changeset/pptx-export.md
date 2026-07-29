@@ -1,12 +1,12 @@
 ---
-"@presentation-skill-pack/export": minor
-"@presentation-skill-pack/render": minor
-"@presentation-skill-pack/mcp-server": minor
+"@presentation-md/export": minor
+"@presentation-md/render": minor
+"@presentation-md/mcp-server": minor
 ---
 
 Add PPTX export: take any deck into PowerPoint, Keynote, and Google Slides.
 
-- New `@presentation-skill-pack/export` package mapping each of the 9 structured
+- New `@presentation-md/export` package mapping each of the 9 structured
   layouts + theme roles to native, editable PowerPoint shapes (`deckToPptxBuffer` /
   `deckToPptxBlob` / `deckToPptxArrayBuffer`, isomorphic Node + browser).
 - `render` CLI gains `--format pptx` (and a shared `renderDeckPptx` API). The

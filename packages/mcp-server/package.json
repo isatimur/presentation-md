@@ -1,12 +1,12 @@
 {
-  "name": "@presentation-skill-pack/mcp-server",
+  "name": "@presentation-md/mcp-server",
   "version": "0.1.0",
-  "description": "MCP server exposing presentation-skill-pack tools to any MCP-compatible AI agent.",
+  "description": "MCP server exposing presentation-md tools to any MCP-compatible AI agent.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/server.js",
   "bin": {
-    "presentation-skill-pack-mcp": "./dist/server.js"
+    "presentation-md-mcp": "./dist/server.js"
   },
   "files": [
     "dist"
@@ -20,9 +20,10 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
-    "@presentation-skill-pack/core": "workspace:*",
-    "@presentation-skill-pack/create-theme": "workspace:*",
-    "@presentation-skill-pack/render": "workspace:*",
+    "@presentation-md/core": "workspace:*",
+    "@presentation-md/create-theme": "workspace:*",
+    "@presentation-md/export": "workspace:^",
+    "@presentation-md/render": "workspace:*",
     "zod": "^3.23.0"
   },
   "devDependencies": {
@@ -37,6 +38,6 @@
     "type": "git",
     "url": "https://github.com/isatimur/presentation-md.git"
   },
-  "homepage": "https://presentation-skill-pack.vercel.app",
+  "homepage": "https://presentation-md.vercel.app",
   "bugs": "https://github.com/isatimur/presentation-md/issues"
 }

@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# install.sh — Gemini CLI adapter for presentation-skill-pack
-# Usage:  PSP_CORE_DIR=<path> bash install.sh [full|lite]
+# install.sh — Gemini CLI adapter for presentation-md
+# Usage:  PMD_CORE_DIR=<path> bash install.sh [full|lite]
 set -euo pipefail
 
 MODE="${1:-full}"
-: "${PSP_CORE_DIR:?PSP_CORE_DIR must be set to the @presentation-skill-pack/core directory}"
+: "${PMD_CORE_DIR:?PMD_CORE_DIR must be set to the @presentation-md/core directory}"
 
 TARGET="$HOME/.gemini/extensions/presentation-generator"
 GEMINI_SETTINGS="$HOME/.gemini/settings.json"
 
-echo "presentation-skill-pack › gemini-cli adapter"
+echo "presentation-md › gemini-cli adapter"
 echo "  mode:   $MODE"
 echo "  target: $TARGET"
 echo ""
@@ -17,7 +17,7 @@ echo ""
 # ── copy skill file ───────────────────────────────────────────────────────────
 mkdir -p "$TARGET"
 
-cp "$PSP_CORE_DIR/SKILL.md" "$TARGET/SKILL.md"
+cp "$PMD_CORE_DIR/SKILL.md" "$TARGET/SKILL.md"
 echo "  ✓  SKILL.md copied"
 
 # ── write extension.json ──────────────────────────────────────────────────────
@@ -40,9 +40,9 @@ if [ "$MODE" = "full" ]; then
     UPDATED=$(node -e "
       const cfg = JSON.parse(process.argv[1]);
       cfg.mcpServers = cfg.mcpServers || {};
-      cfg.mcpServers['presentation-skill-pack'] = {
+      cfg.mcpServers['presentation-md'] = {
         command: 'npx',
-        args: ['@presentation-skill-pack/mcp-server']
+        args: ['@presentation-md/mcp-server']
       };
       process.stdout.write(JSON.stringify(cfg, null, 2));
     " "$EXISTING")
@@ -52,9 +52,9 @@ if [ "$MODE" = "full" ]; then
     cat > "$GEMINI_SETTINGS" <<'JSON'
 {
   "mcpServers": {
-    "presentation-skill-pack": {
+    "presentation-md": {
       "command": "npx",
-      "args": ["@presentation-skill-pack/mcp-server"]
+      "args": ["@presentation-md/mcp-server"]
     }
   }
 }

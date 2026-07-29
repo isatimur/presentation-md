@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# install.sh — Cursor adapter for presentation-skill-pack
-# Usage:  PSP_CORE_DIR=<path> bash install.sh [full|lite]
+# install.sh — Cursor adapter for presentation-md
+# Usage:  PMD_CORE_DIR=<path> bash install.sh [full|lite]
 set -euo pipefail
 
 MODE="${1:-full}"
-: "${PSP_CORE_DIR:?PSP_CORE_DIR must be set to the @presentation-skill-pack/core directory}"
+: "${PMD_CORE_DIR:?PMD_CORE_DIR must be set to the @presentation-md/core directory}"
 
 TARGET_DIR="$HOME/.cursor/rules"
 TARGET_FILE="$TARGET_DIR/presentation-generator.mdc"
 
-echo "presentation-skill-pack › cursor adapter"
+echo "presentation-md › cursor adapter"
 echo "  mode:   $MODE"
 echo "  target: $TARGET_FILE"
 echo ""
@@ -17,7 +17,7 @@ echo ""
 mkdir -p "$TARGET_DIR"
 
 # ── read SKILL.md content ─────────────────────────────────────────────────────
-SKILL_CONTENT=$(cat "$PSP_CORE_DIR/SKILL.md")
+SKILL_CONTENT=$(cat "$PMD_CORE_DIR/SKILL.md")
 
 # Strip the YAML front-matter from SKILL.md (lines between the two `---` fences)
 # so we don't embed it twice — Cursor's .mdc has its own frontmatter.
@@ -49,9 +49,9 @@ if [ "$MODE" = "full" ]; then
     UPDATED=$(node -e "
       const cfg = JSON.parse(process.argv[1]);
       cfg.mcpServers = cfg.mcpServers || {};
-      cfg.mcpServers['presentation-skill-pack'] = {
+      cfg.mcpServers['presentation-md'] = {
         command: 'npx',
-        args: ['@presentation-skill-pack/mcp-server']
+        args: ['@presentation-md/mcp-server']
       };
       process.stdout.write(JSON.stringify(cfg, null, 2));
     " "$EXISTING")
@@ -61,9 +61,9 @@ if [ "$MODE" = "full" ]; then
     cat > "$MCP_CONFIG" <<'JSON'
 {
   "mcpServers": {
-    "presentation-skill-pack": {
+    "presentation-md": {
       "command": "npx",
-      "args": ["@presentation-skill-pack/mcp-server"]
+      "args": ["@presentation-md/mcp-server"]
     }
   }
 }

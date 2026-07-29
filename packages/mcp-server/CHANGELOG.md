@@ -1,10 +1,10 @@
-# @presentation-skill-pack/mcp-server
+# @presentation-md/mcp-server
 
 ## 0.2.0
 
 ### Minor Changes
 
-- d8d2fb0: Initial release of presentation-skill-pack v0.1.0.
+- d8d2fb0: Initial release of presentation-md v0.1.0.
 
   Turn rough notes into a polished, self-contained HTML slide deck for any AI agent.
   Includes dual-language renderers (Node + Python), MCP server, 5 themes, 5 adapters,
@@ -13,5 +13,5 @@
 ### Patch Changes
 
 - Updated dependencies [d8d2fb0]
-  - @presentation-skill-pack/core@0.2.0
-  - @presentation-skill-pack/render@0.2.0
+  - @presentation-md/core@0.2.0
+  - @presentation-md/render@0.2.0

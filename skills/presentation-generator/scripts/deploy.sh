@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Deploy a presentation-skill-pack deck to a shareable Vercel URL.
+# Deploy a presentation-md deck to a shareable Vercel URL.
 #
 # Usage:
 #   bash scripts/deploy.sh ./deck.html

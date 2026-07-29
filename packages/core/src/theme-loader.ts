@@ -140,7 +140,7 @@ export async function discoverInstalledThemes(
 
   await scan(opts.bundledThemesDir, "bundled");
   if (opts.nodeModulesRoot) {
-    await scan(join(opts.nodeModulesRoot, "node_modules", "@presentation-skill-pack"), "installed");
+    await scan(join(opts.nodeModulesRoot, "node_modules", "@presentation-md"), "installed");
   }
 
   return out;

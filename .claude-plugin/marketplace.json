@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace-manifest.json",
-  "name": "presentation-skill-pack",
+  "name": "presentation-md",
   "owner": {
     "name": "Timur Isachenko",
     "url": "https://github.com/isatimur"
@@ -8,10 +8,10 @@
   "description": "Turn rough notes into a polished, editable slide deck — exports to PowerPoint, Keynote, and Google Slides.",
   "plugins": [
     {
-      "name": "presentation-skill-pack",
+      "name": "presentation-md",
       "source": "./",
       "description": "The presentation-generator skill (author decks as structured JSON, export to native PPTX/Keynote/Slides) plus deck-design-judge: a tiered deck scorecard with deterministic gates, a 10-dimension rubric, and an optional cross-vendor multi-model judge panel that emits shareable scorecard.json results.",
-      "homepage": "https://presentation-skill-pack.vercel.app",
+      "homepage": "https://presentation-md.vercel.app",
       "license": "MIT",
       "keywords": ["presentation", "slides", "deck-generator", "pptx", "keynote", "design-review", "llm-judge", "eval"]
     }

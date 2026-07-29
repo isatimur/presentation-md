@@ -12,12 +12,12 @@ the latest published release of each package on its registry.
 
 ### Planned
 
-- `@presentation-skill-pack/export` — standalone Deck → PPTX export package (currently shipped via `@presentation-skill-pack/render`).
-- `@presentation-skill-pack/studio` — browser editor as a published package (currently in-repo only).
+- `@presentation-md/export` — standalone Deck → PPTX export package (currently shipped via `@presentation-md/render`).
+- `@presentation-md/studio` — browser editor as a published package (currently in-repo only).
 
 ## Published
 
-### npm — `@presentation-skill-pack/*`
+### npm — `@presentation-md/*`
 
 - `core` — 0.1.0 — Deck + theme schemas, theme loader, validator, bundled default-tech theme.
 - `render` (renderer-node) — 0.1.0 — Node.js renderer CLI + programmatic API, incl. PPTX export.
@@ -29,7 +29,7 @@ the latest published release of each package on its registry.
 - `theme-luxury-minimalist` — 0.1.0 — Luxury minimalist theme.
 - `theme-retro-arcade` — 0.1.0 — Retro 80s arcade theme.
 
-### PyPI — `presentation-skill-pack-render`
+### PyPI — `presentation-md-render`
 
 - 0.1.0 — Python renderer CLI for agents and pipelines running outside Node.js.
 

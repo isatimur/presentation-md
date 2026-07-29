@@ -3,25 +3,25 @@
 The CLI renderer is available directly via npx — no install step required.
 
 ```bash
-npx @presentation-skill-pack/render deck.json -o deck.html
-npx @presentation-skill-pack/render deck.json -o deck.html --theme corporate
-npx @presentation-skill-pack/render --list-themes
-npx @presentation-skill-pack/render --validate deck.json
+npx @presentation-md/render deck.json -o deck.html
+npx @presentation-md/render deck.json -o deck.html --theme corporate
+npx @presentation-md/render --list-themes
+npx @presentation-md/render --validate deck.json
 ```
 
 Or install globally:
 
 ```bash
-npm i -g @presentation-skill-pack/render
-presentation-skill-pack-render deck.json -o deck.html --theme playful
+npm i -g @presentation-md/render
+presentation-md-render deck.json -o deck.html --theme playful
 ```
 
 ## Pipe from stdin
 
 ```bash
-cat deck.json | npx @presentation-skill-pack/render -o deck.html
+cat deck.json | npx @presentation-md/render -o deck.html
 echo '{"type":"deck","meta":{"title":"Test","theme":"retro-arcade"},"slides":[...]}' \
-  | npx @presentation-skill-pack/render -o test.html
+  | npx @presentation-md/render -o test.html
 ```
 
 ## Options
@@ -35,12 +35,12 @@ echo '{"type":"deck","meta":{"title":"Test","theme":"retro-arcade"},"slides":[..
 
 ## Themes
 
-Run `npx @presentation-skill-pack/render --list-themes` to see what's installed. Bundled themes: `default-tech`, `corporate`, `playful`, `luxury-minimalist`, `retro-arcade`.
+Run `npx @presentation-md/render --list-themes` to see what's installed. Bundled themes: `default-tech`, `corporate`, `playful`, `luxury-minimalist`, `retro-arcade`.
 
 Install additional themes:
 
 ```bash
-npm i @presentation-skill-pack/theme-<name>
+npm i @presentation-md/theme-<name>
 ```
 
 ## Example deck.json
