@@ -1076,6 +1076,58 @@ thead th {
   text-shadow: 0 0 20px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
+
+/* ── glass-mist (glassmorphism) ── */
+.deck[data-surface="glass-mist"] .slide {
+  --slide-bg: radial-gradient(ellipse 90% 70% at 10% 0%, color-mix(in srgb, var(--accent) 12%, var(--bg)), var(--bg));
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  box-shadow: 0 24px 60px rgba(15, 19, 51, 0.08);
+}
+.deck[data-surface="glass-mist"] .slide::after {
+  width: 320px;
+  height: 320px;
+  right: -100px;
+  top: -80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent2) 28%, transparent), transparent 70%);
+  filter: blur(18px);
+}
+.deck[data-surface="glass-mist"] .card {
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--card-bg) 85%, transparent);
+  border: 1px solid rgba(255,255,255,0.65);
+  box-shadow: 0 8px 28px rgba(15, 19, 51, 0.06);
+}
+
+/* ── newsprint-masthead (broadsheet) ── */
+.deck[data-surface="newsprint-masthead"] .slide {
+  --slide-bg: var(--bg);
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
+  box-shadow: 0 12px 36px rgba(26, 18, 8, 0.1);
+}
+.deck[data-surface="newsprint-masthead"] .slide::before {
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 36px;
+  background: var(--text);
+}
+.deck[data-surface="newsprint-masthead"] .slide::after {
+  left: 64px;
+  right: 64px;
+  top: auto;
+  bottom: 48px;
+  height: 2px;
+  width: auto;
+  background: var(--text);
+  filter: none;
+}
+.deck[data-surface="newsprint-masthead"] .eyebrow {
+  color: var(--muted);
+  letter-spacing: 0.18em;
+}
+
 /* Scroll-triggered reveals (populated by document.html script) */
 .slide .reveal {
   opacity: 0;

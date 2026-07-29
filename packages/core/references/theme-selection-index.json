@@ -835,6 +835,59 @@
         "#00e5ff",
         "#ffffff"
       ]
+    },
+    {
+      "name": "glassmorphism",
+      "scheme": "light",
+      "formality": "medium",
+      "mood": [
+        "glass",
+        "soft",
+        "indigo",
+        "pricing"
+      ],
+      "best_for": [
+        "SaaS pricing",
+        "product marketing",
+        "modern B2B"
+      ],
+      "avoid_for": [
+        "newspaper media kits",
+        "brutalist mono"
+      ],
+      "swatches": [
+        "#f8f9ff",
+        "#0f1333",
+        "#5b6af5",
+        "#22d3ee"
+      ]
+    },
+    {
+      "name": "broadsheet",
+      "scheme": "light",
+      "formality": "high",
+      "mood": [
+        "newspaper",
+        "ink",
+        "masthead",
+        "print"
+      ],
+      "best_for": [
+        "media kits",
+        "publishing",
+        "press",
+        "editorial brands"
+      ],
+      "avoid_for": [
+        "neon nightlife",
+        "devtools"
+      ],
+      "swatches": [
+        "#f2ece0",
+        "#1a1208",
+        "#5c4d38",
+        "#8a7560"
+      ]
     }
   ]
 }

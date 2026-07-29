@@ -87,6 +87,8 @@ This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a q
 | [`@presentation-md/theme-art-deco`](packages/themes/art-deco) | Art Deco emerald + gold |
 | [`@presentation-md/theme-kinetic-wrapped`](packages/themes/kinetic-wrapped) | Kinetic year-in-review |
 | [`@presentation-md/theme-blueprint`](packages/themes/blueprint) | Engineering blueprint |
+| [`@presentation-md/theme-glassmorphism`](packages/themes/glassmorphism) | Soft glass / icy mist |
+| [`@presentation-md/theme-broadsheet`](packages/themes/broadsheet) | Newspaper broadsheet |
 | [`presentation-md-render`](packages/renderer-python) _(PyPI)_ | Python renderer for agents and pipelines running outside Node.js |
 
 ---

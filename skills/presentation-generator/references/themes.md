@@ -37,6 +37,8 @@ data intact. List installed themes at runtime with the `list_themes` MCP tool or
 | `art-deco` | Art Deco — emerald, gold leaf, Cinzel (Meridian Club). |
 | `kinetic-wrapped` | Kinetic Wrapped — black + acid lime (Pulse). |
 | `blueprint` | Blueprint — navy, cyan engineering grid (Apsis). |
+| `glassmorphism` | Glassmorphism — icy mist, indigo + cyan (CloudPeak). |
+| `broadsheet` | Newspaper broadsheet — newsprint, ink masthead (Daily Ledger). |
 
 Install more: `npm i @presentation-md/theme-<name>` (or the PyPI mirror
 `presentation-md-theme-<name>`). Scaffold your own: `npx @presentation-md/create-theme`.

@@ -235,6 +235,8 @@ importers:
 
   packages/themes/botanical-luxe: {}
 
+  packages/themes/broadsheet: {}
+
   packages/themes/brutalist-acid: {}
 
   packages/themes/brutalist-mono: {}
@@ -256,6 +258,8 @@ importers:
   packages/themes/ft-editorial: {}
 
   packages/themes/genz-bento: {}
+
+  packages/themes/glassmorphism: {}
 
   packages/themes/heritage-editorial: {}
 

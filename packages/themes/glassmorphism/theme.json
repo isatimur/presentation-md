@@ -1,0 +1,32 @@
+{
+  "name": "glassmorphism",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Soft glassmorphism \u2014 icy lavender field, indigo + cyan accents, Plus Jakarta Sans.",
+  "vibe": "Glassmorphism \u2014 #f8f9ff mist, indigo #5b6af5 + cyan #22d3ee, Plus Jakarta Sans (matches CloudPeak gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#f8f9ff",
+    "bg2": "#f0f3fd",
+    "text": "#0f1333",
+    "muted": "#7880a4",
+    "accent": "#5b6af5",
+    "accent2": "#22d3ee",
+    "cardBg": "rgba(255,255,255,0.72)",
+    "border": "rgba(91,106,245,0.22)"
+  },
+  "typography": {
+    "headingFont": "'Plus Jakarta Sans', system-ui, sans-serif",
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Plus+Jakarta+Sans:wght@500;700",
+      "Inter:wght@400;600"
+    ]
+  },
+  "geometry": {
+    "radius": "20px",
+    "slideWidth": "1280px"
+  }
+}

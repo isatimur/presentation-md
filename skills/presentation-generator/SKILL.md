@@ -1,6 +1,6 @@
 ---
 name: presentation-generator
-description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 31 themes and 11 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
+description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 33 themes and 11 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
 license: MIT
 metadata:
   author: isatimur
@@ -351,6 +351,22 @@ Each theme is a complete design language: colors, typography, geometry, motion, 
 **Fonts:** Space Grotesk · Space Mono
 **Surface:** `blueprint-grid`
 **Use for:** mission briefs (gallery: Apsis)
+
+
+### `glassmorphism`
+**Soul:** Soft glass over icy mist.
+**Palette:** `#f8f9ff` · `#5b6af5` indigo · `#22d3ee` cyan
+**Fonts:** Plus Jakarta Sans · Inter
+**Surface:** `glass-mist`
+**Use for:** SaaS pricing (gallery: CloudPeak)
+
+### `broadsheet`
+**Soul:** Front page before the web existed.
+**Palette:** `#f2ece0` newsprint · `#1a1208` ink
+**Fonts:** Playfair Display · Lora (Pirata One for mastheads)
+**Surface:** `newsprint-masthead`
+**Use for:** media kits (gallery: Daily Ledger)
+
 
 ---
 

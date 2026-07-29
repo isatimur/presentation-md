@@ -42,6 +42,8 @@ const PACKAGED_THEMES = [
   "art-deco",
   "kinetic-wrapped",
   "blueprint",
+  "glassmorphism",
+  "broadsheet",
 ];
 
 function previewDeck(theme: string): string {

@@ -1,0 +1,33 @@
+{
+  "name": "broadsheet",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Newspaper broadsheet \u2014 warm newsprint, deep ink, Pirata One masthead + Playfair.",
+  "vibe": "Broadsheet \u2014 #f2ece0 newsprint, ink #1a1208, Pirata One masthead (matches Daily Ledger gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#f2ece0",
+    "bg2": "#e8dfc8",
+    "text": "#1a1208",
+    "muted": "#8a7560",
+    "accent": "#1a1208",
+    "accent2": "#5c4d38",
+    "cardBg": "rgba(26,18,8,0.04)",
+    "border": "rgba(26,18,8,0.18)"
+  },
+  "typography": {
+    "headingFont": "'Playfair Display', Georgia, serif",
+    "bodyFont": "'Lora', Georgia, serif",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Pirata+One",
+      "Playfair+Display:wght@500;700",
+      "Lora:wght@400;600"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}
