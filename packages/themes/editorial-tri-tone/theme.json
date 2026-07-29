@@ -1,0 +1,33 @@
+{
+  "name": "editorial-tri-tone",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Editorial Tri-Tone \u2014 blush pink, golden butter, burgundy wine; Bricolage Grotesque + Instrument Serif (frontend-slides).",
+  "vibe": "Editorial Tri-Tone \u2014 pink #F2B6C6, butter #F2D86A, burgundy #7A1F35, Bricolage Grotesque + Instrument Serif (frontend-slides editorial-tri-tone).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#F2B6C6",
+    "bg2": "#F2D86A",
+    "text": "#7A1F35",
+    "muted": "rgba(122,31,53,0.65)",
+    "accent": "#7A1F35",
+    "accent2": "#F2D86A",
+    "cardBg": "rgba(242,216,106,0.55)",
+    "border": "rgba(122,31,53,0.35)"
+  },
+  "typography": {
+    "headingFont": "'Bricolage Grotesque', system-ui, sans-serif",
+    "bodyFont": "'Instrument Serif', Georgia, serif",
+    "headingWeight": 800,
+    "googleFonts": [
+      "Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800",
+      "Instrument+Serif:ital@0;1",
+      "JetBrains+Mono:wght@400;500"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

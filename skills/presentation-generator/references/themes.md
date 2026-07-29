@@ -39,6 +39,18 @@ data intact. List installed themes at runtime with the `list_themes` MCP tool or
 | `blueprint` | Blueprint — navy, cyan engineering grid (Apsis). |
 | `glassmorphism` | Glassmorphism — icy mist, indigo + cyan (CloudPeak). |
 | `broadsheet` | Newspaper broadsheet — newsprint, ink masthead (Daily Ledger). |
+| `soft-editorial` | Soft Editorial — paper #F2EEDF, ink #2A241B, sage #B7C7A8 + blush #E1A4C2, Cormorant Garamond + Work Sans. |
+| `editorial-forest` | Editorial Forest — cream #efe7d4, forest #2e4a2a + dusty rose #e89cb1, Source Serif 4 + JetBrains Mono. |
+| `pin-and-paper` | Pin & Paper — legal pad #EFE56A, cobalt #1F3A8A, Space Grotesk + Caveat. |
+| `vellum` | Vellum — periwinkle #2A3870, chartreuse #E8D85C, italic Cormorant Garamond + DM Sans. |
+| `neo-grid-bold` | Neo-Grid Bold — putty #ECECE8, lemon #E6FF3D, Space Grotesk uppercase + JetBrains Mono. |
+| `editorial-tri-tone` | Editorial Tri-Tone — pink #F2B6C6, butter #F2D86A, burgundy #7A1F35, Bricolage Grotesque + Instrument Serif. |
+| `creative-mode` | Creative Mode — cream #EFE9D9, ink #0F0F0F, green #1F8A4C + pink #F06CA8, Archivo Black + Space Grotesk. |
+| `broadside` | Broadside — ink #111111, fire orange #E85D26, cream #F0ECE5, Barlow 900 + IBM Plex Mono. |
+| `bold-signal` | Bold Signal — #1a1a1a dark, orange card #FF5722, Archivo Black + Space Grotesk. |
+| `notebook-tabs` | Notebook Tabs — page #f8f6f1 on outer #2d2d2d, Bodoni Moda + DM Sans, pastel tabs. |
+| `creative-voltage` | Creative Voltage — electric blue #0066ff, dark #1a1a2e, neon #d4ff00, Syne + Space Mono. |
+| `signal` | Signal — cream #F0ECE3 / navy #1C2644, gold #C8A870, Source Serif 4 + DM Sans. |
 
 Install more: `npm i @presentation-md/theme-<name>` (or the PyPI mirror
 `presentation-md-theme-<name>`). Scaffold your own: `npx @presentation-md/create-theme`.

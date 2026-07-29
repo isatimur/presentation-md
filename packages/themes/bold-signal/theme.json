@@ -1,0 +1,32 @@
+{
+  "name": "bold-signal",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Bold Signal \u2014 Archivo Black on dark gradient with vibrant orange card focal (frontend-slides STYLE_PRESETS).",
+  "vibe": "Bold Signal \u2014 #1a1a1a dark, orange card #FF5722, Archivo Black + Space Grotesk (frontend-slides Bold Signal).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#1a1a1a",
+    "bg2": "#2d2d2d",
+    "text": "#ffffff",
+    "muted": "#a0a0a0",
+    "accent": "#FF5722",
+    "accent2": "#FF8A65",
+    "cardBg": "#FF5722",
+    "border": "rgba(255,255,255,0.12)"
+  },
+  "typography": {
+    "headingFont": "'Archivo Black', system-ui, sans-serif",
+    "bodyFont": "'Space Grotesk', system-ui, sans-serif",
+    "headingWeight": 400,
+    "googleFonts": [
+      "Archivo+Black",
+      "Space+Grotesk:wght@400;500;600"
+    ]
+  },
+  "geometry": {
+    "radius": "16px",
+    "slideWidth": "1280px"
+  }
+}

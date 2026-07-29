@@ -1,0 +1,32 @@
+{
+  "name": "soft-editorial",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Soft Editorial \u2014 Cormorant Garamond on warm cream paper with sage, blush, lemon, and lilac accents (frontend-slides / beautiful-html-templates).",
+  "vibe": "Soft Editorial \u2014 paper #F2EEDF, ink #2A241B, sage #B7C7A8 + blush #E1A4C2, Cormorant Garamond + Work Sans (frontend-slides soft-editorial).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#F2EEDF",
+    "bg2": "#ECE6D2",
+    "text": "#2A241B",
+    "muted": "#5C5345",
+    "accent": "#B7C7A8",
+    "accent2": "#E1A4C2",
+    "cardBg": "rgba(255,255,255,0.55)",
+    "border": "rgba(42,36,27,0.18)"
+  },
+  "typography": {
+    "headingFont": "'Cormorant Garamond', Garamond, Georgia, serif",
+    "bodyFont": "'Work Sans', system-ui, sans-serif",
+    "headingWeight": 500,
+    "googleFonts": [
+      "Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600",
+      "Work+Sans:wght@400;500;600"
+    ]
+  },
+  "geometry": {
+    "radius": "28px",
+    "slideWidth": "1280px"
+  }
+}

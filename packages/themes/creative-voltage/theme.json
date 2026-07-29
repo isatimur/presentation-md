@@ -1,0 +1,32 @@
+{
+  "name": "creative-voltage",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Creative Voltage \u2014 electric blue + neon yellow, Syne + Space Mono (frontend-slides STYLE_PRESETS).",
+  "vibe": "Creative Voltage \u2014 electric blue #0066ff, dark #1a1a2e, neon #d4ff00, Syne + Space Mono (frontend-slides Creative Voltage).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#0066ff",
+    "bg2": "#1a1a2e",
+    "text": "#ffffff",
+    "muted": "rgba(255,255,255,0.7)",
+    "accent": "#d4ff00",
+    "accent2": "#ffffff",
+    "cardBg": "rgba(26,26,46,0.55)",
+    "border": "rgba(212,255,0,0.45)"
+  },
+  "typography": {
+    "headingFont": "'Syne', system-ui, sans-serif",
+    "bodyFont": "'Space Mono', monospace",
+    "headingWeight": 800,
+    "googleFonts": [
+      "Syne:wght@700;800",
+      "Space+Mono:wght@400;700"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

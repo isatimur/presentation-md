@@ -1,0 +1,27 @@
+{
+  "name": "@presentation-md/theme-neo-grid-bold",
+  "version": "1.0.0",
+  "description": "Neo-Grid Bold \u2014 putty ecru, ink black, electric lemon panels, Space Grotesk uppercase.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./theme.json",
+  "files": [
+    "theme.json",
+    "README.md"
+  ],
+  "keywords": [
+    "presentation-md",
+    "theme",
+    "ai-agent",
+    "slides"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/isatimur/presentation-md.git"
+  },
+  "homepage": "https://presentation-md.vercel.app",
+  "bugs": "https://github.com/isatimur/presentation-md/issues"
+}

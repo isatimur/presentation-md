@@ -1,0 +1,32 @@
+{
+  "name": "neo-grid-bold",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Neo-Grid Bold \u2014 putty ecru, ink black, electric lemon panels, Space Grotesk uppercase (frontend-slides).",
+  "vibe": "Neo-Grid Bold \u2014 putty #ECECE8, lemon #E6FF3D, Space Grotesk uppercase + JetBrains Mono (frontend-slides neo-grid-bold).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#ECECE8",
+    "bg2": "#F5F4EF",
+    "text": "#0A0A0A",
+    "muted": "#8A8A85",
+    "accent": "#E6FF3D",
+    "accent2": "#0A0A0A",
+    "cardBg": "#F5F4EF",
+    "border": "rgba(10,10,10,0.85)"
+  },
+  "typography": {
+    "headingFont": "'Space Grotesk', Helvetica Neue, Arial, sans-serif",
+    "bodyFont": "'JetBrains Mono', monospace",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Space+Grotesk:wght@500;700",
+      "JetBrains+Mono:wght@400;500"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

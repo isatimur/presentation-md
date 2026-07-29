@@ -44,6 +44,18 @@ const PACKAGED_THEMES = [
   "blueprint",
   "glassmorphism",
   "broadsheet",
+  "soft-editorial",
+  "editorial-forest",
+  "pin-and-paper",
+  "vellum",
+  "neo-grid-bold",
+  "editorial-tri-tone",
+  "creative-mode",
+  "broadside",
+  "bold-signal",
+  "notebook-tabs",
+  "creative-voltage",
+  "signal",
 ];
 
 function previewDeck(theme: string): string {

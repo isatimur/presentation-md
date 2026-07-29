@@ -1,0 +1,27 @@
+{
+  "name": "@presentation-md/theme-editorial-tri-tone",
+  "version": "1.0.0",
+  "description": "Editorial Tri-Tone \u2014 blush pink, golden butter, burgundy wine; Bricolage Grotesque + Instrument Serif.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./theme.json",
+  "files": [
+    "theme.json",
+    "README.md"
+  ],
+  "keywords": [
+    "presentation-md",
+    "theme",
+    "ai-agent",
+    "slides"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/isatimur/presentation-md.git"
+  },
+  "homepage": "https://presentation-md.vercel.app",
+  "bugs": "https://github.com/isatimur/presentation-md/issues"
+}

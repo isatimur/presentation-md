@@ -1,6 +1,6 @@
 ---
 name: presentation-generator
-description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 33 themes and 11 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
+description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 45 themes and 11 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
 license: MIT
 metadata:
   author: isatimur
@@ -367,6 +367,103 @@ Each theme is a complete design language: colors, typography, geometry, motion, 
 **Surface:** `newsprint-masthead`
 **Use for:** media kits (gallery: Daily Ledger)
 
+
+
+### `soft-editorial`
+**Soul:** A warm magazine spread — Cormorant on cream with soft pastel candy cards.
+**Palette:** `#F2EEDF` paper · `#2A241B` ink · `#B7C7A8` sage · `#E1A4C2` blush · `#D6DD63` lemon
+**Fonts:** Cormorant Garamond headings · Work Sans body
+**Geometry:** 24–36px radius, translucent white cards
+**Surface:** `soft-editorial-paper`
+**Use for:** literary / cultural decks, research storytelling (frontend-slides Soft Editorial)
+
+### `editorial-forest`
+**Soul:** Penguin-classic quiet — forest green and dusty rose on oat cream.
+**Palette:** `#efe7d4` cream · `#2e4a2a` forest · `#e89cb1` dusty rose · `#1a1a17` ink
+**Fonts:** Source Serif 4 · JetBrains Mono chrome
+**Geometry:** 4px radius, paper field, thin rules
+**Surface:** `editorial-forest-paper`
+**Use for:** quarterly reviews, literary brands (frontend-slides Editorial Forest)
+
+### `pin-and-paper`
+**Soul:** Yellow legal pad pinned with cobalt ink — field notebook energy.
+**Palette:** `#EFE56A` pad · `#1F3A8A` cobalt · `#C2342B` stamp red · `#F8F1D6` cream card
+**Fonts:** Space Grotesk · Caveat annotations · DM Mono labels
+**Geometry:** 8px radius, paper grain, pin accents
+**Surface:** `pin-paper-pad`
+**Use for:** workshops, field notes (frontend-slides Pin & Paper)
+
+### `vellum`
+**Soul:** Gallery wall colorfield — one periwinkle, chartreuse italic serif.
+**Palette:** `#2A3870` periwinkle · `#E8D85C` chartreuse · `#3A7878` teal
+**Fonts:** Italic Cormorant Garamond · DM Sans · Courier Prime pins
+**Geometry:** 0 radius, flat colorfield, no motion
+**Surface:** `vellum-colorfield`
+**Use for:** exhibitions, archive essays (frontend-slides Vellum)
+
+### `neo-grid-bold`
+**Soul:** Magazine block grid — ecru, ink, electric lemon panels.
+**Palette:** `#ECECE8` putty · `#0A0A0A` ink · `#E6FF3D` lemon
+**Fonts:** Space Grotesk uppercase · JetBrains Mono labels
+**Geometry:** 0 radius, hard panel borders, 12-col grid feel
+**Surface:** `neo-grid-panels`
+**Use for:** design talks, brand systems (frontend-slides Neo-Grid Bold)
+
+### `editorial-tri-tone`
+**Soul:** Independent arts publication — only three colors, ever.
+**Palette:** `#F2B6C6` blush · `#F2D86A` butter · `#7A1F35` burgundy
+**Fonts:** Bricolage Grotesque · Instrument Serif accent · JetBrains Mono
+**Geometry:** 0 radius, flat color blocks
+**Surface:** `tri-tone-blocks`
+**Use for:** arts pubs, cultural pitches (frontend-slides Editorial Tri-Tone)
+
+### `creative-mode`
+**Soul:** Neo-brutalist zine — cream, 4px ink borders, loud color blocks.
+**Palette:** `#EFE9D9` cream · `#0F0F0F` ink · `#E85A1F` orange · `#F06CA8` pink · `#1F8A4C` green · `#F5C518` yellow
+**Fonts:** Archivo Black uppercase · Space Grotesk · JetBrains Mono
+**Geometry:** 0 radius, hard offset shadows, flat blocks
+**Surface:** `creative-mode-blocks`
+**Use for:** agency / creative reviews (frontend-slides Creative Mode)
+
+### `broadside`
+**Soul:** Ink-on-fire protest poster — dark canvas, single fire-orange blast.
+**Palette:** `#111111` ink · `#E85D26` fire orange · `#F0ECE5` cream
+**Fonts:** Barlow 900 · IBM Plex Mono chrome
+**Geometry:** 0 radius, massive lowercase display, orange environment slides
+**Surface:** `broadside-fire`
+**Use for:** manifestos, design talks (frontend-slides Broadside)
+
+### `bold-signal`
+**Soul:** Confident high-impact — orange card on dark charcoal.
+**Palette:** `#1a1a1a` charcoal · `#FF5722` signal orange · `#ffffff` text
+**Fonts:** Archivo Black · Space Grotesk
+**Geometry:** 16px radius, colored card focal, section numbers
+**Surface:** `bold-signal-card`
+**Use for:** pitches, launches (frontend-slides Bold Signal)
+
+### `notebook-tabs`
+**Soul:** Cream paper notebook with colorful section tabs on the edge.
+**Palette:** `#f8f6f1` page · `#2d2d2d` outer · mint/lavender/pink tabs
+**Fonts:** Bodoni Moda · DM Sans
+**Geometry:** 12px radius paper card, tab strip motif
+**Surface:** `notebook-tabs-page`
+**Use for:** workshops, planning decks (frontend-slides Notebook Tabs)
+
+### `creative-voltage`
+**Soul:** Electric blue left / dark right — neon yellow voltage.
+**Palette:** `#0066ff` electric · `#1a1a2e` dark · `#d4ff00` neon
+**Fonts:** Syne · Space Mono
+**Geometry:** 0 radius, split panels, neon badges
+**Surface:** `creative-voltage-split`
+**Use for:** creative agencies, demos (frontend-slides Creative Voltage)
+
+### `signal`
+**Soul:** Economist restraint × private briefing — cream and navy linked by antique gold.
+**Palette:** `#F0ECE3` cream · `#1C2644` navy · `#C8A870` antique gold
+**Fonts:** Source Serif 4 · DM Sans · IBM Plex Mono
+**Geometry:** 2px radius, dual cream/navy surfaces, gold rules
+**Surface:** `signal-briefing`
+**Use for:** strategy briefings, investor letters (frontend-slides Signal)
 
 ---
 

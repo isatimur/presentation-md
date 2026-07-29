@@ -31,5 +31,17 @@
   "kinetic-wrapped": "wrapped-block",
   "blueprint": "blueprint-grid",
   "glassmorphism": "glass-mist",
-  "broadsheet": "newsprint-masthead"
+  "broadsheet": "newsprint-masthead",
+  "soft-editorial": "soft-editorial-paper",
+  "editorial-forest": "editorial-forest-paper",
+  "pin-and-paper": "pin-paper-pad",
+  "vellum": "vellum-colorfield",
+  "neo-grid-bold": "neo-grid-panels",
+  "editorial-tri-tone": "tri-tone-blocks",
+  "creative-mode": "creative-mode-blocks",
+  "broadside": "broadside-fire",
+  "bold-signal": "bold-signal-card",
+  "notebook-tabs": "notebook-tabs-page",
+  "creative-voltage": "creative-voltage-split",
+  "signal": "signal-briefing"
 }

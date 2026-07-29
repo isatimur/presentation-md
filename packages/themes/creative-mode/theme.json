@@ -1,0 +1,33 @@
+{
+  "name": "creative-mode",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Creative Mode \u2014 cream canvas, hard ink borders, forest/pink/orange/yellow blocks, Archivo Black (frontend-slides).",
+  "vibe": "Creative Mode \u2014 cream #EFE9D9, ink #0F0F0F, green #1F8A4C + pink #F06CA8, Archivo Black + Space Grotesk (frontend-slides creative-mode).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#EFE9D9",
+    "bg2": "#E4DCC4",
+    "text": "#0F0F0F",
+    "muted": "#2A2A2A",
+    "accent": "#E85A1F",
+    "accent2": "#F06CA8",
+    "cardBg": "#F5C518",
+    "border": "rgba(15,15,15,0.95)"
+  },
+  "typography": {
+    "headingFont": "'Archivo Black', system-ui, sans-serif",
+    "bodyFont": "'Space Grotesk', system-ui, sans-serif",
+    "headingWeight": 400,
+    "googleFonts": [
+      "Archivo+Black",
+      "Space+Grotesk:wght@400;600",
+      "JetBrains+Mono:wght@400;500"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

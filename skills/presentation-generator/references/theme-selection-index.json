@@ -888,6 +888,330 @@
         "#5c4d38",
         "#8a7560"
       ]
+    },
+    {
+      "name": "soft-editorial",
+      "scheme": "light",
+      "formality": "medium-high",
+      "mood": [
+        "editorial",
+        "warm",
+        "magazine",
+        "pastel"
+      ],
+      "best_for": [
+        "literary pitches",
+        "research notebooks",
+        "brand storytelling",
+        "cultural brands"
+      ],
+      "avoid_for": [
+        "neon cyberpunk",
+        "devtools terminals"
+      ],
+      "swatches": [
+        "#F2EEDF",
+        "#2A241B",
+        "#B7C7A8",
+        "#E1A4C2"
+      ]
+    },
+    {
+      "name": "editorial-forest",
+      "scheme": "light",
+      "formality": "high",
+      "mood": [
+        "editorial",
+        "forest",
+        "quiet",
+        "literary"
+      ],
+      "best_for": [
+        "quarterly reviews",
+        "art-book monographs",
+        "literary pitches",
+        "annual reports"
+      ],
+      "avoid_for": [
+        "neon nightlife",
+        "arcade gaming"
+      ],
+      "swatches": [
+        "#efe7d4",
+        "#2e4a2a",
+        "#e89cb1",
+        "#1a1a17"
+      ]
+    },
+    {
+      "name": "pin-and-paper",
+      "scheme": "light",
+      "formality": "low",
+      "mood": [
+        "notebook",
+        "field-report",
+        "playful",
+        "analog"
+      ],
+      "best_for": [
+        "workshops",
+        "research field notes",
+        "creative reviews",
+        "education"
+      ],
+      "avoid_for": [
+        "formal finance disclosures",
+        "luxury fashion"
+      ],
+      "swatches": [
+        "#EFE56A",
+        "#1F3A8A",
+        "#C2342B",
+        "#F8F1D6"
+      ]
+    },
+    {
+      "name": "vellum",
+      "scheme": "dark",
+      "formality": "high",
+      "mood": [
+        "gallery",
+        "monochrome",
+        "literary",
+        "still"
+      ],
+      "best_for": [
+        "exhibition decks",
+        "archive essays",
+        "art institutions",
+        "founder letters"
+      ],
+      "avoid_for": [
+        "multi-color consumer pop",
+        "arcade demos"
+      ],
+      "swatches": [
+        "#2A3870",
+        "#E8D85C",
+        "#3A7878",
+        "#1F2858"
+      ]
+    },
+    {
+      "name": "neo-grid-bold",
+      "scheme": "light",
+      "formality": "medium",
+      "mood": [
+        "poster",
+        "grid",
+        "brutal",
+        "editorial"
+      ],
+      "best_for": [
+        "design week talks",
+        "brand systems",
+        "annual reports",
+        "agency credentials"
+      ],
+      "avoid_for": [
+        "soft wellness",
+        "pastel consumer"
+      ],
+      "swatches": [
+        "#ECECE8",
+        "#0A0A0A",
+        "#E6FF3D",
+        "#F5F4EF"
+      ]
+    },
+    {
+      "name": "editorial-tri-tone",
+      "scheme": "light",
+      "formality": "medium-high",
+      "mood": [
+        "arts",
+        "tri-tone",
+        "literary",
+        "poster"
+      ],
+      "best_for": [
+        "arts publications",
+        "cultural pitches",
+        "independent magazines",
+        "brand manifestos"
+      ],
+      "avoid_for": [
+        "corporate navy decks",
+        "devtools"
+      ],
+      "swatches": [
+        "#F2B6C6",
+        "#F2D86A",
+        "#7A1F35",
+        "#F2B6C6"
+      ]
+    },
+    {
+      "name": "creative-mode",
+      "scheme": "light",
+      "formality": "medium-low",
+      "mood": [
+        "neo-brutalist",
+        "zine",
+        "loud",
+        "graphic"
+      ],
+      "best_for": [
+        "agency credentials",
+        "creative reviews",
+        "indie SaaS",
+        "brand redesigns"
+      ],
+      "avoid_for": [
+        "quiet institutional finance",
+        "healthcare patient materials"
+      ],
+      "swatches": [
+        "#EFE9D9",
+        "#0F0F0F",
+        "#E85A1F",
+        "#F06CA8"
+      ]
+    },
+    {
+      "name": "broadside",
+      "scheme": "dark",
+      "formality": "medium-high",
+      "mood": [
+        "protest",
+        "editorial",
+        "loud",
+        "newspaper"
+      ],
+      "best_for": [
+        "brand manifestos",
+        "bilingual decks",
+        "design talks",
+        "founder vision"
+      ],
+      "avoid_for": [
+        "quiet wellness",
+        "pastel consumer"
+      ],
+      "swatches": [
+        "#111111",
+        "#E85D26",
+        "#F0ECE5",
+        "#888880"
+      ]
+    },
+    {
+      "name": "bold-signal",
+      "scheme": "dark",
+      "formality": "medium",
+      "mood": [
+        "confident",
+        "high-impact",
+        "modern",
+        "bold"
+      ],
+      "best_for": [
+        "startup pitches",
+        "product launches",
+        "keynotes",
+        "brand reveals"
+      ],
+      "avoid_for": [
+        "quiet literary essays",
+        "heritage luxury"
+      ],
+      "swatches": [
+        "#1a1a1a",
+        "#ffffff",
+        "#FF5722",
+        "#2d2d2d"
+      ]
+    },
+    {
+      "name": "notebook-tabs",
+      "scheme": "light",
+      "formality": "medium-high",
+      "mood": [
+        "editorial",
+        "tactile",
+        "organized",
+        "notebook"
+      ],
+      "best_for": [
+        "workshops",
+        "curriculum",
+        "editorial planning",
+        "product strategy"
+      ],
+      "avoid_for": [
+        "neon cyber",
+        "hard brutalist"
+      ],
+      "swatches": [
+        "#f8f6f1",
+        "#1a1a1a",
+        "#98d4bb",
+        "#c7b8ea"
+      ]
+    },
+    {
+      "name": "creative-voltage",
+      "scheme": "dark",
+      "formality": "low",
+      "mood": [
+        "energetic",
+        "retro-modern",
+        "electric",
+        "creative"
+      ],
+      "best_for": [
+        "creative agencies",
+        "hackathons",
+        "product demos",
+        "design showcases"
+      ],
+      "avoid_for": [
+        "heritage luxury",
+        "quiet finance"
+      ],
+      "swatches": [
+        "#0066ff",
+        "#1a1a2e",
+        "#d4ff00",
+        "#ffffff"
+      ]
+    },
+    {
+      "name": "signal",
+      "scheme": "light",
+      "formality": "high",
+      "mood": [
+        "literary",
+        "intelligence",
+        "restrained",
+        "editorial"
+      ],
+      "best_for": [
+        "intelligence briefings",
+        "long-form strategy",
+        "investor letters",
+        "policy decks"
+      ],
+      "avoid_for": [
+        "arcade neon",
+        "candy consumer"
+      ],
+      "swatches": [
+        "#F0ECE3",
+        "#1C2644",
+        "#C8A870",
+        "#1A2030"
+      ]
     }
   ]
 }

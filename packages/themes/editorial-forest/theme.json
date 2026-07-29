@@ -1,0 +1,32 @@
+{
+  "name": "editorial-forest",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Editorial Forest \u2014 Source Serif 4 on oat-cream with forest green and dusty rose (frontend-slides).",
+  "vibe": "Editorial Forest \u2014 cream #efe7d4, forest #2e4a2a + dusty rose #e89cb1, Source Serif 4 + JetBrains Mono (frontend-slides editorial-forest).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#efe7d4",
+    "bg2": "#e6dcc4",
+    "text": "#1a1a17",
+    "muted": "#6a655c",
+    "accent": "#2e4a2a",
+    "accent2": "#e89cb1",
+    "cardBg": "rgba(46,74,42,0.06)",
+    "border": "rgba(26,26,23,0.16)"
+  },
+  "typography": {
+    "headingFont": "'Source Serif 4', 'Source Serif Pro', Georgia, serif",
+    "bodyFont": "'Source Serif 4', Georgia, serif",
+    "headingWeight": 500,
+    "googleFonts": [
+      "Source+Serif+4:opsz,wght@8..60,500;8..60,600",
+      "JetBrains+Mono:wght@400;500"
+    ]
+  },
+  "geometry": {
+    "radius": "4px",
+    "slideWidth": "1280px"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "pin-and-paper",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Pin & Paper \u2014 yellow legal-pad field with cobalt ink, Space Grotesk + Caveat (frontend-slides).",
+  "vibe": "Pin & Paper \u2014 legal pad #EFE56A, cobalt #1F3A8A, Space Grotesk + Caveat (frontend-slides pin-and-paper).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#EFE56A",
+    "bg2": "#F5ECA0",
+    "text": "#1F3A8A",
+    "muted": "#3457C4",
+    "accent": "#C2342B",
+    "accent2": "#D8702A",
+    "cardBg": "#F8F1D6",
+    "border": "rgba(31,58,138,0.22)"
+  },
+  "typography": {
+    "headingFont": "'Space Grotesk', Helvetica Neue, Arial, sans-serif",
+    "bodyFont": "'Space Grotesk', system-ui, sans-serif",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Space+Grotesk:wght@500;700",
+      "Caveat:wght@500;700",
+      "DM+Mono:wght@400;500"
+    ]
+  },
+  "geometry": {
+    "radius": "8px",
+    "slideWidth": "1280px"
+  }
+}

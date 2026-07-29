@@ -1,0 +1,33 @@
+{
+  "name": "signal",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Signal \u2014 dual cream/navy editorial with antique gold accent, Source Serif 4 (frontend-slides).",
+  "vibe": "Signal \u2014 cream #F0ECE3 / navy #1C2644, gold #C8A870, Source Serif 4 + DM Sans (frontend-slides signal).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#F0ECE3",
+    "bg2": "#E6E0D4",
+    "text": "#1A2030",
+    "muted": "#5A6270",
+    "accent": "#C8A870",
+    "accent2": "#1C2644",
+    "cardBg": "rgba(28,38,68,0.05)",
+    "border": "rgba(202,196,180,1)"
+  },
+  "typography": {
+    "headingFont": "'Source Serif 4', Georgia, serif",
+    "bodyFont": "'DM Sans', system-ui, sans-serif",
+    "headingWeight": 600,
+    "googleFonts": [
+      "Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400",
+      "DM+Sans:wght@400;500",
+      "IBM+Plex+Mono:wght@400;500"
+    ]
+  },
+  "geometry": {
+    "radius": "2px",
+    "slideWidth": "1280px"
+  }
+}

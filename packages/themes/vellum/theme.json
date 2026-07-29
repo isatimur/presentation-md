@@ -1,0 +1,33 @@
+{
+  "name": "vellum",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Vellum \u2014 deep periwinkle field with chartreuse italic Cormorant type (frontend-slides).",
+  "vibe": "Vellum \u2014 periwinkle #2A3870, chartreuse #E8D85C, italic Cormorant Garamond + DM Sans (frontend-slides vellum).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#2A3870",
+    "bg2": "#1F2858",
+    "text": "#E8D85C",
+    "muted": "rgba(232,216,92,0.62)",
+    "accent": "#E8D85C",
+    "accent2": "#3A7878",
+    "cardBg": "rgba(232,216,92,0.08)",
+    "border": "rgba(232,216,92,0.20)"
+  },
+  "typography": {
+    "headingFont": "'Cormorant Garamond', Georgia, serif",
+    "bodyFont": "'DM Sans', system-ui, sans-serif",
+    "headingWeight": 400,
+    "googleFonts": [
+      "Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500",
+      "DM+Sans:wght@400;500",
+      "Courier+Prime:wght@400"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

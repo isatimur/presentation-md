@@ -89,6 +89,18 @@ This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a q
 | [`@presentation-md/theme-blueprint`](packages/themes/blueprint) | Engineering blueprint |
 | [`@presentation-md/theme-glassmorphism`](packages/themes/glassmorphism) | Soft glass / icy mist |
 | [`@presentation-md/theme-broadsheet`](packages/themes/broadsheet) | Newspaper broadsheet |
+| [`@presentation-md/theme-soft-editorial`](packages/themes/soft-editorial) | Soft Editorial theme |
+| [`@presentation-md/theme-editorial-forest`](packages/themes/editorial-forest) | Editorial Forest theme |
+| [`@presentation-md/theme-pin-and-paper`](packages/themes/pin-and-paper) | Pin & Paper theme |
+| [`@presentation-md/theme-vellum`](packages/themes/vellum) | Vellum theme |
+| [`@presentation-md/theme-neo-grid-bold`](packages/themes/neo-grid-bold) | Neo-Grid Bold theme |
+| [`@presentation-md/theme-editorial-tri-tone`](packages/themes/editorial-tri-tone) | Editorial Tri-Tone theme |
+| [`@presentation-md/theme-creative-mode`](packages/themes/creative-mode) | Creative Mode theme |
+| [`@presentation-md/theme-broadside`](packages/themes/broadside) | Broadside theme |
+| [`@presentation-md/theme-bold-signal`](packages/themes/bold-signal) | Bold Signal theme |
+| [`@presentation-md/theme-notebook-tabs`](packages/themes/notebook-tabs) | Notebook Tabs theme |
+| [`@presentation-md/theme-creative-voltage`](packages/themes/creative-voltage) | Creative Voltage theme |
+| [`@presentation-md/theme-signal`](packages/themes/signal) | Signal theme |
 | [`presentation-md-render`](packages/renderer-python) _(PyPI)_ | Python renderer for agents and pipelines running outside Node.js |
 
 ---
