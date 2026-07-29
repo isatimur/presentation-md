@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Theme Preview</title>
+<meta name="description" content="" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Mulish:wght@400;600&display=swap');
+
+/* presentation-md base stylesheet.
+   Theme tokens are injected via the :root block below. Layout fragments in
+   ./layouts/*.html consume these CSS variables and class names. */
+
+:root {
+  --bg: #fdf6fb;
+  --bg-2: #f5ecf9;
+  --text: #3a2e4d;
+  --muted: #6b5d82;
+  --accent: #e893c2;
+  --accent-2: #8ab4f8;
+  --card-bg: #f5ecf9;
+  --border: rgba(58,46,77,0.10);
+  --radius: 28px;
+  --slide-w: 1280px;
+  --heading-font: 'Quicksand', system-ui, sans-serif;
+  --body-font: 'Mulish', system-ui, sans-serif;
+  --heading-weight: 700;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body-font);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  padding: 48px 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--heading-font);
+  font-weight: var(--heading-weight);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.deck {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  width: 100%;
+}
+
+.slide {
+  position: relative;
+  width: min(var(--slide-w), 95vw);
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  padding: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  scroll-snap-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--border);
+}
+
+.slide > * { position: relative; z-index: 1; }
+
+.eyebrow {
+  color: var(--accent-2);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.slide h1 { font-size: clamp(40px, 5.5vw, 84px); }
+.slide h2 { font-size: clamp(30px, 3.4vw, 46px); margin-bottom: 8px; }
+
+.lead {
+  color: var(--muted);
+  font-size: 20px;
+  max-width: 62ch;
+  margin-top: 16px;
+}
+
+/* two-column */
+.cols { display: flex; gap: 48px; align-items: center; height: 100%; }
+.cols > * { flex: 1; }
+.cols .media { height: 100%; }
+.cols img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius);
+  display: block;
+}
+
+/* feature grid */
+.grid { display: grid; gap: 24px; margin-top: 32px; }
+.grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+}
+.card i { color: var(--accent); font-size: 28px; margin-bottom: 14px; display: block; }
+.card h3 { font-size: 20px; margin-bottom: 8px; }
+.card p { color: var(--muted); font-size: 15px; }
+
+/* quote */
+.quote-slide { align-items: center; text-align: center; }
+.quote {
+  font-family: var(--heading-font);
+  font-weight: var(--heading-weight);
+  font-size: clamp(28px, 3.6vw, 52px);
+  max-width: 24ch;
+  line-height: 1.18;
+}
+.quote-by { color: var(--muted); margin-top: 24px; font-size: 18px; }
+
+/* data table */
+table { width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 17px; }
+th, td { text-align: left; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+thead th {
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  font-family: var(--heading-font);
+}
+
+/* stat row */
+.stats { display: flex; gap: 48px; margin-top: 36px; flex-wrap: wrap; }
+.stat .value {
+  font-family: var(--heading-font);
+  font-weight: var(--heading-weight);
+  font-size: clamp(40px, 5vw, 72px);
+  color: var(--accent);
+  line-height: 1;
+}
+.stat .label { color: var(--muted); font-size: 16px; margin-top: 8px; }
+
+/* timeline */
+.timeline { display: flex; gap: 0; margin-top: 40px; }
+.timeline .node { flex: 1; position: relative; padding-right: 24px; }
+.timeline .node::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--border);
+}
+.timeline .dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  position: relative;
+  z-index: 1;
+}
+.timeline .node h3 { font-size: 18px; margin: 18px 0 6px; }
+.timeline .node p { color: var(--muted); font-size: 14px; }
+
+/* section divider */
+.section-slide { justify-content: center; }
+.section-number {
+  font-family: var(--heading-font);
+  font-weight: var(--heading-weight);
+  font-size: clamp(60px, 9vw, 140px);
+  color: color-mix(in srgb, var(--accent) 60%, var(--text));
+  line-height: 0.9;
+}
+.section-slide h2 { font-size: clamp(32px, 4vw, 56px); margin-top: 8px; }
+
+/* closing / CTA */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 14px 26px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  width: fit-content;
+  text-decoration: none;
+}
+
+/* Entrance motion — applied when the deck loads; disabled under reduced-motion */
+.slide {
+  animation: pmd-fade-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.slide:nth-child(1) { animation-delay: 0ms; }
+.slide:nth-child(2) { animation-delay: 40ms; }
+.slide:nth-child(3) { animation-delay: 80ms; }
+.slide:nth-child(n+4) { animation-delay: 100ms; }
+
+@keyframes pmd-fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.nav-hint {
+  position: fixed;
+  right: 20px;
+  bottom: 18px;
+  z-index: 40;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 12px;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .slide { animation: none !important; }
+}
+
+@media print {
+  body { padding: 0; gap: 0; }
+  .slide {
+    box-shadow: none;
+    border-radius: 0;
+    page-break-after: always;
+    width: 100vw;
+    animation: none !important;
+  }
+  .nav-hint { display: none !important; }
+}
+
+
+/* Per-theme surface profiles — each theme gets a distinct stage, not one shared blob. */
+
+.deck[data-surface] .slide {
+  background: var(--slide-bg, radial-gradient(125% 125% at 0% 0%, var(--bg-2), var(--bg)));
+}
+
+.deck[data-surface] .slide::after,
+.deck[data-surface] .slide::before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.deck[data-surface] .slide > * { position: relative; z-index: 1; }
+
+/* ── default fallback ── */
+.deck[data-surface="gradient"] .slide::after {
+  width: 520px;
+  height: 520px;
+  right: -160px;
+  top: -160px;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 45%, transparent), transparent);
+  filter: blur(8px);
+}
+
+/* ── neon-glow (default-tech) ── */
+.deck[data-surface="neon-glow"] .slide {
+  --slide-bg: radial-gradient(ellipse 120% 80% at 10% 0%, color-mix(in srgb, var(--accent) 22%, var(--bg)), var(--bg));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.deck[data-surface="neon-glow"] .slide::after {
+  width: 640px;
+  height: 640px;
+  right: -220px;
+  top: -200px;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 55%, transparent), transparent);
+  filter: blur(12px);
+}
+.deck[data-surface="neon-glow"] .slide h1 {
+  text-shadow: 0 0 40px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+/* ── scanline-neon (retro-arcade) ── */
+.deck[data-surface="scanline-neon"] .slide {
+  --slide-bg: linear-gradient(180deg, var(--bg-2), var(--bg));
+}
+.deck[data-surface="scanline-neon"] .slide::before {
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.18) 2px,
+    rgba(0, 0, 0, 0.18) 4px
+  );
+  opacity: 0.35;
+}
+.deck[data-surface="scanline-neon"] .slide::after {
+  width: 100%;
+  height: 3px;
+  left: 0;
+  top: 0;
+  right: auto;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent));
+  filter: drop-shadow(0 0 12px var(--accent));
+}
+.deck[data-surface="scanline-neon"] .slide h1,
+.deck[data-surface="scanline-neon"] .slide h2 {
+  text-shadow: 0 0 20px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+/* ── warm-paper (claude) ── */
+.deck[data-surface="warm-paper"] .slide {
+  --slide-bg: linear-gradient(165deg, var(--bg) 0%, color-mix(in srgb, var(--bg2) 80%, var(--bg)) 100%);
+  box-shadow: 0 20px 50px rgba(20, 20, 19, 0.08);
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+}
+.deck[data-surface="warm-paper"] .slide::after {
+  width: 280px;
+  height: 280px;
+  left: -80px;
+  bottom: -80px;
+  top: auto;
+  right: auto;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 18%, transparent), transparent);
+}
+
+/* ── clean-light (corporate) ── */
+.deck[data-surface="clean-light"] .slide {
+  --slide-bg: linear-gradient(180deg, #ffffff 0%, color-mix(in srgb, var(--bg2) 40%, #fff) 100%);
+  box-shadow: 0 16px 48px rgba(26, 32, 53, 0.08);
+}
+.deck[data-surface="clean-light"] .slide::after {
+  width: 6px;
+  height: 72px;
+  left: 48px;
+  top: 48px;
+  right: auto;
+  background: var(--accent);
+  border-radius: 3px;
+  filter: none;
+}
+
+/* ── soft-bento (playful) ── */
+.deck[data-surface="soft-bento"] .slide {
+  --slide-bg: radial-gradient(circle at 90% 10%, color-mix(in srgb, var(--accent2) 25%, var(--bg)), var(--bg));
+}
+.deck[data-surface="soft-bento"] .slide::after {
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
+  top: auto;
+  border-radius: 28px;
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  transform: rotate(12deg);
+  filter: none;
+}
+.deck[data-surface="soft-bento"] .card {
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* ── quiet-luxe (luxury-minimalist) ── */
+.deck[data-surface="quiet-luxe"] .slide {
+  --slide-bg: var(--bg);
+  box-shadow: none;
+  border: 1px solid var(--border);
+}
+.deck[data-surface="quiet-luxe"] .slide::after {
+  display: none;
+}
+.deck[data-surface="quiet-luxe"] .slide h1 {
+  letter-spacing: -0.03em;
+  font-weight: 400;
+}
+
+/* ── editorial-rule (editorial-serif) ── */
+.deck[data-surface="editorial-rule"] .slide {
+  --slide-bg: var(--bg);
+}
+.deck[data-surface="editorial-rule"] .slide::before {
+  left: 64px;
+  right: 64px;
+  top: 48px;
+  height: 4px;
+  background: var(--accent);
+}
+.deck[data-surface="editorial-rule"] .slide::after {
+  width: 48px;
+  height: 48px;
+  right: 64px;
+  top: 64px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: transparent;
+  filter: none;
+}
+
+/* ── brutalist-grid (brutalist-mono) ── */
+.deck[data-surface="brutalist-grid"] .slide {
+  --slide-bg: var(--bg);
+  border: 3px solid var(--text);
+  border-radius: 0;
+  box-shadow: 8px 8px 0 var(--text);
+}
+.deck[data-surface="brutalist-grid"] .slide::before {
+  inset: 0;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--border) 60%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--border) 60%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.4;
+}
+.deck[data-surface="brutalist-grid"] .slide::after {
+  display: none;
+}
+
+/* ── pastel-cloud (pastel-dreamy) ── */
+.deck[data-surface="pastel-cloud"] .slide {
+  --slide-bg: radial-gradient(ellipse 80% 60% at 20% 20%, color-mix(in srgb, var(--accent2) 30%, var(--bg)), var(--bg));
+}
+.deck[data-surface="pastel-cloud"] .slide::after {
+  width: 200px;
+  height: 200px;
+  left: 60%;
+  top: 10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 25%, transparent), transparent);
+  filter: blur(20px);
+}
+
+/* Scroll-triggered reveals (populated by document.html script) */
+.slide .reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.slide.in-view .reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+
+
+/* presentation-md attribution footer */
+.pmd-attribution {
+  font-family: var(--body-font);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  opacity: 0.6;
+  text-align: center;
+  padding: 4px 0 16px;
+}
+.pmd-attribution a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--muted) 40%, transparent);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.pmd-attribution a:hover { color: var(--accent); border-color: var(--accent); }
+@media print { .pmd-attribution { opacity: 0.5; } }
+</style>
+</head>
+<body>
+<main class="deck" data-surface="pastel-cloud">
+<section class="slide title-slide">
+  <span class="eyebrow">pastel dreamy</span>
+  <h1>Your Deck Title</h1>
+  <p class="lead">Typography, palette, and surface — pick visually before you commit.</p>
+</section>
+
+</main>
+<div class="nav-hint" aria-hidden="true">← → to navigate</div>
+<footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Theme Preview","theme":"pastel-dreamy"},"slides":[{"layout":"title","eyebrow":"pastel dreamy","heading":"Your Deck Title","lead":"Typography, palette, and surface — pick visually before you commit."}]}</script>
+<script>
+(function () {
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  if (!slides.length) return;
+
+  slides.forEach(function (slide) {
+    var kids = slide.querySelectorAll("h1, h2, h3, .eyebrow, .lead, .card, .stat, .quote, .btn, table, .timeline .node");
+    for (var i = 0; i < kids.length; i++) {
+      kids[i].classList.add("reveal");
+      kids[i].style.setProperty("--reveal-delay", String(Math.min(i * 70, 280)) + "ms");
+    }
+  });
+
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) e.target.classList.add("in-view");
+      });
+    }, { threshold: 0.35 });
+    slides.forEach(function (s) { io.observe(s); });
+    slides[0].classList.add("in-view");
+  } else {
+    slides.forEach(function (s) { s.classList.add("in-view"); });
+  }
+
+  function go(delta) {
+    var y = window.scrollY || window.pageYOffset;
+    var target = null;
+    if (delta > 0) {
+      for (var i = 0; i < slides.length; i++) {
+        if (slides[i].offsetTop > y + 8) { target = slides[i]; break; }
+      }
+    } else {
+      for (var j = slides.length - 1; j >= 0; j--) {
+        if (slides[j].offsetTop < y - 8) { target = slides[j]; break; }
+      }
+    }
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+  window.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
+      e.preventDefault();
+      go(1);
+    } else if (e.key === "ArrowUp" || e.key === "ArrowLeft" || e.key === "PageUp") {
+      e.preventDefault();
+      go(-1);
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      slides[0].scrollIntoView({ behavior: "smooth", block: "center" });
+    } else if (e.key === "End") {
+      e.preventDefault();
+      slides[slides.length - 1].scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  });
+})();
+</script>
+</body>
+</html>

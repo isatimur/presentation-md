@@ -31,12 +31,15 @@ presentation-md-render --list-themes
 
 # Import a PowerPoint file to deck JSON
 presentation-md-render --from-pptx board-deck.pptx -o deck.json --theme claude
+
+# Export to native, editable PowerPoint
+presentation-md-render deck.json --format pptx -o deck.pptx
 ```
 
 ## Programmatic API
 
 ```typescript
-import { renderDeck } from "@presentation-md/render";
+import { renderDeck, renderDeckPptx } from "@presentation-md/render";
 import { readFile, writeFile } from "node:fs/promises";
 
 const deckJson = await readFile("deck.json", "utf-8");
@@ -44,6 +47,9 @@ const html = await renderDeck(deckJson, {
   extraCss: ".slide { font-size: 18px; }",
 });
 await writeFile("output.html", html);
+
+const pptx = await renderDeckPptx(deckJson);
+await writeFile("output.pptx", pptx);
 ```
 
 ### `renderDeck(deckJson, opts?): Promise<string>`

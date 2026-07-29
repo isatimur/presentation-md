@@ -6,6 +6,7 @@ import Mustache from "mustache";
 import {
   validateDeckJson as coreValidateDeckJson,
   loadTheme,
+  surfaceForTheme,
 } from "@presentation-md/core";
 import type { ValidationResult } from "@presentation-md/core";
 import { deckToPptxBuffer, type DeckJson as ExportDeckJson } from "@presentation-md/export";
@@ -248,12 +249,18 @@ export async function renderDeck(deckJson: string, opts?: RenderOptions): Promis
   const deck = JSON.parse(deckJson) as DeckJson;
   const themeName = deck.meta?.theme ?? "default-tech";
   const themesDir = opts?.themesDir ?? getBundledThemesDir();
-  const theme = await loadTheme(themeName, { themesDir });
+  const bundled = getBundledThemesDir();
+  const theme = await loadTheme(themeName, {
+    themesDir,
+    fallbackThemesDirs: themesDir !== bundled ? [bundled] : undefined,
+  });
 
   const googleFontsUrl = buildGoogleFontsUrl(theme.typography.googleFonts);
 
   const sharedDir = getSharedDir();
   const baseCssTemplate = await readFile(join(sharedDir, "base.css"), "utf-8");
+  const surfacesCss = await readFile(join(sharedDir, "surfaces.css"), "utf-8");
+  const surface = surfaceForTheme(theme.name);
 
   const tokenView: Record<string, string> = {
     bg: theme.palette.bg,
@@ -274,8 +281,8 @@ export async function renderDeck(deckJson: string, opts?: RenderOptions): Promis
   const renderedCss = Mustache.render(baseCssTemplate, tokenView);
 
   let fullCss = googleFontsUrl
-    ? `@import url('${googleFontsUrl}');\n\n${renderedCss}`
-    : renderedCss;
+    ? `@import url('${googleFontsUrl}');\n\n${renderedCss}\n\n${surfacesCss}`
+    : `${renderedCss}\n\n${surfacesCss}`;
 
   const attributionEnabled = opts?.attribution !== false;
   if (attributionEnabled) {
@@ -304,6 +311,7 @@ export async function renderDeck(deckJson: string, opts?: RenderOptions): Promis
     description,
     styles: fullCss,
     slides: slidesHtml,
+    surface,
     attribution: attributionEnabled ? ATTRIBUTION_HTML : "",
     deckData,
   });
@@ -338,7 +346,11 @@ export async function renderDeckPptx(
   const deck = JSON.parse(deckJson) as DeckJson;
   const themeName = deck.meta?.theme ?? "default-tech";
   const themesDir = opts?.themesDir ?? getBundledThemesDir();
-  const theme = await loadTheme(themeName, { themesDir });
+  const bundled = getBundledThemesDir();
+  const theme = await loadTheme(themeName, {
+    themesDir,
+    fallbackThemesDirs: themesDir !== bundled ? [bundled] : undefined,
+  });
 
   return deckToPptxBuffer(deck as unknown as ExportDeckJson, theme, {
     attribution: opts?.attribution,

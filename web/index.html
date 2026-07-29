@@ -50,7 +50,7 @@
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "author": { "@type": "Person", "name": "Timur Isachenko", "url": "https://github.com/isatimur" },
     "downloadUrl": "https://www.npmjs.com/package/@presentation-md/install",
-    "softwareVersion": "0.1.0"
+    "softwareVersion": "1.0.0"
   }
   </script>
 
@@ -82,7 +82,7 @@
       {
         "@type": "Question",
         "name": "What format does presentation-md output?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Each deck is a single self-contained HTML file. It opens in any browser with no hosting, no export, and no build step required. You own the file." }
+        "acceptedAnswer": { "@type": "Answer", "text": "Each deck is a single self-contained HTML file that opens in any browser with no hosting required. You can also export to native, editable PowerPoint (.pptx) for PowerPoint, Keynote, and Google Slides, or import an existing .pptx back into Deck JSON for re-theming and agent editing." }
       },
       {
         "@type": "Question",
@@ -594,11 +594,12 @@
     <p class="tagline">
       Universal skill for Claude Code, Cursor, Codex, Gemini CLI, and Copilot. Generate a deck from
       plain notes, export it to native, editable PowerPoint, Keynote, or Google Slides, or fine-tune
-      it in the studio. 25 visual styles, nine layouts, zero design skills.
+      it in the studio. Nine distinct theme surfaces, scroll-reveal motion, zero design skills.
     </p>
 
     <div class="badges">
-      <span class="badge"><span class="dot"></span>npm v0.1.0</span>
+      <span class="badge"><span class="dot"></span>npm v1.0.0</span>
+      <span class="badge"><span class="dot amber"></span>PyPI</span>
       <span class="badge"><span class="dot amber"></span>MIT license</span>
       <span class="badge"><span class="dot green"></span>MCP-native</span>
       <span class="badge"><span class="dot"></span>Exports to PowerPoint · Keynote · Google Slides</span>
@@ -647,7 +648,7 @@
         <span class="step-icon"><i class="fa-regular fa-circle-check"></i></span>
         <span class="step-num">Step 03</span>
         <h3>Get a deck</h3>
-        <p>A single, self-contained HTML file lands in your project. Open it in any browser — no server, no build step, no framework. Share it, email it, or drop it into Notion. It just works.</p>
+        <p>A single, self-contained HTML file lands in your project — or export native, editable PowerPoint for Keynote and Google Slides. Open HTML in any browser with no server or build step. Share either format as an attachment or drop it into Notion.</p>
       </div>
     </div>
   </div>
@@ -696,9 +697,37 @@
     <h2>Nine vibes. One JSON field.</h2>
     <p class="section-lead">
       Swap the entire look of a deck by changing a single <span class="inline-code">"theme"</span> key.
-      Each theme is a versioned JSON package: color roles, typography, geometry. Install community themes
-      with <span class="inline-code">npm i @presentation-md/theme-&lt;name&gt;</span>.
+      Each theme ships a distinct <strong>surface profile</strong> — not just colors, but background treatment,
+      decor, and motion. Install more with <span class="inline-code">npm i @presentation-md/theme-&lt;name&gt;</span>.
+      Agents call <span class="inline-code">preview_themes</span> to render three live title slides before you commit (frontend-slides-style discovery).
     </p>
+
+    <div class="theme-preview-strip" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:40px;">
+      <a href="previews/claude.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
+        <iframe src="previews/claude.html" title="claude theme preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
+        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">claude · warm paper</div>
+      </a>
+      <a href="previews/default-tech.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
+        <iframe src="previews/default-tech.html" title="default-tech preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
+        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">default-tech · neon glow</div>
+      </a>
+      <a href="previews/editorial-serif.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
+        <iframe src="previews/editorial-serif.html" title="editorial-serif preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
+        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">editorial-serif · masthead rule</div>
+      </a>
+      <a href="previews/retro-arcade.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
+        <iframe src="previews/retro-arcade.html" title="retro-arcade preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
+        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">retro-arcade · scanline neon</div>
+      </a>
+      <a href="previews/brutalist-mono.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
+        <iframe src="previews/brutalist-mono.html" title="brutalist-mono preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
+        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">brutalist-mono · hard grid</div>
+      </a>
+      <a href="previews/pastel-dreamy.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
+        <iframe src="previews/pastel-dreamy.html" title="pastel-dreamy preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
+        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">pastel-dreamy · soft cloud</div>
+      </a>
+    </div>
 
     <div class="themes-grid">
 
@@ -1521,6 +1550,99 @@
   </div>
 </section>
 
+<!-- ── VS FRONTEND-SLIDES ──────────────────────────────────────────────────── -->
+<section id="compare">
+  <div class="container">
+    <span class="eyebrow">Why presentation-md</span>
+    <h2>Structured power + visual craft.</h2>
+    <p class="section-lead">
+      <a href="https://github.com/zarazhangrui/frontend-slides" target="_blank" rel="noopener">frontend-slides</a>
+      nails visual discovery with live style previews and bold design systems.
+      presentation-md matches that show-don't-tell workflow — then adds what a skill-only repo cannot:
+      schema-validated Deck JSON, native PowerPoint round-trip, MCP tools, and a browser Studio.
+    </p>
+    <div class="steps">
+      <div class="step">
+        <span class="step-icon"><i class="fa-solid fa-eye"></i></span>
+        <h3>Same discovery UX</h3>
+        <p><span class="inline-code">preview_themes</span> renders three title-slide HTML previews before you lock a vibe — mandatory in the skill, not optional.</p>
+      </div>
+      <div class="step">
+        <span class="step-icon"><i class="fa-solid fa-file-code"></i></span>
+        <h3>Editable spec, not opaque HTML</h3>
+        <p>Agents diff one slide, swap themes with <span class="inline-code">apply_theme</span>, validate with <span class="inline-code">audit_deck</span>. Re-render anytime.</p>
+      </div>
+      <div class="step">
+        <span class="step-icon"><i class="fa-solid fa-file-powerpoint"></i></span>
+        <h3>Office-native export</h3>
+        <p>Editable <strong>.pptx</strong> for PowerPoint, Keynote, and Google Slides — plus import existing decks back into JSON.</p>
+      </div>
+      <div class="step">
+        <span class="step-icon"><i class="fa-solid fa-robot"></i></span>
+        <h3>Any agent, not just Claude</h3>
+        <p>One <span class="inline-code">npx @presentation-md/install</span> for Claude Code, Cursor, Codex, Gemini CLI, and Copilot — with 9 MCP tools.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PACKAGES ────────────────────────────────────────────────────────────── -->
+<section id="packages">
+  <div class="container">
+    <span class="eyebrow">Packages</span>
+    <h2>Published on npm &amp; PyPI.</h2>
+    <p class="section-lead">
+      Install with <span class="inline-code">npx @presentation-md/install</span> or pull individual
+      packages from the registries. All npm packages are public under the
+      <span class="inline-code">@presentation-md</span> scope at <strong>v1.0.0</strong>
+      (<span class="inline-code">core</span> latest: <strong>1.0.1</strong>).
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <span class="step-icon"><i class="fa-brands fa-npm"></i></span>
+        <h3>npm — @presentation-md/*</h3>
+        <p>
+          <span class="inline-code">install</span>,
+          <span class="inline-code">render</span>,
+          <span class="inline-code">export</span>,
+          <span class="inline-code">mcp-server</span>,
+          <span class="inline-code">create-theme</span>,
+          <span class="inline-code">core</span>, and seven publishable themes.
+          PPTX round-trip, MCP tools, and CLI all ship from these packages.
+        </p>
+        <p style="margin-top:12px;">
+          <a href="https://www.npmjs.com/search?q=%40presentation-md" target="_blank" rel="noopener">Browse on npm →</a>
+        </p>
+      </div>
+      <div class="step">
+        <span class="step-icon"><i class="fa-brands fa-python"></i></span>
+        <h3>PyPI — presentation-md-*</h3>
+        <p>
+          <span class="inline-code">presentation-md-render</span> and four theme packages are live.
+          Four newer themes (<span class="inline-code">retro-arcade</span>,
+          <span class="inline-code">editorial-serif</span>,
+          <span class="inline-code">brutalist-mono</span>,
+          <span class="inline-code">pastel-dreamy</span>) are queued — PyPI rate-limits new projects per day.
+        </p>
+        <p style="margin-top:12px;">
+          <a href="https://pypi.org/project/presentation-md-render/" target="_blank" rel="noopener">presentation-md-render on PyPI →</a>
+        </p>
+      </div>
+      <div class="step">
+        <span class="step-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+        <h3>Studio — browser editor</h3>
+        <p>
+          The editor is hosted at
+          <a href="studio">presentation-md.vercel.app/studio</a> — edit decks with live preview,
+          generate from a prompt, present fullscreen, and export HTML or PowerPoint. Not published
+          as an npm package; built from <span class="inline-code">packages/studio</span> in the repo.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── INSTALL ─────────────────────────────────────────────────────────────── -->
 <section id="install">
   <div class="container">
@@ -1609,13 +1731,20 @@
 <span class="comment"># validate without rendering</span>
 <span class="cmd">npx @presentation-md/render</span> <span class="flag">--validate deck.json</span>
 
+<span class="comment"># export native, editable PowerPoint</span>
+<span class="cmd">npx @presentation-md/render deck.json</span> <span class="flag">--format pptx -o deck.pptx</span>
+
+<span class="comment"># import PowerPoint → Deck JSON</span>
+<span class="cmd">npx @presentation-md/render</span> <span class="flag">--from-pptx deck.pptx -o deck.json</span>
+
 <span class="comment"># or install globally</span>
 <span class="cmd">npm i -g @presentation-md/render</span></pre>
     </div>
 
     <div class="install-note">
-      <strong>Full vs lite.</strong> Full mode registers the MCP server, which gives the agent five
-      structured tools for deterministic, re-renderable deck generation. Lite mode copies the skill
+      <strong>Full vs lite.</strong> Full mode registers the MCP server, which gives the agent eight
+      structured tools for deterministic, re-renderable deck generation (render, export, audit,
+      themes, PPTX import, brand import). Lite mode copies the skill
       definition only — the agent still works but falls back to the direct-HTML path (hand-written
       HTML with internal CSS). Both produce the same self-contained output file.
     </div>
@@ -1660,7 +1789,7 @@
       <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <h3 itemprop="name" style="font-size:1rem;font-weight:700;margin-bottom:6px">What format is the output?</h3>
         <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">Each deck is a single self-contained HTML file. It opens in any browser, requires no hosting, no export, and no build step. You own the file and can share it as an email attachment, put it on a CDN, or open it locally. See the gallery of 25 showcase decks at presentation-md.vercel.app for live examples.</p>
+          <p itemprop="text">Each deck is a single self-contained HTML file. It opens in any browser, requires no hosting, and no build step. You can also export to native, editable PowerPoint (`.pptx`) that opens in Keynote and imports into Google Slides, or import an existing `.pptx` back into Deck JSON. See the gallery of 25 showcase decks for live HTML examples.</p>
         </div>
       </div>
 
@@ -1681,7 +1810,7 @@
     <div class="footer-left">
       <span>MIT License</span>
       <span>·</span>
-      <span>presentation-md v0.1.0</span>
+      <span>presentation-md v1.0.0</span>
     </div>
     <div class="footer-right">
       <a href="/privacy">Privacy</a>
@@ -1691,6 +1820,9 @@
       </a>
       <a href="https://www.npmjs.com/search?q=%40presentation-md" target="_blank" rel="noopener">
         <i class="fa-brands fa-npm"></i> npm
+      </a>
+      <a href="https://pypi.org/project/presentation-md-render/" target="_blank" rel="noopener">
+        <i class="fa-brands fa-python"></i> PyPI
       </a>
     </div>
   </div>

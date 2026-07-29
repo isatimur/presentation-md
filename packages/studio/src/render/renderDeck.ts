@@ -2,7 +2,13 @@ import Mustache from "mustache";
 import type { ResolvedTheme } from "@presentation-md/core";
 import type { DeckJson, Slide } from "@presentation-md/export";
 import baseCssTemplate from "../../../shared/base.css?raw";
+import surfacesCss from "../../../shared/surfaces.css?raw";
+import themeSurfaces from "../../../shared/theme-surfaces.json";
 import documentTemplate from "../../../shared/document.html?raw";
+
+function surfaceForTheme(name: string): string {
+  return (themeSurfaces as Record<string, string>)[name] ?? "gradient";
+}
 
 /**
  * Browser-side deck → HTML render. A fs-free port of `@presentation-md/render`
@@ -133,9 +139,10 @@ export function renderDeckHtml(deck: DeckJson, theme: ResolvedTheme): string {
 
   const renderedCss = Mustache.render(baseCssTemplate, tokenView);
   const googleFontsUrl = buildGoogleFontsUrl(theme.typography.googleFonts);
+  const surface = surfaceForTheme(theme.name);
   let fullCss = googleFontsUrl
-    ? `@import url('${googleFontsUrl}');\n\n${renderedCss}`
-    : renderedCss;
+    ? `@import url('${googleFontsUrl}');\n\n${renderedCss}\n\n${surfacesCss}`
+    : `${renderedCss}\n\n${surfacesCss}`;
   fullCss += `\n\n${ATTRIBUTION_CSS}`;
 
   const slides = (Array.isArray(deck.slides) ? deck.slides : [])
@@ -154,6 +161,7 @@ export function renderDeckHtml(deck: DeckJson, theme: ResolvedTheme): string {
     description: deck.meta?.description ?? "",
     styles: fullCss,
     slides,
+    surface,
     attribution: ATTRIBUTION_HTML,
     deckData: embedDeckScript(deck),
   });

@@ -23,7 +23,7 @@ Node.js ≥ 18 and `npx` must be available on `PATH`.
 
 ## Part of presentation-md
 
-- npm: `@presentation-md/render`
-- Themes: `@presentation-md/theme-*`
+- npm: `@presentation-md/render` (v1.0.0)
+- PyPI: `presentation-md-render` (v1.0.0) + `presentation-md-theme-*` packages
 - MCP server: `@presentation-md/mcp-server`
 - Adapter installer: `npx @presentation-md/install`

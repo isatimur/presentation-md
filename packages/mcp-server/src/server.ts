@@ -13,6 +13,7 @@ import { auditDeckTool } from "./tools/audit-deck.js";
 import { generateDeckPromptTool } from "./tools/generate-deck-prompt.js";
 import { importBrandThemeTool } from "./tools/import-brand-theme.js";
 import { importPptxTool } from "./tools/import-pptx.js";
+import { previewThemesTool } from "./tools/preview-themes.js";
 
 export interface ToolDefinition {
   name: string;
@@ -30,6 +31,7 @@ const TOOLS: ToolDefinition[] = [
   generateDeckPromptTool,
   importBrandThemeTool,
   importPptxTool,
+  previewThemesTool,
 ];
 
 export function listToolDefinitions(): ToolDefinition[] {
@@ -38,7 +40,7 @@ export function listToolDefinitions(): ToolDefinition[] {
 
 export async function main() {
   const server = new Server(
-    { name: "presentation-md", version: "0.1.0" },
+    { name: "presentation-md", version: "1.0.0" },
     { capabilities: { tools: {} } }
   );
 

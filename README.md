@@ -53,8 +53,8 @@ This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a q
 |---|---|
 | [`@presentation-md/core`](packages/core) | Deck + theme schemas, theme loader, validator, and bundled default-tech theme |
 | [`@presentation-md/render`](packages/renderer-node) | Node.js renderer — CLI (`presentation-md-render`) + programmatic API |
-| [`@presentation-md/export`](packages/export) 🚧 _coming soon (not yet published)_ | PPTX round-trip — Deck JSON ↔ editable PowerPoint (`.pptx`) |
-| [`@presentation-md/studio`](packages/studio) 🚧 _coming soon (not yet published)_ | Browser editor studio: edit, live-preview, and export decks (Vite SPA) |
+| [`@presentation-md/export`](packages/export) | PPTX round-trip — Deck JSON ↔ editable PowerPoint (`.pptx`) |
+| [`@presentation-md/studio`](packages/studio) | Browser editor — hosted at [presentation-md.vercel.app/studio](https://presentation-md.vercel.app/studio) (in-repo; not published to npm) |
 | [`@presentation-md/mcp-server`](packages/mcp-server) | MCP server exposing all tools to any MCP-compatible agent (`presentation-md-mcp`) |
 | [`@presentation-md/install`](packages/install) | One-command installer that wires the skill + MCP server into your agent (`presentation-md-install`) |
 | [`@presentation-md/create-theme`](packages/create-theme) | Scaffold a new publishable theme package (`create-presentation-md-theme`), interactively or from a brand's URL/CSS (`--from-url`/`--from-css`) |
@@ -179,6 +179,18 @@ generates one from any brand's live site or CSS in seconds — see
 
 ---
 
+## Import from PowerPoint
+
+Bring an existing `.pptx` back into Deck JSON for editing, re-theming, or agent iteration:
+
+```bash
+# CLI
+presentation-md-render --from-pptx board-deck.pptx -o deck.json --theme corporate
+```
+
+Agents can call the `import_pptx` MCP tool. Fidelity notes (layouts, images, speaker notes) live in
+[`packages/core/references/pptx-import.md`](packages/core/references/pptx-import.md).
+
 ## Export to PowerPoint, Keynote & Google Slides
 
 Because a deck is *structured* data (not free-form HTML), every slide maps cleanly to native
@@ -211,8 +223,8 @@ schema-driven forms, see a live preview, and download HTML or `.pptx`. It's a fu
 (client-side render + export, no backend).
 
 ```bash
-pnpm --filter @presentation-md/studio dev      # local editor
-pnpm --filter @presentation-md/studio build    # static build → dist/ (deploy to Vercel)
+pnpm --filter @presentation-md/studio dev           # local editor
+pnpm --filter @presentation-md/studio build:web   # static build → web/studio/ (Vercel)
 ```
 
 ## MCP tools
@@ -226,6 +238,7 @@ pnpm --filter @presentation-md/studio build    # static build → dist/ (deploy 
 | `apply_theme` | Swap `meta.theme` on a deck without rewriting slides |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
 | `import_pptx` | Import a `.pptx` into Deck JSON |
+| `preview_themes` | Render 3 one-slide theme previews for visual style discovery |
 | `import_brand_theme` | Generate a theme from a brand URL or CSS file |
 
 ---

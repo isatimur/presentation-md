@@ -72,13 +72,21 @@ This reads the version from `packages/core/package.json` and writes it to every 
 
 ```
 packages/core/          schema, theme loader, validator
-packages/renderer-node/ Node.js HTML renderer + CLI
+packages/renderer-node/ Node.js HTML renderer + CLI (incl. PPTX flags)
+packages/export/        PPTX round-trip library (Deck JSON ↔ .pptx)
 packages/mcp-server/    MCP server (8 tools)
 packages/install/       one-command installer CLI
 packages/create-theme/  theme scaffold CLI
+packages/studio/        browser editor SPA (build → web/studio/)
 packages/renderer-python/ Python renderer (PyPI)
 packages/themes/*/      publishable theme packages
 adapters/               per-agent install scripts
-web/                    landing page (Vercel)
+web/                    landing page + studio static build (Vercel)
 tools/                  monorepo scripts (sync-versions)
 ```
+
+## Publishing
+
+- **npm:** tags `@presentation-md/<package>@<version>` trigger `.github/workflows/publish-npm.yml`, or run `pnpm release` locally with a valid `NPM_TOKEN`.
+- **PyPI:** tags `presentation-md-render@<version>` or `presentation-md-theme-<name>@<version>` trigger `.github/workflows/publish-pypi.yml`.
+- After consuming changesets, run `pnpm sync-versions` to keep all `package.json` and `pyproject.toml` files aligned with `packages/core`.

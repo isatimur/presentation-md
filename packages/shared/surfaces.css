@@ -1,0 +1,214 @@
+/* Per-theme surface profiles — each theme gets a distinct stage, not one shared blob. */
+
+.deck[data-surface] .slide {
+  background: var(--slide-bg, radial-gradient(125% 125% at 0% 0%, var(--bg-2), var(--bg)));
+}
+
+.deck[data-surface] .slide::after,
+.deck[data-surface] .slide::before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.deck[data-surface] .slide > * { position: relative; z-index: 1; }
+
+/* ── default fallback ── */
+.deck[data-surface="gradient"] .slide::after {
+  width: 520px;
+  height: 520px;
+  right: -160px;
+  top: -160px;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 45%, transparent), transparent);
+  filter: blur(8px);
+}
+
+/* ── neon-glow (default-tech) ── */
+.deck[data-surface="neon-glow"] .slide {
+  --slide-bg: radial-gradient(ellipse 120% 80% at 10% 0%, color-mix(in srgb, var(--accent) 22%, var(--bg)), var(--bg));
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.deck[data-surface="neon-glow"] .slide::after {
+  width: 640px;
+  height: 640px;
+  right: -220px;
+  top: -200px;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 55%, transparent), transparent);
+  filter: blur(12px);
+}
+.deck[data-surface="neon-glow"] .slide h1 {
+  text-shadow: 0 0 40px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+/* ── scanline-neon (retro-arcade) ── */
+.deck[data-surface="scanline-neon"] .slide {
+  --slide-bg: linear-gradient(180deg, var(--bg-2), var(--bg));
+}
+.deck[data-surface="scanline-neon"] .slide::before {
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.18) 2px,
+    rgba(0, 0, 0, 0.18) 4px
+  );
+  opacity: 0.35;
+}
+.deck[data-surface="scanline-neon"] .slide::after {
+  width: 100%;
+  height: 3px;
+  left: 0;
+  top: 0;
+  right: auto;
+  background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent));
+  filter: drop-shadow(0 0 12px var(--accent));
+}
+.deck[data-surface="scanline-neon"] .slide h1,
+.deck[data-surface="scanline-neon"] .slide h2 {
+  text-shadow: 0 0 20px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+/* ── warm-paper (claude) ── */
+.deck[data-surface="warm-paper"] .slide {
+  --slide-bg: linear-gradient(165deg, var(--bg) 0%, color-mix(in srgb, var(--bg2) 80%, var(--bg)) 100%);
+  box-shadow: 0 20px 50px rgba(20, 20, 19, 0.08);
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+}
+.deck[data-surface="warm-paper"] .slide::after {
+  width: 280px;
+  height: 280px;
+  left: -80px;
+  bottom: -80px;
+  top: auto;
+  right: auto;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 18%, transparent), transparent);
+}
+
+/* ── clean-light (corporate) ── */
+.deck[data-surface="clean-light"] .slide {
+  --slide-bg: linear-gradient(180deg, #ffffff 0%, color-mix(in srgb, var(--bg2) 40%, #fff) 100%);
+  box-shadow: 0 16px 48px rgba(26, 32, 53, 0.08);
+}
+.deck[data-surface="clean-light"] .slide::after {
+  width: 6px;
+  height: 72px;
+  left: 48px;
+  top: 48px;
+  right: auto;
+  background: var(--accent);
+  border-radius: 3px;
+  filter: none;
+}
+
+/* ── soft-bento (playful) ── */
+.deck[data-surface="soft-bento"] .slide {
+  --slide-bg: radial-gradient(circle at 90% 10%, color-mix(in srgb, var(--accent2) 25%, var(--bg)), var(--bg));
+}
+.deck[data-surface="soft-bento"] .slide::after {
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
+  top: auto;
+  border-radius: 28px;
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  transform: rotate(12deg);
+  filter: none;
+}
+.deck[data-surface="soft-bento"] .card {
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* ── quiet-luxe (luxury-minimalist) ── */
+.deck[data-surface="quiet-luxe"] .slide {
+  --slide-bg: var(--bg);
+  box-shadow: none;
+  border: 1px solid var(--border);
+}
+.deck[data-surface="quiet-luxe"] .slide::after {
+  display: none;
+}
+.deck[data-surface="quiet-luxe"] .slide h1 {
+  letter-spacing: -0.03em;
+  font-weight: 400;
+}
+
+/* ── editorial-rule (editorial-serif) ── */
+.deck[data-surface="editorial-rule"] .slide {
+  --slide-bg: var(--bg);
+}
+.deck[data-surface="editorial-rule"] .slide::before {
+  left: 64px;
+  right: 64px;
+  top: 48px;
+  height: 4px;
+  background: var(--accent);
+}
+.deck[data-surface="editorial-rule"] .slide::after {
+  width: 48px;
+  height: 48px;
+  right: 64px;
+  top: 64px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: transparent;
+  filter: none;
+}
+
+/* ── brutalist-grid (brutalist-mono) ── */
+.deck[data-surface="brutalist-grid"] .slide {
+  --slide-bg: var(--bg);
+  border: 3px solid var(--text);
+  border-radius: 0;
+  box-shadow: 8px 8px 0 var(--text);
+}
+.deck[data-surface="brutalist-grid"] .slide::before {
+  inset: 0;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--border) 60%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--border) 60%, transparent) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.4;
+}
+.deck[data-surface="brutalist-grid"] .slide::after {
+  display: none;
+}
+
+/* ── pastel-cloud (pastel-dreamy) ── */
+.deck[data-surface="pastel-cloud"] .slide {
+  --slide-bg: radial-gradient(ellipse 80% 60% at 20% 20%, color-mix(in srgb, var(--accent2) 30%, var(--bg)), var(--bg));
+}
+.deck[data-surface="pastel-cloud"] .slide::after {
+  width: 200px;
+  height: 200px;
+  left: 60%;
+  top: 10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 25%, transparent), transparent);
+  filter: blur(20px);
+}
+
+/* Scroll-triggered reveals (populated by document.html script) */
+.slide .reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.slide.in-view .reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

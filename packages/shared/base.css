@@ -63,27 +63,8 @@ h1, h2, h3 {
   flex-direction: column;
   justify-content: center;
   scroll-snap-align: center;
-  background: radial-gradient(125% 125% at 0% 0%, var(--bg-2), var(--bg));
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
   border: 1px solid var(--border);
-}
-
-/* geometric accent blob for depth */
-.slide::after {
-  content: "";
-  position: absolute;
-  width: 520px;
-  height: 520px;
-  right: -160px;
-  top: -160px;
-  background: radial-gradient(
-    closest-side,
-    color-mix(in srgb, var(--accent) 50%, transparent),
-    transparent
-  );
-  filter: blur(6px);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .slide > * { position: relative; z-index: 1; }

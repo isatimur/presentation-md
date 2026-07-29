@@ -350,16 +350,21 @@ These are the details that make a deck read as machine-generated. A reviewer clo
 ## Theme Discovery (show, don't tell)
 
 Do **not** ask the user to pick a theme from a bare name list when they are unsure.
-Inspired by frontend-slides' progressive style discovery:
+Match frontend-slides' mandatory visual discovery — but with structured themes + MCP:
 
 1. Read `references/theme-selection-index.json` (mood, best_for, avoid_for, scheme).
 2. Shortlist **3** themes that fit purpose + audience + density.
-3. Briefly describe each in one line (vibe + when to use). If tooling is available, optionally
-   render three 1-slide title decks via `render_deck` so they can *see* the difference.
-4. After they pick, set `meta.theme` and proceed — load full theme details only then
-   (`list_themes` / theme package README).
+3. **Required when tooling is available:** call `preview_themes` with those 3 names
+   (writes `.presentation-md/theme-previews/<theme>-preview.html`). Open each file for the user
+   or paste paths — they pick visually, not from adjectives alone.
+4. If MCP is unavailable, run:
+   `npx @presentation-md/render preview.json -o previews/<theme>.html --theme <name>` three times
+   (one title slide each).
+5. After they pick, set `meta.theme` and proceed. Read `references/anti-slop-bans.md` before custom styling.
 
 If they already named a theme or brand URL, skip discovery (`import_brand_theme` for brand match).
+
+See also: `references/animation-patterns.md` for motion craft on the direct-HTML path.
 
 ---
 
@@ -391,6 +396,7 @@ Fill gaps with intelligent defaults. Never ask more than 3 clarifying questions.
 | `list_themes` | See installed themes with vibe/description |
 | `apply_theme` | Swap `meta.theme` without rewriting slides |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
+| `preview_themes` | Render 3 one-slide HTML previews for visual theme pick (show-don't-tell) |
 | `import_pptx` | Import a `.pptx` into deck JSON (see `references/pptx-import.md`) |
 | `import_brand_theme` | Generate a theme from a brand URL or CSS file |
 

@@ -9,18 +9,22 @@ presentation-md gives AI agents a schema-validated workflow for creating slide d
 1. The agent fills a Deck JSON spec (title, slides, layout, theme)
 2. A renderer converts it to a single self-contained HTML file
 3. Output opens in any browser — no hosting, no build tool, no export
+4. Optional: export to native, editable PowerPoint (`.pptx`), or import an existing `.pptx` back into Deck JSON
 
 ## Key facts
 
 - **License:** MIT (free, open source)
+- **Version:** 1.0.0 (npm `@presentation-md/*`; `core` latest is 1.0.1)
 - **Install:** `npx @presentation-md/install <agent>` — one command
 - **Agents supported:** Claude Code, Cursor, GitHub Copilot, OpenAI Codex, Gemini CLI
 - **Output format:** Single self-contained HTML file (no external dependencies)
 - **Themes:** 9 vibes (bundled + publishable npm/PyPI packages); brand import from URL/CSS
 - **MCP server:** 8 typed tools (`render_deck`, `export_deck`, `audit_deck`, `list_themes`, `apply_theme`, `generate_deck_prompt`, `import_pptx`, `import_brand_theme`)
 - **Import:** PPTX → Deck JSON; brand URL → theme
-- **Export:** HTML, PDF, live URL, editable `.pptx`
-- **npm package:** `@presentation-md/install`
+- **Export:** HTML, editable `.pptx` (PowerPoint / Keynote / Google Slides)
+- **Studio:** Browser editor at https://presentation-md.vercel.app/studio
+- **npm:** `@presentation-md/install` and 12 other packages — https://www.npmjs.com/search?q=%40presentation-md
+- **PyPI:** `presentation-md-render` + theme packages — https://pypi.org/search/?q=presentation-md
 - **GitHub:** https://github.com/isatimur/presentation-md
 - **Author:** Timur Isachenko
 
@@ -52,6 +56,19 @@ npx @presentation-md/install codex
 npx @presentation-md/install gemini-cli
 ```
 
+## CLI quick reference
+
+```
+# Render HTML
+npx @presentation-md/render deck.json -o deck.html --theme corporate
+
+# Export PowerPoint
+npx @presentation-md/render deck.json --format pptx -o deck.pptx
+
+# Import PowerPoint → Deck JSON
+npx @presentation-md/render --from-pptx deck.pptx -o deck.json
+```
+
 ## Use cases
 
 - Startup pitch decks and investor updates
@@ -70,5 +87,7 @@ npx @presentation-md/install gemini-cli
 ## Key pages
 
 - Homepage + gallery: https://presentation-md.vercel.app/
+- Studio (browser editor): https://presentation-md.vercel.app/studio
 - Example decks: https://presentation-md.vercel.app/examples/
 - npm: https://www.npmjs.com/package/@presentation-md/install
+- PyPI: https://pypi.org/project/presentation-md-render/

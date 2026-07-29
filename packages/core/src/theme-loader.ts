@@ -46,6 +46,8 @@ export interface ResolvedTheme {
 
 export interface LoadOptions {
   themesDir: string;
+  /** Additional directories when resolving themes (e.g. core bundled themes for `extends`). */
+  fallbackThemesDirs?: string[];
 }
 
 const DEFAULT_PALETTE: Palette = {
@@ -71,19 +73,27 @@ const DEFAULT_GEOMETRY: Geometry = {
   slideWidth: "1280px"
 };
 
-async function readManifest(themesDir: string, name: string): Promise<ThemeManifest> {
-  const raw = await readFile(join(themesDir, name, "theme.json"), "utf-8");
-  return JSON.parse(raw) as ThemeManifest;
+async function readManifest(name: string, searchDirs: string[]): Promise<ThemeManifest> {
+  for (const dir of searchDirs) {
+    try {
+      const raw = await readFile(join(dir, name, "theme.json"), "utf-8");
+      return JSON.parse(raw) as ThemeManifest;
+    } catch {
+      /* try next directory */
+    }
+  }
+  throw new Error(`Theme not found: ${name}`);
 }
 
 export async function loadTheme(name: string, opts: LoadOptions): Promise<ResolvedTheme> {
+  const searchDirs = [opts.themesDir, ...(opts.fallbackThemesDirs ?? [])];
   const chain: ThemeManifest[] = [];
   let current: string | undefined = name;
   const seen = new Set<string>();
 
   while (current && !seen.has(current)) {
     seen.add(current);
-    const manifest = await readManifest(opts.themesDir, current);
+    const manifest = await readManifest(current, searchDirs);
     chain.unshift(manifest);
     current = manifest.extends;
   }

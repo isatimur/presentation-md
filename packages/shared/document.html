@@ -11,7 +11,7 @@
 </style>
 </head>
 <body>
-<main class="deck">
+<main class="deck" data-surface="{{surface}}">
 {{{slides}}}
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
@@ -21,6 +21,27 @@
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
   if (!slides.length) return;
+
+  slides.forEach(function (slide) {
+    var kids = slide.querySelectorAll("h1, h2, h3, .eyebrow, .lead, .card, .stat, .quote, .btn, table, .timeline .node");
+    for (var i = 0; i < kids.length; i++) {
+      kids[i].classList.add("reveal");
+      kids[i].style.setProperty("--reveal-delay", String(Math.min(i * 70, 280)) + "ms");
+    }
+  });
+
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) e.target.classList.add("in-view");
+      });
+    }, { threshold: 0.35 });
+    slides.forEach(function (s) { io.observe(s); });
+    slides[0].classList.add("in-view");
+  } else {
+    slides.forEach(function (s) { s.classList.add("in-view"); });
+  }
+
   function go(delta) {
     var y = window.scrollY || window.pageYOffset;
     var target = null;
