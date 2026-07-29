@@ -1,0 +1,32 @@
+{
+  "name": "candy-pop",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Candy pop \u2014 cream canvas, hot pink + butter yellow, soft blobs, rounded type.",
+  "vibe": "Candy pop \u2014 cream canvas, hot pink + jellybean blue, Fredoka + Poppins (matches Jellybean gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#fdf3e7",
+    "bg2": "#f7e8d4",
+    "text": "#1a1a2e",
+    "muted": "#7a6a80",
+    "accent": "#ff5d8f",
+    "accent2": "#2d7dd2",
+    "cardBg": "rgba(255,93,143,0.08)",
+    "border": "rgba(26,26,46,0.14)"
+  },
+  "typography": {
+    "headingFont": "'Fredoka', system-ui, sans-serif",
+    "bodyFont": "'Poppins', system-ui, sans-serif",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Fredoka:wght@500;700",
+      "Poppins:wght@400;600"
+    ]
+  },
+  "geometry": {
+    "radius": "28px",
+    "slideWidth": "1280px"
+  }
+}

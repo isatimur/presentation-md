@@ -7,25 +7,25 @@
 <meta name="description" content="Sales deck — data platform for professional services." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Sans+3:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap');
 
 /* presentation-md base stylesheet.
    Theme tokens are injected via the :root block below. Layout fragments in
    ./layouts/*.html consume these CSS variables and class names. */
 
 :root {
-  --bg: #ffffff;
-  --bg-2: #f8f9fc;
-  --text: #1a2035;
-  --muted: #6b7280;
-  --accent: #1d4ed8;
-  --accent-2: #0369a1;
-  --card-bg: #f1f5f9;
-  --border: rgba(0,0,0,0.08);
-  --radius: 8px;
+  --bg: #f7f5f0;
+  --bg-2: #f2efe8;
+  --text: #0a0a0a;
+  --muted: #6b6560;
+  --accent: #1a4fd8;
+  --accent-2: #c0392b;
+  --card-bg: rgba(10,10,10,0.03);
+  --border: rgba(10,10,10,0.12);
+  --radius: 0px;
   --slide-w: 1280px;
-  --heading-font: 'Inter', system-ui, sans-serif;
-  --body-font: 'Source Sans 3', system-ui, sans-serif;
+  --heading-font: 'Libre Baskerville', Georgia, serif;
+  --body-font: 'IBM Plex Sans', system-ui, sans-serif;
   --heading-weight: 700;
 }
 
@@ -515,6 +515,383 @@ thead th {
   filter: blur(20px);
 }
 
+/* ── aurora-glass ── */
+.deck[data-surface="aurora-glass"] .slide {
+  --slide-bg: radial-gradient(ellipse 90% 70% at 80% 10%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 55%),
+              radial-gradient(ellipse 70% 60% at 10% 90%, color-mix(in srgb, var(--accent2) 22%, transparent), transparent 50%),
+              var(--bg);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.deck[data-surface="aurora-glass"] .slide::after {
+  width: 420px;
+  height: 420px;
+  right: -120px;
+  top: -140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 40%, transparent), transparent 70%);
+  filter: blur(28px);
+}
+.deck[data-surface="aurora-glass"] .card {
+  backdrop-filter: blur(8px);
+  background: color-mix(in srgb, var(--card-bg) 80%, transparent);
+}
+
+/* ── broadsheet-rule (ft-editorial) ── */
+.deck[data-surface="broadsheet-rule"] .slide {
+  --slide-bg: var(--bg);
+  border-radius: 0;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+.deck[data-surface="broadsheet-rule"] .slide::before {
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 28px;
+  background: var(--text);
+}
+.deck[data-surface="broadsheet-rule"] .slide::after {
+  left: 64px;
+  right: 64px;
+  top: auto;
+  bottom: 48px;
+  height: 2px;
+  width: auto;
+  background: var(--text);
+  filter: none;
+}
+
+/* ── hard-bento (genz-bento) ── */
+.deck[data-surface="hard-bento"] .slide {
+  --slide-bg: var(--bg);
+  border: 3px solid var(--text);
+  box-shadow: 10px 10px 0 var(--text);
+}
+.deck[data-surface="hard-bento"] .slide::after {
+  width: 140px;
+  height: 140px;
+  right: -30px;
+  top: -30px;
+  border-radius: 50%;
+  background: var(--accent2);
+  opacity: 0.55;
+  filter: none;
+}
+.deck[data-surface="hard-bento"] .card {
+  border: 2.5px solid var(--text);
+  box-shadow: 4px 4px 0 var(--text);
+  border-radius: 14px;
+}
+
+/* ── crt-phosphor (crt-terminal) ── */
+.deck[data-surface="crt-phosphor"] .slide {
+  --slide-bg: radial-gradient(ellipse 100% 80% at 50% 40%, #0a1808, var(--bg));
+  border-radius: 0;
+  box-shadow: inset 0 0 80px rgba(57, 255, 20, 0.08), 0 0 40px rgba(0, 245, 255, 0.12);
+}
+.deck[data-surface="crt-phosphor"] .slide::before {
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(0, 0, 0, 0.28) 1px,
+    rgba(0, 0, 0, 0.28) 3px
+  );
+  opacity: 0.45;
+}
+.deck[data-surface="crt-phosphor"] .slide::after {
+  display: none;
+}
+.deck[data-surface="crt-phosphor"] .slide h1,
+.deck[data-surface="crt-phosphor"] .slide h2 {
+  text-shadow: 0 0 14px color-mix(in srgb, var(--accent) 65%, transparent),
+    0 0 32px color-mix(in srgb, var(--accent2) 35%, transparent);
+}
+.deck[data-surface="crt-phosphor"] .eyebrow,
+.deck[data-surface="crt-phosphor"] .comparison-label {
+  color: var(--accent);
+}
+
+/* ── swiss-grid (swiss-typographic) ── */
+.deck[data-surface="swiss-grid"] .slide {
+  --slide-bg: var(--bg);
+  border-radius: 0;
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+.deck[data-surface="swiss-grid"] .slide::before {
+  inset: 0;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--border) 70%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--border) 70%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: 0.55;
+}
+.deck[data-surface="swiss-grid"] .slide::after {
+  width: 8px;
+  height: 100%;
+  left: 0;
+  top: 0;
+  right: auto;
+  background: var(--accent);
+  filter: none;
+}
+
+/* ── candy-blob (candy-pop) ── */
+.deck[data-surface="candy-blob"] .slide {
+  --slide-bg: radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--accent) 22%, var(--bg)), var(--bg) 42%),
+              radial-gradient(circle at 88% 78%, color-mix(in srgb, var(--accent2) 35%, var(--bg)), var(--bg) 48%);
+  border: 3px solid var(--text);
+  box-shadow: 0 18px 0 color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.deck[data-surface="candy-blob"] .slide::after {
+  width: 180px;
+  height: 180px;
+  right: 48px;
+  top: 40px;
+  border-radius: 50%;
+  background: var(--accent2);
+  opacity: 0.55;
+  filter: none;
+  border: 3px solid var(--text);
+}
+.deck[data-surface="candy-blob"] .card {
+  border: 2.5px solid var(--text);
+  border-radius: 22px;
+}
+
+/* ── hud-grid (aerospace-hud) ── */
+.deck[data-surface="hud-grid"] .slide {
+  --slide-bg: linear-gradient(180deg, var(--bg-2), var(--bg));
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 18%, transparent),
+    inset 0 0 60px rgba(0, 0, 0, 0.25);
+}
+.deck[data-surface="hud-grid"] .slide::before {
+  inset: 0;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--accent) 18%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 18%, transparent) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.5;
+}
+.deck[data-surface="hud-grid"] .slide::after {
+  width: 56px;
+  height: 56px;
+  right: 40px;
+  top: 40px;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: inset 0 0 0 6px color-mix(in srgb, var(--accent) 25%, transparent);
+  filter: none;
+}
+.deck[data-surface="hud-grid"] .slide h1 {
+  text-shadow: 0 0 24px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+/* ── acid-block (brutalist-acid) ── */
+.deck[data-surface="acid-block"] .slide {
+  --slide-bg: var(--bg);
+  border: 3px solid var(--accent);
+  border-radius: 0;
+  box-shadow: 10px 10px 0 var(--accent);
+}
+.deck[data-surface="acid-block"] .slide::before {
+  inset: 0;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--accent) 12%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 12%, transparent) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.5;
+}
+.deck[data-surface="acid-block"] .slide::after {
+  width: 72px;
+  height: 72px;
+  right: 40px;
+  top: 40px;
+  background: var(--accent);
+  filter: none;
+}
+.deck[data-surface="acid-block"] .card {
+  border: 2px solid var(--accent);
+  border-radius: 0;
+}
+
+/* ── bauhaus-blocks ── */
+.deck[data-surface="bauhaus-blocks"] .slide {
+  --slide-bg: var(--bg);
+  border-radius: 0;
+  border: 2px solid var(--text);
+}
+.deck[data-surface="bauhaus-blocks"] .slide::before {
+  width: 96px;
+  height: 96px;
+  right: 64px;
+  top: 56px;
+  background: var(--accent);
+  filter: none;
+}
+.deck[data-surface="bauhaus-blocks"] .slide::after {
+  width: 96px;
+  height: 96px;
+  right: 120px;
+  top: 112px;
+  border-radius: 50%;
+  background: var(--accent2);
+  filter: none;
+  opacity: 0.9;
+}
+
+/* ── aero-bubble (y2k-aero) ── */
+.deck[data-surface="aero-bubble"] .slide {
+  --slide-bg: linear-gradient(160deg, #ffffff 0%, var(--bg) 45%, color-mix(in srgb, var(--accent) 18%, var(--bg)) 100%);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  box-shadow: 0 24px 60px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.deck[data-surface="aero-bubble"] .slide::after {
+  width: 220px;
+  height: 220px;
+  right: -40px;
+  top: -60px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, color-mix(in srgb, var(--accent2) 55%, transparent));
+  filter: blur(2px);
+  opacity: 0.7;
+}
+.deck[data-surface="aero-bubble"] .slide::before {
+  width: 140px;
+  height: 140px;
+  left: 8%;
+  bottom: 10%;
+  top: auto;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, color-mix(in srgb, var(--accent) 50%, transparent));
+  opacity: 0.55;
+}
+
+/* ── riso-print (risograph-zine) ── */
+.deck[data-surface="riso-print"] .slide {
+  --slide-bg: var(--bg);
+  border: 2px solid var(--text);
+  box-shadow: 6px 6px 0 color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.deck[data-surface="riso-print"] .slide::before {
+  width: 55%;
+  height: 55%;
+  right: -4%;
+  top: -6%;
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  mix-blend-mode: multiply;
+  filter: none;
+}
+.deck[data-surface="riso-print"] .slide::after {
+  width: 40%;
+  height: 45%;
+  left: -2%;
+  bottom: -4%;
+  top: auto;
+  right: auto;
+  background: color-mix(in srgb, var(--accent2) 20%, transparent);
+  mix-blend-mode: multiply;
+  filter: none;
+}
+
+/* ── neon-rain (neon-noir) ── */
+.deck[data-surface="neon-rain"] .slide {
+  --slide-bg: linear-gradient(180deg, #12121f 0%, var(--bg) 55%, #050508 100%);
+  box-shadow: 0 0 50px color-mix(in srgb, var(--accent) 25%, transparent),
+    inset 0 -40px 80px color-mix(in srgb, var(--accent2) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent2) 30%, transparent);
+}
+.deck[data-surface="neon-rain"] .slide::before {
+  inset: 0;
+  background: repeating-linear-gradient(
+    100deg,
+    transparent,
+    transparent 6px,
+    rgba(255, 255, 255, 0.015) 6px,
+    rgba(255, 255, 255, 0.015) 7px
+  );
+  opacity: 0.7;
+}
+.deck[data-surface="neon-rain"] .slide::after {
+  width: 480px;
+  height: 480px;
+  right: -160px;
+  top: -120px;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 45%, transparent), transparent);
+  filter: blur(10px);
+}
+.deck[data-surface="neon-rain"] .slide h1 {
+  text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 55%, transparent),
+    0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
+}
+
+/* ── vapor-horizon (vaporwave) ── */
+.deck[data-surface="vapor-horizon"] .slide {
+  --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.deck[data-surface="vapor-horizon"] .slide::before {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: auto;
+  height: 42%;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--accent2) 35%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent2) 35%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.45;
+  transform: perspective(400px) rotateX(55deg);
+  transform-origin: bottom center;
+}
+.deck[data-surface="vapor-horizon"] .slide::after {
+  width: 100%;
+  height: 3px;
+  left: 0;
+  top: 48%;
+  right: auto;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+  filter: drop-shadow(0 0 10px var(--accent));
+}
+.deck[data-surface="vapor-horizon"] .slide h1 {
+  text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
+    -2px 0 color-mix(in srgb, var(--accent) 50%, transparent);
+}
+
+/* ── botanical-leaf (botanical-luxe) ── */
+.deck[data-surface="botanical-leaf"] .slide {
+  --slide-bg: radial-gradient(ellipse 90% 70% at 100% 0%, color-mix(in srgb, var(--accent2) 18%, var(--bg)), var(--bg));
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+.deck[data-surface="botanical-leaf"] .slide::before {
+  left: 64px;
+  right: 64px;
+  top: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+.deck[data-surface="botanical-leaf"] .slide::after {
+  width: 120px;
+  height: 120px;
+  right: 56px;
+  bottom: 48px;
+  top: auto;
+  border: 1px solid var(--accent);
+  border-radius: 50% 0 50% 50%;
+  background: transparent;
+  transform: rotate(-25deg);
+  filter: none;
+  opacity: 0.55;
+}
+.deck[data-surface="botanical-leaf"] .slide h1 {
+  font-style: italic;
+}
+
 /* Scroll-triggered reveals (populated by document.html script) */
 .slide .reveal {
   opacity: 0;
@@ -560,7 +937,7 @@ thead th {
 </style>
 </head>
 <body>
-<main class="deck" data-surface="clean-light">
+<main class="deck" data-surface="broadsheet-rule">
 <section class="slide title-slide">
   <span class="eyebrow">Hargrove Partners</span>
   <h1>Data that moves the needle.</h1>
@@ -720,7 +1097,7 @@ Live pipeline tied to activity.</p>
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Meridian × Hargrove Partners","company":"Meridian","description":"Sales deck — data platform for professional services.","theme":"corporate"},"slides":[{"layout":"title","eyebrow":"Hargrove Partners","heading":"Data that moves the needle.","lead":"A proposal for automated reporting, client intelligence, and forecast clarity."},{"layout":"feature-grid","eyebrow":"Agenda · 45 minutes","heading":"Four sections","columns":2,"cards":[{"title":"01 · Cost of inaction","body":"What manual reporting and fragmented tooling cost Hargrove today."},{"title":"02 · Recommended modules","body":"Three purpose-built modules scoped to your data environment."},{"title":"03 · Implementation & ROI","body":"Timeline, savings model, and a similar-client reference."},{"title":"04 · Pricing & next steps","body":"Commercial terms and a concrete action plan."}]},{"layout":"stat-row","eyebrow":"Current cost analysis","heading":"Projected annual savings","stats":[{"value":"$118k","label":"Projected annual save"},{"value":"$95/hr","label":"Blended analyst rate"},{"value":"400+","label":"Hours reclaimed / year"}]},{"layout":"feature-grid","eyebrow":"Recommended modules","heading":"Built for Hargrove's workflow","columns":3,"cards":[{"icon":"fa-solid fa-file-lines","title":"Automated Reporting","body":"Client-ready packs on a schedule — no spreadsheet assembly."},{"icon":"fa-solid fa-users","title":"Client Intelligence","body":"One dashboard per account: engagement, risk, opportunity."},{"icon":"fa-solid fa-chart-pie","title":"Pipeline Forecasting","body":"Revenue forecast tied to fee-earner activity, not gut feel."}]},{"layout":"timeline","eyebrow":"Implementation","heading":"Discovery to go-live","steps":[{"title":"2 weeks","body":"Discovery & data mapping."},{"title":"5 weeks","body":"Module build & integrations."},{"title":"10 days","body":"UAT with practice leads."},{"title":"Go-live","body":"Training + hypercare week."}]},{"layout":"comparison","eyebrow":"Pain → Module","heading":"How each module lands","leftLabel":"Today's pain","left":"Manual reporting packs.\nFragmented CRM + finance views.\nForecasts rebuilt every Monday.","rightLabel":"With Meridian","right":"Scheduled, branded reports.\nUnified client intelligence.\nLive pipeline tied to activity."},{"layout":"data-table","eyebrow":"12-month ROI model","heading":"Savings detail","columns":["Line item","Annual"],"rows":[["Analyst time — reporting (220 hrs × $95)","$20,900"],["Analyst time — data cleaning (180 hrs × $95)","$17,100"],["Partner time — forecast rework","$42,000"],["Tooling consolidation","$38,000"],["Total projected","$118,000"]]},{"layout":"quote","quote":"We cut weekly reporting from two days to forty minutes — and partners finally trust the numbers.","by":"COO, mid-size regional professional services firm"},{"layout":"section","number":"09","eyebrow":"Pricing & terms","heading":"Transparent commercial frame","lead":"Platform + three modules · annual commit · success criteria written into the SOW."},{"layout":"closing","eyebrow":"Next steps","heading":"Let's lock a start date.","lead":"Action owners and dates go into the shared tracker this week.","cta":{"label":"Schedule kickoff","href":"https://meridian.example/kickoff"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Meridian × Hargrove Partners","company":"Meridian","description":"Sales deck — data platform for professional services.","theme":"ft-editorial"},"slides":[{"layout":"title","eyebrow":"Hargrove Partners","heading":"Data that moves the needle.","lead":"A proposal for automated reporting, client intelligence, and forecast clarity."},{"layout":"feature-grid","eyebrow":"Agenda · 45 minutes","heading":"Four sections","columns":2,"cards":[{"title":"01 · Cost of inaction","body":"What manual reporting and fragmented tooling cost Hargrove today."},{"title":"02 · Recommended modules","body":"Three purpose-built modules scoped to your data environment."},{"title":"03 · Implementation & ROI","body":"Timeline, savings model, and a similar-client reference."},{"title":"04 · Pricing & next steps","body":"Commercial terms and a concrete action plan."}]},{"layout":"stat-row","eyebrow":"Current cost analysis","heading":"Projected annual savings","stats":[{"value":"$118k","label":"Projected annual save"},{"value":"$95/hr","label":"Blended analyst rate"},{"value":"400+","label":"Hours reclaimed / year"}]},{"layout":"feature-grid","eyebrow":"Recommended modules","heading":"Built for Hargrove's workflow","columns":3,"cards":[{"icon":"fa-solid fa-file-lines","title":"Automated Reporting","body":"Client-ready packs on a schedule — no spreadsheet assembly."},{"icon":"fa-solid fa-users","title":"Client Intelligence","body":"One dashboard per account: engagement, risk, opportunity."},{"icon":"fa-solid fa-chart-pie","title":"Pipeline Forecasting","body":"Revenue forecast tied to fee-earner activity, not gut feel."}]},{"layout":"timeline","eyebrow":"Implementation","heading":"Discovery to go-live","steps":[{"title":"2 weeks","body":"Discovery & data mapping."},{"title":"5 weeks","body":"Module build & integrations."},{"title":"10 days","body":"UAT with practice leads."},{"title":"Go-live","body":"Training + hypercare week."}]},{"layout":"comparison","eyebrow":"Pain → Module","heading":"How each module lands","leftLabel":"Today's pain","left":"Manual reporting packs.\nFragmented CRM + finance views.\nForecasts rebuilt every Monday.","rightLabel":"With Meridian","right":"Scheduled, branded reports.\nUnified client intelligence.\nLive pipeline tied to activity."},{"layout":"data-table","eyebrow":"12-month ROI model","heading":"Savings detail","columns":["Line item","Annual"],"rows":[["Analyst time — reporting (220 hrs × $95)","$20,900"],["Analyst time — data cleaning (180 hrs × $95)","$17,100"],["Partner time — forecast rework","$42,000"],["Tooling consolidation","$38,000"],["Total projected","$118,000"]]},{"layout":"quote","quote":"We cut weekly reporting from two days to forty minutes — and partners finally trust the numbers.","by":"COO, mid-size regional professional services firm"},{"layout":"section","number":"09","eyebrow":"Pricing & terms","heading":"Transparent commercial frame","lead":"Platform + three modules · annual commit · success criteria written into the SOW."},{"layout":"closing","eyebrow":"Next steps","heading":"Let's lock a start date.","lead":"Action owners and dates go into the shared tracker this week.","cta":{"label":"Schedule kickoff","href":"https://meridian.example/kickoff"}}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));

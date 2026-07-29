@@ -1,6 +1,6 @@
 ---
 name: presentation-generator
-description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 9 themes and 11 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
+description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 23 themes and 11 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
 license: MIT
 metadata:
   author: isatimur
@@ -196,6 +196,104 @@ Each theme is a complete design language: colors, typography, geometry, motion, 
 **Fonts:** Quicksand headings · Mulish body
 **Geometry:** 28px radius, gentle cards, airy spacing
 **Use for:** wellness, consumer apps, education, community products, lifestyle brands
+
+### `aurora-glass`
+**Soul:** Night sky through frosted glass — cinematic AI infrastructure energy.
+**Palette:** `#000` void · `#fff` · `#a78bfa` violet · `#67e8f9` cyan
+**Fonts:** Syne headings · Inter body
+**Surface:** `aurora-glass`
+**Use for:** AI pitches, SaaS platforms, developer launches (gallery: NovaSpark)
+
+### `ft-editorial`
+**Soul:** Broadsheet that still believes in serious argument.
+**Palette:** `#f7f5f0` newsprint · `#0a0a0a` ink · `#1a4fd8` FT blue · `#c0392b` signal red
+**Fonts:** Libre Baskerville · IBM Plex Sans
+**Surface:** `broadsheet-rule`
+**Use for:** sales proposals, consulting, finance (gallery: Meridian)
+
+### `genz-bento`
+**Soul:** Sticker sheet energy — hard shadows, no apology.
+**Palette:** `#fff9f5` · `#ff4d2e` coral · `#b6f542` lime
+**Fonts:** Nunito / Nunito Sans
+**Surface:** `hard-bento`
+**Use for:** consumer launches, Gen-Z brands (gallery: Bounce)
+
+### `crt-terminal`
+**Soul:** Phosphor green that never left 1983.
+**Palette:** `#06040a` · cream `#f5f0e8` · `#39ff14` phosphor · `#00f5ff` cyan
+**Fonts:** VT323 · Share Tech Mono
+**Surface:** `crt-phosphor`
+**Use for:** privacy tools, open source, security demos (gallery: RetroNet)
+
+### `swiss-typographic`
+**Soul:** International Typographic Style — grid, signal red, nothing extra.
+**Palette:** `#ffffff` · `#0a0a0a` · `#e2231a` signal red
+**Fonts:** Inter
+**Surface:** `swiss-grid`
+**Use for:** design agencies, brand systems, architecture (gallery: Grid Systems)
+
+### `candy-pop`
+**Soul:** Soft-serve branding — pink, butter yellow, thick outlines.
+**Palette:** `#fdf3e7` · `#ff5d8f` pink · `#2d7dd2` blue
+**Fonts:** Fredoka · Poppins
+**Surface:** `candy-blob`
+**Use for:** DTC, food & beverage, playful consumer (gallery: Jellybean)
+
+### `aerospace-hud`
+**Soul:** Cockpit instruments before takeoff.
+**Palette:** `#0a1d3a` navy · `#5ec8ff` cyan · `#ff7a18` warning
+**Fonts:** Barlow Condensed · Barlow
+**Surface:** `hud-grid`
+**Use for:** robotics, aerospace, deep tech hardware (gallery: Axiom)
+
+### `brutalist-acid`
+**Soul:** Dark concrete + acid lime — MONOLITH energy.
+**Palette:** `#1c1c1c` · `#e8e6e1` · `#d6ff00` hazard lime
+**Fonts:** Space Mono · Barlow Condensed
+**Surface:** `acid-block`
+**Use for:** Series A tech pitches, infrastructure (gallery: MONOLITH)
+
+### `bauhaus`
+**Soul:** Primary geometry that still teaches.
+**Palette:** `#f4f1ea` cream · `#e63946` red · `#1f4ae0` blue
+**Fonts:** Archivo · Space Grotesk
+**Surface:** `bauhaus-blocks`
+**Use for:** design keynotes (gallery: Primary)
+
+### `y2k-aero`
+**Soul:** Millennium optimism in chrome cyan bubbles.
+**Palette:** `#e0f7ff` · `#38bdf8` sky · `#a3e635` lime
+**Fonts:** Nunito
+**Surface:** `aero-bubble`
+**Use for:** consumer launches (gallery: BubbleFlow)
+
+### `risograph-zine`
+**Soul:** Print-shop misregister as a feature.
+**Palette:** `#f3ecdd` kraft · `#ff4f4f` red · `#2b3aff` blue
+**Fonts:** Archivo Black · Space Mono
+**Surface:** `riso-print`
+**Use for:** seed pitches, indie brands (gallery: Inkwell)
+
+### `neon-noir`
+**Soul:** Rain-slick streets and neon signs.
+**Palette:** `#050510` · `#ff2e97` · `#00e5ff`
+**Fonts:** Orbitron · Share Tech Mono
+**Surface:** `neon-rain`
+**Use for:** platform launches (gallery: Neon District)
+
+### `vaporwave`
+**Soul:** Mallsoft sunset on a wireframe grid.
+**Palette:** `#1a0533` · `#ff6ad5` · `#5ce1ff`
+**Fonts:** Monoton · Space Mono
+**Surface:** `vapor-horizon`
+**Use for:** culture/consumer (gallery: Mallsoft)
+
+### `botanical-luxe`
+**Soul:** Forest canopy with gold leaf.
+**Palette:** `#1d3a2f` · `#bfa55a` gold · `#4a7c59`
+**Fonts:** Cormorant · DM Sans
+**Surface:** `botanical-leaf`
+**Use for:** impact reports (gallery: Verdant)
 
 ---
 

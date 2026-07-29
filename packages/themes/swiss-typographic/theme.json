@@ -1,0 +1,31 @@
+{
+  "name": "swiss-typographic",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Swiss International Typographic Style \u2014 white grid, signal red, Helvetica-like grotesk.",
+  "vibe": "Swiss typographic \u2014 pure white, Inter grotesk, signal red, zero radius, modular grid (matches Grid Systems gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#ffffff",
+    "bg2": "#f5f5f5",
+    "text": "#0a0a0a",
+    "muted": "#636363",
+    "accent": "#e2231a",
+    "accent2": "#0a0a0a",
+    "cardBg": "rgba(0,0,0,0.03)",
+    "border": "rgba(0,0,0,0.12)"
+  },
+  "typography": {
+    "headingFont": "'Inter', Helvetica, Arial, sans-serif",
+    "bodyFont": "'Inter', Helvetica, Arial, sans-serif",
+    "headingWeight": 800,
+    "googleFonts": [
+      "Inter:wght@400;600;800"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

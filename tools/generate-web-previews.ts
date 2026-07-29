@@ -20,6 +20,20 @@ const PACKAGED_THEMES = [
   "editorial-serif",
   "brutalist-mono",
   "pastel-dreamy",
+  "aurora-glass",
+  "ft-editorial",
+  "genz-bento",
+  "crt-terminal",
+  "swiss-typographic",
+  "candy-pop",
+  "aerospace-hud",
+  "brutalist-acid",
+  "bauhaus",
+  "y2k-aero",
+  "risograph-zine",
+  "neon-noir",
+  "vaporwave",
+  "botanical-luxe",
 ];
 
 function previewDeck(theme: string): string {

@@ -1,0 +1,19 @@
+[project]
+name = "presentation-md-theme-candy-pop"
+version = "1.0.0"
+description = "Candy-pop presentation theme — cream, pink + butter yellow, soft blobs."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [{ name = "Timur Isachenko" }]
+keywords = ["presentation-md", "theme", "ai-agent", "slides"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/presentation_md_theme_candy_pop"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"theme.json" = "presentation_md_theme_candy_pop/theme.json"

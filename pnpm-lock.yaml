@@ -223,19 +223,47 @@ importers:
         specifier: ^1.5.0
         version: 1.6.1(@types/node@20.19.41)
 
+  packages/themes/aerospace-hud: {}
+
+  packages/themes/aurora-glass: {}
+
+  packages/themes/bauhaus: {}
+
+  packages/themes/botanical-luxe: {}
+
+  packages/themes/brutalist-acid: {}
+
   packages/themes/brutalist-mono: {}
+
+  packages/themes/candy-pop: {}
 
   packages/themes/corporate: {}
 
+  packages/themes/crt-terminal: {}
+
   packages/themes/editorial-serif: {}
 
+  packages/themes/ft-editorial: {}
+
+  packages/themes/genz-bento: {}
+
   packages/themes/luxury-minimalist: {}
+
+  packages/themes/neon-noir: {}
 
   packages/themes/pastel-dreamy: {}
 
   packages/themes/playful: {}
 
   packages/themes/retro-arcade: {}
+
+  packages/themes/risograph-zine: {}
+
+  packages/themes/swiss-typographic: {}
+
+  packages/themes/vaporwave: {}
+
+  packages/themes/y2k-aero: {}
 
 packages:
 

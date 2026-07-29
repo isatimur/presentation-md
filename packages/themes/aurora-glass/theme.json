@@ -1,0 +1,32 @@
+{
+  "name": "aurora-glass",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Dark aurora glassmorphism \u2014 void canvas, frosted cards, violet + cyan glow.",
+  "vibe": "Aurora glass \u2014 pure black void, Syne + Inter, violet #a78bfa + cyan #67e8f9 (matches NovaSpark gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#000000",
+    "bg2": "#0a0612",
+    "text": "#ffffff",
+    "muted": "#a5a0b8",
+    "accent": "#a78bfa",
+    "accent2": "#67e8f9",
+    "cardBg": "rgba(255,255,255,0.06)",
+    "border": "rgba(255,255,255,0.12)"
+  },
+  "typography": {
+    "headingFont": "'Syne', system-ui, sans-serif",
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "headingWeight": 800,
+    "googleFonts": [
+      "Syne:wght@700;800",
+      "Inter:wght@400;600"
+    ]
+  },
+  "geometry": {
+    "radius": "16px",
+    "slideWidth": "1280px"
+  }
+}

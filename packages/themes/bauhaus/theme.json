@@ -1,0 +1,32 @@
+{
+  "name": "bauhaus",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Bauhaus primary system \u2014 cream field, red/yellow/blue geometry, bold grotesk.",
+  "vibe": "Bauhaus \u2014 warm cream #f4f1ea, primary red #e63946 + blue #1f4ae0 (matches Primary gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#f4f1ea",
+    "bg2": "#ede9e0",
+    "text": "#0d0d0d",
+    "muted": "#6a655c",
+    "accent": "#e63946",
+    "accent2": "#1f4ae0",
+    "cardBg": "rgba(0,0,0,0.04)",
+    "border": "rgba(13,13,13,0.2)"
+  },
+  "typography": {
+    "headingFont": "'Archivo', system-ui, sans-serif",
+    "bodyFont": "'Space Grotesk', system-ui, sans-serif",
+    "headingWeight": 800,
+    "googleFonts": [
+      "Archivo:wght@600;800",
+      "Space+Grotesk:wght@400;600"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

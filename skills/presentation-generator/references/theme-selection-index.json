@@ -6,82 +6,620 @@
       "name": "claude",
       "scheme": "light",
       "formality": "medium",
-      "mood": ["warm", "editorial", "human", "high-craft"],
-      "best_for": ["AI products", "developer tools", "thought leadership", "calm product launches"],
-      "avoid_for": ["neon nightlife brands", "ultra-corporate banking"],
-      "swatches": ["#faf9f5", "#141413", "#d97757", "#6a9bcc"]
+      "mood": [
+        "warm",
+        "editorial",
+        "human",
+        "high-craft"
+      ],
+      "best_for": [
+        "AI products",
+        "developer tools",
+        "thought leadership",
+        "calm product launches"
+      ],
+      "avoid_for": [
+        "neon nightlife brands",
+        "ultra-corporate banking"
+      ],
+      "swatches": [
+        "#faf9f5",
+        "#141413",
+        "#d97757",
+        "#6a9bcc"
+      ]
     },
     {
       "name": "default-tech",
       "scheme": "dark",
       "formality": "medium",
-      "mood": ["edgy", "neon", "startup", "confident"],
-      "best_for": ["SaaS", "AI", "fintech", "deep tech demos"],
-      "avoid_for": ["luxury retail", "healthcare bedside"],
-      "swatches": ["#0e0e12", "#f4f4f5", "#7c3aed", "#22d3ee"]
+      "mood": [
+        "edgy",
+        "neon",
+        "startup",
+        "confident"
+      ],
+      "best_for": [
+        "SaaS",
+        "AI",
+        "fintech",
+        "deep tech demos"
+      ],
+      "avoid_for": [
+        "luxury retail",
+        "healthcare bedside"
+      ],
+      "swatches": [
+        "#0e0e12",
+        "#f4f4f5",
+        "#7c3aed",
+        "#22d3ee"
+      ]
     },
     {
       "name": "corporate",
       "scheme": "light",
       "formality": "high",
-      "mood": ["formal", "restrained", "boardroom", "clean"],
-      "best_for": ["consulting", "enterprise B2B", "legal", "financial services"],
-      "avoid_for": ["consumer playful apps", "gaming"],
-      "swatches": ["#ffffff", "#1a2035", "#1d4ed8", "#6b7280"]
+      "mood": [
+        "formal",
+        "restrained",
+        "boardroom",
+        "clean"
+      ],
+      "best_for": [
+        "consulting",
+        "enterprise B2B",
+        "legal",
+        "financial services"
+      ],
+      "avoid_for": [
+        "consumer playful apps",
+        "gaming"
+      ],
+      "swatches": [
+        "#ffffff",
+        "#1a2035",
+        "#1d4ed8",
+        "#6b7280"
+      ]
     },
     {
       "name": "playful",
       "scheme": "light",
       "formality": "low",
-      "mood": ["bright", "friendly", "creative", "energetic"],
-      "best_for": ["consumer apps", "education", "community", "health & wellness"],
-      "avoid_for": ["investor board updates", "crisis communications"],
-      "swatches": ["#fffbf0", "#1a1a2e", "#ff4757", "#2ed573"]
+      "mood": [
+        "bright",
+        "friendly",
+        "creative",
+        "energetic"
+      ],
+      "best_for": [
+        "consumer apps",
+        "education",
+        "community",
+        "health & wellness"
+      ],
+      "avoid_for": [
+        "investor board updates",
+        "crisis communications"
+      ],
+      "swatches": [
+        "#fffbf0",
+        "#1a1a2e",
+        "#ff4757",
+        "#2ed573"
+      ]
     },
     {
       "name": "luxury-minimalist",
       "scheme": "light",
       "formality": "high",
-      "mood": ["quiet", "premium", "whitespace", "serif"],
-      "best_for": ["private equity", "luxury goods", "architecture", "premium fashion"],
-      "avoid_for": ["hackathon demos", "kids products"],
-      "swatches": ["#faf8f5", "#1c1917", "#92400e", "#78716c"]
+      "mood": [
+        "quiet",
+        "premium",
+        "whitespace",
+        "serif"
+      ],
+      "best_for": [
+        "private equity",
+        "luxury goods",
+        "architecture",
+        "premium fashion"
+      ],
+      "avoid_for": [
+        "hackathon demos",
+        "kids products"
+      ],
+      "swatches": [
+        "#faf8f5",
+        "#1c1917",
+        "#92400e",
+        "#78716c"
+      ]
     },
     {
       "name": "retro-arcade",
       "scheme": "dark",
       "formality": "low",
-      "mood": ["neon", "nostalgic", "pixel", "loud"],
-      "best_for": ["gaming", "crypto/Web3", "hackathons", "retro brand launches"],
-      "avoid_for": ["healthcare", "government"],
-      "swatches": ["#0d0015", "#e0e0ff", "#ff00ff", "#00ffff"]
+      "mood": [
+        "neon",
+        "nostalgic",
+        "pixel",
+        "loud"
+      ],
+      "best_for": [
+        "gaming",
+        "crypto/Web3",
+        "hackathons",
+        "retro brand launches"
+      ],
+      "avoid_for": [
+        "healthcare",
+        "government"
+      ],
+      "swatches": [
+        "#0d0015",
+        "#e0e0ff",
+        "#ff00ff",
+        "#00ffff"
+      ]
     },
     {
       "name": "editorial-serif",
       "scheme": "light",
       "formality": "medium-high",
-      "mood": ["magazine", "ink", "literary", "crimson"],
-      "best_for": ["media", "publishing", "annual reports", "cultural brands"],
-      "avoid_for": ["arcade/gaming", "ultra-tech dark UIs"],
-      "swatches": ["#faf7f2", "#1c1a17", "#9c1c1c", "#a67c1e"]
+      "mood": [
+        "magazine",
+        "ink",
+        "literary",
+        "crimson"
+      ],
+      "best_for": [
+        "media",
+        "publishing",
+        "annual reports",
+        "cultural brands"
+      ],
+      "avoid_for": [
+        "arcade/gaming",
+        "ultra-tech dark UIs"
+      ],
+      "swatches": [
+        "#faf7f2",
+        "#1c1a17",
+        "#9c1c1c",
+        "#a67c1e"
+      ]
     },
     {
       "name": "brutalist-mono",
       "scheme": "light",
       "formality": "medium",
-      "mood": ["raw", "technical", "monospace", "hazard"],
-      "best_for": ["infrastructure", "security", "architecture reviews", "devtool launches"],
-      "avoid_for": ["wedding/lifestyle", "soft wellness"],
-      "swatches": ["#f0efe9", "#0a0a0a", "#ff3600", "#57554c"]
+      "mood": [
+        "raw",
+        "technical",
+        "monospace",
+        "hazard"
+      ],
+      "best_for": [
+        "infrastructure",
+        "security",
+        "architecture reviews",
+        "devtool launches"
+      ],
+      "avoid_for": [
+        "wedding/lifestyle",
+        "soft wellness"
+      ],
+      "swatches": [
+        "#f0efe9",
+        "#0a0a0a",
+        "#ff3600",
+        "#57554c"
+      ]
     },
     {
       "name": "pastel-dreamy",
       "scheme": "light",
       "formality": "low-medium",
-      "mood": ["soft", "approachable", "blush", "gentle"],
-      "best_for": ["wellness", "education", "lifestyle", "community products"],
-      "avoid_for": ["industrial B2B", "cybersecurity"],
-      "swatches": ["#fdf6fb", "#3a2e4d", "#e893c2", "#8ab4f8"]
+      "mood": [
+        "soft",
+        "approachable",
+        "blush",
+        "gentle"
+      ],
+      "best_for": [
+        "wellness",
+        "education",
+        "lifestyle",
+        "community products"
+      ],
+      "avoid_for": [
+        "industrial B2B",
+        "cybersecurity"
+      ],
+      "swatches": [
+        "#fdf6fb",
+        "#3a2e4d",
+        "#e893c2",
+        "#8ab4f8"
+      ]
+    },
+    {
+      "name": "aurora-glass",
+      "scheme": "dark",
+      "formality": "medium",
+      "mood": [
+        "aurora",
+        "glass",
+        "neon",
+        "cinematic"
+      ],
+      "best_for": [
+        "AI infrastructure",
+        "SaaS pitches",
+        "developer platforms",
+        "tech launches"
+      ],
+      "avoid_for": [
+        "print-first board books",
+        "kids products"
+      ],
+      "swatches": [
+        "#000000",
+        "#ffffff",
+        "#a78bfa",
+        "#67e8f9"
+      ]
+    },
+    {
+      "name": "ft-editorial",
+      "scheme": "light",
+      "formality": "high",
+      "mood": [
+        "broadsheet",
+        "ink",
+        "financial",
+        "serious"
+      ],
+      "best_for": [
+        "sales proposals",
+        "consulting",
+        "finance",
+        "B2B research"
+      ],
+      "avoid_for": [
+        "gaming",
+        "consumer meme brands"
+      ],
+      "swatches": [
+        "#f7f5f0",
+        "#0a0a0a",
+        "#1a4fd8",
+        "#c0392b"
+      ]
+    },
+    {
+      "name": "genz-bento",
+      "scheme": "light",
+      "formality": "low",
+      "mood": [
+        "bold",
+        "sticker",
+        "youthful",
+        "hard-shadow"
+      ],
+      "best_for": [
+        "consumer apps",
+        "product launches",
+        "Gen-Z brands",
+        "community"
+      ],
+      "avoid_for": [
+        "enterprise legal",
+        "luxury PE"
+      ],
+      "swatches": [
+        "#fff9f5",
+        "#0f0f1a",
+        "#ff4d2e",
+        "#b6f542"
+      ]
+    },
+    {
+      "name": "crt-terminal",
+      "scheme": "dark",
+      "formality": "low",
+      "mood": [
+        "phosphor",
+        "hacker",
+        "retro",
+        "monospace"
+      ],
+      "best_for": [
+        "privacy tools",
+        "open source demos",
+        "security",
+        "hacker culture"
+      ],
+      "avoid_for": [
+        "healthcare bedside",
+        "luxury retail"
+      ],
+      "swatches": [
+        "#06040a",
+        "#f5f0e8",
+        "#39ff14",
+        "#00f5ff"
+      ]
+    },
+    {
+      "name": "swiss-typographic",
+      "scheme": "light",
+      "formality": "medium-high",
+      "mood": [
+        "grid",
+        "minimal",
+        "signal-red",
+        "international"
+      ],
+      "best_for": [
+        "design agencies",
+        "architecture",
+        "brand systems",
+        "cultural institutions"
+      ],
+      "avoid_for": [
+        "playful kids apps",
+        "neon nightlife"
+      ],
+      "swatches": [
+        "#ffffff",
+        "#0a0a0a",
+        "#e2231a",
+        "#636363"
+      ]
+    },
+    {
+      "name": "candy-pop",
+      "scheme": "light",
+      "formality": "low",
+      "mood": [
+        "sweet",
+        "playful",
+        "rounded",
+        "loud"
+      ],
+      "best_for": [
+        "DTC launches",
+        "kids/family",
+        "food & beverage",
+        "fun consumer"
+      ],
+      "avoid_for": [
+        "crisis comms",
+        "defense/infra"
+      ],
+      "swatches": [
+        "#fdf3e7",
+        "#1a1a2e",
+        "#ff5d8f",
+        "#2d7dd2"
+      ]
+    },
+    {
+      "name": "aerospace-hud",
+      "scheme": "dark",
+      "formality": "medium",
+      "mood": [
+        "hud",
+        "cyan",
+        "instrument",
+        "precise"
+      ],
+      "best_for": [
+        "robotics",
+        "aerospace",
+        "deep tech",
+        "hardware demos"
+      ],
+      "avoid_for": [
+        "lifestyle wellness",
+        "editorial magazines"
+      ],
+      "swatches": [
+        "#0a1d3a",
+        "#f0f8ff",
+        "#5ec8ff",
+        "#ff7a18"
+      ]
+    },
+    {
+      "name": "brutalist-acid",
+      "scheme": "dark",
+      "formality": "medium",
+      "mood": [
+        "acid",
+        "brutal",
+        "mono",
+        "loud"
+      ],
+      "best_for": [
+        "Series A tech pitches",
+        "devtools",
+        "security",
+        "infrastructure"
+      ],
+      "avoid_for": [
+        "wellness",
+        "luxury retail"
+      ],
+      "swatches": [
+        "#1c1c1c",
+        "#e8e6e1",
+        "#d6ff00",
+        "#ffffff"
+      ]
+    },
+    {
+      "name": "bauhaus",
+      "scheme": "light",
+      "formality": "medium",
+      "mood": [
+        "geometric",
+        "primary",
+        "modernist",
+        "bold"
+      ],
+      "best_for": [
+        "design keynotes",
+        "architecture",
+        "brand systems",
+        "cultural"
+      ],
+      "avoid_for": [
+        "fintech dark UIs",
+        "neon nightlife"
+      ],
+      "swatches": [
+        "#f4f1ea",
+        "#0d0d0d",
+        "#e63946",
+        "#1f4ae0"
+      ]
+    },
+    {
+      "name": "y2k-aero",
+      "scheme": "light",
+      "formality": "low",
+      "mood": [
+        "aero",
+        "bubble",
+        "optimistic",
+        "chrome"
+      ],
+      "best_for": [
+        "consumer launches",
+        "lifestyle apps",
+        "playful SaaS"
+      ],
+      "avoid_for": [
+        "boardroom PE",
+        "crisis"
+      ],
+      "swatches": [
+        "#e0f7ff",
+        "#0c4a6e",
+        "#38bdf8",
+        "#a3e635"
+      ]
+    },
+    {
+      "name": "risograph-zine",
+      "scheme": "light",
+      "formality": "low-medium",
+      "mood": [
+        "print",
+        "zine",
+        "craft",
+        "overprint"
+      ],
+      "best_for": [
+        "seed pitches",
+        "creative agencies",
+        "indie brands",
+        "media"
+      ],
+      "avoid_for": [
+        "enterprise legal",
+        "healthcare"
+      ],
+      "swatches": [
+        "#f3ecdd",
+        "#1a1209",
+        "#ff4f4f",
+        "#2b3aff"
+      ]
+    },
+    {
+      "name": "neon-noir",
+      "scheme": "dark",
+      "formality": "medium",
+      "mood": [
+        "noir",
+        "neon",
+        "cinematic",
+        "night"
+      ],
+      "best_for": [
+        "platform launches",
+        "entertainment",
+        "nightlife tech",
+        "crypto"
+      ],
+      "avoid_for": [
+        "kids products",
+        "print annual reports"
+      ],
+      "swatches": [
+        "#050510",
+        "#e8e4f0",
+        "#ff2e97",
+        "#00e5ff"
+      ]
+    },
+    {
+      "name": "vaporwave",
+      "scheme": "dark",
+      "formality": "low",
+      "mood": [
+        "nostalgic",
+        "sunset",
+        "chrome",
+        "mallsoft"
+      ],
+      "best_for": [
+        "consumer launches",
+        "music/culture",
+        "retro brands"
+      ],
+      "avoid_for": [
+        "consulting",
+        "government"
+      ],
+      "swatches": [
+        "#1a0533",
+        "#fff0f9",
+        "#ff6ad5",
+        "#5ce1ff"
+      ]
+    },
+    {
+      "name": "botanical-luxe",
+      "scheme": "dark",
+      "formality": "high",
+      "mood": [
+        "forest",
+        "gold",
+        "serif",
+        "impact"
+      ],
+      "best_for": [
+        "impact reports",
+        "climate",
+        "premium sustainability",
+        "foundations"
+      ],
+      "avoid_for": [
+        "arcade/gaming",
+        "kids candy brands"
+      ],
+      "swatches": [
+        "#1d3a2f",
+        "#f3efe4",
+        "#bfa55a",
+        "#4a7c59"
+      ]
     }
   ]
 }

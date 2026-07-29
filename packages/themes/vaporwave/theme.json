@@ -1,0 +1,33 @@
+{
+  "name": "vaporwave",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Vaporwave \u2014 purple dusk, sunset gradient, chrome teal, nostalgic mall energy.",
+  "vibe": "Vaporwave \u2014 #1a0533 dusk, #ff6ad5 pink + #5ce1ff teal, Monoton (matches Mallsoft gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#1a0533",
+    "bg2": "#2d1060",
+    "text": "#fff0f9",
+    "muted": "#c4a8ff",
+    "accent": "#ff6ad5",
+    "accent2": "#5ce1ff",
+    "cardBg": "rgba(255,106,213,0.08)",
+    "border": "rgba(92,225,255,0.28)"
+  },
+  "typography": {
+    "headingFont": "'Monoton', display, cursive",
+    "bodyFont": "'Space Mono', monospace",
+    "headingWeight": 400,
+    "googleFonts": [
+      "Monoton",
+      "Space+Mono:wght@400;700",
+      "VT323"
+    ]
+  },
+  "geometry": {
+    "radius": "6px",
+    "slideWidth": "1280px"
+  }
+}

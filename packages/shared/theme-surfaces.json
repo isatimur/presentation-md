@@ -7,5 +7,19 @@
   "retro-arcade": "scanline-neon",
   "editorial-serif": "editorial-rule",
   "brutalist-mono": "brutalist-grid",
-  "pastel-dreamy": "pastel-cloud"
+  "pastel-dreamy": "pastel-cloud",
+  "aurora-glass": "aurora-glass",
+  "ft-editorial": "broadsheet-rule",
+  "genz-bento": "hard-bento",
+  "crt-terminal": "crt-phosphor",
+  "swiss-typographic": "swiss-grid",
+  "candy-pop": "candy-blob",
+  "aerospace-hud": "hud-grid",
+  "brutalist-acid": "acid-block",
+  "bauhaus": "bauhaus-blocks",
+  "y2k-aero": "aero-bubble",
+  "risograph-zine": "riso-print",
+  "neon-noir": "neon-rain",
+  "vaporwave": "vapor-horizon",
+  "botanical-luxe": "botanical-leaf"
 }

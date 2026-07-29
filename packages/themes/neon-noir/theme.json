@@ -1,0 +1,32 @@
+{
+  "name": "neon-noir",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Neon noir \u2014 wet asphalt night, hot magenta + electric cyan, cinematic rain.",
+  "vibe": "Neon noir \u2014 #050510 night, hot pink #ff2e97 + cyan #00e5ff, Orbitron (matches Neon District gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#050510",
+    "bg2": "#0a0a1e",
+    "text": "#e8e4f0",
+    "muted": "#8884a8",
+    "accent": "#ff2e97",
+    "accent2": "#00e5ff",
+    "cardBg": "rgba(255,46,151,0.07)",
+    "border": "rgba(0,229,255,0.22)"
+  },
+  "typography": {
+    "headingFont": "'Orbitron', system-ui, sans-serif",
+    "bodyFont": "'Share Tech Mono', monospace",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Orbitron:wght@600;700",
+      "Share+Tech+Mono"
+    ]
+  },
+  "geometry": {
+    "radius": "10px",
+    "slideWidth": "1280px"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "aerospace-hud",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Aerospace HUD \u2014 deep navy, cyan instruments, warning orange, blueprint grid.",
+  "vibe": "Aerospace HUD \u2014 navy cockpit, cyan instruments, warning orange, Barlow Condensed (matches Axiom gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#0a1d3a",
+    "bg2": "#0d2347",
+    "text": "#f0f8ff",
+    "muted": "#2a7aaa",
+    "accent": "#5ec8ff",
+    "accent2": "#ff7a18",
+    "cardBg": "rgba(94,200,255,0.08)",
+    "border": "rgba(94,200,255,0.28)"
+  },
+  "typography": {
+    "headingFont": "'Barlow Condensed', system-ui, sans-serif",
+    "bodyFont": "'Barlow', system-ui, sans-serif",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Barlow+Condensed:wght@600;700",
+      "Barlow:wght@400;600",
+      "IBM+Plex+Mono:wght@500"
+    ]
+  },
+  "geometry": {
+    "radius": "4px",
+    "slideWidth": "1280px"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "risograph-zine",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Risograph zine \u2014 warm paper, misregistered ink, magenta + teal print shop energy.",
+  "vibe": "Risograph zine \u2014 kraft #f3ecdd, red #ff4f4f + blue #2b3aff overprint (matches Inkwell gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#f3ecdd",
+    "bg2": "#e8dfc8",
+    "text": "#1a1209",
+    "muted": "#7a6a52",
+    "accent": "#ff4f4f",
+    "accent2": "#2b3aff",
+    "cardBg": "rgba(255,79,79,0.06)",
+    "border": "rgba(26,18,9,0.18)"
+  },
+  "typography": {
+    "headingFont": "'Archivo Black', system-ui, sans-serif",
+    "bodyFont": "'Space Mono', monospace",
+    "headingWeight": 400,
+    "googleFonts": [
+      "Archivo+Black",
+      "Space+Mono:wght@400;700"
+    ]
+  },
+  "geometry": {
+    "radius": "2px",
+    "slideWidth": "1280px"
+  }
+}

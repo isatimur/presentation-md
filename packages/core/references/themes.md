@@ -15,6 +15,20 @@ data intact. List installed themes at runtime with the `list_themes` MCP tool or
 | `editorial-serif` | Magazine editorial — warm cream paper, ink-black serif, crimson masthead. |
 | `brutalist-mono` | Raw brutalist — concrete off-white, monospace, hazard-orange, zero radius. |
 | `pastel-dreamy` | Soft pastel — lavender-blush, deep plum text, blush + periwinkle accents. |
+| `aurora-glass` | Aurora glass — black void, Syne, violet + cyan (NovaSpark). |
+| `ft-editorial` | FT broadsheet — cream newsprint, ink serif, blue + red signal. |
+| `genz-bento` | Gen-Z bento — coral + lime stickers, hard offset shadows. |
+| `crt-terminal` | CRT terminal — cream type, phosphor green accents (RetroNet). |
+| `swiss-typographic` | Swiss grid — white, Inter, signal red, zero radius (Grid Systems). |
+| `candy-pop` | Candy pop — cream, hot pink + jellybean blue, Fredoka (Jellybean). |
+| `aerospace-hud` | Aerospace HUD — navy, cyan, orange, Barlow Condensed (Axiom). |
+| `brutalist-acid` | Dark acid brutalist — near-black, electric lime, Space Mono (MONOLITH). |
+| `bauhaus` | Bauhaus — cream #f4f1ea, red #e63946 + blue #1f4ae0 (Primary). |
+| `y2k-aero` | Y2K aero — icy sky + lime bubbles, Nunito (BubbleFlow). |
+| `risograph-zine` | Risograph zine — kraft, red + blue overprint (Inkwell). |
+| `neon-noir` | Neon noir — #050510 night, pink + cyan, Orbitron (Neon District). |
+| `vaporwave` | Vaporwave — #1a0533 dusk, #ff6ad5 + #5ce1ff, Monoton (Mallsoft). |
+| `botanical-luxe` | Botanical luxe — forest #1d3a2f, gold #bfa55a (Verdant). |
 
 Install more: `npm i @presentation-md/theme-<name>` (or the PyPI mirror
 `presentation-md-theme-<name>`). Scaffold your own: `npx @presentation-md/create-theme`.

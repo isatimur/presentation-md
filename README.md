@@ -65,6 +65,20 @@ This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a q
 | [`@presentation-md/theme-editorial-serif`](packages/themes/editorial-serif) | Magazine-editorial theme |
 | [`@presentation-md/theme-brutalist-mono`](packages/themes/brutalist-mono) | Raw brutalist monospace theme |
 | [`@presentation-md/theme-pastel-dreamy`](packages/themes/pastel-dreamy) | Soft pastel dreamy theme |
+| [`@presentation-md/theme-aurora-glass`](packages/themes/aurora-glass) | Dark aurora glassmorphism |
+| [`@presentation-md/theme-ft-editorial`](packages/themes/ft-editorial) | FT-inspired broadsheet |
+| [`@presentation-md/theme-genz-bento`](packages/themes/genz-bento) | Gen-Z hard-shadow bento |
+| [`@presentation-md/theme-crt-terminal`](packages/themes/crt-terminal) | CRT phosphor terminal |
+| [`@presentation-md/theme-swiss-typographic`](packages/themes/swiss-typographic) | Swiss International Style grid |
+| [`@presentation-md/theme-candy-pop`](packages/themes/candy-pop) | Candy pop soft blobs |
+| [`@presentation-md/theme-aerospace-hud`](packages/themes/aerospace-hud) | Aerospace HUD / cockpit |
+| [`@presentation-md/theme-brutalist-acid`](packages/themes/brutalist-acid) | Dark acid brutalist |
+| [`@presentation-md/theme-bauhaus`](packages/themes/bauhaus) | Bauhaus primary geometry |
+| [`@presentation-md/theme-y2k-aero`](packages/themes/y2k-aero) | Y2K aero bubbles |
+| [`@presentation-md/theme-risograph-zine`](packages/themes/risograph-zine) | Risograph print-shop zine |
+| [`@presentation-md/theme-neon-noir`](packages/themes/neon-noir) | Neon noir night rain |
+| [`@presentation-md/theme-vaporwave`](packages/themes/vaporwave) | Vaporwave sunset grid |
+| [`@presentation-md/theme-botanical-luxe`](packages/themes/botanical-luxe) | Botanical forest + gold |
 | [`presentation-md-render`](packages/renderer-python) _(PyPI)_ | Python renderer for agents and pipelines running outside Node.js |
 
 ---

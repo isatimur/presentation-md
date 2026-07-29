@@ -1,0 +1,32 @@
+{
+  "name": "genz-bento",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Gen-Z hard-shadow bento \u2014 hot coral, lime stickers, chunky ink borders.",
+  "vibe": "Gen-Z bento \u2014 #fff9f5, coral #ff4d2e + lime #b6f542, Nunito hard shadows (matches Bounce gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#fff9f5",
+    "bg2": "#fff3ea",
+    "text": "#0f0f1a",
+    "muted": "#5c5666",
+    "accent": "#ff4d2e",
+    "accent2": "#b6f542",
+    "cardBg": "#ffffff",
+    "border": "#0f0f1a"
+  },
+  "typography": {
+    "headingFont": "'Nunito', system-ui, sans-serif",
+    "bodyFont": "'Nunito Sans', system-ui, sans-serif",
+    "headingWeight": 900,
+    "googleFonts": [
+      "Nunito:wght@700;800;900",
+      "Nunito+Sans:wght@400;600"
+    ]
+  },
+  "geometry": {
+    "radius": "18px",
+    "slideWidth": "1280px"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "ft-editorial",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Financial Times\u2013inspired broadsheet \u2014 warm paper, ink, FT blue + signal red.",
+  "vibe": "FT editorial \u2014 #f7f5f0 newsprint, Libre Baskerville + IBM Plex, FT blue + signal red (matches Meridian gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#f7f5f0",
+    "bg2": "#f2efe8",
+    "text": "#0a0a0a",
+    "muted": "#6b6560",
+    "accent": "#1a4fd8",
+    "accent2": "#c0392b",
+    "cardBg": "rgba(10,10,10,0.03)",
+    "border": "rgba(10,10,10,0.12)"
+  },
+  "typography": {
+    "headingFont": "'Libre Baskerville', Georgia, serif",
+    "bodyFont": "'IBM Plex Sans', system-ui, sans-serif",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Libre+Baskerville:wght@400;700",
+      "IBM+Plex+Sans:wght@400;600",
+      "IBM+Plex+Mono:wght@500"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

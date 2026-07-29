@@ -1,0 +1,32 @@
+{
+  "name": "brutalist-acid",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Dark acid brutalist \u2014 near-black concrete, #d6ff00 hazard lime, hard mono edges.",
+  "vibe": "Acid brutalist \u2014 #1c1c1c, electric lime, Space Mono + Barlow Condensed (matches MONOLITH gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#1c1c1c",
+    "bg2": "#2a2a2a",
+    "text": "#e8e6e1",
+    "muted": "#888888",
+    "accent": "#d6ff00",
+    "accent2": "#ffffff",
+    "cardBg": "rgba(214,255,0,0.06)",
+    "border": "rgba(214,255,0,0.35)"
+  },
+  "typography": {
+    "headingFont": "'Space Mono', monospace",
+    "bodyFont": "'Barlow Condensed', system-ui, sans-serif",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Space+Mono:wght@400;700",
+      "Barlow+Condensed:wght@500;700"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

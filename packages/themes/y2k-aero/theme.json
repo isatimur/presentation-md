@@ -1,0 +1,32 @@
+{
+  "name": "y2k-aero",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Y2K aero \u2014 icy gradients, chrome cyan, soft bubbles, futuristic optimism.",
+  "vibe": "Y2K aero \u2014 icy #e0f7ff, sky #38bdf8 + lime #a3e635, Nunito (matches BubbleFlow gallery).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#e0f7ff",
+    "bg2": "#bae6fd",
+    "text": "#0c4a6e",
+    "muted": "#0369a1",
+    "accent": "#38bdf8",
+    "accent2": "#a3e635",
+    "cardBg": "rgba(255,255,255,0.72)",
+    "border": "rgba(14,165,233,0.28)"
+  },
+  "typography": {
+    "headingFont": "'Nunito', system-ui, sans-serif",
+    "bodyFont": "'Nunito Sans', system-ui, sans-serif",
+    "headingWeight": 800,
+    "googleFonts": [
+      "Nunito:wght@700;800",
+      "Nunito+Sans:wght@400;600"
+    ]
+  },
+  "geometry": {
+    "radius": "32px",
+    "slideWidth": "1280px"
+  }
+}
