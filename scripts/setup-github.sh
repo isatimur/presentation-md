@@ -9,9 +9,9 @@ set -euo pipefail
 #   - Homepage     -> the live gallery, clickable from the repo header
 #   - Topics       -> drive discovery via GitHub topic pages & search
 
-gh repo edit isatimur/presentation-skill-pack \
+gh repo edit isatimur/presentation-md \
   --description "Turn rough notes into a polished, schema-validated slide deck in any AI agent (Claude Code, Cursor, Codex, Gemini CLI, Copilot) — then export native, editable PowerPoint, Keynote & Google Slides. Skill + MCP server." \
-  --homepage "https://presentation-skill-pack.vercel.app" \
+  --homepage "https://presentation-md.vercel.app" \
   --add-topic presentation \
   --add-topic slides \
   --add-topic ai-agent \

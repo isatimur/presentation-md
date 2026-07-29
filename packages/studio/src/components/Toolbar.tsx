@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import type { DeckJson } from "@presentation-skill-pack/export";
+import type { DeckJson } from "@presentation-md/export";
 import { listThemeNames } from "../render/themes.js";
 import { downloadHtml, downloadPptx, downloadJson, parseDeckFile } from "../export/downloads.js";
 
@@ -55,7 +55,7 @@ export function Toolbar({
     <header className="toolbar">
       <div className="brand">
         <strong>Studio</strong>
-        <span className="muted small">presentation-skill-pack</span>
+        <span className="muted small">presentation-md</span>
       </div>
 
       <input

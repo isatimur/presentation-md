@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { parseCssVariables } from "@presentation-skill-pack/core";
+import { parseCssVariables } from "@presentation-md/core";
 
 const lookupMock = vi.fn();
 vi.mock("node:dns/promises", () => ({

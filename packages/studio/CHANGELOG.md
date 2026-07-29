@@ -1,0 +1,22 @@
+# @presentation-md/studio
+
+## 1.0.0
+
+### Major Changes
+
+- e9b8afd: Rename the pack from presentation-skill-pack to presentation-md to match the GitHub repo.
+
+  Breaking: npm scope is now `@presentation-md/*`, CLIs are `presentation-md-*` /
+  `create-presentation-md-theme`, PyPI packages are `presentation-md-*`, and the site
+  hostname is `presentation-md.vercel.app`.
+
+### Patch Changes
+
+- 4dfb90b: Harden PPTX import against review findings: correct assetsDir image refs,
+  enforce post-decompress zip size limits, realpath write containment, preserve
+  speaker notes, and reopen legacy psp-deck HTML embeds.
+- Updated dependencies [a3f8544]
+- Updated dependencies [4dfb90b]
+- Updated dependencies [e9b8afd]
+- Updated dependencies [e9b8afd]
+  - @presentation-md/export@1.0.0

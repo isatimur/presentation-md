@@ -1,10 +1,10 @@
-# Contributing to presentation-skill-pack
+# Contributing to presentation-md
 
 ## Setup
 
 ```bash
 git clone https://github.com/isatimur/presentation-md.git
-cd presentation-skill-pack
+cd presentation-md
 pnpm install
 ```
 
@@ -26,13 +26,13 @@ To work on a single package, `cd` into it and run the same commands — each pac
 Use the scaffold CLI:
 
 ```bash
-pnpm --filter @presentation-skill-pack/create-theme exec create-presentation-theme my-theme-name
+pnpm --filter @presentation-md/create-theme exec create-presentation-md-theme my-theme-name
 ```
 
 This generates `packages/themes/my-theme-name/` with a starter `theme.json` and `package.json`. Edit `theme.json` to set your palette, typography, and layout overrides, then validate it:
 
 ```bash
-pnpm --filter @presentation-skill-pack/core exec validate-theme packages/themes/my-theme-name/theme.json
+pnpm --filter @presentation-md/core exec validate-theme packages/themes/my-theme-name/theme.json
 ```
 
 Themes must pass schema validation before they can be published.
@@ -73,7 +73,7 @@ This reads the version from `packages/core/package.json` and writes it to every 
 ```
 packages/core/          schema, theme loader, validator
 packages/renderer-node/ Node.js HTML renderer + CLI
-packages/mcp-server/    MCP server (5 tools)
+packages/mcp-server/    MCP server (8 tools)
 packages/install/       one-command installer CLI
 packages/create-theme/  theme scaffold CLI
 packages/renderer-python/ Python renderer (PyPI)

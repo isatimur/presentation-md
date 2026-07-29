@@ -1,11 +1,11 @@
-import { discoverInstalledThemes } from "@presentation-skill-pack/core";
-import { getBundledThemesDir } from "@presentation-skill-pack/render";
+import { discoverInstalledThemes } from "@presentation-md/core";
+import { getBundledThemesDir } from "@presentation-md/render";
 import type { ToolDefinition } from "../server.js";
 
 export const listThemesTool: ToolDefinition = {
   name: "list_themes",
   description:
-    "List all available presentation-skill-pack themes with name, version, vibe, and description.",
+    "List all available presentation-md themes with name, version, vibe, and description.",
   inputSchema: {
     type: "object",
     properties: {}

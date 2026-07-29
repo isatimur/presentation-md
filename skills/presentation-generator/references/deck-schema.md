@@ -1,7 +1,7 @@
 # Deck JSON schema (quick reference)
 
 A deck is `{ "type": "deck", "meta": {...}, "slides": [...] }`. Full JSON Schema:
-`@presentation-skill-pack/core/deck-schema` (`deck.schema.json`).
+`@presentation-md/core/deck-schema` (`deck.schema.json`).
 
 ## meta
 | field | notes |

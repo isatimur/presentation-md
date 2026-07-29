@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import type { ResolvedTheme } from "@presentation-skill-pack/core";
+import type { ResolvedTheme } from "@presentation-md/core";
 import {
   buildPptx,
   deckToPptxArrayBuffer,

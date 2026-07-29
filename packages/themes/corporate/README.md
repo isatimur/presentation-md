@@ -1,13 +1,13 @@
 # corporate
 
-**Formal corporate** presentation theme for presentation-skill-pack.
+**Formal corporate** presentation theme for presentation-md.
 Crisp white background, navy text, single restrained blue accent (Inter / Source Sans 3),
 thin horizontal rules, minimal shadow. Boardroom-ready.
 
 ## Install
 
 ```bash
-npm i @presentation-skill-pack/theme-corporate
+npm i @presentation-md/theme-corporate
 ```
 
 ## Usage

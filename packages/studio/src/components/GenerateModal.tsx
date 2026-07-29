@@ -1,9 +1,9 @@
 import { useState } from "react";
-import type { DeckJson } from "@presentation-skill-pack/export";
+import type { DeckJson } from "@presentation-md/export";
 import { listThemeNames } from "../render/themes.js";
 import { GEN_MODELS, type GenModelId, buildAgentPrompt, generateDeck } from "../ai/generate.js";
 
-const KEY_STORAGE = "psp-studio-anthropic-key";
+const KEY_STORAGE = "pmd-studio-anthropic-key";
 
 const EXAMPLE_BRIEFS = [
   "Q3 all-hands: momentum, key metrics, roadmap, and what's next.",

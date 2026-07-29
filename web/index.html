@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>presentation-skill-pack — AI slide decks → PowerPoint, Keynote, Google Slides</title>
+  <title>presentation-md — AI slide decks → PowerPoint, Keynote, Google Slides</title>
   <meta name="description" content="Your AI agent (Claude Code, Cursor, Codex, Gemini CLI, Copilot) generates slide decks from plain notes — then exports them to native, editable PowerPoint, Keynote, or Google Slides, or edit in the browser studio. Open source, one install." />
-  <link rel="canonical" href="https://presentation-skill-pack.vercel.app/" />
+  <link rel="canonical" href="https://presentation-md.vercel.app/" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#F4EDE0" />
 
@@ -18,38 +18,38 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="presentation-skill-pack" />
-  <meta property="og:url" content="https://presentation-skill-pack.vercel.app/" />
-  <meta property="og:title" content="presentation-skill-pack — AI slide decks → PowerPoint, Keynote, Google Slides" />
+  <meta property="og:site_name" content="presentation-md" />
+  <meta property="og:url" content="https://presentation-md.vercel.app/" />
+  <meta property="og:title" content="presentation-md — AI slide decks → PowerPoint, Keynote, Google Slides" />
   <meta property="og:description" content="Your AI agent generates slide decks from plain notes — then exports them to native, editable PowerPoint, Keynote, or Google Slides, or edit in the browser studio. Open source, one install." />
-  <meta property="og:image" content="https://presentation-skill-pack.vercel.app/og-image.png" />
+  <meta property="og:image" content="https://presentation-md.vercel.app/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="presentation-skill-pack — Turn rough notes into a polished slide deck" />
+  <meta property="og:image:alt" content="presentation-md — Turn rough notes into a polished slide deck" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@isatimur" />
   <meta name="twitter:creator" content="@isatimur" />
-  <meta name="twitter:title" content="presentation-skill-pack — AI slide decks → PowerPoint, Keynote, Google Slides" />
+  <meta name="twitter:title" content="presentation-md — AI slide decks → PowerPoint, Keynote, Google Slides" />
   <meta name="twitter:description" content="Notes in → polished deck out, in the AI agent you already use. Export to editable PowerPoint, Keynote, or Google Slides. 25 styles, one install, MIT." />
-  <meta name="twitter:image" content="https://presentation-skill-pack.vercel.app/og-image.png" />
+  <meta name="twitter:image" content="https://presentation-md.vercel.app/og-image.png" />
 
   <!-- Structured data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "presentation-skill-pack",
+    "name": "presentation-md",
     "description": "Universal skill for Claude Code, Cursor, Codex, Gemini CLI, and any MCP agent. Generate beautiful HTML slide decks from plain notes — no design skills required.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Any",
-    "url": "https://presentation-skill-pack.vercel.app/",
-    "image": "https://presentation-skill-pack.vercel.app/og-image.png",
+    "url": "https://presentation-md.vercel.app/",
+    "image": "https://presentation-md.vercel.app/og-image.png",
     "license": "https://opensource.org/licenses/MIT",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "author": { "@type": "Person", "name": "Timur Isachenko", "url": "https://github.com/isatimur" },
-    "downloadUrl": "https://www.npmjs.com/package/@presentation-skill-pack/install",
+    "downloadUrl": "https://www.npmjs.com/package/@presentation-md/install",
     "softwareVersion": "0.1.0"
   }
   </script>
@@ -61,33 +61,33 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "What is presentation-skill-pack?",
-        "acceptedAnswer": { "@type": "Answer", "text": "presentation-skill-pack is a free, open-source skill for AI coding agents. It gives Claude Code, Cursor, OpenAI Codex, Gemini CLI, and GitHub Copilot a structured, schema-validated way to generate polished slide decks. The agent fills a Deck JSON spec; a renderer turns it into a single self-contained HTML file — no design skills, no build tool, no hosting required." }
+        "name": "What is presentation-md?",
+        "acceptedAnswer": { "@type": "Answer", "text": "presentation-md is a free, open-source skill for AI coding agents. It gives Claude Code, Cursor, OpenAI Codex, Gemini CLI, and GitHub Copilot a structured, schema-validated way to generate polished slide decks. The agent fills a Deck JSON spec; a renderer turns it into a single self-contained HTML file — no design skills, no build tool, no hosting required." }
       },
       {
         "@type": "Question",
-        "name": "How do I install presentation-skill-pack?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Run: npx @presentation-skill-pack/install <agent> — replace <agent> with claude-code, cursor, copilot, codex, or gemini-cli. One command installs the skill files and optionally registers the MCP server. Restart your agent afterward and ask it to build a deck." }
+        "name": "How do I install presentation-md?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Run: npx @presentation-md/install <agent> — replace <agent> with claude-code, cursor, copilot, codex, or gemini-cli. One command installs the skill files and optionally registers the MCP server. Restart your agent afterward and ask it to build a deck." }
       },
       {
         "@type": "Question",
-        "name": "Is presentation-skill-pack free?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. presentation-skill-pack is completely free and MIT licensed. There is no paid plan, no account required, and no usage limits." }
+        "name": "Is presentation-md free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. presentation-md is completely free and MIT licensed. There is no paid plan, no account required, and no usage limits." }
       },
       {
         "@type": "Question",
-        "name": "Which AI agents does presentation-skill-pack support?",
-        "acceptedAnswer": { "@type": "Answer", "text": "presentation-skill-pack supports Claude Code, Cursor, GitHub Copilot, OpenAI Codex, and Gemini CLI. It also exposes an MCP server compatible with any MCP-enabled agent and is not locked to any single AI provider." }
+        "name": "Which AI agents does presentation-md support?",
+        "acceptedAnswer": { "@type": "Answer", "text": "presentation-md supports Claude Code, Cursor, GitHub Copilot, OpenAI Codex, and Gemini CLI. It also exposes an MCP server compatible with any MCP-enabled agent and is not locked to any single AI provider." }
       },
       {
         "@type": "Question",
-        "name": "What format does presentation-skill-pack output?",
+        "name": "What format does presentation-md output?",
         "acceptedAnswer": { "@type": "Answer", "text": "Each deck is a single self-contained HTML file. It opens in any browser with no hosting, no export, and no build step required. You own the file." }
       },
       {
         "@type": "Question",
-        "name": "How is presentation-skill-pack different from Gamma, Tome, or Beautiful.ai?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Gamma, Tome, and Beautiful.ai are web apps separate from your coding workflow with platform lock-in. presentation-skill-pack runs inside the AI agent you already use and produces a portable HTML file you own. There is no account, no subscription, and no platform dependency." }
+        "name": "How is presentation-md different from Gamma, Tome, or Beautiful.ai?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Gamma, Tome, and Beautiful.ai are web apps separate from your coding workflow with platform lock-in. presentation-md runs inside the AI agent you already use and produces a portable HTML file you own. There is no account, no subscription, and no platform dependency." }
       }
     ]
   }
@@ -589,7 +589,7 @@
 <!-- ── HEADER ──────────────────────────────────────────────────────────────── -->
 <header>
   <div class="header-inner">
-    <span class="eyebrow">presentation-skill-pack</span>
+    <span class="eyebrow">presentation-md</span>
     <h1>Your AI agent makes the deck.<br>PowerPoint, Keynote &amp; Slides open it.</h1>
     <p class="tagline">
       Universal skill for Claude Code, Cursor, Codex, Gemini CLI, and Copilot. Generate a deck from
@@ -641,7 +641,7 @@
         <span class="step-icon"><i class="fa-solid fa-palette"></i></span>
         <span class="step-num">Step 02</span>
         <h3>Pick a vibe</h3>
-        <p>Choose a theme: the warm Claude-inspired flagship, dark edgy tech, formal corporate, playful creative, luxury minimalist, or retro arcade. Same data, completely different look. You can override any theme later without re-writing your content.</p>
+        <p>Choose a theme: Claude-inspired flagship, dark edgy tech, formal corporate, playful creative, luxury minimalist, retro arcade, magazine editorial, brutalist mono, or soft pastel. Same data, completely different look. You can override any theme later without re-writing your content.</p>
       </div>
       <div class="step">
         <span class="step-icon"><i class="fa-regular fa-circle-check"></i></span>
@@ -693,11 +693,11 @@
 <section id="themes">
   <div class="container">
     <span class="eyebrow">Themes</span>
-    <h2>Six vibes. One JSON field.</h2>
+    <h2>Nine vibes. One JSON field.</h2>
     <p class="section-lead">
       Swap the entire look of a deck by changing a single <span class="inline-code">"theme"</span> key.
       Each theme is a versioned JSON package: color roles, typography, geometry. Install community themes
-      with <span class="inline-code">npm i @presentation-skill-pack/theme-&lt;name&gt;</span>.
+      with <span class="inline-code">npm i @presentation-md/theme-&lt;name&gt;</span>.
     </p>
 
     <div class="themes-grid">
@@ -826,6 +826,69 @@
             <div class="swatch" style="background:#ff00ff;" title="accent"></div>
             <div class="swatch" style="background:#00ffff;" title="accent2"></div>
             <div class="swatch" style="background:#9090cc;" title="muted"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- editorial-serif -->
+      <div class="theme-card">
+        <div class="theme-preview" style="background:#faf7f2; border-bottom:1px solid rgba(28,26,23,0.12);">
+          <span style="font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:16px;
+                       color:#1c1a17;letter-spacing:-0.01em;">
+            editorial-serif
+          </span>
+        </div>
+        <div class="theme-body">
+          <span class="theme-name">editorial-serif</span>
+          <p class="theme-vibe">Magazine editorial — warm cream paper, ink-black serif type, crimson masthead accent.</p>
+          <div class="palette">
+            <div class="swatch" style="background:#faf7f2; border-color:rgba(0,0,0,0.12);" title="bg"></div>
+            <div class="swatch" style="background:#1c1a17;" title="text"></div>
+            <div class="swatch" style="background:#9c1c1c;" title="accent"></div>
+            <div class="swatch" style="background:#a67c1e;" title="accent2"></div>
+            <div class="swatch" style="background:#5c574c;" title="muted"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- brutalist-mono -->
+      <div class="theme-card">
+        <div class="theme-preview" style="background:#f0efe9; border-bottom:2px solid #0a0a0a;">
+          <span style="font-family:'IBM Plex Mono','Courier New',monospace;font-weight:700;font-size:14px;
+                       color:#0a0a0a;letter-spacing:0.04em;text-transform:uppercase;">
+            brutalist-mono
+          </span>
+        </div>
+        <div class="theme-body">
+          <span class="theme-name">brutalist-mono</span>
+          <p class="theme-vibe">Raw brutalist — concrete off-white, monospace type, zero radius, hazard-orange accent.</p>
+          <div class="palette">
+            <div class="swatch" style="background:#f0efe9; border-color:rgba(0,0,0,0.2);" title="bg"></div>
+            <div class="swatch" style="background:#0a0a0a;" title="text"></div>
+            <div class="swatch" style="background:#ff3600;" title="accent"></div>
+            <div class="swatch" style="background:#0a0a0a;" title="accent2"></div>
+            <div class="swatch" style="background:#57554c;" title="muted"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- pastel-dreamy -->
+      <div class="theme-card">
+        <div class="theme-preview" style="background:#fdf6fb; border-bottom:1px solid rgba(58,46,77,0.10);">
+          <span style="font-family:'Quicksand',system-ui,sans-serif;font-weight:700;font-size:15px;
+                       color:#3a2e4d;letter-spacing:0.01em;">
+            pastel-dreamy
+          </span>
+        </div>
+        <div class="theme-body">
+          <span class="theme-name">pastel-dreamy</span>
+          <p class="theme-vibe">Soft pastel — lavender-blush canvas, deep plum text, blush + periwinkle accents.</p>
+          <div class="palette">
+            <div class="swatch" style="background:#fdf6fb; border-color:rgba(0,0,0,0.10);" title="bg"></div>
+            <div class="swatch" style="background:#3a2e4d;" title="text"></div>
+            <div class="swatch" style="background:#e893c2;" title="accent"></div>
+            <div class="swatch" style="background:#8ab4f8;" title="accent2"></div>
+            <div class="swatch" style="background:#6b5d82;" title="muted"></div>
           </div>
         </div>
       </div>
@@ -1464,11 +1527,12 @@
     <span class="eyebrow">Install</span>
     <h2>One command per agent.</h2>
     <p class="section-lead">
-      The <span class="inline-code">@presentation-skill-pack/install</span> CLI copies the skill files
-      to the right place for each agent. Full mode also registers the MCP server so five
-      tools — <span class="inline-code">render_deck</span>, <span class="inline-code">list_themes</span>,
-      <span class="inline-code">get_theme</span>, <span class="inline-code">validate_deck</span>,
-      <span class="inline-code">create_deck</span> — are available in-context. Copilot writes to
+      The <span class="inline-code">@presentation-md/install</span> CLI copies the skill files
+      to the right place for each agent. Full mode also registers the MCP server so tools like
+      <span class="inline-code">render_deck</span>, <span class="inline-code">audit_deck</span>,
+      <span class="inline-code">export_deck</span>, <span class="inline-code">list_themes</span>,
+      <span class="inline-code">import_pptx</span>, and <span class="inline-code">import_brand_theme</span>
+      are available in-context. Copilot writes to
       <span class="inline-code">.github/copilot-instructions.md</span> in your project root.
     </p>
 
@@ -1483,10 +1547,10 @@
 
     <div id="tab-claude-code" class="tab-panel active">
 <pre><span class="comment"># full install — skill + MCP server (recommended)</span>
-<span class="cmd">npx @presentation-skill-pack/install claude-code</span>
+<span class="cmd">npx @presentation-md/install claude-code</span>
 
 <span class="comment"># lite — skill only, no MCP server</span>
-<span class="cmd">npx @presentation-skill-pack/install claude-code lite</span>
+<span class="cmd">npx @presentation-md/install claude-code lite</span>
 
 <span class="comment"># after install: restart Claude Code, then ask —</span>
 <span class="comment"># "Build a 10-slide pitch deck from these notes: ..."</span></pre>
@@ -1494,10 +1558,10 @@
 
     <div id="tab-copilot" class="tab-panel">
 <pre><span class="comment"># run from the root of your project (writes .github/copilot-instructions.md)</span>
-<span class="cmd">npx @presentation-skill-pack/install copilot</span>
+<span class="cmd">npx @presentation-md/install copilot</span>
 
 <span class="comment"># lite — skill only, no .vscode/mcp.json</span>
-<span class="cmd">npx @presentation-skill-pack/install copilot lite</span>
+<span class="cmd">npx @presentation-md/install copilot lite</span>
 
 <span class="comment"># full mode also writes .vscode/mcp.json for Copilot MCP tool calls</span>
 <span class="comment"># after install: reload VS Code window, then ask Copilot Chat —</span>
@@ -1506,47 +1570,47 @@
 
     <div id="tab-cursor" class="tab-panel">
 <pre><span class="comment"># full install — .mdc rule + MCP server</span>
-<span class="cmd">npx @presentation-skill-pack/install cursor</span>
+<span class="cmd">npx @presentation-md/install cursor</span>
 
 <span class="comment"># lite — .mdc rule only</span>
-<span class="cmd">npx @presentation-skill-pack/install cursor lite</span>
+<span class="cmd">npx @presentation-md/install cursor lite</span>
 
 <span class="comment"># lands at: ~/.cursor/rules/presentation-generator.mdc</span></pre>
     </div>
 
     <div id="tab-codex" class="tab-panel">
 <pre><span class="comment"># full install — skill + MCP server</span>
-<span class="cmd">npx @presentation-skill-pack/install codex</span>
+<span class="cmd">npx @presentation-md/install codex</span>
 
 <span class="comment"># lite — skill only</span>
-<span class="cmd">npx @presentation-skill-pack/install codex lite</span>
+<span class="cmd">npx @presentation-md/install codex lite</span>
 
 <span class="comment"># lands at: ~/.codex/skills/presentation-generator/</span></pre>
     </div>
 
     <div id="tab-gemini-cli" class="tab-panel">
 <pre><span class="comment"># full install — extension + MCP server</span>
-<span class="cmd">npx @presentation-skill-pack/install gemini-cli</span>
+<span class="cmd">npx @presentation-md/install gemini-cli</span>
 
 <span class="comment"># lite — extension only</span>
-<span class="cmd">npx @presentation-skill-pack/install gemini-cli lite</span>
+<span class="cmd">npx @presentation-md/install gemini-cli lite</span>
 
 <span class="comment"># lands at: ~/.gemini/extensions/presentation-generator/</span></pre>
     </div>
 
     <div id="tab-cli" class="tab-panel">
 <pre><span class="comment"># render a deck JSON to HTML</span>
-<span class="cmd">npx @presentation-skill-pack/render deck.json</span> <span class="flag">-o deck.html</span>
-<span class="cmd">npx @presentation-skill-pack/render deck.json</span> <span class="flag">-o deck.html --theme corporate</span>
+<span class="cmd">npx @presentation-md/render deck.json</span> <span class="flag">-o deck.html</span>
+<span class="cmd">npx @presentation-md/render deck.json</span> <span class="flag">-o deck.html --theme corporate</span>
 
 <span class="comment"># list installed themes</span>
-<span class="cmd">npx @presentation-skill-pack/render</span> <span class="flag">--list-themes</span>
+<span class="cmd">npx @presentation-md/render</span> <span class="flag">--list-themes</span>
 
 <span class="comment"># validate without rendering</span>
-<span class="cmd">npx @presentation-skill-pack/render</span> <span class="flag">--validate deck.json</span>
+<span class="cmd">npx @presentation-md/render</span> <span class="flag">--validate deck.json</span>
 
 <span class="comment"># or install globally</span>
-<span class="cmd">npm i -g @presentation-skill-pack/render</span></pre>
+<span class="cmd">npm i -g @presentation-md/render</span></pre>
     </div>
 
     <div class="install-note">
@@ -1566,44 +1630,44 @@
     <div style="margin-top:32px;display:grid;gap:24px;max-width:720px">
 
       <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-        <h3 itemprop="name" style="font-size:1rem;font-weight:700;margin-bottom:6px">What is presentation-skill-pack?</h3>
+        <h3 itemprop="name" style="font-size:1rem;font-weight:700;margin-bottom:6px">What is presentation-md?</h3>
         <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">presentation-skill-pack is a free, open-source skill for AI coding agents. It gives Claude Code, Cursor, OpenAI Codex, Gemini CLI, and GitHub Copilot a structured, schema-validated way to generate polished slide decks. The agent fills a Deck JSON spec; a renderer turns it into a single self-contained HTML file — no design skills, no build tool, no hosting required.</p>
+          <p itemprop="text">presentation-md is a free, open-source skill for AI coding agents. It gives Claude Code, Cursor, OpenAI Codex, Gemini CLI, and GitHub Copilot a structured, schema-validated way to generate polished slide decks. The agent fills a Deck JSON spec; a renderer turns it into a single self-contained HTML file — no design skills, no build tool, no hosting required.</p>
         </div>
       </div>
 
       <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <h3 itemprop="name" style="font-size:1rem;font-weight:700;margin-bottom:6px">How do I install it?</h3>
         <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">Run <code>npx @presentation-skill-pack/install &lt;agent&gt;</code> — replace <code>&lt;agent&gt;</code> with <code>claude-code</code>, <code>cursor</code>, <code>copilot</code>, <code>codex</code>, or <code>gemini-cli</code>. One command installs the skill files and optionally registers the MCP server. Restart your agent afterward and ask it to build a deck.</p>
+          <p itemprop="text">Run <code>npx @presentation-md/install &lt;agent&gt;</code> — replace <code>&lt;agent&gt;</code> with <code>claude-code</code>, <code>cursor</code>, <code>copilot</code>, <code>codex</code>, or <code>gemini-cli</code>. One command installs the skill files and optionally registers the MCP server. Restart your agent afterward and ask it to build a deck.</p>
         </div>
       </div>
 
       <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <h3 itemprop="name" style="font-size:1rem;font-weight:700;margin-bottom:6px">Is it free? Is there a paid plan?</h3>
         <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">Yes — presentation-skill-pack is completely free and MIT licensed. There is no paid plan, no account required, and no usage limits. You can use it commercially and modify it freely.</p>
+          <p itemprop="text">Yes — presentation-md is completely free and MIT licensed. There is no paid plan, no account required, and no usage limits. You can use it commercially and modify it freely.</p>
         </div>
       </div>
 
       <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <h3 itemprop="name" style="font-size:1rem;font-weight:700;margin-bottom:6px">What AI agents does it support?</h3>
         <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">presentation-skill-pack supports Claude Code, Cursor, GitHub Copilot, OpenAI Codex, and Gemini CLI. It also works as a standalone CLI and exposes an MCP server compatible with any MCP-enabled agent. It is not locked to any single AI provider.</p>
+          <p itemprop="text">presentation-md supports Claude Code, Cursor, GitHub Copilot, OpenAI Codex, and Gemini CLI. It also works as a standalone CLI and exposes an MCP server compatible with any MCP-enabled agent. It is not locked to any single AI provider.</p>
         </div>
       </div>
 
       <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <h3 itemprop="name" style="font-size:1rem;font-weight:700;margin-bottom:6px">What format is the output?</h3>
         <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">Each deck is a single self-contained HTML file. It opens in any browser, requires no hosting, no export, and no build step. You own the file and can share it as an email attachment, put it on a CDN, or open it locally. See the gallery of 25 showcase decks at presentation-skill-pack.vercel.app for live examples.</p>
+          <p itemprop="text">Each deck is a single self-contained HTML file. It opens in any browser, requires no hosting, no export, and no build step. You own the file and can share it as an email attachment, put it on a CDN, or open it locally. See the gallery of 25 showcase decks at presentation-md.vercel.app for live examples.</p>
         </div>
       </div>
 
       <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <h3 itemprop="name" style="font-size:1rem;font-weight:700;margin-bottom:6px">How is this different from Gamma, Tome, or Beautiful.ai?</h3>
         <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">Gamma, Tome, and Beautiful.ai are web apps you open in a browser — separate from your coding workflow and locked to their platform. presentation-skill-pack runs inside the AI agent you already use (Claude Code, Cursor, Copilot, etc.) and produces a portable HTML file you own. There is no account, no platform lock-in, and no ongoing subscription.</p>
+          <p itemprop="text">Gamma, Tome, and Beautiful.ai are web apps you open in a browser — separate from your coding workflow and locked to their platform. presentation-md runs inside the AI agent you already use (Claude Code, Cursor, Copilot, etc.) and produces a portable HTML file you own. There is no account, no platform lock-in, and no ongoing subscription.</p>
         </div>
       </div>
 
@@ -1617,7 +1681,7 @@
     <div class="footer-left">
       <span>MIT License</span>
       <span>·</span>
-      <span>presentation-skill-pack v0.1.0</span>
+      <span>presentation-md v0.1.0</span>
     </div>
     <div class="footer-right">
       <a href="/privacy">Privacy</a>
@@ -1625,7 +1689,7 @@
       <a href="https://github.com/isatimur/presentation-md" target="_blank" rel="noopener">
         <i class="fa-brands fa-github"></i> GitHub
       </a>
-      <a href="https://www.npmjs.com/search?q=%40presentation-skill-pack" target="_blank" rel="noopener">
+      <a href="https://www.npmjs.com/search?q=%40presentation-md" target="_blank" rel="noopener">
         <i class="fa-brands fa-npm"></i> npm
       </a>
     </div>

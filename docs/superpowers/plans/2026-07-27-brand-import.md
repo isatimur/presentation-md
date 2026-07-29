@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Generate a presentation-skill-pack theme package from a brand's URL or a local CSS file — extracting colors and fonts, mapping them to the theme system's 8 semantic roles, and applying a WCAG contrast-safety pass — exposed as both a `create-theme` CLI flag and an MCP tool.
+**Goal:** Generate a presentation-md theme package from a brand's URL or a local CSS file — extracting colors and fonts, mapping them to the theme system's 8 semantic roles, and applying a WCAG contrast-safety pass — exposed as both a `create-theme` CLI flag and an MCP tool.
 
 **Architecture:** Pure extraction/mapping/contrast math lives in `packages/core` (browser-bundled via Studio, so it must stay dependency-free). Node-only orchestration — bounded HTTP fetch, the Playwright computed-style fallback, and template scaffolding — lives in `packages/create-theme` (already Node-only, zero other-package dependents). `packages/mcp-server` adds a thin tool wrapper around `create-theme`'s exports.
 
@@ -606,7 +606,7 @@ git commit -m "feat(core): add brand CSS parsing, role mapping, and contrast-saf
 - Test: `packages/create-theme/tests/name-from-url.test.ts`
 
 **Interfaces:**
-- Consumes: nothing from earlier tasks (Node-only, no `@presentation-skill-pack/core` dependency here).
+- Consumes: nothing from earlier tasks (Node-only, no `@presentation-md/core` dependency here).
 - Produces (consumed by Task 5 and Task 7):
   - `export async function fetchText(url: string, redirectsLeft?: number): Promise<string>`
   - `export async function fetchStylesheetsFromUrl(url: string): Promise<string>`
@@ -1028,8 +1028,8 @@ git commit -m "feat(create-theme): add Playwright computed-style fallback for br
 
 **Interfaces:**
 - Consumes:
-  - `parseCssVariables`, `parseFontDeclarations`, `mapPaletteToRoles`, `ensureContrastSafe`, `ContrastAdjustment` from `@presentation-skill-pack/core` (Task 2)
-  - `Palette` from `@presentation-skill-pack/core`
+  - `parseCssVariables`, `parseFontDeclarations`, `mapPaletteToRoles`, `ensureContrastSafe`, `ContrastAdjustment` from `@presentation-md/core` (Task 2)
+  - `Palette` from `@presentation-md/core`
   - `fetchStylesheetsFromUrl` from `./fetch-css.js` (Task 3)
   - `extractComputedStyles` from `./playwright-fallback.js` (Task 4)
 - Produces (consumed by Task 6 and Task 7):
@@ -1132,7 +1132,7 @@ import {
   ensureContrastSafe,
   type ContrastAdjustment,
   type Palette,
-} from "@presentation-skill-pack/core";
+} from "@presentation-md/core";
 import { fetchStylesheetsFromUrl } from "./fetch-css.js";
 import { extractComputedStyles } from "./playwright-fallback.js";
 
@@ -1425,7 +1425,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { validateThemeJson } from "@presentation-skill-pack/core";
+import { validateThemeJson } from "@presentation-md/core";
 import { buildProgram } from "../src/index.js";
 
 function mockResponse(text: string): Response {
@@ -1462,7 +1462,7 @@ describe("create-theme CLI --from-url", () => {
 
     const program = buildProgram();
     await program.parseAsync(
-      ["node", "create-presentation-theme", "--from-url", "https://acme.com", "--output-dir", outDir],
+      ["node", "create-presentation-md-theme", "--from-url", "https://acme.com", "--output-dir", outDir],
       { from: "node" }
     );
 
@@ -1500,8 +1500,8 @@ export function buildProgram(): Command {
   const program = new Command();
 
   program
-    .name("create-presentation-theme")
-    .description("Scaffold a new presentation-skill-pack theme package.")
+    .name("create-presentation-md-theme")
+    .description("Scaffold a new presentation-md theme package.")
     .argument(
       "[name]",
       "Theme name in kebab-case (e.g. my-brand-dark). Optional with --from-url (derived from the hostname)."
@@ -1628,7 +1628,7 @@ git commit -m "feat(create-theme): add --from-url/--from-css flags to the create
 - Test: `packages/mcp-server/tests/import-brand-theme.test.ts`
 
 **Interfaces:**
-- Consumes: `extractBrand`, `buildThemeViewFromBrand`, `buildThemeManifestJson`, `scaffoldTheme`, `validateThemeName`, `deriveNameFromUrl` — all from `@presentation-skill-pack/create-theme` (Tasks 3, 5, 6). `ToolDefinition` from `../server.js` (existing).
+- Consumes: `extractBrand`, `buildThemeViewFromBrand`, `buildThemeManifestJson`, `scaffoldTheme`, `validateThemeName`, `deriveNameFromUrl` — all from `@presentation-md/create-theme` (Tasks 3, 5, 6). `ToolDefinition` from `../server.js` (existing).
 - Produces: `export const importBrandThemeTool: ToolDefinition`, registered in `TOOLS` in `server.ts`.
 
 - [ ] **Step 1: Add the workspace dependency**
@@ -1636,10 +1636,10 @@ git commit -m "feat(create-theme): add --from-url/--from-css flags to the create
 Modify `packages/mcp-server/package.json` — add to `dependencies`:
 
 ```json
-"@presentation-skill-pack/create-theme": "workspace:*"
+"@presentation-md/create-theme": "workspace:*"
 ```
 
-Also export the needed symbols from `packages/create-theme`'s public surface — modify `packages/create-theme/src/theme-view.ts` is already exported via its own file; confirm `packages/create-theme/package.json`'s `exports`/`main` point at `./dist/index.js` (already true) and that `dist/theme-view.js`, `dist/extract-brand.js`, `dist/name-from-url.js` get built alongside `dist/index.js` — `tsc -p tsconfig.json` already compiles every `.ts` file under `src/`, so no config change is needed. `mcp-server` will import `buildThemeViewFromBrand` via `@presentation-skill-pack/create-theme/dist/theme-view.js`... instead, to keep the import surface clean, add re-exports to `packages/create-theme/src/index.ts`:
+Also export the needed symbols from `packages/create-theme`'s public surface — modify `packages/create-theme/src/theme-view.ts` is already exported via its own file; confirm `packages/create-theme/package.json`'s `exports`/`main` point at `./dist/index.js` (already true) and that `dist/theme-view.js`, `dist/extract-brand.js`, `dist/name-from-url.js` get built alongside `dist/index.js` — `tsc -p tsconfig.json` already compiles every `.ts` file under `src/`, so no config change is needed. `mcp-server` will import `buildThemeViewFromBrand` via `@presentation-md/create-theme/dist/theme-view.js`... instead, to keep the import surface clean, add re-exports to `packages/create-theme/src/index.ts`:
 
 ```ts
 export { extractBrand } from "./extract-brand.js";
@@ -1725,13 +1725,13 @@ import {
   scaffoldTheme,
   validateThemeName,
   deriveNameFromUrl,
-} from "@presentation-skill-pack/create-theme";
+} from "@presentation-md/create-theme";
 import type { ToolDefinition } from "../server.js";
 
 export const importBrandThemeTool: ToolDefinition = {
   name: "import_brand_theme",
   description:
-    "Generate a presentation-skill-pack theme from a brand's website URL or a local CSS file. Extracts colors and fonts, maps them to the theme's 8 semantic roles, and applies a WCAG contrast-safety pass so the result stays legible. Use whenever the user wants a deck theme that matches an existing brand or product.",
+    "Generate a presentation-md theme from a brand's website URL or a local CSS file. Extracts colors and fonts, maps them to the theme's 8 semantic roles, and applies a WCAG contrast-safety pass so the result stays legible. Use whenever the user wants a deck theme that matches an existing brand or product.",
   inputSchema: {
     type: "object",
     properties: {
@@ -1809,7 +1809,7 @@ Expected: all tests PASS, typecheck clean.
 
 - [ ] **Step 6: Run the full monorepo build to confirm the new workspace dependency resolves**
 
-Run: `cd /Users/timur_isachenko/Dev/presentation-skill-pack && pnpm install && pnpm build && pnpm test`
+Run: `cd /Users/timur_isachenko/Dev/presentation-md && pnpm install && pnpm build && pnpm test`
 Expected: clean build across all packages, all tests pass.
 
 - [ ] **Step 7: Commit**
@@ -1843,8 +1843,8 @@ Modify `skills/presentation-generator/references/themes.md` — add after the ex
 Generate a theme from an existing brand instead of hand-picking colors:
 
 ```
-npx @presentation-skill-pack/create-theme --from-url https://acme.com
-npx @presentation-skill-pack/create-theme my-theme-name --from-css ./brand.css
+npx @presentation-md/create-theme --from-url https://acme.com
+npx @presentation-md/create-theme my-theme-name --from-css ./brand.css
 ```
 
 Extracts `:root` CSS variables and font declarations (falling back to a headless-browser
@@ -1869,12 +1869,12 @@ Modify `README.md` — extend the existing `create-theme` table row:
 
 Find:
 ```markdown
-| [`@presentation-skill-pack/create-theme`](packages/create-theme) | Scaffold a new publishable theme package (`create-presentation-theme`) |
+| [`@presentation-md/create-theme`](packages/create-theme) | Scaffold a new publishable theme package (`create-presentation-md-theme`) |
 ```
 
 Replace with:
 ```markdown
-| [`@presentation-skill-pack/create-theme`](packages/create-theme) | Scaffold a new publishable theme package (`create-presentation-theme`), interactively or from a brand's URL/CSS (`--from-url`/`--from-css`) |
+| [`@presentation-md/create-theme`](packages/create-theme) | Scaffold a new publishable theme package (`create-presentation-md-theme`), interactively or from a brand's URL/CSS (`--from-url`/`--from-css`) |
 ```
 
 - [ ] **Step 4: Commit**

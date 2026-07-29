@@ -1,4 +1,4 @@
-import type { ResolvedTheme } from "@presentation-skill-pack/core";
+import type { ResolvedTheme } from "@presentation-md/core";
 import type { PptxShapeArg } from "./pptx.js";
 import { resolveColor } from "./color.js";
 import { parseFontFamily, isBoldWeight } from "./font.js";

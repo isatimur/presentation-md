@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>presentation-skill-pack for Claude Code — AI slide deck generator</title>
+  <title>presentation-md for Claude Code — AI slide deck generator</title>
   <meta name="description" content="Generate polished HTML slide decks from plain notes inside Claude Code — no design skills required." />
-  <link rel="canonical" href="https://presentation-skill-pack.vercel.app/for/claude-code" />
+  <link rel="canonical" href="https://presentation-md.vercel.app/for/claude-code" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#7C3AED" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -14,33 +14,33 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="presentation-skill-pack" />
-  <meta property="og:url" content="https://presentation-skill-pack.vercel.app/for/claude-code" />
-  <meta property="og:title" content="presentation-skill-pack for Claude Code — AI slide deck generator" />
+  <meta property="og:site_name" content="presentation-md" />
+  <meta property="og:url" content="https://presentation-md.vercel.app/for/claude-code" />
+  <meta property="og:title" content="presentation-md for Claude Code — AI slide deck generator" />
   <meta property="og:description" content="Generate polished HTML slide decks from plain notes inside Claude Code — no design skills required." />
-  <meta property="og:image" content="https://presentation-skill-pack.vercel.app/og-image.png" />
-  <meta property="og:image:alt" content="presentation-skill-pack for Claude Code — AI slide deck generator" />
+  <meta property="og:image" content="https://presentation-md.vercel.app/og-image.png" />
+  <meta property="og:image:alt" content="presentation-md for Claude Code — AI slide deck generator" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@isatimur" />
   <meta name="twitter:creator" content="@isatimur" />
-  <meta name="twitter:title" content="presentation-skill-pack for Claude Code — AI slide deck generator" />
+  <meta name="twitter:title" content="presentation-md for Claude Code — AI slide deck generator" />
   <meta name="twitter:description" content="Generate polished HTML slide decks from plain notes inside Claude Code — no design skills required." />
-  <meta name="twitter:image" content="https://presentation-skill-pack.vercel.app/og-image.png" />
+  <meta name="twitter:image" content="https://presentation-md.vercel.app/og-image.png" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "presentation-skill-pack",
+    "name": "presentation-md",
     "description": "Generate polished HTML slide decks from plain notes inside Claude Code — no design skills required.",
     "applicationCategory": "DeveloperApplication",
     "applicationSubCategory": "AI Presentation Generator",
     "operatingSystem": "Any",
-    "url": "https://presentation-skill-pack.vercel.app/for/claude-code",
+    "url": "https://presentation-md.vercel.app/for/claude-code",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "author": { "@type": "Person", "name": "Timur Isachenko", "url": "https://github.com/isatimur/presentation-md" },
-    "downloadUrl": "https://www.npmjs.com/package/@presentation-skill-pack/install",
+    "downloadUrl": "https://www.npmjs.com/package/@presentation-md/install",
     "softwareVersion": "0.1.0"
   }
   </script>
@@ -90,7 +90,7 @@
 
 <header>
   <div class="container">
-    <a href="/" class="back-link">← presentation-skill-pack</a>
+    <a href="/" class="back-link">← presentation-md</a>
     <br><br>
     <span class="eyebrow">For Claude Code · by Anthropic</span>
     <h1>Generate slide decks<br>inside <span>Claude Code</span>.</h1>
@@ -105,8 +105,8 @@
     <span class="badge accent">Self-contained HTML output</span>
     <br><br>
     <h2>What it does</h2>
-    <p>presentation-skill-pack gives Claude Code a schema-validated workflow for authoring slide decks. You describe what you want in plain language — or paste rough notes — and Claude Code fills a structured Deck JSON spec. A renderer converts that spec into a single, self-contained HTML file: open in any browser, no hosting, no build step.</p>
-    <p>Full mode also registers an MCP server with 5 typed tools (<code>render_deck</code>, <code>list_themes</code>, <code>get_theme</code>, <code>validate_deck</code>, <code>create_deck</code>) that Claude Code calls directly.</p>
+    <p>presentation-md gives Claude Code a schema-validated workflow for authoring slide decks. You describe what you want in plain language — or paste rough notes — and Claude Code fills a structured Deck JSON spec. A renderer converts that spec into a single, self-contained HTML file: open in any browser, no hosting, no build step.</p>
+    <p>Full mode also registers an MCP server with typed tools (<code>render_deck</code>, <code>export_deck</code>, <code>audit_deck</code>, <code>list_themes</code>, <code>apply_theme</code>, <code>generate_deck_prompt</code>, <code>import_pptx</code>, <code>import_brand_theme</code>) that Claude Code calls directly.</p>
     <p>Output is portable. You own the file — email it, drop it on a CDN, or open it locally. It doesn't live on any platform.</p>
   </div>
 </section>
@@ -117,9 +117,9 @@
     <div class="steps">
       <div class="step"><div class="step-num">1</div><div>
         <h3>Run the installer</h3>
-        <pre><code>npx @presentation-skill-pack/install claude-code</code></pre>
+        <pre><code>npx @presentation-md/install claude-code</code></pre>
         <p>Or lite mode (skill only, no MCP server):</p>
-        <pre><code>npx @presentation-skill-pack/install claude-code lite</code></pre>
+        <pre><code>npx @presentation-md/install claude-code lite</code></pre>
         <p>Files land in: <code>~/.claude/skills/</code></p>
       </div></div>
       <div class="step"><div class="step-num">2</div><div>
@@ -140,7 +140,7 @@
   <div class="container">
     <h2>See it in the gallery</h2>
     <p>25 showcase decks — pitch decks, sales proposals, product launches, investor reports, keynotes — each a different visual identity. All generated with the same skill.</p>
-    <a href="https://presentation-skill-pack.vercel.app/#gallery" class="gallery-link">Browse the gallery →</a>
+    <a href="https://presentation-md.vercel.app/#gallery" class="gallery-link">Browse the gallery →</a>
   </div>
 </section>
 
@@ -155,9 +155,9 @@
 
 <footer>
   <div class="container">
-    <a href="/">presentation-skill-pack</a> · MIT License ·
+    <a href="/">presentation-md</a> · MIT License ·
     <a href="https://github.com/isatimur/presentation-md" target="_blank" rel="noopener">GitHub</a> ·
-    <a href="https://www.npmjs.com/package/@presentation-skill-pack/install" target="_blank" rel="noopener">npm</a>
+    <a href="https://www.npmjs.com/package/@presentation-md/install" target="_blank" rel="noopener">npm</a>
   </div>
 </footer>
 

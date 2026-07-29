@@ -6,11 +6,11 @@ import Mustache from "mustache";
 import {
   validateDeckJson as coreValidateDeckJson,
   loadTheme,
-} from "@presentation-skill-pack/core";
-import type { ValidationResult } from "@presentation-skill-pack/core";
-import { deckToPptxBuffer, type DeckJson as ExportDeckJson } from "@presentation-skill-pack/export";
+} from "@presentation-md/core";
+import type { ValidationResult } from "@presentation-md/core";
+import { deckToPptxBuffer, type DeckJson as ExportDeckJson } from "@presentation-md/export";
 
-export { validateDeckJson } from "@presentation-skill-pack/core";
+export { validateDeckJson } from "@presentation-md/core";
 
 const VALID_LAYOUTS = new Set([
   "title",
@@ -71,28 +71,28 @@ export interface RenderOptions {
   themesDir?: string;
   extraCss?: string;
   /**
-   * Append a small, theme-aware "Made with presentation-skill-pack" footer to
+   * Append a small, theme-aware "Made with presentation-md" footer to
    * the rendered deck. Defaults to `true`. Set to `false` to omit it.
    */
   attribution?: boolean;
   /**
    * Embed the source Deck JSON in the output as
-   * `<script type="application/json" id="psp-deck">` so the deck can be reopened
+   * `<script type="application/json" id="pmd-deck">` so the deck can be reopened
    * and edited (e.g. in the studio). Defaults to `true`.
    */
   embedSource?: boolean;
 }
 
-const ATTRIBUTION_URL = "https://presentation-skill-pack.vercel.app/?ref=deck";
+const ATTRIBUTION_URL = "https://presentation-md.vercel.app/?ref=deck";
 
 const ATTRIBUTION_HTML =
-  `<footer class="psp-attribution">Made with ` +
-  `<a href="${ATTRIBUTION_URL}" target="_blank" rel="noopener">presentation-skill-pack</a>` +
+  `<footer class="pmd-attribution">Made with ` +
+  `<a href="${ATTRIBUTION_URL}" target="_blank" rel="noopener">presentation-md</a>` +
   `</footer>`;
 
 const ATTRIBUTION_CSS = `
-/* presentation-skill-pack attribution footer */
-.psp-attribution {
+/* presentation-md attribution footer */
+.pmd-attribution {
   font-family: var(--body-font);
   font-size: 13px;
   letter-spacing: 0.04em;
@@ -101,14 +101,14 @@ const ATTRIBUTION_CSS = `
   text-align: center;
   padding: 4px 0 16px;
 }
-.psp-attribution a {
+.pmd-attribution a {
   color: var(--muted);
   text-decoration: none;
   border-bottom: 1px solid color-mix(in srgb, var(--muted) 40%, transparent);
   transition: color 0.15s ease, border-color 0.15s ease;
 }
-.psp-attribution a:hover { color: var(--accent); border-color: var(--accent); }
-@media print { .psp-attribution { opacity: 0.5; } }`;
+.pmd-attribution a:hover { color: var(--accent); border-color: var(--accent); }
+@media print { .pmd-attribution { opacity: 0.5; } }`;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -116,7 +116,7 @@ const __dirname = dirname(__filename);
 const require = createRequire(import.meta.url);
 
 export function getBundledThemesDir(): string {
-  const coreMain = require.resolve("@presentation-skill-pack/core");
+  const coreMain = require.resolve("@presentation-md/core");
   return join(dirname(coreMain), "..", "themes");
 }
 
@@ -234,7 +234,7 @@ async function renderSlide(slide: SlideData, layoutsDir: string): Promise<string
  */
 function embedDeckScript(deck: DeckJson): string {
   const json = JSON.stringify(deck).replace(/</g, "\\u003c");
-  return `<script type="application/json" id="psp-deck">${json}</script>`;
+  return `<script type="application/json" id="pmd-deck">${json}</script>`;
 }
 
 export async function renderDeck(deckJson: string, opts?: RenderOptions): Promise<string> {

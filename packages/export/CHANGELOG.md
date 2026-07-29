@@ -1,0 +1,40 @@
+# @presentation-md/export
+
+## 1.0.0
+
+### Major Changes
+
+- e9b8afd: Rename the pack from presentation-skill-pack to presentation-md to match the GitHub repo.
+
+  Breaking: npm scope is now `@presentation-md/*`, CLIs are `presentation-md-*` /
+  `create-presentation-md-theme`, PyPI packages are `presentation-md-*`, and the site
+  hostname is `presentation-md.vercel.app`.
+
+### Minor Changes
+
+- a3f8544: Add PPTX export: take any deck into PowerPoint, Keynote, and Google Slides.
+
+  - New `@presentation-md/export` package mapping each of the 9 structured
+    layouts + theme roles to native, editable PowerPoint shapes (`deckToPptxBuffer` /
+    `deckToPptxBlob` / `deckToPptxArrayBuffer`, isomorphic Node + browser).
+  - `render` CLI gains `--format pptx` (and a shared `renderDeckPptx` API). The
+    resulting `.pptx` opens directly in PowerPoint and Keynote, and imports into
+    Google Slides via File → Import.
+  - New `export_deck` MCP tool so agents can export decks to `.pptx` (or html).
+
+- e9b8afd: Add PPTX → Deck JSON import (round-trip with existing export).
+
+  - `extractPptx` / `mapExtractedToDeck` / `pptxToDeck` via `@presentation-md/export/import`
+  - CLI: `presentation-md-render --from-pptx <file>`
+  - MCP: `import_pptx` tool (path or base64, cwd-contained)
+  - Skill docs: `references/pptx-import.md`
+
+### Patch Changes
+
+- 4dfb90b: Harden PPTX import against review findings: correct assetsDir image refs,
+  enforce post-decompress zip size limits, realpath write containment, preserve
+  speaker notes, and reopen legacy psp-deck HTML embeds.
+- Updated dependencies [4dfb90b]
+- Updated dependencies [e9b8afd]
+- Updated dependencies [e9b8afd]
+  - @presentation-md/core@1.0.0

@@ -1,6 +1,6 @@
 # luxury-minimalist
 
-**Luxury minimalist** presentation theme for presentation-skill-pack.
+**Luxury minimalist** presentation theme for presentation-md.
 Warm off-white canvas, dark charcoal text, near-zero decoration, generous whitespace,
 thin serif display (Cormorant Garamond) + geometric sans (DM Sans), hairline borders,
 no gradients. Let content breathe.
@@ -8,7 +8,7 @@ no gradients. Let content breathe.
 ## Install
 
 ```bash
-npm i @presentation-skill-pack/theme-luxury-minimalist
+npm i @presentation-md/theme-luxury-minimalist
 ```
 
 ## Usage

@@ -1,13 +1,14 @@
 {
-  "name": "@presentation-skill-pack/export",
-  "version": "0.1.0",
-  "description": "Export a presentation-skill-pack deck JSON spec to native, editable PowerPoint (.pptx) — also opens in Keynote and imports into Google Slides.",
+  "name": "@presentation-md/export",
+  "version": "1.0.0",
+  "description": "Round-trip PowerPoint for presentation-md decks — export Deck JSON to editable .pptx, and import .pptx back into Deck JSON.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./import": "./dist/import/index.js"
   },
   "files": [
     "dist"
@@ -19,10 +20,13 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@presentation-skill-pack/core": "workspace:*",
+    "@presentation-md/core": "workspace:*",
+    "fast-xml-parser": "^5.10.1",
+    "jszip": "^3.10.1",
     "pptxgenjs": "^3.12.0"
   },
   "devDependencies": {
+    "@types/jszip": "^3.4.1",
     "@types/node": "^20.0.0",
     "typescript": "^5.4.0",
     "vitest": "^1.5.0"
@@ -34,6 +38,6 @@
     "type": "git",
     "url": "https://github.com/isatimur/presentation-md.git"
   },
-  "homepage": "https://presentation-skill-pack.vercel.app",
+  "homepage": "https://presentation-md.vercel.app",
   "bugs": "https://github.com/isatimur/presentation-md/issues"
 }

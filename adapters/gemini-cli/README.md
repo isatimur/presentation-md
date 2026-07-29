@@ -1,4 +1,4 @@
-# presentation-skill-pack — Gemini CLI adapter
+# presentation-md — Gemini CLI adapter
 
 Installs the `presentation-generator` skill as a Gemini CLI extension so the agent can turn rough notes into polished HTML slide decks on demand.
 
@@ -9,7 +9,7 @@ Installs the `presentation-generator` skill as a Gemini CLI extension so the age
 | **full** (default) | Writes `SKILL.md` + `extension.json` to `~/.gemini/extensions/presentation-generator/` **and** registers the MCP server in `~/.gemini/settings.json`. |
 | **lite** | Writes the extension files only — no MCP server. |
 
-The `extension.json` tells Gemini CLI to load `SKILL.md` as a skill definition. With full mode, the 5 MCP tools (`render_deck`, `list_themes`, `get_theme`, `validate_deck`, `create_deck`) are also available.
+The `extension.json` tells Gemini CLI to load `SKILL.md` as a skill definition. With full mode, MCP tools such as `render_deck`, `export_deck`, `audit_deck`, `list_themes`, `apply_theme`, `import_pptx`, and `import_brand_theme` are also available.
 
 ## Install
 
@@ -17,22 +17,22 @@ The `extension.json` tells Gemini CLI to load `SKILL.md` as a skill definition. 
 
 ```bash
 # full (MCP tools enabled)
-npx @presentation-skill-pack/install gemini-cli
+npx @presentation-md/install gemini-cli
 
 # lite (extension only, no MCP)
-npx @presentation-skill-pack/install gemini-cli lite
+npx @presentation-md/install gemini-cli lite
 ```
 
 ### Manual — bash (macOS / Linux)
 
 ```bash
-PSP_CORE_DIR=/path/to/node_modules/@presentation-skill-pack/core bash install.sh full
+PMD_CORE_DIR=/path/to/node_modules/@presentation-md/core bash install.sh full
 ```
 
 ### Manual — PowerShell (Windows)
 
 ```powershell
-$env:PSP_CORE_DIR = "C:\path\to\node_modules\@presentation-skill-pack\core"
+$env:PMD_CORE_DIR = "C:\path\to\node_modules\@presentation-md\core"
 .\install.ps1 full
 ```
 
@@ -57,5 +57,5 @@ Restart Gemini CLI. Ask:
 
 ```bash
 rm -rf ~/.gemini/extensions/presentation-generator
-# edit ~/.gemini/settings.json to remove the presentation-skill-pack entry if needed
+# edit ~/.gemini/settings.json to remove the presentation-md entry if needed
 ```

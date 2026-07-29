@@ -119,7 +119,7 @@ async function ask(
 async function collectView(rl: ReturnType<typeof createInterface>, name: string): Promise<ThemeView> {
   process.stdout.write("\nTheme details (press Enter to accept defaults):\n\n");
 
-  const description = await ask(rl, "Description", `A ${name} theme for presentation-skill-pack`);
+  const description = await ask(rl, "Description", `A ${name} theme for presentation-md`);
   const vibe = await ask(rl, "Vibe (e.g. dark, minimal, vibrant)", "dark");
   const author = await ask(rl, "Author name", "");
   const license = await ask(rl, "License", "MIT");
@@ -182,8 +182,8 @@ export function buildProgram(): Command {
   const program = new Command();
 
   program
-    .name("create-presentation-theme")
-    .description("Scaffold a new presentation-skill-pack theme package.")
+    .name("create-presentation-md-theme")
+    .description("Scaffold a new presentation-md theme package.")
     .argument(
       "[name]",
       "Theme name in kebab-case (e.g. my-brand-dark). Optional with --from-url (derived from the hostname)."

@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { mkdtempSync, readFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { validateThemeJson } from "@presentation-skill-pack/core";
+import { validateThemeJson } from "@presentation-md/core";
 
 const lookupMock = vi.fn();
 vi.mock("node:dns/promises", () => ({
@@ -47,7 +47,7 @@ describe("create-theme CLI --from-url", () => {
 
     const program = buildProgram();
     await program.parseAsync(
-      ["node", "create-presentation-theme", "--from-url", "https://acme.com", "--output-dir", outDir],
+      ["node", "create-presentation-md-theme", "--from-url", "https://acme.com", "--output-dir", outDir],
       { from: "node" }
     );
 

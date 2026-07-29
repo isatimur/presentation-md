@@ -1,11 +1,11 @@
 import { writeFile } from "node:fs/promises";
-import { renderDeck, getBundledThemesDir } from "@presentation-skill-pack/render";
+import { renderDeck, getBundledThemesDir } from "@presentation-md/render";
 import type { ToolDefinition } from "../server.js";
 
 export const renderDeckTool: ToolDefinition = {
   name: "render_deck",
   description:
-    "Render a presentation-skill-pack deck JSON spec to a self-contained HTML slide deck. Returns the HTML string and optionally writes to a file.",
+    "Render a presentation-md deck JSON spec to a self-contained HTML slide deck. Returns the HTML string and optionally writes to a file.",
   inputSchema: {
     type: "object",
     properties: {

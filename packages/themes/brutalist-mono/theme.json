@@ -1,0 +1,29 @@
+{
+  "name": "brutalist-mono",
+  "version": "0.1.0",
+  "extends": "default-tech",
+  "description": "Raw brutalist theme with concrete-grey background, monospace type, hard square corners, and a single hazard-orange accent.",
+  "vibe": "Raw brutalist / technical — concrete off-white bg, near-black monospace ink, hazard-orange accent, thick black hairlines, zero radius.",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#f0efe9",
+    "bg2": "#e3e1d8",
+    "text": "#0a0a0a",
+    "muted": "#57554c",
+    "accent": "#ff3600",
+    "accent2": "#0a0a0a",
+    "cardBg": "#ffffff",
+    "border": "rgba(10,10,10,0.85)"
+  },
+  "typography": {
+    "headingFont": "'IBM Plex Mono', 'Courier New', monospace",
+    "bodyFont": "'IBM Plex Mono', 'Courier New', monospace",
+    "headingWeight": 700,
+    "googleFonts": ["IBM+Plex+Mono:wght@400;600;700"]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

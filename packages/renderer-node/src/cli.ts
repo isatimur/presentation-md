@@ -2,10 +2,11 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
-import { dirname, join, resolve } from "node:path";
+import { dirname, extname, join, resolve } from "node:path";
 import { Command } from "commander";
 import { renderDeck, renderDeckPptx, getBundledThemesDir } from "./index.js";
-import { discoverInstalledThemes } from "@presentation-skill-pack/core";
+import { discoverInstalledThemes } from "@presentation-md/core";
+import { pptxToDeck } from "@presentation-md/export/import";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -31,31 +32,62 @@ try {
 }
 
 program
-  .name("presentation-skill-pack-render")
+  .name("presentation-md-render")
   .description("Render a deck JSON spec to a self-contained HTML slide deck.")
   .version(version)
   .argument("[deck.json]", "path to deck JSON file (reads stdin if omitted)")
-  .option("-o, --output <path>", "output file (default: deck.html or deck.pptx)")
+  .option("-o, --output <path>", "output file (default: deck.html, deck.pptx, or deck.json)")
   .option("-f, --format <fmt>", "output format: html | pptx", "html")
   .option("-t, --theme <name>", "theme name (overrides deck meta.theme)")
+  .option("--from-pptx <path>", "import a .pptx file to deck JSON instead of rendering")
+  .option("--assets-dir <dir>", "with --from-pptx, write images to this directory instead of data URIs")
   .option("--list-themes", "list available themes and exit")
   .option("--validate", "validate only, do not render")
   .action(async (inputPath: string | undefined, options: {
     output?: string;
     format: string;
     theme?: string;
+    fromPptx?: string;
+    assetsDir?: string;
     listThemes?: boolean;
     validate?: boolean;
   }) => {
     if (options.listThemes) {
       const themesDir = getBundledThemesDir();
-      const themes = await discoverInstalledThemes({ bundledThemesDir: themesDir });
+      const themes = await discoverInstalledThemes({
+        bundledThemesDir: themesDir,
+        nodeModulesRoot: process.cwd(),
+      });
       if (themes.length === 0) {
         process.stdout.write("No themes found.\n");
       } else {
         for (const t of themes) {
           process.stdout.write(`${t.name}@${t.version} [${t.source}]\n`);
         }
+      }
+      return;
+    }
+
+    if (options.fromPptx) {
+      const pptxPath = resolve(process.cwd(), options.fromPptx);
+      if (extname(pptxPath).toLowerCase() !== ".pptx") {
+        process.stderr.write("Error: --from-pptx requires a .pptx file\n");
+        process.exit(1);
+      }
+      try {
+        const buf = await readFile(pptxPath);
+        const { deck, warnings } = await pptxToDeck(buf, {
+          theme: options.theme,
+          assetsDir: options.assetsDir ? resolve(process.cwd(), options.assetsDir) : undefined,
+        });
+        const outputPath = resolve(process.cwd(), options.output ?? "deck.json");
+        await writeFile(outputPath, JSON.stringify(deck, null, 2), "utf-8");
+        for (const w of warnings) process.stderr.write(`  warning: ${w}\n`);
+        const warnNote = warnings.length ? ` (${warnings.length} warnings)` : "";
+        process.stdout.write(`Imported ${deck.slides.length} slides${warnNote} → ${outputPath}\n`);
+      } catch (err) {
+        process.stderr.write(`Error: ${(err as Error).message}\n`);
+        process.exit(1);
       }
       return;
     }

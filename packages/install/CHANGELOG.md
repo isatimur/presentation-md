@@ -1,22 +1,39 @@
-# @presentation-skill-pack/install
+# @presentation-md/install
+
+## 1.0.0
+
+### Major Changes
+
+- e9b8afd: Rename the pack from presentation-skill-pack to presentation-md to match the GitHub repo.
+
+  Breaking: npm scope is now `@presentation-md/*`, CLIs are `presentation-md-*` /
+  `create-presentation-md-theme`, PyPI packages are `presentation-md-*`, and the site
+  hostname is `presentation-md.vercel.app`.
+
+### Patch Changes
+
+- Updated dependencies [4dfb90b]
+- Updated dependencies [e9b8afd]
+- Updated dependencies [e9b8afd]
+  - @presentation-md/core@1.0.0
 
 ## 0.1.2
 
 ### Patch Changes
 
-- Copilot adapter now uses sentinel sections (`<!-- BEGIN presentation-skill-pack -->`) so multiple skill packs can coexist in the same `.github/copilot-instructions.md` without overwriting each other.
+- Copilot adapter now uses sentinel sections (`<!-- BEGIN presentation-md -->`) so multiple skill packs can coexist in the same `.github/copilot-instructions.md` without overwriting each other.
 
 ## 0.1.1
 
 ### Patch Changes
 
-- Add GitHub Copilot adapter: `npx @presentation-skill-pack/install copilot` writes `.github/copilot-instructions.md` in the current project and optionally registers the MCP server in `.vscode/mcp.json`.
+- Add GitHub Copilot adapter: `npx @presentation-md/install copilot` writes `.github/copilot-instructions.md` in the current project and optionally registers the MCP server in `.vscode/mcp.json`.
 
 ## 0.2.0
 
 ### Minor Changes
 
-- d8d2fb0: Initial release of presentation-skill-pack v0.1.0.
+- d8d2fb0: Initial release of presentation-md v0.1.0.
 
   Turn rough notes into a polished, self-contained HTML slide deck for any AI agent.
   Includes dual-language renderers (Node + Python), MCP server, 5 themes, 5 adapters,
@@ -25,4 +42,4 @@
 ### Patch Changes
 
 - Updated dependencies [d8d2fb0]
-  - @presentation-skill-pack/core@0.2.0
+  - @presentation-md/core@0.2.0

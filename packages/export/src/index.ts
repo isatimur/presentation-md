@@ -1,4 +1,4 @@
-import type { ResolvedTheme } from "@presentation-skill-pack/core";
+import type { ResolvedTheme } from "@presentation-md/core";
 import { PptxGenJS, type Pptx } from "./pptx.js";
 import { buildContext } from "./context.js";
 import { renderSlide } from "./layouts.js";
@@ -15,8 +15,8 @@ export type {
   Cta,
 } from "./deck-types.js";
 
-const ATTRIBUTION_TEXT = "Made with presentation-skill-pack";
-const ATTRIBUTION_URL = "https://presentation-skill-pack.vercel.app/?ref=pptx";
+const ATTRIBUTION_TEXT = "Made with presentation-md";
+const ATTRIBUTION_URL = "https://presentation-md.vercel.app/?ref=pptx";
 
 export interface PptxOptions {
   /** Called for any content that couldn't be mapped exactly (e.g. remote images). */
@@ -31,7 +31,7 @@ export interface BuildResult {
   warnings: string[];
 }
 
-const LAYOUT_NAME = "PSP_16x9";
+const LAYOUT_NAME = "PMD_16x9";
 
 /**
  * Build a PptxGenJS presentation from a (validated) deck and a resolved theme.
@@ -62,7 +62,7 @@ export async function buildPptx(
   if (deck.meta?.title) pptx.title = deck.meta.title;
   if (deck.meta?.company) pptx.company = deck.meta.company;
   if (deck.meta?.description) pptx.subject = deck.meta.description;
-  pptx.author = "presentation-skill-pack";
+  pptx.author = "presentation-md";
 
   const slides = Array.isArray(deck.slides) ? deck.slides : [];
   slides.forEach((slideData, i) => {

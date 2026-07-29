@@ -4,7 +4,7 @@ import type {
   Palette,
   Typography,
   Geometry,
-} from "@presentation-skill-pack/core";
+} from "@presentation-md/core";
 
 /**
  * Browser theme registry. Bundles every `theme.json` in the monorepo (core +

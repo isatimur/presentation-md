@@ -94,7 +94,7 @@ Numbers earn their place with context; invented figures are labelled.
 
 ### `variety` — Layout variety  (8)
 Layout matched to the job; not the same template every slide.
-- **5** — A range of layouts (cover, manifesto, stat-row, comparison, process, quote…), each chosen
+- **5** — A range of layouts (`title`, `section`, `stat-row`, `data-table`, `timeline`, `quote`…), each chosen
   because it fits that slide's job. Rhythm of dense/sparse.
 - **3** — Some variety but leans on one or two layouts.
 - **1** — Nearly every slide is the same shape.

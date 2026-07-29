@@ -1,7 +1,7 @@
 {
-  "name": "@presentation-skill-pack/studio",
-  "version": "0.1.0",
-  "description": "Browser-based editor studio for presentation-skill-pack decks: edit, live-preview, and export to HTML or PowerPoint (.pptx).",
+  "name": "@presentation-md/studio",
+  "version": "1.0.0",
+  "description": "Browser-based editor studio for presentation-md decks: edit, live-preview, and export to HTML or PowerPoint (.pptx).",
   "license": "MIT",
   "private": true,
   "type": "module",
@@ -16,7 +16,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@presentation-skill-pack/export": "workspace:*",
+    "@presentation-md/export": "workspace:*",
     "mustache": "^4.2.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0",
-    "@presentation-skill-pack/core": "workspace:*",
+    "@presentation-md/core": "workspace:*",
     "@types/mustache": "^4.2.5",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",

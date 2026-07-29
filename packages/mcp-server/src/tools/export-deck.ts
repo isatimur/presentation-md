@@ -1,5 +1,5 @@
 import { writeFile } from "node:fs/promises";
-import { renderDeck, renderDeckPptx, getBundledThemesDir } from "@presentation-skill-pack/render";
+import { renderDeck, renderDeckPptx, getBundledThemesDir } from "@presentation-md/render";
 import type { ToolDefinition } from "../server.js";
 
 function applyThemeOverride(rawJson: string, theme?: string): string {
@@ -28,7 +28,7 @@ function slideCountOf(json: string): number {
 export const exportDeckTool: ToolDefinition = {
   name: "export_deck",
   description:
-    "Export a presentation-skill-pack deck JSON spec to a native, editable PowerPoint (.pptx) file — opens directly in PowerPoint and Keynote, and imports into Google Slides. Also supports html. Writes to output_path when given, otherwise returns base64 bytes.",
+    "Export a presentation-md deck JSON spec to a native, editable PowerPoint (.pptx) file — opens directly in PowerPoint and Keynote, and imports into Google Slides. Also supports html. Writes to output_path when given, otherwise returns base64 bytes.",
   inputSchema: {
     type: "object",
     properties: {

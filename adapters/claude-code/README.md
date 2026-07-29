@@ -1,4 +1,4 @@
-# presentation-skill-pack — Claude Code adapter
+# presentation-md — Claude Code adapter
 
 Installs the `presentation-generator` skill into Claude Code so the agent can turn rough notes into polished HTML slide decks on demand.
 
@@ -6,7 +6,7 @@ Installs the `presentation-generator` skill into Claude Code so the agent can tu
 
 | Mode | What happens |
 |------|-------------|
-| **full** (default) | Copies `SKILL.md` + `references/` to `~/.claude/skills/presentation-generator/` **and** registers the MCP server (`presentation-skill-pack`) in `~/.claude/mcp.json`, enabling the 5 MCP tools (`render_deck`, `list_themes`, `get_theme`, `validate_deck`, `create_deck`). |
+| **full** (default) | Copies `SKILL.md` + `references/` to `~/.claude/skills/presentation-generator/` **and** registers the MCP server (`presentation-md`) in `~/.claude/mcp.json`, enabling tools such as `render_deck`, `export_deck`, `audit_deck`, `list_themes`, `apply_theme`, `import_pptx`, and `import_brand_theme`. |
 | **lite** | Copies `SKILL.md` + `references/` only. The skill is available but no MCP tools. Claude uses the deck-spec CLI path or direct-HTML fallback. |
 
 ## Install
@@ -15,25 +15,25 @@ Installs the `presentation-generator` skill into Claude Code so the agent can tu
 
 ```bash
 # full (MCP tools enabled)
-npx @presentation-skill-pack/install claude-code
+npx @presentation-md/install claude-code
 
 # lite (skill only, no MCP)
-npx @presentation-skill-pack/install claude-code lite
+npx @presentation-md/install claude-code lite
 ```
 
 ### Manual — bash (macOS / Linux)
 
 ```bash
-export PSP_CORE_DIR="$(npm pack --dry-run --json @presentation-skill-pack/core 2>/dev/null | \
+export PMD_CORE_DIR="$(npm pack --dry-run --json @presentation-md/core 2>/dev/null | \
   node -e "const p=require('path');const d=require('os').homedir();process.stdout.write(p.join(d,''))")"
 # easier: just point at the unpacked package directory
-PSP_CORE_DIR=/path/to/node_modules/@presentation-skill-pack/core bash install.sh full
+PMD_CORE_DIR=/path/to/node_modules/@presentation-md/core bash install.sh full
 ```
 
 ### Manual — PowerShell (Windows)
 
 ```powershell
-$env:PSP_CORE_DIR = "C:\path\to\node_modules\@presentation-skill-pack\core"
+$env:PMD_CORE_DIR = "C:\path\to\node_modules\@presentation-md\core"
 .\install.ps1 full
 ```
 

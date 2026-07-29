@@ -3,13 +3,22 @@ import { resolveTheme, listThemeNames } from "../src/render/themes.js";
 import { renderDeckHtml } from "../src/render/renderDeck.js";
 import { extractDeckFromHtml } from "../src/export/downloads.js";
 import { EXAMPLE_DECK } from "../src/deck.js";
-import type { DeckJson } from "@presentation-skill-pack/export";
+import type { DeckJson } from "@presentation-md/export";
 
 describe("theme registry", () => {
   it("bundles the core + themes-package manifests", () => {
     const names = listThemeNames();
     expect(names).toContain("default-tech");
     expect(names).toContain("corporate");
+    expect(names).toContain("editorial-serif");
+    expect(names).toContain("brutalist-mono");
+    expect(names).toContain("pastel-dreamy");
+  });
+
+  it("resolves the three new theme packages", () => {
+    expect(resolveTheme("editorial-serif").palette.accent).toBe("#9c1c1c");
+    expect(resolveTheme("brutalist-mono").geometry.radius).toBe("0px");
+    expect(resolveTheme("pastel-dreamy").palette.bg).toBe("#fdf6fb");
   });
 
   it("resolves default-tech palette", () => {
@@ -79,6 +88,16 @@ describe("browser renderDeckHtml", () => {
     expect(extractDeckFromHtml(html)).toEqual(deck);
   });
 
+  it("opens legacy psp-deck embeds from pre-rename HTML", () => {
+    const deck: DeckJson = {
+      type: "deck",
+      meta: { title: "Legacy", theme: "default-tech" },
+      slides: [{ layout: "title", heading: "Old" }],
+    };
+    const html = `<!doctype html><html><body><script type="application/json" id="psp-deck">${JSON.stringify(deck)}</script></body></html>`;
+    expect(extractDeckFromHtml(html)).toEqual(deck);
+  });
+
   it("renders the data-table eyebrow (editor/preview consistency)", () => {
     const html = renderDeckHtml(
       { type: "deck", slides: [{ layout: "data-table", eyebrow: "Q3 KPIs", heading: "T", columns: ["A"], rows: [["1"]] }] },
@@ -90,7 +109,14 @@ describe("browser renderDeckHtml", () => {
   it("attribution CSS matches the canonical renderer (hover + print)", () => {
     const html = renderDeckHtml(EXAMPLE_DECK, resolveTheme("default-tech"));
     expect(html).toContain("@media print");
-    expect(html).toContain(".psp-attribution a:hover");
+    expect(html).toContain(".pmd-attribution a:hover");
+  });
+
+  it("includes keyboard navigation craft from shared document shell", () => {
+    const html = renderDeckHtml(EXAMPLE_DECK, resolveTheme("default-tech"));
+    expect(html).toContain('class="nav-hint"');
+    expect(html).toContain("ArrowRight");
+    expect(html).toContain("pmd-fade-up");
   });
 
   it("renders an unknown layout without throwing", () => {

@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
-# install.sh — Codex adapter for presentation-skill-pack
-# Usage:  PSP_CORE_DIR=<path> bash install.sh [full|lite]
+# install.sh — Codex adapter for presentation-md
+# Usage:  PMD_CORE_DIR=<path> bash install.sh [full|lite]
 set -euo pipefail
 
 MODE="${1:-full}"
-: "${PSP_CORE_DIR:?PSP_CORE_DIR must be set to the @presentation-skill-pack/core directory}"
+: "${PMD_CORE_DIR:?PMD_CORE_DIR must be set to the @presentation-md/core directory}"
 
 TARGET="$HOME/.codex/skills/presentation-generator"
 CODEX_CONFIG="$HOME/.codex/config.json"
 
-echo "presentation-skill-pack › codex adapter"
+echo "presentation-md › codex adapter"
 echo "  mode:   $MODE"
 echo "  target: $TARGET"
 echo ""
@@ -17,11 +17,11 @@ echo ""
 # ── copy skill files ──────────────────────────────────────────────────────────
 mkdir -p "$TARGET/references"
 
-cp "$PSP_CORE_DIR/SKILL.md" "$TARGET/SKILL.md"
+cp "$PMD_CORE_DIR/SKILL.md" "$TARGET/SKILL.md"
 echo "  ✓  SKILL.md copied"
 
-if [ -d "$PSP_CORE_DIR/references" ]; then
-  cp -r "$PSP_CORE_DIR/references/." "$TARGET/references/"
+if [ -d "$PMD_CORE_DIR/references" ]; then
+  cp -r "$PMD_CORE_DIR/references/." "$TARGET/references/"
   echo "  ✓  references/ copied"
 fi
 
@@ -32,9 +32,9 @@ if [ "$MODE" = "full" ]; then
     UPDATED=$(node -e "
       const cfg = JSON.parse(process.argv[1]);
       cfg.mcpServers = cfg.mcpServers || {};
-      cfg.mcpServers['presentation-skill-pack'] = {
+      cfg.mcpServers['presentation-md'] = {
         command: 'npx',
-        args: ['@presentation-skill-pack/mcp-server']
+        args: ['@presentation-md/mcp-server']
       };
       process.stdout.write(JSON.stringify(cfg, null, 2));
     " "$EXISTING")
@@ -44,9 +44,9 @@ if [ "$MODE" = "full" ]; then
     cat > "$CODEX_CONFIG" <<'JSON'
 {
   "mcpServers": {
-    "presentation-skill-pack": {
+    "presentation-md": {
       "command": "npx",
-      "args": ["@presentation-skill-pack/mcp-server"]
+      "args": ["@presentation-md/mcp-server"]
     }
   }
 }

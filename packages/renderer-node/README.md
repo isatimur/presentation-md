@@ -1,4 +1,4 @@
-# @presentation-skill-pack/render
+# @presentation-md/render
 
 Turns a [deck JSON spec](../../packages/core/references/deck-schema.md) into a polished,
 self-contained HTML slide deck — no build step, no external assets beyond Google Fonts.
@@ -6,34 +6,37 @@ self-contained HTML slide deck — no build step, no external assets beyond Goog
 ## Install
 
 ```bash
-npm install @presentation-skill-pack/render
+npm install @presentation-md/render
 # or
-pnpm add @presentation-skill-pack/render
+pnpm add @presentation-md/render
 ```
 
 ## CLI
 
 ```bash
 # Render a file
-presentation-skill-pack-render deck.json -o slides.html
+presentation-md-render deck.json -o slides.html
 
 # Override theme
-presentation-skill-pack-render deck.json --theme default-tech -o slides.html
+presentation-md-render deck.json --theme default-tech -o slides.html
 
 # Pipe from stdin
-cat deck.json | presentation-skill-pack-render -o slides.html
+cat deck.json | presentation-md-render -o slides.html
 
 # Validate only (no output file)
-presentation-skill-pack-render deck.json --validate
+presentation-md-render deck.json --validate
 
 # List available themes
-presentation-skill-pack-render --list-themes
+presentation-md-render --list-themes
+
+# Import a PowerPoint file to deck JSON
+presentation-md-render --from-pptx board-deck.pptx -o deck.json --theme claude
 ```
 
 ## Programmatic API
 
 ```typescript
-import { renderDeck } from "@presentation-skill-pack/render";
+import { renderDeck } from "@presentation-md/render";
 import { readFile, writeFile } from "node:fs/promises";
 
 const deckJson = await readFile("deck.json", "utf-8");
@@ -54,7 +57,7 @@ Throws if the deck JSON is invalid (schema errors included in message).
 
 ### `getBundledThemesDir(): string`
 
-Returns the absolute path to the bundled themes directory from `@presentation-skill-pack/core`.
+Returns the absolute path to the bundled themes directory from `@presentation-md/core`.
 
 ## See also
 

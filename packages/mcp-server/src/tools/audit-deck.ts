@@ -1,4 +1,4 @@
-import { validateDeckJson } from "@presentation-skill-pack/core";
+import { validateDeckJson } from "@presentation-md/core";
 import type { ToolDefinition } from "../server.js";
 
 interface Issue {

@@ -1,11 +1,11 @@
 {
-  "name": "@presentation-skill-pack/install",
-  "version": "0.1.2",
-  "description": "One-command installer for presentation-skill-pack adapters.",
+  "name": "@presentation-md/install",
+  "version": "1.0.0",
+  "description": "One-command installer for presentation-md adapters.",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "presentation-skill-pack-install": "./dist/index.js"
+    "presentation-md-install": "./dist/index.js"
   },
   "files": [
     "dist"
@@ -17,7 +17,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@presentation-skill-pack/core": "workspace:*",
+    "@presentation-md/core": "workspace:*",
     "commander": "^12.0.0"
   },
   "devDependencies": {
@@ -35,6 +35,6 @@
     "type": "git",
     "url": "https://github.com/isatimur/presentation-md.git"
   },
-  "homepage": "https://presentation-skill-pack.vercel.app",
+  "homepage": "https://presentation-md.vercel.app",
   "bugs": "https://github.com/isatimur/presentation-md/issues"
 }

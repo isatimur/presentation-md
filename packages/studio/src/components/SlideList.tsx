@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Slide } from "@presentation-skill-pack/export";
+import type { Slide } from "@presentation-md/export";
 import { LAYOUTS, LAYOUT_LABELS, blankSlide } from "../deck.js";
 import type { LayoutType } from "../deck.js";
 

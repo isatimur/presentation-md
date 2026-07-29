@@ -1,6 +1,6 @@
-# @presentation-skill-pack/studio
+# @presentation-md/studio
 
-A browser-based editor studio for presentation-skill-pack decks. Edit slides through
+A browser-based editor studio for presentation-md decks. Edit slides through
 schema-driven forms, see a live preview, and export to HTML or **native, editable PowerPoint
 (`.pptx`)** — which also opens in Keynote and imports into Google Slides.
 
@@ -10,10 +10,10 @@ there's no backend, no API keys, and nothing to host beyond static files.
 ## Develop
 
 ```bash
-pnpm --filter @presentation-skill-pack/studio dev       # http://localhost:5173
-pnpm --filter @presentation-skill-pack/studio build     # static build → dist/
-pnpm --filter @presentation-skill-pack/studio test      # unit tests (render + themes)
-pnpm --filter @presentation-skill-pack/studio test:e2e  # Playwright flow (needs: npx playwright install chromium)
+pnpm --filter @presentation-md/studio dev       # http://localhost:5173
+pnpm --filter @presentation-md/studio build     # static build → dist/
+pnpm --filter @presentation-md/studio test      # unit tests (render + themes)
+pnpm --filter @presentation-md/studio test:e2e  # Playwright flow (needs: npx playwright install chromium)
 ```
 
 ## What it does
@@ -27,16 +27,16 @@ pnpm --filter @presentation-skill-pack/studio test:e2e  # Playwright flow (needs
 
 ## How it stays in sync with the renderer
 
-`src/render/` is a fs-free port of `@presentation-skill-pack/render`: it bundles the shared
+`src/render/` is a fs-free port of `@presentation-md/render`: it bundles the shared
 `layouts/*.html`, `base.css`, and every `theme.json` at build time (via `import.meta.glob` / `?raw`)
-and resolves the theme `extends` chain in-memory. PPTX export reuses `@presentation-skill-pack/export`
+and resolves the theme `extends` chain in-memory. PPTX export reuses `@presentation-md/export`
 directly (`deckToPptxBlob`).
 
 ## Deploy
 
 The build uses a relative `base` (`./`), so the same output works at `/` or any sub-path.
 
-- **Under the gallery (default):** `pnpm --filter @presentation-skill-pack/studio build:web` emits a
+- **Under the gallery (default):** `pnpm --filter @presentation-md/studio build:web` emits a
   production build into `web/studio/`, served at `/studio` by the gallery's Vercel deploy. The
   "Open Studio" button in `web/index.html` links there. Re-run after studio changes — `web/studio/`
   is generated output.

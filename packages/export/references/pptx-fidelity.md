@@ -34,3 +34,10 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
 - **PowerPoint:** opens natively, fully editable.
 - **Keynote:** File → Open the `.pptx` (Keynote has no portable native format).
 - **Google Slides:** File → Import slides / upload to Drive → opens as an editable Slides deck.
+
+## Import (reverse direction)
+
+`pptxToDeck` / CLI `--from-pptx` / MCP `import_pptx` extract text, tables, images, and notes,
+then map onto best-fit layouts. This is not a visual clone — animations, masters, charts, and
+EMF/WMF media are skipped with warnings. See
+`skills/presentation-generator/references/pptx-import.md`.

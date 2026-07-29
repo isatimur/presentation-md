@@ -54,20 +54,20 @@ class RenderOptions:
     themes_dir: Path | None = None
     extra_css: str = ""
     attribution: bool = True
-    """Append a theme-aware "Made with presentation-skill-pack" footer. Default True."""
+    """Append a theme-aware "Made with presentation-md" footer. Default True."""
 
 
-_ATTRIBUTION_URL = "https://presentation-skill-pack.vercel.app/?ref=deck"
+_ATTRIBUTION_URL = "https://presentation-md.vercel.app/?ref=deck"
 
 _ATTRIBUTION_HTML = (
-    '<footer class="psp-attribution">Made with '
-    f'<a href="{_ATTRIBUTION_URL}" target="_blank" rel="noopener">presentation-skill-pack</a>'
+    '<footer class="pmd-attribution">Made with '
+    f'<a href="{_ATTRIBUTION_URL}" target="_blank" rel="noopener">presentation-md</a>'
     "</footer>"
 )
 
 _ATTRIBUTION_CSS = """
-/* presentation-skill-pack attribution footer */
-.psp-attribution {
+/* presentation-md attribution footer */
+.pmd-attribution {
   font-family: var(--body-font);
   font-size: 13px;
   letter-spacing: 0.04em;
@@ -76,14 +76,14 @@ _ATTRIBUTION_CSS = """
   text-align: center;
   padding: 4px 0 16px;
 }
-.psp-attribution a {
+.pmd-attribution a {
   color: var(--muted);
   text-decoration: none;
   border-bottom: 1px solid color-mix(in srgb, var(--muted) 40%, transparent);
   transition: color 0.15s ease, border-color 0.15s ease;
 }
-.psp-attribution a:hover { color: var(--accent); border-color: var(--accent); }
-@media print { .psp-attribution { opacity: 0.5; } }"""
+.pmd-attribution a:hover { color: var(--accent); border-color: var(--accent); }
+@media print { .pmd-attribution { opacity: 0.5; } }"""
 
 
 def _load_theme(name: str, themes_dir: Path) -> dict[str, Any]:

@@ -1,11 +1,11 @@
-# @presentation-skill-pack/mcp-server
+# @presentation-md/mcp-server
 
-MCP server that exposes presentation-skill-pack tools to any MCP-compatible AI agent (Claude Code, Cursor, etc.).
+MCP server that exposes presentation-md tools to any MCP-compatible AI agent (Claude Code, Cursor, etc.).
 
 ## Install
 
 ```bash
-npx @presentation-skill-pack/mcp-server
+npx @presentation-md/mcp-server
 ```
 
 ## Add to Claude Code
@@ -15,9 +15,9 @@ Add to your project's `.claude/mcp.json` (or `~/.claude/mcp.json` for global):
 ```json
 {
   "mcpServers": {
-    "presentation-skill-pack": {
+    "presentation-md": {
       "command": "npx",
-      "args": ["-y", "@presentation-skill-pack/mcp-server"]
+      "args": ["-y", "@presentation-md/mcp-server"]
     }
   }
 }
@@ -33,5 +33,6 @@ Add to your project's `.claude/mcp.json` (or `~/.claude/mcp.json` for global):
 | `audit_deck` | Validate deck JSON against the schema and return structured issues with severity. |
 | `generate_deck_prompt` | Build a system prompt with the active theme's palette and deck schema reference for an agent. |
 | `import_brand_theme` | Generate a theme from a brand's URL or CSS file, with a contrast-safety pass. |
+| `import_pptx` | Import a `.pptx` file into deck JSON (text, tables, images, notes → layouts). |
 
-Note: when using `import_brand_theme` with a local CSS file, the `cssPath` parameter must be a `.css` file that resolves within the MCP server's working directory.
+Note: when using `import_brand_theme` with a local CSS file, the `cssPath` parameter must be a `.css` file that resolves within the MCP server's working directory. Likewise, `import_pptx`'s `pptx_path` must be a `.pptx` within the working directory.

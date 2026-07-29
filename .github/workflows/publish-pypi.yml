@@ -3,8 +3,8 @@ name: Publish to PyPI
 on:
   push:
     tags:
-      - "presentation-skill-pack-render@*"
-      - "presentation-skill-pack-theme-*@*"
+      - "presentation-md-render@*"
+      - "presentation-md-theme-*@*"
 
 jobs:
   publish:
@@ -19,12 +19,12 @@ jobs:
         id: resolve
         run: |
           TAG="${GITHUB_REF_NAME}"
-          if [[ "$TAG" == presentation-skill-pack-render@* ]]; then
+          if [[ "$TAG" == presentation-md-render@* ]]; then
             PKG_DIR="packages/renderer-python"
-          elif [[ "$TAG" == presentation-skill-pack-theme-*@* ]]; then
-            # e.g. presentation-skill-pack-theme-corporate@0.2.0 -> packages/themes/corporate
+          elif [[ "$TAG" == presentation-md-theme-*@* ]]; then
+            # e.g. presentation-md-theme-corporate@0.2.0 -> packages/themes/corporate
             THEME_SLUG="${TAG%%@*}"                 # strip version suffix
-            THEME_SLUG="${THEME_SLUG#presentation-skill-pack-theme-}"  # strip prefix
+            THEME_SLUG="${THEME_SLUG#presentation-md-theme-}"  # strip prefix
             PKG_DIR="packages/themes/${THEME_SLUG}"
           else
             echo "Unrecognised tag format: $TAG" >&2

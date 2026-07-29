@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import type { DeckJson, Slide } from "@presentation-skill-pack/export";
+import type { DeckJson, Slide } from "@presentation-md/export";
 import { EXAMPLE_DECK } from "./deck.js";
 import { resolveTheme } from "./render/themes.js";
 import { renderDeckHtml } from "./render/renderDeck.js";
@@ -10,7 +10,7 @@ import { Preview } from "./components/Preview.js";
 import { PresentMode } from "./components/PresentMode.js";
 import { GenerateModal } from "./components/GenerateModal.js";
 
-const STORAGE_KEY = "psp-studio-deck-v1";
+const STORAGE_KEY = "pmd-studio-deck-v1";
 
 function loadInitialDeck(): DeckJson {
   try {

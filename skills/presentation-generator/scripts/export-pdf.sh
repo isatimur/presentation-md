@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Export a presentation-skill-pack HTML deck to a vector PDF (one page per
+# Export a presentation-md HTML deck to a vector PDF (one page per
 # slide, selectable text) using headless Chromium's native print pipeline.
 #
 # Usage:
@@ -13,7 +13,7 @@ usage() {
   cat <<'EOF'
 Usage: export-pdf.sh <deck.html> [output.pdf]
 
-Renders a presentation-skill-pack HTML deck to PDF via headless Chromium's
+Renders a presentation-md HTML deck to PDF via headless Chromium's
 native print pipeline (vector output, selectable text — not a screenshot).
 Installs Playwright + Chromium on first run if not already available.
 EOF

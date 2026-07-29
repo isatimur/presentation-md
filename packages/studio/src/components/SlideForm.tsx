@@ -1,4 +1,4 @@
-import type { Slide, Card, Stat, Step } from "@presentation-skill-pack/export";
+import type { Slide, Card, Stat, Step } from "@presentation-md/export";
 import { LAYOUT_LABELS } from "../deck.js";
 import type { LayoutType } from "../deck.js";
 import { TextInput, TextArea, NumberSelect, ListEditor } from "./fields.js";

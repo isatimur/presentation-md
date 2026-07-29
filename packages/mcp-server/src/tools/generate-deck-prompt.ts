@@ -1,13 +1,13 @@
 import { readFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { createRequire } from "node:module";
-import { loadTheme } from "@presentation-skill-pack/core";
-import { getBundledThemesDir } from "@presentation-skill-pack/render";
+import { loadTheme } from "@presentation-md/core";
+import { getBundledThemesDir } from "@presentation-md/render";
 import type { ToolDefinition } from "../server.js";
 
 function getCoreRoot(): string {
   const require = createRequire(import.meta.url);
-  const coreMain = require.resolve("@presentation-skill-pack/core");
+  const coreMain = require.resolve("@presentation-md/core");
   // coreMain points to dist/index.js; core root is two levels up from dist/
   return dirname(dirname(coreMain));
 }
