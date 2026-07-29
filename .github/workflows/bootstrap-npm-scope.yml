@@ -1,0 +1,60 @@
+name: Bootstrap npm scope and publish
+
+on:
+  workflow_dispatch:
+
+concurrency: bootstrap-npm-${{ github.ref }}
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    name: Create @presentation-md scope if needed, then publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm -r --filter '!@presentation-md/studio' build
+
+      - name: npm whoami + ensure scope
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          echo "always-auth=true" >> ~/.npmrc
+          echo "Whoami: $(npm whoami)"
+          # Create the org if missing (idempotent-ish — ignore "already exists")
+          if ! npm org ls presentation-md >/dev/null 2>&1; then
+            echo "Creating npm org presentation-md…"
+            npm org create presentation-md --yes || true
+          else
+            echo "Org presentation-md already accessible."
+          fi
+          npm org ls presentation-md || true
+
+      - name: Publish packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          echo "always-auth=true" >> ~/.npmrc
+          pnpm release
