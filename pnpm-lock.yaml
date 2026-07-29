@@ -233,9 +233,13 @@ importers:
 
   packages/themes/blueprint: {}
 
+  packages/themes/bold-signal: {}
+
   packages/themes/botanical-luxe: {}
 
   packages/themes/broadsheet: {}
+
+  packages/themes/broadside: {}
 
   packages/themes/brutalist-acid: {}
 
@@ -245,13 +249,21 @@ importers:
 
   packages/themes/corporate: {}
 
+  packages/themes/creative-mode: {}
+
+  packages/themes/creative-voltage: {}
+
   packages/themes/crt-terminal: {}
 
   packages/themes/data-editorial: {}
 
   packages/themes/developer-dark: {}
 
+  packages/themes/editorial-forest: {}
+
   packages/themes/editorial-serif: {}
+
+  packages/themes/editorial-tri-tone: {}
 
   packages/themes/fintech-clean: {}
 
@@ -267,9 +279,15 @@ importers:
 
   packages/themes/luxury-minimalist: {}
 
+  packages/themes/neo-grid-bold: {}
+
   packages/themes/neon-noir: {}
 
+  packages/themes/notebook-tabs: {}
+
   packages/themes/pastel-dreamy: {}
+
+  packages/themes/pin-and-paper: {}
 
   packages/themes/playful: {}
 
@@ -279,9 +297,15 @@ importers:
 
   packages/themes/scandinavian: {}
 
+  packages/themes/signal: {}
+
+  packages/themes/soft-editorial: {}
+
   packages/themes/swiss-typographic: {}
 
   packages/themes/vaporwave: {}
+
+  packages/themes/vellum: {}
 
   packages/themes/y2k-aero: {}
 
