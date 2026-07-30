@@ -50,7 +50,7 @@
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "author": { "@type": "Person", "name": "Timur Isachenko", "url": "https://github.com/isatimur" },
     "downloadUrl": "https://www.npmjs.com/package/@presentation-md/install",
-    "softwareVersion": "1.1.0"
+    "softwareVersion": "1.2.0"
   }
   </script>
 
@@ -450,14 +450,91 @@
       from { transform: scale(0.5) translate3d(0, 0, 0); }
       to { transform: scale(0.52) translate3d(-1.5%, -1%, 0); }
     }
+
+    /* Continuous multi-deck showreel — below-fold energy, not hero clutter */
+    .showreel {
+      position: relative;
+      margin: 0;
+      padding: 28px 0 36px;
+      background: var(--stage);
+      border-block: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
+      overflow: hidden;
+    }
+    .showreel-head {
+      max-width: 1180px;
+      margin: 0 auto 18px;
+      padding: 0 28px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .showreel-head .eyebrow { color: rgba(232,238,244,0.72); }
+    .showreel-head p {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(232,238,244,0.45);
+    }
+    .showreel-viewport {
+      position: relative;
+      mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+    }
+    .showreel-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      padding: 0 28px;
+      animation: pmd-showreel 72s linear infinite;
+    }
+    .showreel-card {
+      flex: 0 0 min(52vw, 560px);
+      aspect-ratio: 16 / 9;
+      border: 1px solid rgba(232,238,244,0.14);
+      border-radius: 4px;
+      overflow: hidden;
+      background: #060a12;
+      position: relative;
+      text-decoration: none;
+    }
+    .showreel-card iframe {
+      width: 200%;
+      height: 200%;
+      border: 0;
+      transform: scale(0.5);
+      transform-origin: 0 0;
+      pointer-events: none;
+    }
+    .showreel-card span {
+      position: absolute;
+      left: 12px;
+      bottom: 10px;
+      z-index: 2;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(232,238,244,0.78);
+      text-shadow: 0 1px 8px rgba(0,0,0,0.55);
+    }
+    .showreel:hover .showreel-track { animation-play-state: paused; }
+    @keyframes pmd-showreel {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(-50% - 9px)); }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .brand-mark, .brand-mark::after, .site-hero h1, .tagline, .ctas,
-      .hero-stage, .hero-stage-frame iframe { animation: none !important; }
+      .hero-stage, .hero-stage-frame iframe,
+      .showreel-track { animation: none !important; }
     }
     @media (max-width: 920px) {
       .header-inner { grid-template-columns: 1fr; padding-top: 36px; }
       .hero-stage { min-height: 48svh; }
       header.site-hero { min-height: auto; }
+      .showreel-card { flex-basis: min(78vw, 420px); }
     }
     @media (max-width: 820px) {
       .hero-craft, .compare-live { grid-template-columns: 1fr; }
@@ -846,7 +923,7 @@
     <h2>Seventy-five themes. Schema craft that holds.</h2>
     <p class="section-lead">Bento grids, ratio columns, comparison emphasis, and image-hero beats — generated from Deck JSON, not hand-tuned HTML.</p>
     <div class="badges">
-      <span class="badge"><span class="dot"></span>npm v1.1.0</span>
+      <span class="badge"><span class="dot"></span>npm v1.2.0</span>
       <span class="badge"><span class="dot amber"></span>PyPI</span>
       <span class="badge"><span class="dot amber"></span>MIT license</span>
       <span class="badge"><span class="dot green"></span>MCP-native</span>
@@ -870,7 +947,7 @@
         </div>
         <div class="hero-craft-meta">
           <strong>NeonForge</strong>
-          <span>default-tech · ratio + code + bento</span>
+          <span>default-tech · image-hero + code + bento</span>
         </div>
       </a>
       <a class="hero-craft-card" href="examples/structured/bounce-launch.html" target="_blank" rel="noopener">
@@ -882,6 +959,34 @@
           <span>genz-bento · asymmetric schema craft</span>
         </div>
       </a>
+    </div>
+  </div>
+</section>
+
+<section id="showreel" class="showreel" aria-label="Continuous deck showreel">
+  <div class="showreel-head">
+    <span class="eyebrow">Showreel</span>
+    <p>Schema craft on loop · hover to pause</p>
+  </div>
+  <div class="showreel-viewport">
+    <div class="showreel-track">
+      <a class="showreel-card" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener"><iframe src="examples/structured/novaspark-pitch.html" loading="lazy" title="NovaSpark" tabindex="-1"></iframe><span>NovaSpark · aurora-glass</span></a>
+      <a class="showreel-card" href="examples/structured/neonforge-pitch.html" target="_blank" rel="noopener"><iframe src="examples/structured/neonforge-pitch.html" loading="lazy" title="NeonForge" tabindex="-1"></iframe><span>NeonForge · default-tech</span></a>
+      <a class="showreel-card" href="examples/structured/bounce-launch.html" target="_blank" rel="noopener"><iframe src="examples/structured/bounce-launch.html" loading="lazy" title="Bounce" tabindex="-1"></iframe><span>Bounce · genz-bento</span></a>
+      <a class="showreel-card" href="examples/structured/monolith-seriesa.html" target="_blank" rel="noopener"><iframe src="examples/structured/monolith-seriesa.html" loading="lazy" title="MONOLITH" tabindex="-1"></iframe><span>MONOLITH · brutalist-acid</span></a>
+      <a class="showreel-card" href="examples/structured/sakura-launch.html" target="_blank" rel="noopener"><iframe src="examples/structured/sakura-launch.html" loading="lazy" title="Sakura" tabindex="-1"></iframe><span>Sakura · sakura-chroma</span></a>
+      <a class="showreel-card" href="examples/structured/forge-api.html" target="_blank" rel="noopener"><iframe src="examples/structured/forge-api.html" loading="lazy" title="Forge" tabindex="-1"></iframe><span>Forge · developer-dark</span></a>
+      <a class="showreel-card" href="examples/structured/pulse-wrapped.html" target="_blank" rel="noopener"><iframe src="examples/structured/pulse-wrapped.html" loading="lazy" title="Pulse" tabindex="-1"></iframe><span>Pulse · kinetic-wrapped</span></a>
+      <a class="showreel-card" href="examples/structured/voltstudio-credentials.html" target="_blank" rel="noopener"><iframe src="examples/structured/voltstudio-credentials.html" loading="lazy" title="Volt Studio" tabindex="-1"></iframe><span>Volt Studio · electric-studio</span></a>
+      <!-- duplicate for seamless loop -->
+      <a class="showreel-card" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/novaspark-pitch.html" loading="lazy" title="" tabindex="-1"></iframe><span>NovaSpark · aurora-glass</span></a>
+      <a class="showreel-card" href="examples/structured/neonforge-pitch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/neonforge-pitch.html" loading="lazy" title="" tabindex="-1"></iframe><span>NeonForge · default-tech</span></a>
+      <a class="showreel-card" href="examples/structured/bounce-launch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/bounce-launch.html" loading="lazy" title="" tabindex="-1"></iframe><span>Bounce · genz-bento</span></a>
+      <a class="showreel-card" href="examples/structured/monolith-seriesa.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/monolith-seriesa.html" loading="lazy" title="" tabindex="-1"></iframe><span>MONOLITH · brutalist-acid</span></a>
+      <a class="showreel-card" href="examples/structured/sakura-launch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/sakura-launch.html" loading="lazy" title="" tabindex="-1"></iframe><span>Sakura · sakura-chroma</span></a>
+      <a class="showreel-card" href="examples/structured/forge-api.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/forge-api.html" loading="lazy" title="" tabindex="-1"></iframe><span>Forge · developer-dark</span></a>
+      <a class="showreel-card" href="examples/structured/pulse-wrapped.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/pulse-wrapped.html" loading="lazy" title="" tabindex="-1"></iframe><span>Pulse · kinetic-wrapped</span></a>
+      <a class="showreel-card" href="examples/structured/voltstudio-credentials.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/voltstudio-credentials.html" loading="lazy" title="" tabindex="-1"></iframe><span>Volt Studio · electric-studio</span></a>
     </div>
   </div>
 </section>
