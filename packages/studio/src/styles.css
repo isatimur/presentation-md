@@ -212,8 +212,26 @@ body {
   position: fixed; inset: 0; z-index: 100; background: #0B1220;
   display: flex; flex-direction: column;
 }
-.present-stage { flex: 1; min-height: 0; display: flex; }
+.present-main { flex: 1; min-height: 0; display: flex; }
+.present-stage { flex: 1; min-height: 0; display: flex; min-width: 0; }
 .present-frame { flex: 1; border: 0; width: 100%; height: 100%; background: #fff; }
+.present-notes {
+  width: min(340px, 32vw); flex-shrink: 0;
+  background: #111827; border-left: 1px solid rgba(232,238,244,0.12);
+  padding: 20px 18px; overflow-y: auto; color: #E8EEF4;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.present-notes-label {
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: #6B7280;
+}
+.present-notes-body {
+  font-family: var(--sans); font-size: 15px; line-height: 1.55; color: #E8EEF4;
+  white-space: pre-wrap;
+}
+.present-notes-empty {
+  font-family: var(--sans); font-size: 13px; line-height: 1.45; color: #6B7280;
+}
 .present-bar {
   display: flex; align-items: center; justify-content: center; gap: 16px;
   padding: 10px; background: #0B1220; border-top: 1px solid rgba(232,238,244,0.12); color: #A8B0BE;
@@ -221,6 +239,11 @@ body {
 }
 .present-bar .btn-icon { font-size: 14px; }
 .present-count { min-width: 64px; text-align: center; }
+
+@media (max-width: 720px) {
+  .present-main { flex-direction: column; }
+  .present-notes { width: 100%; max-height: 28vh; border-left: 0; border-top: 1px solid rgba(232,238,244,0.12); }
+}
 
 /* ── Saved indicator / onboarding ──────────────────────────────────── */
 .saved-dot { color: var(--accent-2); }

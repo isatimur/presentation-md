@@ -91,7 +91,12 @@ export function App() {
         </aside>
       </div>
       {presenting && (
-        <PresentMode html={html} slideCount={deck.slides.length} onClose={() => setPresenting(false)} />
+        <PresentMode
+          html={html}
+          slideCount={deck.slides.length}
+          notes={deck.slides.map((s) => s.notes)}
+          onClose={() => setPresenting(false)}
+        />
       )}
       {generating && (
         <GenerateModal
