@@ -3109,7 +3109,14 @@
 .deck[data-surface="stencil-tablet-earth"] .slide:not(.title-slide):not(.closing-slide)::after,
 .deck[data-surface="raw-grid-brutal"] .slide:not(.title-slide):not(.closing-slide)::after,
 .deck[data-surface="soft-bento"] .slide:not(.title-slide):not(.closing-slide)::after,
-.deck[data-surface="clean-light"] .slide:not(.title-slide):not(.closing-slide)::after {
+.deck[data-surface="clean-light"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="notebook-tabs-page"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="notebook-tabs-page"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="long-table-supper"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="long-table-supper"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="mat-woodglow"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="mat-woodglow"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="soft-editorial-paper"] .slide:not(.title-slide):not(.closing-slide)::after {
   display: none;
 }
 
