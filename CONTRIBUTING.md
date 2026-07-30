@@ -90,3 +90,30 @@ tools/                  monorepo scripts (sync-versions)
 - **npm:** tags `@presentation-md/<package>@<version>` trigger `.github/workflows/publish-npm.yml`, or run `pnpm release` locally with a valid `NPM_TOKEN`.
 - **PyPI:** tags `presentation-md-render@<version>` or `presentation-md-theme-<name>@<version>` trigger `.github/workflows/publish-pypi.yml`.
 - After consuming changesets, run `pnpm sync-versions` to keep all `package.json` and `pyproject.toml` files aligned with `packages/core`.
+
+### Changesets version PRs (GitHub Actions)
+
+The publish workflow uses `changesets/action`, which needs permission to **open** the
+version PR on `main`. Enable this once per repo:
+
+1. GitHub → **Settings** → **Actions** → **General**
+2. Under **Workflow permissions**, choose **Read and write permissions**
+3. Check **Allow GitHub Actions to create and approve pull requests**
+4. Save
+
+API equivalent (admins):
+
+```bash
+gh api -X PUT repos/OWNER/REPO/actions/permissions/workflow \
+  -f default_workflow_permissions=write \
+  -F can_approve_pull_request_reviews=true
+```
+
+If Actions still cannot open the PR, create it manually after the workflow pushes
+the `changeset-release/main` branch:
+
+```bash
+gh pr create --base main --head changeset-release/main \
+  --title "chore: version packages" \
+  --body "Automated version bump from changesets."
+```

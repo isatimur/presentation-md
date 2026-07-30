@@ -36,6 +36,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # Create release PR or publish. Requires repo Setting
+      # Actions → General → Workflow permissions:
+      #   - Read and write permissions
+      #   - Allow GitHub Actions to create and approve pull requests
+      # See CONTRIBUTING.md "Changesets version PRs". Manual fallback:
+      #   gh pr create --base main --head changeset-release/main --title "chore: version packages"
       - name: Create release PR or publish packages
         uses: changesets/action@v1
         with:
