@@ -34,7 +34,7 @@ Free. MIT licensed. No paid tier, no account required.
 
 ## Gallery
 
-25 showcase decks demonstrating different visual identities — pitch decks, sales proposals, product launches, investor reports, keynotes, and more:
+75 structured theme proofs plus handcrafted showcase decks — pitch decks, sales proposals, product launches, investor reports, keynotes, and more:
 https://presentation-md.vercel.app/#gallery
 
 ## Install commands
@@ -80,6 +80,7 @@ npx @presentation-md/render --from-pptx deck.pptx -o deck.json
 
 ## How it differs from alternatives
 
+- **vs. frontend-slides:** Same discovery energy; plus schema-validated Deck JSON, 75 structured proofs, PPTX round-trip, MCP tools, and Studio
 - **vs. Gamma/Tome/Beautiful.ai:** Runs inside the AI agent you already use; output is a portable HTML file you own, not locked to a platform
 - **vs. reveal.js/Slidev/Marp:** No manual authoring — the agent writes the spec; the renderer handles design
 - **vs. raw LLM output:** Schema-validated, consistent, themed — not freeform HTML
@@ -89,6 +90,7 @@ npx @presentation-md/render --from-pptx deck.pptx -o deck.json
 - Homepage + gallery: https://presentation-md.vercel.app/
 - Studio (browser editor): https://presentation-md.vercel.app/studio
 - Comparisons: https://presentation-md.vercel.app/vs/
+- vs frontend-slides: https://presentation-md.vercel.app/vs/frontend-slides
 - vs Beautiful.ai: https://presentation-md.vercel.app/vs/beautiful-ai
 - vs Gamma: https://presentation-md.vercel.app/vs/gamma
 - vs Tome: https://presentation-md.vercel.app/vs/tome
