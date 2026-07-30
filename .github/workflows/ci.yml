@@ -21,8 +21,6 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
-        with:
-          version: 8
 
       - name: Setup Node 22
         uses: actions/setup-node@v6
@@ -52,8 +50,6 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
-        with:
-          version: 8
 
       - name: Setup Node 22
         uses: actions/setup-node@v6
