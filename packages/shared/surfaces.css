@@ -3041,6 +3041,819 @@
   border-top: 2px solid var(--accent);
 }
 
+/* ── Wave: content chrome for remaining distinctive surfaces (full coverage) ── */
+
+/* Soften loud title ornaments on content layouts */
+.deck[data-surface="biennale-yellow-sun"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="biennale-yellow-sun"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="broadside-fire"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="broadside-fire"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="studio-acid"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="studio-acid"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="creative-mode-blocks"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="creative-mode-blocks"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="tri-tone-blocks"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="peoples-platform-poster"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="peoples-platform-poster"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="pink-script-afterhours"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="pink-script-afterhours"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="stencil-tablet-earth"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="stencil-tablet-earth"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="raw-grid-brutal"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="soft-bento"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="clean-light"] .slide:not(.title-slide):not(.closing-slide)::after {
+  display: none;
+}
+
+/* Biennale yellow — parchment stats + indigo cards */
+.deck[data-surface="biennale-yellow-sun"] .stat {
+  border-top: 4px solid var(--accent);
+}
+.deck[data-surface="biennale-yellow-sun"] .stat .value {
+  color: var(--text);
+  font-family: var(--heading-font);
+  font-weight: 400;
+}
+.deck[data-surface="biennale-yellow-sun"] .comparison-col {
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid color-mix(in srgb, var(--text) 22%, transparent);
+}
+.deck[data-surface="biennale-yellow-sun"] .comparison-col:last-child {
+  background: var(--accent);
+  color: var(--text);
+}
+.deck[data-surface="biennale-yellow-sun"] .quote {
+  border-left: none;
+  font-family: var(--heading-font);
+  font-style: italic;
+  max-width: 30ch;
+}
+.deck[data-surface="biennale-yellow-sun"] .quote::before {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 8px;
+  background: var(--accent);
+  margin-bottom: 20px;
+}
+
+/* Broadside — fire-orange content chrome */
+.deck[data-surface="broadside-fire"] .stat {
+  border-top: 4px solid var(--accent);
+}
+.deck[data-surface="broadside-fire"] .stat .value {
+  color: var(--accent);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.deck[data-surface="broadside-fire"] .comparison-col {
+  border-radius: 0;
+  border: 2px solid color-mix(in srgb, var(--text) 35%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.deck[data-surface="broadside-fire"] .comparison-col:last-child {
+  background: var(--accent);
+  color: #111;
+  border-color: var(--accent);
+}
+.deck[data-surface="broadside-fire"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="broadside-fire"] .comparison-col:last-child p { color: #111; }
+.deck[data-surface="broadside-fire"] .quote {
+  border-left: 6px solid var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+.deck[data-surface="broadside-fire"] .card {
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+/* Studio acid — yellow metrics on black */
+.deck[data-surface="studio-acid"] .stat {
+  border-top: 3px solid var(--accent);
+}
+.deck[data-surface="studio-acid"] .stat .value {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  font-weight: 900;
+}
+.deck[data-surface="studio-acid"] .comparison-col {
+  border-radius: 0;
+  border: 2px solid var(--accent);
+  background: #242422;
+}
+.deck[data-surface="studio-acid"] .comparison-col:last-child {
+  background: var(--accent);
+  color: #1c1c1c;
+}
+.deck[data-surface="studio-acid"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="studio-acid"] .comparison-col:last-child p { color: #1c1c1c; }
+.deck[data-surface="studio-acid"] .quote {
+  border-left: 4px solid var(--accent);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.deck[data-surface="studio-acid"] .card {
+  border: 1px solid #2e2e2c;
+  border-radius: 0;
+  background: #242422;
+}
+
+/* Vellum — chartreuse italic content */
+.deck[data-surface="vellum-colorfield"] .stat {
+  border-top: 1px solid var(--accent);
+}
+.deck[data-surface="vellum-colorfield"] .stat .value {
+  color: var(--accent);
+  font-family: var(--heading-font);
+  font-style: italic;
+  font-weight: 400;
+}
+.deck[data-surface="vellum-colorfield"] .comparison-col {
+  border-radius: 0;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+}
+.deck[data-surface="vellum-colorfield"] .quote {
+  border-left: none;
+  font-family: var(--heading-font);
+  font-style: italic;
+  color: var(--accent);
+  max-width: 28ch;
+}
+.deck[data-surface="vellum-colorfield"] .quote::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+  margin-bottom: 24px;
+}
+.deck[data-surface="vellum-colorfield"] .card {
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+
+/* Creative mode — hard block comparison */
+.deck[data-surface="creative-mode-blocks"] .stat {
+  border-top: 6px solid var(--text);
+}
+.deck[data-surface="creative-mode-blocks"] .stat:nth-child(2) { border-top-color: var(--accent); }
+.deck[data-surface="creative-mode-blocks"] .stat:nth-child(3) { border-top-color: var(--accent2); }
+.deck[data-surface="creative-mode-blocks"] .comparison-col {
+  border-radius: 0;
+  border: 3px solid var(--text);
+  background: #fff;
+}
+.deck[data-surface="creative-mode-blocks"] .comparison-col:last-child {
+  background: var(--accent);
+  color: #fff;
+}
+.deck[data-surface="creative-mode-blocks"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="creative-mode-blocks"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="creative-mode-blocks"] .quote {
+  border-left: 8px solid var(--text);
+  font-weight: 800;
+}
+.deck[data-surface="creative-mode-blocks"] .card {
+  border: 3px solid var(--text);
+  border-radius: 0;
+}
+
+/* Scatterbrain — sticky note cards/stats */
+.deck[data-surface="scatterbrain-cork"] .stat {
+  border-top: none;
+  background: var(--accent);
+  border-radius: 2px;
+  padding: 16px 14px;
+  box-shadow: 2px 3px 0 rgba(45, 42, 38, 0.15);
+  transform: rotate(-1deg);
+}
+.deck[data-surface="scatterbrain-cork"] .stat:nth-child(2) {
+  background: var(--accent2);
+  transform: rotate(1.2deg);
+}
+.deck[data-surface="scatterbrain-cork"] .stat:nth-child(3) {
+  background: #c9e4ff;
+  transform: rotate(-0.6deg);
+}
+.deck[data-surface="scatterbrain-cork"] .comparison-col {
+  background: #ffe066;
+  border-radius: 2px;
+  border: none;
+  box-shadow: 3px 4px 0 rgba(45, 42, 38, 0.12);
+  transform: rotate(-0.8deg);
+}
+.deck[data-surface="scatterbrain-cork"] .comparison-col:last-child {
+  background: #ffc9c9;
+  transform: rotate(1deg);
+}
+.deck[data-surface="scatterbrain-cork"] .quote {
+  border-left: none;
+  font-family: "Caveat", cursive;
+  font-size: clamp(28px, 3.2vw, 40px);
+  max-width: 28ch;
+}
+.deck[data-surface="scatterbrain-cork"] .card {
+  background: #ffe066;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 2px 3px 0 rgba(45, 42, 38, 0.12);
+}
+
+/* Capsule / daisy / retro-zine — pill & pastel content shells */
+.deck[data-surface="capsule-pills"] .stat {
+  border-top: none;
+  background: #fff;
+  border: 2px solid var(--text);
+  border-radius: 9999px;
+  padding: 14px 22px;
+}
+.deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
+.deck[data-surface="capsule-pills"] .comparison-col {
+  border: 2px solid var(--text);
+  border-radius: 9999px;
+  background: #fff;
+  padding: 28px 32px;
+}
+.deck[data-surface="capsule-pills"] .comparison-col:last-child {
+  background: var(--accent2);
+}
+.deck[data-surface="daisy-days-pastel"] .stat {
+  border-top: 4px solid var(--text);
+  background: #fff;
+  border-radius: 16px;
+  padding: 14px 16px;
+  border: 2px solid var(--text);
+}
+.deck[data-surface="daisy-days-pastel"] .comparison-col {
+  border: 2px solid var(--text);
+  border-radius: 18px;
+  background: #fff;
+}
+.deck[data-surface="daisy-days-pastel"] .comparison-col:last-child {
+  background: #b8f0e8;
+}
+.deck[data-surface="daisy-days-pastel"] .quote {
+  border-left: 4px solid var(--text);
+  font-weight: 700;
+}
+.deck[data-surface="retro-zine-riso"] .stat {
+  border-top: 3px solid var(--accent);
+}
+.deck[data-surface="retro-zine-riso"] .stat .value {
+  font-family: var(--heading-font);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.deck[data-surface="retro-zine-riso"] .comparison-col {
+  border: 2px solid var(--text);
+  border-radius: 0;
+  background: var(--card-bg);
+  mix-blend-mode: multiply;
+}
+.deck[data-surface="retro-zine-riso"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 18%, var(--card-bg));
+}
+.deck[data-surface="retro-zine-riso"] .quote {
+  border-left: 4px solid var(--accent);
+  font-family: "Caveat", cursive;
+  font-size: clamp(26px, 3vw, 36px);
+}
+
+/* Raw grid / peoples platform / stencil — poster content */
+.deck[data-surface="raw-grid-brutal"] .stat {
+  border-top: 3px solid var(--text);
+}
+.deck[data-surface="raw-grid-brutal"] .stat .value {
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.deck[data-surface="raw-grid-brutal"] .comparison-col {
+  border: 3px solid var(--text);
+  border-radius: 0;
+  background: #fff;
+}
+.deck[data-surface="raw-grid-brutal"] .comparison-col:last-child {
+  background: var(--accent);
+}
+.deck[data-surface="raw-grid-brutal"] .card {
+  border: 3px solid var(--text);
+  border-radius: 0;
+}
+.deck[data-surface="raw-grid-brutal"] .quote {
+  border-left: 6px solid var(--text);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.deck[data-surface="peoples-platform-poster"] .stat {
+  border-top: 4px solid var(--accent);
+}
+.deck[data-surface="peoples-platform-poster"] .stat .value {
+  color: var(--accent);
+  font-family: var(--heading-font);
+}
+.deck[data-surface="peoples-platform-poster"] .comparison-col {
+  border: 3px solid var(--text);
+  border-radius: 0;
+  background: #fff;
+}
+.deck[data-surface="peoples-platform-poster"] .comparison-col:last-child {
+  background: var(--accent2);
+  color: var(--text);
+}
+.deck[data-surface="peoples-platform-poster"] .quote {
+  border-left: 6px solid var(--accent);
+  font-weight: 800;
+}
+.deck[data-surface="stencil-tablet-earth"] .stat {
+  border-top: 4px solid var(--text);
+}
+.deck[data-surface="stencil-tablet-earth"] .stat .value {
+  font-family: var(--heading-font);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.deck[data-surface="stencil-tablet-earth"] .comparison-col {
+  border: 2px solid var(--text);
+  border-radius: 20px;
+  background: var(--card-bg);
+}
+.deck[data-surface="stencil-tablet-earth"] .comparison-col:last-child {
+  background: var(--accent2);
+  color: #fff;
+}
+.deck[data-surface="stencil-tablet-earth"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="stencil-tablet-earth"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="stencil-tablet-earth"] .quote {
+  border-left: 5px solid var(--accent);
+  font-family: var(--heading-font);
+  text-transform: uppercase;
+}
+
+/* Cobalt grid / cartesian / pin-paper — draft & pad content */
+.deck[data-surface="cobalt-grid-paper"] .stat {
+  border-top: 2px solid var(--accent);
+}
+.deck[data-surface="cobalt-grid-paper"] .stat .value {
+  color: var(--accent);
+  font-family: var(--heading-font);
+}
+.deck[data-surface="cobalt-grid-paper"] .comparison-col {
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.deck[data-surface="cobalt-grid-paper"] .comparison-col:last-child {
+  border-left: 4px solid var(--accent);
+}
+.deck[data-surface="cobalt-grid-paper"] .card {
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+}
+.deck[data-surface="cartesian-draft"] .stat {
+  border-top: 1px solid var(--accent);
+}
+.deck[data-surface="cartesian-draft"] .stat .value {
+  font-family: var(--heading-font);
+  font-weight: 400;
+}
+.deck[data-surface="cartesian-draft"] .comparison-col {
+  border-radius: 0;
+  background: transparent;
+  border-top: 1px solid var(--border);
+  padding-left: 0;
+}
+.deck[data-surface="cartesian-draft"] .comparison-col:last-child {
+  border-top-color: var(--text);
+}
+.deck[data-surface="cartesian-draft"] .quote {
+  border-left: none;
+  font-family: var(--heading-font);
+  font-style: italic;
+  max-width: 30ch;
+}
+.deck[data-surface="cartesian-draft"] .quote::before {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: var(--accent);
+  margin-bottom: 22px;
+}
+.deck[data-surface="pin-paper-pad"] .stat {
+  border-top: 2px solid var(--accent);
+  background: rgba(255, 255, 255, 0.55);
+  padding: 12px 14px;
+}
+.deck[data-surface="pin-paper-pad"] .comparison-col {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+  border-radius: 4px;
+  box-shadow: 2px 3px 0 rgba(31, 58, 138, 0.1);
+}
+.deck[data-surface="pin-paper-pad"] .comparison-col:last-child {
+  border-color: var(--accent);
+}
+.deck[data-surface="pin-paper-pad"] .quote {
+  border-left: 3px solid var(--accent);
+  font-family: "Caveat", cursive;
+  font-size: clamp(26px, 3vw, 36px);
+}
+
+/* Pink script / split pastel / tri-tone — fashion & night content */
+.deck[data-surface="pink-script-afterhours"] .stat {
+  border-top: 2px solid var(--accent);
+}
+.deck[data-surface="pink-script-afterhours"] .stat .value {
+  color: var(--accent);
+  font-family: var(--heading-font);
+  font-style: italic;
+}
+.deck[data-surface="pink-script-afterhours"] .comparison-col {
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+.deck[data-surface="pink-script-afterhours"] .comparison-col:last-child {
+  background: var(--accent);
+  color: #060507;
+}
+.deck[data-surface="pink-script-afterhours"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="pink-script-afterhours"] .comparison-col:last-child p { color: #060507; }
+.deck[data-surface="pink-script-afterhours"] .quote {
+  border-left: none;
+  font-family: var(--heading-font);
+  font-style: italic;
+  color: var(--accent);
+  max-width: 28ch;
+}
+.deck[data-surface="split-pastel-panels"] .stat {
+  border-top: 3px solid var(--text);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+.deck[data-surface="split-pastel-panels"] .comparison-col {
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.75);
+  border: none;
+}
+.deck[data-surface="split-pastel-panels"] .comparison-col:last-child {
+  background: var(--accent);
+}
+.deck[data-surface="split-pastel-panels"] .quote {
+  border-left: 5px solid var(--text);
+  font-weight: 800;
+}
+.deck[data-surface="tri-tone-blocks"] .stat {
+  border-top: 6px solid #f2b6c6;
+}
+.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
+.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
+.deck[data-surface="tri-tone-blocks"] .comparison-col {
+  border-radius: 0;
+  border: 2px solid var(--text);
+  background: #fff;
+}
+.deck[data-surface="tri-tone-blocks"] .comparison-col:last-child {
+  background: #7a1f35;
+  color: #fff;
+}
+.deck[data-surface="tri-tone-blocks"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="tri-tone-blocks"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="tri-tone-blocks"] .quote {
+  border-left: none;
+  font-family: var(--heading-font);
+  font-style: italic;
+  max-width: 30ch;
+}
+.deck[data-surface="tri-tone-blocks"] .quote::before {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 6px;
+  background: #f2d86a;
+  margin-bottom: 20px;
+}
+
+/* Grove / emerald / editorial forest / long-table / mat — editorial earth */
+.deck[data-surface="grove-monograph"] .stat {
+  border-top: 2px solid var(--accent2);
+}
+.deck[data-surface="grove-monograph"] .stat .value {
+  font-family: var(--heading-font);
+  font-style: italic;
+  color: var(--accent2);
+}
+.deck[data-surface="grove-monograph"] .comparison-col {
+  border-radius: 0;
+  background: color-mix(in srgb, var(--bg-2) 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent2) 35%, transparent);
+}
+.deck[data-surface="grove-monograph"] .quote {
+  border-left: none;
+  font-family: var(--heading-font);
+  font-style: italic;
+  max-width: 30ch;
+}
+.deck[data-surface="grove-monograph"] .quote::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--accent2);
+  margin-bottom: 22px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .stat {
+  border-top: 3px solid var(--accent);
+}
+.deck[data-surface="emerald-editorial-masthead"] .stat .value {
+  font-family: var(--heading-font);
+  color: var(--text);
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-col {
+  border-radius: 0;
+  background: transparent;
+  border-top: 2px solid var(--accent);
+  padding-left: 0;
+}
+.deck[data-surface="emerald-editorial-masthead"] .quote {
+  border-left: none;
+  font-family: var(--heading-font);
+  max-width: 32ch;
+}
+.deck[data-surface="emerald-editorial-masthead"] .quote::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 3px;
+  background: var(--accent);
+  margin-bottom: 22px;
+}
+.deck[data-surface="editorial-forest-paper"] .comparison-col {
+  border-radius: 0;
+  background: transparent;
+  border-top: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
+  padding-left: 0;
+}
+.deck[data-surface="editorial-forest-paper"] .comparison-col:last-child {
+  border-top-color: var(--accent);
+}
+.deck[data-surface="editorial-forest-paper"] .quote {
+  border-left: none;
+  font-family: var(--heading-font);
+  font-style: italic;
+  max-width: 30ch;
+}
+.deck[data-surface="editorial-forest-paper"] .quote::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--accent2);
+  margin-bottom: 20px;
+}
+.deck[data-surface="editorial-forest-paper"] .card {
+  border-radius: 0;
+  background: color-mix(in srgb, #fff 70%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+}
+.deck[data-surface="long-table-supper"] .stat {
+  border-top: 2px solid var(--accent);
+}
+.deck[data-surface="long-table-supper"] .stat .value {
+  font-family: var(--heading-font);
+  font-style: italic;
+}
+.deck[data-surface="long-table-supper"] .comparison-col {
+  border-radius: 0;
+  background: transparent;
+  border-top: 1px solid var(--accent);
+}
+.deck[data-surface="long-table-supper"] .quote {
+  border-left: none;
+  font-family: var(--heading-font);
+  font-style: italic;
+  max-width: 28ch;
+}
+.deck[data-surface="long-table-supper"] .quote::before {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 1px;
+  background: var(--accent);
+  margin-bottom: 22px;
+}
+.deck[data-surface="mat-woodglow"] .stat {
+  border-top: 3px solid var(--accent);
+}
+.deck[data-surface="mat-woodglow"] .stat .value {
+  color: var(--accent);
+}
+.deck[data-surface="mat-woodglow"] .comparison-col {
+  border-radius: 0;
+  background: color-mix(in srgb, var(--bg-2) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.deck[data-surface="mat-woodglow"] .comparison-col:last-child {
+  background: var(--accent);
+  color: #f0e8d2;
+}
+.deck[data-surface="mat-woodglow"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="mat-woodglow"] .comparison-col:last-child p { color: #f0e8d2; }
+.deck[data-surface="mat-woodglow"] .quote {
+  border-left: 4px solid var(--accent);
+}
+
+/* Monochrome / blue-professional / corporate / playful / retro-windows / arcade polish */
+.deck[data-surface="monochrome-ledger"] .stat {
+  border-top: 1px solid var(--text);
+}
+.deck[data-surface="monochrome-ledger"] .stat .value {
+  font-family: var(--heading-font);
+  font-weight: 200;
+  letter-spacing: -0.04em;
+}
+.deck[data-surface="monochrome-ledger"] .comparison-col {
+  border-radius: 0;
+  background: transparent;
+  border-top: 1px solid color-mix(in srgb, var(--text) 30%, transparent);
+  padding-left: 0;
+}
+.deck[data-surface="monochrome-ledger"] .quote {
+  border-left: none;
+  font-family: var(--body-font);
+  font-style: italic;
+  max-width: 28ch;
+}
+.deck[data-surface="monochrome-ledger"] .quote::before {
+  content: "";
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--text);
+  margin-bottom: 24px;
+}
+.deck[data-surface="monochrome-ledger"] .card {
+  border-radius: 0;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--text) 22%, transparent);
+}
+.deck[data-surface="blue-professional-clean"] .stat {
+  border-top: 3px solid var(--accent);
+}
+.deck[data-surface="blue-professional-clean"] .stat .value {
+  color: var(--accent);
+  font-weight: 700;
+}
+.deck[data-surface="blue-professional-clean"] .comparison-col {
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--accent) 4%, #fff);
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.deck[data-surface="blue-professional-clean"] .comparison-col:last-child {
+  background: var(--accent);
+  color: #fff;
+}
+.deck[data-surface="blue-professional-clean"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="blue-professional-clean"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="blue-professional-clean"] .card {
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--accent) 16%, transparent);
+  background: color-mix(in srgb, var(--accent) 4%, #fff);
+}
+.deck[data-surface="clean-light"] .stat {
+  border-top: 3px solid var(--accent);
+}
+.deck[data-surface="clean-light"] .comparison-col {
+  border-radius: 8px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+}
+.deck[data-surface="clean-light"] .comparison-col:last-child {
+  border-color: var(--accent);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+.deck[data-surface="clean-light"] .quote {
+  border-left: 3px solid var(--accent);
+}
+.deck[data-surface="soft-bento"] .stat {
+  border-top: 4px solid var(--accent);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--accent) 6%, #fff);
+  padding: 14px 16px;
+}
+.deck[data-surface="soft-bento"] .comparison-col {
+  border-radius: 20px;
+  border: 2px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  background: #fff;
+}
+.deck[data-surface="soft-bento"] .comparison-col:last-child {
+  background: var(--accent2);
+  border-color: var(--accent2);
+  color: #1a1a2e;
+}
+.deck[data-surface="soft-bento"] .quote {
+  border-left: 5px solid var(--accent);
+  font-weight: 800;
+}
+.deck[data-surface="retro-windows-chrome"] .stat {
+  border-top: none;
+  background: #fff;
+  border: 2px solid #000;
+  box-shadow: inset -2px -2px 0 #808080, inset 2px 2px 0 #fff;
+  padding: 12px 14px;
+  border-radius: 0;
+}
+.deck[data-surface="retro-windows-chrome"] .comparison-col {
+  border-radius: 0;
+  background: #fff;
+  border: 2px solid #000;
+  box-shadow: inset -2px -2px 0 #808080, inset 2px 2px 0 #fff;
+}
+.deck[data-surface="retro-windows-chrome"] .comparison-col:last-child {
+  background: #000080;
+  color: #fff;
+  box-shadow: none;
+}
+.deck[data-surface="retro-windows-chrome"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="retro-windows-chrome"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="retro-windows-chrome"] .quote {
+  border-left: 4px solid #000080;
+  font-family: "VT323", monospace;
+  font-size: clamp(28px, 3.2vw, 40px);
+}
+.deck[data-surface="retro-windows-chrome"] .card {
+  border-radius: 0;
+  background: #fff;
+  border: 2px solid #000;
+  box-shadow: inset -2px -2px 0 #808080, inset 2px 2px 0 #fff;
+}
+.deck[data-surface="scanline-neon"] .comparison-col {
+  border-radius: 0;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent2) 45%, transparent);
+}
+.deck[data-surface="scanline-neon"] .comparison-col:last-child {
+  border-color: var(--accent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.deck[data-surface="scanline-neon"] .card {
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--accent2) 35%, transparent);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+.deck[data-surface="scanline-neon"] .quote {
+  border-left: 3px solid var(--accent);
+  text-shadow: 0 0 12px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.deck[data-surface="brutalist-grid"] .stat {
+  border-top: 3px solid var(--text);
+}
+.deck[data-surface="brutalist-grid"] .stat .value {
+  font-family: var(--heading-font);
+  color: var(--accent);
+}
+.deck[data-surface="brutalist-grid"] .comparison-col:last-child {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--text);
+}
+.deck[data-surface="brutalist-grid"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="brutalist-grid"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="brutalist-grid"] .quote {
+  border-left: 4px solid var(--accent);
+  font-family: var(--heading-font);
+  text-transform: uppercase;
+}
+.deck[data-surface="editorial-rule"] .stat {
+  border-top: 2px solid var(--accent);
+}
+.deck[data-surface="editorial-rule"] .comparison-col {
+  border-radius: 0;
+  background: transparent;
+  border-top: 1px solid color-mix(in srgb, var(--text) 28%, transparent);
+  padding-left: 0;
+}
+.deck[data-surface="editorial-rule"] .comparison-col:last-child {
+  border-top-color: var(--accent);
+}
+.deck[data-surface="editorial-rule"] .card {
+  border-radius: 0;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+}
+
 /* Scroll-triggered reveals (populated by document.html script) */
 .slide .reveal {
   opacity: 0;
