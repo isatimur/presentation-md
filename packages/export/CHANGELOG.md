@@ -1,5 +1,11 @@
 # @presentation-md/export
 
+## 1.3.1
+
+### Patch Changes
+
+- 23e3a1f: Prefetch local file:/ paths for PPTX embeds (with allowedRoots confinement); raise neon/vapor/loud comparison and feature-grid AA contrast.
+
 ## 1.3.0
 
 ### Minor Changes
