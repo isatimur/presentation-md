@@ -1,6 +1,3 @@
-import { isAbsolute, resolve, sep } from "node:path";
-import { realpath, readFile as fsReadFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
 import type { DeckJson, Slide } from "./deck-types.js";
 
 export interface PrefetchImagesOptions {
@@ -16,7 +13,7 @@ export interface PrefetchImagesOptions {
   allowedRoots?: string[];
   /**
    * Override local file reads (tests). Defaults to `fs.promises.readFile`.
-   * When unset and `fs` is unavailable (browser), local sources are skipped.
+   * When unset and Node fs is unavailable (browser), local sources are skipped.
    */
   readFile?: (absolutePath: string) => Promise<Uint8Array>;
 }
@@ -104,13 +101,15 @@ function isFileUrl(src: string): boolean {
 /**
  * True for absolute/relative filesystem paths (and `file:` URLs).
  * Rejects other schemes (`http:`, `data:`, `blob:`, …).
+ * Avoids Node APIs so this stays browser-safe for Studio bundling.
  */
 function isLocalImageSource(src: string): boolean {
   if (!src || src.startsWith("data:") || isHttpUrl(src)) return false;
   if (isFileUrl(src)) return true;
   if (/^[a-z][a-z0-9+.-]*:/i.test(src)) return false; // other scheme
-  if (isAbsolute(src)) return true;
-  // Relative path — require an image extension so bare tokens aren't treated as files
+  // Absolute POSIX / UNC / drive-letter paths
+  if (src.startsWith("/") || src.startsWith("\\\\") || /^[A-Za-z]:[\\/]/.test(src)) return true;
+  // Relative path — require an image extension or explicit ./ ../
   return IMAGE_EXT.test(src) || src.startsWith("./") || src.startsWith(".\\") || src.startsWith("../");
 }
 
@@ -121,15 +120,34 @@ function defaultAllowedRoots(): string[] {
   return [];
 }
 
-function normalizeRoot(root: string): string {
-  const resolved = resolve(root);
-  // Ensure trailing sep so `/tmp/foo` does not authorize `/tmp/foobar`
-  return resolved.endsWith(sep) ? resolved : resolved + sep;
+type NodePath = typeof import("node:path");
+type NodeFsPromises = typeof import("node:fs/promises");
+type NodeUrl = typeof import("node:url");
+
+async function loadNodeApis(): Promise<{
+  path: NodePath;
+  fs: NodeFsPromises;
+  url: NodeUrl;
+}> {
+  // Dynamic imports keep Studio's Vite bundle free of static node:* edges.
+  const [path, fs, url] = await Promise.all([
+    import("node:path"),
+    import("node:fs/promises"),
+    import("node:url"),
+  ]);
+  return { path, fs, url };
+}
+
+function normalizeRoot(root: string, path: NodePath): string {
+  const resolved = path.resolve(root);
+  return resolved.endsWith(path.sep) ? resolved : resolved + path.sep;
 }
 
 async function assertPathAllowed(
   absolutePath: string,
-  allowedRoots: string[]
+  allowedRoots: string[],
+  path: NodePath,
+  fs: NodeFsPromises
 ): Promise<string> {
   if (!allowedRoots.length) {
     throw new Error("local image prefetch requires allowedRoots (or process.cwd())");
@@ -140,15 +158,14 @@ async function assertPathAllowed(
 
   let realTarget: string;
   try {
-    realTarget = await realpath(absolutePath);
+    realTarget = await fs.realpath(absolutePath);
   } catch {
-    // File may not exist yet / dangling — still constrain the resolved path
-    realTarget = resolve(absolutePath);
+    realTarget = path.resolve(absolutePath);
   }
 
-  const roots = allowedRoots.map(normalizeRoot);
+  const roots = allowedRoots.map((r) => normalizeRoot(r, path));
   const ok = roots.some((root) => {
-    const rootDir = root.slice(0, -1); // without trailing sep
+    const rootDir = root.slice(0, -1);
     return realTarget === rootDir || realTarget.startsWith(root);
   });
   if (!ok) {
@@ -157,26 +174,26 @@ async function assertPathAllowed(
   return realTarget;
 }
 
-function resolveLocalPath(src: string): string {
+async function resolveLocalPath(src: string, path: NodePath, url: NodeUrl): Promise<string> {
   if (isFileUrl(src)) {
-    // file:///path or file://localhost/path — fileURLToPath handles both
-    return fileURLToPath(src);
+    return url.fileURLToPath(src);
   }
-  return resolve(src);
+  return path.resolve(src);
 }
 
 async function readLocalBytes(
   src: string,
   opts: PrefetchImagesOptions
 ): Promise<{ bytes: Uint8Array; mimeHint: string }> {
+  const { path, fs, url } = await loadNodeApis();
   const allowedRoots = opts.allowedRoots ?? defaultAllowedRoots();
-  const absolute = resolveLocalPath(src);
-  const safePath = await assertPathAllowed(absolute, allowedRoots);
+  const absolute = await resolveLocalPath(src, path, url);
+  const safePath = await assertPathAllowed(absolute, allowedRoots, path, fs);
 
   const reader =
     opts.readFile ??
     (async (p: string) => {
-      const buf = await fsReadFile(p);
+      const buf = await fs.readFile(p);
       return new Uint8Array(buf);
     });
 
@@ -194,6 +211,9 @@ function toDataUri(bytes: Uint8Array, mimeHint: string): string {
  * Prefetch slide images to `data:` URIs so PPTX export can embed them.
  * Supports remote `http(s)` URLs and local `file:` / filesystem paths (Node),
  * with path confinement to `allowedRoots`. Data URIs are left untouched.
+ *
+ * Browser-safe: Node builtins are loaded only on the local-file path via
+ * dynamic `import()`, so Studio can bundle the http(s) path.
  */
 export async function prefetchDeckImages(
   deck: DeckJson,
@@ -242,7 +262,6 @@ export async function prefetchDeckImages(
         continue;
       }
 
-      // Unknown scheme / non-image relative token — leave as-is
       slides.push(slide);
     } catch (err) {
       warnings.push(`Could not prefetch image (${(err as Error).message}): ${src}`);
@@ -256,6 +275,4 @@ export async function prefetchDeckImages(
 /** @internal Exported for unit tests. */
 export const __prefetchTestUtils = {
   isLocalImageSource,
-  resolveLocalPath,
-  assertPathAllowed,
 };
