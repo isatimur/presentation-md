@@ -14,8 +14,10 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
 ## Colors
 - Solid hex maps directly. Translucent `rgba(...)` tokens (cardBg, border) are
   alpha-composited over the slide background to an opaque hex so cards/borders stay visible.
-- CSS gradients and `color-mix(...)` are not represented — backgrounds export as the flat
-  `bg` color.
+- CSS gradients and `color-mix(...)` are approximated where feasible: a translucent
+  `bg2` wash over `bg`, plus theme-specific title chrome (`bold-signal` orange panel,
+  `creative-voltage` split field, `mat` woodglow oval). Exact CSS gradients are not
+  reconstructed.
 
 ## Layout
 - Geometry uses `theme.geometry.slideWidth` (px → inches at 96dpi) at native 16:9.
@@ -32,8 +34,9 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   `allowedRoots` (default: `process.cwd()`). Failed fetches / out-of-root paths
   still draw a captioned placeholder and emit a warning — nothing is dropped
   silently. Pass `prefetchImages: false` to `buildPptx` for an I/O-free exporter.
-- **Icons:** FontAwesome glyphs aren't rendered; each feature-grid card shows a small accent
-  marker in their place.
+- **Icons:** FontAwesome glyphs aren't embedded. Each feature-grid card gets a craft
+  accent marker: rounded chip (or circle for circle/dot icons) filled with `accent`,
+  labeled with the icon's first letter when a class is present (e.g. `fa-bolt` → `B`).
 - **Craft layouts that *are* mapped:** `columns: "bento"` (hero + satellite cards),
   comparison `emphasis`, two-column `ratio`/`reverse`, image-hero bottom/side scrims, and
   code window chrome (traffic-light dots + filename). Geometry is native shapes, not a

@@ -241,10 +241,79 @@ function addImageOrPlaceholder(
   });
 }
 
+/** First meaningful letter from a Font Awesome class (e.g. `fa-solid fa-bolt` → `B`). */
+function iconMarkerLetter(icon?: string): string {
+  if (!icon) return "";
+  const token = icon
+    .split(/\s+/)
+    .map((p) => p.replace(/^fa[a-z-]*-/i, ""))
+    .find((p) => p && !/^(solid|regular|brands|sharp|light|thin)$/i.test(p));
+  const letter = (token ?? "").replace(/[^a-z0-9]/gi, "").charAt(0);
+  return letter ? letter.toUpperCase() : "";
+}
+
+function drawIconMarker(
+  slide: PSlide,
+  ctx: ExportContext,
+  icon: string | undefined,
+  x: number,
+  y: number,
+  size: number
+): void {
+  const letter = iconMarkerLetter(icon);
+  // Geometric stand-in: circle for "circle/dot/bullseye", rounded chip otherwise.
+  const circular = Boolean(icon && /circle|dot|bullseye|radio|record/i.test(icon));
+  if (circular) {
+    slide.addShape(ctx.shapeOval, {
+      x,
+      y,
+      w: size,
+      h: size,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+  } else {
+    slide.addShape(ctx.shapeRoundRect, {
+      x,
+      y,
+      w: size,
+      h: size,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0.06,
+    });
+  }
+  if (letter) {
+    slide.addText(letter, {
+      x,
+      y,
+      w: size,
+      h: size,
+      fontFace: ctx.fonts.body,
+      bold: true,
+      color: ctx.colors.bg,
+      fontSize: Math.max(9, Math.round(size * 18)),
+      align: "center",
+      valign: "middle",
+    });
+  } else {
+    // Bare accent bar tick when no icon was provided.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: x + size * 0.28,
+      y: y + size * 0.42,
+      w: size * 0.44,
+      h: size * 0.16,
+      fill: { color: ctx.colors.bg },
+      line: { color: ctx.colors.bg, width: 0 },
+      rectRadius: 0.02,
+    });
+  }
+}
+
 function drawFeatureCard(
   slide: PSlide,
   ctx: ExportContext,
-  card: { title: string; body?: string },
+  card: { icon?: string; title: string; body?: string },
   x: number,
   y: number,
   w: number,
@@ -261,15 +330,7 @@ function drawFeatureCard(
     line: { color: hero ? ctx.colors.accent : ctx.colors.border, width: hero ? 1.5 : 1 },
     rectRadius: 0.06,
   });
-  // Accent marker (stands in for the icon glyph).
-  slide.addShape(ctx.shapeRoundRect, {
-    x: x + 0.2,
-    y: y + 0.2,
-    w: hero ? 0.4 : 0.32,
-    h: hero ? 0.4 : 0.32,
-    fill: { color: ctx.colors.accent },
-    rectRadius: 0.05,
-  });
+  drawIconMarker(slide, ctx, card.icon, x + 0.2, y + 0.2, hero ? 0.42 : 0.34);
   const pad = 0.2;
   const titleY = y + (hero ? 0.75 : 0.6);
   const titleH = hero ? 0.7 : 0.5;
@@ -305,7 +366,7 @@ function drawFeatureCard(
 function renderBentoGrid(
   slide: PSlide,
   ctx: ExportContext,
-  cards: Array<{ title: string; body?: string }>,
+  cards: Array<{ icon?: string; title: string; body?: string }>,
   areaX: number,
   areaY: number,
   areaW: number,
@@ -734,8 +795,80 @@ const RENDERERS: Record<string, (s: PSlide, ctx: ExportContext, d: Slide) => voi
   code: renderCode,
 };
 
-export function renderSlide(slide: PSlide, ctx: ExportContext, data: Slide): void {
+/**
+ * Approximate HTML surface craft that PPTX cannot express as CSS gradients:
+ * dual-tone washes, title accent panels, and neon split fields.
+ */
+function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void {
   slide.background = { color: ctx.colors.bg };
+  const theme = ctx.themeName;
+  const isHero = data.layout === "title" || data.layout === "closing";
+
+  // Generic bg→bg2 wash (stands in for linear/radial HTML gradients).
+  if (ctx.colors.bg2.toLowerCase() !== ctx.colors.bg.toLowerCase()) {
+    if (theme === "creative-voltage" && isHero) {
+      // Left electric blue / right dark — mirrors creative-voltage-split.
+      slide.background = { color: ctx.colors.bg };
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width * 0.48,
+        y: 0,
+        w: ctx.width * 0.52,
+        h: ctx.height,
+        fill: { color: ctx.colors.bg2 },
+        line: { color: ctx.colors.bg2, width: 0 },
+        rectRadius: 0,
+      });
+      slide.addShape(ctx.shapeOval, {
+        x: ctx.width - 1.6,
+        y: 0.55,
+        w: 0.95,
+        h: 0.95,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.accent, width: 0 },
+      });
+      return;
+    }
+
+    // Bottom-right wash of bg2 over flat bg (≈ diagonal gradient).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.35,
+      y: ctx.height * 0.35,
+      w: ctx.width * 0.65,
+      h: ctx.height * 0.65,
+      fill: { color: ctx.colors.bg2, transparency: 55 },
+      line: { color: ctx.colors.bg2, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "bold-signal" && isHero) {
+    // Orange focal panel — title/closing only (matches bold-signal-card surface).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.55,
+      y: ctx.height * 0.2,
+      w: ctx.width * 0.38,
+      h: ctx.height * 0.58,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0.18,
+    });
+  }
+
+  if (theme === "mat" && isHero) {
+    // Soft woodglow corner — translucent accent2 stand-in for the radial wash.
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.62,
+      y: ctx.height * 0.55,
+      w: ctx.width * 0.5,
+      h: ctx.height * 0.6,
+      fill: { color: ctx.colors.accent2, transparency: 72 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+  }
+}
+
+export function renderSlide(slide: PSlide, ctx: ExportContext, data: Slide): void {
+  paintSlideChrome(slide, ctx, data);
   const renderer = RENDERERS[data.layout];
   if (!renderer) {
     ctx.warn(`Unknown layout "${data.layout}" — rendered heading/lead only.`);

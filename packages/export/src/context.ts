@@ -8,6 +8,8 @@ import { parseFontFamily, isBoldWeight } from "./font.js";
  * colors, and font faces. Built once per deck and shared by every layout mapper.
  */
 export interface ExportContext {
+  /** Resolved theme name — drives optional craft chrome in PPTX. */
+  themeName: string;
   /** Slide width in inches (from theme geometry.slideWidth, default 13.333"). */
   width: number;
   /** Slide height in inches (16:9 of width). */
@@ -62,6 +64,7 @@ export function buildContext(
   const bg = resolveColor(theme.palette.bg);
 
   return {
+    themeName: theme.name,
     width,
     height,
     margin: Math.min(0.6, width * 0.05),

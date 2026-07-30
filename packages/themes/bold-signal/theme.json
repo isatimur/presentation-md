@@ -10,10 +10,10 @@
     "bg": "#1a1a1a",
     "bg2": "#2d2d2d",
     "text": "#ffffff",
-    "muted": "#a0a0a0",
+    "muted": "#b0b0b0",
     "accent": "#FF5722",
     "accent2": "#FF8A65",
-    "cardBg": "#FF5722",
+    "cardBg": "#43251b",
     "border": "rgba(255,255,255,0.12)"
   },
   "typography": {

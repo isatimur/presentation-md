@@ -13,8 +13,8 @@
     "muted": "#ffffff",
     "accent": "#d4ff00",
     "accent2": "#ffffff",
-    "cardBg": "rgba(26,26,46,0.55)",
-    "border": "rgba(212,255,0,0.45)"
+    "cardBg": "#1a1a2e",
+    "border": "rgba(212,255,0,0.55)"
   },
   "typography": {
     "headingFont": "'Syne', system-ui, sans-serif",

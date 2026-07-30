@@ -877,9 +877,15 @@
   opacity: 0.75;
 }
 .deck[data-surface="soft-editorial-paper"] .card {
-  background: rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.82);
   border-radius: 24px;
-  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 16%, transparent);
+}
+.deck[data-surface="soft-editorial-paper"] .card p,
+.deck[data-surface="soft-editorial-paper"] .lead,
+.deck[data-surface="soft-editorial-paper"] .eyebrow,
+.deck[data-surface="soft-editorial-paper"] .stat .label {
+  color: #4A4338;
 }
 .deck[data-surface="soft-editorial-paper"] .slide h1 {
   font-style: italic;
@@ -1115,6 +1121,7 @@
   letter-spacing: -0.02em;
 }
 .deck[data-surface="bold-signal-card"] .card {
+  /* Match roles.cardBg (#43251b) — orange cardBg broke muted/PPTX dual-surface */
   background: color-mix(in srgb, var(--accent) 18%, #1a1a1a);
   color: #ffffff;
   border-radius: 16px;
@@ -1122,7 +1129,10 @@
 }
 .deck[data-surface="bold-signal-card"] .card i,
 .deck[data-surface="bold-signal-card"] .card h3 { color: #ffffff; }
-.deck[data-surface="bold-signal-card"] .card p { color: rgba(255,255,255,0.72); }
+.deck[data-surface="bold-signal-card"] .card p,
+.deck[data-surface="bold-signal-card"] .card .lead { color: rgba(255,255,255,0.90); }
+.deck[data-surface="bold-signal-card"] .eyebrow,
+.deck[data-surface="bold-signal-card"] .stat .label { color: #c8c8c8; }
 .deck[data-surface="bold-signal-card"] .comparison-col:last-child {
   /* Orange accent fails white at full strength — keep darkened mix */
   background: color-mix(in srgb, var(--accent) 55%, #1a1a1a);
@@ -1204,16 +1214,20 @@
   text-shadow: 0 0 24px color-mix(in srgb, var(--accent) 45%, transparent);
 }
 .deck[data-surface="creative-voltage-split"] .card {
-  background: rgba(26,26,46,0.65);
+  background: #1a1a2e;
   border: 1px solid var(--accent);
   border-radius: 0;
 }
-.deck[data-surface="creative-voltage-split"] .card p { color: rgba(255,255,255,0.78); }
+.deck[data-surface="creative-voltage-split"] .card p,
+.deck[data-surface="creative-voltage-split"] .card .lead { color: rgba(255,255,255,0.92); }
+/* Pure white — translucent white fails AA on the electric blue half */
 .deck[data-surface="creative-voltage-split"] .title-slide .lead,
 .deck[data-surface="creative-voltage-split"] .closing-slide .lead,
 .deck[data-surface="creative-voltage-split"] .title-slide .subtitle,
-.deck[data-surface="creative-voltage-split"] .closing-slide .subtitle {
-  color: rgba(255,255,255,0.82);
+.deck[data-surface="creative-voltage-split"] .closing-slide .subtitle,
+.deck[data-surface="creative-voltage-split"] .title-slide .eyebrow,
+.deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
+  color: #ffffff;
 }
 
 /* ── signal-briefing (signal) ── */
@@ -2266,9 +2280,10 @@
 }
 /* ── mat-woodglow (mat) ── */
 .deck[data-surface="mat-woodglow"] .slide {
+  /* Soften wood tint so muted cream stays AA on the wash */
   --slide-bg:
-    radial-gradient(ellipse 55% 45% at 88% 100%, color-mix(in srgb, var(--accent2) 48%, transparent), transparent 70%),
-    radial-gradient(ellipse 30% 28% at 12% 18%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%),
+    radial-gradient(ellipse 55% 45% at 88% 100%, color-mix(in srgb, var(--accent2) 28%, transparent), transparent 70%),
+    radial-gradient(ellipse 30% 28% at 12% 18%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%),
     var(--bg);
   border-radius: 0;
   border: none;
@@ -2309,9 +2324,18 @@
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
 .deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label,
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: #454038;
+}
+.deck[data-surface="mat-woodglow"] .card h3,
+.deck[data-surface="mat-woodglow"] .card i {
+  color: #1E2820;
+}
 .deck[data-surface="mat-woodglow"] .eyebrow {
-  color: #5a5548;
+  color: #b8b4a4;
+}
+.deck[data-surface="mat-woodglow"] .card .eyebrow {
+  color: #454038;
 }
 
 /* ── stencil-tablet-earth (stencil-tablet) ── */
