@@ -46,8 +46,32 @@ for (const mod of Object.values(manifestModules)) {
   if (manifest?.name) REGISTRY.set(manifest.name, manifest);
 }
 
+export interface ThemeSummary {
+  name: string;
+  vibe: string;
+  bg: string;
+  accent: string;
+}
+
 export function listThemeNames(): string[] {
   return [...REGISTRY.keys()].sort();
+}
+
+/** Browseable theme cards — name + vibe + palette cues for the Studio picker. */
+export function listThemeSummaries(): ThemeSummary[] {
+  return listThemeNames().map((name) => {
+    const theme = resolveTheme(name);
+    const vibe =
+      (theme.manifest as ThemeManifest & { vibe?: string }).vibe ??
+      theme.manifest.description ??
+      name;
+    return {
+      name,
+      vibe,
+      bg: theme.palette.bg,
+      accent: theme.palette.accent,
+    };
+  });
 }
 
 export function resolveTheme(name: string): ResolvedTheme {

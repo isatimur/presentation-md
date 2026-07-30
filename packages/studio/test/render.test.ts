@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { resolveTheme, listThemeNames } from "../src/render/themes.js";
+import { resolveTheme, listThemeNames, listThemeSummaries } from "../src/render/themes.js";
 import { renderDeckHtml } from "../src/render/renderDeck.js";
 import { extractDeckFromHtml } from "../src/export/downloads.js";
 import { EXAMPLE_DECK } from "../src/deck.js";
@@ -34,6 +34,15 @@ describe("theme registry", () => {
 
   it("falls back to default-tech for unknown names", () => {
     expect(resolveTheme("does-not-exist").palette.bg).toBe("#0e0e12");
+  });
+
+  it("lists browseable theme summaries with palette cues", () => {
+    const summaries = listThemeSummaries();
+    expect(summaries.length).toBeGreaterThanOrEqual(70);
+    const signal = summaries.find((t) => t.name === "signal");
+    expect(signal?.bg).toBeTruthy();
+    expect(signal?.accent).toBeTruthy();
+    expect(signal?.vibe.length).toBeGreaterThan(0);
   });
 });
 

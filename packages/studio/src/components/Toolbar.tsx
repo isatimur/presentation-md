@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import type { DeckJson } from "@presentation-md/export";
-import { listThemeNames } from "../render/themes.js";
+import { listThemeSummaries, resolveTheme } from "../render/themes.js";
 import { downloadHtml, downloadPptx, downloadJson, parseDeckFile } from "../export/downloads.js";
 
 export function Toolbar({
@@ -19,9 +19,21 @@ export function Toolbar({
   const fileRef = useRef<HTMLInputElement>(null);
   const [status, setStatus] = useState<string>("");
   const [busy, setBusy] = useState(false);
+  const [themeQuery, setThemeQuery] = useState("");
 
-  const themeNames = listThemeNames();
+  const themes = useMemo(() => listThemeSummaries(), []);
   const theme = deck.meta?.theme ?? "default-tech";
+  const active = themes.find((t) => t.name === theme) ?? {
+    name: theme,
+    vibe: theme,
+    bg: resolveTheme(theme).palette.bg,
+    accent: resolveTheme(theme).palette.accent,
+  };
+  const filtered = themes.filter((t) => {
+    if (!themeQuery.trim()) return true;
+    const q = themeQuery.trim().toLowerCase();
+    return t.name.toLowerCase().includes(q) || t.vibe.toLowerCase().includes(q);
+  });
 
   const setMeta = (patch: Record<string, string>) =>
     onChange({ ...deck, meta: { ...deck.meta, ...patch } });
@@ -65,14 +77,54 @@ export function Toolbar({
         onChange={(e) => setTitle(e.target.value)}
       />
 
-      <label className="inline-field">
-        <span className="muted small">Theme</span>
-        <select className="text-input" value={theme} onChange={(e) => setTheme(e.target.value)}>
-          {themeNames.map((t) => (
-            <option key={t} value={t}>{t}</option>
-          ))}
-        </select>
-      </label>
+      <details className="theme-browser" onToggle={(e) => {
+        if (!(e.target as HTMLDetailsElement).open) setThemeQuery("");
+      }}>
+        <summary className="btn btn-sm theme-trigger" title="Browse 75 themes">
+          <span
+            className="theme-swatch"
+            style={{ ["--swatch-bg" as string]: active.bg, ["--swatch-accent" as string]: active.accent }}
+            aria-hidden
+          />
+          <span>{theme}</span>
+          <span aria-hidden>▾</span>
+        </summary>
+        <div className="theme-browser-panel">
+          <input
+            className="text-input theme-search"
+            value={themeQuery}
+            placeholder="Search themes…"
+            autoFocus
+            onChange={(e) => setThemeQuery(e.target.value)}
+          />
+          <div className="theme-count">{filtered.length} / {themes.length} themes</div>
+          <ul className="theme-list">
+            {filtered.map((t) => (
+              <li key={t.name}>
+                <button
+                  type="button"
+                  className={`theme-option${t.name === theme ? " active" : ""}`}
+                  onClick={(e) => {
+                    setTheme(t.name);
+                    const details = (e.currentTarget as HTMLElement).closest("details");
+                    if (details) details.open = false;
+                  }}
+                >
+                  <span
+                    className="theme-swatch"
+                    style={{ ["--swatch-bg" as string]: t.bg, ["--swatch-accent" as string]: t.accent }}
+                    aria-hidden
+                  />
+                  <span className="theme-option-meta">
+                    <span className="theme-option-name">{t.name}</span>
+                    <span className="theme-option-vibe">{t.vibe}</span>
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </details>
 
       <details className="deck-details">
         <summary className="btn btn-sm">Details</summary>

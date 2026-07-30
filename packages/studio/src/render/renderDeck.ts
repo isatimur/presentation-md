@@ -72,8 +72,13 @@ function normalizeSlideData(slide: Slide): Record<string, unknown> {
     out["rows"] = slide.rows.map((row) => ({ cells: row }));
   }
   if (slide.layout === "feature-grid") {
-    if (typeof slide.columns === "number") out["columns"] = slide.columns;
-    else if (!slide.columns) out["columns"] = 3;
+    if (slide.columns === "bento") {
+      out["columns"] = "bento";
+    } else if (typeof slide.columns === "number") {
+      out["columns"] = slide.columns;
+    } else if (!slide.columns) {
+      out["columns"] = 3;
+    }
   }
   if (slide.cta?.href !== undefined) {
     out["cta"] = { ...slide.cta, href: sanitizeLink(slide.cta.href) };

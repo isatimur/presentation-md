@@ -1,7 +1,7 @@
 import type { Slide, Card, Stat, Step } from "@presentation-md/export";
 import { LAYOUT_LABELS } from "../deck.js";
 import type { LayoutType } from "../deck.js";
-import { TextInput, TextArea, NumberSelect, ListEditor } from "./fields.js";
+import { TextInput, TextArea, StringSelect, ListEditor } from "./fields.js";
 
 export function SlideForm({
   slide,
@@ -54,8 +54,30 @@ export function SlideForm({
             <TextInput label="Eyebrow" value={slide.eyebrow} onChange={(v) => set({ eyebrow: v })} />
             <TextInput label="Heading" value={slide.heading} onChange={(v) => set({ heading: v })} />
             <TextArea label="Body" value={slide.body} onChange={(v) => set({ body: v })} rows={5} />
-            <TextInput label="Image URL (data: URIs embed in PPTX)" value={slide.image} onChange={(v) => set({ image: v })} />
+            <StringSelect
+              label="Ratio"
+              value={typeof slide.ratio === "string" ? slide.ratio : "1-1"}
+              options={[
+                { value: "1-1", label: "1:1 balanced" },
+                { value: "2-1", label: "2:1 copy-heavy" },
+                { value: "1-2", label: "1:2 media-heavy" },
+                { value: "3-2", label: "3:2" },
+                { value: "2-3", label: "2:3" },
+              ]}
+              onChange={(v) => set({ ratio: v })}
+            />
+            <StringSelect
+              label="Media side"
+              value={slide.reverse ? "left" : "right"}
+              options={[
+                { value: "right", label: "Media on right" },
+                { value: "left", label: "Media on left (reverse)" },
+              ]}
+              onChange={(v) => set({ reverse: v === "left" })}
+            />
+            <TextInput label="Image URL (remote images prefetched into PPTX)" value={slide.image} onChange={(v) => set({ image: v })} />
             <TextInput label="Image alt" value={slide.imageAlt} onChange={(v) => set({ imageAlt: v })} />
+            <TextArea label="Aside (when no image)" value={slide.aside} onChange={(v) => set({ aside: v })} rows={3} />
           </>
         );
 
@@ -65,7 +87,7 @@ export function SlideForm({
             <TextInput label="Eyebrow" value={slide.eyebrow} onChange={(v) => set({ eyebrow: v })} />
             <TextInput label="Heading" value={slide.heading} onChange={(v) => set({ heading: v })} />
             <TextArea label="Lead" value={slide.lead} onChange={(v) => set({ lead: v })} rows={3} />
-            <TextInput label="Image URL (data: URIs embed in PPTX)" value={slide.image} onChange={(v) => set({ image: v })} />
+            <TextInput label="Image URL (remote images prefetched into PPTX)" value={slide.image} onChange={(v) => set({ image: v })} />
             <TextInput label="Image alt" value={slide.imageAlt} onChange={(v) => set({ imageAlt: v })} />
           </>
         );
@@ -79,6 +101,26 @@ export function SlideForm({
             <TextArea label="Left body" value={slide.left} onChange={(v) => set({ left: v })} rows={4} />
             <TextInput label="Right label" value={slide.rightLabel} onChange={(v) => set({ rightLabel: v })} />
             <TextArea label="Right body" value={slide.right} onChange={(v) => set({ right: v })} rows={4} />
+            <StringSelect
+              label="Emphasis"
+              value={slide.emphasis === "left" || slide.emphasis === "right" ? slide.emphasis : "right"}
+              options={[
+                { value: "left", label: "Grow left" },
+                { value: "right", label: "Grow right" },
+              ]}
+              onChange={(v) => set({ emphasis: v })}
+            />
+          </>
+        );
+
+      case "code":
+        return (
+          <>
+            <TextInput label="Eyebrow" value={slide.eyebrow} onChange={(v) => set({ eyebrow: v })} />
+            <TextInput label="Heading" value={slide.heading} onChange={(v) => set({ heading: v })} />
+            <TextInput label="Filename" value={slide.filename} onChange={(v) => set({ filename: v })} />
+            <TextInput label="Language" value={slide.language} onChange={(v) => set({ language: v })} />
+            <TextArea label="Code" value={slide.code} onChange={(v) => set({ code: v })} rows={8} />
           </>
         );
 
@@ -95,11 +137,20 @@ export function SlideForm({
           <>
             <TextInput label="Eyebrow" value={slide.eyebrow} onChange={(v) => set({ eyebrow: v })} />
             <TextInput label="Heading" value={slide.heading} onChange={(v) => set({ heading: v })} />
-            <NumberSelect
+            <StringSelect
               label="Columns"
-              value={typeof slide.columns === "number" ? slide.columns : 3}
-              options={[2, 3, 4]}
-              onChange={(v) => set({ columns: v })}
+              value={
+                slide.columns === "bento"
+                  ? "bento"
+                  : String(typeof slide.columns === "number" ? slide.columns : 3)
+              }
+              options={[
+                { value: "2", label: "2 columns" },
+                { value: "3", label: "3 columns" },
+                { value: "4", label: "4 columns" },
+                { value: "bento", label: "Bento (hero + satellites)" },
+              ]}
+              onChange={(v) => set({ columns: v === "bento" ? "bento" : Number(v) })}
             />
             <ListEditor<Card>
               label="Cards"

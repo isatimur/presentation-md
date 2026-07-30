@@ -80,6 +80,30 @@ export function NumberSelect({
   );
 }
 
+export function StringSelect({
+  label,
+  value,
+  options,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  options: Array<{ value: string; label: string }>;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <Field label={label}>
+      <select className="text-input" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+    </Field>
+  );
+}
+
 /** Generic add/remove/reorder editor for an array of items. */
 export function ListEditor<T>({
   label,

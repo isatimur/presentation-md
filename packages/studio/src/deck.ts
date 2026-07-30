@@ -90,30 +90,63 @@ export function blankSlide(layout: LayoutType): Slide {
 
 export const EXAMPLE_DECK: DeckJson = {
   type: "deck",
-  meta: { title: "Acme Q3", company: "Acme", theme: "claude" },
+  meta: { title: "Acme Q3", company: "Acme", theme: "signal", description: "Studio craft preview" },
   slides: [
     { layout: "title", eyebrow: "Q3 2026", heading: "Acme All-Hands", lead: "Momentum, metrics, and what's next." },
+    {
+      layout: "image-hero",
+      eyebrow: "Moment",
+      heading: "Ship the story, not the slide.",
+      lead: "Full-bleed craft that still exports to editable PPTX.",
+      image:
+        "data:image/svg+xml," +
+        encodeURIComponent(
+          `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0B1220"/><stop offset="1" stop-color="#FF3B1F"/></linearGradient></defs><rect width="1600" height="900" fill="url(#g)"/><circle cx="1180" cy="280" r="180" fill="#0D9488" opacity=".35"/></svg>`
+        ),
+      imageAlt: "Signal gradient field",
+    },
     { layout: "section", number: "01", eyebrow: "Part one", heading: "Where we are" },
     {
       layout: "feature-grid",
       heading: "Three pillars",
-      columns: 3,
+      columns: "bento",
       cards: [
-        { icon: "fa-solid fa-bolt", title: "Speed", body: "Ship 3x faster." },
+        { icon: "fa-solid fa-bolt", title: "Speed", body: "Ship 3x faster with schema craft." },
         { title: "Safety", body: "SOC2 in progress." },
-        { title: "Simplicity", body: "One command." },
+        { title: "Simplicity", body: "One command install." },
+        { title: "Export", body: "Native editable PPTX." },
+        { title: "Themes", body: "75 swappable looks." },
       ],
     },
+    {
+      layout: "comparison",
+      heading: "Before vs after",
+      leftLabel: "Prompt-only packs",
+      left: "Opaque HTML. Hard to edit one slide. No native PowerPoint.",
+      rightLabel: "presentation-md",
+      right: "Schema-validated Deck JSON. Diff one slide. MCP + editable PPTX.",
+      emphasis: "right",
+    },
+    {
+      layout: "two-column",
+      eyebrow: "Craft",
+      heading: "Asymmetric layouts stay intentional.",
+      body: "Ratio and reverse controls keep media and copy in tension — not a default 50/50 split.",
+      aside: "2:1 copy · reverse media",
+      ratio: "2-1",
+    },
+    {
+      layout: "code",
+      eyebrow: "Agent skill",
+      heading: "One install. Any agent.",
+      filename: "install.sh",
+      language: "bash",
+      code: "npx @presentation-md/install claude-code\n# then: create a presentation about…",
+    },
     { layout: "stat-row", heading: "By the numbers", stats: [
-      { value: "98%", label: "Uptime" }, { value: "$1.2M", label: "ARR" }, { value: "3.1x", label: "YoY" },
-    ] },
-    { layout: "data-table", heading: "Pipeline", columns: ["Stage", "Count", "Value"], rows: [
-      ["Lead", "120", "$600k"], ["POC", "34", "$340k"], ["Closed", "12", "$210k"],
-    ] },
-    { layout: "timeline", heading: "Roadmap", steps: [
-      { title: "Now", body: "PPTX export." }, { title: "Next", body: "Studio editor." }, { title: "Later", body: "Templates." },
+      { value: "75", label: "Themes" }, { value: "12", label: "Layouts" }, { value: "1", label: "Install" },
     ] },
     { layout: "quote", quote: "Make it work, make it right, make it fast.", by: "Kent Beck" },
-    { layout: "closing", heading: "Thank you", lead: "Questions?", cta: { label: "Get started", href: "https://acme.com" } },
+    { layout: "closing", heading: "Thank you", lead: "Questions?", cta: { label: "Get started", href: "https://presentation-md.vercel.app" } },
   ],
 };

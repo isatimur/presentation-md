@@ -1,4 +1,4 @@
-import type { DeckJson } from "@presentation-md/export";
+import type { DeckJson, Slide } from "@presentation-md/export";
 import { resolveTheme } from "../render/themes.js";
 import { renderDeckHtml } from "../render/renderDeck.js";
 
@@ -29,13 +29,51 @@ export interface PptxDownloadResult {
   warnings: string[];
 }
 
+async function blobToDataUri(blob: Blob): Promise<string> {
+  const buffer = await blob.arrayBuffer();
+  const bytes = new Uint8Array(buffer);
+  let binary = "";
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
+  }
+  const b64 = btoa(binary);
+  const type = blob.type || "image/png";
+  return `data:${type};base64,${b64}`;
+}
+
+/** Prefetch remote http(s) images to data URIs so PPTX export can embed them. */
+export async function prefetchDeckImages(deck: DeckJson): Promise<{ deck: DeckJson; warnings: string[] }> {
+  const warnings: string[] = [];
+  const slides: Slide[] = [];
+  for (const slide of deck.slides ?? []) {
+    const src = slide.image;
+    if (!src || src.startsWith("data:") || !/^https?:\/\//i.test(src)) {
+      slides.push(slide);
+      continue;
+    }
+    try {
+      const res = await fetch(src);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const dataUri = await blobToDataUri(await res.blob());
+      slides.push({ ...slide, image: dataUri });
+    } catch (err) {
+      warnings.push(`Could not prefetch image (${(err as Error).message}): ${src}`);
+      slides.push(slide);
+    }
+  }
+  return { deck: { ...deck, slides }, warnings };
+}
+
 export async function downloadPptx(deck: DeckJson): Promise<PptxDownloadResult> {
   const warnings: string[] = [];
   const theme = resolveTheme(themeName(deck));
+  const prepared = await prefetchDeckImages(deck);
+  warnings.push(...prepared.warnings);
   // Lazy-load the exporter (pptxgenjs) so it's a separate chunk fetched only on
   // first export — keeps the studio's initial bundle small.
   const { deckToPptxBlob } = await import("@presentation-md/export");
-  const blob = await deckToPptxBlob(deck, theme, { onWarn: (m) => warnings.push(m) });
+  const blob = await deckToPptxBlob(prepared.deck, theme, { onWarn: (m) => warnings.push(m) });
   triggerDownload(blob, safeName(deck, "pptx"));
   return { warnings };
 }
