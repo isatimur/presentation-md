@@ -24,9 +24,13 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
 ## Content that isn't 1:1
 - **Images:** only inline `data:` URIs are embedded. Remote/local URL images are **not**
   fetched (the exporter does no network I/O); a captioned placeholder is drawn and a warning
-  is emitted. (The studio can pre-fetch to data URIs before export.)
+  is emitted. (The studio pre-fetches remote images to data URIs before export.)
 - **Icons:** FontAwesome glyphs aren't rendered; each feature-grid card shows a small accent
   marker in their place.
+- **Craft layouts that *are* mapped:** `columns: "bento"` (hero + satellite cards),
+  comparison `emphasis`, two-column `ratio`/`reverse`, image-hero bottom/side scrims, and
+  code window chrome (traffic-light dots + filename). Geometry is native shapes, not a
+  screenshot — expect editability over pixel parity.
 - Every non-mappable field emits a warning (via `opts.onWarn` / `result.warnings`) — nothing
   is dropped silently.
 

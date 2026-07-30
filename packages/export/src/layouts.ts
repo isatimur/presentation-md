@@ -239,19 +239,117 @@ function addImageOrPlaceholder(
   });
 }
 
+function drawFeatureCard(
+  slide: PSlide,
+  ctx: ExportContext,
+  card: { title: string; body?: string },
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  opts: { hero?: boolean } = {}
+): void {
+  const hero = Boolean(opts.hero);
+  slide.addShape(ctx.shapeRoundRect, {
+    x,
+    y,
+    w,
+    h,
+    fill: { color: hero ? ctx.colors.bg2 : ctx.colors.cardBg },
+    line: { color: hero ? ctx.colors.accent : ctx.colors.border, width: hero ? 1.5 : 1 },
+    rectRadius: 0.06,
+  });
+  // Accent marker (stands in for the icon glyph).
+  slide.addShape(ctx.shapeRoundRect, {
+    x: x + 0.2,
+    y: y + 0.2,
+    w: hero ? 0.4 : 0.32,
+    h: hero ? 0.4 : 0.32,
+    fill: { color: ctx.colors.accent },
+    rectRadius: 0.05,
+  });
+  const pad = 0.2;
+  const titleY = y + (hero ? 0.75 : 0.6);
+  const titleH = hero ? 0.7 : 0.5;
+  slide.addText(card.title, {
+    x: x + pad,
+    y: titleY,
+    w: w - pad * 2,
+    h: titleH,
+    fontFace: ctx.fonts.heading,
+    bold: true,
+    color: ctx.colors.text,
+    fontSize: hero ? 22 : 16,
+    fit: "shrink",
+    valign: "top",
+  });
+  if (card.body) {
+    slide.addText(card.body, {
+      x: x + pad,
+      y: titleY + titleH + 0.05,
+      w: w - pad * 2,
+      h: Math.max(0.4, h - (titleY - y) - titleH - 0.3),
+      fontFace: ctx.fonts.body,
+      color: ctx.colors.muted,
+      fontSize: hero ? 14 : 12,
+      fit: "shrink",
+      valign: "top",
+      lineSpacingMultiple: 1.1,
+    });
+  }
+}
+
+/** Asymmetric 5-up: hero card spans left column, remaining cards fill a 2×2 on the right. */
+function renderBentoGrid(
+  slide: PSlide,
+  ctx: ExportContext,
+  cards: Array<{ title: string; body?: string }>,
+  areaX: number,
+  areaY: number,
+  areaW: number,
+  areaH: number
+): void {
+  const gap = 0.28;
+  const heroW = areaW * 0.42;
+  const rightW = areaW - heroW - gap;
+  const [hero, ...rest] = cards;
+  if (hero) {
+    drawFeatureCard(slide, ctx, hero, areaX, areaY, heroW, areaH, { hero: true });
+  }
+  const stack = rest.slice(0, 4);
+  if (stack.length === 0) return;
+  const cols = Math.min(2, stack.length);
+  const rows = Math.ceil(stack.length / cols);
+  const cardW = (rightW - gap * (cols - 1)) / cols;
+  const cardH = (areaH - gap * (rows - 1)) / rows;
+  stack.forEach((card, i) => {
+    const r = Math.floor(i / cols);
+    const c = i % cols;
+    const x = areaX + heroW + gap + c * (cardW + gap);
+    const y = areaY + r * (cardH + gap);
+    drawFeatureCard(slide, ctx, card, x, y, cardW, cardH);
+  });
+}
+
 function renderFeatureGrid(slide: PSlide, ctx: ExportContext, data: Slide): void {
   const top = renderHeaderBlock(slide, ctx, data);
   const cards = data.cards ?? [];
   if (cards.length === 0) return;
 
-  let cols = typeof data.columns === "number" ? data.columns : 3;
-  cols = Math.max(1, Math.min(4, cols, cards.length));
-  const rows = Math.ceil(cards.length / cols);
   const gap = 0.35;
   const areaX = ctx.margin;
   const areaW = ctx.width - ctx.margin * 2;
   const areaY = top + 0.1;
   const areaH = ctx.height - areaY - ctx.margin;
+
+  if (data.columns === "bento" && cards.length >= 2) {
+    renderBentoGrid(slide, ctx, cards, areaX, areaY, areaW, areaH);
+    return;
+  }
+
+  let cols = typeof data.columns === "number" ? data.columns : 3;
+  cols = Math.max(1, Math.min(4, cols, cards.length));
+  const rows = Math.ceil(cards.length / cols);
   const cardW = (areaW - gap * (cols - 1)) / cols;
   const cardH = (areaH - gap * (rows - 1)) / rows;
 
@@ -260,52 +358,7 @@ function renderFeatureGrid(slide: PSlide, ctx: ExportContext, data: Slide): void
     const c = i % cols;
     const x = areaX + c * (cardW + gap);
     const y = areaY + r * (cardH + gap);
-
-    slide.addShape(ctx.shapeRoundRect, {
-      x,
-      y,
-      w: cardW,
-      h: cardH,
-      fill: { color: ctx.colors.cardBg },
-      line: { color: ctx.colors.border, width: 1 },
-      rectRadius: 0.06,
-    });
-    // Accent marker (stands in for the icon glyph).
-    slide.addShape(ctx.shapeRoundRect, {
-      x: x + 0.2,
-      y: y + 0.2,
-      w: 0.32,
-      h: 0.32,
-      fill: { color: ctx.colors.accent },
-      rectRadius: 0.05,
-    });
-    const pad = 0.2;
-    slide.addText(card.title, {
-      x: x + pad,
-      y: y + 0.6,
-      w: cardW - pad * 2,
-      h: 0.5,
-      fontFace: ctx.fonts.heading,
-      bold: true,
-      color: ctx.colors.text,
-      fontSize: 16,
-      fit: "shrink",
-      valign: "top",
-    });
-    if (card.body) {
-      slide.addText(card.body, {
-        x: x + pad,
-        y: y + 1.1,
-        w: cardW - pad * 2,
-        h: cardH - 1.25,
-        fontFace: ctx.fonts.body,
-        color: ctx.colors.muted,
-        fontSize: 12,
-        fit: "shrink",
-        valign: "top",
-        lineSpacingMultiple: 1.1,
-      });
-    }
+    drawFeatureCard(slide, ctx, card, x, y, cardW, cardH);
   });
 }
 
@@ -490,20 +543,41 @@ function renderQuote(slide: PSlide, ctx: ExportContext, data: Slide): void {
 function renderImageHero(slide: PSlide, ctx: ExportContext, data: Slide): void {
   addImageOrPlaceholder(slide, ctx, data, 0, 0, ctx.width, ctx.height);
 
+  // Bottom + side scrim so caption copy stays readable over any photo
+  // (mirrors HTML `.image-hero-scrim` — translucent PPTX fills stand in for gradients).
+  slide.addShape(ctx.shapeRoundRect, {
+    x: 0,
+    y: ctx.height * 0.42,
+    w: ctx.width,
+    h: ctx.height * 0.58,
+    fill: { color: ctx.colors.bg, transparency: 28 },
+    line: { color: ctx.colors.bg, width: 0 },
+    rectRadius: 0,
+  });
+  slide.addShape(ctx.shapeRoundRect, {
+    x: 0,
+    y: 0,
+    w: ctx.width * 0.42,
+    h: ctx.height,
+    fill: { color: ctx.colors.bg, transparency: 55 },
+    line: { color: ctx.colors.bg, width: 0 },
+    rectRadius: 0,
+  });
+
   const x = ctx.margin;
-  const w = ctx.width - ctx.margin * 2;
-  let y = ctx.height * 0.62;
+  const w = Math.min(ctx.width * 0.62, ctx.width - ctx.margin * 2);
+  let y = ctx.height * 0.58;
 
   if (data.eyebrow) {
     eyebrow(slide, ctx, data.eyebrow, x, y, w);
     y += 0.45;
   }
   if (data.heading) {
-    heading(slide, ctx, data.heading, { x, y, w, h: 1.2, fontSize: 32 });
-    y += 1.25;
+    heading(slide, ctx, data.heading, { x, y, w, h: 1.35, fontSize: 34 });
+    y += 1.4;
   }
   if (data.lead) {
-    body(slide, ctx, data.lead, { x, y, w, h: 0.9, fontSize: 17 });
+    body(slide, ctx, data.lead, { x, y, w, h: 0.95, fontSize: 17 });
   }
 }
 
@@ -511,21 +585,35 @@ function renderComparison(slide: PSlide, ctx: ExportContext, data: Slide): void 
   const colGap = 0.35;
   const vsW = 0.45;
   const innerW = ctx.width - ctx.margin * 2;
-  const colW = (innerW - colGap * 2 - vsW) / 2;
+  const emphasis = data.emphasis === "left" || data.emphasis === "right" ? data.emphasis : undefined;
+  // Grow the winning column (~1.35 : 1) to match HTML `.emphasis-*` craft.
+  const grow = 1.35;
+  const shrink = 1;
+  const leftShare = emphasis === "left" ? grow : emphasis === "right" ? shrink : 1;
+  const rightShare = emphasis === "right" ? grow : emphasis === "left" ? shrink : 1;
+  const usable = innerW - colGap * 2 - vsW;
+  const leftW = (usable * leftShare) / (leftShare + rightShare);
+  const rightW = usable - leftW;
   const leftX = ctx.margin;
-  const rightX = ctx.margin + colW + colGap + vsW + colGap;
+  const rightX = ctx.margin + leftW + colGap + vsW + colGap;
   const y = renderHeaderBlock(slide, ctx, data);
   const boxY = y + 0.15;
   const boxH = ctx.height - boxY - ctx.margin;
 
-  const drawCol = (x: number, label: string | undefined, text: string | undefined) => {
+  const drawCol = (
+    x: number,
+    colW: number,
+    label: string | undefined,
+    text: string | undefined,
+    highlighted: boolean
+  ) => {
     slide.addShape(ctx.shapeRoundRect, {
       x,
       y: boxY,
       w: colW,
       h: boxH,
-      fill: { color: ctx.colors.cardBg },
-      line: { color: ctx.colors.border, width: 1 },
+      fill: { color: highlighted ? ctx.colors.bg2 : ctx.colors.cardBg },
+      line: { color: highlighted ? ctx.colors.accent : ctx.colors.border, width: highlighted ? 1.75 : 1 },
       rectRadius: 0.06,
     });
     let innerY = boxY + 0.25;
@@ -539,14 +627,14 @@ function renderComparison(slide: PSlide, ctx: ExportContext, data: Slide): void 
         y: innerY,
         w: colW - 0.4,
         h: boxH - (innerY - boxY) - 0.25,
-        fontSize: 15,
+        fontSize: highlighted ? 16 : 15,
       });
     }
   };
 
-  drawCol(leftX, data.leftLabel, data.left);
+  drawCol(leftX, leftW, data.leftLabel, data.left, emphasis === "left");
   slide.addText("vs", {
-    x: leftX + colW + colGap,
+    x: leftX + leftW + colGap,
     y: boxY + boxH * 0.42,
     w: vsW,
     h: 0.5,
@@ -557,7 +645,7 @@ function renderComparison(slide: PSlide, ctx: ExportContext, data: Slide): void 
     align: "center",
     valign: "middle",
   });
-  drawCol(rightX, data.rightLabel, data.right);
+  drawCol(rightX, rightW, data.rightLabel, data.right, emphasis === "right");
 }
 
 function renderCode(slide: PSlide, ctx: ExportContext, data: Slide): void {
@@ -586,11 +674,28 @@ function renderCode(slide: PSlide, ctx: ExportContext, data: Slide): void {
     rectRadius: 0.08,
   });
 
+  // Traffic-light chrome dots (window chrome cue from HTML code layout).
+  const dots = [
+    { color: "FF5F56", dx: 0.22 },
+    { color: "FFBD2E", dx: 0.42 },
+    { color: "27C93F", dx: 0.62 },
+  ];
+  for (const dot of dots) {
+    slide.addShape(ctx.shapeOval, {
+      x: x + dot.dx,
+      y: y + 0.14,
+      w: 0.14,
+      h: 0.14,
+      fill: { color: dot.color },
+      line: { color: dot.color, width: 0 },
+    });
+  }
+
   const label = data.filename ?? data.language ?? "snippet";
   slide.addText(label, {
-    x: x + 0.35,
+    x: x + 0.9,
     y: y + 0.05,
-    w: w - 0.7,
+    w: w - 1.2,
     h: 0.32,
     fontFace: "Courier New",
     fontSize: 11,

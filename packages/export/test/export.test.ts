@@ -45,6 +45,7 @@ const fullDeck: DeckJson = {
       left: "Manual process.",
       rightLabel: "After",
       right: "Automated flow.",
+      emphasis: "right",
     },
     {
       layout: "feature-grid",
@@ -55,6 +56,25 @@ const fullDeck: DeckJson = {
         { title: "Safe", body: "Secure." },
         { title: "Simple", body: "Easy." },
       ],
+    },
+    {
+      layout: "feature-grid",
+      heading: "Bento craft",
+      columns: "bento",
+      cards: [
+        { title: "Hero", body: "Lead claim." },
+        { title: "A", body: "One." },
+        { title: "B", body: "Two." },
+        { title: "C", body: "Three." },
+        { title: "D", body: "Four." },
+      ],
+    },
+    {
+      layout: "code",
+      heading: "Snippet",
+      filename: "ship.ts",
+      language: "ts",
+      code: "console.log('ship');",
     },
     { layout: "data-table", heading: "Numbers", columns: ["Metric", "Value"], rows: [["MRR", "$10k"], ["Users", "1,200"]] },
     { layout: "stat-row", heading: "KPIs", stats: [{ value: "98%", label: "Uptime" }, { value: "3x", label: "Growth" }] },
@@ -69,9 +89,52 @@ function isZip(bytes: Uint8Array): boolean {
 }
 
 describe("deckToPptx", () => {
-  it("builds one slide per deck slide across all 11 layouts", async () => {
+  it("builds one slide per deck slide across craft layouts (incl. bento/code/emphasis)", async () => {
     const result = await buildPptx(fullDeck, theme);
     expect(result.slideCount).toBe(fullDeck.slides.length);
+  });
+
+  it("exports asymmetric comparison + bento without warnings beyond remote images", async () => {
+    const deck: DeckJson = {
+      type: "deck",
+      slides: [
+        {
+          layout: "comparison",
+          heading: "Win",
+          leftLabel: "Before",
+          left: "Slow.",
+          rightLabel: "After",
+          right: "Fast.",
+          emphasis: "right",
+        },
+        {
+          layout: "feature-grid",
+          heading: "Bento",
+          columns: "bento",
+          cards: [
+            { title: "Hero", body: "Lead." },
+            { title: "A", body: "One." },
+            { title: "B", body: "Two." },
+          ],
+        },
+        {
+          layout: "image-hero",
+          heading: "Moment",
+          lead: "Caption.",
+          image: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==",
+          imageAlt: "pixel",
+        },
+        {
+          layout: "code",
+          heading: "Run",
+          filename: "a.ts",
+          code: "export const ok = true;",
+        },
+      ],
+    };
+    const result = await buildPptx(deck, theme);
+    expect(result.slideCount).toBe(4);
+    expect(result.warnings.filter((w) => w.includes("Unknown layout"))).toHaveLength(0);
   });
 
   it("produces a valid (zip-signed) PPTX ArrayBuffer", async () => {
