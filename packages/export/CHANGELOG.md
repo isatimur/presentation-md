@@ -1,5 +1,11 @@
 # @presentation-md/export
 
+## 1.3.0
+
+### Minor Changes
+
+- 61cb2b0: Prefetch remote http(s) slide images before PPTX export so CLI/MCP embeds match Studio; raise comparison/feature-grid contrast on loud accent fills.
+
 ## 1.2.0
 
 ### Minor Changes

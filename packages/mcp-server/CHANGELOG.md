@@ -1,5 +1,13 @@
 # @presentation-md/mcp-server
 
+## 1.1.3
+
+### Patch Changes
+
+- Updated dependencies [61cb2b0]
+  - @presentation-md/export@1.3.0
+  - @presentation-md/render@1.2.2
+
 ## 1.1.2
 
 ### Patch Changes
