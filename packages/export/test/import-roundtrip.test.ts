@@ -13,7 +13,7 @@ describe("pptxToDeck round-trip", () => {
       type: "deck",
       meta: { title: "RT Deck", company: "Acme", theme: "default-tech" },
       slides: [
-        { layout: "title", heading: "Hello Title", lead: "Welcome" },
+        { layout: "title", heading: "Hello Title", lead: "Welcome", notes: "Open with energy." },
         {
           layout: "feature-grid",
           heading: "Features",
@@ -33,7 +33,7 @@ describe("pptxToDeck round-trip", () => {
           ],
         },
         { layout: "quote", quote: "Ship daily", by: "Ada" },
-        { layout: "closing", heading: "Thank you", lead: "Questions welcome" },
+        { layout: "closing", heading: "Thank you", lead: "Questions welcome", notes: "Leave time for Q&A." },
       ],
     };
 
@@ -52,6 +52,10 @@ describe("pptxToDeck round-trip", () => {
     const table = deck.slides.find((s) => s.layout === "data-table");
     expect(table?.columns).toEqual(["Metric", "Value"]);
     expect(table?.rows).toContainEqual(["ARR", "$1M"]);
+
+    const notes = deck.slides.map((s) => s.notes ?? "").join("\n");
+    expect(notes).toContain("Open with energy");
+    expect(notes).toContain("Leave time for Q&A");
 
     expect(Array.isArray(warnings)).toBe(true);
   });

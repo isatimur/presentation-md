@@ -10,7 +10,15 @@ export default defineConfig({
   // The deck themes and shared layout templates live outside this package; allow
   // Vite's dev server to read them from the monorepo root.
   server: { fs: { allow: [".."] } },
-  build: { outDir: "dist", emptyOutDir: true },
+  build: {
+    outDir: "dist",
+    emptyOutDir: true,
+    // Belt-and-suspenders for Vercel: never try to resolve node:* into the
+    // browser bundle (export's local image prefetch loads them dynamically).
+    rollupOptions: {
+      external: (id) => id === "node:path" || id === "node:fs" || id === "node:fs/promises" || id === "node:url",
+    },
+  },
   test: {
     // Unit tests live in test/; the Playwright e2e suite (e2e/) runs separately.
     include: ["test/**/*.test.ts"],

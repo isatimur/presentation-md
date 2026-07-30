@@ -17,6 +17,12 @@ export function SlideForm({
     <div className="slide-form">
       <h2 className="panel-title">{LAYOUT_LABELS[layout] ?? slide.layout}</h2>
       {renderFields()}
+      <TextArea
+        label="Speaker notes (exports to PPTX notes pane)"
+        value={slide.notes}
+        onChange={(v) => set({ notes: v || undefined })}
+        rows={3}
+      />
     </div>
   );
 

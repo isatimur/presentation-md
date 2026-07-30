@@ -144,7 +144,7 @@
         "right": { "type": "string", "description": "comparison: body copy for the right column." },
         "notes": {
           "type": "string",
-          "description": "Speaker notes preserved from PPTX import (not rendered on the slide)."
+          "description": "Speaker notes — round-trip via PPTX import/export; not rendered on the HTML slide."
         }
       }
     }

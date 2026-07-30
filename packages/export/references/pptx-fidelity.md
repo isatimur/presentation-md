@@ -22,6 +22,9 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
 - Long text uses PowerPoint "shrink to fit," so it stays inside its box rather than clipping.
 
 ## Content that isn't 1:1
+- **Speaker notes:** `slide.notes` exports via PowerPoint's native notes pane
+  (`addNotes`) and re-imports on `--from-pptx` / `import_pptx`. Notes are not
+  shown on the HTML slide surface.
 - **Images:** inline `data:` URIs embed directly. Remote `http(s)` URLs and local
   `file:` / filesystem paths are **prefetched** to data URIs by Studio, CLI
   (`presentation-md-render --format pptx`), and MCP `export_deck` / `renderDeckPptx`

@@ -72,7 +72,7 @@ export interface Slide {
   stats?: Stat[];
   steps?: Step[];
   cta?: Cta;
-  /** Speaker notes (e.g. from PPTX import); not rendered on the slide. */
+  /** Speaker notes — round-trip via PPTX import/export; not rendered on the HTML slide. */
   notes?: string;
   /** comparison: column labels and body copy. */
   leftLabel?: string;

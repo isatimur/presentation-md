@@ -95,6 +95,11 @@ export async function buildPptx(
     const slide = pptx.addSlide();
     renderSlide(slide, ctx, slideData);
 
+    const notes = typeof slideData.notes === "string" ? slideData.notes.trim() : "";
+    if (notes) {
+      slide.addNotes(notes);
+    }
+
     const isLast = i === slides.length - 1;
     if (isLast && opts.attribution !== false) {
       slide.addText(ATTRIBUTION_TEXT, {

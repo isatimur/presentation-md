@@ -155,6 +155,26 @@ describe("deckToPptx", () => {
     expect(result.warnings.some((w) => w.includes("Image not embedded"))).toBe(true);
   });
 
+  it("writes speaker notes into the PPTX notes pane", async () => {
+    const deck: DeckJson = {
+      type: "deck",
+      slides: [
+        {
+          layout: "title",
+          heading: "Hello",
+          notes: "Say this out loud — pause for effect.",
+        },
+        { layout: "closing", heading: "Thanks" },
+      ],
+    };
+    const buf = await deckToPptxBuffer(deck, theme);
+    const { pptxToDeck } = await import("../src/import/index.js");
+    const { deck: imported } = await pptxToDeck(buf, { theme: "test" });
+    const withNotes = imported.slides.find((s) => s.notes?.includes("Say this out loud"));
+    expect(withNotes).toBeTruthy();
+    expect(withNotes!.notes).toContain("pause for effect");
+  });
+
   it("prefetches remote http(s) images into data URIs before embed", async () => {
     const png = Uint8Array.from([
       0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x00, 0x00, 0x0d, 0x49, 0x48, 0x44, 0x52,
