@@ -1,0 +1,31 @@
+{
+  "name": "split-pastel",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Split Pastel \u2014 peach/lavender vertical split, Outfit, playful badges (frontend-slides STYLE_PRESETS).",
+  "vibe": "Split Pastel \u2014 peach #f5e6dc / lavender #e4dff0 split, Outfit, mint/yellow/pink badges (frontend-slides Split Pastel).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#f5e6dc",
+    "bg2": "#e4dff0",
+    "text": "#1a1a1a",
+    "muted": "#6a6570",
+    "accent": "#c8f0d8",
+    "accent2": "#f0d4e0",
+    "cardBg": "rgba(255,255,255,0.65)",
+    "border": "rgba(26,26,26,0.1)"
+  },
+  "typography": {
+    "headingFont": "'Outfit', system-ui, sans-serif",
+    "bodyFont": "'Outfit', system-ui, sans-serif",
+    "headingWeight": 800,
+    "googleFonts": [
+      "Outfit:wght@400;500;700;800"
+    ]
+  },
+  "geometry": {
+    "radius": "20px",
+    "slideWidth": "1280px"
+  }
+}

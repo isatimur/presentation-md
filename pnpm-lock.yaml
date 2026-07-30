@@ -231,7 +231,11 @@ importers:
 
   packages/themes/bauhaus: {}
 
+  packages/themes/biennale-yellow: {}
+
   packages/themes/blueprint: {}
+
+  packages/themes/bold-poster: {}
 
   packages/themes/bold-signal: {}
 
@@ -255,6 +259,8 @@ importers:
 
   packages/themes/crt-terminal: {}
 
+  packages/themes/dark-botanical: {}
+
   packages/themes/data-editorial: {}
 
   packages/themes/developer-dark: {}
@@ -264,6 +270,8 @@ importers:
   packages/themes/editorial-serif: {}
 
   packages/themes/editorial-tri-tone: {}
+
+  packages/themes/electric-studio: {}
 
   packages/themes/fintech-clean: {}
 
@@ -285,7 +293,11 @@ importers:
 
   packages/themes/notebook-tabs: {}
 
+  packages/themes/paper-ink: {}
+
   packages/themes/pastel-dreamy: {}
+
+  packages/themes/pastel-geometry: {}
 
   packages/themes/pin-and-paper: {}
 
@@ -301,11 +313,15 @@ importers:
 
   packages/themes/soft-editorial: {}
 
+  packages/themes/split-pastel: {}
+
   packages/themes/swiss-typographic: {}
 
   packages/themes/vaporwave: {}
 
   packages/themes/vellum: {}
+
+  packages/themes/vintage-editorial: {}
 
   packages/themes/y2k-aero: {}
 

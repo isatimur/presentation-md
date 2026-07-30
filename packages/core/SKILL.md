@@ -1,6 +1,6 @@
 ---
 name: presentation-generator
-description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 45 themes and 11 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
+description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 53 themes and 11 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
 license: MIT
 metadata:
   author: isatimur
@@ -464,6 +464,70 @@ Each theme is a complete design language: colors, typography, geometry, motion, 
 **Geometry:** 2px radius, dual cream/navy surfaces, gold rules
 **Surface:** `signal-briefing`
 **Use for:** strategy briefings, investor letters (frontend-slides Signal)
+
+### `electric-studio`
+**Soul:** Split-panel studio — white top energy, electric blue field, Manrope mass.
+**Palette:** `#ffffff` white · `#0a0a0a` ink · `#4361ee` electric blue
+**Fonts:** Manrope 800 headings · Manrope body
+**Geometry:** 0 radius, vertical split panels, accent edge bar
+**Surface:** `electric-studio-split`
+**Use for:** agency / studio keynotes (frontend-slides Electric Studio)
+
+### `dark-botanical`
+**Soul:** Elegant dark botanical — soft abstract blooms, warm terracotta and blush on void.
+**Palette:** `#0f0f0f` void · `#e8e4df` ivory · `#d4a574` warm · `#e8b4b8` blush
+**Fonts:** Cormorant · IBM Plex Sans 300
+**Geometry:** 0 radius, soft gradient circles, thin vertical accent
+**Surface:** `dark-botanical-bloom`
+**Use for:** luxury / gallery decks (frontend-slides Dark Botanical)
+
+### `pastel-geometry`
+**Soul:** Friendly pastel geometry — white card on sky wash with vertical edge pills.
+**Palette:** `#c8d9e6` sky · `#faf9f7` card · `#f0b4d4` pink · `#a8d4c4` mint · `#9b8dc4` lavender
+**Fonts:** Plus Jakarta Sans 700/800
+**Geometry:** 24px radius card, vertical pill tabs on right edge
+**Surface:** `pastel-geometry-pills`
+**Use for:** education / wellness (frontend-slides Pastel Geometry)
+
+### `split-pastel`
+**Soul:** Playful split pastel — peach left, lavender right, badge pills.
+**Palette:** `#f5e6dc` peach · `#e4dff0` lavender · `#c8f0d8` mint · `#f0f0c8` yellow · `#f0d4e0` pink
+**Fonts:** Outfit 700/800
+**Geometry:** 20px radius, vertical color split, grid overlay motif
+**Surface:** `split-pastel-panels`
+**Use for:** consumer / creator decks (frontend-slides Split Pastel)
+
+### `vintage-editorial`
+**Soul:** Witty vintage editorial — Fraunces on cream, geometric circle/line accents.
+**Palette:** `#f5f3ee` cream · `#1a1a1a` ink · `#e8d4c0` warm accent
+**Fonts:** Fraunces 700/900 · Work Sans
+**Geometry:** 4px radius, bold bordered CTAs, abstract geometry
+**Surface:** `vintage-editorial-geo`
+**Use for:** manifestos / thought leadership (frontend-slides Vintage Editorial)
+
+### `paper-ink`
+**Soul:** Literary paper & ink — drop-cap energy, crimson rules, thoughtful serif stack.
+**Palette:** `#faf9f7` cream · `#1a1a1a` charcoal · `#c41e3a` crimson
+**Fonts:** Cormorant Garamond · Source Serif 4
+**Geometry:** 0 radius, elegant horizontal rules, pull-quote feel
+**Surface:** `paper-ink-literary`
+**Use for:** publishing / essays (frontend-slides Paper & Ink)
+
+### `biennale-yellow`
+**Soul:** Art-biennale catalogue — solar yellow bloom on parchment, deep indigo Instrument Serif.
+**Palette:** `#E9E5DB` parchment · `#F1EE2E` sun · `#1B2566` indigo · `#E26B4A` ember
+**Fonts:** Instrument Serif · Archivo · JetBrains Mono
+**Geometry:** 0 radius, hairline ink rules, atmospheric sun-glow
+**Surface:** `biennale-yellow-sun`
+**Use for:** exhibitions / cultural institutions (frontend-slides Biennale Yellow)
+
+### `bold-poster`
+**Soul:** Populist editorial poster — massive Shrikhand, single fire-engine red, literary body.
+**Palette:** `#FFFFFF` white · `#1C1410` ink · `#D8000F` tomato · `#F5F2EF` off-white
+**Fonts:** Shrikhand · Libre Baskerville · Space Grotesk labels
+**Geometry:** 0 radius, bold ink rules, tilted display energy
+**Surface:** `bold-poster-ink`
+**Use for:** manifestos / magazine covers (frontend-slides Bold Poster)
 
 ---
 

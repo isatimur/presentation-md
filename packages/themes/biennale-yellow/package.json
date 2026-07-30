@@ -1,0 +1,27 @@
+{
+  "name": "@presentation-md/theme-biennale-yellow",
+  "version": "1.0.0",
+  "description": "Biennale Yellow \u2014 Instrument Serif on parchment with solar yellow bloom and deep indigo ink.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./theme.json",
+  "files": [
+    "theme.json",
+    "README.md"
+  ],
+  "keywords": [
+    "presentation-md",
+    "theme",
+    "ai-agent",
+    "slides"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/isatimur/presentation-md.git"
+  },
+  "homepage": "https://presentation-md.vercel.app",
+  "bugs": "https://github.com/isatimur/presentation-md/issues"
+}

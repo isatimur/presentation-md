@@ -1,0 +1,32 @@
+{
+  "name": "paper-ink",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Paper & Ink \u2014 Cormorant Garamond + Source Serif 4 on warm cream with crimson accent (frontend-slides STYLE_PRESETS).",
+  "vibe": "Paper & Ink \u2014 cream #faf9f7, charcoal #1a1a1a, crimson #c41e3a, Cormorant Garamond + Source Serif 4 (frontend-slides Paper & Ink).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#faf9f7",
+    "bg2": "#f0eeea",
+    "text": "#1a1a1a",
+    "muted": "#5c574c",
+    "accent": "#c41e3a",
+    "accent2": "#1a1a1a",
+    "cardBg": "#ffffff",
+    "border": "rgba(26,26,26,0.15)"
+  },
+  "typography": {
+    "headingFont": "'Cormorant Garamond', Garamond, Georgia, serif",
+    "bodyFont": "'Source Serif 4', Georgia, serif",
+    "headingWeight": 600,
+    "googleFonts": [
+      "Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500",
+      "Source+Serif+4:opsz,wght@8..60,400;8..60,600"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

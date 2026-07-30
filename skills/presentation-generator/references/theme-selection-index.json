@@ -1212,6 +1212,222 @@
         "#C8A870",
         "#1A2030"
       ]
+    },
+    {
+      "name": "electric-studio",
+      "scheme": "light",
+      "formality": "high",
+      "mood": [
+        "bold",
+        "clean",
+        "professional",
+        "high-contrast"
+      ],
+      "best_for": [
+        "agency credentials",
+        "product keynotes",
+        "studio portfolios",
+        "brand launches"
+      ],
+      "avoid_for": [
+        "soft wellness",
+        "pastel consumer"
+      ],
+      "swatches": [
+        "#ffffff",
+        "#0a0a0a",
+        "#4361ee",
+        "#0a0a0a"
+      ]
+    },
+    {
+      "name": "dark-botanical",
+      "scheme": "dark",
+      "formality": "high",
+      "mood": [
+        "elegant",
+        "botanical",
+        "premium",
+        "artistic"
+      ],
+      "best_for": [
+        "luxury brands",
+        "art galleries",
+        "fragrance",
+        "editorial portfolios"
+      ],
+      "avoid_for": [
+        "neon gaming",
+        "devtools terminals"
+      ],
+      "swatches": [
+        "#0f0f0f",
+        "#e8e4df",
+        "#d4a574",
+        "#e8b4b8"
+      ]
+    },
+    {
+      "name": "pastel-geometry",
+      "scheme": "light",
+      "formality": "medium-low",
+      "mood": [
+        "friendly",
+        "organized",
+        "pastel",
+        "approachable"
+      ],
+      "best_for": [
+        "education",
+        "wellness",
+        "consumer apps",
+        "community"
+      ],
+      "avoid_for": [
+        "dark cyberpunk",
+        "formal finance"
+      ],
+      "swatches": [
+        "#c8d9e6",
+        "#1a1a1a",
+        "#f0b4d4",
+        "#9b8dc4"
+      ]
+    },
+    {
+      "name": "split-pastel",
+      "scheme": "light",
+      "formality": "low",
+      "mood": [
+        "playful",
+        "friendly",
+        "creative",
+        "pastel"
+      ],
+      "best_for": [
+        "consumer launches",
+        "creator brands",
+        "education",
+        "lifestyle"
+      ],
+      "avoid_for": [
+        "boardroom finance",
+        "legal briefs"
+      ],
+      "swatches": [
+        "#f5e6dc",
+        "#e4dff0",
+        "#c8f0d8",
+        "#f0d4e0"
+      ]
+    },
+    {
+      "name": "vintage-editorial",
+      "scheme": "light",
+      "formality": "medium",
+      "mood": [
+        "witty",
+        "editorial",
+        "vintage",
+        "confident"
+      ],
+      "best_for": [
+        "brand manifestos",
+        "thought leadership",
+        "cultural pitches",
+        "founder letters"
+      ],
+      "avoid_for": [
+        "neon nightlife",
+        "arcade gaming"
+      ],
+      "swatches": [
+        "#f5f3ee",
+        "#1a1a1a",
+        "#e8d4c0",
+        "#555555"
+      ]
+    },
+    {
+      "name": "paper-ink",
+      "scheme": "light",
+      "formality": "high",
+      "mood": [
+        "literary",
+        "editorial",
+        "thoughtful",
+        "classic"
+      ],
+      "best_for": [
+        "publishing",
+        "essays",
+        "book launches",
+        "long-form strategy"
+      ],
+      "avoid_for": [
+        "neon consumer pop",
+        "arcade demos"
+      ],
+      "swatches": [
+        "#faf9f7",
+        "#1a1a1a",
+        "#c41e3a",
+        "#5c574c"
+      ]
+    },
+    {
+      "name": "biennale-yellow",
+      "scheme": "light",
+      "formality": "high",
+      "mood": [
+        "editorial",
+        "atmospheric",
+        "cultural-institution",
+        "poster-like"
+      ],
+      "best_for": [
+        "exhibition decks",
+        "museum programmes",
+        "design conferences",
+        "literary publications"
+      ],
+      "avoid_for": [
+        "multi-color consumer pop",
+        "neon gaming"
+      ],
+      "swatches": [
+        "#E9E5DB",
+        "#1B2566",
+        "#F1EE2E",
+        "#E26B4A"
+      ]
+    },
+    {
+      "name": "bold-poster",
+      "scheme": "light",
+      "formality": "medium",
+      "mood": [
+        "bold",
+        "editorial",
+        "loud",
+        "poster"
+      ],
+      "best_for": [
+        "brand manifestos",
+        "founder vision",
+        "cultural pitches",
+        "creative reviews"
+      ],
+      "avoid_for": [
+        "dense data reports",
+        "regulatory briefs"
+      ],
+      "swatches": [
+        "#FFFFFF",
+        "#1C1410",
+        "#D8000F",
+        "#F5F2EF"
+      ]
     }
   ]
 }

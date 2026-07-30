@@ -101,6 +101,14 @@ This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a q
 | [`@presentation-md/theme-notebook-tabs`](packages/themes/notebook-tabs) | Notebook Tabs theme |
 | [`@presentation-md/theme-creative-voltage`](packages/themes/creative-voltage) | Creative Voltage theme |
 | [`@presentation-md/theme-signal`](packages/themes/signal) | Signal theme |
+| [`@presentation-md/theme-electric-studio`](packages/themes/electric-studio) | Electric Studio theme |
+| [`@presentation-md/theme-dark-botanical`](packages/themes/dark-botanical) | Dark Botanical theme |
+| [`@presentation-md/theme-pastel-geometry`](packages/themes/pastel-geometry) | Pastel Geometry theme |
+| [`@presentation-md/theme-split-pastel`](packages/themes/split-pastel) | Split Pastel theme |
+| [`@presentation-md/theme-vintage-editorial`](packages/themes/vintage-editorial) | Vintage Editorial theme |
+| [`@presentation-md/theme-paper-ink`](packages/themes/paper-ink) | Paper & Ink theme |
+| [`@presentation-md/theme-biennale-yellow`](packages/themes/biennale-yellow) | Biennale Yellow theme |
+| [`@presentation-md/theme-bold-poster`](packages/themes/bold-poster) | Bold Poster theme |
 | [`presentation-md-render`](packages/renderer-python) _(PyPI)_ | Python renderer for agents and pipelines running outside Node.js |
 
 ---

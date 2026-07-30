@@ -1,0 +1,33 @@
+{
+  "name": "biennale-yellow",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Biennale Yellow \u2014 Instrument Serif on parchment with solar yellow bloom and deep indigo ink (frontend-slides / beautiful-html-templates).",
+  "vibe": "Biennale Yellow \u2014 parchment #E9E5DB, sun #F1EE2E, indigo #1B2566, Instrument Serif + Archivo (frontend-slides biennale-yellow).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#E9E5DB",
+    "bg2": "#DCD6C4",
+    "text": "#1B2566",
+    "muted": "#4A5480",
+    "accent": "#F1EE2E",
+    "accent2": "#E26B4A",
+    "cardBg": "rgba(255,255,255,0.35)",
+    "border": "rgba(27,37,102,0.22)"
+  },
+  "typography": {
+    "headingFont": "'Instrument Serif', Georgia, serif",
+    "bodyFont": "'Archivo', system-ui, sans-serif",
+    "headingWeight": 400,
+    "googleFonts": [
+      "Instrument+Serif:ital@0;1",
+      "Archivo:wght@400;500;600",
+      "JetBrains+Mono:wght@400"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

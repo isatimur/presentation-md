@@ -1,0 +1,31 @@
+{
+  "name": "pastel-geometry",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Pastel Geometry \u2014 Plus Jakarta Sans on sky pastel with vertical edge pills (frontend-slides STYLE_PRESETS).",
+  "vibe": "Pastel Geometry \u2014 sky #c8d9e6, card #faf9f7, vertical pastel pills, Plus Jakarta Sans (frontend-slides Pastel Geometry).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#c8d9e6",
+    "bg2": "#b8cddd",
+    "text": "#1a1a1a",
+    "muted": "#5a7c6a",
+    "accent": "#f0b4d4",
+    "accent2": "#9b8dc4",
+    "cardBg": "#faf9f7",
+    "border": "rgba(26,26,26,0.1)"
+  },
+  "typography": {
+    "headingFont": "'Plus Jakarta Sans', system-ui, sans-serif",
+    "bodyFont": "'Plus Jakarta Sans', system-ui, sans-serif",
+    "headingWeight": 800,
+    "googleFonts": [
+      "Plus+Jakarta+Sans:wght@400;500;700;800"
+    ]
+  },
+  "geometry": {
+    "radius": "24px",
+    "slideWidth": "1280px"
+  }
+}

@@ -56,6 +56,14 @@ const PACKAGED_THEMES = [
   "notebook-tabs",
   "creative-voltage",
   "signal",
+  "electric-studio",
+  "dark-botanical",
+  "pastel-geometry",
+  "split-pastel",
+  "vintage-editorial",
+  "paper-ink",
+  "biennale-yellow",
+  "bold-poster",
 ];
 
 function previewDeck(theme: string): string {

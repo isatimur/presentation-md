@@ -1,0 +1,33 @@
+{
+  "name": "bold-poster",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Bold Poster \u2014 Shrikhand display, Libre Baskerville body, tomato red accent (frontend-slides / beautiful-html-templates).",
+  "vibe": "Bold Poster \u2014 white canvas, ink #1C1410, tomato #D8000F, Shrikhand + Libre Baskerville (frontend-slides bold-poster).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#FFFFFF",
+    "bg2": "#F5F2EF",
+    "text": "#1C1410",
+    "muted": "#6B5E54",
+    "accent": "#D8000F",
+    "accent2": "#1C1410",
+    "cardBg": "#F5F2EF",
+    "border": "rgba(28,20,16,0.85)"
+  },
+  "typography": {
+    "headingFont": "'Shrikhand', cursive",
+    "bodyFont": "'Libre Baskerville', Georgia, serif",
+    "headingWeight": 400,
+    "googleFonts": [
+      "Shrikhand",
+      "Libre+Baskerville:wght@400;700",
+      "Space+Grotesk:wght@500;600"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

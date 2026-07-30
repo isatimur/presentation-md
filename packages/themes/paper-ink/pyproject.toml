@@ -1,0 +1,19 @@
+[project]
+name = "presentation-md-theme-paper-ink"
+version = "1.0.0"
+description = "Paper & Ink — Cormorant Garamond + Source Serif 4 on warm cream with crimson accent."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [{ name = "Timur Isachenko" }]
+keywords = ["presentation-md", "theme", "ai-agent", "slides"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/presentation_md_theme_paper_ink"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"theme.json" = "presentation_md_theme_paper_ink/theme.json"

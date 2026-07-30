@@ -51,6 +51,14 @@ data intact. List installed themes at runtime with the `list_themes` MCP tool or
 | `notebook-tabs` | Notebook Tabs — page #f8f6f1 on outer #2d2d2d, Bodoni Moda + DM Sans, pastel tabs. |
 | `creative-voltage` | Creative Voltage — electric blue #0066ff, dark #1a1a2e, neon #d4ff00, Syne + Space Mono. |
 | `signal` | Signal — cream #F0ECE3 / navy #1C2644, gold #C8A870, Source Serif 4 + DM Sans. |
+| `electric-studio` | Electric Studio — white + #4361ee blue split, Manrope 800, high-contrast studio panels. |
+| `dark-botanical` | Dark Botanical — #0f0f0f void, warm #d4a574/#e8b4b8 accents, Cormorant + IBM Plex Sans. |
+| `pastel-geometry` | Pastel Geometry — sky #c8d9e6, card #faf9f7, vertical pastel pills, Plus Jakarta Sans. |
+| `split-pastel` | Split Pastel — peach #f5e6dc / lavender #e4dff0 split, Outfit, mint/yellow/pink badges. |
+| `vintage-editorial` | Vintage Editorial — cream #f5f3ee, Fraunces display + Work Sans, witty bordered CTAs. |
+| `paper-ink` | Paper & Ink — cream #faf9f7, charcoal #1a1a1a, crimson #c41e3a, Cormorant Garamond + Source Serif 4. |
+| `biennale-yellow` | Biennale Yellow — parchment #E9E5DB, sun #F1EE2E, indigo #1B2566, Instrument Serif + Archivo. |
+| `bold-poster` | Bold Poster — white canvas, ink #1C1410, tomato #D8000F, Shrikhand + Libre Baskerville. |
 
 Install more: `npm i @presentation-md/theme-<name>` (or the PyPI mirror
 `presentation-md-theme-<name>`). Scaffold your own: `npx @presentation-md/create-theme`.

@@ -1,0 +1,19 @@
+[project]
+name = "presentation-md-theme-dark-botanical"
+version = "1.0.0"
+description = "Dark Botanical — Cormorant on near-black with warm pink/gold accents."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [{ name = "Timur Isachenko" }]
+keywords = ["presentation-md", "theme", "ai-agent", "slides"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/presentation_md_theme_dark_botanical"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"theme.json" = "presentation_md_theme_dark_botanical/theme.json"

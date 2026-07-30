@@ -1,0 +1,31 @@
+{
+  "name": "electric-studio",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Electric Studio \u2014 split white/blue panels, Manrope, accent bar (frontend-slides STYLE_PRESETS).",
+  "vibe": "Electric Studio \u2014 white + #4361ee blue split, Manrope 800, high-contrast studio panels (frontend-slides Electric Studio).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#ffffff",
+    "bg2": "#4361ee",
+    "text": "#0a0a0a",
+    "muted": "#5a5a5a",
+    "accent": "#4361ee",
+    "accent2": "#ffffff",
+    "cardBg": "rgba(67,97,238,0.08)",
+    "border": "rgba(10,10,10,0.12)"
+  },
+  "typography": {
+    "headingFont": "'Manrope', system-ui, sans-serif",
+    "bodyFont": "'Manrope', system-ui, sans-serif",
+    "headingWeight": 800,
+    "googleFonts": [
+      "Manrope:wght@400;500;800"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

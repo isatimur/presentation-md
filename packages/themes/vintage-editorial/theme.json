@@ -1,0 +1,32 @@
+{
+  "name": "vintage-editorial",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Vintage Editorial \u2014 Fraunces on cream with geometric accents (frontend-slides STYLE_PRESETS).",
+  "vibe": "Vintage Editorial \u2014 cream #f5f3ee, Fraunces display + Work Sans, witty bordered CTAs (frontend-slides Vintage Editorial).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#f5f3ee",
+    "bg2": "#ebe7de",
+    "text": "#1a1a1a",
+    "muted": "#555555",
+    "accent": "#e8d4c0",
+    "accent2": "#1a1a1a",
+    "cardBg": "#ffffff",
+    "border": "rgba(26,26,26,0.2)"
+  },
+  "typography": {
+    "headingFont": "'Fraunces', Georgia, serif",
+    "bodyFont": "'Work Sans', system-ui, sans-serif",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Fraunces:opsz,wght@9..144,700;9..144,900",
+      "Work+Sans:wght@400;500"
+    ]
+  },
+  "geometry": {
+    "radius": "4px",
+    "slideWidth": "1280px"
+  }
+}
