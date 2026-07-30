@@ -1461,6 +1461,47 @@
     .pricing-tiers, .two-col { flex: none; }
     .pg { display: none; }
   }
+
+  /* presentation-md gallery motion — presence, not noise */
+  @keyframes pmd-craft-rise {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pmd-craft-soft {
+    from { opacity: 0; transform: scale(1.03); filter: blur(2px); }
+    to { opacity: 1; transform: scale(1); filter: blur(0); }
+  }
+  @keyframes pmd-craft-rule {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  .slide:nth-child(1) > *:not(.slide-num):not(.slide-num-lt):not(.slide-num-dark):not(.site-header):not(.slide-counter) {
+    animation: pmd-craft-rise 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .slide:nth-child(1) h1,
+  .slide:nth-child(1) .display,
+  .slide:nth-child(1) .headline,
+  .slide:nth-child(1) .cover-title,
+  #s1 h1,
+  #slide-1 h1 {
+    animation: pmd-craft-soft 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+  }
+  .slide:nth-child(1) hr,
+  .slide:nth-child(1) .rule,
+  .slide:nth-child(1) .divider,
+  #s1 .rule {
+    transform-origin: left center;
+    animation: pmd-craft-rule 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .slide:nth-child(1) > *,
+    .slide:nth-child(1) h1,
+    .slide:nth-child(1) hr,
+    .slide:nth-child(1) .rule,
+    #s1 h1,
+    #slide-1 h1 { animation: none !important; }
+  }
+
 </style>
 <script type="application/ld+json">
 {
