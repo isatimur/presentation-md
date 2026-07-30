@@ -120,3 +120,48 @@ describe("generate_deck_prompt", () => {
     expect(result.typography).toHaveProperty("headingFont");
   });
 });
+
+describe("preview_themes", () => {
+  it("defaults to title mode with one slide filenames", async () => {
+    const { previewThemesTool } = await import("../src/tools/preview-themes.js");
+    const { mkdtemp } = await import("node:fs/promises");
+    const { tmpdir } = await import("node:os");
+    const { join } = await import("node:path");
+    const dir = await mkdtemp(join(tmpdir(), "pmd-preview-"));
+    const result = (await previewThemesTool.handler({
+      themes: ["default-tech"],
+      title: "Preview Test",
+      output_dir: dir,
+    })) as {
+      mode: string;
+      previews: Array<{ filename: string; slides: number; mode: string }>;
+    };
+    expect(result.mode).toBe("title");
+    expect(result.previews[0]!.filename).toBe("default-tech-preview.html");
+    expect(result.previews[0]!.slides).toBe(1);
+  });
+
+  it("layouts mode writes multi-slide craft previews", async () => {
+    const { previewThemesTool } = await import("../src/tools/preview-themes.js");
+    const { mkdtemp, readFile } = await import("node:fs/promises");
+    const { tmpdir } = await import("node:os");
+    const { join } = await import("node:path");
+    const dir = await mkdtemp(join(tmpdir(), "pmd-preview-layouts-"));
+    const result = (await previewThemesTool.handler({
+      themes: ["default-tech"],
+      title: "Craft Preview",
+      mode: "layouts",
+      output_dir: dir,
+    })) as {
+      mode: string;
+      previews: Array<{ filename: string; slides: number; path: string }>;
+    };
+    expect(result.mode).toBe("layouts");
+    expect(result.previews[0]!.filename).toBe("default-tech-layouts-preview.html");
+    expect(result.previews[0]!.slides).toBe(7);
+    const html = await readFile(result.previews[0]!.path, "utf-8");
+    expect(html).toContain('data-layout="comparison"');
+    expect(html).toContain('data-layout="code"');
+    expect(html).toContain('data-layout="stat-row"');
+  });
+});

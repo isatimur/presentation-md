@@ -304,7 +304,7 @@ pnpm --filter @presentation-md/studio build:web   # static build → web/studio/
 | `apply_theme` | Swap `meta.theme` on a deck without rewriting slides |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
 | `import_pptx` | Import a `.pptx` into Deck JSON |
-| `preview_themes` | Render 3 one-slide theme previews for visual style discovery |
+| `preview_themes` | Render 1–3 theme previews; optional `mode: "layouts"` for multi-slide craft bake |
 | `import_brand_theme` | Generate a theme from a brand URL or CSS file |
 
 ---

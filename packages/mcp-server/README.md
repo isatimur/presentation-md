@@ -33,7 +33,7 @@ Add to your project's `.claude/mcp.json` (or `~/.claude/mcp.json` for global):
 | `apply_theme` | Swap the theme in `meta.theme` while keeping all slide content unchanged. |
 | `audit_deck` | Validate deck JSON against the schema and return structured issues with severity. |
 | `generate_deck_prompt` | Build a system prompt with the active theme's palette and deck schema reference for an agent. |
-| `preview_themes` | Render 3 one-slide HTML previews for visual theme discovery (show-don't-tell). |
+| `preview_themes` | Render 1–3 theme HTML previews for visual discovery. Default = title slide; `mode: "layouts"` = multi-slide craft bake (grid, comparison, stats, quote, code, closing). |
 | `import_pptx` | Import a `.pptx` file into deck JSON (text, tables, images, notes → layouts). |
 | `import_brand_theme` | Generate a theme from a brand's URL or CSS file, with a contrast-safety pass. |
 
