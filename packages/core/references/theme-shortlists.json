@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "description": "Use-case shortlists for Theme Discovery step 1. Each entry is a ready 3-theme set — preview all three with preview_themes, then lock meta.theme.",
+  "description": "Use-case shortlists for Theme Discovery step 1. Each entry is a ready 3-theme set — preview all three with preview_themes, then lock meta.theme. After locking, set craft knobs (ratio/emphasis/bento/code filename) — Studio exposes the same controls.",
   "shortlists": [
     {
       "id": "core-defaults",

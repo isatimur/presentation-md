@@ -3,6 +3,10 @@
 A deck is `{ "type": "deck", "meta": {...}, "slides": [...] }`. Full JSON Schema:
 `@presentation-md/core/deck-schema` (`deck.schema.json`).
 
+**Craft knobs Studio exposes** (set them in JSON so HTML + PPTX stay aligned):
+`two-column.ratio` / `reverse`, `comparison.emphasis`, `feature-grid` `columns: "bento"`,
+`code.filename` / `language`.
+
 ## meta
 | field | notes |
 |-------|-------|

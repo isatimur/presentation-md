@@ -34,6 +34,14 @@ opens a deck for live editing, generates a new one from a prompt (bring your own
 API key, or copy a prompt back to your agent), presents it fullscreen, and exports native,
 editable **PowerPoint** (`.pptx`) that opens in Keynote and imports into Google Slides.
 
+**Studio craft controls** (also valid in Deck JSON — HTML + PPTX both honor them):
+- `two-column`: `ratio` (`"2-1"` / `"1-2"` …) + `reverse` for asymmetric photo/type splits
+- `comparison`: `emphasis: "left"|"right"` to grow the winning column
+- `feature-grid`: `columns: "bento"` for a hero tile + satellites (prefer with 5 cards)
+- `code`: `filename` + `language` for window chrome on SDK/CLI proofs
+
+Prefer setting these in the JSON you emit — Studio exposes the same controls in the slide form.
+
 ---
 
 ## Narrative Architecture — Before You Write One Slide
