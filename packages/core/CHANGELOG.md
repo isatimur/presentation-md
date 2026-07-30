@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.1.2
+
+### Patch Changes
+
+- 9bb1dba: Require asymmetric craft and speaker notes in agent authoring docs (deck-schema + SKILL) so MCP `generate_deck_prompt` matches Studio generate rules.
+
 ## 1.1.1
 
 ### Patch Changes

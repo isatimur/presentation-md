@@ -1,5 +1,16 @@
 # @presentation-md/mcp-server
 
+## 1.1.8
+
+### Patch Changes
+
+- 9bb1dba: Require asymmetric craft and speaker notes in agent authoring docs (deck-schema + SKILL) so MCP `generate_deck_prompt` matches Studio generate rules.
+- Updated dependencies [9bb1dba]
+  - @presentation-md/core@1.1.2
+  - @presentation-md/create-theme@1.0.3
+  - @presentation-md/export@1.3.3
+  - @presentation-md/render@1.2.7
+
 ## 1.1.7
 
 ### Patch Changes
