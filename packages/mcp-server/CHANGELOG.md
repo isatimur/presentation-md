@@ -1,5 +1,13 @@
 # @presentation-md/mcp-server
 
+## 1.1.1
+
+### Patch Changes
+
+- 4dbb572: Ship image-hero storytelling motion, denser asymmetric bento/ratio craft, and package the shared layout CSS inside `@presentation-md/render` so npm consumers get the same craft ceiling as the site proofs.
+- Updated dependencies [4dbb572]
+  - @presentation-md/render@1.2.0
+
 ## 1.1.0
 
 ### Minor Changes
