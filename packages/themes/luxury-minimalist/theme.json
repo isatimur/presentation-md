@@ -10,7 +10,7 @@
     "bg": "#faf8f5",
     "bg2": "#f5f2ee",
     "text": "#1c1917",
-    "muted": "#78716c",
+    "muted": "#635d59",
     "accent": "#92400e",
     "accent2": "#b45309",
     "cardBg": "rgba(28,25,23,0.03)",
@@ -20,7 +20,10 @@
     "headingFont": "'Cormorant Garamond', Georgia, serif",
     "bodyFont": "'DM Sans', system-ui, sans-serif",
     "headingWeight": 600,
-    "googleFonts": ["Cormorant+Garamond:wght@400;600", "DM+Sans:wght@400;500"]
+    "googleFonts": [
+      "Cormorant+Garamond:wght@400;600",
+      "DM+Sans:wght@400;500"
+    ]
   },
   "geometry": {
     "radius": "4px",

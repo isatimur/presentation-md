@@ -10,7 +10,7 @@
     "bg": "#fffbf0",
     "bg2": "#fff9e6",
     "text": "#1a1a2e",
-    "muted": "#6b6b8a",
+    "muted": "#62627f",
     "accent": "#ff4757",
     "accent2": "#2ed573",
     "cardBg": "rgba(255,71,87,0.06)",
@@ -20,7 +20,9 @@
     "headingFont": "'Nunito', system-ui, sans-serif",
     "bodyFont": "'Nunito', system-ui, sans-serif",
     "headingWeight": 800,
-    "googleFonts": ["Nunito:wght@400;700;800"]
+    "googleFonts": [
+      "Nunito:wght@400;700;800"
+    ]
   },
   "geometry": {
     "radius": "24px",

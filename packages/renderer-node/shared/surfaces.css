@@ -1208,6 +1208,13 @@
   border: 1px solid var(--accent);
   border-radius: 0;
 }
+.deck[data-surface="creative-voltage-split"] .card p { color: rgba(255,255,255,0.78); }
+.deck[data-surface="creative-voltage-split"] .title-slide .lead,
+.deck[data-surface="creative-voltage-split"] .closing-slide .lead,
+.deck[data-surface="creative-voltage-split"] .title-slide .subtitle,
+.deck[data-surface="creative-voltage-split"] .closing-slide .subtitle {
+  color: rgba(255,255,255,0.82);
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -2298,6 +2305,13 @@
   color: #1E2820;
   border: 1px solid rgba(30, 40, 32, 0.14);
   border-radius: 0;
+}
+/* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
+.deck[data-surface="mat-woodglow"] .card p,
+.deck[data-surface="mat-woodglow"] .card .lead,
+.deck[data-surface="mat-woodglow"] .stat .label,
+.deck[data-surface="mat-woodglow"] .eyebrow {
+  color: #5a5548;
 }
 
 /* ── stencil-tablet-earth (stencil-tablet) ── */

@@ -10,7 +10,7 @@
     "bg": "#ffffff",
     "bg2": "#f8f9fc",
     "text": "#1a2035",
-    "muted": "#6b7280",
+    "muted": "#5d636f",
     "accent": "#1d4ed8",
     "accent2": "#0369a1",
     "cardBg": "#f1f5f9",
@@ -20,7 +20,10 @@
     "headingFont": "'Inter', system-ui, sans-serif",
     "bodyFont": "'Source Sans 3', system-ui, sans-serif",
     "headingWeight": 700,
-    "googleFonts": ["Inter:wght@400;700", "Source+Sans+3:wght@400;600"]
+    "googleFonts": [
+      "Inter:wght@400;700",
+      "Source+Sans+3:wght@400;600"
+    ]
   },
   "geometry": {
     "radius": "8px",

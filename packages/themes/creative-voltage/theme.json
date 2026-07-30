@@ -10,7 +10,7 @@
     "bg": "#0066ff",
     "bg2": "#1a1a2e",
     "text": "#ffffff",
-    "muted": "rgba(255,255,255,0.7)",
+    "muted": "#ffffff",
     "accent": "#d4ff00",
     "accent2": "#ffffff",
     "cardBg": "rgba(26,26,46,0.55)",
