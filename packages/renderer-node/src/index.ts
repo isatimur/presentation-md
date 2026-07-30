@@ -1,4 +1,5 @@
 import { createRequire } from "node:module";
+import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
@@ -125,7 +126,12 @@ export function getBundledThemesDir(): string {
 }
 
 function getSharedDir(): string {
-  return resolve(__dirname, "..", "..", "shared");
+  // Prefer the packaged copy shipped with @presentation-md/render (npm + local
+  // after build). Fall back to the monorepo packages/shared during development
+  // before the first sync.
+  const packaged = resolve(__dirname, "..", "shared");
+  const monorepo = resolve(__dirname, "..", "..", "shared");
+  return existsSync(join(packaged, "base.css")) ? packaged : monorepo;
 }
 
 function buildGoogleFontsUrl(families: string[]): string {

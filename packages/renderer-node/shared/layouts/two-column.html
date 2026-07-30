@@ -1,0 +1,11 @@
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols{{#ratio}} ratio-{{ratio}}{{/ratio}}{{#reverse}} cols-reverse{{/reverse}}">
+    <div class="cols-copy">
+      {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
+      <h2>{{heading}}</h2>
+      {{#body}}<p class="lead">{{body}}</p>{{/body}}
+    </div>
+    {{#image}}<div class="media"><img src="{{image}}" alt="{{imageAlt}}" /></div>{{/image}}
+    {{^image}}{{#aside}}<div class="cols-aside"><p>{{aside}}</p></div>{{/aside}}{{/image}}
+  </div>
+</section>

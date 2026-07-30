@@ -1,0 +1,15 @@
+<section class="slide code-slide" data-layout="code">
+  {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
+  {{#heading}}<h2>{{heading}}</h2>{{/heading}}
+  {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
+  <div class="code-window">
+    <div class="code-chrome" aria-hidden="true">
+      <span class="code-dot code-dot-red"></span>
+      <span class="code-dot code-dot-amber"></span>
+      <span class="code-dot code-dot-green"></span>
+      {{#filename}}<span class="code-filename">{{filename}}</span>{{/filename}}
+      {{^filename}}{{#language}}<span class="code-filename">{{language}}</span>{{/language}}{{/filename}}
+    </div>
+    <pre class="code-block"><code>{{code}}</code></pre>
+  </div>
+</section>

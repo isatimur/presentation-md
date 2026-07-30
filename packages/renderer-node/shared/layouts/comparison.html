@@ -1,0 +1,15 @@
+<section class="slide comparison-slide" data-layout="comparison">
+  {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
+  {{#heading}}<h2>{{heading}}</h2>{{/heading}}
+  <div class="comparison-cols{{#emphasis}} emphasis-{{emphasis}}{{/emphasis}}">
+    <div class="comparison-col">
+      {{#leftLabel}}<span class="comparison-label">{{leftLabel}}</span>{{/leftLabel}}
+      <p>{{left}}</p>
+    </div>
+    <div class="comparison-vs" aria-hidden="true">vs</div>
+    <div class="comparison-col">
+      {{#rightLabel}}<span class="comparison-label">{{rightLabel}}</span>{{/rightLabel}}
+      <p>{{right}}</p>
+    </div>
+  </div>
+</section>

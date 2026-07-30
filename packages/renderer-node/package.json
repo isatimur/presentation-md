@@ -10,13 +10,14 @@
     ".": "./dist/index.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "shared"
   ],
   "bin": {
     "presentation-md-render": "./dist/cli.js"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "node ../../tools/sync-render-shared.mjs && tsc -p tsconfig.json",
     "test": "vitest run",
     "lint": "eslint src",
     "typecheck": "tsc -p tsconfig.json --noEmit"
