@@ -81,18 +81,21 @@ npx @presentation-md/render --from-pptx deck.pptx -o deck.json
 ## How it differs from alternatives
 
 - **vs. frontend-slides:** Same discovery energy; plus schema-validated Deck JSON, 75 structured proofs, PPTX round-trip, MCP tools, and Studio
-- **vs. Gamma/Tome/Beautiful.ai:** Runs inside the AI agent you already use; output is a portable HTML file you own, not locked to a platform
+- **vs. Gamma/Pitch/Tome/Beautiful.ai:** Runs inside the AI agent you already use; output is a portable HTML file you own, not locked to a platform
+- **vs. Canva:** Template/design SaaS vs schema-validated Deck JSON from your coding agent
 - **vs. reveal.js/Slidev/Marp:** No manual authoring — the agent writes the spec; the renderer handles design
 - **vs. raw LLM output:** Schema-validated, consistent, themed — not freeform HTML
 
 ## Key pages
 
 - Homepage + gallery: https://presentation-md.vercel.app/
-- Studio (browser editor): https://presentation-md.vercel.app/studio
+- Studio (browser editor): https://presentation-md.vercel.app/studio/?example=acme
 - Comparisons: https://presentation-md.vercel.app/vs/
 - vs frontend-slides: https://presentation-md.vercel.app/vs/frontend-slides
 - vs Beautiful.ai: https://presentation-md.vercel.app/vs/beautiful-ai
 - vs Gamma: https://presentation-md.vercel.app/vs/gamma
+- vs Pitch: https://presentation-md.vercel.app/vs/pitch
+- vs Canva: https://presentation-md.vercel.app/vs/canva
 - vs Tome: https://presentation-md.vercel.app/vs/tome
 - vs Slidev: https://presentation-md.vercel.app/vs/slidev
 - vs Marp: https://presentation-md.vercel.app/vs/marp
