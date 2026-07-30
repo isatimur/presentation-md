@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-editorial-tri-tone",
-  "version": "1.0.0",
-  "description": "Editorial Tri-Tone \u2014 blush pink, golden butter, burgundy wine; Bricolage Grotesque + Instrument Serif.",
+  "version": "1.0.1",
+  "description": "Editorial Tri-Tone — blush pink, golden butter, burgundy wine; Bricolage Grotesque + Instrument Serif.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

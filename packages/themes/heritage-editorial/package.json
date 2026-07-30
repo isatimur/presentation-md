@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-heritage-editorial",
-  "version": "1.0.0",
-  "description": "Heritage editorial theme \u2014 parchment, terracotta, Playfair serif.",
+  "version": "1.0.1",
+  "description": "Heritage editorial theme — parchment, terracotta, Playfair serif.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

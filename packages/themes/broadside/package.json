@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-broadside",
-  "version": "1.0.0",
-  "description": "Broadside \u2014 dark editorial canvas with fire-orange accent and massive Barlow type.",
+  "version": "1.0.1",
+  "description": "Broadside — dark editorial canvas with fire-orange accent and massive Barlow type.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

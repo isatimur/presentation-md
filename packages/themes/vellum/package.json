@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-vellum",
-  "version": "1.0.0",
-  "description": "Vellum \u2014 deep periwinkle field with chartreuse italic Cormorant type.",
+  "version": "1.0.1",
+  "description": "Vellum — deep periwinkle field with chartreuse italic Cormorant type.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

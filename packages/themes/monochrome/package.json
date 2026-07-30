@@ -1,6 +1,6 @@
 {
   "name": "@presentation-md/theme-monochrome",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ivory ledger paper with all-black type; ultra-light Jost + Lora italic accents.",
   "license": "MIT",
   "type": "module",

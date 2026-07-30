@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-neo-grid-bold",
-  "version": "1.0.0",
-  "description": "Neo-Grid Bold \u2014 putty ecru, ink black, electric lemon panels, Space Grotesk uppercase.",
+  "version": "1.0.1",
+  "description": "Neo-Grid Bold — putty ecru, ink black, electric lemon panels, Space Grotesk uppercase.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

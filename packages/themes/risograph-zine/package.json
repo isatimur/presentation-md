@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-risograph-zine",
-  "version": "1.0.0",
-  "description": "Risograph zine theme \u2014 kraft paper, magenta + teal overprint.",
+  "version": "1.0.1",
+  "description": "Risograph zine theme — kraft paper, magenta + teal overprint.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

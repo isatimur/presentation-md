@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-broadsheet",
-  "version": "1.0.0",
-  "description": "Newspaper broadsheet theme \u2014 newsprint, ink, Playfair + Lora.",
+  "version": "1.0.1",
+  "description": "Newspaper broadsheet theme — newsprint, ink, Playfair + Lora.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

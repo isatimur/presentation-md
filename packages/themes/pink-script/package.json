@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-pink-script",
-  "version": "1.0.0",
-  "description": "Nocturnal couture \u2014 black canvas, hot pink, DM Serif Display.",
+  "version": "1.0.1",
+  "description": "Nocturnal couture — black canvas, hot pink, DM Serif Display.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

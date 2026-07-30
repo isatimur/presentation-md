@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-pastel-geometry",
-  "version": "1.0.0",
-  "description": "Pastel Geometry \u2014 Plus Jakarta Sans on sky pastel with vertical edge pills.",
+  "version": "1.0.1",
+  "description": "Pastel Geometry — Plus Jakarta Sans on sky pastel with vertical edge pills.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

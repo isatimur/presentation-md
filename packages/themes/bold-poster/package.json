@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-bold-poster",
-  "version": "1.0.0",
-  "description": "Bold Poster \u2014 Shrikhand display, Libre Baskerville body, tomato red accent.",
+  "version": "1.0.1",
+  "description": "Bold Poster — Shrikhand display, Libre Baskerville body, tomato red accent.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

@@ -1,6 +1,6 @@
 {
   "name": "@presentation-md/theme-stencil-tablet",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Bone paper with stencil-cut headlines and a six-color earth palette.",
   "license": "MIT",
   "type": "module",
