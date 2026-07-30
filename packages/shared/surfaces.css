@@ -1162,7 +1162,7 @@
   top: 52%;
   bottom: 0;
   width: 8px;
-  background: var(--accent);
+  background: #0a0a0a;
 }
 .deck[data-surface="electric-studio-split"] .slide::after {
   display: none;
@@ -1170,6 +1170,13 @@
 .deck[data-surface="electric-studio-split"] .slide h1 {
   font-weight: 800;
   letter-spacing: -0.03em;
+  color: #0a0a0a;
+  mix-blend-mode: normal;
+}
+.deck[data-surface="electric-studio-split"] .slide .lead,
+.deck[data-surface="electric-studio-split"] .slide p,
+.deck[data-surface="electric-studio-split"] .slide .eyebrow {
+  color: #ffffff;
 }
 .deck[data-surface="electric-studio-split"] .card {
   background: rgba(255,255,255,0.92);
@@ -1863,33 +1870,43 @@
 /* ── scatterbrain-cork (scatterbrain) ── */
 .deck[data-surface="scatterbrain-cork"] .slide {
   --slide-bg:
-    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.18), transparent 55%),
-    radial-gradient(ellipse 50% 40% at 85% 70%, rgba(165, 216, 255, 0.2), transparent 50%),
-    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.04) 39px, rgba(45, 42, 38, 0.04) 40px),
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
+    linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
   border-radius: 8px;
   border: 1px solid rgba(45, 42, 38, 0.12);
+  box-shadow:
+    6px 8px 0 rgba(45, 42, 38, 0.06),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.4);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
-  width: 14px;
-  height: 14px;
-  right: 56px;
-  top: 44px;
+  width: 16px;
+  height: 16px;
+  right: calc(28% + 72px);
+  top: calc(12% + 8px);
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, #ff6b6b, #c92a2a 70%);
-  box-shadow: 0 2px 4px rgba(45, 42, 38, 0.25);
+  box-shadow:
+    0 2px 4px rgba(45, 42, 38, 0.25),
+    210px 180px 0 0 #74c0fc,
+    210px 180px 0 2px rgba(45, 42, 38, 0.15);
   filter: none;
 }
 .deck[data-surface="scatterbrain-cork"] .slide::after {
-  width: 72px;
-  height: 18px;
+  width: 88px;
+  height: 22px;
   left: 48px;
   bottom: 48px;
   top: auto;
-  background: rgba(255, 236, 153, 0.55);
+  background: rgba(255, 236, 153, 0.7);
+  border: 1px solid rgba(45, 42, 38, 0.12);
   transform: rotate(-8deg);
   filter: none;
   border-radius: 2px;
+  box-shadow: 2px 3px 0 rgba(45, 42, 38, 0.12);
 }
 .deck[data-surface="scatterbrain-cork"] .slide h1 {
   font-weight: 400;
@@ -2007,9 +2024,9 @@
 /* ── raw-grid-brutal (raw-grid) ── */
 .deck[data-surface="raw-grid-brutal"] .slide {
   --slide-bg:
-    linear-gradient(var(--accent) 0 28%, transparent 28%),
-    linear-gradient(90deg, var(--accent2) 0 22%, transparent 22%),
-    var(--bg);
+    linear-gradient(#F2D4CF 0 28%, transparent 28%),
+    linear-gradient(90deg, #E5EDD6 0 22%, transparent 22%),
+    #FFFFFF;
   border-radius: 0;
   border: 3px solid #0A0A0A;
   box-shadow: 6px 6px 0 #0A0A0A;
@@ -2091,7 +2108,8 @@
 /* ── mat-woodglow (mat) ── */
 .deck[data-surface="mat-woodglow"] .slide {
   --slide-bg:
-    radial-gradient(ellipse 55% 45% at 88% 100%, color-mix(in srgb, var(--accent2) 42%, transparent), transparent 70%),
+    radial-gradient(ellipse 55% 45% at 88% 100%, color-mix(in srgb, var(--accent2) 48%, transparent), transparent 70%),
+    radial-gradient(ellipse 30% 28% at 12% 18%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%),
     var(--bg);
   border-radius: 0;
   border: none;
@@ -2107,16 +2125,15 @@
   opacity: 1;
 }
 .deck[data-surface="mat-woodglow"] .slide::after {
-  width: 22%;
-  height: 18%;
+  width: 14%;
+  height: 3px;
   right: 5.5%;
-  bottom: 8%;
+  bottom: 10%;
   top: auto;
-  background: var(--card-bg);
-  color: #1E2820;
+  background: var(--accent);
   filter: none;
   border-radius: 0;
-  opacity: 0.95;
+  opacity: 0.9;
 }
 .deck[data-surface="mat-woodglow"] .slide h1 {
   font-weight: 800;
