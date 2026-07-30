@@ -1,5 +1,13 @@
 # @presentation-md/export
 
+## 1.3.4
+
+### Patch Changes
+
+- e0f70bd: Align dual-surface cardBg with HTML craft (bold-signal orange → tinted dark, creative-voltage opaque navy), raise mat/soft-editorial muted AA on tint washes, lift PPTX craft (icon letter markers, gradient/title chrome, cardMuted + accent emphasis fills), and promote Studio on vs pages + homepage.
+- 9cd4658: Expand dual-surface PPTX emphasis fills (studio, acid, daisy mint, raw-grid, broadside, and more) so accent comparison/bento heroes match HTML craft ink.
+- bc744bf: Make PPTX import browser-safe (TextDecoder/base64 helpers, dynamic node:fs) so Studio can open .pptx files in the hosted workbench.
+
 ## 1.3.3
 
 ### Patch Changes

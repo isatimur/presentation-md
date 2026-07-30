@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-bold-signal",
-  "version": "1.0.0",
-  "description": "Bold Signal \u2014 Archivo Black on dark gradient with vibrant orange card focal.",
+  "version": "1.0.1",
+  "description": "Bold Signal — Archivo Black on dark gradient with vibrant orange card focal.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",
