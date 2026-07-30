@@ -14,7 +14,7 @@
   <em>Same Deck JSON → 75 themes. HTML craft + native PowerPoint. No screenshots, no lock-in.</em>
 </p>
 
-🌐 **[Live gallery](https://presentation-md.vercel.app)** · **[Studio](https://presentation-md.vercel.app/studio)** · **[vs frontend-slides](https://presentation-md.vercel.app/#why)**
+🌐 **[Live gallery](https://presentation-md.vercel.app)** · **[Studio](https://presentation-md.vercel.app/studio)** · **[vs frontend-slides](https://presentation-md.vercel.app/vs/frontend-slides)**
 
 > ⭐ If this turned your notes into a deck you'd actually present, star the repo.
 
@@ -150,16 +150,9 @@ Also ships **[deck-design-judge](skills/deck-design-judge)** (contrast / overflo
 
 ## Themes
 
-| Theme | Vibe |
-|---|---|
-| `default-tech` | Dark background, electric-blue accent, mono code feel — ships bundled in core |
-| `corporate` | Crisp white canvas, navy text, restrained blue accent — boardroom-ready |
-| `playful` | Warm white, coral + lime accents, rounded corners, oversized type — creative-agency energy |
-| `luxury-minimalist` | Off-white canvas, charcoal text, hairline borders, zero gradients — quiet confidence |
-| `retro-arcade` | Deep purple-black background, magenta + cyan neon, pixel fonts — 8-bit nostalgia |
-| `editorial-serif` | Warm cream paper, ink-black serif type, crimson masthead accent — magazine editorial |
-| `brutalist-mono` | Concrete off-white, monospace type, zero radius, hazard-orange accent — raw & technical |
-| `pastel-dreamy` | Lavender-blush canvas, deep plum text, blush + periwinkle accents — soft and approachable |
+**75 themes** ship as `@presentation-md/theme-*` packages — from `default-tech` and `corporate` through editorial systems (`soft-editorial`, `editorial-forest`, `vellum`), bold frontend-slides fidelity packs (`mat`, `grove`, `signal`, `bold-signal`), and loud craft surfaces (`neon-noir`, `crt-terminal`, `brutalist-acid`).
+
+Browse live proofs: [gallery](https://presentation-md.vercel.app/#gallery) · theme catalog in [`packages/core/references/themes.md`](packages/core/references/themes.md).
 
 Need a theme that isn't here? `create-presentation-md-theme --from-url <site>` or `--from-css <file>`
 generates one from any brand's live site or CSS in seconds — see
@@ -194,63 +187,85 @@ generates one from any brand's live site or CSS in seconds — see
     {
       "layout": "title",
       "heading": "Q3 Product Review",
-      "subheading": "July – September 2026"
+      "lead": "July – September 2026",
+      "notes": "Open with the headline number, then land the theme of the quarter."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Product",
+      "heading": "The work, in one frame",
+      "lead": "Ship velocity you can see.",
+      "image": "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1600",
+      "imageAlt": "Team collaborating around a laptop"
     },
     {
       "layout": "stat-row",
       "heading": "By the numbers",
       "stats": [
-        { "label": "MRR", "value": "$420k", "delta": "+18%" },
-        { "label": "Active users", "value": "12,400", "delta": "+31%" },
-        { "label": "NPS", "value": "67", "delta": "+9 pts" }
+        { "label": "MRR", "value": "$420k" },
+        { "label": "Active users", "value": "12,400" },
+        { "label": "NPS", "value": "67" }
       ]
     },
     {
       "layout": "two-column",
       "heading": "What we shipped",
-      "left": "**Instant replay** — users can re-watch any session segment in one click.\n\n**Smart digest** — daily AI summary delivered to Slack.",
-      "right": "**API v2** — full REST + webhook parity with the legacy SOAP interface.\n\n**iOS 18 widgets** — glanceable stats on the lock screen."
+      "body": "**Instant replay** — re-watch any session segment in one click.\n\n**Smart digest** — daily AI summary delivered to Slack.",
+      "aside": "**API v2** — REST + webhook parity.\n\n**iOS widgets** — glanceable stats on the lock screen.",
+      "ratio": "2-1",
+      "notes": "Spend time on Instant replay — demo if possible."
+    },
+    {
+      "layout": "comparison",
+      "heading": "Before vs after",
+      "leftLabel": "Before",
+      "left": "Manual decks, inconsistent themes, no PPTX handoff.",
+      "rightLabel": "After",
+      "right": "Schema-validated Deck JSON, 75 themes, native PowerPoint.",
+      "emphasis": "right"
     },
     {
       "layout": "feature-grid",
       "heading": "Upcoming in Q4",
-      "columns": 2,
+      "columns": "bento",
       "cards": [
-        { "title": "Real-time co-editing", "body": "Multiple agents annotating the same deck simultaneously." },
-        { "title": "Theme marketplace", "body": "Browse and install community themes directly from the CLI." },
-        { "title": "PDF export", "body": "One-command headless export via Playwright." },
-        { "title": "Enterprise SSO", "body": "SAML 2.0 + SCIM provisioning for large org rollouts." }
+        { "title": "Real-time co-editing", "body": "Multiple agents annotating the same deck." },
+        { "title": "Theme marketplace", "body": "Install community themes from the CLI." },
+        { "title": "PDF export", "body": "Headless export via Playwright." },
+        { "title": "Enterprise SSO", "body": "SAML 2.0 + SCIM for large orgs." },
+        { "title": "Presenter polish", "body": "Notes drawer + craft knobs in Studio." }
       ]
     },
     {
       "layout": "quote",
       "quote": "The best presentation is the one that actually gets made.",
-      "attribution": "— Every engineer who missed a deadline"
+      "by": "Every engineer who missed a deadline"
     },
     {
       "layout": "timeline",
       "heading": "Q4 milestones",
-      "events": [
-        { "date": "Oct 15", "label": "Co-editing beta" },
-        { "date": "Nov 1",  "label": "Theme marketplace launch" },
-        { "date": "Nov 20", "label": "PDF export GA" },
-        { "date": "Dec 10", "label": "Enterprise SSO GA" }
+      "steps": [
+        { "title": "Oct 15 — Co-editing beta", "body": "Invite-only for design partners." },
+        { "title": "Nov 1 — Theme marketplace", "body": "Browse and install from the CLI." },
+        { "title": "Nov 20 — PDF export GA", "body": "One-command headless export." },
+        { "title": "Dec 10 — Enterprise SSO", "body": "SAML 2.0 + SCIM provisioning." }
       ]
     },
     {
       "layout": "data-table",
       "heading": "Regional breakdown",
-      "headers": ["Region", "MRR", "Growth"],
+      "columns": ["Region", "MRR", "Growth"],
       "rows": [
         ["North America", "$210k", "+22%"],
-        ["Europe",        "$140k", "+15%"],
-        ["APAC",          "$70k",  "+41%"]
+        ["Europe", "$140k", "+15%"],
+        ["APAC", "$70k", "+41%"]
       ]
     },
     {
       "layout": "closing",
       "heading": "Questions?",
-      "subheading": "deck source at github.com/isatimur/presentation-md"
+      "lead": "deck source at github.com/isatimur/presentation-md",
+      "notes": "Leave five minutes for Q&A."
     }
   ]
 }
