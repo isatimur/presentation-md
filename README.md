@@ -117,6 +117,14 @@ This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a q
 | [`@presentation-md/theme-capsule`](packages/themes/capsule) | Capsule theme |
 | [`@presentation-md/theme-cobalt-grid`](packages/themes/cobalt-grid) | Cobalt Grid theme |
 | [`@presentation-md/theme-8-bit-orbit`](packages/themes/8-bit-orbit) | 8-Bit Orbit theme |
+| [`@presentation-md/theme-mat`](packages/themes/mat) | Mat theme |
+| [`@presentation-md/theme-long-table`](packages/themes/long-table) | Long Table theme |
+| [`@presentation-md/theme-raw-grid`](packages/themes/raw-grid) | Raw Grid theme |
+| [`@presentation-md/theme-retro-windows`](packages/themes/retro-windows) | Retro Windows theme |
+| [`@presentation-md/theme-peoples-platform`](packages/themes/peoples-platform) | People's Platform theme |
+| [`@presentation-md/theme-scatterbrain`](packages/themes/scatterbrain) | Scatterbrain theme |
+| [`@presentation-md/theme-grove`](packages/themes/grove) | Grove theme |
+| [`@presentation-md/theme-studio`](packages/themes/studio) | Studio theme |
 | [`presentation-md-render`](packages/renderer-python) _(PyPI)_ | Python renderer for agents and pipelines running outside Node.js |
 
 ---

@@ -1,0 +1,19 @@
+[project]
+name = "presentation-md-theme-mat"
+version = "1.0.0"
+description = "Dark sage canvas with bone paper and burnt-orange accent; mid-century modern."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [{ name = "Timur Isachenko" }]
+keywords = ["presentation-md", "theme", "ai-agent", "slides"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/presentation_md_theme_mat"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"theme.json" = "presentation_md_theme_mat/theme.json"

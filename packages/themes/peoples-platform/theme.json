@@ -1,0 +1,34 @@
+{
+  "name": "peoples-platform",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "People's Platform \u2014 WPA poster energy, Alfa Slab + red text-shadow (frontend-slides bold-template-pack).",
+  "vibe": "People's Platform \u2014 paper #F5F2EA, cobalt #2C2CDC, amber #F2A03A, Alfa Slab One (frontend-slides peoples-platform).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#F5F2EA",
+    "bg2": "#F4E9D6",
+    "text": "#0E0E14",
+    "muted": "#1B1BB0",
+    "accent": "#2C2CDC",
+    "accent2": "#F2A03A",
+    "cardBg": "#FFFFFF",
+    "border": "#0E0E14"
+  },
+  "typography": {
+    "headingFont": "'Alfa Slab One', serif",
+    "bodyFont": "'Archivo Narrow', system-ui, sans-serif",
+    "headingWeight": 400,
+    "googleFonts": [
+      "Alfa+Slab+One",
+      "Caveat+Brush",
+      "Archivo+Narrow:wght@400;600;700",
+      "DM+Mono:wght@500"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

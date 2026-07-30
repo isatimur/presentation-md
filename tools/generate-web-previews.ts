@@ -72,6 +72,14 @@ const PACKAGED_THEMES = [
   "capsule",
   "cobalt-grid",
   "8-bit-orbit",
+  "studio",
+  "grove",
+  "scatterbrain",
+  "peoples-platform",
+  "retro-windows",
+  "raw-grid",
+  "long-table",
+  "mat",
 ];
 
 function previewDeck(theme: string): string {

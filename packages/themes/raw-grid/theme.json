@@ -1,0 +1,29 @@
+{
+  "name": "raw-grid",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Raw Grid \u2014 3px black borders as layout, system sans 900 (frontend-slides bold-template-pack).",
+  "vibe": "Raw Grid \u2014 white + #0A0A0A borders, blush #F2D4CF / sage #E5EDD6 (frontend-slides raw-grid).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#FFFFFF",
+    "bg2": "#F5F5F5",
+    "text": "#0A0A0A",
+    "muted": "#333333",
+    "accent": "#F2D4CF",
+    "accent2": "#E5EDD6",
+    "cardBg": "#FFFFFF",
+    "border": "#0A0A0A"
+  },
+  "typography": {
+    "headingFont": "'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif",
+    "bodyFont": "'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif",
+    "headingWeight": 900,
+    "googleFonts": []
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

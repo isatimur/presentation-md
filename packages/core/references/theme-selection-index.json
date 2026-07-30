@@ -1644,6 +1644,222 @@
         "#F0A6CA",
         "#F4D03F"
       ]
+    },
+    {
+      "name": "studio",
+      "scheme": "dark",
+      "formality": "medium",
+      "mood": [
+        "electric",
+        "bold",
+        "graphic",
+        "design-led"
+      ],
+      "best_for": [
+        "studio credentials",
+        "creative agency pitches",
+        "brand showcases",
+        "art-direction reviews"
+      ],
+      "avoid_for": [
+        "quiet institutional",
+        "healthcare soft"
+      ],
+      "swatches": [
+        "#1C1C1C",
+        "#F5D200",
+        "#242422",
+        "#2E2E2C"
+      ]
+    },
+    {
+      "name": "grove",
+      "scheme": "dark",
+      "formality": "medium-high",
+      "mood": [
+        "organic",
+        "literary",
+        "warm",
+        "considered"
+      ],
+      "best_for": [
+        "sustainability brands",
+        "wellness",
+        "wineries",
+        "literary / arts decks"
+      ],
+      "avoid_for": [
+        "neon energy",
+        "rapid-fire pop"
+      ],
+      "swatches": [
+        "#192B1B",
+        "#D4CFBF",
+        "#C8524A",
+        "#E8E4D6"
+      ]
+    },
+    {
+      "name": "scatterbrain",
+      "scheme": "light",
+      "formality": "low",
+      "mood": [
+        "playful",
+        "workshop",
+        "messy-on-purpose",
+        "warm"
+      ],
+      "best_for": [
+        "brainstorms",
+        "workshops",
+        "creative agency credentials",
+        "ideation pitches"
+      ],
+      "avoid_for": [
+        "institutional weight",
+        "regulatory density"
+      ],
+      "swatches": [
+        "#FAF8F3",
+        "#FFE066",
+        "#A5D8FF",
+        "#FFC9C9"
+      ]
+    },
+    {
+      "name": "peoples-platform",
+      "scheme": "light",
+      "formality": "medium-low",
+      "mood": [
+        "activist",
+        "loud",
+        "graphic",
+        "honest"
+      ],
+      "best_for": [
+        "manifestos",
+        "civic / community decks",
+        "campaign pitches",
+        "founder vision"
+      ],
+      "avoid_for": [
+        "institutional restraint",
+        "quiet healthcare"
+      ],
+      "swatches": [
+        "#F5F2EA",
+        "#2C2CDC",
+        "#F2A03A",
+        "#E83A2A"
+      ]
+    },
+    {
+      "name": "retro-windows",
+      "scheme": "light",
+      "formality": "low",
+      "mood": [
+        "nostalgic",
+        "retro",
+        "geeky",
+        "playful"
+      ],
+      "best_for": [
+        "retro gaming",
+        "Y2K brands",
+        "tech-history talks",
+        "tongue-in-cheek decks"
+      ],
+      "avoid_for": [
+        "modern elegant",
+        "institutional credibility"
+      ],
+      "swatches": [
+        "#C0C0C0",
+        "#000080",
+        "#FFFFFF",
+        "#008000"
+      ]
+    },
+    {
+      "name": "raw-grid",
+      "scheme": "light",
+      "formality": "medium-low",
+      "mood": [
+        "raw",
+        "punchy",
+        "energetic",
+        "confident"
+      ],
+      "best_for": [
+        "founder pitches",
+        "accelerator demos",
+        "indie launches",
+        "creator portfolios"
+      ],
+      "avoid_for": [
+        "soft quiet",
+        "warm hospitality"
+      ],
+      "swatches": [
+        "#FFFFFF",
+        "#0A0A0A",
+        "#F2D4CF",
+        "#E5EDD6"
+      ]
+    },
+    {
+      "name": "long-table",
+      "scheme": "light",
+      "formality": "medium",
+      "mood": [
+        "warm",
+        "intimate",
+        "hospitality",
+        "editorial"
+      ],
+      "best_for": [
+        "supper clubs",
+        "restaurants",
+        "membership pitches",
+        "lifestyle / wine brands"
+      ],
+      "avoid_for": [
+        "corporate polish",
+        "cold minimalism"
+      ],
+      "swatches": [
+        "#FAF1E2",
+        "#B53D2A",
+        "#F2E5CF",
+        "#8E2D1F"
+      ]
+    },
+    {
+      "name": "mat",
+      "scheme": "dark",
+      "formality": "medium",
+      "mood": [
+        "mid-century",
+        "tactile",
+        "warm-modern",
+        "considered"
+      ],
+      "best_for": [
+        "architecture / interiors",
+        "ceramics / craft / furniture",
+        "design studio credentials",
+        "advisory decks"
+      ],
+      "avoid_for": [
+        "fast tech energy",
+        "cold neon"
+      ],
+      "swatches": [
+        "#232E26",
+        "#F0E8D2",
+        "#C07030",
+        "#EDE6D0"
+      ]
     }
   ]
 }

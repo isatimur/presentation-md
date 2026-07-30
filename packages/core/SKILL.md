@@ -593,6 +593,70 @@ Each theme is a complete design language: colors, typography, geometry, motion, 
 **Surface:** `bit-orbit-arcade`
 **Use for:** gaming / hackathon / synthwave (frontend-slides 8-Bit Orbit)
 
+### `studio`
+**Soul:** Type-as-graphic-mass — black/acid-yellow binary, Barlow 900 uppercase as shape.
+**Palette:** `#1C1C1C` near-black · `#F5D200` acid yellow
+**Fonts:** Barlow · IBM Plex Mono
+**Geometry:** 0 radius, flat binary fields, hairline chrome
+**Surface:** `studio-acid`
+**Use for:** design studios / brand showcases (frontend-slides Studio)
+
+### `grove`
+**Soul:** Literary monograph — forest canvas, Playfair never-bold, single terracotta italic accent.
+**Palette:** `#192B1B` forest · `#D4CFBF` cream · `#C8524A` rust
+**Fonts:** Playfair Display · Jost · JetBrains Mono
+**Geometry:** 0 radius, hairline chrome bars, watermark numeral space
+**Surface:** `grove-monograph`
+**Use for:** sustainability / wellness / literary brands (frontend-slides Grove)
+
+### `scatterbrain`
+**Soul:** Workshop cork board — pastel sticky notes, Shrikhand display, Caveat handwriting.
+**Palette:** `#FAF8F3` cream · `#FFE066` sticky · `#2D2A26` ink · `#FFC9C9` pink
+**Fonts:** Shrikhand · Zilla Slab · Caveat
+**Geometry:** soft sticky cards, slight rotation shadows, cork grain
+**Surface:** `scatterbrain-cork`
+**Use for:** brainstorms / workshops / creative credentials (frontend-slides Scatterbrain)
+
+### `peoples-platform`
+**Soul:** WPA protest poster — Alfa Slab uppercase, red as shadow-only, screen-print grain.
+**Palette:** `#F5F2EA` paper · `#2C2CDC` cobalt · `#F2A03A` amber · `#E83A2A` red-shadow
+**Fonts:** Alfa Slab One · Caveat Brush · DM Mono
+**Geometry:** 0 radius, 6px ink borders, stacked red text-shadow
+**Surface:** `peoples-platform-poster`
+**Use for:** manifestos / civic campaigns / founder vision (frontend-slides People's Platform)
+
+### `retro-windows`
+**Soul:** Win95 desktop OS as slides — beveled chrome windows, navy title bars, CRT scanlines.
+**Palette:** `#C0C0C0` gray · `#000080` navy · `#FFFFFF` white · `#008000` DOS green
+**Fonts:** Segoe UI / Tahoma · Press Start 2P · VT323
+**Geometry:** 2px bevel borders, sunken panels, scanline overlay
+**Surface:** `retro-windows-chrome`
+**Use for:** retro gaming / Y2K brands / tech-history talks (frontend-slides Retro Windows)
+
+### `raw-grid`
+**Soul:** Neo-brutalist grid — 3px black borders ARE the layout, hard offset shadows, pastel region fills.
+**Palette:** `#FFFFFF` white · `#0A0A0A` ink · `#F2D4CF` blush · `#E5EDD6` sage
+**Fonts:** Segoe UI / system-ui 900
+**Geometry:** 0 radius, 3px borders, 6px hard shadows
+**Surface:** `raw-grid-brutal`
+**Use for:** founder pitches / indie launches / creator portfolios (frontend-slides Raw Grid)
+
+### `long-table`
+**Soul:** Supper-club risograph — one rust ink on cream paper, uppercase grotesk + italic Fraunces.
+**Palette:** `#FAF1E2` cream · `#B53D2A` rust
+**Fonts:** Bricolage Grotesque · Fraunces
+**Geometry:** pill buttons, 1.5px rules, radial-dot paper texture
+**Surface:** `long-table-supper`
+**Use for:** hospitality / supper clubs / lifestyle brands (frontend-slides Long Table)
+
+### `mat`
+**Soul:** Mid-century material — dark sage with wood-brown glow, cream type, single burnt-orange accent.
+**Palette:** `#232E26` sage · `#F0E8D2` cream · `#C07030` burnt orange · `#7A4E24` wood
+**Fonts:** Bricolage Grotesque · DM Sans · DM Mono
+**Geometry:** 0 radius, atmospheric wood glow, cream info-card inset
+**Surface:** `mat-woodglow`
+**Use for:** architecture / craft / furniture / design studios (frontend-slides Mat)
+
 ---
 
 ## Typography Hierarchy — The Scale System

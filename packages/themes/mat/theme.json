@@ -1,0 +1,33 @@
+{
+  "name": "mat",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Mat \u2014 dark sage + wood glow, Bricolage + burnt orange (frontend-slides bold-template-pack).",
+  "vibe": "Mat \u2014 sage #232E26 + cream #F0E8D2 + orange #C07030, Bricolage + DM Sans (frontend-slides mat).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#232E26",
+    "bg2": "#2E3D30",
+    "text": "#F0E8D2",
+    "muted": "rgba(240,232,210,0.58)",
+    "accent": "#C07030",
+    "accent2": "#7A4E24",
+    "cardBg": "#EDE6D0",
+    "border": "rgba(240,232,210,0.12)"
+  },
+  "typography": {
+    "headingFont": "'Bricolage Grotesque', sans-serif",
+    "bodyFont": "'DM Sans', system-ui, sans-serif",
+    "headingWeight": 800,
+    "googleFonts": [
+      "Bricolage+Grotesque:wght@600;700;800",
+      "DM+Sans:wght@400;500;600",
+      "DM+Mono:wght@400"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

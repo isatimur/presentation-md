@@ -1,0 +1,32 @@
+{
+  "name": "retro-windows",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Retro Windows \u2014 Win95 beveled chrome, navy title bar (frontend-slides bold-template-pack).",
+  "vibe": "Retro Windows \u2014 #C0C0C0 gray, navy #000080 title bar, MS Sans / Press Start 2P (frontend-slides retro-windows).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#C0C0C0",
+    "bg2": "#D4D0C8",
+    "text": "#222222",
+    "muted": "#555555",
+    "accent": "#000080",
+    "accent2": "#008080",
+    "cardBg": "#FFFFFF",
+    "border": "#000000"
+  },
+  "typography": {
+    "headingFont": "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    "bodyFont": "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Press+Start+2P",
+      "VT323"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

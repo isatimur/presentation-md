@@ -1,0 +1,33 @@
+{
+  "name": "scatterbrain",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Scatterbrain \u2014 post-it workshop board, Shrikhand + Caveat (frontend-slides bold-template-pack).",
+  "vibe": "Scatterbrain \u2014 cream cork #FAF8F3, sticky yellows/pinks, Shrikhand + Zilla Slab (frontend-slides scatterbrain).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#FAF8F3",
+    "bg2": "#F7F5F0",
+    "text": "#2D2A26",
+    "muted": "#5C5750",
+    "accent": "#FFE066",
+    "accent2": "#FFC9C9",
+    "cardBg": "#FFE066",
+    "border": "rgba(45,42,38,0.18)"
+  },
+  "typography": {
+    "headingFont": "'Shrikhand', cursive",
+    "bodyFont": "'Zilla Slab', Georgia, serif",
+    "headingWeight": 400,
+    "googleFonts": [
+      "Shrikhand",
+      "Zilla+Slab:wght@400;500;600",
+      "Caveat:wght@400;600"
+    ]
+  },
+  "geometry": {
+    "radius": "4px",
+    "slideWidth": "1280px"
+  }
+}

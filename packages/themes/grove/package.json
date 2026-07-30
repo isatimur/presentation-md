@@ -1,0 +1,27 @@
+{
+  "name": "@presentation-md/theme-grove",
+  "version": "1.0.0",
+  "description": "Forest-green canvas with cream type, classical Playfair serifs, rust accent.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./theme.json",
+  "files": [
+    "theme.json",
+    "README.md"
+  ],
+  "keywords": [
+    "presentation-md",
+    "theme",
+    "ai-agent",
+    "slides"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/isatimur/presentation-md.git"
+  },
+  "homepage": "https://presentation-md.vercel.app",
+  "bugs": "https://github.com/isatimur/presentation-md/issues"
+}

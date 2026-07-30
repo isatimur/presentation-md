@@ -293,11 +293,17 @@ importers:
 
   packages/themes/glassmorphism: {}
 
+  packages/themes/grove: {}
+
   packages/themes/heritage-editorial: {}
 
   packages/themes/kinetic-wrapped: {}
 
+  packages/themes/long-table: {}
+
   packages/themes/luxury-minimalist: {}
+
+  packages/themes/mat: {}
 
   packages/themes/neo-grid-bold: {}
 
@@ -311,13 +317,19 @@ importers:
 
   packages/themes/pastel-geometry: {}
 
+  packages/themes/peoples-platform: {}
+
   packages/themes/pin-and-paper: {}
 
   packages/themes/pink-script: {}
 
   packages/themes/playful: {}
 
+  packages/themes/raw-grid: {}
+
   packages/themes/retro-arcade: {}
+
+  packages/themes/retro-windows: {}
 
   packages/themes/risograph-zine: {}
 
@@ -325,11 +337,15 @@ importers:
 
   packages/themes/scandinavian: {}
 
+  packages/themes/scatterbrain: {}
+
   packages/themes/signal: {}
 
   packages/themes/soft-editorial: {}
 
   packages/themes/split-pastel: {}
+
+  packages/themes/studio: {}
 
   packages/themes/swiss-typographic: {}
 

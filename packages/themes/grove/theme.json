@@ -1,0 +1,33 @@
+{
+  "name": "grove",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Grove \u2014 forest green monograph, Playfair 400 + rust accent (frontend-slides bold-template-pack).",
+  "vibe": "Grove \u2014 #192B1B forest + #D4CFBF cream + #C8524A rust, Playfair + Jost (frontend-slides grove).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#192B1B",
+    "bg2": "#1E3221",
+    "text": "#D4CFBF",
+    "muted": "rgba(212,207,191,0.6)",
+    "accent": "#C8524A",
+    "accent2": "#E8E4D6",
+    "cardBg": "#1E3221",
+    "border": "rgba(212,207,191,0.12)"
+  },
+  "typography": {
+    "headingFont": "'Playfair Display', Georgia, serif",
+    "bodyFont": "'Jost', system-ui, sans-serif",
+    "headingWeight": 400,
+    "googleFonts": [
+      "Playfair+Display:ital,wght@0,400;1,400",
+      "Jost:wght@300;400;500",
+      "JetBrains+Mono:wght@300"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

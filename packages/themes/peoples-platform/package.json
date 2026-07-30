@@ -1,0 +1,27 @@
+{
+  "name": "@presentation-md/theme-peoples-platform",
+  "version": "1.0.0",
+  "description": "Activist poster energy: cobalt, amber, red shadows on cream.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./theme.json",
+  "files": [
+    "theme.json",
+    "README.md"
+  ],
+  "keywords": [
+    "presentation-md",
+    "theme",
+    "ai-agent",
+    "slides"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/isatimur/presentation-md.git"
+  },
+  "homepage": "https://presentation-md.vercel.app",
+  "bugs": "https://github.com/isatimur/presentation-md/issues"
+}

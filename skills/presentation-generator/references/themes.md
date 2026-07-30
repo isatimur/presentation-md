@@ -67,6 +67,14 @@ data intact. List installed themes at runtime with the `list_themes` MCP tool or
 | `capsule` | Capsule — bone cream pills, Bodoni Moda + Space Grotesk candy palette. |
 | `cobalt-grid` | Cobalt Grid — graph paper #F0EBDE, cobalt #1F2BE0, Newsreader. |
 | `8-bit-orbit` | 8-Bit Orbit — navy void, neon cyan/pink/yellow, Tektur + Chakra Petch. |
+| `mat` | Mat — sage #232E26, cream type, burnt orange #C07030, Bricolage + DM Sans. |
+| `long-table` | Long Table — cream #FAF1E2, rust #B53D2A, Bricolage + Fraunces italic. |
+| `raw-grid` | Raw Grid — white canvas, 3px black borders, blush/sage fills, system sans 900. |
+| `retro-windows` | Retro Windows — Win95 gray chrome, navy title bar, Press Start 2P accents. |
+| `peoples-platform` | People's Platform — cream paper, cobalt/amber, Alfa Slab + red shadow. |
+| `scatterbrain` | Scatterbrain — cream cork, sticky pastels, Shrikhand + Caveat. |
+| `grove` | Grove — forest #192B1B, cream #D4CFBF, rust #C8524A, Playfair + Jost. |
+| `studio` | Studio — near-black #1C1C1C, acid yellow #F5D200, Barlow 900 + IBM Plex Mono. |
 
 Install more: `npm i @presentation-md/theme-<name>` (or the PyPI mirror
 `presentation-md-theme-<name>`). Scaffold your own: `npx @presentation-md/create-theme`.
