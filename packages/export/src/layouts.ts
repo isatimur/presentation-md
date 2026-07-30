@@ -321,12 +321,15 @@ function drawFeatureCard(
   opts: { hero?: boolean } = {}
 ): void {
   const hero = Boolean(opts.hero);
+  const fill = hero ? ctx.colors.emphasisFill : ctx.colors.cardBg;
+  const ink = hero ? ctx.colors.emphasisText : ctx.colors.cardText;
+  const bodyInk = hero ? ctx.colors.emphasisText : ctx.colors.cardMuted;
   slide.addShape(ctx.shapeRoundRect, {
     x,
     y,
     w,
     h,
-    fill: { color: hero ? ctx.colors.bg2 : ctx.colors.cardBg },
+    fill: { color: fill },
     line: { color: hero ? ctx.colors.accent : ctx.colors.border, width: hero ? 1.5 : 1 },
     rectRadius: 0.06,
   });
@@ -341,7 +344,7 @@ function drawFeatureCard(
     h: titleH,
     fontFace: ctx.fonts.heading,
     bold: true,
-    color: ctx.colors.text,
+    color: ink,
     fontSize: hero ? 22 : 16,
     fit: "shrink",
     valign: "top",
@@ -353,7 +356,7 @@ function drawFeatureCard(
       w: w - pad * 2,
       h: Math.max(0.4, h - (titleY - y) - titleH - 0.3),
       fontFace: ctx.fonts.body,
-      color: ctx.colors.muted,
+      color: bodyInk,
       fontSize: hero ? 14 : 12,
       fit: "shrink",
       valign: "top",
@@ -670,27 +673,48 @@ function renderComparison(slide: PSlide, ctx: ExportContext, data: Slide): void 
     text: string | undefined,
     highlighted: boolean
   ) => {
+    const fill = highlighted ? ctx.colors.emphasisFill : ctx.colors.cardBg;
+    const ink = highlighted ? ctx.colors.emphasisText : ctx.colors.cardText;
+    const bodyInk = highlighted ? ctx.colors.emphasisText : ctx.colors.cardMuted;
     slide.addShape(ctx.shapeRoundRect, {
       x,
       y: boxY,
       w: colW,
       h: boxH,
-      fill: { color: highlighted ? ctx.colors.bg2 : ctx.colors.cardBg },
+      fill: { color: fill },
       line: { color: highlighted ? ctx.colors.accent : ctx.colors.border, width: highlighted ? 1.75 : 1 },
       rectRadius: 0.06,
     });
     let innerY = boxY + 0.25;
     if (label) {
-      eyebrow(slide, ctx, label, x + 0.2, innerY, colW - 0.4);
+      slide.addText(label.toUpperCase(), {
+        x: x + 0.2,
+        y: innerY,
+        w: colW - 0.4,
+        h: 0.35,
+        fontFace: ctx.fonts.body,
+        fontSize: 13,
+        bold: true,
+        color: highlighted ? ink : ctx.colors.accent2,
+        charSpacing: 2,
+        align: "left",
+        valign: "middle",
+      });
       innerY += 0.45;
     }
     if (text) {
-      body(slide, ctx, text, {
+      slide.addText(text, {
         x: x + 0.2,
         y: innerY,
         w: colW - 0.4,
         h: boxH - (innerY - boxY) - 0.25,
+        fontFace: ctx.fonts.body,
+        color: bodyInk,
         fontSize: highlighted ? 16 : 15,
+        fit: "shrink",
+        valign: "top",
+        align: "left",
+        lineSpacingMultiple: 1.15,
       });
     }
   };
@@ -863,6 +887,40 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       h: ctx.height * 0.6,
       fill: { color: ctx.colors.accent2, transparency: 72 },
       line: { color: ctx.colors.accent2, width: 0 },
+    });
+  }
+
+  if (theme === "electric-studio" && isHero) {
+    // White → blue horizontal split (mirrors electric-studio-split).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: ctx.height * 0.52,
+      w: ctx.width,
+      h: ctx.height * 0.48,
+      fill: { color: ctx.colors.bg2 },
+      line: { color: ctx.colors.bg2, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: ctx.height * 0.52,
+      w: 0.1,
+      h: ctx.height * 0.48,
+      fill: { color: "#0a0a0a" },
+      line: { color: "#0a0a0a", width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "soft-editorial") {
+    // Soft sage radial stand-in (top-right wash).
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.55,
+      y: -ctx.height * 0.15,
+      w: ctx.width * 0.55,
+      h: ctx.height * 0.55,
+      fill: { color: ctx.colors.accent, transparency: 78 },
+      line: { color: ctx.colors.accent, width: 0 },
     });
   }
 }

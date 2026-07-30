@@ -25,6 +25,14 @@ export interface ExportContext {
     accent2: string;
     cardBg: string;
     border: string;
+    /** Body copy on card fills when dual-surface polarity flips muted. */
+    cardMuted: string;
+    /** Heading/icon ink on card fills (defaults to text). */
+    cardText: string;
+    /** Fill for accent-emphasized comparison / bento hero panels. */
+    emphasisFill: string;
+    /** Text on emphasisFill panels. */
+    emphasisText: string;
   };
   fonts: {
     heading: string;
@@ -36,6 +44,29 @@ export interface ExportContext {
   shapeOval: PptxShapeArg;
   warn: (msg: string) => void;
 }
+
+/**
+ * Dual-surface themes where HTML craft flips card polarity vs roles.muted.
+ * Keeps PPTX card body/emphasis fills readable without needing CSS.
+ */
+const DUAL_SURFACE: Record<
+  string,
+  Partial<{
+    cardMuted: string;
+    cardText: string;
+    emphasisFill: "accent" | "bg2";
+    emphasisText: string;
+  }>
+> = {
+  mat: { cardMuted: "#454038", cardText: "#1E2820", emphasisFill: "accent", emphasisText: "#1a1208" },
+  "bold-signal": { cardMuted: "#e8e5e4", cardText: "#ffffff", emphasisFill: "accent", emphasisText: "#ffffff" },
+  "creative-voltage": { cardMuted: "#ebebf0", cardText: "#ffffff" },
+  "soft-editorial": { cardMuted: "#4A4338", cardText: "#2A241B" },
+  studio: { emphasisFill: "accent", emphasisText: "#0a0a0a" },
+  "brutalist-acid": { emphasisFill: "accent", emphasisText: "#0a0a0a" },
+  "electric-studio": { cardMuted: "#5a5a5a", cardText: "#0a0a0a" },
+  "daisy-days": { emphasisFill: "accent", emphasisText: "#1a1a1a" },
+};
 
 export interface ContextShapes {
   roundRect: PptxShapeArg;
@@ -63,6 +94,12 @@ export function buildContext(
   const height = (width * 9) / 16;
   const bg = resolveColor(theme.palette.bg);
 
+  const dual = DUAL_SURFACE[theme.name] ?? {};
+  const accent = resolveColor(theme.palette.accent, theme.palette.bg);
+  const bg2 = resolveColor(theme.palette.bg2, theme.palette.bg);
+  const text = resolveColor(theme.palette.text, theme.palette.bg);
+  const muted = resolveColor(theme.palette.muted, theme.palette.bg);
+
   return {
     themeName: theme.name,
     width,
@@ -70,13 +107,17 @@ export function buildContext(
     margin: Math.min(0.6, width * 0.05),
     colors: {
       bg,
-      bg2: resolveColor(theme.palette.bg2, theme.palette.bg),
-      text: resolveColor(theme.palette.text, theme.palette.bg),
-      muted: resolveColor(theme.palette.muted, theme.palette.bg),
-      accent: resolveColor(theme.palette.accent, theme.palette.bg),
+      bg2,
+      text,
+      muted,
+      accent,
       accent2: resolveColor(theme.palette.accent2, theme.palette.bg),
       cardBg: resolveColor(theme.palette.cardBg, theme.palette.bg),
       border: resolveColor(theme.palette.border, theme.palette.bg),
+      cardMuted: dual.cardMuted ?? muted,
+      cardText: dual.cardText ?? text,
+      emphasisFill: dual.emphasisFill === "accent" ? accent : bg2,
+      emphasisText: dual.emphasisText ?? text,
     },
     fonts: {
       heading: parseFontFamily(theme.typography.headingFont),

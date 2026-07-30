@@ -1673,6 +1673,10 @@
   border: 2px solid var(--text);
   border-radius: 0;
 }
+.deck[data-surface="emerald-editorial-masthead"] .card p,
+.deck[data-surface="emerald-editorial-masthead"] .card .lead {
+  color: color-mix(in srgb, var(--text) 78%, var(--card-bg));
+}
 
 /* ── sakura-chroma-cassette (sakura-chroma) ── */
 .deck[data-surface="sakura-chroma-cassette"] .slide {
@@ -2574,6 +2578,10 @@
   border: 2px solid #1A1A1A;
   border-radius: 0;
   box-shadow: 8px 8px 0 var(--accent);
+}
+.deck[data-surface="retro-zine-riso"] .card p,
+.deck[data-surface="retro-zine-riso"] .card .lead {
+  color: #3a342c;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
