@@ -40,6 +40,36 @@
 .deck[data-surface="neon-glow"] .slide h1 {
   text-shadow: 0 0 40px color-mix(in srgb, var(--accent) 35%, transparent);
 }
+/* Content slides: keep glow off the reading plane */
+.deck[data-surface="neon-glow"] .slide:not(.title-slide):not(.closing-slide)::after {
+  opacity: 0.45;
+  width: 420px;
+  height: 420px;
+  right: -180px;
+  top: -160px;
+}
+.deck[data-surface="neon-glow"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 14%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+  box-shadow: 0 0 32px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.deck[data-surface="neon-glow"] .stat .value {
+  text-shadow: 0 0 24px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.deck[data-surface="neon-glow"] .code-window {
+  border-color: color-mix(in srgb, var(--accent2) 35%, var(--border));
+  box-shadow: 0 20px 56px rgba(0, 0, 0, 0.45), 0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+.deck[data-surface="neon-glow"] .cols-aside {
+  background: color-mix(in srgb, var(--accent) 16%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  box-shadow: inset 0 0 40px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.deck[data-surface="neon-glow"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent) 18%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+  box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 22%, transparent);
+}
 
 /* ── scanline-neon (retro-arcade) ── */
 .deck[data-surface="scanline-neon"] .slide {
@@ -84,6 +114,22 @@
   top: auto;
   right: auto;
   background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 18%, transparent), transparent);
+}
+.deck[data-surface="warm-paper"] .slide:not(.title-slide):not(.closing-slide)::after {
+  opacity: 0.55;
+  width: 200px;
+  height: 200px;
+}
+.deck[data-surface="warm-paper"] .cols-aside {
+  background: color-mix(in srgb, var(--accent) 8%, #fff);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+.deck[data-surface="warm-paper"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 6%, #fff);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+.deck[data-surface="warm-paper"] .stat {
+  border-top: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
 }
 
 /* ── clean-light (corporate) ── */
