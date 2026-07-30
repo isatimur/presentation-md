@@ -1,5 +1,13 @@
 # @presentation-md/create-theme
 
+## 1.0.2
+
+### Patch Changes
+
+- 545ccd8: Round-trip speaker notes through PPTX export (`addNotes`) and Studio; raise package engines to Node 22+.
+- Updated dependencies [545ccd8]
+  - @presentation-md/core@1.1.1
+
 ## 1.0.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.1.1
+
+### Patch Changes
+
+- 545ccd8: Round-trip speaker notes through PPTX export (`addNotes`) and Studio; raise package engines to Node 22+.
+
 ## 1.1.0
 
 ### Minor Changes
