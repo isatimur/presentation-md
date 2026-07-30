@@ -2482,7 +2482,19 @@
 .deck[data-surface="retro-zine-riso"] .slide:not(.title-slide):not(.closing-slide)::before,
 .deck[data-surface="retro-zine-riso"] .slide:not(.title-slide):not(.closing-slide)::after,
 .deck[data-surface="vintage-editorial-geo"] .slide:not(.title-slide):not(.closing-slide)::before,
-.deck[data-surface="vintage-editorial-geo"] .slide:not(.title-slide):not(.closing-slide)::after {
+.deck[data-surface="vintage-editorial-geo"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="bauhaus-blocks"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="bauhaus-blocks"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="deco-fan"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="candy-blob"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="wrapped-block"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="bold-poster-ink"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="acid-block"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="neo-grid-panels"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="botanical-leaf"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="aero-bubble"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="aero-bubble"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.closing-slide)::before {
   display: none;
 }
 
@@ -2584,6 +2596,449 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* ── Wave: deeper content chrome for distinctive STYLE_PRESETS / gallery themes ── */
+
+/* Quiet luxe — hairline stats, gold pull-quote */
+.deck[data-surface="quiet-luxe"] .stat {
+  border-top: 1px solid var(--accent);
+  padding-top: 18px;
+}
+.deck[data-surface="quiet-luxe"] .stat .value {
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+.deck[data-surface="quiet-luxe"] .quote {
+  border-left: none;
+  padding-left: 0;
+  max-width: 28ch;
+  font-weight: 400;
+}
+.deck[data-surface="quiet-luxe"] .quote::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+  margin-bottom: 28px;
+}
+.deck[data-surface="quiet-luxe"] .comparison-col {
+  background: transparent;
+  border-radius: 0;
+  border-top: 1px solid var(--border);
+  padding-left: 0;
+}
+.deck[data-surface="quiet-luxe"] .comparison-col:last-child {
+  border-top-color: var(--accent);
+}
+
+/* Hard bento — chunky comparison + stats */
+.deck[data-surface="hard-bento"] .stat {
+  border-top: 4px solid var(--text);
+  border-radius: 0;
+}
+.deck[data-surface="hard-bento"] .stat .value {
+  font-weight: 900;
+}
+.deck[data-surface="hard-bento"] .comparison-col:last-child {
+  background: var(--accent2);
+  color: var(--text);
+}
+.deck[data-surface="hard-bento"] .quote {
+  border-left: 6px solid var(--text);
+  font-weight: 800;
+}
+
+/* HUD / blueprint — instrument metrics + table rules */
+.deck[data-surface="hud-grid"] .stat .value,
+.deck[data-surface="blueprint-grid"] .stat .value {
+  font-family: ui-monospace, "Barlow Condensed", monospace;
+  text-shadow: 0 0 16px color-mix(in srgb, var(--accent) 45%, transparent);
+  letter-spacing: 0.04em;
+}
+.deck[data-surface="hud-grid"] .comparison-col,
+.deck[data-surface="blueprint-grid"] .comparison-col {
+  border-radius: 0;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.deck[data-surface="hud-grid"] .card,
+.deck[data-surface="blueprint-grid"] .card {
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  background: color-mix(in srgb, var(--bg-2) 80%, transparent);
+}
+.deck[data-surface="hud-grid"] table th,
+.deck[data-surface="blueprint-grid"] table th {
+  border-bottom: 1px solid var(--accent);
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+/* Bauhaus — primary-bar stats, hard cards */
+.deck[data-surface="bauhaus-blocks"] .stat {
+  border-top: 8px solid var(--accent);
+  border-radius: 0;
+}
+.deck[data-surface="bauhaus-blocks"] .stat:nth-child(2) { border-top-color: var(--accent2); }
+.deck[data-surface="bauhaus-blocks"] .stat:nth-child(3) { border-top-color: #f4d35e; }
+.deck[data-surface="bauhaus-blocks"] .card {
+  border-radius: 0;
+  border: 2px solid var(--text);
+  background: #fff;
+}
+.deck[data-surface="bauhaus-blocks"] .comparison-col {
+  border-radius: 0;
+  border: 2px solid var(--text);
+  background: #fff;
+}
+.deck[data-surface="bauhaus-blocks"] .comparison-col:last-child {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--text);
+}
+.deck[data-surface="bauhaus-blocks"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="bauhaus-blocks"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="bauhaus-blocks"] .timeline .dot {
+  background: var(--accent);
+  border-radius: 0;
+}
+
+/* Art deco — gold rules on content */
+.deck[data-surface="deco-fan"] .stat {
+  border-top: 2px solid var(--accent);
+}
+.deck[data-surface="deco-fan"] .stat .value {
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: clamp(28px, 3.2vw, 42px);
+}
+.deck[data-surface="deco-fan"] .comparison-col {
+  border-radius: 0;
+  background: transparent;
+  border-top: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.deck[data-surface="deco-fan"] .quote {
+  border-left: none;
+  text-align: center;
+  max-width: 36ch;
+  margin-inline: auto;
+  letter-spacing: 0.04em;
+}
+.deck[data-surface="deco-fan"] .quote::before {
+  content: "◆";
+  display: block;
+  color: var(--accent);
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+/* Candy / pastel geometry / aero — playful but readable shells */
+.deck[data-surface="candy-blob"] .stat {
+  border-top: 4px solid var(--text);
+}
+.deck[data-surface="candy-blob"] .comparison-col {
+  border: 3px solid var(--text);
+  border-radius: 22px;
+}
+.deck[data-surface="candy-blob"] .comparison-col:last-child {
+  background: var(--accent2);
+}
+.deck[data-surface="pastel-geometry-pills"] .stat {
+  border-top: 3px solid var(--accent);
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px 18px;
+}
+.deck[data-surface="pastel-geometry-pills"] .comparison-col {
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+}
+.deck[data-surface="aero-bubble"] .stat .value {
+  color: var(--accent);
+}
+.deck[data-surface="aero-bubble"] .card {
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.deck[data-surface="aero-bubble"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent2) 35%, #fff);
+  border-radius: 20px;
+}
+
+/* Data editorial / newsprint — ruled tables + stats */
+.deck[data-surface="data-rule"] .stat {
+  border-top: 3px solid var(--accent);
+}
+.deck[data-surface="data-rule"] .stat:nth-child(2) { border-top-color: var(--accent2); }
+.deck[data-surface="data-rule"] table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.deck[data-surface="data-rule"] table th {
+  border-bottom: 3px solid var(--accent);
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.deck[data-surface="data-rule"] table td {
+  border-bottom: 1px solid var(--border);
+  padding: 12px;
+}
+.deck[data-surface="newsprint-masthead"] .stat {
+  border-top: 2px solid var(--text);
+}
+.deck[data-surface="newsprint-masthead"] table th {
+  border-bottom: 2px double var(--text);
+  font-family: var(--heading-font);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+.deck[data-surface="newsprint-masthead"] table td {
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 22%, transparent);
+  padding: 10px 8px;
+}
+.deck[data-surface="newsprint-masthead"] .card {
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--text) 28%, transparent);
+  background: transparent;
+}
+
+/* Heritage / paper-ink / hygge — editorial content fidelity */
+.deck[data-surface="heritage-wash"] .stat,
+.deck[data-surface="paper-ink-literary"] .stat,
+.deck[data-surface="hygge-soft"] .stat {
+  border-top: 1px solid var(--accent);
+}
+.deck[data-surface="heritage-wash"] .card,
+.deck[data-surface="paper-ink-literary"] .card {
+  background: #fff;
+  border-radius: 0;
+}
+.deck[data-surface="hygge-soft"] .card {
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--card-bg) 90%, #fff);
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+}
+.deck[data-surface="paper-ink-literary"] .quote::before {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 2px;
+  background: var(--accent);
+  margin-bottom: 24px;
+}
+.deck[data-surface="heritage-wash"] .quote::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+  margin-bottom: 24px;
+}
+
+/* Kinetic wrapped — acid lime content chrome */
+.deck[data-surface="wrapped-block"] .stat {
+  border-top: 4px solid var(--accent);
+}
+.deck[data-surface="wrapped-block"] .stat .value {
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .card {
+  border: 3px solid var(--accent);
+  border-radius: 0;
+  background: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .comparison-col {
+  border: 3px solid var(--accent);
+  border-radius: 0;
+}
+.deck[data-surface="wrapped-block"] .comparison-col:last-child {
+  background: var(--accent);
+  color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="wrapped-block"] .comparison-col:last-child p { color: #0a0a0a; }
+.deck[data-surface="wrapped-block"] .quote {
+  border-left: 6px solid var(--accent);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+/* Notebook tabs — keep side tabs; enrich cards/stats */
+.deck[data-surface="notebook-tabs-page"] .stat {
+  border-top: 2px solid var(--accent);
+  background: #fff;
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.deck[data-surface="notebook-tabs-page"] .card {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--accent2) 35%, transparent);
+}
+.deck[data-surface="notebook-tabs-page"] .comparison-col {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+}
+.deck[data-surface="notebook-tabs-page"] .comparison-col:last-child {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+/* Vaporwave — horizon chrome on content */
+.deck[data-surface="vapor-horizon"] .stat .value {
+  text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
+    -2px 0 color-mix(in srgb, var(--accent) 50%, transparent);
+}
+.deck[data-surface="vapor-horizon"] .card {
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  background: color-mix(in srgb, var(--bg-2) 70%, transparent);
+  border-radius: 6px;
+}
+.deck[data-surface="vapor-horizon"] .comparison-col {
+  border: 1px solid color-mix(in srgb, var(--accent2) 45%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.deck[data-surface="vapor-horizon"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent2) 18%, transparent);
+  border-color: var(--accent);
+}
+
+/* Vintage / bold poster / acid / neo-grid / riso / coral / botanical */
+.deck[data-surface="vintage-editorial-geo"] .stat {
+  border-top: 2px solid var(--text);
+}
+.deck[data-surface="vintage-editorial-geo"] .comparison-col {
+  border: 2px solid var(--text);
+  border-radius: 4px;
+  background: #fff;
+}
+.deck[data-surface="bold-poster-ink"] .stat {
+  border-top: 4px solid var(--accent);
+}
+.deck[data-surface="bold-poster-ink"] .stat .value {
+  color: var(--accent);
+  font-family: var(--heading-font);
+}
+.deck[data-surface="bold-poster-ink"] .comparison-col {
+  border: 2px solid var(--text);
+  border-radius: 0;
+}
+.deck[data-surface="bold-poster-ink"] .comparison-col:last-child {
+  background: var(--accent);
+  color: #fff;
+}
+.deck[data-surface="bold-poster-ink"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="bold-poster-ink"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="acid-block"] .stat {
+  border-top: 4px solid var(--accent);
+}
+.deck[data-surface="acid-block"] .stat .value {
+  color: var(--accent);
+  font-family: ui-monospace, "Space Mono", monospace;
+}
+.deck[data-surface="acid-block"] .comparison-col:last-child {
+  background: var(--accent);
+  color: #1c1c1c;
+}
+.deck[data-surface="acid-block"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="acid-block"] .comparison-col:last-child p { color: #1c1c1c; }
+.deck[data-surface="neo-grid-panels"] .stat {
+  border-top: 4px solid var(--accent);
+}
+.deck[data-surface="neo-grid-panels"] .stat .value {
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+}
+.deck[data-surface="neo-grid-panels"] .comparison-col {
+  border: 2px solid var(--text);
+  border-radius: 0;
+}
+.deck[data-surface="neo-grid-panels"] .comparison-col:last-child {
+  background: var(--accent);
+  color: var(--text);
+}
+.deck[data-surface="riso-print"] .stat {
+  border-top: 3px solid var(--accent);
+}
+.deck[data-surface="riso-print"] .comparison-col {
+  border: 2px solid var(--text);
+  mix-blend-mode: multiply;
+}
+.deck[data-surface="riso-print"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent2) 22%, transparent);
+}
+.deck[data-surface="riso-print"] .quote {
+  border-left: 4px solid var(--accent);
+}
+.deck[data-surface="coral-hatch"] .stat {
+  border-top: 3px solid var(--text);
+}
+.deck[data-surface="coral-hatch"] .stat .value {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-family: var(--heading-font);
+}
+.deck[data-surface="coral-hatch"] .comparison-col {
+  border: 2px solid var(--text);
+  border-radius: 0;
+  background: #fff;
+}
+.deck[data-surface="coral-hatch"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 88%, #fff);
+  color: #fff;
+}
+.deck[data-surface="coral-hatch"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="coral-hatch"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="botanical-leaf"] .stat {
+  border-top: 1px solid var(--accent);
+}
+.deck[data-surface="botanical-leaf"] .stat .value {
+  color: var(--accent);
+  font-style: italic;
+}
+.deck[data-surface="botanical-leaf"] .card {
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--bg-2) 55%, transparent);
+}
+.deck[data-surface="botanical-leaf"] .quote {
+  border-left: none;
+  font-style: italic;
+  max-width: 30ch;
+}
+.deck[data-surface="botanical-leaf"] .quote::before {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: var(--accent);
+  margin-bottom: 24px;
+}
+
+/* Soft-editorial / pastel-cloud content polish */
+.deck[data-surface="pastel-cloud"] .card {
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.65);
+  border: none;
+  box-shadow: 0 8px 24px rgba(80, 40, 90, 0.08);
+}
+.deck[data-surface="pastel-cloud"] .stat {
+  border-top: 2px solid var(--accent);
 }
 
 /* Scroll-triggered reveals (populated by document.html script) */
