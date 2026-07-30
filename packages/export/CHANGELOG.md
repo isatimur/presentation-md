@@ -1,5 +1,11 @@
 # @presentation-md/export
 
+## 1.2.0
+
+### Minor Changes
+
+- 42bee0e: Raise PPTX craft fidelity for asymmetric layouts: bento feature-grids, comparison emphasis, image-hero scrims, and code window chrome so exports keep more of the HTML craft ceiling.
+
 ## 1.1.0
 
 ### Minor Changes

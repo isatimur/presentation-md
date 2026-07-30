@@ -1,5 +1,13 @@
 # @presentation-md/render
 
+## 1.2.1
+
+### Patch Changes
+
+- 0e5274f: Soften remaining loud surface ornaments on content slides (notebook tabs, long-table, mat, soft-editorial) so chrome doesn't sit on copy.
+- Updated dependencies [42bee0e]
+  - @presentation-md/export@1.2.0
+
 ## 1.2.0
 
 ### Minor Changes
