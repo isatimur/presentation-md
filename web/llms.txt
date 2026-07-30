@@ -88,6 +88,12 @@ npx @presentation-md/render --from-pptx deck.pptx -o deck.json
 
 - Homepage + gallery: https://presentation-md.vercel.app/
 - Studio (browser editor): https://presentation-md.vercel.app/studio
+- Comparisons: https://presentation-md.vercel.app/vs/
+- vs Beautiful.ai: https://presentation-md.vercel.app/vs/beautiful-ai
+- vs Gamma: https://presentation-md.vercel.app/vs/gamma
+- vs Tome: https://presentation-md.vercel.app/vs/tome
+- vs Slidev: https://presentation-md.vercel.app/vs/slidev
+- vs Marp: https://presentation-md.vercel.app/vs/marp
 - Example decks: https://presentation-md.vercel.app/examples/
 - npm: https://www.npmjs.com/package/@presentation-md/install
 - PyPI: https://pypi.org/project/presentation-md-render/
