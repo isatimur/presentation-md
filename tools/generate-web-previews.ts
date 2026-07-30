@@ -100,6 +100,22 @@ function previewDeck(theme: string): string {
     "grove",
     "signal",
     "daisy-days",
+    // Loud / dual-surface craft — show comparison + bento emphasis
+    "candy-pop",
+    "vaporwave",
+    "neon-noir",
+    "retro-arcade",
+    "genz-bento",
+    "y2k-aero",
+    "bauhaus",
+    "creative-mode",
+    "bold-poster",
+    "brutalist-acid",
+    "raw-grid",
+    "broadside",
+    "neo-grid-bold",
+    "block-frame",
+    "retro-zine",
   ]);
   const slides: Array<Record<string, unknown>> = [
     {
