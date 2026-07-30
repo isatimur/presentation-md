@@ -54,7 +54,10 @@ export function SlideList({
             <div className="slide-row-main">
               <span className="slide-row-num">{i + 1}</span>
               <div className="slide-row-text">
-                <span className="slide-row-layout">{LAYOUT_LABELS[slide.layout as LayoutType] ?? slide.layout}</span>
+                <span className="slide-row-layout">
+                  {LAYOUT_LABELS[slide.layout as LayoutType] ?? slide.layout}
+                  {(slide.notes ?? "").trim() ? <span className="notes-dot" title="Has speaker notes" aria-label="Has speaker notes">N</span> : null}
+                </span>
                 <span className="slide-row-title">{slide.heading ?? slide.quote ?? slide.eyebrow ?? "—"}</span>
               </div>
             </div>

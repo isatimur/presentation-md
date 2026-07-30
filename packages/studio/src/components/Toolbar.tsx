@@ -66,8 +66,10 @@ export function Toolbar({
   return (
     <header className="toolbar">
       <div className="brand">
-        <strong>Studio</strong>
-        <span className="muted small">presentation-md</span>
+        <a className="brand-link" href="https://presentation-md.vercel.app/" target="_blank" rel="noopener noreferrer">
+          <strong>presentation-md</strong>
+        </a>
+        <span className="muted small">Studio · live craft</span>
       </div>
 
       <input
@@ -146,7 +148,7 @@ export function Toolbar({
 
       <div className="spacer" />
 
-      <button className="btn btn-generate" onClick={onGenerate} title="Generate a deck from a prompt">✨ Generate</button>
+      <button className="btn btn-generate" onClick={onGenerate} title="Generate a deck from a prompt">Generate</button>
       <button className="btn" onClick={onLoadExample}>Example</button>
       <button className="btn" onClick={() => fileRef.current?.click()} title="Open a deck .html or .json">Open</button>
       <button className="btn" onClick={onPresent} title="Present fullscreen">Present</button>

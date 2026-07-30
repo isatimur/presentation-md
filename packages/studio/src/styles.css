@@ -43,6 +43,18 @@ body {
 .small { font-size: 12px; }
 .spacer { flex: 1; }
 
+.studio-strip {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 7px 18px; border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--accent) 6%, var(--panel));
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+  color: var(--muted); text-transform: uppercase;
+}
+.studio-strip a {
+  color: var(--accent); text-decoration: none; font-weight: 600; white-space: nowrap;
+}
+.studio-strip a:hover { text-decoration: underline; }
+
 /* ── Toolbar (command bar) ─────────────────────────────────────────── */
 .toolbar {
   position: relative;
@@ -58,6 +70,8 @@ body {
 }
 .brand { display: flex; flex-direction: column; line-height: 1.05; margin-right: 4px; }
 .brand strong { font-family: var(--display); font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
+.brand-link { color: inherit; text-decoration: none; }
+.brand-link:hover strong { color: var(--accent); }
 .brand .muted { font-size: 11px; letter-spacing: 0.04em; font-family: var(--mono); text-transform: uppercase; }
 .inline-field { display: flex; align-items: center; gap: 7px; }
 .title-input { width: 220px; }
@@ -176,7 +190,14 @@ body {
 .slide-row-main { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .slide-row-num { color: var(--faint); font-family: var(--mono); font-size: 11px; width: 18px; text-align: right; }
 .slide-row-text { display: flex; flex-direction: column; min-width: 0; }
-.slide-row-layout { font-size: 10px; color: var(--accent-2); text-transform: uppercase; letter-spacing: 0.09em; font-weight: 600; }
+.slide-row-layout { font-size: 10px; color: var(--accent-2); text-transform: uppercase; letter-spacing: 0.09em; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+.notes-dot {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 14px; height: 14px; border-radius: 3px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent); font-size: 9px; letter-spacing: 0; font-weight: 700;
+  text-transform: none;
+}
 .slide-row-title { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
 .slide-row-actions { display: flex; gap: 3px; opacity: 0; transition: opacity .12s; }
 .slide-row:hover .slide-row-actions, .slide-row.active .slide-row-actions { opacity: 1; }
