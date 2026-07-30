@@ -1,5 +1,11 @@
 # @presentation-md/export
 
+## 1.3.5
+
+### Patch Changes
+
+- 855f8a7: Expand dual-surface PPTX emphasis fills for loud craft themes (candy-pop, vaporwave, neon-noir, retro-arcade, genz-bento, y2k-aero, bauhaus, creative-mode, bold-poster) so comparison/bento heroes match HTML AA inks.
+
 ## 1.3.4
 
 ### Patch Changes
