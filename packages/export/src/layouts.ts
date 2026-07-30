@@ -214,7 +214,9 @@ function addImageOrPlaceholder(
     }
   } else if (src) {
     // Remote/local URLs that weren't prefetched — placeholder + warning.
-    ctx.warn(`Image not embedded (prefetch remote http(s) URLs before export): ${src}`);
+    ctx.warn(
+      `Image not embedded (prefetch http(s) or local file paths before export): ${src}`
+    );
   }
   slide.addShape(ctx.shapeRoundRect, {
     x,

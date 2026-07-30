@@ -24,8 +24,10 @@ The resulting file opens in **PowerPoint**, **Keynote** (File → Open), and imp
 
 Browser-safe variants: `deckToPptxBlob`, `deckToPptxArrayBuffer`.
 
-Remote `http(s)` slide images are embedded when you pass `prefetchImages: true`
-(or use CLI / MCP / Studio, which enable it). Shared helper: `prefetchDeckImages`.
+Remote `http(s)` and local `file:` / filesystem slide images are embedded when you
+pass `prefetchImages: true` (or use CLI / MCP / Studio, which enable it). Local
+reads stay inside `allowedRoots` (default: `process.cwd()`). Shared helper:
+`prefetchDeckImages`.
 
 ```typescript
 const buf = await deckToPptxBuffer(deck, theme, { prefetchImages: true });

@@ -185,6 +185,73 @@ describe("deckToPptx", () => {
     expect(result.warnings.some((w) => w.includes("Could not prefetch"))).toBe(false);
   });
 
+  it("prefetches local file paths and file: URLs into data URIs", async () => {
+    const { pathToFileURL } = await import("node:url");
+    const png = Uint8Array.from([
+      0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x00, 0x00, 0x0d, 0x49, 0x48, 0x44, 0x52,
+      0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x08, 0x02, 0x00, 0x00, 0x00, 0x90, 0x77, 0x53,
+      0xde, 0x00, 0x00, 0x00, 0x0c, 0x49, 0x44, 0x41, 0x54, 0x08, 0xd7, 0x63, 0xf8, 0xcf, 0xc0, 0x00,
+      0x00, 0x00, 0x03, 0x00, 0x01, 0x00, 0x05, 0xfe, 0xd4, 0xef, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45,
+      0x4e, 0x44, 0xae, 0x42, 0x60, 0x82,
+    ]);
+    const root = "/tmp/pmd-prefetch-root";
+    const abs = `${root}/photo.png`;
+    const deck: DeckJson = {
+      type: "deck",
+      slides: [
+        {
+          layout: "image-hero",
+          heading: "Local",
+          image: abs,
+          imageAlt: "Photo",
+        },
+        {
+          layout: "two-column",
+          heading: "File URL",
+          body: "Copy.",
+          image: pathToFileURL(abs).href,
+        },
+      ],
+    };
+    const result = await buildPptx(deck, theme, {
+      prefetchImages: true,
+      prefetch: {
+        allowedRoots: [root],
+        readFile: async (p) => {
+          expect(p === abs || p.endsWith(`${root}/photo.png`.replace(/\//g, p.includes("\\") ? "\\" : "/")) || p.endsWith("photo.png")).toBe(true);
+          return png;
+        },
+      },
+    });
+    expect(result.warnings.some((w) => w.includes("Image not embedded"))).toBe(false);
+    expect(result.warnings.some((w) => w.includes("Could not prefetch"))).toBe(false);
+  });
+
+  it("rejects local paths outside allowedRoots", async () => {
+    const deck: DeckJson = {
+      type: "deck",
+      slides: [
+        {
+          layout: "image-hero",
+          heading: "Escape",
+          image: "/etc/passwd.png",
+          imageAlt: "Nope",
+        },
+      ],
+    };
+    const result = await buildPptx(deck, theme, {
+      prefetchImages: true,
+      prefetch: {
+        allowedRoots: ["/tmp/pmd-safe-only"],
+        readFile: async () => {
+          throw new Error("should not read");
+        },
+      },
+    });
+    expect(result.warnings.some((w) => w.includes("outside allowedRoots"))).toBe(true);
+    expect(result.warnings.some((w) => w.includes("Image not embedded"))).toBe(true);
+  });
+
   it("surfaces prefetch failures then still warns on unembedded remotes", async () => {
     const deck: DeckJson = {
       type: "deck",

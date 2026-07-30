@@ -22,12 +22,13 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
 - Long text uses PowerPoint "shrink to fit," so it stays inside its box rather than clipping.
 
 ## Content that isn't 1:1
-- **Images:** inline `data:` URIs embed directly. Remote `http(s)` URLs are **prefetched**
-  to data URIs by Studio, CLI (`presentation-md-render --format pptx`), and MCP
-  `export_deck` / `renderDeckPptx` before export (`prefetchDeckImages`). Local `file:`
-  paths and failed fetches still draw a captioned placeholder and emit a warning —
-  nothing is dropped silently. Pass `prefetchImages: false` to `buildPptx` for a
-  network-free exporter.
+- **Images:** inline `data:` URIs embed directly. Remote `http(s)` URLs and local
+  `file:` / filesystem paths are **prefetched** to data URIs by Studio, CLI
+  (`presentation-md-render --format pptx`), and MCP `export_deck` / `renderDeckPptx`
+  before export (`prefetchDeckImages`). Local reads are confined to
+  `allowedRoots` (default: `process.cwd()`). Failed fetches / out-of-root paths
+  still draw a captioned placeholder and emit a warning — nothing is dropped
+  silently. Pass `prefetchImages: false` to `buildPptx` for an I/O-free exporter.
 - **Icons:** FontAwesome glyphs aren't rendered; each feature-grid card shows a small accent
   marker in their place.
 - **Craft layouts that *are* mapped:** `columns: "bento"` (hero + satellite cards),

@@ -32,9 +32,9 @@ export interface PptxOptions {
   /** Append a small attribution note to the final slide. Defaults to `true`. */
   attribution?: boolean;
   /**
-   * Prefetch remote http(s) images to data URIs before embed.
-   * Defaults to `false` so `buildPptx` stays network-free; CLI/MCP enable this
-   * via {@link renderDeckPptx} / Studio's download path.
+   * Prefetch remote http(s) and local `file:` / filesystem images to data URIs
+   * before embed. Defaults to `false` so `buildPptx` stays I/O-free; CLI/MCP
+   * enable this via {@link renderDeckPptx} / Studio's download path.
    */
   prefetchImages?: boolean;
   /** Options forwarded to {@link prefetchDeckImages} when prefetch is enabled. */
@@ -54,8 +54,8 @@ const LAYOUT_NAME = "PMD_16x9";
  * Pure and runtime-agnostic — callers serialize via the `deckToPptx*` helpers
  * or `result.pptx.write(...)` directly.
  *
- * Optional remote-image prefetch (`prefetchImages: true`) matches Studio so
- * CLI/MCP PPTX embeds work without a separate step.
+ * Optional image prefetch (`prefetchImages: true`) matches Studio so CLI/MCP
+ * PPTX embeds work for http(s) and local paths without a separate step.
  */
 export async function buildPptx(
   deck: DeckJson,

@@ -29,7 +29,7 @@ export interface PptxDownloadResult {
   warnings: string[];
 }
 
-/** Prefetch remote http(s) images to data URIs so PPTX export can embed them. */
+/** Prefetch http(s) + local images to data URIs so PPTX export can embed them. */
 export async function prefetchDeckImages(
   deck: DeckJson
 ): Promise<{ deck: DeckJson; warnings: string[] }> {
