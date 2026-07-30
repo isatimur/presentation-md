@@ -1,5 +1,13 @@
 # @presentation-md/render
 
+## 1.2.7
+
+### Patch Changes
+
+- Updated dependencies [9bb1dba]
+  - @presentation-md/core@1.1.2
+  - @presentation-md/export@1.3.3
+
 ## 1.2.6
 
 ### Patch Changes
