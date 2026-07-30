@@ -32,7 +32,7 @@
   <meta name="twitter:site" content="@isatimur" />
   <meta name="twitter:creator" content="@isatimur" />
   <meta name="twitter:title" content="presentation-md — AI slide decks → PowerPoint, Keynote, Google Slides" />
-  <meta name="twitter:description" content="Notes in → polished deck out, in the AI agent you already use. Export to editable PowerPoint, Keynote, or Google Slides. 25 styles, one install, MIT." />
+  <meta name="twitter:description" content="Notes in → polished deck out, in the AI agent you already use. Export to editable PowerPoint, Keynote, or Google Slides. 75 themes, one install, MIT." />
   <meta name="twitter:image" content="https://presentation-md.vercel.app/og-image.png" />
 
   <!-- Structured data -->
@@ -239,6 +239,82 @@
     .btn-primary { background: var(--ink); color: var(--paper); }
     .btn-secondary { background: transparent; color: var(--ink); border: 1.5px solid var(--rule); }
     .btn i { font-size: 14px; }
+
+    /* ── hero craft strip ───────────────────────────────── */
+    .hero-craft {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .hero-craft-card {
+      display: block;
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--paper2);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .hero-craft-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 32px rgba(42,38,34,0.12);
+      text-decoration: none;
+    }
+    .hero-craft-frame {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #1a1814;
+    }
+    .hero-craft-frame iframe {
+      width: 200%;
+      height: 200%;
+      border: 0;
+      transform: scale(0.5);
+      transform-origin: 0 0;
+      pointer-events: none;
+    }
+    .hero-craft-meta {
+      padding: 12px 14px 14px;
+      border-top: 1px solid var(--rule);
+    }
+    .hero-craft-meta strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .hero-craft-meta span {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+    .compare-live {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 36px;
+    }
+    .compare-live a {
+      display: block;
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--paper2);
+      text-decoration: none;
+      color: inherit;
+    }
+    .compare-live a:hover { text-decoration: none; opacity: 0.92; }
+    .compare-live .hero-craft-frame { aspect-ratio: 16 / 9; }
+    .compare-pillars { margin-top: 40px; }
+    @media (max-width: 820px) {
+      .hero-craft, .compare-live { grid-template-columns: 1fr; }
+    }
 
     /* ── how it works ───────────────────────────────────── */
     .steps {
@@ -616,6 +692,36 @@
       </a>
       <a href="studio" class="btn btn-secondary">
         <i class="fa-solid fa-wand-magic-sparkles"></i> Open Studio
+      </a>
+    </div>
+
+    <div class="hero-craft" aria-label="Live craft examples">
+      <a class="hero-craft-card" href="examples/novaspark-pitch.html" target="_blank" rel="noopener">
+        <div class="hero-craft-frame">
+          <iframe src="examples/novaspark-pitch.html" loading="lazy" title="NovaSpark aurora-glass craft deck" tabindex="-1"></iframe>
+        </div>
+        <div class="hero-craft-meta">
+          <strong>NovaSpark</strong>
+          <span>aurora-glass · Series A craft</span>
+        </div>
+      </a>
+      <a class="hero-craft-card" href="examples/structured/signalforge-launch.html" target="_blank" rel="noopener">
+        <div class="hero-craft-frame">
+          <iframe src="examples/structured/signalforge-launch.html" loading="lazy" title="SignalForge bold-signal structured deck" tabindex="-1"></iframe>
+        </div>
+        <div class="hero-craft-meta">
+          <strong>SignalForge</strong>
+          <span>bold-signal · schema-rendered</span>
+        </div>
+      </a>
+      <a class="hero-craft-card" href="examples/structured/voltstudio-credentials.html" target="_blank" rel="noopener">
+        <div class="hero-craft-frame">
+          <iframe src="examples/structured/voltstudio-credentials.html" loading="lazy" title="Volt Studio electric-studio structured deck" tabindex="-1"></iframe>
+        </div>
+        <div class="hero-craft-meta">
+          <strong>Volt Studio</strong>
+          <span>electric-studio · multi-slide proof</span>
+        </div>
       </a>
     </div>
   </div>
@@ -2263,7 +2369,7 @@
       <div class="layout-cell">
         <div class="layout-icon"><i class="fa-solid fa-list-ol"></i></div>
         <h3>timeline</h3>
-        <p>Numbered steps in a vertical flow. Roadmaps, onboarding sequences, historical milestones.</p>
+        <p>Numbered steps on a horizontal rail. Roadmaps, onboarding sequences, historical milestones.</p>
       </div>
 
       <div class="layout-cell">
@@ -2309,8 +2415,8 @@
 
     <div class="structured-proof" style="margin:36px 0 8px;padding:28px 28px 8px;border:1px solid var(--rule);border-radius:16px;background:var(--paper2)">
       <span class="eyebrow">Structured path proof</span>
-      <h3 style="margin:8px 0 10px;font-size:1.35rem">Same five flagships — authored as Deck JSON, rendered by the schema.</h3>
-      <p style="color:var(--muted);max-width:62ch;margin:0 0 20px;line-height:1.5">Handcrafted gallery decks prove craft. These five prove the product path: valid Deck JSON → theme → HTML (Studio-editable, PPTX-exportable). Sources live in <code style="font-size:0.85em">examples/decks/</code>.</p>
+      <h3 style="margin:8px 0 10px;font-size:1.35rem">Ten schema-rendered decks — including Bold Signal, Electric Studio, Soft Editorial, Neon Cyber, and Swiss Modern.</h3>
+      <p style="color:var(--muted);max-width:62ch;margin:0 0 20px;line-height:1.5">Handcrafted gallery decks prove craft. These prove the product path: valid Deck JSON → theme → HTML (Studio-editable, PPTX-exportable). Multi-slide layouts — comparison, stats, quotes — not title-only. Sources live in <code style="font-size:0.85em">examples/decks/</code>.</p>
       <div class="gallery-grid" style="margin-top:0;margin-bottom:20px">
         <a href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
           <div class="thumb" style="background:linear-gradient(135deg,#0e0e12,#1a0533);display:flex;align-items:flex-end;padding:20px">
@@ -2359,6 +2465,56 @@
           <div class="card-meta">
             <div class="card-title">RetroNet (Deck JSON)</div>
             <div class="card-badges"><span class="badge neon">Demo</span><span class="badge crt">Schema-rendered</span></div>
+            <div class="card-cta">Open structured deck →</div>
+          </div>
+        </a>
+        <a href="examples/structured/signalforge-launch.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
+          <div class="thumb" style="background:linear-gradient(135deg,#1a1a1a,#2d2d2d);display:flex;align-items:flex-end;padding:20px">
+            <div style="font-family:system-ui;font-weight:900;font-size:1.2rem;color:#fff;line-height:1.1">SignalForge<br><span style="color:#FF5722;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">bold-signal</span></div>
+          </div>
+          <div class="card-meta">
+            <div class="card-title">SignalForge (Deck JSON)</div>
+            <div class="card-badges"><span class="badge coral">Launch</span><span class="badge dark">Schema-rendered</span></div>
+            <div class="card-cta">Open structured deck →</div>
+          </div>
+        </a>
+        <a href="examples/structured/voltstudio-credentials.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
+          <div class="thumb" style="background:linear-gradient(180deg,#ffffff 0 52%,#4361ee 52% 100%);display:flex;align-items:flex-end;padding:20px">
+            <div style="font-family:system-ui;font-weight:800;font-size:1.2rem;color:#fff;line-height:1.1">Volt Studio<br><span style="color:#ffffff;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;opacity:0.85">electric-studio</span></div>
+          </div>
+          <div class="card-meta">
+            <div class="card-title">Volt Studio (Deck JSON)</div>
+            <div class="card-badges"><span class="badge blue">Agency</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-cta">Open structured deck →</div>
+          </div>
+        </a>
+        <a href="examples/structured/quill-editorial.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
+          <div class="thumb" style="background:#F2EEDF;display:flex;align-items:flex-end;padding:20px;border-bottom:1px solid #d8d0bc">
+            <div style="font-family:Georgia,serif;font-weight:600;font-size:1.2rem;color:#2A241B;line-height:1.15">Quill &amp; Field<br><span style="font-family:system-ui;color:#7a8f6a;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">soft-editorial</span></div>
+          </div>
+          <div class="card-meta">
+            <div class="card-title">Quill &amp; Field (Deck JSON)</div>
+            <div class="card-badges"><span class="badge light">Editorial</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-cta">Open structured deck →</div>
+          </div>
+        </a>
+        <a href="examples/structured/gridsystems-studio.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
+          <div class="thumb" style="background:#fff;display:flex;align-items:flex-end;padding:20px;border-bottom:3px solid #e2231a">
+            <div style="font-family:system-ui;font-weight:800;font-size:1.2rem;color:#0a0a0a;line-height:1.1">Grid Systems<br><span style="color:#e2231a;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">swiss-typographic</span></div>
+          </div>
+          <div class="card-meta">
+            <div class="card-title">Grid Systems (Deck JSON)</div>
+            <div class="card-badges"><span class="badge light">Swiss Modern</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-cta">Open structured deck →</div>
+          </div>
+        </a>
+        <a href="examples/structured/neondistrict-platform.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
+          <div class="thumb" style="background:#050510;display:flex;align-items:flex-end;padding:20px">
+            <div style="font-family:system-ui;font-weight:800;font-size:1.2rem;color:#ff2e97;line-height:1.1;text-shadow:0 0 18px rgba(255,46,151,0.45)">Neon District<br><span style="color:#00e5ff;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">neon-noir</span></div>
+          </div>
+          <div class="card-meta">
+            <div class="card-title">Neon District (Deck JSON)</div>
+            <div class="card-badges"><span class="badge neon">Neon Cyber</span><span class="badge dark">Schema-rendered</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -2917,14 +3073,45 @@
 <section id="compare">
   <div class="container">
     <span class="eyebrow">Why presentation-md</span>
-    <h2>Structured power + visual craft.</h2>
+    <h2>Same discovery energy. Structured power underneath.</h2>
     <p class="section-lead">
       <a href="https://github.com/zarazhangrui/frontend-slides" target="_blank" rel="noopener">frontend-slides</a>
       nails visual discovery with live style previews and bold design systems.
       presentation-md matches that show-don't-tell workflow — then adds what a skill-only repo cannot:
       schema-validated Deck JSON, native PowerPoint round-trip, MCP tools, and a browser Studio.
     </p>
-    <div class="steps">
+
+    <div class="compare-live" aria-label="Same content, three themes">
+      <a href="examples/structured/neondistrict-platform.html" target="_blank" rel="noopener">
+        <div class="hero-craft-frame">
+          <iframe src="examples/structured/neondistrict-platform.html" loading="lazy" title="Neon Cyber / neon-noir" tabindex="-1"></iframe>
+        </div>
+        <div class="hero-craft-meta">
+          <strong>Neon Cyber</strong>
+          <span>neon-noir · nightlife launch</span>
+        </div>
+      </a>
+      <a href="examples/structured/retronet-demo.html" target="_blank" rel="noopener">
+        <div class="hero-craft-frame">
+          <iframe src="examples/structured/retronet-demo.html" loading="lazy" title="Terminal Green / crt-terminal" tabindex="-1"></iframe>
+        </div>
+        <div class="hero-craft-meta">
+          <strong>Terminal Green</strong>
+          <span>crt-terminal · product demo</span>
+        </div>
+      </a>
+      <a href="examples/structured/gridsystems-studio.html" target="_blank" rel="noopener">
+        <div class="hero-craft-frame">
+          <iframe src="examples/structured/gridsystems-studio.html" loading="lazy" title="Swiss Modern / swiss-typographic" tabindex="-1"></iframe>
+        </div>
+        <div class="hero-craft-meta">
+          <strong>Swiss Modern</strong>
+          <span>swiss-typographic · agency system</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="steps compare-pillars">
       <div class="step">
         <span class="step-icon"><i class="fa-solid fa-eye"></i></span>
         <h3>Same discovery UX</h3>
