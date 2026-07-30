@@ -54,7 +54,8 @@ const DUAL_SURFACE: Record<
   Partial<{
     cardMuted: string;
     cardText: string;
-    emphasisFill: "accent" | "bg2";
+    /** "accent" | "bg2" | explicit hex matching HTML comparison/bento fills. */
+    emphasisFill: "accent" | "bg2" | `#${string}`;
     emphasisText: string;
   }>
 > = {
@@ -62,10 +63,18 @@ const DUAL_SURFACE: Record<
   "bold-signal": { cardMuted: "#e8e5e4", cardText: "#ffffff", emphasisFill: "accent", emphasisText: "#ffffff" },
   "creative-voltage": { cardMuted: "#ebebf0", cardText: "#ffffff" },
   "soft-editorial": { cardMuted: "#4A4338", cardText: "#2A241B" },
-  studio: { emphasisFill: "accent", emphasisText: "#0a0a0a" },
-  "brutalist-acid": { emphasisFill: "accent", emphasisText: "#0a0a0a" },
+  studio: { emphasisFill: "accent", emphasisText: "#1c1c1c" },
+  "brutalist-acid": { emphasisFill: "accent", emphasisText: "#1c1c1c" },
   "electric-studio": { cardMuted: "#5a5a5a", cardText: "#0a0a0a" },
-  "daisy-days": { emphasisFill: "accent", emphasisText: "#1a1a1a" },
+  "daisy-days": { emphasisFill: "#b8f0e8", emphasisText: "#2d2d2d" },
+  "raw-grid": { emphasisFill: "accent", emphasisText: "#0a0a0a" },
+  "broadside": { emphasisFill: "accent", emphasisText: "#111111" },
+  "neo-grid-bold": { emphasisFill: "accent", emphasisText: "#0a0a0a" },
+  "block-frame": { emphasisFill: "accent", emphasisText: "#0a0a0a" },
+  "peoples-platform": { emphasisFill: "accent", emphasisText: "#0a0a0a" },
+  "stencil-tablet": { emphasisFill: "accent", emphasisText: "#1a1208" },
+  "retro-zine": { cardMuted: "#3a342c", cardText: "#1A1A1A" },
+  "emerald-editorial": { cardMuted: "#2a3a28", cardText: "#1a1a17" },
 };
 
 export interface ContextShapes {
@@ -99,6 +108,15 @@ export function buildContext(
   const bg2 = resolveColor(theme.palette.bg2, theme.palette.bg);
   const text = resolveColor(theme.palette.text, theme.palette.bg);
   const muted = resolveColor(theme.palette.muted, theme.palette.bg);
+  const emphasisFillToken = dual.emphasisFill;
+  const emphasisFill =
+    emphasisFillToken == null
+      ? bg2
+      : emphasisFillToken === "accent"
+        ? accent
+        : emphasisFillToken === "bg2"
+          ? bg2
+          : resolveColor(emphasisFillToken, theme.palette.bg);
 
   return {
     themeName: theme.name,
@@ -116,7 +134,7 @@ export function buildContext(
       border: resolveColor(theme.palette.border, theme.palette.bg),
       cardMuted: dual.cardMuted ?? muted,
       cardText: dual.cardText ?? text,
-      emphasisFill: dual.emphasisFill === "accent" ? accent : bg2,
+      emphasisFill,
       emphasisText: dual.emphasisText ?? text,
     },
     fonts: {
