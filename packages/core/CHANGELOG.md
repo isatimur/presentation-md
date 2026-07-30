@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.1.0
+
+### Minor Changes
+
+- Add `code` layout, asymmetric two-column/comparison/bento craft, and `preview_themes` multi-layout mode.
+
 ## 1.0.0
 
 ### Major Changes
