@@ -1,20 +1,20 @@
 # presentation-md
 
-**Turn rough notes into a polished slide deck — in any AI agent. Then export it to PowerPoint, Keynote, or Google Slides.**
+**Schema-crafted decks for AI agents — 75 themes, editable PPTX, MCP tools. Built to beat prompt-only slide packs.**
 
 [![npm version](https://img.shields.io/npm/v/@presentation-md/core)](https://www.npmjs.com/package/@presentation-md/core)
 [![PyPI](https://img.shields.io/pypi/v/presentation-md-render)](https://pypi.org/project/presentation-md-render/)
 [![CI](https://github.com/isatimur/presentation-md/actions/workflows/ci.yml/badge.svg)](https://github.com/isatimur/presentation-md/actions/workflows/ci.yml)
-[![Gallery](https://img.shields.io/badge/gallery-25%20decks-7C3AED)](https://presentation-md.vercel.app/#gallery)
+[![Gallery](https://img.shields.io/badge/gallery-75%20proofs-FF3B1F)](https://presentation-md.vercel.app/#gallery)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 <p align="center">
   <img src="docs/hero-demo.gif" alt="Six decks the pack rendered — pitch, brand, pricing, keynote — cycling to show the range" width="820" />
   <br/>
-  <em>Six real decks the pack rendered — same structured spec, swappable themes. No screenshots, no lock-in.</em>
+  <em>Same Deck JSON → 75 themes. HTML craft + native PowerPoint. No screenshots, no lock-in.</em>
 </p>
 
-🌐 **[presentation-md.vercel.app](https://presentation-md.vercel.app)** — live gallery of 25 showcase decks · **[Studio](https://presentation-md.vercel.app/studio)** — edit decks in the browser
+🌐 **[Live gallery](https://presentation-md.vercel.app)** · **[Studio](https://presentation-md.vercel.app/studio)** · **[vs frontend-slides](https://presentation-md.vercel.app/#why)**
 
 > ⭐ If this turned your notes into a deck you'd actually present, star the repo.
 
@@ -24,26 +24,39 @@
 
 ```bash
 npx @presentation-md/install claude-code
+# also: cursor | copilot | codex | gemini-cli | cli
 ```
 
-That single command installs the skill file and registers the MCP server for your agent. Restart your agent and ask it to "create a presentation about…" — it produces a validated deck JSON and renders a self-contained HTML file you can open in any browser, or export to native, editable **PowerPoint** (which opens in Keynote and imports into Google Slides).
+Restart your agent and ask: *create a presentation about…*  
+You get validated Deck JSON → self-contained HTML → editable **PowerPoint** (opens in Keynote; imports to Google Slides).
+
+Demo without installing: open the [gallery](https://presentation-md.vercel.app/#gallery) or [Studio](https://presentation-md.vercel.app/studio).
 
 ---
 
-## Why this vs. Gamma / Slidev / Marp
+## Why presentation-md wins vs frontend-slides
 
-- **Structured JSON your agent edits, not opaque slides.** Every deck is a schema-validated Deck JSON spec — the agent reads it, diffs it, and rewrites a single slide on request, instead of regenerating a black-box layout.
-- **Native, editable PPTX / Keynote / Google Slides export.** Because slides are structured data, each one maps to real native shapes — one exporter produces a `.pptx` that opens in PowerPoint, opens in Keynote, and imports into Google Slides. No screenshots, no lock-in.
-- **Works in any agent, not one app.** Claude Code, Cursor, Codex, Gemini CLI, Copilot, or plain CLI — one `npx` install wires the skill + MCP server into whatever you already use.
-- **25-deck proof gallery, live.** See the output before you install: [25 showcase decks](https://presentation-md.vercel.app/#gallery) rendered by the pack, editable in the browser [Studio](https://presentation-md.vercel.app/studio). **Seventy-three schema-rendered Deck JSON proofs** (`examples/decks/` → `web/examples/structured/`) cover every published theme so the structured path is as visible as the craft gallery.
+[frontend-slides](https://github.com/zarazhangrui/frontend-slides) is a strong **discovery / vibe** pack — prompt templates and bold looks. presentation-md keeps that energy and adds the product layer agents need to ship decks for real:
+
+| | presentation-md | frontend-slides |
+|---|---|---|
+| **Themes** | **75** published + create-from-brand | Style presets / template pack |
+| **Authoring model** | Schema-validated **Deck JSON** agents can diff/edit one slide | Prompt → HTML (harder to surgically edit) |
+| **Layouts** | 12 craft layouts (`image-hero`, bento, comparison emphasis, code, asymmetric ratios…) | Template-driven HTML |
+| **MCP** | Typed tools: render, export, audit, preview, import PPTX, brand theme | — |
+| **Export** | Native editable **PPTX** ↔ Deck JSON round-trip | HTML-first |
+| **Proofs** | **75/75** structured gallery + Studio live preview | Showcase templates |
+| **Install** | `npx @presentation-md/install <agent>` | Clone / copy skill |
+
+Also beats Gamma / Slidev / Marp on the agent path: structured JSON (not opaque slides), any coding agent (not one app), and PowerPoint you can still edit.
 
 ---
 
 ## What it is
 
-presentation-md is a universal skill layer that gives AI coding agents (Claude Code, Cursor, Codex, Gemini CLI, Copilot, and plain CLI) a structured, schema-validated way to author slide decks. The agent writes a Deck JSON spec; the renderer turns it into a single self-contained HTML file — no build tool, no slide host. The same deck exports to native, editable **PowerPoint** (which opens in **Keynote** and imports into **Google Slides**), and a browser **studio** lets you open a created deck and edit it with live preview. Themes are swappable, publishable npm packages, and the MCP server exposes the whole workflow as typed tools.
+A universal skill layer for Claude Code, Cursor, Codex, Gemini CLI, Copilot, and plain CLI. The agent writes Deck JSON; `@presentation-md/render` emits self-contained HTML; `@presentation-md/export` maps every layout to native PowerPoint shapes; Studio edits with live preview. Themes are swappable npm packages.
 
-This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a quality gate for any HTML deck (not just ones this pack made): deterministic metrics and hard gates (wall-of-text, contrast, overflow), a 10-dimension design rubric, and an optional **cross-vendor multi-model judge panel** (`judge_panel.py`, configurable across Anthropic / OpenRouter / OpenAI models) that medians per dimension and emits a shareable, versioned `scorecard.json` so results can be tracked and compared publicly. **`npx @presentation-md/install <adapter>` (full mode)** copies it into your agent's skills directory alongside `presentation-generator` (Claude Code, Codex, Cursor). Cross-model results for this pack and comparable skills are published at [swiirl-deck-benchmark.vercel.app](https://swiirl-deck-benchmark.vercel.app) (benchmark source is private for now — it vendors third-party skills with mixed licenses). Full provenance and ecosystem links: [ATTRIBUTION.md](ATTRIBUTION.md).
+Also ships **[deck-design-judge](skills/deck-design-judge)** (contrast / overflow gates + rubric) and optional multi-model scoring. Benchmark: [swiirl-deck-benchmark.vercel.app](https://swiirl-deck-benchmark.vercel.app). Provenance: [ATTRIBUTION.md](ATTRIBUTION.md).
 
 ---
 
