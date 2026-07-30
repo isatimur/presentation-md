@@ -134,6 +134,25 @@ body {
 }
 .theme-count { font-family: var(--mono); font-size: 10px; color: var(--faint); padding: 2px 4px; }
 
+/* Example deep-link picker */
+.example-browser { position: relative; }
+.example-browser > summary { list-style: none; cursor: pointer; user-select: none; }
+.example-browser > summary::-webkit-details-marker { display: none; }
+.example-browser-panel {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 40;
+  width: min(280px, 80vw); max-height: min(360px, 60vh);
+  padding: 8px; background: var(--panel-2); border: 1px solid var(--line-2);
+  border-radius: 12px; box-shadow: 0 22px 48px -20px rgba(11, 18, 32, 0.4);
+}
+.example-list { list-style: none; margin: 0; padding: 0; overflow: auto; max-height: 340px; display: flex; flex-direction: column; gap: 2px; }
+.example-list button {
+  width: 100%; text-align: left; padding: 8px 10px; border: 1px solid transparent;
+  border-radius: 8px; background: transparent; color: var(--text); cursor: pointer;
+  font-family: inherit; font-size: 13px;
+}
+.example-list button:hover { background: var(--paper); border-color: var(--line); }
+.example-list button.active { background: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+
 /* ── Workspace ─────────────────────────────────────────────────────── */
 .workspace { display: grid; grid-template-columns: 280px 1fr 372px; flex: 1; min-height: 0; }
 .panel { overflow: auto; min-height: 0; }

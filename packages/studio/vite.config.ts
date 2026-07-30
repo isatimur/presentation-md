@@ -9,7 +9,7 @@ export default defineConfig({
   // at `/studio` — a relative base breaks there under cleanUrls (no trailing slash).
   // The deck themes and shared layout templates live outside this package; allow
   // Vite's dev server to read them from the monorepo root.
-  server: { fs: { allow: [".."] } },
+  server: { fs: { allow: ["..", "../.."] } },
   build: {
     outDir: "dist",
     emptyOutDir: true,

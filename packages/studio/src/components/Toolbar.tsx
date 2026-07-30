@@ -2,17 +2,20 @@ import { useMemo, useRef, useState } from "react";
 import type { DeckJson } from "@presentation-md/export";
 import { listThemeSummaries, resolveTheme } from "../render/themes.js";
 import { downloadHtml, downloadPptx, downloadJson, parseDeckFile, importPptxFile } from "../export/downloads.js";
+import { STUDIO_EXAMPLES, studioExampleLink } from "../examples.js";
 
 export function Toolbar({
   deck,
+  exampleSlug,
   onChange,
   onLoadExample,
   onPresent,
   onGenerate,
 }: {
   deck: DeckJson;
+  exampleSlug: string | null;
   onChange: (next: DeckJson) => void;
-  onLoadExample: () => void;
+  onLoadExample: (slug?: string) => void;
   onPresent: () => void;
   onGenerate: () => void;
 }) {
@@ -74,6 +77,19 @@ export function Toolbar({
       setStatus(`Export failed: ${(err as Error).message}`);
     } finally {
       setBusy(false);
+    }
+  };
+
+  const copyLink = async () => {
+    const slug = exampleSlug ?? "acme";
+    const path = studioExampleLink(slug);
+    const absolute =
+      typeof window !== "undefined" ? `${window.location.origin}${path.startsWith("/") ? path : `/${path}`}` : path;
+    try {
+      await navigator.clipboard.writeText(absolute);
+      setStatus("Copied Studio link");
+    } catch {
+      setStatus(absolute);
     }
   };
 
@@ -163,7 +179,31 @@ export function Toolbar({
       <div className="spacer" />
 
       <button className="btn btn-generate" onClick={onGenerate} title="Generate a deck from a prompt">Generate</button>
-      <button className="btn" onClick={onLoadExample}>Example</button>
+      <details className="example-browser">
+        <summary className="btn" title="Load a curated example deck">Example ▾</summary>
+        <div className="example-browser-panel">
+          <ul className="example-list">
+            {STUDIO_EXAMPLES.map((ex) => (
+              <li key={ex.slug}>
+                <button
+                  type="button"
+                  className={exampleSlug === ex.slug ? "active" : undefined}
+                  onClick={(e) => {
+                    onLoadExample(ex.slug);
+                    const details = (e.currentTarget as HTMLElement).closest("details");
+                    if (details) details.open = false;
+                  }}
+                >
+                  {ex.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </details>
+      <button className="btn" onClick={() => void copyLink()} title="Copy a shareable Studio deep-link">
+        Copy link
+      </button>
       <button className="btn" onClick={() => fileRef.current?.click()} title="Open a deck .html, .json, or .pptx">Open</button>
       <button className="btn" onClick={onPresent} title="Present fullscreen">Present</button>
       <button className="btn" onClick={() => downloadJson(deck)}>JSON</button>

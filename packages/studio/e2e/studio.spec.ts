@@ -49,6 +49,13 @@ test("Generate modal opens, validates input, and offers the agent-handoff path",
   await expect(page.getByText(/Enter your Anthropic API key/)).toBeVisible();
 });
 
+test("loads a curated example via ?example= deep-link", async ({ page }) => {
+  await page.goto("/?example=jellybean-launch&fresh=1");
+  const frame = page.frameLocator(".preview-frame");
+  await expect(frame.getByText(/Snack energy/i).first()).toBeVisible();
+  await expect(page.getByRole("button", { name: /Copy link/ })).toBeVisible();
+});
+
 test("opens a created .html and recovers the editable deck from embedded source", async ({ page }) => {
   await page.goto("/");
   const frame = page.frameLocator(".preview-frame");
