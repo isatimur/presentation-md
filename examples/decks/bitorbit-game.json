@@ -1,0 +1,55 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "BitOrbit — Game Pitch",
+    "company": "BitOrbit",
+    "description": "Indie game / web3-adjacent pitch — 8-bit-orbit multi-slide proof.",
+    "theme": "8-bit-orbit"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Indie pitch",
+      "heading": "Orbit the pixel. Escape the grind.",
+      "lead": "A co-op rover game with arcade clarity and campaign depth."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Gameplay",
+      "heading": "Loops that respect your time",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-gamepad", "title": "20-minute sorties", "body": "Complete a mission on a lunch break — or chain into a night raid." },
+        { "icon": "fa-solid fa-users", "title": "2–4 player co-op", "body": "Shared ship, asymmetric roles, no lobby hell." },
+        { "icon": "fa-solid fa-map", "title": "Procedural sectors", "body": "Hand-authored set pieces inside seeded chaos." }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Market",
+      "heading": "Arcade heart. Campaign brain.",
+      "leftLabel": "Typical live service",
+      "left": "Battle pass treadmill.\nCosmetic FOMO.\nEmpty open world.",
+      "rightLabel": "BitOrbit",
+      "right": "Finite seasons.\nSkill expression first.\nStory you can finish.",
+      "emphasis": "right"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Demo",
+      "heading": "Steam Next Fest results",
+      "stats": [
+        { "value": "62k", "label": "Wishlists" },
+        { "value": "91%", "label": "Positive demo reviews" },
+        { "value": "18m", "label": "Avg session length" }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Ask",
+      "heading": "Fund the full campaign arc.",
+      "lead": "$2.4M production · 14 months · PC first.",
+      "cta": { "label": "Play the demo", "href": "#" }
+    }
+  ]
+}

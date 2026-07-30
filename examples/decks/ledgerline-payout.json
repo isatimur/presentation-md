@@ -1,0 +1,60 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "LedgerLine — Payouts Sales",
+    "company": "LedgerLine",
+    "description": "Fintech payouts sales deck — fintech-clean with code + asymmetric two-column.",
+    "theme": "fintech-clean"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Realtime payouts",
+      "heading": "Pay sellers before they chase you.",
+      "lead": "RTP rails, idempotent APIs, reconciliation that finance trusts."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "The gap",
+      "heading": "Marketplaces still settle like it's 2014.",
+      "body": "Batch files. T+2. Support tickets that start with “where is my money?” LedgerLine collapses that to a receipt in under a minute.",
+      "aside": "Average seller chase costs $18 in support before a payout clears.",
+      "ratio": "2-1"
+    },
+    {
+      "layout": "code",
+      "eyebrow": "Developer experience",
+      "heading": "Trigger a payout in under five minutes",
+      "filename": "ledgerline-payout.js",
+      "language": "js",
+      "code": "const ll = new LedgerLine({ apiKey: process.env.LL_KEY });\n\nconst payout = await ll.payouts.create({\n  amount: 25000,\n  currency: 'usd',\n  destination: 'seller_9kXm2p',\n  rail: 'rtp',\n  idempotency_key: 'order_abc123',\n});\n\n// payout.status === 'settled'  (avg 68s)"
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Economics",
+      "heading": "Cost that CFOs can defend.",
+      "leftLabel": "Legacy rails",
+      "left": "1.5% + $0.30\nT+2 settlement\nManual exception queues",
+      "rightLabel": "LedgerLine",
+      "right": "0.2% + $0.10\nSeconds on RTP\nAutomated returns + webhooks",
+      "emphasis": "right"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Traction",
+      "heading": "Numbers from live volume",
+      "stats": [
+        { "value": "$4.8B", "label": "Annualized GPV" },
+        { "value": "68s", "label": "Median settle time" },
+        { "value": "0.04%", "label": "Return rate" }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Next step",
+      "heading": "Wire sandbox. Ship Friday.",
+      "lead": "SOC2 · bank-grade KYC partners · white-glove onboarding for Series B+.",
+      "cta": { "label": "Book a walkthrough", "href": "#" }
+    }
+  ]
+}

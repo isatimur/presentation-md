@@ -1,0 +1,51 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "VoltCraft — Creative Credentials",
+    "company": "VoltCraft",
+    "description": "Creative agency credentials — creative-voltage multi-slide proof.",
+    "theme": "creative-voltage"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Creative studio",
+      "heading": "Voltage over volume.",
+      "lead": "Campaigns with one idea, loud type, and zero sticker soup."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "What we ship",
+      "heading": "Four surfaces. One voltage.",
+      "columns": 2,
+      "cards": [
+        { "icon": "fa-solid fa-bullhorn", "title": "Launch systems", "body": "Identity + site + motion that share a single rule set." },
+        { "icon": "fa-solid fa-film", "title": "Motion packs", "body": "2–3 intentional beats — presence, not particles." },
+        { "icon": "fa-solid fa-pen-nib", "title": "Brand languages", "body": "Type and color documented so the next hire ships day one." },
+        { "icon": "fa-solid fa-shop", "title": "Retail moments", "body": "Installations that photograph as well as they convert." }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Proof",
+      "heading": "Last twelve months",
+      "stats": [
+        { "value": "38", "label": "Launches shipped" },
+        { "value": "4.9", "label": "Client NPS" },
+        { "value": "11", "label": "Awards shortlists" }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "They killed three of our safe options and made the fourth inevitable.",
+      "by": "Priya Nair · CMO · Orbit Apparel"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Start",
+      "heading": "Bring the brief. Leave the moodboard theater.",
+      "lead": "Studios in Lisbon and Brooklyn.",
+      "cta": { "label": "Start a project", "href": "#" }
+    }
+  ]
+}

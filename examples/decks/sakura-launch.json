@@ -1,0 +1,56 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Sakura Audio — Product Launch",
+    "company": "Sakura Audio",
+    "description": "Consumer audio launch — sakura-chroma multi-slide proof.",
+    "theme": "sakura-chroma"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Launch · Spring",
+      "heading": "Sound that blushes.",
+      "lead": "Wireless earbuds with a cassette soul and a modern chip."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Product",
+      "heading": "Three reasons it leaves the shelf",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-music", "title": "Warm profile", "body": "Tuned for vocals first — not bass-brag demos." },
+        { "icon": "fa-solid fa-battery-full", "title": "36-hour case", "body": "All-day wear without the anxiety charge." },
+        { "icon": "fa-solid fa-palette", "title": "Four chroma shells", "body": "Sakura, ink, matcha, midnight — finish that photographs." }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Waitlist",
+      "heading": "Preorder heat",
+      "stats": [
+        { "value": "84k", "label": "Waitlist signups" },
+        { "value": "4.8", "label": "Beta listening score" },
+        { "value": "$149", "label": "Launch price" }
+      ]
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Rollout",
+      "heading": "From drop to everywhere",
+      "steps": [
+        { "title": "Week 0", "body": "Creator kits land." },
+        { "title": "Week 2", "body": "DTC + pop-ups in three cities." },
+        { "title": "Week 6", "body": "Select retail." },
+        { "title": "Week 12", "body": "Global carriers." }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Listen",
+      "heading": "Reserve your chroma.",
+      "lead": "Ships in 21 days. Free exchanges on fit.",
+      "cta": { "label": "Join the waitlist", "href": "#" }
+    }
+  ]
+}

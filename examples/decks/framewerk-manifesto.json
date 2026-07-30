@@ -1,0 +1,53 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Framewerk — Manifesto",
+    "company": "Framewerk",
+    "description": "Youth brand manifesto — block-frame multi-slide proof.",
+    "theme": "block-frame"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Manifesto",
+      "heading": "Borders are the brand.",
+      "lead": "Hard frames. Louder type. No soft gradients pretending to be personality."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Belief",
+      "heading": "If it needs a glow to hold attention, the idea is weak.",
+      "body": "Framewerk designs for stages, streets, and screens that already have too much noise. Contrast is the product.",
+      "aside": "3px rules. Offset shadows. Zero apology.",
+      "ratio": "3-2"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Offers",
+      "heading": "What we actually sell",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-shirt", "title": "Drop systems", "body": "Seasonal kits with a single visual law." },
+        { "icon": "fa-solid fa-microphone", "title": "Tour identities", "body": "Posters that read from the back row." },
+        { "icon": "fa-solid fa-globe", "title": "Site frames", "body": "Web that feels like print with a pulse." }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Filter",
+      "heading": "We take the brief if…",
+      "leftLabel": "Yes",
+      "left": "One sharp idea.\nPermission to cut.\nTaste over trends.",
+      "rightLabel": "No",
+      "right": "Committee aesthetics.\nSafe beige.\nLogo salad.",
+      "emphasis": "left"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Contact",
+      "heading": "Frame it or forget it.",
+      "lead": "hello@framewerk.studio",
+      "cta": { "label": "Send the brief", "href": "#" }
+    }
+  ]
+}

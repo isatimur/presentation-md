@@ -1,0 +1,63 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Forge — API Launch",
+    "company": "Forge",
+    "description": "Developer API launch — developer-dark multi-slide proof with code layout.",
+    "theme": "developer-dark"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "API · Public beta",
+      "heading": "Ship infra like you ship product.",
+      "lead": "One client. Idempotent writes. Observability that matches your IDE."
+    },
+    {
+      "layout": "code",
+      "eyebrow": "60-second start",
+      "heading": "Create a job. Get a receipt.",
+      "filename": "forge-quickstart.ts",
+      "language": "ts",
+      "code": "import { Forge } from '@forge/sdk';\n\nconst forge = new Forge({ token: process.env.FORGE_TOKEN });\n\nconst job = await forge.jobs.create({\n  pipeline: 'ingest-v3',\n  input: { bucket: 's3://events/raw' },\n  idempotencyKey: 'run_2026_07_30',\n});\n\nconsole.log(job.id, job.status); // queued → running → done"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Why teams switch",
+      "heading": "Built for operators who live in git",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-terminal", "title": "CLI-first", "body": "forge run, forge logs, forge diff — same verbs as your deploy tool." },
+        { "icon": "fa-solid fa-shield-halved", "title": "Idempotent by default", "body": "Retry safely. Duplicate keys are a no-op, not a double charge." },
+        { "icon": "fa-solid fa-wave-square", "title": "Traces included", "body": "Every job links to a span tree you can open in your APM." }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Before / After",
+      "heading": "From glue scripts to a contract.",
+      "leftLabel": "Before",
+      "left": "Cron + bash + hope.\nSilent failures at 3am.\nNo shared receipt.",
+      "rightLabel": "With Forge",
+      "right": "Typed jobs with receipts.\nRetries with budgets.\nOne pane for status.",
+      "emphasis": "right"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Beta signal",
+      "heading": "Ninety days. Zero paid ads.",
+      "stats": [
+        { "value": "1.2k", "label": "Active workspaces" },
+        { "value": "48M", "label": "Jobs executed" },
+        { "value": "99.95%", "label": "API success SLA" }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Get in",
+      "heading": "Your next deploy should feel boring.",
+      "lead": "Free tier · no card · docs that assume you can read TypeScript.",
+      "cta": { "label": "Read the docs", "href": "#" }
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Northline — Strategy Briefing",
+    "company": "Northline",
+    "description": "Long-form strategy briefing — signal theme multi-slide proof.",
+    "theme": "signal"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Board briefing · Q3",
+      "heading": "Where we double down. Where we walk away.",
+      "lead": "A single narrative for capital allocation — not a slide dump of initiatives."
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "The operating thesis",
+      "lead": "Fewer bets. Sharper edges. Measurable kill criteria."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Focus",
+      "heading": "Three bets that earn the right to grow",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-crosshairs", "title": "Enterprise core", "body": "Defend the $84M ARR franchise — expand seats, not SKUs." },
+        { "icon": "fa-solid fa-rocket", "title": "Adjacent wedge", "body": "Compliance workflow — $12M ARR path with existing buyers." },
+        { "icon": "fa-solid fa-ban", "title": "Explicit no's", "body": "Consumer app, marketplace, and hardware R&D stay parked." }
+      ]
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Allocation",
+      "heading": "Next four quarters of spend",
+      "columns": ["Bet", "OpEx", "Headcount", "Kill criteria"],
+      "rows": [
+        ["Enterprise core", "$28M", "+18", "NRR < 110%"],
+        ["Compliance wedge", "$9M", "+22", "<40 logos by Q2"],
+        ["Platform debt", "$6M", "+8", "p95 > 400ms"]
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Decision",
+      "heading": "Continue vs. cut — same facts.",
+      "leftLabel": "Continue",
+      "left": "NRR ≥ 118%.\nPipeline coverage ≥ 3.2×.\nSupport CSAT ≥ 4.6.",
+      "rightLabel": "Cut / reallocate",
+      "right": "Any KPI miss for two quarters.\nOr a competitor closes the wedge first.",
+      "emphasis": "left"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Ask",
+      "heading": "Approve the thesis. Hold us to the kill criteria.",
+      "lead": "Next review: first Monday after quarter close.",
+      "cta": { "label": "Open the memo", "href": "#" }
+    }
+  ]
+}

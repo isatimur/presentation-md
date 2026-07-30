@@ -807,7 +807,7 @@
       Each theme ships a distinct <strong>surface profile</strong> — not just colors, but background treatment,
       decor, and motion. Full frontend-slides bold-template-pack coverage (34 systems) plus STYLE_PRESETS and
       gallery-craft originals. Install more with <span class="inline-code">npm i @presentation-md/theme-&lt;name&gt;</span>.
-      Agents call <span class="inline-code">preview_themes</span> to render three live title slides before you commit.
+      Agents call <span class="inline-code">preview_themes</span> to render live theme previews before you commit — title or multi-layout craft bake.
     </p>
 
     <div class="theme-preview-strip" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:40px;">
@@ -2328,7 +2328,7 @@
 <section id="layouts">
   <div class="container">
     <span class="eyebrow">Layouts</span>
-    <h2>Eleven layouts. Mix and match.</h2>
+    <h2>Twelve layouts. Mix and match.</h2>
     <p class="section-lead">
       Every slide picks exactly one layout. The agent chooses the right one for the content;
       you can always override. Each layout is a purpose-built HTML/CSS template — no DIY needed.
@@ -2399,7 +2399,13 @@
       <div class="layout-cell">
         <div class="layout-icon"><i class="fa-solid fa-left-right"></i></div>
         <h3>comparison</h3>
-        <p>Side-by-side contrast — before/after, us vs them, option A vs B. Parallel structure required.</p>
+        <p>Side-by-side contrast — before/after, us vs them, option A vs B. Optional emphasis grows the winning column.</p>
+      </div>
+
+      <div class="layout-cell">
+        <div class="layout-icon"><i class="fa-solid fa-code"></i></div>
+        <h3>code</h3>
+        <p>API / SDK snippet in window chrome. Dev demos, install recipes, one-file “aha” moments — plain text, HTML-escaped.</p>
       </div>
 
     </div>
@@ -2415,8 +2421,8 @@
 
     <div class="structured-proof" style="margin:36px 0 8px;padding:28px 28px 8px;border:1px solid var(--rule);border-radius:16px;background:var(--paper2)">
       <span class="eyebrow">Structured path proof</span>
-      <h3 style="margin:8px 0 10px;font-size:1.35rem">Ten schema-rendered decks — including Bold Signal, Electric Studio, Soft Editorial, Neon Cyber, and Swiss Modern.</h3>
-      <p style="color:var(--muted);max-width:62ch;margin:0 0 20px;line-height:1.5">Handcrafted gallery decks prove craft. These prove the product path: valid Deck JSON → theme → HTML (Studio-editable, PPTX-exportable). Multi-slide layouts — comparison, stats, quotes — not title-only. Sources live in <code style="font-size:0.85em">examples/decks/</code>.</p>
+      <h3 style="margin:8px 0 10px;font-size:1.35rem">Eighteen schema-rendered decks — including code-layout API demos, Bold Signal, Neon Cyber, Swiss Modern, and bold-pack flagships.</h3>
+      <p style="color:var(--muted);max-width:62ch;margin:0 0 20px;line-height:1.5">Handcrafted gallery decks prove craft. These prove the product path: valid Deck JSON → theme → HTML (Studio-editable, PPTX-exportable). Multi-slide layouts — comparison, stats, quotes, code — not title-only. Sources live in <code style="font-size:0.85em">examples/decks/</code>.</p>
       <div class="gallery-grid" style="margin-top:0;margin-bottom:20px">
         <a href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
           <div class="thumb" style="background:linear-gradient(135deg,#0e0e12,#1a0533);display:flex;align-items:flex-end;padding:20px">
@@ -2515,6 +2521,86 @@
           <div class="card-meta">
             <div class="card-title">Neon District (Deck JSON)</div>
             <div class="card-badges"><span class="badge neon">Neon Cyber</span><span class="badge dark">Schema-rendered</span></div>
+            <div class="card-cta">Open structured deck →</div>
+          </div>
+        </a>
+        <a href="examples/structured/forge-api.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
+          <div class="thumb" style="background:#0d1117;display:flex;align-items:flex-end;padding:20px">
+            <div style="font-family:ui-monospace,monospace;font-weight:700;font-size:1.15rem;color:#58a6ff;line-height:1.15">Forge API<br><span style="color:#3fb950;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase">developer-dark</span></div>
+          </div>
+          <div class="card-meta">
+            <div class="card-title">Forge (Deck JSON)</div>
+            <div class="card-badges"><span class="badge dark">API + code</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-cta">Open structured deck →</div>
+          </div>
+        </a>
+        <a href="examples/structured/ledgerline-payout.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
+          <div class="thumb" style="background:#f7f8fc;display:flex;align-items:flex-end;padding:20px;border-bottom:1px solid #e2e5ef">
+            <div style="font-family:system-ui;font-weight:700;font-size:1.15rem;color:#1e1b4b;line-height:1.15">LedgerLine<br><span style="color:#6366f1;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">fintech-clean</span></div>
+          </div>
+          <div class="card-meta">
+            <div class="card-title">LedgerLine (Deck JSON)</div>
+            <div class="card-badges"><span class="badge blue">Fintech + code</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-cta">Open structured deck →</div>
+          </div>
+        </a>
+        <a href="examples/structured/nightbloom-impact.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
+          <div class="thumb" style="background:#0c1410;display:flex;align-items:flex-end;padding:20px">
+            <div style="font-family:Georgia,serif;font-weight:600;font-size:1.15rem;color:#d4e8c2;line-height:1.15">Nightbloom<br><span style="font-family:system-ui;color:#7cb87a;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">dark-botanical</span></div>
+          </div>
+          <div class="card-meta">
+            <div class="card-title">Nightbloom (Deck JSON)</div>
+            <div class="card-badges"><span class="badge light">Impact</span><span class="badge dark">Schema-rendered</span></div>
+            <div class="card-cta">Open structured deck →</div>
+          </div>
+        </a>
+        <a href="examples/structured/briefing-signal.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
+          <div class="thumb" style="background:#111827;display:flex;align-items:flex-end;padding:20px">
+            <div style="font-family:system-ui;font-weight:700;font-size:1.15rem;color:#f3f4f6;line-height:1.15">Northline<br><span style="color:#38bdf8;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">signal</span></div>
+          </div>
+          <div class="card-meta">
+            <div class="card-title">Northline Briefing (Deck JSON)</div>
+            <div class="card-badges"><span class="badge dark">Strategy</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-cta">Open structured deck →</div>
+          </div>
+        </a>
+        <a href="examples/structured/voltcraft-agency.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
+          <div class="thumb" style="background:linear-gradient(135deg,#111,#7c3aed);display:flex;align-items:flex-end;padding:20px">
+            <div style="font-family:system-ui;font-weight:900;font-size:1.2rem;color:#fff;line-height:1.1">VoltCraft<br><span style="color:#fde047;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">creative-voltage</span></div>
+          </div>
+          <div class="card-meta">
+            <div class="card-title">VoltCraft (Deck JSON)</div>
+            <div class="card-badges"><span class="badge accent">Agency</span><span class="badge dark">Schema-rendered</span></div>
+            <div class="card-cta">Open structured deck →</div>
+          </div>
+        </a>
+        <a href="examples/structured/framewerk-manifesto.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
+          <div class="thumb" style="background:#fff;display:flex;align-items:flex-end;padding:20px;border:3px solid #111;box-sizing:border-box">
+            <div style="font-family:system-ui;font-weight:900;font-size:1.2rem;color:#111;line-height:1.05">Framewerk<br><span style="color:#e11d48;font-size:0.75rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase">block-frame</span></div>
+          </div>
+          <div class="card-meta">
+            <div class="card-title">Framewerk (Deck JSON)</div>
+            <div class="card-badges"><span class="badge coral">Manifesto</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-cta">Open structured deck →</div>
+          </div>
+        </a>
+        <a href="examples/structured/sakura-launch.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
+          <div class="thumb" style="background:linear-gradient(135deg,#ffd6e7,#c4b5fd);display:flex;align-items:flex-end;padding:20px">
+            <div style="font-family:system-ui;font-weight:800;font-size:1.15rem;color:#4a044e;line-height:1.1">Sakura Audio<br><span style="color:#831843;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">sakura-chroma</span></div>
+          </div>
+          <div class="card-meta">
+            <div class="card-title">Sakura Audio (Deck JSON)</div>
+            <div class="card-badges"><span class="badge coral">Launch</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-cta">Open structured deck →</div>
+          </div>
+        </a>
+        <a href="examples/structured/bitorbit-game.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
+          <div class="thumb" style="background:#0b1026;display:flex;align-items:flex-end;padding:20px;image-rendering:pixelated">
+            <div style="font-family:ui-monospace,monospace;font-weight:700;font-size:1.1rem;color:#7CFC00;line-height:1.15;text-shadow:2px 2px 0 #111">BitOrbit<br><span style="color:#60a5fa;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase">8-bit-orbit</span></div>
+          </div>
+          <div class="card-meta">
+            <div class="card-title">BitOrbit (Deck JSON)</div>
+            <div class="card-badges"><span class="badge neon">Game pitch</span><span class="badge dark">Schema-rendered</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3115,7 +3201,7 @@
       <div class="step">
         <span class="step-icon"><i class="fa-solid fa-eye"></i></span>
         <h3>Same discovery UX</h3>
-        <p><span class="inline-code">preview_themes</span> renders three title-slide HTML previews before you lock a vibe — mandatory in the skill, not optional.</p>
+        <p><span class="inline-code">preview_themes</span> renders live HTML previews before you lock a vibe — title by default, or <span class="inline-code">mode: "layouts"</span> for a multi-slide craft bake. Mandatory in the skill, not optional.</p>
       </div>
       <div class="step">
         <span class="step-icon"><i class="fa-solid fa-file-code"></i></span>

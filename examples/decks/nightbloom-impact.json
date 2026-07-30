@@ -1,0 +1,84 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Nightbloom \u2014 Impact Brief",
+    "company": "Nightbloom",
+    "description": "Climate / luxury impact deck \u2014 dark-botanical multi-slide proof.",
+    "theme": "dark-botanical"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Impact brief \u00b7 2026",
+      "heading": "Beauty that regenerates the ground it grows from.",
+      "lead": "A fragrance house measured by soil carbon, not only scent notes."
+    },
+    {
+      "layout": "quote",
+      "quote": "Luxury without provenance is costume jewelry for the conscience.",
+      "by": "Amira Sol \u00b7 Creative Director"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Commitments",
+      "heading": "Three roots. No greenwash.",
+      "columns": "bento",
+      "cards": [
+        {
+          "icon": "fa-solid fa-seedling",
+          "title": "Regenerative farms",
+          "body": "Every absolute traces to a plot with a living soil plan \u2014 published, not promised."
+        },
+        {
+          "icon": "fa-solid fa-droplet",
+          "title": "Water ledger",
+          "body": "Liters per bottle audited quarterly."
+        },
+        {
+          "icon": "fa-solid fa-recycle",
+          "title": "Refill first",
+          "body": "70% of revenue from refillable vessels by 2028."
+        },
+        {
+          "icon": "fa-solid fa-hand-holding-heart",
+          "title": "Grower equity",
+          "body": "Profit share with cooperative partners in three regions."
+        },
+        {
+          "icon": "fa-solid fa-flask",
+          "title": "No silent solvents",
+          "body": "Full INCI + process transparency online."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Proof",
+      "heading": "Measured, not mood-boarded",
+      "stats": [
+        {
+          "value": "2.4k t",
+          "label": "Soil carbon sequestered (YTD)"
+        },
+        {
+          "value": "12",
+          "label": "Partner farms"
+        },
+        {
+          "value": "41%",
+          "label": "Refill attach rate"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Partnerships",
+      "heading": "Grow with us \u2014 or grow against the grain.",
+      "lead": "Retail \u00b7 hospitality \u00b7 cultural institutions.",
+      "cta": {
+        "label": "Request the dossier",
+        "href": "#"
+      }
+    }
+  ]
+}
