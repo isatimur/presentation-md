@@ -1040,7 +1040,9 @@
   border-radius: 16px;
   box-shadow: 0 24px 60px rgba(0,0,0,0.45);
 }
-.deck[data-surface="bold-signal-card"] .slide::after {
+/* Orange focal panel — title/closing only; content slides need full width */
+.deck[data-surface="bold-signal-card"] .title-slide::after,
+.deck[data-surface="bold-signal-card"] .closing-slide::after {
   width: 42%;
   height: 58%;
   right: 48px;
@@ -1051,15 +1053,27 @@
   filter: none;
   opacity: 0.95;
 }
+.deck[data-surface="bold-signal-card"] .slide:not(.title-slide):not(.closing-slide)::after {
+  display: none;
+}
 .deck[data-surface="bold-signal-card"] .slide h1 {
   font-weight: 400;
   letter-spacing: -0.02em;
 }
 .deck[data-surface="bold-signal-card"] .card {
-  background: var(--accent);
-  color: #1a1a1a;
+  background: color-mix(in srgb, var(--accent) 18%, #1a1a1a);
+  color: #ffffff;
   border-radius: 16px;
-  border: none;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.deck[data-surface="bold-signal-card"] .card i,
+.deck[data-surface="bold-signal-card"] .card h3 { color: #ffffff; }
+.deck[data-surface="bold-signal-card"] .card p { color: rgba(255,255,255,0.72); }
+.deck[data-surface="bold-signal-card"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 22%, #1a1a1a);
+}
+.deck[data-surface="bold-signal-card"] .stat {
+  border-top-color: var(--accent);
 }
 
 /* ── notebook-tabs-page (notebook-tabs) ── */
@@ -1098,12 +1112,17 @@
 
 /* ── creative-voltage-split (creative-voltage) ── */
 .deck[data-surface="creative-voltage-split"] .slide {
-  --slide-bg: linear-gradient(90deg, #0066ff 0 48%, #1a1a2e 48% 100%);
+  --slide-bg: #1a1a2e;
   border-radius: 0;
   border: 2px solid var(--accent);
   box-shadow: 8px 8px 0 var(--accent);
 }
-.deck[data-surface="creative-voltage-split"] .slide::after {
+.deck[data-surface="creative-voltage-split"] .title-slide,
+.deck[data-surface="creative-voltage-split"] .closing-slide {
+  --slide-bg: linear-gradient(90deg, #0066ff 0 48%, #1a1a2e 48% 100%);
+}
+.deck[data-surface="creative-voltage-split"] .title-slide::after,
+.deck[data-surface="creative-voltage-split"] .closing-slide::after {
   width: 88px;
   height: 88px;
   right: 48px;
@@ -1111,6 +1130,9 @@
   background: var(--accent);
   filter: none;
   border-radius: 50%;
+}
+.deck[data-surface="creative-voltage-split"] .slide:not(.title-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="creative-voltage-split"] .slide h1 {
   text-shadow: 0 0 24px color-mix(in srgb, var(--accent) 45%, transparent);
@@ -1152,36 +1174,66 @@
 
 /* ── electric-studio-split (electric-studio) ── */
 .deck[data-surface="electric-studio-split"] .slide {
-  --slide-bg: linear-gradient(180deg, var(--bg) 0 52%, var(--bg-2) 52% 100%);
+  --slide-bg: var(--bg);
   border-radius: 0;
   border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
   box-shadow: 0 18px 48px rgba(10, 10, 10, 0.12);
 }
-.deck[data-surface="electric-studio-split"] .slide::before {
+/* Title/closing keep the white→blue split; content slides stay readable white */
+.deck[data-surface="electric-studio-split"] .title-slide,
+.deck[data-surface="electric-studio-split"] .closing-slide {
+  --slide-bg: linear-gradient(180deg, var(--bg) 0 52%, var(--bg-2) 52% 100%);
+}
+.deck[data-surface="electric-studio-split"] .title-slide::before,
+.deck[data-surface="electric-studio-split"] .closing-slide::before {
   left: 0;
   top: 52%;
   bottom: 0;
   width: 8px;
   background: #0a0a0a;
 }
+.deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide)::before {
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  background: var(--accent);
+}
 .deck[data-surface="electric-studio-split"] .slide::after {
   display: none;
 }
-.deck[data-surface="electric-studio-split"] .slide h1 {
+.deck[data-surface="electric-studio-split"] .slide h1,
+.deck[data-surface="electric-studio-split"] .slide h2 {
   font-weight: 800;
   letter-spacing: -0.03em;
   color: #0a0a0a;
   mix-blend-mode: normal;
 }
-.deck[data-surface="electric-studio-split"] .slide .lead,
-.deck[data-surface="electric-studio-split"] .slide p,
-.deck[data-surface="electric-studio-split"] .slide .eyebrow {
+.deck[data-surface="electric-studio-split"] .title-slide .lead,
+.deck[data-surface="electric-studio-split"] .title-slide > p,
+.deck[data-surface="electric-studio-split"] .title-slide .eyebrow,
+.deck[data-surface="electric-studio-split"] .closing-slide .lead,
+.deck[data-surface="electric-studio-split"] .closing-slide > p,
+.deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+.deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
+.deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
+.deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) p {
+  color: var(--muted);
+}
 .deck[data-surface="electric-studio-split"] .card {
-  background: rgba(255,255,255,0.92);
+  background: color-mix(in srgb, var(--accent) 8%, #ffffff);
   border-radius: 0;
   border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+}
+.deck[data-surface="electric-studio-split"] .card p { color: var(--muted); }
+.deck[data-surface="electric-studio-split"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 12%, #ffffff);
+}
+.deck[data-surface="electric-studio-split"] .quote {
+  border-left-color: var(--accent);
+  color: #0a0a0a;
 }
 
 /* ── dark-botanical-bloom (dark-botanical) ── */
@@ -1257,11 +1309,16 @@
 
 /* ── split-pastel-panels (split-pastel) ── */
 .deck[data-surface="split-pastel-panels"] .slide {
-  --slide-bg: linear-gradient(90deg, var(--bg) 0 50%, var(--bg-2) 50% 100%);
+  --slide-bg: var(--bg);
   border-radius: 24px;
   box-shadow: 0 16px 40px rgba(80, 60, 90, 0.12);
 }
-.deck[data-surface="split-pastel-panels"] .slide::before {
+.deck[data-surface="split-pastel-panels"] .title-slide,
+.deck[data-surface="split-pastel-panels"] .closing-slide {
+  --slide-bg: linear-gradient(90deg, var(--bg) 0 50%, var(--bg-2) 50% 100%);
+}
+.deck[data-surface="split-pastel-panels"] .title-slide::before,
+.deck[data-surface="split-pastel-panels"] .closing-slide::before {
   width: 42%;
   height: 42%;
   right: 8%;
@@ -1274,7 +1331,11 @@
   opacity: 0.55;
   border-radius: 16px;
 }
-.deck[data-surface="split-pastel-panels"] .slide::after {
+.deck[data-surface="split-pastel-panels"] .slide:not(.title-slide):not(.closing-slide)::before {
+  display: none;
+}
+.deck[data-surface="split-pastel-panels"] .title-slide::after,
+.deck[data-surface="split-pastel-panels"] .closing-slide::after {
   width: 72px;
   height: 28px;
   right: 48px;
@@ -1284,6 +1345,9 @@
   background: var(--accent);
   filter: none;
   box-shadow: 0 -40px 0 var(--accent2), 0 -80px 0 #f0f0c8;
+}
+.deck[data-surface="split-pastel-panels"] .slide:not(.title-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="split-pastel-panels"] .slide h1 {
   font-weight: 800;
@@ -1529,7 +1593,8 @@
   border: 2px solid var(--text);
   box-shadow: 10px 10px 0 color-mix(in srgb, var(--accent) 35%, transparent);
 }
-.deck[data-surface="sakura-chroma-cassette"] .slide::before {
+.deck[data-surface="sakura-chroma-cassette"] .title-slide::before,
+.deck[data-surface="sakura-chroma-cassette"] .closing-slide::before {
   width: 72px;
   height: 72px;
   right: 48px;
@@ -1543,7 +1608,11 @@
   filter: none;
   opacity: 0.95;
 }
-.deck[data-surface="sakura-chroma-cassette"] .slide::after {
+.deck[data-surface="sakura-chroma-cassette"] .slide:not(.title-slide):not(.closing-slide)::before {
+  display: none;
+}
+.deck[data-surface="sakura-chroma-cassette"] .title-slide::after,
+.deck[data-surface="sakura-chroma-cassette"] .closing-slide::after {
   width: 56px;
   height: 22px;
   left: 48px;
@@ -1553,6 +1622,12 @@
   border: 2px solid var(--text);
   filter: none;
   border-radius: 2px;
+}
+.deck[data-surface="sakura-chroma-cassette"] .slide:not(.title-slide):not(.closing-slide)::after {
+  display: none;
+}
+.deck[data-surface="sakura-chroma-cassette"] .slide:not(.title-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="sakura-chroma-cassette"] .slide h1 {
   font-weight: 900;
@@ -1615,7 +1690,8 @@
   border: 4px solid #000;
   box-shadow: 8px 8px 0 #000;
 }
-.deck[data-surface="block-frame-brutal"] .slide::before {
+.deck[data-surface="block-frame-brutal"] .title-slide::before,
+.deck[data-surface="block-frame-brutal"] .closing-slide::before {
   width: 28%;
   height: 18%;
   right: -2%;
@@ -1626,7 +1702,11 @@
   transform: rotate(6deg);
   filter: none;
 }
-.deck[data-surface="block-frame-brutal"] .slide::after {
+.deck[data-surface="block-frame-brutal"] .slide:not(.title-slide):not(.closing-slide)::before {
+  display: none;
+}
+.deck[data-surface="block-frame-brutal"] .title-slide::after,
+.deck[data-surface="block-frame-brutal"] .closing-slide::after {
   width: 16%;
   height: 22%;
   left: 6%;
@@ -1637,6 +1717,9 @@
   box-shadow: 6px 6px 0 #000;
   transform: rotate(-8deg);
   filter: none;
+}
+.deck[data-surface="block-frame-brutal"] .slide:not(.title-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="block-frame-brutal"] .slide h1 {
   font-weight: 900;
@@ -2384,6 +2467,123 @@
   border: 2px solid #1A1A1A;
   border-radius: 0;
   box-shadow: 8px 8px 0 var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Content-slide fidelity — layout chrome that survives beyond title slides
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Soften title-only ornaments that crowd content layouts */
+.deck[data-surface="daisy-days-pastel"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="daisy-days-pastel"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="pastel-geometry-pills"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="retro-zine-riso"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="retro-zine-riso"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="vintage-editorial-geo"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="vintage-editorial-geo"] .slide:not(.title-slide):not(.closing-slide)::after {
+  display: none;
+}
+
+/* Swiss / editorial: ruled comparison + stats */
+.deck[data-surface="swiss-grid"] .comparison-col,
+.deck[data-surface="broadsheet-rule"] .comparison-col,
+.deck[data-surface="newsprint-masthead"] .comparison-col {
+  border-radius: 0;
+  border-width: 1px 0 0 0;
+  background: transparent;
+  padding-left: 0;
+  padding-right: 24px;
+}
+.deck[data-surface="swiss-grid"] .comparison-col:last-child {
+  border-left: 3px solid var(--accent);
+  padding-left: 28px;
+  background: transparent;
+}
+.deck[data-surface="swiss-grid"] .stat {
+  border-top: 3px solid var(--accent);
+}
+.deck[data-surface="swiss-grid"] .card {
+  border-radius: 0;
+  border: 1px solid var(--border);
+}
+
+/* CRT / neon / terminal: glowing metrics + code-like cards */
+.deck[data-surface="crt-phosphor"] .stat .value,
+.deck[data-surface="neon-rain"] .stat .value,
+.deck[data-surface="dev-terminal"] .stat .value,
+.deck[data-surface="scanline-neon"] .stat .value {
+  text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.deck[data-surface="crt-phosphor"] .comparison-col,
+.deck[data-surface="neon-rain"] .comparison-col,
+.deck[data-surface="dev-terminal"] .comparison-col {
+  border-radius: 0;
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.deck[data-surface="crt-phosphor"] .quote,
+.deck[data-surface="neon-rain"] .quote,
+.deck[data-surface="dev-terminal"] .quote {
+  border-left-color: var(--accent);
+  text-shadow: 0 0 12px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+/* Soft editorial / paper themes: magazine pull-quote + ruled stats */
+.deck[data-surface="soft-editorial-paper"] .quote,
+.deck[data-surface="warm-paper"] .quote,
+.deck[data-surface="editorial-rule"] .quote,
+.deck[data-surface="paper-ink-literary"] .quote,
+.deck[data-surface="heritage-wash"] .quote {
+  border-left: none;
+  padding-left: 0;
+  max-width: 32ch;
+  font-style: normal;
+}
+.deck[data-surface="soft-editorial-paper"] .quote::before,
+.deck[data-surface="warm-paper"] .quote::before,
+.deck[data-surface="editorial-rule"] .quote::before {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: var(--accent);
+  margin-bottom: 24px;
+}
+.deck[data-surface="soft-editorial-paper"] .stat,
+.deck[data-surface="editorial-forest-paper"] .stat,
+.deck[data-surface="fintech-soft"] .stat {
+  border-top-width: 1px;
+  border-top-style: solid;
+}
+
+/* Brutal / poster: hard-edged comparison */
+.deck[data-surface="brutalist-grid"] .comparison-col,
+.deck[data-surface="block-frame-brutal"] .comparison-col,
+.deck[data-surface="hard-bento"] .comparison-col,
+.deck[data-surface="acid-block"] .comparison-col {
+  border-radius: 0;
+  border-width: 2px;
+}
+.deck[data-surface="brutalist-grid"] .comparison-vs,
+.deck[data-surface="block-frame-brutal"] .comparison-vs {
+  font-weight: 900;
+  opacity: 1;
+}
+
+/* Aurora / glass: frosted layout shells */
+.deck[data-surface="aurora-glass"] .comparison-col,
+.deck[data-surface="glass-mist"] .comparison-col {
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--card-bg) 70%, transparent);
+}
+.deck[data-surface="aurora-glass"] .stat .value,
+.deck[data-surface="glass-mist"] .stat .value {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Scroll-triggered reveals (populated by document.html script) */
