@@ -1,0 +1,77 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "PixelQuest — Demo Deck",
+    "company": "PixelQuest",
+    "description": "Arcade game demo — retro-arcade multi-slide proof.",
+    "theme": "retro-arcade"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Demo · v0.9",
+      "heading": "INSERT COIN. SHIP GLORY.",
+      "lead": "Magenta + cyan on purple-black. Orbitron for the high score."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Modes",
+      "heading": "Three ways to play",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-gamepad",
+          "title": "Arcade",
+          "body": "Local cabinets. Global bragging."
+        },
+        {
+          "icon": "fa-solid fa-users",
+          "title": "Co-op raid",
+          "body": "Two pads. One boss. Zero mercy."
+        },
+        {
+          "icon": "fa-solid fa-trophy",
+          "title": "Season ladder",
+          "body": "Weekly resets. Permanent ego."
+        }
+      ]
+    },
+    {
+      "layout": "code",
+      "eyebrow": "SDK",
+      "heading": "Hook the cabinet.",
+      "filename": "pixelquest.lua",
+      "language": "lua",
+      "code": "local pq = require('pixelquest')\n\npq.on('coin', function(player)\n  player:spawn()\n  pq.hud.flash('READY')\nend)\n\npq.loop(function(dt)\n  pq.enemies.tick(dt)\nend)"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Beta",
+      "heading": "The board so far.",
+      "stats": [
+        {
+          "value": "1.2M",
+          "label": "Credits"
+        },
+        {
+          "value": "48k",
+          "label": "High scores"
+        },
+        {
+          "value": "99",
+          "label": "Cabinets"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Play",
+      "heading": "PRESS START.",
+      "lead": "Closed beta keys drop Friday.",
+      "cta": {
+        "label": "Request a key",
+        "href": "#"
+      }
+    }
+  ]
+}

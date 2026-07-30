@@ -1,0 +1,77 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Legalpad — Pitch Deck",
+    "company": "Legalpad",
+    "description": "Legal-tech pitch — pin-and-paper multi-slide proof.",
+    "theme": "pin-and-paper"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Pitch",
+      "heading": "Yellow pad. Cobalt pins.",
+      "lead": "Space Grotesk for the claim. Caveat for the margin note."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Product",
+      "heading": "Lawyers' actual desk",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-thumbtack",
+          "title": "Pins",
+          "body": "Issues stay visible until closed."
+        },
+        {
+          "icon": "fa-solid fa-file-lines",
+          "title": "Pads",
+          "body": "Drafts that feel handwritten."
+        },
+        {
+          "icon": "fa-solid fa-scale-balanced",
+          "title": "Matter map",
+          "body": "Who owns what, on one page."
+        }
+      ]
+    },
+    {
+      "layout": "code",
+      "eyebrow": "API",
+      "heading": "Pin it in code.",
+      "filename": "legalpad.ts",
+      "language": "ts",
+      "code": "import { Pad } from '@legalpad/sdk';\n\nconst pad = Pad.open('matter-441');\npad.pin({ id: 'discovery', owner: 'alex' });\nawait pad.sync();\nconsole.log(pad.openPins());"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Beta",
+      "heading": "Firms on the pad.",
+      "stats": [
+        {
+          "value": "62",
+          "label": "Firms"
+        },
+        {
+          "value": "4.1×",
+          "label": "Faster handoff"
+        },
+        {
+          "value": "0",
+          "label": "Lost pins"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Pilot",
+      "heading": "Pin your first matter.",
+      "lead": "Pilot seats for boutique firms.",
+      "cta": {
+        "label": "Request a pilot",
+        "href": "#"
+      }
+    }
+  ]
+}

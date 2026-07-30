@@ -1,0 +1,77 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Graphpaper — Ops Deck",
+    "company": "Graphpaper",
+    "description": "Operations briefing — cobalt-grid multi-slide proof.",
+    "theme": "cobalt-grid"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Ops · Q3",
+      "heading": "Graph paper. Cobalt Newsreader.",
+      "lead": "Stair-step panels for people who measure twice."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Systems",
+      "heading": "Drawn before shipped",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-diagram-project",
+          "title": "Flows",
+          "body": "Every handoff has a line."
+        },
+        {
+          "icon": "fa-solid fa-table",
+          "title": "Scores",
+          "body": "Metrics on the same grid."
+        },
+        {
+          "icon": "fa-solid fa-compass",
+          "title": "Reviews",
+          "body": "Weekly stairs, not quarterly surprises."
+        }
+      ]
+    },
+    {
+      "layout": "code",
+      "eyebrow": "Score",
+      "heading": "Keep the grid honest.",
+      "filename": "ops.py",
+      "language": "python",
+      "code": "from graphpaper import Grid\n\ng = Grid.load('q3.yaml')\nfor step in g.stairs():\n    if step.drift > 0.05:\n        g.flag(step, 'DRIFT')\n    print(step.name, step.score)"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Quarter",
+      "heading": "Ops that hold.",
+      "stats": [
+        {
+          "value": "99.2%",
+          "label": "SLA"
+        },
+        {
+          "value": "14",
+          "label": "Teams"
+        },
+        {
+          "value": "0",
+          "label": "Mystery owners"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Align",
+      "heading": "Stay on the grid.",
+      "lead": "Ops review every Monday 9:00.",
+      "cta": {
+        "label": "Join the review",
+        "href": "#"
+      }
+    }
+  ]
+}

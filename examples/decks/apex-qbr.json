@@ -1,0 +1,79 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Apex — QBR Deck",
+    "company": "Apex",
+    "description": "Quarterly business review — corporate multi-slide proof.",
+    "theme": "corporate"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "QBR · FY26 Q2",
+      "heading": "Crisp white. Restrained navy.",
+      "lead": "Inter headlines. Source Sans for the detail."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Focus",
+      "heading": "This quarter's three bets",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-bullseye",
+          "title": "Enterprise",
+          "body": "Land five logo accounts."
+        },
+        {
+          "icon": "fa-solid fa-gears",
+          "title": "Platform",
+          "body": "Ship SSO + audit log."
+        },
+        {
+          "icon": "fa-solid fa-users",
+          "title": "CS",
+          "body": "Cut time-to-value in half."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Scorecard",
+      "heading": "Held to the plan.",
+      "stats": [
+        {
+          "value": "$12.4M",
+          "label": "New ARR"
+        },
+        {
+          "value": "94%",
+          "label": "Renewals"
+        },
+        {
+          "value": "2.1×",
+          "label": "Pipeline"
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Outlook",
+      "heading": "Next 90 days",
+      "leftLabel": "On track",
+      "left": "Enterprise motion.\nPlatform milestones.\nCS playbooks.",
+      "rightLabel": "Watch",
+      "right": "Hiring lag.\nEU compliance.\nChurn in SMB.",
+      "emphasis": "left"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Next",
+      "heading": "Execute the navy plan.",
+      "lead": "Working session Thursday 10:00.",
+      "cta": {
+        "label": "Add to calendar",
+        "href": "#"
+      }
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Borderlands — Studio Deck",
+    "company": "Borderlands",
+    "description": "Design studio manifesto — raw-grid multi-slide proof.",
+    "theme": "raw-grid"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Studio",
+      "heading": "3PX BORDERS ARE THE BRAND.",
+      "lead": "White field. Black rules. Blush and sage only as relief."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Practice",
+      "heading": "What the grid allows",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-border-all",
+          "title": "Layouts",
+          "body": "Every edge earns its weight."
+        },
+        {
+          "icon": "fa-solid fa-image",
+          "title": "Campaigns",
+          "body": "Posters that survive crop."
+        },
+        {
+          "icon": "fa-solid fa-code",
+          "title": "Sites",
+          "body": "DOM that looks like print."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Filter",
+      "heading": "We take work if…",
+      "leftLabel": "Yes",
+      "left": "Hard edges.\nFew colors.\nClear hierarchy.",
+      "rightLabel": "No",
+      "right": "Soft shadows.\nGradient soup.\nCard clutter.",
+      "emphasis": "left"
+    },
+    {
+      "layout": "quote",
+      "quote": "If removing the border breaks the page, the border was doing the job.",
+      "by": "Borderlands"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Contact",
+      "heading": "DRAW THE LINE.",
+      "lead": "hello@borderlands.studio",
+      "cta": {
+        "label": "Send a brief",
+        "href": "#"
+      }
+    }
+  ]
+}

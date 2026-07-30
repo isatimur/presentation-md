@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Verdure — Report Deck",
+    "company": "Verdure",
+    "description": "Sustainability report — emerald-editorial multi-slide proof.",
+    "theme": "emerald-editorial"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Report · 2026",
+      "heading": "Emerald on navy. Paper truth.",
+      "lead": "Bodoni for the claim. Manrope for the footnote."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Pillars",
+      "heading": "Where emerald goes",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-seedling",
+          "title": "Supply",
+          "body": "Traceable fibers only."
+        },
+        {
+          "icon": "fa-solid fa-recycle",
+          "title": "Cycle",
+          "body": "Take-back that actually takes back."
+        },
+        {
+          "icon": "fa-solid fa-chart-line",
+          "title": "Disclose",
+          "body": "Numbers before adjectives."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Year",
+      "heading": "Progress you can audit.",
+      "stats": [
+        {
+          "value": "−34%",
+          "label": "Emissions"
+        },
+        {
+          "value": "91%",
+          "label": "Traceable"
+        },
+        {
+          "value": "2",
+          "label": "Factories exited"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Emerald is earned in the ledger, not the logo.",
+      "by": "Verdure"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Read",
+      "heading": "Open the full report.",
+      "lead": "PDF + methodology appendix.",
+      "cta": {
+        "label": "Download report",
+        "href": "#"
+      }
+    }
+  ]
+}

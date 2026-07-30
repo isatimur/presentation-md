@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Mossprint — Journal Deck",
+    "company": "Mossprint",
+    "description": "Literary journal media kit — editorial-forest multi-slide proof.",
+    "theme": "editorial-forest"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Media kit",
+      "heading": "Cream paper. Forest + rose.",
+      "lead": "Source Serif for the essay. Mono for the folio."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Sections",
+      "heading": "Inside Vol. 12",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-leaf",
+          "title": "Field notes",
+          "body": "Essays from the trail."
+        },
+        {
+          "icon": "fa-solid fa-feather",
+          "title": "Fiction",
+          "body": "Short stories with dirt under the nails."
+        },
+        {
+          "icon": "fa-solid fa-camera",
+          "title": "Plates",
+          "body": "Photography that breathes green."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Reach",
+      "heading": "Readers in the woods.",
+      "stats": [
+        {
+          "value": "28k",
+          "label": "Subs"
+        },
+        {
+          "value": "12",
+          "label": "Vols"
+        },
+        {
+          "value": "6",
+          "label": "Awards"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Rose is the soft edge of the forest, not a substitute for it.",
+      "by": "Mossprint"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Advertise",
+      "heading": "Place a quiet ad.",
+      "lead": "Half and full pages for Vol. 13.",
+      "cta": {
+        "label": "Request rates",
+        "href": "#"
+      }
+    }
+  ]
+}

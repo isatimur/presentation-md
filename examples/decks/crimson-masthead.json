@@ -1,0 +1,77 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Crimson — Masthead Deck",
+    "company": "Crimson",
+    "description": "Magazine media kit — editorial-serif multi-slide proof.",
+    "theme": "editorial-serif"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Media kit",
+      "heading": "Cream paper. Crimson masthead.",
+      "lead": "Serif ink for the story. Thin rules for the rest."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Voice",
+      "heading": "Print that still matters.",
+      "body": "Crimson publishes long features for readers who keep the issue on the table.",
+      "aside": "Hairline rules. Square corners. One crimson strike.",
+      "ratio": "3-2"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Inventory",
+      "heading": "Ad placements",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-bookmark",
+          "title": "Cover tip-on",
+          "body": "First impression, last word."
+        },
+        {
+          "icon": "fa-solid fa-columns",
+          "title": "Spread",
+          "body": "Two pages, one argument."
+        },
+        {
+          "icon": "fa-solid fa-rectangle-ad",
+          "title": "Classifieds",
+          "body": "Small type, high intent."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Audience",
+      "heading": "Readers who stay.",
+      "stats": [
+        {
+          "value": "110k",
+          "label": "Print"
+        },
+        {
+          "value": "420k",
+          "label": "Digital"
+        },
+        {
+          "value": "18m",
+          "label": "Avg time"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Book",
+      "heading": "Reserve the masthead week.",
+      "lead": "Q4 inventory open.",
+      "cta": {
+        "label": "Book a page",
+        "href": "#"
+      }
+    }
+  ]
+}

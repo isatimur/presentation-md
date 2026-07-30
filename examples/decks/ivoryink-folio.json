@@ -1,0 +1,63 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Ivory & Ink — Folio Deck",
+    "company": "Ivory & Ink",
+    "description": "Editorial folio — monochrome multi-slide proof.",
+    "theme": "monochrome"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Folio",
+      "heading": "Ivory field. Thin ink.",
+      "lead": "Jost 200 for air. Lora italic for the line that matters."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Belief",
+      "heading": "Restraint is the loudest move.",
+      "body": "Ivory & Ink designs books and decks where weight is rationed and italics earn their place.",
+      "aside": "No second accent. No decoration tax.",
+      "ratio": "3-2"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Work",
+      "heading": "Recent commissions",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-book",
+          "title": "Monographs",
+          "body": "Artist books with breathing room."
+        },
+        {
+          "icon": "fa-solid fa-file-invoice",
+          "title": "Annuals",
+          "body": "Reports that refuse chart junk."
+        },
+        {
+          "icon": "fa-solid fa-id-card",
+          "title": "Identity",
+          "body": "Marks that survive one color."
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "If it needs a second color, the first idea was weak.",
+      "by": "Ivory & Ink"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Commission",
+      "heading": "Stay in the ivory.",
+      "lead": "Select clients for 2027.",
+      "cta": {
+        "label": "Start a project",
+        "href": "#"
+      }
+    }
+  ]
+}

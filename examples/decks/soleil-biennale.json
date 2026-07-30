@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Soleil — Biennale Deck",
+    "company": "Soleil",
+    "description": "Cultural pavilion pitch — biennale-yellow multi-slide proof.",
+    "theme": "biennale-yellow"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Pavilion · 2026",
+      "heading": "Sun on parchment. Indigo ink.",
+      "lead": "Instrument Serif for the hall. Archivo for the wall text."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Rooms",
+      "heading": "Three galleries, one light",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-sun",
+          "title": "Solar field",
+          "body": "Yellow as architecture, not decoration."
+        },
+        {
+          "icon": "fa-solid fa-book-open",
+          "title": "Wall text",
+          "body": "Short captions that survive a crowd."
+        },
+        {
+          "icon": "fa-solid fa-landmark",
+          "title": "Pavilion plan",
+          "body": "Circulation drawn before the paint."
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "If the yellow is timid, the room is empty.",
+      "by": "Soleil · Curatorial note"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Attendance",
+      "heading": "Proof of presence.",
+      "stats": [
+        {
+          "value": "42k",
+          "label": "Visitors"
+        },
+        {
+          "value": "11",
+          "label": "Nations"
+        },
+        {
+          "value": "1",
+          "label": "Sun"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Invite",
+      "heading": "Bring the sun indoors.",
+      "lead": "Partnership slots for the next pavilion.",
+      "cta": {
+        "label": "Request the brief",
+        "href": "#"
+      }
+    }
+  ]
+}

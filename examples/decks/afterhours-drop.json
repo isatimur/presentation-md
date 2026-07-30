@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Afterhours — Drop Deck",
+    "company": "Afterhours",
+    "description": "Night brand drop — pink-script multi-slide proof.",
+    "theme": "pink-script"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Drop · 03",
+      "heading": "Ink nights. Hot pink script.",
+      "lead": "DM Serif for the flirt. Inter for the details."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Drop",
+      "heading": "What's in the bag",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-shirt",
+          "title": "Tee",
+          "body": "Pink on black. Limited run."
+        },
+        {
+          "icon": "fa-solid fa-music",
+          "title": "Mix",
+          "body": "DJ set burned to the night."
+        },
+        {
+          "icon": "fa-solid fa-ticket",
+          "title": "Invite",
+          "body": "Afterparty code in the hem."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Last drop",
+      "heading": "Sold the night.",
+      "stats": [
+        {
+          "value": "900",
+          "label": "Units"
+        },
+        {
+          "value": "11m",
+          "label": "Sellout"
+        },
+        {
+          "value": "3",
+          "label": "Cities"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "If it looks safe under daylight, it isn't Afterhours.",
+      "by": "Afterhours"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Enter",
+      "heading": "Come back after dark.",
+      "lead": "Drop alerts by SMS only.",
+      "cta": {
+        "label": "Get the code",
+        "href": "#"
+      }
+    }
+  ]
+}

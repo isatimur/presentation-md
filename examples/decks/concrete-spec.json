@@ -1,0 +1,68 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Concrete — Spec Deck",
+    "company": "Concrete",
+    "description": "Technical specification deck — brutalist-mono multi-slide proof.",
+    "theme": "brutalist-mono"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "SPEC · 01",
+      "heading": "CONCRETE. MONO. HAZARD.",
+      "lead": "IBM Plex Mono only. Orange for danger. Zero radius."
+    },
+    {
+      "layout": "code",
+      "eyebrow": "Contract",
+      "heading": "The only API that matters.",
+      "filename": "concrete.ts",
+      "language": "ts",
+      "code": "type Spec = {\n  id: string;\n  hazard: boolean;\n  owner: string;\n};\n\nexport function assertSpec(s: Spec) {\n  if (!s.id) throw new Error('NO_ID');\n  if (s.hazard) console.warn('HAZARD');\n  return s;\n}"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Laws",
+      "heading": "Non-negotiables",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-ruler",
+          "title": "Hairlines",
+          "body": "2px black or it doesn't exist."
+        },
+        {
+          "icon": "fa-solid fa-terminal",
+          "title": "Mono everywhere",
+          "body": "Even the marketing."
+        },
+        {
+          "icon": "fa-solid fa-triangle-exclamation",
+          "title": "Hazard orange",
+          "body": "Reserved for real risk."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Accept",
+      "heading": "We ship if…",
+      "leftLabel": "Yes",
+      "left": "Explicit invariants.\nNamed owners.\nNo soft shadows.",
+      "rightLabel": "No",
+      "right": "Vague vibe decks.\nRounded pills.\nMystery owners.",
+      "emphasis": "left"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Access",
+      "heading": "READ THE SPEC.",
+      "lead": "Public RFC opens Monday.",
+      "cta": {
+        "label": "Open the RFC",
+        "href": "#"
+      }
+    }
+  ]
+}

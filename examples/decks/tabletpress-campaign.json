@@ -1,0 +1,65 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Tablet Press — Campaign Deck",
+    "company": "Tablet Press",
+    "description": "Print campaign — stencil-tablet multi-slide proof.",
+    "theme": "stencil-tablet"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Campaign",
+      "heading": "Stencil letters. Earth blocks.",
+      "lead": "Stardos for the shout. Sienna, magenta, teal for the ground."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Print",
+      "heading": "Three surfaces",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-clone",
+          "title": "Posters",
+          "body": "Wheatpaste that still reads at night."
+        },
+        {
+          "icon": "fa-solid fa-book",
+          "title": "Zines",
+          "body": "Hand-numbered, machine-honest."
+        },
+        {
+          "icon": "fa-solid fa-shirt",
+          "title": "Merch",
+          "body": "Ink that survives the wash."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Ink",
+      "heading": "We print when…",
+      "leftLabel": "Yes",
+      "left": "One message.\nBold type.\nPhysical proof.",
+      "rightLabel": "No",
+      "right": "QR-only stories.\nTiny captions.\nStock photos.",
+      "emphasis": "left"
+    },
+    {
+      "layout": "quote",
+      "quote": "Stencil exists so the wall can talk without asking permission.",
+      "by": "Tablet Press"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Commission",
+      "heading": "Press the tablet.",
+      "lead": "Edition slots for fall.",
+      "cta": {
+        "label": "Commission a run",
+        "href": "#"
+      }
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Triad — Brand Deck",
+    "company": "Triad",
+    "description": "Fashion brand system — editorial-tri-tone multi-slide proof.",
+    "theme": "editorial-tri-tone"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Brand",
+      "heading": "Pink. Butter. Burgundy.",
+      "lead": "Bricolage for the shout. Instrument Serif for the whisper."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Palette",
+      "heading": "Three notes only",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-swatchbook",
+          "title": "Pink field",
+          "body": "Soft entry, hard crop."
+        },
+        {
+          "icon": "fa-solid fa-sun",
+          "title": "Butter type",
+          "body": "Headlines that warm the page."
+        },
+        {
+          "icon": "fa-solid fa-wine-glass",
+          "title": "Burgundy ink",
+          "body": "Body copy with gravity."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Season",
+      "heading": "SS26 filter",
+      "leftLabel": "In",
+      "left": "Tri-tone blocks.\nEditorial crops.\nOne idea per page.",
+      "rightLabel": "Out",
+      "right": "Rainbow drops.\nBusy lookbooks.\nTiny logos.",
+      "emphasis": "left"
+    },
+    {
+      "layout": "quote",
+      "quote": "Three colors is a system. Thirty is a mood board.",
+      "by": "Triad"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Lookbook",
+      "heading": "See the triad.",
+      "lead": "SS26 appointments open.",
+      "cta": {
+        "label": "Book a showroom",
+        "href": "#"
+      }
+    }
+  ]
+}

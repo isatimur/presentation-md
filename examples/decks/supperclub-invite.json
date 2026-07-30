@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Supperclub — Invite Deck",
+    "company": "Supperclub",
+    "description": "Private dining invite — long-table multi-slide proof.",
+    "theme": "long-table"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Invite",
+      "heading": "One long table. Rust linen.",
+      "lead": "Bricolage for the host. Fraunces for the menu."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Evening",
+      "heading": "What we serve",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-utensils",
+          "title": "Courses",
+          "body": "Five plates, no rush."
+        },
+        {
+          "icon": "fa-solid fa-wine-bottle",
+          "title": "Pairings",
+          "body": "Rust-label bottles only."
+        },
+        {
+          "icon": "fa-solid fa-comments",
+          "title": "Conversation",
+          "body": "Seats assigned to mix strangers."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Nights",
+      "heading": "Tables that fill.",
+      "stats": [
+        {
+          "value": "24",
+          "label": "Seats"
+        },
+        {
+          "value": "18",
+          "label": "Cities"
+        },
+        {
+          "value": "0",
+          "label": "Phones on table"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "A long table is a promise to stay.",
+      "by": "Supperclub"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "RSVP",
+      "heading": "Take a seat.",
+      "lead": "Next seating in two weeks.",
+      "cta": {
+        "label": "Request an invite",
+        "href": "#"
+      }
+    }
+  ]
+}

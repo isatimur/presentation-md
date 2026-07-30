@@ -1,0 +1,63 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Parchment — Lecture Deck",
+    "company": "Parchment",
+    "description": "Academic lecture series — vellum multi-slide proof.",
+    "theme": "vellum"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Lecture · Vol. IV",
+      "heading": "Periwinkle nights. Chartreuse thought.",
+      "lead": "Italic Cormorant for the argument. DM Sans for the note."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Thesis",
+      "heading": "Color is an argument, not a mood board.",
+      "body": "Parchment stages lectures where the field carries as much meaning as the sentence.",
+      "aside": "Deep periwinkle. Chartreuse italic. No pastel apology.",
+      "ratio": "3-2"
+    },
+    {
+      "layout": "quote",
+      "quote": "Write like the lights are already dimmed.",
+      "by": "Parchment · House note"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Series",
+      "heading": "This season",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-feather",
+          "title": "Form",
+          "body": "Essays that hold a room."
+        },
+        {
+          "icon": "fa-solid fa-comments",
+          "title": "Dialogues",
+          "body": "Two voices, one field."
+        },
+        {
+          "icon": "fa-solid fa-scroll",
+          "title": "Archives",
+          "body": "Past lectures as living pages."
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "RSVP",
+      "heading": "Take a seat in the blue.",
+      "lead": "Season tickets open Friday.",
+      "cta": {
+        "label": "Reserve a seat",
+        "href": "#"
+      }
+    }
+  ]
+}

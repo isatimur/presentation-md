@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Cloudnine — Launch Deck",
+    "company": "Cloudnine",
+    "description": "Wellness app launch — pastel-dreamy multi-slide proof.",
+    "theme": "pastel-dreamy"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Launch",
+      "heading": "Lavender blush. Plum clarity.",
+      "lead": "Soft field, readable ink — dreamy without disappearing."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Rituals",
+      "heading": "Three soft habits",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-wind",
+          "title": "Breathe",
+          "body": "Two-minute resets that stick."
+        },
+        {
+          "icon": "fa-solid fa-moon",
+          "title": "Wind down",
+          "body": "Periwinkle nights, no doomscroll."
+        },
+        {
+          "icon": "fa-solid fa-heart",
+          "title": "Check-in",
+          "body": "Mood logs without guilt."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Beta",
+      "heading": "Calm that scales.",
+      "stats": [
+        {
+          "value": "52k",
+          "label": "Users"
+        },
+        {
+          "value": "4.7",
+          "label": "Rating"
+        },
+        {
+          "value": "12",
+          "label": "Min / day"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Soft UI still needs hard contrast.",
+      "by": "Cloudnine"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Download",
+      "heading": "Float in, stay grounded.",
+      "lead": "iOS + Android this week.",
+      "cta": {
+        "label": "Get the app",
+        "href": "#"
+      }
+    }
+  ]
+}

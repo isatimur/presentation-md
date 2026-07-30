@@ -1,0 +1,65 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Halves — Brand Deck",
+    "company": "Halves",
+    "description": "Dual-brand system — split-pastel multi-slide proof.",
+    "theme": "split-pastel"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Brand",
+      "heading": "Peach left. Lavender right.",
+      "lead": "Outfit 800 for both halves of the story."
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "System",
+      "heading": "Two moods, one brand",
+      "leftLabel": "Peach",
+      "left": "Warm invites.\nDay launches.\nSoft CTAs.",
+      "rightLabel": "Lavender",
+      "right": "Night drops.\nQuiet luxury.\nEditorial kits.",
+      "emphasis": "left"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Kit",
+      "heading": "Shared rules",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-circle-half-stroke",
+          "title": "Split field",
+          "body": "Never blend the halves."
+        },
+        {
+          "icon": "fa-solid fa-certificate",
+          "title": "Badges",
+          "body": "Mint, yellow, pink — small and loud."
+        },
+        {
+          "icon": "fa-solid fa-font",
+          "title": "Type",
+          "body": "Outfit everywhere. No serif guest stars."
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "A split is a decision, not a decoration.",
+      "by": "Halves"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Apply",
+      "heading": "Pick a half.",
+      "lead": "Brand licensing for seasonal collabs.",
+      "cta": {
+        "label": "Apply for a collab",
+        "href": "#"
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Stickerlab — Agency Deck",
+    "company": "Stickerlab",
+    "description": "Creative agency pitch — playful multi-slide proof.",
+    "theme": "playful"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Agency",
+      "heading": "Coral stickers. Lime pops.",
+      "lead": "Nunito 800 energy. Rounded everything on purpose."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Services",
+      "heading": "What we slap on",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-face-smile",
+          "title": "Brand kits",
+          "body": "Stickers as the system."
+        },
+        {
+          "icon": "fa-solid fa-mobile",
+          "title": "App UI",
+          "body": "Friendly without being childish."
+        },
+        {
+          "icon": "fa-solid fa-bullhorn",
+          "title": "Launches",
+          "body": "Campaigns that feel handmade."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Fun",
+      "heading": "Serious results.",
+      "stats": [
+        {
+          "value": "90",
+          "label": "Brands"
+        },
+        {
+          "value": "4.9",
+          "label": "Client NPS"
+        },
+        {
+          "value": "0",
+          "label": "Boring decks"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "If it doesn't want to be a sticker, it isn't the idea.",
+      "by": "Stickerlab"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Play",
+      "heading": "Peel one off.",
+      "lead": "New client slots monthly.",
+      "cta": {
+        "label": "Start a project",
+        "href": "#"
+      }
+    }
+  ]
+}

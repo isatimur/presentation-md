@@ -1,0 +1,68 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "DeskPad — Demo Deck",
+    "company": "DeskPad",
+    "description": "Nostalgia productivity demo — retro-windows multi-slide proof.",
+    "theme": "retro-windows"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Demo · 95",
+      "heading": "Beveled chrome. Navy title bar.",
+      "lead": "Win95 sincerity for modern focus."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Windows",
+      "heading": "Open these first",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-folder",
+          "title": "Projects",
+          "body": "Folders that look like folders."
+        },
+        {
+          "icon": "fa-solid fa-clock",
+          "title": "Timers",
+          "body": "Beep when the hour is honest."
+        },
+        {
+          "icon": "fa-solid fa-sticky-note",
+          "title": "Notes",
+          "body": "Yellow stickies. No cloud guilt."
+        }
+      ]
+    },
+    {
+      "layout": "code",
+      "eyebrow": "Boot",
+      "heading": "Start Menu energy.",
+      "filename": "deskpad.bat",
+      "language": "bash",
+      "code": "@echo off\necho DeskPad v0.95\necho Loading chrome...\nstart focus.exe /bevel\nif errorlevel 1 goto fail\necho READY\ngoto end\n:fail\necho BSOD avoided\n:end"
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Why",
+      "heading": "Then vs now",
+      "leftLabel": "Then",
+      "left": "Honest UI.\nVisible state.\nClickable chrome.",
+      "rightLabel": "Now",
+      "right": "Invisible menus.\nInfinite scroll.\nNotification fog.",
+      "emphasis": "left"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Install",
+      "heading": "Double-click Start.",
+      "lead": "Public beta on floppy… and HTTPS.",
+      "cta": {
+        "label": "Download DeskPad",
+        "href": "#"
+      }
+    }
+  ]
+}

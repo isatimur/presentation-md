@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Stickyroom — Workshop Deck",
+    "company": "Stickyroom",
+    "description": "Facilitation workshop — scatterbrain multi-slide proof.",
+    "theme": "scatterbrain"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Workshop",
+      "heading": "Ideas stick. Literally.",
+      "lead": "Shrikhand headlines. Caveat margins. Cork-board energy for real rooms."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Method",
+      "heading": "Three sticky laws",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-note-sticky",
+          "title": "One idea per note",
+          "body": "If it needs a paragraph, it needs a split."
+        },
+        {
+          "icon": "fa-solid fa-arrows-up-down-left-right",
+          "title": "Move before polish",
+          "body": "Clusters beat perfection."
+        },
+        {
+          "icon": "fa-solid fa-hand",
+          "title": "Hands on the wall",
+          "body": "Digital only after the room agrees."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Rooms",
+      "heading": "Workshops that leave a trail.",
+      "stats": [
+        {
+          "value": "240",
+          "label": "Sessions"
+        },
+        {
+          "value": "18",
+          "label": "Cities"
+        },
+        {
+          "value": "9k+",
+          "label": "Stickies"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Messy walls beat clean slides that nobody owns.",
+      "by": "Stickyroom"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Book",
+      "heading": "Fill the cork.",
+      "lead": "Half-day and full-day formats.",
+      "cta": {
+        "label": "Book a workshop",
+        "href": "#"
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Pillbox — Launch Deck",
+    "company": "Pillbox",
+    "description": "Wellness product launch — capsule multi-slide proof.",
+    "theme": "capsule"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Launch",
+      "heading": "Modular pills. Candy clarity.",
+      "lead": "Bodoni for the brand. Space Grotesk for the dose."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Stack",
+      "heading": "Three daily capsules",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-capsules",
+          "title": "Focus",
+          "body": "Coral AM — no crash afternoon."
+        },
+        {
+          "icon": "fa-solid fa-leaf",
+          "title": "Reset",
+          "body": "Lime PM — wind-down without fog."
+        },
+        {
+          "icon": "fa-solid fa-moon",
+          "title": "Sleep",
+          "body": "Lavender night — clocks that stick."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Beta",
+      "heading": "Numbers in the jar.",
+      "stats": [
+        {
+          "value": "18k",
+          "label": "Subscribers"
+        },
+        {
+          "value": "4.8",
+          "label": "App rating"
+        },
+        {
+          "value": "21",
+          "label": "Day streak avg"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "If the pill looks boring, the habit dies.",
+      "by": "Pillbox"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Join",
+      "heading": "Take the first capsule.",
+      "lead": "Founding members get the kit free.",
+      "cta": {
+        "label": "Join waitlist",
+        "href": "#"
+      }
+    }
+  ]
+}

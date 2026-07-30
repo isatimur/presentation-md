@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Khaki Press — Zine Deck",
+    "company": "Khaki Press",
+    "description": "Indie zine pitch — retro-zine multi-slide proof.",
+    "theme": "retro-zine"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Issue 07",
+      "heading": "KHAKI PAPER. FOREST TYPE.",
+      "lead": "Bebas Neue mastheads. Caveat scribbles in the margin."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Inside",
+      "heading": "This issue",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-pen",
+          "title": "Essays",
+          "body": "Long reads that fit a pocket."
+        },
+        {
+          "icon": "fa-solid fa-camera",
+          "title": "Photo essays",
+          "body": "Grain welcome."
+        },
+        {
+          "icon": "fa-solid fa-music",
+          "title": "Playlists",
+          "body": "Cassette energy, Spotify links."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Press",
+      "heading": "Indie math.",
+      "stats": [
+        {
+          "value": "2.4k",
+          "label": "Subs"
+        },
+        {
+          "value": "7",
+          "label": "Issues"
+        },
+        {
+          "value": "12",
+          "label": "Cities"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "If it looks too clean, we printed the wrong draft.",
+      "by": "Khaki Press"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Subscribe",
+      "heading": "Get Issue 07.",
+      "lead": "Forest green on khaki forever.",
+      "cta": {
+        "label": "Subscribe",
+        "href": "#"
+      }
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Blockparty — Agency Deck",
+    "company": "Blockparty",
+    "description": "Creative agency credentials — creative-mode multi-slide proof.",
+    "theme": "creative-mode"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Agency",
+      "heading": "HARD BORDERS. LOUD BLOCKS.",
+      "lead": "Cream canvas. Forest, pink, orange, yellow — Archivo Black shouting."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Offers",
+      "heading": "What we actually sell",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-palette",
+          "title": "Identity systems",
+          "body": "Color blocks with laws."
+        },
+        {
+          "icon": "fa-solid fa-film",
+          "title": "Motion kits",
+          "body": "Frames that refuse soft fades."
+        },
+        {
+          "icon": "fa-solid fa-globe",
+          "title": "Campaign sites",
+          "body": "Web that feels like a poster wall."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Filter",
+      "heading": "Briefs we love",
+      "leftLabel": "Yes",
+      "left": "One sharp idea.\nPermission to cut.\nColor as structure.",
+      "rightLabel": "No",
+      "right": "Muted everything.\nSafe templates.\nLogo soup.",
+      "emphasis": "left"
+    },
+    {
+      "layout": "quote",
+      "quote": "If every color is special, none of them are.",
+      "by": "Blockparty"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Contact",
+      "heading": "BRING THE BLOCKS.",
+      "lead": "hello@blockparty.studio",
+      "cta": {
+        "label": "Send the brief",
+        "href": "#"
+      }
+    }
+  ]
+}

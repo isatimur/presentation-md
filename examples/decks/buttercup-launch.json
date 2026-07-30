@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Buttercup — Launch Deck",
+    "company": "Buttercup",
+    "description": "Kids brand launch — daisy-days multi-slide proof.",
+    "theme": "daisy-days"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Launch",
+      "heading": "Cream pastels. Charcoal outlines.",
+      "lead": "Fredoka One joy. Quicksand calm."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Line",
+      "heading": "Three first products",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-socks",
+          "title": "Socks",
+          "body": "Butter yellow that survives the wash."
+        },
+        {
+          "icon": "fa-solid fa-puzzle-piece",
+          "title": "Play kits",
+          "body": "Turquoise boxes, pink stickers."
+        },
+        {
+          "icon": "fa-solid fa-book-open",
+          "title": "Story cards",
+          "body": "Short reads for bedtime."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Beta",
+      "heading": "Tiny fans, big numbers.",
+      "stats": [
+        {
+          "value": "6.2k",
+          "label": "Preorders"
+        },
+        {
+          "value": "48",
+          "label": "Stores"
+        },
+        {
+          "value": "4.9",
+          "label": "Parent rating"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Cute without the outline is just pastel mush.",
+      "by": "Buttercup"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Shop",
+      "heading": "Pick a daisy.",
+      "lead": "Launch week free shipping.",
+      "cta": {
+        "label": "Shop Buttercup",
+        "href": "#"
+      }
+    }
+  ]
+}

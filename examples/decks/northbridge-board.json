@@ -1,0 +1,77 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Northbridge — Board Deck",
+    "company": "Northbridge",
+    "description": "Board update — blue-professional multi-slide proof.",
+    "theme": "blue-professional"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Board · Q2",
+      "heading": "Cream paper. Cobalt certainty.",
+      "lead": "Space Grotesk for the headline. Inter for the appendix."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Agenda",
+      "heading": "Three decisions",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-chart-column",
+          "title": "Growth",
+          "body": "Approve the EU expansion."
+        },
+        {
+          "icon": "fa-solid fa-handshake",
+          "title": "Partnership",
+          "body": "Sign the channel deal."
+        },
+        {
+          "icon": "fa-solid fa-shield",
+          "title": "Risk",
+          "body": "Raise the security budget."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Quarter",
+      "heading": "Numbers for the room.",
+      "stats": [
+        {
+          "value": "$48M",
+          "label": "ARR"
+        },
+        {
+          "value": "122%",
+          "label": "NRR"
+        },
+        {
+          "value": "31%",
+          "label": "Gross margin ↑"
+        }
+      ]
+    },
+    {
+      "layout": "code",
+      "eyebrow": "Appendix",
+      "heading": "One chart, no theater.",
+      "filename": "board.sql",
+      "language": "sql",
+      "code": "SELECT region, arr_m\nFROM q2_board\nWHERE approved = true\nORDER BY arr_m DESC\nLIMIT 5;"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Vote",
+      "heading": "Cobalt means decide.",
+      "lead": "Materials locked 48h before.",
+      "cta": {
+        "label": "Open the packet",
+        "href": "#"
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Kiln — Studio Deck",
+    "company": "Kiln",
+    "description": "Craft studio credentials — mat multi-slide proof.",
+    "theme": "mat"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Studio",
+      "heading": "Sage walls. Orange heat.",
+      "lead": "Bricolage for the mark. DM Sans for the firing schedule."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Craft",
+      "heading": "What leaves the kiln",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-fire",
+          "title": "Ceramics",
+          "body": "Glazes that hold the orange."
+        },
+        {
+          "icon": "fa-solid fa-mug-saucer",
+          "title": "Tableware",
+          "body": "Daily pieces, not shelf trophies."
+        },
+        {
+          "icon": "fa-solid fa-chalkboard",
+          "title": "Workshops",
+          "body": "Hands in clay every Saturday."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Year",
+      "heading": "Fired and sold.",
+      "stats": [
+        {
+          "value": "1.8k",
+          "label": "Pieces"
+        },
+        {
+          "value": "46",
+          "label": "Workshops"
+        },
+        {
+          "value": "12",
+          "label": "Retail doors"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Heat is the brand. Everything else is cooling.",
+      "by": "Kiln"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Visit",
+      "heading": "Come to the mat.",
+      "lead": "Studio hours Thu–Sun.",
+      "cta": {
+        "label": "Book a visit",
+        "href": "#"
+      }
+    }
+  ]
+}

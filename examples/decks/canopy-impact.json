@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Canopy — Impact Deck",
+    "company": "Canopy",
+    "description": "Conservation impact report — grove multi-slide proof.",
+    "theme": "grove"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Impact · 2026",
+      "heading": "Forest ink. Rust accent.",
+      "lead": "Playfair for the canopy. Jost for the acreage."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Work",
+      "heading": "Where the money goes",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-tree",
+          "title": "Reforest",
+          "body": "Native stands, not monoculture."
+        },
+        {
+          "icon": "fa-solid fa-water",
+          "title": "Watersheds",
+          "body": "Protect the roots of rivers."
+        },
+        {
+          "icon": "fa-solid fa-people-group",
+          "title": "Stewards",
+          "body": "Pay the people who know the land."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Proof",
+      "heading": "Acres that stay.",
+      "stats": [
+        {
+          "value": "18k",
+          "label": "Acres"
+        },
+        {
+          "value": "64%",
+          "label": "Canopy gain"
+        },
+        {
+          "value": "9",
+          "label": "Partners"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "A grove is a promise kept in green.",
+      "by": "Canopy"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Partner",
+      "heading": "Stand under the canopy.",
+      "lead": "Corporate and community seats open.",
+      "cta": {
+        "label": "Partner with us",
+        "href": "#"
+      }
+    }
+  ]
+}

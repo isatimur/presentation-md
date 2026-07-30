@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "CivicPulse — Rally Deck",
+    "company": "CivicPulse",
+    "description": "Civic campaign deck — peoples-platform multi-slide proof.",
+    "theme": "peoples-platform"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Rally · 26",
+      "heading": "Paper. Cobalt. Amber hope.",
+      "lead": "Alfa Slab One for the chant. Room for the crowd."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Pillars",
+      "heading": "What we fight for",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-house",
+          "title": "Housing",
+          "body": "Keys that stay with people."
+        },
+        {
+          "icon": "fa-solid fa-bus",
+          "title": "Transit",
+          "body": "Minutes that don't punish."
+        },
+        {
+          "icon": "fa-solid fa-vote-yea",
+          "title": "Voice",
+          "body": "Ballots that count out loud."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Field",
+      "heading": "Organizing in the open.",
+      "stats": [
+        {
+          "value": "120",
+          "label": "Blocks"
+        },
+        {
+          "value": "8k",
+          "label": "Petitions"
+        },
+        {
+          "value": "41",
+          "label": "Town halls"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "A platform is only as good as the people who can stand on it.",
+      "by": "CivicPulse"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Join",
+      "heading": "Show up. Bring cobalt.",
+      "lead": "Volunteer shifts every weekend.",
+      "cta": {
+        "label": "Sign up",
+        "href": "#"
+      }
+    }
+  ]
+}

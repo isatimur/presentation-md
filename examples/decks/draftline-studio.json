@@ -1,0 +1,63 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Draftline — Studio Deck",
+    "company": "Draftline",
+    "description": "Architecture studio deck — cartesian multi-slide proof.",
+    "theme": "cartesian"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Studio",
+      "heading": "Warm stone. Draft lines.",
+      "lead": "Playfair for the elevation. Inter for the schedule."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Belief",
+      "heading": "The drawing is the argument.",
+      "body": "Draftline designs interiors and pavilions where the 1px taupe line does as much work as the material.",
+      "aside": "Sandstone field. Hairline precision. No CAD theatrics.",
+      "ratio": "3-2"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Practice",
+      "heading": "What we draw",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-ruler-combined",
+          "title": "Interiors",
+          "body": "Rooms that measure quiet."
+        },
+        {
+          "icon": "fa-solid fa-building",
+          "title": "Pavilions",
+          "body": "Temporary buildings with permanent care."
+        },
+        {
+          "icon": "fa-solid fa-pencil",
+          "title": "Furniture",
+          "body": "Pieces that read as drawings."
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "If the line wavers, the room will too.",
+      "by": "Draftline"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Commission",
+      "heading": "Start the draft.",
+      "lead": "Select commissions for 2027.",
+      "cta": {
+        "label": "Request a consult",
+        "href": "#"
+      }
+    }
+  ]
+}

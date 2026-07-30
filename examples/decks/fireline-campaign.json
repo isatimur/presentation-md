@@ -1,0 +1,68 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Fireline — Campaign Deck",
+    "company": "Fireline",
+    "description": "Dark editorial campaign — broadside multi-slide proof.",
+    "theme": "broadside"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Campaign",
+      "heading": "INK. FIRE. BARLOW.",
+      "lead": "Massive type. Zero beige. Orange that means business."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Belief",
+      "heading": "If it whispers, it dies.",
+      "body": "Fireline builds posters, keynotes, and launch films that read from the back of the room.",
+      "aside": "Barlow 900. Cream on black. One orange strike.",
+      "ratio": "3-2"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Work",
+      "heading": "What we ship",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-bullhorn",
+          "title": "Launch films",
+          "body": "Cuts that start loud and stay loud."
+        },
+        {
+          "icon": "fa-solid fa-newspaper",
+          "title": "Editorial kits",
+          "body": "Mastheads with teeth."
+        },
+        {
+          "icon": "fa-solid fa-tower-broadcast",
+          "title": "Stage systems",
+          "body": "Type that survives LED walls."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Filter",
+      "heading": "We take the brief if…",
+      "leftLabel": "Yes",
+      "left": "One idea.\nPermission to burn.\nTaste over trends.",
+      "rightLabel": "No",
+      "right": "Safe navy.\nCommittee beige.\nLogo salad.",
+      "emphasis": "left"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Contact",
+      "heading": "Light the orange.",
+      "lead": "hello@fireline.studio",
+      "cta": {
+        "label": "Send the brief",
+        "href": "#"
+      }
+    }
+  ]
+}

@@ -35,7 +35,7 @@ That single command installs the skill file and registers the MCP server for you
 - **Structured JSON your agent edits, not opaque slides.** Every deck is a schema-validated Deck JSON spec — the agent reads it, diffs it, and rewrites a single slide on request, instead of regenerating a black-box layout.
 - **Native, editable PPTX / Keynote / Google Slides export.** Because slides are structured data, each one maps to real native shapes — one exporter produces a `.pptx` that opens in PowerPoint, opens in Keynote, and imports into Google Slides. No screenshots, no lock-in.
 - **Works in any agent, not one app.** Claude Code, Cursor, Codex, Gemini CLI, Copilot, or plain CLI — one `npx` install wires the skill + MCP server into whatever you already use.
-- **25-deck proof gallery, live.** See the output before you install: [25 showcase decks](https://presentation-md.vercel.app/#gallery) rendered by the pack, editable in the browser [Studio](https://presentation-md.vercel.app/studio). Five flagships also ship as **schema-rendered Deck JSON** (`examples/decks/` → `web/examples/structured/`) so the structured path is as visible as the craft gallery.
+- **25-deck proof gallery, live.** See the output before you install: [25 showcase decks](https://presentation-md.vercel.app/#gallery) rendered by the pack, editable in the browser [Studio](https://presentation-md.vercel.app/studio). **Seventy-three schema-rendered Deck JSON proofs** (`examples/decks/` → `web/examples/structured/`) cover every published theme so the structured path is as visible as the craft gallery.
 
 ---
 
