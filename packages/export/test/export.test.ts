@@ -155,6 +155,58 @@ describe("deckToPptx", () => {
     expect(result.warnings.some((w) => w.includes("Image not embedded"))).toBe(true);
   });
 
+  it("prefetches remote http(s) images into data URIs before embed", async () => {
+    const png = Uint8Array.from([
+      0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a, 0x00, 0x00, 0x00, 0x0d, 0x49, 0x48, 0x44, 0x52,
+      0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x08, 0x02, 0x00, 0x00, 0x00, 0x90, 0x77, 0x53,
+      0xde, 0x00, 0x00, 0x00, 0x0c, 0x49, 0x44, 0x41, 0x54, 0x08, 0xd7, 0x63, 0xf8, 0xcf, 0xc0, 0x00,
+      0x00, 0x00, 0x03, 0x00, 0x01, 0x00, 0x05, 0xfe, 0xd4, 0xef, 0x00, 0x00, 0x00, 0x00, 0x49, 0x45,
+      0x4e, 0x44, 0xae, 0x42, 0x60, 0x82,
+    ]);
+    const deck: DeckJson = {
+      type: "deck",
+      slides: [
+        {
+          layout: "image-hero",
+          heading: "Remote",
+          image: "https://cdn.example/photo.png",
+          imageAlt: "Photo",
+        },
+      ],
+    };
+    const result = await buildPptx(deck, theme, {
+      prefetchImages: true,
+      prefetch: {
+        fetch: async () =>
+          new Response(png, { status: 200, headers: { "content-type": "image/png" } }),
+      },
+    });
+    expect(result.warnings.some((w) => w.includes("Image not embedded"))).toBe(false);
+    expect(result.warnings.some((w) => w.includes("Could not prefetch"))).toBe(false);
+  });
+
+  it("surfaces prefetch failures then still warns on unembedded remotes", async () => {
+    const deck: DeckJson = {
+      type: "deck",
+      slides: [
+        {
+          layout: "two-column",
+          heading: "Split",
+          body: "Copy.",
+          image: "https://cdn.example/missing.png",
+        },
+      ],
+    };
+    const result = await buildPptx(deck, theme, {
+      prefetchImages: true,
+      prefetch: {
+        fetch: async () => new Response(null, { status: 404, statusText: "Not Found" }),
+      },
+    });
+    expect(result.warnings.some((w) => w.includes("Could not prefetch"))).toBe(true);
+    expect(result.warnings.some((w) => w.includes("Image not embedded"))).toBe(true);
+  });
+
   it("warns on an unknown layout but still renders", async () => {
     const deck: DeckJson = {
       type: "deck",

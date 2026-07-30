@@ -3,6 +3,11 @@ import { PptxGenJS, type Pptx } from "./pptx.js";
 import { buildContext } from "./context.js";
 import { renderSlide } from "./layouts.js";
 import type { DeckJson } from "./deck-types.js";
+import {
+  prefetchDeckImages,
+  type PrefetchImagesOptions,
+  type PrefetchImagesResult,
+} from "./prefetch-images.js";
 
 export type {
   DeckJson,
@@ -15,6 +20,9 @@ export type {
   Cta,
 } from "./deck-types.js";
 
+export { prefetchDeckImages };
+export type { PrefetchImagesOptions, PrefetchImagesResult };
+
 const ATTRIBUTION_TEXT = "Made with presentation-md";
 const ATTRIBUTION_URL = "https://presentation-md.vercel.app/?ref=pptx";
 
@@ -23,6 +31,14 @@ export interface PptxOptions {
   onWarn?: (msg: string) => void;
   /** Append a small attribution note to the final slide. Defaults to `true`. */
   attribution?: boolean;
+  /**
+   * Prefetch remote http(s) images to data URIs before embed.
+   * Defaults to `false` so `buildPptx` stays network-free; CLI/MCP enable this
+   * via {@link renderDeckPptx} / Studio's download path.
+   */
+  prefetchImages?: boolean;
+  /** Options forwarded to {@link prefetchDeckImages} when prefetch is enabled. */
+  prefetch?: PrefetchImagesOptions;
 }
 
 export interface BuildResult {
@@ -37,6 +53,9 @@ const LAYOUT_NAME = "PMD_16x9";
  * Build a PptxGenJS presentation from a (validated) deck and a resolved theme.
  * Pure and runtime-agnostic — callers serialize via the `deckToPptx*` helpers
  * or `result.pptx.write(...)` directly.
+ *
+ * Optional remote-image prefetch (`prefetchImages: true`) matches Studio so
+ * CLI/MCP PPTX embeds work without a separate step.
  */
 export async function buildPptx(
   deck: DeckJson,
@@ -49,6 +68,13 @@ export async function buildPptx(
     opts.onWarn?.(msg);
   };
 
+  let working = deck;
+  if (opts.prefetchImages) {
+    const prepared = await prefetchDeckImages(deck, opts.prefetch);
+    working = prepared.deck;
+    for (const msg of prepared.warnings) warn(msg);
+  }
+
   const pptx = new PptxGenJS();
   const ctx = buildContext(
     theme,
@@ -59,12 +85,12 @@ export async function buildPptx(
   pptx.defineLayout({ name: LAYOUT_NAME, width: ctx.width, height: ctx.height });
   pptx.layout = LAYOUT_NAME;
 
-  if (deck.meta?.title) pptx.title = deck.meta.title;
-  if (deck.meta?.company) pptx.company = deck.meta.company;
-  if (deck.meta?.description) pptx.subject = deck.meta.description;
+  if (working.meta?.title) pptx.title = working.meta.title;
+  if (working.meta?.company) pptx.company = working.meta.company;
+  if (working.meta?.description) pptx.subject = working.meta.description;
   pptx.author = "presentation-md";
 
-  const slides = Array.isArray(deck.slides) ? deck.slides : [];
+  const slides = Array.isArray(working.slides) ? working.slides : [];
   slides.forEach((slideData, i) => {
     const slide = pptx.addSlide();
     renderSlide(slide, ctx, slideData);

@@ -349,6 +349,7 @@ export interface PptxRenderOptions {
  * Render a deck JSON spec to a native, editable PowerPoint (.pptx) Buffer.
  * Shares validation and theme resolution with {@link renderDeck}. The resulting
  * file opens directly in PowerPoint and Keynote, and imports into Google Slides.
+ * Remote http(s) slide images are prefetched to data URIs (Studio parity) before embed.
  */
 export async function renderDeckPptx(
   deckJson: string,
@@ -373,5 +374,7 @@ export async function renderDeckPptx(
   return deckToPptxBuffer(deck as unknown as ExportDeckJson, theme, {
     attribution: opts?.attribution,
     onWarn: opts?.onWarn,
+    // Prefetch remote http(s) images so PPTX embeds match Studio outside the browser.
+    prefetchImages: true,
   });
 }

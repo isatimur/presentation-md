@@ -213,8 +213,8 @@ function addImageOrPlaceholder(
       ctx.warn(`Failed to embed inline image; showed placeholder instead.`);
     }
   } else if (src) {
-    // Remote/local URLs aren't embedded (no network in the exporter) — placeholder.
-    ctx.warn(`Image not embedded (remote images unsupported in export): ${src}`);
+    // Remote/local URLs that weren't prefetched — placeholder + warning.
+    ctx.warn(`Image not embedded (prefetch remote http(s) URLs before export): ${src}`);
   }
   slide.addShape(ctx.shapeRoundRect, {
     x,

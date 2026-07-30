@@ -24,6 +24,13 @@ The resulting file opens in **PowerPoint**, **Keynote** (File → Open), and imp
 
 Browser-safe variants: `deckToPptxBlob`, `deckToPptxArrayBuffer`.
 
+Remote `http(s)` slide images are embedded when you pass `prefetchImages: true`
+(or use CLI / MCP / Studio, which enable it). Shared helper: `prefetchDeckImages`.
+
+```typescript
+const buf = await deckToPptxBuffer(deck, theme, { prefetchImages: true });
+```
+
 ## Import (`.pptx` → Deck JSON)
 
 ```typescript
