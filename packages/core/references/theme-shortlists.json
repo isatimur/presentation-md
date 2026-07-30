@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "description": "Use-case shortlists for Theme Discovery step 1. Each entry is a ready 3-theme set — preview all three with preview_themes, then lock meta.theme.",
+  "shortlists": [
+    {
+      "id": "series-a-pitch",
+      "label": "Series A / investor pitch",
+      "themes": ["aurora-glass", "bold-signal", "fintech-clean"],
+      "why": "Glass craft for AI infra, orange signal for high-impact ask, clean fintech for numbers-heavy decks."
+    },
+    {
+      "id": "developer-demo",
+      "label": "Developer product demo",
+      "themes": ["crt-terminal", "developer-dark", "default-tech"],
+      "why": "Phosphor terminal (Terminal Green alias), IDE-dark forge, neon startup default."
+    },
+    {
+      "id": "neon-nightlife",
+      "label": "Neon / cyber / nightlife launch",
+      "themes": ["neon-noir", "vaporwave", "kinetic-wrapped"],
+      "why": "Neon Cyber (neon-noir), mallsoft vaporwave, full-bleed wrapped energy."
+    },
+    {
+      "id": "swiss-agency",
+      "label": "Design agency / brand system",
+      "themes": ["swiss-typographic", "bauhaus", "electric-studio"],
+      "why": "Swiss Modern grid, Bauhaus primaries, Electric Studio split panels."
+    },
+    {
+      "id": "editorial-report",
+      "label": "Editorial / research / annual report",
+      "themes": ["soft-editorial", "ft-editorial", "broadsheet"],
+      "why": "Warm magazine paper, FT blue rules, newsprint masthead."
+    },
+    {
+      "id": "consumer-playful",
+      "label": "Consumer app / playful launch",
+      "themes": ["candy-pop", "genz-bento", "daisy-days"],
+      "why": "Candy blobs, hard bento cards, daisy pastel poster energy."
+    },
+    {
+      "id": "enterprise-board",
+      "label": "Enterprise / boardroom",
+      "themes": ["corporate", "blue-professional", "signal"],
+      "why": "Restrained boardroom, clean blue professional, signal briefing."
+    },
+    {
+      "id": "luxury-brand",
+      "label": "Luxury / heritage brand",
+      "themes": ["luxury-minimalist", "heritage-editorial", "art-deco"],
+      "why": "Quiet luxe, heritage wash, deco gold."
+    },
+    {
+      "id": "bold-poster-pack",
+      "label": "Bold poster / zine energy",
+      "themes": ["block-frame", "sakura-chroma", "retro-zine"],
+      "why": "Brutal frames, sakura chroma cassette, riso zine."
+    },
+    {
+      "id": "nature-impact",
+      "label": "Climate / nature / impact",
+      "themes": ["botanical-luxe", "dark-botanical", "editorial-forest"],
+      "why": "Luxe botanical, dark bloom, forest editorial."
+    }
+  ],
+  "alias_hints": {
+    "Neon Cyber": "neon-noir",
+    "Terminal Green": "crt-terminal",
+    "Swiss Modern": "swiss-typographic",
+    "Electric Studio": "electric-studio",
+    "Bold Signal": "bold-signal"
+  }
+}

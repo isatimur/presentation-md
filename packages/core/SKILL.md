@@ -869,7 +869,11 @@ These are the details that make a deck read as machine-generated. A reviewer clo
 Do **not** ask the user to pick a theme from a bare name list when they are unsure.
 Match frontend-slides' mandatory visual discovery — but with structured themes + MCP:
 
-1. Read `references/theme-selection-index.json` (mood, best_for, avoid_for, scheme).
+1. Read `references/theme-selection-index.json` (mood, best_for, avoid_for, scheme, **aliases**).
+   - frontend-slides STYLE_PRESET names map via aliases: **Neon Cyber** → `neon-noir`,
+     **Terminal Green** → `crt-terminal`, **Swiss Modern** → `swiss-typographic`.
+   - Optional fast path: `references/theme-shortlists.json` — pick a use-case shortlist
+     (Series A, developer demo, swiss agency, …) instead of scanning all 75.
 2. Shortlist **3** themes that fit purpose + audience + density.
 3. **Required when tooling is available:** call `preview_themes` with those 3 names
    (writes `.presentation-md/theme-previews/<theme>-preview.html`). Open each file for the user
@@ -878,8 +882,9 @@ Match frontend-slides' mandatory visual discovery — but with structured themes
    `npx @presentation-md/render preview.json -o previews/<theme>.html --theme <name>` three times
    (one title slide each).
 5. After they pick, set `meta.theme` and proceed. Read `references/anti-slop-bans.md` before custom styling.
+6. When a theme has a `gallery` field, open that craft deck as a multi-slide proof (not just the title preview).
 
-If they already named a theme or brand URL, skip discovery (`import_brand_theme` for brand match).
+If they already named a theme, alias, or brand URL, skip discovery (`import_brand_theme` for brand match).
 
 See also: `references/animation-patterns.md` for motion craft on the direct-HTML path.
 

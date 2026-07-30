@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "description": "Compact theme index for progressive discovery. Shortlist 3, then load full theme details only after the user picks.",
+  "description": "Compact theme index for progressive discovery. Shortlist 3 via mood/best_for/aliases, then load full theme details only after the user picks. aliases map frontend-slides STYLE_PRESET names and common synonyms to package IDs.",
   "themes": [
     {
       "name": "claude",
@@ -27,6 +27,11 @@
         "#141413",
         "#d97757",
         "#6a9bcc"
+      ],
+      "aliases": [
+        "Claude",
+        "Warm Paper",
+        "Anthropic"
       ]
     },
     {
@@ -54,6 +59,11 @@
         "#f4f4f5",
         "#7c3aed",
         "#22d3ee"
+      ],
+      "aliases": [
+        "Neon Tech",
+        "Default Tech",
+        "startup dark"
       ]
     },
     {
@@ -135,7 +145,8 @@
         "#1c1917",
         "#92400e",
         "#78716c"
-      ]
+      ],
+      "gallery": "examples/solstice-update.html"
     },
     {
       "name": "retro-arcade",
@@ -216,7 +227,13 @@
         "#0a0a0a",
         "#ff3600",
         "#57554c"
-      ]
+      ],
+      "aliases": [
+        "Brutalist Mono",
+        "Brutalist",
+        "Mono Brutal"
+      ],
+      "gallery": "examples/monolith-seriesa.html"
     },
     {
       "name": "pastel-dreamy",
@@ -270,7 +287,13 @@
         "#ffffff",
         "#a78bfa",
         "#67e8f9"
-      ]
+      ],
+      "aliases": [
+        "Aurora Glass",
+        "Aurora",
+        "Glass Aurora"
+      ],
+      "gallery": "examples/novaspark-pitch.html"
     },
     {
       "name": "ft-editorial",
@@ -297,7 +320,13 @@
         "#0a0a0a",
         "#1a4fd8",
         "#c0392b"
-      ]
+      ],
+      "aliases": [
+        "FT Editorial",
+        "Financial Times",
+        "Broadsheet Blue"
+      ],
+      "gallery": "examples/meridian-sales.html"
     },
     {
       "name": "genz-bento",
@@ -324,7 +353,13 @@
         "#0f0f1a",
         "#ff4d2e",
         "#b6f542"
-      ]
+      ],
+      "aliases": [
+        "GenZ Bento",
+        "Bento",
+        "Hard Bento"
+      ],
+      "gallery": "examples/bounce-launch.html"
     },
     {
       "name": "crt-terminal",
@@ -351,7 +386,14 @@
         "#f5f0e8",
         "#39ff14",
         "#00f5ff"
-      ]
+      ],
+      "aliases": [
+        "Terminal Green",
+        "CRT Terminal",
+        "phosphor green",
+        "hacker terminal"
+      ],
+      "gallery": "examples/retronet-demo.html"
     },
     {
       "name": "swiss-typographic",
@@ -378,7 +420,14 @@
         "#0a0a0a",
         "#e2231a",
         "#636363"
-      ]
+      ],
+      "aliases": [
+        "Swiss Modern",
+        "Swiss Typographic",
+        "International Style",
+        "Swiss grid"
+      ],
+      "gallery": "examples/gridsystems-agency.html"
     },
     {
       "name": "candy-pop",
@@ -405,7 +454,12 @@
         "#1a1a2e",
         "#ff5d8f",
         "#2d7dd2"
-      ]
+      ],
+      "aliases": [
+        "Candy Pop",
+        "Candy"
+      ],
+      "gallery": "examples/jellybean-launch.html"
     },
     {
       "name": "aerospace-hud",
@@ -432,7 +486,13 @@
         "#f0f8ff",
         "#5ec8ff",
         "#ff7a18"
-      ]
+      ],
+      "aliases": [
+        "Aerospace HUD",
+        "HUD",
+        "mission control"
+      ],
+      "gallery": "examples/axiom-robotics.html"
     },
     {
       "name": "brutalist-acid",
@@ -486,7 +546,12 @@
         "#0d0d0d",
         "#e63946",
         "#1f4ae0"
-      ]
+      ],
+      "aliases": [
+        "Bauhaus",
+        "Bauhaus Primary"
+      ],
+      "gallery": "examples/primary-keynote.html"
     },
     {
       "name": "y2k-aero",
@@ -512,7 +577,13 @@
         "#0c4a6e",
         "#38bdf8",
         "#a3e635"
-      ]
+      ],
+      "aliases": [
+        "Y2K Aero",
+        "Y2K",
+        "Aero Glass"
+      ],
+      "gallery": "examples/bubbleflow-launch.html"
     },
     {
       "name": "risograph-zine",
@@ -539,7 +610,8 @@
         "#1a1209",
         "#ff4f4f",
         "#2b3aff"
-      ]
+      ],
+      "gallery": "examples/inkwell-pitch.html"
     },
     {
       "name": "neon-noir",
@@ -566,7 +638,14 @@
         "#e8e4f0",
         "#ff2e97",
         "#00e5ff"
-      ]
+      ],
+      "aliases": [
+        "Neon Cyber",
+        "Neon Noir",
+        "cyber neon",
+        "neon cyberpunk"
+      ],
+      "gallery": "examples/neondistrict-launch.html"
     },
     {
       "name": "vaporwave",
@@ -592,7 +671,13 @@
         "#fff0f9",
         "#ff6ad5",
         "#5ce1ff"
-      ]
+      ],
+      "aliases": [
+        "Vaporwave",
+        "Mallsoft",
+        "Aesthetics"
+      ],
+      "gallery": "examples/mallsoft-launch.html"
     },
     {
       "name": "botanical-luxe",
@@ -619,7 +704,8 @@
         "#f3efe4",
         "#bfa55a",
         "#4a7c59"
-      ]
+      ],
+      "gallery": "examples/verdant-impact.html"
     },
     {
       "name": "heritage-editorial",
@@ -646,7 +732,8 @@
         "#16130f",
         "#c98b7a",
         "#a07854"
-      ]
+      ],
+      "gallery": "examples/atelier-brand.html"
     },
     {
       "name": "fintech-clean",
@@ -673,7 +760,13 @@
         "#0a0a0a",
         "#635bff",
         "#00d4b1"
-      ]
+      ],
+      "aliases": [
+        "Fintech Clean",
+        "Fintech",
+        "Clean Finance"
+      ],
+      "gallery": "examples/ledgerline-sales.html"
     },
     {
       "name": "developer-dark",
@@ -700,7 +793,13 @@
         "#e6edf3",
         "#3fb950",
         "#58a6ff"
-      ]
+      ],
+      "aliases": [
+        "Dev Dark",
+        "Developer Dark",
+        "IDE dark"
+      ],
+      "gallery": "examples/forge-demo.html"
     },
     {
       "name": "data-editorial",
@@ -727,7 +826,8 @@
         "#1a1a1a",
         "#2b6cb0",
         "#e63946"
-      ]
+      ],
+      "gallery": "examples/signalbox-report.html"
     },
     {
       "name": "scandinavian",
@@ -754,7 +854,8 @@
         "#2b2926",
         "#9caf88",
         "#c9826b"
-      ]
+      ],
+      "gallery": "examples/hygge-brand.html"
     },
     {
       "name": "art-deco",
@@ -780,7 +881,8 @@
         "#f5eed8",
         "#c8a24a",
         "#e2c47a"
-      ]
+      ],
+      "gallery": "examples/meridianclub-investor.html"
     },
     {
       "name": "kinetic-wrapped",
@@ -807,7 +909,13 @@
         "#ffffff",
         "#c8ff00",
         "#ff00cc"
-      ]
+      ],
+      "aliases": [
+        "Kinetic Wrapped",
+        "Wrapped",
+        "Spotify Wrapped"
+      ],
+      "gallery": "examples/pulse-wrapped.html"
     },
     {
       "name": "blueprint",
@@ -834,7 +942,12 @@
         "#e8f4ff",
         "#00e5ff",
         "#ffffff"
-      ]
+      ],
+      "aliases": [
+        "Blueprint",
+        "Engineering Blueprint"
+      ],
+      "gallery": "examples/apsis-mission.html"
     },
     {
       "name": "glassmorphism",
@@ -860,7 +973,13 @@
         "#0f1333",
         "#5b6af5",
         "#22d3ee"
-      ]
+      ],
+      "aliases": [
+        "Glassmorphism",
+        "Frosted Glass",
+        "Glass"
+      ],
+      "gallery": "examples/cloudpeak-pricing.html"
     },
     {
       "name": "broadsheet",
@@ -887,7 +1006,12 @@
         "#1a1208",
         "#5c4d38",
         "#8a7560"
-      ]
+      ],
+      "aliases": [
+        "Broadsheet",
+        "Newspaper"
+      ],
+      "gallery": "examples/dailyledger-mediakit.html"
     },
     {
       "name": "soft-editorial",
@@ -914,6 +1038,10 @@
         "#2A241B",
         "#B7C7A8",
         "#E1A4C2"
+      ],
+      "aliases": [
+        "Soft Editorial",
+        "Warm Editorial"
       ]
     },
     {
@@ -941,6 +1069,10 @@
         "#2e4a2a",
         "#e89cb1",
         "#1a1a17"
+      ],
+      "aliases": [
+        "Editorial Forest",
+        "Forest Editorial"
       ]
     },
     {
@@ -968,6 +1100,11 @@
         "#1F3A8A",
         "#C2342B",
         "#F8F1D6"
+      ],
+      "aliases": [
+        "Pin and Paper",
+        "Pin & Paper",
+        "Cork Pin"
       ]
     },
     {
@@ -995,6 +1132,10 @@
         "#E8D85C",
         "#3A7878",
         "#1F2858"
+      ],
+      "aliases": [
+        "Vellum",
+        "Colorfield"
       ]
     },
     {
@@ -1022,6 +1163,10 @@
         "#0A0A0A",
         "#E6FF3D",
         "#F5F4EF"
+      ],
+      "aliases": [
+        "Neo Grid Bold",
+        "Neo Grid"
       ]
     },
     {
@@ -1049,6 +1194,10 @@
         "#F2D86A",
         "#7A1F35",
         "#F2B6C6"
+      ],
+      "aliases": [
+        "Editorial Tri-Tone",
+        "Tri-Tone"
       ]
     },
     {
@@ -1076,6 +1225,10 @@
         "#0F0F0F",
         "#E85A1F",
         "#F06CA8"
+      ],
+      "aliases": [
+        "Creative Mode",
+        "Mode Blocks"
       ]
     },
     {
@@ -1103,6 +1256,10 @@
         "#E85D26",
         "#F0ECE5",
         "#888880"
+      ],
+      "aliases": [
+        "Broadside",
+        "Broadside Fire"
       ]
     },
     {
@@ -1130,6 +1287,10 @@
         "#ffffff",
         "#FF5722",
         "#2d2d2d"
+      ],
+      "aliases": [
+        "Bold Signal",
+        "Signal Orange"
       ]
     },
     {
@@ -1157,6 +1318,10 @@
         "#1a1a1a",
         "#98d4bb",
         "#c7b8ea"
+      ],
+      "aliases": [
+        "Notebook Tabs",
+        "Tabs"
       ]
     },
     {
@@ -1184,6 +1349,10 @@
         "#1a1a2e",
         "#d4ff00",
         "#ffffff"
+      ],
+      "aliases": [
+        "Creative Voltage",
+        "Voltage"
       ]
     },
     {
@@ -1211,6 +1380,10 @@
         "#1C2644",
         "#C8A870",
         "#1A2030"
+      ],
+      "aliases": [
+        "Signal",
+        "Signal Briefing"
       ]
     },
     {
@@ -1238,6 +1411,10 @@
         "#0a0a0a",
         "#4361ee",
         "#0a0a0a"
+      ],
+      "aliases": [
+        "Electric Studio",
+        "Studio Blue"
       ]
     },
     {
@@ -1265,6 +1442,10 @@
         "#e8e4df",
         "#d4a574",
         "#e8b4b8"
+      ],
+      "aliases": [
+        "Dark Botanical",
+        "Botanical Dark"
       ]
     },
     {
@@ -1292,6 +1473,10 @@
         "#1a1a1a",
         "#f0b4d4",
         "#9b8dc4"
+      ],
+      "aliases": [
+        "Pastel Geometry",
+        "Geometry Pills"
       ]
     },
     {
@@ -1319,6 +1504,10 @@
         "#e4dff0",
         "#c8f0d8",
         "#f0d4e0"
+      ],
+      "aliases": [
+        "Split Pastel",
+        "Pastel Split"
       ]
     },
     {
@@ -1346,6 +1535,10 @@
         "#1a1a1a",
         "#e8d4c0",
         "#555555"
+      ],
+      "aliases": [
+        "Vintage Editorial",
+        "Vintage Geo"
       ]
     },
     {
@@ -1373,6 +1566,10 @@
         "#1a1a1a",
         "#c41e3a",
         "#5c574c"
+      ],
+      "aliases": [
+        "Paper Ink",
+        "Literary Paper"
       ]
     },
     {
@@ -1400,6 +1597,10 @@
         "#1B2566",
         "#F1EE2E",
         "#E26B4A"
+      ],
+      "aliases": [
+        "Biennale Yellow",
+        "Biennale"
       ]
     },
     {
@@ -1427,6 +1628,10 @@
         "#1C1410",
         "#D8000F",
         "#F5F2EF"
+      ],
+      "aliases": [
+        "Bold Poster",
+        "Poster Ink"
       ]
     },
     {
@@ -1454,6 +1659,10 @@
         "#1A1A1A",
         "#E85D5D",
         "#FFFFFF"
+      ],
+      "aliases": [
+        "Coral",
+        "Coral Hatch"
       ]
     },
     {
@@ -1481,6 +1690,10 @@
         "#0F1A5C",
         "#F1E9D6",
         "#2DC684"
+      ],
+      "aliases": [
+        "Emerald Editorial",
+        "Emerald"
       ]
     },
     {
@@ -1508,6 +1721,11 @@
         "#3A2516",
         "#E5392A",
         "#E54489"
+      ],
+      "aliases": [
+        "Sakura Chroma",
+        "Sakura",
+        "Chroma Cassette"
       ]
     },
     {
@@ -1535,6 +1753,10 @@
         "#F5EDF1",
         "#ED3D8C",
         "#FF66A8"
+      ],
+      "aliases": [
+        "Pink Script",
+        "Afterhours Script"
       ]
     },
     {
@@ -1562,6 +1784,10 @@
         "#000000",
         "#FE90E8",
         "#99E885"
+      ],
+      "aliases": [
+        "Block Frame",
+        "Brutal Frame"
       ]
     },
     {
@@ -1589,6 +1815,10 @@
         "#1A1A1A",
         "#E85D4E",
         "#C4D94E"
+      ],
+      "aliases": [
+        "Capsule",
+        "Capsule Pills"
       ]
     },
     {
@@ -1616,6 +1846,10 @@
         "#1F2BE0",
         "#E6E0CE",
         "#5560E5"
+      ],
+      "aliases": [
+        "Cobalt Grid",
+        "Cobalt"
       ]
     },
     {
@@ -1643,6 +1877,11 @@
         "#5EDCF4",
         "#F0A6CA",
         "#F4D03F"
+      ],
+      "aliases": [
+        "8-Bit Orbit",
+        "8-bit",
+        "Pixel Arcade"
       ]
     },
     {
@@ -1670,6 +1909,10 @@
         "#F5D200",
         "#242422",
         "#2E2E2C"
+      ],
+      "aliases": [
+        "Studio Acid",
+        "Acid Studio"
       ]
     },
     {
@@ -1697,6 +1940,10 @@
         "#D4CFBF",
         "#C8524A",
         "#E8E4D6"
+      ],
+      "aliases": [
+        "Grove",
+        "Grove Monograph"
       ]
     },
     {
@@ -1724,6 +1971,10 @@
         "#FFE066",
         "#A5D8FF",
         "#FFC9C9"
+      ],
+      "aliases": [
+        "Scatterbrain",
+        "Corkboard"
       ]
     },
     {
@@ -1751,6 +2002,10 @@
         "#2C2CDC",
         "#F2A03A",
         "#E83A2A"
+      ],
+      "aliases": [
+        "Peoples Platform",
+        "People's Platform"
       ]
     },
     {
@@ -1778,6 +2033,11 @@
         "#000080",
         "#FFFFFF",
         "#008000"
+      ],
+      "aliases": [
+        "Retro Windows",
+        "Windows 95",
+        "Win95"
       ]
     },
     {
@@ -1805,6 +2065,10 @@
         "#0A0A0A",
         "#F2D4CF",
         "#E5EDD6"
+      ],
+      "aliases": [
+        "Raw Grid",
+        "Grid Brutal"
       ]
     },
     {
@@ -1832,6 +2096,10 @@
         "#B53D2A",
         "#F2E5CF",
         "#8E2D1F"
+      ],
+      "aliases": [
+        "Long Table",
+        "Supper Table"
       ]
     },
     {
@@ -1859,6 +2127,10 @@
         "#F0E8D2",
         "#C07030",
         "#EDE6D0"
+      ],
+      "aliases": [
+        "Mat",
+        "Woodglow Mat"
       ]
     },
     {
@@ -1886,6 +2158,10 @@
         "#0A0A0A",
         "#A06A3C",
         "#C73B7A"
+      ],
+      "aliases": [
+        "Stencil Tablet",
+        "Tablet Earth"
       ]
     },
     {
@@ -1913,6 +2189,10 @@
         "#1A1A1A",
         "#8A8178",
         "#B8B0A4"
+      ],
+      "aliases": [
+        "Cartesian",
+        "Draft Grid"
       ]
     },
     {
@@ -1940,6 +2220,11 @@
         "#1A1A16",
         "#5E5E54",
         "#F5F0E4"
+      ],
+      "aliases": [
+        "Monochrome",
+        "Black and White",
+        "Mono"
       ]
     },
     {
@@ -1967,6 +2252,10 @@
         "#1E2BFA",
         "#111111",
         "#6B6B6B"
+      ],
+      "aliases": [
+        "Blue Professional",
+        "Corporate Blue"
       ]
     },
     {
@@ -1994,6 +2283,10 @@
         "#7ECDC0",
         "#F7C8D4",
         "#FDE68A"
+      ],
+      "aliases": [
+        "Daisy Days",
+        "Daisy"
       ]
     },
     {
@@ -2021,6 +2314,10 @@
         "#008F4D",
         "#1A1A1A",
         "#F4EFE6"
+      ],
+      "aliases": [
+        "Retro Zine",
+        "Zine Riso"
       ]
     }
   ]

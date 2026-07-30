@@ -4,6 +4,11 @@ Themes are the styling lever. Same deck JSON + different theme = completely diff
 data intact. List installed themes at runtime with the `list_themes` MCP tool or
 `npx @presentation-md/render --list-themes`.
 
+**Alias cheat-sheet** (frontend-slides STYLE_PRESET names → package IDs):
+`Neon Cyber` → `neon-noir` · `Terminal Green` → `crt-terminal` · `Swiss Modern` → `swiss-typographic`.
+Full synonym lists live in `theme-selection-index.json` (`aliases` field). Use-case triples:
+`theme-shortlists.json`.
+
 | theme | vibe |
 |-------|------|
 | `claude` | Anthropic / Claude-inspired — warm cream paper, clay-coral accent, grotesk + editorial serif (bundled). |
@@ -18,15 +23,15 @@ data intact. List installed themes at runtime with the `list_themes` MCP tool or
 | `aurora-glass` | Aurora glass — black void, Syne, violet + cyan (NovaSpark). |
 | `ft-editorial` | FT broadsheet — cream newsprint, ink serif, blue + red signal. |
 | `genz-bento` | Gen-Z bento — coral + lime stickers, hard offset shadows. |
-| `crt-terminal` | CRT terminal — cream type, phosphor green accents (RetroNet). |
-| `swiss-typographic` | Swiss grid — white, Inter, signal red, zero radius (Grid Systems). |
+| `crt-terminal` | CRT terminal / Terminal Green — cream type, phosphor green accents (RetroNet). |
+| `swiss-typographic` | Swiss Modern / Swiss grid — white, Inter, signal red, zero radius (Grid Systems). |
 | `candy-pop` | Candy pop — cream, hot pink + jellybean blue, Fredoka (Jellybean). |
 | `aerospace-hud` | Aerospace HUD — navy, cyan, orange, Barlow Condensed (Axiom). |
 | `brutalist-acid` | Dark acid brutalist — near-black, electric lime, Space Mono (MONOLITH). |
 | `bauhaus` | Bauhaus — cream #f4f1ea, red #e63946 + blue #1f4ae0 (Primary). |
 | `y2k-aero` | Y2K aero — icy sky + lime bubbles, Nunito (BubbleFlow). |
 | `risograph-zine` | Risograph zine — kraft, red + blue overprint (Inkwell). |
-| `neon-noir` | Neon noir — #050510 night, pink + cyan, Orbitron (Neon District). |
+| `neon-noir` | Neon Cyber / Neon noir — #050510 night, pink + cyan, Orbitron (Neon District). |
 | `vaporwave` | Vaporwave — #1a0533 dusk, #ff6ad5 + #5ce1ff, Monoton (Mallsoft). |
 | `botanical-luxe` | Botanical luxe — forest #1d3a2f, gold #bfa55a (Verdant). |
 | `heritage-editorial` | Heritage editorial — parchment, terracotta, Playfair (Atelier). |
