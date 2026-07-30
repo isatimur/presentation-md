@@ -1,0 +1,32 @@
+{
+  "name": "daisy-days",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Daisy Days \u2014 cream pastels, Fredoka One, hard charcoal outlines (frontend-slides bold-template-pack).",
+  "vibe": "Daisy Days \u2014 cream #F5F0E6 + turquoise/pink/butter, Fredoka One + Quicksand (frontend-slides daisy-days).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#F5F0E6",
+    "bg2": "#FFFDF8",
+    "text": "#2D2D2D",
+    "muted": "#6B6B6B",
+    "accent": "#7ECDC0",
+    "accent2": "#F7C8D4",
+    "cardBg": "#FFFFFF",
+    "border": "#2D2D2D"
+  },
+  "typography": {
+    "headingFont": "'Fredoka One', cursive",
+    "bodyFont": "'Quicksand', system-ui, sans-serif",
+    "headingWeight": 400,
+    "googleFonts": [
+      "Fredoka+One",
+      "Quicksand:wght@500;600;700"
+    ]
+  },
+  "geometry": {
+    "radius": "20px",
+    "slideWidth": "1280px"
+  }
+}

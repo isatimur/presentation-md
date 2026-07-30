@@ -118,6 +118,12 @@ This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a q
 | [`@presentation-md/theme-cobalt-grid`](packages/themes/cobalt-grid) | Cobalt Grid theme |
 | [`@presentation-md/theme-8-bit-orbit`](packages/themes/8-bit-orbit) | 8-Bit Orbit theme |
 | [`@presentation-md/theme-mat`](packages/themes/mat) | Mat theme |
+| [`@presentation-md/theme-retro-zine`](packages/themes/retro-zine) | Retro Zine theme |
+| [`@presentation-md/theme-daisy-days`](packages/themes/daisy-days) | Daisy Days theme |
+| [`@presentation-md/theme-blue-professional`](packages/themes/blue-professional) | Blue Professional theme |
+| [`@presentation-md/theme-monochrome`](packages/themes/monochrome) | Monochrome theme |
+| [`@presentation-md/theme-cartesian`](packages/themes/cartesian) | Cartesian theme |
+| [`@presentation-md/theme-stencil-tablet`](packages/themes/stencil-tablet) | Stencil & Tablet theme |
 | [`@presentation-md/theme-long-table`](packages/themes/long-table) | Long Table theme |
 | [`@presentation-md/theme-raw-grid`](packages/themes/raw-grid) | Raw Grid theme |
 | [`@presentation-md/theme-retro-windows`](packages/themes/retro-windows) | Retro Windows theme |

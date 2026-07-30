@@ -1,0 +1,33 @@
+{
+  "name": "stencil-tablet",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Stencil & Tablet \u2014 bone paper, Stardos Stencil, earth accents (frontend-slides bold-template-pack).",
+  "vibe": "Stencil & Tablet \u2014 bone #E2DCC9 + ink, Stardos Stencil + sienna/magenta/teal blocks (frontend-slides stencil-tablet).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#E2DCC9",
+    "bg2": "#F4EFE0",
+    "text": "#0A0A0A",
+    "muted": "#6F7A2E",
+    "accent": "#A06A3C",
+    "accent2": "#C73B7A",
+    "cardBg": "#F4EFE0",
+    "border": "#000000"
+  },
+  "typography": {
+    "headingFont": "'Stardos Stencil', serif",
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Stardos+Stencil:wght@700",
+      "Barlow+Condensed:wght@600;700;800;900",
+      "Inter:wght@400;500;600"
+    ]
+  },
+  "geometry": {
+    "radius": "24px",
+    "slideWidth": "1280px"
+  }
+}

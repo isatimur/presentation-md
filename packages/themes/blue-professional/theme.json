@@ -1,0 +1,32 @@
+{
+  "name": "blue-professional",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Blue Professional \u2014 cream paper + electric cobalt #1E2BFA (frontend-slides bold-template-pack).",
+  "vibe": "Blue Professional \u2014 cream #FDFAE7 + cobalt #1E2BFA, Space Grotesk + Inter (frontend-slides blue-professional).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#FDFAE7",
+    "bg2": "#F5F2DC",
+    "text": "#111111",
+    "muted": "#6B6B6B",
+    "accent": "#1E2BFA",
+    "accent2": "#059669",
+    "cardBg": "rgba(30,43,250,0.04)",
+    "border": "rgba(30,43,250,0.2)"
+  },
+  "typography": {
+    "headingFont": "'Space Grotesk', sans-serif",
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Space+Grotesk:wght@500;600;700",
+      "Inter:wght@400;500;600"
+    ]
+  },
+  "geometry": {
+    "radius": "12px",
+    "slideWidth": "1280px"
+  }
+}

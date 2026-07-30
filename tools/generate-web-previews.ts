@@ -80,6 +80,12 @@ const PACKAGED_THEMES = [
   "raw-grid",
   "long-table",
   "mat",
+  "stencil-tablet",
+  "cartesian",
+  "monochrome",
+  "blue-professional",
+  "daisy-days",
+  "retro-zine",
 ];
 
 function previewDeck(theme: string): string {

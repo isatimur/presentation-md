@@ -2455,6 +2455,244 @@ thead th {
   border-radius: 0;
 }
 
+/* ── stencil-tablet-earth (stencil-tablet) ── */
+.deck[data-surface="stencil-tablet-earth"] .slide {
+  --slide-bg: var(--bg);
+  border-radius: 0;
+  border: 2px solid #000;
+}
+.deck[data-surface="stencil-tablet-earth"] .slide::before {
+  width: 18%;
+  height: 22%;
+  right: 5%;
+  top: 10%;
+  border-radius: 24px;
+  background: var(--accent);
+  filter: none;
+  opacity: 1;
+}
+.deck[data-surface="stencil-tablet-earth"] .slide::after {
+  width: 14%;
+  height: 18%;
+  left: 5%;
+  bottom: 8%;
+  top: auto;
+  border-radius: 22px;
+  background: var(--accent2);
+  filter: none;
+}
+.deck[data-surface="stencil-tablet-earth"] .slide h1 {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  line-height: 0.88;
+}
+.deck[data-surface="stencil-tablet-earth"] .card {
+  background: var(--card-bg);
+  border: 2px solid #000;
+  border-radius: 24px;
+}
+/* ── cartesian-draft (cartesian) ── */
+.deck[data-surface="cartesian-draft"] .slide {
+  --slide-bg:
+    radial-gradient(circle at 88% 18%, transparent 48px, rgba(184, 176, 164, 0.35) 49px, transparent 50px),
+    radial-gradient(circle at 88% 18%, transparent 72px, rgba(184, 176, 164, 0.22) 73px, transparent 74px),
+    var(--bg);
+  border-radius: 0;
+  border: 1px solid var(--border);
+  box-shadow: none;
+}
+.deck[data-surface="cartesian-draft"] .slide::before {
+  left: 6%;
+  right: 6%;
+  top: 10%;
+  height: 1px;
+  background: var(--border);
+  filter: none;
+  opacity: 1;
+}
+.deck[data-surface="cartesian-draft"] .slide::after {
+  width: 1px;
+  left: 6%;
+  top: 10%;
+  bottom: 10%;
+  height: auto;
+  background: var(--border);
+  filter: none;
+  border-radius: 0;
+}
+.deck[data-surface="cartesian-draft"] .slide h1 {
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+}
+.deck[data-surface="cartesian-draft"] .card {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow: none;
+}
+/* ── monochrome-ledger (monochrome) ── */
+.deck[data-surface="monochrome-ledger"] .slide {
+  --slide-bg: var(--bg);
+  border-radius: 0;
+  border: 1px solid rgba(26, 26, 22, 0.12);
+  box-shadow: none;
+}
+.deck[data-surface="monochrome-ledger"] .slide::before {
+  left: 6%;
+  right: 6%;
+  top: 8%;
+  height: 1px;
+  background: rgba(26, 26, 22, 0.16);
+  filter: none;
+  opacity: 1;
+}
+.deck[data-surface="monochrome-ledger"] .slide::after {
+  width: 24px;
+  height: 1px;
+  left: 6%;
+  bottom: 8%;
+  top: auto;
+  background: var(--text);
+  filter: none;
+  border-radius: 0;
+}
+.deck[data-surface="monochrome-ledger"] .slide h1 {
+  font-weight: 200;
+  letter-spacing: -0.02em;
+  line-height: 0.98;
+}
+.deck[data-surface="monochrome-ledger"] .card {
+  background: var(--card-bg);
+  border: 1px solid rgba(26, 26, 22, 0.12);
+  border-radius: 16px;
+  box-shadow: none;
+}
+/* ── blue-professional-clean (blue-professional) ── */
+.deck[data-surface="blue-professional-clean"] .slide {
+  --slide-bg:
+    linear-gradient(180deg, rgba(30, 43, 250, 0.06) 0 18%, transparent 18%),
+    var(--bg);
+  border-radius: 16px;
+  border: 1px solid rgba(30, 43, 250, 0.16);
+}
+.deck[data-surface="blue-professional-clean"] .slide::before {
+  width: 48px;
+  height: 4px;
+  left: 48px;
+  top: 40px;
+  background: var(--accent);
+  filter: none;
+  border-radius: 2px;
+}
+.deck[data-surface="blue-professional-clean"] .slide::after {
+  display: none;
+}
+.deck[data-surface="blue-professional-clean"] .slide h1 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  color: var(--text);
+}
+.deck[data-surface="blue-professional-clean"] .card {
+  background: rgba(30, 43, 250, 0.04);
+  border: 1px solid rgba(30, 43, 250, 0.16);
+  border-radius: 12px;
+}
+/* ── daisy-days-pastel (daisy-days) ── */
+.deck[data-surface="daisy-days-pastel"] .slide {
+  --slide-bg:
+    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    var(--bg);
+  border-radius: 28px;
+  border: 3px solid #2D2D2D;
+  box-shadow: 6px 6px 0 #2D2D2D;
+}
+.deck[data-surface="daisy-days-pastel"] .slide::before {
+  width: 56px;
+  height: 56px;
+  right: 48px;
+  top: 40px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, #FDE68A 0 10px, transparent 11px),
+    radial-gradient(circle at 50% 18%, #fff 0 8px, transparent 9px),
+    radial-gradient(circle at 50% 82%, #fff 0 8px, transparent 9px),
+    radial-gradient(circle at 18% 50%, #fff 0 8px, transparent 9px),
+    radial-gradient(circle at 82% 50%, #fff 0 8px, transparent 9px);
+  border: 3px solid #2D2D2D;
+  filter: none;
+}
+.deck[data-surface="daisy-days-pastel"] .slide::after {
+  width: 72px;
+  height: 28px;
+  left: 44px;
+  bottom: 40px;
+  top: auto;
+  border-radius: 9999px;
+  background: #A8D8F0;
+  border: 3px solid #2D2D2D;
+  box-shadow: 3px 3px 0 #2D2D2D;
+  filter: none;
+}
+.deck[data-surface="daisy-days-pastel"] .slide h1 {
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.08;
+  text-shadow: 3px 3px 0 #2D2D2D;
+}
+.deck[data-surface="daisy-days-pastel"] .card {
+  background: #fff;
+  border: 3px solid #2D2D2D;
+  border-radius: 20px;
+  box-shadow: 4px 4px 0 #2D2D2D;
+}
+/* ── retro-zine-riso (retro-zine) ── */
+.deck[data-surface="retro-zine-riso"] .slide {
+  --slide-bg:
+    radial-gradient(circle at 1px 1px, rgba(26, 26, 26, 0.08) 1px, transparent 0),
+    var(--bg);
+  background-size: 3px 3px, auto;
+  border-radius: 0;
+  border: 3px solid #1A1A1A;
+}
+.deck[data-surface="retro-zine-riso"] .slide::before {
+  width: 26%;
+  height: 34%;
+  right: 6%;
+  top: 14%;
+  background: var(--accent);
+  filter: none;
+  opacity: 1;
+  transform: translate(10px, 10px);
+}
+.deck[data-surface="retro-zine-riso"] .slide::after {
+  width: 26%;
+  height: 34%;
+  right: 6%;
+  top: 14%;
+  background: var(--card-bg);
+  border: 2px solid #1A1A1A;
+  filter: none;
+  border-radius: 0;
+}
+.deck[data-surface="retro-zine-riso"] .slide h1 {
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 0.9;
+}
+.deck[data-surface="retro-zine-riso"] .card {
+  background: var(--card-bg);
+  border: 2px solid #1A1A1A;
+  border-radius: 0;
+  box-shadow: 8px 8px 0 var(--accent);
+}
+
 /* Scroll-triggered reveals (populated by document.html script) */
 .slide .reveal {
   opacity: 0;

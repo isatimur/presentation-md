@@ -657,6 +657,54 @@ Each theme is a complete design language: colors, typography, geometry, motion, 
 **Surface:** `mat-woodglow`
 **Use for:** architecture / craft / furniture / design studios (frontend-slides Mat)
 
+### `stencil-tablet`
+**Soul:** Skate-poster stencil — Stardos Stencil display, bone field, saturated earth tablet cards.
+**Palette:** `#E2DCC9` bone · `#0A0A0A` ink · `#A06A3C` sienna · `#C73B7A` magenta · `#2D7E73` teal
+**Fonts:** Stardos Stencil · Barlow Condensed · Inter
+**Geometry:** 22–26px tablet radius, color-block cards
+**Surface:** `stencil-tablet-earth`
+**Use for:** museums / heritage / craft brands (frontend-slides Stencil & Tablet)
+
+### `cartesian`
+**Soul:** Museum-catalog restraint — Playfair on warm stone, 1px taupe lines, compass-draft rings.
+**Palette:** `#EDE8E0` sandstone · `#1A1A1A` ink · `#8A8178` accent · `#B8B0A4` line
+**Fonts:** Playfair Display · Inter
+**Geometry:** 0 radius, 1px hairlines, dashed compass rings
+**Surface:** `cartesian-draft`
+**Use for:** investment theses / advisory / cultural decks (frontend-slides Cartesian)
+
+### `monochrome`
+**Soul:** Ivory ledger — ultra-light Jost headlines, Lora only for quotes, zero chroma.
+**Palette:** `#FAFADF` ivory · `#1A1A16` ink · `#5E5E54` graphite
+**Fonts:** Jost · Lora · JetBrains Mono
+**Geometry:** 16px insight cards, hairline rules, no color fills
+**Surface:** `monochrome-ledger`
+**Use for:** research synthesis / white papers / policy briefs (frontend-slides Monochrome)
+
+### `blue-professional`
+**Soul:** Clean modern professional — cream paper, electric cobalt, Space Grotesk metrics.
+**Palette:** `#FDFAE7` cream · `#1E2BFA` cobalt · `#111111` ink
+**Fonts:** Space Grotesk · Inter
+**Geometry:** soft cards, cobalt wash fills, clean rules
+**Surface:** `blue-professional-clean`
+**Use for:** B2B SaaS / consulting / investor reports (frontend-slides Blue Professional)
+
+### `daisy-days`
+**Soul:** Cheerful sticker deck — Fredoka One, pastel fills, 3px charcoal outlines + hard shadows.
+**Palette:** `#F5F0E6` cream · `#7ECDC0` turquoise · `#F7C8D4` pink · `#FDE68A` butter
+**Fonts:** Fredoka One · Quicksand
+**Geometry:** 20–28px radius, 3px charcoal outlines, 6px hard shadows
+**Surface:** `daisy-days-pastel`
+**Use for:** kids / wellness / friendly consumer brands (frontend-slides Daisy Days)
+
+### `retro-zine`
+**Soul:** Riso zine — khaki paper, forest green accent, Bebas tracked caps + Caveat handwriting.
+**Palette:** `#C8B99A` khaki · `#008F4D` green · `#1A1A1A` ink · `#F4EFE6` paper
+**Fonts:** Bebas Neue · Space Grotesk · Caveat
+**Geometry:** 3px ink borders, paper-on-paper offsets, grain overlay
+**Surface:** `retro-zine-riso`
+**Use for:** indie zines / music-arts / craft launches (frontend-slides Retro Zine)
+
 ---
 
 ## Typography Hierarchy — The Scale System

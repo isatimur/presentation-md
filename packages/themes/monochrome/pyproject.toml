@@ -1,0 +1,19 @@
+[project]
+name = "presentation-md-theme-monochrome"
+version = "1.0.0"
+description = "Ivory ledger paper with all-black type; ultra-light Jost + Lora italic accents."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [{ name = "Timur Isachenko" }]
+keywords = ["presentation-md", "theme", "ai-agent", "slides"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/presentation_md_theme_monochrome"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"theme.json" = "presentation_md_theme_monochrome/theme.json"

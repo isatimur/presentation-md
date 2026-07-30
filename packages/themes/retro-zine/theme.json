@@ -1,0 +1,33 @@
+{
+  "name": "retro-zine",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Retro Zine \u2014 khaki paper, forest green, Bebas Neue + Caveat (frontend-slides bold-template-pack).",
+  "vibe": "Retro Zine \u2014 khaki #C8B99A + green #008F4D, Bebas Neue + Space Grotesk (frontend-slides retro-zine).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#C8B99A",
+    "bg2": "#B8A98A",
+    "text": "#1A1A1A",
+    "muted": "#008F4D",
+    "accent": "#008F4D",
+    "accent2": "#00A85D",
+    "cardBg": "#F4EFE6",
+    "border": "#1A1A1A"
+  },
+  "typography": {
+    "headingFont": "'Bebas Neue', sans-serif",
+    "bodyFont": "'Space Grotesk', system-ui, sans-serif",
+    "headingWeight": 400,
+    "googleFonts": [
+      "Bebas+Neue",
+      "Space+Grotesk:wght@300;400;500",
+      "Caveat:wght@400;600"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

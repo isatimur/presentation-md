@@ -237,6 +237,8 @@ importers:
 
   packages/themes/block-frame: {}
 
+  packages/themes/blue-professional: {}
+
   packages/themes/blueprint: {}
 
   packages/themes/bold-poster: {}
@@ -257,6 +259,8 @@ importers:
 
   packages/themes/capsule: {}
 
+  packages/themes/cartesian: {}
+
   packages/themes/cobalt-grid: {}
 
   packages/themes/coral: {}
@@ -268,6 +272,8 @@ importers:
   packages/themes/creative-voltage: {}
 
   packages/themes/crt-terminal: {}
+
+  packages/themes/daisy-days: {}
 
   packages/themes/dark-botanical: {}
 
@@ -305,6 +311,8 @@ importers:
 
   packages/themes/mat: {}
 
+  packages/themes/monochrome: {}
+
   packages/themes/neo-grid-bold: {}
 
   packages/themes/neon-noir: {}
@@ -331,6 +339,8 @@ importers:
 
   packages/themes/retro-windows: {}
 
+  packages/themes/retro-zine: {}
+
   packages/themes/risograph-zine: {}
 
   packages/themes/sakura-chroma: {}
@@ -344,6 +354,8 @@ importers:
   packages/themes/soft-editorial: {}
 
   packages/themes/split-pastel: {}
+
+  packages/themes/stencil-tablet: {}
 
   packages/themes/studio: {}
 

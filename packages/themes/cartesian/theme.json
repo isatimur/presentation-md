@@ -1,0 +1,32 @@
+{
+  "name": "cartesian",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Cartesian \u2014 warm stone + Playfair, 1px taupe draft lines (frontend-slides bold-template-pack).",
+  "vibe": "Cartesian \u2014 sandstone #EDE8E0, Playfair + Inter, taupe hairlines (frontend-slides cartesian).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#EDE8E0",
+    "bg2": "#E2DBD1",
+    "text": "#1A1A1A",
+    "muted": "#5A5A5A",
+    "accent": "#8A8178",
+    "accent2": "#B8B0A4",
+    "cardBg": "#E2DBD1",
+    "border": "#B8B0A4"
+  },
+  "typography": {
+    "headingFont": "'Playfair Display', Georgia, serif",
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "headingWeight": 400,
+    "googleFonts": [
+      "Playfair+Display:wght@400;500;600",
+      "Inter:wght@400;500;600"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

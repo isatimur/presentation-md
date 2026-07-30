@@ -1,0 +1,33 @@
+{
+  "name": "monochrome",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Monochrome \u2014 ivory ledger, ultra-light Jost, no chromatic accents (frontend-slides bold-template-pack).",
+  "vibe": "Monochrome \u2014 ivory #FAFADF + ink #1A1A16, Jost 200 + Lora italic (frontend-slides monochrome).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#FAFADF",
+    "bg2": "#F5F0E4",
+    "text": "#1A1A16",
+    "muted": "#5E5E54",
+    "accent": "#1A1A16",
+    "accent2": "#8A8A80",
+    "cardBg": "#F5F0E4",
+    "border": "rgba(26,26,22,0.18)"
+  },
+  "typography": {
+    "headingFont": "'Jost', system-ui, sans-serif",
+    "bodyFont": "'Jost', system-ui, sans-serif",
+    "headingWeight": 200,
+    "googleFonts": [
+      "Jost:wght@200;300;400;500",
+      "Lora:ital,wght@0,400;0,500;1,400",
+      "JetBrains+Mono:wght@400"
+    ]
+  },
+  "geometry": {
+    "radius": "16px",
+    "slideWidth": "1280px"
+  }
+}

@@ -67,5 +67,11 @@
   "retro-windows": "retro-windows-chrome",
   "raw-grid": "raw-grid-brutal",
   "long-table": "long-table-supper",
-  "mat": "mat-woodglow"
+  "mat": "mat-woodglow",
+  "stencil-tablet": "stencil-tablet-earth",
+  "cartesian": "cartesian-draft",
+  "monochrome": "monochrome-ledger",
+  "blue-professional": "blue-professional-clean",
+  "daisy-days": "daisy-days-pastel",
+  "retro-zine": "retro-zine-riso"
 }

@@ -68,6 +68,12 @@ data intact. List installed themes at runtime with the `list_themes` MCP tool or
 | `cobalt-grid` | Cobalt Grid — graph paper #F0EBDE, cobalt #1F2BE0, Newsreader. |
 | `8-bit-orbit` | 8-Bit Orbit — navy void, neon cyan/pink/yellow, Tektur + Chakra Petch. |
 | `mat` | Mat — sage #232E26, cream type, burnt orange #C07030, Bricolage + DM Sans. |
+| `retro-zine` | Retro Zine — khaki #C8B99A, green #008F4D, Bebas Neue + Caveat. |
+| `daisy-days` | Daisy Days — cream pastels, Fredoka One, charcoal-outlined stickers. |
+| `blue-professional` | Blue Professional — cream #FDFAE7, cobalt #1E2BFA, Space Grotesk + Inter. |
+| `monochrome` | Monochrome — ivory #FAFADF, ultra-light Jost, Lora italic quotes only. |
+| `cartesian` | Cartesian — sandstone #EDE8E0, Playfair, 1px taupe draft lines. |
+| `stencil-tablet` | Stencil & Tablet — bone #E2DCC9, Stardos Stencil, earth tablet blocks. |
 | `long-table` | Long Table — cream #FAF1E2, rust #B53D2A, Bricolage + Fraunces italic. |
 | `raw-grid` | Raw Grid — white canvas, 3px black borders, blush/sage fills, system sans 900. |
 | `retro-windows` | Retro Windows — Win95 gray chrome, navy title bar, Press Start 2P accents. |

@@ -1860,6 +1860,168 @@
         "#C07030",
         "#EDE6D0"
       ]
+    },
+    {
+      "name": "stencil-tablet",
+      "scheme": "light",
+      "formality": "medium-high",
+      "mood": [
+        "archival",
+        "earthy",
+        "tactile",
+        "graphic"
+      ],
+      "best_for": [
+        "museum / cultural decks",
+        "architecture brands",
+        "heritage / craft",
+        "research field manuals"
+      ],
+      "avoid_for": [
+        "digital-native polish",
+        "playful pop"
+      ],
+      "swatches": [
+        "#E2DCC9",
+        "#0A0A0A",
+        "#A06A3C",
+        "#C73B7A"
+      ]
+    },
+    {
+      "name": "cartesian",
+      "scheme": "light",
+      "formality": "high",
+      "mood": [
+        "quiet",
+        "elegant",
+        "warm-minimal",
+        "considered"
+      ],
+      "best_for": [
+        "investment theses",
+        "white papers",
+        "advisory",
+        "gallery / cultural decks"
+      ],
+      "avoid_for": [
+        "visual heat",
+        "multi-accent urgency"
+      ],
+      "swatches": [
+        "#EDE8E0",
+        "#1A1A1A",
+        "#8A8178",
+        "#B8B0A4"
+      ]
+    },
+    {
+      "name": "monochrome",
+      "scheme": "light",
+      "formality": "high",
+      "mood": [
+        "restrained",
+        "literary",
+        "archival",
+        "ledger"
+      ],
+      "best_for": [
+        "user research synthesis",
+        "white papers",
+        "academic / policy briefs",
+        "advisory deliverables"
+      ],
+      "avoid_for": [
+        "color-led storytelling",
+        "playful brands"
+      ],
+      "swatches": [
+        "#FAFADF",
+        "#1A1A16",
+        "#5E5E54",
+        "#F5F0E4"
+      ]
+    },
+    {
+      "name": "blue-professional",
+      "scheme": "light",
+      "formality": "medium-high",
+      "mood": [
+        "professional",
+        "modern",
+        "calm",
+        "trustworthy"
+      ],
+      "best_for": [
+        "B2B SaaS pitches",
+        "consulting deliverables",
+        "investor reports",
+        "advisory updates"
+      ],
+      "avoid_for": [
+        "playful informal",
+        "hot neon brands"
+      ],
+      "swatches": [
+        "#FDFAE7",
+        "#1E2BFA",
+        "#111111",
+        "#6B6B6B"
+      ]
+    },
+    {
+      "name": "daisy-days",
+      "scheme": "light",
+      "formality": "low",
+      "mood": [
+        "cheerful",
+        "friendly",
+        "soft",
+        "playful"
+      ],
+      "best_for": [
+        "kids / family brands",
+        "wellness",
+        "friendly consumer launches",
+        "community events"
+      ],
+      "avoid_for": [
+        "institutional sober",
+        "finance formal"
+      ],
+      "swatches": [
+        "#F5F0E6",
+        "#7ECDC0",
+        "#F7C8D4",
+        "#FDE68A"
+      ]
+    },
+    {
+      "name": "retro-zine",
+      "scheme": "light",
+      "formality": "medium-low",
+      "mood": [
+        "crafted",
+        "lo-fi",
+        "underground",
+        "warm-retro"
+      ],
+      "best_for": [
+        "indie zines",
+        "music / arts brands",
+        "creator portfolios",
+        "small-batch craft"
+      ],
+      "avoid_for": [
+        "digital-native polish",
+        "fast tech energy"
+      ],
+      "swatches": [
+        "#C8B99A",
+        "#008F4D",
+        "#1A1A1A",
+        "#F4EFE6"
+      ]
     }
   ]
 }
