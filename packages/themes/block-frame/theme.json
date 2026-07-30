@@ -1,0 +1,32 @@
+{
+  "name": "block-frame",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "BlockFrame \u2014 neobrutalist pastel-neon blocks, 4px ink borders, hard offset shadows (frontend-slides bold-template-pack).",
+  "vibe": "BlockFrame \u2014 offwhite #FFFDF5, pink/blue/green/yellow pastels, Inter 900 + Space Grotesk (frontend-slides block-frame).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#FFFDF5",
+    "bg2": "#FFDC8B",
+    "text": "#000000",
+    "muted": "#444444",
+    "accent": "#FE90E8",
+    "accent2": "#99E885",
+    "cardBg": "#FFFFFF",
+    "border": "#000000"
+  },
+  "typography": {
+    "headingFont": "'Inter', system-ui, sans-serif",
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "headingWeight": 900,
+    "googleFonts": [
+      "Inter:wght@500;700;800;900",
+      "Space+Grotesk:wght@500;600;700"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

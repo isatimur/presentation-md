@@ -1,0 +1,33 @@
+{
+  "name": "cobalt-grid",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Cobalt Grid \u2014 graph-paper canvas, electric cobalt Newsreader, stair-step panels (frontend-slides bold-template-pack).",
+  "vibe": "Cobalt Grid \u2014 paper #F0EBDE, cobalt #1F2BE0, Newsreader + Hanken Grotesk (frontend-slides cobalt-grid).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#F0EBDE",
+    "bg2": "#E6E0CE",
+    "text": "#1F2BE0",
+    "muted": "#5560E5",
+    "accent": "#1F2BE0",
+    "accent2": "#1F2BE0",
+    "cardBg": "rgba(255,255,255,0.55)",
+    "border": "rgba(31,43,224,0.18)"
+  },
+  "typography": {
+    "headingFont": "'Newsreader', Georgia, serif",
+    "bodyFont": "'Hanken Grotesk', system-ui, sans-serif",
+    "headingWeight": 600,
+    "googleFonts": [
+      "Newsreader:opsz,wght@6..72,400;500;600;700",
+      "Hanken+Grotesk:wght@400;500;600;700",
+      "DM+Mono:wght@400;500"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

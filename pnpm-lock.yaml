@@ -223,6 +223,8 @@ importers:
         specifier: ^1.5.0
         version: 1.6.1(@types/node@20.19.41)
 
+  packages/themes/8-bit-orbit: {}
+
   packages/themes/aerospace-hud: {}
 
   packages/themes/art-deco: {}
@@ -232,6 +234,8 @@ importers:
   packages/themes/bauhaus: {}
 
   packages/themes/biennale-yellow: {}
+
+  packages/themes/block-frame: {}
 
   packages/themes/blueprint: {}
 
@@ -250,6 +254,12 @@ importers:
   packages/themes/brutalist-mono: {}
 
   packages/themes/candy-pop: {}
+
+  packages/themes/capsule: {}
+
+  packages/themes/cobalt-grid: {}
+
+  packages/themes/coral: {}
 
   packages/themes/corporate: {}
 
@@ -272,6 +282,8 @@ importers:
   packages/themes/editorial-tri-tone: {}
 
   packages/themes/electric-studio: {}
+
+  packages/themes/emerald-editorial: {}
 
   packages/themes/fintech-clean: {}
 
@@ -301,11 +313,15 @@ importers:
 
   packages/themes/pin-and-paper: {}
 
+  packages/themes/pink-script: {}
+
   packages/themes/playful: {}
 
   packages/themes/retro-arcade: {}
 
   packages/themes/risograph-zine: {}
+
+  packages/themes/sakura-chroma: {}
 
   packages/themes/scandinavian: {}
 

@@ -1,6 +1,6 @@
 ---
 name: presentation-generator
-description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 53 themes and 11 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
+description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 61 themes and 11 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
 license: MIT
 metadata:
   author: isatimur
@@ -528,6 +528,70 @@ Each theme is a complete design language: colors, typography, geometry, motion, 
 **Geometry:** 0 radius, bold ink rules, tilted display energy
 **Surface:** `bold-poster-ink`
 **Use for:** manifestos / magazine covers (frontend-slides Bold Poster)
+
+### `coral`
+**Soul:** Mid-century travel-poster energy — cream/coral/ink planes, Bebas Neue as architecture.
+**Palette:** `#F5F0E8` cream · `#E85D5D` coral · `#1A1A1A` ink
+**Fonts:** Bebas Neue · Inter
+**Geometry:** 0 radius, 45° hatch, hard color planes
+**Surface:** `coral-hatch`
+**Use for:** brand launches / sports-culture decks (frontend-slides Coral)
+
+### `emerald-editorial`
+**Soul:** Fashion-masthead magazine cover — emerald field, navy ink, double-rule ornaments.
+**Palette:** `#3CD896` emerald · `#0F1A5C` navy · `#F1E9D6` paper
+**Fonts:** Bodoni Moda · Manrope
+**Geometry:** 0 radius, inset double rules, paper cards
+**Surface:** `emerald-editorial-masthead`
+**Use for:** fashion / cultural brand books (frontend-slides Emerald Editorial)
+
+### `sakura-chroma`
+**Soul:** Vintage Japanese cassette package — cream paper, diagonal chroma ribbon, stamp seals.
+**Palette:** `#F1E6CB` paper · `#3A2516` ink · `#E5392A` red · `#E54489` pink
+**Fonts:** Big Shoulders Display · Albert Sans · JetBrains Mono
+**Geometry:** soft 4px radius, chroma ribbon + petal cluster
+**Surface:** `sakura-chroma-cassette`
+**Use for:** consumer / music / creator brands (frontend-slides Sakura Chroma)
+
+### `pink-script`
+**Soul:** After-hours couture editorial — black canvas, hot fuchsia, pearl frame.
+**Palette:** `#060507` ink · `#ED3D8C` pink · `#F5EDF1` blush
+**Fonts:** DM Serif Display · Inter · JetBrains Mono
+**Geometry:** 0 radius, hairline interior frame, film glow
+**Surface:** `pink-script-afterhours`
+**Use for:** fashion lookbooks / fragrance (frontend-slides Pink Script)
+
+### `block-frame`
+**Soul:** Neobrutalist sticker book — pastel neon blocks, chunky black borders, hard shadows.
+**Palette:** `#FFFDF5` offwhite · `#FE90E8` pink · `#99E885` green · `#000` ink
+**Fonts:** Inter 900 · Space Grotesk labels
+**Geometry:** 0 radius, 4px borders, 8px offset shadows
+**Surface:** `block-frame-brutal`
+**Use for:** youth brands / agency launches (frontend-slides BlockFrame)
+
+### `capsule`
+**Soul:** Memphis-meets-editorial — pill containers on warm bone with candy accents.
+**Palette:** `#F5F5F0` cream · `#E85D4E` coral · `#C4D94E` lime · `#1A1A1A` ink
+**Fonts:** Bodoni Moda · Space Grotesk
+**Geometry:** full-pill radius, soft offset shadows
+**Surface:** `capsule-pills`
+**Use for:** consumer apps / lifestyle pitches (frontend-slides Capsule)
+
+### `cobalt-grid`
+**Soul:** Architectural graph paper — electric cobalt serifs, stair-step panels.
+**Palette:** `#F0EBDE` paper · `#1F2BE0` cobalt · `#E6E0CE` paper-2
+**Fonts:** Newsreader · Hanken Grotesk · DM Mono
+**Geometry:** 0 radius, graph grid, stair motif
+**Surface:** `cobalt-grid-paper`
+**Use for:** architecture / research briefings (frontend-slides Cobalt Grid)
+
+### `8-bit-orbit`
+**Soul:** Pixel neon arcade cabinet — cosmic navy void, cyan/pink/yellow HUD.
+**Palette:** `#0A0E27` void · `#5EDCF4` cyan · `#F0A6CA` pink · `#F4D03F` yellow
+**Fonts:** Tektur · Chakra Petch · Space Mono
+**Geometry:** 0 radius, scanlines, pixel-unit hard shadows
+**Surface:** `bit-orbit-arcade`
+**Use for:** gaming / hackathon / synthwave (frontend-slides 8-Bit Orbit)
 
 ---
 

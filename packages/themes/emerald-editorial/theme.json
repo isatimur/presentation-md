@@ -1,0 +1,32 @@
+{
+  "name": "emerald-editorial",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Emerald Editorial \u2014 saturated emerald canvas, navy ink, oat paper, Bodoni Moda (frontend-slides bold-template-pack).",
+  "vibe": "Emerald Editorial \u2014 emerald #3CD896, navy #0F1A5C, paper #F1E9D6, Bodoni Moda + Manrope (frontend-slides emerald-editorial).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#3CD896",
+    "bg2": "#2DC684",
+    "text": "#0F1A5C",
+    "muted": "#3A4593",
+    "accent": "#0F1A5C",
+    "accent2": "#F1E9D6",
+    "cardBg": "#F1E9D6",
+    "border": "rgba(15,26,92,0.85)"
+  },
+  "typography": {
+    "headingFont": "'Bodoni Moda', Georgia, serif",
+    "bodyFont": "'Manrope', system-ui, sans-serif",
+    "headingWeight": 900,
+    "googleFonts": [
+      "Bodoni+Moda:opsz,wght@6..96,400;700;800;900",
+      "Manrope:wght@400;500;600;700"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

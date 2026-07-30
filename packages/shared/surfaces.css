@@ -1428,6 +1428,361 @@
   border-radius: 0;
 }
 
+/* ── coral-hatch (coral) ── */
+.deck[data-surface="coral-hatch"] .slide {
+  --slide-bg:
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 10px,
+      rgba(26, 26, 26, 0.045) 10px,
+      rgba(26, 26, 26, 0.045) 12px
+    ),
+    linear-gradient(135deg, var(--bg) 0 62%, var(--bg-2) 62% 100%);
+  border-radius: 0;
+  border: 3px solid var(--text);
+}
+.deck[data-surface="coral-hatch"] .slide::before {
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 42%;
+  background: color-mix(in srgb, var(--accent) 92%, transparent);
+  opacity: 0.18;
+  pointer-events: none;
+}
+.deck[data-surface="coral-hatch"] .slide::after {
+  display: none;
+}
+.deck[data-surface="coral-hatch"] .slide h1 {
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 0.92;
+}
+.deck[data-surface="coral-hatch"] .card {
+  background: #fff;
+  border: 2px solid var(--text);
+  border-radius: 0;
+}
+
+/* ── emerald-editorial-masthead (emerald-editorial) ── */
+.deck[data-surface="emerald-editorial-masthead"] .slide {
+  --slide-bg: var(--bg);
+  border-radius: 0;
+  border: none;
+  box-shadow: inset 0 0 0 18px var(--bg), inset 0 0 0 20px color-mix(in srgb, var(--text) 75%, transparent);
+}
+.deck[data-surface="emerald-editorial-masthead"] .slide::before {
+  left: 12%;
+  right: 12%;
+  top: 14%;
+  height: 3px;
+  background: linear-gradient(
+    180deg,
+    var(--text) 0 1px,
+    transparent 1px 2px,
+    var(--text) 2px 3px
+  );
+}
+.deck[data-surface="emerald-editorial-masthead"] .slide::after {
+  left: 12%;
+  right: 12%;
+  bottom: 14%;
+  top: auto;
+  height: 3px;
+  background: linear-gradient(
+    180deg,
+    var(--text) 0 1px,
+    transparent 1px 2px,
+    var(--text) 2px 3px
+  );
+  filter: none;
+  opacity: 1;
+  border-radius: 0;
+}
+.deck[data-surface="emerald-editorial-masthead"] .slide h1 {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+.deck[data-surface="emerald-editorial-masthead"] .card {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 2px solid var(--text);
+  border-radius: 0;
+}
+
+/* ── sakura-chroma-cassette (sakura-chroma) ── */
+.deck[data-surface="sakura-chroma-cassette"] .slide {
+  --slide-bg:
+    linear-gradient(135deg, #E5392A 0 8%, #E54489 8% 16%, #F09131 16% 24%, #3D9F47 24% 32%, #3F8BC4 32% 40%, #F0BC2A 40% 48%, transparent 48%),
+    var(--bg);
+  border-radius: 6px;
+  border: 2px solid var(--text);
+  box-shadow: 10px 10px 0 color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.deck[data-surface="sakura-chroma-cassette"] .slide::before {
+  width: 72px;
+  height: 72px;
+  right: 48px;
+  top: 40px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, #E54489 0 28%, transparent 29%),
+    radial-gradient(circle at 70% 35%, #F09131 0 24%, transparent 25%),
+    radial-gradient(circle at 50% 70%, #3F8BC4 0 26%, transparent 27%),
+    radial-gradient(circle at 35% 65%, #3D9F47 0 22%, transparent 23%);
+  filter: none;
+  opacity: 0.95;
+}
+.deck[data-surface="sakura-chroma-cassette"] .slide::after {
+  width: 56px;
+  height: 22px;
+  left: 48px;
+  bottom: 40px;
+  top: auto;
+  background: var(--accent);
+  border: 2px solid var(--text);
+  filter: none;
+  border-radius: 2px;
+}
+.deck[data-surface="sakura-chroma-cassette"] .slide h1 {
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 0.88;
+  text-transform: uppercase;
+}
+.deck[data-surface="sakura-chroma-cassette"] .card {
+  background: var(--card-bg);
+  border: 2px solid var(--text);
+  border-radius: 4px;
+}
+
+/* ── pink-script-afterhours (pink-script) ── */
+.deck[data-surface="pink-script-afterhours"] .slide {
+  --slide-bg:
+    radial-gradient(ellipse 70% 55% at 80% 15%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
+    var(--bg);
+  border-radius: 0;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent),
+    inset 0 0 0 18px transparent,
+    inset 0 0 0 19px rgba(245, 237, 241, 0.12);
+}
+.deck[data-surface="pink-script-afterhours"] .slide::before {
+  left: 28px;
+  right: 28px;
+  top: 28px;
+  bottom: 28px;
+  width: auto;
+  height: auto;
+  border: 1px solid rgba(245, 237, 241, 0.14);
+  background: transparent;
+}
+.deck[data-surface="pink-script-afterhours"] .slide::after {
+  width: 120px;
+  height: 3px;
+  right: 56px;
+  bottom: 56px;
+  top: auto;
+  background: var(--accent);
+  filter: none;
+  border-radius: 0;
+}
+.deck[data-surface="pink-script-afterhours"] .slide h1 {
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+.deck[data-surface="pink-script-afterhours"] .card {
+  background: rgba(245, 237, 241, 0.05);
+  border: 1px solid rgba(237, 61, 140, 0.28);
+  border-radius: 0;
+}
+
+/* ── block-frame-brutal (block-frame) ── */
+.deck[data-surface="block-frame-brutal"] .slide {
+  --slide-bg: var(--bg);
+  border-radius: 0;
+  border: 4px solid #000;
+  box-shadow: 8px 8px 0 #000;
+}
+.deck[data-surface="block-frame-brutal"] .slide::before {
+  width: 28%;
+  height: 18%;
+  right: -2%;
+  top: 12%;
+  background: var(--accent);
+  border: 4px solid #000;
+  box-shadow: 6px 6px 0 #000;
+  transform: rotate(6deg);
+  filter: none;
+}
+.deck[data-surface="block-frame-brutal"] .slide::after {
+  width: 16%;
+  height: 22%;
+  left: 6%;
+  bottom: 10%;
+  top: auto;
+  background: #C0F7FE;
+  border: 4px solid #000;
+  box-shadow: 6px 6px 0 #000;
+  transform: rotate(-8deg);
+  filter: none;
+}
+.deck[data-surface="block-frame-brutal"] .slide h1 {
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  line-height: 0.95;
+}
+.deck[data-surface="block-frame-brutal"] .card {
+  background: #fff;
+  border: 4px solid #000;
+  border-radius: 0;
+  box-shadow: 6px 6px 0 #000;
+}
+
+/* ── capsule-pills (capsule) ── */
+.deck[data-surface="capsule-pills"] .slide {
+  --slide-bg:
+    radial-gradient(circle at 12% 78%, color-mix(in srgb, #C5B5E0 70%, transparent) 0 28px, transparent 29px),
+    radial-gradient(circle at 88% 18%, color-mix(in srgb, #8BB4F7 70%, transparent) 0 22px, transparent 23px),
+    radial-gradient(circle at 78% 82%, color-mix(in srgb, #C4D94E 70%, transparent) 0 18px, transparent 19px),
+    var(--bg);
+  border-radius: 28px;
+  border: 2px solid var(--border);
+  box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+.deck[data-surface="capsule-pills"] .slide::before {
+  width: 120px;
+  height: 36px;
+  right: 48px;
+  top: 40px;
+  border-radius: 9999px;
+  background: var(--accent);
+  border: 2px solid var(--border);
+  box-shadow: 4px 4px 0 rgba(26, 26, 26, 0.1);
+  filter: none;
+}
+.deck[data-surface="capsule-pills"] .slide::after {
+  width: 72px;
+  height: 72px;
+  left: 44px;
+  bottom: 40px;
+  top: auto;
+  border-radius: 50%;
+  background: var(--accent2);
+  border: 2px solid var(--border);
+  filter: none;
+}
+.deck[data-surface="capsule-pills"] .slide h1 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.deck[data-surface="capsule-pills"] .card {
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 2rem;
+  box-shadow: 6px 8px 0 rgba(26, 26, 26, 0.08);
+}
+
+/* ── cobalt-grid-paper (cobalt-grid) ── */
+.deck[data-surface="cobalt-grid-paper"] .slide {
+  --slide-bg:
+    linear-gradient(rgba(31, 43, 224, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31, 43, 224, 0.1) 1px, transparent 1px),
+    var(--bg);
+  background-size: 28px 28px, 28px 28px, auto;
+  border-radius: 0;
+  border: 1px solid rgba(31, 43, 224, 0.18);
+}
+.deck[data-surface="cobalt-grid-paper"] .slide::before {
+  width: 42%;
+  height: 42%;
+  right: 0;
+  bottom: 0;
+  top: auto;
+  background:
+    linear-gradient(to top left, transparent 49.5%, rgba(31, 43, 224, 0.55) 49.5% 50.5%, transparent 50.5%),
+    linear-gradient(to top left, transparent 0 50%, color-mix(in srgb, var(--accent) 12%, transparent) 50%);
+  filter: none;
+  opacity: 1;
+  border-radius: 0;
+}
+.deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+.deck[data-surface="cobalt-grid-paper"] .slide h1 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+.deck[data-surface="cobalt-grid-paper"] .card {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(31, 43, 224, 0.22);
+  border-radius: 0;
+}
+
+/* ── bit-orbit-arcade (8-bit-orbit) ── */
+.deck[data-surface="bit-orbit-arcade"] .slide {
+  --slide-bg:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.18) 3px,
+      rgba(0, 0, 0, 0.18) 4px
+    ),
+    radial-gradient(ellipse 60% 50% at 70% 20%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 65%),
+    radial-gradient(ellipse 40% 35% at 20% 80%, color-mix(in srgb, var(--accent2) 16%, transparent), transparent 70%),
+    var(--bg);
+  border-radius: 0;
+  border: 3px solid var(--accent);
+  box-shadow:
+    0 0 0 4px var(--bg),
+    4px 4px 0 #F4D03F,
+    8px 8px 0 var(--accent2);
+}
+.deck[data-surface="bit-orbit-arcade"] .slide::before {
+  width: 10px;
+  height: 10px;
+  left: 36px;
+  top: 36px;
+  background: #F4D03F;
+  box-shadow:
+    24px 8px 0 var(--accent),
+    48px 0 0 var(--accent2),
+    72px 12px 0 #fff;
+  filter: none;
+  border-radius: 0;
+}
+.deck[data-surface="bit-orbit-arcade"] .slide::after {
+  width: 64px;
+  height: 18px;
+  right: 40px;
+  bottom: 40px;
+  top: auto;
+  background: var(--accent);
+  border: 2px solid #fff;
+  box-shadow: 4px 4px 0 #F4D03F;
+  filter: none;
+  border-radius: 0;
+}
+.deck[data-surface="bit-orbit-arcade"] .slide h1 {
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-shadow: 3px 3px 0 #F4D03F, 6px 6px 0 var(--accent2);
+}
+.deck[data-surface="bit-orbit-arcade"] .card {
+  background: rgba(15, 27, 61, 0.9);
+  border: 2px solid var(--accent);
+  border-radius: 0;
+  box-shadow: 4px 4px 0 var(--accent2);
+}
+
 /* Scroll-triggered reveals (populated by document.html script) */
 .slide .reveal {
   opacity: 0;

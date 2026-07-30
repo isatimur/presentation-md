@@ -109,6 +109,14 @@ This repo also carries **[deck-design-judge](skills/deck-design-judge)** — a q
 | [`@presentation-md/theme-paper-ink`](packages/themes/paper-ink) | Paper & Ink theme |
 | [`@presentation-md/theme-biennale-yellow`](packages/themes/biennale-yellow) | Biennale Yellow theme |
 | [`@presentation-md/theme-bold-poster`](packages/themes/bold-poster) | Bold Poster theme |
+| [`@presentation-md/theme-coral`](packages/themes/coral) | Coral theme |
+| [`@presentation-md/theme-emerald-editorial`](packages/themes/emerald-editorial) | Emerald Editorial theme |
+| [`@presentation-md/theme-sakura-chroma`](packages/themes/sakura-chroma) | Sakura Chroma theme |
+| [`@presentation-md/theme-pink-script`](packages/themes/pink-script) | Pink Script theme |
+| [`@presentation-md/theme-block-frame`](packages/themes/block-frame) | BlockFrame theme |
+| [`@presentation-md/theme-capsule`](packages/themes/capsule) | Capsule theme |
+| [`@presentation-md/theme-cobalt-grid`](packages/themes/cobalt-grid) | Cobalt Grid theme |
+| [`@presentation-md/theme-8-bit-orbit`](packages/themes/8-bit-orbit) | 8-Bit Orbit theme |
 | [`presentation-md-render`](packages/renderer-python) _(PyPI)_ | Python renderer for agents and pipelines running outside Node.js |
 
 ---

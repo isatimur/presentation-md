@@ -64,6 +64,14 @@ const PACKAGED_THEMES = [
   "paper-ink",
   "biennale-yellow",
   "bold-poster",
+  "coral",
+  "emerald-editorial",
+  "sakura-chroma",
+  "pink-script",
+  "block-frame",
+  "capsule",
+  "cobalt-grid",
+  "8-bit-orbit",
 ];
 
 function previewDeck(theme: string): string {

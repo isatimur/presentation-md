@@ -59,6 +59,14 @@ data intact. List installed themes at runtime with the `list_themes` MCP tool or
 | `paper-ink` | Paper & Ink — cream #faf9f7, charcoal #1a1a1a, crimson #c41e3a, Cormorant Garamond + Source Serif 4. |
 | `biennale-yellow` | Biennale Yellow — parchment #E9E5DB, sun #F1EE2E, indigo #1B2566, Instrument Serif + Archivo. |
 | `bold-poster` | Bold Poster — white canvas, ink #1C1410, tomato #D8000F, Shrikhand + Libre Baskerville. |
+| `coral` | Coral — cream #F5F0E8 + coral #E85D5D on ink, Bebas Neue + Inter. |
+| `emerald-editorial` | Emerald Editorial — emerald #3CD896, navy #0F1A5C, Bodoni Moda + Manrope. |
+| `sakura-chroma` | Sakura Chroma — cream cassette paper, chroma stamps, Big Shoulders Display. |
+| `pink-script` | Pink Script — near-black, hot pink #ED3D8C, DM Serif Display. |
+| `block-frame` | BlockFrame — neobrutalist pastel blocks, Inter 900 + hard black borders. |
+| `capsule` | Capsule — bone cream pills, Bodoni Moda + Space Grotesk candy palette. |
+| `cobalt-grid` | Cobalt Grid — graph paper #F0EBDE, cobalt #1F2BE0, Newsreader. |
+| `8-bit-orbit` | 8-Bit Orbit — navy void, neon cyan/pink/yellow, Tektur + Chakra Petch. |
 
 Install more: `npm i @presentation-md/theme-<name>` (or the PyPI mirror
 `presentation-md-theme-<name>`). Scaffold your own: `npx @presentation-md/create-theme`.

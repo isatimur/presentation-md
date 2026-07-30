@@ -1,0 +1,32 @@
+{
+  "name": "coral",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Coral \u2014 cream/coral/ink planes, Bebas Neue caps, 45\u00b0 hatch (frontend-slides bold-template-pack).",
+  "vibe": "Coral \u2014 cream #F5F0E8 + coral #E85D5D on ink #1A1A1A, Bebas Neue + Inter (frontend-slides coral).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#F5F0E8",
+    "bg2": "#E85D5D",
+    "text": "#1A1A1A",
+    "muted": "#6B6B6B",
+    "accent": "#E85D5D",
+    "accent2": "#1A1A1A",
+    "cardBg": "#FFFFFF",
+    "border": "rgba(26,26,26,0.85)"
+  },
+  "typography": {
+    "headingFont": "'Bebas Neue', sans-serif",
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "headingWeight": 400,
+    "googleFonts": [
+      "Bebas+Neue",
+      "Inter:wght@300;400;500;600"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

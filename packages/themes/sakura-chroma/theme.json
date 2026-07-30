@@ -1,0 +1,33 @@
+{
+  "name": "sakura-chroma",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Sakura Chroma \u2014 cream paper cassette aesthetic, Big Shoulders Display, six-color chroma (frontend-slides bold-template-pack).",
+  "vibe": "Sakura Chroma \u2014 paper #F1E6CB, ink #3A2516, red/pink/orange/green/blue/yellow stamps, Big Shoulders Display + Albert Sans (frontend-slides sakura-chroma).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#F1E6CB",
+    "bg2": "#E5D6B0",
+    "text": "#3A2516",
+    "muted": "#6B5340",
+    "accent": "#E5392A",
+    "accent2": "#E54489",
+    "cardBg": "#FFF8E8",
+    "border": "rgba(58,37,22,0.85)"
+  },
+  "typography": {
+    "headingFont": "'Big Shoulders Display', Impact, sans-serif",
+    "bodyFont": "'Albert Sans', system-ui, sans-serif",
+    "headingWeight": 900,
+    "googleFonts": [
+      "Big+Shoulders+Display:wght@700;800;900",
+      "Albert+Sans:wght@400;500;600;700",
+      "JetBrains+Mono:wght@400;500"
+    ]
+  },
+  "geometry": {
+    "radius": "4px",
+    "slideWidth": "1280px"
+  }
+}

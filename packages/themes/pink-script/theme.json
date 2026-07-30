@@ -1,0 +1,33 @@
+{
+  "name": "pink-script",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Pink Script (After Hours) \u2014 near-black canvas, fuchsia accent, pearl paper, DM Serif Display (frontend-slides bold-template-pack).",
+  "vibe": "Pink Script \u2014 ink #060507, pink #ED3D8C, blush paper #F5EDF1, DM Serif Display + Inter (frontend-slides pink-script).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#060507",
+    "bg2": "#0F0D11",
+    "text": "#F5EDF1",
+    "muted": "rgba(245,237,241,0.55)",
+    "accent": "#ED3D8C",
+    "accent2": "#FF66A8",
+    "cardBg": "rgba(245,237,241,0.06)",
+    "border": "rgba(237,61,140,0.32)"
+  },
+  "typography": {
+    "headingFont": "'DM Serif Display', Georgia, serif",
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "headingWeight": 400,
+    "googleFonts": [
+      "DM+Serif+Display:ital@0;1",
+      "Inter:wght@300;400;500;600",
+      "JetBrains+Mono:wght@400;500"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}

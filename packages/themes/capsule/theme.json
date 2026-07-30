@@ -1,0 +1,32 @@
+{
+  "name": "capsule",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "Capsule \u2014 modular pill cards on warm bone, Bodoni Moda + Space Grotesk candy palette (frontend-slides bold-template-pack).",
+  "vibe": "Capsule \u2014 cream #F5F5F0, coral/lime/lavender/sky pops, Bodoni Moda + Space Grotesk pills (frontend-slides capsule).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#F5F5F0",
+    "bg2": "#FFFFFF",
+    "text": "#1A1A1A",
+    "muted": "#5A5A5A",
+    "accent": "#E85D4E",
+    "accent2": "#C4D94E",
+    "cardBg": "#FFFFFF",
+    "border": "#1E1E1E"
+  },
+  "typography": {
+    "headingFont": "'Bodoni Moda', Georgia, serif",
+    "bodyFont": "'Space Grotesk', system-ui, sans-serif",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Bodoni+Moda:opsz,wght@6..96,400;700;800",
+      "Space+Grotesk:wght@400;500;600;700"
+    ]
+  },
+  "geometry": {
+    "radius": "9999px",
+    "slideWidth": "1280px"
+  }
+}

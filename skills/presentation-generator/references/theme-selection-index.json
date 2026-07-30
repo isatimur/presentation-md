@@ -1428,6 +1428,222 @@
         "#D8000F",
         "#F5F2EF"
       ]
+    },
+    {
+      "name": "coral",
+      "scheme": "mixed",
+      "formality": "medium",
+      "mood": [
+        "bold",
+        "poster",
+        "sport-editorial",
+        "high-impact"
+      ],
+      "best_for": [
+        "brand launches",
+        "sports / culture decks",
+        "creative reviews",
+        "campaign keynotes"
+      ],
+      "avoid_for": [
+        "quiet healthcare",
+        "dense regulatory"
+      ],
+      "swatches": [
+        "#F5F0E8",
+        "#1A1A1A",
+        "#E85D5D",
+        "#FFFFFF"
+      ]
+    },
+    {
+      "name": "emerald-editorial",
+      "scheme": "mixed",
+      "formality": "medium-high",
+      "mood": [
+        "editorial",
+        "magazine",
+        "theatrical",
+        "fashion"
+      ],
+      "best_for": [
+        "fashion / beauty",
+        "magazine covers",
+        "cultural institutions",
+        "brand books"
+      ],
+      "avoid_for": [
+        "neon gaming",
+        "tech terminal"
+      ],
+      "swatches": [
+        "#3CD896",
+        "#0F1A5C",
+        "#F1E9D6",
+        "#2DC684"
+      ]
+    },
+    {
+      "name": "sakura-chroma",
+      "scheme": "light",
+      "formality": "low",
+      "mood": [
+        "playful",
+        "japanese-print",
+        "cassette",
+        "chroma"
+      ],
+      "best_for": [
+        "consumer product",
+        "music / culture",
+        "creator brands",
+        "zine-style decks"
+      ],
+      "avoid_for": [
+        "board finance",
+        "legal disclosures"
+      ],
+      "swatches": [
+        "#F1E6CB",
+        "#3A2516",
+        "#E5392A",
+        "#E54489"
+      ]
+    },
+    {
+      "name": "pink-script",
+      "scheme": "dark",
+      "formality": "medium-high",
+      "mood": [
+        "couture",
+        "nocturnal",
+        "editorial",
+        "luxury"
+      ],
+      "best_for": [
+        "fashion lookbooks",
+        "fragrance",
+        "nightlife brands",
+        "creative portfolios"
+      ],
+      "avoid_for": [
+        "kids education",
+        "industrial B2B"
+      ],
+      "swatches": [
+        "#060507",
+        "#F5EDF1",
+        "#ED3D8C",
+        "#FF66A8"
+      ]
+    },
+    {
+      "name": "block-frame",
+      "scheme": "light",
+      "formality": "medium-low",
+      "mood": [
+        "neobrutalist",
+        "playful",
+        "loud",
+        "toy-packaging"
+      ],
+      "best_for": [
+        "startup launches",
+        "youth brands",
+        "creative agencies",
+        "hackathon demos"
+      ],
+      "avoid_for": [
+        "enterprise compliance",
+        "luxury quiet"
+      ],
+      "swatches": [
+        "#FFFDF5",
+        "#000000",
+        "#FE90E8",
+        "#99E885"
+      ]
+    },
+    {
+      "name": "capsule",
+      "scheme": "light",
+      "formality": "medium-low",
+      "mood": [
+        "playful",
+        "editorial",
+        "memphis",
+        "soft-pop"
+      ],
+      "best_for": [
+        "consumer apps",
+        "wellness brands",
+        "creator tools",
+        "lifestyle pitches"
+      ],
+      "avoid_for": [
+        "dense data tables",
+        "regulatory"
+      ],
+      "swatches": [
+        "#F5F5F0",
+        "#1A1A1A",
+        "#E85D4E",
+        "#C4D94E"
+      ]
+    },
+    {
+      "name": "cobalt-grid",
+      "scheme": "light",
+      "formality": "high",
+      "mood": [
+        "architectural",
+        "analytical",
+        "classical",
+        "precise"
+      ],
+      "best_for": [
+        "architecture / design",
+        "research briefings",
+        "strategy papers",
+        "museum programmes"
+      ],
+      "avoid_for": [
+        "neon consumer pop",
+        "arcade demos"
+      ],
+      "swatches": [
+        "#F0EBDE",
+        "#1F2BE0",
+        "#E6E0CE",
+        "#5560E5"
+      ]
+    },
+    {
+      "name": "8-bit-orbit",
+      "scheme": "dark",
+      "formality": "low",
+      "mood": [
+        "retro-tech",
+        "arcade",
+        "neon",
+        "cyberpunk"
+      ],
+      "best_for": [
+        "gaming",
+        "web3 / indie tools",
+        "hackathon demos",
+        "synthwave brands"
+      ],
+      "avoid_for": [
+        "healthcare patient-facing",
+        "quiet finance"
+      ],
+      "swatches": [
+        "#0A0E27",
+        "#5EDCF4",
+        "#F0A6CA",
+        "#F4D03F"
+      ]
     }
   ]
 }

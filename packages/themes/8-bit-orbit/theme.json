@@ -1,0 +1,33 @@
+{
+  "name": "8-bit-orbit",
+  "version": "1.0.0",
+  "extends": "default-tech",
+  "description": "8-Bit Orbit \u2014 pixel-art neon arcade on deep navy, Tektur + Chakra Petch (frontend-slides bold-template-pack).",
+  "vibe": "8-Bit Orbit \u2014 void #0A0E27, neon cyan/pink/yellow, Tektur + Chakra Petch + Space Mono (frontend-slides 8-bit-orbit).",
+  "license": "MIT",
+  "author": "Timur Isachenko",
+  "roles": {
+    "bg": "#0A0E27",
+    "bg2": "#0F1B3D",
+    "text": "#FFFFFF",
+    "muted": "#E2D5F2",
+    "accent": "#5EDCF4",
+    "accent2": "#F0A6CA",
+    "cardBg": "rgba(15,27,61,0.85)",
+    "border": "rgba(94,220,244,0.35)"
+  },
+  "typography": {
+    "headingFont": "'Tektur', cursive",
+    "bodyFont": "'Chakra Petch', system-ui, sans-serif",
+    "headingWeight": 700,
+    "googleFonts": [
+      "Tektur:wght@500;700;900",
+      "Chakra+Petch:wght@400;500;600;700",
+      "Space+Mono:wght@400;700"
+    ]
+  },
+  "geometry": {
+    "radius": "0px",
+    "slideWidth": "1280px"
+  }
+}
