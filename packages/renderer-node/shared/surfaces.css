@@ -2743,11 +2743,11 @@
 }
 .deck[data-surface="bauhaus-blocks"] .comparison-col:last-child {
   background: var(--accent);
-  color: #fff;
+  color: #0d0d0d;
   border-color: var(--text);
 }
 .deck[data-surface="bauhaus-blocks"] .comparison-col:last-child .comparison-label,
-.deck[data-surface="bauhaus-blocks"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="bauhaus-blocks"] .comparison-col:last-child p { color: #0d0d0d; }
 .deck[data-surface="bauhaus-blocks"] .timeline .dot {
   background: var(--accent);
   border-radius: 0;
@@ -2791,8 +2791,20 @@
   border-radius: 22px;
 }
 .deck[data-surface="candy-blob"] .comparison-col:last-child {
-  background: var(--accent2);
+  /* Darken jellybean blue so white body copy clears WCAG AA */
+  background: color-mix(in srgb, var(--accent2) 78%, #0a1628);
+  color: #fff;
 }
+.deck[data-surface="candy-blob"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="candy-blob"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="candy-blob"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent2) 78%, #0a1628);
+  color: #fff;
+  border-color: var(--text);
+}
+.deck[data-surface="candy-blob"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="candy-blob"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="candy-blob"] .grid.cols-bento .card:first-child i { color: #fff; }
 .deck[data-surface="pastel-geometry-pills"] .stat {
   border-top: 3px solid var(--accent);
   background: #fff;
@@ -3045,11 +3057,12 @@
   background: #fff;
 }
 .deck[data-surface="coral-hatch"] .comparison-col:last-child {
+  /* Coral fill reads muddy with white — keep ink for AA */
   background: color-mix(in srgb, var(--accent) 88%, #fff);
-  color: #fff;
+  color: #1a1a1a;
 }
 .deck[data-surface="coral-hatch"] .comparison-col:last-child .comparison-label,
-.deck[data-surface="coral-hatch"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="coral-hatch"] .comparison-col:last-child p { color: #1a1a1a; }
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -3267,10 +3280,18 @@
 }
 .deck[data-surface="creative-mode-blocks"] .comparison-col:last-child {
   background: var(--accent);
-  color: #fff;
+  color: #111;
 }
 .deck[data-surface="creative-mode-blocks"] .comparison-col:last-child .comparison-label,
-.deck[data-surface="creative-mode-blocks"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="creative-mode-blocks"] .comparison-col:last-child p { color: #111; }
+.deck[data-surface="creative-mode-blocks"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #111;
+  border-color: var(--text);
+}
+.deck[data-surface="creative-mode-blocks"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="creative-mode-blocks"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="creative-mode-blocks"] .grid.cols-bento .card:first-child i { color: #111; }
 .deck[data-surface="creative-mode-blocks"] .quote {
   border-left: 8px solid var(--text);
   font-weight: 800;
@@ -3338,7 +3359,10 @@
 }
 .deck[data-surface="capsule-pills"] .comparison-col:last-child {
   background: var(--accent2);
+  color: #1a1a1a;
 }
+.deck[data-surface="capsule-pills"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="capsule-pills"] .comparison-col:last-child p { color: #1a1a1a; }
 .deck[data-surface="daisy-days-pastel"] .stat {
   border-top: 4px solid var(--text);
   background: #fff;
@@ -3879,11 +3903,19 @@
 }
 .deck[data-surface="brutalist-grid"] .comparison-col:last-child {
   background: var(--accent);
-  color: #fff;
+  color: #111;
   border-color: var(--text);
 }
 .deck[data-surface="brutalist-grid"] .comparison-col:last-child .comparison-label,
-.deck[data-surface="brutalist-grid"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="brutalist-grid"] .comparison-col:last-child p { color: #111; }
+.deck[data-surface="brutalist-grid"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #111;
+  border-color: var(--text);
+}
+.deck[data-surface="brutalist-grid"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="brutalist-grid"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="brutalist-grid"] .grid.cols-bento .card:first-child i { color: #111; }
 .deck[data-surface="brutalist-grid"] .quote {
   border-left: 4px solid var(--accent);
   font-family: var(--heading-font);
