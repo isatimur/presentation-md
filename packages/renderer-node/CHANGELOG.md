@@ -1,5 +1,11 @@
 # @presentation-md/render
 
+## 1.2.5
+
+### Patch Changes
+
+- c2f4354: Raise remaining loud-surface comparison/feature-grid AA contrast (mat, pastel, soft-bento, acid/studio lime fills, and missing bento hero ink/white overrides).
+
 ## 1.2.4
 
 ### Patch Changes
