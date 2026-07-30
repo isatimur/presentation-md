@@ -3,30 +3,30 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>NovaSpark AI — Series A</title>
-<meta name="description" content="Series A pitch — AI inference infrastructure." />
+<title>Quill &amp; Field — Editorial Pitch</title>
+<meta name="description" content="Literary imprint pitch — Soft Editorial theme multi-slide proof." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Work+Sans:wght@400;500;600&display=swap');
 
 /* presentation-md base stylesheet.
    Theme tokens are injected via the :root block below. Layout fragments in
    ./layouts/*.html consume these CSS variables and class names. */
 
 :root {
-  --bg: #000000;
-  --bg-2: #0a0612;
-  --text: #ffffff;
-  --muted: #a5a0b8;
-  --accent: #a78bfa;
-  --accent-2: #67e8f9;
-  --card-bg: rgba(255,255,255,0.06);
-  --border: rgba(255,255,255,0.12);
-  --radius: 16px;
+  --bg: #F2EEDF;
+  --bg-2: #ECE6D2;
+  --text: #2A241B;
+  --muted: #5C5345;
+  --accent: #B7C7A8;
+  --accent-2: #E1A4C2;
+  --card-bg: rgba(255,255,255,0.55);
+  --border: rgba(42,36,27,0.18);
+  --radius: 28px;
   --slide-w: 1280px;
-  --heading-font: 'Syne', system-ui, sans-serif;
-  --body-font: 'Inter', system-ui, sans-serif;
-  --heading-weight: 800;
+  --heading-font: 'Cormorant Garamond', Garamond, Georgia, serif;
+  --body-font: 'Work Sans', system-ui, sans-serif;
+  --heading-weight: 500;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -3023,164 +3023,90 @@ tbody tr:hover td {
 </style>
 </head>
 <body>
-<main class="deck" data-surface="aurora-glass">
+<main class="deck" data-surface="soft-editorial-paper">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Series A · YC W24</span>
-  <h1>AI doesn&#39;t need more compute.</h1>
-  <p class="lead">It needs infrastructure that delivers it.</p>
+  <span class="eyebrow">Imprint · Spring list</span>
+  <h1>Stories that leave a margin.</h1>
+  <p class="lead">A small press for writers who treat the page like architecture.</p>
 </section>
 
 <section class="slide quote-slide" data-layout="quote">
-  <p class="quote">Every frontier model today is bottlenecked not by algorithms, but by the infrastructure that delivers them.</p>
-  <p class="quote-by">— Dr. Maya Reeves, Co-Founder &amp; CEO</p>
+  <p class="quote">We publish books you want to leave open on the table — not close and forget.</p>
+  <p class="quote-by">— Editorial letter · Quill &amp; Field</p>
 </section>
 
 <section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">The Problem</span>
-  <h2>Three bottlenecks every AI deployment hits</h2>
+  <span class="eyebrow">The list</span>
+  <h2>Three pillars this season</h2>
   <div class="grid cols-3">
     <div class="card">
-      <i class="fa-solid fa-route"></i>
-      <h3>Routing chaos</h3>
-      <p>Teams juggle 12 providers with brittle failover and unpredictable latency.</p>
+      <i class="fa-solid fa-book-open"></i>
+      <h3>Narrative nonfiction</h3>
+      <p>Reported essays with the patience of novels — place, craft, and consequence.</p>
     </div>
     <div class="card">
-      <i class="fa-solid fa-globe"></i>
-      <h3>Edge distance</h3>
-      <p>Users wait on distant regions — p95 climbs past 800ms outside the US.</p>
+      <i class="fa-solid fa-feather"></i>
+      <h3>Quiet fiction</h3>
+      <p>Novellas and short collections that trust the reader to lean in.</p>
     </div>
     <div class="card">
-      <i class="fa-solid fa-receipt"></i>
-      <h3>Cost blindness</h3>
-      <p>Spend spikes without quality signal. Finance finds out after the invoice.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">The Solution</span>
-  <h2>One unified inference layer</h2>
-  <div class="grid cols-3">
-    <div class="card">
-      <i class="fa-solid fa-shuffle"></i>
-      <h3>Smart routing</h3>
-      <p>Real-time selection across 12 providers — fastest, cheapest path per request.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-server"></i>
-      <h3>Global edge</h3>
-      <p>50+ nodes. Sub-200ms for 95% of the world&#39;s population.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-chart-line"></i>
-      <h3>Live cost &amp; quality</h3>
-      <p>Dashboards, latency histograms, quality scoring — before the bill.</p>
+      <i class="fa-solid fa-map"></i>
+      <h3>Field guides</h3>
+      <p>Practical books for makers — type, gardens, kitchens, studios.</p>
     </div>
   </div>
 </section>
 
 <section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Migration</span>
-  <h2>Drop in. Route smarter.</h2>
+  <span class="eyebrow">Positioning</span>
+  <h2>Not another content mill.</h2>
   <div class="comparison-cols">
     <div class="comparison-col">
-      <span class="comparison-label">Before</span>
-      <p>Direct OpenAI &#x2F; Anthropic &#x2F; custom clients.
-Manual failover.
-No shared observability.</p>
+      <span class="comparison-label">Algorithm presses</span>
+      <p>Trend-chasing covers.
+Disposable titles.
+Authors as inventory.</p>
     </div>
     <div class="comparison-vs" aria-hidden="true">vs</div>
     <div class="comparison-col">
-      <span class="comparison-label">With NovaSpark</span>
-      <p>Same OpenAI-compatible API.
-Automatic routing + failover.
-One pane for cost, latency, quality.</p>
+      <span class="comparison-label">Quill &amp; Field</span>
+      <p>Slow lists.
+Durable design.
+Authors as partners.</p>
     </div>
   </div>
 </section>
 
 <section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Traction</span>
-  <h2>18 months. Zero paid acquisition.</h2>
+  <span class="eyebrow">Proof</span>
+  <h2>Readers stay. Bookstores reorder.</h2>
   <div class="stats">
     <div class="stat">
-      <div class="value">$2.1M</div>
-      <div class="label">ARR</div>
+      <div class="value">68%</div>
+      <div class="label">Sell-through year one</div>
     </div>
     <div class="stat">
-      <div class="value">412</div>
-      <div class="label">Enterprise customers</div>
+      <div class="value">22</div>
+      <div class="label">Indie bookstore partners</div>
     </div>
     <div class="stat">
-      <div class="value">99.97%</div>
-      <div class="label">Uptime SLA</div>
-    </div>
-    <div class="stat">
-      <div class="value">847ms</div>
-      <div class="label">Avg response (global)</div>
+      <div class="value">4.8</div>
+      <div class="label">Avg. reader rating</div>
     </div>
   </div>
-</section>
-
-<section class="slide data-table-slide" data-layout="data-table">
-  <span class="eyebrow">Market</span>
-  <h2>A category being created now</h2>
-  <table>
-    <thead>
-      <tr><th>Segment</th><th>2026E</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>AI API Orchestration</td><td>$18.2B</td></tr>
-      <tr><td>Edge AI Serving</td><td>$9.4B</td></tr>
-      <tr><td>Inference Observability</td><td>$3.1B</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<section class="slide timeline-slide" data-layout="timeline">
-  <span class="eyebrow">Roadmap</span>
-  <h2>18 months to Series B readiness</h2>
-  <div class="timeline">
-    <div class="node">
-      <div class="dot"></div>
-      <h3>Now</h3>
-      <p>Core platform + enterprise SSO.</p>
-    </div>
-    <div class="node">
-      <div class="dot"></div>
-      <h3>Q+2</h3>
-      <p>Partnerships with AWS &#x2F; GCP marketplace.</p>
-    </div>
-    <div class="node">
-      <div class="dot"></div>
-      <h3>Q+4</h3>
-      <p>Team 2× · $8M ARR target.</p>
-    </div>
-    <div class="node">
-      <div class="dot"></div>
-      <h3>Series B</h3>
-      <p>Category leadership narrative locked.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide section-slide" data-layout="section">
-  <div class="section-number">01</div>
-  <h2>$14M Series A</h2>
-  <p class="lead">Lead $8M · Co-investors filling $6M · 18 months runway to $8M ARR.</p>
 </section>
 
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">The Opportunity</span>
-  <h1>AI deserves better plumbing.</h1>
-  <p class="lead">investors@novaspark.ai · novaspark.ai</p>
-  <a class="btn" href="https:&#x2F;&#x2F;novaspark.ai"><i class="fa-solid fa-arrow-right"></i> Book a meeting</a>
+  <span class="eyebrow">Partnership</span>
+  <h1>Join the spring list.</h1>
+  <p class="lead">Manuscripts welcome through September. Design partnerships year-round.</p>
+  <a class="btn" href="#"><i class="fa-solid fa-arrow-right"></i> Submit a manuscript</a>
 </section>
 
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"NovaSpark AI — Series A","company":"NovaSpark AI","description":"Series A pitch — AI inference infrastructure.","theme":"aurora-glass"},"slides":[{"layout":"title","eyebrow":"Series A · YC W24","heading":"AI doesn't need more compute.","lead":"It needs infrastructure that delivers it."},{"layout":"quote","quote":"Every frontier model today is bottlenecked not by algorithms, but by the infrastructure that delivers them.","by":"Dr. Maya Reeves, Co-Founder & CEO"},{"layout":"feature-grid","eyebrow":"The Problem","heading":"Three bottlenecks every AI deployment hits","columns":3,"cards":[{"icon":"fa-solid fa-route","title":"Routing chaos","body":"Teams juggle 12 providers with brittle failover and unpredictable latency."},{"icon":"fa-solid fa-globe","title":"Edge distance","body":"Users wait on distant regions — p95 climbs past 800ms outside the US."},{"icon":"fa-solid fa-receipt","title":"Cost blindness","body":"Spend spikes without quality signal. Finance finds out after the invoice."}]},{"layout":"feature-grid","eyebrow":"The Solution","heading":"One unified inference layer","columns":3,"cards":[{"icon":"fa-solid fa-shuffle","title":"Smart routing","body":"Real-time selection across 12 providers — fastest, cheapest path per request."},{"icon":"fa-solid fa-server","title":"Global edge","body":"50+ nodes. Sub-200ms for 95% of the world's population."},{"icon":"fa-solid fa-chart-line","title":"Live cost & quality","body":"Dashboards, latency histograms, quality scoring — before the bill."}]},{"layout":"comparison","eyebrow":"Migration","heading":"Drop in. Route smarter.","leftLabel":"Before","left":"Direct OpenAI / Anthropic / custom clients.\nManual failover.\nNo shared observability.","rightLabel":"With NovaSpark","right":"Same OpenAI-compatible API.\nAutomatic routing + failover.\nOne pane for cost, latency, quality."},{"layout":"stat-row","eyebrow":"Traction","heading":"18 months. Zero paid acquisition.","stats":[{"value":"$2.1M","label":"ARR"},{"value":"412","label":"Enterprise customers"},{"value":"99.97%","label":"Uptime SLA"},{"value":"847ms","label":"Avg response (global)"}]},{"layout":"data-table","eyebrow":"Market","heading":"A category being created now","columns":["Segment","2026E"],"rows":[["AI API Orchestration","$18.2B"],["Edge AI Serving","$9.4B"],["Inference Observability","$3.1B"]]},{"layout":"timeline","eyebrow":"Roadmap","heading":"18 months to Series B readiness","steps":[{"title":"Now","body":"Core platform + enterprise SSO."},{"title":"Q+2","body":"Partnerships with AWS / GCP marketplace."},{"title":"Q+4","body":"Team 2× · $8M ARR target."},{"title":"Series B","body":"Category leadership narrative locked."}]},{"layout":"section","number":"01","eyebrow":"The Ask","heading":"$14M Series A","lead":"Lead $8M · Co-investors filling $6M · 18 months runway to $8M ARR."},{"layout":"closing","eyebrow":"The Opportunity","heading":"AI deserves better plumbing.","lead":"investors@novaspark.ai · novaspark.ai","cta":{"label":"Book a meeting","href":"https://novaspark.ai"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Quill & Field — Editorial Pitch","company":"Quill & Field","description":"Literary imprint pitch — Soft Editorial theme multi-slide proof.","theme":"soft-editorial"},"slides":[{"layout":"title","eyebrow":"Imprint · Spring list","heading":"Stories that leave a margin.","lead":"A small press for writers who treat the page like architecture."},{"layout":"quote","quote":"We publish books you want to leave open on the table — not close and forget.","by":"Editorial letter · Quill & Field"},{"layout":"feature-grid","eyebrow":"The list","heading":"Three pillars this season","columns":3,"cards":[{"icon":"fa-solid fa-book-open","title":"Narrative nonfiction","body":"Reported essays with the patience of novels — place, craft, and consequence."},{"icon":"fa-solid fa-feather","title":"Quiet fiction","body":"Novellas and short collections that trust the reader to lean in."},{"icon":"fa-solid fa-map","title":"Field guides","body":"Practical books for makers — type, gardens, kitchens, studios."}]},{"layout":"comparison","eyebrow":"Positioning","heading":"Not another content mill.","leftLabel":"Algorithm presses","left":"Trend-chasing covers.\nDisposable titles.\nAuthors as inventory.","rightLabel":"Quill & Field","right":"Slow lists.\nDurable design.\nAuthors as partners."},{"layout":"stat-row","eyebrow":"Proof","heading":"Readers stay. Bookstores reorder.","stats":[{"value":"68%","label":"Sell-through year one"},{"value":"22","label":"Indie bookstore partners"},{"value":"4.8","label":"Avg. reader rating"}]},{"layout":"closing","eyebrow":"Partnership","heading":"Join the spring list.","lead":"Manuscripts welcome through September. Design partnerships year-round.","cta":{"label":"Submit a manuscript","href":"#"}}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));

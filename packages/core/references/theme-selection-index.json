@@ -1042,7 +1042,8 @@
       "aliases": [
         "Soft Editorial",
         "Warm Editorial"
-      ]
+      ],
+      "gallery": "examples/structured/quill-editorial.html"
     },
     {
       "name": "editorial-forest",
@@ -1291,7 +1292,8 @@
       "aliases": [
         "Bold Signal",
         "Signal Orange"
-      ]
+      ],
+      "gallery": "examples/structured/signalforge-launch.html"
     },
     {
       "name": "notebook-tabs",
@@ -1415,7 +1417,8 @@
       "aliases": [
         "Electric Studio",
         "Studio Blue"
-      ]
+      ],
+      "gallery": "examples/structured/voltstudio-credentials.html"
     },
     {
       "name": "dark-botanical",

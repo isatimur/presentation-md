@@ -1,0 +1,71 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Quill & Field — Editorial Pitch",
+    "company": "Quill & Field",
+    "description": "Literary imprint pitch — Soft Editorial theme multi-slide proof.",
+    "theme": "soft-editorial"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Imprint · Spring list",
+      "heading": "Stories that leave a margin.",
+      "lead": "A small press for writers who treat the page like architecture."
+    },
+    {
+      "layout": "quote",
+      "quote": "We publish books you want to leave open on the table — not close and forget.",
+      "by": "Editorial letter · Quill & Field"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "The list",
+      "heading": "Three pillars this season",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-book-open",
+          "title": "Narrative nonfiction",
+          "body": "Reported essays with the patience of novels — place, craft, and consequence."
+        },
+        {
+          "icon": "fa-solid fa-feather",
+          "title": "Quiet fiction",
+          "body": "Novellas and short collections that trust the reader to lean in."
+        },
+        {
+          "icon": "fa-solid fa-map",
+          "title": "Field guides",
+          "body": "Practical books for makers — type, gardens, kitchens, studios."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Positioning",
+      "heading": "Not another content mill.",
+      "leftLabel": "Algorithm presses",
+      "left": "Trend-chasing covers.\nDisposable titles.\nAuthors as inventory.",
+      "rightLabel": "Quill & Field",
+      "right": "Slow lists.\nDurable design.\nAuthors as partners."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Proof",
+      "heading": "Readers stay. Bookstores reorder.",
+      "stats": [
+        { "value": "68%", "label": "Sell-through year one" },
+        { "value": "22", "label": "Indie bookstore partners" },
+        { "value": "4.8", "label": "Avg. reader rating" }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Partnership",
+      "heading": "Join the spring list.",
+      "lead": "Manuscripts welcome through September. Design partnerships year-round.",
+      "cta": { "label": "Submit a manuscript", "href": "#" }
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Neon District — Platform Launch",
+    "company": "Neon District",
+    "description": "Neon Cyber / neon-noir structured proof.",
+    "theme": "neon-noir"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Platform · Night drop",
+      "heading": "The city never sleeps. Neither should your stack.",
+      "lead": "Realtime nightlife infrastructure — pink signal, cyan telemetry."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Layers",
+      "heading": "Three rails under the neon",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-location-dot",
+          "title": "Venue mesh",
+          "body": "Live capacity, door status, and VIP flow across every partner club."
+        },
+        {
+          "icon": "fa-solid fa-ticket",
+          "title": "Ticket pulse",
+          "body": "Fraud-resistant tickets with instant secondary market controls."
+        },
+        {
+          "icon": "fa-solid fa-wave-square",
+          "title": "Night ops",
+          "body": "Security, bar, and talent in one ops board — latency under 80ms."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Migration",
+      "heading": "From radio to realtime.",
+      "leftLabel": "Legacy night",
+      "left": "Walkie-talkies.\nSpreadsheets at the door.\nNo shared inventory.",
+      "rightLabel": "Neon District",
+      "right": "One mesh.\nOne inventory.\nOne pulse for the whole district."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Network",
+      "heading": "Live across three cities.",
+      "stats": [
+        { "value": "120+", "label": "Partner venues" },
+        { "value": "2.4M", "label": "Tickets / quarter" },
+        { "value": "47ms", "label": "p95 ops latency" }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Opening night felt like a control tower — in a good way.",
+      "by": "Rico Alvarez · GM · Club Meridian"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Drop",
+      "heading": "Plug into the district.",
+      "lead": "Venue onboarding in under a week. Operators and promoters welcome.",
+      "cta": { "label": "Request access", "href": "#" }
+    }
+  ]
+}

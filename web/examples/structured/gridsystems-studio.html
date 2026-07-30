@@ -3,29 +3,29 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>NovaSpark AI — Series A</title>
-<meta name="description" content="Series A pitch — AI inference infrastructure." />
+<title>Grid Systems — Studio Deck</title>
+<meta name="description" content="Swiss Modern &#x2F; swiss-typographic structured proof." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 
 /* presentation-md base stylesheet.
    Theme tokens are injected via the :root block below. Layout fragments in
    ./layouts/*.html consume these CSS variables and class names. */
 
 :root {
-  --bg: #000000;
-  --bg-2: #0a0612;
-  --text: #ffffff;
-  --muted: #a5a0b8;
-  --accent: #a78bfa;
-  --accent-2: #67e8f9;
-  --card-bg: rgba(255,255,255,0.06);
-  --border: rgba(255,255,255,0.12);
-  --radius: 16px;
+  --bg: #ffffff;
+  --bg-2: #f5f5f5;
+  --text: #0a0a0a;
+  --muted: #636363;
+  --accent: #e2231a;
+  --accent-2: #0a0a0a;
+  --card-bg: rgba(0,0,0,0.03);
+  --border: rgba(0,0,0,0.12);
+  --radius: 0px;
   --slide-w: 1280px;
-  --heading-font: 'Syne', system-ui, sans-serif;
-  --body-font: 'Inter', system-ui, sans-serif;
+  --heading-font: 'Inter', Helvetica, Arial, sans-serif;
+  --body-font: 'Inter', Helvetica, Arial, sans-serif;
   --heading-weight: 800;
 }
 
@@ -3023,164 +3023,90 @@ tbody tr:hover td {
 </style>
 </head>
 <body>
-<main class="deck" data-surface="aurora-glass">
+<main class="deck" data-surface="swiss-grid">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Series A · YC W24</span>
-  <h1>AI doesn&#39;t need more compute.</h1>
-  <p class="lead">It needs infrastructure that delivers it.</p>
-</section>
-
-<section class="slide quote-slide" data-layout="quote">
-  <p class="quote">Every frontier model today is bottlenecked not by algorithms, but by the infrastructure that delivers them.</p>
-  <p class="quote-by">— Dr. Maya Reeves, Co-Founder &amp; CEO</p>
+  <span class="eyebrow">Studio · Zürich &#x2F; NYC</span>
+  <h1>Systems before styles.</h1>
+  <p class="lead">International typographic discipline for brands that need to scale.</p>
 </section>
 
 <section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">The Problem</span>
-  <h2>Three bottlenecks every AI deployment hits</h2>
+  <span class="eyebrow">Method</span>
+  <h2>What we ship</h2>
   <div class="grid cols-3">
     <div class="card">
-      <i class="fa-solid fa-route"></i>
-      <h3>Routing chaos</h3>
-      <p>Teams juggle 12 providers with brittle failover and unpredictable latency.</p>
+      <i class="fa-solid fa-border-all"></i>
+      <h3>Grid systems</h3>
+      <p>Modular columns, baseline rhythm, and ratios documented for every breakpoint.</p>
     </div>
     <div class="card">
-      <i class="fa-solid fa-globe"></i>
-      <h3>Edge distance</h3>
-      <p>Users wait on distant regions — p95 climbs past 800ms outside the US.</p>
+      <i class="fa-solid fa-font"></i>
+      <h3>Type programs</h3>
+      <p>One display, one text. No decorative fonts. Signal red for emphasis only.</p>
     </div>
     <div class="card">
-      <i class="fa-solid fa-receipt"></i>
-      <h3>Cost blindness</h3>
-      <p>Spend spikes without quality signal. Finance finds out after the invoice.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">The Solution</span>
-  <h2>One unified inference layer</h2>
-  <div class="grid cols-3">
-    <div class="card">
-      <i class="fa-solid fa-shuffle"></i>
-      <h3>Smart routing</h3>
-      <p>Real-time selection across 12 providers — fastest, cheapest path per request.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-server"></i>
-      <h3>Global edge</h3>
-      <p>50+ nodes. Sub-200ms for 95% of the world&#39;s population.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-chart-line"></i>
-      <h3>Live cost &amp; quality</h3>
-      <p>Dashboards, latency histograms, quality scoring — before the bill.</p>
+      <i class="fa-solid fa-ruler-combined"></i>
+      <h3>Production kits</h3>
+      <p>Figma + code tokens so design and engineering share one source of truth.</p>
     </div>
   </div>
 </section>
 
 <section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Migration</span>
-  <h2>Drop in. Route smarter.</h2>
+  <span class="eyebrow">Contrast</span>
+  <h2>Decoration vs. structure.</h2>
   <div class="comparison-cols">
     <div class="comparison-col">
-      <span class="comparison-label">Before</span>
-      <p>Direct OpenAI &#x2F; Anthropic &#x2F; custom clients.
-Manual failover.
-No shared observability.</p>
+      <span class="comparison-label">Trend design</span>
+      <p>Gradients as identity.
+Fonts as costume.
+Layouts that can&#39;t resize.</p>
     </div>
     <div class="comparison-vs" aria-hidden="true">vs</div>
     <div class="comparison-col">
-      <span class="comparison-label">With NovaSpark</span>
-      <p>Same OpenAI-compatible API.
-Automatic routing + failover.
-One pane for cost, latency, quality.</p>
+      <span class="comparison-label">Swiss Modern</span>
+      <p>Grid as identity.
+Type as structure.
+Layouts that scale.</p>
     </div>
   </div>
 </section>
 
 <section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Traction</span>
-  <h2>18 months. Zero paid acquisition.</h2>
+  <span class="eyebrow">Outcomes</span>
+  <h2>Measured in reuse.</h2>
   <div class="stats">
     <div class="stat">
-      <div class="value">$2.1M</div>
-      <div class="label">ARR</div>
+      <div class="value">90%</div>
+      <div class="label">Component reuse rate</div>
     </div>
     <div class="stat">
-      <div class="value">412</div>
-      <div class="label">Enterprise customers</div>
+      <div class="value">14</div>
+      <div class="label">Brand systems live</div>
     </div>
     <div class="stat">
-      <div class="value">99.97%</div>
-      <div class="label">Uptime SLA</div>
-    </div>
-    <div class="stat">
-      <div class="value">847ms</div>
-      <div class="label">Avg response (global)</div>
+      <div class="value">0</div>
+      <div class="label">Orphan style guides</div>
     </div>
   </div>
 </section>
 
-<section class="slide data-table-slide" data-layout="data-table">
-  <span class="eyebrow">Market</span>
-  <h2>A category being created now</h2>
-  <table>
-    <thead>
-      <tr><th>Segment</th><th>2026E</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>AI API Orchestration</td><td>$18.2B</td></tr>
-      <tr><td>Edge AI Serving</td><td>$9.4B</td></tr>
-      <tr><td>Inference Observability</td><td>$3.1B</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<section class="slide timeline-slide" data-layout="timeline">
-  <span class="eyebrow">Roadmap</span>
-  <h2>18 months to Series B readiness</h2>
-  <div class="timeline">
-    <div class="node">
-      <div class="dot"></div>
-      <h3>Now</h3>
-      <p>Core platform + enterprise SSO.</p>
-    </div>
-    <div class="node">
-      <div class="dot"></div>
-      <h3>Q+2</h3>
-      <p>Partnerships with AWS &#x2F; GCP marketplace.</p>
-    </div>
-    <div class="node">
-      <div class="dot"></div>
-      <h3>Q+4</h3>
-      <p>Team 2× · $8M ARR target.</p>
-    </div>
-    <div class="node">
-      <div class="dot"></div>
-      <h3>Series B</h3>
-      <p>Category leadership narrative locked.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide section-slide" data-layout="section">
-  <div class="section-number">01</div>
-  <h2>$14M Series A</h2>
-  <p class="lead">Lead $8M · Co-investors filling $6M · 18 months runway to $8M ARR.</p>
+<section class="slide quote-slide" data-layout="quote">
+  <p class="quote">They gave us a system, not a moodboard.</p>
+  <p class="quote-by">— Elena Vogt · Design Director · Atelier Nord</p>
 </section>
 
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">The Opportunity</span>
-  <h1>AI deserves better plumbing.</h1>
-  <p class="lead">investors@novaspark.ai · novaspark.ai</p>
-  <a class="btn" href="https:&#x2F;&#x2F;novaspark.ai"><i class="fa-solid fa-arrow-right"></i> Book a meeting</a>
+  <span class="eyebrow">Engage</span>
+  <h1>Build the grid once. Use it forever.</h1>
+  <p class="lead">Six-week system sprints. Museums, agencies, product companies.</p>
+  <a class="btn" href="#"><i class="fa-solid fa-arrow-right"></i> Start a system sprint</a>
 </section>
 
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"NovaSpark AI — Series A","company":"NovaSpark AI","description":"Series A pitch — AI inference infrastructure.","theme":"aurora-glass"},"slides":[{"layout":"title","eyebrow":"Series A · YC W24","heading":"AI doesn't need more compute.","lead":"It needs infrastructure that delivers it."},{"layout":"quote","quote":"Every frontier model today is bottlenecked not by algorithms, but by the infrastructure that delivers them.","by":"Dr. Maya Reeves, Co-Founder & CEO"},{"layout":"feature-grid","eyebrow":"The Problem","heading":"Three bottlenecks every AI deployment hits","columns":3,"cards":[{"icon":"fa-solid fa-route","title":"Routing chaos","body":"Teams juggle 12 providers with brittle failover and unpredictable latency."},{"icon":"fa-solid fa-globe","title":"Edge distance","body":"Users wait on distant regions — p95 climbs past 800ms outside the US."},{"icon":"fa-solid fa-receipt","title":"Cost blindness","body":"Spend spikes without quality signal. Finance finds out after the invoice."}]},{"layout":"feature-grid","eyebrow":"The Solution","heading":"One unified inference layer","columns":3,"cards":[{"icon":"fa-solid fa-shuffle","title":"Smart routing","body":"Real-time selection across 12 providers — fastest, cheapest path per request."},{"icon":"fa-solid fa-server","title":"Global edge","body":"50+ nodes. Sub-200ms for 95% of the world's population."},{"icon":"fa-solid fa-chart-line","title":"Live cost & quality","body":"Dashboards, latency histograms, quality scoring — before the bill."}]},{"layout":"comparison","eyebrow":"Migration","heading":"Drop in. Route smarter.","leftLabel":"Before","left":"Direct OpenAI / Anthropic / custom clients.\nManual failover.\nNo shared observability.","rightLabel":"With NovaSpark","right":"Same OpenAI-compatible API.\nAutomatic routing + failover.\nOne pane for cost, latency, quality."},{"layout":"stat-row","eyebrow":"Traction","heading":"18 months. Zero paid acquisition.","stats":[{"value":"$2.1M","label":"ARR"},{"value":"412","label":"Enterprise customers"},{"value":"99.97%","label":"Uptime SLA"},{"value":"847ms","label":"Avg response (global)"}]},{"layout":"data-table","eyebrow":"Market","heading":"A category being created now","columns":["Segment","2026E"],"rows":[["AI API Orchestration","$18.2B"],["Edge AI Serving","$9.4B"],["Inference Observability","$3.1B"]]},{"layout":"timeline","eyebrow":"Roadmap","heading":"18 months to Series B readiness","steps":[{"title":"Now","body":"Core platform + enterprise SSO."},{"title":"Q+2","body":"Partnerships with AWS / GCP marketplace."},{"title":"Q+4","body":"Team 2× · $8M ARR target."},{"title":"Series B","body":"Category leadership narrative locked."}]},{"layout":"section","number":"01","eyebrow":"The Ask","heading":"$14M Series A","lead":"Lead $8M · Co-investors filling $6M · 18 months runway to $8M ARR."},{"layout":"closing","eyebrow":"The Opportunity","heading":"AI deserves better plumbing.","lead":"investors@novaspark.ai · novaspark.ai","cta":{"label":"Book a meeting","href":"https://novaspark.ai"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Grid Systems — Studio Deck","company":"Grid Systems","description":"Swiss Modern / swiss-typographic structured proof.","theme":"swiss-typographic"},"slides":[{"layout":"title","eyebrow":"Studio · Zürich / NYC","heading":"Systems before styles.","lead":"International typographic discipline for brands that need to scale."},{"layout":"feature-grid","eyebrow":"Method","heading":"What we ship","columns":3,"cards":[{"icon":"fa-solid fa-border-all","title":"Grid systems","body":"Modular columns, baseline rhythm, and ratios documented for every breakpoint."},{"icon":"fa-solid fa-font","title":"Type programs","body":"One display, one text. No decorative fonts. Signal red for emphasis only."},{"icon":"fa-solid fa-ruler-combined","title":"Production kits","body":"Figma + code tokens so design and engineering share one source of truth."}]},{"layout":"comparison","eyebrow":"Contrast","heading":"Decoration vs. structure.","leftLabel":"Trend design","left":"Gradients as identity.\nFonts as costume.\nLayouts that can't resize.","rightLabel":"Swiss Modern","right":"Grid as identity.\nType as structure.\nLayouts that scale."},{"layout":"stat-row","eyebrow":"Outcomes","heading":"Measured in reuse.","stats":[{"value":"90%","label":"Component reuse rate"},{"value":"14","label":"Brand systems live"},{"value":"0","label":"Orphan style guides"}]},{"layout":"quote","quote":"They gave us a system, not a moodboard.","by":"Elena Vogt · Design Director · Atelier Nord"},{"layout":"closing","eyebrow":"Engage","heading":"Build the grid once. Use it forever.","lead":"Six-week system sprints. Museums, agencies, product companies.","cta":{"label":"Start a system sprint","href":"#"}}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));

@@ -1,0 +1,71 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Grid Systems — Studio Deck",
+    "company": "Grid Systems",
+    "description": "Swiss Modern / swiss-typographic structured proof.",
+    "theme": "swiss-typographic"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Studio · Zürich / NYC",
+      "heading": "Systems before styles.",
+      "lead": "International typographic discipline for brands that need to scale."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Method",
+      "heading": "What we ship",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-border-all",
+          "title": "Grid systems",
+          "body": "Modular columns, baseline rhythm, and ratios documented for every breakpoint."
+        },
+        {
+          "icon": "fa-solid fa-font",
+          "title": "Type programs",
+          "body": "One display, one text. No decorative fonts. Signal red for emphasis only."
+        },
+        {
+          "icon": "fa-solid fa-ruler-combined",
+          "title": "Production kits",
+          "body": "Figma + code tokens so design and engineering share one source of truth."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Contrast",
+      "heading": "Decoration vs. structure.",
+      "leftLabel": "Trend design",
+      "left": "Gradients as identity.\nFonts as costume.\nLayouts that can't resize.",
+      "rightLabel": "Swiss Modern",
+      "right": "Grid as identity.\nType as structure.\nLayouts that scale."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Outcomes",
+      "heading": "Measured in reuse.",
+      "stats": [
+        { "value": "90%", "label": "Component reuse rate" },
+        { "value": "14", "label": "Brand systems live" },
+        { "value": "0", "label": "Orphan style guides" }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "They gave us a system, not a moodboard.",
+      "by": "Elena Vogt · Design Director · Atelier Nord"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Engage",
+      "heading": "Build the grid once. Use it forever.",
+      "lead": "Six-week system sprints. Museums, agencies, product companies.",
+      "cta": { "label": "Start a system sprint", "href": "#" }
+    }
+  ]
+}
