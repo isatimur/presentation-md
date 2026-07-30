@@ -8,7 +8,7 @@ cd presentation-md
 pnpm install
 ```
 
-Requires Node.js 20+ and pnpm 8. If you don't have pnpm: `npm i -g pnpm@8`.
+Requires Node.js 22+ and pnpm 8. If you don't have pnpm: `npm i -g pnpm@8`.
 
 ## Build
 
