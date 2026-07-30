@@ -1,0 +1,100 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Daily Ledger \u2014 Media Kit",
+    "company": "Daily Ledger",
+    "description": "Newsroom media kit \u2014 broadsheet multi-slide proof.",
+    "theme": "broadsheet"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Media kit \u00b7 2026",
+      "heading": "Newsprint that still matters.",
+      "lead": "Masthead ink. Pirata weight. Audience that reads past the headline."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Audience",
+      "heading": "Readers, not scrollers.",
+      "stats": [
+        {
+          "value": "1.1M",
+          "label": "Weekly uniques"
+        },
+        {
+          "value": "6:42",
+          "label": "Avg time on story"
+        },
+        {
+          "value": "38%",
+          "label": "Subscriber mix"
+        }
+      ]
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Inventory",
+      "heading": "Where brands show up",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-newspaper",
+          "title": "Masthead takeovers",
+          "body": "One sponsor per day \u2014 never a carpet bomb."
+        },
+        {
+          "icon": "fa-solid fa-envelope",
+          "title": "Morning briefing",
+          "body": "Sponsored beats with editorial firewall."
+        },
+        {
+          "icon": "fa-solid fa-podcast",
+          "title": "Ledger Live",
+          "body": "Audio with host-read standards."
+        }
+      ]
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Rates",
+      "heading": "Transparent units",
+      "rows": [
+        [
+          "Homepage",
+          "$48",
+          "1 day",
+          "Shared exclusivity"
+        ],
+        [
+          "Briefing",
+          "$32",
+          "1 week",
+          "Host-read add-on"
+        ],
+        [
+          "Podcast",
+          "$55",
+          "1 ep",
+          "Pre-roll only"
+        ]
+      ],
+      "columns": [
+        "Unit",
+        "CPM",
+        "Min",
+        "Notes"
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Advertise",
+      "heading": "Buy ink that gets read.",
+      "lead": "Media kit PDF + brand safety addendum on request.",
+      "cta": {
+        "label": "Request rates",
+        "href": "#"
+      }
+    }
+  ]
+}

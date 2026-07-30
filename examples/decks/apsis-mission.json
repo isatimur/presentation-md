@@ -1,0 +1,77 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Apsis \u2014 Mission Deck",
+    "company": "Apsis",
+    "description": "Deep-tech mission deck \u2014 blueprint multi-slide proof.",
+    "theme": "blueprint"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Mission \u00b7 AP-3",
+      "heading": "Navy grid. Cyan certainty.",
+      "lead": "Engineering blueprints for missions that leave the slide."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Stack",
+      "heading": "Drawn like a plan",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-drafting-compass",
+          "title": "Spec first",
+          "body": "Every module has a drawing number."
+        },
+        {
+          "icon": "fa-solid fa-microchip",
+          "title": "Flight computer",
+          "body": "Cyan paths for nominal. Amber for contingency."
+        },
+        {
+          "icon": "fa-solid fa-rocket",
+          "title": "Launch ops",
+          "body": "Checklists that look like the CAD."
+        }
+      ]
+    },
+    {
+      "layout": "code",
+      "eyebrow": "Telemetry",
+      "heading": "Read the bus.",
+      "filename": "apsis-tlm.py",
+      "language": "python",
+      "code": "from apsis import Bus\n\nbus = Bus.connect('ap3://ops')\nfor frame in bus.subscribe('nav.pose'):\n    if frame.flag == 'WARN':\n        bus.alert(frame)\n    print(frame.t, frame.xyz)"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Proof",
+      "heading": "Missions completed.",
+      "stats": [
+        {
+          "value": "17",
+          "label": "Flights"
+        },
+        {
+          "value": "0",
+          "label": "Unexplained losses"
+        },
+        {
+          "value": "4",
+          "label": "Partner agencies"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Partner",
+      "heading": "Bring your mission. Keep the grid.",
+      "lead": "Integration slots open for AP-4.",
+      "cta": {
+        "label": "Request ICD",
+        "href": "#"
+      }
+    }
+  ]
+}

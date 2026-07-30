@@ -1,0 +1,63 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Inkpress \u2014 Literary Launch",
+    "company": "Inkpress",
+    "description": "Literary imprint launch \u2014 paper-ink multi-slide proof.",
+    "theme": "paper-ink"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Imprint \u00b7 Autumn",
+      "heading": "Paper that remembers ink.",
+      "lead": "Cormorant headings. Crimson first letters. No pastel pretending to be literature."
+    },
+    {
+      "layout": "quote",
+      "quote": "A book is a room you can carry.",
+      "by": "House motto \u00b7 2011"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "List",
+      "heading": "This season's three rooms",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-feather",
+          "title": "Essays",
+          "body": "Long arguments with short titles."
+        },
+        {
+          "icon": "fa-solid fa-book-open",
+          "title": "Fiction",
+          "body": "Novels that earn their page count."
+        },
+        {
+          "icon": "fa-solid fa-newspaper",
+          "title": "Pamphlets",
+          "body": "Urgent ideas under 80 pages."
+        }
+      ]
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Craft",
+      "heading": "Design is the binding.",
+      "body": "Every cover starts with type. Photography is evidence, not mood. Crimson marks emphasis \u2014 never decoration.",
+      "aside": "Cream #faf9f7 \u00b7 Charcoal \u00b7 Crimson",
+      "ratio": "3-2"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Subscribe",
+      "heading": "Join the imprint list.",
+      "lead": "Three titles a year. One letter a month.",
+      "cta": {
+        "label": "Join the list",
+        "href": "#"
+      }
+    }
+  ]
+}

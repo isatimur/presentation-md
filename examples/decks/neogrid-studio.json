@@ -1,0 +1,78 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "NeoGrid \u2014 Studio Deck",
+    "company": "NeoGrid",
+    "description": "Design studio credentials \u2014 neo-grid-bold multi-slide proof.",
+    "theme": "neo-grid-bold"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Studio",
+      "heading": "LEMON ON PUTTY.",
+      "lead": "Uppercase Space Grotesk. JetBrains for the receipts. Zero soft radius."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Practice",
+      "heading": "What we ship",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-border-all",
+          "title": "Identity systems",
+          "body": "Grids first. Moodboards later \u2014 if ever."
+        },
+        {
+          "icon": "fa-solid fa-code",
+          "title": "Product UI",
+          "body": "Interfaces with hard edges and soft copy."
+        },
+        {
+          "icon": "fa-solid fa-film",
+          "title": "Motion rules",
+          "body": "2\u20133 beats. No particle fog."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Contrast",
+      "heading": "Agency fluff vs. NeoGrid.",
+      "leftLabel": "Typical",
+      "left": "Case studies as novels.\nPastel everything.\nProcess theater.",
+      "rightLabel": "NeoGrid",
+      "right": "One page proofs.\nLemon accents.\nArtifacts > process."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Outcomes",
+      "heading": "Clients kept the grid.",
+      "stats": [
+        {
+          "value": "64",
+          "label": "Shipped systems"
+        },
+        {
+          "value": "91%",
+          "label": "Retainers renewed"
+        },
+        {
+          "value": "2w",
+          "label": "Avg identity sprint"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Hire",
+      "heading": "BRIEF US IN CAPS.",
+      "lead": "Capacity for two retainers this quarter.",
+      "cta": {
+        "label": "Send a brief",
+        "href": "#"
+      }
+    }
+  ]
+}

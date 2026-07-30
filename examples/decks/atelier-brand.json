@@ -1,0 +1,63 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Atelier No. 9 \u2014 Brand Book",
+    "company": "Atelier No. 9",
+    "description": "Heritage brand book \u2014 heritage-editorial multi-slide proof.",
+    "theme": "heritage-editorial"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Brand book \u00b7 2026",
+      "heading": "Parchment, terracotta, patience.",
+      "lead": "A house that treats type like leather \u2014 aged in, never rushed."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Origin",
+      "heading": "Craft that photographs as provenance.",
+      "body": "Every SKU traces to a workshop with a named maker. The brand book exists so the next season doesn't invent a new dialect.",
+      "aside": "Playfair for display. Terracotta for emphasis only.",
+      "ratio": "3-2"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "System",
+      "heading": "Three materials",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-font",
+          "title": "Type",
+          "body": "One display serif. One text face. No script flourishes."
+        },
+        {
+          "icon": "fa-solid fa-palette",
+          "title": "Color",
+          "body": "Parchment field. Terracotta accent. Charcoal ink."
+        },
+        {
+          "icon": "fa-solid fa-image",
+          "title": "Photography",
+          "body": "Warm daylight. Hands in frame. Product as evidence."
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Luxury is the refusal to hurry the details.",
+      "by": "Studio note \u00b7 Brera"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Apply",
+      "heading": "Use the book. Don't reinterpret it.",
+      "lead": "Partners receive tokens + photography guides in one kit.",
+      "cta": {
+        "label": "Request the brand kit",
+        "href": "#"
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Verdant \u2014 Impact Report",
+    "company": "Verdant",
+    "description": "Climate luxury impact \u2014 botanical-luxe multi-slide proof.",
+    "theme": "botanical-luxe"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Impact \u00b7 2026",
+      "heading": "Forest gold. Quiet proof.",
+      "lead": "Botanical luxury measured in soil, not slogans."
+    },
+    {
+      "layout": "quote",
+      "quote": "Green without a ledger is just a mood.",
+      "by": "Impact office"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Commitments",
+      "heading": "Three rooted bets",
+      "columns": "bento",
+      "cards": [
+        {
+          "icon": "fa-solid fa-seedling",
+          "title": "Regenerative plots",
+          "body": "Every absolute traces to a published soil plan."
+        },
+        {
+          "icon": "fa-solid fa-droplet",
+          "title": "Water ledger",
+          "body": "Liters audited \u2014 not estimated."
+        },
+        {
+          "icon": "fa-solid fa-recycle",
+          "title": "Refill first",
+          "body": "Packaging designed for return, not landfill theater."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Measured",
+      "heading": "Gold accents. Hard data.",
+      "stats": [
+        {
+          "value": "\u221228%",
+          "label": "Water / bottle"
+        },
+        {
+          "value": "12",
+          "label": "Partner farms"
+        },
+        {
+          "value": "61%",
+          "label": "Refill share"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Read more",
+      "heading": "Open the full ledger.",
+      "lead": "PDF with methodology annex.",
+      "cta": {
+        "label": "Download report",
+        "href": "#"
+      }
+    }
+  ]
+}

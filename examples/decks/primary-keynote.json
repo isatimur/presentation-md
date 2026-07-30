@@ -1,0 +1,78 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Primary \u2014 Design Keynote",
+    "company": "Primary",
+    "description": "Design system keynote \u2014 bauhaus multi-slide proof.",
+    "theme": "bauhaus"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Keynote \u00b7 Form",
+      "heading": "Primary colors. Primary rules.",
+      "lead": "Red, blue, yellow \u2014 geometry that scales without decoration."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "System",
+      "heading": "Three laws of Primary",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-square",
+          "title": "Block first",
+          "body": "Every layout starts as a rectangle with a job."
+        },
+        {
+          "icon": "fa-solid fa-circle",
+          "title": "Accent once",
+          "body": "One primary accent per surface \u2014 never a rainbow."
+        },
+        {
+          "icon": "fa-solid fa-grip",
+          "title": "Grid or nothing",
+          "body": "If it doesn't snap, it doesn't ship."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Discipline",
+      "heading": "Style vs. system.",
+      "leftLabel": "Style deck",
+      "left": "Moodboards without tokens.\nFonts that fight.\nOne-off hero slides.",
+      "rightLabel": "Primary",
+      "right": "Tokens before taste.\nTwo fonts max.\nLayouts that reuse."
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Rollout",
+      "heading": "From keynote to kit",
+      "steps": [
+        {
+          "title": "Week 1 \u2014 Audit",
+          "body": "Strip decorative debt."
+        },
+        {
+          "title": "Week 3 \u2014 Tokens",
+          "body": "Color + type locked."
+        },
+        {
+          "title": "Week 6 \u2014 Ship",
+          "body": "Figma + code kit live."
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Adopt",
+      "heading": "Build with primaries.",
+      "lead": "Download the Primary kit. Ship the next surface without inventing a palette.",
+      "cta": {
+        "label": "Get the kit",
+        "href": "#"
+      }
+    }
+  ]
+}

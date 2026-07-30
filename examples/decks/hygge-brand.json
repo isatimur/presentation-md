@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Hygge Home \u2014 Brand Deck",
+    "company": "Hygge Home",
+    "description": "Scandi home brand deck \u2014 scandinavian multi-slide proof.",
+    "theme": "scandinavian"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Brand \u00b7 Home",
+      "heading": "Linen light. Clay warmth.",
+      "lead": "Sage and clay for rooms that feel finished without trying."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Collection",
+      "heading": "What we make",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-couch",
+          "title": "Soft seating",
+          "body": "Low profiles. Honest wood. Covers you can wash."
+        },
+        {
+          "icon": "fa-solid fa-lightbulb",
+          "title": "Warm light",
+          "body": "Lamps that pool, not glare."
+        },
+        {
+          "icon": "fa-solid fa-mug-saucer",
+          "title": "Table quiet",
+          "body": "Ceramics with clay accents \u2014 no logo shouting."
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Comfort is a design decision, not an afterthought.",
+      "by": "Astrid N. \u00b7 Creative Director"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Retail",
+      "heading": "Calm that sells.",
+      "stats": [
+        {
+          "value": "28",
+          "label": "Studios"
+        },
+        {
+          "value": "91%",
+          "label": "In-stock rate"
+        },
+        {
+          "value": "2.1\u00d7",
+          "label": "Online YoY"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Visit",
+      "heading": "Sit before you buy.",
+      "lead": "Studio appointments open this season.",
+      "cta": {
+        "label": "Book a visit",
+        "href": "#"
+      }
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "CloudPeak \u2014 Pricing",
+    "company": "CloudPeak",
+    "description": "SaaS pricing page deck \u2014 glassmorphism multi-slide proof.",
+    "theme": "glassmorphism"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Pricing \u00b7 2026",
+      "heading": "Clear tiers. Soft glass. Hard ROI.",
+      "lead": "Mist backgrounds. Indigo decisions. No surprise invoices."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Plans",
+      "heading": "Pick a altitude",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-cloud",
+          "title": "Summit",
+          "body": "For teams shipping one product \u2014 seats, SSO, shared dashboards."
+        },
+        {
+          "icon": "fa-solid fa-mountain",
+          "title": "Ridge",
+          "body": "Multi-workspace, audit logs, priority support."
+        },
+        {
+          "icon": "fa-solid fa-tower-observation",
+          "title": "Peak",
+          "body": "Custom contracts, VPC, dedicated success."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Why switch",
+      "heading": "Opaque pricing vs. glass.",
+      "leftLabel": "Typical SaaS",
+      "left": "Hidden seat math.\nAdd-ons after signature.\nSupport behind a form.",
+      "rightLabel": "CloudPeak",
+      "right": "Published unit economics.\nAdd-ons optional.\nHumans on Ridge+."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Customers",
+      "heading": "They stayed for clarity.",
+      "stats": [
+        {
+          "value": "1,840",
+          "label": "Paying orgs"
+        },
+        {
+          "value": "NPS 67",
+          "label": "Pricing clarity"
+        },
+        {
+          "value": "<2%",
+          "label": "Billing disputes"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Start",
+      "heading": "Climb with a free Ridge trial.",
+      "lead": "Fourteen days. Full Ridge features. Cancel without a call.",
+      "cta": {
+        "label": "Start trial",
+        "href": "#"
+      }
+    }
+  ]
+}

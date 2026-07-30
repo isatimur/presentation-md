@@ -1,0 +1,78 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Axiom \u2014 Mission Brief",
+    "company": "Axiom Robotics",
+    "description": "Aerospace / robotics mission brief \u2014 aerospace-hud multi-slide proof.",
+    "theme": "aerospace-hud"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Mission \u00b7 AX-7",
+      "heading": "Hardware that reads like a HUD.",
+      "lead": "Cockpit-grade telemetry for robots that leave the lab."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Flight log",
+      "heading": "Proven under load.",
+      "stats": [
+        {
+          "value": "99.4%",
+          "label": "Autonomy uptime"
+        },
+        {
+          "value": "12ms",
+          "label": "Sensor fusion P99"
+        },
+        {
+          "value": "4",
+          "label": "Flight certifications"
+        }
+      ]
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Systems",
+      "heading": "Three instruments. One stack.",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-satellite",
+          "title": "Nav mesh",
+          "body": "Realtime terrain + obstacle fusion with operator override."
+        },
+        {
+          "icon": "fa-solid fa-gauge-high",
+          "title": "Telemetry bus",
+          "body": "Cyan-priority alerts. Orange for warnings that need a human."
+        },
+        {
+          "icon": "fa-solid fa-shield-halved",
+          "title": "Fail-safe",
+          "body": "Dual-path kill criteria documented for every mission profile."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Before / After",
+      "heading": "From spreadsheets to instruments.",
+      "leftLabel": "Before",
+      "left": "CSV dumps after the flight.\nAlerts buried in Slack.\nNo shared mission language.",
+      "rightLabel": "With Axiom",
+      "right": "Live HUD in every bay.\nShared alert grammar.\nPost-flight in one timeline."
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Next sorties",
+      "heading": "Brief the crew. Arm the stack.",
+      "lead": "Pilot the AX-7 console with your ops team this quarter.",
+      "cta": {
+        "label": "Request a mission brief",
+        "href": "#"
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Meridian Club \u2014 Investor Update",
+    "company": "Meridian Club",
+    "description": "Private markets investor update \u2014 art-deco multi-slide proof.",
+    "theme": "art-deco"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Member briefing \u00b7 2026",
+      "heading": "Intimacy at scale.",
+      "lead": "Gold rules. Emerald rooms. Capital that prefers a table to a terminal."
+    },
+    {
+      "layout": "quote",
+      "quote": "The rarest moat in private markets is trust you can host.",
+      "by": "Elena Voss \u00b7 Managing Partner"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Platform",
+      "heading": "What members actually use",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-champagne-glasses",
+          "title": "Salon evenings",
+          "body": "Curated rooms where LPs and founders share a table, not a Zoom."
+        },
+        {
+          "icon": "fa-solid fa-vault",
+          "title": "Deal vault",
+          "body": "Diligence packs with provenance \u2014 every memo dated and owned."
+        },
+        {
+          "icon": "fa-solid fa-key",
+          "title": "Access ledger",
+          "body": "Who met whom, and why it mattered \u2014 private by default."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Traction",
+      "heading": "Quiet numbers. Loud retention.",
+      "stats": [
+        {
+          "value": "312",
+          "label": "Active members"
+        },
+        {
+          "value": "94%",
+          "label": "Renewal rate"
+        },
+        {
+          "value": "$2.1B",
+          "label": "Capital at table"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "The ask",
+      "heading": "Reserve the next salon.",
+      "lead": "Limited seats. Clear thesis. No pitch theater.",
+      "cta": {
+        "label": "Request membership",
+        "href": "#"
+      }
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Coralwave \u2014 Launch",
+    "company": "Coralwave",
+    "description": "Consumer brand launch \u2014 coral multi-slide proof.",
+    "theme": "coral"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Launch",
+      "heading": "CORAL ON CREAM.",
+      "lead": "Bebas titles. Hatch texture. Ink borders that mean business."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Line",
+      "heading": "Three products. One coral.",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-shirt",
+          "title": "Core tees",
+          "body": "Heavyweight cotton. Coral hit on the sleeve."
+        },
+        {
+          "icon": "fa-solid fa-bag-shopping",
+          "title": "Tote system",
+          "body": "Cream field. Hatch print. Built for markets."
+        },
+        {
+          "icon": "fa-solid fa-socks",
+          "title": "Seasonal drops",
+          "body": "Limited runs \u2014 sold out is the plan."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Look",
+      "heading": "Soft brand vs. coral.",
+      "leftLabel": "Soft DTC",
+      "left": "Pastel mist.\nRounded everything.\nForgettable marks.",
+      "rightLabel": "Coralwave",
+      "right": "Hatch + ink.\nHard type.\nYou remember the coral."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Drop 01",
+      "heading": "Cream sold through.",
+      "stats": [
+        {
+          "value": "100%",
+          "label": "Sell-through"
+        },
+        {
+          "value": "4h",
+          "label": "To waitlist clear"
+        },
+        {
+          "value": "22",
+          "label": "Stockists"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Next drop",
+      "heading": "Join the coral list.",
+      "lead": "Drop 02 in six weeks.",
+      "cta": {
+        "label": "Join waitlist",
+        "href": "#"
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Pulse \u2014 Year Wrapped",
+    "company": "Pulse",
+    "description": "Spotify-Wrapped style recap \u2014 kinetic-wrapped multi-slide proof.",
+    "theme": "kinetic-wrapped"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Your 2026",
+      "heading": "YOU LISTENED HARD.",
+      "lead": "Black field. Acid lime. Archivo Black yelling the truth."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "The year",
+      "heading": "Unignorable totals.",
+      "stats": [
+        {
+          "value": "48,291",
+          "label": "Minutes"
+        },
+        {
+          "value": "612",
+          "label": "Artists"
+        },
+        {
+          "value": "3AM",
+          "label": "Peak hour"
+        }
+      ]
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Top genres",
+      "heading": "Your three obsessions",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-bolt",
+          "title": "Hyperpop",
+          "body": "34% of your year \u2014 no notes."
+        },
+        {
+          "icon": "fa-solid fa-drum",
+          "title": "Afrobeats",
+          "body": "The commute soundtrack that stuck."
+        },
+        {
+          "icon": "fa-solid fa-headphones",
+          "title": "Late jazz",
+          "body": "Every Sunday after midnight."
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Your top track was on repeat so hard it became a personality trait.",
+      "by": "Pulse Wrapped \u00b7 2026"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Share",
+      "heading": "POST THE LIME.",
+      "lead": "One story template. Zero soft pastels.",
+      "cta": {
+        "label": "Share your Wrapped",
+        "href": "#"
+      }
+    }
+  ]
+}

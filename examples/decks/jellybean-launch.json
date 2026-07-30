@@ -1,0 +1,79 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Jellybean \u2014 Product Launch",
+    "company": "Jellybean",
+    "description": "DTC candy / consumer launch \u2014 candy-pop multi-slide proof.",
+    "theme": "candy-pop"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Drop \u00b7 Summer",
+      "heading": "Snack energy. Serious craft.",
+      "lead": "Hot pink + jellybean blue for brands that refuse beige."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Lineup",
+      "heading": "Four SKUs. One smile.",
+      "columns": 2,
+      "cards": [
+        {
+          "icon": "fa-solid fa-candy-cane",
+          "title": "Core chews",
+          "body": "Six flavors, zero mystery ingredients."
+        },
+        {
+          "icon": "fa-solid fa-gift",
+          "title": "Gift tins",
+          "body": "Designed to photograph and to last."
+        },
+        {
+          "icon": "fa-solid fa-store",
+          "title": "Pop-ups",
+          "body": "Weekend installs that sell out by Sunday."
+        },
+        {
+          "icon": "fa-solid fa-mobile-screen",
+          "title": "Refill app",
+          "body": "Subscribe without the soft-sell trap."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Proof",
+      "heading": "Sweet numbers.",
+      "stats": [
+        {
+          "value": "2.4M",
+          "label": "Units shipped"
+        },
+        {
+          "value": "61%",
+          "label": "Repeat rate"
+        },
+        {
+          "value": "4.9\u2605",
+          "label": "Store rating"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "It looks like a toy and tastes like a decision.",
+      "by": "Harper Lin \u00b7 Food editor"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Try it",
+      "heading": "Grab a tin. Skip the beige aisle.",
+      "lead": "Retail partners open now for Q4.",
+      "cta": {
+        "label": "Order samples",
+        "href": "#"
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Inkwell \u2014 Zine Pitch",
+    "company": "Inkwell",
+    "description": "Risograph zine pitch \u2014 risograph-zine multi-slide proof.",
+    "theme": "risograph-zine"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Zine \u00b7 Issue 12",
+      "heading": "Overprint or nothing.",
+      "lead": "Kraft paper. Red + blue riso. Mistakes that look intentional."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Press",
+      "heading": "How we print",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-print",
+          "title": "Two-ink runs",
+          "body": "Red and blue only \u2014 depth from overlap."
+        },
+        {
+          "icon": "fa-solid fa-hand",
+          "title": "Hand collate",
+          "body": "Every copy slightly different. That's the point."
+        },
+        {
+          "icon": "fa-solid fa-truck",
+          "title": "Mail drops",
+          "body": "Subscribers get ink smell included."
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Digital is infinite. Riso is a decision.",
+      "by": "Press note \u00b7 Issue 11"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Edition",
+      "heading": "Small runs. Loud loyalty.",
+      "stats": [
+        {
+          "value": "800",
+          "label": "Copies / issue"
+        },
+        {
+          "value": "96%",
+          "label": "Sold through"
+        },
+        {
+          "value": "11",
+          "label": "Cities stocked"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Subscribe",
+      "heading": "Get Issue 12 wet.",
+      "lead": "Pre-orders close when the drum heats up.",
+      "cta": {
+        "label": "Pre-order",
+        "href": "#"
+      }
+    }
+  ]
+}

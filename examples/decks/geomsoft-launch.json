@@ -1,0 +1,78 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "GeomSoft \u2014 App Launch",
+    "company": "GeomSoft",
+    "description": "Consumer app launch \u2014 pastel-geometry multi-slide proof.",
+    "theme": "pastel-geometry"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Launch",
+      "heading": "Soft geometry. Sharp habits.",
+      "lead": "Sky pastel card. Vertical edge pills. Plus Jakarta that stays readable."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Habits",
+      "heading": "Three loops that stick",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-calendar-check",
+          "title": "Daily check-ins",
+          "body": "One question. One color. No streak shame."
+        },
+        {
+          "icon": "fa-solid fa-shapes",
+          "title": "Shape journal",
+          "body": "Log moods as geometry \u2014 not emoji soup."
+        },
+        {
+          "icon": "fa-solid fa-users",
+          "title": "Quiet circles",
+          "body": "Small groups. Soft invites. Hard privacy."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Beta",
+      "heading": "Soft look. Hard retention.",
+      "stats": [
+        {
+          "value": "38k",
+          "label": "Waitlist"
+        },
+        {
+          "value": "72%",
+          "label": "D30 retention"
+        },
+        {
+          "value": "4.7\u2605",
+          "label": "Beta rating"
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Positioning",
+      "heading": "Pastel without the fluff.",
+      "leftLabel": "Wellness apps",
+      "left": "Guilt streaks.\nPurple everything.\nNotifications as nagging.",
+      "rightLabel": "GeomSoft",
+      "right": "Optional streaks.\nSky + pills.\nNudges you set."
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Open",
+      "heading": "Download the soft card.",
+      "lead": "iOS first. Android follows.",
+      "cta": {
+        "label": "Get the app",
+        "href": "#"
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Folio \u2014 Journal Launch",
+    "company": "Folio",
+    "description": "Vintage editorial journal launch \u2014 vintage-editorial multi-slide proof.",
+    "theme": "vintage-editorial"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Issue 01",
+      "heading": "Wit with borders.",
+      "lead": "Fraunces display. Cream field. Geometric accents that know when to stop."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Sections",
+      "heading": "What's inside",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-pen",
+          "title": "Essays",
+          "body": "Arguments with a punchline."
+        },
+        {
+          "icon": "fa-solid fa-camera",
+          "title": "Portfolios",
+          "body": "Photographers who caption honestly."
+        },
+        {
+          "icon": "fa-solid fa-comments",
+          "title": "Letters",
+          "body": "Readers who write better than commenters."
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Print is not nostalgia \u2014 it's attention with a spine.",
+      "by": "Editor's letter"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Cadence",
+      "heading": "Four issues a year",
+      "steps": [
+        {
+          "title": "Spring \u2014 Issue 01",
+          "body": "Cities & kitchens"
+        },
+        {
+          "title": "Summer \u2014 Issue 02",
+          "body": "Travel without itineraries"
+        },
+        {
+          "title": "Autumn \u2014 Issue 03",
+          "body": "Work that fits a life"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Subscribe",
+      "heading": "Get Issue 01 on paper.",
+      "lead": "Annual subscribers get the tote that doesn't apologize.",
+      "cta": {
+        "label": "Subscribe",
+        "href": "#"
+      }
+    }
+  ]
+}

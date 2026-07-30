@@ -1,0 +1,83 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Fieldnotes \u2014 Product Pitch",
+    "company": "Fieldnotes",
+    "description": "Notebook SaaS pitch \u2014 notebook-tabs multi-slide proof.",
+    "theme": "notebook-tabs"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Pitch \u00b7 Series A",
+      "heading": "Tabs for the way you think.",
+      "lead": "Cream paper on dark. Pastel tabs. Bodoni for the title that matters."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Product",
+      "heading": "Four tabs. Zero chaos.",
+      "columns": 2,
+      "cards": [
+        {
+          "icon": "fa-solid fa-book",
+          "title": "Daily pages",
+          "body": "Lined for notes that don't need a database."
+        },
+        {
+          "icon": "fa-solid fa-tags",
+          "title": "Color tabs",
+          "body": "Mint, lavender, pink \u2014 projects you can feel."
+        },
+        {
+          "icon": "fa-solid fa-link",
+          "title": "Backlinks",
+          "body": "Ideas connect without becoming a wiki cult."
+        },
+        {
+          "icon": "fa-solid fa-mobile",
+          "title": "Pocket mode",
+          "body": "Capture on phone; review on paper density."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Why us",
+      "heading": "Wiki sprawl vs. a notebook.",
+      "leftLabel": "Wikis",
+      "left": "Empty templates.\nSearch that fails.\nGuilt about structure.",
+      "rightLabel": "Fieldnotes",
+      "right": "Pages that feel finished.\nTabs you remember.\nStructure optional."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Traction",
+      "heading": "Writers, not hoarders.",
+      "stats": [
+        {
+          "value": "92k",
+          "label": "Weekly actives"
+        },
+        {
+          "value": "18min",
+          "label": "Avg session"
+        },
+        {
+          "value": "4.8\u2605",
+          "label": "App Store"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "The ask",
+      "heading": "Fund the paper that scales.",
+      "lead": "Raising to ship teams + offline sync.",
+      "cta": {
+        "label": "Read the memo",
+        "href": "#"
+      }
+    }
+  ]
+}

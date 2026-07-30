@@ -1,0 +1,77 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "MONOLITH \u2014 Series A",
+    "company": "MONOLITH",
+    "description": "Infrastructure Series A pitch \u2014 brutalist-acid multi-slide proof.",
+    "theme": "brutalist-acid"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Series A",
+      "heading": "INFRA WITHOUT APOLOGY.",
+      "lead": "Electric lime on charcoal. Space Mono receipts. Barlow condensed truth."
+    },
+    {
+      "layout": "code",
+      "eyebrow": "60s start",
+      "heading": "Provision. Don't configure.",
+      "filename": "monolith.ts",
+      "language": "ts",
+      "code": "import { Monolith } from '@monolith/sdk';\n\nconst m = new Monolith({ region: 'us-east-1' });\nconst cluster = await m.clusters.create({\n  name: 'prod-core',\n  size: 'm.large',\n  policy: 'immutable',\n});\nconsole.log(cluster.endpoint);"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Why",
+      "heading": "Three hard edges",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-cube",
+          "title": "Immutable by default",
+          "body": "Mutations are explicit events \u2014 not SSH folklore."
+        },
+        {
+          "icon": "fa-solid fa-terminal",
+          "title": "CLI as UI",
+          "body": "If it isn't scriptable, it isn't a feature."
+        },
+        {
+          "icon": "fa-solid fa-bomb",
+          "title": "Blast radius",
+          "body": "Kill switches documented before the launch."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Traction",
+      "heading": "Builders, not browsers.",
+      "stats": [
+        {
+          "value": "$4.2M",
+          "label": "ARR"
+        },
+        {
+          "value": "210",
+          "label": "Prod clusters"
+        },
+        {
+          "value": "0",
+          "label": "Marketing sites"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "The raise",
+      "heading": "Fund the lime.",
+      "lead": "Series A to own the infra CLI category.",
+      "cta": {
+        "label": "Read the memo",
+        "href": "#"
+      }
+    }
+  ]
+}

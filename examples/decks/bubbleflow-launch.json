@@ -1,0 +1,78 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "BubbleFlow \u2014 Launch",
+    "company": "BubbleFlow",
+    "description": "Y2K aero consumer launch \u2014 y2k-aero multi-slide proof.",
+    "theme": "y2k-aero"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Launch \u00b7 Aqua",
+      "heading": "Icy UI. Lime pops.",
+      "lead": "Sky bubbles. Nunito softness. Y2K energy without the clipart."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Product",
+      "heading": "Flow in three bubbles",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-wand-magic-sparkles",
+          "title": "BubbleAssist",
+          "body": "Sketch to structured ideas in one tap."
+        },
+        {
+          "icon": "fa-solid fa-water",
+          "title": "Aqua boards",
+          "body": "Boards that feel like glass, not gray SaaS."
+        },
+        {
+          "icon": "fa-solid fa-share-nodes",
+          "title": "Share orbs",
+          "body": "Invite links that look like invitations."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Beta",
+      "heading": "Bubbles that retained.",
+      "stats": [
+        {
+          "value": "55k",
+          "label": "Creators"
+        },
+        {
+          "value": "3.4\u00d7",
+          "label": "Ideas / week"
+        },
+        {
+          "value": "4.9\u2605",
+          "label": "Delight score"
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Feel",
+      "heading": "Gray tools vs. aero.",
+      "leftLabel": "Default SaaS",
+      "left": "Slate sidebars.\nInter everywhere.\nJoy optional.",
+      "rightLabel": "BubbleFlow",
+      "right": "Icy canvas.\nLime accents.\nJoy built in."
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Splash",
+      "heading": "Start floating.",
+      "lead": "Free for individuals. Teams on Ridge pricing.",
+      "cta": {
+        "label": "Open BubbleFlow",
+        "href": "#"
+      }
+    }
+  ]
+}

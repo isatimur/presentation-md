@@ -1,0 +1,78 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Mallsoft \u2014 Launch",
+    "company": "Mallsoft",
+    "description": "Vaporwave consumer launch \u2014 vaporwave multi-slide proof.",
+    "theme": "vaporwave"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Opening soon",
+      "heading": "AESTHETIC MALL.",
+      "lead": "Dusk purple. Pink chrome. Teal grid. Nostalgia with a checkout."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Floors",
+      "heading": "Three levels of dusk",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-shirt",
+          "title": "Arcade apparel",
+          "body": "Drops that look like 1992 and ship tomorrow."
+        },
+        {
+          "icon": "fa-solid fa-music",
+          "title": "Lobby mixes",
+          "body": "Playlists curated like fountain music."
+        },
+        {
+          "icon": "fa-solid fa-bag-shopping",
+          "title": "Food court NFT",
+          "body": "Just kidding \u2014 real snacks, real lines."
+        }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Hype",
+      "heading": "The mall is metric.",
+      "stats": [
+        {
+          "value": "120k",
+          "label": "Waitlist"
+        },
+        {
+          "value": "8",
+          "label": "City pop-ups"
+        },
+        {
+          "value": "\u221e",
+          "label": "Sunset loops"
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Vibe check",
+      "heading": "Generic drop vs. mallsoft.",
+      "leftLabel": "Hype cycle",
+      "left": "Black tees.\nSame font.\nGone in a week.",
+      "rightLabel": "Mallsoft",
+      "right": "Dusk palette.\nMonoton titles.\nA world you revisit."
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Enter",
+      "heading": "Take the escalator.",
+      "lead": "Membership opens Friday at dusk.",
+      "cta": {
+        "label": "Join the mall",
+        "href": "#"
+      }
+    }
+  ]
+}
