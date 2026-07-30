@@ -1,0 +1,80 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Clay & Paper — Product Brief",
+    "company": "Clay & Paper",
+    "description": "Warm high-craft product brief — claude theme multi-slide proof with asymmetric two-column.",
+    "theme": "claude"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Product brief · 2026",
+      "heading": "Calm confidence beats loud templates.",
+      "lead": "Warm paper. Clay-coral signal. The reference craft for AI product stories."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Positioning",
+      "heading": "Designed to feel human at billboard scale.",
+      "body": "Claude's cream paper and restrained coral accent set the bar: editorial type, quiet surfaces, hierarchy that doesn't shout. Use it when the product is sharp and the room is skeptical.",
+      "aside": "High craft. Low theater. One idea per slide.",
+      "ratio": "3-2"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Principles",
+      "heading": "What this surface refuses",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-ban",
+          "title": "Neon soup",
+          "body": "No glow stacks competing with the headline."
+        },
+        {
+          "icon": "fa-solid fa-ban",
+          "title": "Card farms",
+          "body": "Cards earn their border — or they leave."
+        },
+        {
+          "icon": "fa-solid fa-ban",
+          "title": "Adjective vibes",
+          "body": "Pick from a live preview, not a mood word."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Tone",
+      "heading": "Corporate beige vs. warm craft.",
+      "leftLabel": "Default enterprise",
+      "left": "Navy + gray.\nSafe but forgettable.\nDensity without voice.",
+      "rightLabel": "claude",
+      "right": "Cream paper, clay coral.\nEditorial body type.\nQuiet authority that holds.",
+      "emphasis": "right"
+    },
+    {
+      "layout": "quote",
+      "quote": "The deck felt like a conversation, not a pitch deck template.",
+      "by": "Beta reviewer · design partner"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Fit",
+      "heading": "Best when the story is calm and precise.",
+      "stats": [
+        { "value": "AI", "label": "Product launches" },
+        { "value": "DX", "label": "Developer tools" },
+        { "value": "TL", "label": "Thought leadership" }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Ship",
+      "heading": "Set theme to claude. Keep the copy honest.",
+      "lead": "preview_themes → lock meta.theme → render_deck",
+      "cta": { "label": "Open Studio", "href": "https://presentation-md.vercel.app/studio" }
+    }
+  ]
+}

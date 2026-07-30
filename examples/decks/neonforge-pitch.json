@@ -1,0 +1,93 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "NeonForge — Product Pitch",
+    "company": "NeonForge",
+    "description": "Edgy tech startup pitch — default-tech multi-slide proof with code + asymmetric craft.",
+    "theme": "default-tech"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Series A · Infra",
+      "heading": "Ship dark mode. Ship faster.",
+      "lead": "Neon accents. Typed APIs. The default stack for teams who refuse beige decks."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "The gap",
+      "heading": "Your product is sharp. Your deck still looks like a template.",
+      "body": "Investors forgive rough slides once. Competitors with craft win the room. NeonForge turns the same Deck JSON into a surface that reads as intentional — not default-dark-with-purple.",
+      "aside": "75 themes. One schema. Zero Figma babysitting.",
+      "ratio": "2-1"
+    },
+    {
+      "layout": "code",
+      "eyebrow": "60-second start",
+      "heading": "Render the vibe. Don't redesign it.",
+      "filename": "neonforge-deck.json",
+      "language": "json",
+      "code": "{\n  \"meta\": { \"theme\": \"default-tech\", \"title\": \"NeonForge\" },\n  \"slides\": [\n    { \"layout\": \"title\", \"heading\": \"Ship dark mode.\" },\n    { \"layout\": \"code\", \"filename\": \"api.ts\", \"code\": \"…\" }\n  ]\n}"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Why teams lock it",
+      "heading": "One field swaps the whole room",
+      "columns": "bento",
+      "cards": [
+        {
+          "icon": "fa-solid fa-bolt",
+          "title": "Neon surface, not a skin",
+          "body": "Glow, contrast, and type hierarchy baked into the surface profile — content slides stay readable."
+        },
+        {
+          "icon": "fa-solid fa-code",
+          "title": "Code layout",
+          "body": "Real snippet chrome for API demos."
+        },
+        {
+          "icon": "fa-solid fa-columns",
+          "title": "Asymmetric craft",
+          "body": "Ratios, asides, emphasis columns."
+        },
+        {
+          "icon": "fa-solid fa-file-export",
+          "title": "PPTX round-trip",
+          "body": "Editable Office export from the same JSON."
+        },
+        {
+          "icon": "fa-solid fa-robot",
+          "title": "Agent-native",
+          "body": "MCP render + theme preview before you commit."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Before / After",
+      "heading": "Template energy vs. signal.",
+      "leftLabel": "Generic dark deck",
+      "left": "Purple glow everywhere.\nCards that all weigh the same.\nNo code surface. No ask.",
+      "rightLabel": "default-tech",
+      "right": "Hierarchy that holds under neon.\nAsymmetric layouts on purpose.\nSnippet proof + a clear close.",
+      "emphasis": "right"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Proof",
+      "heading": "Numbers that survive a projector.",
+      "stats": [
+        { "value": "75", "label": "Distinct theme surfaces" },
+        { "value": "12", "label": "Schema layouts" },
+        { "value": "1", "label": "JSON field to re-theme" }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Next",
+      "heading": "Lock the vibe. Ship the ask.",
+      "lead": "npx @presentation-md/install · preview_themes · render_deck",
+      "cta": { "label": "Install presentation-md", "href": "https://presentation-md.vercel.app/#install" }
+    }
+  ]
+}

@@ -32,7 +32,8 @@
         "Claude",
         "Warm Paper",
         "Anthropic"
-      ]
+      ],
+      "gallery": "examples/structured/claypaper-brief.html"
     },
     {
       "name": "default-tech",
@@ -64,7 +65,8 @@
         "Neon Tech",
         "Default Tech",
         "startup dark"
-      ]
+      ],
+      "gallery": "examples/structured/neonforge-pitch.html"
     },
     {
       "name": "corporate",

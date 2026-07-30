@@ -23,6 +23,7 @@ pnpm exec tsx tools/generate-gallery-structured.ts
 | `buttercup-launch.json` | `daisy-days` | `web/examples/structured/buttercup-launch.html` |
 | `canopy-impact.json` | `grove` | `web/examples/structured/canopy-impact.html` |
 | `civicpulse-rally.json` | `peoples-platform` | `web/examples/structured/civicpulse-rally.html` |
+| `claypaper-brief.json` | `claude` | `web/examples/structured/claypaper-brief.html` |
 | `cloudnine-launch.json` | `pastel-dreamy` | `web/examples/structured/cloudnine-launch.html` |
 | `cloudpeak-pricing.json` | `glassmorphism` | `web/examples/structured/cloudpeak-pricing.html` |
 | `concrete-spec.json` | `brutalist-mono` | `web/examples/structured/concrete-spec.html` |
@@ -54,6 +55,7 @@ pnpm exec tsx tools/generate-gallery-structured.ts
 | `meridianclub-investor.json` | `art-deco` | `web/examples/structured/meridianclub-investor.html` |
 | `monolith-seriesa.json` | `brutalist-acid` | `web/examples/structured/monolith-seriesa.html` |
 | `mossprint-journal.json` | `editorial-forest` | `web/examples/structured/mossprint-journal.html` |
+| `neonforge-pitch.json` | `default-tech` | `web/examples/structured/neonforge-pitch.html` |
 | `neogrid-studio.json` | `neo-grid-bold` | `web/examples/structured/neogrid-studio.html` |
 | `neondistrict-platform.json` | `neon-noir` | `web/examples/structured/neondistrict-platform.html` |
 | `nightbloom-impact.json` | `dark-botanical` | `web/examples/structured/nightbloom-impact.html` |
