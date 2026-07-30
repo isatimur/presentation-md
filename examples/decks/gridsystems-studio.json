@@ -14,27 +14,12 @@
       "lead": "International typographic discipline for brands that need to scale."
     },
     {
-      "layout": "feature-grid",
+      "layout": "two-column",
       "eyebrow": "Method",
-      "heading": "What we ship",
-      "columns": 3,
-      "cards": [
-        {
-          "icon": "fa-solid fa-border-all",
-          "title": "Grid systems",
-          "body": "Modular columns, baseline rhythm, and ratios documented for every breakpoint."
-        },
-        {
-          "icon": "fa-solid fa-font",
-          "title": "Type programs",
-          "body": "One display, one text. No decorative fonts. Signal red for emphasis only."
-        },
-        {
-          "icon": "fa-solid fa-ruler-combined",
-          "title": "Production kits",
-          "body": "Figma + code tokens so design and engineering share one source of truth."
-        }
-      ]
+      "heading": "Grid as identity — not decoration.",
+      "body": "Modular columns, baseline rhythm, and ratios documented for every breakpoint. One display face, one text face. Signal red for emphasis only.",
+      "aside": "Systems before styles. Production kits that survive engineering.",
+      "ratio": "3-2"
     },
     {
       "layout": "comparison",
@@ -43,7 +28,8 @@
       "leftLabel": "Trend design",
       "left": "Gradients as identity.\nFonts as costume.\nLayouts that can't resize.",
       "rightLabel": "Swiss Modern",
-      "right": "Grid as identity.\nType as structure.\nLayouts that scale."
+      "right": "Grid as identity.\nType as structure.\nLayouts that scale.",
+      "emphasis": "right"
     },
     {
       "layout": "stat-row",

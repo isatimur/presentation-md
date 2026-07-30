@@ -43,7 +43,16 @@
       "leftLabel": "Legacy night",
       "left": "Walkie-talkies.\nSpreadsheets at the door.\nNo shared inventory.",
       "rightLabel": "Neon District",
-      "right": "One mesh.\nOne inventory.\nOne pulse for the whole district."
+      "right": "One mesh.\nOne inventory.\nOne pulse for the whole district.",
+      "emphasis": "right"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Ops",
+      "heading": "One pulse for the whole district.",
+      "body": "Security, bar, and talent share the same board. Capacity and VIP flow update under 80ms — so door decisions aren't radio folklore.",
+      "aside": "Pink signal for alerts. Cyan for telemetry. Hierarchy that holds under neon.",
+      "ratio": "2-1"
     },
     {
       "layout": "stat-row",

@@ -142,6 +142,17 @@ h1, h2, h3 {
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
   border-radius: var(--radius);
   border-left: 4px solid var(--accent);
+  position: relative;
+}
+.cols-aside::before {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: 40px;
+  width: 36px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
 }
 .cols-aside p {
   font-family: var(--heading-font);
@@ -151,6 +162,13 @@ h1, h2, h3 {
   letter-spacing: -0.02em;
   color: var(--text);
   margin: 0;
+  padding-top: 18px;
+}
+.cols .cols-copy .lead,
+.cols .cols-copy > p.lead {
+  font-size: 18px;
+  line-height: 1.5;
+  max-width: 42ch;
 }
 
 /* image-hero — full-bleed photo with bottom scrim */
@@ -206,12 +224,19 @@ h1, h2, h3 {
 /* Asymmetric emphasis — grow the winning column */
 .comparison-cols.emphasis-right .comparison-col:last-child,
 .comparison-cols.emphasis-left .comparison-col:first-child {
-  flex: 1.35;
+  flex: 1.42;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 .comparison-cols.emphasis-right .comparison-col:first-child,
 .comparison-cols.emphasis-left .comparison-col:last-child {
-  flex: 0.85;
-  opacity: 0.92;
+  flex: 0.78;
+  opacity: 0.88;
+  transform: scale(0.985);
+  transform-origin: center;
+}
+.comparison-cols.emphasis-right .comparison-col:last-child .comparison-label,
+.comparison-cols.emphasis-left .comparison-col:first-child .comparison-label {
+  font-size: 13px;
 }
 .comparison-col p {
   color: var(--muted);
@@ -253,16 +278,23 @@ h1, h2, h3 {
 .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
 /* Asymmetric bento when agents pass columns: "bento" (5-up: hero + 4) */
 .grid.cols-bento {
-  grid-template-columns: 1.35fr 1fr 1fr;
+  grid-template-columns: 1.4fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
+  gap: 16px;
 }
 .grid.cols-bento .card:first-child {
   grid-row: 1 / span 2;
   justify-content: center;
-  padding: 36px 32px;
+  padding: 40px 36px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
 }
-.grid.cols-bento .card:first-child h3 { font-size: clamp(22px, 2.4vw, 30px); }
-.grid.cols-bento .card:first-child p { font-size: 16px; }
+.grid.cols-bento .card:first-child i { font-size: 32px; margin-bottom: 20px; }
+.grid.cols-bento .card:first-child h3 { font-size: clamp(24px, 2.6vw, 34px); margin-bottom: 14px; }
+.grid.cols-bento .card:first-child p { font-size: 16px; line-height: 1.5; max-width: 28ch; }
+.grid.cols-bento .card:not(:first-child) { padding: 22px 20px; }
+.grid.cols-bento .card:not(:first-child) h3 { font-size: 17px; }
+.grid.cols-bento .card:not(:first-child) p { font-size: 14px; }
 
 .card {
   background: var(--card-bg);
@@ -556,6 +588,36 @@ tbody tr:hover td {
 .deck[data-surface="neon-glow"] .slide h1 {
   text-shadow: 0 0 40px color-mix(in srgb, var(--accent) 35%, transparent);
 }
+/* Content slides: keep glow off the reading plane */
+.deck[data-surface="neon-glow"] .slide:not(.title-slide):not(.closing-slide)::after {
+  opacity: 0.45;
+  width: 420px;
+  height: 420px;
+  right: -180px;
+  top: -160px;
+}
+.deck[data-surface="neon-glow"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 14%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+  box-shadow: 0 0 32px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.deck[data-surface="neon-glow"] .stat .value {
+  text-shadow: 0 0 24px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.deck[data-surface="neon-glow"] .code-window {
+  border-color: color-mix(in srgb, var(--accent2) 35%, var(--border));
+  box-shadow: 0 20px 56px rgba(0, 0, 0, 0.45), 0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+.deck[data-surface="neon-glow"] .cols-aside {
+  background: color-mix(in srgb, var(--accent) 16%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  box-shadow: inset 0 0 40px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.deck[data-surface="neon-glow"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent) 18%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+  box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 22%, transparent);
+}
 
 /* ── scanline-neon (retro-arcade) ── */
 .deck[data-surface="scanline-neon"] .slide {
@@ -600,6 +662,22 @@ tbody tr:hover td {
   top: auto;
   right: auto;
   background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 18%, transparent), transparent);
+}
+.deck[data-surface="warm-paper"] .slide:not(.title-slide):not(.closing-slide)::after {
+  opacity: 0.55;
+  width: 200px;
+  height: 200px;
+}
+.deck[data-surface="warm-paper"] .cols-aside {
+  background: color-mix(in srgb, var(--accent) 8%, #fff);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+.deck[data-surface="warm-paper"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 6%, #fff);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+.deck[data-surface="warm-paper"] .stat {
+  border-top: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
 }
 
 /* ── clean-light (corporate) ── */
@@ -4422,32 +4500,22 @@ tbody tr:hover td {
   <p class="lead">International typographic discipline for brands that need to scale.</p>
 </section>
 
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Method</span>
-  <h2>What we ship</h2>
-  <div class="grid cols-3">
-    <div class="card">
-      <i class="fa-solid fa-border-all"></i>
-      <h3>Grid systems</h3>
-      <p>Modular columns, baseline rhythm, and ratios documented for every breakpoint.</p>
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-3-2">
+    <div class="cols-copy">
+      <span class="eyebrow">Method</span>
+      <h2>Grid as identity — not decoration.</h2>
+      <p class="lead">Modular columns, baseline rhythm, and ratios documented for every breakpoint. One display face, one text face. Signal red for emphasis only.</p>
     </div>
-    <div class="card">
-      <i class="fa-solid fa-font"></i>
-      <h3>Type programs</h3>
-      <p>One display, one text. No decorative fonts. Signal red for emphasis only.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-ruler-combined"></i>
-      <h3>Production kits</h3>
-      <p>Figma + code tokens so design and engineering share one source of truth.</p>
-    </div>
+    
+    <div class="cols-aside"><p>Systems before styles. Production kits that survive engineering.</p></div>
   </div>
 </section>
 
 <section class="slide comparison-slide" data-layout="comparison">
   <span class="eyebrow">Contrast</span>
   <h2>Decoration vs. structure.</h2>
-  <div class="comparison-cols">
+  <div class="comparison-cols emphasis-right">
     <div class="comparison-col">
       <span class="comparison-label">Trend design</span>
       <p>Gradients as identity.
@@ -4498,7 +4566,7 @@ Layouts that scale.</p>
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Grid Systems — Studio Deck","company":"Grid Systems","description":"Swiss Modern / swiss-typographic structured proof.","theme":"swiss-typographic"},"slides":[{"layout":"title","eyebrow":"Studio · Zürich / NYC","heading":"Systems before styles.","lead":"International typographic discipline for brands that need to scale."},{"layout":"feature-grid","eyebrow":"Method","heading":"What we ship","columns":3,"cards":[{"icon":"fa-solid fa-border-all","title":"Grid systems","body":"Modular columns, baseline rhythm, and ratios documented for every breakpoint."},{"icon":"fa-solid fa-font","title":"Type programs","body":"One display, one text. No decorative fonts. Signal red for emphasis only."},{"icon":"fa-solid fa-ruler-combined","title":"Production kits","body":"Figma + code tokens so design and engineering share one source of truth."}]},{"layout":"comparison","eyebrow":"Contrast","heading":"Decoration vs. structure.","leftLabel":"Trend design","left":"Gradients as identity.\nFonts as costume.\nLayouts that can't resize.","rightLabel":"Swiss Modern","right":"Grid as identity.\nType as structure.\nLayouts that scale."},{"layout":"stat-row","eyebrow":"Outcomes","heading":"Measured in reuse.","stats":[{"value":"90%","label":"Component reuse rate"},{"value":"14","label":"Brand systems live"},{"value":"0","label":"Orphan style guides"}]},{"layout":"quote","quote":"They gave us a system, not a moodboard.","by":"Elena Vogt · Design Director · Atelier Nord"},{"layout":"closing","eyebrow":"Engage","heading":"Build the grid once. Use it forever.","lead":"Six-week system sprints. Museums, agencies, product companies.","cta":{"label":"Start a system sprint","href":"#"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Grid Systems — Studio Deck","company":"Grid Systems","description":"Swiss Modern / swiss-typographic structured proof.","theme":"swiss-typographic"},"slides":[{"layout":"title","eyebrow":"Studio · Zürich / NYC","heading":"Systems before styles.","lead":"International typographic discipline for brands that need to scale."},{"layout":"two-column","eyebrow":"Method","heading":"Grid as identity — not decoration.","body":"Modular columns, baseline rhythm, and ratios documented for every breakpoint. One display face, one text face. Signal red for emphasis only.","aside":"Systems before styles. Production kits that survive engineering.","ratio":"3-2"},{"layout":"comparison","eyebrow":"Contrast","heading":"Decoration vs. structure.","leftLabel":"Trend design","left":"Gradients as identity.\nFonts as costume.\nLayouts that can't resize.","rightLabel":"Swiss Modern","right":"Grid as identity.\nType as structure.\nLayouts that scale.","emphasis":"right"},{"layout":"stat-row","eyebrow":"Outcomes","heading":"Measured in reuse.","stats":[{"value":"90%","label":"Component reuse rate"},{"value":"14","label":"Brand systems live"},{"value":"0","label":"Orphan style guides"}]},{"layout":"quote","quote":"They gave us a system, not a moodboard.","by":"Elena Vogt · Design Director · Atelier Nord"},{"layout":"closing","eyebrow":"Engage","heading":"Build the grid once. Use it forever.","lead":"Six-week system sprints. Museums, agencies, product companies.","cta":{"label":"Start a system sprint","href":"#"}}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));

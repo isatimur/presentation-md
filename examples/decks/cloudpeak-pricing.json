@@ -43,7 +43,8 @@
       "leftLabel": "Typical SaaS",
       "left": "Hidden seat math.\nAdd-ons after signature.\nSupport behind a form.",
       "rightLabel": "CloudPeak",
-      "right": "Published unit economics.\nAdd-ons optional.\nHumans on Ridge+."
+      "right": "Published unit economics.\nAdd-ons optional.\nHumans on Ridge+.",
+      "emphasis": "right"
     },
     {
       "layout": "stat-row",

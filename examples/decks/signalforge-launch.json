@@ -24,27 +24,12 @@
       ]
     },
     {
-      "layout": "feature-grid",
+      "layout": "two-column",
       "eyebrow": "Product",
-      "heading": "Three moves that matter",
-      "columns": 3,
-      "cards": [
-        {
-          "icon": "fa-solid fa-bolt",
-          "title": "Pulse routing",
-          "body": "Route every ask to the owner who can ship it — not the loudest thread."
-        },
-        {
-          "icon": "fa-solid fa-layer-group",
-          "title": "Signal boards",
-          "body": "One board per launch. Status, blockers, and the next decision in one glance."
-        },
-        {
-          "icon": "fa-solid fa-tower-broadcast",
-          "title": "Broadcast once",
-          "body": "Stakeholders get a single weekly signal — not seventeen Slack pings."
-        }
-      ]
+      "heading": "One board. One pulse. One owner.",
+      "body": "SignalForge collapses status theater into a single launch board — blockers, decisions, and the next ask in one glance. Stakeholders get one weekly broadcast, not seventeen Slack pings.",
+      "aside": "Route every ask to the person who can ship it — not the loudest thread.",
+      "ratio": "2-1"
     },
     {
       "layout": "comparison",
@@ -53,7 +38,8 @@
       "leftLabel": "Before",
       "left": "Standups that restate Slack.\nRoadmaps nobody opens.\nDecisions buried in docs.",
       "rightLabel": "With SignalForge",
-      "right": "One pulse per launch.\nOwners, not observers.\nDecisions with a timestamp."
+      "right": "One pulse per launch.\nOwners, not observers.\nDecisions with a timestamp.",
+      "emphasis": "right"
     },
     {
       "layout": "quote",

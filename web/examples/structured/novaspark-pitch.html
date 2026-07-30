@@ -142,6 +142,17 @@ h1, h2, h3 {
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
   border-radius: var(--radius);
   border-left: 4px solid var(--accent);
+  position: relative;
+}
+.cols-aside::before {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: 40px;
+  width: 36px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
 }
 .cols-aside p {
   font-family: var(--heading-font);
@@ -151,6 +162,13 @@ h1, h2, h3 {
   letter-spacing: -0.02em;
   color: var(--text);
   margin: 0;
+  padding-top: 18px;
+}
+.cols .cols-copy .lead,
+.cols .cols-copy > p.lead {
+  font-size: 18px;
+  line-height: 1.5;
+  max-width: 42ch;
 }
 
 /* image-hero — full-bleed photo with bottom scrim */
@@ -206,12 +224,19 @@ h1, h2, h3 {
 /* Asymmetric emphasis — grow the winning column */
 .comparison-cols.emphasis-right .comparison-col:last-child,
 .comparison-cols.emphasis-left .comparison-col:first-child {
-  flex: 1.35;
+  flex: 1.42;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
 }
 .comparison-cols.emphasis-right .comparison-col:first-child,
 .comparison-cols.emphasis-left .comparison-col:last-child {
-  flex: 0.85;
-  opacity: 0.92;
+  flex: 0.78;
+  opacity: 0.88;
+  transform: scale(0.985);
+  transform-origin: center;
+}
+.comparison-cols.emphasis-right .comparison-col:last-child .comparison-label,
+.comparison-cols.emphasis-left .comparison-col:first-child .comparison-label {
+  font-size: 13px;
 }
 .comparison-col p {
   color: var(--muted);
@@ -253,16 +278,23 @@ h1, h2, h3 {
 .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
 /* Asymmetric bento when agents pass columns: "bento" (5-up: hero + 4) */
 .grid.cols-bento {
-  grid-template-columns: 1.35fr 1fr 1fr;
+  grid-template-columns: 1.4fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
+  gap: 16px;
 }
 .grid.cols-bento .card:first-child {
   grid-row: 1 / span 2;
   justify-content: center;
-  padding: 36px 32px;
+  padding: 40px 36px;
+  background: color-mix(in srgb, var(--accent) 12%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
 }
-.grid.cols-bento .card:first-child h3 { font-size: clamp(22px, 2.4vw, 30px); }
-.grid.cols-bento .card:first-child p { font-size: 16px; }
+.grid.cols-bento .card:first-child i { font-size: 32px; margin-bottom: 20px; }
+.grid.cols-bento .card:first-child h3 { font-size: clamp(24px, 2.6vw, 34px); margin-bottom: 14px; }
+.grid.cols-bento .card:first-child p { font-size: 16px; line-height: 1.5; max-width: 28ch; }
+.grid.cols-bento .card:not(:first-child) { padding: 22px 20px; }
+.grid.cols-bento .card:not(:first-child) h3 { font-size: 17px; }
+.grid.cols-bento .card:not(:first-child) p { font-size: 14px; }
 
 .card {
   background: var(--card-bg);
@@ -556,6 +588,36 @@ tbody tr:hover td {
 .deck[data-surface="neon-glow"] .slide h1 {
   text-shadow: 0 0 40px color-mix(in srgb, var(--accent) 35%, transparent);
 }
+/* Content slides: keep glow off the reading plane */
+.deck[data-surface="neon-glow"] .slide:not(.title-slide):not(.closing-slide)::after {
+  opacity: 0.45;
+  width: 420px;
+  height: 420px;
+  right: -180px;
+  top: -160px;
+}
+.deck[data-surface="neon-glow"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 14%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+  box-shadow: 0 0 32px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.deck[data-surface="neon-glow"] .stat .value {
+  text-shadow: 0 0 24px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.deck[data-surface="neon-glow"] .code-window {
+  border-color: color-mix(in srgb, var(--accent2) 35%, var(--border));
+  box-shadow: 0 20px 56px rgba(0, 0, 0, 0.45), 0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+.deck[data-surface="neon-glow"] .cols-aside {
+  background: color-mix(in srgb, var(--accent) 16%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+  box-shadow: inset 0 0 40px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.deck[data-surface="neon-glow"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent) 18%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
+  box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 22%, transparent);
+}
 
 /* ── scanline-neon (retro-arcade) ── */
 .deck[data-surface="scanline-neon"] .slide {
@@ -600,6 +662,22 @@ tbody tr:hover td {
   top: auto;
   right: auto;
   background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 18%, transparent), transparent);
+}
+.deck[data-surface="warm-paper"] .slide:not(.title-slide):not(.closing-slide)::after {
+  opacity: 0.55;
+  width: 200px;
+  height: 200px;
+}
+.deck[data-surface="warm-paper"] .cols-aside {
+  background: color-mix(in srgb, var(--accent) 8%, #fff);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+.deck[data-surface="warm-paper"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 6%, #fff);
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+.deck[data-surface="warm-paper"] .stat {
+  border-top: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
 }
 
 /* ── clean-light (corporate) ── */
@@ -4474,7 +4552,7 @@ tbody tr:hover td {
 <section class="slide comparison-slide" data-layout="comparison">
   <span class="eyebrow">Migration</span>
   <h2>Drop in. Route smarter.</h2>
-  <div class="comparison-cols">
+  <div class="comparison-cols emphasis-right">
     <div class="comparison-col">
       <span class="comparison-label">Before</span>
       <p>Direct OpenAI &#x2F; Anthropic &#x2F; custom clients.
@@ -4488,6 +4566,18 @@ No shared observability.</p>
 Automatic routing + failover.
 One pane for cost, latency, quality.</p>
     </div>
+  </div>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-2-1">
+    <div class="cols-copy">
+      <span class="eyebrow">Why now</span>
+      <h2>Inference is the new cloud spend line.</h2>
+      <p class="lead">Every frontier team is bottlenecked on delivery, not algorithms. NovaSpark turns multi-provider chaos into one contract — with latency and cost visible before the invoice.</p>
+    </div>
+    
+    <div class="cols-aside"><p>Sub-200ms for 95% of the world&#39;s population. One pane for quality.</p></div>
   </div>
 </section>
 
@@ -4572,7 +4662,7 @@ One pane for cost, latency, quality.</p>
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"NovaSpark AI — Series A","company":"NovaSpark AI","description":"Series A pitch — AI inference infrastructure.","theme":"aurora-glass"},"slides":[{"layout":"title","eyebrow":"Series A · YC W24","heading":"AI doesn't need more compute.","lead":"It needs infrastructure that delivers it."},{"layout":"quote","quote":"Every frontier model today is bottlenecked not by algorithms, but by the infrastructure that delivers them.","by":"Dr. Maya Reeves, Co-Founder & CEO"},{"layout":"feature-grid","eyebrow":"The Problem","heading":"Three bottlenecks every AI deployment hits","columns":3,"cards":[{"icon":"fa-solid fa-route","title":"Routing chaos","body":"Teams juggle 12 providers with brittle failover and unpredictable latency."},{"icon":"fa-solid fa-globe","title":"Edge distance","body":"Users wait on distant regions — p95 climbs past 800ms outside the US."},{"icon":"fa-solid fa-receipt","title":"Cost blindness","body":"Spend spikes without quality signal. Finance finds out after the invoice."}]},{"layout":"feature-grid","eyebrow":"The Solution","heading":"One unified inference layer","columns":3,"cards":[{"icon":"fa-solid fa-shuffle","title":"Smart routing","body":"Real-time selection across 12 providers — fastest, cheapest path per request."},{"icon":"fa-solid fa-server","title":"Global edge","body":"50+ nodes. Sub-200ms for 95% of the world's population."},{"icon":"fa-solid fa-chart-line","title":"Live cost & quality","body":"Dashboards, latency histograms, quality scoring — before the bill."}]},{"layout":"comparison","eyebrow":"Migration","heading":"Drop in. Route smarter.","leftLabel":"Before","left":"Direct OpenAI / Anthropic / custom clients.\nManual failover.\nNo shared observability.","rightLabel":"With NovaSpark","right":"Same OpenAI-compatible API.\nAutomatic routing + failover.\nOne pane for cost, latency, quality."},{"layout":"stat-row","eyebrow":"Traction","heading":"18 months. Zero paid acquisition.","stats":[{"value":"$2.1M","label":"ARR"},{"value":"412","label":"Enterprise customers"},{"value":"99.97%","label":"Uptime SLA"},{"value":"847ms","label":"Avg response (global)"}]},{"layout":"data-table","eyebrow":"Market","heading":"A category being created now","columns":["Segment","2026E"],"rows":[["AI API Orchestration","$18.2B"],["Edge AI Serving","$9.4B"],["Inference Observability","$3.1B"]]},{"layout":"timeline","eyebrow":"Roadmap","heading":"18 months to Series B readiness","steps":[{"title":"Now","body":"Core platform + enterprise SSO."},{"title":"Q+2","body":"Partnerships with AWS / GCP marketplace."},{"title":"Q+4","body":"Team 2× · $8M ARR target."},{"title":"Series B","body":"Category leadership narrative locked."}]},{"layout":"section","number":"01","eyebrow":"The Ask","heading":"$14M Series A","lead":"Lead $8M · Co-investors filling $6M · 18 months runway to $8M ARR."},{"layout":"closing","eyebrow":"The Opportunity","heading":"AI deserves better plumbing.","lead":"investors@novaspark.ai · novaspark.ai","cta":{"label":"Book a meeting","href":"https://novaspark.ai"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"NovaSpark AI — Series A","company":"NovaSpark AI","description":"Series A pitch — AI inference infrastructure.","theme":"aurora-glass"},"slides":[{"layout":"title","eyebrow":"Series A · YC W24","heading":"AI doesn't need more compute.","lead":"It needs infrastructure that delivers it."},{"layout":"quote","quote":"Every frontier model today is bottlenecked not by algorithms, but by the infrastructure that delivers them.","by":"Dr. Maya Reeves, Co-Founder & CEO"},{"layout":"feature-grid","eyebrow":"The Problem","heading":"Three bottlenecks every AI deployment hits","columns":3,"cards":[{"icon":"fa-solid fa-route","title":"Routing chaos","body":"Teams juggle 12 providers with brittle failover and unpredictable latency."},{"icon":"fa-solid fa-globe","title":"Edge distance","body":"Users wait on distant regions — p95 climbs past 800ms outside the US."},{"icon":"fa-solid fa-receipt","title":"Cost blindness","body":"Spend spikes without quality signal. Finance finds out after the invoice."}]},{"layout":"feature-grid","eyebrow":"The Solution","heading":"One unified inference layer","columns":3,"cards":[{"icon":"fa-solid fa-shuffle","title":"Smart routing","body":"Real-time selection across 12 providers — fastest, cheapest path per request."},{"icon":"fa-solid fa-server","title":"Global edge","body":"50+ nodes. Sub-200ms for 95% of the world's population."},{"icon":"fa-solid fa-chart-line","title":"Live cost & quality","body":"Dashboards, latency histograms, quality scoring — before the bill."}]},{"layout":"comparison","eyebrow":"Migration","heading":"Drop in. Route smarter.","leftLabel":"Before","left":"Direct OpenAI / Anthropic / custom clients.\nManual failover.\nNo shared observability.","rightLabel":"With NovaSpark","right":"Same OpenAI-compatible API.\nAutomatic routing + failover.\nOne pane for cost, latency, quality.","emphasis":"right"},{"layout":"two-column","eyebrow":"Why now","heading":"Inference is the new cloud spend line.","body":"Every frontier team is bottlenecked on delivery, not algorithms. NovaSpark turns multi-provider chaos into one contract — with latency and cost visible before the invoice.","aside":"Sub-200ms for 95% of the world's population. One pane for quality.","ratio":"2-1"},{"layout":"stat-row","eyebrow":"Traction","heading":"18 months. Zero paid acquisition.","stats":[{"value":"$2.1M","label":"ARR"},{"value":"412","label":"Enterprise customers"},{"value":"99.97%","label":"Uptime SLA"},{"value":"847ms","label":"Avg response (global)"}]},{"layout":"data-table","eyebrow":"Market","heading":"A category being created now","columns":["Segment","2026E"],"rows":[["AI API Orchestration","$18.2B"],["Edge AI Serving","$9.4B"],["Inference Observability","$3.1B"]]},{"layout":"timeline","eyebrow":"Roadmap","heading":"18 months to Series B readiness","steps":[{"title":"Now","body":"Core platform + enterprise SSO."},{"title":"Q+2","body":"Partnerships with AWS / GCP marketplace."},{"title":"Q+4","body":"Team 2× · $8M ARR target."},{"title":"Series B","body":"Category leadership narrative locked."}]},{"layout":"section","number":"01","eyebrow":"The Ask","heading":"$14M Series A","lead":"Lead $8M · Co-investors filling $6M · 18 months runway to $8M ARR."},{"layout":"closing","eyebrow":"The Opportunity","heading":"AI deserves better plumbing.","lead":"investors@novaspark.ai · novaspark.ai","cta":{"label":"Book a meeting","href":"https://novaspark.ai"}}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));

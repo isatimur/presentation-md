@@ -71,7 +71,16 @@
       "leftLabel": "Before",
       "left": "Direct OpenAI / Anthropic / custom clients.\nManual failover.\nNo shared observability.",
       "rightLabel": "With NovaSpark",
-      "right": "Same OpenAI-compatible API.\nAutomatic routing + failover.\nOne pane for cost, latency, quality."
+      "right": "Same OpenAI-compatible API.\nAutomatic routing + failover.\nOne pane for cost, latency, quality.",
+      "emphasis": "right"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Why now",
+      "heading": "Inference is the new cloud spend line.",
+      "body": "Every frontier team is bottlenecked on delivery, not algorithms. NovaSpark turns multi-provider chaos into one contract — with latency and cost visible before the invoice.",
+      "aside": "Sub-200ms for 95% of the world's population. One pane for quality.",
+      "ratio": "2-1"
     },
     {
       "layout": "stat-row",

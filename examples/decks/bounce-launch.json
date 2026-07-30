@@ -17,22 +17,32 @@
       "layout": "feature-grid",
       "eyebrow": "The problem",
       "heading": "Social media is broken.",
-      "columns": 3,
+      "columns": "bento",
       "cards": [
         {
           "icon": "fa-solid fa-heart-crack",
           "title": "Comparison trap",
-          "body": "73% of Gen-Z feel worse after 30 minutes on Instagram."
+          "body": "73% of Gen-Z feel worse after 30 minutes on Instagram — the feed is a scoreboard, not a living room."
         },
         {
           "icon": "fa-solid fa-robot",
           "title": "Algorithm hijacking",
-          "body": "You don't see friends \u2014 you see what maximizes outrage and envy."
+          "body": "You don't see friends — you see what maximizes outrage and envy."
         },
         {
           "icon": "fa-solid fa-eye",
           "title": "Public scoreboards",
           "body": "Follower counts and likes turn every post into a performance."
+        },
+        {
+          "icon": "fa-solid fa-clock",
+          "title": "Infinite scroll",
+          "body": "Dwell time is the product. Your evening is the inventory."
+        },
+        {
+          "icon": "fa-solid fa-user-slash",
+          "title": "Stranger theater",
+          "body": "Creators you don't know crowd out people you do."
         }
       ]
     },
@@ -43,7 +53,8 @@
       "leftLabel": "Legacy feeds",
       "left": "Public metrics.\nStranger algorithms.\nAds optimized for dwell time.\nAnxiety by design.",
       "rightLabel": "Bounce",
-      "right": "No follower counts.\nFriends only, chronological.\nZero ads.\nReactions over performance."
+      "right": "No follower counts.\nFriends only, chronological.\nZero ads.\nReactions over performance.",
+      "emphasis": "right"
     },
     {
       "layout": "stat-row",
