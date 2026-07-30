@@ -479,7 +479,7 @@ function renderComparison(slide: PSlide, ctx: ExportContext, data: Slide): void 
   const colW = (innerW - colGap * 2 - vsW) / 2;
   const leftX = ctx.margin;
   const rightX = ctx.margin + colW + colGap + vsW + colGap;
-  let y = renderHeaderBlock(slide, ctx, data);
+  const y = renderHeaderBlock(slide, ctx, data);
   const boxY = y + 0.15;
   const boxH = ctx.height - boxY - ctx.margin;
 
