@@ -138,26 +138,61 @@ function renderHeaderBlock(slide: PSlide, ctx: ExportContext, data: Slide): numb
 
 function renderTwoColumn(slide: PSlide, ctx: ExportContext, data: Slide): void {
   const colGap = 0.5;
-  const colW = (ctx.width - ctx.margin * 2 - colGap) / 2;
-  const leftX = ctx.margin;
-  const rightX = ctx.margin + colW + colGap;
-  let y = ctx.margin;
+  const areaW = ctx.width - ctx.margin * 2 - colGap;
+  const ratio = typeof data.ratio === "string" ? data.ratio : "1-1";
+  const parts = ratio.split("-").map((n) => Number(n) || 1);
+  const leftShare = parts[0] ?? 1;
+  const rightShare = parts[1] ?? 1;
+  const total = leftShare + rightShare;
+  const textW = (areaW * leftShare) / total;
+  const mediaW = (areaW * rightShare) / total;
+  let textX = ctx.margin;
+  let mediaX = ctx.margin + textW + colGap;
+  if (data.reverse) {
+    mediaX = ctx.margin;
+    textX = ctx.margin + mediaW + colGap;
+  }
 
+  let y = ctx.margin;
   if (data.eyebrow) {
-    eyebrow(slide, ctx, data.eyebrow, leftX, y, colW);
+    eyebrow(slide, ctx, data.eyebrow, textX, y, textW);
     y += 0.45;
   }
   if (data.heading) {
-    heading(slide, ctx, data.heading, { x: leftX, y, w: colW, h: 1.4, fontSize: 30 });
+    heading(slide, ctx, data.heading, { x: textX, y, w: textW, h: 1.4, fontSize: 30 });
     y += 1.5;
   }
   if (data.body) {
-    body(slide, ctx, data.body, { x: leftX, y, w: colW, h: ctx.height - y - ctx.margin, fontSize: 16 });
+    body(slide, ctx, data.body, { x: textX, y, w: textW, h: ctx.height - y - ctx.margin, fontSize: 16 });
   }
 
   const imgY = ctx.margin;
   const imgH = ctx.height - ctx.margin * 2;
-  addImageOrPlaceholder(slide, ctx, data, rightX, imgY, colW, imgH);
+  if (data.image) {
+    addImageOrPlaceholder(slide, ctx, data, mediaX, imgY, mediaW, imgH);
+  } else if (data.aside) {
+    slide.addShape(ctx.shapeRoundRect, {
+      x: mediaX,
+      y: imgY,
+      w: mediaW,
+      h: imgH,
+      fill: { color: ctx.colors.cardBg },
+      line: { color: ctx.colors.accent, width: 1.5 },
+      rectRadius: 0.08,
+    });
+    slide.addText(data.aside, {
+      x: mediaX + 0.3,
+      y: imgY + 0.4,
+      w: mediaW - 0.6,
+      h: imgH - 0.8,
+      fontFace: ctx.fonts.heading,
+      bold: true,
+      color: ctx.colors.text,
+      fontSize: 22,
+      fit: "shrink",
+      valign: "middle",
+    });
+  }
 }
 
 function addImageOrPlaceholder(
@@ -525,6 +560,58 @@ function renderComparison(slide: PSlide, ctx: ExportContext, data: Slide): void 
   drawCol(rightX, data.rightLabel, data.right);
 }
 
+function renderCode(slide: PSlide, ctx: ExportContext, data: Slide): void {
+  const top = renderHeaderBlock(slide, ctx, data);
+  const x = ctx.margin;
+  const w = ctx.width - ctx.margin * 2;
+  const y = top + 0.15;
+  const h = Math.max(1.8, ctx.height - y - ctx.margin);
+  const chromeH = 0.42;
+
+  slide.addShape(ctx.shapeRoundRect, {
+    x,
+    y,
+    w,
+    h,
+    fill: { color: "1e1e24" },
+    line: { color: ctx.colors.border, width: 1 },
+    rectRadius: 0.08,
+  });
+  slide.addShape(ctx.shapeRoundRect, {
+    x,
+    y,
+    w,
+    h: chromeH,
+    fill: { color: "2a2a32" },
+    rectRadius: 0.08,
+  });
+
+  const label = data.filename ?? data.language ?? "snippet";
+  slide.addText(label, {
+    x: x + 0.35,
+    y: y + 0.05,
+    w: w - 0.7,
+    h: 0.32,
+    fontFace: "Courier New",
+    fontSize: 11,
+    color: "a1a1aa",
+    valign: "middle",
+  });
+
+  const code = data.code ?? "";
+  slide.addText(code, {
+    x: x + 0.35,
+    y: y + chromeH + 0.15,
+    w: w - 0.7,
+    h: h - chromeH - 0.35,
+    fontFace: "Courier New",
+    fontSize: 12,
+    color: "e8eaed",
+    valign: "top",
+    fit: "shrink",
+  });
+}
+
 const RENDERERS: Record<string, (s: PSlide, ctx: ExportContext, d: Slide) => void> = {
   title: renderHero,
   closing: renderHero,
@@ -537,6 +624,7 @@ const RENDERERS: Record<string, (s: PSlide, ctx: ExportContext, d: Slide) => voi
   quote: renderQuote,
   "image-hero": renderImageHero,
   comparison: renderComparison,
+  code: renderCode,
 };
 
 export function renderSlide(slide: PSlide, ctx: ExportContext, data: Slide): void {

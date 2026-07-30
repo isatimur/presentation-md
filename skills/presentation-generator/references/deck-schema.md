@@ -23,17 +23,21 @@ Every slide needs `layout`. Fields are per-layout; unused fields are ignored.
 `{ "layout": "section", "number"?, "heading", "lead"? }`
 
 ### two-column
-`{ "layout": "two-column", "eyebrow"?, "heading", "body"?, "image"?, "imageAlt"? }`
+`{ "layout": "two-column", "eyebrow"?, "heading", "body"?, "image"?, "imageAlt"?,
+   "aside"?, "ratio"?: "1-1"|"2-1"|"1-2"|"3-2"|"2-3", "reverse"? }`
+Use `aside` for a pull-quote panel when there is no image. `ratio` / `reverse` unlock asymmetric craft.
 
 ### image-hero
 `{ "layout": "image-hero", "eyebrow"?, "heading", "lead"?, "image", "imageAlt"? }`
 
 ### comparison
-`{ "layout": "comparison", "eyebrow"?, "heading"?, "leftLabel"?, "left", "rightLabel"?, "right" }`
+`{ "layout": "comparison", "eyebrow"?, "heading"?, "leftLabel"?, "left", "rightLabel"?, "right",
+   "emphasis"?: "left"|"right" }`
 
 ### feature-grid
-`{ "layout": "feature-grid", "eyebrow"?, "heading"?, "columns": 2|3|4,
+`{ "layout": "feature-grid", "eyebrow"?, "heading"?, "columns": 2|3|4|"bento",
    "cards": [ { "icon"?: "fa-solid fa-bolt", "title", "body"? } ] }`
+`"bento"` = asymmetric hero card + four supporting cards.
 
 ### quote
 `{ "layout": "quote", "quote", "by"? }`
@@ -47,6 +51,10 @@ Every slide needs `layout`. Fields are per-layout; unused fields are ignored.
 ### data-table
 `{ "layout": "data-table", "eyebrow"?, "heading"?, "columns": ["A","B"],
    "rows": [ ["a1","b1"], ["a2","b2"] ] }`
+
+### code
+`{ "layout": "code", "eyebrow"?, "heading"?, "lead"?, "code", "language"?, "filename"? }`
+Plain-text snippet in window chrome. HTML is escaped on render — no markup inside `code`.
 
 ## Example
 ```json

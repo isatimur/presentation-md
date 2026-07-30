@@ -26,19 +26,20 @@ Top level:
   "meta": { "title": string, "company"?: string, "description"?: string, "theme": string },
   "slides": Slide[] }
 
-Every Slide has a "layout" and layout-specific fields. The eleven layouts:
+Every Slide has a "layout" and layout-specific fields. The twelve layouts:
 
 - title        { layout, eyebrow?, heading, lead? }
 - section      { layout, number, eyebrow?, heading, lead? }        // number like "01"
-- two-column   { layout, heading, body, image?, imageAlt? }        // image is an https URL, optional
+- two-column   { layout, heading, body?, image?, imageAlt?, aside?, ratio?: "1-1"|"2-1"|"1-2"|"3-2"|"2-3", reverse? }
 - image-hero   { layout, eyebrow?, heading, lead?, image, imageAlt? }  // full-bleed photo with caption overlay
-- comparison   { layout, eyebrow?, heading?, leftLabel?, left, rightLabel?, right }  // before/after or vs
-- feature-grid { layout, heading, columns, cards }                 // columns: 2|3|4; cards: [{ icon?, title, body }] (icon = a Font Awesome class e.g. "fa-solid fa-bolt")
+- comparison   { layout, eyebrow?, heading?, leftLabel?, left, rightLabel?, right, emphasis?: "left"|"right" }
+- feature-grid { layout, heading, columns, cards }                 // columns: 2|3|4|"bento"; cards: [{ icon?, title, body }]
 - data-table   { layout, eyebrow?, heading, columns, rows }        // columns: string[]; rows: string[][] (each row = one string per column)
 - stat-row     { layout, heading, stats }                          // stats: [{ value, label }] — value like "98%", "$1.2M"
 - timeline     { layout, heading, steps }                          // steps: [{ title, body }]
 - quote        { layout, quote, by? }
-- closing      { layout, eyebrow?, heading, lead?, cta? }          // cta: { label, href } (href = https URL)
+- code         { layout, eyebrow?, heading?, lead?, code, language?, filename? }  // plain-text snippet in a window chrome
+- closing      { layout, eyebrow?, heading, lead?, cta?: { label, href } }
 
 Authoring rules:
 - Open with a "title" slide and end with a "closing" slide.

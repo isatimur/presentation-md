@@ -18,7 +18,8 @@ export type LayoutType =
   | "section"
   | "closing"
   | "image-hero"
-  | "comparison";
+  | "comparison"
+  | "code";
 
 export interface Card {
   icon?: string;
@@ -47,13 +48,25 @@ export interface Slide {
   heading?: string;
   lead?: string;
   body?: string;
+  /** two-column: pull-quote panel when no image. */
+  aside?: string;
+  /** two-column: asymmetric flex ratio. */
+  ratio?: "1-1" | "2-1" | "1-2" | "3-2" | "2-3" | string;
+  /** two-column: media/aside on the left. */
+  reverse?: boolean;
   image?: string;
   imageAlt?: string;
   quote?: string;
   by?: string;
   number?: string;
-  /** feature-grid: column count (2-4). data-table: header labels. */
-  columns?: number | string[];
+  /** code layout: plain-text source snippet. */
+  code?: string;
+  language?: string;
+  filename?: string;
+  /** comparison: grow left or right column. */
+  emphasis?: "left" | "right" | string;
+  /** feature-grid: column count (2-4) or "bento". data-table: header labels. */
+  columns?: number | string | string[];
   cards?: Card[];
   rows?: string[][];
   stats?: Stat[];

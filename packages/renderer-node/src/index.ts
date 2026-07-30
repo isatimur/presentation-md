@@ -25,6 +25,7 @@ const VALID_LAYOUTS = new Set([
   "closing",
   "image-hero",
   "comparison",
+  "code",
 ]);
 
 function structuralValidateDeckJson(json: string): ValidationResult {
@@ -139,12 +140,19 @@ interface SlideData {
   heading?: string;
   lead?: string;
   body?: string;
+  aside?: string;
+  ratio?: string;
+  reverse?: boolean;
   image?: string;
   imageAlt?: string;
   quote?: string;
   by?: string;
   number?: string;
-  columns?: number | string[];
+  code?: string;
+  language?: string;
+  filename?: string;
+  emphasis?: string;
+  columns?: number | string | string[];
   cards?: Array<{ icon?: string; title: string; body?: string }>;
   rows?: Array<string[]>;
   stats?: Array<{ value: string; label: string }>;
@@ -205,7 +213,9 @@ function normalizeSlideData(slide: SlideData): Record<string, unknown> {
   }
 
   if (slide.layout === "feature-grid") {
-    if (typeof slide.columns === "number") {
+    if (slide.columns === "bento") {
+      out["columns"] = "bento";
+    } else if (typeof slide.columns === "number") {
       out["columns"] = slide.columns;
     } else if (!slide.columns) {
       out["columns"] = 3;

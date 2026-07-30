@@ -14,6 +14,7 @@ export const LAYOUTS: LayoutType[] = [
   "closing",
   "image-hero",
   "comparison",
+  "code",
 ];
 
 export const LAYOUT_LABELS: Record<LayoutType, string> = {
@@ -28,6 +29,7 @@ export const LAYOUT_LABELS: Record<LayoutType, string> = {
   closing: "Closing",
   "image-hero": "Image hero",
   comparison: "Comparison",
+  code: "Code",
 };
 
 /** A reasonable starter slide for each layout, so new slides aren't blank. */
@@ -49,6 +51,16 @@ export function blankSlide(layout: LayoutType): Slide {
         left: "The old way — slow, manual, error-prone.",
         rightLabel: "After",
         right: "The new way — automated, fast, reliable.",
+        emphasis: "right",
+      };
+    case "code":
+      return {
+        layout,
+        eyebrow: "API",
+        heading: "Ship in five lines",
+        filename: "example.ts",
+        language: "ts",
+        code: `const client = createClient({ apiKey });\nconst res = await client.run({ prompt });\nconsole.log(res.ok);`,
       };
     case "feature-grid":
       return {

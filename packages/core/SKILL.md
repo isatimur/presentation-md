@@ -1,6 +1,6 @@
 ---
 name: presentation-generator
-description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 61 themes and 11 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
+description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 75 themes and 12 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
 license: MIT
 metadata:
   author: isatimur
@@ -69,7 +69,7 @@ World Before → The Turning Point → The Method → World After → What's Nex
 ## The 11 Layout Types
 
 Each layout is a tool. Match the layout to the job, not to the order.
-**Only these eleven names are valid in deck JSON** (`references/deck-schema.md`). If you need a
+**Only these twelve names are valid in deck JSON** (`references/deck-schema.md`). If you need a
 "manifesto" or "metric-hero" *feeling*, compose it with the closest layout below — never invent a layout name.
 
 ### `title` — Single cinematic statement
@@ -84,9 +84,9 @@ Each layout is a tool. Match the layout to the job, not to the order.
 **Design rule:** almost empty is correct — type itself is the visual.
 
 ### `two-column` — Argument + evidence
-**When to use:** explaining a concept with supporting copy or a side image.
-**Props:** `{ heading, lead?, body?, image?, imageAlt? }`
-**Compose:** "photo-story" = `two-column` with `image` + caption in `lead`/`body`.
+**When to use:** explaining a concept with supporting copy, a side image, or a pull-aside.
+**Props:** `{ heading, lead?, body?, image?, imageAlt?, aside?, ratio?: "1-1"|"2-1"|"1-2"|"3-2"|"2-3", reverse? }`
+**Compose:** "photo-story" = `two-column` with `image` + caption in `lead`/`body`. Asymmetric craft = `ratio: "2-1"` (or `"1-2"`) so type or media dominates; `aside` for a quote panel when there's no image; `reverse: true` flips media to the left.
 
 ### `image-hero` — Full-bleed cinematic moment
 **When to use:** emotional beat, product shot, team photo, location reveal — one image carries the slide.
@@ -95,13 +95,13 @@ Each layout is a tool. Match the layout to the job, not to the order.
 
 ### `comparison` — Side-by-side contrast
 **When to use:** before/after, old way vs new way, us vs them, option A vs B.
-**Props:** `{ heading?, leftLabel?, left, rightLabel?, right, eyebrow? }`
-**Design rule:** parallel structure in both columns — same kind of claim on each side so the contrast reads instantly.
+**Props:** `{ heading?, leftLabel?, left, rightLabel?, right, eyebrow?, emphasis?: "left"|"right" }`
+**Design rule:** parallel structure in both columns — same kind of claim on each side so the contrast reads instantly. Use `emphasis` to grow the winning column.
 
 ### `feature-grid` — Capabilities overview
 **When to use:** product features, service offerings, team skills.
-**Props:** `{ heading, cards: [{ icon?, title, body? }], columns?: 2|3|4 }` (3–6 cards)
-**Design rule:** odd counts (3, 5) feel more dynamic than even.
+**Props:** `{ heading, cards: [{ icon?, title, body? }], columns?: 2|3|4|"bento" }` (3–6 cards)
+**Design rule:** odd counts (3, 5) feel more dynamic than even. `"bento"` = asymmetric hero + four supporting cards.
 
 ### `stat-row` — Proof through numbers
 **When to use:** traction, market size, ROI validation — or a single room-stopping metric.
@@ -122,6 +122,11 @@ Each layout is a tool. Match the layout to the job, not to the order.
 **When to use:** financial summary, feature matrix, risk register, multi-column comparison grid.
 **Props:** `{ heading, columns: string[], rows: string[][], eyebrow?, lead? }`
 **Compose:** a competitive matrix with 3+ columns = `data-table`; a simple A-vs-B story = `comparison`.
+
+### `code` — Snippet / API proof
+**When to use:** developer demos, SDK install, one-file "aha", CLI recipes — when the product *is* the code.
+**Props:** `{ heading?, lead?, eyebrow?, code, language?, filename? }`
+**Design rule:** keep the snippet short (≤18 lines). Prefer a real filename in chrome. Never invent syntax highlighting markup — plain text only (renderer escapes HTML).
 
 ### `closing` — The ask / CTA
 **When to use:** every deck ends here. Make the next action unmissable.
@@ -876,8 +881,8 @@ Match frontend-slides' mandatory visual discovery — but with structured themes
      (Series A, developer demo, swiss agency, …) instead of scanning all 75.
 2. Shortlist **3** themes that fit purpose + audience + density.
 3. **Required when tooling is available:** call `preview_themes` with those 3 names
-   (writes `.presentation-md/theme-previews/<theme>-preview.html`). Open each file for the user
-   or paste paths — they pick visually, not from adjectives alone.
+   (writes `.presentation-md/theme-previews/<theme>-preview.html`). Prefer `mode: "layouts"` when
+   comparing craft across body slides. Open each file for the user — they pick visually, not from adjectives alone.
 4. If MCP is unavailable, run:
    `npx @presentation-md/render preview.json -o previews/<theme>.html --theme <name>` three times
    (one title slide each).
@@ -918,7 +923,7 @@ Fill gaps with intelligent defaults. Never ask more than 3 clarifying questions.
 | `list_themes` | See installed themes with vibe/description |
 | `apply_theme` | Swap `meta.theme` without rewriting slides |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
-| `preview_themes` | Render 3 one-slide HTML previews for visual theme pick (show-don't-tell) |
+| `preview_themes` | Render 1–3 theme HTML previews; pass `mode: "layouts"` for multi-slide craft bake |
 | `import_pptx` | Import a `.pptx` into deck JSON (see `references/pptx-import.md`) |
 | `import_brand_theme` | Generate a theme from a brand URL or CSS file |
 
@@ -976,6 +981,6 @@ Then walk every slide against this checklist and fix before delivering:
 - **Token discipline** — colors and fonts all trace back to the chosen theme; no off-palette one-offs.
 - **The 3-second test** — pick any slide at random: is its single point obvious in three seconds?
 - **Arc integrity** — the deck still follows one narrative arc end to end; every slide sets up or pays off the one before it.
-- **Schema honesty** — every `layout` value is one of the eleven enums; no invented layout names.
+- **Schema honesty** — every `layout` value is one of the twelve enums; no invented layout names.
 
 For a rigorous, scored pass, run the **`deck-design-judge`** skill: it grades the deck against the design rubric, tells you exactly what to fix, and lets you re-score after the fix. Self-score → fix → re-score, then deliver.

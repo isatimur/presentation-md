@@ -219,6 +219,46 @@ describe("renderDeck", () => {
     expect(html).toContain("Contact Us");
   });
 
+  it("renders code layout with escaped snippet chrome", async () => {
+    const deck = JSON.stringify({
+      type: "deck",
+      slides: [
+        {
+          layout: "code",
+          eyebrow: "SDK",
+          heading: "Quick start",
+          filename: "demo.ts",
+          code: 'const x = "<script>";\nconsole.log(x);',
+        },
+      ],
+    });
+    const html = await renderDeck(deck);
+    expect(html).toContain('data-layout="code"');
+    expect(html).toContain("code-window");
+    expect(html).toContain("demo.ts");
+    expect(html).toContain("&lt;script&gt;");
+    expect(html).not.toContain('const x = "<script>"');
+  });
+
+  it("renders asymmetric two-column ratio and aside", async () => {
+    const deck = JSON.stringify({
+      type: "deck",
+      slides: [
+        {
+          layout: "two-column",
+          heading: "Asymmetric",
+          body: "Copy dominates.",
+          aside: "Pull quote panel.",
+          ratio: "2-1",
+        },
+      ],
+    });
+    const html = await renderDeck(deck);
+    expect(html).toContain("ratio-2-1");
+    expect(html).toContain("cols-aside");
+    expect(html).toContain("Pull quote panel.");
+  });
+
   it("appends extraCss when provided", async () => {
     const deck = JSON.stringify({
       type: "deck",

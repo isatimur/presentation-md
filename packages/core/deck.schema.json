@@ -41,24 +41,56 @@
             "section",
             "closing",
             "image-hero",
-            "comparison"
+            "comparison",
+            "code"
           ]
         },
         "eyebrow": { "type": "string" },
         "heading": { "type": "string" },
         "lead": { "type": "string" },
         "body": { "type": "string" },
+        "aside": {
+          "type": "string",
+          "description": "two-column: pull-quote / callout panel when no image is set."
+        },
+        "ratio": {
+          "type": "string",
+          "enum": ["1-1", "2-1", "1-2", "3-2", "2-3"],
+          "description": "two-column: asymmetric column flex ratio (default balanced)."
+        },
+        "reverse": {
+          "type": "boolean",
+          "description": "two-column: put media/aside on the left."
+        },
         "image": { "type": "string" },
         "imageAlt": { "type": "string" },
         "quote": { "type": "string" },
         "by": { "type": "string" },
         "number": { "type": "string" },
+        "code": {
+          "type": "string",
+          "description": "code layout: source snippet (plain text; HTML-escaped on render)."
+        },
+        "language": {
+          "type": "string",
+          "description": "code layout: language label shown in the window chrome."
+        },
+        "filename": {
+          "type": "string",
+          "description": "code layout: optional file name in the window chrome (overrides language label)."
+        },
+        "emphasis": {
+          "type": "string",
+          "enum": ["left", "right"],
+          "description": "comparison: grow the emphasized column."
+        },
         "columns": {
           "oneOf": [
             { "type": "integer", "minimum": 2, "maximum": 4 },
+            { "type": "string", "enum": ["bento"], "description": "feature-grid: asymmetric 5-up bento (hero + 4)." },
             { "type": "array", "items": { "type": "string" } }
           ],
-          "description": "feature-grid: column count (2-4). data-table: header labels."
+          "description": "feature-grid: column count (2-4) or \"bento\". data-table: header labels."
         },
         "cards": {
           "type": "array",
