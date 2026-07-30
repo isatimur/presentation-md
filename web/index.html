@@ -50,7 +50,7 @@
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "author": { "@type": "Person", "name": "Timur Isachenko", "url": "https://github.com/isatimur" },
     "downloadUrl": "https://www.npmjs.com/package/@presentation-md/install",
-    "softwareVersion": "1.0.0"
+    "softwareVersion": "1.1.0"
   }
   </script>
 
@@ -178,6 +178,25 @@
     }
 
     .header-inner { max-width: 960px; margin: 0 auto; padding: 0 28px; }
+
+    .brand-mark {
+      font-family: var(--mono);
+      font-size: clamp(1.35rem, 3.2vw, 1.85rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin: 0 0 18px;
+      line-height: 1.1;
+    }
+    .brand-mark::after {
+      content: "";
+      display: block;
+      width: 48px;
+      height: 3px;
+      margin-top: 14px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+    }
 
     .tagline {
       font-size: 1.05rem;
@@ -665,20 +684,21 @@
 <!-- ── HEADER ──────────────────────────────────────────────────────────────── -->
 <header>
   <div class="header-inner">
-    <span class="eyebrow">presentation-md</span>
+    <p class="brand-mark" aria-label="presentation-md">presentation-md</p>
     <h1>Your AI agent makes the deck.<br>PowerPoint, Keynote &amp; Slides open it.</h1>
     <p class="tagline">
       Universal skill for Claude Code, Cursor, Codex, Gemini CLI, and Copilot. Generate a deck from
       plain notes, export it to native, editable PowerPoint, Keynote, or Google Slides, or fine-tune
       it in the studio. Seventy-five distinct theme surfaces — full bold-template-pack parity plus STYLE_PRESETS —
-      scroll-reveal motion, zero design skills.
+      schema craft that holds next to handcrafted HTML, zero design skills.
     </p>
 
     <div class="badges">
-      <span class="badge"><span class="dot"></span>npm v1.0.0</span>
+      <span class="badge"><span class="dot"></span>npm v1.1.0</span>
       <span class="badge"><span class="dot amber"></span>PyPI</span>
       <span class="badge"><span class="dot amber"></span>MIT license</span>
       <span class="badge"><span class="dot green"></span>MCP-native</span>
+      <span class="badge"><span class="dot"></span>75 themes · 75 structured proofs</span>
       <span class="badge"><span class="dot"></span>Exports to PowerPoint · Keynote · Google Slides</span>
       <span class="badge"><span class="dot"></span>Claude Code · Cursor · Codex · Gemini CLI · Copilot</span>
     </div>
@@ -702,25 +722,25 @@
         </div>
         <div class="hero-craft-meta">
           <strong>NovaSpark</strong>
-          <span>aurora-glass · Series A craft</span>
+          <span>aurora-glass · handcrafted flagship</span>
         </div>
       </a>
-      <a class="hero-craft-card" href="examples/structured/signalforge-launch.html" target="_blank" rel="noopener">
+      <a class="hero-craft-card" href="examples/structured/neonforge-pitch.html" target="_blank" rel="noopener">
         <div class="hero-craft-frame">
-          <iframe src="examples/structured/signalforge-launch.html" loading="lazy" title="SignalForge bold-signal structured deck" tabindex="-1"></iframe>
+          <iframe src="examples/structured/neonforge-pitch.html" loading="lazy" title="NeonForge default-tech structured deck" tabindex="-1"></iframe>
         </div>
         <div class="hero-craft-meta">
-          <strong>SignalForge</strong>
-          <span>bold-signal · schema-rendered</span>
+          <strong>NeonForge</strong>
+          <span>default-tech · schema + code + bento</span>
         </div>
       </a>
-      <a class="hero-craft-card" href="examples/structured/voltstudio-credentials.html" target="_blank" rel="noopener">
+      <a class="hero-craft-card" href="examples/structured/bounce-launch.html" target="_blank" rel="noopener">
         <div class="hero-craft-frame">
-          <iframe src="examples/structured/voltstudio-credentials.html" loading="lazy" title="Volt Studio electric-studio structured deck" tabindex="-1"></iframe>
+          <iframe src="examples/structured/bounce-launch.html" loading="lazy" title="Bounce genz-bento structured deck" tabindex="-1"></iframe>
         </div>
         <div class="hero-craft-meta">
-          <strong>Volt Studio</strong>
-          <span>electric-studio · multi-slide proof</span>
+          <strong>Bounce</strong>
+          <span>genz-bento · asymmetric schema craft</span>
         </div>
       </a>
     </div>
@@ -2416,14 +2436,34 @@
 <section id="gallery">
   <div class="container">
     <span class="eyebrow">Gallery</span>
-    <h2>Twenty-five decks. Twenty-five vibes. One skill.</h2>
-    <p class="section-lead">Every deck below was generated using the presentation-generator skill — same workflow, radically different visual language. Bauhaus primaries, vaporwave grids, risograph zines, Art Deco gold, engineering blueprints, Spotify-Wrapped full-bleed. Open any to see it live.</p>
+    <h2>Seventy-five themes. Seventy-five structured proofs.</h2>
+    <p class="section-lead">Handcrafted gallery decks prove craft ceiling. Schema-rendered siblings prove the product path — same vibes, Studio-editable, PPTX-exportable. Bauhaus, vaporwave, neon-noir, Claude warm paper, default-tech neon — open any to see it live.</p>
 
     <div class="structured-proof" style="margin:36px 0 8px;padding:28px 28px 8px;border:1px solid var(--rule);border-radius:16px;background:var(--paper2)">
       <span class="eyebrow">Structured path proof</span>
-      <h3 style="margin:8px 0 10px;font-size:1.35rem">Seventy-three schema-rendered decks — full theme coverage with multi-slide craft (code, comparison, stats, quotes).</h3>
-      <p style="color:var(--muted);max-width:62ch;margin:0 0 20px;line-height:1.5">Handcrafted gallery decks prove craft. These prove the product path: valid Deck JSON → theme → HTML (Studio-editable, PPTX-exportable). Multi-slide layouts — comparison, stats, quotes, code — not title-only. Sources live in <code style="font-size:0.85em">examples/decks/</code>.</p>
+      <h3 style="margin:8px 0 10px;font-size:1.35rem">Seventy-five schema-rendered decks — full theme coverage including bundled <code style="font-size:0.85em">default-tech</code> &amp; <code style="font-size:0.85em">claude</code>, with asymmetric craft (ratios, bento, emphasis, code).</h3>
+      <p style="color:var(--muted);max-width:62ch;margin:0 0 20px;line-height:1.5">Valid Deck JSON → theme → HTML. Multi-slide layouts — comparison with emphasis, two-column asides, bento grids, code chrome — not title-only. Sources live in <code style="font-size:0.85em">examples/decks/</code>.</p>
       <div class="gallery-grid" style="margin-top:0;margin-bottom:20px">
+        <a href="examples/structured/neonforge-pitch.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
+          <div class="thumb" style="background:linear-gradient(135deg,#0e0e12,#1a0533);display:flex;align-items:flex-end;padding:20px">
+            <div style="font-family:system-ui;font-weight:800;font-size:1.2rem;color:#a78bfa;line-height:1.15">NeonForge<br><span style="color:#67e8f9;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">default-tech</span></div>
+          </div>
+          <div class="card-meta">
+            <div class="card-title">NeonForge (Deck JSON)</div>
+            <div class="card-badges"><span class="badge dark">Pitch</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-cta">Open structured deck →</div>
+          </div>
+        </a>
+        <a href="examples/structured/claypaper-brief.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
+          <div class="thumb" style="background:#faf9f5;display:flex;align-items:flex-end;padding:20px;border-bottom:1px solid #e8e6dc">
+            <div style="font-family:system-ui;font-weight:700;font-size:1.2rem;color:#141413;line-height:1.15">Clay &amp; Paper<br><span style="color:#d97757;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">claude</span></div>
+          </div>
+          <div class="card-meta">
+            <div class="card-title">Clay &amp; Paper (Deck JSON)</div>
+            <div class="card-badges"><span class="badge light">Brief</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-cta">Open structured deck →</div>
+          </div>
+        </a>
         <a href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
           <div class="thumb" style="background:linear-gradient(135deg,#0e0e12,#1a0533);display:flex;align-items:flex-end;padding:20px">
             <div style="font-family:system-ui;font-weight:800;font-size:1.2rem;color:#a78bfa;line-height:1.15">NovaSpark<br><span style="color:#67e8f9;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">aurora-glass</span></div>
@@ -3710,22 +3750,22 @@
 <section id="compare">
   <div class="container">
     <span class="eyebrow">Why presentation-md</span>
-    <h2>Same discovery energy. Structured power underneath.</h2>
+    <h2>Discovery energy of frontend-slides.<br>Structured power they can't match.</h2>
     <p class="section-lead">
       <a href="https://github.com/zarazhangrui/frontend-slides" target="_blank" rel="noopener">frontend-slides</a>
-      nails visual discovery with live style previews and bold design systems.
-      presentation-md matches that show-don't-tell workflow — then adds what a skill-only repo cannot:
-      schema-validated Deck JSON, native PowerPoint round-trip, MCP tools, and a browser Studio.
+      nailed live style previews and bold design systems.
+      presentation-md matches that show-don't-tell workflow — then wins on what a skill-only repo cannot:
+      <strong>75 schema-validated theme proofs</strong>, asymmetric layout craft, native PowerPoint round-trip, MCP tools, and a browser Studio.
     </p>
 
-    <div class="compare-live" aria-label="Same content, three themes">
+    <div class="compare-live" aria-label="Same schema path, three themes">
       <a href="examples/structured/neondistrict-platform.html" target="_blank" rel="noopener">
         <div class="hero-craft-frame">
           <iframe src="examples/structured/neondistrict-platform.html" loading="lazy" title="Neon Cyber / neon-noir" tabindex="-1"></iframe>
         </div>
         <div class="hero-craft-meta">
           <strong>Neon Cyber</strong>
-          <span>neon-noir · nightlife launch</span>
+          <span>neon-noir · asymmetric ops craft</span>
         </div>
       </a>
       <a href="examples/structured/retronet-demo.html" target="_blank" rel="noopener">
@@ -3743,7 +3783,7 @@
         </div>
         <div class="hero-craft-meta">
           <strong>Swiss Modern</strong>
-          <span>swiss-typographic · agency system</span>
+          <span>swiss-typographic · grid-as-identity</span>
         </div>
       </a>
     </div>
@@ -3781,8 +3821,8 @@
     <p class="section-lead">
       Install with <span class="inline-code">npx @presentation-md/install</span> or pull individual
       packages from the registries. All npm packages are public under the
-      <span class="inline-code">@presentation-md</span> scope at <strong>v1.0.0</strong>
-      (<span class="inline-code">core</span> latest: <strong>1.0.1</strong>).
+      <span class="inline-code">@presentation-md</span> scope at <strong>v1.1.0</strong>
+      (<span class="inline-code">core</span>, <span class="inline-code">render</span>, <span class="inline-code">export</span>, <span class="inline-code">mcp-server</span>).
     </p>
 
     <div class="steps">
@@ -3997,7 +4037,7 @@
     <div class="footer-left">
       <span>MIT License</span>
       <span>·</span>
-      <span>presentation-md v1.0.0</span>
+      <span>presentation-md v1.1.0</span>
     </div>
     <div class="footer-right">
       <a href="/privacy">Privacy</a>
