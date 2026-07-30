@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-blueprint",
-  "version": "1.0.0",
-  "description": "Engineering blueprint theme \u2014 navy, cyan lines, mono.",
+  "version": "1.0.1",
+  "description": "Engineering blueprint theme — navy, cyan lines, mono.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

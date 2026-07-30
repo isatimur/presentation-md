@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-pin-and-paper",
-  "version": "1.0.0",
-  "description": "Pin & Paper \u2014 yellow legal-pad field with cobalt ink, Space Grotesk + Caveat.",
+  "version": "1.0.1",
+  "description": "Pin & Paper — yellow legal-pad field with cobalt ink, Space Grotesk + Caveat.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

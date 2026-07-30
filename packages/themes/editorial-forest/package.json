@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-editorial-forest",
-  "version": "1.0.0",
-  "description": "Editorial Forest \u2014 Source Serif 4 on oat-cream with forest green and dusty rose.",
+  "version": "1.0.1",
+  "description": "Editorial Forest — Source Serif 4 on oat-cream with forest green and dusty rose.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

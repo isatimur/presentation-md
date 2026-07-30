@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-aerospace-hud",
-  "version": "1.0.0",
-  "description": "Aerospace HUD presentation theme \u2014 navy, cyan instruments, warning orange.",
+  "version": "1.0.1",
+  "description": "Aerospace HUD presentation theme — navy, cyan instruments, warning orange.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

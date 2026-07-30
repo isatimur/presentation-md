@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-glassmorphism",
-  "version": "1.0.0",
-  "description": "Glassmorphism theme \u2014 icy mist, indigo + cyan, soft glass cards.",
+  "version": "1.0.1",
+  "description": "Glassmorphism theme — icy mist, indigo + cyan, soft glass cards.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",
