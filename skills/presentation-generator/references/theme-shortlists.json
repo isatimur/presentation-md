@@ -3,6 +3,12 @@
   "description": "Use-case shortlists for Theme Discovery step 1. Each entry is a ready 3-theme set — preview all three with preview_themes, then lock meta.theme.",
   "shortlists": [
     {
+      "id": "core-defaults",
+      "label": "Core defaults (bundled)",
+      "themes": ["default-tech", "claude", "developer-dark"],
+      "why": "Bundled neon startup default, warm Claude craft paper, and IDE-dark forge — no extra theme package required."
+    },
+    {
       "id": "series-a-pitch",
       "label": "Series A / investor pitch",
       "themes": ["aurora-glass", "bold-signal", "fintech-clean"],

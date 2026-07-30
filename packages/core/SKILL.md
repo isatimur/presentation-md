@@ -87,6 +87,7 @@ Each layout is a tool. Match the layout to the job, not to the order.
 **When to use:** explaining a concept with supporting copy, a side image, or a pull-aside.
 **Props:** `{ heading, lead?, body?, image?, imageAlt?, aside?, ratio?: "1-1"|"2-1"|"1-2"|"3-2"|"2-3", reverse? }`
 **Compose:** "photo-story" = `two-column` with `image` + caption in `lead`/`body`. Asymmetric craft = `ratio: "2-1"` (or `"1-2"`) so type or media dominates; `aside` for a quote panel when there's no image; `reverse: true` flips media to the left.
+**Craft tip:** Prefer `ratio` + `aside` over a balanced 50/50 when the slide needs a pull-quote or one dominant claim — balanced columns read as template; asymmetry reads as designed.
 
 ### `image-hero` — Full-bleed cinematic moment
 **When to use:** emotional beat, product shot, team photo, location reveal — one image carries the slide.
@@ -97,11 +98,13 @@ Each layout is a tool. Match the layout to the job, not to the order.
 **When to use:** before/after, old way vs new way, us vs them, option A vs B.
 **Props:** `{ heading?, leftLabel?, left, rightLabel?, right, eyebrow?, emphasis?: "left"|"right" }`
 **Design rule:** parallel structure in both columns — same kind of claim on each side so the contrast reads instantly. Use `emphasis` to grow the winning column.
+**Craft tip:** Always set `emphasis` toward the winning side in a sales or pitch deck — equal-weight comparisons feel undecided.
 
 ### `feature-grid` — Capabilities overview
 **When to use:** product features, service offerings, team skills.
 **Props:** `{ heading, cards: [{ icon?, title, body? }], columns?: 2|3|4|"bento" }` (3–6 cards)
 **Design rule:** odd counts (3, 5) feel more dynamic than even. `"bento"` = asymmetric hero + four supporting cards.
+**Craft tip:** For 5 cards on `genz-bento`, `playful`, or any hard/soft bento surface, prefer `columns: "bento"` so the first card becomes a hero tile — mirrors the handcrafted gallery energy.
 
 ### `stat-row` — Proof through numbers
 **When to use:** traction, market size, ROI validation — or a single room-stopping metric.
