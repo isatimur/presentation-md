@@ -49,10 +49,14 @@
   top: -160px;
 }
 .deck[data-surface="neon-glow"] .comparison-col:last-child {
-  background: color-mix(in srgb, var(--accent) 14%, var(--card-bg));
+  /* Darken violet fill so white winner copy clears WCAG AA (accent-on-bg labels fail) */
+  background: color-mix(in srgb, var(--accent) 72%, #050508);
+  color: #fff;
   border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
-  box-shadow: 0 0 32px color-mix(in srgb, var(--accent) 18%, transparent);
+  box-shadow: 0 0 32px color-mix(in srgb, var(--accent) 28%, transparent);
 }
+.deck[data-surface="neon-glow"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="neon-glow"] .comparison-col:last-child p { color: #fff; }
 .deck[data-surface="neon-glow"] .stat .value {
   text-shadow: 0 0 24px color-mix(in srgb, var(--accent) 40%, transparent);
 }
@@ -66,10 +70,14 @@
   box-shadow: inset 0 0 40px color-mix(in srgb, var(--accent) 12%, transparent);
 }
 .deck[data-surface="neon-glow"] .grid.cols-bento .card:first-child {
-  background: color-mix(in srgb, var(--accent) 18%, var(--card-bg));
+  background: color-mix(in srgb, var(--accent) 72%, #050508);
+  color: #fff;
   border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
-  box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 22%, transparent);
+  box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 28%, transparent);
 }
+.deck[data-surface="neon-glow"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="neon-glow"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="neon-glow"] .grid.cols-bento .card:first-child i { color: #fff; }
 
 /* ── scanline-neon (retro-arcade) ── */
 .deck[data-surface="scanline-neon"] .slide {
@@ -1116,8 +1124,20 @@
 .deck[data-surface="bold-signal-card"] .card h3 { color: #ffffff; }
 .deck[data-surface="bold-signal-card"] .card p { color: rgba(255,255,255,0.72); }
 .deck[data-surface="bold-signal-card"] .comparison-col:last-child {
-  background: color-mix(in srgb, var(--accent) 22%, #1a1a1a);
+  /* Orange accent fails white at full strength — keep darkened mix */
+  background: color-mix(in srgb, var(--accent) 55%, #1a1a1a);
+  color: #fff;
 }
+.deck[data-surface="bold-signal-card"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="bold-signal-card"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="bold-signal-card"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent) 55%, #1a1a1a);
+  color: #fff;
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.deck[data-surface="bold-signal-card"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="bold-signal-card"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="bold-signal-card"] .grid.cols-bento .card:first-child i { color: #fff; }
 .deck[data-surface="bold-signal-card"] .stat {
   border-top-color: var(--accent);
 }
@@ -2581,6 +2601,23 @@
   background: color-mix(in srgb, var(--accent) 6%, transparent);
   border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
 }
+.deck[data-surface="neon-rain"] .comparison-col:last-child {
+  /* Hot magenta fills fail white text — darken for AA winner copy */
+  background: color-mix(in srgb, var(--accent) 72%, #050508);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.deck[data-surface="neon-rain"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="neon-rain"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="neon-rain"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent) 72%, #050508);
+  color: #fff;
+  border-color: var(--accent2);
+}
+.deck[data-surface="neon-rain"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="neon-rain"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="neon-rain"] .grid.cols-bento .card:first-child i { color: #fff; }
 .deck[data-surface="crt-phosphor"] .quote,
 .deck[data-surface="neon-rain"] .quote,
 .deck[data-surface="dev-terminal"] .quote {
@@ -2629,6 +2666,22 @@
   font-weight: 900;
   opacity: 1;
 }
+.deck[data-surface="block-frame-brutal"] .comparison-col:last-child {
+  /* Pastel pink accent fails white — keep ink */
+  background: var(--accent);
+  color: #000;
+  border-color: #000;
+}
+.deck[data-surface="block-frame-brutal"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="block-frame-brutal"] .comparison-col:last-child p { color: #000; }
+.deck[data-surface="block-frame-brutal"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #000;
+  border-color: #000;
+}
+.deck[data-surface="block-frame-brutal"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="block-frame-brutal"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="block-frame-brutal"] .grid.cols-bento .card:first-child i { color: #000; }
 
 /* Aurora / glass: frosted layout shells */
 .deck[data-surface="aurora-glass"] .comparison-col,
@@ -2689,8 +2742,18 @@
 }
 .deck[data-surface="hard-bento"] .comparison-col:last-child {
   background: var(--accent2);
-  color: var(--text);
+  color: #0f0f1a;
 }
+.deck[data-surface="hard-bento"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="hard-bento"] .comparison-col:last-child p { color: #0f0f1a; }
+.deck[data-surface="hard-bento"] .grid.cols-bento .card:first-child {
+  background: var(--accent2);
+  color: #0f0f1a;
+  border-color: var(--text);
+}
+.deck[data-surface="hard-bento"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="hard-bento"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="hard-bento"] .grid.cols-bento .card:first-child i { color: #0f0f1a; }
 .deck[data-surface="hard-bento"] .quote {
   border-left: 6px solid var(--text);
   font-weight: 800;
@@ -2828,7 +2891,10 @@
 .deck[data-surface="aero-bubble"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent2) 35%, #fff);
   border-radius: 20px;
+  color: #0c4a6e;
 }
+.deck[data-surface="aero-bubble"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="aero-bubble"] .comparison-col:last-child p { color: #0c4a6e; }
 
 /* Data editorial / newsprint — ruled tables + stats */
 .deck[data-surface="data-rule"] .stat {
@@ -2972,9 +3038,21 @@
   background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 .deck[data-surface="vapor-horizon"] .comparison-col:last-child {
-  background: color-mix(in srgb, var(--accent2) 18%, transparent);
-  border-color: var(--accent);
+  /* Pink/teal neons fail white — ink on lightened accent clears AA */
+  background: color-mix(in srgb, var(--accent) 82%, #fff);
+  color: #1a0533;
+  border-color: var(--accent2);
 }
+.deck[data-surface="vapor-horizon"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="vapor-horizon"] .comparison-col:last-child p { color: #1a0533; }
+.deck[data-surface="vapor-horizon"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent) 82%, #fff);
+  color: #1a0533;
+  border-color: var(--accent2);
+}
+.deck[data-surface="vapor-horizon"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="vapor-horizon"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="vapor-horizon"] .grid.cols-bento .card:first-child i { color: #1a0533; }
 
 /* Vintage / bold poster / acid / neo-grid / riso / coral / botanical */
 .deck[data-surface="vintage-editorial-geo"] .stat {
@@ -3028,8 +3106,18 @@
 }
 .deck[data-surface="neo-grid-panels"] .comparison-col:last-child {
   background: var(--accent);
-  color: var(--text);
+  color: #0a0a0a;
 }
+.deck[data-surface="neo-grid-panels"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="neo-grid-panels"] .comparison-col:last-child p { color: #0a0a0a; }
+.deck[data-surface="neo-grid-panels"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #0a0a0a;
+  border-color: var(--text);
+}
+.deck[data-surface="neo-grid-panels"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="neo-grid-panels"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="neo-grid-panels"] .grid.cols-bento .card:first-child i { color: #0a0a0a; }
 .deck[data-surface="riso-print"] .stat {
   border-top: 3px solid var(--accent);
 }
@@ -3149,8 +3237,10 @@
 }
 .deck[data-surface="biennale-yellow-sun"] .comparison-col:last-child {
   background: var(--accent);
-  color: var(--text);
+  color: #1b2566;
 }
+.deck[data-surface="biennale-yellow-sun"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="biennale-yellow-sun"] .comparison-col:last-child p { color: #1b2566; }
 .deck[data-surface="biennale-yellow-sun"] .quote {
   border-left: none;
   font-family: var(--heading-font);
@@ -3421,7 +3511,18 @@
 }
 .deck[data-surface="raw-grid-brutal"] .comparison-col:last-child {
   background: var(--accent);
+  color: #0a0a0a;
 }
+.deck[data-surface="raw-grid-brutal"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="raw-grid-brutal"] .comparison-col:last-child p { color: #0a0a0a; }
+.deck[data-surface="raw-grid-brutal"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #0a0a0a;
+  border-color: var(--text);
+}
+.deck[data-surface="raw-grid-brutal"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="raw-grid-brutal"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="raw-grid-brutal"] .grid.cols-bento .card:first-child i { color: #0a0a0a; }
 .deck[data-surface="raw-grid-brutal"] .card {
   border: 3px solid var(--text);
   border-radius: 0;
@@ -3882,9 +3983,22 @@
   border: 1px solid color-mix(in srgb, var(--accent2) 45%, transparent);
 }
 .deck[data-surface="scanline-neon"] .comparison-col:last-child {
+  /* Arcade magenta fails pure white — darken fill for AA */
+  background: color-mix(in srgb, var(--accent) 72%, #050008);
+  color: #fff;
   border-color: var(--accent);
   box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 35%, transparent);
 }
+.deck[data-surface="scanline-neon"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="scanline-neon"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="scanline-neon"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent) 72%, #050008);
+  color: #fff;
+  border-color: var(--accent2);
+}
+.deck[data-surface="scanline-neon"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="scanline-neon"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="scanline-neon"] .grid.cols-bento .card:first-child i { color: #fff; }
 .deck[data-surface="scanline-neon"] .card {
   border-radius: 0;
   border: 1px solid color-mix(in srgb, var(--accent2) 35%, transparent);
