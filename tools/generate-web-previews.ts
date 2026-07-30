@@ -89,17 +89,56 @@ const PACKAGED_THEMES = [
 ];
 
 function previewDeck(theme: string): string {
+  const craftThemes = new Set([
+    "soft-editorial",
+    "mat",
+    "bold-signal",
+    "creative-voltage",
+    "electric-studio",
+    "studio",
+    "emerald-editorial",
+    "grove",
+    "signal",
+    "daisy-days",
+  ]);
+  const slides: Array<Record<string, unknown>> = [
+    {
+      layout: "title",
+      eyebrow: theme.replace(/-/g, " "),
+      heading: "Your Deck Title",
+      lead: "Typography, palette, and surface — pick visually before you commit.",
+    },
+  ];
+  if (craftThemes.has(theme)) {
+    slides.push(
+      {
+        layout: "feature-grid",
+        eyebrow: "Craft",
+        heading: "Cards that clear contrast",
+        columns: "bento",
+        cards: [
+          { icon: "fa-solid fa-bolt", title: "Hero tile", body: "Asymmetric bento energy with readable body copy." },
+          { icon: "fa-solid fa-layer-group", title: "Surface", body: "Tint washes stay AA." },
+          { icon: "fa-solid fa-palette", title: "Palette", body: "Roles that export to PPTX." },
+          { icon: "fa-solid fa-table", title: "Structure", body: "Schema-validated layouts." },
+          { icon: "fa-solid fa-check", title: "Proof", body: "What the gallery actually ships." },
+        ],
+      },
+      {
+        layout: "comparison",
+        heading: "Before vs after",
+        leftLabel: "Soft whisper",
+        left: "Muted that fails on tint washes.",
+        rightLabel: "Clear signal",
+        right: "Body copy that survives cream cards and accent fills.",
+        emphasis: "right",
+      }
+    );
+  }
   return JSON.stringify({
     type: "deck",
     meta: { title: "Theme Preview", theme },
-    slides: [
-      {
-        layout: "title",
-        eyebrow: theme.replace(/-/g, " "),
-        heading: "Your Deck Title",
-        lead: "Typography, palette, and surface — pick visually before you commit.",
-      },
-    ],
+    slides,
   });
 }
 
