@@ -39,9 +39,9 @@ editable **PowerPoint** (`.pptx`) that opens in Keynote and imports into Google 
 - `comparison`: `emphasis: "left"|"right"` to grow the winning column
 - `feature-grid`: `columns: "bento"` for a hero tile + satellites (prefer with 5 cards)
 - `code`: `filename` + `language` for window chrome on SDK/CLI proofs
+- `notes`: speaker notes on any slide — Studio present mode (toggle with **S**) + PPTX notes pane; never baked into the HTML slide face
 
-Prefer setting these in the JSON you emit — Studio exposes the same controls in the slide form.
-
+Prefer setting these in the JSON you emit — Studio exposes the same controls in the slide form. Always set `emphasis` on comparisons; prefer non-1-1 `ratio` on two-column; use `bento` for 5-card grids.
 ---
 
 ## Narrative Architecture — Before You Write One Slide

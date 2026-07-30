@@ -5,7 +5,14 @@ A deck is `{ "type": "deck", "meta": {...}, "slides": [...] }`. Full JSON Schema
 
 **Craft knobs Studio exposes** (set them in JSON so HTML + PPTX stay aligned):
 `two-column.ratio` / `reverse`, `comparison.emphasis`, `feature-grid` `columns: "bento"`,
-`code.filename` / `language`.
+`code.filename` / `language`, and optional `notes` on any slide (Studio present-mode drawer + PPTX notes pane; not drawn on the HTML slide face).
+
+**Authoring craft (required when the layout supports it):**
+- `comparison`: always set `emphasis` to `"left"` or `"right"`.
+- `two-column`: prefer a non-`1-1` `ratio` unless weight is truly equal; use `reverse` when media should lead.
+- `feature-grid` with 5 cards: set `columns: "bento"`.
+- Include at least one `image-hero` when the brief implies a visual product, place, or atmosphere.
+- Add brief `notes` on 2–4 key slides for the presenter.
 
 ## meta
 | field | notes |
