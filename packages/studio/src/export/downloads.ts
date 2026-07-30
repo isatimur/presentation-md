@@ -72,6 +72,20 @@ export function parseDeckJson(text: string): DeckJson {
   return parsed;
 }
 
+/** Import a PowerPoint file into Deck JSON (best-fit layouts; data-URI images). */
+export async function importPptxFile(
+  bytes: ArrayBuffer,
+  theme = "default-tech"
+): Promise<{ deck: DeckJson; warnings: string[] }> {
+  const { pptxToDeck } = await import("@presentation-md/export/import");
+  const warnings: string[] = [];
+  const { deck, warnings: importWarnings } = await pptxToDeck(new Uint8Array(bytes), {
+    theme,
+    onWarn: (m) => warnings.push(m),
+  });
+  return { deck, warnings: [...warnings, ...importWarnings] };
+}
+
 /**
  * Recover the source deck embedded in a rendered presentation `.html`
  * (`id="pmd-deck"`, or legacy `id="psp-deck"` from pre-rename renders).

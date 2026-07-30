@@ -1,12 +1,13 @@
-import JSZip from "jszip";
-import { XMLParser } from "fast-xml-parser";
 import { assertZipEntrySafe } from "./zip-limits.js";
+import { bytesToUtf8 } from "./bytes.js";
 import type {
   ExtractedImage,
   ExtractedPresentation,
   ExtractedSlide,
   ExtractOptions,
 } from "./types.js";
+import JSZip from "jszip";
+import { XMLParser } from "fast-xml-parser";
 
 const parser = new XMLParser({
   ignoreAttributes: false,
@@ -195,7 +196,7 @@ export async function extractPptx(
     const file = zip.file(path);
     if (!file) return null;
     const bytes = await readBytes(path, file);
-    const text = Buffer.from(bytes).toString("utf-8");
+    const text = bytesToUtf8(bytes);
     textCache.set(path, text);
     return text;
   }

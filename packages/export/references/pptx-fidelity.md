@@ -51,7 +51,8 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
 
 ## Import (reverse direction)
 
-`pptxToDeck` / CLI `--from-pptx` / MCP `import_pptx` extract text, tables, images, and notes,
-then map onto best-fit layouts. This is not a visual clone — animations, masters, charts, and
-EMF/WMF media are skipped with warnings. See
-`skills/presentation-generator/references/pptx-import.md`.
+`pptxToDeck` / CLI `--from-pptx` / MCP `import_pptx` / **Studio Open (.pptx)** extract text,
+tables, images, and notes, then map onto best-fit layouts. The import path is
+browser-safe when `assetsDir` is omitted (images become data URIs). This is not a
+visual clone — animations, masters, charts, and EMF/WMF media are skipped with
+warnings. See `skills/presentation-generator/references/pptx-import.md`.

@@ -76,7 +76,7 @@ export function App() {
         onGenerate={() => setGenerating(true)}
       />
       <div className="studio-strip" role="note">
-        <span>Live preview · 75 themes · Present with notes · Export editable PPTX</span>
+        <span>Live preview · Open HTML / JSON / PPTX · Present with notes · Export editable PPTX</span>
         <a href="https://presentation-md.vercel.app/" target="_blank" rel="noopener noreferrer">Docs &amp; gallery</a>
       </div>
       <div className="workspace">

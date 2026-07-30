@@ -1,5 +1,3 @@
-import { mkdir, writeFile } from "node:fs/promises";
-import { join, relative, sep } from "node:path";
 import { validateDeckJson } from "@presentation-md/core";
 import type { DeckJson, Slide, Card, Stat, Step } from "../deck-types.js";
 import type {
@@ -8,6 +6,7 @@ import type {
   ExtractedSlide,
   MapOptions,
 } from "./types.js";
+import { bytesToBase64 } from "./bytes.js";
 
 const SKIP_IMAGE_TYPES = /emf|wmf|x-emf|x-wmf/i;
 const CTA_RE = /\b(thank|questions|contact|get in touch|book a|sign up|subscribe)\b/i;
@@ -16,12 +15,12 @@ const STEP_RE = /^(?:step\s*)?\d+[.):]\s+/i;
 const STAT_RE = /^(.{1,12})\s*[\n:–\-]\s*(.{2,80})$/;
 
 function bytesToDataUri(img: ExtractedImage): string {
-  const b64 = Buffer.from(img.bytes).toString("base64");
-  return `data:${img.contentType};base64,${b64}`;
+  return `data:${img.contentType};base64,${bytesToBase64(img.bytes)}`;
 }
 
 /** Path relative to cwd (posix separators) so deck image refs match write location. */
-function assetsRelativePath(assetsDir: string, fileName: string): string {
+async function assetsRelativePath(assetsDir: string, fileName: string): Promise<string> {
+  const { join, relative, sep } = await import("node:path");
   const dest = join(assetsDir, fileName);
   const rel = relative(process.cwd(), dest).split(sep).join("/");
   return rel || fileName;
@@ -39,6 +38,8 @@ async function imageToRef(
     return undefined;
   }
   if (opts.assetsDir) {
+    const { mkdir, writeFile } = await import("node:fs/promises");
+    const { join } = await import("node:path");
     await mkdir(opts.assetsDir, { recursive: true });
     const dest = join(opts.assetsDir, img.name);
     await writeFile(dest, img.bytes);

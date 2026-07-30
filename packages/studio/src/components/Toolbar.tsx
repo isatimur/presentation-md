@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import type { DeckJson } from "@presentation-md/export";
 import { listThemeSummaries, resolveTheme } from "../render/themes.js";
-import { downloadHtml, downloadPptx, downloadJson, parseDeckFile } from "../export/downloads.js";
+import { downloadHtml, downloadPptx, downloadJson, parseDeckFile, importPptxFile } from "../export/downloads.js";
 
 export function Toolbar({
   deck,
@@ -42,11 +42,25 @@ export function Toolbar({
 
   const onOpen = async (file: File) => {
     try {
+      if (/\.pptx$/i.test(file.name)) {
+        setBusy(true);
+        setStatus("Importing .pptx…");
+        const { deck: opened, warnings } = await importPptxFile(await file.arrayBuffer(), theme);
+        onChange(opened);
+        setStatus(
+          warnings.length
+            ? `Imported ${file.name} (${warnings.length} warning${warnings.length > 1 ? "s" : ""})`
+            : `Imported ${file.name}`
+        );
+        return;
+      }
       const opened = parseDeckFile(file.name, await file.text());
       onChange(opened);
       setStatus(`Opened ${file.name}`);
     } catch (err) {
       setStatus(`Open failed: ${(err as Error).message}`);
+    } finally {
+      setBusy(false);
     }
   };
 
@@ -150,7 +164,7 @@ export function Toolbar({
 
       <button className="btn btn-generate" onClick={onGenerate} title="Generate a deck from a prompt">Generate</button>
       <button className="btn" onClick={onLoadExample}>Example</button>
-      <button className="btn" onClick={() => fileRef.current?.click()} title="Open a deck .html or .json">Open</button>
+      <button className="btn" onClick={() => fileRef.current?.click()} title="Open a deck .html, .json, or .pptx">Open</button>
       <button className="btn" onClick={onPresent} title="Present fullscreen">Present</button>
       <button className="btn" onClick={() => downloadJson(deck)}>JSON</button>
       <button className="btn" onClick={() => downloadHtml(deck)}>HTML</button>
@@ -161,7 +175,7 @@ export function Toolbar({
       <input
         ref={fileRef}
         type="file"
-        accept=".html,.htm,.json,application/json,text/html"
+        accept=".html,.htm,.json,.pptx,application/json,text/html,application/vnd.openxmlformats-officedocument.presentationml.presentation"
         hidden
         onChange={(e) => {
           const f = e.target.files?.[0];
