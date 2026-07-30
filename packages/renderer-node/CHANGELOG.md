@@ -1,5 +1,15 @@
 # @presentation-md/render
 
+## 1.2.8
+
+### Patch Changes
+
+- e0f70bd: Align dual-surface cardBg with HTML craft (bold-signal orange → tinted dark, creative-voltage opaque navy), raise mat/soft-editorial muted AA on tint washes, lift PPTX craft (icon letter markers, gradient/title chrome, cardMuted + accent emphasis fills), and promote Studio on vs pages + homepage.
+- Updated dependencies [e0f70bd]
+- Updated dependencies [9cd4658]
+- Updated dependencies [bc744bf]
+  - @presentation-md/export@1.3.4
+
 ## 1.2.7
 
 ### Patch Changes

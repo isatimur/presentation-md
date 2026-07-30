@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-soft-editorial",
-  "version": "1.0.0",
-  "description": "Soft Editorial \u2014 Cormorant Garamond on warm cream paper with sage, blush, lemon, and lilac accents.",
+  "version": "1.0.1",
+  "description": "Soft Editorial — Cormorant Garamond on warm cream paper with sage, blush, lemon, and lilac accents.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",
