@@ -75,6 +75,16 @@ const DUAL_SURFACE: Record<
   "stencil-tablet": { emphasisFill: "accent", emphasisText: "#1a1208" },
   "retro-zine": { cardMuted: "#3a342c", cardText: "#1A1A1A" },
   "emerald-editorial": { cardMuted: "#2a3a28", cardText: "#1a1a17" },
+  // Loud craft: HTML uses color-mix / accent2 — explicit hex mirrors AA fills.
+  "candy-pop": { emphasisFill: "#2566ad", emphasisText: "#ffffff" },
+  vaporwave: { emphasisFill: "#ff85dd", emphasisText: "#1a0533" },
+  "neon-noir": { emphasisFill: "#b9236f", emphasisText: "#ffffff" },
+  "retro-arcade": { emphasisFill: "#b900ba", emphasisText: "#ffffff" },
+  "genz-bento": { emphasisFill: "#b6f542", emphasisText: "#0f0f1a" },
+  "y2k-aero": { emphasisFill: "#dff6b8", emphasisText: "#0c4a6e" },
+  bauhaus: { emphasisFill: "accent", emphasisText: "#0d0d0d" },
+  "creative-mode": { emphasisFill: "accent", emphasisText: "#111111" },
+  "bold-poster": { emphasisFill: "accent", emphasisText: "#ffffff" },
 };
 
 export interface ContextShapes {
