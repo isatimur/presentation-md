@@ -171,25 +171,49 @@ h1, h2, h3 {
   max-width: 42ch;
 }
 
-/* image-hero — full-bleed photo with bottom scrim */
+/* image-hero — full-bleed photo with bottom scrim + light storytelling motion */
 .image-hero-slide { padding: 0; justify-content: flex-end; }
-.image-hero-bg { position: absolute; inset: 0; z-index: 0; }
+.image-hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
 .image-hero-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  transform: scale(1.06);
+  animation: pmd-hero-ken 14s ease-in-out alternate infinite;
 }
 .image-hero-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, var(--bg) 0%, rgba(0, 0, 0, 0.15) 55%, transparent 100%);
+  background:
+    linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 55%, transparent) 42%, transparent 72%),
+    linear-gradient(105deg, color-mix(in srgb, var(--bg) 55%, transparent) 0%, transparent 46%);
 }
 .image-hero-content {
   position: relative;
   z-index: 1;
   padding: 64px;
   width: 100%;
+  max-width: 52ch;
+  animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 120ms;
+}
+.image-hero-content h2 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  max-width: 16ch;
+  text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
+}
+.image-hero-content .lead {
+  color: color-mix(in srgb, var(--text) 78%, var(--muted));
+  max-width: 36ch;
+}
+@keyframes pmd-hero-ken {
+  from { transform: scale(1.06) translate3d(0, 0, 0); }
+  to { transform: scale(1.12) translate3d(-1.2%, -0.8%, 0); }
+}
+@keyframes pmd-hero-copy {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* comparison — side-by-side contrast */
@@ -278,16 +302,19 @@ h1, h2, h3 {
 .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
 /* Asymmetric bento when agents pass columns: "bento" (5-up: hero + 4) */
 .grid.cols-bento {
-  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-columns: 1.55fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
+  min-height: 0;
 }
 .grid.cols-bento .card:first-child {
   grid-row: 1 / span 2;
   justify-content: center;
   padding: 40px 36px;
-  background: color-mix(in srgb, var(--accent) 12%, var(--card-bg));
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--accent) 18%, var(--card-bg)), var(--card-bg) 70%);
   border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 .grid.cols-bento .card:first-child i { font-size: 32px; margin-bottom: 20px; }
 .grid.cols-bento .card:first-child h3 { font-size: clamp(24px, 2.6vw, 34px); margin-bottom: 14px; }
@@ -295,6 +322,28 @@ h1, h2, h3 {
 .grid.cols-bento .card:not(:first-child) { padding: 22px 20px; }
 .grid.cols-bento .card:not(:first-child) h3 { font-size: 17px; }
 .grid.cols-bento .card:not(:first-child) p { font-size: 14px; }
+
+/* Dense two-column compositions — tighter when both panes carry weight */
+.cols.ratio-2-1,
+.cols.ratio-3-2,
+.cols.ratio-1-2,
+.cols.ratio-2-3 {
+  gap: clamp(22px, 3.2vw, 44px);
+}
+.cols .cols-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+.cols.ratio-1-2 > .cols-copy h2,
+.cols.ratio-2-3 > .cols-copy h2 {
+  font-size: clamp(28px, 3.2vw, 42px);
+  max-width: 14ch;
+}
+.cols-aside {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
+}
 
 .card {
   background: var(--card-bg);
@@ -530,7 +579,10 @@ tbody tr:hover td {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .slide { animation: none !important; }
+  .slide,
+  .image-hero-bg img,
+  .image-hero-content { animation: none !important; }
+  .image-hero-bg img { transform: none; }
 }
 
 @media print {
@@ -4503,7 +4555,7 @@ tbody tr:hover td {
 <section class="slide feature-grid-slide" data-layout="feature-grid">
   <span class="eyebrow">Work</span>
   <h2>Where the money goes</h2>
-  <div class="grid cols-3">
+  <div class="grid cols-bento">
     <div class="card">
       <i class="fa-solid fa-tree"></i>
       <h3>Reforest</h3>
@@ -4518,6 +4570,16 @@ tbody tr:hover td {
       <i class="fa-solid fa-people-group"></i>
       <h3>Stewards</h3>
       <p>Pay the people who know the land.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-layer-group"></i>
+      <h3>Stack for scan</h3>
+      <p>Hierarchy first. Decoration second. Decoration never.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-bolt"></i>
+      <h3>Ship the punchline</h3>
+      <p>Lead with the claim that survives the hallway test.</p>
     </div>
   </div>
 </section>
@@ -4556,7 +4618,7 @@ tbody tr:hover td {
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Canopy — Impact Deck","company":"Canopy","description":"Conservation impact report — grove multi-slide proof.","theme":"grove"},"slides":[{"layout":"title","eyebrow":"Impact · 2026","heading":"Forest ink. Rust accent.","lead":"Playfair for the canopy. Jost for the acreage."},{"layout":"feature-grid","eyebrow":"Work","heading":"Where the money goes","columns":3,"cards":[{"icon":"fa-solid fa-tree","title":"Reforest","body":"Native stands, not monoculture."},{"icon":"fa-solid fa-water","title":"Watersheds","body":"Protect the roots of rivers."},{"icon":"fa-solid fa-people-group","title":"Stewards","body":"Pay the people who know the land."}]},{"layout":"stat-row","eyebrow":"Proof","heading":"Acres that stay.","stats":[{"value":"18k","label":"Acres"},{"value":"64%","label":"Canopy gain"},{"value":"9","label":"Partners"}]},{"layout":"quote","quote":"A grove is a promise kept in green.","by":"Canopy"},{"layout":"closing","eyebrow":"Partner","heading":"Stand under the canopy.","lead":"Corporate and community seats open.","cta":{"label":"Partner with us","href":"#"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Canopy — Impact Deck","company":"Canopy","description":"Conservation impact report — grove multi-slide proof.","theme":"grove"},"slides":[{"layout":"title","eyebrow":"Impact · 2026","heading":"Forest ink. Rust accent.","lead":"Playfair for the canopy. Jost for the acreage."},{"layout":"feature-grid","eyebrow":"Work","heading":"Where the money goes","columns":"bento","cards":[{"icon":"fa-solid fa-tree","title":"Reforest","body":"Native stands, not monoculture."},{"icon":"fa-solid fa-water","title":"Watersheds","body":"Protect the roots of rivers."},{"icon":"fa-solid fa-people-group","title":"Stewards","body":"Pay the people who know the land."},{"icon":"fa-solid fa-layer-group","title":"Stack for scan","body":"Hierarchy first. Decoration second. Decoration never."},{"icon":"fa-solid fa-bolt","title":"Ship the punchline","body":"Lead with the claim that survives the hallway test."}]},{"layout":"stat-row","eyebrow":"Proof","heading":"Acres that stay.","stats":[{"value":"18k","label":"Acres"},{"value":"64%","label":"Canopy gain"},{"value":"9","label":"Partners"}]},{"layout":"quote","quote":"A grove is a promise kept in green.","by":"Canopy"},{"layout":"closing","eyebrow":"Partner","heading":"Stand under the canopy.","lead":"Corporate and community seats open.","cta":{"label":"Partner with us","href":"#"}}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));

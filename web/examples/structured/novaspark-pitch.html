@@ -171,25 +171,49 @@ h1, h2, h3 {
   max-width: 42ch;
 }
 
-/* image-hero — full-bleed photo with bottom scrim */
+/* image-hero — full-bleed photo with bottom scrim + light storytelling motion */
 .image-hero-slide { padding: 0; justify-content: flex-end; }
-.image-hero-bg { position: absolute; inset: 0; z-index: 0; }
+.image-hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
 .image-hero-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  transform: scale(1.06);
+  animation: pmd-hero-ken 14s ease-in-out alternate infinite;
 }
 .image-hero-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, var(--bg) 0%, rgba(0, 0, 0, 0.15) 55%, transparent 100%);
+  background:
+    linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 55%, transparent) 42%, transparent 72%),
+    linear-gradient(105deg, color-mix(in srgb, var(--bg) 55%, transparent) 0%, transparent 46%);
 }
 .image-hero-content {
   position: relative;
   z-index: 1;
   padding: 64px;
   width: 100%;
+  max-width: 52ch;
+  animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 120ms;
+}
+.image-hero-content h2 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  max-width: 16ch;
+  text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
+}
+.image-hero-content .lead {
+  color: color-mix(in srgb, var(--text) 78%, var(--muted));
+  max-width: 36ch;
+}
+@keyframes pmd-hero-ken {
+  from { transform: scale(1.06) translate3d(0, 0, 0); }
+  to { transform: scale(1.12) translate3d(-1.2%, -0.8%, 0); }
+}
+@keyframes pmd-hero-copy {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* comparison — side-by-side contrast */
@@ -278,16 +302,19 @@ h1, h2, h3 {
 .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
 /* Asymmetric bento when agents pass columns: "bento" (5-up: hero + 4) */
 .grid.cols-bento {
-  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-columns: 1.55fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
+  min-height: 0;
 }
 .grid.cols-bento .card:first-child {
   grid-row: 1 / span 2;
   justify-content: center;
   padding: 40px 36px;
-  background: color-mix(in srgb, var(--accent) 12%, var(--card-bg));
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--accent) 18%, var(--card-bg)), var(--card-bg) 70%);
   border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 .grid.cols-bento .card:first-child i { font-size: 32px; margin-bottom: 20px; }
 .grid.cols-bento .card:first-child h3 { font-size: clamp(24px, 2.6vw, 34px); margin-bottom: 14px; }
@@ -295,6 +322,28 @@ h1, h2, h3 {
 .grid.cols-bento .card:not(:first-child) { padding: 22px 20px; }
 .grid.cols-bento .card:not(:first-child) h3 { font-size: 17px; }
 .grid.cols-bento .card:not(:first-child) p { font-size: 14px; }
+
+/* Dense two-column compositions — tighter when both panes carry weight */
+.cols.ratio-2-1,
+.cols.ratio-3-2,
+.cols.ratio-1-2,
+.cols.ratio-2-3 {
+  gap: clamp(22px, 3.2vw, 44px);
+}
+.cols .cols-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+.cols.ratio-1-2 > .cols-copy h2,
+.cols.ratio-2-3 > .cols-copy h2 {
+  font-size: clamp(28px, 3.2vw, 42px);
+  max-width: 14ch;
+}
+.cols-aside {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
+}
 
 .card {
   background: var(--card-bg);
@@ -530,7 +579,10 @@ tbody tr:hover td {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .slide { animation: none !important; }
+  .slide,
+  .image-hero-bg img,
+  .image-hero-content { animation: none !important; }
+  .image-hero-bg img { transform: none; }
 }
 
 @media print {
@@ -4500,6 +4552,18 @@ tbody tr:hover td {
   <p class="lead">It needs infrastructure that delivers it.</p>
 </section>
 
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230b1020%22&#x2F;%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22140%22%20width%3D%22720%22%20height%3D%22405%22%20rx%3D%2218%22%20fill%3D%22%2339d114%22%20opacity%3D%220.18%22&#x2F;%3E%0A%3Crect%20x%3D%22160%22%20y%3D%22180%22%20width%3D%22640%22%20height%3D%22325%22%20rx%3D%2212%22%20fill%3D%22%2339d114%22%20opacity%3D%220.35%22&#x2F;%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22230%22%20width%3D%22280%22%20height%3D%2228%22%20rx%3D%226%22%20fill%3D%22%23e54ccd%22&#x2F;%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22280%22%20width%3D%22420%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.55%22&#x2F;%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22310%22%20width%3D%22360%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.35%22&#x2F;%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22340%22%20width%3D%22300%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.25%22&#x2F;%3E%0A%3Cg%20transform%3D%22translate%28920%2C160%29%22%3E%0A%20%20%3Crect%20width%3D%22460%22%20height%3D%22260%22%20rx%3D%2216%22%20fill%3D%22%23e54ccd%22%20opacity%3D%220.22%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2236%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22%2339d114%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2274%22%20width%3D%22360%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.4%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2298%22%20width%3D%22300%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.28%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%2339d114%22%20opacity%3D%220.45%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%22168%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23e54ccd%22%20opacity%3D%220.4%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%22308%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23fff%22%20opacity%3D%220.12%22&#x2F;%3E%0A%3C&#x2F;g%3E%0A%3Cg%20transform%3D%22translate%28920%2C460%29%22%3E%0A%20%20%3Crect%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%2339d114%22%20opacity%3D%220.28%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%22240%22%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%23e54ccd%22%20opacity%3D%220.22%22&#x2F;%3E%0A%3C&#x2F;g%3E%0A%3C&#x2F;svg%3E" alt="NovaSpark AI craft visual" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">Series A · YC W24</span>
+    <h2>AI doesn&#39;t need more compute.</h2>
+    <p class="lead">It needs infrastructure that delivers it.</p>
+  </div>
+</section>
+
 <section class="slide quote-slide" data-layout="quote">
   <p class="quote">Every frontier model today is bottlenecked not by algorithms, but by the infrastructure that delivers them.</p>
   <p class="quote-by">— Dr. Maya Reeves, Co-Founder &amp; CEO</p>
@@ -4508,7 +4572,7 @@ tbody tr:hover td {
 <section class="slide feature-grid-slide" data-layout="feature-grid">
   <span class="eyebrow">The Problem</span>
   <h2>Three bottlenecks every AI deployment hits</h2>
-  <div class="grid cols-3">
+  <div class="grid cols-bento">
     <div class="card">
       <i class="fa-solid fa-route"></i>
       <h3>Routing chaos</h3>
@@ -4523,6 +4587,16 @@ tbody tr:hover td {
       <i class="fa-solid fa-receipt"></i>
       <h3>Cost blindness</h3>
       <p>Spend spikes without quality signal. Finance finds out after the invoice.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-scissors"></i>
+      <h3>Cut the filler</h3>
+      <p>If a card doesn&#39;t change the decision, it doesn&#39;t earn the pixel.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-layer-group"></i>
+      <h3>Stack for scan</h3>
+      <p>Hierarchy first. Decoration second. Decoration never.</p>
     </div>
   </div>
 </section>
@@ -4662,7 +4736,7 @@ One pane for cost, latency, quality.</p>
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"NovaSpark AI — Series A","company":"NovaSpark AI","description":"Series A pitch — AI inference infrastructure.","theme":"aurora-glass"},"slides":[{"layout":"title","eyebrow":"Series A · YC W24","heading":"AI doesn't need more compute.","lead":"It needs infrastructure that delivers it."},{"layout":"quote","quote":"Every frontier model today is bottlenecked not by algorithms, but by the infrastructure that delivers them.","by":"Dr. Maya Reeves, Co-Founder & CEO"},{"layout":"feature-grid","eyebrow":"The Problem","heading":"Three bottlenecks every AI deployment hits","columns":3,"cards":[{"icon":"fa-solid fa-route","title":"Routing chaos","body":"Teams juggle 12 providers with brittle failover and unpredictable latency."},{"icon":"fa-solid fa-globe","title":"Edge distance","body":"Users wait on distant regions — p95 climbs past 800ms outside the US."},{"icon":"fa-solid fa-receipt","title":"Cost blindness","body":"Spend spikes without quality signal. Finance finds out after the invoice."}]},{"layout":"feature-grid","eyebrow":"The Solution","heading":"One unified inference layer","columns":3,"cards":[{"icon":"fa-solid fa-shuffle","title":"Smart routing","body":"Real-time selection across 12 providers — fastest, cheapest path per request."},{"icon":"fa-solid fa-server","title":"Global edge","body":"50+ nodes. Sub-200ms for 95% of the world's population."},{"icon":"fa-solid fa-chart-line","title":"Live cost & quality","body":"Dashboards, latency histograms, quality scoring — before the bill."}]},{"layout":"comparison","eyebrow":"Migration","heading":"Drop in. Route smarter.","leftLabel":"Before","left":"Direct OpenAI / Anthropic / custom clients.\nManual failover.\nNo shared observability.","rightLabel":"With NovaSpark","right":"Same OpenAI-compatible API.\nAutomatic routing + failover.\nOne pane for cost, latency, quality.","emphasis":"right"},{"layout":"two-column","eyebrow":"Why now","heading":"Inference is the new cloud spend line.","body":"Every frontier team is bottlenecked on delivery, not algorithms. NovaSpark turns multi-provider chaos into one contract — with latency and cost visible before the invoice.","aside":"Sub-200ms for 95% of the world's population. One pane for quality.","ratio":"2-1"},{"layout":"stat-row","eyebrow":"Traction","heading":"18 months. Zero paid acquisition.","stats":[{"value":"$2.1M","label":"ARR"},{"value":"412","label":"Enterprise customers"},{"value":"99.97%","label":"Uptime SLA"},{"value":"847ms","label":"Avg response (global)"}]},{"layout":"data-table","eyebrow":"Market","heading":"A category being created now","columns":["Segment","2026E"],"rows":[["AI API Orchestration","$18.2B"],["Edge AI Serving","$9.4B"],["Inference Observability","$3.1B"]]},{"layout":"timeline","eyebrow":"Roadmap","heading":"18 months to Series B readiness","steps":[{"title":"Now","body":"Core platform + enterprise SSO."},{"title":"Q+2","body":"Partnerships with AWS / GCP marketplace."},{"title":"Q+4","body":"Team 2× · $8M ARR target."},{"title":"Series B","body":"Category leadership narrative locked."}]},{"layout":"section","number":"01","eyebrow":"The Ask","heading":"$14M Series A","lead":"Lead $8M · Co-investors filling $6M · 18 months runway to $8M ARR."},{"layout":"closing","eyebrow":"The Opportunity","heading":"AI deserves better plumbing.","lead":"investors@novaspark.ai · novaspark.ai","cta":{"label":"Book a meeting","href":"https://novaspark.ai"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"NovaSpark AI — Series A","company":"NovaSpark AI","description":"Series A pitch — AI inference infrastructure.","theme":"aurora-glass"},"slides":[{"layout":"title","eyebrow":"Series A · YC W24","heading":"AI doesn't need more compute.","lead":"It needs infrastructure that delivers it."},{"layout":"image-hero","eyebrow":"Series A · YC W24","heading":"AI doesn't need more compute.","lead":"It needs infrastructure that delivers it.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230b1020%22/%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22140%22%20width%3D%22720%22%20height%3D%22405%22%20rx%3D%2218%22%20fill%3D%22%2339d114%22%20opacity%3D%220.18%22/%3E%0A%3Crect%20x%3D%22160%22%20y%3D%22180%22%20width%3D%22640%22%20height%3D%22325%22%20rx%3D%2212%22%20fill%3D%22%2339d114%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22230%22%20width%3D%22280%22%20height%3D%2228%22%20rx%3D%226%22%20fill%3D%22%23e54ccd%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22280%22%20width%3D%22420%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.55%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22310%22%20width%3D%22360%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22340%22%20width%3D%22300%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.25%22/%3E%0A%3Cg%20transform%3D%22translate%28920%2C160%29%22%3E%0A%20%20%3Crect%20width%3D%22460%22%20height%3D%22260%22%20rx%3D%2216%22%20fill%3D%22%23e54ccd%22%20opacity%3D%220.22%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2236%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22%2339d114%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2274%22%20width%3D%22360%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.4%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2298%22%20width%3D%22300%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.28%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%2339d114%22%20opacity%3D%220.45%22/%3E%0A%20%20%3Crect%20x%3D%22168%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23e54ccd%22%20opacity%3D%220.4%22/%3E%0A%20%20%3Crect%20x%3D%22308%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23fff%22%20opacity%3D%220.12%22/%3E%0A%3C/g%3E%0A%3Cg%20transform%3D%22translate%28920%2C460%29%22%3E%0A%20%20%3Crect%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%2339d114%22%20opacity%3D%220.28%22/%3E%0A%20%20%3Crect%20x%3D%22240%22%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%23e54ccd%22%20opacity%3D%220.22%22/%3E%0A%3C/g%3E%0A%3C/svg%3E","imageAlt":"NovaSpark AI craft visual"},{"layout":"quote","quote":"Every frontier model today is bottlenecked not by algorithms, but by the infrastructure that delivers them.","by":"Dr. Maya Reeves, Co-Founder & CEO"},{"layout":"feature-grid","eyebrow":"The Problem","heading":"Three bottlenecks every AI deployment hits","columns":"bento","cards":[{"icon":"fa-solid fa-route","title":"Routing chaos","body":"Teams juggle 12 providers with brittle failover and unpredictable latency."},{"icon":"fa-solid fa-globe","title":"Edge distance","body":"Users wait on distant regions — p95 climbs past 800ms outside the US."},{"icon":"fa-solid fa-receipt","title":"Cost blindness","body":"Spend spikes without quality signal. Finance finds out after the invoice."},{"icon":"fa-solid fa-scissors","title":"Cut the filler","body":"If a card doesn't change the decision, it doesn't earn the pixel."},{"icon":"fa-solid fa-layer-group","title":"Stack for scan","body":"Hierarchy first. Decoration second. Decoration never."}]},{"layout":"feature-grid","eyebrow":"The Solution","heading":"One unified inference layer","columns":3,"cards":[{"icon":"fa-solid fa-shuffle","title":"Smart routing","body":"Real-time selection across 12 providers — fastest, cheapest path per request."},{"icon":"fa-solid fa-server","title":"Global edge","body":"50+ nodes. Sub-200ms for 95% of the world's population."},{"icon":"fa-solid fa-chart-line","title":"Live cost & quality","body":"Dashboards, latency histograms, quality scoring — before the bill."}]},{"layout":"comparison","eyebrow":"Migration","heading":"Drop in. Route smarter.","leftLabel":"Before","left":"Direct OpenAI / Anthropic / custom clients.\nManual failover.\nNo shared observability.","rightLabel":"With NovaSpark","right":"Same OpenAI-compatible API.\nAutomatic routing + failover.\nOne pane for cost, latency, quality.","emphasis":"right"},{"layout":"two-column","eyebrow":"Why now","heading":"Inference is the new cloud spend line.","body":"Every frontier team is bottlenecked on delivery, not algorithms. NovaSpark turns multi-provider chaos into one contract — with latency and cost visible before the invoice.","aside":"Sub-200ms for 95% of the world's population. One pane for quality.","ratio":"2-1"},{"layout":"stat-row","eyebrow":"Traction","heading":"18 months. Zero paid acquisition.","stats":[{"value":"$2.1M","label":"ARR"},{"value":"412","label":"Enterprise customers"},{"value":"99.97%","label":"Uptime SLA"},{"value":"847ms","label":"Avg response (global)"}]},{"layout":"data-table","eyebrow":"Market","heading":"A category being created now","columns":["Segment","2026E"],"rows":[["AI API Orchestration","$18.2B"],["Edge AI Serving","$9.4B"],["Inference Observability","$3.1B"]]},{"layout":"timeline","eyebrow":"Roadmap","heading":"18 months to Series B readiness","steps":[{"title":"Now","body":"Core platform + enterprise SSO."},{"title":"Q+2","body":"Partnerships with AWS / GCP marketplace."},{"title":"Q+4","body":"Team 2× · $8M ARR target."},{"title":"Series B","body":"Category leadership narrative locked."}]},{"layout":"section","number":"01","eyebrow":"The Ask","heading":"$14M Series A","lead":"Lead $8M · Co-investors filling $6M · 18 months runway to $8M ARR."},{"layout":"closing","eyebrow":"The Opportunity","heading":"AI deserves better plumbing.","lead":"investors@novaspark.ai · novaspark.ai","cta":{"label":"Book a meeting","href":"https://novaspark.ai"}}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));

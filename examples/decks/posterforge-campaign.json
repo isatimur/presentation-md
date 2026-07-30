@@ -1,9 +1,9 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Posterforge \u2014 Campaign",
+    "title": "Posterforge — Campaign",
     "company": "Posterforge",
-    "description": "Campaign studio credentials \u2014 bold-poster multi-slide proof.",
+    "description": "Campaign studio credentials — bold-poster multi-slide proof.",
     "theme": "bold-poster"
   },
   "slides": [
@@ -14,27 +14,13 @@
       "lead": "Shrikhand titles. Libre Baskerville body. Posters that stop the scroll."
     },
     {
-      "layout": "feature-grid",
+      "layout": "two-column",
       "eyebrow": "Work",
       "heading": "What we print",
-      "columns": 3,
-      "cards": [
-        {
-          "icon": "fa-solid fa-bullhorn",
-          "title": "Launch walls",
-          "body": "City-scale type for product days."
-        },
-        {
-          "icon": "fa-solid fa-ticket",
-          "title": "Tour posters",
-          "body": "Ink that survives rain and phones."
-        },
-        {
-          "icon": "fa-solid fa-store",
-          "title": "Retail kits",
-          "body": "One poster system, many SKUs."
-        }
-      ]
+      "body": "Launch walls: City-scale type for product days. Tour posters — Ink that survives rain and phones.",
+      "aside": "One poster system, many SKUs.",
+      "ratio": "2-1",
+      "reverse": true
     },
     {
       "layout": "comparison",
@@ -43,7 +29,8 @@
       "leftLabel": "Canva default",
       "left": "Centered everything.\nSoft shadows.\nForgettable.",
       "rightLabel": "Posterforge",
-      "right": "Edge-to-edge type.\nTomato rules.\nYou remember."
+      "right": "Edge-to-edge type.\nTomato rules.\nYou remember.",
+      "emphasis": "right"
     },
     {
       "layout": "stat-row",
@@ -59,7 +46,7 @@
           "label": "Award years"
         },
         {
-          "value": "3.8\u00d7",
+          "value": "3.8×",
           "label": "Avg CTR lift"
         }
       ]

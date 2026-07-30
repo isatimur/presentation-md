@@ -25,11 +25,33 @@
       "layout": "feature-grid",
       "eyebrow": "Why teams switch",
       "heading": "Built for operators who live in git",
-      "columns": 3,
+      "columns": "bento",
       "cards": [
-        { "icon": "fa-solid fa-terminal", "title": "CLI-first", "body": "forge run, forge logs, forge diff — same verbs as your deploy tool." },
-        { "icon": "fa-solid fa-shield-halved", "title": "Idempotent by default", "body": "Retry safely. Duplicate keys are a no-op, not a double charge." },
-        { "icon": "fa-solid fa-wave-square", "title": "Traces included", "body": "Every job links to a span tree you can open in your APM." }
+        {
+          "icon": "fa-solid fa-terminal",
+          "title": "CLI-first",
+          "body": "forge run, forge logs, forge diff — same verbs as your deploy tool."
+        },
+        {
+          "icon": "fa-solid fa-shield-halved",
+          "title": "Idempotent by default",
+          "body": "Retry safely. Duplicate keys are a no-op, not a double charge."
+        },
+        {
+          "icon": "fa-solid fa-wave-square",
+          "title": "Traces included",
+          "body": "Every job links to a span tree you can open in your APM."
+        },
+        {
+          "icon": "fa-solid fa-scissors",
+          "title": "Cut the filler",
+          "body": "If a card doesn't change the decision, it doesn't earn the pixel."
+        },
+        {
+          "icon": "fa-solid fa-layer-group",
+          "title": "Stack for scan",
+          "body": "Hierarchy first. Decoration second. Decoration never."
+        }
       ]
     },
     {
@@ -47,9 +69,18 @@
       "eyebrow": "Beta signal",
       "heading": "Ninety days. Zero paid ads.",
       "stats": [
-        { "value": "1.2k", "label": "Active workspaces" },
-        { "value": "48M", "label": "Jobs executed" },
-        { "value": "99.95%", "label": "API success SLA" }
+        {
+          "value": "1.2k",
+          "label": "Active workspaces"
+        },
+        {
+          "value": "48M",
+          "label": "Jobs executed"
+        },
+        {
+          "value": "99.95%",
+          "label": "API success SLA"
+        }
       ]
     },
     {
@@ -57,7 +88,10 @@
       "eyebrow": "Get in",
       "heading": "Your next deploy should feel boring.",
       "lead": "Free tier · no card · docs that assume you can read TypeScript.",
-      "cta": { "label": "Read the docs", "href": "#" }
+      "cta": {
+        "label": "Read the docs",
+        "href": "#"
+      }
     }
   ]
 }

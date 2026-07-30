@@ -1,15 +1,15 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Fieldnotes \u2014 Product Pitch",
+    "title": "Fieldnotes — Product Pitch",
     "company": "Fieldnotes",
-    "description": "Notebook SaaS pitch \u2014 notebook-tabs multi-slide proof.",
+    "description": "Notebook SaaS pitch — notebook-tabs multi-slide proof.",
     "theme": "notebook-tabs"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Pitch \u00b7 Series A",
+      "eyebrow": "Pitch · Series A",
       "heading": "Tabs for the way you think.",
       "lead": "Cream paper on dark. Pastel tabs. Bodoni for the title that matters."
     },
@@ -17,7 +17,7 @@
       "layout": "feature-grid",
       "eyebrow": "Product",
       "heading": "Four tabs. Zero chaos.",
-      "columns": 2,
+      "columns": "bento",
       "cards": [
         {
           "icon": "fa-solid fa-book",
@@ -27,7 +27,7 @@
         {
           "icon": "fa-solid fa-tags",
           "title": "Color tabs",
-          "body": "Mint, lavender, pink \u2014 projects you can feel."
+          "body": "Mint, lavender, pink — projects you can feel."
         },
         {
           "icon": "fa-solid fa-link",
@@ -38,6 +38,11 @@
           "icon": "fa-solid fa-mobile",
           "title": "Pocket mode",
           "body": "Capture on phone; review on paper density."
+        },
+        {
+          "icon": "fa-solid fa-compass",
+          "title": "Clear north star",
+          "body": "One decisive story beat — not a wall of equal tiles."
         }
       ]
     },
@@ -48,7 +53,8 @@
       "leftLabel": "Wikis",
       "left": "Empty templates.\nSearch that fails.\nGuilt about structure.",
       "rightLabel": "Fieldnotes",
-      "right": "Pages that feel finished.\nTabs you remember.\nStructure optional."
+      "right": "Pages that feel finished.\nTabs you remember.\nStructure optional.",
+      "emphasis": "right"
     },
     {
       "layout": "stat-row",
@@ -64,7 +70,7 @@
           "label": "Avg session"
         },
         {
-          "value": "4.8\u2605",
+          "value": "4.8★",
           "label": "App Store"
         }
       ]

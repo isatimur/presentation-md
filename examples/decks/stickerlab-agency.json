@@ -14,27 +14,12 @@
       "lead": "Nunito 800 energy. Rounded everything on purpose."
     },
     {
-      "layout": "feature-grid",
+      "layout": "two-column",
       "eyebrow": "Services",
       "heading": "What we slap on",
-      "columns": 3,
-      "cards": [
-        {
-          "icon": "fa-solid fa-face-smile",
-          "title": "Brand kits",
-          "body": "Stickers as the system."
-        },
-        {
-          "icon": "fa-solid fa-mobile",
-          "title": "App UI",
-          "body": "Friendly without being childish."
-        },
-        {
-          "icon": "fa-solid fa-bullhorn",
-          "title": "Launches",
-          "body": "Campaigns that feel handmade."
-        }
-      ]
+      "body": "Brand kits: Stickers as the system. App UI — Friendly without being childish.",
+      "aside": "Campaigns that feel handmade.",
+      "ratio": "2-1"
     },
     {
       "layout": "stat-row",

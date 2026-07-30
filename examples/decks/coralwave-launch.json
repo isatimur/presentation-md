@@ -1,9 +1,9 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Coralwave \u2014 Launch",
+    "title": "Coralwave — Launch",
     "company": "Coralwave",
-    "description": "Consumer brand launch \u2014 coral multi-slide proof.",
+    "description": "Consumer brand launch — coral multi-slide proof.",
     "theme": "coral"
   },
   "slides": [
@@ -14,27 +14,12 @@
       "lead": "Bebas titles. Hatch texture. Ink borders that mean business."
     },
     {
-      "layout": "feature-grid",
+      "layout": "two-column",
       "eyebrow": "Line",
       "heading": "Three products. One coral.",
-      "columns": 3,
-      "cards": [
-        {
-          "icon": "fa-solid fa-shirt",
-          "title": "Core tees",
-          "body": "Heavyweight cotton. Coral hit on the sleeve."
-        },
-        {
-          "icon": "fa-solid fa-bag-shopping",
-          "title": "Tote system",
-          "body": "Cream field. Hatch print. Built for markets."
-        },
-        {
-          "icon": "fa-solid fa-socks",
-          "title": "Seasonal drops",
-          "body": "Limited runs \u2014 sold out is the plan."
-        }
-      ]
+      "body": "Core tees: Heavyweight cotton. Coral hit on the sleeve. Tote system — Cream field. Hatch print. Built for markets.",
+      "aside": "Limited runs — sold out is the plan.",
+      "ratio": "2-1"
     },
     {
       "layout": "comparison",
@@ -43,7 +28,8 @@
       "leftLabel": "Soft DTC",
       "left": "Pastel mist.\nRounded everything.\nForgettable marks.",
       "rightLabel": "Coralwave",
-      "right": "Hatch + ink.\nHard type.\nYou remember the coral."
+      "right": "Hatch + ink.\nHard type.\nYou remember the coral.",
+      "emphasis": "right"
     },
     {
       "layout": "stat-row",

@@ -1,9 +1,9 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Signalbox \u2014 Quarterly Report",
+    "title": "Signalbox — Quarterly Report",
     "company": "Signalbox",
-    "description": "Data editorial quarterly \u2014 data-editorial multi-slide proof.",
+    "description": "Data editorial quarterly — data-editorial multi-slide proof.",
     "theme": "data-editorial"
   },
   "slides": [
@@ -27,7 +27,7 @@
           "label": "Gross margin"
         },
         {
-          "value": "1.2\u00d7",
+          "value": "1.2×",
           "label": "Magic number"
         }
       ]
@@ -59,7 +59,7 @@
       "columns": [
         "Motion",
         "ARR",
-        "\u0394 QoQ",
+        "Δ QoQ",
         "NPS"
       ]
     },
@@ -67,7 +67,7 @@
       "layout": "feature-grid",
       "eyebrow": "Narrative",
       "heading": "Three edits we made",
-      "columns": 3,
+      "columns": "bento",
       "cards": [
         {
           "icon": "fa-solid fa-scissors",
@@ -77,12 +77,22 @@
         {
           "icon": "fa-solid fa-flag",
           "title": "Flag the red",
-          "body": "One signal color for risk \u2014 never decorative."
+          "body": "One signal color for risk — never decorative."
         },
         {
           "icon": "fa-solid fa-book-open",
           "title": "Write the lead",
           "body": "Every chart opens with a sentence, not a legend."
+        },
+        {
+          "icon": "fa-solid fa-eye",
+          "title": "Show, don't pad",
+          "body": "Asymmetry beats another identical third column."
+        },
+        {
+          "icon": "fa-solid fa-compass",
+          "title": "Clear north star",
+          "body": "One decisive story beat — not a wall of equal tiles."
         }
       ]
     },

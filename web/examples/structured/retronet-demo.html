@@ -171,25 +171,49 @@ h1, h2, h3 {
   max-width: 42ch;
 }
 
-/* image-hero — full-bleed photo with bottom scrim */
+/* image-hero — full-bleed photo with bottom scrim + light storytelling motion */
 .image-hero-slide { padding: 0; justify-content: flex-end; }
-.image-hero-bg { position: absolute; inset: 0; z-index: 0; }
+.image-hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
 .image-hero-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  transform: scale(1.06);
+  animation: pmd-hero-ken 14s ease-in-out alternate infinite;
 }
 .image-hero-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, var(--bg) 0%, rgba(0, 0, 0, 0.15) 55%, transparent 100%);
+  background:
+    linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 55%, transparent) 42%, transparent 72%),
+    linear-gradient(105deg, color-mix(in srgb, var(--bg) 55%, transparent) 0%, transparent 46%);
 }
 .image-hero-content {
   position: relative;
   z-index: 1;
   padding: 64px;
   width: 100%;
+  max-width: 52ch;
+  animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 120ms;
+}
+.image-hero-content h2 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  max-width: 16ch;
+  text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
+}
+.image-hero-content .lead {
+  color: color-mix(in srgb, var(--text) 78%, var(--muted));
+  max-width: 36ch;
+}
+@keyframes pmd-hero-ken {
+  from { transform: scale(1.06) translate3d(0, 0, 0); }
+  to { transform: scale(1.12) translate3d(-1.2%, -0.8%, 0); }
+}
+@keyframes pmd-hero-copy {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* comparison — side-by-side contrast */
@@ -278,16 +302,19 @@ h1, h2, h3 {
 .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
 /* Asymmetric bento when agents pass columns: "bento" (5-up: hero + 4) */
 .grid.cols-bento {
-  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-columns: 1.55fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
+  min-height: 0;
 }
 .grid.cols-bento .card:first-child {
   grid-row: 1 / span 2;
   justify-content: center;
   padding: 40px 36px;
-  background: color-mix(in srgb, var(--accent) 12%, var(--card-bg));
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--accent) 18%, var(--card-bg)), var(--card-bg) 70%);
   border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 .grid.cols-bento .card:first-child i { font-size: 32px; margin-bottom: 20px; }
 .grid.cols-bento .card:first-child h3 { font-size: clamp(24px, 2.6vw, 34px); margin-bottom: 14px; }
@@ -295,6 +322,28 @@ h1, h2, h3 {
 .grid.cols-bento .card:not(:first-child) { padding: 22px 20px; }
 .grid.cols-bento .card:not(:first-child) h3 { font-size: 17px; }
 .grid.cols-bento .card:not(:first-child) p { font-size: 14px; }
+
+/* Dense two-column compositions — tighter when both panes carry weight */
+.cols.ratio-2-1,
+.cols.ratio-3-2,
+.cols.ratio-1-2,
+.cols.ratio-2-3 {
+  gap: clamp(22px, 3.2vw, 44px);
+}
+.cols .cols-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+.cols.ratio-1-2 > .cols-copy h2,
+.cols.ratio-2-3 > .cols-copy h2 {
+  font-size: clamp(28px, 3.2vw, 42px);
+  max-width: 14ch;
+}
+.cols-aside {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
+}
 
 .card {
   background: var(--card-bg);
@@ -530,7 +579,10 @@ tbody tr:hover td {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .slide { animation: none !important; }
+  .slide,
+  .image-hero-bg img,
+  .image-hero-content { animation: none !important; }
+  .image-hero-bg img { transform: none; }
 }
 
 @media print {
@@ -4500,25 +4552,27 @@ tbody tr:hover td {
   <p class="lead">Strip ads, trackers, and bloat — keep the content.</p>
 </section>
 
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Alert status</span>
-  <h2>The modern web is hostile</h2>
-  <div class="grid cols-3">
-    <div class="card">
-      <i class="fa-solid fa-triangle-exclamation"></i>
-      <h3>CRITICAL</h3>
-      <p>47 ad units per session on the average page.</p>
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230b1020%22&#x2F;%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22140%22%20width%3D%22720%22%20height%3D%22405%22%20rx%3D%2218%22%20fill%3D%22%230805d3%22%20opacity%3D%220.18%22&#x2F;%3E%0A%3Crect%20x%3D%22160%22%20y%3D%22180%22%20width%3D%22640%22%20height%3D%22325%22%20rx%3D%2212%22%20fill%3D%22%230805d3%22%20opacity%3D%220.35%22&#x2F;%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22230%22%20width%3D%22280%22%20height%3D%2228%22%20rx%3D%226%22%20fill%3D%22%23977b5d%22&#x2F;%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22280%22%20width%3D%22420%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.55%22&#x2F;%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22310%22%20width%3D%22360%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.35%22&#x2F;%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22340%22%20width%3D%22300%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.25%22&#x2F;%3E%0A%3Cg%20transform%3D%22translate%28920%2C160%29%22%3E%0A%20%20%3Crect%20width%3D%22460%22%20height%3D%22260%22%20rx%3D%2216%22%20fill%3D%22%23977b5d%22%20opacity%3D%220.22%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2236%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22%230805d3%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2274%22%20width%3D%22360%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.4%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2298%22%20width%3D%22300%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.28%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%230805d3%22%20opacity%3D%220.45%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%22168%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23977b5d%22%20opacity%3D%220.4%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%22308%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23fff%22%20opacity%3D%220.12%22&#x2F;%3E%0A%3C&#x2F;g%3E%0A%3Cg%20transform%3D%22translate%28920%2C460%29%22%3E%0A%20%20%3Crect%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%230805d3%22%20opacity%3D%220.28%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%22240%22%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%23977b5d%22%20opacity%3D%220.22%22&#x2F;%3E%0A%3C&#x2F;g%3E%0A%3C&#x2F;svg%3E" alt="RetroNet craft visual" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">Open source · Free tier · MIT · Privacy first</span>
+    <h2>Browse like it&#39;s 1999.</h2>
+    <p class="lead">Strip ads, trackers, and bloat — keep the content.</p>
+  </div>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-2-1 cols-reverse">
+    <div class="cols-copy">
+      <span class="eyebrow">Alert status</span>
+      <h2>The modern web is hostile</h2>
+      <p class="lead">CRITICAL: 47 ad units per session on the average page. URGENT — 380 unique tracking scripts on a news homepage.</p>
     </div>
-    <div class="card">
-      <i class="fa-solid fa-fingerprint"></i>
-      <h3>URGENT</h3>
-      <p>380 unique tracking scripts on a news homepage.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-gauge-high"></i>
-      <h3>RED ALERT</h3>
-      <p>Median load time: 0.9s (2010) → 9.3s (2026).</p>
-    </div>
+    
+    <div class="cols-aside"><p>Median load time: 0.9s (2010) → 9.3s (2026).</p></div>
   </div>
 </section>
 
@@ -4552,7 +4606,7 @@ tbody tr:hover td {
 <section class="slide comparison-slide" data-layout="comparison">
   <span class="eyebrow">Before &#x2F; After</span>
   <h2>Same URL. Different internet.</h2>
-  <div class="comparison-cols">
+  <div class="comparison-cols emphasis-left">
     <div class="comparison-col">
       <span class="comparison-label">Before</span>
       <p>Cookie walls.
@@ -4622,7 +4676,7 @@ Content at the top.</p>
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"RetroNet — Product Demo","company":"RetroNet","description":"Open-source privacy browser layer demo.","theme":"crt-terminal"},"slides":[{"layout":"title","eyebrow":"Open source · Free tier · MIT · Privacy first","heading":"Browse like it's 1999.","lead":"Strip ads, trackers, and bloat — keep the content."},{"layout":"feature-grid","eyebrow":"Alert status","heading":"The modern web is hostile","columns":3,"cards":[{"icon":"fa-solid fa-triangle-exclamation","title":"CRITICAL","body":"47 ad units per session on the average page."},{"icon":"fa-solid fa-fingerprint","title":"URGENT","body":"380 unique tracking scripts on a news homepage."},{"icon":"fa-solid fa-gauge-high","title":"RED ALERT","body":"Median load time: 0.9s (2010) → 9.3s (2026)."}]},{"layout":"timeline","eyebrow":"Demo flow","heading":"retronet --demo-flow","steps":[{"title":"01 Intercept","body":"retronet intercept --url https://news.example.com"},{"title":"02 Filter","body":"strip ads · trackers · unused scripts"},{"title":"03 Render","body":"Serve a clean document — content only."},{"title":"04 Verify","body":"Zero trackers. Sub-second paint."}]},{"layout":"comparison","eyebrow":"Before / After","heading":"Same URL. Different internet.","leftLabel":"Before","left":"Cookie walls.\nProgress bars that lie.\nNotification spam.\nScroll past four ads for one paragraph.","rightLabel":"After","right":"RETRONET clean view.\nReadable type.\nNo trackers.\nContent at the top."},{"layout":"stat-row","eyebrow":"Benchmarks","heading":"Measured on real news sites","stats":[{"value":"94%","label":"Faster page loads"},{"value":"ZERO","label":"Trackers loaded"},{"value":"$0","label":"Ad revenue served"}]},{"layout":"quote","quote":"I finally read the article instead of fighting the page.","by":"devkat_88 · software engineer · Portland"},{"layout":"feature-grid","eyebrow":"Plans","heading":"Free forever. Pro when you need it.","columns":2,"cards":[{"title":"Free tier · $0","body":"Ad blocking, tracker strip, MIT client. Forever."},{"title":"Pro · $5/mo","body":"Custom filter lists, team sync, priority updates."}]},{"layout":"closing","eyebrow":"Join the network","heading":"github.com/retronet","lead":"discord.gg/retronet · docs at retronet.dev","cta":{"label":"Star on GitHub","href":"https://github.com/retronet"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"RetroNet — Product Demo","company":"RetroNet","description":"Open-source privacy browser layer demo.","theme":"crt-terminal"},"slides":[{"layout":"title","eyebrow":"Open source · Free tier · MIT · Privacy first","heading":"Browse like it's 1999.","lead":"Strip ads, trackers, and bloat — keep the content."},{"layout":"image-hero","eyebrow":"Open source · Free tier · MIT · Privacy first","heading":"Browse like it's 1999.","lead":"Strip ads, trackers, and bloat — keep the content.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230b1020%22/%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22140%22%20width%3D%22720%22%20height%3D%22405%22%20rx%3D%2218%22%20fill%3D%22%230805d3%22%20opacity%3D%220.18%22/%3E%0A%3Crect%20x%3D%22160%22%20y%3D%22180%22%20width%3D%22640%22%20height%3D%22325%22%20rx%3D%2212%22%20fill%3D%22%230805d3%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22230%22%20width%3D%22280%22%20height%3D%2228%22%20rx%3D%226%22%20fill%3D%22%23977b5d%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22280%22%20width%3D%22420%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.55%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22310%22%20width%3D%22360%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22340%22%20width%3D%22300%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.25%22/%3E%0A%3Cg%20transform%3D%22translate%28920%2C160%29%22%3E%0A%20%20%3Crect%20width%3D%22460%22%20height%3D%22260%22%20rx%3D%2216%22%20fill%3D%22%23977b5d%22%20opacity%3D%220.22%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2236%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22%230805d3%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2274%22%20width%3D%22360%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.4%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2298%22%20width%3D%22300%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.28%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%230805d3%22%20opacity%3D%220.45%22/%3E%0A%20%20%3Crect%20x%3D%22168%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23977b5d%22%20opacity%3D%220.4%22/%3E%0A%20%20%3Crect%20x%3D%22308%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23fff%22%20opacity%3D%220.12%22/%3E%0A%3C/g%3E%0A%3Cg%20transform%3D%22translate%28920%2C460%29%22%3E%0A%20%20%3Crect%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%230805d3%22%20opacity%3D%220.28%22/%3E%0A%20%20%3Crect%20x%3D%22240%22%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%23977b5d%22%20opacity%3D%220.22%22/%3E%0A%3C/g%3E%0A%3C/svg%3E","imageAlt":"RetroNet craft visual"},{"layout":"two-column","eyebrow":"Alert status","heading":"The modern web is hostile","body":"CRITICAL: 47 ad units per session on the average page. URGENT — 380 unique tracking scripts on a news homepage.","aside":"Median load time: 0.9s (2010) → 9.3s (2026).","ratio":"2-1","reverse":true},{"layout":"timeline","eyebrow":"Demo flow","heading":"retronet --demo-flow","steps":[{"title":"01 Intercept","body":"retronet intercept --url https://news.example.com"},{"title":"02 Filter","body":"strip ads · trackers · unused scripts"},{"title":"03 Render","body":"Serve a clean document — content only."},{"title":"04 Verify","body":"Zero trackers. Sub-second paint."}]},{"layout":"comparison","eyebrow":"Before / After","heading":"Same URL. Different internet.","leftLabel":"Before","left":"Cookie walls.\nProgress bars that lie.\nNotification spam.\nScroll past four ads for one paragraph.","rightLabel":"After","right":"RETRONET clean view.\nReadable type.\nNo trackers.\nContent at the top.","emphasis":"left"},{"layout":"stat-row","eyebrow":"Benchmarks","heading":"Measured on real news sites","stats":[{"value":"94%","label":"Faster page loads"},{"value":"ZERO","label":"Trackers loaded"},{"value":"$0","label":"Ad revenue served"}]},{"layout":"quote","quote":"I finally read the article instead of fighting the page.","by":"devkat_88 · software engineer · Portland"},{"layout":"feature-grid","eyebrow":"Plans","heading":"Free forever. Pro when you need it.","columns":2,"cards":[{"title":"Free tier · $0","body":"Ad blocking, tracker strip, MIT client. Forever."},{"title":"Pro · $5/mo","body":"Custom filter lists, team sync, priority updates."}]},{"layout":"closing","eyebrow":"Join the network","heading":"github.com/retronet","lead":"discord.gg/retronet · docs at retronet.dev","cta":{"label":"Star on GitHub","href":"https://github.com/retronet"}}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));

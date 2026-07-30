@@ -171,25 +171,49 @@ h1, h2, h3 {
   max-width: 42ch;
 }
 
-/* image-hero — full-bleed photo with bottom scrim */
+/* image-hero — full-bleed photo with bottom scrim + light storytelling motion */
 .image-hero-slide { padding: 0; justify-content: flex-end; }
-.image-hero-bg { position: absolute; inset: 0; z-index: 0; }
+.image-hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
 .image-hero-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  transform: scale(1.06);
+  animation: pmd-hero-ken 14s ease-in-out alternate infinite;
 }
 .image-hero-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, var(--bg) 0%, rgba(0, 0, 0, 0.15) 55%, transparent 100%);
+  background:
+    linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 55%, transparent) 42%, transparent 72%),
+    linear-gradient(105deg, color-mix(in srgb, var(--bg) 55%, transparent) 0%, transparent 46%);
 }
 .image-hero-content {
   position: relative;
   z-index: 1;
   padding: 64px;
   width: 100%;
+  max-width: 52ch;
+  animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 120ms;
+}
+.image-hero-content h2 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  max-width: 16ch;
+  text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
+}
+.image-hero-content .lead {
+  color: color-mix(in srgb, var(--text) 78%, var(--muted));
+  max-width: 36ch;
+}
+@keyframes pmd-hero-ken {
+  from { transform: scale(1.06) translate3d(0, 0, 0); }
+  to { transform: scale(1.12) translate3d(-1.2%, -0.8%, 0); }
+}
+@keyframes pmd-hero-copy {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* comparison — side-by-side contrast */
@@ -278,16 +302,19 @@ h1, h2, h3 {
 .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
 /* Asymmetric bento when agents pass columns: "bento" (5-up: hero + 4) */
 .grid.cols-bento {
-  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-columns: 1.55fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
+  min-height: 0;
 }
 .grid.cols-bento .card:first-child {
   grid-row: 1 / span 2;
   justify-content: center;
   padding: 40px 36px;
-  background: color-mix(in srgb, var(--accent) 12%, var(--card-bg));
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--accent) 18%, var(--card-bg)), var(--card-bg) 70%);
   border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 .grid.cols-bento .card:first-child i { font-size: 32px; margin-bottom: 20px; }
 .grid.cols-bento .card:first-child h3 { font-size: clamp(24px, 2.6vw, 34px); margin-bottom: 14px; }
@@ -295,6 +322,28 @@ h1, h2, h3 {
 .grid.cols-bento .card:not(:first-child) { padding: 22px 20px; }
 .grid.cols-bento .card:not(:first-child) h3 { font-size: 17px; }
 .grid.cols-bento .card:not(:first-child) p { font-size: 14px; }
+
+/* Dense two-column compositions — tighter when both panes carry weight */
+.cols.ratio-2-1,
+.cols.ratio-3-2,
+.cols.ratio-1-2,
+.cols.ratio-2-3 {
+  gap: clamp(22px, 3.2vw, 44px);
+}
+.cols .cols-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+.cols.ratio-1-2 > .cols-copy h2,
+.cols.ratio-2-3 > .cols-copy h2 {
+  font-size: clamp(28px, 3.2vw, 42px);
+  max-width: 14ch;
+}
+.cols-aside {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
+}
 
 .card {
   background: var(--card-bg);
@@ -530,7 +579,10 @@ tbody tr:hover td {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .slide { animation: none !important; }
+  .slide,
+  .image-hero-bg img,
+  .image-hero-content { animation: none !important; }
+  .image-hero-bg img { transform: none; }
 }
 
 @media print {
@@ -4500,6 +4552,18 @@ tbody tr:hover td {
   <p class="lead">Performance, portfolio highlights, and climate progress.</p>
 </section>
 
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230e1410%22&#x2F;%3E%0A%3Cpolygon%20points%3D%220%2C0%20980%2C0%20620%2C900%200%2C900%22%20fill%3D%22%2365cc9a%22%20opacity%3D%220.22%22&#x2F;%3E%0A%3Cpolygon%20points%3D%22980%2C0%201600%2C0%201600%2C900%20620%2C900%22%20fill%3D%22%2397eda4%22%20opacity%3D%220.18%22&#x2F;%3E%0A%3Crect%20x%3D%22140%22%20y%3D%22280%22%20width%3D%22420%22%20height%3D%2248%22%20rx%3D%228%22%20fill%3D%22%2365cc9a%22&#x2F;%3E%0A%3Crect%20x%3D%22140%22%20y%3D%22360%22%20width%3D%22340%22%20height%3D%2220%22%20rx%3D%225%22%20fill%3D%22%23fff%22%20opacity%3D%220.5%22&#x2F;%3E%0A%3Crect%20x%3D%22140%22%20y%3D%22400%22%20width%3D%22280%22%20height%3D%2220%22%20rx%3D%225%22%20fill%3D%22%23fff%22%20opacity%3D%220.3%22&#x2F;%3E%0A%3Ccircle%20cx%3D%221180%22%20cy%3D%22380%22%20r%3D%22160%22%20fill%3D%22%2365cc9a%22%20opacity%3D%220.25%22&#x2F;%3E%0A%3Ccircle%20cx%3D%221280%22%20cy%3D%22480%22%20r%3D%22110%22%20fill%3D%22%2397eda4%22%20opacity%3D%220.3%22&#x2F;%3E%0A%3Crect%20x%3D%221040%22%20y%3D%22620%22%20width%3D%22360%22%20height%3D%22140%22%20rx%3D%2214%22%20fill%3D%22%23fff%22%20opacity%3D%220.1%22&#x2F;%3E%0A%3C&#x2F;svg%3E" alt="Solstice craft visual" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">Fund II · Q2 2026</span>
+    <h2>LP update</h2>
+    <p class="lead">Performance, portfolio highlights, and climate progress.</p>
+  </div>
+</section>
+
 <section class="slide stat-row-slide" data-layout="stat-row">
   <span class="eyebrow">Fund snapshot</span>
   <h2>Where we stand</h2>
@@ -4526,7 +4590,7 @@ tbody tr:hover td {
 <section class="slide feature-grid-slide" data-layout="feature-grid">
   <span class="eyebrow">Portfolio highlights</span>
   <h2>Three names driving the quarter</h2>
-  <div class="grid cols-3">
+  <div class="grid cols-bento">
     <div class="card">
       
       <h3>Vanta Health</h3>
@@ -4541,6 +4605,16 @@ tbody tr:hover td {
       
       <h3>Lumen AI</h3>
       <p>Enterprise software — first $10M ARR quarter.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-eye"></i>
+      <h3>Show, don&#39;t pad</h3>
+      <p>Asymmetry beats another identical third column.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-compass"></i>
+      <h3>Clear north star</h3>
+      <p>One decisive story beat — not a wall of equal tiles.</p>
     </div>
   </div>
 </section>
@@ -4585,7 +4659,7 @@ tbody tr:hover td {
 <section class="slide comparison-slide" data-layout="comparison">
   <span class="eyebrow">Outlook</span>
   <h2>Risks we are watching</h2>
-  <div class="comparison-cols">
+  <div class="comparison-cols emphasis-left">
     <div class="comparison-col">
       <span class="comparison-label">Tailwinds</span>
       <p>Enterprise AI budgets still expanding.
@@ -4631,7 +4705,7 @@ Rate path uncertainty into H2.</p>
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Solstice Fund II — LP Update","company":"Solstice","description":"Investor update — growth equity LP letter.","theme":"luxury-minimalist"},"slides":[{"layout":"title","eyebrow":"Fund II · Q2 2026","heading":"LP update","lead":"Performance, portfolio highlights, and climate progress."},{"layout":"stat-row","eyebrow":"Fund snapshot","heading":"Where we stand","stats":[{"value":"$280M","label":"Fund II AUM"},{"value":"+$22M","label":"vs Q1 NAV"},{"value":"19.4%","label":"Net IRR (inception)"},{"value":"1.62×","label":"TVPI"}]},{"layout":"feature-grid","eyebrow":"Portfolio highlights","heading":"Three names driving the quarter","columns":3,"cards":[{"title":"Vanta Health","body":"Digital health — expanded payer contracts; ARR +34% YoY."},{"title":"Meridian Freight","body":"Logistics — new Europe corridor; gross margin +1.2pp."},{"title":"Lumen AI","body":"Enterprise software — first $10M ARR quarter."}]},{"layout":"data-table","eyebrow":"Vintage status","heading":"Capital deployment","columns":["Vintage","Deployed"],"rows":[["2023","100%"],["2024","88%"],["2025","52%"]]},{"layout":"feature-grid","eyebrow":"Climate & ESG","heading":"Progress this quarter","columns":3,"cards":[{"icon":"fa-solid fa-leaf","title":"Scope 3 tooling","body":"Corval Climate deployed across 3 portfolio cos — no more manual emissions spreadsheets."},{"icon":"fa-solid fa-clipboard-check","title":"TCFD for Fund II","body":"Disclosure framework adopted; Deloitte completed climate scenario analysis."},{"icon":"fa-solid fa-earth-americas","title":"GP ops","body":"Carbon-neutral via South Pole offsets. Portfolio on a −34% emissions glide path."}]},{"layout":"comparison","eyebrow":"Outlook","heading":"Risks we are watching","leftLabel":"Tailwinds","left":"Enterprise AI budgets still expanding.\nHealthcare reimbursement clarity improving.\nFreight rates stabilizing in EU.","rightLabel":"Headwinds","right":"Later-stage valuation discipline.\nCyber insurance premiums rising.\nRate path uncertainty into H2."},{"layout":"stat-row","eyebrow":"Returns","heading":"Since inception","stats":[{"value":"19.4%","label":"Net IRR"},{"value":"1.62×","label":"TVPI"},{"value":"0.31×","label":"DPI"}]},{"layout":"closing","eyebrow":"Thank you","heading":"Questions welcome.","lead":"lps@solstice.example · Full packet in the data room","cta":{"label":"Open data room","href":"https://solstice.example/lps"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Solstice Fund II — LP Update","company":"Solstice","description":"Investor update — growth equity LP letter.","theme":"luxury-minimalist"},"slides":[{"layout":"title","eyebrow":"Fund II · Q2 2026","heading":"LP update","lead":"Performance, portfolio highlights, and climate progress."},{"layout":"image-hero","eyebrow":"Fund II · Q2 2026","heading":"LP update","lead":"Performance, portfolio highlights, and climate progress.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230e1410%22/%3E%0A%3Cpolygon%20points%3D%220%2C0%20980%2C0%20620%2C900%200%2C900%22%20fill%3D%22%2365cc9a%22%20opacity%3D%220.22%22/%3E%0A%3Cpolygon%20points%3D%22980%2C0%201600%2C0%201600%2C900%20620%2C900%22%20fill%3D%22%2397eda4%22%20opacity%3D%220.18%22/%3E%0A%3Crect%20x%3D%22140%22%20y%3D%22280%22%20width%3D%22420%22%20height%3D%2248%22%20rx%3D%228%22%20fill%3D%22%2365cc9a%22/%3E%0A%3Crect%20x%3D%22140%22%20y%3D%22360%22%20width%3D%22340%22%20height%3D%2220%22%20rx%3D%225%22%20fill%3D%22%23fff%22%20opacity%3D%220.5%22/%3E%0A%3Crect%20x%3D%22140%22%20y%3D%22400%22%20width%3D%22280%22%20height%3D%2220%22%20rx%3D%225%22%20fill%3D%22%23fff%22%20opacity%3D%220.3%22/%3E%0A%3Ccircle%20cx%3D%221180%22%20cy%3D%22380%22%20r%3D%22160%22%20fill%3D%22%2365cc9a%22%20opacity%3D%220.25%22/%3E%0A%3Ccircle%20cx%3D%221280%22%20cy%3D%22480%22%20r%3D%22110%22%20fill%3D%22%2397eda4%22%20opacity%3D%220.3%22/%3E%0A%3Crect%20x%3D%221040%22%20y%3D%22620%22%20width%3D%22360%22%20height%3D%22140%22%20rx%3D%2214%22%20fill%3D%22%23fff%22%20opacity%3D%220.1%22/%3E%0A%3C/svg%3E","imageAlt":"Solstice craft visual"},{"layout":"stat-row","eyebrow":"Fund snapshot","heading":"Where we stand","stats":[{"value":"$280M","label":"Fund II AUM"},{"value":"+$22M","label":"vs Q1 NAV"},{"value":"19.4%","label":"Net IRR (inception)"},{"value":"1.62×","label":"TVPI"}]},{"layout":"feature-grid","eyebrow":"Portfolio highlights","heading":"Three names driving the quarter","columns":"bento","cards":[{"title":"Vanta Health","body":"Digital health — expanded payer contracts; ARR +34% YoY."},{"title":"Meridian Freight","body":"Logistics — new Europe corridor; gross margin +1.2pp."},{"title":"Lumen AI","body":"Enterprise software — first $10M ARR quarter."},{"icon":"fa-solid fa-eye","title":"Show, don't pad","body":"Asymmetry beats another identical third column."},{"icon":"fa-solid fa-compass","title":"Clear north star","body":"One decisive story beat — not a wall of equal tiles."}]},{"layout":"data-table","eyebrow":"Vintage status","heading":"Capital deployment","columns":["Vintage","Deployed"],"rows":[["2023","100%"],["2024","88%"],["2025","52%"]]},{"layout":"feature-grid","eyebrow":"Climate & ESG","heading":"Progress this quarter","columns":3,"cards":[{"icon":"fa-solid fa-leaf","title":"Scope 3 tooling","body":"Corval Climate deployed across 3 portfolio cos — no more manual emissions spreadsheets."},{"icon":"fa-solid fa-clipboard-check","title":"TCFD for Fund II","body":"Disclosure framework adopted; Deloitte completed climate scenario analysis."},{"icon":"fa-solid fa-earth-americas","title":"GP ops","body":"Carbon-neutral via South Pole offsets. Portfolio on a −34% emissions glide path."}]},{"layout":"comparison","eyebrow":"Outlook","heading":"Risks we are watching","leftLabel":"Tailwinds","left":"Enterprise AI budgets still expanding.\nHealthcare reimbursement clarity improving.\nFreight rates stabilizing in EU.","rightLabel":"Headwinds","right":"Later-stage valuation discipline.\nCyber insurance premiums rising.\nRate path uncertainty into H2.","emphasis":"left"},{"layout":"stat-row","eyebrow":"Returns","heading":"Since inception","stats":[{"value":"19.4%","label":"Net IRR"},{"value":"1.62×","label":"TVPI"},{"value":"0.31×","label":"DPI"}]},{"layout":"closing","eyebrow":"Thank you","heading":"Questions welcome.","lead":"lps@solstice.example · Full packet in the data room","cta":{"label":"Open data room","href":"https://solstice.example/lps"}}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));

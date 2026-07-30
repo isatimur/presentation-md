@@ -30,7 +30,7 @@
       "layout": "feature-grid",
       "eyebrow": "Series",
       "heading": "This season",
-      "columns": 3,
+      "columns": "bento",
       "cards": [
         {
           "icon": "fa-solid fa-feather",
@@ -46,6 +46,16 @@
           "icon": "fa-solid fa-scroll",
           "title": "Archives",
           "body": "Past lectures as living pages."
+        },
+        {
+          "icon": "fa-solid fa-bolt",
+          "title": "Ship the punchline",
+          "body": "Lead with the claim that survives the hallway test."
+        },
+        {
+          "icon": "fa-solid fa-eye",
+          "title": "Show, don't pad",
+          "body": "Asymmetry beats another identical third column."
         }
       ]
     },

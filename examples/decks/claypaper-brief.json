@@ -14,6 +14,14 @@
       "lead": "Warm paper. Clay-coral signal. The reference craft for AI product stories."
     },
     {
+      "layout": "image-hero",
+      "eyebrow": "Product brief · 2026",
+      "heading": "Calm confidence beats loud templates.",
+      "lead": "Warm paper. Clay-coral signal. The reference craft for AI product stories.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230e1410%22/%3E%0A%3Cpolygon%20points%3D%220%2C0%20980%2C0%20620%2C900%200%2C900%22%20fill%3D%22%235b3015%22%20opacity%3D%220.22%22/%3E%0A%3Cpolygon%20points%3D%22980%2C0%201600%2C0%201600%2C900%20620%2C900%22%20fill%3D%22%23682d91%22%20opacity%3D%220.18%22/%3E%0A%3Crect%20x%3D%22140%22%20y%3D%22280%22%20width%3D%22420%22%20height%3D%2248%22%20rx%3D%228%22%20fill%3D%22%235b3015%22/%3E%0A%3Crect%20x%3D%22140%22%20y%3D%22360%22%20width%3D%22340%22%20height%3D%2220%22%20rx%3D%225%22%20fill%3D%22%23fff%22%20opacity%3D%220.5%22/%3E%0A%3Crect%20x%3D%22140%22%20y%3D%22400%22%20width%3D%22280%22%20height%3D%2220%22%20rx%3D%225%22%20fill%3D%22%23fff%22%20opacity%3D%220.3%22/%3E%0A%3Ccircle%20cx%3D%221180%22%20cy%3D%22380%22%20r%3D%22160%22%20fill%3D%22%235b3015%22%20opacity%3D%220.25%22/%3E%0A%3Ccircle%20cx%3D%221280%22%20cy%3D%22480%22%20r%3D%22110%22%20fill%3D%22%23682d91%22%20opacity%3D%220.3%22/%3E%0A%3Crect%20x%3D%221040%22%20y%3D%22620%22%20width%3D%22360%22%20height%3D%22140%22%20rx%3D%2214%22%20fill%3D%22%23fff%22%20opacity%3D%220.1%22/%3E%0A%3C/svg%3E",
+      "imageAlt": "Clay & Paper craft visual"
+    },
+    {
       "layout": "two-column",
       "eyebrow": "Positioning",
       "heading": "Designed to feel human at billboard scale.",
@@ -25,7 +33,7 @@
       "layout": "feature-grid",
       "eyebrow": "Principles",
       "heading": "What this surface refuses",
-      "columns": 3,
+      "columns": "bento",
       "cards": [
         {
           "icon": "fa-solid fa-ban",
@@ -41,6 +49,16 @@
           "icon": "fa-solid fa-ban",
           "title": "Adjective vibes",
           "body": "Pick from a live preview, not a mood word."
+        },
+        {
+          "icon": "fa-solid fa-scissors",
+          "title": "Cut the filler",
+          "body": "If a card doesn't change the decision, it doesn't earn the pixel."
+        },
+        {
+          "icon": "fa-solid fa-layer-group",
+          "title": "Stack for scan",
+          "body": "Hierarchy first. Decoration second. Decoration never."
         }
       ]
     },
@@ -64,9 +82,18 @@
       "eyebrow": "Fit",
       "heading": "Best when the story is calm and precise.",
       "stats": [
-        { "value": "AI", "label": "Product launches" },
-        { "value": "DX", "label": "Developer tools" },
-        { "value": "TL", "label": "Thought leadership" }
+        {
+          "value": "AI",
+          "label": "Product launches"
+        },
+        {
+          "value": "DX",
+          "label": "Developer tools"
+        },
+        {
+          "value": "TL",
+          "label": "Thought leadership"
+        }
       ]
     },
     {
@@ -74,7 +101,10 @@
       "eyebrow": "Ship",
       "heading": "Set theme to claude. Keep the copy honest.",
       "lead": "preview_themes → lock meta.theme → render_deck",
-      "cta": { "label": "Open Studio", "href": "https://presentation-md.vercel.app/studio" }
+      "cta": {
+        "label": "Open Studio",
+        "href": "https://presentation-md.vercel.app/studio"
+      }
     }
   ]
 }

@@ -14,15 +14,20 @@
       "lead": "A co-op rover game with arcade clarity and campaign depth."
     },
     {
-      "layout": "feature-grid",
+      "layout": "image-hero",
+      "eyebrow": "Indie pitch",
+      "heading": "Orbit the pixel. Escape the grind.",
+      "lead": "A co-op rover game with arcade clarity and campaign depth.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230b1020%22/%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22140%22%20width%3D%22720%22%20height%3D%22405%22%20rx%3D%2218%22%20fill%3D%22%23f3ca80%22%20opacity%3D%220.18%22/%3E%0A%3Crect%20x%3D%22160%22%20y%3D%22180%22%20width%3D%22640%22%20height%3D%22325%22%20rx%3D%2212%22%20fill%3D%22%23f3ca80%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22230%22%20width%3D%22280%22%20height%3D%2228%22%20rx%3D%226%22%20fill%3D%22%230f385d%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22280%22%20width%3D%22420%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.55%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22310%22%20width%3D%22360%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22340%22%20width%3D%22300%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.25%22/%3E%0A%3Cg%20transform%3D%22translate%28920%2C160%29%22%3E%0A%20%20%3Crect%20width%3D%22460%22%20height%3D%22260%22%20rx%3D%2216%22%20fill%3D%22%230f385d%22%20opacity%3D%220.22%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2236%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22%23f3ca80%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2274%22%20width%3D%22360%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.4%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2298%22%20width%3D%22300%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.28%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23f3ca80%22%20opacity%3D%220.45%22/%3E%0A%20%20%3Crect%20x%3D%22168%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%230f385d%22%20opacity%3D%220.4%22/%3E%0A%20%20%3Crect%20x%3D%22308%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23fff%22%20opacity%3D%220.12%22/%3E%0A%3C/g%3E%0A%3Cg%20transform%3D%22translate%28920%2C460%29%22%3E%0A%20%20%3Crect%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%23f3ca80%22%20opacity%3D%220.28%22/%3E%0A%20%20%3Crect%20x%3D%22240%22%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%230f385d%22%20opacity%3D%220.22%22/%3E%0A%3C/g%3E%0A%3C/svg%3E",
+      "imageAlt": "BitOrbit craft visual"
+    },
+    {
+      "layout": "two-column",
       "eyebrow": "Gameplay",
       "heading": "Loops that respect your time",
-      "columns": 3,
-      "cards": [
-        { "icon": "fa-solid fa-gamepad", "title": "20-minute sorties", "body": "Complete a mission on a lunch break — or chain into a night raid." },
-        { "icon": "fa-solid fa-users", "title": "2–4 player co-op", "body": "Shared ship, asymmetric roles, no lobby hell." },
-        { "icon": "fa-solid fa-map", "title": "Procedural sectors", "body": "Hand-authored set pieces inside seeded chaos." }
-      ]
+      "body": "20-minute sorties: Complete a mission on a lunch break — or chain into a night raid. 2–4 player co-op — Shared ship, asymmetric roles, no lobby hell.",
+      "aside": "Hand-authored set pieces inside seeded chaos.",
+      "ratio": "1-2"
     },
     {
       "layout": "comparison",
@@ -39,9 +44,18 @@
       "eyebrow": "Demo",
       "heading": "Steam Next Fest results",
       "stats": [
-        { "value": "62k", "label": "Wishlists" },
-        { "value": "91%", "label": "Positive demo reviews" },
-        { "value": "18m", "label": "Avg session length" }
+        {
+          "value": "62k",
+          "label": "Wishlists"
+        },
+        {
+          "value": "91%",
+          "label": "Positive demo reviews"
+        },
+        {
+          "value": "18m",
+          "label": "Avg session length"
+        }
       ]
     },
     {
@@ -49,7 +63,10 @@
       "eyebrow": "Ask",
       "heading": "Fund the full campaign arc.",
       "lead": "$2.4M production · 14 months · PC first.",
-      "cta": { "label": "Play the demo", "href": "#" }
+      "cta": {
+        "label": "Play the demo",
+        "href": "#"
+      }
     }
   ]
 }

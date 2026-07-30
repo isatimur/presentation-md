@@ -17,7 +17,7 @@
       "layout": "feature-grid",
       "eyebrow": "Sections",
       "heading": "Inside Vol. 12",
-      "columns": 3,
+      "columns": "bento",
       "cards": [
         {
           "icon": "fa-solid fa-leaf",
@@ -33,6 +33,16 @@
           "icon": "fa-solid fa-camera",
           "title": "Plates",
           "body": "Photography that breathes green."
+        },
+        {
+          "icon": "fa-solid fa-layer-group",
+          "title": "Stack for scan",
+          "body": "Hierarchy first. Decoration second. Decoration never."
+        },
+        {
+          "icon": "fa-solid fa-bolt",
+          "title": "Ship the punchline",
+          "body": "Lead with the claim that survives the hallway test."
         }
       ]
     },

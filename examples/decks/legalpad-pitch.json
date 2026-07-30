@@ -14,27 +14,12 @@
       "lead": "Space Grotesk for the claim. Caveat for the margin note."
     },
     {
-      "layout": "feature-grid",
+      "layout": "two-column",
       "eyebrow": "Product",
       "heading": "Lawyers' actual desk",
-      "columns": 3,
-      "cards": [
-        {
-          "icon": "fa-solid fa-thumbtack",
-          "title": "Pins",
-          "body": "Issues stay visible until closed."
-        },
-        {
-          "icon": "fa-solid fa-file-lines",
-          "title": "Pads",
-          "body": "Drafts that feel handwritten."
-        },
-        {
-          "icon": "fa-solid fa-scale-balanced",
-          "title": "Matter map",
-          "body": "Who owns what, on one page."
-        }
-      ]
+      "body": "Pins: Issues stay visible until closed. Pads — Drafts that feel handwritten.",
+      "aside": "Who owns what, on one page.",
+      "ratio": "1-2"
     },
     {
       "layout": "code",

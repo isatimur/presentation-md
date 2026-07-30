@@ -171,25 +171,49 @@ h1, h2, h3 {
   max-width: 42ch;
 }
 
-/* image-hero — full-bleed photo with bottom scrim */
+/* image-hero — full-bleed photo with bottom scrim + light storytelling motion */
 .image-hero-slide { padding: 0; justify-content: flex-end; }
-.image-hero-bg { position: absolute; inset: 0; z-index: 0; }
+.image-hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
 .image-hero-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  transform: scale(1.06);
+  animation: pmd-hero-ken 14s ease-in-out alternate infinite;
 }
 .image-hero-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, var(--bg) 0%, rgba(0, 0, 0, 0.15) 55%, transparent 100%);
+  background:
+    linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 55%, transparent) 42%, transparent 72%),
+    linear-gradient(105deg, color-mix(in srgb, var(--bg) 55%, transparent) 0%, transparent 46%);
 }
 .image-hero-content {
   position: relative;
   z-index: 1;
   padding: 64px;
   width: 100%;
+  max-width: 52ch;
+  animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 120ms;
+}
+.image-hero-content h2 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  max-width: 16ch;
+  text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
+}
+.image-hero-content .lead {
+  color: color-mix(in srgb, var(--text) 78%, var(--muted));
+  max-width: 36ch;
+}
+@keyframes pmd-hero-ken {
+  from { transform: scale(1.06) translate3d(0, 0, 0); }
+  to { transform: scale(1.12) translate3d(-1.2%, -0.8%, 0); }
+}
+@keyframes pmd-hero-copy {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* comparison — side-by-side contrast */
@@ -278,16 +302,19 @@ h1, h2, h3 {
 .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
 /* Asymmetric bento when agents pass columns: "bento" (5-up: hero + 4) */
 .grid.cols-bento {
-  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-columns: 1.55fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
+  min-height: 0;
 }
 .grid.cols-bento .card:first-child {
   grid-row: 1 / span 2;
   justify-content: center;
   padding: 40px 36px;
-  background: color-mix(in srgb, var(--accent) 12%, var(--card-bg));
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--accent) 18%, var(--card-bg)), var(--card-bg) 70%);
   border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 .grid.cols-bento .card:first-child i { font-size: 32px; margin-bottom: 20px; }
 .grid.cols-bento .card:first-child h3 { font-size: clamp(24px, 2.6vw, 34px); margin-bottom: 14px; }
@@ -295,6 +322,28 @@ h1, h2, h3 {
 .grid.cols-bento .card:not(:first-child) { padding: 22px 20px; }
 .grid.cols-bento .card:not(:first-child) h3 { font-size: 17px; }
 .grid.cols-bento .card:not(:first-child) p { font-size: 14px; }
+
+/* Dense two-column compositions — tighter when both panes carry weight */
+.cols.ratio-2-1,
+.cols.ratio-3-2,
+.cols.ratio-1-2,
+.cols.ratio-2-3 {
+  gap: clamp(22px, 3.2vw, 44px);
+}
+.cols .cols-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+.cols.ratio-1-2 > .cols-copy h2,
+.cols.ratio-2-3 > .cols-copy h2 {
+  font-size: clamp(28px, 3.2vw, 42px);
+  max-width: 14ch;
+}
+.cols-aside {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
+}
 
 .card {
   background: var(--card-bg);
@@ -530,7 +579,10 @@ tbody tr:hover td {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .slide { animation: none !important; }
+  .slide,
+  .image-hero-bg img,
+  .image-hero-content { animation: none !important; }
+  .image-hero-bg img { transform: none; }
 }
 
 @media print {
@@ -4500,25 +4552,27 @@ tbody tr:hover td {
   <p class="lead">A co-op rover game with arcade clarity and campaign depth.</p>
 </section>
 
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Gameplay</span>
-  <h2>Loops that respect your time</h2>
-  <div class="grid cols-3">
-    <div class="card">
-      <i class="fa-solid fa-gamepad"></i>
-      <h3>20-minute sorties</h3>
-      <p>Complete a mission on a lunch break — or chain into a night raid.</p>
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230b1020%22&#x2F;%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22140%22%20width%3D%22720%22%20height%3D%22405%22%20rx%3D%2218%22%20fill%3D%22%23f3ca80%22%20opacity%3D%220.18%22&#x2F;%3E%0A%3Crect%20x%3D%22160%22%20y%3D%22180%22%20width%3D%22640%22%20height%3D%22325%22%20rx%3D%2212%22%20fill%3D%22%23f3ca80%22%20opacity%3D%220.35%22&#x2F;%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22230%22%20width%3D%22280%22%20height%3D%2228%22%20rx%3D%226%22%20fill%3D%22%230f385d%22&#x2F;%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22280%22%20width%3D%22420%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.55%22&#x2F;%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22310%22%20width%3D%22360%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.35%22&#x2F;%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22340%22%20width%3D%22300%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.25%22&#x2F;%3E%0A%3Cg%20transform%3D%22translate%28920%2C160%29%22%3E%0A%20%20%3Crect%20width%3D%22460%22%20height%3D%22260%22%20rx%3D%2216%22%20fill%3D%22%230f385d%22%20opacity%3D%220.22%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2236%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22%23f3ca80%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2274%22%20width%3D%22360%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.4%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2298%22%20width%3D%22300%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.28%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23f3ca80%22%20opacity%3D%220.45%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%22168%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%230f385d%22%20opacity%3D%220.4%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%22308%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23fff%22%20opacity%3D%220.12%22&#x2F;%3E%0A%3C&#x2F;g%3E%0A%3Cg%20transform%3D%22translate%28920%2C460%29%22%3E%0A%20%20%3Crect%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%23f3ca80%22%20opacity%3D%220.28%22&#x2F;%3E%0A%20%20%3Crect%20x%3D%22240%22%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%230f385d%22%20opacity%3D%220.22%22&#x2F;%3E%0A%3C&#x2F;g%3E%0A%3C&#x2F;svg%3E" alt="BitOrbit craft visual" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">Indie pitch</span>
+    <h2>Orbit the pixel. Escape the grind.</h2>
+    <p class="lead">A co-op rover game with arcade clarity and campaign depth.</p>
+  </div>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-1-2">
+    <div class="cols-copy">
+      <span class="eyebrow">Gameplay</span>
+      <h2>Loops that respect your time</h2>
+      <p class="lead">20-minute sorties: Complete a mission on a lunch break — or chain into a night raid. 2–4 player co-op — Shared ship, asymmetric roles, no lobby hell.</p>
     </div>
-    <div class="card">
-      <i class="fa-solid fa-users"></i>
-      <h3>2–4 player co-op</h3>
-      <p>Shared ship, asymmetric roles, no lobby hell.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-map"></i>
-      <h3>Procedural sectors</h3>
-      <p>Hand-authored set pieces inside seeded chaos.</p>
-    </div>
+    
+    <div class="cols-aside"><p>Hand-authored set pieces inside seeded chaos.</p></div>
   </div>
 </section>
 
@@ -4571,7 +4625,7 @@ Story you can finish.</p>
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"BitOrbit — Game Pitch","company":"BitOrbit","description":"Indie game / web3-adjacent pitch — 8-bit-orbit multi-slide proof.","theme":"8-bit-orbit"},"slides":[{"layout":"title","eyebrow":"Indie pitch","heading":"Orbit the pixel. Escape the grind.","lead":"A co-op rover game with arcade clarity and campaign depth."},{"layout":"feature-grid","eyebrow":"Gameplay","heading":"Loops that respect your time","columns":3,"cards":[{"icon":"fa-solid fa-gamepad","title":"20-minute sorties","body":"Complete a mission on a lunch break — or chain into a night raid."},{"icon":"fa-solid fa-users","title":"2–4 player co-op","body":"Shared ship, asymmetric roles, no lobby hell."},{"icon":"fa-solid fa-map","title":"Procedural sectors","body":"Hand-authored set pieces inside seeded chaos."}]},{"layout":"comparison","eyebrow":"Market","heading":"Arcade heart. Campaign brain.","leftLabel":"Typical live service","left":"Battle pass treadmill.\nCosmetic FOMO.\nEmpty open world.","rightLabel":"BitOrbit","right":"Finite seasons.\nSkill expression first.\nStory you can finish.","emphasis":"right"},{"layout":"stat-row","eyebrow":"Demo","heading":"Steam Next Fest results","stats":[{"value":"62k","label":"Wishlists"},{"value":"91%","label":"Positive demo reviews"},{"value":"18m","label":"Avg session length"}]},{"layout":"closing","eyebrow":"Ask","heading":"Fund the full campaign arc.","lead":"$2.4M production · 14 months · PC first.","cta":{"label":"Play the demo","href":"#"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"BitOrbit — Game Pitch","company":"BitOrbit","description":"Indie game / web3-adjacent pitch — 8-bit-orbit multi-slide proof.","theme":"8-bit-orbit"},"slides":[{"layout":"title","eyebrow":"Indie pitch","heading":"Orbit the pixel. Escape the grind.","lead":"A co-op rover game with arcade clarity and campaign depth."},{"layout":"image-hero","eyebrow":"Indie pitch","heading":"Orbit the pixel. Escape the grind.","lead":"A co-op rover game with arcade clarity and campaign depth.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230b1020%22/%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22140%22%20width%3D%22720%22%20height%3D%22405%22%20rx%3D%2218%22%20fill%3D%22%23f3ca80%22%20opacity%3D%220.18%22/%3E%0A%3Crect%20x%3D%22160%22%20y%3D%22180%22%20width%3D%22640%22%20height%3D%22325%22%20rx%3D%2212%22%20fill%3D%22%23f3ca80%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22230%22%20width%3D%22280%22%20height%3D%2228%22%20rx%3D%226%22%20fill%3D%22%230f385d%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22280%22%20width%3D%22420%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.55%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22310%22%20width%3D%22360%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22340%22%20width%3D%22300%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.25%22/%3E%0A%3Cg%20transform%3D%22translate%28920%2C160%29%22%3E%0A%20%20%3Crect%20width%3D%22460%22%20height%3D%22260%22%20rx%3D%2216%22%20fill%3D%22%230f385d%22%20opacity%3D%220.22%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2236%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22%23f3ca80%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2274%22%20width%3D%22360%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.4%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2298%22%20width%3D%22300%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.28%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23f3ca80%22%20opacity%3D%220.45%22/%3E%0A%20%20%3Crect%20x%3D%22168%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%230f385d%22%20opacity%3D%220.4%22/%3E%0A%20%20%3Crect%20x%3D%22308%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23fff%22%20opacity%3D%220.12%22/%3E%0A%3C/g%3E%0A%3Cg%20transform%3D%22translate%28920%2C460%29%22%3E%0A%20%20%3Crect%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%23f3ca80%22%20opacity%3D%220.28%22/%3E%0A%20%20%3Crect%20x%3D%22240%22%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%230f385d%22%20opacity%3D%220.22%22/%3E%0A%3C/g%3E%0A%3C/svg%3E","imageAlt":"BitOrbit craft visual"},{"layout":"two-column","eyebrow":"Gameplay","heading":"Loops that respect your time","body":"20-minute sorties: Complete a mission on a lunch break — or chain into a night raid. 2–4 player co-op — Shared ship, asymmetric roles, no lobby hell.","aside":"Hand-authored set pieces inside seeded chaos.","ratio":"1-2"},{"layout":"comparison","eyebrow":"Market","heading":"Arcade heart. Campaign brain.","leftLabel":"Typical live service","left":"Battle pass treadmill.\nCosmetic FOMO.\nEmpty open world.","rightLabel":"BitOrbit","right":"Finite seasons.\nSkill expression first.\nStory you can finish.","emphasis":"right"},{"layout":"stat-row","eyebrow":"Demo","heading":"Steam Next Fest results","stats":[{"value":"62k","label":"Wishlists"},{"value":"91%","label":"Positive demo reviews"},{"value":"18m","label":"Avg session length"}]},{"layout":"closing","eyebrow":"Ask","heading":"Fund the full campaign arc.","lead":"$2.4M production · 14 months · PC first.","cta":{"label":"Play the demo","href":"#"}}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));

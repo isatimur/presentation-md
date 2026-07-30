@@ -171,25 +171,49 @@ h1, h2, h3 {
   max-width: 42ch;
 }
 
-/* image-hero — full-bleed photo with bottom scrim */
+/* image-hero — full-bleed photo with bottom scrim + light storytelling motion */
 .image-hero-slide { padding: 0; justify-content: flex-end; }
-.image-hero-bg { position: absolute; inset: 0; z-index: 0; }
+.image-hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
 .image-hero-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  transform: scale(1.06);
+  animation: pmd-hero-ken 14s ease-in-out alternate infinite;
 }
 .image-hero-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, var(--bg) 0%, rgba(0, 0, 0, 0.15) 55%, transparent 100%);
+  background:
+    linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 55%, transparent) 42%, transparent 72%),
+    linear-gradient(105deg, color-mix(in srgb, var(--bg) 55%, transparent) 0%, transparent 46%);
 }
 .image-hero-content {
   position: relative;
   z-index: 1;
   padding: 64px;
   width: 100%;
+  max-width: 52ch;
+  animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 120ms;
+}
+.image-hero-content h2 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  max-width: 16ch;
+  text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
+}
+.image-hero-content .lead {
+  color: color-mix(in srgb, var(--text) 78%, var(--muted));
+  max-width: 36ch;
+}
+@keyframes pmd-hero-ken {
+  from { transform: scale(1.06) translate3d(0, 0, 0); }
+  to { transform: scale(1.12) translate3d(-1.2%, -0.8%, 0); }
+}
+@keyframes pmd-hero-copy {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* comparison — side-by-side contrast */
@@ -278,16 +302,19 @@ h1, h2, h3 {
 .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
 /* Asymmetric bento when agents pass columns: "bento" (5-up: hero + 4) */
 .grid.cols-bento {
-  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-columns: 1.55fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
+  min-height: 0;
 }
 .grid.cols-bento .card:first-child {
   grid-row: 1 / span 2;
   justify-content: center;
   padding: 40px 36px;
-  background: color-mix(in srgb, var(--accent) 12%, var(--card-bg));
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--accent) 18%, var(--card-bg)), var(--card-bg) 70%);
   border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 .grid.cols-bento .card:first-child i { font-size: 32px; margin-bottom: 20px; }
 .grid.cols-bento .card:first-child h3 { font-size: clamp(24px, 2.6vw, 34px); margin-bottom: 14px; }
@@ -295,6 +322,28 @@ h1, h2, h3 {
 .grid.cols-bento .card:not(:first-child) { padding: 22px 20px; }
 .grid.cols-bento .card:not(:first-child) h3 { font-size: 17px; }
 .grid.cols-bento .card:not(:first-child) p { font-size: 14px; }
+
+/* Dense two-column compositions — tighter when both panes carry weight */
+.cols.ratio-2-1,
+.cols.ratio-3-2,
+.cols.ratio-1-2,
+.cols.ratio-2-3 {
+  gap: clamp(22px, 3.2vw, 44px);
+}
+.cols .cols-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+.cols.ratio-1-2 > .cols-copy h2,
+.cols.ratio-2-3 > .cols-copy h2 {
+  font-size: clamp(28px, 3.2vw, 42px);
+  max-width: 14ch;
+}
+.cols-aside {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
+}
 
 .card {
   background: var(--card-bg);
@@ -530,7 +579,10 @@ tbody tr:hover td {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .slide { animation: none !important; }
+  .slide,
+  .image-hero-bg img,
+  .image-hero-content { animation: none !important; }
+  .image-hero-bg img { transform: none; }
 }
 
 @media print {
@@ -4500,6 +4552,18 @@ tbody tr:hover td {
   <p class="lead">Jost 200 for air. Lora italic for the line that matters.</p>
 </section>
 
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23101010%22&#x2F;%3E%0A%3Crect%20x%3D%2280%22%20y%3D%2280%22%20width%3D%22680%22%20height%3D%22740%22%20rx%3D%228%22%20fill%3D%22%23680f2c%22%20opacity%3D%220.15%22&#x2F;%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22120%22%20width%3D%22280%22%20height%3D%22200%22%20rx%3D%226%22%20fill%3D%22%23680f2c%22%20opacity%3D%220.4%22&#x2F;%3E%0A%3Crect%20x%3D%22420%22%20y%3D%22120%22%20width%3D%22280%22%20height%3D%22200%22%20rx%3D%226%22%20fill%3D%22%2369e04d%22%20opacity%3D%220.35%22&#x2F;%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22340%22%20width%3D%22580%22%20height%3D%22140%22%20rx%3D%226%22%20fill%3D%22%23fff%22%20opacity%3D%220.08%22&#x2F;%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22500%22%20width%3D%22280%22%20height%3D%22260%22%20rx%3D%226%22%20fill%3D%22%2369e04d%22%20opacity%3D%220.25%22&#x2F;%3E%0A%3Crect%20x%3D%22420%22%20y%3D%22500%22%20width%3D%22280%22%20height%3D%22260%22%20rx%3D%226%22%20fill%3D%22%23680f2c%22%20opacity%3D%220.3%22&#x2F;%3E%0A%3Crect%20x%3D%22820%22%20y%3D%2280%22%20width%3D%22700%22%20height%3D%22740%22%20rx%3D%228%22%20fill%3D%22%23fff%22%20opacity%3D%220.04%22&#x2F;%3E%0A%3Crect%20x%3D%22860%22%20y%3D%22140%22%20width%3D%22420%22%20height%3D%2236%22%20rx%3D%226%22%20fill%3D%22%2369e04d%22&#x2F;%3E%0A%3Crect%20x%3D%22860%22%20y%3D%22210%22%20width%3D%22560%22%20height%3D%2216%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.45%22&#x2F;%3E%0A%3Crect%20x%3D%22860%22%20y%3D%22250%22%20width%3D%22480%22%20height%3D%2216%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.3%22&#x2F;%3E%0A%3Crect%20x%3D%22860%22%20y%3D%22320%22%20width%3D%22620%22%20height%3D%22420%22%20rx%3D%2210%22%20fill%3D%22%23680f2c%22%20opacity%3D%220.2%22&#x2F;%3E%0A%3C&#x2F;svg%3E" alt="Ivory &amp; Ink craft visual" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">Folio</span>
+    <h2>Ivory field. Thin ink.</h2>
+    <p class="lead">Jost 200 for air. Lora italic for the line that matters.</p>
+  </div>
+</section>
+
 <section class="slide two-column-slide" data-layout="two-column">
   <div class="cols ratio-3-2">
     <div class="cols-copy">
@@ -4515,7 +4579,7 @@ tbody tr:hover td {
 <section class="slide feature-grid-slide" data-layout="feature-grid">
   <span class="eyebrow">Work</span>
   <h2>Recent commissions</h2>
-  <div class="grid cols-3">
+  <div class="grid cols-bento">
     <div class="card">
       <i class="fa-solid fa-book"></i>
       <h3>Monographs</h3>
@@ -4530,6 +4594,16 @@ tbody tr:hover td {
       <i class="fa-solid fa-id-card"></i>
       <h3>Identity</h3>
       <p>Marks that survive one color.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-layer-group"></i>
+      <h3>Stack for scan</h3>
+      <p>Hierarchy first. Decoration second. Decoration never.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-bolt"></i>
+      <h3>Ship the punchline</h3>
+      <p>Lead with the claim that survives the hallway test.</p>
     </div>
   </div>
 </section>
@@ -4549,7 +4623,7 @@ tbody tr:hover td {
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Ivory & Ink — Folio Deck","company":"Ivory & Ink","description":"Editorial folio — monochrome multi-slide proof.","theme":"monochrome"},"slides":[{"layout":"title","eyebrow":"Folio","heading":"Ivory field. Thin ink.","lead":"Jost 200 for air. Lora italic for the line that matters."},{"layout":"two-column","eyebrow":"Belief","heading":"Restraint is the loudest move.","body":"Ivory & Ink designs books and decks where weight is rationed and italics earn their place.","aside":"No second accent. No decoration tax.","ratio":"3-2"},{"layout":"feature-grid","eyebrow":"Work","heading":"Recent commissions","columns":3,"cards":[{"icon":"fa-solid fa-book","title":"Monographs","body":"Artist books with breathing room."},{"icon":"fa-solid fa-file-invoice","title":"Annuals","body":"Reports that refuse chart junk."},{"icon":"fa-solid fa-id-card","title":"Identity","body":"Marks that survive one color."}]},{"layout":"quote","quote":"If it needs a second color, the first idea was weak.","by":"Ivory & Ink"},{"layout":"closing","eyebrow":"Commission","heading":"Stay in the ivory.","lead":"Select clients for 2027.","cta":{"label":"Start a project","href":"#"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Ivory & Ink — Folio Deck","company":"Ivory & Ink","description":"Editorial folio — monochrome multi-slide proof.","theme":"monochrome"},"slides":[{"layout":"title","eyebrow":"Folio","heading":"Ivory field. Thin ink.","lead":"Jost 200 for air. Lora italic for the line that matters."},{"layout":"image-hero","eyebrow":"Folio","heading":"Ivory field. Thin ink.","lead":"Jost 200 for air. Lora italic for the line that matters.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23101010%22/%3E%0A%3Crect%20x%3D%2280%22%20y%3D%2280%22%20width%3D%22680%22%20height%3D%22740%22%20rx%3D%228%22%20fill%3D%22%23680f2c%22%20opacity%3D%220.15%22/%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22120%22%20width%3D%22280%22%20height%3D%22200%22%20rx%3D%226%22%20fill%3D%22%23680f2c%22%20opacity%3D%220.4%22/%3E%0A%3Crect%20x%3D%22420%22%20y%3D%22120%22%20width%3D%22280%22%20height%3D%22200%22%20rx%3D%226%22%20fill%3D%22%2369e04d%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22340%22%20width%3D%22580%22%20height%3D%22140%22%20rx%3D%226%22%20fill%3D%22%23fff%22%20opacity%3D%220.08%22/%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22500%22%20width%3D%22280%22%20height%3D%22260%22%20rx%3D%226%22%20fill%3D%22%2369e04d%22%20opacity%3D%220.25%22/%3E%0A%3Crect%20x%3D%22420%22%20y%3D%22500%22%20width%3D%22280%22%20height%3D%22260%22%20rx%3D%226%22%20fill%3D%22%23680f2c%22%20opacity%3D%220.3%22/%3E%0A%3Crect%20x%3D%22820%22%20y%3D%2280%22%20width%3D%22700%22%20height%3D%22740%22%20rx%3D%228%22%20fill%3D%22%23fff%22%20opacity%3D%220.04%22/%3E%0A%3Crect%20x%3D%22860%22%20y%3D%22140%22%20width%3D%22420%22%20height%3D%2236%22%20rx%3D%226%22%20fill%3D%22%2369e04d%22/%3E%0A%3Crect%20x%3D%22860%22%20y%3D%22210%22%20width%3D%22560%22%20height%3D%2216%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.45%22/%3E%0A%3Crect%20x%3D%22860%22%20y%3D%22250%22%20width%3D%22480%22%20height%3D%2216%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.3%22/%3E%0A%3Crect%20x%3D%22860%22%20y%3D%22320%22%20width%3D%22620%22%20height%3D%22420%22%20rx%3D%2210%22%20fill%3D%22%23680f2c%22%20opacity%3D%220.2%22/%3E%0A%3C/svg%3E","imageAlt":"Ivory & Ink craft visual"},{"layout":"two-column","eyebrow":"Belief","heading":"Restraint is the loudest move.","body":"Ivory & Ink designs books and decks where weight is rationed and italics earn their place.","aside":"No second accent. No decoration tax.","ratio":"3-2"},{"layout":"feature-grid","eyebrow":"Work","heading":"Recent commissions","columns":"bento","cards":[{"icon":"fa-solid fa-book","title":"Monographs","body":"Artist books with breathing room."},{"icon":"fa-solid fa-file-invoice","title":"Annuals","body":"Reports that refuse chart junk."},{"icon":"fa-solid fa-id-card","title":"Identity","body":"Marks that survive one color."},{"icon":"fa-solid fa-layer-group","title":"Stack for scan","body":"Hierarchy first. Decoration second. Decoration never."},{"icon":"fa-solid fa-bolt","title":"Ship the punchline","body":"Lead with the claim that survives the hallway test."}]},{"layout":"quote","quote":"If it needs a second color, the first idea was weak.","by":"Ivory & Ink"},{"layout":"closing","eyebrow":"Commission","heading":"Stay in the ivory.","lead":"Select clients for 2027.","cta":{"label":"Start a project","href":"#"}}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));

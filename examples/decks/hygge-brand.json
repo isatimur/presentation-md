@@ -1,45 +1,38 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Hygge Home \u2014 Brand Deck",
+    "title": "Hygge Home — Brand Deck",
     "company": "Hygge Home",
-    "description": "Scandi home brand deck \u2014 scandinavian multi-slide proof.",
+    "description": "Scandi home brand deck — scandinavian multi-slide proof.",
     "theme": "scandinavian"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Brand \u00b7 Home",
+      "eyebrow": "Brand · Home",
       "heading": "Linen light. Clay warmth.",
       "lead": "Sage and clay for rooms that feel finished without trying."
     },
     {
-      "layout": "feature-grid",
+      "layout": "image-hero",
+      "eyebrow": "Brand · Home",
+      "heading": "Linen light. Clay warmth.",
+      "lead": "Sage and clay for rooms that feel finished without trying.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230e1410%22/%3E%0A%3Cpolygon%20points%3D%220%2C0%20980%2C0%20620%2C900%200%2C900%22%20fill%3D%22%238eed6f%22%20opacity%3D%220.22%22/%3E%0A%3Cpolygon%20points%3D%22980%2C0%201600%2C0%201600%2C900%20620%2C900%22%20fill%3D%22%230f4603%22%20opacity%3D%220.18%22/%3E%0A%3Crect%20x%3D%22140%22%20y%3D%22280%22%20width%3D%22420%22%20height%3D%2248%22%20rx%3D%228%22%20fill%3D%22%238eed6f%22/%3E%0A%3Crect%20x%3D%22140%22%20y%3D%22360%22%20width%3D%22340%22%20height%3D%2220%22%20rx%3D%225%22%20fill%3D%22%23fff%22%20opacity%3D%220.5%22/%3E%0A%3Crect%20x%3D%22140%22%20y%3D%22400%22%20width%3D%22280%22%20height%3D%2220%22%20rx%3D%225%22%20fill%3D%22%23fff%22%20opacity%3D%220.3%22/%3E%0A%3Ccircle%20cx%3D%221180%22%20cy%3D%22380%22%20r%3D%22160%22%20fill%3D%22%238eed6f%22%20opacity%3D%220.25%22/%3E%0A%3Ccircle%20cx%3D%221280%22%20cy%3D%22480%22%20r%3D%22110%22%20fill%3D%22%230f4603%22%20opacity%3D%220.3%22/%3E%0A%3Crect%20x%3D%221040%22%20y%3D%22620%22%20width%3D%22360%22%20height%3D%22140%22%20rx%3D%2214%22%20fill%3D%22%23fff%22%20opacity%3D%220.1%22/%3E%0A%3C/svg%3E",
+      "imageAlt": "Hygge Home craft visual"
+    },
+    {
+      "layout": "two-column",
       "eyebrow": "Collection",
       "heading": "What we make",
-      "columns": 3,
-      "cards": [
-        {
-          "icon": "fa-solid fa-couch",
-          "title": "Soft seating",
-          "body": "Low profiles. Honest wood. Covers you can wash."
-        },
-        {
-          "icon": "fa-solid fa-lightbulb",
-          "title": "Warm light",
-          "body": "Lamps that pool, not glare."
-        },
-        {
-          "icon": "fa-solid fa-mug-saucer",
-          "title": "Table quiet",
-          "body": "Ceramics with clay accents \u2014 no logo shouting."
-        }
-      ]
+      "body": "Soft seating: Low profiles. Honest wood. Covers you can wash. Warm light — Lamps that pool, not glare.",
+      "aside": "Ceramics with clay accents — no logo shouting.",
+      "ratio": "2-1"
     },
     {
       "layout": "quote",
       "quote": "Comfort is a design decision, not an afterthought.",
-      "by": "Astrid N. \u00b7 Creative Director"
+      "by": "Astrid N. · Creative Director"
     },
     {
       "layout": "stat-row",
@@ -55,7 +48,7 @@
           "label": "In-stock rate"
         },
         {
-          "value": "2.1\u00d7",
+          "value": "2.1×",
           "label": "Online YoY"
         }
       ]

@@ -1,17 +1,25 @@
 {
   "type": "deck",
   "meta": {
-    "title": "NovaSpark AI \u2014 Series A",
+    "title": "NovaSpark AI — Series A",
     "company": "NovaSpark AI",
-    "description": "Series A pitch \u2014 AI inference infrastructure.",
+    "description": "Series A pitch — AI inference infrastructure.",
     "theme": "aurora-glass"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Series A \u00b7 YC W24",
+      "eyebrow": "Series A · YC W24",
       "heading": "AI doesn't need more compute.",
       "lead": "It needs infrastructure that delivers it."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Series A · YC W24",
+      "heading": "AI doesn't need more compute.",
+      "lead": "It needs infrastructure that delivers it.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230b1020%22/%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22140%22%20width%3D%22720%22%20height%3D%22405%22%20rx%3D%2218%22%20fill%3D%22%2339d114%22%20opacity%3D%220.18%22/%3E%0A%3Crect%20x%3D%22160%22%20y%3D%22180%22%20width%3D%22640%22%20height%3D%22325%22%20rx%3D%2212%22%20fill%3D%22%2339d114%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22230%22%20width%3D%22280%22%20height%3D%2228%22%20rx%3D%226%22%20fill%3D%22%23e54ccd%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22280%22%20width%3D%22420%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.55%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22310%22%20width%3D%22360%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22340%22%20width%3D%22300%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.25%22/%3E%0A%3Cg%20transform%3D%22translate%28920%2C160%29%22%3E%0A%20%20%3Crect%20width%3D%22460%22%20height%3D%22260%22%20rx%3D%2216%22%20fill%3D%22%23e54ccd%22%20opacity%3D%220.22%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2236%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22%2339d114%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2274%22%20width%3D%22360%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.4%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2298%22%20width%3D%22300%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.28%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%2339d114%22%20opacity%3D%220.45%22/%3E%0A%20%20%3Crect%20x%3D%22168%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23e54ccd%22%20opacity%3D%220.4%22/%3E%0A%20%20%3Crect%20x%3D%22308%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23fff%22%20opacity%3D%220.12%22/%3E%0A%3C/g%3E%0A%3Cg%20transform%3D%22translate%28920%2C460%29%22%3E%0A%20%20%3Crect%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%2339d114%22%20opacity%3D%220.28%22/%3E%0A%20%20%3Crect%20x%3D%22240%22%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%23e54ccd%22%20opacity%3D%220.22%22/%3E%0A%3C/g%3E%0A%3C/svg%3E",
+      "imageAlt": "NovaSpark AI craft visual"
     },
     {
       "layout": "quote",
@@ -22,7 +30,7 @@
       "layout": "feature-grid",
       "eyebrow": "The Problem",
       "heading": "Three bottlenecks every AI deployment hits",
-      "columns": 3,
+      "columns": "bento",
       "cards": [
         {
           "icon": "fa-solid fa-route",
@@ -32,12 +40,22 @@
         {
           "icon": "fa-solid fa-globe",
           "title": "Edge distance",
-          "body": "Users wait on distant regions \u2014 p95 climbs past 800ms outside the US."
+          "body": "Users wait on distant regions — p95 climbs past 800ms outside the US."
         },
         {
           "icon": "fa-solid fa-receipt",
           "title": "Cost blindness",
           "body": "Spend spikes without quality signal. Finance finds out after the invoice."
+        },
+        {
+          "icon": "fa-solid fa-scissors",
+          "title": "Cut the filler",
+          "body": "If a card doesn't change the decision, it doesn't earn the pixel."
+        },
+        {
+          "icon": "fa-solid fa-layer-group",
+          "title": "Stack for scan",
+          "body": "Hierarchy first. Decoration second. Decoration never."
         }
       ]
     },
@@ -50,7 +68,7 @@
         {
           "icon": "fa-solid fa-shuffle",
           "title": "Smart routing",
-          "body": "Real-time selection across 12 providers \u2014 fastest, cheapest path per request."
+          "body": "Real-time selection across 12 providers — fastest, cheapest path per request."
         },
         {
           "icon": "fa-solid fa-server",
@@ -60,7 +78,7 @@
         {
           "icon": "fa-solid fa-chart-line",
           "title": "Live cost & quality",
-          "body": "Dashboards, latency histograms, quality scoring \u2014 before the bill."
+          "body": "Dashboards, latency histograms, quality scoring — before the bill."
         }
       ]
     },
@@ -143,7 +161,7 @@
         },
         {
           "title": "Q+4",
-          "body": "Team 2\u00d7 \u00b7 $8M ARR target."
+          "body": "Team 2× · $8M ARR target."
         },
         {
           "title": "Series B",
@@ -156,13 +174,13 @@
       "number": "01",
       "eyebrow": "The Ask",
       "heading": "$14M Series A",
-      "lead": "Lead $8M \u00b7 Co-investors filling $6M \u00b7 18 months runway to $8M ARR."
+      "lead": "Lead $8M · Co-investors filling $6M · 18 months runway to $8M ARR."
     },
     {
       "layout": "closing",
       "eyebrow": "The Opportunity",
       "heading": "AI deserves better plumbing.",
-      "lead": "investors@novaspark.ai \u00b7 novaspark.ai",
+      "lead": "investors@novaspark.ai · novaspark.ai",
       "cta": {
         "label": "Book a meeting",
         "href": "https://novaspark.ai"

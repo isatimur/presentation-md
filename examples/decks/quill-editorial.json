@@ -14,6 +14,14 @@
       "lead": "A small press for writers who treat the page like architecture."
     },
     {
+      "layout": "image-hero",
+      "eyebrow": "Imprint · Spring list",
+      "heading": "Stories that leave a margin.",
+      "lead": "A small press for writers who treat the page like architecture.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230b1020%22/%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22140%22%20width%3D%22720%22%20height%3D%22405%22%20rx%3D%2218%22%20fill%3D%22%23348008%22%20opacity%3D%220.18%22/%3E%0A%3Crect%20x%3D%22160%22%20y%3D%22180%22%20width%3D%22640%22%20height%3D%22325%22%20rx%3D%2212%22%20fill%3D%22%23348008%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22230%22%20width%3D%22280%22%20height%3D%2228%22%20rx%3D%226%22%20fill%3D%22%238bb3d6%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22280%22%20width%3D%22420%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.55%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22310%22%20width%3D%22360%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22340%22%20width%3D%22300%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.25%22/%3E%0A%3Cg%20transform%3D%22translate%28920%2C160%29%22%3E%0A%20%20%3Crect%20width%3D%22460%22%20height%3D%22260%22%20rx%3D%2216%22%20fill%3D%22%238bb3d6%22%20opacity%3D%220.22%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2236%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22%23348008%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2274%22%20width%3D%22360%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.4%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2298%22%20width%3D%22300%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.28%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23348008%22%20opacity%3D%220.45%22/%3E%0A%20%20%3Crect%20x%3D%22168%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%238bb3d6%22%20opacity%3D%220.4%22/%3E%0A%20%20%3Crect%20x%3D%22308%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23fff%22%20opacity%3D%220.12%22/%3E%0A%3C/g%3E%0A%3Cg%20transform%3D%22translate%28920%2C460%29%22%3E%0A%20%20%3Crect%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%23348008%22%20opacity%3D%220.28%22/%3E%0A%20%20%3Crect%20x%3D%22240%22%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%238bb3d6%22%20opacity%3D%220.22%22/%3E%0A%3C/g%3E%0A%3C/svg%3E",
+      "imageAlt": "Quill & Field craft visual"
+    },
+    {
       "layout": "quote",
       "quote": "We publish books you want to leave open on the table — not close and forget.",
       "by": "Editorial letter · Quill & Field"
@@ -22,7 +30,7 @@
       "layout": "feature-grid",
       "eyebrow": "The list",
       "heading": "Three pillars this season",
-      "columns": 3,
+      "columns": "bento",
       "cards": [
         {
           "icon": "fa-solid fa-book-open",
@@ -38,6 +46,16 @@
           "icon": "fa-solid fa-map",
           "title": "Field guides",
           "body": "Practical books for makers — type, gardens, kitchens, studios."
+        },
+        {
+          "icon": "fa-solid fa-bolt",
+          "title": "Ship the punchline",
+          "body": "Lead with the claim that survives the hallway test."
+        },
+        {
+          "icon": "fa-solid fa-eye",
+          "title": "Show, don't pad",
+          "body": "Asymmetry beats another identical third column."
         }
       ]
     },
@@ -48,16 +66,26 @@
       "leftLabel": "Algorithm presses",
       "left": "Trend-chasing covers.\nDisposable titles.\nAuthors as inventory.",
       "rightLabel": "Quill & Field",
-      "right": "Slow lists.\nDurable design.\nAuthors as partners."
+      "right": "Slow lists.\nDurable design.\nAuthors as partners.",
+      "emphasis": "right"
     },
     {
       "layout": "stat-row",
       "eyebrow": "Proof",
       "heading": "Readers stay. Bookstores reorder.",
       "stats": [
-        { "value": "68%", "label": "Sell-through year one" },
-        { "value": "22", "label": "Indie bookstore partners" },
-        { "value": "4.8", "label": "Avg. reader rating" }
+        {
+          "value": "68%",
+          "label": "Sell-through year one"
+        },
+        {
+          "value": "22",
+          "label": "Indie bookstore partners"
+        },
+        {
+          "value": "4.8",
+          "label": "Avg. reader rating"
+        }
       ]
     },
     {
@@ -65,7 +93,10 @@
       "eyebrow": "Partnership",
       "heading": "Join the spring list.",
       "lead": "Manuscripts welcome through September. Design partnerships year-round.",
-      "cta": { "label": "Submit a manuscript", "href": "#" }
+      "cta": {
+        "label": "Submit a manuscript",
+        "href": "#"
+      }
     }
   ]
 }

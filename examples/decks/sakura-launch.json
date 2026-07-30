@@ -14,24 +14,30 @@
       "lead": "Wireless earbuds with a cassette soul and a modern chip."
     },
     {
-      "layout": "feature-grid",
+      "layout": "two-column",
       "eyebrow": "Product",
       "heading": "Three reasons it leaves the shelf",
-      "columns": 3,
-      "cards": [
-        { "icon": "fa-solid fa-music", "title": "Warm profile", "body": "Tuned for vocals first — not bass-brag demos." },
-        { "icon": "fa-solid fa-battery-full", "title": "36-hour case", "body": "All-day wear without the anxiety charge." },
-        { "icon": "fa-solid fa-palette", "title": "Four chroma shells", "body": "Sakura, ink, matcha, midnight — finish that photographs." }
-      ]
+      "body": "Warm profile: Tuned for vocals first — not bass-brag demos. 36-hour case — All-day wear without the anxiety charge.",
+      "aside": "Sakura, ink, matcha, midnight — finish that photographs.",
+      "ratio": "1-2"
     },
     {
       "layout": "stat-row",
       "eyebrow": "Waitlist",
       "heading": "Preorder heat",
       "stats": [
-        { "value": "84k", "label": "Waitlist signups" },
-        { "value": "4.8", "label": "Beta listening score" },
-        { "value": "$149", "label": "Launch price" }
+        {
+          "value": "84k",
+          "label": "Waitlist signups"
+        },
+        {
+          "value": "4.8",
+          "label": "Beta listening score"
+        },
+        {
+          "value": "$149",
+          "label": "Launch price"
+        }
       ]
     },
     {
@@ -39,10 +45,22 @@
       "eyebrow": "Rollout",
       "heading": "From drop to everywhere",
       "steps": [
-        { "title": "Week 0", "body": "Creator kits land." },
-        { "title": "Week 2", "body": "DTC + pop-ups in three cities." },
-        { "title": "Week 6", "body": "Select retail." },
-        { "title": "Week 12", "body": "Global carriers." }
+        {
+          "title": "Week 0",
+          "body": "Creator kits land."
+        },
+        {
+          "title": "Week 2",
+          "body": "DTC + pop-ups in three cities."
+        },
+        {
+          "title": "Week 6",
+          "body": "Select retail."
+        },
+        {
+          "title": "Week 12",
+          "body": "Global carriers."
+        }
       ]
     },
     {
@@ -50,7 +68,10 @@
       "eyebrow": "Listen",
       "heading": "Reserve your chroma.",
       "lead": "Ships in 21 days. Free exchanges on fit.",
-      "cta": { "label": "Join the waitlist", "href": "#" }
+      "cta": {
+        "label": "Join the waitlist",
+        "href": "#"
+      }
     }
   ]
 }

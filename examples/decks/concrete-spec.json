@@ -22,27 +22,12 @@
       "code": "type Spec = {\n  id: string;\n  hazard: boolean;\n  owner: string;\n};\n\nexport function assertSpec(s: Spec) {\n  if (!s.id) throw new Error('NO_ID');\n  if (s.hazard) console.warn('HAZARD');\n  return s;\n}"
     },
     {
-      "layout": "feature-grid",
+      "layout": "two-column",
       "eyebrow": "Laws",
       "heading": "Non-negotiables",
-      "columns": 3,
-      "cards": [
-        {
-          "icon": "fa-solid fa-ruler",
-          "title": "Hairlines",
-          "body": "2px black or it doesn't exist."
-        },
-        {
-          "icon": "fa-solid fa-terminal",
-          "title": "Mono everywhere",
-          "body": "Even the marketing."
-        },
-        {
-          "icon": "fa-solid fa-triangle-exclamation",
-          "title": "Hazard orange",
-          "body": "Reserved for real risk."
-        }
-      ]
+      "body": "Hairlines: 2px black or it doesn't exist. Mono everywhere — Even the marketing.",
+      "aside": "Reserved for real risk.",
+      "ratio": "3-2"
     },
     {
       "layout": "comparison",

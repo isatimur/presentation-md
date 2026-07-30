@@ -25,7 +25,7 @@
       "layout": "feature-grid",
       "eyebrow": "Practice",
       "heading": "What we draw",
-      "columns": 3,
+      "columns": "bento",
       "cards": [
         {
           "icon": "fa-solid fa-ruler-combined",
@@ -41,6 +41,16 @@
           "icon": "fa-solid fa-pencil",
           "title": "Furniture",
           "body": "Pieces that read as drawings."
+        },
+        {
+          "icon": "fa-solid fa-eye",
+          "title": "Show, don't pad",
+          "body": "Asymmetry beats another identical third column."
+        },
+        {
+          "icon": "fa-solid fa-compass",
+          "title": "Clear north star",
+          "body": "One decisive story beat — not a wall of equal tiles."
         }
       ]
     },

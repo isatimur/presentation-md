@@ -1,7 +1,7 @@
 {
   "type": "deck",
   "meta": {
-    "title": "RetroNet \u2014 Product Demo",
+    "title": "RetroNet — Product Demo",
     "company": "RetroNet",
     "description": "Open-source privacy browser layer demo.",
     "theme": "crt-terminal"
@@ -9,32 +9,26 @@
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Open source \u00b7 Free tier \u00b7 MIT \u00b7 Privacy first",
+      "eyebrow": "Open source · Free tier · MIT · Privacy first",
       "heading": "Browse like it's 1999.",
-      "lead": "Strip ads, trackers, and bloat \u2014 keep the content."
+      "lead": "Strip ads, trackers, and bloat — keep the content."
     },
     {
-      "layout": "feature-grid",
+      "layout": "image-hero",
+      "eyebrow": "Open source · Free tier · MIT · Privacy first",
+      "heading": "Browse like it's 1999.",
+      "lead": "Strip ads, trackers, and bloat — keep the content.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230b1020%22/%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22140%22%20width%3D%22720%22%20height%3D%22405%22%20rx%3D%2218%22%20fill%3D%22%230805d3%22%20opacity%3D%220.18%22/%3E%0A%3Crect%20x%3D%22160%22%20y%3D%22180%22%20width%3D%22640%22%20height%3D%22325%22%20rx%3D%2212%22%20fill%3D%22%230805d3%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22230%22%20width%3D%22280%22%20height%3D%2228%22%20rx%3D%226%22%20fill%3D%22%23977b5d%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22280%22%20width%3D%22420%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.55%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22310%22%20width%3D%22360%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22200%22%20y%3D%22340%22%20width%3D%22300%22%20height%3D%2214%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.25%22/%3E%0A%3Cg%20transform%3D%22translate%28920%2C160%29%22%3E%0A%20%20%3Crect%20width%3D%22460%22%20height%3D%22260%22%20rx%3D%2216%22%20fill%3D%22%23977b5d%22%20opacity%3D%220.22%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2236%22%20width%3D%22180%22%20height%3D%2218%22%20rx%3D%225%22%20fill%3D%22%230805d3%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2274%22%20width%3D%22360%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.4%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%2298%22%20width%3D%22300%22%20height%3D%2210%22%20rx%3D%223%22%20fill%3D%22%23fff%22%20opacity%3D%220.28%22/%3E%0A%20%20%3Crect%20x%3D%2228%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%230805d3%22%20opacity%3D%220.45%22/%3E%0A%20%20%3Crect%20x%3D%22168%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23977b5d%22%20opacity%3D%220.4%22/%3E%0A%20%20%3Crect%20x%3D%22308%22%20y%3D%22140%22%20width%3D%22120%22%20height%3D%2272%22%20rx%3D%2210%22%20fill%3D%22%23fff%22%20opacity%3D%220.12%22/%3E%0A%3C/g%3E%0A%3Cg%20transform%3D%22translate%28920%2C460%29%22%3E%0A%20%20%3Crect%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%230805d3%22%20opacity%3D%220.28%22/%3E%0A%20%20%3Crect%20x%3D%22240%22%20width%3D%22220%22%20height%3D%22220%22%20rx%3D%2216%22%20fill%3D%22%23977b5d%22%20opacity%3D%220.22%22/%3E%0A%3C/g%3E%0A%3C/svg%3E",
+      "imageAlt": "RetroNet craft visual"
+    },
+    {
+      "layout": "two-column",
       "eyebrow": "Alert status",
       "heading": "The modern web is hostile",
-      "columns": 3,
-      "cards": [
-        {
-          "icon": "fa-solid fa-triangle-exclamation",
-          "title": "CRITICAL",
-          "body": "47 ad units per session on the average page."
-        },
-        {
-          "icon": "fa-solid fa-fingerprint",
-          "title": "URGENT",
-          "body": "380 unique tracking scripts on a news homepage."
-        },
-        {
-          "icon": "fa-solid fa-gauge-high",
-          "title": "RED ALERT",
-          "body": "Median load time: 0.9s (2010) \u2192 9.3s (2026)."
-        }
-      ]
+      "body": "CRITICAL: 47 ad units per session on the average page. URGENT — 380 unique tracking scripts on a news homepage.",
+      "aside": "Median load time: 0.9s (2010) → 9.3s (2026).",
+      "ratio": "2-1",
+      "reverse": true
     },
     {
       "layout": "timeline",
@@ -47,11 +41,11 @@
         },
         {
           "title": "02 Filter",
-          "body": "strip ads \u00b7 trackers \u00b7 unused scripts"
+          "body": "strip ads · trackers · unused scripts"
         },
         {
           "title": "03 Render",
-          "body": "Serve a clean document \u2014 content only."
+          "body": "Serve a clean document — content only."
         },
         {
           "title": "04 Verify",
@@ -66,7 +60,8 @@
       "leftLabel": "Before",
       "left": "Cookie walls.\nProgress bars that lie.\nNotification spam.\nScroll past four ads for one paragraph.",
       "rightLabel": "After",
-      "right": "RETRONET clean view.\nReadable type.\nNo trackers.\nContent at the top."
+      "right": "RETRONET clean view.\nReadable type.\nNo trackers.\nContent at the top.",
+      "emphasis": "left"
     },
     {
       "layout": "stat-row",
@@ -90,7 +85,7 @@
     {
       "layout": "quote",
       "quote": "I finally read the article instead of fighting the page.",
-      "by": "devkat_88 \u00b7 software engineer \u00b7 Portland"
+      "by": "devkat_88 · software engineer · Portland"
     },
     {
       "layout": "feature-grid",
@@ -99,11 +94,11 @@
       "columns": 2,
       "cards": [
         {
-          "title": "Free tier \u00b7 $0",
+          "title": "Free tier · $0",
           "body": "Ad blocking, tracker strip, MIT client. Forever."
         },
         {
-          "title": "Pro \u00b7 $5/mo",
+          "title": "Pro · $5/mo",
           "body": "Custom filter lists, team sync, priority updates."
         }
       ]
@@ -112,7 +107,7 @@
       "layout": "closing",
       "eyebrow": "Join the network",
       "heading": "github.com/retronet",
-      "lead": "discord.gg/retronet \u00b7 docs at retronet.dev",
+      "lead": "discord.gg/retronet · docs at retronet.dev",
       "cta": {
         "label": "Star on GitHub",
         "href": "https://github.com/retronet"

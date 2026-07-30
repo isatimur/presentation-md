@@ -1,15 +1,15 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Daily Ledger \u2014 Media Kit",
+    "title": "Daily Ledger — Media Kit",
     "company": "Daily Ledger",
-    "description": "Newsroom media kit \u2014 broadsheet multi-slide proof.",
+    "description": "Newsroom media kit — broadsheet multi-slide proof.",
     "theme": "broadsheet"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Media kit \u00b7 2026",
+      "eyebrow": "Media kit · 2026",
       "heading": "Newsprint that still matters.",
       "lead": "Masthead ink. Pirata weight. Audience that reads past the headline."
     },
@@ -36,12 +36,12 @@
       "layout": "feature-grid",
       "eyebrow": "Inventory",
       "heading": "Where brands show up",
-      "columns": 3,
+      "columns": "bento",
       "cards": [
         {
           "icon": "fa-solid fa-newspaper",
           "title": "Masthead takeovers",
-          "body": "One sponsor per day \u2014 never a carpet bomb."
+          "body": "One sponsor per day — never a carpet bomb."
         },
         {
           "icon": "fa-solid fa-envelope",
@@ -52,6 +52,16 @@
           "icon": "fa-solid fa-podcast",
           "title": "Ledger Live",
           "body": "Audio with host-read standards."
+        },
+        {
+          "icon": "fa-solid fa-bolt",
+          "title": "Ship the punchline",
+          "body": "Lead with the claim that survives the hallway test."
+        },
+        {
+          "icon": "fa-solid fa-eye",
+          "title": "Show, don't pad",
+          "body": "Asymmetry beats another identical third column."
         }
       ]
     },

@@ -1,9 +1,9 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Meridian \u00d7 Hargrove Partners",
+    "title": "Meridian × Hargrove Partners",
     "company": "Meridian",
-    "description": "Sales deck \u2014 data platform for professional services.",
+    "description": "Sales deck — data platform for professional services.",
     "theme": "ft-editorial"
   },
   "slides": [
@@ -15,25 +15,30 @@
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Agenda \u00b7 45 minutes",
+      "eyebrow": "Agenda · 45 minutes",
       "heading": "Four sections",
-      "columns": 2,
+      "columns": "bento",
       "cards": [
         {
-          "title": "01 \u00b7 Cost of inaction",
+          "title": "01 · Cost of inaction",
           "body": "What manual reporting and fragmented tooling cost Hargrove today."
         },
         {
-          "title": "02 \u00b7 Recommended modules",
+          "title": "02 · Recommended modules",
           "body": "Three purpose-built modules scoped to your data environment."
         },
         {
-          "title": "03 \u00b7 Implementation & ROI",
+          "title": "03 · Implementation & ROI",
           "body": "Timeline, savings model, and a similar-client reference."
         },
         {
-          "title": "04 \u00b7 Pricing & next steps",
+          "title": "04 · Pricing & next steps",
           "body": "Commercial terms and a concrete action plan."
+        },
+        {
+          "icon": "fa-solid fa-layer-group",
+          "title": "Stack for scan",
+          "body": "Hierarchy first. Decoration second. Decoration never."
         }
       ]
     },
@@ -65,7 +70,7 @@
         {
           "icon": "fa-solid fa-file-lines",
           "title": "Automated Reporting",
-          "body": "Client-ready packs on a schedule \u2014 no spreadsheet assembly."
+          "body": "Client-ready packs on a schedule — no spreadsheet assembly."
         },
         {
           "icon": "fa-solid fa-users",
@@ -104,12 +109,13 @@
     },
     {
       "layout": "comparison",
-      "eyebrow": "Pain \u2192 Module",
+      "eyebrow": "Pain → Module",
       "heading": "How each module lands",
       "leftLabel": "Today's pain",
       "left": "Manual reporting packs.\nFragmented CRM + finance views.\nForecasts rebuilt every Monday.",
       "rightLabel": "With Meridian",
-      "right": "Scheduled, branded reports.\nUnified client intelligence.\nLive pipeline tied to activity."
+      "right": "Scheduled, branded reports.\nUnified client intelligence.\nLive pipeline tied to activity.",
+      "emphasis": "right"
     },
     {
       "layout": "data-table",
@@ -121,15 +127,15 @@
       ],
       "rows": [
         [
-          "Analyst time \u2014 reporting (220 hrs \u00d7 $95)",
+          "Analyst time — reporting (220 hrs × $95)",
           "$20,900"
         ],
         [
-          "Analyst time \u2014 data cleaning (180 hrs \u00d7 $95)",
+          "Analyst time — data cleaning (180 hrs × $95)",
           "$17,100"
         ],
         [
-          "Partner time \u2014 forecast rework",
+          "Partner time — forecast rework",
           "$42,000"
         ],
         [
@@ -144,7 +150,7 @@
     },
     {
       "layout": "quote",
-      "quote": "We cut weekly reporting from two days to forty minutes \u2014 and partners finally trust the numbers.",
+      "quote": "We cut weekly reporting from two days to forty minutes — and partners finally trust the numbers.",
       "by": "COO, mid-size regional professional services firm"
     },
     {
@@ -152,7 +158,7 @@
       "number": "09",
       "eyebrow": "Pricing & terms",
       "heading": "Transparent commercial frame",
-      "lead": "Platform + three modules \u00b7 annual commit \u00b7 success criteria written into the SOW."
+      "lead": "Platform + three modules · annual commit · success criteria written into the SOW."
     },
     {
       "layout": "closing",

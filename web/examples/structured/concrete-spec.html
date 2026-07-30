@@ -171,25 +171,49 @@ h1, h2, h3 {
   max-width: 42ch;
 }
 
-/* image-hero — full-bleed photo with bottom scrim */
+/* image-hero — full-bleed photo with bottom scrim + light storytelling motion */
 .image-hero-slide { padding: 0; justify-content: flex-end; }
-.image-hero-bg { position: absolute; inset: 0; z-index: 0; }
+.image-hero-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
 .image-hero-bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  transform: scale(1.06);
+  animation: pmd-hero-ken 14s ease-in-out alternate infinite;
 }
 .image-hero-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, var(--bg) 0%, rgba(0, 0, 0, 0.15) 55%, transparent 100%);
+  background:
+    linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 55%, transparent) 42%, transparent 72%),
+    linear-gradient(105deg, color-mix(in srgb, var(--bg) 55%, transparent) 0%, transparent 46%);
 }
 .image-hero-content {
   position: relative;
   z-index: 1;
   padding: 64px;
   width: 100%;
+  max-width: 52ch;
+  animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 120ms;
+}
+.image-hero-content h2 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  max-width: 16ch;
+  text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
+}
+.image-hero-content .lead {
+  color: color-mix(in srgb, var(--text) 78%, var(--muted));
+  max-width: 36ch;
+}
+@keyframes pmd-hero-ken {
+  from { transform: scale(1.06) translate3d(0, 0, 0); }
+  to { transform: scale(1.12) translate3d(-1.2%, -0.8%, 0); }
+}
+@keyframes pmd-hero-copy {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* comparison — side-by-side contrast */
@@ -278,16 +302,19 @@ h1, h2, h3 {
 .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
 /* Asymmetric bento when agents pass columns: "bento" (5-up: hero + 4) */
 .grid.cols-bento {
-  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-columns: 1.55fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
+  min-height: 0;
 }
 .grid.cols-bento .card:first-child {
   grid-row: 1 / span 2;
   justify-content: center;
   padding: 40px 36px;
-  background: color-mix(in srgb, var(--accent) 12%, var(--card-bg));
+  background:
+    linear-gradient(160deg, color-mix(in srgb, var(--accent) 18%, var(--card-bg)), var(--card-bg) 70%);
   border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 .grid.cols-bento .card:first-child i { font-size: 32px; margin-bottom: 20px; }
 .grid.cols-bento .card:first-child h3 { font-size: clamp(24px, 2.6vw, 34px); margin-bottom: 14px; }
@@ -295,6 +322,28 @@ h1, h2, h3 {
 .grid.cols-bento .card:not(:first-child) { padding: 22px 20px; }
 .grid.cols-bento .card:not(:first-child) h3 { font-size: 17px; }
 .grid.cols-bento .card:not(:first-child) p { font-size: 14px; }
+
+/* Dense two-column compositions — tighter when both panes carry weight */
+.cols.ratio-2-1,
+.cols.ratio-3-2,
+.cols.ratio-1-2,
+.cols.ratio-2-3 {
+  gap: clamp(22px, 3.2vw, 44px);
+}
+.cols .cols-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+.cols.ratio-1-2 > .cols-copy h2,
+.cols.ratio-2-3 > .cols-copy h2 {
+  font-size: clamp(28px, 3.2vw, 42px);
+  max-width: 14ch;
+}
+.cols-aside {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
+}
 
 .card {
   background: var(--card-bg);
@@ -530,7 +579,10 @@ tbody tr:hover td {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .slide { animation: none !important; }
+  .slide,
+  .image-hero-bg img,
+  .image-hero-content { animation: none !important; }
+  .image-hero-bg img { transform: none; }
 }
 
 @media print {
@@ -4526,25 +4578,15 @@ export function assertSpec(s: Spec) {
   </div>
 </section>
 
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Laws</span>
-  <h2>Non-negotiables</h2>
-  <div class="grid cols-3">
-    <div class="card">
-      <i class="fa-solid fa-ruler"></i>
-      <h3>Hairlines</h3>
-      <p>2px black or it doesn&#39;t exist.</p>
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-3-2">
+    <div class="cols-copy">
+      <span class="eyebrow">Laws</span>
+      <h2>Non-negotiables</h2>
+      <p class="lead">Hairlines: 2px black or it doesn&#39;t exist. Mono everywhere — Even the marketing.</p>
     </div>
-    <div class="card">
-      <i class="fa-solid fa-terminal"></i>
-      <h3>Mono everywhere</h3>
-      <p>Even the marketing.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-triangle-exclamation"></i>
-      <h3>Hazard orange</h3>
-      <p>Reserved for real risk.</p>
-    </div>
+    
+    <div class="cols-aside"><p>Reserved for real risk.</p></div>
   </div>
 </section>
 
@@ -4578,7 +4620,7 @@ Mystery owners.</p>
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Concrete — Spec Deck","company":"Concrete","description":"Technical specification deck — brutalist-mono multi-slide proof.","theme":"brutalist-mono"},"slides":[{"layout":"title","eyebrow":"SPEC · 01","heading":"CONCRETE. MONO. HAZARD.","lead":"IBM Plex Mono only. Orange for danger. Zero radius."},{"layout":"code","eyebrow":"Contract","heading":"The only API that matters.","filename":"concrete.ts","language":"ts","code":"type Spec = {\n  id: string;\n  hazard: boolean;\n  owner: string;\n};\n\nexport function assertSpec(s: Spec) {\n  if (!s.id) throw new Error('NO_ID');\n  if (s.hazard) console.warn('HAZARD');\n  return s;\n}"},{"layout":"feature-grid","eyebrow":"Laws","heading":"Non-negotiables","columns":3,"cards":[{"icon":"fa-solid fa-ruler","title":"Hairlines","body":"2px black or it doesn't exist."},{"icon":"fa-solid fa-terminal","title":"Mono everywhere","body":"Even the marketing."},{"icon":"fa-solid fa-triangle-exclamation","title":"Hazard orange","body":"Reserved for real risk."}]},{"layout":"comparison","eyebrow":"Accept","heading":"We ship if…","leftLabel":"Yes","left":"Explicit invariants.\nNamed owners.\nNo soft shadows.","rightLabel":"No","right":"Vague vibe decks.\nRounded pills.\nMystery owners.","emphasis":"left"},{"layout":"closing","eyebrow":"Access","heading":"READ THE SPEC.","lead":"Public RFC opens Monday.","cta":{"label":"Open the RFC","href":"#"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Concrete — Spec Deck","company":"Concrete","description":"Technical specification deck — brutalist-mono multi-slide proof.","theme":"brutalist-mono"},"slides":[{"layout":"title","eyebrow":"SPEC · 01","heading":"CONCRETE. MONO. HAZARD.","lead":"IBM Plex Mono only. Orange for danger. Zero radius."},{"layout":"code","eyebrow":"Contract","heading":"The only API that matters.","filename":"concrete.ts","language":"ts","code":"type Spec = {\n  id: string;\n  hazard: boolean;\n  owner: string;\n};\n\nexport function assertSpec(s: Spec) {\n  if (!s.id) throw new Error('NO_ID');\n  if (s.hazard) console.warn('HAZARD');\n  return s;\n}"},{"layout":"two-column","eyebrow":"Laws","heading":"Non-negotiables","body":"Hairlines: 2px black or it doesn't exist. Mono everywhere — Even the marketing.","aside":"Reserved for real risk.","ratio":"3-2"},{"layout":"comparison","eyebrow":"Accept","heading":"We ship if…","leftLabel":"Yes","left":"Explicit invariants.\nNamed owners.\nNo soft shadows.","rightLabel":"No","right":"Vague vibe decks.\nRounded pills.\nMystery owners.","emphasis":"left"},{"layout":"closing","eyebrow":"Access","heading":"READ THE SPEC.","lead":"Public RFC opens Monday.","cta":{"label":"Open the RFC","href":"#"}}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));

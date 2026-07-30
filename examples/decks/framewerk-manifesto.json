@@ -14,6 +14,14 @@
       "lead": "Hard frames. Louder type. No soft gradients pretending to be personality."
     },
     {
+      "layout": "image-hero",
+      "eyebrow": "Manifesto",
+      "heading": "Borders are the brand.",
+      "lead": "Hard frames. Louder type. No soft gradients pretending to be personality.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23101010%22/%3E%0A%3Crect%20x%3D%2280%22%20y%3D%2280%22%20width%3D%22680%22%20height%3D%22740%22%20rx%3D%228%22%20fill%3D%22%23dece92%22%20opacity%3D%220.15%22/%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22120%22%20width%3D%22280%22%20height%3D%22200%22%20rx%3D%226%22%20fill%3D%22%23dece92%22%20opacity%3D%220.4%22/%3E%0A%3Crect%20x%3D%22420%22%20y%3D%22120%22%20width%3D%22280%22%20height%3D%22200%22%20rx%3D%226%22%20fill%3D%22%2320cc32%22%20opacity%3D%220.35%22/%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22340%22%20width%3D%22580%22%20height%3D%22140%22%20rx%3D%226%22%20fill%3D%22%23fff%22%20opacity%3D%220.08%22/%3E%0A%3Crect%20x%3D%22120%22%20y%3D%22500%22%20width%3D%22280%22%20height%3D%22260%22%20rx%3D%226%22%20fill%3D%22%2320cc32%22%20opacity%3D%220.25%22/%3E%0A%3Crect%20x%3D%22420%22%20y%3D%22500%22%20width%3D%22280%22%20height%3D%22260%22%20rx%3D%226%22%20fill%3D%22%23dece92%22%20opacity%3D%220.3%22/%3E%0A%3Crect%20x%3D%22820%22%20y%3D%2280%22%20width%3D%22700%22%20height%3D%22740%22%20rx%3D%228%22%20fill%3D%22%23fff%22%20opacity%3D%220.04%22/%3E%0A%3Crect%20x%3D%22860%22%20y%3D%22140%22%20width%3D%22420%22%20height%3D%2236%22%20rx%3D%226%22%20fill%3D%22%2320cc32%22/%3E%0A%3Crect%20x%3D%22860%22%20y%3D%22210%22%20width%3D%22560%22%20height%3D%2216%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.45%22/%3E%0A%3Crect%20x%3D%22860%22%20y%3D%22250%22%20width%3D%22480%22%20height%3D%2216%22%20rx%3D%224%22%20fill%3D%22%23fff%22%20opacity%3D%220.3%22/%3E%0A%3Crect%20x%3D%22860%22%20y%3D%22320%22%20width%3D%22620%22%20height%3D%22420%22%20rx%3D%2210%22%20fill%3D%22%23dece92%22%20opacity%3D%220.2%22/%3E%0A%3C/svg%3E",
+      "imageAlt": "Framewerk craft visual"
+    },
+    {
       "layout": "two-column",
       "eyebrow": "Belief",
       "heading": "If it needs a glow to hold attention, the idea is weak.",
@@ -25,11 +33,33 @@
       "layout": "feature-grid",
       "eyebrow": "Offers",
       "heading": "What we actually sell",
-      "columns": 3,
+      "columns": "bento",
       "cards": [
-        { "icon": "fa-solid fa-shirt", "title": "Drop systems", "body": "Seasonal kits with a single visual law." },
-        { "icon": "fa-solid fa-microphone", "title": "Tour identities", "body": "Posters that read from the back row." },
-        { "icon": "fa-solid fa-globe", "title": "Site frames", "body": "Web that feels like print with a pulse." }
+        {
+          "icon": "fa-solid fa-shirt",
+          "title": "Drop systems",
+          "body": "Seasonal kits with a single visual law."
+        },
+        {
+          "icon": "fa-solid fa-microphone",
+          "title": "Tour identities",
+          "body": "Posters that read from the back row."
+        },
+        {
+          "icon": "fa-solid fa-globe",
+          "title": "Site frames",
+          "body": "Web that feels like print with a pulse."
+        },
+        {
+          "icon": "fa-solid fa-layer-group",
+          "title": "Stack for scan",
+          "body": "Hierarchy first. Decoration second. Decoration never."
+        },
+        {
+          "icon": "fa-solid fa-bolt",
+          "title": "Ship the punchline",
+          "body": "Lead with the claim that survives the hallway test."
+        }
       ]
     },
     {
@@ -47,7 +77,10 @@
       "eyebrow": "Contact",
       "heading": "Frame it or forget it.",
       "lead": "hello@framewerk.studio",
-      "cta": { "label": "Send the brief", "href": "#" }
+      "cta": {
+        "label": "Send the brief",
+        "href": "#"
+      }
     }
   ]
 }
