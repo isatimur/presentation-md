@@ -56,6 +56,32 @@ test("loads a curated example via ?example= deep-link", async ({ page }) => {
   await expect(page.getByRole("button", { name: /Copy link/ })).toBeVisible();
 });
 
+test("auto-opens craft audit panel and supports jump + dismiss", async ({ page }) => {
+  // Acme EXAMPLE_DECK has a live warning (feature-grid cards missing icons).
+  await page.goto("/?fresh=1");
+
+  await expect(page.getByRole("button", { name: /Audit craft/i })).toBeVisible();
+  // Live craft auto-opens the issues panel.
+  const panel = page.locator("details.audit-panel");
+  await expect(panel).toBeVisible();
+  await expect(panel.locator("summary")).toContainText(/Issues/i);
+  await expect(panel.locator(".audit-item")).toContainText(/icons/i);
+
+  // Jump-to-slide from a slide-scoped issue.
+  const jump = panel.locator("button.audit-jump").first();
+  if (await jump.count()) {
+    await jump.click();
+    await expect(page.getByLabel("Heading").first()).toBeVisible();
+  }
+
+  // Manual re-run still reports issues.
+  await page.getByRole("button", { name: /Audit craft/i }).click();
+  await expect(page.getByText(/Craft audit:/i)).toBeVisible();
+
+  await panel.getByRole("button", { name: /^Dismiss$/ }).click();
+  await expect(panel).toHaveCount(0);
+});
+
 test("opens a created .html and recovers the editable deck from embedded source", async ({ page }) => {
   await page.goto("/");
   const frame = page.frameLocator(".preview-frame");
