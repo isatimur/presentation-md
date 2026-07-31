@@ -1,5 +1,16 @@
 # @presentation-md/export
 
+## 1.19.0
+
+### Minor Changes
+
+- 92387aa: Densify hard-card PPTX strokes for genz/acid/bauhaus/neo-grid/bold-poster/raw-grid/voltage/Pulse/HUD/swiss peers; always-on bauhaus geometry; denser aerospace-hud reticles.
+
+### Patch Changes
+
+- Updated dependencies [2a8d979]
+  - @presentation-md/core@1.11.0
+
 ## 1.18.0
 
 ### Minor Changes
