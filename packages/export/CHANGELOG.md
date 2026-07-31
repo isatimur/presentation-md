@@ -1,5 +1,11 @@
 # @presentation-md/export
 
+## 1.16.2
+
+### Patch Changes
+
+- 854321c: Densify creative-voltage PPTX with always-on accent frame + neon offset-shadow strips; body slides stay dark, heroes keep the blue/dark split + orb.
+
 ## 1.16.1
 
 ### Patch Changes
