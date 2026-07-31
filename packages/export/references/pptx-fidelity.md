@@ -63,8 +63,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   blueprint gets a light grid + dual reticles + outer frame + square accent card hairlines; brutalist-acid gets a
   hard acid frame + accent offset shadow (heroes also get an offset plate) + square accent card strokes; aerospace-hud gets a denser HUD
   grid + reticle crosshair + orange telemetry stub + square accent card hairlines; swiss-typographic gets a modular grid + red left rail + square card strokes;
-  ft-editorial gets a masthead bar + quiet frame + double bottom rules + accent stub; bauhaus gets a hard frame + red square + blue circle on every slide (heroes larger) + square hard-border cards; fintech-clean / scandinavian get soft radial washes + clean frames; art-deco gets a gold frame + hairline
-  (heroes also get a deco ring); botanical-luxe gets a gold hairline + leaf ring;
+  ft-editorial gets a masthead bar + quiet frame + double bottom rules + accent stub; bauhaus gets a hard frame + red square + blue circle on every slide (heroes larger) + square hard-border cards; fintech-clean / scandinavian get soft radial washes + clean frames; art-deco gets a denser gold frame + always-on top hairline (heroes also get a dual deco ring) + square gold card strokes; botanical-luxe gets a gold hairline + leaf ring;
   genz-bento gets a hard border + offset shadow strips + corner blot + plump hard-border cards; heritage-editorial gets quiet hairlines + mid stub;
   developer-dark gets a title-bar + traffic lights; data-editorial gets an accent rule + hard frame;
   dark-botanical gets bloom washes + a left rail;

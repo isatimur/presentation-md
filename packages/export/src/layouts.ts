@@ -168,6 +168,10 @@ function cardStroke(
   if (ctx.themeName === "brutalist-mono") {
     return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.25 : 2 };
   }
+  // deco-fan (art-deco): gold hairline, square
+  if (ctx.themeName === "art-deco") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.5 : 1.25 };
+  }
   // emerald-editorial / pink-script / vellum / broadsheet / editorial-forest /
   // soft-editorial / paper-ink / pin-and-paper / monochrome / notebook-tabs
   if (ctx.themeName === "emerald-editorial") {
@@ -250,6 +254,7 @@ function cardRadius(ctx: ExportContext): number {
     ctx.themeName === "editorial-serif" ||
     ctx.themeName === "crt-terminal" ||
     ctx.themeName === "brutalist-mono" ||
+    ctx.themeName === "art-deco" ||
     ctx.themeName === "emerald-editorial" ||
     ctx.themeName === "pink-script" ||
     ctx.themeName === "vellum" ||
@@ -3462,33 +3467,42 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "art-deco") {
-    // Gold frame + hairline; centered deco ring on heroes (deco-fan).
+    // Gold frame + always-on top hairline (deco-fan ::before); centered deco
+    // ring on heroes (::after is hero-gated). Cards get gold hairlines via cardStroke.
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.1,
       y: 0.1,
       w: ctx.width - 0.2,
       h: ctx.height - 0.2,
       fill: { color: ctx.colors.bg, transparency: 100 },
-      line: { color: ctx.colors.accent, width: 1.15 },
+      line: { color: ctx.colors.accent, width: 1.35 },
       rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.margin,
-      y: 0.55,
-      w: ctx.width - ctx.margin * 2,
-      h: 0.02,
-      fill: { color: ctx.colors.accent, transparency: isHero ? 0 : 35 },
+      x: ctx.margin + 0.15,
+      y: 0.52,
+      w: ctx.width - ctx.margin * 2 - 0.3,
+      h: 0.025,
+      fill: { color: ctx.colors.accent, transparency: isHero ? 0 : 20 },
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0,
     });
     if (isHero) {
       slide.addShape(ctx.shapeOval, {
-        x: ctx.width / 2 - 0.35,
-        y: 0.38,
-        w: 0.7,
-        h: 0.7,
+        x: ctx.width / 2 - 0.38,
+        y: 0.35,
+        w: 0.76,
+        h: 0.76,
         fill: { color: ctx.colors.bg, transparency: 100 },
-        line: { color: ctx.colors.accent, width: 1.75 },
+        line: { color: ctx.colors.accent, width: 1.85 },
+      });
+      slide.addShape(ctx.shapeOval, {
+        x: ctx.width / 2 - 0.22,
+        y: 0.51,
+        w: 0.44,
+        h: 0.44,
+        fill: { color: ctx.colors.bg, transparency: 100 },
+        line: { color: ctx.colors.accent, width: 0.9 },
       });
     }
   }
