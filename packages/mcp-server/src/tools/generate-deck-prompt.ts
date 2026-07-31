@@ -40,7 +40,7 @@ export const generateDeckPromptTool: ToolDefinition = {
     ]);
 
     const craftMandate = [
-      "CRAFT MANDATE (non-negotiable — beat Gamma / Beautiful.ai / md-slides / frontend-slides on first glance):",
+      "CRAFT MANDATE (non-negotiable — beat Gamma / Beautiful.ai / md-slides / frontend-slides / Claude Design canvas on first glance):",
       "- Prefer stunning-25 themes when the brief matches (see stunning_25_reference). Open that structured proof and match density — do not invent a watered-down palette.",
       "- Ban Inter-only / purple-on-white / cream-terracotta defaults unless the chosen theme owns them (see anti_slop_reference).",
       "- Include ≥1 image-hero for visual/investor/launch/brand decks (kinetic-wrapped wraps may use ranked/streak/metric/hero-stat instead).",
@@ -50,7 +50,7 @@ export const generateDeckPromptTool: ToolDefinition = {
       "- Logo / customer walls → logo-wall. Year wraps (kinetic-wrapped) need tone on ≥3 slides.",
       "- Wrap / store / launch / investor closes → closing actions[] with solid + outline pills (cta alone is weak on stunning-25).",
       "- Every closing actions[] pill needs an icon (FA brands for social; rocket/download/calendar/book for CTAs) — PPTX maps icons to glyph prefixes.",
-      "- Match atmosphere to the brief: loud/thin surfaces (coral, raw-grid, sakura, retro-windows, …) for punchy brand energy; paper/editorial themes (claude, soft-editorial, ft-editorial, vellum, paper-ink, heritage-editorial, broadsheet, …) for magazine quiet — both keep PPTX chrome as native shapes.",
+      "- Match atmosphere to the brief: loud/thin surfaces (coral, raw-grid, sakura, retro-windows, …) for punchy brand energy; paper/editorial themes (claude, soft-editorial, heritage-editorial, emerald-editorial, vintage-editorial, pink-script, ft-editorial, vellum, paper-ink, broadsheet, …) for magazine quiet — PPTX keeps washes, double mastheads, dual insets, and hero-gated candy as native shapes.",
       "- Paper honesty: prefer quote + comparison+emphasis + short literary leads; avoid soft corporate card stacks. Fiber grain is HTML-only — ship HTML (or say so) when paper tooth is the brand.",
       "- Pulse (kinetic-wrapped): set tone on ≥3 slides + a ranked/streak/metric/hero-stat beat — PPTX carries hard frames, soft blobs, and eyebrow chips (not mix-blend).",
       "- risograph-zine: prefer comparison+emphasis and a punchy quote — PPTX overprint is layered ovals, not true multiply.",

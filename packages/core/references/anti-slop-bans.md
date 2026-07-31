@@ -45,3 +45,5 @@ cool paper `#E8EEF4`, signal red `#FF3B1F`, **Syne / DM Sans / IBM Plex Mono**. 
 1. Pick a theme from `theme-selection-index.json` (don't invent colors ad hoc)
 2. Run `preview_themes` — user must **see** the vibe before the full deck
 3. Run `audit_deck` + optional `deck-design-judge` before shipping
+4. For paper/editorial themes, refuse SaaS three-up card stacks — demand magazine cadence (quote, comparison+emphasis, short literary leads)
+5. Prefer shipping HTML when quiet fiber grain / mix-blend is the brand; PPTX keeps washes, frames, and mastheads only
