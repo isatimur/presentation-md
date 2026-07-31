@@ -2,6 +2,10 @@
 # render_slides.sh — render each slide of a self-contained HTML deck to a PNG (headless Chrome).
 # Usage: bash render_slides.sh <deck.html> <out_dir/> [width] [height]
 # Defaults to 1600x900 (16:9). One image per slide (slide-01.png ...). Requires Google Chrome.
+#
+# Strategy: isolate each .slide into a mini one-slide HTML (same approach as
+# packages/mcp-server screenshot-slides.ts) so capture does not depend on the
+# deck honouring #__shot=N hash-scroll.
 set -euo pipefail
 
 DECK="${1:?usage: render_slides.sh deck.html out_dir/ [w] [h]}"
@@ -25,40 +29,31 @@ fi
 
 ABS_DECK="$(cd "$(dirname "$DECK")" && pwd)/$(basename "$DECK")"
 
-# Count slides the same way deck_metrics.py's find_slides() does: accept
-# either quote style, and require an exact 'slide' class token (not a
-# substring match — a plain grep -E '\bslide\b' also counts 'title-slide'
-# and 'slide-inner' as slides, and misses single-quoted class='slide').
-N="$(python3 -c "
-import re, sys
-html = open(sys.argv[1], encoding='utf-8', errors='ignore').read()
-n = 0
-for m in re.finditer(r'''<(section|div)\b[^>]*class\s*=\s*(\"[^\"]*\"|'[^']*')[^>]*>''', html, re.I):
-    if 'slide' in m.group(2)[1:-1].split():
-        n += 1
-print(n)
-" "$ABS_DECK")"
+# Isolate each .slide into its own mini-HTML under $OUT/_iso/, then screenshot.
+# Python mirrors mcp-server extractSlideChunks + isolateSlideHtml.
+# (Keep the isolate helper as a sibling .py so bash quoting stays simple.)
+ISO_HELPER="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/_isolate_slides.py"
+N=$(python3 "$ISO_HELPER" "$ABS_DECK" "$OUT")
+
 if [ "$N" -lt 1 ]; then N=1; fi
-echo "Rendering $N slide(s) at ${W}x${H} -> $OUT"
+echo "Rendering $N slide(s) at ${W}x${H} -> $OUT (isolated)"
 
 # Full-page screenshot first (some decks aren't snap-paginated)
 "$CHROME" --headless=new --disable-gpu --hide-scrollbars \
   --window-size="${W},${H}" --virtual-time-budget=5000 \
   --screenshot="$OUT/full.png" "file://$ABS_DECK" >/dev/null 2>&1 || true
 
-# Per-slide via fragment scroll: inject a tiny harness that scrolls slide i into view.
 i=1
 while [ "$i" -le "$N" ]; do
   idx=$(printf "%02d" "$i")
+  ISO="$OUT/_iso/slide-$idx.html"
   "$CHROME" --headless=new --disable-gpu --hide-scrollbars \
-    --window-size="${W},${H}" --virtual-time-budget=4000 \
+    --no-first-run --no-default-browser-check \
+    --window-size="${W},${H}" --virtual-time-budget=5000 \
+    --run-all-compositor-stages-before-draw \
     --screenshot="$OUT/slide-$idx.png" \
-    "file://$ABS_DECK#__shot=$i" >/dev/null 2>&1 || true
-  # If the deck doesn't honour the hash, the JS snippet below (added by the judge if needed) helps;
-  # otherwise full.png + manual scroll positions remain available.
+    "file://$ISO" >/dev/null 2>&1 || true
   i=$((i + 1))
 done
 
-echo "Done. If per-slide shots look identical (deck ignores the #__shot hash), use full.png, or"
-echo "add this one-liner near the deck's </body> for hash-driven capture:"
-echo "  <script>var m=location.hash.match(/__shot=(\\d+)/);if(m){var s=document.querySelectorAll('.slide')[+m[1]-1];if(s)s.scrollIntoView()}</script>"
+echo "Done. Isolated $N slide shot(s) under $OUT (plus full.png)."
