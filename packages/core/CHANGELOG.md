@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.8.4
+
+### Patch Changes
+
+- bc3f18f: Extend paper craft guidance for capsule / long-table / paper-ink hero-gated PPTX ornaments and magazine cadence.
+
 ## 1.8.3
 
 ### Patch Changes

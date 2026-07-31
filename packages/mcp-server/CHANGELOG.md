@@ -1,5 +1,17 @@
 # @presentation-md/mcp-server
 
+## 1.6.15
+
+### Patch Changes
+
+- bc3f18f: Extend paper craft guidance for capsule / long-table / paper-ink hero-gated PPTX ornaments and magazine cadence.
+- Updated dependencies [e7c5f4e]
+- Updated dependencies [bc3f18f]
+  - @presentation-md/export@1.15.0
+  - @presentation-md/core@1.8.4
+  - @presentation-md/render@1.6.13
+  - @presentation-md/create-theme@1.0.22
+
 ## 1.6.14
 
 ### Patch Changes
