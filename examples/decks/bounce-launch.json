@@ -122,15 +122,18 @@
       "cards": [
         {
           "title": "Free",
-          "body": "$0 forever \u2014 core feed, friends, reactions."
+          "body": "$0 forever \u2014 core feed, friends, reactions.",
+          "icon": "fa-solid fa-gift"
         },
         {
           "title": "Plus",
-          "body": "$4/mo \u2014 themes, longer voice notes, custom reacts."
+          "body": "$4/mo \u2014 themes, longer voice notes, custom reacts.",
+          "icon": "fa-solid fa-star"
         },
         {
           "title": "Crew",
-          "body": "$9/mo \u2014 shared spaces for friend groups up to 12."
+          "body": "$9/mo \u2014 shared spaces for friend groups up to 12.",
+          "icon": "fa-solid fa-users"
         },
         {
           "icon": "fa-solid fa-eye",

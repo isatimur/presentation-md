@@ -79,15 +79,18 @@
       "cards": [
         {
           "title": "Vanta Health",
-          "body": "Digital health \u2014 expanded payer contracts; ARR +34% YoY."
+          "body": "Digital health \u2014 expanded payer contracts; ARR +34% YoY.",
+          "icon": "fa-solid fa-heart-pulse"
         },
         {
           "title": "Meridian Freight",
-          "body": "Logistics \u2014 new Europe corridor; gross margin +1.2pp."
+          "body": "Logistics \u2014 new Europe corridor; gross margin +1.2pp.",
+          "icon": "fa-solid fa-truck"
         },
         {
           "title": "Lumen AI",
-          "body": "Enterprise software \u2014 first $10M ARR quarter."
+          "body": "Enterprise software \u2014 first $10M ARR quarter.",
+          "icon": "fa-solid fa-microchip"
         },
         {
           "icon": "fa-solid fa-eye",

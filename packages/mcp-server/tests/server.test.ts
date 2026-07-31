@@ -116,6 +116,38 @@ describe("list_themes", () => {
     const names = result.themes.map((t) => t.name);
     expect(names).toContain("default-tech");
   });
+
+  it("filters by shortlist id and can return the shortlists catalog", async () => {
+    const result = (await listThemesTool.handler({
+      shortlist: "core-defaults",
+      include_shortlists: true,
+    })) as {
+      themes: Array<{ name: string }>;
+      shortlist?: { id: string; themes: string[] };
+      shortlists?: Array<{ id: string }>;
+    };
+    expect(result.shortlist?.id).toBe("core-defaults");
+    expect(result.themes.map((t) => t.name).sort()).toEqual(
+      [...(result.shortlist?.themes ?? [])].sort().filter((n) =>
+        result.themes.some((t) => t.name === n)
+      )
+    );
+    expect(result.themes.length).toBeGreaterThan(0);
+    expect(result.themes.length).toBeLessThanOrEqual(3);
+    expect(result.shortlists?.some((s) => s.id === "series-a-pitch")).toBe(true);
+  });
+
+  it("filters by mood keyword when selection index is available", async () => {
+    const result = (await listThemesTool.handler({ mood: "editorial" })) as {
+      themes: Array<{ name: string; mood?: string[] }>;
+    };
+    expect(result.themes.length).toBeGreaterThan(0);
+    expect(
+      result.themes.every((t) =>
+        (t.mood ?? []).some((m) => m.toLowerCase().includes("editorial"))
+      )
+    ).toBe(true);
+  });
 });
 
 describe("generate_deck_prompt", () => {
@@ -159,6 +191,7 @@ describe("generate_deck_prompt", () => {
     })) as {
       anti_slop_reference?: string;
       layout_recipes_reference?: string;
+      theme_shortlists_reference?: string;
       craft_mandate: string;
     };
     expect(result.craft_mandate).toMatch(/stunning-25/i);
@@ -171,6 +204,8 @@ describe("generate_deck_prompt", () => {
       expect(result.layout_recipes_reference).toMatch(/Neon-tech short|Data-editorial short|Scatterbrain workshop/i);
     }
     expect(result.craft_mandate).toMatch(/neon-tech|data-editorial|scatterbrain/i);
+    expect(result.craft_mandate).toMatch(/theme_shortlists|core-defaults/i);
+    expect(result.theme_shortlists_reference).toMatch(/series-a-pitch|core-defaults/i);
   });
 });
 

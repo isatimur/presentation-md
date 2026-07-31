@@ -37,11 +37,11 @@ replace it with the block above (or re-run `npx @presentation-md/install cursor`
 |------|-------------|
 | `render_deck` | Render a deck JSON spec to a self-contained HTML slide deck; optionally write to a file. |
 | `export_deck` | Export deck JSON to native, editable PowerPoint (`.pptx`) or HTML. |
-| `list_themes` | List all installed themes with name, version, vibe, and description. |
+| `list_themes` | List installed themes (name, version, vibe, description). Optional `shortlist` / `mood` / `query` filters + `include_shortlists` for Theme Discovery defaults. |
 | `apply_theme` | Swap the theme in `meta.theme` while keeping all slide content unchanged. |
 | `audit_deck` | Validate deck JSON against the schema and return structured issues with severity (incl. kinetic-wrap tone / visual-beat warnings). |
 | `judge_deck` | Craft QA tiers: `t1` schema gates, `t2` HTML metrics + screenshots, `t3` agent rubric / panel when keys exist. |
-| `generate_deck_prompt` | Build a system prompt with the active theme's palette and deck schema reference for an agent. |
+| `generate_deck_prompt` | Build a system prompt with theme palette, craft mandate, layout recipes, and theme shortlists for intelligent defaults. |
 | `preview_themes` | Render 1–3 theme HTML previews for visual discovery. Default = title slide; `mode: "layouts"` = multi-slide craft bake (image-hero, bento, ranked-list, stats, quote, code, closing; kinetic-wrapped injects tone). |
 | `import_pptx` | Import a `.pptx` file into deck JSON (text, tables, images, notes → layouts). |
 | `import_markdown` | Convert Markdown outline → Deck JSON (`chart` / `html` fences supported). |
