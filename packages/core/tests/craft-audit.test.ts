@@ -73,4 +73,28 @@ describe("auditCraft", () => {
     const issues = auditCraft(deck);
     expect(issues.some((i) => /single CTA|dual ask/i.test(i.message))).toBe(true);
   });
+
+  it("warns when long decks lack a data beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "default-tech", title: "Words" },
+      slides: [
+        { layout: "title", heading: "T" },
+        { layout: "comparison", heading: "C", left: "A", right: "B", emphasis: "left" },
+        { layout: "section", heading: "S1" },
+        { layout: "section", heading: "S2" },
+        { layout: "quote", quote: "Q", by: "B" },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Go", href: "#", style: "solid" },
+            { label: "More", href: "#", style: "outline" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /data beat/i.test(i.message))).toBe(true);
+  });
 });

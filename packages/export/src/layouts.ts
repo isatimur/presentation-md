@@ -2149,6 +2149,51 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     });
   }
 
+  if (theme === "aerospace-hud") {
+    // HUD grid + orange reticle corner.
+    for (let i = 1; i < 10; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: (ctx.width / 10) * i,
+        y: 0,
+        w: 0.012,
+        h: ctx.height,
+        fill: { color: ctx.colors.accent, transparency: 80 },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    for (let i = 1; i < 6; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: (ctx.height / 6) * i,
+        w: ctx.width,
+        h: 0.012,
+        fill: { color: ctx.colors.accent, transparency: 80 },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: ctx.margin,
+      w: 0.55,
+      h: 0.55,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent2, width: 1.5 },
+      rectRadius: 0,
+    });
+    if (isHero) {
+      slide.addShape(ctx.shapeOval, {
+        x: ctx.width - 1.6,
+        y: ctx.height - 1.6,
+        w: 1.1,
+        h: 1.1,
+        fill: { color: ctx.colors.bg, transparency: 100 },
+        line: { color: ctx.colors.accent, width: 1.5 },
+      });
+    }
+  }
+
   if (theme === "neon-noir") {
     // Magenta glow blob + cyan rim (neon-rain stand-in).
     slide.addShape(ctx.shapeOval, {

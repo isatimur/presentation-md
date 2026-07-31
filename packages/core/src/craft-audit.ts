@@ -242,6 +242,21 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     });
   }
 
+  if (
+    slides.length >= 6 &&
+    !layouts.includes("chart") &&
+    !layouts.includes("stat-row") &&
+    !layouts.includes("data-table") &&
+    !layouts.includes("ranked-list") &&
+    !layouts.includes("metric-ring")
+  ) {
+    issues.push({
+      severity: "warning",
+      message:
+        "Long deck with no chart/stat-row/data-table/ranked-list/metric-ring — consider a data beat.",
+    });
+  }
+
   const copyBlob = JSON.stringify(slides).toLowerCase();
   if (
     /partner|customer|trusted by|logo wall|backers/.test(copyBlob) &&
