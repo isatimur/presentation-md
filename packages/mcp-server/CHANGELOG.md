@@ -1,5 +1,21 @@
 # @presentation-md/mcp-server
 
+## 1.10.0
+
+### Minor Changes
+
+- 7d0a0e6: Extend generate_deck_prompt for glass honesty, expanded hard-card loud peers, and new layout recipe families.
+
+### Patch Changes
+
+- Updated dependencies [7d0a0e6]
+- Updated dependencies [c37edbe]
+- Updated dependencies [0264b50]
+  - @presentation-md/core@1.12.0
+  - @presentation-md/export@1.20.0
+  - @presentation-md/create-theme@1.0.29
+  - @presentation-md/render@1.6.21
+
 ## 1.9.0
 
 ### Minor Changes

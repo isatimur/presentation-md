@@ -1,5 +1,17 @@
 # @presentation-md/export
 
+## 1.20.0
+
+### Minor Changes
+
+- c37edbe: Densify PPTX hard-card strokes for bold-signal, vintage, electric/studio/grove/cartesian/botanical/serif, glass, crt, and brutalist-mono peers.
+
+### Patch Changes
+
+- 0264b50: Densify PPTX card strokes for emerald/pink-script/vellum/broadsheet/forest/monochrome/soft-editorial/paper-ink/pin/notebook/heritage peers.
+- Updated dependencies [7d0a0e6]
+  - @presentation-md/core@1.12.0
+
 ## 1.19.0
 
 ### Minor Changes
