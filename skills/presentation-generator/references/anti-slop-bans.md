@@ -38,6 +38,15 @@ cool paper `#E8EEF4`, signal red `#FF3B1F`, **Syne / DM Sans / IBM Plex Mono**. 
 - Identical 3-column card grid on every slide
 - Centered body paragraphs
 - Lorem ipsum or `[Company Name]` placeholders
+
+## One-shot first draft (beat frontend-slides)
+
+The first JSON you emit must already clear this file. Do **not** ship a purple/Inter/cream “vibe draft” hoping a rewrite fixes it.
+
+1. Lock a real theme (stunning-25 or popular shortlist) before writing slides.
+2. Lock density (speaker-led vs reading-first) once.
+3. Force asymmetry (`emphasis`, non-1-1 `ratio`, or `bento`) on the first body beat.
+4. Call `audit_deck` — fix errors before the user sees the draft.
 - Stock illustration SVGs
 
 ## Enforcement

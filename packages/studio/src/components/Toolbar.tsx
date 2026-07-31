@@ -240,7 +240,20 @@ export function Toolbar({
                 key={s.id}
                 type="button"
                 className={`chip${shortlistId === s.id ? " active" : ""}${s.popular ? " chip-popular" : ""}`}
-                onClick={() => setShortlistId(s.id === shortlistId ? "" : s.id)}
+                onClick={() => {
+                  const next = s.id === shortlistId ? "" : s.id;
+                  setShortlistId(next);
+                  if (next) {
+                    const pick = findThemeShortlist(next);
+                    if (pick?.themes?.length) {
+                      setCompare(pick.themes.slice(0, COMPARE_LIMIT));
+                      setLiveCompare(false);
+                    }
+                  } else {
+                    setCompare([]);
+                    setLiveCompare(false);
+                  }
+                }}
                 title={s.why ?? s.label}
               >
                 {s.popular ? "★ " : ""}
