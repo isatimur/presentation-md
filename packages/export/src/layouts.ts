@@ -23,6 +23,18 @@ function cardStroke(
   if (ctx.themeName === "daisy-days") {
     return { color: "2D2D2D", width: opts.hero || opts.highlighted ? 2.75 : 2.5 };
   }
+  // capsule-pills cards: 2px ink
+  if (ctx.themeName === "capsule") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.25 : 2 };
+  }
+  // bit-orbit-arcade cards: 2px accent
+  if (ctx.themeName === "8-bit-orbit") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 2.25 : 2 };
+  }
+  // retro-windows-chrome cards: 2px ink
+  if (ctx.themeName === "retro-windows") {
+    return { color: "000000", width: opts.hero || opts.highlighted ? 2.25 : 2 };
+  }
   // block-frame-brutal cards: 4px ink
   if (ctx.themeName === "block-frame") {
     return { color: "000000", width: opts.hero || opts.highlighted ? 3.25 : 3 };
@@ -58,14 +70,18 @@ function cardRadius(ctx: ExportContext): number {
   if (ctx.themeName === "daisy-days") return 0.21;
   // stencil-tablet-earth cards: border-radius 24px ≈ 0.25"
   if (ctx.themeName === "stencil-tablet") return 0.25;
-  // retro-zine-riso / block-frame-brutal / creative-mode-blocks cards: square
+  // retro-zine-riso / block-frame-brutal / creative-mode-blocks / 8-bit / Win95: square
   if (
     ctx.themeName === "retro-zine" ||
     ctx.themeName === "block-frame" ||
-    ctx.themeName === "creative-mode"
+    ctx.themeName === "creative-mode" ||
+    ctx.themeName === "8-bit-orbit" ||
+    ctx.themeName === "retro-windows"
   ) {
     return 0;
   }
+  // scatterbrain-cork cards: border-radius 2px ≈ 0.02"
+  if (ctx.themeName === "scatterbrain") return 0.02;
   // sakura-chroma-cassette cards: border-radius 4px ≈ 0.04"
   if (ctx.themeName === "sakura-chroma") return 0.04;
   return 0.06;
@@ -3373,12 +3389,51 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "8-bit-orbit") {
-    // Arcade scanlines + neon cyan/pink orbs + pixel HUD chip (bit-orbit-arcade).
+    // Arcade scanlines + neon orbs + dual offset shadows (4px yellow + 8px pink)
+    // + accent frame + always-on pixel HUD (bit-orbit-arcade).
+    const outer = 0.1; // ~8px accent2
+    const inner = 0.05; // ~4px yellow
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - outer,
+      y: outer,
+      w: outer,
+      h: ctx.height - outer,
+      fill: { color: ctx.colors.accent2 },
+      line: { color: ctx.colors.accent2, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: outer,
+      y: ctx.height - outer,
+      w: ctx.width - outer,
+      h: outer,
+      fill: { color: ctx.colors.accent2 },
+      line: { color: ctx.colors.accent2, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - outer - inner,
+      y: outer + inner,
+      w: inner,
+      h: ctx.height - outer - inner,
+      fill: { color: "F4D03F" },
+      line: { color: "F4D03F", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: outer + inner,
+      y: ctx.height - outer - inner,
+      w: ctx.width - outer - inner,
+      h: inner,
+      fill: { color: "F4D03F" },
+      line: { color: "F4D03F", width: 0 },
+      rectRadius: 0,
+    });
     for (let i = 0; i < 10; i++) {
       slide.addShape(ctx.shapeRoundRect, {
         x: 0,
         y: 0.25 + i * 0.7,
-        w: ctx.width,
+        w: ctx.width - outer,
         h: 0.035,
         fill: { color: "000000", transparency: 82 },
         line: { color: "000000", width: 0 },
@@ -3388,7 +3443,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     slide.addShape(ctx.shapeOval, {
       x: ctx.width * 0.55,
       y: -ctx.height * 0.12,
-      w: ctx.width * 0.45,
+      w: ctx.width * 0.45 - outer,
       h: ctx.height * 0.45,
       fill: { color: ctx.colors.accent, transparency: 78 },
       line: { color: ctx.colors.accent, width: 0 },
@@ -3397,11 +3452,20 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       x: -ctx.width * 0.1,
       y: ctx.height * 0.55,
       w: ctx.width * 0.4,
-      h: ctx.height * 0.45,
+      h: ctx.height * 0.45 - outer,
       fill: { color: ctx.colors.accent2, transparency: 78 },
       line: { color: ctx.colors.accent2, width: 0 },
     });
-    // Pixel HUD dots (top-left).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.08,
+      y: 0.08,
+      w: ctx.width - 0.08 - outer,
+      h: ctx.height - 0.08 - outer,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: 2.5 },
+      rectRadius: 0,
+    });
+    // Pixel HUD dots (top-left) — always-on like HTML ::before.
     const pixels = [
       { x: 0.45, color: "F4D03F" },
       { x: 0.7, color: ctx.colors.accent },
@@ -3419,17 +3483,25 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         rectRadius: 0,
       });
     }
-    if (isHero) {
-      slide.addShape(ctx.shapeRoundRect, {
-        x: ctx.width - 1.55,
-        y: ctx.height - 0.85,
-        w: 0.95,
-        h: 0.28,
-        fill: { color: ctx.colors.accent },
-        line: { color: "FFFFFF", width: 1.5 },
-        rectRadius: 0,
-      });
-    }
+    // Bottom-right HUD chip + yellow offset plate — always-on like HTML ::after.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 1.5 - outer,
+      y: ctx.height - 0.8 - outer,
+      w: 0.95,
+      h: 0.28,
+      fill: { color: "F4D03F" },
+      line: { color: "F4D03F", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 1.55 - outer,
+      y: ctx.height - 0.85 - outer,
+      w: 0.95,
+      h: 0.28,
+      fill: { color: ctx.colors.accent },
+      line: { color: "FFFFFF", width: 1.5 },
+      rectRadius: 0,
+    });
   }
 
   if (theme === "neo-grid-bold") {
@@ -3549,22 +3621,33 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "capsule") {
-    // Plump frame + soft shadow + quiet pastel blots on all slides;
-    // hero-gated coral pill + lime circles (capsule-pills HTML ::before/::after).
+    // Plump frame + hard ink offset shadow (HTML 8px/10px 0-blur) + pastel blots;
+    // hero-gated coral pill + lime circles (capsule-pills ::before/::after).
+    const shadowX = 0.1;
+    const shadowY = 0.12;
     slide.addShape(ctx.shapeRoundRect, {
-      x: 0.38,
-      y: 0.36,
-      w: ctx.width - 0.48,
-      h: ctx.height - 0.48,
-      fill: { color: ctx.colors.text, transparency: 93 },
+      x: ctx.width - shadowX,
+      y: shadowY,
+      w: shadowX,
+      h: ctx.height - shadowY,
+      fill: { color: ctx.colors.text },
       line: { color: ctx.colors.text, width: 0 },
-      rectRadius: 0.29,
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: shadowX,
+      y: ctx.height - shadowY,
+      w: ctx.width - shadowX,
+      h: shadowY,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.18,
       y: 0.18,
-      w: ctx.width - 0.36,
-      h: ctx.height - 0.36,
+      w: ctx.width - 0.36 - shadowX,
+      h: ctx.height - 0.36 - shadowY,
       fill: { color: ctx.colors.bg, transparency: 100 },
       line: { color: ctx.colors.border, width: 2 },
       rectRadius: 0.29,
@@ -3572,14 +3655,14 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     // Quiet lavender / sky radial blots (HTML --slide-bg candy).
     slide.addShape(ctx.shapeOval, {
       x: 0.35,
-      y: ctx.height - 1.85,
+      y: ctx.height - 1.85 - shadowY,
       w: 0.72,
       h: 0.72,
       fill: { color: "C5B5E0", transparency: 42 },
       line: { color: "C5B5E0", width: 0 },
     });
     slide.addShape(ctx.shapeOval, {
-      x: ctx.width - 1.55,
+      x: ctx.width - 1.55 - shadowX,
       y: 0.55,
       w: 0.58,
       h: 0.58,
@@ -3588,7 +3671,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     });
     if (isHero) {
       slide.addShape(ctx.shapeRoundRect, {
-        x: ctx.width - 2.15,
+        x: ctx.width - 2.15 - shadowX,
         y: 0.5,
         w: 1.45,
         h: 0.42,
@@ -3598,15 +3681,15 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       });
       slide.addShape(ctx.shapeOval, {
         x: 0.5,
-        y: ctx.height - 1.6,
+        y: ctx.height - 1.6 - shadowY,
         w: 0.95,
         h: 0.95,
         fill: { color: ctx.colors.accent2 },
         line: { color: ctx.colors.border, width: 2 },
       });
       slide.addShape(ctx.shapeOval, {
-        x: ctx.width * 0.78,
-        y: ctx.height * 0.72,
+        x: ctx.width * 0.78 - shadowX,
+        y: ctx.height * 0.72 - shadowY,
         w: 0.55,
         h: 0.55,
         fill: { color: "C4D94E", transparency: 18 },
@@ -3616,7 +3699,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       // Quiet accent stub when loud pills are off.
       slide.addShape(ctx.shapeRoundRect, {
         x: ctx.margin,
-        y: ctx.height - 0.58,
+        y: ctx.height - 0.58 - shadowY,
         w: 0.7,
         h: 0.03,
         fill: { color: ctx.colors.accent },
@@ -3885,38 +3968,88 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "scatterbrain") {
-    // Cork sticky notes + pin dots (scatterbrain-cork).
+    // Cork wash + soft ink offset shadow + quiet frame + sticky notes + pins;
+    // hero-gated tape strip (scatterbrain-cork ::after).
+    const shadow = 0.09;
     slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.width * 0.68,
+      x: ctx.width - shadow,
+      y: shadow,
+      w: shadow,
+      h: ctx.height - shadow,
+      fill: { color: "2D2A26" },
+      line: { color: "2D2A26", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: shadow,
+      y: ctx.height - shadow,
+      w: ctx.width - shadow,
+      h: shadow,
+      fill: { color: "2D2A26" },
+      line: { color: "2D2A26", width: 0 },
+      rectRadius: 0,
+    });
+    // Soft cork yellow wash (HTML radial at 20%/30%).
+    slide.addShape(ctx.shapeOval, {
+      x: -0.8,
+      y: -0.6,
+      w: ctx.width * 0.55,
+      h: ctx.height * 0.55,
+      fill: { color: "FFE066", transparency: 88 },
+      line: { color: "FFE066", width: 0 },
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.1 - shadow,
+      h: ctx.height - 0.1 - shadow,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: "2D2A26", width: 1 },
+      rectRadius: 0.08,
+    });
+    // Quiet cork rules (HTML repeating 40px lines).
+    for (let i = 1; i < 10; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0.12,
+        y: (ctx.height / 10) * i,
+        w: ctx.width - 0.12 - shadow,
+        h: 0.01,
+        fill: { color: "2D2A26", transparency: 92 },
+        line: { color: "2D2A26", width: 0 },
+        rectRadius: 0,
+      });
+    }
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.68 - shadow,
       y: 0.55,
       w: 1.7,
       h: 1.25,
       fill: { color: "FFE066" },
       line: { color: ctx.colors.text, width: 0.75 },
-      rectRadius: 0.06,
+      rectRadius: 0.02,
     });
     slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.width * 0.78,
+      x: ctx.width * 0.78 - shadow,
       y: ctx.height * 0.48,
       w: 1.4,
       h: 1.1,
       fill: { color: "74C0FC" },
       line: { color: ctx.colors.text, width: 0.75 },
-      rectRadius: 0.06,
+      rectRadius: 0.02,
     });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.55,
-      y: ctx.height * 0.58,
+      y: ctx.height * 0.58 - shadow,
       w: 1.25,
       h: 1.0,
       fill: { color: "FF9F9F" },
       line: { color: ctx.colors.text, width: 0.75 },
-      rectRadius: 0.06,
+      rectRadius: 0.02,
     });
     for (const pin of [
-      { x: ctx.width * 0.72, y: 0.48 },
-      { x: ctx.width * 0.82, y: ctx.height * 0.42 },
-      { x: 0.72, y: ctx.height * 0.52 },
+      { x: ctx.width * 0.72 - shadow, y: 0.48 },
+      { x: ctx.width * 0.82 - shadow, y: ctx.height * 0.42 },
+      { x: 0.72, y: ctx.height * 0.52 - shadow },
     ]) {
       slide.addShape(ctx.shapeOval, {
         x: pin.x,
@@ -3925,6 +4058,18 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         h: 0.18,
         fill: { color: "C92A2A" },
         line: { color: "C92A2A", width: 0 },
+      });
+    }
+    if (isHero) {
+      // Tape strip stand-in (HTML ::after).
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0.55,
+        y: ctx.height - 0.95 - shadow,
+        w: 1.05,
+        h: 0.26,
+        fill: { color: "FFEC99", transparency: 25 },
+        line: { color: "2D2A26", width: 0.75 },
+        rectRadius: 0.02,
       });
     }
   }
@@ -4470,34 +4615,138 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "retro-windows") {
-    // Win95 title bar + window buttons + beveled frame (retro-windows-chrome).
+    // Win95 beveled chrome: white top/left + black right/bottom outer bevel,
+    // inset hilite/shade strips, CRT scanlines, title bar + window buttons.
+    const bevel = 0.035;
+    // Outer dark bottom/right.
     slide.addShape(ctx.shapeRoundRect, {
-      x: 0.08,
-      y: 0.08,
-      w: ctx.width - 0.16,
-      h: ctx.height - 0.16,
-      fill: { color: ctx.colors.bg, transparency: 100 },
-      line: { color: "000000", width: 2 },
+      x: ctx.width - bevel,
+      y: 0,
+      w: bevel,
+      h: ctx.height,
+      fill: { color: "000000" },
+      line: { color: "000000", width: 0 },
       rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
-      x: 0.12,
-      y: 0.12,
-      w: ctx.width - 0.24,
+      x: 0,
+      y: ctx.height - bevel,
+      w: ctx.width,
+      h: bevel,
+      fill: { color: "000000" },
+      line: { color: "000000", width: 0 },
+      rectRadius: 0,
+    });
+    // Outer light top/left.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: ctx.width - bevel,
+      h: bevel,
+      fill: { color: "FFFFFF" },
+      line: { color: "FFFFFF", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: bevel,
+      h: ctx.height - bevel,
+      fill: { color: "FFFFFF" },
+      line: { color: "FFFFFF", width: 0 },
+      rectRadius: 0,
+    });
+    // Inset shade (bottom/right #404040) + hilite (top/left white).
+    const inset = 0.02;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - bevel - inset,
+      y: bevel,
+      w: inset,
+      h: ctx.height - bevel * 2,
+      fill: { color: "404040" },
+      line: { color: "404040", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: bevel,
+      y: ctx.height - bevel - inset,
+      w: ctx.width - bevel * 2,
+      h: inset,
+      fill: { color: "404040" },
+      line: { color: "404040", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: bevel,
+      y: bevel,
+      w: ctx.width - bevel * 2 - inset,
+      h: inset,
+      fill: { color: "FFFFFF" },
+      line: { color: "FFFFFF", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: bevel,
+      y: bevel,
+      w: inset,
+      h: ctx.height - bevel * 2 - inset,
+      fill: { color: "FFFFFF" },
+      line: { color: "FFFFFF", width: 0 },
+      rectRadius: 0,
+    });
+    // Quiet CRT scanlines.
+    for (let i = 0; i < 14; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: bevel + inset,
+        y: 0.5 + i * 0.45,
+        w: ctx.width - (bevel + inset) * 2,
+        h: 0.012,
+        fill: { color: "000000", transparency: 94 },
+        line: { color: "000000", width: 0 },
+        rectRadius: 0,
+      });
+    }
+    slide.addShape(ctx.shapeRoundRect, {
+      x: bevel + inset + 0.02,
+      y: bevel + inset + 0.02,
+      w: ctx.width - (bevel + inset + 0.02) * 2,
       h: 0.32,
       fill: { color: "000080" },
       line: { color: "000080", width: 0 },
       rectRadius: 0,
     });
-    const winBtns = [ctx.width - 1.15, ctx.width - 0.85, ctx.width - 0.55];
+    const winBtns = [
+      ctx.width - 1.2 - bevel,
+      ctx.width - 0.9 - bevel,
+      ctx.width - 0.6 - bevel,
+    ];
     for (const x of winBtns) {
       slide.addShape(ctx.shapeRoundRect, {
         x,
-        y: 0.18,
+        y: bevel + inset + 0.08,
         w: 0.22,
         h: 0.18,
         fill: { color: "C0C0C0" },
         line: { color: "FFFFFF", width: 1 },
+        rectRadius: 0,
+      });
+      // Button shade stub (Win95 raised control).
+      slide.addShape(ctx.shapeRoundRect, {
+        x: x + 0.18,
+        y: bevel + inset + 0.1,
+        w: 0.03,
+        h: 0.14,
+        fill: { color: "000000" },
+        line: { color: "000000", width: 0 },
+        rectRadius: 0,
+      });
+      slide.addShape(ctx.shapeRoundRect, {
+        x: x + 0.02,
+        y: bevel + inset + 0.22,
+        w: 0.16,
+        h: 0.03,
+        fill: { color: "000000" },
+        line: { color: "000000", width: 0 },
         rectRadius: 0,
       });
     }
