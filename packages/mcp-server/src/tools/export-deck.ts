@@ -1,6 +1,7 @@
 import { writeFile } from "node:fs/promises";
-import { renderDeck, renderDeckPptx, getBundledThemesDir } from "@presentation-md/render";
+import { renderDeck, renderDeckPptx } from "@presentation-md/render";
 import type { ToolDefinition } from "../server.js";
+import { resolveThemesDir } from "../lib/resolve-themes.js";
 
 function applyThemeOverride(rawJson: string, theme?: string): string {
   if (!theme) return rawJson;
@@ -58,7 +59,7 @@ export const exportDeckTool: ToolDefinition = {
     const slide_count = slideCountOf(deckJson);
 
     if (format === "html") {
-      const html = await renderDeck(deckJson, { themesDir: getBundledThemesDir() });
+      const html = await renderDeck(deckJson, resolveThemesDir());
       const result: { format: string; slide_count: number; path?: string; html?: string } = {
         format,
         slide_count,
@@ -73,6 +74,7 @@ export const exportDeckTool: ToolDefinition = {
     }
 
     const buffer = await renderDeckPptx(deckJson, {
+      ...resolveThemesDir(),
       onWarn: (msg) => warnings.push(msg),
     });
 

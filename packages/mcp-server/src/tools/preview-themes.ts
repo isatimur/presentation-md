@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
-import { renderDeck, getBundledThemesDir } from "@presentation-md/render";
+import { renderDeck } from "@presentation-md/render";
+import { resolveThemesDir } from "../lib/resolve-themes.js";
 import type { ToolDefinition } from "../server.js";
 
 const DEFAULT_PREVIEW_DIR = ".presentation-md/theme-previews";
@@ -160,7 +161,7 @@ export const previewThemesTool: ToolDefinition = {
         mode === "layouts"
           ? layoutsPreviewDeck(title, theme, company)
           : titlePreviewDeck(title, theme, company);
-      const html = await renderDeck(deckJson, { themesDir: getBundledThemesDir() });
+      const html = await renderDeck(deckJson, resolveThemesDir());
       const filename =
         mode === "layouts" ? `${theme}-layouts-preview.html` : `${theme}-preview.html`;
       const path = join(outputDir, filename);

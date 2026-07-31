@@ -1,12 +1,17 @@
+import { mkdir, writeFile } from "node:fs/promises";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { spawn } from "node:child_process";
+import { tmpdir } from "node:os";
+import { randomBytes } from "node:crypto";
 import { validateDeckJson } from "@presentation-md/core";
+import { renderDeck } from "@presentation-md/render";
 import type { ToolDefinition } from "../server.js";
+import { analyzeHtmlDeck, type MetricFlag } from "../lib/html-metrics.js";
+import { screenshotSlides } from "../lib/screenshot-slides.js";
+import { resolveThemesDir } from "../lib/resolve-themes.js";
 
-interface Flag {
-  id: string;
-  severity: "gate" | "warn" | "error";
-  detail: string;
-  slide?: number;
-}
+type Tier = "t0" | "t1" | "t2" | "t3";
 
 const WORD_GATE = 40;
 const IGNORE_KEYS = new Set([
@@ -37,6 +42,19 @@ const IGNORE_KEYS = new Set([
   "tone",
 ]);
 
+const RUBRIC_DIMENSIONS = [
+  { key: "narrative", weight: 12, label: "Narrative & tension" },
+  { key: "clarity", weight: 12, label: "Message clarity / 3-second rule" },
+  { key: "typography", weight: 11, label: "Typography system" },
+  { key: "color", weight: 11, label: "Colour discipline" },
+  { key: "layout_flat", weight: 11, label: "Layout, whitespace & flat-system fidelity" },
+  { key: "brand", weight: 10, label: "Brand fidelity" },
+  { key: "craft", weight: 10, label: "Craft & polish" },
+  { key: "proof", weight: 9, label: "Data & proof integrity" },
+  { key: "variety", weight: 8, label: "Layout variety" },
+  { key: "close", weight: 6, label: "The close / CTA" },
+] as const;
+
 function countWords(text: string): number {
   return text.split(/\s+/).filter((w) => /[A-Za-z0-9]/.test(w)).length;
 }
@@ -58,12 +76,12 @@ function iterTextBlocks(obj: unknown): string[] {
   return out;
 }
 
-/** T1-style structural judge (deck JSON) — ports deck-design-judge metrics gates. */
+/** T0/T1 structural judge (deck JSON) — ports deck-design-judge metrics gates. */
 function judgeDeckJson(deck: Record<string, unknown>): {
   metrics: Record<string, unknown>;
-  flags: Flag[];
+  flags: MetricFlag[];
 } {
-  const flags: Flag[] = [];
+  const flags: MetricFlag[] = [];
   const slides = Array.isArray(deck["slides"]) ? (deck["slides"] as Record<string, unknown>[]) : [];
   const layouts: string[] = [];
   const wps: number[] = [];
@@ -168,50 +186,319 @@ function judgeDeckJson(deck: Record<string, unknown>): {
   };
 }
 
+function parseTier(raw: unknown): Tier {
+  const s = String(raw ?? "t1").toLowerCase().replace(/^tier[-_]?/, "");
+  if (s === "t0" || s === "0") return "t0";
+  if (s === "t2" || s === "2") return "t2";
+  if (s === "t3" || s === "3") return "t3";
+  return "t1";
+}
+
+function resolveJudgeScriptsDir(): string | undefined {
+  if (process.env.PRESENTATION_MD_JUDGE_SCRIPTS) {
+    return process.env.PRESENTATION_MD_JUDGE_SCRIPTS;
+  }
+  // monorepo: packages/mcp-server/dist/tools → ../../../skills/deck-design-judge/scripts
+  try {
+    const here = dirname(fileURLToPath(import.meta.url));
+    const candidate = join(here, "..", "..", "..", "..", "skills", "deck-design-judge", "scripts");
+    return candidate;
+  } catch {
+    return undefined;
+  }
+}
+
+function runPythonJson(
+  script: string,
+  args: string[],
+  timeoutMs = 180_000
+): Promise<{ ok: boolean; stdout: string; stderr: string; code: number | null }> {
+  return new Promise((resolve) => {
+    const child = spawn("python3", [script, ...args], { stdio: ["ignore", "pipe", "pipe"] });
+    let stdout = "";
+    let stderr = "";
+    const t = setTimeout(() => {
+      child.kill("SIGKILL");
+      resolve({ ok: false, stdout, stderr: stderr + "\n(timeout)", code: null });
+    }, timeoutMs);
+    child.stdout.on("data", (d: Buffer) => {
+      stdout += d.toString();
+    });
+    child.stderr.on("data", (d: Buffer) => {
+      stderr += d.toString();
+    });
+    child.on("close", (code) => {
+      clearTimeout(t);
+      resolve({ ok: code === 0, stdout, stderr, code });
+    });
+    child.on("error", (err) => {
+      clearTimeout(t);
+      resolve({ ok: false, stdout, stderr: String(err), code: null });
+    });
+  });
+}
+
+function agentRubricPayload(shots: { slide: number; path: string }[]) {
+  return {
+    status: "agent_rubric" as const,
+    note:
+      "T3 multi-model panel needs API keys + skills/deck-design-judge/scripts/judge_panel.py. " +
+      "Open each shot, score every dimension 0–5 with evidence, prefer the lower anchor when merely fine.",
+    dimensions: RUBRIC_DIMENSIONS,
+    shots: shots.map((s) => ({ slide: s.slide, path: s.path })),
+    instruction:
+      "Return judge.json shape: { tier:'t3', dimensions:{ [key]: { score:0-5, evidence:string } }, summary?: string }. " +
+      "Any gate hit caps grade at C / Not ready.",
+  };
+}
+
 export const judgeDeckTool: ToolDefinition = {
   name: "judge_deck",
   description:
-    "Structural design judge for Deck JSON (deck-design-judge T1 gates: wall-of-text, cadence, visual beat, asymmetry). Returns metrics + flags. For screenshot T2/T3 QA, also run the deck-design-judge skill after render_deck.",
+    "Design judge for Deck JSON / rendered HTML (deck-design-judge tiers). " +
+    "t0/t1: structural JSON gates. t2: render + HTML metrics (G1–G5) + Chrome screenshots when available. " +
+    "t3: t2 + multi-model panel when judge_panel.py + API keys exist; otherwise returns an agent rubric payload with shot paths.",
   inputSchema: {
     type: "object",
     properties: {
       json: {
         type: "string",
-        description: "Deck JSON string to judge",
+        description: "Deck JSON string to judge (required unless html is provided for t2/t3)",
+      },
+      html: {
+        type: "string",
+        description: "Optional pre-rendered HTML. When omitted for t2/t3, the tool renders from json.",
+      },
+      tier: {
+        type: "string",
+        enum: ["t0", "t1", "t2", "t3"],
+        description: "Judge tier (default t1). t2/t3 need Chrome for screenshots; t3 prefers judge_panel.py.",
+      },
+      theme: {
+        type: "string",
+        description: "Theme override when rendering for t2/t3",
+      },
+      shots_dir: {
+        type: "string",
+        description: "Directory to write T2/T3 PNG screenshots (default: temp dir)",
+      },
+      skip_screenshots: {
+        type: "boolean",
+        description: "If true, t2/t3 skip Chrome shots and only run HTML metrics",
+      },
+      max_slides: {
+        type: "number",
+        description: "Cap screenshots to first N slides (default 40)",
       },
     },
-    required: ["json"],
+    required: [],
   },
   handler: async (input: Record<string, unknown>) => {
-    const json = String(input["json"] ?? "");
-    const schema = validateDeckJson(json);
-    let deck: Record<string, unknown>;
-    try {
-      deck = JSON.parse(json) as Record<string, unknown>;
-    } catch (err) {
+    const tier = parseTier(input["tier"]);
+    const json = input["json"] != null ? String(input["json"]) : "";
+    const htmlIn = input["html"] != null ? String(input["html"]) : "";
+    const skipShots = Boolean(input["skip_screenshots"]);
+    const shotsDir = input["shots_dir"] != null ? String(input["shots_dir"]) : undefined;
+    const maxSlides =
+      typeof input["max_slides"] === "number" ? Math.max(1, Math.floor(input["max_slides"])) : 40;
+    const theme = input["theme"] != null ? String(input["theme"]) : undefined;
+
+    if (!json && !htmlIn) {
       return {
         valid: false,
         pass: false,
-        schema_errors: [`Invalid JSON: ${(err as Error).message}`],
+        tier,
+        schema_errors: ["Provide json and/or html"],
         metrics: {},
-        flags: [{ id: "parse", severity: "error", detail: "Could not parse deck JSON" }],
-        next: "Fix JSON, then re-run judge_deck.",
+        flags: [{ id: "input", severity: "error", detail: "json or html required" }],
+        next: "Pass deck JSON (and optionally pre-rendered html).",
       };
     }
 
-    const judged = judgeDeckJson(deck);
-    const gateHits = judged.flags.filter((f) => f.severity === "gate").length;
-    const pass = schema.valid && gateHits === 0;
+    let deck: Record<string, unknown> | undefined;
+    let schema = { valid: true, errors: [] as string[] };
+    if (json) {
+      schema = validateDeckJson(json);
+      try {
+        deck = JSON.parse(json) as Record<string, unknown>;
+      } catch (err) {
+        return {
+          valid: false,
+          pass: false,
+          tier,
+          schema_errors: [`Invalid JSON: ${(err as Error).message}`],
+          metrics: {},
+          flags: [{ id: "parse", severity: "error", detail: "Could not parse deck JSON" }],
+          next: "Fix JSON, then re-run judge_deck.",
+        };
+      }
+    }
+
+    const structural = deck ? judgeDeckJson(deck) : { metrics: { mode: "none" }, flags: [] as MetricFlag[] };
+
+    // T0 = metrics-only JSON (no visual-beat craft heuristics beyond density) — keep same structural for simplicity
+    if (tier === "t0" || tier === "t1") {
+      const gateHits = structural.flags.filter((f) => f.severity === "gate").length;
+      const pass = schema.valid && gateHits === 0;
+      return {
+        valid: schema.valid,
+        pass,
+        tier,
+        schema_errors: schema.valid ? [] : schema.errors,
+        metrics: structural.metrics,
+        flags: structural.flags,
+        next: pass
+          ? tier === "t0"
+            ? "T0 density gates clear. Escalate to judge_deck tier=t1/t2 before ship."
+            : "Structural gates clear. Escalate to judge_deck tier=t2 for HTML metrics + screenshots before final ship."
+          : "Fix gate/warn flags (and schema errors), then re-run judge_deck before shipping.",
+      };
+    }
+
+    // ── T2 / T3: render + HTML metrics + optional screenshots ──
+    let html = htmlIn;
+    let rendered_path: string | undefined;
+    if (!html) {
+      if (!json) {
+        return {
+          valid: false,
+          pass: false,
+          tier,
+          schema_errors: ["html or json required for t2/t3"],
+          metrics: {},
+          flags: [{ id: "input", severity: "error", detail: "Need json to render or html to analyze" }],
+          next: "Pass json (to render) or html (pre-rendered).",
+        };
+      }
+      let deckJson = json;
+      if (theme && deck) {
+        const meta = { ...((deck["meta"] as Record<string, unknown>) ?? {}), theme };
+        deckJson = JSON.stringify({ ...deck, meta });
+      }
+      html = await renderDeck(deckJson, resolveThemesDir());
+      const work =
+        shotsDir ?? join(tmpdir(), `pmd-judge-${randomBytes(6).toString("hex")}`);
+      await mkdir(work, { recursive: true });
+      rendered_path = join(work, "deck.html");
+      await writeFile(rendered_path, html, "utf-8");
+    }
+
+    const htmlJudged = analyzeHtmlDeck(html);
+    // Merge structural craft warnings (cadence etc.) that HTML mode lacks
+    const mergedFlags = [...htmlJudged.flags];
+    for (const f of structural.flags) {
+      if (["cadence", "visual_beat", "asymmetry", "data_viz"].includes(f.id)) {
+        if (!mergedFlags.some((x) => x.id === f.id && x.detail === f.detail)) {
+          mergedFlags.push(f);
+        }
+      }
+    }
+
+    let screenshots: Awaited<ReturnType<typeof screenshotSlides>> | undefined;
+    if (!skipShots) {
+      screenshots = await screenshotSlides(html, {
+        shotsDir: shotsDir ?? (rendered_path ? dirname(rendered_path) : undefined),
+        maxSlides,
+      });
+      for (const shot of screenshots.shots) {
+        if (shot.warn) {
+          mergedFlags.push({
+            id: "shot_qa",
+            severity: "warn",
+            slide: shot.slide,
+            detail: `Slide ${shot.slide}: ${shot.warn}`,
+          });
+        }
+      }
+    } else {
+      screenshots = {
+        ok: false,
+        shots: [],
+        detail: "Screenshots skipped (skip_screenshots=true).",
+      };
+    }
+
+    let panel: unknown = undefined;
+    if (tier === "t3") {
+      const scriptsDir = resolveJudgeScriptsDir();
+      const panelScript = scriptsDir ? join(scriptsDir, "judge_panel.py") : undefined;
+      const hasKey =
+        Boolean(process.env.ANTHROPIC_API_KEY) ||
+        Boolean(process.env.OPENROUTER_API_KEY) ||
+        Boolean(process.env.OPENAI_API_KEY);
+
+      if (panelScript && hasKey && rendered_path) {
+        const outJudge = join(dirname(rendered_path), "judge.json");
+        const metricsPath = join(dirname(rendered_path), "metrics.json");
+        await writeFile(
+          metricsPath,
+          JSON.stringify({ metrics: htmlJudged.metrics, flags: mergedFlags }, null, 2),
+          "utf-8"
+        );
+        const run = await runPythonJson(panelScript, [
+          rendered_path,
+          "--metrics",
+          metricsPath,
+          "--out",
+          outJudge,
+        ]);
+        if (run.ok) {
+          try {
+            const { readFile } = await import("node:fs/promises");
+            panel = JSON.parse(await readFile(outJudge, "utf-8"));
+          } catch {
+            panel = { status: "panel_wrote_unreadable", stderr: run.stderr };
+          }
+        } else {
+          panel = {
+            ...agentRubricPayload(screenshots.shots),
+            panel_error: run.stderr || run.stdout || "judge_panel.py failed",
+          };
+        }
+      } else {
+        panel = {
+          ...agentRubricPayload(screenshots.shots),
+          skipped_reason: !panelScript
+            ? "judge_panel.py not found (set PRESENTATION_MD_JUDGE_SCRIPTS)"
+            : !hasKey
+              ? "No ANTHROPIC_API_KEY / OPENROUTER_API_KEY / OPENAI_API_KEY — agent should score rubric with shots open"
+              : "Need rendered_path for panel",
+        };
+      }
+    }
+
+    const gateHits = mergedFlags.filter((f) => f.severity === "gate").length;
+    const pass = schema.valid && gateHits === 0 && (screenshots.chrome_missing ? true : screenshots.ok !== false || skipShots);
 
     return {
       valid: schema.valid,
-      pass,
+      pass: schema.valid && gateHits === 0,
+      tier,
       schema_errors: schema.valid ? [] : schema.errors,
-      metrics: judged.metrics,
-      flags: judged.flags,
-      next: pass
-        ? "Structural gates clear. Render with render_deck, then run deck-design-judge T2 screenshot pass when available."
-        : "Fix gate/warn flags (and schema errors), then re-run judge_deck before shipping.",
+      metrics: {
+        ...htmlJudged.metrics,
+        structural_layouts: structural.metrics["layouts"],
+        screenshots_ok: screenshots.ok,
+        chrome_missing: screenshots.chrome_missing ?? false,
+      },
+      flags: mergedFlags,
+      html_path: rendered_path,
+      screenshots: {
+        ok: screenshots.ok,
+        chrome_missing: screenshots.chrome_missing ?? false,
+        shots_dir: screenshots.shots_dir,
+        shots: screenshots.shots,
+        detail: screenshots.detail,
+      },
+      panel,
+      next: !schema.valid || gateHits > 0
+        ? "Fix gate/schema issues, then re-run judge_deck at the same tier."
+        : screenshots.chrome_missing
+          ? "HTML metrics clear but Chrome missing — install Chrome for real T2 shots, or open html_path and review visually."
+          : tier === "t3" && panel && typeof panel === "object" && (panel as { status?: string }).status === "agent_rubric"
+            ? "Open each shot path, score the 10 rubric dimensions, apply top fixes, re-judge."
+            : "T2/T3 visual QA artifacts ready — review shots, apply top fixes if any warns remain, then ship.",
+      screenshots_pass: pass,
     };
   },
 };

@@ -1,6 +1,7 @@
 import { writeFile } from "node:fs/promises";
-import { renderDeck, getBundledThemesDir } from "@presentation-md/render";
+import { renderDeck } from "@presentation-md/render";
 import type { ToolDefinition } from "../server.js";
+import { resolveThemesDir } from "../lib/resolve-themes.js";
 
 export const renderDeckTool: ToolDefinition = {
   name: "render_deck",
@@ -34,7 +35,7 @@ export const renderDeckTool: ToolDefinition = {
       deckJson = JSON.stringify(parsed);
     }
 
-    const html = await renderDeck(deckJson, { themesDir: getBundledThemesDir() });
+    const html = await renderDeck(deckJson, resolveThemesDir());
 
     let deck: { slides?: unknown[] };
     try {

@@ -328,10 +328,12 @@ pnpm --filter @presentation-md/studio build:web   # static build → web/studio/
 | `render_deck` | Render a Deck JSON string to a self-contained HTML file |
 | `export_deck` | Export a Deck JSON to a native, editable PowerPoint (`.pptx`) — or html |
 | `audit_deck` | Schema-validate a deck and return structured issues with severity |
+| `judge_deck` | Design judge — t0/t1 JSON gates; **t2** HTML metrics + Chrome shots; **t3** panel/agent rubric |
 | `list_themes` | Enumerate available themes (bundled + installed) with name, version, and vibe |
 | `apply_theme` | Swap `meta.theme` on a deck without rewriting slides |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
 | `import_pptx` | Import a `.pptx` into Deck JSON |
+| `import_markdown` | Convert Markdown (+ optional front matter) into Deck JSON |
 | `preview_themes` | Render 1–3 theme previews; optional `mode: "layouts"` for multi-slide craft bake |
 | `import_brand_theme` | Generate a theme from a brand URL or CSS file |
 

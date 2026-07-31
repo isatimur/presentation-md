@@ -197,7 +197,7 @@ describe("preview_themes", () => {
 
 
 describe("judge_deck", () => {
-  it("passes a tight two-slide deck", async () => {
+  it("passes a tight two-slide deck (t1 default)", async () => {
     const result = (await judgeDeckTool.handler({
       json: JSON.stringify({
         type: "deck",
@@ -206,9 +206,58 @@ describe("judge_deck", () => {
           { layout: "closing", heading: "Bye" },
         ],
       }),
-    })) as { pass: boolean; valid: boolean };
+    })) as { pass: boolean; valid: boolean; tier: string };
     expect(result.valid).toBe(true);
     expect(result.pass).toBe(true);
+    expect(result.tier).toBe("t1");
+  });
+
+  it("t2 runs HTML metrics without screenshots when skip_screenshots", async () => {
+    const result = (await judgeDeckTool.handler({
+      tier: "t2",
+      skip_screenshots: true,
+      json: JSON.stringify({
+        type: "deck",
+        meta: { title: "Judge T2", theme: "default-tech" },
+        slides: [
+          { layout: "title", heading: "Hello World", lead: "Short lead." },
+          { layout: "closing", heading: "Thank you", lead: "Done." },
+        ],
+      }),
+    })) as {
+      pass: boolean;
+      tier: string;
+      metrics: { mode: string; craft_features?: Record<string, boolean> };
+      screenshots: { chrome_missing?: boolean; shots: unknown[] };
+      html_path?: string;
+    };
+    expect(result.tier).toBe("t2");
+    expect(result.metrics.mode).toBe("html");
+    expect(result.metrics.craft_features?.keyboard_nav).toBe(true);
+    expect(result.screenshots.shots).toEqual([]);
+    expect(result.html_path).toBeTruthy();
+    expect(result.pass).toBe(true);
+  });
+
+  it("t3 returns agent rubric when panel keys missing", async () => {
+    const result = (await judgeDeckTool.handler({
+      tier: "t3",
+      skip_screenshots: true,
+      json: JSON.stringify({
+        type: "deck",
+        meta: { title: "Judge T3", theme: "default-tech" },
+        slides: [
+          { layout: "title", heading: "Hello" },
+          { layout: "closing", heading: "Bye" },
+        ],
+      }),
+    })) as {
+      tier: string;
+      panel: { status: string; dimensions: unknown[] };
+    };
+    expect(result.tier).toBe("t3");
+    expect(result.panel.status).toBe("agent_rubric");
+    expect(result.panel.dimensions.length).toBe(10);
   });
 });
 

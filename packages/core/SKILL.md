@@ -393,7 +393,7 @@ Fill gaps with intelligent defaults. Never ask more than 3 clarifying questions.
 | `preview_themes` | Render 1–3 theme HTML previews; pass `mode: "layouts"` for multi-slide craft bake |
 | `import_pptx` | Import a `.pptx` into deck JSON (see `references/pptx-import.md`) |
 | `import_markdown` | Import Marp/md-slides Markdown → Deck JSON (`---` splits, ` ```chart ` / ` ```html `) |
-| `judge_deck` | Structural design judge (T1 gates: wall-of-text, cadence, visual beat) |
+| `judge_deck` | Design judge — `tier` t0/t1 JSON gates; **t2** HTML metrics + Chrome shots; **t3** panel or agent rubric |
 | `import_brand_theme` | Generate a theme from a brand URL or CSS file |
 
 ---
@@ -451,9 +451,9 @@ You have been staring at this deck while building it, so you now see what you *i
 **Tooling first (deck-spec path) — non-skippable when MCP/CLI is available:**
 1. Call `preview_themes` (or open gallery structured proofs) before locking a vibe — never invent a palette.
 2. Call `audit_deck` on the deck JSON — fix every `error`, then address `warning`s.
-3. Call `judge_deck` for structural craft gates (wall-of-text, cadence, visual beat).
+3. Call `judge_deck` for craft gates (`tier=t1`). Escalate to `tier=t2` (HTML metrics + screenshots) before delivery; `tier=t3` when highest stakes.
 4. Render with `render_deck` / CLI, open the HTML, and spot-check with keyboard arrows.
-5. When `deck-design-judge` is installed, run a T2 screenshot pass before delivery. Self-score → fix → re-score. Do not ship on schema-valid alone.
+5. Re-run `judge_deck` at t2/t3 with shot paths → fix → re-score. Do not ship on schema-valid alone.
 
 Then walk every slide against this checklist and fix before delivering:
 

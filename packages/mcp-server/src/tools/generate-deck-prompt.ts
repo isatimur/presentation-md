@@ -2,8 +2,8 @@ import { readFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { createRequire } from "node:module";
 import { loadTheme } from "@presentation-md/core";
-import { getBundledThemesDir } from "@presentation-md/render";
 import type { ToolDefinition } from "../server.js";
+import { resolveThemesDir } from "../lib/resolve-themes.js";
 
 function getCoreRoot(): string {
   const require = createRequire(import.meta.url);
@@ -28,10 +28,10 @@ export const generateDeckPromptTool: ToolDefinition = {
     const intent = (input["intent"] as string | undefined) ?? "";
 
     const coreRoot = getCoreRoot();
-    const themesDir = getBundledThemesDir();
+    const { themesDir, fallbackThemesDirs } = resolveThemesDir();
 
     const [theme, skill, deckSchemaReference, stunning25, themesMd] = await Promise.all([
-      loadTheme(themeName, { themesDir }),
+      loadTheme(themeName, { themesDir, fallbackThemesDirs }),
       readFile(join(coreRoot, "SKILL.md"), "utf-8"),
       readFile(join(coreRoot, "references", "deck-schema.md"), "utf-8"),
       readFile(join(coreRoot, "references", "stunning-25.md"), "utf-8").catch(() => ""),

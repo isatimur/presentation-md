@@ -71,6 +71,17 @@
       slides[slides.length - 1].scrollIntoView({ behavior: "smooth", block: "center" });
     }
   });
+
+  /* T2/T3 screenshot harness — #__shot=N scrolls slide N into view and forces reveals */
+  var shot = location.hash.match(/__shot=(\d+)/);
+  if (shot) {
+    var si = +shot[1] - 1;
+    slides.forEach(function (s) { s.classList.add("in-view"); });
+    if (slides[si]) {
+      document.documentElement.style.scrollSnapType = "none";
+      slides[si].scrollIntoView({ behavior: "instant", block: "start" });
+    }
+  }
 })();
 </script>
 </body>
