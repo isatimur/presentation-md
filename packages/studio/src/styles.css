@@ -363,6 +363,27 @@ body {
   border-color: var(--accent);
   color: var(--accent);
 }
+.audit-live-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.audit-live-badge.has-errors {
+  background: color-mix(in srgb, #e11d48 16%, transparent);
+  color: #be123c;
+  border-color: color-mix(in srgb, #e11d48 45%, transparent);
+}
+.btn.audit-live-dirty {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line-2));
+}
 .audit-list {
   list-style: none;
   margin: 10px 0;

@@ -33,6 +33,9 @@ export function Toolbar({
   const [auditFilter, setAuditFilter] = useState<"all" | "error" | "warning">("all");
 
   const themes = useMemo(() => listThemeSummaries(), []);
+  const liveCraftIssues = useMemo(() => auditCraft(deck), [deck]);
+  const liveCraftErrors = liveCraftIssues.filter((i) => i.severity === "error").length;
+  const liveCraftWarns = liveCraftIssues.length - liveCraftErrors;
   const theme = deck.meta?.theme ?? "default-tech";
   const active = themes.find((t) => t.name === theme) ?? {
     name: theme,
@@ -237,8 +240,19 @@ export function Toolbar({
       </button>
       <button className="btn" onClick={() => fileRef.current?.click()} title="Open a deck .html, .json, or .pptx">Open</button>
       <button className="btn" onClick={onPresent} title="Present fullscreen">Present</button>
-      <button className="btn" onClick={runCraftAudit} title="Run craft gates (asymmetry, image-hero, notes, wrap tone)">
+      <button
+        className={`btn${liveCraftIssues.length ? " audit-live-dirty" : ""}`}
+        onClick={runCraftAudit}
+        title="Run craft gates (asymmetry, image-hero, notes, wrap tone). Badge updates live as you edit."
+      >
         Audit craft
+        {liveCraftIssues.length > 0 && (
+          <span className={`audit-live-badge${liveCraftErrors ? " has-errors" : ""}`}>
+            {liveCraftErrors > 0 ? `${liveCraftErrors}E` : ""}
+            {liveCraftErrors > 0 && liveCraftWarns > 0 ? "·" : ""}
+            {liveCraftWarns > 0 ? `${liveCraftWarns}W` : liveCraftErrors > 0 ? "" : liveCraftIssues.length}
+          </span>
+        )}
       </button>
       <button className="btn" onClick={() => downloadJson(deck)}>JSON</button>
       <button className="btn" onClick={() => downloadHtml(deck)}>HTML</button>
