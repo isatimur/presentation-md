@@ -1,6 +1,6 @@
 {
   "name": "@presentation-skill-pack/mcp-server",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "DEPRECATED — thin redirect to @presentation-md/mcp-server (11 tools). Use the new package name.",
   "license": "MIT",
   "type": "module",
