@@ -2051,7 +2051,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "default-tech") {
-    // Neon-glow corner bloom (HTML blur → soft oval).
+    // Neon-glow corner bloom + secondary cyan wash (HTML blur → soft ovals).
     const glowT = isHero ? 55 : 72;
     slide.addShape(ctx.shapeOval, {
       x: ctx.width - 4.2,
@@ -2060,6 +2060,14 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       h: 6.5,
       fill: { color: ctx.colors.accent, transparency: glowT },
       line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: -1.8,
+      y: ctx.height - 3.2,
+      w: 4.2,
+      h: 4.2,
+      fill: { color: ctx.colors.accent2, transparency: isHero ? 68 : 80 },
+      line: { color: ctx.colors.accent2, width: 0 },
     });
   }
 
@@ -2833,25 +2841,47 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     });
   }
 
-  if (theme === "bauhaus" && isHero) {
-    // Primary red square + blue circle (bauhaus-blocks hero ornaments).
+  if (theme === "bauhaus") {
+    // Hard frame on every slide; red square + blue circle on heroes (bauhaus-blocks).
     slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.width - 2.3,
-      y: 0.7,
-      w: 1.05,
-      h: 1.05,
-      fill: { color: ctx.colors.accent },
-      line: { color: ctx.colors.accent, width: 0 },
+      x: 0.08,
+      y: 0.08,
+      w: ctx.width - 0.16,
+      h: ctx.height - 0.16,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 2 },
       rectRadius: 0,
     });
-    slide.addShape(ctx.shapeOval, {
-      x: ctx.width - 2.9,
-      y: 1.35,
-      w: 1.05,
-      h: 1.05,
-      fill: { color: ctx.colors.accent2, transparency: 12 },
-      line: { color: ctx.colors.accent2, width: 0 },
-    });
+    if (isHero) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width - 2.3,
+        y: 0.7,
+        w: 1.05,
+        h: 1.05,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+      slide.addShape(ctx.shapeOval, {
+        x: ctx.width - 2.9,
+        y: 1.35,
+        w: 1.05,
+        h: 1.05,
+        fill: { color: ctx.colors.accent2, transparency: 12 },
+        line: { color: ctx.colors.accent2, width: 0 },
+      });
+    } else {
+      // Quiet primary stub on body — keeps Primary energy without fighting copy.
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width - ctx.margin - 0.55,
+        y: ctx.margin * 0.9,
+        w: 0.55,
+        h: 0.55,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
   }
 
   if (theme === "fintech-clean") {
@@ -2912,25 +2942,36 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     });
   }
 
-  if (theme === "art-deco" && isHero) {
-    // Gold hairline + centered deco ring (deco-fan).
+  if (theme === "art-deco") {
+    // Gold frame + hairline; centered deco ring on heroes (deco-fan).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.2,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: 1.15 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: ctx.margin,
       y: 0.55,
       w: ctx.width - ctx.margin * 2,
       h: 0.02,
-      fill: { color: ctx.colors.accent },
+      fill: { color: ctx.colors.accent, transparency: isHero ? 0 : 35 },
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0,
     });
-    slide.addShape(ctx.shapeOval, {
-      x: ctx.width / 2 - 0.35,
-      y: 0.38,
-      w: 0.7,
-      h: 0.7,
-      fill: { color: ctx.colors.bg, transparency: 100 },
-      line: { color: ctx.colors.accent, width: 1.75 },
-    });
+    if (isHero) {
+      slide.addShape(ctx.shapeOval, {
+        x: ctx.width / 2 - 0.35,
+        y: 0.38,
+        w: 0.7,
+        h: 0.7,
+        fill: { color: ctx.colors.bg, transparency: 100 },
+        line: { color: ctx.colors.accent, width: 1.75 },
+      });
+    }
   }
 
   if (theme === "botanical-luxe") {
@@ -4409,13 +4450,13 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "pastel-dreamy") {
-    // Soft cloud ovals (pastel-cloud).
+    // Soft cloud ovals + third mist blot (pastel-cloud).
     slide.addShape(ctx.shapeOval, {
       x: -ctx.width * 0.05,
       y: -ctx.height * 0.1,
       w: ctx.width * 0.45,
       h: ctx.height * 0.45,
-      fill: { color: ctx.colors.accent2, transparency: 78 },
+      fill: { color: ctx.colors.accent2, transparency: 74 },
       line: { color: ctx.colors.accent2, width: 0 },
     });
     slide.addShape(ctx.shapeOval, {
@@ -4423,8 +4464,16 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       y: ctx.height * 0.05,
       w: ctx.width * 0.4,
       h: ctx.height * 0.4,
-      fill: { color: ctx.colors.accent, transparency: 82 },
+      fill: { color: ctx.colors.accent, transparency: 78 },
       line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.35,
+      y: ctx.height * 0.65,
+      w: ctx.width * 0.4,
+      h: ctx.height * 0.4,
+      fill: { color: ctx.colors.accent2, transparency: 86 },
+      line: { color: ctx.colors.accent2, width: 0 },
     });
   }
 
@@ -4459,7 +4508,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "editorial-serif") {
-    // Accent rule + deco ring (editorial-rule).
+    // Accent rule + deco ring + bottom stub (editorial-rule).
     slide.addShape(ctx.shapeRoundRect, {
       x: ctx.margin,
       y: 0.55,
@@ -4477,39 +4526,65 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       fill: { color: ctx.colors.bg, transparency: 100 },
       line: { color: ctx.colors.accent, width: 1.5 },
     });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: ctx.height - 0.7,
+      w: 0.55,
+      h: 0.03,
+      fill: { color: ctx.colors.accent, transparency: 25 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
   }
 
   if (theme === "playful") {
-    // Soft accent blot (soft-bento).
+    // Soft accent blot + rounded candy square + second cloud (soft-bento).
     slide.addShape(ctx.shapeOval, {
       x: ctx.width * 0.75,
       y: -ctx.height * 0.05,
       w: ctx.width * 0.35,
       h: ctx.height * 0.35,
-      fill: { color: ctx.colors.accent2, transparency: 72 },
+      fill: { color: ctx.colors.accent2, transparency: 68 },
       line: { color: ctx.colors.accent2, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: -ctx.width * 0.08,
+      y: ctx.height * 0.55,
+      w: ctx.width * 0.32,
+      h: ctx.height * 0.4,
+      fill: { color: ctx.colors.accent, transparency: 86 },
+      line: { color: ctx.colors.accent, width: 0 },
     });
     slide.addShape(ctx.shapeRoundRect, {
       x: ctx.width - 2.0,
       y: ctx.height - 2.0,
       w: 1.4,
       h: 1.4,
-      fill: { color: ctx.colors.accent, transparency: 82 },
+      fill: { color: ctx.colors.accent, transparency: 78 },
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0.28,
     });
   }
 
   if (theme === "corporate") {
-    // Clean accent stub (clean-light).
+    // Clean accent stub + soft top wash (clean-light).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: ctx.width,
+      h: ctx.height * 0.22,
+      fill: { color: ctx.colors.bg2, transparency: 55 },
+      line: { color: ctx.colors.bg2, width: 0 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.55,
       y: 0.55,
-      w: 0.08,
-      h: 0.95,
+      w: 0.09,
+      h: 1.05,
       fill: { color: ctx.colors.accent },
       line: { color: ctx.colors.accent, width: 0 },
-      rectRadius: 0.04,
+      rectRadius: 0.045,
     });
   }
 }

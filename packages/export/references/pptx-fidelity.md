@@ -62,9 +62,9 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   blueprint gets a light grid + dual reticles + outer frame; brutalist-acid gets a
   hard acid frame (heroes also get an offset block); aerospace-hud gets a HUD
   grid + dual reticles + telemetry stub; swiss-typographic gets a modular grid + red left rail;
-  ft-editorial gets a masthead bar + bottom rule; bauhaus heroes get red square +
-  blue circle; fintech-clean / scandinavian get soft radial washes + clean frames; art-deco heroes
-  get a gold hairline + deco ring; botanical-luxe gets a gold hairline + leaf ring;
+  ft-editorial gets a masthead bar + bottom rule; bauhaus gets a hard frame (heroes get
+  red square + blue circle; body gets a quiet accent stub); fintech-clean / scandinavian get soft radial washes + clean frames; art-deco gets a gold frame + hairline
+  (heroes also get a deco ring); botanical-luxe gets a gold hairline + leaf ring;
   genz-bento gets a hard border + corner blot; heritage-editorial gets quiet hairlines + mid stub;
   developer-dark gets a title-bar + traffic lights; data-editorial gets an accent rule + hard frame;
   dark-botanical gets bloom washes + a left rail;
@@ -106,14 +106,14 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   broadsheet gets a newsprint masthead + bottom rule;
   editorial-forest gets a forest rule + blush orb;
   signal gets a briefing hairline + outline square;
-  pastel-dreamy gets soft cloud ovals;
+  pastel-dreamy gets denser soft cloud ovals;
   vellum gets a soft colorfield wash + teal/chartreuse orbs;
-  editorial-serif gets an accent rule + deco ring;
+  editorial-serif gets an accent rule + deco ring + bottom stub;
   soft-editorial gets a sage wash + blush candy orb;
   claude (warm-paper) gets a soft coral corner wash;
-  default-tech gets a neon corner bloom;
-  playful gets soft accent blots;
-  corporate gets a clean accent stub;
+  default-tech gets dual neon corner blooms (accent + accent2);
+  playful gets denser soft blots + candy square;
+  corporate gets a clean accent stub + soft top wash;
   electric-studio gets a hard frame + white/blue hero split with black rail (content slides get a full-height accent left rail + top stub on heroes).
   Quiet HTML paper fiber grain (editorial / parchment themes) is not drawn in PPTX —
   ship HTML when the tooth is the brand. True CSS `mix-blend-mode` / animated marquees

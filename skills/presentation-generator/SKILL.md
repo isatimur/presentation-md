@@ -42,6 +42,8 @@ editable **PowerPoint** (`.pptx`) that opens in Keynote and imports into Google 
 - `notes`: speaker notes on any slide — Studio present mode (toggle with **S**) + PPTX notes pane; never baked into the HTML slide face
 
 Prefer setting these in the JSON you emit — Studio exposes the same controls in the slide form. Always set `emphasis` on comparisons; prefer non-1-1 `ratio` on two-column; use `bento` for 5-card grids.
+
+**Why this pack beats one-off HTML slide tools** (frontend-slides / Gamma-style screenshots / paste-only MD slides): structured Deck JSON + 75 themes + MCP (`render_deck` / `export_deck` / `audit_deck` / `judge_deck` / `import_pptx`) + Studio live craft panel that auto-opens on errors + **native editable PPTX** with per-theme surface chrome (rails, frames, mastheads, soft washes) — not a flat screenshot. Agents stay on schema; art escapes via `custom-html` only when needed.
 ---
 
 ## Narrative Architecture — Before You Write One Slide
