@@ -220,4 +220,103 @@ describe("auditCraft", () => {
     const issues = auditCraft(deck);
     expect(issues.some((i) => /magazine beat/i.test(i.message))).toBe(true);
   });
+
+  it("warns when pink-script lacks a magazine beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "pink-script", title: "Flat afterhours" },
+      slides: [
+        { layout: "title", heading: "Cover" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        {
+          layout: "feature-grid",
+          heading: "Cards",
+          columns: 3,
+          cards: [
+            { title: "One", body: "A", icon: "fa-solid fa-1" },
+            { title: "Two", body: "B", icon: "fa-solid fa-2" },
+            { title: "Three", body: "C", icon: "fa-solid fa-3" },
+          ],
+        },
+        { layout: "stat-row", heading: "N", stats: [{ value: "1", label: "a" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Book", href: "#", style: "solid", icon: "fa-solid fa-calendar" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /magazine beat/i.test(i.message))).toBe(true);
+  });
+
+  it("warns when neon-noir lacks a cinematic atmosphere beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "neon-noir", title: "Flat neon" },
+      slides: [
+        { layout: "title", heading: "Night" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        {
+          layout: "feature-grid",
+          heading: "Cards",
+          columns: 3,
+          cards: [
+            { title: "One", body: "A", icon: "fa-solid fa-1" },
+            { title: "Two", body: "B", icon: "fa-solid fa-2" },
+            { title: "Three", body: "C", icon: "fa-solid fa-3" },
+          ],
+        },
+        { layout: "stat-row", heading: "N", stats: [{ value: "1", label: "a" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /atmosphere theme|cinematic beat/i.test(i.message))).toBe(true);
+  });
+
+  it("warns when coral poster theme lacks a bold beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "coral", title: "Flat poster" },
+      slides: [
+        { layout: "title", heading: "Poster" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        {
+          layout: "feature-grid",
+          heading: "Cards",
+          columns: 3,
+          cards: [
+            { title: "One", body: "A", icon: "fa-solid fa-1" },
+            { title: "Two", body: "B", icon: "fa-solid fa-2" },
+            { title: "Three", body: "C", icon: "fa-solid fa-3" },
+          ],
+        },
+        { layout: "timeline", heading: "Steps", items: [{ label: "One", detail: "A" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Join", href: "#", style: "solid", icon: "fa-solid fa-rocket" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /poster theme|bold beat/i.test(i.message))).toBe(true);
+  });
 });

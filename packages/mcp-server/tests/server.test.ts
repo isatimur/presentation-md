@@ -131,11 +131,16 @@ describe("generate_deck_prompt", () => {
       intent: "Series A",
     })) as {
       anti_slop_reference?: string;
+      layout_recipes_reference?: string;
       craft_mandate: string;
     };
     expect(result.craft_mandate).toMatch(/stunning-25/i);
+    expect(result.craft_mandate).toMatch(/layout_recipes|Atmosphere honesty|Poster honesty/i);
     if (result.anti_slop_reference) {
       expect(result.anti_slop_reference).toMatch(/Inter|purple/i);
+    }
+    if (result.layout_recipes_reference) {
+      expect(result.layout_recipes_reference).toMatch(/Pitch Deck|Product Launch/i);
     }
   });
 });

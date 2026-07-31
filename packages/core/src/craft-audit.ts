@@ -407,6 +407,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     "heritage-editorial",
     "vellum",
     "paper-ink",
+    "long-table",
     "editorial-serif",
     "editorial-forest",
     "emerald-editorial",
@@ -415,6 +416,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     "monochrome",
     "notebook-tabs",
     "blue-professional",
+    "pink-script",
   ]);
   if (paperThemes.has(theme) && slides.length >= 5) {
     const hasEditorialBeat =
@@ -428,6 +430,37 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
         severity: "warning",
         message:
           "Paper/editorial theme lacks a magazine beat — add quote or comparison+emphasis (not only soft cards).",
+      });
+    }
+  }
+
+  const atmosphereThemes = new Set(["neon-noir", "vaporwave", "y2k-aero"]);
+  if (atmosphereThemes.has(theme) && slides.length >= 5) {
+    const hasAtmosphereBeat =
+      layouts.includes("image-hero") ||
+      layouts.includes("quote") ||
+      layouts.includes("custom-html");
+    if (!hasAtmosphereBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "Atmosphere theme (neon-noir / vaporwave / y2k-aero) needs a cinematic beat — add image-hero, quote, or a composed custom-html moment.",
+      });
+    }
+  }
+
+  const posterThemes = new Set(["coral", "peoples-platform", "bold-signal", "broadside"]);
+  if (posterThemes.has(theme) && slides.length >= 5) {
+    const hasPosterBeat =
+      layouts.includes("image-hero") ||
+      layouts.includes("comparison") ||
+      layouts.includes("stat-row") ||
+      layouts.includes("quote");
+    if (!hasPosterBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "Poster theme lacks a bold beat — add image-hero, comparison+emphasis, punchy quote, or stat-row (not only soft grids).",
       });
     }
   }

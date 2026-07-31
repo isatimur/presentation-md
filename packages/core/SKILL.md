@@ -178,7 +178,8 @@ Each theme is a complete design language: colors, typography, geometry, motion, 
 2. **Compact vibe table** — `references/themes.md` (all 75 one-liners)
 3. **Selection index** — `references/theme-selection-index.json` (mood, best_for, aliases, gallery)
 4. **Stunning twenty-five** — `references/stunning-25.md` (flagship craft ceilings + Studio `?example=`)
-5. **Visual pick** — MCP `preview_themes` / `list_themes` (never ask the user to choose from bare names)
+5. **Layout recipes** — `references/layout-recipes.md` (pitch / launch / wrap / neon / poster / paper slide maps)
+6. **Visual pick** — MCP `preview_themes` / `list_themes` (never ask the user to choose from bare names)
 
 Install: `npm i @presentation-md/theme-<name>`. Scaffold: `npx @presentation-md/create-theme`.
 Brand match: `import_brand_theme` MCP or `npx @presentation-md/create-theme --from-url …`.
@@ -192,8 +193,9 @@ do not invent a watered-down palette.
 3. Force asymmetry early: `comparison` + `emphasis`, `two-column` with non-1-1 `ratio`, or `feature-grid` `columns: "bento"`.
 4. Run `audit_deck` then `judge_deck` (`t1` minimum, `t2` before delivery). Schema-valid ≠ shippable.
 5. Read `references/anti-slop-bans.md` — Inter/purple/cream-terracotta defaults are banned unless the theme owns them.
-6. Prefer theme-native PPTX chrome (paper washes, masthead double rules, hero-gated candy/pills/corner blots on `soft-editorial` / `capsule` / `long-table` / `paper-ink`; always-on hard frames / offset-shadow strips / plates / tablets / multi-layer arcade shadows / Win95 bevels on `stencil-tablet` / `retro-zine` / `daisy-days` / `block-frame` / `creative-mode` / `sakura-chroma` / `8-bit-orbit` / `retro-windows` / `scatterbrain`) over inventing flat card stacks — export is a craft surface, not a screenshot dump.
+6. Prefer theme-native PPTX chrome (paper washes, masthead double rules, hero-gated candy/pills/corner blots on `soft-editorial` / `capsule` / `long-table` / `paper-ink`; always-on hard frames / offset-shadow strips / plates / tablets / multi-layer arcade shadows / Win95 bevels on `stencil-tablet` / `retro-zine` / `daisy-days` / `block-frame` / `creative-mode` / `sakura-chroma` / `8-bit-orbit` / `retro-windows` / `scatterbrain`; neon rim/scanlines/horizon glow/soft aero shadow on `neon-noir` / `vaporwave` / `y2k-aero`; poster hatch/speckle frames + hard cards on `coral` / `peoples-platform` / `bold-signal`) over inventing flat card stacks — export is a craft surface, not a screenshot dump.
 7. When the brief is paper/editorial (`soft-editorial`, `heritage-editorial`, `emerald-editorial`, `vintage-editorial`, `pink-script`, `claude`, `paper-ink`, `long-table`), write magazine cadence — short literary leads, one quote beat, comparison with emphasis — not SaaS three-up grids.
+8. Open `references/layout-recipes.md` and match a slide-count contract for the brief (pitch, launch, wrap, neon, poster, paper) before freehanding layouts.
 
 
 ## Typography Hierarchy — The Scale System
@@ -265,63 +267,9 @@ Use `@keyframes fadeUp` universally: `from { opacity:0; transform:translateY(20p
 
 ## Complete Deck Templates
 
-### Pitch Deck (12 slides)
-```
-01 title         — Company name + one-line positioning
-02 image-hero    — Manifesto visual: the world as it should be
-03 stat-row      — The size of the problem (3 shocking numbers)
-04 comparison    — Life without you vs life with you (emphasis: right)
-05 two-column    — How it works + visual (ratio: 2-1)
-06 feature-grid  — 3 core capabilities
-07 stat-row      — Single most impressive traction stat (hero variant OK)
-08 logo-wall     — Customers / design partners
-09 data-table    — Why not the incumbents (your column last)
-10 data-table    — Financials + projections
-11 timeline      — GTM roadmap (4 quarters)
-12 closing       — The ask + actions[] CTA
-```
-
-### Sales Demo (10 slides)
-```
-01 title         — Customer-personalised opener
-02 image-hero    — Their world / product moment
-03 comparison    — Status quo vs with you (emphasis: right)
-04 stat-row      — Cost of the problem (their numbers)
-05 timeline      — How it works (5 steps)
-06 feature-grid  — 3 modules that map to their 3 pains
-07 quote         — Customer who looks like them
-08 data-table    — Pricing + what's included
-09 timeline      — Implementation (4 milestones)
-10 closing       — Next step (singular, specific, dated)
-```
-
-### Keynote / Conference Talk (10 slides)
-```
-01 title         — The provocative thesis (manifesto-style heading)
-02 image-hero    — The tension visual
-03 comparison    — Conventional wisdom vs the truth (emphasis: right)
-04 section       — "Part 1: The Problem"
-05 two-column    — The old way vs the new way (ratio: 2-1)
-06 section       — "Part 2: The Principle"
-07 feature-grid  — 3 things that change when you apply the principle
-08 quote         — The authority who agrees
-09 stat-row      — The one number that proves it (1 stat)
-10 closing       — The invitation to act
-```
-
-### Investor Update (10 slides)
-```
-01 title         — Fund name + period + confidentiality marker
-02 image-hero    — Portfolio or thesis visual
-03 stat-row      — Quarter in numbers (IRR, deployed, NAV, NRR)
-04 data-table    — Portfolio company performance
-05 two-column    — Key investment deep dive (ratio: 2-1)
-06 logo-wall     — Portfolio marks / LPs
-07 timeline      — Forward guidance (4 initiatives)
-08 data-table    — Risk register
-09 comparison    — Tailwinds vs headwinds (emphasis: left or right)
-10 closing       — Contact + data room
-```
+Canonical slide maps (pitch, sales, keynote, investor, launch, wrap, neon, poster, paper)
+live in `references/layout-recipes.md` — open that file and match a recipe before freehanding
+layouts. Keep layout-count discipline; write theme-native voice on top.
 
 ---
 
@@ -490,7 +438,10 @@ Then walk every slide against this checklist and fix before delivering:
 - **Gallery honesty** — if you named a stunning-25 theme (aurora-glass, ft-editorial, luxury-minimalist, …), open its structured proof and match that craft ceiling.
 - **Candy honesty** — `candy-pop` marquees brand from `meta.company` (or `meta.marquee` / `meta.title`); never hardcode Jellybean.
 - **Riso honesty** — `risograph-zine` decks should feel printed: prefer `comparison` with `emphasis`, a punchy `quote`, and kraft-paper copy — not a stack of soft corporate cards.
-- **Paper honesty** — paper/editorial themes (`claude`, `soft-editorial`, `ft-editorial`, `broadsheet`, `heritage-editorial`, `vellum`, `paper-ink`, `long-table`, `editorial-serif`, `editorial-forest`, `emerald-editorial`, `pin-and-paper`, `vintage-editorial`, `monochrome`, `notebook-tabs`, `blue-professional`): magazine cadence (`quote`, `comparison`+`emphasis`, short literary leads) — not soft corporate card stacks. Quiet fiber grain is HTML surface craft; PPTX keeps rules/washes/mastheads + hero-gated ornaments only — prefer HTML when the tooth is the brand.
+- **Paper honesty** — paper/editorial themes (`claude`, `soft-editorial`, `ft-editorial`, `broadsheet`, `heritage-editorial`, `vellum`, `paper-ink`, `long-table`, `editorial-serif`, `editorial-forest`, `emerald-editorial`, `pin-and-paper`, `vintage-editorial`, `monochrome`, `notebook-tabs`, `blue-professional`, `pink-script`): magazine cadence (`quote`, `comparison`+`emphasis`, short literary leads) — not soft corporate card stacks. Quiet fiber grain is HTML surface craft; PPTX keeps rules/washes/mastheads + always-on pink-script hairline / hero-gated ornaments only — prefer HTML when the tooth is the brand.
 - **Loud honesty** — loud/neobrutal peers (`stencil-tablet`, `retro-zine`, `daisy-days`, `block-frame`, `creative-mode`, `sakura-chroma`, `brutalist-acid`, `raw-grid`, `capsule`, `scatterbrain`, `8-bit-orbit`, `retro-windows`): expect hard frames + offset-shadow strips (or multi-layer arcade / Win95 bevel chrome) on body slides (pills/tape/blocks/chroma may stay hero-gated) — don’t invent `custom-html` stickers for atmosphere.
+- **Atmosphere honesty** — `neon-noir` / `vaporwave` / `y2k-aero`: expect cyan/pink rims, rain scanlines or horizon glow, soft aero shadow stubs, and a cinematic `image-hero` or punchy `quote` — don’t flatten into SaaS three-up grids.
+- **Poster honesty** — `coral` / `peoples-platform` / `bold-signal` / `broadside`: expect hard poster frames + square (or plump bold-signal) hard-border cards and a bold beat (`image-hero`, comparison, quote, or punchy stats) — not soft corporate card stacks.
+- **Recipe honesty** — match a `references/layout-recipes.md` slide map for the brief before inventing a 14-slide feature-grid funeral.
 
 For a rigorous, scored pass, run the **`deck-design-judge`** skill: it grades the deck against the design rubric, tells you exactly what to fix, and lets you re-score after the fix.
