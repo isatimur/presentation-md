@@ -1,5 +1,18 @@
 # @presentation-md/mcp-server
 
+## 1.6.4
+
+### Patch Changes
+
+- 2bd5d7e: Craft-audit slide indices, candy-pop brand gate, social closing icon hint; Studio audit panel severity filters; MCP craft mandate for candy marquee.
+- Updated dependencies [2bd5d7e]
+- Updated dependencies [2bd5d7e]
+- Updated dependencies [dfa2b5a]
+  - @presentation-md/core@1.7.0
+  - @presentation-md/export@1.10.0
+  - @presentation-md/render@1.6.2
+  - @presentation-md/create-theme@1.0.12
+
 ## 1.6.3
 
 ### Patch Changes

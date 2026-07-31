@@ -1,5 +1,11 @@
 # @presentation-md/theme-candy-pop
 
+## 1.0.3
+
+### Patch Changes
+
+- 2bd5d7e: Dense PPTX chrome for swiss/FT/bauhaus/fintech/scandi/art-deco/botanical themes; candy marquee brands from meta.company/title/marquee (not Jellybean-hardcoded).
+
 ## 1.0.2
 
 ### Patch Changes

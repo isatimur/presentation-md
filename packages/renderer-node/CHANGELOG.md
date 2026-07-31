@@ -1,5 +1,16 @@
 # @presentation-md/render
 
+## 1.6.2
+
+### Patch Changes
+
+- 2bd5d7e: Dense PPTX chrome for swiss/FT/bauhaus/fintech/scandi/art-deco/botanical themes; candy marquee brands from meta.company/title/marquee (not Jellybean-hardcoded).
+- Updated dependencies [2bd5d7e]
+- Updated dependencies [2bd5d7e]
+- Updated dependencies [dfa2b5a]
+  - @presentation-md/core@1.7.0
+  - @presentation-md/export@1.10.0
+
 ## 1.6.1
 
 ### Patch Changes
