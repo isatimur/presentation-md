@@ -71,7 +71,24 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   creative-mode gets a hard shadow frame + stacked accent blocks;
   biennale-yellow gets a sun orb + top hairline;
   scatterbrain gets cork sticky notes + pin dots;
-  split-pastel heroes get a split field + stacked pastel pills.
+  split-pastel heroes get a split field + stacked pastel pills;
+  coral gets a hatch frame + coral left wash;
+  peoples-platform gets a cobalt top bar + amber stub + hard frame;
+  raw-grid gets blush/sage bands + cross rules;
+  retro-zine heroes get an offset green plate + cream card;
+  sakura-chroma gets a chroma strip + stamp orbs on heroes;
+  daisy-days gets pastel dots + daisy/pill ornaments;
+  block-frame gets a hard frame + pastel offset blocks on heroes;
+  editorial-tri-tone gets a butter split + burgundy wash;
+  broadside gets a fire-orange rail + corner block;
+  pink-script gets a soft pink wash + inset frame + hairline;
+  retro-windows gets a Win95 title bar + window buttons;
+  pin-and-paper gets legal-pad rules + red margin + pin;
+  emerald-editorial gets masthead rules + inset frame;
+  notebook-tabs gets pastel side tabs + binder holes;
+  long-table gets speckles + outline pill + hairline;
+  paper-ink gets crimson top/bottom rules;
+  vintage-editorial heroes get a geometric ring + dots.
   True CSS `mix-blend-mode` / animated marquees remain HTML-only.
 - Closing `actions[].icon` maps to a glyph prefix on PPTX pills (FA brands → letter/symbol).
 

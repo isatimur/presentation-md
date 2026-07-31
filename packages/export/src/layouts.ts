@@ -3010,6 +3010,587 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       });
     }
   }
+
+  if (theme === "coral") {
+    // Hatch frame + coral left wash (coral-hatch).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.2,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 2.5 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: ctx.width * 0.42,
+      h: ctx.height,
+      fill: { color: ctx.colors.accent, transparency: 82 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    // Diagonal hatch stand-ins (thin ink stripes).
+    for (let i = 0; i < 14; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: -0.4 + i * 1.05,
+        y: 0,
+        w: 0.05,
+        h: ctx.height,
+        fill: { color: ctx.colors.text, transparency: 88 },
+        line: { color: ctx.colors.text, width: 0 },
+        rectRadius: 0,
+      });
+    }
+  }
+
+  if (theme === "peoples-platform") {
+    // Cobalt top bar + amber footer stub + hard frame (peoples-platform-poster).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.08,
+      y: 0.08,
+      w: ctx.width - 0.16,
+      h: ctx.height - 0.16,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 3.5 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: ctx.width,
+      h: 0.18,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.72,
+      y: ctx.height - 0.16,
+      w: ctx.width * 0.28,
+      h: 0.16,
+      fill: { color: ctx.colors.accent2 },
+      line: { color: ctx.colors.accent2, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "raw-grid") {
+    // Blush/sage bands + cross rules + hard frame (raw-grid-brutal).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: ctx.width,
+      h: ctx.height * 0.28,
+      fill: { color: "F2D4CF" },
+      line: { color: "F2D4CF", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: ctx.width * 0.22,
+      h: ctx.height,
+      fill: { color: "E5EDD6" },
+      line: { color: "E5EDD6", width: 0 },
+      rectRadius: 0,
+    });
+    // Re-cover the intersection so blush stays on top-left square.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: ctx.width * 0.22,
+      h: ctx.height * 0.28,
+      fill: { color: "F2D4CF" },
+      line: { color: "F2D4CF", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: ctx.height * 0.28,
+      w: ctx.width,
+      h: 0.035,
+      fill: { color: "0A0A0A" },
+      line: { color: "0A0A0A", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.22,
+      y: 0,
+      w: 0.035,
+      h: ctx.height,
+      fill: { color: "0A0A0A" },
+      line: { color: "0A0A0A", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.08,
+      y: 0.08,
+      w: ctx.width - 0.16,
+      h: ctx.height - 0.16,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: "0A0A0A", width: 2.5 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "retro-zine" && isHero) {
+    // Offset green plate + cream card (retro-zine-riso).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.68,
+      y: ctx.height * 0.18,
+      w: ctx.width * 0.26,
+      h: ctx.height * 0.34,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.66,
+      y: ctx.height * 0.16,
+      w: ctx.width * 0.26,
+      h: ctx.height * 0.34,
+      fill: { color: ctx.colors.cardBg },
+      line: { color: ctx.colors.text, width: 1.5 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.2,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 2.5 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "sakura-chroma") {
+    // Hard frame always; chroma strip + stamp orbs on heroes (sakura-chroma-cassette).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.08,
+      y: 0.08,
+      w: ctx.width - 0.16,
+      h: ctx.height - 0.16,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 2 },
+      rectRadius: 0.06,
+    });
+    if (isHero) {
+      const chroma = ["E5392A", "E54489", "F09131", "3D9F47", "3F8BC4", "F0BC2A"];
+      const stripW = ctx.width * 0.48;
+      const band = stripW / chroma.length;
+      for (let i = 0; i < chroma.length; i++) {
+        slide.addShape(ctx.shapeRoundRect, {
+          x: i * band,
+          y: 0,
+          w: band,
+          h: ctx.height * 0.12,
+          fill: { color: chroma[i]! },
+          line: { color: chroma[i]!, width: 0 },
+          rectRadius: 0,
+        });
+      }
+      const stamps = [
+        { x: ctx.width - 1.85, y: 0.55, color: "E54489" },
+        { x: ctx.width - 1.35, y: 0.72, color: "F09131" },
+        { x: ctx.width - 1.6, y: 1.15, color: "3F8BC4" },
+        { x: ctx.width - 1.95, y: 1.05, color: "3D9F47" },
+      ];
+      for (const s of stamps) {
+        slide.addShape(ctx.shapeOval, {
+          x: s.x,
+          y: s.y,
+          w: 0.42,
+          h: 0.42,
+          fill: { color: s.color },
+          line: { color: s.color, width: 0 },
+        });
+      }
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0.55,
+        y: ctx.height - 0.85,
+        w: 0.7,
+        h: 0.28,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.text, width: 1.5 },
+        rectRadius: 0.02,
+      });
+    }
+  }
+
+  if (theme === "daisy-days") {
+    // Soft pastel dots + hard frame; daisy + pill on heroes (daisy-days-pastel).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.2,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: "2D2D2D", width: 2.5 },
+      rectRadius: 0.28,
+    });
+    const dots = [
+      { x: ctx.width * 0.1, y: ctx.height * 0.14, color: "FDE68A", s: 0.28 },
+      { x: ctx.width * 0.86, y: ctx.height * 0.18, color: "F7C8D4", s: 0.36 },
+      { x: ctx.width * 0.76, y: ctx.height * 0.78, color: "7ECDC0", s: 0.32 },
+      { x: ctx.width * 0.14, y: ctx.height * 0.74, color: "D4A5E8", s: 0.24 },
+    ];
+    for (const d of dots) {
+      slide.addShape(ctx.shapeOval, {
+        x: d.x,
+        y: d.y,
+        w: d.s,
+        h: d.s,
+        fill: { color: d.color },
+        line: { color: d.color, width: 0 },
+      });
+    }
+    if (isHero) {
+      slide.addShape(ctx.shapeOval, {
+        x: ctx.width - 1.55,
+        y: 0.55,
+        w: 0.7,
+        h: 0.7,
+        fill: { color: "FDE68A" },
+        line: { color: "2D2D2D", width: 2 },
+      });
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0.55,
+        y: ctx.height - 0.95,
+        w: 0.95,
+        h: 0.36,
+        fill: { color: "A8D8F0" },
+        line: { color: "2D2D2D", width: 2 },
+        rectRadius: 0.18,
+      });
+    }
+  }
+
+  if (theme === "block-frame") {
+    // Hard neobrutalist frame; pastel offset blocks on heroes (block-frame-brutal).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.2,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: "000000", width: 3.5 },
+      rectRadius: 0,
+    });
+    if (isHero) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width * 0.72,
+        y: ctx.height * 0.12,
+        w: ctx.width * 0.28,
+        h: ctx.height * 0.18,
+        fill: { color: ctx.colors.accent },
+        line: { color: "000000", width: 2.5 },
+        rectRadius: 0,
+      });
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width * 0.06,
+        y: ctx.height * 0.68,
+        w: ctx.width * 0.16,
+        h: ctx.height * 0.22,
+        fill: { color: "C0F7FE" },
+        line: { color: "000000", width: 2.5 },
+        rectRadius: 0,
+      });
+    }
+  }
+
+  if (theme === "editorial-tri-tone") {
+    // Butter split field + burgundy wash + hard frame (tri-tone-blocks).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.55,
+      y: 0,
+      w: ctx.width * 0.45,
+      h: ctx.height,
+      fill: { color: ctx.colors.bg2 },
+      line: { color: ctx.colors.bg2, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.72,
+      y: 0,
+      w: ctx.width * 0.28,
+      h: ctx.height,
+      fill: { color: ctx.colors.text, transparency: 88 },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.2,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 2.5 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "broadside") {
+    // Fire-orange left rail + corner block (broadside-fire).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: 0.12,
+      h: ctx.height,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 1.55,
+      y: ctx.height - 1.55,
+      w: 1.7,
+      h: 1.7,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "pink-script") {
+    // Soft pink wash + inset frame + accent hairline (pink-script-afterhours).
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.55,
+      y: -ctx.height * 0.2,
+      w: ctx.width * 0.55,
+      h: ctx.height * 0.55,
+      fill: { color: ctx.colors.accent, transparency: 78 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.35,
+      y: 0.35,
+      w: ctx.width - 0.7,
+      h: ctx.height - 0.7,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: "F5EDF1", width: 1 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 2.0,
+      y: ctx.height - 0.85,
+      w: 1.35,
+      h: 0.04,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "retro-windows") {
+    // Win95 title bar + window buttons + beveled frame (retro-windows-chrome).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.08,
+      y: 0.08,
+      w: ctx.width - 0.16,
+      h: ctx.height - 0.16,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: "000000", width: 2 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.12,
+      y: 0.12,
+      w: ctx.width - 0.24,
+      h: 0.32,
+      fill: { color: "000080" },
+      line: { color: "000080", width: 0 },
+      rectRadius: 0,
+    });
+    const winBtns = [ctx.width - 1.15, ctx.width - 0.85, ctx.width - 0.55];
+    for (const x of winBtns) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x,
+        y: 0.18,
+        w: 0.22,
+        h: 0.18,
+        fill: { color: "C0C0C0" },
+        line: { color: "FFFFFF", width: 1 },
+        rectRadius: 0,
+      });
+    }
+  }
+
+  if (theme === "pin-and-paper") {
+    // Legal-pad rules + red margin + pin (pin-paper-pad).
+    for (let i = 1; i < 14; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: (ctx.height / 14) * i,
+        w: ctx.width,
+        h: 0.012,
+        fill: { color: "1F3A8A", transparency: 82 },
+        line: { color: "1F3A8A", width: 0 },
+        rectRadius: 0,
+      });
+    }
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.95,
+      y: 0,
+      w: 0.03,
+      h: ctx.height,
+      fill: { color: ctx.colors.accent, transparency: 35 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 1.15,
+      y: 0.55,
+      w: 0.28,
+      h: 0.28,
+      fill: { color: "666666" },
+      line: { color: "222222", width: 1 },
+    });
+  }
+
+  if (theme === "emerald-editorial") {
+    // Double inset frame + top/bottom masthead rules (emerald-editorial-masthead).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.22,
+      y: 0.22,
+      w: ctx.width - 0.44,
+      h: ctx.height - 0.44,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 1.5 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.12,
+      y: ctx.height * 0.14,
+      w: ctx.width * 0.76,
+      h: 0.035,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.12,
+      y: ctx.height * 0.86,
+      w: ctx.width * 0.76,
+      h: 0.035,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "notebook-tabs") {
+    // Pastel side tabs + binder holes (notebook-tabs-page).
+    const tabs = ["98D4BB", "C7B8EA", "F4B8C5", "A8D8EA", "FFE6A7"];
+    const tabH = (ctx.height * 0.72) / tabs.length;
+    for (let i = 0; i < tabs.length; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width - 0.22,
+        y: ctx.height * 0.14 + i * tabH,
+        w: 0.22,
+        h: tabH - 0.06,
+        fill: { color: tabs[i]! },
+        line: { color: tabs[i]!, width: 0 },
+        rectRadius: 0.06,
+      });
+    }
+    for (let i = 0; i < 4; i++) {
+      slide.addShape(ctx.shapeOval, {
+        x: 0.35,
+        y: 0.45 + i * 0.7,
+        w: 0.14,
+        h: 0.14,
+        fill: { color: "D0CCC4" },
+        line: { color: "D0CCC4", width: 0 },
+      });
+    }
+  }
+
+  if (theme === "long-table") {
+    // Speckled supper club + outline pill + hairline (long-table-supper).
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 5; j++) {
+        slide.addShape(ctx.shapeOval, {
+          x: 0.4 + i * 1.55,
+          y: 0.5 + j * 1.15,
+          w: 0.06,
+          h: 0.06,
+          fill: { color: ctx.colors.accent, transparency: 78 },
+          line: { color: ctx.colors.accent, width: 0 },
+        });
+      }
+    }
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 1.85,
+      y: 0.55,
+      w: 1.15,
+      h: 0.4,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: 1.5 },
+      rectRadius: 0.2,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.55,
+      y: ctx.height - 0.75,
+      w: 0.7,
+      h: 0.025,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "paper-ink") {
+    // Crimson top rule + quiet bottom hairline (paper-ink-literary).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: 0.65,
+      w: ctx.width - ctx.margin * 2,
+      h: 0.03,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: ctx.height - 0.7,
+      w: ctx.width - ctx.margin * 2,
+      h: 0.015,
+      fill: { color: ctx.colors.text, transparency: 55 },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "vintage-editorial" && isHero) {
+    // Geometric ring + ink/accent dots (vintage-editorial-geo).
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 2.35,
+      y: 0.55,
+      w: 1.55,
+      h: 1.55,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 1.5 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 1.7,
+      y: 1.2,
+      w: 0.18,
+      h: 0.18,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 1.15,
+      y: 1.7,
+      w: 0.18,
+      h: 0.18,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+  }
 }
 
 export function renderSlide(slide: PSlide, ctx: ExportContext, data: Slide): void {
