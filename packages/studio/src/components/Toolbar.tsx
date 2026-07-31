@@ -3,6 +3,7 @@ import type { DeckJson } from "@presentation-md/export";
 import { listThemeSummaries, resolveTheme } from "../render/themes.js";
 import { downloadHtml, downloadPptx, downloadJson, parseDeckFile, importPptxFile } from "../export/downloads.js";
 import { STUDIO_EXAMPLES, studioExampleLink } from "../examples.js";
+import { auditCraft } from "../craft/auditCraft.js";
 
 export function Toolbar({
   deck,
@@ -78,6 +79,20 @@ export function Toolbar({
     } finally {
       setBusy(false);
     }
+  };
+
+  const runCraftAudit = () => {
+    const issues = auditCraft(deck);
+    const errors = issues.filter((i) => i.severity === "error");
+    const warns = issues.filter((i) => i.severity === "warning");
+    if (!issues.length) {
+      setStatus("Craft audit: clean");
+      return;
+    }
+    const head = errors[0]?.message ?? warns[0]?.message ?? "issues found";
+    setStatus(
+      `Craft audit: ${errors.length} error${errors.length === 1 ? "" : "s"}, ${warns.length} warning${warns.length === 1 ? "" : "s"} — ${head}`
+    );
   };
 
   const copyLink = async () => {
@@ -206,6 +221,9 @@ export function Toolbar({
       </button>
       <button className="btn" onClick={() => fileRef.current?.click()} title="Open a deck .html, .json, or .pptx">Open</button>
       <button className="btn" onClick={onPresent} title="Present fullscreen">Present</button>
+      <button className="btn" onClick={runCraftAudit} title="Run craft gates (asymmetry, image-hero, notes, wrap tone)">
+        Audit craft
+      </button>
       <button className="btn" onClick={() => downloadJson(deck)}>JSON</button>
       <button className="btn" onClick={() => downloadHtml(deck)}>HTML</button>
       <button className="btn btn-primary" disabled={busy} onClick={exportPptx}>
