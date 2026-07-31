@@ -117,3 +117,7 @@ gh pr create --base main --head changeset-release/main \
   --title "chore: version packages" \
   --body "Automated version bump from changesets."
 ```
+
+CI intentionally ignores version-only path changes (`.changeset/**`, `**/CHANGELOG.md`,
+`**/package.json`, `**/pyproject.toml`) on `pull_request`. Those bumps already passed CI
+on `main`; skipping avoids empty `action_required` runs from `github-actions[bot]` PRs.

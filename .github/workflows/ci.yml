@@ -5,6 +5,14 @@ on:
     branches: ["**"]
   pull_request:
     branches: [main]
+    # Version PRs from changesets/action only touch these paths. Skipping them
+    # avoids github-actions[bot] pull_request runs that conclude action_required
+    # with zero jobs (bot approval gate) and never exercise real code.
+    paths-ignore:
+      - ".changeset/**"
+      - "**/CHANGELOG.md"
+      - "**/package.json"
+      - "**/pyproject.toml"
 
 jobs:
   build-and-test:
