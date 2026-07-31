@@ -1993,6 +1993,101 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       });
     }
   }
+
+  if (theme === "neon-noir") {
+    // Magenta glow blob + cyan rim (neon-rain stand-in).
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.55,
+      y: -ctx.height * 0.2,
+      w: ctx.width * 0.55,
+      h: ctx.height * 0.6,
+      fill: { color: ctx.colors.accent, transparency: 62 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: -ctx.width * 0.15,
+      y: ctx.height * 0.55,
+      w: ctx.width * 0.5,
+      h: ctx.height * 0.55,
+      fill: { color: ctx.colors.accent2, transparency: 70 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+    if (isHero) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: ctx.height - 0.08,
+        w: ctx.width,
+        h: 0.08,
+        fill: { color: ctx.colors.accent2, transparency: 30 },
+        line: { color: ctx.colors.accent2, width: 0 },
+        rectRadius: 0,
+      });
+    }
+  }
+
+  if (theme === "vaporwave") {
+    // Horizon grid stand-in — bottom cyan wash + pink sun oval.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: ctx.height * 0.55,
+      w: ctx.width,
+      h: ctx.height * 0.45,
+      fill: { color: ctx.colors.bg2, transparency: 35 },
+      line: { color: ctx.colors.bg2, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.35,
+      y: ctx.height * 0.28,
+      w: ctx.width * 0.3,
+      h: ctx.height * 0.35,
+      fill: { color: ctx.colors.accent, transparency: 45 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    // Perspective grid lines (horizontal).
+    for (let i = 0; i < 5; i++) {
+      const y = ctx.height * 0.58 + i * 0.22;
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y,
+        w: ctx.width,
+        h: 0.02,
+        fill: { color: ctx.colors.accent2, transparency: 55 + i * 5 },
+        line: { color: ctx.colors.accent2, width: 0 },
+        rectRadius: 0,
+      });
+    }
+  }
+
+  if (theme === "y2k-aero") {
+    // Glossy bubble ovals (aero-bubble).
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.65,
+      y: -ctx.height * 0.1,
+      w: ctx.width * 0.4,
+      h: ctx.height * 0.45,
+      fill: { color: ctx.colors.accent, transparency: 55 },
+      line: { color: "FFFFFF", width: 1.5 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: -ctx.width * 0.05,
+      y: ctx.height * 0.55,
+      w: ctx.width * 0.35,
+      h: ctx.height * 0.4,
+      fill: { color: ctx.colors.accent2, transparency: 50 },
+      line: { color: "FFFFFF", width: 1.5 },
+    });
+    if (isHero) {
+      slide.addShape(ctx.shapeOval, {
+        x: ctx.width * 0.42,
+        y: ctx.height * 0.35,
+        w: 1.4,
+        h: 1.4,
+        fill: { color: "FFFFFF", transparency: 40 },
+        line: { color: "FFFFFF", width: 0 },
+      });
+    }
+  }
 }
 
 export function renderSlide(slide: PSlide, ctx: ExportContext, data: Slide): void {

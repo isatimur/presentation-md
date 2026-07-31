@@ -421,8 +421,38 @@ describe("deckToPptx", () => {
         cardBg: "rgba(255,93,143,0.08)",
         border: "rgba(26,26,46,0.14)",
       },
+      "neon-noir": {
+        bg: "#050510",
+        bg2: "#0a0a1e",
+        text: "#e8e4f0",
+        muted: "#8884a8",
+        accent: "#ff2e97",
+        accent2: "#00e5ff",
+        cardBg: "rgba(255,46,151,0.07)",
+        border: "rgba(0,229,255,0.22)",
+      },
+      vaporwave: {
+        bg: "#1a0533",
+        bg2: "#2d1060",
+        text: "#fff0f9",
+        muted: "#c4a8ff",
+        accent: "#ff6ad5",
+        accent2: "#5ce1ff",
+        cardBg: "rgba(255,106,213,0.08)",
+        border: "rgba(92,225,255,0.28)",
+      },
+      "y2k-aero": {
+        bg: "#e0f7ff",
+        bg2: "#bae6fd",
+        text: "#0c4a6e",
+        muted: "#0369a1",
+        accent: "#38bdf8",
+        accent2: "#a3e635",
+        cardBg: "rgba(255,255,255,0.72)",
+        border: "rgba(14,165,233,0.28)",
+      },
     };
-    for (const themeName of ["kinetic-wrapped", "risograph-zine", "candy-pop"] as const) {
+    for (const themeName of Object.keys(palettes) as Array<keyof typeof palettes>) {
       const t: ResolvedTheme = {
         ...theme,
         name: themeName,

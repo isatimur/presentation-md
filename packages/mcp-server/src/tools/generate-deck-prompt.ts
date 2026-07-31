@@ -46,7 +46,7 @@ export const generateDeckPromptTool: ToolDefinition = {
       "- Rankings / top-N → layout ranked-list (not custom-html bars). Mega wrap numbers → stat-row variant:\"hero\".",
       "- Day streaks → streak-grid. Circular KPI / percentile → metric-ring (not a plain stat chip).",
       "- Logo / customer walls → logo-wall. Year wraps (kinetic-wrapped) need tone on ≥3 slides.",
-      "- Wrap / store share closes → closing actions[] with solid + outline pills (cta alone is weak).",
+      "- Wrap / store / launch / investor closes → closing actions[] with solid + outline pills (cta alone is weak on stunning-25).",
       "- Add brief notes on 2–4 key slides.",
       "- Call audit_deck before shipping; fix warnings that mention asymmetry, image-hero, tone, or emphasis.",
       "- Call judge_deck (t1→t2; t3 when stakes are high). Treat local_draft as a floor, not a ship grade.",
