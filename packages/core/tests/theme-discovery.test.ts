@@ -65,16 +65,29 @@ describe("theme-discovery references", () => {
     expect(missing).toEqual([]);
   });
 
-  it("shortlists cover a majority of the catalog (agents get real defaults)", async () => {
+  it("shortlists cover nearly the full catalog (agents get real defaults)", async () => {
     const doc = await loadThemeShortlists();
     const covered = shortlistCoveredThemes(doc);
     const total = installedThemeDirs().length;
-    // Floor: after expansion we expect ≥50% coverage; keep a soft floor so
-    // intentional catalog growth doesn't flake CI.
-    expect(covered.size).toBeGreaterThanOrEqual(Math.min(45, Math.floor(total * 0.5)));
+    // Floor: curated use-case shortlists should cover almost every installable theme.
+    // Intentional exceptions (if any) belong in theme-shortlists.json comments / docs — not silent orphans.
+    expect(covered.size).toBeGreaterThanOrEqual(Math.min(70, Math.floor(total * 0.9)));
     expect(covered.size).toBeLessThanOrEqual(total);
+    const orphans = installedThemeDirs().filter((n) => !covered.has(n));
+    expect(orphans).toEqual([]);
   });
 
+  it("loads at least 28 use-case shortlists after catalog expansion", async () => {
+    const doc = await loadThemeShortlists();
+    expect(doc.shortlists.length).toBeGreaterThanOrEqual(28);
+    expect(findShortlist(doc, "loud-manifesto")?.themes).toEqual(
+      expect.arrayContaining(["bold-poster", "coral", "peoples-platform"])
+    );
+    expect(findShortlist(doc, "desktop-nostalgia")?.themes).toContain("retro-windows");
+  });
+});
+
+describe("theme-discovery helpers", () => {
   it("resolves alias_hints and selection aliases", async () => {
     const [shortlists, selection] = await Promise.all([
       loadThemeShortlists(),

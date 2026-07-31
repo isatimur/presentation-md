@@ -127,6 +127,48 @@
       "label": "Quiet parchment / counsel",
       "themes": ["vellum", "pin-and-paper", "monochrome"],
       "why": "Colorfield vellum, legal pad, ledger mono — quiet research and counsel decks."
+    },
+    {
+      "id": "loud-manifesto",
+      "label": "Loud manifesto / campaign poster",
+      "themes": ["bold-poster", "coral", "peoples-platform"],
+      "why": "Tomato poster type, coral sport-editorial, activist slab — founder vision and civic asks."
+    },
+    {
+      "id": "protest-blocks",
+      "label": "Protest / neo-brutal blocks",
+      "themes": ["broadside", "creative-mode", "raw-grid"],
+      "why": "Fire-orange broadside, Mode Blocks, hard blush/sage grid — loud brand systems."
+    },
+    {
+      "id": "neo-zine-mono",
+      "label": "Neo-grid / zine / concrete mono",
+      "themes": ["neo-grid-bold", "risograph-zine", "brutalist-mono"],
+      "why": "Lemon neo-grid, Inkwell riso overprint, hazard mono — design-week and indie print energy."
+    },
+    {
+      "id": "arts-institution",
+      "label": "Arts institution / cultural programme",
+      "themes": ["editorial-tri-tone", "biennale-yellow", "emerald-editorial"],
+      "why": "Tri-tone arts paper, biennale sun, emerald magazine — museums and fashion houses."
+    },
+    {
+      "id": "soft-couture",
+      "label": "Soft couture / hygge lifestyle",
+      "themes": ["pink-script", "split-pastel", "scandinavian"],
+      "why": "Nocturnal pink script, peach/lavender split, Hygge linen — lifestyle and fragrance."
+    },
+    {
+      "id": "archival-grove",
+      "label": "Archival craft / forest monograph",
+      "themes": ["stencil-tablet", "cartesian", "grove"],
+      "why": "Stencil tablets, sandstone cartesian lines, forest grove — heritage and sustainability."
+    },
+    {
+      "id": "desktop-nostalgia",
+      "label": "Desktop nostalgia / Win95 geek",
+      "themes": ["retro-windows", "y2k-aero", "retro-arcade"],
+      "why": "Win95 chrome, glossy aero bubbles, neon arcade — tech-history and tongue-in-cheek launches."
     }
   ],
   "alias_hints": {
