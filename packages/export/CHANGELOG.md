@@ -1,5 +1,13 @@
 # @presentation-md/export
 
+## 1.16.1
+
+### Patch Changes
+
+- 68cc6a6: Densify still-light loud PPTX peers with always-on offset-shadow strips (block-frame, creative-mode, sakura-chroma, brutalist-acid, raw-grid, neo-grid-bold, brutalist-mono) and harden matching card strokes/radii.
+- Updated dependencies [6fcf4db]
+  - @presentation-md/core@1.8.6
+
 ## 1.16.0
 
 ### Minor Changes
