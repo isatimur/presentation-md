@@ -156,10 +156,18 @@
       "eyebrow": "Be one of the first",
       "heading": "Built by Gen-Z for Gen-Z.",
       "lead": "Free forever \u00b7 No credit card \u00b7 No ads \u00b7 No BS",
-      "cta": {
-        "label": "Download Bounce",
-        "href": "https://bounce.example"
-      }
+      "actions": [
+        {
+          "label": "Download Bounce",
+          "href": "#",
+          "style": "solid"
+        },
+        {
+          "label": "Watch the demo",
+          "href": "#",
+          "style": "outline"
+        }
+      ]
     }
   ]
 }

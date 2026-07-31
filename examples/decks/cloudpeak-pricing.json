@@ -128,10 +128,18 @@
       "eyebrow": "Start",
       "heading": "Climb with a free Ridge trial.",
       "lead": "Fourteen days. Full Ridge features. Cancel without a call.",
-      "cta": {
-        "label": "Start trial",
-        "href": "#"
-      }
+      "actions": [
+        {
+          "label": "Start free trial",
+          "href": "#",
+          "style": "solid"
+        },
+        {
+          "label": "Talk to sales",
+          "href": "#",
+          "style": "outline"
+        }
+      ]
     }
   ]
 }

@@ -131,10 +131,18 @@
       "eyebrow": "Try it",
       "heading": "Grab a tin. Skip the beige aisle.",
       "lead": "Retail partners open now for Q4.",
-      "cta": {
-        "label": "Order samples",
-        "href": "#"
-      }
+      "actions": [
+        {
+          "label": "Grab a tin",
+          "href": "#",
+          "style": "solid"
+        },
+        {
+          "label": "Find a store",
+          "href": "#",
+          "style": "outline"
+        }
+      ]
     }
   ]
 }

@@ -182,10 +182,18 @@
       "eyebrow": "Thank you",
       "heading": "Questions welcome.",
       "lead": "lps@solstice.example \u00b7 Full packet in the data room",
-      "cta": {
-        "label": "Open data room",
-        "href": "https://solstice.example/lps"
-      }
+      "actions": [
+        {
+          "label": "Open data room",
+          "href": "#",
+          "style": "solid"
+        },
+        {
+          "label": "Email IR",
+          "href": "#",
+          "style": "outline"
+        }
+      ]
     }
   ]
 }

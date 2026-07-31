@@ -204,10 +204,18 @@
       "eyebrow": "The Opportunity",
       "heading": "AI deserves better plumbing.",
       "lead": "investors@novaspark.ai \u00b7 novaspark.ai",
-      "cta": {
-        "label": "Book a meeting",
-        "href": "https://novaspark.ai"
-      }
+      "actions": [
+        {
+          "label": "Book a demo",
+          "href": "#",
+          "style": "solid"
+        },
+        {
+          "label": "Read the docs",
+          "href": "#",
+          "style": "outline"
+        }
+      ]
     }
   ]
 }
