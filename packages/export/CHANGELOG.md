@@ -1,5 +1,16 @@
 # @presentation-md/export
 
+## 1.18.0
+
+### Minor Changes
+
+- fb22ade: Densify still-thin PPTX chrome for mat, biennale-yellow, broadside, cobalt-grid, retro-arcade, and pastel-dreamy (frames, rails, grids, scanlines, hard/plump cards).
+
+### Patch Changes
+
+- Updated dependencies [8fd4189]
+  - @presentation-md/core@1.10.0
+
 ## 1.17.0
 
 ### Minor Changes

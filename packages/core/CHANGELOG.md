@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.10.0
+
+### Minor Changes
+
+- 8fd4189: Extend craft gates and honesty for mat mid-century, cobalt-grid data, biennale/pastel magazine, and retro-arcade atmosphere beats; densify leftover theme guidance in skill + layout recipes.
+
 ## 1.9.0
 
 ### Minor Changes
