@@ -1,5 +1,13 @@
 # @presentation-md/export
 
+## 1.20.5
+
+### Patch Changes
+
+- 772dcc9: Map paper-ink literary cards to a crimson left accent rule in PPTX (HTML border-left), and lock thin-peer card strokes with XML chrome tests.
+- Updated dependencies [f512620]
+  - @presentation-md/core@1.12.4
+
 ## 1.20.4
 
 ### Patch Changes

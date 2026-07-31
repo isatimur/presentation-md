@@ -1,5 +1,18 @@
 # @presentation-md/mcp-server
 
+## 1.10.5
+
+### Patch Changes
+
+- f512620: Add neon-tech, data-editorial, and scatterbrain layout recipes; sync craft-mandate recipe lists and paper-ink left-rule honesty across skill, MCP, and Studio.
+- 2b5f521: Publish a deprecated redirect stub for `@presentation-skill-pack/mcp-server` that warns and starts `@presentation-md/mcp-server` (11 tools).
+- Updated dependencies [f512620]
+- Updated dependencies [772dcc9]
+  - @presentation-md/core@1.12.4
+  - @presentation-md/export@1.20.5
+  - @presentation-md/create-theme@1.0.33
+  - @presentation-md/render@1.6.26
+
 ## 1.10.4
 
 ### Patch Changes

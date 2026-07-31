@@ -1,5 +1,15 @@
 # @presentation-md/studio
 
+## 1.4.5
+
+### Patch Changes
+
+- f512620: Add neon-tech, data-editorial, and scatterbrain layout recipes; sync craft-mandate recipe lists and paper-ink left-rule honesty across skill, MCP, and Studio.
+- Updated dependencies [f512620]
+- Updated dependencies [772dcc9]
+  - @presentation-md/core@1.12.4
+  - @presentation-md/export@1.20.5
+
 ## 1.4.4
 
 ### Patch Changes
