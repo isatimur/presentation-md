@@ -33,6 +33,24 @@ cat > "$TARGET/extension.json" <<'JSON'
 JSON
 echo "  ✓  extension.json written"
 
+# ── full mode: deck-design-judge quality gate ────────────────────────────────
+if [ "$MODE" = "full" ] && [ -n "${PMD_JUDGE_SKILL_DIR:-}" ]; then
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  JUDGE_TARGET="$HOME/.gemini/extensions/deck-design-judge"
+  bash "$SCRIPT_DIR/../_common/install-judge-skill.sh" "$JUDGE_TARGET"
+  cat > "$JUDGE_TARGET/extension.json" <<'JSON'
+{
+  "name": "deck-design-judge",
+  "version": "0.1.0",
+  "description": "Design quality gate for presentation-md decks (contrast, overflow, rubric).",
+  "skills": [
+    { "path": "./SKILL.md" }
+  ]
+}
+JSON
+  echo "  ✓  deck-design-judge extension.json written"
+fi
+
 # ── full mode: register MCP server in settings.json ──────────────────────────
 if [ "$MODE" = "full" ]; then
   if [ -f "$GEMINI_SETTINGS" ]; then

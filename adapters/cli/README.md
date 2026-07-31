@@ -1,12 +1,32 @@
 # CLI adapter
 
-The CLI renderer is available directly via npx — no install step required.
+The CLI renderer is available directly via npx — no install step required for rendering.
 
 ```bash
 npx @presentation-md/render deck.json -o deck.html
 npx @presentation-md/render deck.json -o deck.html --theme corporate
 npx @presentation-md/render --list-themes
 npx @presentation-md/render --validate deck.json
+```
+
+## Optional: install judge scripts
+
+```bash
+npx @presentation-md/install cli
+# copies deck-design-judge → ~/.presentation-md/skills/deck-design-judge
+```
+
+Then:
+
+```bash
+bash ~/.presentation-md/skills/deck-design-judge/scripts/render_slides.sh deck.html shots/
+python3 ~/.presentation-md/skills/deck-design-judge/scripts/deck_metrics.py deck.html
+```
+
+Or use MCP `judge_deck` without copying scripts:
+
+```bash
+npx -y @presentation-md/mcp-server
 ```
 
 Or install globally:

@@ -34,6 +34,13 @@ if (Test-Path $RefsSource) {
     Write-Host "  OK  references\ copied"
 }
 
+# ── full mode: deck-design-judge quality gate ────────────────────────────────
+if ($Mode -eq "full" -and $env:PMD_JUDGE_SKILL_DIR) {
+    $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+    & (Join-Path $ScriptDir "..\_common\install-judge-skill.ps1") `
+        -Target (Join-Path $HOME ".claude\skills\deck-design-judge")
+}
+
 # ── full mode: register MCP server ───────────────────────────────────────────
 if ($Mode -eq "full") {
     $McpConfig = Join-Path $HOME ".claude\mcp.json"
@@ -43,18 +50,15 @@ if ($Mode -eq "full") {
         if (-not $cfg.mcpServers) {
             $cfg | Add-Member -NotePropertyName "mcpServers" -NotePropertyValue ([PSCustomObject]@{})
         }
+        # Migrate legacy 5-tool package name → full @presentation-md/mcp-server (11 tools).
+        if ($cfg.mcpServers.PSObject.Properties.Name -contains "presentation-skill-pack") {
+            $cfg.mcpServers.PSObject.Properties.Remove("presentation-skill-pack")
+        }
         $entry = [PSCustomObject]@{
             command = "npx"
             args    = @("-y", "@presentation-md/mcp-server")
         }
-        $cfg.mcpServers | # Migrate legacy 5-tool package name → full @presentation-md/mcp-server (11 tools).
-        if (.mcpServers -and .mcpServers.PSObject.Properties.Name -contains "presentation-skill-pack") {
-            .mcpServers.PSObject.Properties.Remove("presentation-skill-pack")
-        }
-        if (.servers -and .servers.PSObject.Properties.Name -contains "presentation-skill-pack") {
-            .servers.PSObject.Properties.Remove("presentation-skill-pack")
-        }
-        Add-Member -NotePropertyName "presentation-md" `
+        $cfg.mcpServers | Add-Member -NotePropertyName "presentation-md" `
                                       -NotePropertyValue $entry -Force
         $cfg | ConvertTo-Json -Depth 10 | Set-Content $McpConfig -Encoding UTF8
     } else {

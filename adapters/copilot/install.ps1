@@ -36,6 +36,12 @@ Set-Content -Path $CopilotFile -Value ($header + $skillBody) -NoNewline
 
 Write-Host "  OK  $CopilotFile written"
 
+# ── full mode: deck-design-judge quality gate (project-scoped) ───────────────
+if ($Mode -eq "full" -and $env:PMD_JUDGE_SKILL_DIR) {
+    $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+    & (Join-Path $ScriptDir "..\_common\install-judge-skill.ps1") -Target ".github\skills\deck-design-judge"
+}
+
 # ── full mode: register MCP server in .vscode/mcp.json ───────────────────────
 if ($Mode -eq "full") {
     New-Item -ItemType Directory -Force -Path $VsCodeDir | Out-Null

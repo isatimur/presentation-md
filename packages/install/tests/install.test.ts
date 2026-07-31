@@ -1,6 +1,17 @@
 import { describe, it, expect } from "vitest";
-import { resolveAdapterScript, VALID_ADAPTERS } from "../src/index.js";
+import { readFileSync, existsSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import {
+  resolveAdapterScript,
+  resolveJudgeSkillDir,
+  VALID_ADAPTERS,
+} from "../src/index.js";
 import type { FsOps } from "../src/index.js";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const REPO_ROOT = join(__dirname, "..", "..", "..");
+const ADAPTERS = join(REPO_ROOT, "adapters");
 
 /** Build a fake FsOps where only the given path suffix is considered to exist. */
 function fakeFs(existsIfEndsWith: string): FsOps {
@@ -65,5 +76,34 @@ describe("resolveAdapterScript", () => {
     expect(VALID_ADAPTERS).toContain("codex");
     expect(VALID_ADAPTERS).toContain("gemini-cli");
     expect(VALID_ADAPTERS).toContain("cli");
+  });
+});
+
+describe("deck-design-judge install wiring", () => {
+  it("resolves the bundled judge skill from the monorepo layout", () => {
+    const dir = resolveJudgeSkillDir();
+    expect(existsSync(join(dir, "SKILL.md"))).toBe(true);
+    expect(existsSync(join(dir, "scripts", "render_slides.sh"))).toBe(true);
+  });
+
+  it("every adapter install.sh wires judge in full mode (or is CLI with explicit install)", () => {
+    for (const adapter of VALID_ADAPTERS) {
+      const script = join(ADAPTERS, adapter, "install.sh");
+      expect(existsSync(script), `${adapter}/install.sh missing`).toBe(true);
+      const body = readFileSync(script, "utf-8");
+      expect(body).toMatch(/PMD_JUDGE_SKILL_DIR/);
+      expect(body).toMatch(/install-judge-skill\.sh/);
+    }
+  });
+
+  it("gemini/copilot/cli install targets land in expected directories", () => {
+    const gemini = readFileSync(join(ADAPTERS, "gemini-cli", "install.sh"), "utf-8");
+    expect(gemini).toMatch(/\.gemini\/extensions\/deck-design-judge/);
+
+    const copilot = readFileSync(join(ADAPTERS, "copilot", "install.sh"), "utf-8");
+    expect(copilot).toMatch(/\.github\/skills\/deck-design-judge/);
+
+    const cli = readFileSync(join(ADAPTERS, "cli", "install.sh"), "utf-8");
+    expect(cli).toMatch(/\.presentation-md\/skills\/deck-design-judge/);
   });
 });

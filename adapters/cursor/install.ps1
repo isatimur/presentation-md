@@ -50,6 +50,13 @@ $SkillBody
 Set-Content -Path $TargetFile -Value $Mdc -Encoding UTF8
 Write-Host "  OK  presentation-generator.mdc written"
 
+# ── full mode: deck-design-judge quality gate ────────────────────────────────
+if ($Mode -eq "full" -and $env:PMD_JUDGE_SKILL_DIR) {
+    $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+    & (Join-Path $ScriptDir "..\_common\install-judge-skill.ps1") `
+        -Target (Join-Path $HOME ".cursor\skills\deck-design-judge")
+}
+
 # ── full mode: register MCP server ───────────────────────────────────────────
 if ($Mode -eq "full") {
     $McpConfig = Join-Path $HOME ".cursor\mcp.json"

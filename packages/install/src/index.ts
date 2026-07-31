@@ -79,7 +79,7 @@ function resolveCoreDir(): string {
   return dirname(skillPath);
 }
 
-function resolveJudgeSkillDir(): string {
+export function resolveJudgeSkillDir(): string {
   const candidates = [
     join(__dirname, "skills", "deck-design-judge"),
     join(__dirname, "..", "..", "..", "skills", "deck-design-judge"),

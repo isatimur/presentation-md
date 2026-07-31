@@ -37,6 +37,21 @@ $ExtJson = [ordered]@{
 $ExtJson | ConvertTo-Json -Depth 10 | Set-Content (Join-Path $Target "extension.json") -Encoding UTF8
 Write-Host "  OK  extension.json written"
 
+# ── full mode: deck-design-judge quality gate ────────────────────────────────
+if ($Mode -eq "full" -and $env:PMD_JUDGE_SKILL_DIR) {
+    $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+    $JudgeTarget = Join-Path $HOME ".gemini\extensions\deck-design-judge"
+    & (Join-Path $ScriptDir "..\_common\install-judge-skill.ps1") -Target $JudgeTarget
+    $JudgeExt = [ordered]@{
+        name        = "deck-design-judge"
+        version     = "0.1.0"
+        description = "Design quality gate for presentation-md decks (contrast, overflow, rubric)."
+        skills      = @(@{ path = "./SKILL.md" })
+    }
+    $JudgeExt | ConvertTo-Json -Depth 10 | Set-Content (Join-Path $JudgeTarget "extension.json") -Encoding UTF8
+    Write-Host "  OK  deck-design-judge extension.json written"
+}
+
 # ── full mode: register MCP server ───────────────────────────────────────────
 if ($Mode -eq "full") {
     if (Test-Path $GeminiSettings) {
@@ -44,18 +59,15 @@ if ($Mode -eq "full") {
         if (-not $cfg.mcpServers) {
             $cfg | Add-Member -NotePropertyName "mcpServers" -NotePropertyValue ([PSCustomObject]@{})
         }
+        # Migrate legacy 5-tool package name → full @presentation-md/mcp-server (11 tools).
+        if ($cfg.mcpServers.PSObject.Properties.Name -contains "presentation-skill-pack") {
+            $cfg.mcpServers.PSObject.Properties.Remove("presentation-skill-pack")
+        }
         $entry = [PSCustomObject]@{
             command = "npx"
             args    = @("-y", "@presentation-md/mcp-server")
         }
-        $cfg.mcpServers | # Migrate legacy 5-tool package name → full @presentation-md/mcp-server (11 tools).
-        if (.mcpServers -and .mcpServers.PSObject.Properties.Name -contains "presentation-skill-pack") {
-            .mcpServers.PSObject.Properties.Remove("presentation-skill-pack")
-        }
-        if (.servers -and .servers.PSObject.Properties.Name -contains "presentation-skill-pack") {
-            .servers.PSObject.Properties.Remove("presentation-skill-pack")
-        }
-        Add-Member -NotePropertyName "presentation-md" `
+        $cfg.mcpServers | Add-Member -NotePropertyName "presentation-md" `
                                       -NotePropertyValue $entry -Force
         $cfg | ConvertTo-Json -Depth 10 | Set-Content $GeminiSettings -Encoding UTF8
     } else {

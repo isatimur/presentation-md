@@ -6,10 +6,10 @@ Installs the `presentation-generator` skill as a Gemini CLI extension so the age
 
 | Mode | What happens |
 |------|-------------|
-| **full** (default) | Writes `SKILL.md` + `extension.json` to `~/.gemini/extensions/presentation-generator/` **and** registers the MCP server in `~/.gemini/settings.json`. |
-| **lite** | Writes the extension files only — no MCP server. |
+| **full** (default) | Writes `SKILL.md` + `extension.json` to `~/.gemini/extensions/presentation-generator/`, installs **deck-design-judge** as a second extension, **and** registers the MCP server in `~/.gemini/settings.json`. |
+| **lite** | Writes the presentation-generator extension files only — no judge, no MCP server. |
 
-The `extension.json` tells Gemini CLI to load `SKILL.md` as a skill definition. With full mode, MCP tools such as `render_deck`, `export_deck`, `audit_deck`, `list_themes`, `apply_theme`, `import_pptx`, and `import_brand_theme` are also available.
+The `extension.json` tells Gemini CLI to load `SKILL.md` as a skill definition. With full mode, MCP tools such as `render_deck`, `export_deck`, `audit_deck`, `judge_deck`, `list_themes`, `apply_theme`, `import_pptx`, and `import_brand_theme` are also available.
 
 ## Install
 
@@ -44,6 +44,10 @@ $env:PMD_CORE_DIR = "C:\path\to\node_modules\@presentation-md\core"
     presentation-generator/
       SKILL.md          ← skill definition
       extension.json    ← Gemini CLI extension manifest
+    deck-design-judge/
+      SKILL.md          ← quality-gate skill (full mode)
+      extension.json
+      scripts/          ← render_slides, deck_metrics, …
   settings.json         ← MCP server entry (full mode only)
 ```
 

@@ -13,12 +13,14 @@ npx @presentation-md/install copilot
 
 | Mode | What lands |
 |------|-----------|
-| full (default) | `.github/copilot-instructions.md` + `.vscode/mcp.json` |
+| full (default) | `.github/copilot-instructions.md` + `.github/skills/deck-design-judge/` + `.vscode/mcp.json` |
 | lite | `.github/copilot-instructions.md` only |
 
 **Full mode** registers the MCP server (`@presentation-md/mcp-server`) in
-`.vscode/mcp.json`. VS Code 1.99+ picks this up automatically — Copilot gets five
-structured tools: `render_deck`, `export_deck`, `audit_deck`, `list_themes`, `apply_theme`, `import_pptx`, `import_brand_theme`.
+`.vscode/mcp.json`. VS Code 1.99+ picks this up automatically — Copilot gets the full
+tool set including `render_deck`, `export_deck`, `audit_deck`, `judge_deck`, `list_themes`,
+`apply_theme`, `import_pptx`, and `import_brand_theme`. The judge skill scripts land under
+`.github/skills/deck-design-judge/` for agents that read the repo.
 
 **Lite mode** copies the skill definition only. Copilot still generates decks via the
 direct-HTML path (no structured tool calls).

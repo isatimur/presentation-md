@@ -22,4 +22,7 @@ jobs:
           bash -n adapters/cursor/install.sh
           bash -n adapters/codex/install.sh
           bash -n adapters/gemini-cli/install.sh
+          bash -n adapters/copilot/install.sh
+          bash -n adapters/cli/install.sh
+          bash -n adapters/_common/install-judge-skill.sh
           echo "All install scripts are syntactically valid."
