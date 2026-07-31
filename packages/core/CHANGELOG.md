@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.7.2
+
+### Patch Changes
+
+- 1941cf9: Document that every theme package now gets native PPTX surface-chrome approximations, and steer agents toward loud/thin themes instead of custom-html for brand atmosphere.
+
 ## 1.7.1
 
 ### Patch Changes

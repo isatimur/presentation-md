@@ -1,5 +1,17 @@
 # @presentation-md/export
 
+## 1.11.0
+
+### Minor Changes
+
+- a481a33: Approximate PPTX craft chrome for coral, peoples-platform, raw-grid, retro-zine, sakura-chroma, daisy-days, block-frame, editorial-tri-tone, broadside, pink-script, retro-windows, pin-and-paper, plus emerald-editorial, notebook-tabs, long-table, paper-ink, and vintage-editorial.
+
+### Patch Changes
+
+- 2f8f516: Complete PPTX craft chrome coverage for remaining thin surfaces: studio, grove, stencil-tablet, cartesian, monochrome, blue-professional, broadsheet, editorial-forest, signal, pastel-dreamy, vellum, editorial-serif, playful, and corporate.
+- Updated dependencies [1941cf9]
+  - @presentation-md/core@1.7.2
+
 ## 1.10.1
 
 ### Patch Changes
