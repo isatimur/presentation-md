@@ -9,3 +9,5 @@ npm i @presentation-md/theme-peoples-platform
 Use: `"meta": { "theme": "peoples-platform" }` · Surface: `peoples-platform-poster`.
 
 Faithful to frontend-slides `bold-template-pack peoples-platform`.
+
+Surface craft: hard poster frame, cobalt top bar, amber footer stub, and ink speckles (HTML). PPTX mirrors frame/bars/speckles + square hard-border cards.

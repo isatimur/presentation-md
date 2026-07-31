@@ -51,6 +51,22 @@ function cardStroke(
   if (ctx.themeName === "stencil-tablet" || ctx.themeName === "retro-zine") {
     return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.25 : 2 };
   }
+  // coral-hatch cards: 2px hard ink, square
+  if (ctx.themeName === "coral") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.5 : 2.25 };
+  }
+  // peoples-platform-poster cards: 4px hard ink
+  if (ctx.themeName === "peoples-platform") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 3.5 : 3.25 };
+  }
+  // neon-rain cards: cyan rim
+  if (ctx.themeName === "neon-noir") {
+    return { color: ctx.colors.accent2, width: opts.hero || opts.highlighted ? 1.75 : 1.5 };
+  }
+  // vapor-horizon / aero-bubble cards: soft accent rim
+  if (ctx.themeName === "vaporwave" || ctx.themeName === "y2k-aero") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.5 : 1.25 };
+  }
   if (opts.hero || opts.highlighted) {
     return { color: ctx.colors.accent, width: opts.highlighted ? 1.75 : 1.5 };
   }
@@ -70,16 +86,22 @@ function cardRadius(ctx: ExportContext): number {
   if (ctx.themeName === "daisy-days") return 0.21;
   // stencil-tablet-earth cards: border-radius 24px ≈ 0.25"
   if (ctx.themeName === "stencil-tablet") return 0.25;
-  // retro-zine-riso / block-frame-brutal / creative-mode-blocks / 8-bit / Win95: square
+  // retro-zine-riso / block-frame-brutal / creative-mode-blocks / 8-bit / Win95 / coral / peoples: square
   if (
     ctx.themeName === "retro-zine" ||
     ctx.themeName === "block-frame" ||
     ctx.themeName === "creative-mode" ||
     ctx.themeName === "8-bit-orbit" ||
-    ctx.themeName === "retro-windows"
+    ctx.themeName === "retro-windows" ||
+    ctx.themeName === "coral" ||
+    ctx.themeName === "peoples-platform"
   ) {
     return 0;
   }
+  // bold-signal-card / aero-bubble / pastel-geometry: plump
+  if (ctx.themeName === "bold-signal") return 0.16;
+  if (ctx.themeName === "y2k-aero") return 0.18;
+  if (ctx.themeName === "pastel-geometry") return 0.18;
   // scatterbrain-cork cards: border-radius 2px ≈ 0.02"
   if (ctx.themeName === "scatterbrain") return 0.02;
   // sakura-chroma-cassette cards: border-radius 4px ≈ 0.04"
@@ -1930,7 +1952,26 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "bold-signal") {
-    // Soft orange corner blot on every slide; hero gets the focal panel.
+    // Soft shadow stub + rounded card frame (bold-signal-card 0 24px 60px);
+    // orange corner blot every slide; hero gets the focal panel.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.22,
+      y: 0.22,
+      w: ctx.width - 0.28,
+      h: ctx.height - 0.28,
+      fill: { color: "000000", transparency: 72 },
+      line: { color: "000000", width: 0 },
+      rectRadius: 0.16,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.28,
+      h: ctx.height - 0.28,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.border, width: 1 },
+      rectRadius: 0.16,
+    });
     slide.addShape(ctx.shapeOval, {
       x: -0.6,
       y: ctx.height - 1.8,
@@ -2836,7 +2877,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "neon-noir") {
-    // Magenta glow blob + cyan rim (neon-rain stand-in).
+    // Magenta/cyan glow + cyan rim + rain scanlines + floor inset (neon-rain).
     slide.addShape(ctx.shapeOval, {
       x: ctx.width * 0.55,
       y: -ctx.height * 0.2,
@@ -2853,21 +2894,51 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       fill: { color: ctx.colors.accent2, transparency: 70 },
       line: { color: ctx.colors.accent2, width: 0 },
     });
-    if (isHero) {
+    // Rain scanlines (HTML repeating-linear-gradient).
+    for (let i = 0; i < 18; i++) {
       slide.addShape(ctx.shapeRoundRect, {
-        x: 0,
-        y: ctx.height - 0.08,
-        w: ctx.width,
-        h: 0.08,
-        fill: { color: ctx.colors.accent2, transparency: 30 },
-        line: { color: ctx.colors.accent2, width: 0 },
+        x: 0.08 + i * 0.72,
+        y: 0,
+        w: 0.035,
+        h: ctx.height,
+        fill: { color: "FFFFFF", transparency: 94 },
+        line: { color: "FFFFFF", width: 0 },
         rectRadius: 0,
       });
     }
+    // Cyan rim frame (HTML border accent2).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.08,
+      y: 0.08,
+      w: ctx.width - 0.16,
+      h: ctx.height - 0.16,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent2, width: 1.25 },
+      rectRadius: 0,
+    });
+    // Floor inset cyan glow (HTML inset box-shadow) — always-on.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: ctx.height - 0.55,
+      w: ctx.width,
+      h: 0.55,
+      fill: { color: ctx.colors.accent2, transparency: 88 },
+      line: { color: ctx.colors.accent2, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: ctx.height - 0.1,
+      w: ctx.width,
+      h: 0.1,
+      fill: { color: ctx.colors.accent2, transparency: isHero ? 28 : 42 },
+      line: { color: ctx.colors.accent2, width: 0 },
+      rectRadius: 0,
+    });
   }
 
   if (theme === "vaporwave") {
-    // Horizon grid stand-in — bottom cyan wash + pink sun oval.
+    // Horizon grid + pink sun + accent rim + horizon glow (vapor-horizon).
     slide.addShape(ctx.shapeRoundRect, {
       x: 0,
       y: ctx.height * 0.55,
@@ -2898,10 +2969,69 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         rectRadius: 0,
       });
     }
+    // Vertical grid stubs in the horizon band.
+    for (let i = 1; i < 10; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: (ctx.width / 10) * i,
+        y: ctx.height * 0.55,
+        w: 0.015,
+        h: ctx.height * 0.45,
+        fill: { color: ctx.colors.accent2, transparency: 62 },
+        line: { color: ctx.colors.accent2, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    // Horizon glow line (HTML ::after at ~48%).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.08,
+      y: ctx.height * 0.48,
+      w: ctx.width * 0.84,
+      h: 0.04,
+      fill: { color: ctx.colors.accent, transparency: 25 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.22,
+      y: ctx.height * 0.485,
+      w: ctx.width * 0.56,
+      h: 0.025,
+      fill: { color: ctx.colors.accent2, transparency: 20 },
+      line: { color: ctx.colors.accent2, width: 0 },
+      rectRadius: 0,
+    });
+    // Accent rim (HTML border).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.08,
+      y: 0.08,
+      w: ctx.width - 0.16,
+      h: ctx.height - 0.16,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: 1.1 },
+      rectRadius: 0,
+    });
   }
 
   if (theme === "y2k-aero") {
-    // Glossy bubble ovals (aero-bubble).
+    // Soft accent rim + soft shadow stub + glossy bubble ovals (aero-bubble).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.28,
+      y: 0.28,
+      w: ctx.width - 0.4,
+      h: ctx.height - 0.4,
+      fill: { color: ctx.colors.accent, transparency: 92 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0.12,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.12,
+      y: 0.12,
+      w: ctx.width - 0.4,
+      h: ctx.height - 0.4,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: 1.1 },
+      rectRadius: 0.12,
+    });
     slide.addShape(ctx.shapeOval, {
       x: ctx.width * 0.65,
       y: -ctx.height * 0.1,
@@ -3354,7 +3484,35 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "pastel-geometry") {
-    // Vertical pastel edge pills (pastel-geometry-pills ::after).
+    // Outer sky matte ring + soft shadow + vertical pastel edge pills
+    // (pastel-geometry-pills box-shadow 0 0 0 22px var(--bg)).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: ctx.width,
+      h: ctx.height,
+      fill: { color: ctx.colors.bg },
+      line: { color: ctx.colors.bg, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.32,
+      y: 0.32,
+      w: ctx.width - 0.48,
+      h: ctx.height - 0.48,
+      fill: { color: ctx.colors.text, transparency: 94 },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0.24,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.22,
+      y: 0.22,
+      w: ctx.width - 0.52,
+      h: ctx.height - 0.52,
+      fill: { color: ctx.colors.cardBg },
+      line: { color: ctx.colors.border, width: 0.75 },
+      rectRadius: 0.24,
+    });
     const pills = [
       { color: "F0B4D4" },
       { color: "A8D4C4" },
@@ -3376,16 +3534,6 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         rectRadius: 0.11,
       });
     }
-    // Soft card-field wash so the sky matte reads behind content.
-    slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.margin * 0.45,
-      y: ctx.margin * 0.45,
-      w: ctx.width - ctx.margin * 0.9,
-      h: ctx.height - ctx.margin * 0.9,
-      fill: { color: ctx.colors.cardBg, transparency: 35 },
-      line: { color: ctx.colors.border, width: 0.75 },
-      rectRadius: 0.28,
-    });
   }
 
   if (theme === "8-bit-orbit") {
@@ -4162,7 +4310,21 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "peoples-platform") {
-    // Cobalt top bar + amber footer stub + hard frame (peoples-platform-poster).
+    // Cobalt top bar + amber footer stub + hard frame + speckled wash
+    // (peoples-platform-poster). Cards get 4px hard ink via cardStroke.
+    // Quiet ink speckles (HTML radial-gradient tooth).
+    for (let i = 0; i < 28; i++) {
+      const col = i % 7;
+      const row = Math.floor(i / 7);
+      slide.addShape(ctx.shapeOval, {
+        x: 0.45 + col * 1.75,
+        y: 0.55 + row * 1.35,
+        w: 0.06,
+        h: 0.06,
+        fill: { color: ctx.colors.text, transparency: 92 },
+        line: { color: ctx.colors.text, width: 0 },
+      });
+    }
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.08,
       y: 0.08,
@@ -4570,7 +4732,8 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "pink-script") {
-    // Dual inset frames + accent hairline; hero wash (pink-script-afterhours).
+    // Dual inset frames + always-on accent hairline; soft wash on heroes
+    // (pink-script-afterhours — HTML ::after hairline is not hero-gated).
     if (isHero) {
       slide.addShape(ctx.shapeOval, {
         x: ctx.width * 0.55,
@@ -4601,17 +4764,16 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       line: { color: "F5EDF1", width: 1 },
       rectRadius: 0,
     });
-    if (isHero) {
-      slide.addShape(ctx.shapeRoundRect, {
-        x: ctx.width - 2.0,
-        y: ctx.height - 0.85,
-        w: 1.35,
-        h: 0.04,
-        fill: { color: ctx.colors.accent },
-        line: { color: ctx.colors.accent, width: 0 },
-        rectRadius: 0,
-      });
-    }
+    // Always-on accent hairline (HTML ::after).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 2.0,
+      y: ctx.height - 0.85,
+      w: 1.35,
+      h: 0.04,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
   }
 
   if (theme === "retro-windows") {
