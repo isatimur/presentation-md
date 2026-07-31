@@ -10,7 +10,7 @@ const HEADING_LAYOUTS = new Set(["title", "section", "closing"]);
 const VALID_LAYOUTS = new Set([
   "title", "two-column", "feature-grid", "quote",
   "data-table", "stat-row", "timeline", "section", "closing",
-  "image-hero", "comparison", "code", "chart", "custom-html",
+  "image-hero", "comparison", "code", "chart", "custom-html", "ranked-list",
 ]);
 
 function manualValidate(deck: Record<string, unknown>): { valid: boolean; issues: Issue[] } {
@@ -131,6 +131,37 @@ function lightStructuralChecks(deck: Record<string, unknown>): Issue[] {
       severity: "warning",
       message: "No speaker notes — add brief notes on 2–4 key slides for present mode / PPTX.",
     });
+  }
+
+  const meta = deck["meta"] as Record<string, unknown> | undefined;
+  const theme = typeof meta?.["theme"] === "string" ? meta["theme"] : "";
+  if (theme === "kinetic-wrapped") {
+    const toned = slides.filter((s) => {
+      const t = (s as Record<string, unknown>)["tone"];
+      return typeof t === "string" && t !== "default" && t.trim() !== "";
+    }).length;
+    if (toned < 3) {
+      issues.push({
+        severity: "warning",
+        message:
+          "kinetic-wrapped deck has fewer than 3 toned slides — set tone (lime/magenta/cyan/orange/violet) for wrap hue beats.",
+      });
+    }
+    const hasVisual =
+      layouts.includes("image-hero") ||
+      layouts.includes("ranked-list") ||
+      layouts.includes("custom-html") ||
+      slides.some((s) => {
+        const slide = s as Record<string, unknown>;
+        return slide["layout"] === "stat-row" && slide["variant"] === "hero";
+      });
+    if (!hasVisual) {
+      issues.push({
+        severity: "warning",
+        message:
+          "kinetic-wrapped wrap needs a visual beat — use ranked-list, stat-row variant:\"hero\", image-hero, or custom-html.",
+      });
+    }
   }
 
   return issues;

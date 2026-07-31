@@ -21,7 +21,8 @@ export type LayoutType =
   | "comparison"
   | "code"
   | "chart"
-  | "custom-html";
+  | "custom-html"
+  | "ranked-list";
 
 export interface Card {
   icon?: string;
@@ -32,6 +33,13 @@ export interface Card {
 export interface Stat {
   value: string;
   label: string;
+}
+
+export interface RankedItem {
+  rank?: string;
+  label: string;
+  value?: string;
+  widthPct?: number;
 }
 
 export interface Step {
@@ -77,6 +85,10 @@ export interface Slide {
   cards?: Card[];
   rows?: string[][];
   stats?: Stat[];
+  /** ranked-list: ordered progress / ranking bars. */
+  items?: RankedItem[];
+  /** stat-row: "hero" = mega-number wrap beat. */
+  variant?: "default" | "hero" | string;
   steps?: Step[];
   cta?: Cta;
   /** Speaker notes — round-trip via PPTX import/export; not rendered on the HTML slide. */

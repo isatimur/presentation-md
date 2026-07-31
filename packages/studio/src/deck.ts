@@ -17,6 +17,7 @@ export const LAYOUTS: LayoutType[] = [
   "comparison",
   "code",
   "custom-html",
+  "ranked-list",
 ];
 
 export const LAYOUT_LABELS: Record<LayoutType, string> = {
@@ -34,6 +35,7 @@ export const LAYOUT_LABELS: Record<LayoutType, string> = {
   comparison: "Comparison",
   code: "Code",
   "custom-html": "Custom HTML",
+  "ranked-list": "Ranked list",
 };
 
 /** A reasonable starter slide for each layout, so new slides aren't blank. */
@@ -98,6 +100,18 @@ export function blankSlide(layout: LayoutType): Slide {
         eyebrow: "Art direction",
         heading: "One-off craft",
         html: `<div style="display:flex;gap:16px;align-items:stretch;height:100%"><div style="flex:1;background:var(--accent);border-radius:16px;padding:24px;color:var(--bg)"><div style="font:800 48px/1 var(--heading-font)">01</div><p style="margin-top:12px;opacity:.85">Accent panel</p></div><div style="flex:1.4;border:2px solid var(--border);border-radius:16px;padding:24px"><p style="font:700 28px/1.15 var(--heading-font);color:var(--text)">Schema-safe HTML for frontend-slides energy.</p></div></div>`,
+      };
+    case "ranked-list":
+      return {
+        layout,
+        eyebrow: "Top 3",
+        heading: "Your ranking",
+        lead: "Bars that export cleanly to PPTX.",
+        items: [
+          { label: "Running", value: "142 sessions", widthPct: 88 },
+          { label: "Strength", value: "94 sessions", widthPct: 58 },
+          { label: "HIIT", value: "51 sessions", widthPct: 34 },
+        ],
       };
     case "timeline":
       return { layout, heading: "Timeline", steps: [{ title: "Step one", body: "Detail." }, { title: "Step two", body: "Detail." }] };
@@ -166,7 +180,7 @@ export const EXAMPLE_DECK: DeckJson = {
       code: "npx @presentation-md/install claude-code\n# then: create a presentation about…",
     },
     { layout: "stat-row", heading: "By the numbers", stats: [
-      { value: "75", label: "Themes" }, { value: "14", label: "Layouts" }, { value: "1", label: "Install" },
+      { value: "75", label: "Themes" }, { value: "15", label: "Layouts" }, { value: "1", label: "Install" },
     ] },
     {
       layout: "chart",

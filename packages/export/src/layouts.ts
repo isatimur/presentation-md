@@ -518,9 +518,82 @@ function renderDataTable(slide: PSlide, ctx: ExportContext, data: Slide): void {
 }
 
 function renderStatRow(slide: PSlide, ctx: ExportContext, data: Slide): void {
-  renderHeaderBlock(slide, ctx, data);
+  const top = renderHeaderBlock(slide, ctx, data);
   const stats = data.stats ?? [];
   if (stats.length === 0) return;
+
+  const isHero = data.variant === "hero";
+  const tone = typeof data.tone === "string" ? data.tone : "";
+  const onHue =
+    ctx.themeName === "kinetic-wrapped" &&
+    ["magenta", "violet", "orange", "cyan", "lime"].includes(tone);
+  const valueColor = onHue ? (tone === "cyan" || tone === "lime" ? ctx.colors.text : "FFFFFF") : ctx.colors.accent;
+  const labelColor = onHue ? "F0F0F0" : ctx.colors.muted;
+
+  if (isHero) {
+    const mega = stats[0]!;
+    const contentW = ctx.width - ctx.margin * 2;
+    let y = Math.max(top + 0.1, ctx.height * 0.28);
+    slide.addText(mega.value, {
+      x: ctx.margin,
+      y,
+      w: contentW,
+      h: 1.8,
+      fontFace: ctx.fonts.heading,
+      bold: true,
+      color: valueColor,
+      fontSize: 96,
+      align: "left",
+      valign: "middle",
+      fit: "shrink",
+    });
+    y += 1.85;
+    slide.addText(mega.label, {
+      x: ctx.margin,
+      y,
+      w: contentW * 0.7,
+      h: 0.55,
+      fontFace: ctx.fonts.body,
+      color: labelColor,
+      fontSize: 18,
+      align: "left",
+      valign: "top",
+      fit: "shrink",
+    });
+    y += 0.7;
+    const rest = stats.slice(1);
+    if (rest.length) {
+      const gap = 0.3;
+      const cellW = (contentW - gap * (rest.length - 1)) / rest.length;
+      rest.forEach((stat, i) => {
+        const x = ctx.margin + i * (cellW + gap);
+        slide.addText(stat.value, {
+          x,
+          y,
+          w: cellW,
+          h: 0.55,
+          fontFace: ctx.fonts.heading,
+          bold: true,
+          color: valueColor,
+          fontSize: 28,
+          align: "left",
+          fit: "shrink",
+        });
+        slide.addText(stat.label, {
+          x,
+          y: y + 0.55,
+          w: cellW,
+          h: 0.45,
+          fontFace: ctx.fonts.body,
+          color: labelColor,
+          fontSize: 12,
+          align: "left",
+          fit: "shrink",
+        });
+      });
+    }
+    return;
+  }
 
   const gap = 0.4;
   const areaW = ctx.width - ctx.margin * 2;
@@ -536,7 +609,7 @@ function renderStatRow(slide: PSlide, ctx: ExportContext, data: Slide): void {
       h: 1.0,
       fontFace: ctx.fonts.heading,
       bold: true,
-      color: ctx.colors.accent,
+      color: valueColor,
       fontSize: 40,
       align: "center",
       valign: "middle",
@@ -548,10 +621,77 @@ function renderStatRow(slide: PSlide, ctx: ExportContext, data: Slide): void {
       w: cellW,
       h: 0.7,
       fontFace: ctx.fonts.body,
-      color: ctx.colors.muted,
+      color: labelColor,
       fontSize: 14,
       align: "center",
       valign: "top",
+      fit: "shrink",
+    });
+  });
+}
+
+function renderRankedList(slide: PSlide, ctx: ExportContext, data: Slide): void {
+  const top = renderHeaderBlock(slide, ctx, data);
+  const items = data.items ?? [];
+  if (!items.length) {
+    ctx.warn("ranked-list layout has no items.");
+    return;
+  }
+
+  const contentW = ctx.width - ctx.margin * 2;
+  let y = top + 0.2;
+  const bottom = ctx.height - ctx.margin - 0.1;
+  const tone = typeof data.tone === "string" ? data.tone : "";
+  const onHue =
+    ctx.themeName === "kinetic-wrapped" &&
+    ["magenta", "violet"].includes(tone);
+  const defaultText = onHue ? "FFFFFF" : ctx.colors.text;
+  const barH = Math.min(0.55, (bottom - y - 0.1) / items.length - 0.1);
+
+  items.forEach((item, i) => {
+    const by = y + i * (barH + 0.12);
+    if (by + barH > bottom) return;
+    const rank = (item.rank ?? String(i + 1).padStart(2, "0")).trim();
+    const widthPct =
+      typeof item.widthPct === "number" && item.widthPct > 0
+        ? Math.min(100, item.widthPct)
+        : Math.max(18, Math.round(100 - (i * 70) / Math.max(items.length - 1, 1)));
+    slide.addText(rank, {
+      x: ctx.margin,
+      y: by,
+      w: 0.55,
+      h: barH,
+      fontFace: ctx.fonts.heading,
+      color: defaultText,
+      fontSize: 22,
+      bold: true,
+      valign: "middle",
+    });
+    const trackX = ctx.margin + 0.65;
+    const trackW = contentW - 0.65;
+    const fillW = Math.max(0.4, trackW * (widthPct / 100));
+    const fill = i === 0 ? "FFFFFF" : ctx.colors.accent;
+    const ink = i === 0 ? (onHue ? "CC00FF" : ctx.colors.bg) : defaultText;
+    const label = item.value ? `${item.label} · ${item.value}` : item.label;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: trackX,
+      y: by,
+      w: fillW,
+      h: barH,
+      fill: { color: fill },
+      line: { color: fill, width: 0 },
+      rectRadius: 0.02,
+    });
+    slide.addText(label, {
+      x: trackX + 0.12,
+      y: by,
+      w: Math.max(0.5, fillW - 0.2),
+      h: barH,
+      fontFace: ctx.fonts.heading,
+      color: ink,
+      fontSize: 14,
+      bold: true,
+      valign: "middle",
       fit: "shrink",
     });
   });
@@ -1183,6 +1323,7 @@ const RENDERERS: Record<string, (s: PSlide, ctx: ExportContext, d: Slide) => voi
   code: renderCode,
   chart: renderChart,
   "custom-html": renderCustomHtml,
+  "ranked-list": renderRankedList,
 };
 
 /**

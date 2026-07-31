@@ -16,6 +16,7 @@ export type {
   LayoutType,
   Card,
   Stat,
+  RankedItem,
   Step,
   Cta,
   ChartSeries,

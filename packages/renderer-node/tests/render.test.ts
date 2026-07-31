@@ -215,6 +215,40 @@ describe("renderDeck", () => {
     expect(html).toContain("<rect");
   });
 
+  it("renders ranked-list and hero stat-row", async () => {
+    const deck = JSON.stringify({
+      type: "deck",
+      meta: { theme: "default-tech", title: "Pulse" },
+      slides: [
+        {
+          layout: "ranked-list",
+          tone: "magenta",
+          heading: "Top activity",
+          items: [
+            { label: "Running", value: "142", widthPct: 88 },
+            { label: "Strength", value: "94", widthPct: 58 },
+          ],
+        },
+        {
+          layout: "stat-row",
+          variant: "hero",
+          tone: "orange",
+          heading: "Minutes",
+          stats: [
+            { value: "14,892", label: "Minutes moved" },
+            { value: "248 hrs", label: "total" },
+          ],
+        },
+      ],
+    });
+    const html = await renderDeck(deck);
+    expect(html).toContain('data-layout="ranked-list"');
+    expect(html).toContain("ranked-list-fill");
+    expect(html).toContain("stat-row-hero");
+    expect(html).toContain("is-mega");
+    expect(html).toContain('data-tone="magenta"');
+  });
+
   it("renders custom-html after sanitizing scripts", async () => {
     const deck = JSON.stringify({
       type: "deck",

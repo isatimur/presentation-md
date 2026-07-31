@@ -338,4 +338,35 @@ describe("deckToPptx", () => {
     expect(result.slideCount).toBe(1);
     expect(result.warnings.some((w) => w.includes("custom-html"))).toBe(true);
   });
+
+  it("exports ranked-list and hero stat-row without warnings about unknown layout", async () => {
+    const deck: DeckJson = {
+      type: "deck",
+      meta: { title: "Pulse", theme: "kinetic-wrapped" },
+      slides: [
+        {
+          layout: "ranked-list",
+          tone: "magenta",
+          heading: "Top activity",
+          items: [
+            { label: "Running", value: "142 sessions", widthPct: 88 },
+            { label: "Strength", value: "94 sessions", widthPct: 58 },
+          ],
+        },
+        {
+          layout: "stat-row",
+          variant: "hero",
+          tone: "orange",
+          heading: "Minutes",
+          stats: [
+            { value: "14,892", label: "Minutes moved" },
+            { value: "52 min", label: "avg" },
+          ],
+        },
+      ],
+    };
+    const result = await buildPptx(deck, theme);
+    expect(result.slideCount).toBe(2);
+    expect(result.warnings.some((w) => w.includes("Unknown layout"))).toBe(false);
+  });
 });

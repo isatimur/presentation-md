@@ -1,9 +1,10 @@
-<section class="slide stat-row-slide" data-layout="stat-row">
+<section class="slide stat-row-slide{{#isHero}} stat-row-hero{{/isHero}}" data-layout="stat-row">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
+  {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
   <div class="stats">
     {{#stats}}
-    <div class="stat">
+    <div class="stat{{#isMega}} is-mega{{/isMega}}">
       <div class="value">{{value}}</div>
       <div class="label">{{label}}</div>
     </div>

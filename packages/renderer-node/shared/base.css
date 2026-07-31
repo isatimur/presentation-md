@@ -422,6 +422,114 @@ tbody tr:hover td {
   line-height: 1.35;
 }
 
+/* Mega-stat wrap beat (Spotify-Wrapped energy) */
+.stat-row-slide.stat-row-hero {
+  justify-content: center;
+}
+.stat-row-slide.stat-row-hero .lead {
+  margin-top: 8px;
+  max-width: 34ch;
+  font-size: clamp(18px, 2.2vw, 26px);
+}
+.stat-row-slide.stat-row-hero .stats {
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+  flex: 0 0 auto;
+}
+.stat-row-slide.stat-row-hero .stat.is-mega {
+  flex: none;
+  min-width: 0;
+  border-top: none;
+  padding: 0;
+}
+.stat-row-slide.stat-row-hero .stat.is-mega .value {
+  font-size: clamp(88px, 18vw, 220px);
+  letter-spacing: -0.06em;
+  line-height: 0.85;
+}
+.stat-row-slide.stat-row-hero .stat.is-mega .label {
+  font-size: clamp(16px, 2vw, 22px);
+  max-width: 28ch;
+  margin-top: 16px;
+  color: var(--text);
+}
+.stat-row-slide.stat-row-hero .stat:not(.is-mega) {
+  flex: none;
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 0;
+  border-top: 2px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+  padding-top: 12px;
+  margin-right: 28px;
+}
+.stat-row-slide.stat-row-hero .stat:not(.is-mega) .value {
+  font-size: clamp(28px, 3.5vw, 40px);
+}
+
+/* ranked-list — schema bars (Pulse / Gamma progress energy) */
+.ranked-list-slide { justify-content: flex-start; }
+.ranked-list-slide .lead {
+  margin-top: 8px;
+  max-width: 42ch;
+}
+.ranked-list-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 640px;
+  margin-top: 20px;
+  width: 100%;
+}
+.ranked-list-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.ranked-list-rank {
+  font-family: var(--heading-font);
+  font-weight: var(--heading-weight);
+  font-size: clamp(28px, 4vw, 48px);
+  min-width: 2ch;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  opacity: 0.55;
+  line-height: 1;
+}
+.ranked-list-item.is-primary .ranked-list-rank {
+  opacity: 1;
+}
+.ranked-list-track {
+  flex: 1;
+  min-width: 0;
+}
+.ranked-list-fill {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  color: var(--text);
+  font-family: var(--heading-font);
+  font-weight: var(--heading-weight);
+  font-size: clamp(16px, 2vw, 22px);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  min-width: 4ch;
+}
+.ranked-list-item.is-primary .ranked-list-fill {
+  background: var(--accent);
+  color: var(--bg);
+}
+.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-value {
+  opacity: 0.85;
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
 /* chart */
 .chart-slide { justify-content: flex-start; }
 .chart-slide .lead {

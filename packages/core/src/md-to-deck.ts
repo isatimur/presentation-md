@@ -219,7 +219,42 @@ function mapBlock(block: string, index: number, total: number): MdSlide {
 
   const items = bullets(block);
   if (items.length >= 2 && heading) {
-    // Heuristic: short items → feature-grid; value/label pairs → stat-row
+    // Heuristic: short items → feature-grid; value/label pairs → stat-row;
+    // "N. Label — value" or "Label · value · NN%" → ranked-list
+    const asRanked = items
+      .map((item, i) => {
+        const m =
+          item.match(/^(?:(\d+)\.?\s+)?(.+?)\s*[·—–\-:]\s*(.+?)(?:\s*[·—–\-:]\s*(\d{1,3})\s*%?)?$/) ||
+          item.match(/^(.+?)\s+(\d{1,3})%$/);
+        if (!m) return null;
+        if (m.length >= 4 && m[2] && m[3] && !m[4] && item.match(/%$/)) {
+          // Label 88%
+          return {
+            rank: String(i + 1).padStart(2, "0"),
+            label: m[1]!.trim(),
+            widthPct: Number(m[2]),
+          };
+        }
+        const rank = m[1] ? String(m[1]).padStart(2, "0") : String(i + 1).padStart(2, "0");
+        const label = (m[2] ?? m[1] ?? item).trim();
+        const value = (m[3] ?? "").trim() || undefined;
+        const widthPct = m[4] ? Number(m[4]) : undefined;
+        return { rank, label, value, widthPct };
+      })
+      .filter(Boolean) as Array<{
+      rank: string;
+      label: string;
+      value?: string;
+      widthPct?: number;
+    }>;
+    const looksRanked =
+      /rank|top\s*\d|leaderboard|sessions|most.?played|activity/i.test(heading.text) &&
+      asRanked.length >= 2 &&
+      asRanked.length === items.length;
+    if (looksRanked) {
+      return { layout: "ranked-list", heading: heading.text, items: asRanked };
+    }
+
     const asStats = items
       .map((item) => {
         const m = item.match(/^(\S+)\s+[—–\-:]\s+(.+)$/) || item.match(/^(\S+)\s{2,}(.+)$/);

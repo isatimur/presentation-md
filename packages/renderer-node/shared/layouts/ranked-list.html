@@ -1,0 +1,18 @@
+<section class="slide ranked-list-slide" data-layout="ranked-list">
+  {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
+  {{#heading}}<h2>{{heading}}</h2>{{/heading}}
+  {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
+  <div class="ranked-list-stack">
+    {{#items}}
+    <div class="ranked-list-item{{#isPrimary}} is-primary{{/isPrimary}}">
+      <span class="ranked-list-rank">{{rank}}</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:{{widthPct}}%">
+          <span class="ranked-list-label">{{label}}</span>
+          {{#value}}<span class="ranked-list-value">{{value}}</span>{{/value}}
+        </div>
+      </div>
+    </div>
+    {{/items}}
+  </div>
+</section>

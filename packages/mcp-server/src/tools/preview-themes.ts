@@ -25,26 +25,47 @@ function titlePreviewDeck(title: string, theme: string, company?: string): strin
 
 /** Canonical multi-layout bake so agents can judge comparison/stats/quote craft — not title alone. */
 function layoutsPreviewDeck(title: string, theme: string, company?: string): string {
-  return JSON.stringify({
-    type: "deck",
-    meta: { title, company: company ?? title, theme },
-    slides: [
+  const isWrap = theme === "kinetic-wrapped";
+  const slides: Record<string, unknown>[] = [
       {
         layout: "title",
         eyebrow: theme.replace(/-/g, " "),
         heading: title,
-        lead: "Multi-layout craft preview — title, grid, comparison, stats, quote, code, closing.",
+        lead: "Multi-layout craft preview — title, hero, bento, comparison, ranked bars, stats, quote, code, closing.",
+        ...(isWrap ? { tone: "lime" } : {}),
+      },
+      {
+        layout: "image-hero",
+        eyebrow: "Visual beat",
+        heading: "Show the product, place, or atmosphere.",
+        lead: "Full-bleed craft that still exports to PPTX.",
+        image:
+          "data:image/svg+xml," +
+          encodeURIComponent(
+            `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0B1220"/><stop offset="1" stop-color="#FF3B1F"/></linearGradient></defs><rect width="1600" height="900" fill="url(#g)"/><circle cx="1180" cy="280" r="180" fill="#0D9488" opacity=".35"/></svg>`
+          ),
+        imageAlt: "Abstract craft field",
       },
       {
         layout: "feature-grid",
         eyebrow: "Capabilities",
-        heading: "Three moves that matter",
-        columns: 3,
+        heading: "Five moves that matter",
+        columns: "bento",
         cards: [
           { icon: "fa-solid fa-bolt", title: "Fast path", body: "Ship the decisive slide without redesigning chrome." },
           { icon: "fa-solid fa-layer-group", title: "Layered craft", body: "Surfaces stay out of the way of body layouts." },
           { icon: "fa-solid fa-eye", title: "Show, don't tell", body: "Judge the vibe across layouts before you lock a theme." },
+          { icon: "fa-solid fa-chart-simple", title: "Native charts", body: "SVG in HTML, editable in PPTX." },
+          { icon: "fa-solid fa-share-nodes", title: "Share frame", body: "Designed to leave the deck." },
         ],
+      },
+      {
+        layout: "two-column",
+        eyebrow: "Asymmetry",
+        heading: "Weight the copy when the story needs it.",
+        body: "Ratio and reverse keep media and copy in tension — not a default 50/50 split.",
+        aside: "2:1 craft proof",
+        ratio: "2-1",
       },
       {
         layout: "comparison",
@@ -57,14 +78,39 @@ function layoutsPreviewDeck(title: string, theme: string, company?: string): str
         emphasis: "right",
       },
       {
+        layout: "ranked-list",
+        eyebrow: "Ranking",
+        heading: "Bars that stay editable",
+        lead: "Prefer ranked-list over custom-html for top-N craft.",
+        items: [
+          { label: "Primary beat", value: "88%", widthPct: 88 },
+          { label: "Secondary", value: "58%", widthPct: 58 },
+          { label: "Tertiary", value: "34%", widthPct: 34 },
+        ],
+        ...(isWrap ? { tone: "magenta" } : {}),
+      },
+      {
         layout: "stat-row",
         eyebrow: "Proof",
-        heading: "Numbers that read at billboard scale",
-        stats: [
-          { value: "14", label: "Schema layouts" },
-          { value: "75", label: "Theme surfaces" },
-          { value: "1", label: "JSON field to swap vibe" },
-        ],
+        heading: isWrap ? "Mega number energy" : "Numbers that read at billboard scale",
+        ...(isWrap
+          ? {
+              variant: "hero",
+              tone: "orange",
+              lead: "One claim per frame. Built to screenshot.",
+              stats: [
+                { value: "287", label: "Sessions this year" },
+                { value: "5.5×", label: "per week" },
+                { value: "+34%", label: "vs last year" },
+              ],
+            }
+          : {
+              stats: [
+                { value: "15", label: "Schema layouts" },
+                { value: "75", label: "Theme surfaces" },
+                { value: "1", label: "JSON field to swap vibe" },
+              ],
+            }),
       },
       {
         layout: "chart",
@@ -80,6 +126,7 @@ function layoutsPreviewDeck(title: string, theme: string, company?: string): str
         layout: "quote",
         quote: "If the second slide looks generic, the theme isn't ready.",
         by: "presentation-md craft bar",
+        ...(isWrap ? { tone: "cyan" } : {}),
       },
       {
         layout: "code",
@@ -95,15 +142,21 @@ function layoutsPreviewDeck(title: string, theme: string, company?: string): str
         heading: "Pick this vibe — or preview another.",
         lead: "Set meta.theme and generate the full deck.",
         cta: { label: "Lock theme", href: "#" },
+        ...(isWrap ? { tone: "lime" } : {}),
       },
-    ],
+  ];
+
+  return JSON.stringify({
+    type: "deck",
+    meta: { title, company: company ?? title, theme },
+    slides,
   });
 }
 
 export const previewThemesTool: ToolDefinition = {
   name: "preview_themes",
   description:
-    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Default mode is a title slide; pass mode=\"layouts\" for a multi-slide craft preview (title, feature-grid, comparison, stat-row, quote, code, closing).",
+    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Default mode is a title slide; pass mode=\"layouts\" for a multi-slide craft preview (title, image-hero, bento, two-column, comparison, ranked-list, stat-row, quote, code, closing). kinetic-wrapped previews inject tone + hero mega-stat.",
   inputSchema: {
     type: "object",
     properties: {

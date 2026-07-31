@@ -95,6 +95,30 @@ function normalizeSlideData(slide: Slide): Record<string, unknown> {
   if (slide.layout === "custom-html") {
     out["html"] = sanitizeCustomHtml(slide.html);
   }
+  if (slide.layout === "ranked-list") {
+    const raw = Array.isArray(slide.items) ? slide.items : [];
+    const n = Math.max(raw.length, 1);
+    out["items"] = raw.map((item, i) => {
+      const defaultPct = Math.max(18, Math.round(100 - (i * 70) / Math.max(n - 1, 1)));
+      const widthPct =
+        typeof item.widthPct === "number" && item.widthPct > 0
+          ? Math.min(100, item.widthPct)
+          : defaultPct;
+      const rank =
+        typeof item.rank === "string" && item.rank.trim()
+          ? item.rank.trim()
+          : String(i + 1).padStart(2, "0");
+      return { ...item, rank, widthPct, isPrimary: i === 0 };
+    });
+  }
+  if (slide.layout === "stat-row") {
+    const isHero = slide.variant === "hero";
+    out["isHero"] = isHero;
+    const stats = Array.isArray(slide.stats) ? slide.stats : [];
+    if (isHero && stats.length) {
+      out["stats"] = stats.map((s, i) => ({ ...s, isMega: i === 0 }));
+    }
+  }
   if (slide.cta?.href !== undefined) {
     out["cta"] = { ...slide.cta, href: sanitizeLink(slide.cta.href) };
   }

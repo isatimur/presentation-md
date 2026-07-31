@@ -1,4 +1,4 @@
-import type { Slide, Card, Stat, Step, ChartSeries } from "@presentation-md/export";
+import type { Slide, Card, Stat, Step, ChartSeries, RankedItem } from "@presentation-md/export";
 import { LAYOUT_LABELS } from "../deck.js";
 import type { LayoutType } from "../deck.js";
 import { TextInput, TextArea, StringSelect, ListEditor } from "./fields.js";
@@ -16,6 +16,19 @@ export function SlideForm({
   return (
     <div className="slide-form">
       <h2 className="panel-title">{LAYOUT_LABELS[layout] ?? slide.layout}</h2>
+      <StringSelect
+        label="Tone (kinetic wrap hue)"
+        value={typeof slide.tone === "string" ? slide.tone : "default"}
+        options={[
+          { value: "default", label: "Default / auto" },
+          { value: "lime", label: "Lime" },
+          { value: "magenta", label: "Magenta" },
+          { value: "cyan", label: "Cyan" },
+          { value: "orange", label: "Orange" },
+          { value: "violet", label: "Violet" },
+        ]}
+        onChange={(v) => set({ tone: v === "default" ? undefined : v })}
+      />
       {renderFields()}
       <TextArea
         label="Speaker notes (exports to PPTX notes pane)"
@@ -179,6 +192,16 @@ export function SlideForm({
           <>
             <TextInput label="Eyebrow" value={slide.eyebrow} onChange={(v) => set({ eyebrow: v })} />
             <TextInput label="Heading" value={slide.heading} onChange={(v) => set({ heading: v })} />
+            <TextArea label="Lead" value={slide.lead} onChange={(v) => set({ lead: v })} />
+            <StringSelect
+              label="Variant"
+              value={slide.variant === "hero" ? "hero" : "default"}
+              options={[
+                { value: "default", label: "Default row" },
+                { value: "hero", label: "Hero mega-stat (Wrapped)" },
+              ]}
+              onChange={(v) => set({ variant: v === "hero" ? "hero" : undefined })}
+            />
             <ListEditor<Stat>
               label="Stats"
               items={slide.stats ?? []}
@@ -188,6 +211,36 @@ export function SlideForm({
                 <>
                   <TextInput label="Value" value={stat.value} onChange={(v) => setItem({ ...stat, value: v })} />
                   <TextInput label="Label" value={stat.label} onChange={(v) => setItem({ ...stat, label: v })} />
+                </>
+              )}
+            />
+          </>
+        );
+
+      case "ranked-list":
+        return (
+          <>
+            <TextInput label="Eyebrow" value={slide.eyebrow} onChange={(v) => set({ eyebrow: v })} />
+            <TextInput label="Heading" value={slide.heading} onChange={(v) => set({ heading: v })} />
+            <TextArea label="Lead" value={slide.lead} onChange={(v) => set({ lead: v })} />
+            <ListEditor<RankedItem>
+              label="Items"
+              items={slide.items ?? []}
+              onChange={(items) => set({ items })}
+              blank={() => ({ label: "Item", value: "", widthPct: 50 })}
+              renderItem={(item, setItem) => (
+                <>
+                  <TextInput label="Rank" value={item.rank} onChange={(v) => setItem({ ...item, rank: v })} />
+                  <TextInput label="Label" value={item.label} onChange={(v) => setItem({ ...item, label: v })} />
+                  <TextInput label="Value" value={item.value} onChange={(v) => setItem({ ...item, value: v })} />
+                  <TextInput
+                    label="Width %"
+                    value={item.widthPct !== undefined ? String(item.widthPct) : ""}
+                    onChange={(v) => {
+                      const n = Number(v);
+                      setItem({ ...item, widthPct: Number.isFinite(n) && n > 0 ? n : undefined });
+                    }}
+                  />
                 </>
               )}
             />

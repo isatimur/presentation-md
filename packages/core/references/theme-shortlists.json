@@ -57,10 +57,16 @@
       "why": "Solstice ultra-luxury (nocturnal gold), heritage wash, deco emerald+gold."
     },
     {
+      "id": "year-wrap",
+      "label": "Year wrap / Spotify-Wrapped energy",
+      "themes": ["kinetic-wrapped", "brutalist-acid", "neon-noir"],
+      "why": "Pulse multi-hue wrap, MONOLITH acid flex, neon cyber nightlife — use ranked-list + stat-row variant:hero + tone beats."
+    },
+    {
       "id": "stunning-flagships",
       "label": "Stunning twenty-five (canonical showcase)",
       "themes": ["aurora-glass", "ft-editorial", "genz-bento"],
-      "why": "Lead proofs from the gallery flagship set — see references/stunning-25.md for all 25."
+      "why": "Lead proofs from the gallery flagship set — see references/stunning-25.md for all 25. Rotate proofs: kinetic-wrapped, luxury-minimalist, crt-terminal."
     },
     {
       "id": "bold-poster-pack",

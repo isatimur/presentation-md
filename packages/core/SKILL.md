@@ -1,6 +1,6 @@
 ---
 name: presentation-generator
-description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 75 themes and 14 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
+description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 75 themes and 15 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
 license: MIT
 metadata:
   author: isatimur
@@ -462,11 +462,12 @@ Then walk every slide against this checklist and fix before delivering:
 - **Contrast** — every text block is legible against its actual background (see AI-Slop Tell #17).
 - **AI-slop tells** — no accent line under a title, no text-only content slide, no centered paragraphs.
 - **Visual beat** — investor, launch, brand, and wrap decks need ≥1 real `image-hero` (composed SVG/data URI or asset). Icon grids alone are not a visual.
-- **Asymmetry** — at least one `comparison` with `emphasis`, `two-column`, `code`, or `columns: "bento"` — never a stack of identical three-up cards.
+- **Asymmetry** — at least one `comparison` with `emphasis`, `two-column`, `code`, `ranked-list`, or `columns: "bento"` — never a stack of identical three-up cards.
 - **Token discipline** — colors and fonts all trace back to the chosen theme; no off-palette one-offs.
 - **The 3-second test** — pick any slide at random: is its single point obvious in three seconds?
 - **Arc integrity** — the deck still follows one narrative arc end to end; every slide sets up or pays off the one before it.
-- **Schema honesty** — every `layout` value is one of the fourteen enums; no invented layout names.
+- **Schema honesty** — every `layout` value is one of the fifteen enums; no invented layout names.
+- **Wrap honesty** — `kinetic-wrapped` decks need `tone` on ≥3 slides and either `ranked-list`, `stat-row` `variant:"hero"`, or `image-hero`.
 - **Gallery honesty** — if you named a stunning-25 theme (aurora-glass, ft-editorial, luxury-minimalist, …), open its structured proof and match that craft ceiling.
 
 For a rigorous, scored pass, run the **`deck-design-judge`** skill: it grades the deck against the design rubric, tells you exactly what to fix, and lets you re-score after the fix.

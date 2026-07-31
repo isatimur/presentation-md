@@ -54,7 +54,15 @@ Use `aside` for a pull-quote panel when there is no image. `ratio` / `reverse` u
 `{ "layout": "quote", "quote", "by"? }`
 
 ### stat-row
-`{ "layout": "stat-row", "eyebrow"?, "heading"?, "stats": [ { "value", "label" } ] }`
+`{ "layout": "stat-row", "eyebrow"?, "heading"?, "lead"?, "variant"?: "default"|"hero",
+   "stats": [ { "value", "label" } ] }`
+`"hero"` = mega-number wrap beat (first stat dominates; rest become secondary chips).
+
+### ranked-list
+`{ "layout": "ranked-list", "eyebrow"?, "heading"?, "lead"?,
+   "items": [ { "rank"?, "label", "value"?, "widthPct"? } ] }`
+Ordered progress / ranking bars — prefer this over `custom-html` for Pulse-style stacks.
+PPTX maps natively (no crude text blob).
 
 ### timeline
 `{ "layout": "timeline", "eyebrow"?, "heading"?, "steps": [ { "title", "body"? } ] }`
@@ -79,7 +87,8 @@ Theme-colored SVG in HTML; native editable charts in PPTX. Prefer `bar`/`line` f
 ### custom-html
 `{ "layout": "custom-html", "eyebrow"?, "heading"?, "lead"?, "html" }`
 Schema-preserving escape hatch for one-off art (frontend-slides energy without abandoning Deck JSON).
-Scripts, event handlers, and dangerous URLs are stripped on render. PPTX approximates to text —
+Scripts, event handlers, and dangerous URLs are stripped on render. Prefer `ranked-list` /
+`stat-row` hero / `chart` when the art fits those shapes. PPTX approximates bars/panels/text —
 keep HTML export when the art matters.
 
 ### tone (any slide)

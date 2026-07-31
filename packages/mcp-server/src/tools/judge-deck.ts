@@ -146,6 +146,7 @@ function judgeDeckJson(deck: Record<string, unknown>): {
     layouts.includes("code") ||
     layouts.includes("two-column") ||
     layouts.includes("custom-html") ||
+    layouts.includes("ranked-list") ||
     slides.some((s) => s["layout"] === "feature-grid" && s["columns"] === "bento");
 
   if (slides.length >= 5 && !hasImageHero) {
@@ -159,14 +160,20 @@ function judgeDeckJson(deck: Record<string, unknown>): {
     flags.push({
       id: "asymmetry",
       severity: "warn",
-      detail: "Weak asymmetry — add comparison+emphasis, two-column, code, bento, or custom-html.",
+      detail: "Weak asymmetry — add comparison+emphasis, two-column, code, bento, ranked-list, or custom-html.",
     });
   }
-  if (slides.length >= 6 && !hasChart && !layouts.includes("stat-row") && !layouts.includes("data-table")) {
+  if (
+    slides.length >= 6 &&
+    !hasChart &&
+    !layouts.includes("stat-row") &&
+    !layouts.includes("data-table") &&
+    !layouts.includes("ranked-list")
+  ) {
     flags.push({
       id: "data_viz",
       severity: "warn",
-      detail: "Long deck with no chart/stat-row/data-table — consider a data beat.",
+      detail: "Long deck with no chart/stat-row/data-table/ranked-list — consider a data beat.",
     });
   }
 

@@ -3,12 +3,13 @@
   "meta": {
     "title": "Pulse — Year Wrapped",
     "company": "Pulse",
-    "description": "Spotify-Wrapped style recap — kinetic-wrapped multi-hue proof approaching gallery craft.",
+    "description": "Spotify-Wrapped style recap — kinetic-wrapped gallery parity via ranked-list + mega-stat tones.",
     "theme": "kinetic-wrapped"
   },
   "slides": [
     {
       "layout": "title",
+      "tone": "lime",
       "eyebrow": "Pulse · 2026",
       "heading": "YOUR 2026, WRAPPED.",
       "lead": "Every beat. Every drop of sweat. Here's what you actually did this year.",
@@ -16,110 +17,125 @@
     },
     {
       "layout": "stat-row",
+      "variant": "hero",
       "eyebrow": "Workouts",
       "heading": "You showed up.",
+      "lead": "You worked out 287 times this year. That's basically every single day, plus a spare.",
       "stats": [
         { "value": "287", "label": "Workouts this year" },
         { "value": "5.5×", "label": "per week avg" },
+        { "value": "63", "label": "rest days total" },
         { "value": "+34%", "label": "vs 2025" }
       ],
-      "notes": "Total workouts — the unignorable number."
+      "notes": "Mega workouts — lime on black energy."
     },
     {
-      "layout": "custom-html",
+      "layout": "ranked-list",
       "tone": "magenta",
       "eyebrow": "Top Activity",
       "heading": "RUNNING IS YOUR THING.",
-      "html": "<div class=\"pulse-bar-stack\"><div class=\"pulse-bar-item\"><span class=\"pulse-bar-rank\">01</span><div class=\"pulse-bar-fill\" style=\"width:88%;background:#ffffff;color:#cc00ff\">Running · 142 sessions</div></div><div class=\"pulse-bar-item\"><span class=\"pulse-bar-rank\" style=\"opacity:.55\">02</span><div class=\"pulse-bar-fill\" style=\"width:58%;background:rgba(255,255,255,.3);color:#fff\">Strength · 94 sessions</div></div><div class=\"pulse-bar-item\"><span class=\"pulse-bar-rank\" style=\"opacity:.35\">03</span><div class=\"pulse-bar-fill\" style=\"width:34%;background:rgba(255,255,255,.15);color:#fff\">HIIT · 51 sessions</div></div></div><p class=\"lead\" style=\"margin-top:20px;opacity:.75\">You ran a combined 1,847 km this year. That's London → Istanbul.</p>",
-      "notes": "Ranked activity bars — gallery bar-stack craft via custom-html."
+      "lead": "You ran a combined 1,847 km this year. That's London → Istanbul.",
+      "items": [
+        { "rank": "01", "label": "Running", "value": "142 sessions", "widthPct": 88 },
+        { "rank": "02", "label": "Strength", "value": "94 sessions", "widthPct": 58 },
+        { "rank": "03", "label": "HIIT", "value": "51 sessions", "widthPct": 34 }
+      ],
+      "notes": "Ranked activity bars — first-class ranked-list."
     },
     {
       "layout": "stat-row",
+      "variant": "hero",
       "tone": "orange",
       "eyebrow": "Minutes Moved",
       "heading": "Ten full days of motion.",
+      "lead": "You spent 14,892 minutes moving in 2026. That's 248 hours of pure motion.",
       "stats": [
         { "value": "14,892", "label": "Minutes moved" },
+        { "value": "52 min", "label": "avg session" },
         { "value": "248 hrs", "label": "total hours" },
-        { "value": "52 min", "label": "avg session" }
+        { "value": "41 min", "label": "daily average" }
       ],
       "notes": "Minutes mega beat — orange field."
     },
     {
-      "layout": "two-column",
-      "eyebrow": "Top genres",
-      "heading": "Your three obsessions",
-      "body": "Hyperpop: 34% of your year — no notes. Afrobeats — The commute soundtrack that stuck.",
-      "aside": "Every Sunday after midnight.",
-      "ratio": "2-1",
+      "layout": "stat-row",
+      "variant": "hero",
       "tone": "cyan",
-      "notes": "Genre obsessions — three only."
+      "eyebrow": "Global Ranking",
+      "heading": "TOP 3%.",
+      "lead": "Out of 4.8 million Pulse users worldwide, you outworked 97% of them. City rank #14. Age group: top 1%.",
+      "stats": [
+        { "value": "3%", "label": "globally" },
+        { "value": "#14", "label": "in your city" },
+        { "value": "1%", "label": "age group" }
+      ],
+      "notes": "Percentile flex — cyan field."
     },
     {
-      "layout": "quote",
+      "layout": "stat-row",
+      "variant": "hero",
+      "tone": "violet",
+      "eyebrow": "Best Streak",
+      "heading": "No excuses.",
+      "lead": "47 days straight. March 3 → April 18. The streak that changed everything.",
+      "stats": [
+        { "value": "47", "label": "Days straight — longest streak ever" }
+      ],
+      "notes": "Streak mega — violet/magenta night."
+    },
+    {
+      "layout": "stat-row",
+      "variant": "hero",
       "tone": "lime",
-      "quote": "Your top track was on repeat so hard it became a personality trait.",
-      "by": "Pulse Wrapped · 2026",
-      "notes": "Personality-trait beat — pause for laughter."
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Format",
-      "heading": "Annual PDF vs. kinetic wrap",
-      "leftLabel": "Year in review",
-      "left": "Forty pages.\nEqual-weight charts.\nNobody finishes.\nNo share moment.",
-      "rightLabel": "Pulse Wrapped",
-      "right": "Full-bleed beats.\nOne claim per frame.\nBuilt to screenshot.\nMotion as hierarchy.",
-      "emphasis": "right",
-      "tone": "orange",
-      "notes": "Kill the annual PDF. Sell the wrap."
+      "eyebrow": "Soundtrack",
+      "heading": "YOU PLAYED 6,204 TRACKS.",
+      "lead": "Most-played genre: Electronic. Power song: \"All In\" by ODESZA — 94 times during workouts.",
+      "stats": [
+        { "value": "6,204", "label": "tracks played" },
+        { "value": "311 hrs", "label": "music listened" },
+        { "value": "142 BPM", "label": "your sweet spot" }
+      ],
+      "notes": "Soundtrack beat — lime on deep green."
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Beats",
-      "heading": "What the wrap ships",
-      "columns": "bento",
+      "tone": "orange",
+      "eyebrow": "Community",
+      "heading": "YOU'RE NOT ALONE IN THIS.",
+      "columns": 4,
       "cards": [
-        { "icon": "fa-solid fa-bolt", "title": "Cold open", "body": "One line that lands before the logo." },
-        { "icon": "fa-solid fa-chart-line", "title": "Peak moment", "body": "The number that defines the year." },
-        { "icon": "fa-solid fa-users", "title": "Crowd proof", "body": "People, not just percentages." },
-        { "icon": "fa-solid fa-share-nodes", "title": "Share frame", "body": "Designed to leave the deck." },
-        { "icon": "fa-solid fa-forward", "title": "Next season", "body": "Close with a dare, not a thank-you." }
+        { "title": "382", "body": "friends on Pulse" },
+        { "title": "28", "body": "group challenges won" },
+        { "title": "1,047", "body": "high-fives given" },
+        { "title": "4.9M", "body": "collective mins moved" }
       ],
-      "notes": "Five wrap beats — bento hero is the cold open."
+      "notes": "Squad proof — yellow/navy community cards."
     },
     {
-      "layout": "chart",
-      "tone": "violet",
-      "eyebrow": "Minutes by month",
-      "heading": "THE SPIKE WAS REAL.",
-      "lead": "March broke the curve. Everything else was warmup.",
-      "chartType": "bar",
-      "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-      "series": [{ "name": "Minutes", "values": [3200, 4100, 9200, 6100, 5800, 7200] }],
-      "showLegend": false,
-      "showValues": true,
-      "notes": "Point at March — the shareable spike."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Share frame",
-      "heading": "BUILT TO SCREENSHOT.",
-      "lead": "Magenta blobs. Lime floor. One frame that leaves the deck.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.750%29%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.000%29%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.650%29%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.000%29%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230a0a0a%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Pulse share visual",
-      "notes": "Hold on the visual beat — let the field do the talking."
+      "layout": "stat-row",
+      "variant": "hero",
+      "tone": "orange",
+      "eyebrow": "Peak Month",
+      "heading": "OCTOBER WAS YOUR MONTH.",
+      "lead": "You crushed 34 workouts in October alone. Every single day — plus 3 doubles.",
+      "stats": [
+        { "value": "34", "label": "workouts in Oct" },
+        { "value": "1,842", "label": "minutes in Oct" },
+        { "value": "3", "label": "personal records" }
+      ],
+      "notes": "Peak month — navy/orange."
     },
     {
       "layout": "closing",
-      "eyebrow": "Share",
-      "heading": "POST THE LIME.",
-      "lead": "One story template. Zero soft pastels.",
+      "tone": "lime",
+      "eyebrow": "Share Your Wrapped",
+      "heading": "LET THE WORLD KNOW.",
+      "lead": "You moved 14,892 minutes. You hit top 3% globally. You earned this flex.",
       "cta": {
         "label": "Share your Wrapped",
         "href": "#"
       },
-      "notes": "CTA is share, not thank-you."
+      "notes": "Share close — dual energy; second pill lives in gallery HTML."
     }
   ]
 }

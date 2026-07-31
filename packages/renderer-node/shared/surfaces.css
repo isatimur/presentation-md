@@ -3196,7 +3196,8 @@
   background: #0a0a0a;
   color: var(--accent);
 }
-.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-stack {
+.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-stack,
+.deck[data-surface="wrapped-block"] .ranked-list-stack {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -3204,18 +3205,21 @@
   margin-top: 12px;
   width: 100%;
 }
-.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-item {
+.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-item,
+.deck[data-surface="wrapped-block"] .ranked-list-item {
   display: flex;
   align-items: center;
   gap: 14px;
 }
-.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-rank {
+.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-rank,
+.deck[data-surface="wrapped-block"] .ranked-list-rank {
   font-family: var(--heading-font);
   font-size: clamp(28px, 4vw, 48px);
   min-width: 2ch;
   letter-spacing: -0.04em;
 }
-.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-fill {
+.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-fill,
+.deck[data-surface="wrapped-block"] .ranked-list-fill {
   flex: 1;
   font-family: var(--heading-font);
   font-size: clamp(16px, 2vw, 22px);
@@ -3223,6 +3227,20 @@
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
+}
+.deck[data-surface="wrapped-block"] .ranked-list-item.is-primary .ranked-list-fill {
+  background: #ffffff;
+  color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .ranked-list-item:not(.is-primary) .ranked-list-fill {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .ranked-list-item.is-primary .ranked-list-fill {
+  color: #cc00ff;
+}
+.deck[data-surface="wrapped-block"] .stat-row-hero .stat.is-mega .value {
+  font-size: clamp(88px, 18vw, 240px);
 }
 
 /* Explicit tone overrides (set slide.tone in Deck JSON) */

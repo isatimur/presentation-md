@@ -44,8 +44,33 @@
             "comparison",
             "code",
             "chart",
-            "custom-html"
+            "custom-html",
+            "ranked-list"
           ]
+        },
+        "variant": {
+          "type": "string",
+          "enum": ["default", "hero"],
+          "description": "stat-row: \"hero\" = mega-number wrap beat (first stat dominates)."
+        },
+        "items": {
+          "type": "array",
+          "description": "ranked-list: ordered bars with optional rank / value / widthPct.",
+          "items": {
+            "type": "object",
+            "required": ["label"],
+            "properties": {
+              "rank": { "type": "string", "description": "Display rank (default 01, 02, …)." },
+              "label": { "type": "string" },
+              "value": { "type": "string", "description": "Optional secondary metric on the bar." },
+              "widthPct": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 100,
+                "description": "Bar fill width percent (default auto from order)."
+              }
+            }
+          }
         },
         "chartType": {
           "type": "string",
