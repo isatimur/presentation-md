@@ -5,6 +5,7 @@ A deck is `{ "type": "deck", "meta": {...}, "slides": [...] }`. Full JSON Schema
 
 **Craft knobs Studio exposes** (set them in JSON so HTML + PPTX stay aligned):
 `two-column.ratio` / `reverse`, `comparison.emphasis`, `feature-grid` `columns: "bento"`,
+`ranked-list`, `logo-wall`, `streak-grid`, `metric-ring`, closing `actions[]`, per-slide `tone`,
 `code.filename` / `language`, and optional `notes` on any slide (Studio present-mode drawer + PPTX notes pane; not drawn on the HTML slide face).
 
 **Authoring craft (required when the layout supports it):**
@@ -28,7 +29,7 @@ Every slide needs `layout`. Fields are per-layout; unused fields are ignored.
 
 ### title / closing
 `{ "layout": "title", "eyebrow"?, "heading", "lead"? }`
-`closing` additionally takes `cta: { "label", "href" }`.
+`closing` takes `actions[]` (solid + outline share pills) or legacy `cta: { "label", "href" }` (`cta` ≡ `actions[0]`).
 
 ### section
 `{ "layout": "section", "number"?, "heading", "lead"? }`

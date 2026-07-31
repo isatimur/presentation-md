@@ -1,6 +1,6 @@
 ---
 name: presentation-generator
-description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 75 themes and 16 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
+description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 75 themes and 18 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
 license: MIT
 metadata:
   author: isatimur
@@ -74,10 +74,10 @@ World Before → The Turning Point → The Method → World After → What's Nex
 
 ---
 
-## The 14 Layout Types
+## The 18 Layout Types
 
 Each layout is a tool. Match the layout to the job, not to the order.
-**Only these fourteen names are valid in deck JSON** (`references/deck-schema.md`). If you need a
+**Only these eighteen names are valid in deck JSON** (`references/deck-schema.md`). If you need a
 "manifesto" or "metric-hero" *feeling*, compose it with the closest layout below — never invent a layout name.
 
 ### `title` — Single cinematic statement
@@ -257,27 +257,27 @@ Use `@keyframes fadeUp` universally: `from { opacity:0; transform:translateY(20p
 ### Pitch Deck (12 slides)
 ```
 01 title         — Company name + one-line positioning
-02 title         — Manifesto: the world as it should be (one sentence heading)
+02 image-hero    — Manifesto visual: the world as it should be
 03 stat-row      — The size of the problem (3 shocking numbers)
-04 two-column    — Life without you vs life with you
-05 two-column    — How it works + visual
+04 comparison    — Life without you vs life with you (emphasis: right)
+05 two-column    — How it works + visual (ratio: 2-1)
 06 feature-grid  — 3 core capabilities
-07 stat-row      — Single most impressive traction stat (1 stat)
-08 stat-row      — Full traction (ARR, customers, NRR, CAC:LTV)
+07 stat-row      — Single most impressive traction stat (hero variant OK)
+08 logo-wall     — Customers / design partners
 09 data-table    — Why not the incumbents (your column last)
 10 data-table    — Financials + projections
 11 timeline      — GTM roadmap (4 quarters)
-12 closing       — The ask + contact
+12 closing       — The ask + actions[] CTA
 ```
 
 ### Sales Demo (10 slides)
 ```
 01 title         — Customer-personalised opener
-02 two-column    — "What we heard from you" + their exact words
-03 stat-row      — Cost of the problem (their numbers)
-04 timeline      — How it works (5 steps)
-05 feature-grid  — 3 modules that map to their 3 pains
-06 stat-row      — ROI model (their inputs, our math)
+02 image-hero    — Their world / product moment
+03 comparison    — Status quo vs with you (emphasis: right)
+04 stat-row      — Cost of the problem (their numbers)
+05 timeline      — How it works (5 steps)
+06 feature-grid  — 3 modules that map to their 3 pains
 07 quote         — Customer who looks like them
 08 data-table    — Pricing + what's included
 09 timeline      — Implementation (4 milestones)
@@ -287,10 +287,10 @@ Use `@keyframes fadeUp` universally: `from { opacity:0; transform:translateY(20p
 ### Keynote / Conference Talk (10 slides)
 ```
 01 title         — The provocative thesis (manifesto-style heading)
-02 stat-row      — Why this matters now (urgency)
-03 two-column    — The conventional wisdom + why it's wrong
+02 image-hero    — The tension visual
+03 comparison    — Conventional wisdom vs the truth (emphasis: right)
 04 section       — "Part 1: The Problem"
-05 two-column    — The old way vs the new way
+05 two-column    — The old way vs the new way (ratio: 2-1)
 06 section       — "Part 2: The Principle"
 07 feature-grid  — 3 things that change when you apply the principle
 08 quote         — The authority who agrees
@@ -301,14 +301,14 @@ Use `@keyframes fadeUp` universally: `from { opacity:0; transform:translateY(20p
 ### Investor Update (10 slides)
 ```
 01 title         — Fund name + period + confidentiality marker
-02 stat-row      — Quarter in numbers (IRR, deployed, NAV, NRR)
-03 data-table    — Portfolio company performance
-04 two-column    — Key investment deep dive
-05 stat-row      — Capital allocation (deployed, realised, dry powder)
-06 two-column    — Market outlook (tailwinds + headwinds)
+02 image-hero    — Portfolio or thesis visual
+03 stat-row      — Quarter in numbers (IRR, deployed, NAV, NRR)
+04 data-table    — Portfolio company performance
+05 two-column    — Key investment deep dive (ratio: 2-1)
+06 logo-wall     — Portfolio marks / LPs
 07 timeline      — Forward guidance (4 initiatives)
 08 data-table    — Risk register
-09 two-column    — ESG / impact highlight (with image if available)
+09 comparison    — Tailwinds vs headwinds (emphasis: left or right)
 10 closing       — Contact + data room
 ```
 
@@ -469,8 +469,8 @@ Then walk every slide against this checklist and fix before delivering:
 - **Overflow & overlap** — nothing clipped at an edge, nothing colliding, every element inside the safe margin.
 - **Contrast** — every text block is legible against its actual background (see AI-Slop Tell #17).
 - **AI-slop tells** — no accent line under a title, no text-only content slide, no centered paragraphs.
-- **Visual beat** — investor, launch, brand, and wrap decks need ≥1 real `image-hero` (composed SVG/data URI or asset). Icon grids alone are not a visual.
-- **Asymmetry** — at least one `comparison` with `emphasis`, `two-column`, `code`, `ranked-list`, or `columns: "bento"` — never a stack of identical three-up cards.
+- **Visual beat** — investor, launch, and brand decks need ≥1 real `image-hero` (composed SVG/data URI or asset). Icon grids alone are not a visual. Kinetic wraps may use ranked/streak/metric/hero-stat instead.
+- **Asymmetry** — at least one `comparison` with `emphasis`, `two-column`, `code`, `ranked-list`, `logo-wall`, `streak-grid`, `metric-ring`, or `columns: "bento"` — never a stack of identical three-up cards.
 - **Token discipline** — colors and fonts all trace back to the chosen theme; no off-palette one-offs.
 - **The 3-second test** — pick any slide at random: is its single point obvious in three seconds?
 - **Arc integrity** — the deck still follows one narrative arc end to end; every slide sets up or pays off the one before it.
