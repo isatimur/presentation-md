@@ -58,16 +58,15 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   feature-grid / bento / comparison / logo-wall / aside cards;
   neon-noir gets magenta/cyan glow ovals;
   vaporwave gets horizon wash + pink sun; y2k-aero gets glossy bubble ovals;
-  aurora-glass / glassmorphism get dual mist ovals; luxury-minimalist heroes get a
-  gold hairline; crt-terminal gets phosphor wash + denser scanlines + bezel;
+  aurora-glass / glassmorphism get dual mist ovals + glass frames; luxury-minimalist gets a gold hairline on heroes and a quiet border on body slides; crt-terminal gets phosphor wash + denser scanlines + bezel;
   blueprint gets a light grid + dual reticles + outer frame; brutalist-acid gets a
   hard acid frame (heroes also get an offset block); aerospace-hud gets a HUD
   grid + dual reticles + telemetry stub; swiss-typographic gets a modular grid + red left rail;
   ft-editorial gets a masthead bar + bottom rule; bauhaus heroes get red square +
-  blue circle; fintech-clean / scandinavian get soft radial washes; art-deco heroes
+  blue circle; fintech-clean / scandinavian get soft radial washes + clean frames; art-deco heroes
   get a gold hairline + deco ring; botanical-luxe gets a gold hairline + leaf ring;
-  genz-bento gets a hard border + corner blot; heritage-editorial gets quiet hairlines;
-  developer-dark gets a title-bar + traffic lights; data-editorial gets an accent rule;
+  genz-bento gets a hard border + corner blot; heritage-editorial gets quiet hairlines + mid stub;
+  developer-dark gets a title-bar + traffic lights; data-editorial gets an accent rule + hard frame;
   dark-botanical gets bloom washes + a left rail;
   pastel-geometry gets a card wash + vertical pastel edge pills;
   8-bit-orbit gets scanlines + neon orbs + pixel HUD chips;
