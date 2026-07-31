@@ -50,7 +50,9 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   static marquee text on title/closing; neon-noir gets magenta/cyan glow ovals;
   vaporwave gets horizon wash + pink sun; y2k-aero gets glossy bubble ovals;
   aurora-glass / glassmorphism get dual mist ovals; luxury-minimalist heroes get a
-  gold hairline. True CSS `mix-blend-mode` / animated marquees remain HTML-only.
+  gold hairline; crt-terminal gets phosphor scanlines; blueprint gets a light grid +
+  reticle; brutalist-acid heroes get an acid offset block. True CSS `mix-blend-mode` /
+  animated marquees remain HTML-only.
 - Closing `actions[].icon` maps to a glyph prefix on PPTX pills (FA brands → letter/symbol).
 
 - Every non-mappable field emits a warning (via `opts.onWarn` / `result.warnings`) — nothing

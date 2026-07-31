@@ -2069,6 +2069,86 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     });
   }
 
+  if (theme === "crt-terminal") {
+    // Phosphor scanline stand-ins + cyan corner blot.
+    for (let i = 0; i < 8; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: 0.35 + i * 0.85,
+        w: ctx.width,
+        h: 0.03,
+        fill: { color: ctx.colors.accent, transparency: 82 },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 1.8,
+      y: -0.3,
+      w: 2.0,
+      h: 2.0,
+      fill: { color: ctx.colors.accent2, transparency: 70 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+  }
+
+  if (theme === "blueprint") {
+    // Grid ticks + corner reticle.
+    for (let i = 1; i < 12; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: (ctx.width / 12) * i,
+        y: 0,
+        w: 0.015,
+        h: ctx.height,
+        fill: { color: ctx.colors.accent, transparency: 78 },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    for (let i = 1; i < 8; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: (ctx.height / 8) * i,
+        w: ctx.width,
+        h: 0.015,
+        fill: { color: ctx.colors.accent, transparency: 78 },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 1.2,
+      y: 0.45,
+      w: 0.7,
+      h: 0.7,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: 1.25 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "brutalist-acid" && isHero) {
+    // Acid offset shadow block.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.62,
+      y: ctx.height * 0.28,
+      w: ctx.width * 0.28,
+      h: ctx.height * 0.42,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.6,
+      y: ctx.height * 0.26,
+      w: ctx.width * 0.28,
+      h: ctx.height * 0.42,
+      fill: { color: ctx.colors.bg },
+      line: { color: ctx.colors.text, width: 2 },
+      rectRadius: 0,
+    });
+  }
+
   if (theme === "neon-noir") {
     // Magenta glow blob + cyan rim (neon-rain stand-in).
     slide.addShape(ctx.shapeOval, {

@@ -24,6 +24,9 @@ export function Toolbar({
   const [status, setStatus] = useState<string>("");
   const [busy, setBusy] = useState(false);
   const [themeQuery, setThemeQuery] = useState("");
+  const [auditIssues, setAuditIssues] = useState<
+    Array<{ severity: "error" | "warning"; message: string }>
+  >([]);
 
   const themes = useMemo(() => listThemeSummaries(), []);
   const theme = deck.meta?.theme ?? "default-tech";
@@ -73,7 +76,15 @@ export function Toolbar({
     setStatus("Building .pptx…");
     try {
       const { warnings } = await downloadPptx(deck);
-      setStatus(warnings.length ? `Exported .pptx (${warnings.length} warning${warnings.length > 1 ? "s" : ""})` : "Exported .pptx");
+      if (warnings.length) {
+        setAuditIssues(warnings.map((message) => ({ severity: "warning" as const, message })));
+        setStatus(
+          `Exported .pptx (${warnings.length} warning${warnings.length > 1 ? "s" : ""}) — see list`
+        );
+      } else {
+        setAuditIssues([]);
+        setStatus("Exported .pptx");
+      }
     } catch (err) {
       setStatus(`Export failed: ${(err as Error).message}`);
     } finally {
@@ -83,15 +94,15 @@ export function Toolbar({
 
   const runCraftAudit = () => {
     const issues = auditCraft(deck);
+    setAuditIssues(issues);
     const errors = issues.filter((i) => i.severity === "error");
     const warns = issues.filter((i) => i.severity === "warning");
     if (!issues.length) {
       setStatus("Craft audit: clean");
       return;
     }
-    const head = errors[0]?.message ?? warns[0]?.message ?? "issues found";
     setStatus(
-      `Craft audit: ${errors.length} error${errors.length === 1 ? "" : "s"}, ${warns.length} warning${warns.length === 1 ? "" : "s"} — ${head}`
+      `Craft audit: ${errors.length} error${errors.length === 1 ? "" : "s"}, ${warns.length} warning${warns.length === 1 ? "" : "s"}`
     );
   };
 
@@ -243,6 +254,24 @@ export function Toolbar({
       />
 
       {status && <span className="status muted small">{status}</span>}
+      {auditIssues.length > 0 && (
+        <details className="audit-panel">
+          <summary className="btn btn-sm">
+            Issues ({auditIssues.length})
+          </summary>
+          <ul className="audit-list">
+            {auditIssues.map((issue, i) => (
+              <li key={`${issue.severity}-${i}`} className={`audit-item audit-${issue.severity}`}>
+                <span className="audit-sev">{issue.severity}</span>
+                <span>{issue.message}</span>
+              </li>
+            ))}
+          </ul>
+          <button type="button" className="btn btn-sm" onClick={() => setAuditIssues([])}>
+            Dismiss
+          </button>
+        </details>
+      )}
     </header>
   );
 }
