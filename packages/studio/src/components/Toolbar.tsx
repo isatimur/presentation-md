@@ -12,6 +12,7 @@ export function Toolbar({
   onLoadExample,
   onPresent,
   onGenerate,
+  onSelectSlide,
 }: {
   deck: DeckJson;
   exampleSlug: string | null;
@@ -19,6 +20,8 @@ export function Toolbar({
   onLoadExample: (slug?: string) => void;
   onPresent: () => void;
   onGenerate: () => void;
+  /** Jump the Studio selection to a 1-based slide index from an audit issue. */
+  onSelectSlide?: (slideIndex1Based: number) => void;
 }) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [status, setStatus] = useState<string>("");
@@ -284,15 +287,29 @@ export function Toolbar({
           <ul className="audit-list">
             {auditIssues
               .filter((issue) => auditFilter === "all" || issue.severity === auditFilter)
-              .map((issue, i) => (
-                <li key={`${issue.severity}-${issue.slide ?? "g"}-${i}`} className={`audit-item audit-${issue.severity}`}>
-                  <span className="audit-sev">
-                    {issue.severity}
-                    {typeof issue.slide === "number" ? ` · s${issue.slide}` : ""}
-                  </span>
-                  <span>{issue.message}</span>
-                </li>
-              ))}
+              .map((issue, i) => {
+                const jumpable = typeof issue.slide === "number" && onSelectSlide;
+                return (
+                  <li key={`${issue.severity}-${issue.slide ?? "g"}-${i}`} className={`audit-item audit-${issue.severity}`}>
+                    <span className="audit-sev">
+                      {issue.severity}
+                      {typeof issue.slide === "number" ? ` · s${issue.slide}` : ""}
+                    </span>
+                    {jumpable ? (
+                      <button
+                        type="button"
+                        className="audit-jump"
+                        title={`Jump to slide ${issue.slide}`}
+                        onClick={() => onSelectSlide(issue.slide!)}
+                      >
+                        {issue.message}
+                      </button>
+                    ) : (
+                      <span>{issue.message}</span>
+                    )}
+                  </li>
+                );
+              })}
           </ul>
           <button type="button" className="btn btn-sm" onClick={() => setAuditIssues([])}>
             Dismiss

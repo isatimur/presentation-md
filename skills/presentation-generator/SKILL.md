@@ -153,7 +153,7 @@ Each layout is a tool. Match the layout to the job, not to the order.
 ### `closing` — The ask / CTA
 **When to use:** every deck ends here. Make the next action unmissable.
 **Props:** `{ heading, lead?, actions?: [{ label, href?, style?: "solid"|"outline"|"ghost", icon? }], cta?: { label?, href? } }`
-**Design rule:** one primary action by default. For wrap/share/store/launch/investor duals, use `actions[]` with solid + outline pills (max 3). `cta` is an alias for `actions[0]`. Stunning-25 closings prefer dual asks.
+**Design rule:** one primary action by default. For wrap/share/store/launch/investor duals, use `actions[]` with solid + outline pills (max 3) and an `icon` on every pill (FA brands for social; rocket/download/calendar for CTAs). `cta` is an alias for `actions[0]`. Stunning-25 closings prefer dual asks with icons.
 
 ### `streak-grid` — Day-streak / habit cells
 **When to use:** year-wrap streak beats, habit calendars, filled-vs-empty progress grids.

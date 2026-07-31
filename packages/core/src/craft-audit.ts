@@ -228,18 +228,24 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       if (Array.isArray(actions) && actions.length >= 2) {
         const blob = JSON.stringify(slide).toLowerCase();
         const social = /share|instagram|tiktok|twitter|\bx\b|linkedin|discord|github/.test(blob);
-        if (social) {
-          const withIcon = actions.filter((a) => {
-            const action = a as Record<string, unknown>;
-            return typeof action["icon"] === "string" && action["icon"].trim() !== "";
-          }).length;
-          if (withIcon === 0) {
-            issues.push({
-              severity: "warning",
-              slide: n,
-              message: `Slide ${n} (closing): social/share actions without icons — add FA brands so pills stay scannable in HTML + PPTX.`,
-            });
-          }
+        const withIcon = actions.filter((a) => {
+          const action = a as Record<string, unknown>;
+          return typeof action["icon"] === "string" && action["icon"].trim() !== "";
+        }).length;
+        if (withIcon === 0) {
+          issues.push({
+            severity: "warning",
+            slide: n,
+            message: social
+              ? `Slide ${n} (closing): social/share actions without icons — add FA brands so pills stay scannable in HTML + PPTX.`
+              : `Slide ${n} (closing): dual actions without icons — add FA icons (rocket/download/calendar/share brands) so pills stay scannable in HTML + PPTX.`,
+          });
+        } else if (withIcon < actions.length) {
+          issues.push({
+            severity: "warning",
+            slide: n,
+            message: `Slide ${n} (closing): only ${withIcon}/${actions.length} actions have icons — icon every pill for stunning-25 parity.`,
+          });
         }
       }
     }
@@ -271,6 +277,42 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
         severity: "warning",
         message:
           "Launch/investor closing has a single CTA — prefer actions[] with solid + outline pills (stunning-25 dual ask).",
+      });
+    }
+    // Stunning-25 themes: dual ask is the floor when the deck already uses actions[].
+    const stunningThemes = new Set([
+      "aurora-glass",
+      "ft-editorial",
+      "genz-bento",
+      "luxury-minimalist",
+      "crt-terminal",
+      "swiss-typographic",
+      "brutalist-acid",
+      "candy-pop",
+      "aerospace-hud",
+      "heritage-editorial",
+      "fintech-clean",
+      "developer-dark",
+      "data-editorial",
+      "bauhaus",
+      "y2k-aero",
+      "risograph-zine",
+      "neon-noir",
+      "scandinavian",
+      "art-deco",
+      "vaporwave",
+      "broadsheet",
+      "glassmorphism",
+      "kinetic-wrapped",
+      "botanical-luxe",
+      "blueprint",
+    ]);
+    if (stunningThemes.has(theme) && actionCount === 1) {
+      issues.push({
+        severity: "warning",
+        slide: slides.length,
+        message:
+          "Stunning-25 theme closing has a single CTA — prefer actions[] with solid + outline pills (and icons).",
       });
     }
   }

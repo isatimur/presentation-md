@@ -154,6 +154,10 @@ export function App() {
         onLoadExample={loadExample}
         onPresent={() => setPresenting(true)}
         onGenerate={() => setGenerating(true)}
+        onSelectSlide={(slideIndex1Based) => {
+          const idx = Math.max(0, Math.min(deck.slides.length - 1, slideIndex1Based - 1));
+          setSelected(idx);
+        }}
       />
       <div className="studio-strip" role="note">
         <span>Live preview · Deep-link examples · Open HTML / JSON / PPTX · Present with notes · Export editable PPTX</span>

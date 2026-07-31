@@ -84,6 +84,7 @@ Circular KPI badge. Omit/`pct: 100` = full ring; `1–99` = arc progress. Prefer
    "actions"?: [ { "label", "href"?, "style"?: "solid"|"outline"|"ghost", "icon"? } ],
    "cta"?: { "label"?, "href"? } }`
 Prefer `actions[]` for dual share pills (solid + outline). `cta` is alias for `actions[0]`.
+Icon every pill (`icon`) so HTML + PPTX stays scannable — FA brands for social, rocket/download/calendar for CTAs.
 
 ### timeline
 `{ "layout": "timeline", "eyebrow"?, "heading"?, "orientation"?: "horizontal"|"vertical",

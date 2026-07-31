@@ -124,4 +124,39 @@ describe("auditCraft", () => {
     const cmp = issues.find((i) => /emphasis/i.test(i.message));
     expect(cmp?.slide).toBe(2);
   });
+
+  it("warns when dual closing actions lack icons", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "genz-bento", title: "Launch" },
+      slides: [
+        { layout: "title", heading: "App" },
+        {
+          layout: "closing",
+          heading: "Download now",
+          actions: [
+            { label: "Get the app", href: "#", style: "solid" },
+            { label: "Watch demo", href: "#", style: "outline" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => i.slide === 2 && /dual actions without icons/i.test(i.message))).toBe(
+      true
+    );
+  });
+
+  it("warns when stunning-25 theme closing is a single CTA", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "aurora-glass", title: "Quiet" },
+      slides: [
+        { layout: "title", heading: "Hi" },
+        { layout: "closing", heading: "Bye", cta: { label: "Contact", href: "#" } },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /Stunning-25 theme closing/i.test(i.message))).toBe(true);
+  });
 });
