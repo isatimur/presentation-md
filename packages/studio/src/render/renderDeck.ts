@@ -1,6 +1,8 @@
 import Mustache from "mustache";
-import type { ResolvedTheme } from "@presentation-md/core";
-import { renderChartSvg, sanitizeCustomHtml, candyMarqueeText } from "@presentation-md/core";
+import type { ResolvedTheme } from "@presentation-md/core/theme-types";
+import { renderChartSvg } from "@presentation-md/core/chart-svg";
+import { sanitizeCustomHtml } from "@presentation-md/core/sanitize-html";
+import { candyMarqueeText } from "@presentation-md/core/candy-marquee";
 import type { DeckJson, Slide, ChartSeries } from "@presentation-md/export";
 import baseCssTemplate from "../../../shared/base.css?raw";
 import surfacesCss from "../../../shared/surfaces.css?raw";

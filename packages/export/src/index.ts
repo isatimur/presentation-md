@@ -1,4 +1,4 @@
-import type { ResolvedTheme } from "@presentation-md/core";
+import type { ResolvedTheme } from "@presentation-md/core/theme-types";
 import { PptxGenJS, type Pptx } from "./pptx.js";
 import { buildContext } from "./context.js";
 import { renderSlide } from "./layouts.js";

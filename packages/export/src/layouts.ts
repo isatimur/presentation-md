@@ -1,4 +1,4 @@
-import { candyMarqueeText } from "@presentation-md/core";
+import { candyMarqueeText } from "@presentation-md/core/candy-marquee";
 import type { ExportContext } from "./context.js";
 import type { Slide } from "./deck-types.js";
 import type { PptxSlide, PptxTextOpts, PptxTableRow } from "./pptx.js";
@@ -1962,26 +1962,59 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     });
   }
 
-  if (theme === "electric-studio" && isHero) {
-    // White → blue horizontal split (mirrors electric-studio-split).
+  if (theme === "electric-studio") {
+    // Hard slide frame (electric-studio-split border + shadow stand-in).
     slide.addShape(ctx.shapeRoundRect, {
-      x: 0,
-      y: ctx.height * 0.52,
-      w: ctx.width,
-      h: ctx.height * 0.48,
-      fill: { color: ctx.colors.bg2 },
-      line: { color: ctx.colors.bg2, width: 0 },
+      x: 0.04,
+      y: 0.04,
+      w: ctx.width - 0.08,
+      h: ctx.height - 0.08,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 1.25 },
       rectRadius: 0,
     });
-    slide.addShape(ctx.shapeRoundRect, {
-      x: 0,
-      y: ctx.height * 0.52,
-      w: 0.1,
-      h: ctx.height * 0.48,
-      fill: { color: "#0a0a0a" },
-      line: { color: "#0a0a0a", width: 0 },
-      rectRadius: 0,
-    });
+    if (isHero) {
+      // White → blue horizontal split + black rail on the blue panel.
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: ctx.height * 0.52,
+        w: ctx.width,
+        h: ctx.height * 0.48,
+        fill: { color: ctx.colors.bg2 },
+        line: { color: ctx.colors.bg2, width: 0 },
+        rectRadius: 0,
+      });
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: ctx.height * 0.52,
+        w: 0.1,
+        h: ctx.height * 0.48,
+        fill: { color: "0a0a0a" },
+        line: { color: "0a0a0a", width: 0 },
+        rectRadius: 0,
+      });
+      // Top-panel accent stub so the white half isn't empty chrome.
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.margin,
+        y: ctx.margin * 0.85,
+        w: 0.55,
+        h: 0.045,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    } else {
+      // Content slides: full-height accent left rail (HTML ::before).
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: 0,
+        w: 0.1,
+        h: ctx.height,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
   }
 
   if (theme === "soft-editorial") {
@@ -4011,45 +4044,85 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "studio") {
-    // Acid hairline rails (studio-acid).
+    // Acid hairline rails + hard frame (studio-acid).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.06,
+      y: 0.06,
+      w: ctx.width - 0.12,
+      h: ctx.height - 0.12,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.border, width: 1.5 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0,
       y: 0,
       w: ctx.width,
-      h: 0.02,
+      h: 0.025,
       fill: { color: ctx.colors.border },
       line: { color: ctx.colors.border, width: 0 },
       rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0,
-      y: ctx.height - 0.02,
+      y: ctx.height - 0.025,
       w: ctx.width,
-      h: 0.02,
+      h: 0.025,
       fill: { color: ctx.colors.border },
       line: { color: ctx.colors.border, width: 0 },
       rectRadius: 0,
     });
+    if (isHero) {
+      // Acid accent block — title/closing only (matches loud studio-acid type).
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width - ctx.margin - 1.35,
+        y: ctx.margin * 0.9,
+        w: 1.35,
+        h: 0.55,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
   }
 
   if (theme === "grove") {
-    // Quiet top hairline + coral stub (grove-monograph).
+    // Quiet monograph frame + top hairline + coral stub (grove-monograph).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.12,
+      y: 0.12,
+      w: ctx.width - 0.24,
+      h: ctx.height - 0.24,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: "D4CFBF", width: 0.75 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: ctx.width * 0.05,
       y: ctx.height * 0.06,
       w: ctx.width * 0.9,
-      h: 0.015,
-      fill: { color: "D4CFBF", transparency: 70 },
+      h: 0.018,
+      fill: { color: "D4CFBF", transparency: 55 },
       line: { color: "D4CFBF", width: 0 },
       rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
       x: ctx.width * 0.05,
       y: ctx.height * 0.9,
-      w: 0.45,
-      h: 0.03,
+      w: 0.55,
+      h: 0.035,
       fill: { color: ctx.colors.accent },
       line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    // Accent2 quote hairline stub (HTML .quote::before stand-in on every slide).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.05,
+      y: ctx.height * 0.12,
+      w: 0.42,
+      h: 0.015,
+      fill: { color: ctx.colors.accent2, transparency: 20 },
+      line: { color: ctx.colors.accent2, width: 0 },
       rectRadius: 0,
     });
   }
@@ -4124,46 +4197,74 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "monochrome") {
-    // Ledger hairlines (monochrome-ledger).
+    // Ledger frame + hairlines (monochrome-ledger).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.08,
+      y: 0.08,
+      w: ctx.width - 0.16,
+      h: ctx.height - 0.16,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 0.85 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: ctx.width * 0.06,
       y: ctx.height * 0.08,
       w: ctx.width * 0.88,
       h: 0.015,
-      fill: { color: ctx.colors.text, transparency: 75 },
+      fill: { color: ctx.colors.text, transparency: 70 },
       line: { color: ctx.colors.text, width: 0 },
       rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
       x: ctx.width * 0.06,
       y: ctx.height * 0.9,
-      w: 0.35,
+      w: 0.42,
       h: 0.015,
       fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+    // Mid ledger rule — denser journal feel without fighting body copy.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.06,
+      y: ctx.height * 0.14,
+      w: ctx.width * 0.28,
+      h: 0.012,
+      fill: { color: ctx.colors.text, transparency: 78 },
       line: { color: ctx.colors.text, width: 0 },
       rectRadius: 0,
     });
   }
 
   if (theme === "blue-professional") {
-    // Soft blue wash band + accent stub (blue-professional-clean).
+    // Soft blue wash band + accent stub + clean frame (blue-professional-clean).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.2,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: 1 },
+      rectRadius: 0.12,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0,
       y: 0,
       w: ctx.width,
       h: ctx.height * 0.18,
-      fill: { color: ctx.colors.accent, transparency: 92 },
+      fill: { color: ctx.colors.accent, transparency: 90 },
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.55,
-      y: 0.5,
-      w: 0.6,
-      h: 0.05,
+      y: 0.48,
+      w: 0.65,
+      h: 0.055,
       fill: { color: ctx.colors.accent },
       line: { color: ctx.colors.accent, width: 0 },
-      rectRadius: 0.02,
+      rectRadius: 0.025,
     });
   }
 

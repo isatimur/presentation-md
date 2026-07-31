@@ -1,4 +1,4 @@
-import { validateDeckJson } from "@presentation-md/core";
+import { validateDeckJson } from "@presentation-md/core/validate-deck";
 import type { DeckJson, Slide, Card, Stat, Step } from "../deck-types.js";
 import type {
   ExtractedImage,

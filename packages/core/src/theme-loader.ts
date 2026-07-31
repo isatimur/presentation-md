@@ -1,54 +1,26 @@
 import { readFile, readdir, stat } from "node:fs/promises";
 import { join } from "node:path";
+import type {
+  Palette,
+  Typography,
+  Geometry,
+  ThemeManifest,
+  ResolvedTheme,
+  LoadOptions,
+  DiscoveredTheme,
+  DiscoveryOptions,
+} from "./theme-types.js";
 
-export interface Palette {
-  bg: string;
-  bg2: string;
-  text: string;
-  muted: string;
-  accent: string;
-  accent2: string;
-  cardBg: string;
-  border: string;
-}
-
-export interface Typography {
-  headingFont: string;
-  bodyFont: string;
-  headingWeight: string | number;
-  googleFonts: string[];
-}
-
-export interface Geometry {
-  radius: string;
-  slideWidth: string;
-}
-
-export interface ThemeManifest {
-  name: string;
-  version: string;
-  extends?: string;
-  description?: string;
-  vibe?: string;
-  roles?: Partial<Palette>;
-  typography?: Partial<Typography>;
-  geometry?: Partial<Geometry>;
-}
-
-export interface ResolvedTheme {
-  name: string;
-  version: string;
-  manifest: ThemeManifest;
-  palette: Palette;
-  typography: Typography;
-  geometry: Geometry;
-}
-
-export interface LoadOptions {
-  themesDir: string;
-  /** Additional directories when resolving themes (e.g. core bundled themes for `extends`). */
-  fallbackThemesDirs?: string[];
-}
+export type {
+  Palette,
+  Typography,
+  Geometry,
+  ThemeManifest,
+  ResolvedTheme,
+  LoadOptions,
+  DiscoveredTheme,
+  DiscoveryOptions,
+} from "./theme-types.js";
 
 const DEFAULT_PALETTE: Palette = {
   bg: "#0e0e12",
@@ -58,19 +30,19 @@ const DEFAULT_PALETTE: Palette = {
   accent: "#7c3aed",
   accent2: "#22d3ee",
   cardBg: "rgba(255,255,255,0.04)",
-  border: "rgba(255,255,255,0.08)"
+  border: "rgba(255,255,255,0.08)",
 };
 
 const DEFAULT_TYPOGRAPHY: Typography = {
   headingFont: "'Montserrat', system-ui, sans-serif",
   bodyFont: "'Open Sans', system-ui, sans-serif",
   headingWeight: 800,
-  googleFonts: ["Montserrat:wght@700;800", "Open+Sans:wght@400;600"]
+  googleFonts: ["Montserrat:wght@700;800", "Open+Sans:wght@400;600"],
 };
 
 const DEFAULT_GEOMETRY: Geometry = {
   radius: "18px",
-  slideWidth: "1280px"
+  slideWidth: "1280px",
 };
 
 async function readManifest(name: string, searchDirs: string[]): Promise<ThemeManifest> {
@@ -110,18 +82,6 @@ export async function loadTheme(name: string, opts: LoadOptions): Promise<Resolv
 
   const top = chain[chain.length - 1]!;
   return { name: top.name, version: top.version, manifest: top, palette, typography, geometry };
-}
-
-export interface DiscoveredTheme {
-  name: string;
-  version: string;
-  manifest: ThemeManifest;
-  source: "bundled" | "installed";
-}
-
-export interface DiscoveryOptions {
-  bundledThemesDir: string;
-  nodeModulesRoot?: string;
 }
 
 export async function discoverInstalledThemes(

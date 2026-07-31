@@ -1,5 +1,5 @@
 import { contrastRatio, hexToRgb, rgbToHex, rgbToHsl, withLightness } from "./color.js";
-import type { Palette } from "./theme-loader.js";
+import type { Palette } from "./theme-types.js";
 
 export interface BrandColorCandidates {
   bg?: string;

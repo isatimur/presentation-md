@@ -601,6 +601,16 @@ describe("deckToPptx", () => {
         cardBg: "rgba(232,228,223,0.06)",
         border: "rgba(232,228,223,0.12)",
       },
+      "electric-studio": {
+        bg: "#ffffff",
+        bg2: "#4361ee",
+        text: "#0a0a0a",
+        muted: "#5a5a5a",
+        accent: "#4361ee",
+        accent2: "#ffffff",
+        cardBg: "rgba(67,97,238,0.08)",
+        border: "rgba(10,10,10,0.12)",
+      },
       "pastel-geometry": {
         bg: "#c8d9e6",
         bg2: "#b8cddd",

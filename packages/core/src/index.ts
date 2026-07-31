@@ -11,8 +11,8 @@ export type {
   ResolvedTheme,
   LoadOptions,
   DiscoveredTheme,
-  DiscoveryOptions
-} from "./theme-loader.js";
+  DiscoveryOptions,
+} from "./theme-types.js";
 export {
   parseCssVariables,
   parseFontDeclarations,

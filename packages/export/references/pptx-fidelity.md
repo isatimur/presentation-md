@@ -98,12 +98,12 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   long-table gets speckles + outline pill + hairline;
   paper-ink gets crimson top/bottom rules + corner stub;
   vintage-editorial heroes get a geometric ring + dots;
-  studio gets acid hairline rails;
-  grove gets a quiet hairline + coral stub;
+  studio gets acid hairline rails + hard frame (heroes also get an acid accent block);
+  grove gets a monograph inset frame + top hairline + coral stub + accent2 hairline;
   stencil-tablet heroes get earth tablet blocks;
   cartesian gets draft axes + concentric rings;
-  monochrome gets ledger hairlines;
-  blue-professional gets a soft wash band + accent stub;
+  monochrome gets ledger frame + hairlines;
+  blue-professional gets a soft wash band + accent stub + clean frame;
   broadsheet gets a newsprint masthead + bottom rule;
   editorial-forest gets a forest rule + blush orb;
   signal gets a briefing hairline + outline square;
@@ -114,7 +114,8 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   claude (warm-paper) gets a soft coral corner wash;
   default-tech gets a neon corner bloom;
   playful gets soft accent blots;
-  corporate gets a clean accent stub.
+  corporate gets a clean accent stub;
+  electric-studio gets a hard frame + white/blue hero split with black rail (content slides get a full-height accent left rail + top stub on heroes).
   Quiet HTML paper fiber grain (editorial / parchment themes) is not drawn in PPTX —
   ship HTML when the tooth is the brand. True CSS `mix-blend-mode` / animated marquees
   remain HTML-only.
