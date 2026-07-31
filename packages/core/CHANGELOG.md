@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.16.2
+
+### Patch Changes
+
+- 8de2f80: Studio pick-3 compare + Generate visual discover; one-shot craft bar; preview_themes layouts_recommended; list_themes discovery_hint; Cloth sheen/tilt deepen — beat frontend-slides progressive discovery.
+
 ## 1.16.1
 
 ### Patch Changes

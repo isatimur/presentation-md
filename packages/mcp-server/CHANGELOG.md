@@ -1,5 +1,16 @@
 # @presentation-md/mcp-server
 
+## 1.14.4
+
+### Patch Changes
+
+- 8de2f80: Studio pick-3 compare + Generate visual discover; one-shot craft bar; preview_themes layouts_recommended; list_themes discovery_hint; Cloth sheen/tilt deepen — beat frontend-slides progressive discovery.
+- Updated dependencies [8de2f80]
+  - @presentation-md/core@1.16.2
+  - @presentation-md/create-theme@1.1.4
+  - @presentation-md/export@1.23.4
+  - @presentation-md/render@1.6.36
+
 ## 1.14.3
 
 ### Patch Changes
