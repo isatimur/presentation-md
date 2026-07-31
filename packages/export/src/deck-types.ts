@@ -93,6 +93,8 @@ export interface Slide {
   items?: RankedItem[];
   /** stat-row: "hero" = mega-number wrap beat. */
   variant?: "default" | "hero" | string;
+  /** timeline: "horizontal" (default, matches HTML) or "vertical". */
+  orientation?: "horizontal" | "vertical" | string;
   steps?: Step[];
   cta?: Cta;
   /** Speaker notes — round-trip via PPTX import/export; not rendered on the HTML slide. */

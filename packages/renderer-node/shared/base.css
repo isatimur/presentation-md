@@ -652,6 +652,33 @@ tbody tr:hover td {
 .timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
 .timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
 
+/* Vertical process stack (orientation: "vertical") */
+.timeline.is-vertical {
+  flex-direction: column;
+  gap: 0;
+  max-width: 640px;
+}
+.timeline.is-vertical .node {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  column-gap: 16px;
+  padding: 0 0 28px 0;
+  flex: none;
+}
+.timeline.is-vertical .node::before {
+  top: 18px;
+  bottom: -8px;
+  left: 8px;
+  right: auto;
+  width: 2px;
+  height: auto;
+  background: linear-gradient(180deg, var(--accent), var(--border));
+}
+.timeline.is-vertical .node:last-child::before { display: none; }
+.timeline.is-vertical .dot { grid-row: 1 / span 2; margin-top: 4px; }
+.timeline.is-vertical .node h3 { margin: 0 0 6px; }
+.timeline.is-vertical .node p { margin: 0; }
+
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }

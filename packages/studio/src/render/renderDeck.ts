@@ -134,6 +134,9 @@ function normalizeSlideData(slide: Slide): Record<string, unknown> {
       }));
     }
   }
+  if (slide.layout === "timeline") {
+    out["isVertical"] = slide.orientation === "vertical";
+  }
   if (slide.cta?.href !== undefined) {
     out["cta"] = { ...slide.cta, href: sanitizeLink(slide.cta.href) };
   }

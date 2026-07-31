@@ -306,6 +306,15 @@ export function SlideForm({
           <>
             <TextInput label="Eyebrow" value={slide.eyebrow} onChange={(v) => set({ eyebrow: v })} />
             <TextInput label="Heading" value={slide.heading} onChange={(v) => set({ heading: v })} />
+            <StringSelect
+              label="Orientation"
+              value={slide.orientation === "vertical" ? "vertical" : "horizontal"}
+              options={[
+                { value: "horizontal", label: "Horizontal rail (default)" },
+                { value: "vertical", label: "Vertical process" },
+              ]}
+              onChange={(v) => set({ orientation: v === "vertical" ? "vertical" : undefined })}
+            />
             <ListEditor<Step>
               label="Steps"
               items={slide.steps ?? []}

@@ -207,6 +207,11 @@
             }
           }
         },
+        "orientation": {
+          "type": "string",
+          "enum": ["horizontal", "vertical"],
+          "description": "timeline: rail direction (default horizontal, matches HTML)."
+        },
         "cta": {
           "type": "object",
           "properties": {

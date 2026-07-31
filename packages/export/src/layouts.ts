@@ -730,72 +730,139 @@ function renderTimeline(slide: PSlide, ctx: ExportContext, data: Slide): void {
   const steps = data.steps ?? [];
   if (steps.length === 0) return;
 
-  const areaY = top + 0.15;
+  const vertical = data.orientation === "vertical";
+  const areaY = top + 0.2;
   const areaH = ctx.height - areaY - ctx.margin;
-  const stepH = areaH / steps.length;
-  const badge = 0.44;
-  const x = ctx.margin;
-  const lineX = x + badge / 2 - 0.015;
+  const badge = 0.36;
 
+  if (vertical) {
+    const stepH = areaH / steps.length;
+    const x = ctx.margin;
+    const lineX = x + badge / 2 - 0.015;
+    if (steps.length > 1) {
+      const lineTop = areaY + badge / 2;
+      const lineBot = areaY + (steps.length - 1) * stepH + badge / 2;
+      slide.addShape(ctx.shapeRoundRect, {
+        x: lineX,
+        y: lineTop,
+        w: 0.03,
+        h: Math.max(0.1, lineBot - lineTop),
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0.01,
+      });
+    }
+    steps.forEach((step, i) => {
+      const y = areaY + i * stepH;
+      slide.addShape(ctx.shapeOval, {
+        x,
+        y: y + 0.05,
+        w: badge,
+        h: badge,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.bg, width: 1.5 },
+      });
+      slide.addText(String(i + 1), {
+        x,
+        y: y + 0.05,
+        w: badge,
+        h: badge,
+        fontFace: ctx.fonts.heading,
+        bold: true,
+        color: ctx.colors.bg,
+        fontSize: 13,
+        align: "center",
+        valign: "middle",
+      });
+      const textX = x + badge + 0.28;
+      const textW = ctx.width - textX - ctx.margin;
+      slide.addText(step.title, {
+        x: textX,
+        y,
+        w: textW,
+        h: 0.4,
+        fontFace: ctx.fonts.heading,
+        bold: true,
+        color: ctx.colors.text,
+        fontSize: 17,
+        valign: "middle",
+        fit: "shrink",
+      });
+      if (step.body) {
+        slide.addText(step.body, {
+          x: textX,
+          y: y + 0.4,
+          w: textW,
+          h: stepH - 0.55,
+          fontFace: ctx.fonts.body,
+          color: ctx.colors.muted,
+          fontSize: 13,
+          valign: "top",
+          fit: "shrink",
+        });
+      }
+    });
+    return;
+  }
+
+  // Default: horizontal rail matching HTML .timeline flex
+  const areaW = ctx.width - ctx.margin * 2;
+  const cellW = areaW / steps.length;
+  const railY = areaY + 0.18;
   if (steps.length > 1) {
-    const lineTop = areaY + badge / 2;
-    const lineBot = areaY + (steps.length - 1) * stepH + badge / 2;
     slide.addShape(ctx.shapeRoundRect, {
-      x: lineX,
-      y: lineTop,
-      w: 0.03,
-      h: Math.max(0.1, lineBot - lineTop),
+      x: ctx.margin + cellW * 0.15,
+      y: railY + badge / 2 - 0.015,
+      w: areaW - cellW * 0.3,
+      h: 0.03,
       fill: { color: ctx.colors.accent },
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0.01,
     });
   }
-
   steps.forEach((step, i) => {
-    const y = areaY + i * stepH;
+    const x = ctx.margin + i * cellW;
     slide.addShape(ctx.shapeOval, {
-      x,
-      y: y + 0.05,
+      x: x + 0.05,
+      y: railY,
       w: badge,
       h: badge,
       fill: { color: ctx.colors.accent },
       line: { color: ctx.colors.bg, width: 1.5 },
     });
     slide.addText(String(i + 1), {
-      x,
-      y: y + 0.05,
+      x: x + 0.05,
+      y: railY,
       w: badge,
       h: badge,
       fontFace: ctx.fonts.heading,
       bold: true,
       color: ctx.colors.bg,
-      fontSize: 14,
+      fontSize: 12,
       align: "center",
       valign: "middle",
     });
-    const textX = x + badge + 0.28;
-    const textW = ctx.width - textX - ctx.margin;
     slide.addText(step.title, {
-      x: textX,
-      y,
-      w: textW,
-      h: 0.42,
+      x,
+      y: railY + badge + 0.18,
+      w: cellW - 0.15,
+      h: 0.45,
       fontFace: ctx.fonts.heading,
       bold: true,
       color: ctx.colors.text,
-      fontSize: 18,
-      valign: "middle",
+      fontSize: 15,
+      valign: "top",
       fit: "shrink",
     });
     if (step.body) {
       slide.addText(step.body, {
-        x: textX,
-        y: y + 0.42,
-        w: textW,
-        h: stepH - 0.55,
+        x,
+        y: railY + badge + 0.65,
+        w: cellW - 0.15,
+        h: Math.max(0.6, areaH - badge - 0.9),
         fontFace: ctx.fonts.body,
         color: ctx.colors.muted,
-        fontSize: 13,
+        fontSize: 12,
         valign: "top",
         fit: "shrink",
       });

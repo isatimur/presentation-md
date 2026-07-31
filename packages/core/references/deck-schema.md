@@ -71,7 +71,9 @@ Customer / partner / team marks. Prefer `image` (URL or data URI); falls back to
 PPTX embeds images when prefetchable.
 
 ### timeline
-`{ "layout": "timeline", "eyebrow"?, "heading"?, "steps": [ { "title", "body"? } ] }`
+`{ "layout": "timeline", "eyebrow"?, "heading"?, "orientation"?: "horizontal"|"vertical",
+   "steps": [ { "title", "body"? } ] }`
+Default rail is horizontal (matches HTML). Set `orientation: "vertical"` for a process stack.
 
 ### data-table
 `{ "layout": "data-table", "eyebrow"?, "heading"?, "columns": ["A","B"],
