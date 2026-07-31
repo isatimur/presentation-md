@@ -1,5 +1,20 @@
 # @presentation-md/mcp-server
 
+## 1.11.0
+
+### Minor Changes
+
+- 2b42e2a: list_themes shortlist/mood/query filters + shortlists catalog; inject theme shortlists into generate_deck_prompt for intelligent defaults; sync literary left-rule honesty.
+
+### Patch Changes
+
+- Updated dependencies [a8e8c0a]
+- Updated dependencies [8a839a8]
+  - @presentation-md/export@1.21.0
+  - @presentation-md/render@1.6.27
+  - @presentation-md/core@1.13.0
+  - @presentation-md/create-theme@1.0.34
+
 ## 1.10.5
 
 ### Patch Changes

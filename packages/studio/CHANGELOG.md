@@ -1,5 +1,15 @@
 # @presentation-md/studio
 
+## 1.4.6
+
+### Patch Changes
+
+- 2b42e2a: list_themes shortlist/mood/query filters + shortlists catalog; inject theme shortlists into generate_deck_prompt for intelligent defaults; sync literary left-rule honesty.
+- Updated dependencies [a8e8c0a]
+- Updated dependencies [8a839a8]
+  - @presentation-md/export@1.21.0
+  - @presentation-md/core@1.13.0
+
 ## 1.4.5
 
 ### Patch Changes
