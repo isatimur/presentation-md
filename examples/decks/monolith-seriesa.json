@@ -1,9 +1,9 @@
 {
   "type": "deck",
   "meta": {
-    "title": "MONOLITH \u2014 Series A",
+    "title": "MONOLITH — Series A",
     "company": "MONOLITH",
-    "description": "Infrastructure Series A pitch \u2014 brutalist-acid multi-slide proof.",
+    "description": "Infrastructure Series A pitch — brutalist-acid multi-slide proof.",
     "theme": "brutalist-acid"
   },
   "slides": [
@@ -38,7 +38,7 @@
         {
           "icon": "fa-solid fa-cube",
           "title": "Immutable by default",
-          "body": "Mutations are explicit events \u2014 not SSH folklore."
+          "body": "Mutations are explicit events — not SSH folklore."
         },
         {
           "icon": "fa-solid fa-terminal",
@@ -80,6 +80,21 @@
           "label": "Marketing sites"
         }
       ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Category",
+      "heading": "Console folklore vs. CLI truth",
+      "leftLabel": "Legacy infra",
+      "left": "Click-ops as culture.\nSSH as documentation.\nMutable snowflakes.\nMarketing sites first.",
+      "rightLabel": "MONOLITH",
+      "right": "Scriptable by default.\nImmutable clusters.\nKill switches before launch.\nBuilders, not browsers.",
+      "emphasis": "right"
+    },
+    {
+      "layout": "quote",
+      "quote": "If it isn't scriptable, it isn't a feature.",
+      "by": "MONOLITH · Engineering doctrine"
     },
     {
       "layout": "closing",

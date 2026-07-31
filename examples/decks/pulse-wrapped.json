@@ -1,9 +1,9 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Pulse \u2014 Year Wrapped",
+    "title": "Pulse — Year Wrapped",
     "company": "Pulse",
-    "description": "Spotify-Wrapped style recap \u2014 kinetic-wrapped multi-slide proof.",
+    "description": "Spotify-Wrapped style recap — kinetic-wrapped multi-slide proof.",
     "theme": "kinetic-wrapped"
   },
   "slides": [
@@ -44,14 +44,57 @@
       "layout": "two-column",
       "eyebrow": "Top genres",
       "heading": "Your three obsessions",
-      "body": "Hyperpop: 34% of your year \u2014 no notes. Afrobeats \u2014 The commute soundtrack that stuck.",
+      "body": "Hyperpop: 34% of your year — no notes. Afrobeats — The commute soundtrack that stuck.",
       "aside": "Every Sunday after midnight.",
       "ratio": "2-1"
     },
     {
       "layout": "quote",
       "quote": "Your top track was on repeat so hard it became a personality trait.",
-      "by": "Pulse Wrapped \u00b7 2026"
+      "by": "Pulse Wrapped · 2026"
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Format",
+      "heading": "Annual PDF vs. kinetic wrap",
+      "leftLabel": "Year in review",
+      "left": "Forty pages.\nEqual-weight charts.\nNobody finishes.\nNo share moment.",
+      "rightLabel": "Pulse Wrapped",
+      "right": "Full-bleed beats.\nOne claim per frame.\nBuilt to screenshot.\nMotion as hierarchy.",
+      "emphasis": "right"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Beats",
+      "heading": "What the wrap ships",
+      "columns": "bento",
+      "cards": [
+        {
+          "icon": "fa-solid fa-bolt",
+          "title": "Cold open",
+          "body": "One line that lands before the logo."
+        },
+        {
+          "icon": "fa-solid fa-chart-line",
+          "title": "Peak moment",
+          "body": "The number that defines the year."
+        },
+        {
+          "icon": "fa-solid fa-users",
+          "title": "Crowd proof",
+          "body": "People, not just percentages."
+        },
+        {
+          "icon": "fa-solid fa-share-nodes",
+          "title": "Share frame",
+          "body": "Designed to leave the deck."
+        },
+        {
+          "icon": "fa-solid fa-forward",
+          "title": "Next season",
+          "body": "Close with a dare, not a thank-you."
+        }
+      ]
     },
     {
       "layout": "closing",
