@@ -15,6 +15,50 @@
       "notes": "Cold open — land the one-line claim before logos."
     },
     {
+      "layout": "feature-grid",
+      "eyebrow": "Rooms",
+      "heading": "Three spaces. One standard.",
+      "columns": "bento",
+      "cards": [
+        {
+          "icon": "fa-solid fa-champagne-glasses",
+          "title": "Salon",
+          "body": "Conversation first — acoustics tuned for talk, not spectacle."
+        },
+        {
+          "icon": "fa-solid fa-utensils",
+          "title": "Dining",
+          "body": "Seasonal menu, member-only hours, no flash photography."
+        },
+        {
+          "icon": "fa-solid fa-book",
+          "title": "Library",
+          "body": "Quiet desks, rare editions, evening lectures."
+        },
+        {
+          "icon": "fa-solid fa-key",
+          "title": "Residence",
+          "body": "Overnight suites for members traveling through."
+        },
+        {
+          "icon": "fa-solid fa-gem",
+          "title": "Craft over crowd",
+          "body": "Capacity capped so the room never becomes a queue."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Membership",
+      "heading": "Nightclub scarcity vs. club craft",
+      "leftLabel": "Guestlist theater",
+      "left": "Velvet rope as product.\nLoud rooms.\nNo ritual.\nChurn by design.",
+      "rightLabel": "Meridian Club",
+      "right": "Emerald + gold restraint.\nNamed rooms.\nMember rituals.\nRetention as craft.",
+      "emphasis": "right",
+      "notes": "Name the loser column first, then punch the winner."
+    },
+    {
       "layout": "image-hero",
       "eyebrow": "Member briefing · 2026",
       "heading": "Intimacy at scale.",
@@ -52,50 +96,6 @@
         {
           "value": "$2.1B",
           "label": "Capital at table"
-        }
-      ]
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Membership",
-      "heading": "Nightclub scarcity vs. club craft",
-      "leftLabel": "Guestlist theater",
-      "left": "Velvet rope as product.\nLoud rooms.\nNo ritual.\nChurn by design.",
-      "rightLabel": "Meridian Club",
-      "right": "Emerald + gold restraint.\nNamed rooms.\nMember rituals.\nRetention as craft.",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
-    },
-    {
-      "layout": "feature-grid",
-      "eyebrow": "Rooms",
-      "heading": "Three spaces. One standard.",
-      "columns": "bento",
-      "cards": [
-        {
-          "icon": "fa-solid fa-champagne-glasses",
-          "title": "Salon",
-          "body": "Conversation first — acoustics tuned for talk, not spectacle."
-        },
-        {
-          "icon": "fa-solid fa-utensils",
-          "title": "Dining",
-          "body": "Seasonal menu, member-only hours, no flash photography."
-        },
-        {
-          "icon": "fa-solid fa-book",
-          "title": "Library",
-          "body": "Quiet desks, rare editions, evening lectures."
-        },
-        {
-          "icon": "fa-solid fa-key",
-          "title": "Residence",
-          "body": "Overnight suites for members traveling through."
-        },
-        {
-          "icon": "fa-solid fa-gem",
-          "title": "Craft over crowd",
-          "body": "Capacity capped so the room never becomes a queue."
         }
       ]
     },

@@ -15,6 +15,50 @@
       "notes": "Cold open — land the one-line claim before logos."
     },
     {
+      "layout": "feature-grid",
+      "eyebrow": "Narrative",
+      "heading": "Three edits we made",
+      "columns": "bento",
+      "cards": [
+        {
+          "icon": "fa-solid fa-scissors",
+          "title": "Cut vanity KPIs",
+          "body": "If it doesn't change a decision, it left the deck."
+        },
+        {
+          "icon": "fa-solid fa-flag",
+          "title": "Flag the red",
+          "body": "One signal color for risk — never decorative."
+        },
+        {
+          "icon": "fa-solid fa-book-open",
+          "title": "Write the lead",
+          "body": "Every chart opens with a sentence, not a legend."
+        },
+        {
+          "icon": "fa-solid fa-eye",
+          "title": "Show, don't pad",
+          "body": "Asymmetry beats another identical third column."
+        },
+        {
+          "icon": "fa-solid fa-compass",
+          "title": "Clear north star",
+          "body": "One decisive story beat — not a wall of equal tiles."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Editorial stance",
+      "heading": "What we cut vs. what we kept",
+      "leftLabel": "Vanity pack",
+      "left": "Pageviews as success.\nEqual-weight KPI walls.\nLegends without leads.\nGreen for everything.",
+      "rightLabel": "Signalbox edit",
+      "right": "Decision metrics only.\nOne red for risk.\nSentence before chart.\nAsymmetry over filler.",
+      "emphasis": "right",
+      "notes": "Name the loser column first, then punch the winner."
+    },
+    {
       "layout": "image-hero",
       "eyebrow": "Q2 Report · Confidential",
       "heading": "The numbers, edited.",
@@ -45,17 +89,6 @@
           "label": "NPS (enterprise)"
         }
       ]
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Editorial stance",
-      "heading": "What we cut vs. what we kept",
-      "leftLabel": "Vanity pack",
-      "left": "Pageviews as success.\nEqual-weight KPI walls.\nLegends without leads.\nGreen for everything.",
-      "rightLabel": "Signalbox edit",
-      "right": "Decision metrics only.\nOne red for risk.\nSentence before chart.\nAsymmetry over filler.",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
     },
     {
       "layout": "data-table",
@@ -142,39 +175,6 @@
       "rightTitle": "What we do",
       "right": "Tighten discovery scripts.\nShip ROI calculator in Q3.\nProtect margin — no across-the-board discount.",
       "ratio": "2-1"
-    },
-    {
-      "layout": "feature-grid",
-      "eyebrow": "Narrative",
-      "heading": "Three edits we made",
-      "columns": "bento",
-      "cards": [
-        {
-          "icon": "fa-solid fa-scissors",
-          "title": "Cut vanity KPIs",
-          "body": "If it doesn't change a decision, it left the deck."
-        },
-        {
-          "icon": "fa-solid fa-flag",
-          "title": "Flag the red",
-          "body": "One signal color for risk — never decorative."
-        },
-        {
-          "icon": "fa-solid fa-book-open",
-          "title": "Write the lead",
-          "body": "Every chart opens with a sentence, not a legend."
-        },
-        {
-          "icon": "fa-solid fa-eye",
-          "title": "Show, don't pad",
-          "body": "Asymmetry beats another identical third column."
-        },
-        {
-          "icon": "fa-solid fa-compass",
-          "title": "Clear north star",
-          "body": "One decisive story beat — not a wall of equal tiles."
-        }
-      ]
     },
     {
       "layout": "timeline",

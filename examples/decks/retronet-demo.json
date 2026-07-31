@@ -15,6 +15,33 @@
       "notes": "Cold open — land the one-line claim before logos."
     },
     {
+      "layout": "feature-grid",
+      "eyebrow": "Plans",
+      "heading": "Free forever. Pro when you need it.",
+      "columns": 2,
+      "cards": [
+        {
+          "title": "Free tier · $0",
+          "body": "Ad blocking, tracker strip, MIT client. Forever."
+        },
+        {
+          "title": "Pro · $5/mo",
+          "body": "Custom filter lists, team sync, priority updates."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Before / After",
+      "heading": "Same URL. Different internet.",
+      "leftLabel": "Before",
+      "left": "Cookie walls.\nProgress bars that lie.\nNotification spam.\nScroll past four ads for one paragraph.",
+      "rightLabel": "After",
+      "right": "RETRONET clean view.\nReadable type.\nNo trackers.\nContent at the top.",
+      "emphasis": "left",
+      "notes": "Name the loser column first, then punch the winner."
+    },
+    {
       "layout": "image-hero",
       "eyebrow": "Open source · Free tier · MIT · Privacy first",
       "heading": "Browse like it's 1999.",
@@ -56,17 +83,6 @@
       ]
     },
     {
-      "layout": "comparison",
-      "eyebrow": "Before / After",
-      "heading": "Same URL. Different internet.",
-      "leftLabel": "Before",
-      "left": "Cookie walls.\nProgress bars that lie.\nNotification spam.\nScroll past four ads for one paragraph.",
-      "rightLabel": "After",
-      "right": "RETRONET clean view.\nReadable type.\nNo trackers.\nContent at the top.",
-      "emphasis": "left",
-      "notes": "Name the loser column first, then punch the winner."
-    },
-    {
       "layout": "stat-row",
       "eyebrow": "Benchmarks",
       "heading": "Measured on real news sites",
@@ -89,22 +105,6 @@
       "layout": "quote",
       "quote": "I finally read the article instead of fighting the page.",
       "by": "devkat_88 · software engineer · Portland"
-    },
-    {
-      "layout": "feature-grid",
-      "eyebrow": "Plans",
-      "heading": "Free forever. Pro when you need it.",
-      "columns": 2,
-      "cards": [
-        {
-          "title": "Free tier · $0",
-          "body": "Ad blocking, tracker strip, MIT client. Forever."
-        },
-        {
-          "title": "Pro · $5/mo",
-          "body": "Custom filter lists, team sync, priority updates."
-        }
-      ]
     },
     {
       "layout": "closing",
