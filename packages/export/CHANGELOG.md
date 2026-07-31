@@ -1,5 +1,13 @@
 # @presentation-md/export
 
+## 1.16.3
+
+### Patch Changes
+
+- f5d51a8: Densify soft/odd PPTX shadows for capsule, scatterbrain, 8-bit-orbit (multi-layer), and retro-windows (inset bevel) to match HTML craft.
+- Updated dependencies [5b33db9]
+  - @presentation-md/core@1.8.7
+
 ## 1.16.2
 
 ### Patch Changes
