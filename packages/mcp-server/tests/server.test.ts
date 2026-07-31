@@ -119,9 +119,24 @@ describe("generate_deck_prompt", () => {
     expect(result.theme).toBe("default-tech");
     expect(result.intent).toBe("Show quarterly results");
     expect(result.craft_mandate).toMatch(/image-hero/i);
+    expect(result.craft_mandate).toMatch(/Gamma|Beautiful\.ai|anti_slop/i);
     expect(result.palette).toHaveProperty("bg");
     expect(result.palette).toHaveProperty("accent");
     expect(result.typography).toHaveProperty("headingFont");
+  });
+
+  it("includes anti_slop_reference when available", async () => {
+    const result = (await generateDeckPromptTool.handler({
+      theme: "signal",
+      intent: "Series A",
+    })) as {
+      anti_slop_reference?: string;
+      craft_mandate: string;
+    };
+    expect(result.craft_mandate).toMatch(/stunning-25/i);
+    if (result.anti_slop_reference) {
+      expect(result.anti_slop_reference).toMatch(/Inter|purple/i);
+    }
   });
 });
 

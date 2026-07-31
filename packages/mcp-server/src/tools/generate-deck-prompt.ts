@@ -30,19 +30,21 @@ export const generateDeckPromptTool: ToolDefinition = {
     const coreRoot = getCoreRoot();
     const { themesDir, fallbackThemesDirs } = resolveThemesDir();
 
-    const [theme, skill, deckSchemaReference, stunning25, themesMd] = await Promise.all([
+    const [theme, skill, deckSchemaReference, stunning25, themesMd, antiSlop] = await Promise.all([
       loadTheme(themeName, { themesDir, fallbackThemesDirs }),
       readFile(join(coreRoot, "SKILL.md"), "utf-8"),
       readFile(join(coreRoot, "references", "deck-schema.md"), "utf-8"),
       readFile(join(coreRoot, "references", "stunning-25.md"), "utf-8").catch(() => ""),
       readFile(join(coreRoot, "references", "themes.md"), "utf-8").catch(() => ""),
+      readFile(join(coreRoot, "references", "anti-slop-bans.md"), "utf-8").catch(() => ""),
     ]);
 
     const craftMandate = [
-      "CRAFT MANDATE (non-negotiable):",
-      "- Prefer stunning-25 themes when the brief matches (see stunning_25_reference).",
+      "CRAFT MANDATE (non-negotiable — beat Gamma / Beautiful.ai / md-slides / frontend-slides on first glance):",
+      "- Prefer stunning-25 themes when the brief matches (see stunning_25_reference). Open that structured proof and match density — do not invent a watered-down palette.",
+      "- Ban Inter-only / purple-on-white / cream-terracotta defaults unless the chosen theme owns them (see anti_slop_reference).",
       "- Include ≥1 image-hero for visual/investor/launch/brand decks (kinetic-wrapped wraps may use ranked/streak/metric/hero-stat instead).",
-      "- Every comparison MUST set emphasis left|right; prefer non-1-1 two-column ratios; 5-card grids use columns:\"bento\".",
+      "- Force asymmetry early: every comparison MUST set emphasis left|right; prefer non-1-1 two-column ratios; 5-card grids use columns:\"bento\".",
       "- Rankings / top-N → layout ranked-list (not custom-html bars). Mega wrap numbers → stat-row variant:\"hero\".",
       "- Day streaks → streak-grid. Circular KPI / percentile → metric-ring (not a plain stat chip).",
       "- Logo / customer walls → logo-wall. Year wraps (kinetic-wrapped) need tone on ≥3 slides.",
@@ -55,7 +57,7 @@ export const generateDeckPromptTool: ToolDefinition = {
       "- candy-pop: set meta.company (or meta.marquee) so the yellow ticker brands the deck — never hardcode Jellybean; cards get hard ink borders in PPTX.",
       "- Add brief notes on 2–4 key slides.",
       "- Call audit_deck before shipping; fix warnings that mention asymmetry, image-hero, tone, emphasis, dual CTA, or closing icons.",
-      "- Call judge_deck (t1→t2; t3 when stakes are high). Treat local_draft as a floor, not a ship grade.",
+      "- Call judge_deck (t1→t2; t3 when stakes are high). Treat local_draft as a floor, not a ship grade. Schema-valid ≠ shippable.",
       "- Open the theme's structured gallery proof when listed in stunning-25 — match that ceiling, do not water down.",
     ].join("\n");
 
@@ -67,6 +69,7 @@ export const generateDeckPromptTool: ToolDefinition = {
       deck_schema_reference: deckSchemaReference,
       themes_reference: themesMd || undefined,
       stunning_25_reference: stunning25 || undefined,
+      anti_slop_reference: antiSlop || undefined,
       palette: theme.palette as unknown as Record<string, string>,
       typography: theme.typography
     };
