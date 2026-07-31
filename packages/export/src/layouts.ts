@@ -2586,6 +2586,430 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       rectRadius: 0,
     });
   }
+
+  if (theme === "pastel-geometry") {
+    // Vertical pastel edge pills (pastel-geometry-pills ::after).
+    const pills = [
+      { color: "F0B4D4" },
+      { color: "A8D4C4" },
+      { color: "5A7C6A" },
+      { color: "9B8DC4" },
+      { color: "7C6AAD" },
+    ];
+    const pillH = (ctx.height * 0.72) / pills.length;
+    const pillX = ctx.width - 0.42;
+    const pillY = ctx.height * 0.14;
+    for (let i = 0; i < pills.length; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: pillX,
+        y: pillY + i * pillH,
+        w: 0.22,
+        h: pillH - 0.04,
+        fill: { color: pills[i]!.color },
+        line: { color: pills[i]!.color, width: 0 },
+        rectRadius: 0.11,
+      });
+    }
+    // Soft card-field wash so the sky matte reads behind content.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin * 0.45,
+      y: ctx.margin * 0.45,
+      w: ctx.width - ctx.margin * 0.9,
+      h: ctx.height - ctx.margin * 0.9,
+      fill: { color: ctx.colors.cardBg, transparency: 35 },
+      line: { color: ctx.colors.border, width: 0.75 },
+      rectRadius: 0.28,
+    });
+  }
+
+  if (theme === "8-bit-orbit") {
+    // Arcade scanlines + neon cyan/pink orbs + pixel HUD chip (bit-orbit-arcade).
+    for (let i = 0; i < 10; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: 0.25 + i * 0.7,
+        w: ctx.width,
+        h: 0.035,
+        fill: { color: "000000", transparency: 82 },
+        line: { color: "000000", width: 0 },
+        rectRadius: 0,
+      });
+    }
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.55,
+      y: -ctx.height * 0.12,
+      w: ctx.width * 0.45,
+      h: ctx.height * 0.45,
+      fill: { color: ctx.colors.accent, transparency: 78 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: -ctx.width * 0.1,
+      y: ctx.height * 0.55,
+      w: ctx.width * 0.4,
+      h: ctx.height * 0.45,
+      fill: { color: ctx.colors.accent2, transparency: 78 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+    // Pixel HUD dots (top-left).
+    const pixels = [
+      { x: 0.45, color: "F4D03F" },
+      { x: 0.7, color: ctx.colors.accent },
+      { x: 0.95, color: ctx.colors.accent2 },
+      { x: 1.2, color: "FFFFFF" },
+    ];
+    for (const p of pixels) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: p.x,
+        y: 0.45,
+        w: 0.14,
+        h: 0.14,
+        fill: { color: p.color },
+        line: { color: p.color, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    if (isHero) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width - 1.55,
+        y: ctx.height - 0.85,
+        w: 0.95,
+        h: 0.28,
+        fill: { color: ctx.colors.accent },
+        line: { color: "FFFFFF", width: 1.5 },
+        rectRadius: 0,
+      });
+    }
+  }
+
+  if (theme === "neo-grid-bold") {
+    // Modular grid + lemon corner panel + hard border (neo-grid-panels).
+    for (let i = 1; i < 10; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: (ctx.width / 10) * i,
+        y: 0,
+        w: 0.012,
+        h: ctx.height,
+        fill: { color: ctx.colors.text, transparency: 85 },
+        line: { color: ctx.colors.text, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    for (let i = 1; i < 6; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: (ctx.height / 6) * i,
+        w: ctx.width,
+        h: 0.012,
+        fill: { color: ctx.colors.text, transparency: 85 },
+        line: { color: ctx.colors.text, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.08,
+      y: 0.08,
+      w: ctx.width - 0.16,
+      h: ctx.height - 0.16,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 2.5 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 1.55,
+      y: 0.55,
+      w: 0.95,
+      h: 0.95,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "bold-poster") {
+    // Ink top bar + offset poster block (bold-poster-ink).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: ctx.width,
+      h: 0.14,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    if (isHero) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width * 0.62,
+        y: ctx.height * 0.55,
+        w: ctx.width * 0.28,
+        h: ctx.height * 0.28,
+        fill: { color: ctx.colors.bg2 },
+        line: { color: ctx.colors.text, width: 2 },
+        rectRadius: 0,
+      });
+    }
+  }
+
+  if (theme === "capsule") {
+    // Soft pill ornaments (capsule-pills).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 2.1,
+      y: 0.55,
+      w: 1.45,
+      h: 0.42,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.border, width: 1.5 },
+      rectRadius: 0.21,
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: 0.55,
+      y: ctx.height - 1.55,
+      w: 0.95,
+      h: 0.95,
+      fill: { color: ctx.colors.accent2 },
+      line: { color: ctx.colors.border, width: 1.5 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.78,
+      y: ctx.height * 0.72,
+      w: 0.55,
+      h: 0.55,
+      fill: { color: "C4D94E", transparency: 25 },
+      line: { color: ctx.colors.border, width: 1 },
+    });
+  }
+
+  if (theme === "cobalt-grid") {
+    // Blueprint-ish cobalt grid + corner hatch (cobalt-grid-paper).
+    for (let i = 1; i < 14; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: (ctx.width / 14) * i,
+        y: 0,
+        w: 0.01,
+        h: ctx.height,
+        fill: { color: ctx.colors.accent, transparency: 82 },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    for (let i = 1; i < 9; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: (ctx.height / 9) * i,
+        w: ctx.width,
+        h: 0.01,
+        fill: { color: ctx.colors.accent, transparency: 82 },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.58,
+      y: ctx.height * 0.55,
+      w: ctx.width * 0.42,
+      h: ctx.height * 0.45,
+      fill: { color: ctx.colors.accent, transparency: 90 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "retro-arcade") {
+    // Scanlines + neon top rail (scanline-neon).
+    for (let i = 0; i < 9; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: 0.3 + i * 0.75,
+        w: ctx.width,
+        h: 0.03,
+        fill: { color: "000000", transparency: 78 },
+        line: { color: "000000", width: 0 },
+        rectRadius: 0,
+      });
+    }
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: ctx.width,
+      h: 0.06,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 2.0,
+      y: -0.4,
+      w: 2.2,
+      h: 2.2,
+      fill: { color: ctx.colors.accent2, transparency: 70 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+  }
+
+  if (theme === "brutalist-mono") {
+    // Dense mono grid + hard outer frame (brutalist-grid).
+    for (let i = 1; i < 16; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: (ctx.width / 16) * i,
+        y: 0,
+        w: 0.01,
+        h: ctx.height,
+        fill: { color: ctx.colors.border, transparency: 55 },
+        line: { color: ctx.colors.border, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    for (let i = 1; i < 10; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: (ctx.height / 10) * i,
+        w: ctx.width,
+        h: 0.01,
+        fill: { color: ctx.colors.border, transparency: 55 },
+        line: { color: ctx.colors.border, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.2,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 2.5 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "creative-mode") {
+    // Hard shadow frame + stacked accent blocks (creative-mode-blocks).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.12,
+      y: 0.12,
+      w: ctx.width - 0.12,
+      h: ctx.height - 0.12,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 3 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 2.0,
+      y: 0.55,
+      w: 1.2,
+      h: 1.2,
+      fill: { color: ctx.colors.accent2 },
+      line: { color: ctx.colors.accent2, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 2.85,
+      y: 1.35,
+      w: 0.75,
+      h: 0.75,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "biennale-yellow") {
+    // Sun orb + top hairline (biennale-yellow-sun).
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.62,
+      y: -ctx.height * 0.18,
+      w: ctx.width * 0.5,
+      h: ctx.height * 0.55,
+      fill: { color: ctx.colors.accent, transparency: 35 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.7,
+      y: ctx.height * 0.08,
+      w: ctx.width * 0.28,
+      h: ctx.height * 0.32,
+      fill: { color: "F8F39B", transparency: 45 },
+      line: { color: "F8F39B", width: 0 },
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: 0.55,
+      w: ctx.width - ctx.margin * 2,
+      h: 0.015,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "scatterbrain") {
+    // Cork sticky notes + pin dots (scatterbrain-cork).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.68,
+      y: 0.55,
+      w: 1.7,
+      h: 1.25,
+      fill: { color: "FFE066" },
+      line: { color: ctx.colors.text, width: 0.75 },
+      rectRadius: 0.06,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.78,
+      y: ctx.height * 0.48,
+      w: 1.4,
+      h: 1.1,
+      fill: { color: "74C0FC" },
+      line: { color: ctx.colors.text, width: 0.75 },
+      rectRadius: 0.06,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.55,
+      y: ctx.height * 0.58,
+      w: 1.25,
+      h: 1.0,
+      fill: { color: "FF9F9F" },
+      line: { color: ctx.colors.text, width: 0.75 },
+      rectRadius: 0.06,
+    });
+    for (const pin of [
+      { x: ctx.width * 0.72, y: 0.48 },
+      { x: ctx.width * 0.82, y: ctx.height * 0.42 },
+      { x: 0.72, y: ctx.height * 0.52 },
+    ]) {
+      slide.addShape(ctx.shapeOval, {
+        x: pin.x,
+        y: pin.y,
+        w: 0.18,
+        h: 0.18,
+        fill: { color: "C92A2A" },
+        line: { color: "C92A2A", width: 0 },
+      });
+    }
+  }
+
+  if (theme === "split-pastel" && isHero) {
+    // Split field + stacked pastel pills (split-pastel-panels).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.5,
+      y: 0,
+      w: ctx.width * 0.5,
+      h: ctx.height,
+      fill: { color: ctx.colors.bg2 },
+      line: { color: ctx.colors.bg2, width: 0 },
+      rectRadius: 0,
+    });
+    const stack = [ctx.colors.accent, ctx.colors.accent2, "F0F0C8"];
+    for (let i = 0; i < stack.length; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width - 1.55,
+        y: ctx.height - 1.35 + i * 0.32,
+        w: 0.95,
+        h: 0.26,
+        fill: { color: stack[i]! },
+        line: { color: stack[i]!, width: 0 },
+        rectRadius: 0.13,
+      });
+    }
+  }
 }
 
 export function renderSlide(slide: PSlide, ctx: ExportContext, data: Slide): void {

@@ -59,7 +59,19 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   get a gold hairline + deco ring; botanical-luxe gets a gold hairline + leaf ring;
   genz-bento gets a hard border + corner blot; heritage-editorial gets quiet hairlines;
   developer-dark gets a title-bar + traffic lights; data-editorial gets an accent rule;
-  dark-botanical gets bloom washes + a left rail.
+  dark-botanical gets bloom washes + a left rail;
+  pastel-geometry gets a card wash + vertical pastel edge pills;
+  8-bit-orbit gets scanlines + neon orbs + pixel HUD chips;
+  neo-grid-bold gets a modular grid + lemon corner panel + hard frame;
+  bold-poster gets an ink top bar + poster block;
+  capsule gets pill/circle ornaments;
+  cobalt-grid gets a cobalt paper grid + corner hatch;
+  retro-arcade gets scanlines + neon top rail;
+  brutalist-mono gets a dense mono grid + hard frame;
+  creative-mode gets a hard shadow frame + stacked accent blocks;
+  biennale-yellow gets a sun orb + top hairline;
+  scatterbrain gets cork sticky notes + pin dots;
+  split-pastel heroes get a split field + stacked pastel pills.
   True CSS `mix-blend-mode` / animated marquees remain HTML-only.
 - Closing `actions[].icon` maps to a glyph prefix on PPTX pills (FA brands → letter/symbol).
 
