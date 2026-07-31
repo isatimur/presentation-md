@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.16.0
+
+### Minor Changes
+
+- 2c0a7dc: Ship PDF/deploy scripts in published core, sync Claude plugin skill + deck schema from core, document markdown craft heuristics, and harden MCP write paths with shared cwd containment + export/render tests.
+
 ## 1.15.0
 
 ### Minor Changes
