@@ -8,6 +8,7 @@ npx @presentation-md/render deck.json -o deck.html --theme corporate
 npx @presentation-md/render deck.json --format pptx -o deck.pptx
 npx @presentation-md/render --from-md deck.md -o deck.json
 npx @presentation-md/render --from-pptx board.pptx -o deck.json --theme corporate
+npx @presentation-md/render --from-pptx board.pptx -o deck.json --assets-dir ./assets
 npx @presentation-md/render --list-themes
 npx @presentation-md/render --validate deck.json
 ```

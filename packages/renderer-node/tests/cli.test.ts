@@ -234,6 +234,53 @@ describe("presentation-md-render CLI flags", () => {
     expect(deck.slides[0]?.heading).toBe("From PPTX CLI");
   });
 
+  it("--from-pptx --assets-dir writes images to disk instead of data URIs", async () => {
+    const dir = await tempDir();
+    const themesDir = resolve(pkgRoot, "../core/themes");
+    const theme = await loadTheme("default-tech", { themesDir });
+    const tinyPng =
+      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==";
+    const buf = await deckToPptxBuffer(
+      {
+        type: "deck",
+        meta: { title: "Assets CLI", theme: "default-tech" },
+        slides: [
+          {
+            layout: "image-hero",
+            heading: "Hero with asset",
+            lead: "Extract me",
+            image: tinyPng,
+            imageAlt: "pixel",
+          },
+        ],
+      },
+      theme
+    );
+    const pptxPath = join(dir, "with-image.pptx");
+    const outPath = join(dir, "from-pptx-assets.json");
+    const assetsDir = join(dir, "assets");
+    await writeFile(pptxPath, buf);
+
+    const { code, stdout, stderr } = await runCli(
+      ["--from-pptx", pptxPath, "-o", outPath, "--assets-dir", assetsDir],
+      { cwd: dir }
+    );
+    expect(stderr).not.toMatch(/^Error:/);
+    expect(code).toBe(0);
+    expect(stdout).toMatch(/Imported 1 slides/);
+
+    const deck = JSON.parse(await readFile(outPath, "utf-8")) as {
+      slides: Array<{ image?: string }>;
+    };
+    const image = deck.slides[0]?.image;
+    expect(typeof image).toBe("string");
+    expect(image!.startsWith("data:")).toBe(false);
+    expect(image).toMatch(/\.png$/i);
+
+    const written = await readFile(resolve(dir, image!));
+    expect(written.byteLength).toBeGreaterThan(0);
+  });
+
   it("reads deck JSON from stdin when no input path is given", async () => {
     const dir = await tempDir();
     const outPath = join(dir, "stdin.html");

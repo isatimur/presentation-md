@@ -32,6 +32,9 @@ presentation-md-render --list-themes
 # Import a PowerPoint file to deck JSON
 presentation-md-render --from-pptx board-deck.pptx -o deck.json --theme claude
 
+# Same import, but write extracted images to disk (relative paths in deck JSON)
+presentation-md-render --from-pptx board-deck.pptx -o deck.json --assets-dir ./assets
+
 # Import Marp / md-slides Markdown to deck JSON
 presentation-md-render --from-md outline.md -o deck.json --theme signal
 
