@@ -2,31 +2,31 @@
   "name": "luxury-minimalist",
   "version": "0.1.0",
   "extends": "default-tech",
-  "description": "Luxury minimalist theme with warm off-white canvas, dark charcoal, hairline borders, and no gradients.",
-  "vibe": "Luxury minimalist — warm off-white canvas, dark charcoal text, near-zero decoration, generous whitespace, thin serif display, hairline borders, no gradients.",
+  "description": "Ultra-luxury nocturnal theme — near-black stage, cream serif, gold hairlines. Matches Solstice Capital gallery craft.",
+  "vibe": "Ultra-luxury — #0f0d0c stage, cream #f9f6ef, gold #c9a84c hairlines, Cormorant + Inter, zero gradients. Gallery: Solstice Capital.",
   "license": "MIT",
   "author": "Timur Isachenko",
   "roles": {
-    "bg": "#faf8f5",
-    "bg2": "#f5f2ee",
-    "text": "#1c1917",
-    "muted": "#635d59",
-    "accent": "#92400e",
-    "accent2": "#b45309",
-    "cardBg": "rgba(28,25,23,0.03)",
-    "border": "rgba(28,25,23,0.10)"
+    "bg": "#0f0d0c",
+    "bg2": "#1c1917",
+    "text": "#f9f6ef",
+    "muted": "#a8a29e",
+    "accent": "#c9a84c",
+    "accent2": "#e8d5a3",
+    "cardBg": "rgba(249,246,239,0.04)",
+    "border": "rgba(249,246,239,0.12)"
   },
   "typography": {
     "headingFont": "'Cormorant Garamond', Georgia, serif",
-    "bodyFont": "'DM Sans', system-ui, sans-serif",
-    "headingWeight": 600,
+    "bodyFont": "'Inter', system-ui, sans-serif",
+    "headingWeight": 300,
     "googleFonts": [
-      "Cormorant+Garamond:wght@400;600",
-      "DM+Sans:wght@400;500"
+      "Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400",
+      "Inter:wght@300;400;500"
     ]
   },
   "geometry": {
-    "radius": "4px",
+    "radius": "0px",
     "slideWidth": "1280px"
   }
 }

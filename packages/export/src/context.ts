@@ -96,6 +96,13 @@ const DUAL_SURFACE: Record<
   // Coral mix(accent 88%, white) + ink; mint accent + ink
   coral: { emphasisFill: "#eb7070", emphasisText: "#1a1a1a" },
   "split-pastel": { emphasisFill: "accent", emphasisText: "#1a1a1a" },
+  // Ultra-luxury nocturnal — gold panels need near-black ink for AA
+  "luxury-minimalist": {
+    cardMuted: "#c4bfb6",
+    cardText: "#f9f6ef",
+    emphasisFill: "accent",
+    emphasisText: "#0f0d0c",
+  },
 };
 
 export interface ContextShapes {

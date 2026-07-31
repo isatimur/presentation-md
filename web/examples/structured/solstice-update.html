@@ -7,26 +7,26 @@
 <meta name="description" content="Investor update — growth equity LP letter." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=DM+Sans:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
 
 /* presentation-md base stylesheet.
    Theme tokens are injected via the :root block below. Layout fragments in
    ./layouts/*.html consume these CSS variables and class names. */
 
 :root {
-  --bg: #faf8f5;
-  --bg-2: #f5f2ee;
-  --text: #1c1917;
-  --muted: #78716c;
-  --accent: #92400e;
-  --accent-2: #b45309;
-  --card-bg: rgba(28,25,23,0.03);
-  --border: rgba(28,25,23,0.10);
-  --radius: 4px;
+  --bg: #0f0d0c;
+  --bg-2: #1c1917;
+  --text: #f9f6ef;
+  --muted: #a8a29e;
+  --accent: #c9a84c;
+  --accent-2: #e8d5a3;
+  --card-bg: rgba(249,246,239,0.04);
+  --border: rgba(249,246,239,0.12);
+  --radius: 0px;
   --slide-w: 1280px;
   --heading-font: 'Cormorant Garamond', Georgia, serif;
-  --body-font: 'DM Sans', system-ui, sans-serif;
-  --heading-weight: 600;
+  --body-font: 'Inter', system-ui, sans-serif;
+  --heading-weight: 300;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -649,10 +649,14 @@ tbody tr:hover td {
   top: -160px;
 }
 .deck[data-surface="neon-glow"] .comparison-col:last-child {
-  background: color-mix(in srgb, var(--accent) 14%, var(--card-bg));
+  /* Darken violet fill so white winner copy clears WCAG AA (accent-on-bg labels fail) */
+  background: color-mix(in srgb, var(--accent) 72%, #050508);
+  color: #fff;
   border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
-  box-shadow: 0 0 32px color-mix(in srgb, var(--accent) 18%, transparent);
+  box-shadow: 0 0 32px color-mix(in srgb, var(--accent) 28%, transparent);
 }
+.deck[data-surface="neon-glow"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="neon-glow"] .comparison-col:last-child p { color: #fff; }
 .deck[data-surface="neon-glow"] .stat .value {
   text-shadow: 0 0 24px color-mix(in srgb, var(--accent) 40%, transparent);
 }
@@ -666,10 +670,14 @@ tbody tr:hover td {
   box-shadow: inset 0 0 40px color-mix(in srgb, var(--accent) 12%, transparent);
 }
 .deck[data-surface="neon-glow"] .grid.cols-bento .card:first-child {
-  background: color-mix(in srgb, var(--accent) 18%, var(--card-bg));
+  background: color-mix(in srgb, var(--accent) 72%, #050508);
+  color: #fff;
   border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
-  box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 22%, transparent);
+  box-shadow: 0 0 40px color-mix(in srgb, var(--accent) 28%, transparent);
 }
+.deck[data-surface="neon-glow"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="neon-glow"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="neon-glow"] .grid.cols-bento .card:first-child i { color: #fff; }
 
 /* ── scanline-neon (retro-arcade) ── */
 .deck[data-surface="scanline-neon"] .slide {
@@ -768,7 +776,7 @@ tbody tr:hover td {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
-/* ── quiet-luxe (luxury-minimalist) ── */
+/* ── quiet-luxe (luxury-minimalist) — nocturnal ultra-luxury ── */
 .deck[data-surface="quiet-luxe"] .slide {
   --slide-bg: var(--bg);
   box-shadow: none;
@@ -778,8 +786,23 @@ tbody tr:hover td {
   display: none;
 }
 .deck[data-surface="quiet-luxe"] .slide h1 {
-  letter-spacing: -0.03em;
-  font-weight: 400;
+  letter-spacing: -0.02em;
+  font-weight: 300;
+}
+.deck[data-surface="quiet-luxe"] .slide.title-slide,
+.deck[data-surface="quiet-luxe"] .slide.closing-slide {
+  border-color: transparent;
+}
+.deck[data-surface="quiet-luxe"] .slide.title-slide::before,
+.deck[data-surface="quiet-luxe"] .slide.closing-slide::before {
+  content: "";
+  position: absolute;
+  left: 64px;
+  top: 48%;
+  width: 48px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.75;
 }
 
 /* ── editorial-rule (editorial-serif) ── */
@@ -1469,9 +1492,15 @@ tbody tr:hover td {
   opacity: 0.75;
 }
 .deck[data-surface="soft-editorial-paper"] .card {
-  background: rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.82);
   border-radius: 24px;
-  border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 16%, transparent);
+}
+.deck[data-surface="soft-editorial-paper"] .card p,
+.deck[data-surface="soft-editorial-paper"] .lead,
+.deck[data-surface="soft-editorial-paper"] .eyebrow,
+.deck[data-surface="soft-editorial-paper"] .stat .label {
+  color: #4A4338;
 }
 .deck[data-surface="soft-editorial-paper"] .slide h1 {
   font-style: italic;
@@ -1707,6 +1736,7 @@ tbody tr:hover td {
   letter-spacing: -0.02em;
 }
 .deck[data-surface="bold-signal-card"] .card {
+  /* Match roles.cardBg (#43251b) — orange cardBg broke muted/PPTX dual-surface */
   background: color-mix(in srgb, var(--accent) 18%, #1a1a1a);
   color: #ffffff;
   border-radius: 16px;
@@ -1714,10 +1744,25 @@ tbody tr:hover td {
 }
 .deck[data-surface="bold-signal-card"] .card i,
 .deck[data-surface="bold-signal-card"] .card h3 { color: #ffffff; }
-.deck[data-surface="bold-signal-card"] .card p { color: rgba(255,255,255,0.72); }
+.deck[data-surface="bold-signal-card"] .card p,
+.deck[data-surface="bold-signal-card"] .card .lead { color: rgba(255,255,255,0.90); }
+.deck[data-surface="bold-signal-card"] .eyebrow,
+.deck[data-surface="bold-signal-card"] .stat .label { color: #c8c8c8; }
 .deck[data-surface="bold-signal-card"] .comparison-col:last-child {
-  background: color-mix(in srgb, var(--accent) 22%, #1a1a1a);
+  /* Orange accent fails white at full strength — keep darkened mix */
+  background: color-mix(in srgb, var(--accent) 55%, #1a1a1a);
+  color: #fff;
 }
+.deck[data-surface="bold-signal-card"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="bold-signal-card"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="bold-signal-card"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent) 55%, #1a1a1a);
+  color: #fff;
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.deck[data-surface="bold-signal-card"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="bold-signal-card"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="bold-signal-card"] .grid.cols-bento .card:first-child i { color: #fff; }
 .deck[data-surface="bold-signal-card"] .stat {
   border-top-color: var(--accent);
 }
@@ -1784,9 +1829,20 @@ tbody tr:hover td {
   text-shadow: 0 0 24px color-mix(in srgb, var(--accent) 45%, transparent);
 }
 .deck[data-surface="creative-voltage-split"] .card {
-  background: rgba(26,26,46,0.65);
+  background: #1a1a2e;
   border: 1px solid var(--accent);
   border-radius: 0;
+}
+.deck[data-surface="creative-voltage-split"] .card p,
+.deck[data-surface="creative-voltage-split"] .card .lead { color: rgba(255,255,255,0.92); }
+/* Pure white — translucent white fails AA on the electric blue half */
+.deck[data-surface="creative-voltage-split"] .title-slide .lead,
+.deck[data-surface="creative-voltage-split"] .closing-slide .lead,
+.deck[data-surface="creative-voltage-split"] .title-slide .subtitle,
+.deck[data-surface="creative-voltage-split"] .closing-slide .subtitle,
+.deck[data-surface="creative-voltage-split"] .title-slide .eyebrow,
+.deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
+  color: #ffffff;
 }
 
 /* ── signal-briefing (signal) ── */
@@ -1876,7 +1932,10 @@ tbody tr:hover td {
 .deck[data-surface="electric-studio-split"] .card p { color: var(--muted); }
 .deck[data-surface="electric-studio-split"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 12%, #ffffff);
+  color: #0a0a0a;
 }
+.deck[data-surface="electric-studio-split"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="electric-studio-split"] .comparison-col:last-child p { color: #0a0a0a; }
 .deck[data-surface="electric-studio-split"] .quote {
   border-left-color: var(--accent);
   color: #0a0a0a;
@@ -2228,6 +2287,10 @@ tbody tr:hover td {
   color: var(--text);
   border: 2px solid var(--text);
   border-radius: 0;
+}
+.deck[data-surface="emerald-editorial-masthead"] .card p,
+.deck[data-surface="emerald-editorial-masthead"] .card .lead {
+  color: color-mix(in srgb, var(--text) 78%, var(--card-bg));
 }
 
 /* ── sakura-chroma-cassette (sakura-chroma) ── */
@@ -2836,9 +2899,10 @@ tbody tr:hover td {
 }
 /* ── mat-woodglow (mat) ── */
 .deck[data-surface="mat-woodglow"] .slide {
+  /* Soften wood tint so muted cream stays AA on the wash */
   --slide-bg:
-    radial-gradient(ellipse 55% 45% at 88% 100%, color-mix(in srgb, var(--accent2) 48%, transparent), transparent 70%),
-    radial-gradient(ellipse 30% 28% at 12% 18%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%),
+    radial-gradient(ellipse 55% 45% at 88% 100%, color-mix(in srgb, var(--accent2) 28%, transparent), transparent 70%),
+    radial-gradient(ellipse 30% 28% at 12% 18%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%),
     var(--bg);
   border-radius: 0;
   border: none;
@@ -2875,6 +2939,22 @@ tbody tr:hover td {
   color: #1E2820;
   border: 1px solid rgba(30, 40, 32, 0.14);
   border-radius: 0;
+}
+/* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
+.deck[data-surface="mat-woodglow"] .card p,
+.deck[data-surface="mat-woodglow"] .card .lead,
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: #454038;
+}
+.deck[data-surface="mat-woodglow"] .card h3,
+.deck[data-surface="mat-woodglow"] .card i {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .eyebrow {
+  color: #b8b4a4;
+}
+.deck[data-surface="mat-woodglow"] .card .eyebrow {
+  color: #454038;
 }
 
 /* ── stencil-tablet-earth (stencil-tablet) ── */
@@ -3114,6 +3194,10 @@ tbody tr:hover td {
   border-radius: 0;
   box-shadow: 8px 8px 0 var(--accent);
 }
+.deck[data-surface="retro-zine-riso"] .card p,
+.deck[data-surface="retro-zine-riso"] .card .lead {
+  color: #3a342c;
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Content-slide fidelity — layout chrome that survives beyond title slides
@@ -3181,6 +3265,23 @@ tbody tr:hover td {
   background: color-mix(in srgb, var(--accent) 6%, transparent);
   border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
 }
+.deck[data-surface="neon-rain"] .comparison-col:last-child {
+  /* Hot magenta fills fail white text — darken for AA winner copy */
+  background: color-mix(in srgb, var(--accent) 72%, #050508);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.deck[data-surface="neon-rain"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="neon-rain"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="neon-rain"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent) 72%, #050508);
+  color: #fff;
+  border-color: var(--accent2);
+}
+.deck[data-surface="neon-rain"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="neon-rain"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="neon-rain"] .grid.cols-bento .card:first-child i { color: #fff; }
 .deck[data-surface="crt-phosphor"] .quote,
 .deck[data-surface="neon-rain"] .quote,
 .deck[data-surface="dev-terminal"] .quote {
@@ -3229,6 +3330,22 @@ tbody tr:hover td {
   font-weight: 900;
   opacity: 1;
 }
+.deck[data-surface="block-frame-brutal"] .comparison-col:last-child {
+  /* Pastel pink accent fails white — keep ink */
+  background: var(--accent);
+  color: #000;
+  border-color: #000;
+}
+.deck[data-surface="block-frame-brutal"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="block-frame-brutal"] .comparison-col:last-child p { color: #000; }
+.deck[data-surface="block-frame-brutal"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #000;
+  border-color: #000;
+}
+.deck[data-surface="block-frame-brutal"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="block-frame-brutal"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="block-frame-brutal"] .grid.cols-bento .card:first-child i { color: #000; }
 
 /* Aurora / glass: frosted layout shells */
 .deck[data-surface="aurora-glass"] .comparison-col,
@@ -3289,8 +3406,18 @@ tbody tr:hover td {
 }
 .deck[data-surface="hard-bento"] .comparison-col:last-child {
   background: var(--accent2);
-  color: var(--text);
+  color: #0f0f1a;
 }
+.deck[data-surface="hard-bento"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="hard-bento"] .comparison-col:last-child p { color: #0f0f1a; }
+.deck[data-surface="hard-bento"] .grid.cols-bento .card:first-child {
+  background: var(--accent2);
+  color: #0f0f1a;
+  border-color: var(--text);
+}
+.deck[data-surface="hard-bento"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="hard-bento"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="hard-bento"] .grid.cols-bento .card:first-child i { color: #0f0f1a; }
 .deck[data-surface="hard-bento"] .quote {
   border-left: 6px solid var(--text);
   font-weight: 800;
@@ -3343,11 +3470,19 @@ tbody tr:hover td {
 }
 .deck[data-surface="bauhaus-blocks"] .comparison-col:last-child {
   background: var(--accent);
-  color: #fff;
+  color: #0d0d0d;
   border-color: var(--text);
 }
 .deck[data-surface="bauhaus-blocks"] .comparison-col:last-child .comparison-label,
-.deck[data-surface="bauhaus-blocks"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="bauhaus-blocks"] .comparison-col:last-child p { color: #0d0d0d; }
+.deck[data-surface="bauhaus-blocks"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #0d0d0d;
+  border-color: var(--text);
+}
+.deck[data-surface="bauhaus-blocks"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="bauhaus-blocks"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="bauhaus-blocks"] .grid.cols-bento .card:first-child i { color: #0d0d0d; }
 .deck[data-surface="bauhaus-blocks"] .timeline .dot {
   background: var(--accent);
   border-radius: 0;
@@ -3391,8 +3526,20 @@ tbody tr:hover td {
   border-radius: 22px;
 }
 .deck[data-surface="candy-blob"] .comparison-col:last-child {
-  background: var(--accent2);
+  /* Darken jellybean blue so white body copy clears WCAG AA */
+  background: color-mix(in srgb, var(--accent2) 78%, #0a1628);
+  color: #fff;
 }
+.deck[data-surface="candy-blob"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="candy-blob"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="candy-blob"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent2) 78%, #0a1628);
+  color: #fff;
+  border-color: var(--text);
+}
+.deck[data-surface="candy-blob"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="candy-blob"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="candy-blob"] .grid.cols-bento .card:first-child i { color: #fff; }
 .deck[data-surface="pastel-geometry-pills"] .stat {
   border-top: 3px solid var(--accent);
   background: #fff;
@@ -3416,7 +3563,10 @@ tbody tr:hover td {
 .deck[data-surface="aero-bubble"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent2) 35%, #fff);
   border-radius: 20px;
+  color: #0c4a6e;
 }
+.deck[data-surface="aero-bubble"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="aero-bubble"] .comparison-col:last-child p { color: #0c4a6e; }
 
 /* Data editorial / newsprint — ruled tables + stats */
 .deck[data-surface="data-rule"] .stat {
@@ -3516,6 +3666,14 @@ tbody tr:hover td {
 }
 .deck[data-surface="wrapped-block"] .comparison-col:last-child .comparison-label,
 .deck[data-surface="wrapped-block"] .comparison-col:last-child p { color: #0a0a0a; }
+.deck[data-surface="wrapped-block"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #0a0a0a;
+  border-color: var(--text);
+}
+.deck[data-surface="wrapped-block"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="wrapped-block"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="wrapped-block"] .grid.cols-bento .card:first-child i { color: #0a0a0a; }
 .deck[data-surface="wrapped-block"] .quote {
   border-left: 6px solid var(--accent);
   text-transform: uppercase;
@@ -3560,9 +3718,21 @@ tbody tr:hover td {
   background: color-mix(in srgb, var(--accent) 10%, transparent);
 }
 .deck[data-surface="vapor-horizon"] .comparison-col:last-child {
-  background: color-mix(in srgb, var(--accent2) 18%, transparent);
-  border-color: var(--accent);
+  /* Pink/teal neons fail white — ink on lightened accent clears AA */
+  background: color-mix(in srgb, var(--accent) 82%, #fff);
+  color: #1a0533;
+  border-color: var(--accent2);
 }
+.deck[data-surface="vapor-horizon"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="vapor-horizon"] .comparison-col:last-child p { color: #1a0533; }
+.deck[data-surface="vapor-horizon"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent) 82%, #fff);
+  color: #1a0533;
+  border-color: var(--accent2);
+}
+.deck[data-surface="vapor-horizon"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="vapor-horizon"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="vapor-horizon"] .grid.cols-bento .card:first-child i { color: #1a0533; }
 
 /* Vintage / bold poster / acid / neo-grid / riso / coral / botanical */
 .deck[data-surface="vintage-editorial-geo"] .stat {
@@ -3590,6 +3760,14 @@ tbody tr:hover td {
 }
 .deck[data-surface="bold-poster-ink"] .comparison-col:last-child .comparison-label,
 .deck[data-surface="bold-poster-ink"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="bold-poster-ink"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--text);
+}
+.deck[data-surface="bold-poster-ink"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="bold-poster-ink"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="bold-poster-ink"] .grid.cols-bento .card:first-child i { color: #fff; }
 .deck[data-surface="acid-block"] .stat {
   border-top: 4px solid var(--accent);
 }
@@ -3603,6 +3781,14 @@ tbody tr:hover td {
 }
 .deck[data-surface="acid-block"] .comparison-col:last-child .comparison-label,
 .deck[data-surface="acid-block"] .comparison-col:last-child p { color: #1c1c1c; }
+.deck[data-surface="acid-block"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #1c1c1c;
+  border-color: var(--text);
+}
+.deck[data-surface="acid-block"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="acid-block"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="acid-block"] .grid.cols-bento .card:first-child i { color: #1c1c1c; }
 .deck[data-surface="neo-grid-panels"] .stat {
   border-top: 4px solid var(--accent);
 }
@@ -3616,8 +3802,18 @@ tbody tr:hover td {
 }
 .deck[data-surface="neo-grid-panels"] .comparison-col:last-child {
   background: var(--accent);
-  color: var(--text);
+  color: #0a0a0a;
 }
+.deck[data-surface="neo-grid-panels"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="neo-grid-panels"] .comparison-col:last-child p { color: #0a0a0a; }
+.deck[data-surface="neo-grid-panels"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #0a0a0a;
+  border-color: var(--text);
+}
+.deck[data-surface="neo-grid-panels"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="neo-grid-panels"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="neo-grid-panels"] .grid.cols-bento .card:first-child i { color: #0a0a0a; }
 .deck[data-surface="riso-print"] .stat {
   border-top: 3px solid var(--accent);
 }
@@ -3645,11 +3841,20 @@ tbody tr:hover td {
   background: #fff;
 }
 .deck[data-surface="coral-hatch"] .comparison-col:last-child {
+  /* Coral fill reads muddy with white — keep ink for AA */
   background: color-mix(in srgb, var(--accent) 88%, #fff);
-  color: #fff;
+  color: #1a1a1a;
 }
 .deck[data-surface="coral-hatch"] .comparison-col:last-child .comparison-label,
-.deck[data-surface="coral-hatch"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="coral-hatch"] .comparison-col:last-child p { color: #1a1a1a; }
+.deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent) 88%, #fff);
+  color: #1a1a1a;
+  border-color: var(--text);
+}
+.deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -3709,7 +3914,14 @@ tbody tr:hover td {
 .deck[data-surface="stencil-tablet-earth"] .slide:not(.title-slide):not(.closing-slide)::after,
 .deck[data-surface="raw-grid-brutal"] .slide:not(.title-slide):not(.closing-slide)::after,
 .deck[data-surface="soft-bento"] .slide:not(.title-slide):not(.closing-slide)::after,
-.deck[data-surface="clean-light"] .slide:not(.title-slide):not(.closing-slide)::after {
+.deck[data-surface="clean-light"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="notebook-tabs-page"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="notebook-tabs-page"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="long-table-supper"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="long-table-supper"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="mat-woodglow"] .slide:not(.title-slide):not(.closing-slide)::before,
+.deck[data-surface="mat-woodglow"] .slide:not(.title-slide):not(.closing-slide)::after,
+.deck[data-surface="soft-editorial-paper"] .slide:not(.title-slide):not(.closing-slide)::after {
   display: none;
 }
 
@@ -3729,8 +3941,18 @@ tbody tr:hover td {
 }
 .deck[data-surface="biennale-yellow-sun"] .comparison-col:last-child {
   background: var(--accent);
-  color: var(--text);
+  color: #1b2566;
 }
+.deck[data-surface="biennale-yellow-sun"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="biennale-yellow-sun"] .comparison-col:last-child p { color: #1b2566; }
+.deck[data-surface="biennale-yellow-sun"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #1b2566;
+  border-color: var(--text);
+}
+.deck[data-surface="biennale-yellow-sun"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="biennale-yellow-sun"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="biennale-yellow-sun"] .grid.cols-bento .card:first-child i { color: #1b2566; }
 .deck[data-surface="biennale-yellow-sun"] .quote {
   border-left: none;
   font-family: var(--heading-font);
@@ -3767,6 +3989,14 @@ tbody tr:hover td {
 }
 .deck[data-surface="broadside-fire"] .comparison-col:last-child .comparison-label,
 .deck[data-surface="broadside-fire"] .comparison-col:last-child p { color: #111; }
+.deck[data-surface="broadside-fire"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #111;
+  border-color: var(--accent);
+}
+.deck[data-surface="broadside-fire"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="broadside-fire"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="broadside-fire"] .grid.cols-bento .card:first-child i { color: #111; }
 .deck[data-surface="broadside-fire"] .quote {
   border-left: 6px solid var(--accent);
   font-weight: 700;
@@ -3800,6 +4030,14 @@ tbody tr:hover td {
 }
 .deck[data-surface="studio-acid"] .comparison-col:last-child .comparison-label,
 .deck[data-surface="studio-acid"] .comparison-col:last-child p { color: #1c1c1c; }
+.deck[data-surface="studio-acid"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #1c1c1c;
+  border-color: var(--accent);
+}
+.deck[data-surface="studio-acid"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="studio-acid"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="studio-acid"] .grid.cols-bento .card:first-child i { color: #1c1c1c; }
 .deck[data-surface="studio-acid"] .quote {
   border-left: 4px solid var(--accent);
   text-transform: uppercase;
@@ -3860,10 +4098,18 @@ tbody tr:hover td {
 }
 .deck[data-surface="creative-mode-blocks"] .comparison-col:last-child {
   background: var(--accent);
-  color: #fff;
+  color: #111;
 }
 .deck[data-surface="creative-mode-blocks"] .comparison-col:last-child .comparison-label,
-.deck[data-surface="creative-mode-blocks"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="creative-mode-blocks"] .comparison-col:last-child p { color: #111; }
+.deck[data-surface="creative-mode-blocks"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #111;
+  border-color: var(--text);
+}
+.deck[data-surface="creative-mode-blocks"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="creative-mode-blocks"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="creative-mode-blocks"] .grid.cols-bento .card:first-child i { color: #111; }
 .deck[data-surface="creative-mode-blocks"] .quote {
   border-left: 8px solid var(--text);
   font-weight: 800;
@@ -3899,8 +4145,19 @@ tbody tr:hover td {
 }
 .deck[data-surface="scatterbrain-cork"] .comparison-col:last-child {
   background: #ffc9c9;
+  color: #2d2a26;
   transform: rotate(1deg);
 }
+.deck[data-surface="scatterbrain-cork"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="scatterbrain-cork"] .comparison-col:last-child p { color: #2d2a26; }
+.deck[data-surface="scatterbrain-cork"] .grid.cols-bento .card:first-child {
+  background: #ffc9c9;
+  color: #2d2a26;
+  border: none;
+}
+.deck[data-surface="scatterbrain-cork"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="scatterbrain-cork"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="scatterbrain-cork"] .grid.cols-bento .card:first-child i { color: #2d2a26; }
 .deck[data-surface="scatterbrain-cork"] .quote {
   border-left: none;
   font-family: "Caveat", cursive;
@@ -3931,7 +4188,18 @@ tbody tr:hover td {
 }
 .deck[data-surface="capsule-pills"] .comparison-col:last-child {
   background: var(--accent2);
+  color: #1a1a1a;
 }
+.deck[data-surface="capsule-pills"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="capsule-pills"] .comparison-col:last-child p { color: #1a1a1a; }
+.deck[data-surface="capsule-pills"] .grid.cols-bento .card:first-child {
+  background: var(--accent2);
+  color: #1a1a1a;
+  border-color: var(--text);
+}
+.deck[data-surface="capsule-pills"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="capsule-pills"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="capsule-pills"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
 .deck[data-surface="daisy-days-pastel"] .stat {
   border-top: 4px solid var(--text);
   background: #fff;
@@ -3945,8 +4213,20 @@ tbody tr:hover td {
   background: #fff;
 }
 .deck[data-surface="daisy-days-pastel"] .comparison-col:last-child {
+  /* Soft mint — muted/accent labels wash out; use ink */
   background: #b8f0e8;
+  color: #2d2d2d;
 }
+.deck[data-surface="daisy-days-pastel"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="daisy-days-pastel"] .comparison-col:last-child p { color: #2d2d2d; }
+.deck[data-surface="daisy-days-pastel"] .grid.cols-bento .card:first-child {
+  background: #b8f0e8;
+  color: #2d2d2d;
+  border-color: var(--text);
+}
+.deck[data-surface="daisy-days-pastel"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="daisy-days-pastel"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="daisy-days-pastel"] .grid.cols-bento .card:first-child i { color: #2d2d2d; }
 .deck[data-surface="daisy-days-pastel"] .quote {
   border-left: 4px solid var(--text);
   font-weight: 700;
@@ -3990,7 +4270,18 @@ tbody tr:hover td {
 }
 .deck[data-surface="raw-grid-brutal"] .comparison-col:last-child {
   background: var(--accent);
+  color: #0a0a0a;
 }
+.deck[data-surface="raw-grid-brutal"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="raw-grid-brutal"] .comparison-col:last-child p { color: #0a0a0a; }
+.deck[data-surface="raw-grid-brutal"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #0a0a0a;
+  border-color: var(--text);
+}
+.deck[data-surface="raw-grid-brutal"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="raw-grid-brutal"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="raw-grid-brutal"] .grid.cols-bento .card:first-child i { color: #0a0a0a; }
 .deck[data-surface="raw-grid-brutal"] .card {
   border: 3px solid var(--text);
   border-radius: 0;
@@ -4013,9 +4304,20 @@ tbody tr:hover td {
   background: #fff;
 }
 .deck[data-surface="peoples-platform-poster"] .comparison-col:last-child {
+  /* Orange accent2 — blue accent labels fail AA; keep ink */
   background: var(--accent2);
-  color: var(--text);
+  color: #1a1a1a;
 }
+.deck[data-surface="peoples-platform-poster"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="peoples-platform-poster"] .comparison-col:last-child p { color: #1a1a1a; }
+.deck[data-surface="peoples-platform-poster"] .grid.cols-bento .card:first-child {
+  background: var(--accent2);
+  color: #1a1a1a;
+  border-color: var(--text);
+}
+.deck[data-surface="peoples-platform-poster"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="peoples-platform-poster"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="peoples-platform-poster"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
 .deck[data-surface="peoples-platform-poster"] .quote {
   border-left: 6px solid var(--accent);
   font-weight: 800;
@@ -4136,6 +4438,14 @@ tbody tr:hover td {
 }
 .deck[data-surface="pink-script-afterhours"] .comparison-col:last-child .comparison-label,
 .deck[data-surface="pink-script-afterhours"] .comparison-col:last-child p { color: #060507; }
+.deck[data-surface="pink-script-afterhours"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #060507;
+  border-color: var(--accent);
+}
+.deck[data-surface="pink-script-afterhours"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="pink-script-afterhours"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="pink-script-afterhours"] .grid.cols-bento .card:first-child i { color: #060507; }
 .deck[data-surface="pink-script-afterhours"] .quote {
   border-left: none;
   font-family: var(--heading-font);
@@ -4155,8 +4465,20 @@ tbody tr:hover td {
   border: none;
 }
 .deck[data-surface="split-pastel-panels"] .comparison-col:last-child {
+  /* Mint accent fails accent-colored labels — force ink */
   background: var(--accent);
+  color: #1a1a1a;
 }
+.deck[data-surface="split-pastel-panels"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="split-pastel-panels"] .comparison-col:last-child p { color: #1a1a1a; }
+.deck[data-surface="split-pastel-panels"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #1a1a1a;
+  border-color: var(--text);
+}
+.deck[data-surface="split-pastel-panels"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="split-pastel-panels"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="split-pastel-panels"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
 .deck[data-surface="split-pastel-panels"] .quote {
   border-left: 5px solid var(--text);
   font-weight: 800;
@@ -4312,11 +4634,20 @@ tbody tr:hover td {
   border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
 }
 .deck[data-surface="mat-woodglow"] .comparison-col:last-child {
+  /* Amber fill fails cream copy — ink clears WCAG AA */
   background: var(--accent);
-  color: #f0e8d2;
+  color: #1a1208;
 }
 .deck[data-surface="mat-woodglow"] .comparison-col:last-child .comparison-label,
-.deck[data-surface="mat-woodglow"] .comparison-col:last-child p { color: #f0e8d2; }
+.deck[data-surface="mat-woodglow"] .comparison-col:last-child p { color: #1a1208; }
+.deck[data-surface="mat-woodglow"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #1a1208;
+  border-color: var(--text);
+}
+.deck[data-surface="mat-woodglow"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="mat-woodglow"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="mat-woodglow"] .grid.cols-bento .card:first-child i { color: #1a1208; }
 .deck[data-surface="mat-woodglow"] .quote {
   border-left: 4px solid var(--accent);
 }
@@ -4373,6 +4704,14 @@ tbody tr:hover td {
 }
 .deck[data-surface="blue-professional-clean"] .comparison-col:last-child .comparison-label,
 .deck[data-surface="blue-professional-clean"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="blue-professional-clean"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #fff;
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.deck[data-surface="blue-professional-clean"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="blue-professional-clean"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="blue-professional-clean"] .grid.cols-bento .card:first-child i { color: #fff; }
 .deck[data-surface="blue-professional-clean"] .card {
   border-radius: 12px;
   border: 1px solid color-mix(in srgb, var(--accent) 16%, transparent);
@@ -4409,6 +4748,16 @@ tbody tr:hover td {
   border-color: var(--accent2);
   color: #1a1a2e;
 }
+.deck[data-surface="soft-bento"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="soft-bento"] .comparison-col:last-child p { color: #1a1a2e; }
+.deck[data-surface="soft-bento"] .grid.cols-bento .card:first-child {
+  background: var(--accent2);
+  color: #1a1a2e;
+  border-color: var(--accent2);
+}
+.deck[data-surface="soft-bento"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="soft-bento"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="soft-bento"] .grid.cols-bento .card:first-child i { color: #1a1a2e; }
 .deck[data-surface="soft-bento"] .quote {
   border-left: 5px solid var(--accent);
   font-weight: 800;
@@ -4451,9 +4800,22 @@ tbody tr:hover td {
   border: 1px solid color-mix(in srgb, var(--accent2) 45%, transparent);
 }
 .deck[data-surface="scanline-neon"] .comparison-col:last-child {
+  /* Arcade magenta fails pure white — darken fill for AA */
+  background: color-mix(in srgb, var(--accent) 72%, #050008);
+  color: #fff;
   border-color: var(--accent);
   box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 35%, transparent);
 }
+.deck[data-surface="scanline-neon"] .comparison-col:last-child .comparison-label,
+.deck[data-surface="scanline-neon"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="scanline-neon"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent) 72%, #050008);
+  color: #fff;
+  border-color: var(--accent2);
+}
+.deck[data-surface="scanline-neon"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="scanline-neon"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="scanline-neon"] .grid.cols-bento .card:first-child i { color: #fff; }
 .deck[data-surface="scanline-neon"] .card {
   border-radius: 0;
   border: 1px solid color-mix(in srgb, var(--accent2) 35%, transparent);
@@ -4472,11 +4834,19 @@ tbody tr:hover td {
 }
 .deck[data-surface="brutalist-grid"] .comparison-col:last-child {
   background: var(--accent);
-  color: #fff;
+  color: #111;
   border-color: var(--text);
 }
 .deck[data-surface="brutalist-grid"] .comparison-col:last-child .comparison-label,
-.deck[data-surface="brutalist-grid"] .comparison-col:last-child p { color: #fff; }
+.deck[data-surface="brutalist-grid"] .comparison-col:last-child p { color: #111; }
+.deck[data-surface="brutalist-grid"] .grid.cols-bento .card:first-child {
+  background: var(--accent);
+  color: #111;
+  border-color: var(--text);
+}
+.deck[data-surface="brutalist-grid"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="brutalist-grid"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="brutalist-grid"] .grid.cols-bento .card:first-child i { color: #111; }
 .deck[data-surface="brutalist-grid"] .quote {
   border-left: 4px solid var(--accent);
   font-family: var(--heading-font);

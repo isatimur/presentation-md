@@ -124,29 +124,32 @@
     },
     {
       "name": "luxury-minimalist",
-      "scheme": "light",
+      "scheme": "dark",
       "formality": "high",
       "mood": [
         "quiet",
         "premium",
-        "whitespace",
+        "nocturnal",
+        "gold",
         "serif"
       ],
       "best_for": [
         "private equity",
+        "LP updates",
         "luxury goods",
         "architecture",
         "premium fashion"
       ],
       "avoid_for": [
         "hackathon demos",
-        "kids products"
+        "kids products",
+        "bright consumer launch"
       ],
       "swatches": [
-        "#faf8f5",
-        "#1c1917",
-        "#92400e",
-        "#78716c"
+        "#0f0d0c",
+        "#f9f6ef",
+        "#c9a84c",
+        "#a8a29e"
       ],
       "gallery": "examples/solstice-update.html"
     },

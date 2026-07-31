@@ -15,7 +15,7 @@ Full synonym lists live in `theme-selection-index.json` (`aliases` field). Use-c
 | `default-tech` | Edgy tech startup — dark, violet + cyan, bold geometric sans (bundled). |
 | `corporate` | Formal corporate — light, navy, restrained single accent, clean. |
 | `playful` | Playful/creative — bright multi-color, rounded, big type. |
-| `luxury-minimalist` | Luxury minimalist — off-white/charcoal, whitespace, thin serif. |
+| `luxury-minimalist` | Ultra-luxury — near-black stage, cream serif, gold hairlines (Solstice). |
 | `retro-arcade` | Retro 80s arcade — deep purple/black, magenta+cyan neon glow. |
 | `editorial-serif` | Magazine editorial — warm cream paper, ink-black serif, crimson masthead. |
 | `brutalist-mono` | Raw brutalist — concrete off-white, monospace, hazard-orange, zero radius. |

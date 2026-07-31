@@ -176,7 +176,7 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
-/* ── quiet-luxe (luxury-minimalist) ── */
+/* ── quiet-luxe (luxury-minimalist) — nocturnal ultra-luxury ── */
 .deck[data-surface="quiet-luxe"] .slide {
   --slide-bg: var(--bg);
   box-shadow: none;
@@ -186,8 +186,23 @@
   display: none;
 }
 .deck[data-surface="quiet-luxe"] .slide h1 {
-  letter-spacing: -0.03em;
-  font-weight: 400;
+  letter-spacing: -0.02em;
+  font-weight: 300;
+}
+.deck[data-surface="quiet-luxe"] .slide.title-slide,
+.deck[data-surface="quiet-luxe"] .slide.closing-slide {
+  border-color: transparent;
+}
+.deck[data-surface="quiet-luxe"] .slide.title-slide::before,
+.deck[data-surface="quiet-luxe"] .slide.closing-slide::before {
+  content: "";
+  position: absolute;
+  left: 64px;
+  top: 48%;
+  width: 48px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.75;
 }
 
 /* ── editorial-rule (editorial-serif) ── */
