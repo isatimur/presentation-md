@@ -1,9 +1,9 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Pulse — Year Wrapped",
+    "title": "Pulse \u2014 Year Wrapped",
     "company": "Pulse",
-    "description": "Spotify-Wrapped style recap — kinetic-wrapped multi-slide proof.",
+    "description": "Spotify-Wrapped style recap \u2014 kinetic-wrapped multi-slide proof.",
     "theme": "kinetic-wrapped"
   },
   "slides": [
@@ -11,15 +11,17 @@
       "layout": "title",
       "eyebrow": "Your 2026",
       "heading": "YOU LISTENED HARD.",
-      "lead": "Black field. Acid lime. Archivo Black yelling the truth."
+      "lead": "Black field. Acid lime. Archivo Black yelling the truth.",
+      "notes": "Cold open \u2014 yell the year before the logo."
     },
     {
       "layout": "image-hero",
       "eyebrow": "Your 2026",
       "heading": "YOU LISTENED HARD.",
-      "lead": "Black field. Acid lime. Archivo Black yelling the truth.",
+      "lead": "Magenta blobs. Lime floor. Built to screenshot.",
       "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230d0d0d%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%230a0a0a%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2813%2C13%2C13%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230a0a0a%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.9%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22880%22%20cy%3D%22220%22%20rx%3D%22220%22%20ry%3D%22140%22%20fill%3D%22rgba%28255%2C0%2C204%2C0.220%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M0%20640%20C320%20520%20640%20780%20960%20600%20S1400%20480%201600%20560%20L1600%20900%20L0%20900%20Z%22%20fill%3D%22rgba%28200%2C255%2C0%2C0.120%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.55%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22260%22%20cy%3D%22180%22%20r%3D%2218%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22520%22%20cy%3D%22140%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22980%22%20cy%3D%22210%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22320%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221100%22%20cy%3D%22120%22%20r%3D%228%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Pulse craft visual"
+      "imageAlt": "Pulse craft visual",
+      "notes": "Hold on the visual beat \u2014 let the field do the talking."
     },
     {
       "layout": "stat-row",
@@ -38,20 +40,25 @@
           "value": "3AM",
           "label": "Peak hour"
         }
-      ]
+      ],
+      "tone": "magenta",
+      "notes": "Minutes first \u2014 the unignorable total."
     },
     {
       "layout": "two-column",
       "eyebrow": "Top genres",
       "heading": "Your three obsessions",
-      "body": "Hyperpop: 34% of your year — no notes. Afrobeats — The commute soundtrack that stuck.",
+      "body": "Hyperpop: 34% of your year \u2014 no notes. Afrobeats \u2014 The commute soundtrack that stuck.",
       "aside": "Every Sunday after midnight.",
-      "ratio": "2-1"
+      "ratio": "2-1",
+      "tone": "cyan",
+      "notes": "Genre obsessions \u2014 three only."
     },
     {
       "layout": "quote",
       "quote": "Your top track was on repeat so hard it became a personality trait.",
-      "by": "Pulse Wrapped · 2026"
+      "by": "Pulse Wrapped \u00b7 2026",
+      "notes": "Personality-trait beat \u2014 pause for laughter."
     },
     {
       "layout": "comparison",
@@ -61,7 +68,9 @@
       "left": "Forty pages.\nEqual-weight charts.\nNobody finishes.\nNo share moment.",
       "rightLabel": "Pulse Wrapped",
       "right": "Full-bleed beats.\nOne claim per frame.\nBuilt to screenshot.\nMotion as hierarchy.",
-      "emphasis": "right"
+      "emphasis": "right",
+      "tone": "orange",
+      "notes": "Kill the annual PDF. Sell the wrap."
     },
     {
       "layout": "feature-grid",
@@ -94,7 +103,40 @@
           "title": "Next season",
           "body": "Close with a dare, not a thank-you."
         }
-      ]
+      ],
+      "notes": "Five wrap beats \u2014 bento hero is the cold open."
+    },
+    {
+      "layout": "chart",
+      "tone": "violet",
+      "eyebrow": "Minutes by month",
+      "heading": "THE SPIKE WAS REAL.",
+      "lead": "March broke the curve. Everything else was warmup.",
+      "chartType": "bar",
+      "categories": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun"
+      ],
+      "series": [
+        {
+          "name": "Minutes",
+          "values": [
+            3200,
+            4100,
+            9200,
+            6100,
+            5800,
+            7200
+          ]
+        }
+      ],
+      "showLegend": false,
+      "showValues": true,
+      "notes": "Point at March \u2014 the shareable spike."
     },
     {
       "layout": "closing",
@@ -104,7 +146,8 @@
       "cta": {
         "label": "Share your Wrapped",
         "href": "#"
-      }
+      },
+      "notes": "CTA is share, not thank-you."
     }
   ]
 }

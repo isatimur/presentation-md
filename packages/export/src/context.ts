@@ -103,6 +103,12 @@ const DUAL_SURFACE: Record<
     emphasisFill: "accent",
     emphasisText: "#0f0d0c",
   },
+  "kinetic-wrapped": {
+    cardMuted: "#c8c8c8",
+    cardText: "#ffffff",
+    emphasisFill: "accent",
+    emphasisText: "#0a0a0a",
+  },
 };
 
 export interface ContextShapes {

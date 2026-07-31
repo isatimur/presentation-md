@@ -3114,6 +3114,102 @@
   letter-spacing: -0.02em;
 }
 
+/* Pulse multi-hue — accent2 magenta chrome + per-slide tone beats */
+.deck[data-surface="wrapped-block"] .stat:nth-child(even) {
+  border-top-color: var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .stat:nth-child(even) .value {
+  color: var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .comparison-col:first-child {
+  border-color: var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .card:nth-child(3n) {
+  border-color: var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .chart-frame {
+  border-color: var(--accent);
+  box-shadow: 8px 8px 0 var(--accent2);
+}
+
+/* Explicit tone overrides (set slide.tone in Deck JSON) */
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] {
+  --slide-bg: #cc00ff;
+  color: #0a0a0a;
+  border-color: #0a0a0a;
+  box-shadow: 12px 12px 0 #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] h1,
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] h2,
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .lead,
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .eyebrow,
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .stat .value,
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .stat .label {
+  color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] {
+  --slide-bg: #00e5ff;
+  color: #0a0a0a;
+  border-color: #0a0a0a;
+  box-shadow: 12px 12px 0 #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] h1,
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] h2,
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] .lead,
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] .eyebrow,
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] .stat .value,
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] .stat .label {
+  color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] {
+  --slide-bg: #ff4d00;
+  color: #0a0a0a;
+  border-color: #0a0a0a;
+  box-shadow: 12px 12px 0 #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] h1,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] h2,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .lead,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .eyebrow,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .stat .value,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .stat .label {
+  color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="violet"] {
+  --slide-bg: #7a00ff;
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 12px 12px 0 var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="lime"] {
+  --slide-bg: var(--accent);
+  color: #0a0a0a;
+  border-color: #0a0a0a;
+  box-shadow: 12px 12px 0 #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="lime"] h1,
+.deck[data-surface="wrapped-block"] .slide[data-tone="lime"] h2,
+.deck[data-surface="wrapped-block"] .slide[data-tone="lime"] .lead,
+.deck[data-surface="wrapped-block"] .slide[data-tone="lime"] .eyebrow {
+  color: #0a0a0a;
+}
+
+/* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
+.deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
+  border-color: var(--accent2);
+  box-shadow: 12px 12px 0 var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone])::after {
+  background: var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .slide:nth-child(5n+4):not(.title-slide):not(.closing-slide):not([data-tone]) {
+  border-color: #00e5ff;
+  box-shadow: 12px 12px 0 #00e5ff;
+}
+.deck[data-surface="wrapped-block"] .slide:nth-child(5n+4):not(.title-slide):not(.closing-slide):not([data-tone])::after {
+  background: #00e5ff;
+}
+
 /* Notebook tabs — keep side tabs; enrich cards/stats */
 .deck[data-surface="notebook-tabs-page"] .stat {
   border-top: 2px solid var(--accent);
