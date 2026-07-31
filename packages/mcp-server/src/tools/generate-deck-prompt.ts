@@ -60,6 +60,7 @@ export const generateDeckPromptTool: ToolDefinition = {
       "- Poster honesty: coral / peoples-platform / bold-signal / broadside expect hard poster frames + hard-border cards (bold-signal accent rims) and a bold beat (image-hero, comparison, quote, or punchy stats). mat wants a mid-century beat (quote / image-hero / comparison / punchy stats) with woodglow + cream rim chrome.",
       "- HUD honesty: aerospace-hud / crt-terminal / blueprint expect instrument chrome plus a data beat (chart / data-table / stat-row / ranked-list / timeline / metric-ring) — don't flatten into soft marketing grids.",
       "- Glass honesty: aurora-glass / glassmorphism expect a frosted product beat (image-hero / quote / stats) — PPTX keeps glass rims (not true blur).",
+      "- Modernist honesty: bauhaus / swiss-typographic / art-deco expect geometry + hard type plus a modernist beat (quote / image-hero / comparison / icon feature-grid).",
       "- Pulse (kinetic-wrapped): set tone on ≥3 slides + a ranked/streak/metric/hero-stat beat — PPTX carries hard frames, soft blobs, eyebrow chips, and 3pt accent card borders (not mix-blend).",
       "- risograph-zine: prefer comparison+emphasis and a punchy quote — PPTX overprint is layered ovals, not true multiply.",
       "- candy-pop: set meta.company (or meta.marquee) so the yellow ticker brands the deck — never hardcode Jellybean; cards get hard ink borders in PPTX.",

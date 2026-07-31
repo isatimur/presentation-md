@@ -444,6 +444,7 @@ Then walk every slide against this checklist and fix before delivering:
 - **Poster honesty** — `coral` / `peoples-platform` / `bold-signal` / `broadside`: expect hard poster frames + square (or plump bold-signal accent-rim) hard-border cards and a bold beat (`image-hero`, comparison, quote, or punchy stats) — not soft corporate card stacks. `mat` wants a mid-century beat (`quote` / `image-hero` / comparison / punchy stats) with woodglow + cream rim chrome.
 - **HUD honesty** — `aerospace-hud` / `crt-terminal` / `blueprint`: expect instrument chrome (grid/scanlines/reticles) plus a data beat (`chart`, `data-table`, `stat-row`, `ranked-list`, `timeline`, or `metric-ring`) — not soft marketing grids.
 - **Glass honesty** — `aurora-glass` / `glassmorphism`: expect a frosted product beat (`image-hero`, punchy `quote`, or stats) — PPTX keeps glass rims (not true blur).
+- **Modernist honesty** — `bauhaus` / `swiss-typographic` / `art-deco`: geometry + hard type with a modernist beat (quote / image-hero / comparison / icon feature-grid).
 - **Recipe honesty** — match a `references/layout-recipes.md` slide map for the brief before inventing a 14-slide feature-grid funeral.
 
 For a rigorous, scored pass, run the **`deck-design-judge`** skill: it grades the deck against the design rubric, tells you exactly what to fix, and lets you re-score after the fix.

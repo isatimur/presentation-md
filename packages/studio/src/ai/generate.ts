@@ -73,6 +73,7 @@ Authoring rules:
   - Poster honesty: coral / peoples-platform / bold-signal / broadside need hard poster frames + hard-border cards + a bold beat; bold-signal cards get accent rims in PPTX.
   - HUD honesty: aerospace-hud / crt-terminal / blueprint need instrument chrome + a data beat (chart / data-table / stat-row / ranked-list / timeline / metric-ring).
   - Glass honesty: aurora-glass / glassmorphism need a frosted product beat (image-hero / quote / stats) — PPTX keeps glass rims (not true blur).
+  - Modernist honesty: bauhaus / swiss-typographic / art-deco need geometry + hard type with a modernist beat (quote / image-hero / comparison / icon feature-grid).
   - Paper honesty: paper/editorial themes prefer quote + comparison+emphasis; fiber grain is HTML-only.
   - Match atmosphere to the brief: loud/thin surfaces for punchy brand energy; neon/vapor/arcade for night; HUD/tech for instruments; glass for frosted product; paper/editorial for magazine quiet.
   - PPTX approximates theme chrome as native shapes (electric-studio split/rail, studio acid frame, grove monograph rules, hard-card strokes, HUD reticles, …); reserve custom-html for art PPTX cannot keep.

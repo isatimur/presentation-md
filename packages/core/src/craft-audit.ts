@@ -610,5 +610,21 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     }
   }
 
+  const modernistThemes = new Set(["swiss-typographic", "art-deco"]);
+  if (modernistThemes.has(theme) && slides.length >= 5) {
+    const hasModernistBeat =
+      layouts.includes("quote") ||
+      layouts.includes("image-hero") ||
+      layouts.includes("comparison") ||
+      layouts.includes("feature-grid");
+    if (!hasModernistBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "swiss-typographic / art-deco needs a modernist beat — add quote, image-hero, comparison+emphasis, or icon feature-grid.",
+      });
+    }
+  }
+
   return issues;
 }

@@ -640,4 +640,28 @@ describe("auditCraft", () => {
     const issues = auditCraft(deck);
     expect(issues.some((i) => /cartesian|plotted data beat/i.test(i.message))).toBe(true);
   });
+
+  it("warns when swiss-typographic lacks a modernist beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "swiss-typographic", title: "Flat swiss" },
+      slides: [
+        { layout: "title", heading: "Swiss" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        { layout: "timeline", heading: "Steps", items: [{ label: "One", detail: "A" }] },
+        { layout: "stat-row", heading: "Nums", stats: [{ value: "1", label: "A" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /swiss-typographic|modernist beat/i.test(i.message))).toBe(true);
+  });
 });
