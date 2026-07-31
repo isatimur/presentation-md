@@ -27,4 +27,5 @@ Proofs: `examples/decks/pulse-wrapped.json` Â· Studio `?example=pulse-wrapped` Â
 - True CSS `mix-blend-mode` / blur soft blobs stay HTML-only.
 - PPTX approximates Pulse with hard frames + offset shadows, multi-oval soft blobs,
   tone-matched secondary/tertiary washes, a hard corner square on body slides,
-  ranked bars, streak cells, dual pills, and metric-ring via oval / native `blockArc`.
+  **eyebrow chips** (filled accent/tone pills), ranked bars, streak cells, dual
+  pills, and metric-ring via oval / native `blockArc`.

@@ -11,8 +11,86 @@ import type { PptxSlide, PptxTextOpts, PptxTableRow } from "./pptx.js";
 type PSlide = PptxSlide;
 type TextOpts = PptxTextOpts;
 
-function eyebrow(slide: PSlide, ctx: ExportContext, text: string, x: number, y: number, w: number): void {
-  slide.addText(text.toUpperCase(), {
+/** Candy-pop cards use hard ink strokes + plump radius (candy-blob `.card`). */
+function cardStroke(
+  ctx: ExportContext,
+  opts: { hero?: boolean; highlighted?: boolean } = {}
+): { color: string; width: number } {
+  if (ctx.themeName === "candy-pop") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.75 : 2.5 };
+  }
+  if (opts.hero || opts.highlighted) {
+    return { color: ctx.colors.accent, width: opts.highlighted ? 1.75 : 1.5 };
+  }
+  return { color: ctx.colors.border, width: 1 };
+}
+
+function cardRadius(ctx: ExportContext): number {
+  // candy-blob cards: border-radius 22px ≈ 0.23"
+  return ctx.themeName === "candy-pop" ? 0.23 : 0.06;
+}
+
+/**
+ * Pulse (kinetic-wrapped) eyebrows render as hard chips in HTML —
+ * filled accent pill with tight tracking (wrapped-block `.eyebrow`).
+ */
+function eyebrow(
+  slide: PSlide,
+  ctx: ExportContext,
+  text: string,
+  x: number,
+  y: number,
+  w: number,
+  opts: { hero?: boolean; tone?: string } = {}
+): void {
+  const label = text.toUpperCase();
+  if (ctx.themeName === "kinetic-wrapped") {
+    const tone = opts.tone ?? "";
+    const hueMap: Record<string, string> = {
+      lime: "C8FF00",
+      magenta: "CC00FF",
+      cyan: "00E5FF",
+      orange: "FF4D00",
+      violet: "7A00FF",
+    };
+    const chipH = 0.32;
+    const chipW = Math.min(w, Math.max(1.15, label.length * 0.105 + 0.4));
+    // Title/closing: black chip + lime ink. Tone slides: tone fill + contrasting ink.
+    // Body default: accent lime chip + black ink.
+    let fill = ctx.colors.accent;
+    let ink = "0A0A0A";
+    if (opts.hero) {
+      fill = "0A0A0A";
+      ink = "C8FF00";
+    } else if (tone && hueMap[tone]) {
+      fill = hueMap[tone];
+      ink = ["magenta", "violet"].includes(tone) ? "FFFFFF" : "0A0A0A";
+    }
+    slide.addShape(ctx.shapeRoundRect, {
+      x,
+      y: y + 0.02,
+      w: chipW,
+      h: chipH,
+      fill: { color: fill },
+      line: { color: fill, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addText(label, {
+      x,
+      y: y + 0.02,
+      w: chipW,
+      h: chipH,
+      fontFace: ctx.fonts.body,
+      fontSize: 11,
+      bold: true,
+      color: ink,
+      charSpacing: 3,
+      align: "center",
+      valign: "middle",
+    });
+    return;
+  }
+  slide.addText(label, {
     x,
     y,
     w,
@@ -70,19 +148,26 @@ function renderHero(slide: PSlide, ctx: ExportContext, data: Slide): void {
   const accent = inverted ? "0A0A0A" : onHueLight ? "FFFFFF" : ctx.colors.accent2;
 
   if (data.eyebrow) {
-    slide.addText(data.eyebrow.toUpperCase(), {
-      x,
-      y,
-      w,
-      h: 0.35,
-      fontFace: ctx.fonts.body,
-      fontSize: 13,
-      bold: true,
-      color: accent,
-      charSpacing: 2,
-      align: "left",
-      valign: "middle",
-    });
+    if (ctx.themeName === "kinetic-wrapped") {
+      eyebrow(slide, ctx, data.eyebrow, x, y, w, {
+        hero: true,
+        tone: typeof data.tone === "string" ? data.tone : undefined,
+      });
+    } else {
+      slide.addText(data.eyebrow.toUpperCase(), {
+        x,
+        y,
+        w,
+        h: 0.35,
+        fontFace: ctx.fonts.body,
+        fontSize: 13,
+        bold: true,
+        color: accent,
+        charSpacing: 2,
+        align: "left",
+        valign: "middle",
+      });
+    }
     y += 0.5;
   }
   if (data.heading) {
@@ -200,7 +285,9 @@ function renderSection(slide: PSlide, ctx: ExportContext, data: Slide): void {
   }
   let y = ctx.height * 0.42;
   if (data.eyebrow) {
-    eyebrow(slide, ctx, data.eyebrow, x, y, w);
+    eyebrow(slide, ctx, data.eyebrow, x, y, w, {
+      tone: typeof data.tone === "string" ? data.tone : undefined,
+    });
     y += 0.5;
   }
   if (data.heading) {
@@ -217,7 +304,9 @@ function renderHeaderBlock(slide: PSlide, ctx: ExportContext, data: Slide): numb
   const w = ctx.width - ctx.margin * 2;
   let y = ctx.margin;
   if (data.eyebrow) {
-    eyebrow(slide, ctx, data.eyebrow, x, y, w);
+    eyebrow(slide, ctx, data.eyebrow, x, y, w, {
+      tone: typeof data.tone === "string" ? data.tone : undefined,
+    });
     y += 0.45;
   }
   if (data.heading) {
@@ -246,7 +335,9 @@ function renderTwoColumn(slide: PSlide, ctx: ExportContext, data: Slide): void {
 
   let y = ctx.margin;
   if (data.eyebrow) {
-    eyebrow(slide, ctx, data.eyebrow, textX, y, textW);
+    eyebrow(slide, ctx, data.eyebrow, textX, y, textW, {
+      tone: typeof data.tone === "string" ? data.tone : undefined,
+    });
     y += 0.45;
   }
   if (data.heading) {
@@ -268,8 +359,8 @@ function renderTwoColumn(slide: PSlide, ctx: ExportContext, data: Slide): void {
       w: mediaW,
       h: imgH,
       fill: { color: ctx.colors.cardBg },
-      line: { color: ctx.colors.accent, width: 1.5 },
-      rectRadius: 0.08,
+      line: cardStroke(ctx, { hero: true }),
+      rectRadius: cardRadius(ctx),
     });
     slide.addText(data.aside, {
       x: mediaX + 0.3,
@@ -451,14 +542,15 @@ function drawFeatureCard(
   const fill = hero ? ctx.colors.emphasisFill : ctx.colors.cardBg;
   const ink = hero ? ctx.colors.emphasisText : ctx.colors.cardText;
   const bodyInk = hero ? ctx.colors.emphasisText : ctx.colors.cardMuted;
+  const stroke = cardStroke(ctx, { hero });
   slide.addShape(ctx.shapeRoundRect, {
     x,
     y,
     w,
     h,
     fill: { color: fill },
-    line: { color: hero ? ctx.colors.accent : ctx.colors.border, width: hero ? 1.5 : 1 },
-    rectRadius: 0.06,
+    line: stroke,
+    rectRadius: cardRadius(ctx),
   });
   drawIconMarker(slide, ctx, card.icon, x + 0.2, y + 0.2, hero ? 0.42 : 0.34);
   const pad = 0.2;
@@ -985,7 +1077,9 @@ function renderImageHero(slide: PSlide, ctx: ExportContext, data: Slide): void {
   let y = ctx.height * 0.58;
 
   if (data.eyebrow) {
-    eyebrow(slide, ctx, data.eyebrow, x, y, w);
+    eyebrow(slide, ctx, data.eyebrow, x, y, w, {
+      tone: typeof data.tone === "string" ? data.tone : undefined,
+    });
     y += 0.45;
   }
   if (data.heading) {
@@ -1032,8 +1126,8 @@ function renderComparison(slide: PSlide, ctx: ExportContext, data: Slide): void 
       w: colW,
       h: boxH,
       fill: { color: fill },
-      line: { color: highlighted ? ctx.colors.accent : ctx.colors.border, width: highlighted ? 1.75 : 1 },
-      rectRadius: 0.06,
+      line: cardStroke(ctx, { highlighted }),
+      rectRadius: cardRadius(ctx),
     });
     let innerY = boxY + 0.25;
     if (label) {
@@ -1500,8 +1594,8 @@ function renderLogoWall(slide: PSlide, ctx: ExportContext, data: Slide): void {
       w: cellW,
       h: cellH,
       fill: { color: ctx.colors.cardBg },
-      line: { color: ctx.colors.border, width: 1 },
-      rectRadius: 0.06,
+      line: cardStroke(ctx),
+      rectRadius: cardRadius(ctx),
     });
     const img = typeof card.image === "string" ? card.image.trim() : "";
     if (img && (/^data:image\//i.test(img) || /^https?:\/\//i.test(img))) {

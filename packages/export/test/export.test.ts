@@ -1115,4 +1115,93 @@ describe("deckToPptx", () => {
     expect(result.warnings.some((w) => w.includes("Unknown layout"))).toBe(false);
     expect(result.warnings.some((w) => w.includes("approximates as a full oval"))).toBe(false);
   });
+
+  it("applies candy card hard borders and Pulse eyebrow chips at layout level", async () => {
+    const candy = await buildPptx(
+      {
+        type: "deck",
+        meta: { title: "Jelly", theme: "candy-pop", company: "Sourbean" },
+        slides: [
+          {
+            layout: "feature-grid",
+            eyebrow: "Flavors",
+            heading: "Pick three",
+            columns: "bento",
+            cards: [
+              { title: "Cherry", body: "Pink pop." },
+              { title: "Blue", body: "Cool." },
+              { title: "Butter", body: "Soft." },
+              { title: "Lime", body: "Zing." },
+              { title: "Grape", body: "Deep." },
+            ],
+          },
+          {
+            layout: "comparison",
+            heading: "Vs",
+            leftLabel: "Before",
+            left: "Flat cards.",
+            rightLabel: "After",
+            right: "Hard candy borders.",
+            emphasis: "right",
+          },
+        ],
+      },
+      {
+        ...theme,
+        name: "candy-pop",
+        palette: {
+          bg: "#fdf3e7",
+          bg2: "#f7e8d4",
+          text: "#1a1a2e",
+          muted: "#6a5c6f",
+          accent: "#ff5d8f",
+          accent2: "#2d7dd2",
+          cardBg: "rgba(255,93,143,0.08)",
+          border: "rgba(26,26,46,0.14)",
+        },
+      }
+    );
+    expect(candy.slideCount).toBe(2);
+    expect(candy.warnings.some((w) => w.includes("Unknown layout"))).toBe(false);
+
+    const pulse = await buildPptx(
+      {
+        type: "deck",
+        meta: { title: "Pulse", theme: "kinetic-wrapped" },
+        slides: [
+          { layout: "title", eyebrow: "Day 47", heading: "NO DAYS OFF." },
+          {
+            layout: "stat-row",
+            tone: "magenta",
+            eyebrow: "Streak",
+            heading: "Keep going",
+            stats: [{ value: "47", label: "days" }],
+          },
+          {
+            layout: "section",
+            tone: "cyan",
+            number: "02",
+            eyebrow: "Part two",
+            heading: "THE WORK.",
+          },
+        ],
+      },
+      {
+        ...theme,
+        name: "kinetic-wrapped",
+        palette: {
+          bg: "#0a0a0a",
+          bg2: "#0d0d0d",
+          text: "#ffffff",
+          muted: "#c8c8c8",
+          accent: "#c8ff00",
+          accent2: "#ff00cc",
+          cardBg: "rgba(200,255,0,0.12)",
+          border: "rgba(200,255,0,0.55)",
+        },
+      }
+    );
+    expect(pulse.slideCount).toBe(3);
+    expect(pulse.warnings.some((w) => w.includes("Unknown layout"))).toBe(false);
+  });
 });
