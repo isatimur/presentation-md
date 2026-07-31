@@ -16,6 +16,13 @@ import type { ValidationResult, ChartSeries } from "@presentation-md/core";
 import { deckToPptxBuffer, type DeckJson as ExportDeckJson } from "@presentation-md/export";
 
 export { validateDeckJson } from "@presentation-md/core";
+export {
+  buildLayoutsPreviewDeck,
+  buildTitlePreviewDeck,
+  layoutsPreviewSlideCount,
+  parsePreviewCompareThemes,
+  type PreviewMode,
+} from "./theme-preview-deck.js";
 
 function escapeAttr(value: string): string {
   return value

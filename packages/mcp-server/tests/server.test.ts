@@ -321,7 +321,7 @@ describe("preview_themes", () => {
       };
       expect(result.mode).toBe("layouts");
       expect(result.previews[0]!.filename).toBe("default-tech-layouts-preview.html");
-      expect(result.previews[0]!.slides).toBe(8);
+      expect(result.previews[0]!.slides).toBe(11);
       const html = await readFile(result.previews[0]!.path, "utf-8");
       expect(html).toContain('data-layout="comparison"');
       expect(html).toContain('data-layout="code"');

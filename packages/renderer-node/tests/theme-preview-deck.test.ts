@@ -24,5 +24,10 @@ describe("theme-preview-deck", () => {
     expect(layouts.slides.map((s: { layout: string }) => s.layout)).toEqual(
       expect.arrayContaining(["title", "feature-grid", "comparison", "closing"])
     );
+
+    const wrap = JSON.parse(buildLayoutsPreviewDeck("kinetic-wrapped", "Wrapped"));
+    expect(wrap.slides.map((s: { layout: string }) => s.layout)).toEqual(
+      expect.arrayContaining(["streak-grid", "metric-ring"])
+    );
   });
 });
