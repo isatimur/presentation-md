@@ -194,6 +194,8 @@ describe("generate_deck_prompt", () => {
       theme_shortlists_reference?: string;
       craft_mandate: string;
     };
+    expect(result.craft_mandate).toMatch(/ONE-SHOT|one-shot|first draft/i);
+    expect(result.craft_mandate).toMatch(/mode.?=.?layouts|layouts.*pick-3|pick-3.*layouts/i);
     expect(result.craft_mandate).toMatch(/stunning-25/i);
     expect(result.craft_mandate).toMatch(/layout_recipes|Atmosphere honesty|Poster honesty/i);
     if (result.anti_slop_reference) {

@@ -187,7 +187,7 @@ function layoutsPreviewDeck(title: string, theme: string, company?: string): str
 export const previewThemesTool: ToolDefinition = {
   name: "preview_themes",
   description:
-    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Pass themes[] and/or a shortlist id from theme-shortlists.json (shortlist themes fill when themes is omitted; otherwise themes wins, capped at 3). Default mode is a title slide; pass mode=\"layouts\" for a multi-slide craft preview (title, image-hero, bento, comparison, ranked-list, streak/metric on wrap, stats, quote, code, closing). kinetic-wrapped previews inject tone + hero mega-stat + share pills.",
+    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Pass themes[] and/or a shortlist id from theme-shortlists.json (shortlist themes fill when themes is omitted; otherwise themes wins, capped at 3). For pick-3 compares, prefer mode=\"layouts\" so agents judge body craft (cards/comparison/stats/quote/code) — title mode is a fast skim only. Default mode is a title slide; pass mode=\"layouts\" for a multi-slide craft preview. kinetic-wrapped previews inject tone + hero mega-stat + share pills.",
   inputSchema: {
     type: "object",
     properties: {

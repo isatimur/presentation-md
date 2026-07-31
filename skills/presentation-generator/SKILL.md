@@ -187,15 +187,17 @@ Brand match: `import_brand_theme` MCP or `npx @presentation-md/create-theme --fr
 When a brief matches a stunning-25 vibe, open that structured proof and match its craft ceiling —
 do not invent a watered-down palette.
 
-**Default craft bar (beat Gamma / Beautiful.ai / md-slides / Claude Design canvas on first glance):**
-1. Open a stunning-25 structured proof before writing slides — match density, type scale, and asymmetry.
-2. Prefer `image-hero` or a composed visual beat on slide 1 for investor/launch/brand decks.
-3. Force asymmetry early: `comparison` + `emphasis`, `two-column` with non-1-1 `ratio`, or `feature-grid` `columns: "bento"`.
-4. Run `audit_deck` then `judge_deck` (`t1` minimum, `t2` before delivery). Schema-valid ≠ shippable.
-5. Read `references/anti-slop-bans.md` — Inter/purple/cream-terracotta defaults are banned unless the theme owns them.
-6. Prefer theme-native PPTX chrome (paper washes, masthead double rules, hero-gated candy/pills/corner blots on `soft-editorial` / `capsule` / `long-table` / `paper-ink`; always-on hard frames / offset-shadow strips / plates / tablets / multi-layer arcade shadows / Win95 bevels on `stencil-tablet` / `retro-zine` / `daisy-days` / `block-frame` / `creative-mode` / `sakura-chroma` / `8-bit-orbit` / `retro-windows` / `scatterbrain`; neon rim/scanlines/horizon glow/soft aero shadow on `neon-noir` / `vaporwave` / `y2k-aero`; poster hatch/speckle frames + hard cards on `coral` / `peoples-platform` / `bold-signal`; hard-card strokes on `genz-bento` / `brutalist-acid` / `bauhaus` / `neo-grid-bold` / `bold-poster` / `raw-grid` / `creative-voltage` / `kinetic-wrapped`; HUD grid/reticle chrome on `aerospace-hud` / `blueprint` / `crt-terminal`) over inventing flat card stacks — export is a craft surface, not a screenshot dump.
-7. When the brief is paper/editorial (`soft-editorial`, `heritage-editorial`, `emerald-editorial`, `vintage-editorial`, `pink-script`, `claude`, `paper-ink`, `long-table`), write magazine cadence — short literary leads, one quote beat, comparison with emphasis — not SaaS three-up grids.
-8. Open `references/layout-recipes.md` and match a slide-count contract for the brief (pitch, launch, wrap, neon, poster, paper, hud, modernist, hard-bento, glass, electric, briefing, quiet-luxe, soft-product, playful, neon-tech, data-editorial, scatterbrain) before freehanding layouts.
+**Default craft bar (beat Gamma / Beautiful.ai / md-slides / Claude Design canvas / frontend-slides on first glance):**
+1. **One-shot bar** — the first deck JSON must already clear anti-slop + craft gates. Do not ship a "vibe draft" and hope a second pass fixes it.
+2. Open a stunning-25 structured proof before writing slides — match density, type scale, and asymmetry. Prefer stunning-25 / popular shortlists when the brief matches; never invent a watered-down palette.
+3. **Density lock** — choose speaker-led vs reading-first once with purpose; keep that density for the whole deck (never mix cramped reading copy into a speaker talk).
+4. Prefer `image-hero` or a composed visual beat on slide 1 for investor/launch/brand decks.
+5. Force asymmetry early: `comparison` + `emphasis`, `two-column` with non-1-1 `ratio`, or `feature-grid` `columns: "bento"`.
+6. Run `audit_deck` then `judge_deck` (`t1` minimum, `t2` before delivery). Schema-valid ≠ shippable.
+7. Read `references/anti-slop-bans.md` — Inter/purple/cream-terracotta defaults are banned unless the theme owns them.
+8. Prefer theme-native PPTX chrome (paper washes, masthead double rules, hero-gated candy/pills/corner blots on `soft-editorial` / `capsule` / `long-table` / `paper-ink`; always-on hard frames / offset-shadow strips / plates / tablets / multi-layer arcade shadows / Win95 bevels on `stencil-tablet` / `retro-zine` / `daisy-days` / `block-frame` / `creative-mode` / `sakura-chroma` / `8-bit-orbit` / `retro-windows` / `scatterbrain`; neon rim/scanlines/horizon glow/soft aero shadow on `neon-noir` / `vaporwave` / `y2k-aero`; poster hatch/speckle frames + hard cards on `coral` / `peoples-platform` / `bold-signal`; hard-card strokes on `genz-bento` / `brutalist-acid` / `bauhaus` / `neo-grid-bold` / `bold-poster` / `raw-grid` / `creative-voltage` / `kinetic-wrapped`; HUD grid/reticle chrome on `aerospace-hud` / `blueprint` / `crt-terminal`) over inventing flat card stacks — export is a craft surface, not a screenshot dump.
+9. When the brief is paper/editorial (`soft-editorial`, `heritage-editorial`, `emerald-editorial`, `vintage-editorial`, `pink-script`, `claude`, `paper-ink`, `long-table`), write magazine cadence — short literary leads, one quote beat, comparison with emphasis — not SaaS three-up grids.
+10. Open `references/layout-recipes.md` and match a slide-count contract for the brief (pitch, launch, wrap, neon, poster, paper, hud, modernist, hard-bento, glass, electric, briefing, quiet-luxe, soft-product, playful, neon-tech, data-editorial, scatterbrain) before freehanding layouts.
 
 
 ## Typography Hierarchy — The Scale System
@@ -304,7 +306,19 @@ These are the details that make a deck read as machine-generated. A reviewer clo
 ## Theme Discovery (show, don't tell)
 
 Do **not** ask the user to pick a theme from a bare name list when they are unsure.
-Match frontend-slides' mandatory visual discovery — but with structured themes + MCP:
+Match frontend-slides' mandatory visual discovery — but with structured themes + MCP + a **one-shot quality bar** so the first draft already beats their vibe-pack defaults:
+
+### One-shot quality bar (beat frontend-slides first drafts)
+
+frontend-slides wins on discovery UX; presentation-md wins when the **first** emitted deck is already shippable craft — not a purple SaaS skeleton.
+
+1. **Stunning-25-first** — when the brief matches a flagship vibe, lock that theme (or a popular shortlist sibling) and open the structured proof / Studio `?example=` *before* writing slides.
+2. **Density lock** — speaker-led vs reading-first chosen once; never mix cramped reading density into a live-talk deck (or vice versa).
+3. **Anti-slop gate** — read `references/anti-slop-bans.md` before any custom styling; ban Inter-only / purple-on-white / cream-terracotta / accent-underline titles / text-only content slides unless the chosen theme owns them.
+4. **Layouts preview for pick-3** — `preview_themes` with `mode: "layouts"` (not title-only) when comparing 3 themes.
+5. **Craft gates before ship** — `audit_deck` then `judge_deck` (t1→t2). Schema-valid ≠ shippable. Fix asymmetry, emphasis, dual CTA, image-hero, data beat, notes.
+
+Default when vibe is vague: a popular shortlist + one stunning-25 bold option in the preview mix — never three near-identical safe corporate looks.
 
 1. Read `references/theme-selection-index.json` (mood, best_for, avoid_for, scheme, **aliases**).
    - frontend-slides STYLE_PRESET names map via aliases: **Neon Cyber** → `neon-noir`,
@@ -320,8 +334,10 @@ Match frontend-slides' mandatory visual discovery — but with structured themes
    - **1 wildcard** — either a second bold shortlist pick **or** a brand/import-driven custom direction
      that creates useful contrast (do not force three near-identical pastels)
 3. **Required when tooling is available:** call `preview_themes` with those 3 names
-   (writes `.presentation-md/theme-previews/<theme>-preview.html`). Prefer `mode: "layouts"` when
-   comparing craft across body slides. Open each file for the user — they pick visually, not from adjectives alone.
+   (writes `.presentation-md/theme-previews/<theme>-preview.html`). **Default to
+   `mode: "layouts"` for pick-3 compares** so body craft (cards, comparison, stats, quote, code)
+   is visible — title-only is a fast skim, not a craft decision. Open each file for the user —
+   they pick visually, not from adjectives alone.
 4. If MCP is unavailable, run:
    `npx @presentation-md/render preview.json -o previews/<theme>.html --theme <name>` three times
    (one title slide each).

@@ -42,9 +42,11 @@ export const generateDeckPromptTool: ToolDefinition = {
 
     const craftMandate = [
       "CRAFT MANDATE (non-negotiable — beat Gamma / Beautiful.ai / md-slides / frontend-slides / Claude Design canvas on first glance):",
+      "- ONE-SHOT BAR: the first deck JSON must already clear anti-slop + craft gates. No 'vibe draft' hoping a second pass fixes it — beat frontend-slides first drafts.",
       "- Prefer stunning-25 themes when the brief matches (see stunning_25_reference). Open that structured proof and match density — do not invent a watered-down palette.",
+      "- Density lock: choose speaker-led vs reading-first once with purpose; keep that density for the whole deck.",
       "- Ban Inter-only / purple-on-white / cream-terracotta defaults unless the chosen theme owns them (see anti_slop_reference).",
-      "- When theme is unsure: use theme_shortlists_reference (or list_themes include_shortlists/mood/query) — pick a 3-theme shortlist, preview_themes with shortlist:<id> (or themes[]), then lock meta.theme. Default shortlist for vague briefs: core-defaults.",
+      "- When theme is unsure: use theme_shortlists_reference (or list_themes include_shortlists/mood/query) — pick a 3-theme shortlist (safe + bold + wildcard), preview_themes with mode=\"layouts\" (not title-only) for pick-3 compares, then lock meta.theme. Default shortlist for vague briefs: core-defaults (prefer popular:true).",
       "- Match a layout_recipes_reference slide map (pitch / launch / wrap / neon / poster / paper / hud / modernist / hard-bento / glass / electric / briefing / quiet-luxe / soft-product / playful / neon-tech / data-editorial / scatterbrain) before freehanding layouts.",
       "- Include ≥1 image-hero for visual/investor/launch/brand decks (kinetic-wrapped wraps may use ranked/streak/metric/hero-stat instead).",
       "- Force asymmetry early: every comparison MUST set emphasis left|right; prefer non-1-1 two-column ratios; 5-card grids use columns:\"bento\".",

@@ -56,10 +56,12 @@ The eighteen layouts:
 Optional on every slide: "tone"?: "default"|"lime"|"magenta"|"cyan"|"orange"|"violet" — required craft for kinetic-wrapped year wraps.
 
 Authoring rules:
+- ONE-SHOT BAR (beat frontend-slides / Gamma first drafts): emit shippable craft on the first JSON — anti-slop, asymmetry, density lock, and theme-native surfaces. No placeholder vibe decks.
 - Open with a "title" slide and end with a "closing" slide.
 - 6–10 slides total. Use a mix of layouts that fits the content — section dividers for chapters, stat-row for KPIs, ranked-list for rankings, chart for trends/composition, data-table for tabular data, timeline for roadmaps, quote for a punchy line.
 - Keep text tight and presentation-grade: headings are short, leads are one line, card/stat bodies are a phrase, not a paragraph.
 - Prefer concrete, specific content over filler. No lorem ipsum.
+- Ban Inter-only / purple-on-white / cream-terracotta defaults unless the chosen theme owns them.
 - Craft (required when the layout supports it):
   - comparison: always set "emphasis" to "left" or "right" — never leave the default balanced look.
   - two-column: prefer a non-1-1 "ratio" ("2-1", "1-2", "3-2", or "2-3") unless the content is truly equal weight; use "reverse" when the image/aside should lead.
