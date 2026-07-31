@@ -238,7 +238,7 @@
         "Brutalist",
         "Mono Brutal"
       ],
-      "gallery": "examples/monolith-seriesa.html"
+      "gallery": "examples/structured/concrete-spec.html"
     },
     {
       "name": "pastel-dreamy",
@@ -524,7 +524,13 @@
         "#e8e6e1",
         "#d6ff00",
         "#ffffff"
-      ]
+      ],
+      "aliases": [
+        "Brutalist Acid",
+        "Acid Brutalist",
+        "MONOLITH"
+      ],
+      "gallery": "examples/monolith-seriesa.html"
     },
     {
       "name": "bauhaus",
