@@ -1,5 +1,13 @@
 # @presentation-md/studio
 
+## 1.3.8
+
+### Patch Changes
+
+- Updated dependencies [5dbbe2f]
+  - @presentation-md/export@1.13.1
+  - @presentation-md/core@1.8.1
+
 ## 1.3.7
 
 ### Patch Changes

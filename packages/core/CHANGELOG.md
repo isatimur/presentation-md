@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.8.1
+
+### Patch Changes
+
+- 5dbbe2f: Densify bauhaus/art-deco/playful/corporate/pastel-dreamy/editorial-serif/default-tech PPTX chrome and spell out Studio/MCP/PPTX advantages vs one-off HTML slide tools in the skill.
+
 ## 1.8.0
 
 ### Minor Changes
