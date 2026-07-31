@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>presentation-md vs frontend-slides — structured proofs vs prompt packs</title>
-  <meta name="description" content="Honest comparison: presentation-md vs zarazhangrui/frontend-slides — schema-validated Deck JSON, PPTX, MCP, and Studio vs discovery-first HTML prompt packs." />
-  <link rel="canonical" href="https://presentation-md.vercel.app/vs/frontend-slides" />
+  <title>presentation-md vs Claude Design — open agent decks vs Anthropic canvas</title>
+  <meta name="description" content="Honest comparison: presentation-md vs Claude Design (Anthropic Labs) — open Deck JSON, MCP, Studio, and PPTX vs a subscription canvas with charts and Canva handoff." />
+  <link rel="canonical" href="https://presentation-md.vercel.app/vs/claude-design" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0B1220" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -15,29 +15,24 @@
   <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="presentation-md" />
-  <meta property="og:url" content="https://presentation-md.vercel.app/vs/frontend-slides" />
-  <meta property="og:title" content="presentation-md vs frontend-slides — structured proofs vs prompt packs" />
-  <meta property="og:description" content="Schema-validated Deck JSON, PPTX round-trip, MCP, and Studio vs discovery-first HTML prompt packs." />
+  <meta property="og:url" content="https://presentation-md.vercel.app/vs/claude-design" />
+  <meta property="og:title" content="presentation-md vs Claude Design — open agent decks vs Anthropic canvas" />
+  <meta property="og:description" content="Open Deck JSON, MCP, Studio, and PPTX vs Claude Design’s subscription canvas." />
   <meta property="og:image" content="https://presentation-md.vercel.app/og-image.png" />
-  <meta property="og:image:alt" content="presentation-md vs frontend-slides" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@isatimur" />
-  <meta name="twitter:creator" content="@isatimur" />
-  <meta name="twitter:title" content="presentation-md vs frontend-slides" />
-  <meta name="twitter:description" content="Structured proofs, PPTX, MCP, and Studio vs discovery-first HTML prompt packs." />
+  <meta name="twitter:title" content="presentation-md vs Claude Design" />
+  <meta name="twitter:description" content="Open agent-native decks vs Anthropic’s design canvas." />
   <meta name="twitter:image" content="https://presentation-md.vercel.app/og-image.png" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "presentation-md vs frontend-slides — structured proofs vs prompt packs",
-    "description": "Honest comparison: presentation-md vs zarazhangrui/frontend-slides — schema-validated Deck JSON, PPTX, MCP, and Studio vs discovery-first HTML prompt packs.",
+    "headline": "presentation-md vs Claude Design — open agent decks vs Anthropic canvas",
+    "description": "Honest comparison: presentation-md vs Claude Design (Anthropic Labs).",
     "author": {"@type": "Person", "name": "Timur Isachenko", "url": "https://github.com/isatimur/presentation-md"},
     "datePublished": "2026-07-31",
     "dateModified": "2026-07-31",
-    "url": "https://presentation-md.vercel.app/vs/frontend-slides",
+    "url": "https://presentation-md.vercel.app/vs/claude-design",
     "publisher": {"@type": "Organization", "name": "presentation-md", "url": "https://presentation-md.vercel.app"}
   }
   </script>
@@ -97,9 +92,9 @@
 <header>
   <div class="container">
     <a href="/" class="back-link">← presentation-md</a>
-    <span class="eyebrow">Comparison · direct rival</span>
-    <h1 class="brand">presentation-md<br>vs <em>frontend-slides</em></h1>
-    <p>frontend-slides won discovery energy — live style previews and bold HTML packs. presentation-md keeps that show-don’t-tell bar, then ships the structured product layer a skill-only repo cannot.</p>
+    <span class="eyebrow">Comparison · 2026 rival</span>
+    <h1 class="brand">presentation-md<br>vs <em>Claude Design</em></h1>
+    <p>Claude Design (Anthropic Labs) is a subscription canvas for slides and prototypes. presentation-md is the open, agent-native deck stack — Deck JSON, 75 themes, MCP, Studio, and PPTX you own.</p>
   </div>
 </header>
 
@@ -107,19 +102,17 @@
   <div class="container">
     <h2>Side-by-side</h2>
     <table class="compare-table">
-      <thead><tr><th style="width:34%">Criterion</th><th style="width:33%">presentation-md</th><th style="width:33%">frontend-slides</th></tr></thead>
+      <thead><tr><th style="width:34%">Criterion</th><th style="width:33%">presentation-md</th><th style="width:33%">Claude Design</th></tr></thead>
       <tbody>
-        <tr><td>Where it runs</td><td class="col-us">Claude Code, Cursor, Copilot, Codex, Gemini CLI + MCP</td><td>Agent prompt packs + HTML template gallery</td></tr>
-        <tr><td>Authoring model</td><td class="col-us"><span class="check">✓</span> Typed Deck JSON schema (12 layouts, craft knobs)</td><td>Freeform / template-guided HTML from prompts</td></tr>
-        <tr><td>Theme proofs</td><td class="col-us"><span class="check">✓</span> 75 schema-validated structured proofs</td><td>Showcase HTML templates (discovery-first)</td></tr>
-        <tr><td>Live theme preview</td><td class="col-us"><span class="check">✓</span> <code>preview_themes</code> MCP (title + layouts bake)</td><td><span class="check">✓</span> Strong live style gallery UX</td></tr>
-        <tr><td>Design craft</td><td class="col-us">Asymmetric ratios, emphasis, bento, image-heroes, surfaces</td><td>Bold visual systems; agent writes full HTML</td></tr>
-        <tr><td>PowerPoint</td><td class="col-us"><span class="check">✓</span> Native PPTX export + import round-trip + speaker notes</td><td><span class="cross">✗</span> HTML-first; no first-class PPTX pipeline</td></tr>
-        <tr><td>Browser Studio</td><td class="col-us"><span class="check">✓</span> Hosted Studio with craft controls</td><td><span class="cross">✗</span> No equivalent editor product</td></tr>
-        <tr><td>MCP tools</td><td class="col-us"><span class="check">✓</span> 9 typed tools (render, export, audit, themes, brand, import…)</td><td>Skill / prompt workflow, not a typed MCP product</td></tr>
-        <tr><td>Brand import</td><td class="col-us"><span class="check">✓</span> CSS / URL → contrast-safe theme package</td><td>Manual template restyle</td></tr>
-        <tr><td>Output ownership</td><td class="col-us">Self-contained HTML you own + optional PPTX</td><td>Self-contained HTML you own</td></tr>
-        <tr><td>License / price</td><td class="col-us"><span class="check">✓</span> Free, MIT, no account</td><td><span class="check">✓</span> Open-source skill / templates</td></tr>
+        <tr><td>Where it runs</td><td class="col-us">Any coding agent + MCP (Claude Code, Cursor, Codex, Gemini, Copilot)</td><td>claude.ai/design (+ Claude apps) on Pro/Max/Team/Enterprise</td></tr>
+        <tr><td>Authoring model</td><td class="col-us"><span class="check">✓</span> Typed Deck JSON — re-theme, audit, diff, export</td><td>Conversational canvas + direct edits / sliders</td></tr>
+        <tr><td>Theme library</td><td class="col-us"><span class="check">✓</span> 75 schema-validated themes + structured proofs</td><td>Design systems / brand kits inside Anthropic’s product</td></tr>
+        <tr><td>Charts / data viz</td><td class="col-us">Stats, tables, comparison craft (chart layout on roadmap)</td><td><span class="check">✓</span> Strong conversational chart generation</td></tr>
+        <tr><td>PowerPoint</td><td class="col-us"><span class="check">✓</span> Native PPTX export + import + speaker notes</td><td><span class="check">✓</span> PPTX / PDF / HTML / Canva send</td></tr>
+        <tr><td>Local / offline ownership</td><td class="col-us"><span class="check">✓</span> Self-contained HTML + JSON on disk</td><td>Hosted canvas; exports leave the product</td></tr>
+        <tr><td>MCP / agent tools</td><td class="col-us"><span class="check">✓</span> 9 typed tools (render, audit, themes, brand, import…)</td><td>In-product; handoff to Claude Code as a bundle</td></tr>
+        <tr><td>Browser Studio</td><td class="col-us"><span class="check">✓</span> Free hosted Studio with craft knobs</td><td>Design canvas is the product surface</td></tr>
+        <tr><td>Price / lock-in</td><td class="col-us"><span class="check">✓</span> MIT, npm, no account required</td><td>Uses Claude subscription limits (+ optional extra usage)</td></tr>
       </tbody>
     </table>
   </div>
@@ -127,19 +120,18 @@
 
 <section>
   <div class="container">
-    <h2>Where frontend-slides is stronger</h2>
+    <h2>Where Claude Design is stronger</h2>
     <ul>
-      <li>Discovery UX that made “pick a vibe first” feel obvious</li>
-      <li>Raw HTML freedom when you want one-off art direction outside a schema</li>
-      <li>Community momentum as the reference for bold agent slide aesthetics</li>
+      <li>Vision-first canvas iteration with Opus-class models inside Anthropic’s UI</li>
+      <li>Conversational charts and brand-system application without leaving the chat</li>
+      <li>One-click Canva / Claude Code handoff for teams already in that ecosystem</li>
     </ul>
     <h2 style="margin-top:36px">Where presentation-md is stronger</h2>
     <ul>
-      <li>Schema-validated Deck JSON — reproducible, auditable agent output</li>
-      <li>75 structured theme proofs with craft surfaces, not only showcase HTML</li>
-      <li>Native PPTX export/import with speaker notes — opens in PowerPoint, Keynote, Google Slides</li>
-      <li>Browser Studio + 9 MCP tools for agents that need a product, not only a prompt</li>
-      <li>Brand import with contrast guards so muted copy stays readable</li>
+      <li>Open, portable Deck JSON — same deck survives theme swap, audit, and PPTX round-trip</li>
+      <li>Works in every coding agent, not only Claude’s seat — MCP-native by design</li>
+      <li>75 gallery-proven themes with stunning-25 flagships (Solstice ultra-luxury, Aurora Glass, …)</li>
+      <li>No subscription gate to author or ship a deck you fully own</li>
     </ul>
   </div>
 </section>
@@ -147,24 +139,19 @@
 <section>
   <div class="container">
     <h2>Verdict</h2>
-    <div class="verdict">Use frontend-slides when you want maximum HTML freedom and gallery energy. Use presentation-md when the deck must survive re-theme, audit, PPTX handoff, and agent loops — same discovery energy, plus the structured layer competitors cannot match.</div>
+    <div class="verdict">Use Claude Design when you want a hosted visual canvas inside Anthropic’s product. Use presentation-md when the deck must live in your agent loop — schema, themes, Studio, MCP, and PPTX without a seat tax.</div>
     <br>
     <p>Try presentation-md in one command:</p>
     <pre>npx @presentation-md/install claude-code</pre>
-    <a href="/studio/?example=novaspark-pitch&fresh=1" class="cta">Open Studio →</a>
-    <a href="/#compare" class="cta">See the live compare →</a>
+    <a href="/studio/?example=solstice-update&fresh=1" class="cta">Open Solstice in Studio →</a>
     <p class="also">Also compare:
       <a href="/vs/">all</a>
       <a href="/vs/frontend-slides">frontend-slides</a>
-      <a href="/vs/beautiful-ai">Beautiful.ai</a>
+      <a href="/vs/md-slides">md-slides</a>
       <a href="/vs/gamma">Gamma</a>
-      <a href="/vs/pitch">Pitch</a>
-      <a href="/vs/canva">Canva</a>
-      <a href="/vs/tome">Tome</a>
-      <a href="/vs/slidev">Slidev</a>
+      <a href="/vs/beautiful-ai">Beautiful.ai</a>
       <a href="/vs/marp">Marp</a>
-      <a href="/vs/claude-design">Claude Design</a>
-      <a href="/vs/md-slides">md-slides</a></p>
+      <a href="/vs/slidev">Slidev</a></p>
   </div>
 </section>
 
