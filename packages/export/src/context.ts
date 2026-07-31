@@ -10,6 +10,12 @@ import { parseFontFamily, isBoldWeight } from "./font.js";
 export interface ExportContext {
   /** Resolved theme name — drives optional craft chrome in PPTX. */
   themeName: string;
+  /** Deck company / brand — candy marquee and chrome copy. */
+  company?: string;
+  /** Deck title — marquee fallback when company is absent. */
+  title?: string;
+  /** Optional custom candy ticker unit. */
+  marquee?: string;
   /** Slide width in inches (from theme geometry.slideWidth, default 13.333"). */
   width: number;
   /** Slide height in inches (16:9 of width). */
@@ -130,10 +136,17 @@ function parsePxToInches(value: string, fallback: number): number {
   return Number.isFinite(n) && n > 0 ? n / PX_PER_INCH : fallback;
 }
 
+export interface BuildContextMeta {
+  company?: string;
+  title?: string;
+  marquee?: string;
+}
+
 export function buildContext(
   theme: ResolvedTheme,
   shapes: ContextShapes,
-  warn: (msg: string) => void
+  warn: (msg: string) => void,
+  meta: BuildContextMeta = {}
 ): ExportContext {
   const width = parsePxToInches(theme.geometry.slideWidth, 13.333);
   const height = (width * 9) / 16;
@@ -156,6 +169,9 @@ export function buildContext(
 
   return {
     themeName: theme.name,
+    company: typeof meta.company === "string" ? meta.company.trim() || undefined : undefined,
+    title: typeof meta.title === "string" ? meta.title.trim() || undefined : undefined,
+    marquee: typeof meta.marquee === "string" ? meta.marquee.trim() || undefined : undefined,
     width,
     height,
     margin: Math.min(0.6, width * 0.05),

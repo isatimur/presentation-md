@@ -137,6 +137,8 @@ export interface DeckMeta {
   company?: string;
   description?: string;
   theme?: string;
+  /** candy-pop: optional custom ticker unit (else company/title brand). */
+  marquee?: string;
 }
 
 export interface DeckJson {

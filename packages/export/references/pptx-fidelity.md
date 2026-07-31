@@ -47,12 +47,17 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
 - Soft blob / mix-blend chrome is approximated in PPTX (not pixel-perfect): Pulse
   gets multi-oval soft blobs on hero/tone/body; risograph gets layered coral+blue
   overprint washes; candy-pop gets pink/blue blobs plus a yellow ticker strip with
-  static marquee text on title/closing; neon-noir gets magenta/cyan glow ovals;
+  static marquee text from `meta.company` / `meta.title` / `meta.marquee` (not
+  Jellybean-hardcoded) on title/closing; neon-noir gets magenta/cyan glow ovals;
   vaporwave gets horizon wash + pink sun; y2k-aero gets glossy bubble ovals;
   aurora-glass / glassmorphism get dual mist ovals; luxury-minimalist heroes get a
   gold hairline; crt-terminal gets phosphor scanlines; blueprint gets a light grid +
-  reticle; brutalist-acid heroes get an acid offset block. True CSS `mix-blend-mode` /
-  animated marquees remain HTML-only.
+  reticle; brutalist-acid heroes get an acid offset block; aerospace-hud gets a HUD
+  grid + reticle; swiss-typographic gets a modular grid + red left rail;
+  ft-editorial gets a masthead bar + bottom rule; bauhaus heroes get red square +
+  blue circle; fintech-clean / scandinavian get soft radial washes; art-deco heroes
+  get a gold hairline + deco ring; botanical-luxe gets a gold hairline + leaf ring.
+  True CSS `mix-blend-mode` / animated marquees remain HTML-only.
 - Closing `actions[].icon` maps to a glyph prefix on PPTX pills (FA brands → letter/symbol).
 
 - Every non-mappable field emits a warning (via `opts.onWarn` / `result.warnings`) — nothing

@@ -14,7 +14,11 @@
         "title": { "type": "string" },
         "company": { "type": "string" },
         "description": { "type": "string" },
-        "theme": { "type": "string", "description": "Theme name (default: default-tech)" }
+        "theme": { "type": "string", "description": "Theme name (default: default-tech)" },
+        "marquee": {
+          "type": "string",
+          "description": "candy-pop: custom ticker unit for title/closing marquee (else company/title)"
+        }
       }
     },
     "slides": {

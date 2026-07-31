@@ -32,3 +32,5 @@ export { markdownToDeck } from "./md-to-deck.js";
 export type { MdDeck, MdSlide, MdToDeckOptions } from "./md-to-deck.js";
 export { auditCraft, CRAFT_VALID_LAYOUTS } from "./craft-audit.js";
 export type { CraftIssue, CraftAuditDeck } from "./craft-audit.js";
+export { candyMarqueeText, candyMarqueeBrand } from "./candy-marquee.js";
+export type { CandyMarqueeMeta } from "./candy-marquee.js";

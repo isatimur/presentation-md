@@ -1,3 +1,4 @@
+import { candyMarqueeText } from "@presentation-md/core";
 import type { ExportContext } from "./context.js";
 import type { Slide } from "./deck-types.js";
 import type { PptxSlide, PptxTextOpts, PptxTableRow } from "./pptx.js";
@@ -1992,6 +1993,11 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     });
     if (isHero) {
       // Yellow ticker-strip stand-in (gallery marquee bar + static ticker text).
+      const ticker = candyMarqueeText({
+        company: ctx.company,
+        title: ctx.title,
+        marquee: ctx.marquee,
+      });
       slide.addShape(ctx.shapeRoundRect, {
         x: 0,
         y: ctx.height - 0.55,
@@ -2001,7 +2007,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         line: { color: ctx.colors.text, width: 1.5 },
         rectRadius: 0,
       });
-      slide.addText("★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·", {
+      slide.addText(ticker, {
         x: 0.15,
         y: ctx.height - 0.5,
         w: ctx.width - 0.3,
@@ -2287,6 +2293,176 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         line: { color: "FFFFFF", width: 0 },
       });
     }
+  }
+
+  if (theme === "swiss-typographic") {
+    // Light modular grid + signal-red left rail (swiss-grid).
+    for (let i = 1; i < 12; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: (ctx.width / 12) * i,
+        y: 0,
+        w: 0.012,
+        h: ctx.height,
+        fill: { color: ctx.colors.border, transparency: 55 },
+        line: { color: ctx.colors.border, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    for (let i = 1; i < 8; i++) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: (ctx.height / 8) * i,
+        w: ctx.width,
+        h: 0.012,
+        fill: { color: ctx.colors.border, transparency: 55 },
+        line: { color: ctx.colors.border, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: 0.08,
+      h: ctx.height,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "ft-editorial") {
+    // Broadsheet masthead bar + bottom rule (broadsheet-rule).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: ctx.width,
+      h: 0.32,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: ctx.height - 0.7,
+      w: ctx.width - ctx.margin * 2,
+      h: 0.025,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "bauhaus" && isHero) {
+    // Primary red square + blue circle (bauhaus-blocks hero ornaments).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 2.3,
+      y: 0.7,
+      w: 1.05,
+      h: 1.05,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 2.9,
+      y: 1.35,
+      w: 1.05,
+      h: 1.05,
+      fill: { color: ctx.colors.accent2, transparency: 12 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+  }
+
+  if (theme === "fintech-clean") {
+    // Soft mint radial wash (fintech-soft top-right).
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.55,
+      y: -ctx.height * 0.25,
+      w: ctx.width * 0.55,
+      h: ctx.height * 0.6,
+      fill: { color: ctx.colors.accent, transparency: 88 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.7,
+      y: -ctx.height * 0.15,
+      w: ctx.width * 0.4,
+      h: ctx.height * 0.45,
+      fill: { color: ctx.colors.accent2, transparency: 78 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+  }
+
+  if (theme === "scandinavian") {
+    // Sage corner wash + clay soft circle (hygge-soft).
+    slide.addShape(ctx.shapeOval, {
+      x: -ctx.width * 0.12,
+      y: -ctx.height * 0.2,
+      w: ctx.width * 0.5,
+      h: ctx.height * 0.5,
+      fill: { color: ctx.colors.accent, transparency: 82 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 2.4,
+      y: ctx.height - 2.2,
+      w: 1.9,
+      h: 1.9,
+      fill: { color: ctx.colors.accent2, transparency: 78 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+  }
+
+  if (theme === "art-deco" && isHero) {
+    // Gold hairline + centered deco ring (deco-fan).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: 0.55,
+      w: ctx.width - ctx.margin * 2,
+      h: 0.02,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width / 2 - 0.35,
+      y: 0.38,
+      w: 0.7,
+      h: 0.7,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: 1.75 },
+    });
+  }
+
+  if (theme === "botanical-luxe") {
+    // Gold hairline + leaf-tilted ring (botanical-leaf).
+    if (isHero) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.margin,
+        y: 0.55,
+        w: ctx.width - ctx.margin * 2,
+        h: 0.015,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 2.0,
+      y: ctx.height - 2.0,
+      w: 1.35,
+      h: 1.35,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: 1.25 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.72,
+      y: -ctx.height * 0.12,
+      w: ctx.width * 0.35,
+      h: ctx.height * 0.4,
+      fill: { color: ctx.colors.accent2, transparency: 82 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
   }
 }
 

@@ -81,7 +81,12 @@ export async function buildPptx(
   const ctx = buildContext(
     theme,
     { roundRect: pptx.ShapeType.roundRect, oval: pptx.ShapeType.ellipse, blockArc: pptx.ShapeType.blockArc },
-    warn
+    warn,
+    {
+      company: working.meta?.company,
+      title: working.meta?.title,
+      marquee: working.meta?.marquee,
+    }
   );
 
   pptx.defineLayout({ name: LAYOUT_NAME, width: ctx.width, height: ctx.height });
