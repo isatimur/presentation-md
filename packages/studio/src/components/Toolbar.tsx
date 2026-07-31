@@ -282,8 +282,10 @@ export function Toolbar({
                   if (next) {
                     const pick = findThemeShortlist(next);
                     if (pick?.themes?.length) {
-                      setCompare(pick.themes.slice(0, COMPARE_LIMIT));
-                      setLiveCompare(false);
+                      const slots = pick.themes.slice(0, COMPARE_LIMIT);
+                      setCompare(slots);
+                      // Auto-live once pick-3 is full — show-don't-tell vs swatch-only.
+                      setLiveCompare(slots.length >= COMPARE_LIMIT);
                     }
                   } else {
                     setCompare([]);
@@ -336,7 +338,15 @@ export function Toolbar({
                           : `Add ${t.name} to pick-${COMPARE_LIMIT} compare`
                       }
                       aria-pressed={inCompare}
-                      onClick={() => setCompare((prev) => toggleCompareSlot(prev, t.name))}
+                      onClick={() =>
+                        setCompare((prev) => {
+                          const next = toggleCompareSlot(prev, t.name);
+                          // Flip live on when the tray hits pick-3; leave user toggle otherwise.
+                          if (next.length >= COMPARE_LIMIT) setLiveCompare(true);
+                          else if (next.length === 0) setLiveCompare(false);
+                          return next;
+                        })
+                      }
                     >
                       {inCompare ? "✓" : "⊕"}
                     </button>

@@ -156,7 +156,7 @@ export function ThemeCompareTray({
         ))}
       </div>
       <p className="theme-compare-hint muted small">
-        Click ⊕ on themes to fill slots · Show live, then Title / Bento / Compare to
+        Click ⊕ on themes to fill slots · live auto-on at pick-3 · Title / Bento / Compare to
         judge body craft · Use to lock <code>meta.theme</code>
       </p>
     </div>

@@ -43,7 +43,8 @@ export function GenerateModal({
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState("");
   const [copied, setCopied] = useState(false);
-  const [liveDiscover, setLiveDiscover] = useState(false);
+  /** Show-don't-tell: live Title/Bento/Compare crops on by default. */
+  const [liveDiscover, setLiveDiscover] = useState(true);
   const [crop, setCrop] = useState<PreviewCrop>("title");
 
   const themeNames = listThemeNames();
