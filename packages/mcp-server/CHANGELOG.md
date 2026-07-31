@@ -1,5 +1,17 @@
 # @presentation-md/mcp-server
 
+## 1.6.19
+
+### Patch Changes
+
+- 5b33db9: Extend loud honesty craft guidance for capsule / scatterbrain / 8-bit-orbit / retro-windows PPTX offset-shadow and bevel chrome.
+- Updated dependencies [f5d51a8]
+- Updated dependencies [5b33db9]
+  - @presentation-md/export@1.16.3
+  - @presentation-md/core@1.8.7
+  - @presentation-md/render@1.6.17
+  - @presentation-md/create-theme@1.0.25
+
 ## 1.6.18
 
 ### Patch Changes

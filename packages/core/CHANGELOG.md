@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.8.7
+
+### Patch Changes
+
+- 5b33db9: Extend loud honesty craft guidance for capsule / scatterbrain / 8-bit-orbit / retro-windows PPTX offset-shadow and bevel chrome.
+
 ## 1.8.6
 
 ### Patch Changes
