@@ -10,9 +10,9 @@
 ### What's included
 
 - Full skill for all supported agents (Claude Code, Cursor, Codex, Gemini CLI, GitHub Copilot)
-- MCP server with 8 typed tools: `render_deck`, `export_deck`, `audit_deck`, `list_themes`, `apply_theme`, `generate_deck_prompt`, `import_pptx`, `import_brand_theme`
+- MCP server with 11 typed tools: `render_deck`, `export_deck`, `audit_deck`, `judge_deck`, `list_themes`, `apply_theme`, `generate_deck_prompt`, `preview_themes`, `import_pptx`, `import_markdown`, `import_brand_theme`
 - Node.js and Python renderers
-- 9 themes (claude, default-tech, corporate, playful, luxury-minimalist, retro-arcade, editorial-serif, brutalist-mono, pastel-dreamy)
+- 75 themes (`claude` + `default-tech` bundled; 73 more as `@presentation-md/theme-*`)
 - Self-contained HTML output (no hosting required)
 - npm + PyPI packages
 

@@ -1,7 +1,9 @@
 /**
  * Resolve themes directory for MCP render/judge.
- * Prefers monorepo packages/themes (all 75 themes) when developing from the repo;
- * falls back to core-bundled themes for published npm installs.
+ * Prefers monorepo packages/themes (73 `@presentation-md/theme-*` packages) when
+ * developing from the repo, with core-bundled `claude` / `default-tech` as fallback
+ * (75 themes total). Published npm installs use core-bundled themes only unless
+ * extra theme packages are installed.
  */
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
