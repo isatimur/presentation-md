@@ -20,6 +20,9 @@ mkdir -p "$TARGET"
 cp "$PMD_CORE_DIR/SKILL.md" "$TARGET/SKILL.md"
 echo "  ✓  SKILL.md copied"
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+bash "$SCRIPT_DIR/../_common/install-skill-scripts.sh" "$TARGET"
+
 # ── write extension.json ──────────────────────────────────────────────────────
 cat > "$TARGET/extension.json" <<'JSON'
 {
@@ -35,7 +38,6 @@ echo "  ✓  extension.json written"
 
 # ── full mode: deck-design-judge quality gate ────────────────────────────────
 if [ "$MODE" = "full" ] && [ -n "${PMD_JUDGE_SKILL_DIR:-}" ]; then
-  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
   JUDGE_TARGET="$HOME/.gemini/extensions/deck-design-judge"
   bash "$SCRIPT_DIR/../_common/install-judge-skill.sh" "$JUDGE_TARGET"
   cat > "$JUDGE_TARGET/extension.json" <<'JSON'

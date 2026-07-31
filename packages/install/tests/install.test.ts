@@ -107,3 +107,16 @@ describe("deck-design-judge install wiring", () => {
     expect(cli).toMatch(/\.presentation-md\/skills\/deck-design-judge/);
   });
 });
+
+describe("presentation-generator scripts install wiring", () => {
+  it("skill-dir adapters copy PDF/deploy scripts from core", () => {
+    for (const adapter of ["claude-code", "codex", "gemini-cli"] as const) {
+      const body = readFileSync(join(ADAPTERS, adapter, "install.sh"), "utf-8");
+      expect(body).toMatch(/install-skill-scripts\.sh/);
+      const ps1 = readFileSync(join(ADAPTERS, adapter, "install.ps1"), "utf-8");
+      expect(ps1).toMatch(/install-skill-scripts\.ps1/);
+    }
+    expect(existsSync(join(ADAPTERS, "_common", "install-skill-scripts.sh"))).toBe(true);
+    expect(existsSync(join(ADAPTERS, "_common", "install-skill-scripts.ps1"))).toBe(true);
+  });
+});

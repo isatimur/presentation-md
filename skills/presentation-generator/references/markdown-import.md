@@ -42,6 +42,36 @@ Separate slides with a line that is exactly `---`.
 | ` ```html ` | `custom-html` |
 | thank/next CTA last slide | `closing` |
 
+## Craft heuristics
+
+Wrap / present-mode layouts the bridge also detects (best-effort):
+
+| Trigger | Layout |
+|---------|--------|
+| Heading/body matches `streak`, `days straight`, `habit grid` (+ optional `N days`) | `streak-grid` |
+| `top N` / `percentile` / `completion` / `progress ring` **and** a `%` | `metric-ring` |
+| Heading matches `rank` / `leaderboard` / `top N` + `Label — value` / `Label · NN%` bullets | `ranked-list` |
+| Heading matches `logo` / `partner` / `trusted by` + ≥3 short bullets (≤28 chars) | `logo-wall` |
+| Last slide heading matches thank/next/share/download **and** ≥2 CTA labels | `closing` with dual `actions[]` (solid + outline) |
+
+Example streak beat:
+
+```markdown
+## 47 days straight
+
+Habit grid for the launch week.
+```
+
+Example ranked beat:
+
+```markdown
+## Top sessions
+
+1. Focus — 42%
+2. Deep work — 31%
+3. Standup — 18%
+```
+
 ### Chart fence
 
 ````markdown
@@ -60,4 +90,4 @@ Q2,41,16
 ```
 ````
 
-Always `audit_deck` + `judge_deck` after import — heuristics are best-effort.
+Always `audit_deck` + `judge_deck` after import — heuristics are best-effort. Prefer dual `actions[]` with icons on launch/investor closings once you polish the imported JSON.

@@ -27,6 +27,9 @@ Copy-Item -Path (Join-Path $PmdCoreDir "SKILL.md") `
           -Destination (Join-Path $Target "SKILL.md") -Force
 Write-Host "  OK  SKILL.md copied"
 
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+& (Join-Path $ScriptDir "..\_common\install-skill-scripts.ps1") -Target $Target
+
 # ── write extension.json ──────────────────────────────────────────────────────
 $ExtJson = [ordered]@{
     name        = "presentation-generator"
@@ -39,7 +42,6 @@ Write-Host "  OK  extension.json written"
 
 # ── full mode: deck-design-judge quality gate ────────────────────────────────
 if ($Mode -eq "full" -and $env:PMD_JUDGE_SKILL_DIR) {
-    $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
     $JudgeTarget = Join-Path $HOME ".gemini\extensions\deck-design-judge"
     & (Join-Path $ScriptDir "..\_common\install-judge-skill.ps1") -Target $JudgeTarget
     $JudgeExt = [ordered]@{

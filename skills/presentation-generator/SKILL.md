@@ -155,7 +155,7 @@ Each layout is a tool. Match the layout to the job, not to the order.
 ### `closing` — The ask / CTA
 **When to use:** every deck ends here. Make the next action unmissable.
 **Props:** `{ heading, lead?, actions?: [{ label, href?, style?: "solid"|"outline"|"ghost", icon? }], cta?: { label?, href? } }`
-**Design rule:** one primary action by default. For wrap/share/store/launch/investor duals, use `actions[]` with solid + outline pills (max 3) and an `icon` on every pill (FA brands for social; rocket/download/calendar for CTAs). `cta` is an alias for `actions[0]`. Stunning-25 closings prefer dual asks with icons.
+**Design rule:** one primary action by default. For wrap/share/store/launch/investor duals, use `actions[]` with solid + outline pills (max 3) and an `icon` on every pill (FA brands for social; rocket/download/calendar for CTAs). `cta` is an alias for `actions[0]`. Stunning-25 **and** launch/investor closings prefer dual asks with icons — a lone `cta` trips `audit_deck`.
 
 ### `streak-grid` — Day-streak / habit cells
 **When to use:** year-wrap streak beats, habit calendars, filled-vs-empty progress grids.
@@ -431,6 +431,7 @@ Then walk every slide against this checklist and fix before delivering:
 - **Contrast** — every text block is legible against its actual background (see AI-Slop Tell #17).
 - **AI-slop tells** — no accent line under a title, no text-only content slide, no centered paragraphs.
 - **Visual beat** — investor, launch, and brand decks need ≥1 real `image-hero` (composed SVG/data URI or asset). Icon grids alone are not a visual. Kinetic wraps may use ranked/streak/metric/hero-stat instead.
+- **Present-mode craft** — add brief `notes` on 2–4 key slides; decks with ≥6 slides need a data beat (`chart` / `stat-row` / `data-table` / `ranked-list` / `metric-ring` / `timeline`); launch/investor closings prefer dual `actions[]` with icons (not a lone `cta`).
 - **Asymmetry** — at least one `comparison` with `emphasis`, `two-column`, `code`, `ranked-list`, `logo-wall`, `streak-grid`, `metric-ring`, or `columns: "bento"` — never a stack of identical three-up cards.
 - **Token discipline** — colors and fonts all trace back to the chosen theme; no off-palette one-offs.
 - **The 3-second test** — pick any slide at random: is its single point obvious in three seconds?

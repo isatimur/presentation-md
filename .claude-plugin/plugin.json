@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "presentation-md",
   "displayName": "presentation-md",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Turn rough notes into a polished slide deck inside any AI agent, then export to native, editable PowerPoint, Keynote, and Google Slides. The agent authors decks as structured JSON.",
   "author": {
     "name": "Timur Isachenko",

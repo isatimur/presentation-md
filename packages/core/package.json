@@ -27,6 +27,7 @@
     "dist",
     "SKILL.md",
     "references",
+    "scripts",
     "deck.schema.json",
     "theme.schema.json",
     "themes/default-tech",

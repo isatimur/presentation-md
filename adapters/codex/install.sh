@@ -25,9 +25,11 @@ if [ -d "$PMD_CORE_DIR/references" ]; then
   echo "  ✓  references/ copied"
 fi
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+bash "$SCRIPT_DIR/../_common/install-skill-scripts.sh" "$TARGET"
+
 # ── full mode: deck-design-judge quality gate ────────────────────────────────
 if [ "$MODE" = "full" ] && [ -n "${PMD_JUDGE_SKILL_DIR:-}" ]; then
-  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
   bash "$SCRIPT_DIR/../_common/install-judge-skill.sh" "$HOME/.codex/skills/deck-design-judge"
 fi
 

@@ -14,7 +14,11 @@
         "title": { "type": "string" },
         "company": { "type": "string" },
         "description": { "type": "string" },
-        "theme": { "type": "string", "description": "Theme name (default: default-tech)" }
+        "theme": { "type": "string", "description": "Theme name (default: default-tech)" },
+        "marquee": {
+          "type": "string",
+          "description": "candy-pop: custom ticker unit for title/closing marquee (else company/title)"
+        }
       }
     },
     "slides": {
@@ -42,8 +46,84 @@
             "closing",
             "image-hero",
             "comparison",
-            "code"
+            "code",
+            "chart",
+            "custom-html",
+            "ranked-list",
+            "logo-wall",
+            "streak-grid",
+            "metric-ring"
           ]
+        },
+        "variant": {
+          "type": "string",
+          "enum": ["default", "hero"],
+          "description": "stat-row: \"hero\" = mega-number wrap beat (first stat dominates)."
+        },
+        "items": {
+          "type": "array",
+          "description": "ranked-list: ordered bars with optional rank / value / widthPct.",
+          "items": {
+            "type": "object",
+            "required": ["label"],
+            "properties": {
+              "rank": { "type": "string", "description": "Display rank (default 01, 02, …)." },
+              "label": { "type": "string" },
+              "value": { "type": "string", "description": "Optional secondary metric on the bar." },
+              "widthPct": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 100,
+                "description": "Bar fill width percent (default auto from order)."
+              }
+            }
+          }
+        },
+        "chartType": {
+          "type": "string",
+          "enum": ["bar", "horizontal-bar", "line", "area", "pie", "donut"],
+          "description": "chart: visualization type (default bar)."
+        },
+        "categories": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "chart: category / x-axis labels (also pie slice labels)."
+        },
+        "series": {
+          "type": "array",
+          "description": "chart: one or more named numeric series.",
+          "items": {
+            "type": "object",
+            "required": ["values"],
+            "properties": {
+              "name": { "type": "string" },
+              "values": {
+                "type": "array",
+                "items": { "type": "number" }
+              }
+            }
+          }
+        },
+        "showLegend": {
+          "type": "boolean",
+          "description": "chart: show series/slice legend (default true)."
+        },
+        "showValues": {
+          "type": "boolean",
+          "description": "chart: annotate data values on marks (default false)."
+        },
+        "stacked": {
+          "type": "boolean",
+          "description": "chart: stack bar series (bar / horizontal-bar only)."
+        },
+        "html": {
+          "type": "string",
+          "description": "custom-html: sanitized HTML fragment for one-off art (no scripts)."
+        },
+        "tone": {
+          "type": "string",
+          "enum": ["default", "lime", "magenta", "cyan", "orange", "violet"],
+          "description": "Optional per-slide hue beat (kinetic-wrapped / Pulse multi-hue craft)."
         },
         "eyebrow": { "type": "string" },
         "heading": { "type": "string" },
@@ -100,7 +180,9 @@
             "properties": {
               "icon": { "type": "string", "description": "FontAwesome class, e.g. fa-solid fa-bolt" },
               "title": { "type": "string" },
-              "body": { "type": "string" }
+              "body": { "type": "string" },
+              "image": { "type": "string", "description": "logo-wall / cards: image URL or data URI" },
+              "imageAlt": { "type": "string" }
             }
           }
         },
@@ -131,12 +213,72 @@
             }
           }
         },
+        "orientation": {
+          "type": "string",
+          "enum": ["horizontal", "vertical"],
+          "description": "timeline: rail direction (default horizontal, matches HTML)."
+        },
         "cta": {
           "type": "object",
+          "description": "closing: primary CTA (alias for actions[0]).",
           "properties": {
             "label": { "type": "string" },
             "href": { "type": "string" }
           }
+        },
+        "actions": {
+          "type": "array",
+          "maxItems": 3,
+          "description": "closing: up to 3 CTAs (solid + outline share pills). Prefer over single cta for wrap/store duals.",
+          "items": {
+            "type": "object",
+            "required": ["label"],
+            "properties": {
+              "label": { "type": "string" },
+              "href": { "type": "string" },
+              "style": {
+                "type": "string",
+                "enum": ["solid", "outline", "ghost"],
+                "description": "Button treatment (default solid for first, outline for rest)."
+              },
+              "icon": {
+                "type": "string",
+                "description": "FontAwesome class, e.g. fa-brands fa-instagram"
+              }
+            }
+          }
+        },
+        "filled": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 120,
+          "description": "streak-grid: number of filled cells."
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 120,
+          "description": "streak-grid: total cells (default filled, capped at 120)."
+        },
+        "cols": {
+          "type": "integer",
+          "minimum": 4,
+          "maximum": 16,
+          "description": "streak-grid: columns per row (default 10)."
+        },
+        "value": {
+          "type": "string",
+          "description": "metric-ring: center display value (e.g. \"3%\")."
+        },
+        "label": {
+          "type": "string",
+          "description": "metric-ring: caption under the value (e.g. \"globally\")."
+        },
+        "pct": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "metric-ring: ring fill 0–100 (omit/100 = full badge ring; 1–99 = arc)."
         },
         "leftLabel": { "type": "string", "description": "comparison: label for the left column." },
         "rightLabel": { "type": "string", "description": "comparison: label for the right column." },

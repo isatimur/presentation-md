@@ -35,9 +35,11 @@ if (Test-Path $RefsSource) {
     Write-Host "  OK  references\ copied"
 }
 
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+& (Join-Path $ScriptDir "..\_common\install-skill-scripts.ps1") -Target $Target
+
 # ── full mode: deck-design-judge quality gate ────────────────────────────────
 if ($Mode -eq "full" -and $env:PMD_JUDGE_SKILL_DIR) {
-    $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
     & (Join-Path $ScriptDir "..\_common\install-judge-skill.ps1") `
         -Target (Join-Path $HOME ".codex\skills\deck-design-judge")
 }
