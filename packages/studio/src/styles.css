@@ -108,12 +108,27 @@ body {
 }
 .theme-browser-panel {
   position: absolute; top: calc(100% + 8px); left: 0; z-index: 40;
-  width: min(360px, 86vw); max-height: min(420px, 70vh);
+  width: min(420px, 90vw); max-height: min(480px, 74vh);
   display: flex; flex-direction: column; gap: 8px; padding: 10px;
   background: var(--panel-2); border: 1px solid var(--line-2); border-radius: 12px;
   box-shadow: 0 22px 48px -20px rgba(11, 18, 32, 0.4);
 }
 .theme-search { width: 100%; }
+.theme-shortlist-row {
+  display: flex; flex-wrap: wrap; gap: 5px; max-height: 88px; overflow: auto;
+  padding: 2px 0;
+}
+.theme-shortlist-row .chip {
+  font-size: 11px; padding: 3px 8px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--paper); color: var(--muted);
+  cursor: pointer; font-family: inherit; white-space: nowrap;
+}
+.theme-shortlist-row .chip:hover { border-color: var(--accent); color: var(--text); }
+.theme-shortlist-row .chip.active {
+  background: var(--accent-soft);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  color: var(--text);
+}
 .theme-list {
   overflow: auto; display: flex; flex-direction: column; gap: 4px;
   margin: 0; padding: 0; list-style: none; max-height: 320px;

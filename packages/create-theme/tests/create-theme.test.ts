@@ -17,6 +17,7 @@ const SAMPLE_VIEW = {
   vibe: "dark",
   author: "Test Author",
   license: "MIT",
+  extends: "default-tech",
   bg: "#0a1628",
   bg2: "#0f2040",
   text: "#e8f4fd",
@@ -58,6 +59,19 @@ describe("renderTemplate — theme.json.mustache", () => {
     const parsed = JSON.parse(rendered) as { typography: { headingFont: string; bodyFont: string } };
     expect(parsed.typography.headingFont).toContain("Montserrat");
     expect(parsed.typography.bodyFont).toContain("Source Sans Pro");
+  });
+
+  it("extends default-tech for dark scaffolds and claude for light paper", () => {
+    const dark = JSON.parse(
+      renderTemplate(TEMPLATE_DIR, "theme.json.mustache", SAMPLE_VIEW)
+    ) as { extends: string };
+    expect(dark.extends).toBe("default-tech");
+
+    const lightView = { ...SAMPLE_VIEW, name: "paper-brand", extends: "claude", bg: "#faf9f5" };
+    const light = JSON.parse(
+      renderTemplate(TEMPLATE_DIR, "theme.json.mustache", lightView)
+    ) as { extends: string };
+    expect(light.extends).toBe("claude");
   });
 });
 

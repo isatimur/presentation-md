@@ -3668,18 +3668,35 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "botanical-luxe") {
-    // Gold hairline + leaf-tilted ring (botanical-leaf).
-    if (isHero) {
-      slide.addShape(ctx.shapeRoundRect, {
-        x: ctx.margin,
-        y: 0.55,
-        w: ctx.width - ctx.margin * 2,
-        h: 0.015,
-        fill: { color: ctx.colors.accent },
-        line: { color: ctx.colors.accent, width: 0 },
-        rectRadius: 0,
-      });
-    }
+    // Always-on gold hairline frame + soft shadow stub + leaf ring + wash
+    // (botanical-leaf border/box-shadow; hairline was hero-only).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.14,
+      y: 0.18,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.24,
+      fill: { color: ctx.colors.text, transparency: 94 },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0.04,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.2,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: 1.15 },
+      rectRadius: 0.02,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: 0.55,
+      w: ctx.width - ctx.margin * 2,
+      h: 0.015,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeOval, {
       x: ctx.width - 2.0,
       y: ctx.height - 2.0,
@@ -3845,13 +3862,23 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "dark-botanical") {
-    // Bloom wash + left accent rail (dark-botanical-bloom).
+    // Denser bloom wash + soft shadow stub + left accent rail
+    // (dark-botanical-bloom box-shadow + dual radials).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.14,
+      y: 0.18,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.24,
+      fill: { color: ctx.colors.text, transparency: 93 },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeOval, {
       x: ctx.width * 0.62,
       y: -ctx.height * 0.15,
       w: ctx.width * 0.45,
       h: ctx.height * 0.55,
-      fill: { color: ctx.colors.accent2, transparency: 72 },
+      fill: { color: ctx.colors.accent2, transparency: 68 },
       line: { color: ctx.colors.accent2, width: 0 },
     });
     slide.addShape(ctx.shapeOval, {
@@ -3859,15 +3886,23 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       y: ctx.height * 0.05,
       w: ctx.width * 0.28,
       h: ctx.height * 0.35,
-      fill: { color: ctx.colors.accent, transparency: 78 },
+      fill: { color: ctx.colors.accent, transparency: 74 },
       line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.78,
+      y: ctx.height * 0.02,
+      w: 1.9,
+      h: 1.9,
+      fill: { color: ctx.colors.accent2, transparency: 78 },
+      line: { color: ctx.colors.accent2, width: 0 },
     });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.55,
       y: 0.7,
       w: 0.015,
       h: ctx.height - 1.4,
-      fill: { color: ctx.colors.accent, transparency: 45 },
+      fill: { color: ctx.colors.accent, transparency: 40 },
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0,
     });

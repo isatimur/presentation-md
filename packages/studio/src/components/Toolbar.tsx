@@ -1,6 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { DeckJson } from "@presentation-md/export";
-import { listThemeSummaries, resolveTheme } from "../render/themes.js";
+import {
+  findThemeShortlist,
+  listThemeShortlists,
+  listThemeSummaries,
+  resolveTheme,
+} from "../render/themes.js";
 import { downloadHtml, downloadPptx, downloadJson, parseDeckFile, importPptxFile } from "../export/downloads.js";
 import { STUDIO_EXAMPLES, studioExampleLink } from "../examples.js";
 import { auditCraft } from "../craft/auditCraft.js";
@@ -31,6 +36,7 @@ export function Toolbar({
   const [status, setStatus] = useState<string>("");
   const [busy, setBusy] = useState(false);
   const [themeQuery, setThemeQuery] = useState("");
+  const [shortlistId, setShortlistId] = useState("");
   const [auditIssues, setAuditIssues] = useState<
     Array<{ severity: "error" | "warning"; message: string; slide?: number }>
   >([]);
@@ -38,6 +44,7 @@ export function Toolbar({
   const [auditPanelOpen, setAuditPanelOpen] = useState(true);
 
   const themes = useMemo(() => listThemeSummaries(), []);
+  const shortlists = useMemo(() => listThemeShortlists(), []);
   const liveCraftIssues = useMemo(() => auditCraft(deck), [deck]);
   const liveCraftErrors = liveCraftIssues.filter((i) => i.severity === "error").length;
   const liveCraftWarns = liveCraftIssues.length - liveCraftErrors;
@@ -48,7 +55,9 @@ export function Toolbar({
     bg: resolveTheme(theme).palette.bg,
     accent: resolveTheme(theme).palette.accent,
   };
+  const activeShortlist = shortlistId ? findThemeShortlist(shortlistId) : undefined;
   const filtered = themes.filter((t) => {
+    if (activeShortlist && !activeShortlist.themes.includes(t.name)) return false;
     if (!themeQuery.trim()) return true;
     const q = themeQuery.trim().toLowerCase();
     return t.name.toLowerCase().includes(q) || t.vibe.toLowerCase().includes(q);
@@ -189,9 +198,12 @@ export function Toolbar({
       />
 
       <details className="theme-browser" onToggle={(e) => {
-        if (!(e.target as HTMLDetailsElement).open) setThemeQuery("");
+        if (!(e.target as HTMLDetailsElement).open) {
+          setThemeQuery("");
+          setShortlistId("");
+        }
       }}>
-        <summary className="btn btn-sm theme-trigger" title="Browse 75 themes">
+        <summary className="btn btn-sm theme-trigger" title="Browse themes (shortlists + search)">
           <span
             className="theme-swatch"
             style={{ ["--swatch-bg" as string]: active.bg, ["--swatch-accent" as string]: active.accent }}
@@ -208,7 +220,31 @@ export function Toolbar({
             autoFocus
             onChange={(e) => setThemeQuery(e.target.value)}
           />
-          <div className="theme-count">{filtered.length} / {themes.length} themes</div>
+          <div className="theme-shortlist-row" role="listbox" aria-label="Theme shortlists">
+            <button
+              type="button"
+              className={`chip${shortlistId === "" ? " active" : ""}`}
+              onClick={() => setShortlistId("")}
+              title="Show all themes"
+            >
+              All
+            </button>
+            {shortlists.map((s) => (
+              <button
+                key={s.id}
+                type="button"
+                className={`chip${shortlistId === s.id ? " active" : ""}`}
+                onClick={() => setShortlistId(s.id === shortlistId ? "" : s.id)}
+                title={s.why ?? s.label}
+              >
+                {s.label.split(/[/(]/)[0]!.trim()}
+              </button>
+            ))}
+          </div>
+          <div className="theme-count">
+            {filtered.length} / {themes.length} themes
+            {activeShortlist ? ` · ${activeShortlist.id}` : ""}
+          </div>
           <ul className="theme-list">
             {filtered.map((t) => (
               <li key={t.name}>

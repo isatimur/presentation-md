@@ -5,6 +5,7 @@ import type {
   Typography,
   Geometry,
 } from "@presentation-md/core/theme-types";
+import shortlistsDoc from "../../../core/references/theme-shortlists.json";
 
 /**
  * Browser theme registry. Bundles every `theme.json` in the monorepo (core +
@@ -53,6 +54,13 @@ export interface ThemeSummary {
   accent: string;
 }
 
+export interface ThemeShortlistSummary {
+  id: string;
+  label: string;
+  themes: string[];
+  why?: string;
+}
+
 export function listThemeNames(): string[] {
   return [...REGISTRY.keys()].sort();
 }
@@ -72,6 +80,20 @@ export function listThemeSummaries(): ThemeSummary[] {
       accent: theme.palette.accent,
     };
   });
+}
+
+/** Theme Discovery shortlists (same catalog MCP list_themes / preview_themes use). */
+export function listThemeShortlists(): ThemeShortlistSummary[] {
+  return (shortlistsDoc.shortlists ?? []).map((s) => ({
+    id: s.id,
+    label: s.label,
+    themes: s.themes,
+    why: s.why,
+  }));
+}
+
+export function findThemeShortlist(id: string): ThemeShortlistSummary | undefined {
+  return listThemeShortlists().find((s) => s.id === id);
 }
 
 export function resolveTheme(name: string): ResolvedTheme {

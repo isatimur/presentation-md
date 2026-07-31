@@ -1,6 +1,6 @@
 import type { BrandExtractionResult } from "./extract-brand.js";
 import type { ThemeView } from "./index.js";
-import { toUnderscored } from "./index.js";
+import { pickExtendsFromBg, toUnderscored } from "./index.js";
 
 export function buildThemeViewFromBrand(name: string, extraction: BrandExtractionResult): ThemeView {
   const sourceLabel =
@@ -12,6 +12,7 @@ export function buildThemeViewFromBrand(name: string, extraction: BrandExtractio
     vibe: "brand-import",
     author: "",
     license: "MIT",
+    extends: pickExtendsFromBg(extraction.palette.bg),
     bg: extraction.palette.bg,
     bg2: extraction.palette.bg2,
     text: extraction.palette.text,

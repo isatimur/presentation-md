@@ -1,48 +1,13 @@
-import { readFile } from "node:fs/promises";
-import { dirname, join } from "node:path";
-import { createRequire } from "node:module";
-import { discoverInstalledThemes } from "@presentation-md/core";
+import {
+  discoverInstalledThemes,
+  loadThemeShortlists,
+  loadThemeSelectionIndex,
+  findShortlist,
+  themeMatchesMood,
+  themeMatchesQuery,
+} from "@presentation-md/core";
 import { getBundledThemesDir } from "@presentation-md/render";
 import type { ToolDefinition } from "../server.js";
-
-function getCoreRoot(): string {
-  const require = createRequire(import.meta.url);
-  const coreMain = require.resolve("@presentation-md/core");
-  return dirname(dirname(coreMain));
-}
-
-interface ShortlistEntry {
-  id: string;
-  label: string;
-  themes: string[];
-  why?: string;
-}
-
-interface ShortlistsDoc {
-  shortlists?: ShortlistEntry[];
-}
-
-interface SelectionTheme {
-  name: string;
-  mood?: string[];
-  best_for?: string[];
-  aliases?: string[];
-  formality?: string;
-  scheme?: string;
-}
-
-interface SelectionIndex {
-  themes?: SelectionTheme[];
-}
-
-async function loadJson<T>(rel: string): Promise<T | null> {
-  try {
-    const raw = await readFile(join(getCoreRoot(), "references", rel), "utf-8");
-    return JSON.parse(raw) as T;
-  } catch {
-    return null;
-  }
-}
 
 export const listThemesTool: ToolDefinition = {
   name: "list_themes",
@@ -87,22 +52,19 @@ export const listThemesTool: ToolDefinition = {
         bundledThemesDir: getBundledThemesDir(),
         nodeModulesRoot: process.cwd(),
       }),
-      loadJson<ShortlistsDoc>("theme-shortlists.json"),
-      loadJson<SelectionIndex>("theme-selection-index.json"),
+      loadThemeShortlists(),
+      loadThemeSelectionIndex(),
     ]);
 
-    const shortlists = shortlistsDoc?.shortlists ?? [];
+    const shortlists = shortlistsDoc.shortlists;
     const selectionByName = new Map(
-      (selectionIndex?.themes ?? []).map((t) => [t.name, t] as const)
+      selectionIndex.themes.map((t) => [t.name, t] as const)
     );
 
-    let matchedShortlist: ShortlistEntry | undefined;
+    let matchedShortlist = shortlistId ? findShortlist(shortlistsDoc, shortlistId) : undefined;
     let allowNames: Set<string> | null = null;
-    if (shortlistId) {
-      matchedShortlist = shortlists.find((s) => s.id === shortlistId);
-      if (matchedShortlist) {
-        allowNames = new Set(matchedShortlist.themes);
-      }
+    if (matchedShortlist) {
+      allowNames = new Set(matchedShortlist.themes);
     }
 
     let themes = discovered.map((d) => {
@@ -126,25 +88,23 @@ export const listThemesTool: ToolDefinition = {
     }
 
     if (mood) {
-      themes = themes.filter((t) =>
-        (t.mood ?? []).some((m) => m.toLowerCase().includes(mood))
-      );
+      themes = themes.filter((t) => themeMatchesMood({ name: t.name, mood: t.mood }, mood));
     }
 
     if (query) {
-      themes = themes.filter((t) => {
-        const hay = [
-          t.name,
-          t.vibe ?? "",
-          t.description ?? "",
-          ...(t.aliases ?? []),
-          ...(t.best_for ?? []),
-          ...(t.mood ?? []),
-        ]
-          .join(" ")
-          .toLowerCase();
-        return hay.includes(query);
-      });
+      themes = themes.filter((t) =>
+        themeMatchesQuery(
+          {
+            name: t.name,
+            vibe: t.vibe,
+            description: t.description,
+            aliases: t.aliases,
+            best_for: t.best_for,
+            mood: t.mood,
+          },
+          query
+        )
+      );
     }
 
     const result: Record<string, unknown> = { themes };

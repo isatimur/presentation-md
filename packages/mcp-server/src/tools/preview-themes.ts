@@ -1,6 +1,6 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname, join, resolve } from "node:path";
-import { createRequire } from "node:module";
+import { mkdir, writeFile } from "node:fs/promises";
+import { join, resolve } from "node:path";
+import { findShortlist, loadThemeShortlists, type ThemeShortlist } from "@presentation-md/core";
 import { renderDeck } from "@presentation-md/render";
 import { resolveThemesDir } from "../lib/resolve-themes.js";
 import type { ToolDefinition } from "../server.js";
@@ -8,36 +8,6 @@ import type { ToolDefinition } from "../server.js";
 const DEFAULT_PREVIEW_DIR = ".presentation-md/theme-previews";
 
 type PreviewMode = "title" | "layouts";
-
-interface ShortlistEntry {
-  id: string;
-  label: string;
-  themes: string[];
-  why?: string;
-}
-
-interface ShortlistsDoc {
-  shortlists?: ShortlistEntry[];
-}
-
-function getCoreRoot(): string {
-  const require = createRequire(import.meta.url);
-  const coreMain = require.resolve("@presentation-md/core");
-  return dirname(dirname(coreMain));
-}
-
-async function loadShortlists(): Promise<ShortlistEntry[]> {
-  try {
-    const raw = await readFile(
-      join(getCoreRoot(), "references", "theme-shortlists.json"),
-      "utf-8"
-    );
-    const doc = JSON.parse(raw) as ShortlistsDoc;
-    return doc.shortlists ?? [];
-  } catch {
-    return [];
-  }
-}
 
 function titlePreviewDeck(title: string, theme: string, company?: string): string {
   return JSON.stringify({
@@ -260,13 +230,13 @@ export const previewThemesTool: ToolDefinition = {
       ? (input["themes"] as unknown[]).filter((t): t is string => typeof t === "string")
       : [];
 
-    let matchedShortlist: ShortlistEntry | undefined;
+    let matchedShortlist: ThemeShortlist | undefined;
     let shortlistError: string | undefined;
     let themes = themesInput.slice(0, 3);
 
     if (themes.length === 0 && shortlistId) {
-      const shortlists = await loadShortlists();
-      matchedShortlist = shortlists.find((s) => s.id === shortlistId);
+      const shortlistsDoc = await loadThemeShortlists();
+      matchedShortlist = findShortlist(shortlistsDoc, shortlistId);
       if (!matchedShortlist) {
         shortlistError = `Unknown shortlist id "${shortlistId}". Call list_themes with include_shortlists:true to see ids.`;
       } else {

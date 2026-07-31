@@ -1,16 +1,13 @@
 import { readFile } from "node:fs/promises";
-import { join, dirname } from "node:path";
-import { createRequire } from "node:module";
-import { loadTheme } from "@presentation-md/core";
+import { join } from "node:path";
+import {
+  getCorePackageRoot,
+  loadLayoutRecipesMarkdown,
+  loadTheme,
+  loadThemeShortlists,
+} from "@presentation-md/core";
 import type { ToolDefinition } from "../server.js";
 import { resolveThemesDir } from "../lib/resolve-themes.js";
-
-function getCoreRoot(): string {
-  const require = createRequire(import.meta.url);
-  const coreMain = require.resolve("@presentation-md/core");
-  // coreMain points to dist/index.js; core root is two levels up from dist/
-  return dirname(dirname(coreMain));
-}
 
 export const generateDeckPromptTool: ToolDefinition = {
   name: "generate_deck_prompt",
@@ -27,10 +24,10 @@ export const generateDeckPromptTool: ToolDefinition = {
     const themeName = (input["theme"] as string | undefined) ?? "default-tech";
     const intent = (input["intent"] as string | undefined) ?? "";
 
-    const coreRoot = getCoreRoot();
+    const coreRoot = getCorePackageRoot();
     const { themesDir, fallbackThemesDirs } = resolveThemesDir();
 
-    const [theme, skill, deckSchemaReference, stunning25, themesMd, antiSlop, layoutRecipes, shortlists] =
+    const [theme, skill, deckSchemaReference, stunning25, themesMd, antiSlop, layoutRecipes, shortlistsDoc] =
       await Promise.all([
       loadTheme(themeName, { themesDir, fallbackThemesDirs }),
       readFile(join(coreRoot, "SKILL.md"), "utf-8"),
@@ -38,9 +35,10 @@ export const generateDeckPromptTool: ToolDefinition = {
       readFile(join(coreRoot, "references", "stunning-25.md"), "utf-8").catch(() => ""),
       readFile(join(coreRoot, "references", "themes.md"), "utf-8").catch(() => ""),
       readFile(join(coreRoot, "references", "anti-slop-bans.md"), "utf-8").catch(() => ""),
-      readFile(join(coreRoot, "references", "layout-recipes.md"), "utf-8").catch(() => ""),
-      readFile(join(coreRoot, "references", "theme-shortlists.json"), "utf-8").catch(() => ""),
+      loadLayoutRecipesMarkdown().catch(() => ""),
+      loadThemeShortlists().catch(() => null),
     ]);
+    const shortlists = shortlistsDoc ? JSON.stringify(shortlistsDoc, null, 2) : "";
 
     const craftMandate = [
       "CRAFT MANDATE (non-negotiable — beat Gamma / Beautiful.ai / md-slides / frontend-slides / Claude Design canvas on first glance):",

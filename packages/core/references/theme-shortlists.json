@@ -79,6 +79,54 @@
       "label": "Climate / nature / impact",
       "themes": ["botanical-luxe", "dark-botanical", "editorial-forest"],
       "why": "Luxe botanical, dark bloom, forest editorial."
+    },
+    {
+      "id": "paper-literary",
+      "label": "Literary paper / monograph",
+      "themes": ["paper-ink", "editorial-serif", "vintage-editorial"],
+      "why": "Crimson literary rails, serif monograph, vintage wash — essays and brand books."
+    },
+    {
+      "id": "soft-pastel",
+      "label": "Soft pastel / playful consumer",
+      "themes": ["pastel-dreamy", "pastel-geometry", "playful"],
+      "why": "Cloud pastels, geometry pills, candy playful — consumer and lifestyle launches."
+    },
+    {
+      "id": "mid-century-mat",
+      "label": "Mid-century / craft material",
+      "themes": ["mat", "capsule", "long-table"],
+      "why": "Woodglow mat, plump capsule, rust long-table — tactile hospitality and craft brands."
+    },
+    {
+      "id": "hud-blueprint",
+      "label": "HUD / blueprint / instrument",
+      "themes": ["aerospace-hud", "blueprint", "cobalt-grid"],
+      "why": "Telemetry HUD, blueprint grid, cobalt paper — deep tech and defense demos."
+    },
+    {
+      "id": "y2k-arcade",
+      "label": "Y2K / arcade / 8-bit",
+      "themes": ["y2k-aero", "retro-arcade", "8-bit-orbit"],
+      "why": "Glossy aero bubbles, neon arcade, pixel HUD — nightlife and gaming launches."
+    },
+    {
+      "id": "workshop-scatter",
+      "label": "Workshop / sticky / data wall",
+      "themes": ["scatterbrain", "data-editorial", "notebook-tabs"],
+      "why": "Cork sticky notes, data editorial ink, notebook tabs — facilitation and research walls."
+    },
+    {
+      "id": "glass-voltage",
+      "label": "Glass / studio / voltage",
+      "themes": ["glassmorphism", "studio", "creative-voltage"],
+      "why": "Frosted glass, acid studio rails, neon voltage — creative agency energy."
+    },
+    {
+      "id": "parchment-quiet",
+      "label": "Quiet parchment / counsel",
+      "themes": ["vellum", "pin-and-paper", "monochrome"],
+      "why": "Colorfield vellum, legal pad, ledger mono — quiet research and counsel decks."
     }
   ],
   "alias_hints": {

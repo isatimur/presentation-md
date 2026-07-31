@@ -34,3 +34,23 @@ export { auditCraft, CRAFT_VALID_LAYOUTS } from "./craft-audit.js";
 export type { CraftIssue, CraftAuditDeck } from "./craft-audit.js";
 export { candyMarqueeText, candyMarqueeBrand } from "./candy-marquee.js";
 export type { CandyMarqueeMeta } from "./candy-marquee.js";
+export {
+  getCorePackageRoot,
+  getReferencesDir,
+  loadThemeShortlists,
+  loadThemeSelectionIndex,
+  loadLayoutRecipesMarkdown,
+  findShortlist,
+  shortlistCoveredThemes,
+  resolveThemeAlias,
+  themeMatchesMood,
+  themeMatchesQuery,
+  parseLayoutRecipeHeadings,
+} from "./theme-discovery.js";
+export type {
+  ThemeShortlist,
+  ThemeShortlistsDoc,
+  ThemeSelectionEntry,
+  ThemeSelectionIndex,
+} from "./theme-discovery.js";
+export { relativeLuminance, contrastRatio, hexToRgb, rgbToHex } from "./color.js";

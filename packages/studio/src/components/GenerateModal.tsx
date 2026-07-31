@@ -1,6 +1,10 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { DeckJson } from "@presentation-md/export";
-import { listThemeNames } from "../render/themes.js";
+import {
+  findThemeShortlist,
+  listThemeNames,
+  listThemeShortlists,
+} from "../render/themes.js";
 import { GEN_MODELS, type GenModelId, buildAgentPrompt, generateDeck } from "../ai/generate.js";
 
 const KEY_STORAGE = "pmd-studio-anthropic-key";
@@ -22,6 +26,7 @@ export function GenerateModal({
 }) {
   const [brief, setBrief] = useState("");
   const [theme, setTheme] = useState(currentTheme);
+  const [shortlistId, setShortlistId] = useState("");
   const [model, setModel] = useState<GenModelId>(GEN_MODELS[0].id);
   const [apiKey, setApiKey] = useState(() => localStorage.getItem(KEY_STORAGE) ?? "");
   const [remember, setRemember] = useState(() => !!localStorage.getItem(KEY_STORAGE));
@@ -30,6 +35,11 @@ export function GenerateModal({
   const [copied, setCopied] = useState(false);
 
   const themeNames = listThemeNames();
+  const shortlists = useMemo(() => listThemeShortlists(), []);
+  const activeShortlist = shortlistId ? findThemeShortlist(shortlistId) : undefined;
+  const selectableThemes = activeShortlist
+    ? themeNames.filter((t) => activeShortlist.themes.includes(t))
+    : themeNames;
 
   const runGenerate = async () => {
     setBusy(true);
@@ -85,11 +95,42 @@ export function GenerateModal({
             ))}
           </div>
 
+          <label className="field-label">Theme shortlist</label>
+          <div className="theme-shortlist-row" role="listbox" aria-label="Theme shortlists">
+            <button
+              type="button"
+              className={`chip${shortlistId === "" ? " active" : ""}`}
+              onClick={() => setShortlistId("")}
+            >
+              All themes
+            </button>
+            {shortlists.map((s) => (
+              <button
+                key={s.id}
+                type="button"
+                className={`chip${shortlistId === s.id ? " active" : ""}`}
+                title={s.why ?? s.label}
+                onClick={() => {
+                  const next = s.id === shortlistId ? "" : s.id;
+                  setShortlistId(next);
+                  if (next) {
+                    const pick = findThemeShortlist(next);
+                    if (pick && !pick.themes.includes(theme) && pick.themes[0]) {
+                      setTheme(pick.themes[0]);
+                    }
+                  }
+                }}
+              >
+                {s.label.split(/[/(]/)[0]!.trim()}
+              </button>
+            ))}
+          </div>
+
           <div className="field-grid">
             <label className="inline-field">
               <span className="muted small">Theme</span>
               <select className="text-input" value={theme} onChange={(e) => setTheme(e.target.value)}>
-                {themeNames.map((t) => (
+                {selectableThemes.map((t) => (
                   <option key={t} value={t}>{t}</option>
                 ))}
               </select>
