@@ -1,5 +1,18 @@
 # @presentation-md/studio
 
+## 1.3.0
+
+### Minor Changes
+
+- 7aa0385: Stronger dual-CTA / closing-icon craft gates (including stunning-25 single-CTA), Studio jump-to-slide from audit issues, MCP craft mandate for action icons, and stunning-25 example closing icons.
+
+### Patch Changes
+
+- Updated dependencies [7aa0385]
+- Updated dependencies [9f935f0]
+  - @presentation-md/core@1.7.1
+  - @presentation-md/export@1.10.1
+
 ## 1.2.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @presentation-md/export
 
+## 1.10.1
+
+### Patch Changes
+
+- 9f935f0: PPTX chrome approximations for pastel-geometry, 8-bit-orbit, neo-grid-bold, and other loud leftovers (bold-poster, capsule, cobalt-grid, retro-arcade, brutalist-mono, creative-mode, biennale-yellow, scatterbrain, split-pastel).
+- Updated dependencies [7aa0385]
+  - @presentation-md/core@1.7.1
+
 ## 1.10.0
 
 ### Minor Changes
