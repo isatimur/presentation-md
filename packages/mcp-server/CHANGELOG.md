@@ -1,5 +1,16 @@
 # @presentation-md/mcp-server
 
+## 1.12.1
+
+### Patch Changes
+
+- 059c89f: Raise present-mode craft floors (notes / dual-CTA / long-deck data beats) in the skill + MCP mandate, and lock gallery example decks behind a zero-warning auditCraft regression.
+- Updated dependencies [059c89f]
+  - @presentation-md/core@1.13.2
+  - @presentation-md/create-theme@1.0.36
+  - @presentation-md/export@1.22.1
+  - @presentation-md/render@1.6.29
+
 ## 1.12.0
 
 ### Minor Changes
