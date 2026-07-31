@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-biennale-yellow",
-  "version": "1.0.0",
-  "description": "Biennale Yellow \u2014 Instrument Serif on parchment with solar yellow bloom and deep indigo ink.",
+  "version": "1.0.1",
+  "description": "Biennale Yellow — Instrument Serif on parchment with solar yellow bloom and deep indigo ink.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",
