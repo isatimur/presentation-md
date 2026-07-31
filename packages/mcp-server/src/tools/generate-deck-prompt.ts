@@ -12,37 +12,51 @@ import { resolveThemesDir } from "../lib/resolve-themes.js";
 export const generateDeckPromptTool: ToolDefinition = {
   name: "generate_deck_prompt",
   description:
-    "Build a system prompt with the active theme's palette and the deck schema reference, for an agent to produce a deck JSON spec.",
+    "Build a system prompt with the active theme's palette and the deck schema reference, for an agent to produce a deck JSON spec. Optional density locks speaker-led vs reading-first craft (matches Studio Generate).",
   inputSchema: {
     type: "object",
     properties: {
       theme: { type: "string", description: "Theme name to use (default: default-tech)" },
-      intent: { type: "string", description: "What the deck should argue or show" }
-    }
+      intent: { type: "string", description: "What the deck should argue or show" },
+      density: {
+        type: "string",
+        enum: ["speaker", "reading"],
+        description:
+          'Deck density lock. "speaker" (default) = one idea per slide, large type. "reading" = self-contained slides for async/board packs.',
+      },
+    },
   },
   handler: async (input: Record<string, unknown>) => {
     const themeName = (input["theme"] as string | undefined) ?? "default-tech";
     const intent = (input["intent"] as string | undefined) ?? "";
+    const density =
+      input["density"] === "reading" ? ("reading" as const) : ("speaker" as const);
 
     const coreRoot = getCorePackageRoot();
     const { themesDir, fallbackThemesDirs } = resolveThemesDir();
 
     const [theme, skill, deckSchemaReference, stunning25, themesMd, antiSlop, layoutRecipes, shortlistsDoc] =
       await Promise.all([
-      loadTheme(themeName, { themesDir, fallbackThemesDirs }),
-      readFile(join(coreRoot, "SKILL.md"), "utf-8"),
-      readFile(join(coreRoot, "references", "deck-schema.md"), "utf-8"),
-      readFile(join(coreRoot, "references", "stunning-25.md"), "utf-8").catch(() => ""),
-      readFile(join(coreRoot, "references", "themes.md"), "utf-8").catch(() => ""),
-      readFile(join(coreRoot, "references", "anti-slop-bans.md"), "utf-8").catch(() => ""),
-      loadLayoutRecipesMarkdown().catch(() => ""),
-      loadThemeShortlists().catch(() => null),
-    ]);
+        loadTheme(themeName, { themesDir, fallbackThemesDirs }),
+        readFile(join(coreRoot, "SKILL.md"), "utf-8"),
+        readFile(join(coreRoot, "references", "deck-schema.md"), "utf-8"),
+        readFile(join(coreRoot, "references", "stunning-25.md"), "utf-8").catch(() => ""),
+        readFile(join(coreRoot, "references", "themes.md"), "utf-8").catch(() => ""),
+        readFile(join(coreRoot, "references", "anti-slop-bans.md"), "utf-8").catch(() => ""),
+        loadLayoutRecipesMarkdown().catch(() => ""),
+        loadThemeShortlists().catch(() => null),
+      ]);
     const shortlists = shortlistsDoc ? JSON.stringify(shortlistsDoc, null, 2) : "";
+
+    const densityLine =
+      density === "reading"
+        ? "DENSITY LOCK: reading-first — self-contained slides, structured grids/tables, still no overflow. Never mix cramped reading copy into a speaker talk."
+        : "DENSITY LOCK: speaker-led — one idea per slide, large type, generous space, 1–3 bullets max. Split into more slides instead of shrinking.";
 
     const craftMandate = [
       "CRAFT MANDATE (non-negotiable — beat Gamma / Beautiful.ai / md-slides / frontend-slides / Claude Design canvas on first glance):",
       "- ONE-SHOT BAR: the first deck JSON must already clear anti-slop + craft gates. No 'vibe draft' hoping a second pass fixes it — beat frontend-slides first drafts.",
+      `- ${densityLine}`,
       "- Prefer stunning-25 themes when the brief matches (see stunning_25_reference). Open that structured proof and match density — do not invent a watered-down palette.",
       "- Density lock: choose speaker-led vs reading-first once with purpose; keep that density for the whole deck.",
       "- Ban Inter-only / purple-on-white / cream-terracotta defaults unless the chosen theme owns them (see anti_slop_reference).",
@@ -82,6 +96,7 @@ export const generateDeckPromptTool: ToolDefinition = {
     return {
       theme: themeName,
       intent,
+      density,
       craft_mandate: craftMandate,
       skill,
       deck_schema_reference: deckSchemaReference,
@@ -91,7 +106,7 @@ export const generateDeckPromptTool: ToolDefinition = {
       layout_recipes_reference: layoutRecipes || undefined,
       theme_shortlists_reference: shortlists || undefined,
       palette: theme.palette as unknown as Record<string, string>,
-      typography: theme.typography
+      typography: theme.typography,
     };
-  }
+  },
 };

@@ -215,6 +215,22 @@ describe("generate_deck_prompt", () => {
     expect(result.craft_mandate).toMatch(/launch\/investor/i);
     expect(result.theme_shortlists_reference).toMatch(/series-a-pitch|core-defaults/i);
   });
+
+  it("locks density into craft_mandate and response", async () => {
+    const speaker = (await generateDeckPromptTool.handler({
+      theme: "default-tech",
+      density: "speaker",
+    })) as { density?: string; craft_mandate: string };
+    expect(speaker.density).toBe("speaker");
+    expect(speaker.craft_mandate).toMatch(/speaker-led/i);
+
+    const reading = (await generateDeckPromptTool.handler({
+      theme: "default-tech",
+      density: "reading",
+    })) as { density?: string; craft_mandate: string };
+    expect(reading.density).toBe("reading");
+    expect(reading.craft_mandate).toMatch(/reading-first/i);
+  });
 });
 
 describe("audit_deck craft warnings", () => {

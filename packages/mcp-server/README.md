@@ -41,8 +41,8 @@ replace it with the block above (or re-run `npx @presentation-md/install cursor`
 | `apply_theme` | Swap the theme in `meta.theme` while keeping all slide content unchanged. |
 | `audit_deck` | Validate deck JSON against the schema and return structured issues with severity (incl. kinetic-wrap tone / visual-beat warnings). |
 | `judge_deck` | Craft QA tiers: `t1` schema gates, `t2` HTML metrics + screenshots, `t3` agent rubric / panel when keys exist. |
-| `generate_deck_prompt` | Build a system prompt with theme palette, craft mandate, layout recipes, and theme shortlists for intelligent defaults. |
-| `preview_themes` | Render 1–3 theme HTML previews for visual discovery. Pass `themes[]` and/or `shortlist` id (fills themes from theme-shortlists.json). Default = title slide; `mode: "layouts"` = multi-slide craft bake (image-hero, bento, ranked-list, stats, quote, code, closing; kinetic-wrapped injects tone). |
+| `generate_deck_prompt` | Build a system prompt with theme palette, craft mandate, layout recipes, theme shortlists, and optional `density` (`speaker` / `reading`) lock. |
+| `preview_themes` | Render 1–3 theme HTML previews for visual discovery. Pass `themes[]` and/or `shortlist` id (fills themes from theme-shortlists.json). Default = title slide; `mode: "layouts"` = multi-slide craft bake (recommended for pick-3). Title-mode trios return `layouts_recommended`. |
 | `import_pptx` | Import a `.pptx` file into deck JSON (text, tables, images, notes → layouts). |
 | `import_markdown` | Convert Markdown outline → Deck JSON (`chart` / `html` fences supported). |
 | `import_brand_theme` | Generate a theme from a brand's URL or CSS file, with a contrast-safety pass. |
