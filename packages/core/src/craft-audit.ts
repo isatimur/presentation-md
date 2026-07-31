@@ -419,6 +419,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     "pink-script",
     "biennale-yellow",
     "pastel-dreamy",
+    "scandinavian",
   ]);
   if (paperThemes.has(theme) && slides.length >= 5) {
     const hasEditorialBeat =
@@ -651,6 +652,86 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
         severity: "warning",
         message:
           "luxury-minimalist (quiet-luxe) needs a restrained luxury beat — add quote, image-hero, or comparison+emphasis (top-rule cards, not soft SaaS stacks).",
+      });
+    }
+  }
+
+  const softProductThemes = new Set(["corporate", "fintech-clean"]);
+  if (softProductThemes.has(theme) && slides.length >= 5) {
+    const hasProductBeat =
+      layouts.includes("stat-row") ||
+      layouts.includes("comparison") ||
+      layouts.includes("feature-grid") ||
+      layouts.includes("chart");
+    if (!hasProductBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "corporate / fintech-clean needs a clean product beat — add stat-row, comparison+emphasis, feature-grid, or chart (not only soft sections).",
+      });
+    }
+  }
+
+  const playfulSoftThemes = new Set(["playful", "split-pastel"]);
+  if (playfulSoftThemes.has(theme) && slides.length >= 5) {
+    const hasPlayfulBeat =
+      layouts.includes("feature-grid") ||
+      layouts.includes("image-hero") ||
+      layouts.includes("stat-row") ||
+      layouts.includes("quote");
+    if (!hasPlayfulBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "playful / split-pastel needs a soft-bento beat — add feature-grid, image-hero, punchy stats, or quote (not only soft sections).",
+      });
+    }
+  }
+
+  const neonTechThemes = new Set(["default-tech", "developer-dark"]);
+  if (neonTechThemes.has(theme) && slides.length >= 5) {
+    const hasTechBeat =
+      layouts.includes("code") ||
+      layouts.includes("feature-grid") ||
+      layouts.includes("chart") ||
+      layouts.includes("stat-row") ||
+      layouts.includes("comparison");
+    if (!hasTechBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "default-tech / developer-dark needs a tech product beat — add code, feature-grid, chart, comparison, or punchy stats.",
+      });
+    }
+  }
+
+  if (theme === "scatterbrain" && slides.length >= 5) {
+    const hasWorkshopBeat =
+      layouts.includes("feature-grid") ||
+      layouts.includes("image-hero") ||
+      layouts.includes("quote") ||
+      layouts.includes("stat-row");
+    if (!hasWorkshopBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "scatterbrain cork board needs a workshop beat — add feature-grid, image-hero, punchy quote, or stats (sticky energy, not soft SaaS).",
+      });
+    }
+  }
+
+  if (theme === "data-editorial" && slides.length >= 5) {
+    const hasDataBeat =
+      layouts.includes("chart") ||
+      layouts.includes("data-table") ||
+      layouts.includes("stat-row") ||
+      layouts.includes("ranked-list") ||
+      layouts.includes("timeline");
+    if (!hasDataBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "data-editorial needs a reported data beat — add chart, data-table, stat-row, ranked-list, or timeline.",
       });
     }
   }

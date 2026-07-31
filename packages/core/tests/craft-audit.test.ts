@@ -732,4 +732,128 @@ describe("auditCraft", () => {
       true
     );
   });
+
+  it("warns when corporate lacks a clean product beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "corporate", title: "Flat corp" },
+      slides: [
+        { layout: "title", heading: "Corp" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        { layout: "section", heading: "C" },
+        { layout: "two-column", heading: "Notes", left: "A", right: "B" },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /corporate|fintech-clean|clean product beat/i.test(i.message))).toBe(
+      true
+    );
+  });
+
+  it("warns when playful lacks a soft-bento beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "playful", title: "Flat play" },
+      slides: [
+        { layout: "title", heading: "Play" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        { layout: "section", heading: "C" },
+        { layout: "two-column", heading: "Notes", left: "A", right: "B" },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /playful|split-pastel|soft-bento beat/i.test(i.message))).toBe(true);
+  });
+
+  it("warns when default-tech lacks a tech product beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "default-tech", title: "Flat tech" },
+      slides: [
+        { layout: "title", heading: "Tech" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        { layout: "section", heading: "C" },
+        { layout: "two-column", heading: "Notes", left: "A", right: "B" },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /default-tech|developer-dark|tech product beat/i.test(i.message))).toBe(
+      true
+    );
+  });
+
+  it("warns when scatterbrain lacks a workshop beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "scatterbrain", title: "Flat cork" },
+      slides: [
+        { layout: "title", heading: "Cork" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        { layout: "section", heading: "C" },
+        { layout: "two-column", heading: "Notes", left: "A", right: "B" },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /scatterbrain|workshop beat/i.test(i.message))).toBe(true);
+  });
+
+  it("warns when data-editorial lacks a reported data beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "data-editorial", title: "Flat report" },
+      slides: [
+        { layout: "title", heading: "Report" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        { layout: "quote", quote: "Line", by: "Ed" },
+        { layout: "comparison", heading: "Diff", left: "A", right: "B", emphasis: "right" },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /data-editorial|reported data beat/i.test(i.message))).toBe(true);
+  });
 });

@@ -67,8 +67,8 @@ Authoring rules:
   - Year-wrap / kinetic-wrapped: use tone on ≥3 slides, stat-row variant:"hero" for mega numbers, ranked-list for top-N bars, streak-grid for day streaks, metric-ring for percentile KPIs, closing actions[] with icons for dual share pills. PPTX renders eyebrow chips + hard frames.
   - candy-pop: set meta.company (or meta.marquee) so the yellow ticker brands the deck — never hardcode Jellybean; PPTX cards get hard ink borders.
   - risograph-zine: prefer comparison+emphasis and a punchy quote for print-shop energy.
-  - Match a layout recipe for the brief (pitch / launch / wrap / neon / poster / paper / hud / modernist / hard-bento / glass / electric / briefing / quiet-luxe) before freehanding layouts.
-  - Loud honesty: stencil / retro-zine / daisy / block-frame / creative-mode / sakura / capsule / scatterbrain / 8-bit / retro-windows / cobalt / genz-bento / bauhaus / neo-grid / bold-poster / raw-grid / creative-voltage / electric-studio / studio / brutalist-mono expect hard frames + hard-border cards — don't invent custom-html stickers for atmosphere.
+  - Match a layout recipe for the brief (pitch / launch / wrap / neon / poster / paper / hud / modernist / hard-bento / glass / electric / briefing / quiet-luxe / soft-product / playful) before freehanding layouts.
+  - Loud honesty: stencil / retro-zine / daisy / block-frame / creative-mode / sakura / capsule / scatterbrain / 8-bit / retro-windows / cobalt / genz-bento / bauhaus / neo-grid / bold-poster / raw-grid / creative-voltage / electric-studio / studio / brutalist-mono expect hard frames + hard-border cards — don't invent custom-html stickers for atmosphere. scatterbrain wants a workshop beat.
   - Atmosphere honesty: neon-noir / vaporwave / y2k-aero / retro-arcade need cyan/pink rims + cinematic image-hero or quote.
   - Poster honesty: coral / peoples-platform / bold-signal / broadside need hard poster frames + hard-border cards + a bold beat; bold-signal cards get accent rims in PPTX.
   - HUD honesty: aerospace-hud / crt-terminal / blueprint need instrument chrome + a data beat (chart / data-table / stat-row / ranked-list / timeline / metric-ring).
@@ -76,7 +76,11 @@ Authoring rules:
   - Modernist honesty: bauhaus / swiss-typographic / art-deco need geometry + hard type with a modernist beat (quote / image-hero / comparison / icon feature-grid).
   - Briefing honesty: signal needs an editorial beat (quote / image-hero / comparison / stats); PPTX keeps briefing frames + border-hairline cards.
   - Quiet-luxe honesty: luxury-minimalist needs top-rule cards + quote / image-hero / comparison; long-table keeps dashed rust cards under paper honesty.
-  - Paper honesty: paper/editorial themes prefer quote + comparison+emphasis; fiber grain is HTML-only.
+  - Soft-product honesty: corporate / fintech-clean need a clean product beat (stat-row / comparison / feature-grid / chart); PPTX keeps accent-hairline cards.
+  - Playful honesty: playful / split-pastel need a soft-bento beat (feature-grid / image-hero / stats / quote); PPTX keeps plump card rims.
+  - Neon-tech honesty: default-tech / developer-dark need a tech product beat (code / feature-grid / chart / comparison / stats); PPTX keeps neon/terminal card rims.
+  - Data-editorial honesty: data-editorial needs a reported data beat (chart / data-table / stat-row / ranked-list / timeline).
+  - Paper honesty: paper/editorial themes (incl. scandinavian / pastel-dreamy / claude) prefer quote + comparison+emphasis; fiber grain is HTML-only; PPTX keeps theme-native card hairlines.
   - Match atmosphere to the brief: loud/thin surfaces for punchy brand energy; neon/vapor/arcade for night; HUD/tech for instruments; glass for frosted product; paper/editorial for magazine quiet.
   - PPTX approximates theme chrome as native shapes (electric-studio split/rail, studio acid frame, grove monograph rules, hard-card strokes, HUD reticles, …); reserve custom-html for art PPTX cannot keep.
   - Closing dual asks: stunning / wrap / launch / investor decks prefer actions[] with solid + outline pills and an icon on every pill (cta alone is weak).

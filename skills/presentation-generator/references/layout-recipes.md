@@ -252,3 +252,33 @@ Themes: `luxury-minimalist`. Top-rule cards, gold hairlines, restrained luxury �
 07 stat-row      — One quiet proof number
 08 closing       — Dual ask with icons
 ```
+
+## Soft-product short (8)
+
+Themes: `corporate`, `fintech-clean`. Clean frames, accent-hairline cards, product proof.
+
+```
+01 title         — Product cover
+02 feature-grid  — 3 pillars (icons)
+03 comparison    — Before vs after (emphasis)
+04 stat-row      — 1–3 proof numbers
+05 chart OR code — Mechanism / proof
+06 two-column    — Detail (ratio: 2-1)
+07 quote         — Customer line
+08 closing       — Dual ask with icons
+```
+
+## Playful soft-bento short (8)
+
+Themes: `playful`, `split-pastel`. Plump card rims, soft blots / split washes.
+
+```
+01 title         — Bright cover
+02 image-hero    — Product / place moment
+03 feature-grid  — 3–5 playful tiles (bento ok)
+04 quote         — Brand line
+05 stat-row      — Punchy numbers
+06 comparison    — Us vs them (emphasis)
+07 two-column    — Story beat
+08 closing       — Dual ask with icons
+```
