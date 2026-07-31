@@ -22,6 +22,39 @@ export function themePreviewUrl(name: string): string {
 /** Cap for pick-3 compare (frontend-slides style progressive disclosure). */
 export const COMPARE_LIMIT = 3;
 
+/**
+ * Live-iframe crop depths for multi-layout craft judgment.
+ * Matches gallery/site preview math: body pad 48 + 720 slide + 48 gap.
+ * Structured proofs are title → feature-grid (bento) → comparison.
+ */
+export type PreviewCrop = "title" | "bento" | "comparison";
+
+export const PREVIEW_CROPS: readonly PreviewCrop[] = [
+  "title",
+  "bento",
+  "comparison",
+] as const;
+
+const BODY_PAD = 48;
+const SLIDE_H = 720;
+const GAP = 48;
+
+export const PREVIEW_CROP_OFFSET_PX: Record<PreviewCrop, number> = {
+  title: BODY_PAD,
+  bento: BODY_PAD + SLIDE_H + GAP,
+  comparison: BODY_PAD + 2 * (SLIDE_H + GAP),
+};
+
+export const PREVIEW_CROP_LABEL: Record<PreviewCrop, string> = {
+  title: "Title",
+  bento: "Bento",
+  comparison: "Compare",
+};
+
+export function isPreviewCrop(value: string): value is PreviewCrop {
+  return (PREVIEW_CROPS as readonly string[]).includes(value);
+}
+
 export function toggleCompareSlot(current: string[], name: string): string[] {
   if (current.includes(name)) return current.filter((n) => n !== name);
   if (current.length >= COMPARE_LIMIT) return [...current.slice(1), name];

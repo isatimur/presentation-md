@@ -14,6 +14,7 @@ import { ThemeCompareTray } from "./ThemeCompareTray.js";
 
 export function Toolbar({
   deck,
+  html,
   exampleSlug,
   onChange,
   onLoadExample,
@@ -22,6 +23,8 @@ export function Toolbar({
   onSelectSlide,
 }: {
   deck: DeckJson;
+  /** Live-rendered deck HTML from App — used for instant HTML download. */
+  html?: string;
   exampleSlug: string | null;
   onChange: (next: DeckJson) => void;
   onLoadExample: (slug?: string) => void;
@@ -408,7 +411,7 @@ export function Toolbar({
           <summary className="btn btn-sm" title="Download Deck JSON or self-contained HTML">Source ▾</summary>
           <div className="export-more-panel">
             <button type="button" className="btn" onClick={() => downloadJson(deck)}>Download JSON</button>
-            <button type="button" className="btn" onClick={() => downloadHtml(deck)}>Download HTML</button>
+            <button type="button" className="btn" onClick={() => downloadHtml(deck, html)}>Download HTML</button>
           </div>
         </details>
         <button className="btn btn-primary" disabled={busy} onClick={exportPptx}>

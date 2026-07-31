@@ -7,6 +7,7 @@ import {
   listThemeSummaries,
   resolveTheme,
 } from "../render/themes.js";
+import { PREVIEW_CROP_OFFSET_PX, themePreviewUrl } from "../render/themePreview.js";
 import { GEN_MODELS, type GenModelId, type DensityMode, buildAgentPrompt, generateDeck } from "../ai/generate.js";
 
 const KEY_STORAGE = "pmd-studio-anthropic-key";
@@ -36,6 +37,7 @@ export function GenerateModal({
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState("");
   const [copied, setCopied] = useState(false);
+  const [liveDiscover, setLiveDiscover] = useState(false);
 
   const themeNames = listThemeNames();
   const themes = useMemo(() => listThemeSummaries(), []);
@@ -174,7 +176,17 @@ export function GenerateModal({
             ))}
           </div>
 
-          <label className="field-label">Pick visually (show, don’t tell)</label>
+          <div className="gen-discover-head">
+            <label className="field-label">Pick visually (show, don’t tell)</label>
+            <button
+              type="button"
+              className={`chip${liveDiscover ? " active" : ""}`}
+              onClick={() => setLiveDiscover((v) => !v)}
+              title="Load live title-slide craft previews for the trio"
+            >
+              {liveDiscover ? "Hide live" : "Show live"}
+            </button>
+          </div>
           <div className="gen-discover-grid" role="listbox" aria-label="Pick 3 theme compare">
             {discoverThree.map((t) => (
               <button
@@ -186,14 +198,29 @@ export function GenerateModal({
                 onClick={() => setTheme(t.name)}
                 title={t.vibe}
               >
-                <span
-                  className="gen-discover-swatch"
-                  style={{
-                    ["--swatch-bg" as string]: t.bg,
-                    ["--swatch-accent" as string]: t.accent,
-                  }}
-                  aria-hidden
-                />
+                {liveDiscover ? (
+                  <span
+                    className="gen-discover-frame"
+                    style={{ ["--crop-y" as string]: `${PREVIEW_CROP_OFFSET_PX.title}px` }}
+                    aria-hidden
+                  >
+                    <iframe
+                      src={themePreviewUrl(t.name)}
+                      title={`${t.name} craft preview`}
+                      loading="lazy"
+                      tabIndex={-1}
+                    />
+                  </span>
+                ) : (
+                  <span
+                    className="gen-discover-swatch"
+                    style={{
+                      ["--swatch-bg" as string]: t.bg,
+                      ["--swatch-accent" as string]: t.accent,
+                    }}
+                    aria-hidden
+                  />
+                )}
                 <span className="gen-discover-name">{t.name}</span>
                 <span className="gen-discover-vibe muted small">{t.vibe}</span>
               </button>

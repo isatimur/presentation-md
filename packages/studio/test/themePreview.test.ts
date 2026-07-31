@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { COMPARE_LIMIT, toggleCompareSlot, themePreviewUrl } from "../src/render/themePreview.js";
+import {
+  COMPARE_LIMIT,
+  PREVIEW_CROP_OFFSET_PX,
+  PREVIEW_CROPS,
+  isPreviewCrop,
+  toggleCompareSlot,
+  themePreviewUrl,
+} from "../src/render/themePreview.js";
 
 describe("themePreview compare helpers", () => {
   it("caps compare at 3 with FIFO when adding a fourth", () => {
@@ -20,6 +27,19 @@ describe("themePreview compare helpers", () => {
   it("points theme previews at production craft proofs outside hosted studio", () => {
     expect(themePreviewUrl("aurora-glass")).toMatch(
       /\/previews\/aurora-glass\.html$/
+    );
+  });
+
+  it("exposes title → bento → comparison crop offsets for multi-layout live compare", () => {
+    expect([...PREVIEW_CROPS]).toEqual(["title", "bento", "comparison"]);
+    expect(isPreviewCrop("bento")).toBe(true);
+    expect(isPreviewCrop("hero")).toBe(false);
+    expect(PREVIEW_CROP_OFFSET_PX.title).toBe(48);
+    expect(PREVIEW_CROP_OFFSET_PX.bento).toBe(48 + 720 + 48);
+    expect(PREVIEW_CROP_OFFSET_PX.comparison).toBe(48 + 2 * (720 + 48));
+    expect(PREVIEW_CROP_OFFSET_PX.bento).toBeGreaterThan(PREVIEW_CROP_OFFSET_PX.title);
+    expect(PREVIEW_CROP_OFFSET_PX.comparison).toBeGreaterThan(
+      PREVIEW_CROP_OFFSET_PX.bento
     );
   });
 });

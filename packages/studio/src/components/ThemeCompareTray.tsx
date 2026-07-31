@@ -1,9 +1,17 @@
+import { useState } from "react";
 import type { ThemeSummary } from "../render/themes.js";
-import { COMPARE_LIMIT, themePreviewUrl } from "../render/themePreview.js";
+import {
+  COMPARE_LIMIT,
+  PREVIEW_CROP_LABEL,
+  PREVIEW_CROP_OFFSET_PX,
+  PREVIEW_CROPS,
+  themePreviewUrl,
+  type PreviewCrop,
+} from "../render/themePreview.js";
 
 /**
  * Progressive pick-3 compare tray — swatches first, optional live iframe
- * previews (frontend-slides style discovery, structured themes).
+ * previews with Title / Bento / Compare crops (beats title-only disclosure).
  */
 export function ThemeCompareTray({
   compare,
@@ -24,6 +32,8 @@ export function ThemeCompareTray({
   onClear: () => void;
   onUse: (name: string) => void;
 }) {
+  const [crop, setCrop] = useState<PreviewCrop>("title");
+
   if (compare.length === 0) return null;
 
   const slots = compare.map((name) => {
@@ -38,6 +48,8 @@ export function ThemeCompareTray({
     );
   });
 
+  const cropOffset = PREVIEW_CROP_OFFSET_PX[crop];
+
   return (
     <div className="theme-compare" role="region" aria-label="Compare themes">
       <div className="theme-compare-head">
@@ -49,7 +61,7 @@ export function ThemeCompareTray({
             type="button"
             className={`chip${livePreview ? " active" : ""}`}
             onClick={() => onLivePreview(!livePreview)}
-            title="Load live title-slide previews (progressive disclosure)"
+            title="Load live multi-layout craft previews (title / bento / comparison crops)"
           >
             {livePreview ? "Hide live" : "Show live"}
           </button>
@@ -58,6 +70,33 @@ export function ThemeCompareTray({
           </button>
         </div>
       </div>
+      {livePreview ? (
+        <div
+          className="theme-compare-crop-bar"
+          role="toolbar"
+          aria-label="Preview layout crop"
+        >
+          <span className="theme-compare-crop-label">Judge</span>
+          {PREVIEW_CROPS.map((c) => (
+            <button
+              key={c}
+              type="button"
+              className={`chip${crop === c ? " active" : ""}`}
+              aria-pressed={crop === c}
+              onClick={() => setCrop(c)}
+              title={
+                c === "title"
+                  ? "Crop to title slide"
+                  : c === "bento"
+                    ? "Crop to feature-grid / bento body craft"
+                    : "Crop to comparison slide"
+              }
+            >
+              {PREVIEW_CROP_LABEL[c]}
+            </button>
+          ))}
+        </div>
+      ) : null}
       <div className={`theme-compare-grid${livePreview ? " is-live" : ""}`}>
         {slots.map((t) => (
           <article
@@ -65,10 +104,14 @@ export function ThemeCompareTray({
             className={`theme-compare-card${t.name === activeTheme ? " is-active" : ""}`}
           >
             {livePreview ? (
-              <div className="theme-compare-frame" data-crop="title">
+              <div
+                className="theme-compare-frame"
+                data-crop={crop}
+                style={{ ["--crop-y" as string]: `${cropOffset}px` }}
+              >
                 <iframe
                   src={themePreviewUrl(t.name)}
-                  title={`${t.name} preview`}
+                  title={`${t.name} preview (${PREVIEW_CROP_LABEL[crop]})`}
                   loading="lazy"
                   tabIndex={-1}
                 />
@@ -113,8 +156,8 @@ export function ThemeCompareTray({
         ))}
       </div>
       <p className="theme-compare-hint muted small">
-        Click ⊕ on themes to fill slots · Show live for title craft · Use to lock{" "}
-        <code>meta.theme</code>
+        Click ⊕ on themes to fill slots · Show live, then Title / Bento / Compare to
+        judge body craft · Use to lock <code>meta.theme</code>
       </p>
     </div>
   );

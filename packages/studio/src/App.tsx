@@ -146,6 +146,7 @@ export function App() {
     <div className="app">
       <Toolbar
         deck={deck}
+        html={html}
         exampleSlug={exampleSlug}
         onChange={(next) => {
           setDeck(next);

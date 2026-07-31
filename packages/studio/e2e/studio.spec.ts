@@ -21,13 +21,14 @@ test("edit a slide, see the live preview update, and export .pptx", async ({ pag
   ]);
   expect(download.suggestedFilename()).toMatch(/\.pptx$/);
 
-  // Source ▾ → Download JSON (HTML render can be heavy in headless; JSON proves the menu path).
+  // Source ▾ → Download HTML (cached render + octet-stream; panel above audit).
   await page.locator("details.export-more > summary").click();
-  const [jsonDownload] = await Promise.all([
-    page.waitForEvent("download"),
-    page.getByRole("button", { name: /Download JSON/i }).click(),
+  await expect(page.getByRole("button", { name: /Download HTML/i })).toBeVisible();
+  const [htmlDownload] = await Promise.all([
+    page.waitForEvent("download", { timeout: 15_000 }),
+    page.getByRole("button", { name: /Download HTML/i }).click(),
   ]);
-  expect(jsonDownload.suggestedFilename()).toMatch(/\.json$/);
+  expect(htmlDownload.suggestedFilename()).toMatch(/\.html$/);
 });
 
 test("pick-3 theme compare tray fills slots and can lock a theme", async ({ page }) => {
@@ -50,9 +51,17 @@ test("pick-3 theme compare tray fills slots and can lock a theme", async ({ page
   await expect(tray).toBeVisible();
   await expect(tray.getByText(/Compare 3\/3/i)).toBeVisible();
 
-  // Progressive disclosure: live previews optional.
+  // Progressive disclosure: live previews + multi-layout crop (Title / Bento / Compare).
   await tray.getByRole("button", { name: /Show live/i }).click();
   await expect(tray.locator(".theme-compare-frame iframe")).toHaveCount(3);
+  await expect(tray.getByRole("toolbar", { name: /Preview layout crop/i })).toBeVisible();
+  await tray.getByRole("button", { name: /^Bento$/ }).click();
+  await expect(tray.locator(".theme-compare-frame").first()).toHaveAttribute("data-crop", "bento");
+  await tray.getByRole("button", { name: /^Compare$/ }).click();
+  await expect(tray.locator(".theme-compare-frame").first()).toHaveAttribute(
+    "data-crop",
+    "comparison"
+  );
 
   // Lock the first compared theme.
   const firstName = await tray.locator(".theme-compare-card strong").first().textContent();
@@ -78,6 +87,8 @@ test("Generate modal opens, validates input, and offers the agent-handoff path",
 
   // Visual pick-3 compare is present (show-don't-tell).
   await expect(page.locator(".gen-discover-grid .gen-discover-card")).toHaveCount(3);
+  await page.getByRole("button", { name: /Show live/i }).click();
+  await expect(page.locator(".gen-discover-frame iframe")).toHaveCount(3);
 
   // …and generating without an API key surfaces a clear error (no network call).
   await page.getByRole("button", { name: /^Generate deck$/ }).click();

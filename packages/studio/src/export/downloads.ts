@@ -52,10 +52,21 @@ export async function downloadPptx(deck: DeckJson): Promise<PptxDownloadResult> 
   return { warnings };
 }
 
-export function downloadHtml(deck: DeckJson): void {
-  const theme = resolveTheme(themeName(deck));
-  const html = renderDeckHtml(deck, theme);
-  triggerDownload(new Blob([html], { type: "text/html" }), safeName(deck, "html"));
+export function downloadHtml(deck: DeckJson, renderedHtml?: string): void {
+  // Prefer the already-rendered Studio preview HTML so the click stays
+  // gesture-associated (avoids headless re-render cost).
+  const html =
+    renderedHtml ??
+    (() => {
+      const theme = resolveTheme(themeName(deck));
+      return renderDeckHtml(deck, theme);
+    })();
+  // application/octet-stream: Chromium blocks blob: downloads of text/html
+  // (phishing protection) — which flakes Playwright and some browsers.
+  triggerDownload(
+    new Blob([html], { type: "application/octet-stream" }),
+    safeName(deck, "html")
+  );
 }
 
 export function downloadJson(deck: DeckJson): void {
