@@ -1,5 +1,11 @@
 # @presentation-md/mcp-server
 
+## 1.4.1
+
+### Patch Changes
+
+- 09eba35: Tighten generate_deck_prompt craft mandate for ranked-list, hero stats, tone, and judge_deck.
+
 ## 1.4.0
 
 ### Minor Changes
