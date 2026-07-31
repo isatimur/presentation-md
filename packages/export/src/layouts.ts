@@ -11,11 +11,19 @@ import type { PptxSlide, PptxTextOpts, PptxTableRow } from "./pptx.js";
 type PSlide = PptxSlide;
 type TextOpts = PptxTextOpts;
 
+type CardStroke = {
+  color: string;
+  width: number;
+  dashType?: "solid" | "dash" | "dashDot" | "lgDash" | "lgDashDot" | "lgDashDotDot" | "sysDash" | "sysDot";
+  /** quiet-luxe / biennale: top hairline instead of a full box stroke */
+  topRule?: boolean;
+};
+
 /** Candy-pop cards use hard ink strokes + plump radius (candy-blob `.card`). */
 function cardStroke(
   ctx: ExportContext,
   opts: { hero?: boolean; highlighted?: boolean } = {}
-): { color: string; width: number } {
+): CardStroke {
   if (ctx.themeName === "candy-pop") {
     return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.75 : 2.5 };
   }
@@ -82,10 +90,6 @@ function cardStroke(
   // mat-woodglow cards: dark ink on cream
   if (ctx.themeName === "mat") {
     return { color: "1E2820", width: opts.hero || opts.highlighted ? 1.5 : 1.25 };
-  }
-  // biennale-yellow-sun cards: indigo hairline
-  if (ctx.themeName === "biennale-yellow") {
-    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 1.35 : 1.1 };
   }
   // hard-bento (genz-bento) cards: 2.5px ink
   if (ctx.themeName === "genz-bento") {
@@ -201,10 +205,91 @@ function cardStroke(
           : ctx.colors.text;
     return { color, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
   }
+  // long-table-supper cards: dashed rust rim (HTML 1.5px dashed)
+  if (ctx.themeName === "long-table") {
+    return {
+      color: ctx.colors.accent,
+      width: opts.hero || opts.highlighted ? 1.5 : 1.35,
+      dashType: "dash",
+    };
+  }
+  // quiet-luxe / biennale-yellow-sun: top-rule cards (no full box stroke)
+  if (ctx.themeName === "luxury-minimalist" || ctx.themeName === "biennale-yellow") {
+    return {
+      color: ctx.themeName === "luxury-minimalist" ? ctx.colors.accent : ctx.colors.text,
+      width: opts.hero || opts.highlighted ? 1.5 : 1.25,
+      topRule: true,
+    };
+  }
+  // signal-briefing cards: quiet border hairline (theme geometry radius)
+  if (ctx.themeName === "signal") {
+    return { color: ctx.colors.border, width: opts.hero || opts.highlighted ? 1.25 : 1.1 };
+  }
+  // blue-professional-clean / pastel-geometry-pills / ft broadsheet-rule peers
+  if (ctx.themeName === "blue-professional") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
+  }
+  if (ctx.themeName === "pastel-geometry") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 1.15 : 1 };
+  }
+  if (ctx.themeName === "ft-editorial") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
+  }
   if (opts.hero || opts.highlighted) {
     return { color: ctx.colors.accent, width: opts.highlighted ? 1.75 : 1.5 };
   }
   return { color: ctx.colors.border, width: 1 };
+}
+
+/** Draw a filled card shell with theme-native stroke (incl. dashed / top-rule). */
+function drawCardFace(
+  slide: PSlide,
+  ctx: ExportContext,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  fill: string,
+  opts: { hero?: boolean; highlighted?: boolean } = {}
+): void {
+  const stroke = cardStroke(ctx, opts);
+  const radius = cardRadius(ctx);
+  if (stroke.topRule) {
+    slide.addShape(ctx.shapeRoundRect, {
+      x,
+      y,
+      w,
+      h,
+      fill: { color: fill },
+      line: { color: fill, width: 0 },
+      rectRadius: radius,
+    });
+    const ruleH = opts.hero || opts.highlighted ? 0.028 : 0.02;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: x + 0.04,
+      y,
+      w: Math.max(0.2, w - 0.08),
+      h: ruleH,
+      fill: { color: stroke.color },
+      line: { color: stroke.color, width: 0 },
+      rectRadius: 0,
+    });
+    return;
+  }
+  const line: { color: string; width: number; dashType?: CardStroke["dashType"] } = {
+    color: stroke.color,
+    width: stroke.width,
+  };
+  if (stroke.dashType) line.dashType = stroke.dashType;
+  slide.addShape(ctx.shapeRoundRect, {
+    x,
+    y,
+    w,
+    h,
+    fill: { color: fill },
+    line,
+    rectRadius: radius,
+  });
 }
 
 function cardRadius(ctx: ExportContext): number {
@@ -261,10 +346,16 @@ function cardRadius(ctx: ExportContext): number {
     ctx.themeName === "broadsheet" ||
     ctx.themeName === "editorial-forest" ||
     ctx.themeName === "monochrome" ||
-    ctx.themeName === "paper-ink"
+    ctx.themeName === "paper-ink" ||
+    ctx.themeName === "luxury-minimalist" ||
+    ctx.themeName === "ft-editorial"
   ) {
     return 0;
   }
+  // signal-briefing cards: theme geometry 2px ≈ 0.02"
+  if (ctx.themeName === "signal") return 0.02;
+  // blue-professional-clean cards: border-radius 12px ≈ 0.125"
+  if (ctx.themeName === "blue-professional") return 0.125;
   // hard-bento (genz-bento) cards: border-radius 14px ≈ 0.15"
   if (ctx.themeName === "genz-bento") return 0.15;
   // bold-signal-card / aero-bubble / pastel-geometry / pastel-dreamy / glass: plump
@@ -609,15 +700,7 @@ function renderTwoColumn(slide: PSlide, ctx: ExportContext, data: Slide): void {
   if (data.image) {
     addImageOrPlaceholder(slide, ctx, data, mediaX, imgY, mediaW, imgH);
   } else if (data.aside) {
-    slide.addShape(ctx.shapeRoundRect, {
-      x: mediaX,
-      y: imgY,
-      w: mediaW,
-      h: imgH,
-      fill: { color: ctx.colors.cardBg },
-      line: cardStroke(ctx, { hero: true }),
-      rectRadius: cardRadius(ctx),
-    });
+    drawCardFace(slide, ctx, mediaX, imgY, mediaW, imgH, ctx.colors.cardBg, { hero: true });
     slide.addText(data.aside, {
       x: mediaX + 0.3,
       y: imgY + 0.4,
@@ -798,16 +881,7 @@ function drawFeatureCard(
   const fill = hero ? ctx.colors.emphasisFill : ctx.colors.cardBg;
   const ink = hero ? ctx.colors.emphasisText : ctx.colors.cardText;
   const bodyInk = hero ? ctx.colors.emphasisText : ctx.colors.cardMuted;
-  const stroke = cardStroke(ctx, { hero });
-  slide.addShape(ctx.shapeRoundRect, {
-    x,
-    y,
-    w,
-    h,
-    fill: { color: fill },
-    line: stroke,
-    rectRadius: cardRadius(ctx),
-  });
+  drawCardFace(slide, ctx, x, y, w, h, fill, { hero });
   drawIconMarker(slide, ctx, card.icon, x + 0.2, y + 0.2, hero ? 0.42 : 0.34);
   const pad = 0.2;
   const titleY = y + (hero ? 0.75 : 0.6);
@@ -1376,15 +1450,7 @@ function renderComparison(slide: PSlide, ctx: ExportContext, data: Slide): void 
     const fill = highlighted ? ctx.colors.emphasisFill : ctx.colors.cardBg;
     const ink = highlighted ? ctx.colors.emphasisText : ctx.colors.cardText;
     const bodyInk = highlighted ? ctx.colors.emphasisText : ctx.colors.cardMuted;
-    slide.addShape(ctx.shapeRoundRect, {
-      x,
-      y: boxY,
-      w: colW,
-      h: boxH,
-      fill: { color: fill },
-      line: cardStroke(ctx, { highlighted }),
-      rectRadius: cardRadius(ctx),
-    });
+    drawCardFace(slide, ctx, x, boxY, colW, boxH, fill, { highlighted });
     let innerY = boxY + 0.25;
     if (label) {
       slide.addText(label.toUpperCase(), {
@@ -1844,15 +1910,7 @@ function renderLogoWall(slide: PSlide, ctx: ExportContext, data: Slide): void {
     const row = Math.floor(i / cols);
     const x = ctx.margin + col * (cellW + gap);
     const y = top + 0.1 + row * (cellH + gap);
-    slide.addShape(ctx.shapeRoundRect, {
-      x,
-      y,
-      w: cellW,
-      h: cellH,
-      fill: { color: ctx.colors.cardBg },
-      line: cardStroke(ctx),
-      rectRadius: cardRadius(ctx),
-    });
+    drawCardFace(slide, ctx, x, y, cellW, cellH, ctx.colors.cardBg);
     const img = typeof card.image === "string" ? card.image.trim() : "";
     if (img && (/^data:image\//i.test(img) || /^https?:\/\//i.test(img))) {
       try {
