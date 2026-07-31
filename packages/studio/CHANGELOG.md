@@ -1,5 +1,12 @@
 # @presentation-md/studio
 
+## 1.1.5
+
+### Patch Changes
+
+- 027dcea: Add Audit craft toolbar button with browser-side craft gates.
+  - @presentation-md/export@1.8.1
+
 ## 1.1.4
 
 ### Patch Changes
