@@ -4613,3 +4613,221 @@
     transition: none;
   }
 }
+
+/* ── Stunning-25 body chrome: keep content slides on-brand past the cover ── */
+
+/* Aurora glass / glass mist — frosted cards, soft winner, code window sheen */
+.deck[data-surface="aurora-glass"] .card,
+.deck[data-surface="glass-mist"] .card {
+  backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--card-bg) 72%, transparent);
+  border: 1px solid color-mix(in srgb, #ffffff 28%, var(--border));
+  box-shadow: 0 12px 40px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.deck[data-surface="aurora-glass"] .grid.cols-bento .card:first-child,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--accent) 55%, transparent),
+    color-mix(in srgb, var(--accent-2) 40%, var(--card-bg))
+  );
+  border-color: color-mix(in srgb, #ffffff 40%, transparent);
+  color: #fff;
+}
+.deck[data-surface="aurora-glass"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="aurora-glass"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="aurora-glass"] .grid.cols-bento .card:first-child i,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: #fff;
+}
+.deck[data-surface="aurora-glass"] .comparison-col:last-child,
+.deck[data-surface="glass-mist"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.deck[data-surface="aurora-glass"] .code-window,
+.deck[data-surface="glass-mist"] .code-window {
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, #0b1220 78%, transparent);
+  border: 1px solid color-mix(in srgb, #ffffff 18%, transparent);
+}
+.deck[data-surface="aurora-glass"] .quote,
+.deck[data-surface="glass-mist"] .quote {
+  border-left: 3px solid transparent;
+  border-image: linear-gradient(180deg, var(--accent), var(--accent-2)) 1;
+  font-weight: 500;
+}
+.deck[data-surface="aurora-glass"] .chart-frame,
+.deck[data-surface="glass-mist"] .chart-frame {
+  backdrop-filter: blur(8px);
+  background: color-mix(in srgb, var(--card-bg) 65%, transparent);
+  border-radius: 16px;
+  padding: 12px;
+}
+.deck[data-surface="aurora-glass"] .image-hero-slide .hero-caption,
+.deck[data-surface="glass-mist"] .image-hero-slide .hero-caption {
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, #06101f 88%, transparent));
+}
+
+/* Fintech soft — calm panels, accent winner, tabular metrics */
+.deck[data-surface="fintech-soft"] .card {
+  background: var(--card-bg);
+  border: 1px solid color-mix(in srgb, var(--text) 8%, var(--border));
+  border-radius: 12px;
+  box-shadow: 0 1px 0 color-mix(in srgb, #fff 70%, transparent) inset;
+}
+.deck[data-surface="fintech-soft"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+.deck[data-surface="fintech-soft"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent) 12%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+.deck[data-surface="fintech-soft"] .stat .value {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+}
+.deck[data-surface="fintech-soft"] .data-table th {
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg2));
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.75em;
+}
+.deck[data-surface="fintech-soft"] .quote {
+  border-left: 3px solid var(--accent);
+  color: var(--text);
+}
+
+/* Hygge soft — warm paper cards, soft quote, gentle winner */
+.deck[data-surface="hygge-soft"] .card {
+  background: color-mix(in srgb, var(--card-bg) 92%, #fff);
+  border: none;
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--text) 8%, transparent);
+  border-radius: 18px;
+}
+.deck[data-surface="hygge-soft"] .comparison-col {
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--card-bg) 88%, #fff);
+}
+.deck[data-surface="hygge-soft"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 18%, var(--card-bg));
+}
+.deck[data-surface="hygge-soft"] .quote {
+  border-left: none;
+  padding-left: 0;
+  font-style: italic;
+  max-width: 30ch;
+}
+.deck[data-surface="hygge-soft"] .quote::before {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+.deck[data-surface="hygge-soft"] .stat {
+  border-top: 2px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+}
+
+/* Broadsheet rule — masthead typography on body beats */
+.deck[data-surface="broadsheet-rule"] .card,
+.deck[data-surface="broadsheet-rule"] .comparison-col {
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  border-top: 2px solid var(--text);
+  box-shadow: none;
+}
+.deck[data-surface="broadsheet-rule"] .comparison-col:last-child {
+  border-top-color: var(--accent);
+  background: transparent;
+}
+.deck[data-surface="broadsheet-rule"] .grid.cols-bento .card:first-child {
+  background: var(--text);
+  color: var(--bg);
+  border: none;
+  padding: 24px;
+}
+.deck[data-surface="broadsheet-rule"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="broadsheet-rule"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="broadsheet-rule"] .grid.cols-bento .card:first-child i {
+  color: var(--bg);
+}
+.deck[data-surface="broadsheet-rule"] .quote {
+  border-left: 4px solid var(--text);
+  font-family: var(--heading-font);
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1.15;
+}
+.deck[data-surface="broadsheet-rule"] .stat .value {
+  font-family: var(--heading-font);
+  font-weight: 700;
+}
+.deck[data-surface="broadsheet-rule"] .data-table {
+  border-top: 2px solid var(--text);
+  border-bottom: 2px solid var(--text);
+}
+.deck[data-surface="broadsheet-rule"] .data-table th {
+  border-bottom: 1px solid var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72em;
+}
+
+/* Heritage wash — museum card mats + gold emphasis */
+.deck[data-surface="heritage-wash"] .card {
+  background: color-mix(in srgb, var(--card-bg) 94%, #fff);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--bg2) 80%, transparent);
+}
+.deck[data-surface="heritage-wash"] .comparison-col:last-child {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--card-bg));
+}
+.deck[data-surface="heritage-wash"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--text) 92%, var(--accent));
+  color: var(--bg);
+  border-color: var(--accent);
+}
+.deck[data-surface="heritage-wash"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="heritage-wash"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="heritage-wash"] .grid.cols-bento .card:first-child i {
+  color: var(--bg);
+}
+.deck[data-surface="heritage-wash"] .quote {
+  border-left: 2px solid var(--accent);
+  font-family: var(--heading-font);
+  font-weight: 400;
+}
+.deck[data-surface="heritage-wash"] .stat .value {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Quiet luxe — deepen remaining body shells */
+.deck[data-surface="quiet-luxe"] .card {
+  background: transparent;
+  border: none;
+  border-top: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
+  border-radius: 0;
+  padding-top: 20px;
+}
+.deck[data-surface="quiet-luxe"] .grid.cols-bento .card:first-child {
+  border-top-width: 2px;
+  border-top-color: var(--accent);
+}
+.deck[data-surface="quiet-luxe"] .code-window {
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+  background: color-mix(in srgb, var(--bg2) 90%, #000);
+}
+.deck[data-surface="quiet-luxe"] .chart-frame {
+  border-top: 1px solid var(--accent);
+  padding-top: 16px;
+}

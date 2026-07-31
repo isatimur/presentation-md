@@ -245,17 +245,91 @@ function runPythonJson(
   });
 }
 
-function agentRubricPayload(shots: { slide: number; path: string }[]) {
+/**
+ * Vision-free T3 draft when API keys / judge_panel.py are unavailable.
+ * Maps T2 HTML metrics + craft flags into provisional 0–5 dimension scores so
+ * agents still get a partial grade instead of a rubric dump alone.
+ */
+function draftLocalPanel(opts: {
+  metrics: Record<string, unknown>;
+  flags: Array<{ id: string; severity: string; detail: string }>;
+  shots: { slide: number; path: string; warn?: string }[];
+  skippedReason: string;
+}) {
+  const gates = opts.flags.filter((f) => f.severity === "gate");
+  const warns = opts.flags.filter((f) => f.severity === "warn" || f.severity === "error");
+  const base = gates.length ? 2 : warns.length >= 4 ? 3 : warns.length >= 1 ? 4 : 5;
+
+  const has = (id: string) => opts.flags.some((f) => f.id === id);
+  const score = (key: string, delta = 0, evidence: string) => {
+    const s = Math.max(0, Math.min(5, base + delta - (gates.length ? 1 : 0)));
+    return { score: s, evidence };
+  };
+
+  const dimensions: Record<string, { score: number; evidence: string }> = {
+    narrative: score(
+      "narrative",
+      has("cadence") ? -1 : 0,
+      has("cadence") ? "Layout cadence warn — narrative rhythm may feel repetitive." : "No cadence gate; narrative inferred from structure only."
+    ),
+    clarity: score(
+      "clarity",
+      has("wall_of_text") || has("G1") ? -2 : 0,
+      `max_block_words=${String(opts.metrics["max_block_words"] ?? "?")}; wall-of-text flags=${opts.flags.filter((f) => /wall|G1|words/i.test(f.id + f.detail)).length}`
+    ),
+    typography: score(
+      "typography",
+      has("type_sizes") || has("G2") ? -1 : 0,
+      `type_size_count=${String(opts.metrics["type_size_count"] ?? "?")}`
+    ),
+    color: score(
+      "color",
+      has("contrast") || has("G3") ? -2 : 0,
+      "Colour discipline from HTML metrics only (no vision)."
+    ),
+    layout_flat: score(
+      "layout_flat",
+      has("shadow") || has("G4") ? -1 : 0,
+      "Flat-system / shadow gates from HTML metrics."
+    ),
+    brand: score("brand", 0, "Brand fidelity needs visual review — draft assumes theme tokens held."),
+    craft: score(
+      "craft",
+      has("shot_qa") ? -1 : 0,
+      `${opts.shots.filter((s) => s.warn).length} screenshot QA warn(s); ${warns.length} total warn/error flags.`
+    ),
+    proof: score(
+      "proof",
+      has("data_viz") ? -1 : 0,
+      has("data_viz") ? "Missing data beat flag." : "No data_viz warn."
+    ),
+    variety: score(
+      "variety",
+      has("asymmetry") || has("visual_beat") ? -1 : 0,
+      `layouts=${JSON.stringify(opts.metrics["structural_layouts"] ?? opts.metrics["layouts"] ?? [])}`
+    ),
+    close: score("close", 0, "Close/CTA scored structurally only — confirm final slide has a clear ask."),
+  };
+
+  const weighted =
+    RUBRIC_DIMENSIONS.reduce((acc, d) => acc + dimensions[d.key]!.score * d.weight, 0) /
+    RUBRIC_DIMENSIONS.reduce((acc, d) => acc + d.weight, 0);
+  const letter =
+    gates.length > 0 ? "C" : weighted >= 4.5 ? "A" : weighted >= 3.5 ? "B" : weighted >= 2.5 ? "C" : "D";
+
   return {
-    status: "agent_rubric" as const,
+    status: "local_draft" as const,
+    tier: "t3",
     note:
-      "T3 multi-model panel needs API keys + skills/deck-design-judge/scripts/judge_panel.py. " +
-      "Open each shot, score every dimension 0–5 with evidence, prefer the lower anchor when merely fine.",
-    dimensions: RUBRIC_DIMENSIONS,
-    shots: shots.map((s) => ({ slide: s.slide, path: s.path })),
+      "Vision-free draft from T2 metrics + flags — not a substitute for judge_panel.py or human visual scoring. " +
+      opts.skippedReason,
+    grade: letter,
+    weighted_avg: Math.round(weighted * 100) / 100,
+    dimensions,
+    shots: opts.shots.map((s) => ({ slide: s.slide, path: s.path, warn: s.warn })),
+    rubric: RUBRIC_DIMENSIONS,
     instruction:
-      "Return judge.json shape: { tier:'t3', dimensions:{ [key]: { score:0-5, evidence:string } }, summary?: string }. " +
-      "Any gate hit caps grade at C / Not ready.",
+      "Treat local_draft as a floor. Open shots, raise/lower scores with visual evidence, then re-run with API keys for a live panel.",
   };
 }
 
@@ -264,7 +338,7 @@ export const judgeDeckTool: ToolDefinition = {
   description:
     "Design judge for Deck JSON / rendered HTML (deck-design-judge tiers). " +
     "t0/t1: structural JSON gates. t2: render + HTML metrics (G1–G5) + Chrome screenshots when available. " +
-    "t3: t2 + multi-model panel when judge_panel.py + API keys exist; otherwise returns an agent rubric payload with shot paths.",
+    "t3: t2 + multi-model panel when judge_panel.py + API keys exist; otherwise returns a vision-free local_draft grade from metrics/flags plus shot paths for agent refinement.",
   inputSchema: {
     type: "object",
     properties: {
@@ -458,19 +532,30 @@ export const judgeDeckTool: ToolDefinition = {
           }
         } else {
           panel = {
-            ...agentRubricPayload(screenshots.shots),
+            ...draftLocalPanel({
+              metrics: htmlJudged.metrics as Record<string, unknown>,
+              flags: mergedFlags,
+              shots: screenshots.shots,
+              skippedReason: run.stderr || run.stdout || "judge_panel.py failed",
+            }),
             panel_error: run.stderr || run.stdout || "judge_panel.py failed",
           };
         }
       } else {
-        panel = {
-          ...agentRubricPayload(screenshots.shots),
-          skipped_reason: !panelScript
-            ? "judge_panel.py not found (set PRESENTATION_MD_JUDGE_SCRIPTS)"
-            : !hasKey
-              ? "No ANTHROPIC_API_KEY / OPENROUTER_API_KEY / OPENAI_API_KEY — agent should score rubric with shots open"
-              : "Need rendered_path for panel",
-        };
+        const skippedReason = !panelScript
+          ? "judge_panel.py not found (set PRESENTATION_MD_JUDGE_SCRIPTS)"
+          : !hasKey
+            ? "No ANTHROPIC_API_KEY / OPENROUTER_API_KEY / OPENAI_API_KEY"
+            : "Need rendered_path for panel";
+        panel = draftLocalPanel({
+          metrics: { ...htmlJudged.metrics, structural_layouts: structural.metrics["layouts"] } as Record<
+            string,
+            unknown
+          >,
+          flags: mergedFlags,
+          shots: screenshots.shots,
+          skippedReason,
+        });
       }
     }
 
@@ -502,8 +587,8 @@ export const judgeDeckTool: ToolDefinition = {
         ? "Fix gate/schema issues, then re-run judge_deck at the same tier."
         : screenshots.chrome_missing
           ? "HTML metrics clear but Chrome missing — install Chrome for real T2 shots, or open html_path and review visually."
-          : tier === "t3" && panel && typeof panel === "object" && (panel as { status?: string }).status === "agent_rubric"
-            ? "Open each shot path, score the 10 rubric dimensions, apply top fixes, re-judge."
+          : tier === "t3" && panel && typeof panel === "object" && ["agent_rubric", "local_draft"].includes(String((panel as { status?: string }).status))
+            ? "Review local_draft / open each shot, refine rubric scores, apply top fixes, re-judge (add API keys for live panel)."
             : "T2/T3 visual QA artifacts ready — review shots, apply top fixes if any warns remain, then ship.",
       screenshots_pass: pass,
     };

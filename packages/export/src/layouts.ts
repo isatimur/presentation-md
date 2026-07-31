@@ -299,6 +299,34 @@ function iconMarkerLetter(icon?: string): string {
   return letter ? letter.toUpperCase() : "";
 }
 
+function iconMarkerGlyph(icon?: string): string {
+  if (!icon) return "";
+  const raw = icon.toLowerCase();
+  const map: Array<[RegExp, string]> = [
+    [/bolt|zap|flash|lightning/, "⚡"],
+    [/chart|line|trend|analytics/, "📈"],
+    [/users|user|people|team/, "👥"],
+    [/share|node|network/, "↗"],
+    [/rocket|launch/, "🚀"],
+    [/check|ok|success/, "✓"],
+    [/lock|shield|secure/, "🔒"],
+    [/code|terminal|laptop/, "</>"],
+    [/star|sparkle/, "★"],
+    [/heart|love/, "♥"],
+    [/clock|time|hour/, "⏱"],
+    [/globe|world|earth/, "🌐"],
+    [/coin|dollar|money|wallet/, "$"],
+    [/fire|flame/, "🔥"],
+    [/forward|arrow-right|chevron-right/, "→"],
+    [/layer|stack/, "▣"],
+    [/eye|vision/, "◉"],
+  ];
+  for (const [re, glyph] of map) {
+    if (re.test(raw)) return glyph;
+  }
+  return iconMarkerLetter(icon);
+}
+
 function drawIconMarker(
   slide: PSlide,
   ctx: ExportContext,
@@ -307,7 +335,7 @@ function drawIconMarker(
   y: number,
   size: number
 ): void {
-  const letter = iconMarkerLetter(icon);
+  const glyph = iconMarkerGlyph(icon);
   // Geometric stand-in: circle for "circle/dot/bullseye", rounded chip otherwise.
   const circular = Boolean(icon && /circle|dot|bullseye|radio|record/i.test(icon));
   if (circular) {
@@ -330,8 +358,8 @@ function drawIconMarker(
       rectRadius: 0.06,
     });
   }
-  if (letter) {
-    slide.addText(letter, {
+  if (glyph) {
+    slide.addText(glyph, {
       x,
       y,
       w: size,
@@ -339,7 +367,7 @@ function drawIconMarker(
       fontFace: ctx.fonts.body,
       bold: true,
       color: ctx.colors.bg,
-      fontSize: Math.max(9, Math.round(size * 18)),
+      fontSize: Math.max(9, Math.round(size * (glyph.length > 1 ? 12 : 16))),
       align: "center",
       valign: "middle",
     });
@@ -702,11 +730,26 @@ function renderTimeline(slide: PSlide, ctx: ExportContext, data: Slide): void {
   const steps = data.steps ?? [];
   if (steps.length === 0) return;
 
-  const areaY = top + 0.1;
+  const areaY = top + 0.15;
   const areaH = ctx.height - areaY - ctx.margin;
   const stepH = areaH / steps.length;
-  const badge = 0.4;
+  const badge = 0.44;
   const x = ctx.margin;
+  const lineX = x + badge / 2 - 0.015;
+
+  if (steps.length > 1) {
+    const lineTop = areaY + badge / 2;
+    const lineBot = areaY + (steps.length - 1) * stepH + badge / 2;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: lineX,
+      y: lineTop,
+      w: 0.03,
+      h: Math.max(0.1, lineBot - lineTop),
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0.01,
+    });
+  }
 
   steps.forEach((step, i) => {
     const y = areaY + i * stepH;
@@ -716,6 +759,7 @@ function renderTimeline(slide: PSlide, ctx: ExportContext, data: Slide): void {
       w: badge,
       h: badge,
       fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.bg, width: 1.5 },
     });
     slide.addText(String(i + 1), {
       x,
@@ -729,26 +773,26 @@ function renderTimeline(slide: PSlide, ctx: ExportContext, data: Slide): void {
       align: "center",
       valign: "middle",
     });
-    const textX = x + badge + 0.25;
+    const textX = x + badge + 0.28;
     const textW = ctx.width - textX - ctx.margin;
     slide.addText(step.title, {
       x: textX,
       y,
       w: textW,
-      h: 0.4,
+      h: 0.42,
       fontFace: ctx.fonts.heading,
       bold: true,
       color: ctx.colors.text,
-      fontSize: 16,
+      fontSize: 18,
       valign: "middle",
       fit: "shrink",
     });
     if (step.body) {
       slide.addText(step.body, {
         x: textX,
-        y: y + 0.4,
+        y: y + 0.42,
         w: textW,
-        h: stepH - 0.5,
+        h: stepH - 0.55,
         fontFace: ctx.fonts.body,
         color: ctx.colors.muted,
         fontSize: 13,

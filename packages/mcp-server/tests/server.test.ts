@@ -239,7 +239,7 @@ describe("judge_deck", () => {
     expect(result.pass).toBe(true);
   });
 
-  it("t3 returns agent rubric when panel keys missing", async () => {
+  it("t3 returns local_draft grade when panel keys missing", async () => {
     const result = (await judgeDeckTool.handler({
       tier: "t3",
       skip_screenshots: true,
@@ -253,11 +253,18 @@ describe("judge_deck", () => {
       }),
     })) as {
       tier: string;
-      panel: { status: string; dimensions: unknown[] };
+      panel: {
+        status: string;
+        grade: string;
+        dimensions: Record<string, { score: number; evidence: string }>;
+        rubric: unknown[];
+      };
     };
     expect(result.tier).toBe("t3");
-    expect(result.panel.status).toBe("agent_rubric");
-    expect(result.panel.dimensions.length).toBe(10);
+    expect(result.panel.status).toBe("local_draft");
+    expect(result.panel.grade).toMatch(/^[A-D]$/);
+    expect(Object.keys(result.panel.dimensions).length).toBe(10);
+    expect(result.panel.rubric.length).toBe(10);
   });
 });
 
