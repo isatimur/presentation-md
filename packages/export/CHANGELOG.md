@@ -1,5 +1,16 @@
 # @presentation-md/export
 
+## 1.13.0
+
+### Minor Changes
+
+- 3019e5f: Split theme types from theme-loader and add browser-safe core subpath exports so Studio no longer pulls node:fs theme-loader into its bundle; embed deck/theme schemas as JSON imports; densify electric-studio / studio / grove / monochrome / blue-professional / aurora-glass / glassmorphism / luxury-minimalist / fintech-clean / scandinavian / heritage-editorial / data-editorial PPTX chrome.
+
+### Patch Changes
+
+- Updated dependencies [3019e5f]
+  - @presentation-md/core@1.8.0
+
 ## 1.12.2
 
 ### Patch Changes
