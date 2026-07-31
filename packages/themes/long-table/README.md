@@ -8,4 +8,4 @@ npm i @presentation-md/theme-long-table
 
 Use: `"meta": { "theme": "long-table" }` · Surface: `long-table-supper`.
 
-Faithful to frontend-slides `bold-template-pack long-table`.
+Surface craft: rust border + speckled supper wash on every slide; outline pill + hairline are hero-gated (HTML). PPTX densifies speckles/border and gates the pill ornament the same way.

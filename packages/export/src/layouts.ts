@@ -30,6 +30,10 @@ function cardRadius(ctx: ExportContext): number {
   if (ctx.themeName === "candy-pop") return 0.23;
   // soft-editorial-paper cards: border-radius 24px ≈ 0.25"
   if (ctx.themeName === "soft-editorial") return 0.25;
+  // capsule-pills cards: border-radius 2rem ≈ 0.29"
+  if (ctx.themeName === "capsule") return 0.29;
+  // long-table-supper cards: border-radius 1.25rem ≈ 0.21"
+  if (ctx.themeName === "long-table") return 0.21;
   return 0.06;
 }
 
@@ -3490,32 +3494,81 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "capsule") {
-    // Soft pill ornaments (capsule-pills).
+    // Plump frame + soft shadow + quiet pastel blots on all slides;
+    // hero-gated coral pill + lime circles (capsule-pills HTML ::before/::after).
     slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.width - 2.1,
+      x: 0.38,
+      y: 0.36,
+      w: ctx.width - 0.48,
+      h: ctx.height - 0.48,
+      fill: { color: ctx.colors.text, transparency: 93 },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0.29,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.18,
+      y: 0.18,
+      w: ctx.width - 0.36,
+      h: ctx.height - 0.36,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.border, width: 2 },
+      rectRadius: 0.29,
+    });
+    // Quiet lavender / sky radial blots (HTML --slide-bg candy).
+    slide.addShape(ctx.shapeOval, {
+      x: 0.35,
+      y: ctx.height - 1.85,
+      w: 0.72,
+      h: 0.72,
+      fill: { color: "C5B5E0", transparency: 42 },
+      line: { color: "C5B5E0", width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 1.55,
       y: 0.55,
-      w: 1.45,
-      h: 0.42,
-      fill: { color: ctx.colors.accent },
-      line: { color: ctx.colors.border, width: 1.5 },
-      rectRadius: 0.21,
+      w: 0.58,
+      h: 0.58,
+      fill: { color: "8BB4F7", transparency: 38 },
+      line: { color: "8BB4F7", width: 0 },
     });
-    slide.addShape(ctx.shapeOval, {
-      x: 0.55,
-      y: ctx.height - 1.55,
-      w: 0.95,
-      h: 0.95,
-      fill: { color: ctx.colors.accent2 },
-      line: { color: ctx.colors.border, width: 1.5 },
-    });
-    slide.addShape(ctx.shapeOval, {
-      x: ctx.width * 0.78,
-      y: ctx.height * 0.72,
-      w: 0.55,
-      h: 0.55,
-      fill: { color: "C4D94E", transparency: 25 },
-      line: { color: ctx.colors.border, width: 1 },
-    });
+    if (isHero) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width - 2.15,
+        y: 0.5,
+        w: 1.45,
+        h: 0.42,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.border, width: 2 },
+        rectRadius: 0.21,
+      });
+      slide.addShape(ctx.shapeOval, {
+        x: 0.5,
+        y: ctx.height - 1.6,
+        w: 0.95,
+        h: 0.95,
+        fill: { color: ctx.colors.accent2 },
+        line: { color: ctx.colors.border, width: 2 },
+      });
+      slide.addShape(ctx.shapeOval, {
+        x: ctx.width * 0.78,
+        y: ctx.height * 0.72,
+        w: 0.55,
+        h: 0.55,
+        fill: { color: "C4D94E", transparency: 18 },
+        line: { color: ctx.colors.border, width: 1.5 },
+      });
+    } else {
+      // Quiet accent stub when loud pills are off.
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.margin,
+        y: ctx.height - 0.58,
+        w: 0.7,
+        h: 0.03,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0.015,
+      });
+    }
   }
 
   if (theme === "cobalt-grid") {
@@ -4358,68 +4411,124 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "long-table") {
-    // Speckled supper club + outline pill + hairline (long-table-supper).
-    for (let i = 0; i < 8; i++) {
-      for (let j = 0; j < 5; j++) {
+    // Dense speckles + rust border on all; hero-gated outline pill + hairline
+    // (long-table-supper HTML ::before/::after are title/closing only).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.12,
+      y: 0.12,
+      w: ctx.width - 0.24,
+      h: ctx.height - 0.24,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: 1.6 },
+      rectRadius: 0,
+    });
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 6; j++) {
         slide.addShape(ctx.shapeOval, {
-          x: 0.4 + i * 1.55,
-          y: 0.5 + j * 1.15,
-          w: 0.06,
-          h: 0.06,
-          fill: { color: ctx.colors.accent, transparency: 78 },
+          x: 0.35 + i * 1.28,
+          y: 0.42 + j * 0.95,
+          w: 0.055,
+          h: 0.055,
+          fill: { color: ctx.colors.accent, transparency: 74 },
           line: { color: ctx.colors.accent, width: 0 },
         });
       }
     }
-    slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.width - 1.85,
-      y: 0.55,
-      w: 1.15,
-      h: 0.4,
-      fill: { color: ctx.colors.bg, transparency: 100 },
-      line: { color: ctx.colors.accent, width: 1.5 },
-      rectRadius: 0.2,
-    });
-    slide.addShape(ctx.shapeRoundRect, {
-      x: 0.55,
-      y: ctx.height - 0.75,
-      w: 0.7,
-      h: 0.025,
-      fill: { color: ctx.colors.accent },
-      line: { color: ctx.colors.accent, width: 0 },
-      rectRadius: 0,
-    });
+    if (isHero) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width - 1.9,
+        y: 0.5,
+        w: 1.2,
+        h: 0.42,
+        fill: { color: ctx.colors.bg, transparency: 100 },
+        line: { color: ctx.colors.accent, width: 1.75 },
+        rectRadius: 0.21,
+      });
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0.5,
+        y: ctx.height - 0.72,
+        w: 0.85,
+        h: 0.03,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    } else {
+      // Quiet supper-club stub when pill ornament is off.
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.margin,
+        y: ctx.height - 0.58,
+        w: 0.55,
+        h: 0.02,
+        fill: { color: ctx.colors.accent, transparency: 25 },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
   }
 
   if (theme === "paper-ink") {
-    // Crimson top rule + quiet bottom hairline + corner stub (paper-ink-literary).
+    // Quiet outer border + crimson top/bottom rules on all; hero-gated
+    // corner blot + drop-cap stub (paper-ink-literary).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.16,
+      y: 0.16,
+      w: ctx.width - 0.32,
+      h: ctx.height - 0.32,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 1 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: ctx.margin,
-      y: 0.65,
+      y: 0.62,
       w: ctx.width - ctx.margin * 2,
-      h: 0.03,
+      h: 0.035,
       fill: { color: ctx.colors.accent },
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
       x: ctx.margin,
-      y: ctx.height - 0.7,
+      y: ctx.height - 0.68,
       w: ctx.width - ctx.margin * 2,
-      h: 0.015,
-      fill: { color: ctx.colors.text, transparency: 55 },
+      h: 0.018,
+      fill: { color: ctx.colors.text, transparency: 48 },
       line: { color: ctx.colors.text, width: 0 },
       rectRadius: 0,
     });
-    slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.width - ctx.margin - 0.55,
-      y: 0.85,
-      w: 0.55,
-      h: 0.55,
-      fill: { color: ctx.colors.accent, transparency: 82 },
-      line: { color: ctx.colors.accent, width: 0 },
-      rectRadius: 0,
-    });
+    if (isHero) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width - ctx.margin - 0.62,
+        y: 0.88,
+        w: 0.62,
+        h: 0.62,
+        fill: { color: ctx.colors.accent, transparency: 78 },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+      // Drop-cap first-letter stand-in (HTML h1::first-letter crimson).
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.margin,
+        y: 1.05,
+        w: 0.045,
+        h: 0.72,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    } else {
+      // Quiet literary accent hairline when hero blot is off.
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.margin,
+        y: 0.9,
+        w: 0.55,
+        h: 0.015,
+        fill: { color: ctx.colors.accent, transparency: 35 },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
   }
 
   if (theme === "vintage-editorial") {

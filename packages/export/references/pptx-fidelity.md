@@ -72,7 +72,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   8-bit-orbit gets scanlines + neon orbs + pixel HUD chips;
   neo-grid-bold gets a modular grid + lemon corner panel + hard frame;
   bold-poster gets a hard frame + offset shadow + ink top bar (poster block on heroes);
-  capsule gets pill/circle ornaments;
+  capsule gets plump frame + soft shadow + pastel blots + hero-gated coral pill/lime circles + plump card radius;
   cobalt-grid gets a cobalt paper grid + corner hatch;
   retro-arcade gets scanlines + neon top rail;
   brutalist-mono gets a dense mono grid + hard frame;
@@ -94,8 +94,8 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   pin-and-paper gets legal-pad rules + red margin + pin;
   emerald-editorial gets masthead rules + inset frame;
   notebook-tabs gets a dark mat frame + pastel side tabs + binder holes + left margin rule;
-  long-table gets speckles + outline pill + hairline;
-  paper-ink gets crimson top/bottom rules + corner stub;
+  long-table gets dense speckles + rust border + hero-gated outline pill/hairline + plump card radius;
+  paper-ink gets quiet frame + crimson top/bottom rules + hero-gated corner blot/drop-cap stub;
   vintage-editorial heroes get a geometric ring + dots;
   studio gets acid hairline rails + hard frame (heroes also get an acid accent block);
   grove gets a monograph inset frame + top hairline + coral stub + accent2 hairline;

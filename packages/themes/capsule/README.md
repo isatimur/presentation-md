@@ -8,4 +8,4 @@ npm i @presentation-md/theme-capsule
 
 Use: `"meta": { "theme": "capsule" }` · Surface: `capsule-pills`.
 
-Faithful to frontend-slides `bold-template-pack capsule`.
+Surface craft: plump rounded frame, soft shadow, pastel radial blots, and hero-gated coral pill + lime circles (HTML). PPTX mirrors the frame/blots and gates loud pills to title/closing.
