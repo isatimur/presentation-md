@@ -15,7 +15,7 @@ type CardStroke = {
   color: string;
   width: number;
   dashType?: "solid" | "dash" | "dashDot" | "lgDash" | "lgDashDot" | "lgDashDotDot" | "sysDash" | "sysDot";
-  /** quiet-luxe / biennale: top hairline instead of a full box stroke */
+  /** quiet-luxe / biennale / ft broadsheet: top hairline instead of a full box stroke */
   topRule?: boolean;
   /** Literary left-rule peers (paper-ink / editorial-serif / vintage-editorial): left accent instead of a full box stroke */
   leftRule?: boolean;
@@ -220,27 +220,36 @@ function cardStroke(
       dashType: "dash",
     };
   }
-  // quiet-luxe / biennale-yellow-sun: top-rule cards (no full box stroke)
-  if (ctx.themeName === "luxury-minimalist" || ctx.themeName === "biennale-yellow") {
-    return {
-      color: ctx.themeName === "luxury-minimalist" ? ctx.colors.accent : ctx.colors.text,
-      width: opts.hero || opts.highlighted ? 1.5 : 1.25,
-      topRule: true,
-    };
+  // Top-rule cards (HTML border-top only — no full box stroke):
+  // quiet-luxe accent hairline, biennale indigo top rule, FT broadsheet ink masthead rule
+  if (
+    ctx.themeName === "luxury-minimalist" ||
+    ctx.themeName === "biennale-yellow" ||
+    ctx.themeName === "ft-editorial"
+  ) {
+    const color =
+      ctx.themeName === "luxury-minimalist" ? ctx.colors.accent : ctx.colors.text;
+    // FT HTML uses ~2px ink top rule; quiet-luxe/biennale stay ~1px hairlines.
+    const width =
+      ctx.themeName === "ft-editorial"
+        ? opts.hero || opts.highlighted
+          ? 2.25
+          : 2
+        : opts.hero || opts.highlighted
+          ? 1.5
+          : 1.25;
+    return { color, width, topRule: true };
   }
   // signal-briefing cards: quiet border hairline (theme geometry radius)
   if (ctx.themeName === "signal") {
     return { color: ctx.colors.border, width: opts.hero || opts.highlighted ? 1.25 : 1.1 };
   }
-  // blue-professional-clean / pastel-geometry-pills / ft broadsheet-rule peers
+  // blue-professional-clean / pastel-geometry-pills peers
   if (ctx.themeName === "blue-professional") {
     return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
   }
   if (ctx.themeName === "pastel-geometry") {
     return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 1.15 : 1 };
-  }
-  if (ctx.themeName === "ft-editorial") {
-    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
   }
   // claude warm-paper cards: quiet paper border hairline
   if (ctx.themeName === "claude") {

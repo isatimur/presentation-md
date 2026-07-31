@@ -1336,6 +1336,8 @@ describe("deckToPptx", () => {
       { themeName: "editorial-serif", color: "1E40AF", minPt: 0, maxPt: 0, ruleCard: true },
       { themeName: "vintage-editorial", color: "0F172A", minPt: 0, maxPt: 0, ruleCard: true },
       { themeName: "luxury-minimalist", color: "1E40AF", minPt: 0, maxPt: 0, ruleCard: true },
+      { themeName: "ft-editorial", color: "0F172A", minPt: 0, maxPt: 0, ruleCard: true },
+      { themeName: "biennale-yellow", color: "0F172A", minPt: 0, maxPt: 0, ruleCard: true },
     ];
 
     for (const c of cases) {

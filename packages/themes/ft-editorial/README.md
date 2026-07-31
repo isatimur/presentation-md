@@ -12,4 +12,4 @@ Use in deck JSON: `"meta": { "theme": "ft-editorial" }`
 
 Surface profile: `broadsheet-rule`.
 
-Surface craft: FT masthead bar + bottom rule with quiet newsprint tooth (HTML). PPTX approximates masthead chrome — grain is HTML-only.
+Surface craft: FT masthead bar + bottom rule with quiet newsprint tooth (HTML). PPTX approximates masthead chrome; cards get an ink top accent rule (broadsheet top-rule peer of quiet-luxe / biennale). Grain is HTML-only.

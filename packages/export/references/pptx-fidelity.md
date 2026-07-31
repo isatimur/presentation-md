@@ -127,11 +127,13 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   crt-terminal / brutalist-mono cards get square accent/ink strokes;
   emerald-editorial / pink-script / vellum / broadsheet / editorial-forest / monochrome cards get square ink/accent strokes;
   paper-ink / editorial-serif / vintage-editorial cards get a literary left accent rule
-  (crimson/ink rail — no full box stroke);
+  (crimson/ink rail — no full box stroke); heritage / pin-and-paper / emerald keep full box hairlines
+  (HTML does not use literary left rails on those peers);
   soft-editorial / pin-and-paper / notebook-tabs / heritage-editorial cards get theme-native hairlines with soft radii;
   long-table cards get dashed rust rims (plump); signal cards get quiet briefing border hairlines;
-  luxury-minimalist / biennale-yellow cards get top-rule hairlines (no full box stroke);
-  blue-professional / pastel-geometry / ft-editorial cards get theme-native hairlines;
+  luxury-minimalist / biennale-yellow / ft-editorial cards get top-rule hairlines (no full box stroke;
+  FT ink ~2pt masthead rule matching broadsheet-rule border-top);
+  blue-professional / pastel-geometry cards get theme-native hairlines;
   claude / corporate / fintech-clean / scandinavian cards get paper/clean hairlines with theme radii;
   default-tech / developer-dark cards get neon/terminal rims; playful / split-pastel / pastel-dreamy get soft plump rims;
   data-editorial / scatterbrain / risograph-zine cards get ink hairlines (riso hard 2pt).
