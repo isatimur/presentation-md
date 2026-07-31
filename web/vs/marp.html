@@ -107,9 +107,10 @@
         <tr><td>Output format</td><td class="col-us">Single self-contained HTML file — you own it</td><td>Platform-hosted or exported file</td></tr>
         <tr><td>Price</td><td class="col-us"><span class="check">✓</span> Free, MIT licensed, no account</td><td>Freemium or subscription</td></tr>
         <tr><td>LLM schema</td><td class="col-us"><span class="check">✓</span> Typed Deck JSON spec — consistent, validatable</td><td><span class="cross">✗</span> Freeform generation</td></tr>
-        <tr><td>MCP support</td><td class="col-us"><span class="check">✓</span> 9 typed MCP tools</td><td><span class="cross">✗</span> No MCP integration</td></tr>
+        <tr><td>MCP support</td><td class="col-us"><span class="check">✓</span> 11 typed MCP tools (incl. <code>import_markdown</code>)</td><td><span class="cross">✗</span> No MCP integration</td></tr>
         <tr><td>Offline / no login</td><td class="col-us"><span class="check">✓</span> Works fully offline after install</td><td><span class="cross">✗</span> Requires internet + account</td></tr>
         <tr><td>Theming</td><td class="col-us">75 swappable npm theme packages + brand import</td><td>Built-in styles only</td></tr>
+        <tr><td>Markdown bridge</td><td class="col-us"><span class="check">✓</span> <code>import_markdown</code> / <code>--from-md</code> → Deck JSON (then PPTX)</td><td><span class="check">✓</span> Native Markdown authoring</td></tr>
       </tbody>
     </table>
   </div>
@@ -127,7 +128,7 @@
 <section>
   <div class="container">
     <h2>Verdict</h2>
-    <div class="verdict">Marp is a solid lightweight tool for devs who like writing Markdown slides by hand. presentation-md is the better fit when you want an AI agent to do the authoring — it gives the agent a schema to target instead of freeform Markdown.</div>
+    <div class="verdict">Marp is still great for hand-written Markdown slides. presentation-md now imports that Markdown into schema-validated Deck JSON (theme + PPTX + Studio), and remains the better fit when an AI agent should author the deck.</div>
     <br>
     <p>Try presentation-md in one command:</p>
     <pre>npx @presentation-md/install claude-code</pre>

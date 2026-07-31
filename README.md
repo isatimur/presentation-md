@@ -42,8 +42,8 @@ Demo without installing: open the [gallery](https://presentation-md.vercel.app/#
 |---|---|---|
 | **Themes** | **75** published + create-from-brand | Style presets / template pack |
 | **Authoring model** | Schema-validated **Deck JSON** agents can diff/edit one slide | Prompt → HTML (harder to surgically edit) |
-| **Layouts** | 12 craft layouts (`image-hero`, bento, comparison emphasis, code, asymmetric ratios…) | Template-driven HTML |
-| **MCP** | Typed tools: render, export, audit, preview, import PPTX, brand theme | — |
+| **Layouts** | **14** craft layouts (`chart`, `custom-html`, `image-hero`, bento, comparison emphasis, code, asymmetric ratios…) | Template-driven HTML |
+| **MCP** | Typed tools: render, export, audit, judge, preview, import PPTX/Markdown, brand theme | — |
 | **Export** | Native editable **PPTX** ↔ Deck JSON round-trip | HTML-first |
 | **Proofs** | **75/75** structured gallery + Studio live preview | Showcase templates |
 | **Install** | `npx @presentation-md/install <agent>` | Clone / copy skill |
