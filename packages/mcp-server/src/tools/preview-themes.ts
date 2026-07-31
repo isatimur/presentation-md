@@ -1,5 +1,6 @@
-import { mkdir, writeFile } from "node:fs/promises";
-import { join, resolve } from "node:path";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { dirname, join, resolve } from "node:path";
+import { createRequire } from "node:module";
 import { renderDeck } from "@presentation-md/render";
 import { resolveThemesDir } from "../lib/resolve-themes.js";
 import type { ToolDefinition } from "../server.js";
@@ -7,6 +8,36 @@ import type { ToolDefinition } from "../server.js";
 const DEFAULT_PREVIEW_DIR = ".presentation-md/theme-previews";
 
 type PreviewMode = "title" | "layouts";
+
+interface ShortlistEntry {
+  id: string;
+  label: string;
+  themes: string[];
+  why?: string;
+}
+
+interface ShortlistsDoc {
+  shortlists?: ShortlistEntry[];
+}
+
+function getCoreRoot(): string {
+  const require = createRequire(import.meta.url);
+  const coreMain = require.resolve("@presentation-md/core");
+  return dirname(dirname(coreMain));
+}
+
+async function loadShortlists(): Promise<ShortlistEntry[]> {
+  try {
+    const raw = await readFile(
+      join(getCoreRoot(), "references", "theme-shortlists.json"),
+      "utf-8"
+    );
+    const doc = JSON.parse(raw) as ShortlistsDoc;
+    return doc.shortlists ?? [];
+  } catch {
+    return [];
+  }
+}
 
 function titlePreviewDeck(title: string, theme: string, company?: string): string {
   return JSON.stringify({
@@ -185,7 +216,7 @@ function layoutsPreviewDeck(title: string, theme: string, company?: string): str
 export const previewThemesTool: ToolDefinition = {
   name: "preview_themes",
   description:
-    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Default mode is a title slide; pass mode=\"layouts\" for a multi-slide craft preview (title, image-hero, bento, comparison, ranked-list, streak/metric on wrap, stats, quote, code, closing). kinetic-wrapped previews inject tone + hero mega-stat + share pills.",
+    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Pass themes[] and/or a shortlist id from theme-shortlists.json (shortlist themes fill when themes is omitted; otherwise themes wins, capped at 3). Default mode is a title slide; pass mode=\"layouts\" for a multi-slide craft preview (title, image-hero, bento, comparison, ranked-list, streak/metric on wrap, stats, quote, code, closing). kinetic-wrapped previews inject tone + hero mega-stat + share pills.",
   inputSchema: {
     type: "object",
     properties: {
@@ -194,7 +225,13 @@ export const previewThemesTool: ToolDefinition = {
         items: { type: "string" },
         minItems: 1,
         maxItems: 3,
-        description: "1–3 theme names to preview (e.g. corporate, editorial-serif, default-tech)",
+        description:
+          "1–3 theme names to preview (e.g. corporate, editorial-serif, default-tech). Optional when shortlist is set.",
+      },
+      shortlist: {
+        type: "string",
+        description:
+          "Optional shortlist id from theme-shortlists.json (e.g. editorial-report, core-defaults). Used when themes is omitted; ignored when themes is provided.",
       },
       title: {
         type: "string",
@@ -215,10 +252,40 @@ export const previewThemesTool: ToolDefinition = {
         description: `Directory to write preview HTML files (default: ${DEFAULT_PREVIEW_DIR})`,
       },
     },
-    required: ["themes"],
   },
   handler: async (input: Record<string, unknown>) => {
-    const themes = (input["themes"] as string[]).slice(0, 3);
+    const shortlistId =
+      typeof input["shortlist"] === "string" ? input["shortlist"].trim() : "";
+    const themesInput = Array.isArray(input["themes"])
+      ? (input["themes"] as unknown[]).filter((t): t is string => typeof t === "string")
+      : [];
+
+    let matchedShortlist: ShortlistEntry | undefined;
+    let shortlistError: string | undefined;
+    let themes = themesInput.slice(0, 3);
+
+    if (themes.length === 0 && shortlistId) {
+      const shortlists = await loadShortlists();
+      matchedShortlist = shortlists.find((s) => s.id === shortlistId);
+      if (!matchedShortlist) {
+        shortlistError = `Unknown shortlist id "${shortlistId}". Call list_themes with include_shortlists:true to see ids.`;
+      } else {
+        themes = matchedShortlist.themes.slice(0, 3);
+      }
+    } else if (themes.length === 0) {
+      return {
+        error:
+          "Provide themes (1–3 names) or a shortlist id from theme-shortlists.json (e.g. core-defaults, editorial-report).",
+      };
+    }
+
+    if (themes.length === 0) {
+      return {
+        error: shortlistError ?? "No themes to preview.",
+        shortlist_error: shortlistError,
+      };
+    }
+
     const title = (input["title"] as string | undefined) ?? "Your Deck Title";
     const company = input["company"] as string | undefined;
     const mode: PreviewMode =
@@ -261,6 +328,8 @@ export const previewThemesTool: ToolDefinition = {
       previews,
       mode,
       output_dir: outputDir,
+      ...(matchedShortlist ? { shortlist: matchedShortlist } : {}),
+      ...(shortlistError ? { shortlist_error: shortlistError } : {}),
       instruction:
         mode === "layouts"
           ? "Open each multi-layout preview and scroll past the title — judge cards, comparison, stats, quote, and code. After they pick a theme, set meta.theme and generate the full deck."

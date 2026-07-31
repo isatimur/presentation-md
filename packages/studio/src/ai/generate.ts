@@ -75,12 +75,12 @@ Authoring rules:
   - Glass honesty: aurora-glass / glassmorphism need a frosted product beat (image-hero / quote / stats) — PPTX keeps glass rims (not true blur).
   - Modernist honesty: bauhaus / swiss-typographic / art-deco need geometry + hard type with a modernist beat (quote / image-hero / comparison / icon feature-grid).
   - Briefing honesty: signal needs an editorial beat (quote / image-hero / comparison / stats); PPTX keeps briefing frames + border-hairline cards.
-  - Quiet-luxe honesty: luxury-minimalist needs top-rule cards + quote / image-hero / comparison; long-table keeps dashed rust cards under paper honesty.
+  - Quiet-luxe honesty: luxury-minimalist needs top-rule cards + quote / image-hero / comparison; ft-editorial / biennale-yellow share top-rule cards under paper honesty; long-table keeps dashed rust cards under paper honesty.
   - Soft-product honesty: corporate / fintech-clean need a clean product beat (stat-row / comparison / feature-grid / chart); PPTX keeps accent-hairline cards.
   - Playful honesty: playful / split-pastel need a soft-bento beat (feature-grid / image-hero / stats / quote); PPTX keeps plump card rims.
   - Neon-tech honesty: default-tech / developer-dark need a tech product beat (code / feature-grid / chart / comparison / stats); PPTX keeps neon/terminal card rims.
   - Data-editorial honesty: data-editorial needs a reported data beat (chart / data-table / stat-row / ranked-list / timeline).
-  - Paper honesty: paper/editorial themes (incl. scandinavian / pastel-dreamy / claude) prefer quote + comparison+emphasis; fiber grain is HTML-only; PPTX keeps theme-native card hairlines (paper-ink / editorial-serif / vintage-editorial: literary left rules).
+  - Paper honesty: paper/editorial themes (incl. scandinavian / pastel-dreamy / claude) prefer quote + comparison+emphasis; fiber grain is HTML-only; PPTX keeps theme-native card hairlines (paper-ink / editorial-serif / vintage-editorial: literary left rules; ft-editorial / biennale / luxury-minimalist: top rules; heritage / pin / emerald: full box hairlines).
   - Match atmosphere to the brief: loud/thin surfaces for punchy brand energy; neon/vapor/arcade for night; HUD/tech for instruments; glass for frosted product; paper/editorial for magazine quiet.
   - PPTX approximates theme chrome as native shapes (electric-studio split/rail, studio acid frame, grove monograph rules, hard-card strokes, HUD reticles, …); reserve custom-html for art PPTX cannot keep.
   - Closing dual asks: stunning / wrap / launch / investor decks prefer actions[] with solid + outline pills and an icon on every pill (cta alone is weak).

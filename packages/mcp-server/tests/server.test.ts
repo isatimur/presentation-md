@@ -205,6 +205,8 @@ describe("generate_deck_prompt", () => {
     }
     expect(result.craft_mandate).toMatch(/neon-tech|data-editorial|scatterbrain/i);
     expect(result.craft_mandate).toMatch(/theme_shortlists|core-defaults/i);
+    expect(result.craft_mandate).toMatch(/preview_themes.*shortlist|shortlist:<id>/i);
+    expect(result.craft_mandate).toMatch(/top-rule|ft-editorial/i);
     expect(result.theme_shortlists_reference).toMatch(/series-a-pitch|core-defaults/i);
   });
 });
@@ -276,6 +278,28 @@ describe("preview_themes", () => {
     expect(html).toContain('data-layout="comparison"');
     expect(html).toContain('data-layout="code"');
     expect(html).toContain('data-layout="stat-row"');
+  });
+
+  it("resolves themes from a shortlist id when themes is omitted", async () => {
+    const { previewThemesTool } = await import("../src/tools/preview-themes.js");
+    const { mkdtemp } = await import("node:fs/promises");
+    const { tmpdir } = await import("node:os");
+    const { join } = await import("node:path");
+    const dir = await mkdtemp(join(tmpdir(), "pmd-preview-shortlist-"));
+    const result = (await previewThemesTool.handler({
+      shortlist: "core-defaults",
+      title: "Shortlist Preview",
+      output_dir: dir,
+    })) as {
+      previews: Array<{ theme: string }>;
+      shortlist?: { id: string; themes: string[] };
+      error?: string;
+    };
+    expect(result.error).toBeUndefined();
+    expect(result.shortlist?.id).toBe("core-defaults");
+    expect(result.previews.map((p) => p.theme).sort()).toEqual(
+      [...(result.shortlist?.themes ?? [])].slice(0, 3).sort()
+    );
   });
 });
 
