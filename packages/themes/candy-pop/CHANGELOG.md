@@ -1,5 +1,11 @@
 # @presentation-md/theme-candy-pop
 
+## 1.0.4
+
+### Patch Changes
+
+- c9e59f2: Deepen Pulse / risograph / candy-pop PPTX soft-blob approximations: hard frames, offset shadows, misregistration layers, outlined candy ornament, and honest fidelity notes (mix-blend / animated marquees remain HTML-only).
+
 ## 1.0.3
 
 ### Patch Changes

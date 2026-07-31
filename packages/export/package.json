@@ -1,6 +1,6 @@
 {
   "name": "@presentation-md/export",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "description": "Round-trip PowerPoint for presentation-md decks — export Deck JSON to editable .pptx, and import .pptx back into Deck JSON.",
   "license": "MIT",
   "type": "module",

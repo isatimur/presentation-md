@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.7.3
+
+### Patch Changes
+
+- 582e094: Riso print-beat craft gate + skill/MCP Pulse/riso/candy guidance; Studio live craft badge on Audit craft as you edit.
+
 ## 1.7.2
 
 ### Patch Changes

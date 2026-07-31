@@ -1,5 +1,13 @@
 # @presentation-md/export
 
+## 1.11.1
+
+### Patch Changes
+
+- c9e59f2: Deepen Pulse / risograph / candy-pop PPTX soft-blob approximations: hard frames, offset shadows, misregistration layers, outlined candy ornament, and honest fidelity notes (mix-blend / animated marquees remain HTML-only).
+- Updated dependencies [582e094]
+  - @presentation-md/core@1.7.3
+
 ## 1.11.0
 
 ### Minor Changes
