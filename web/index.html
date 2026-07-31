@@ -609,6 +609,13 @@
       gap: 16px;
       margin: 40px 0 48px;
     }
+    .theme-preview-crop-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin: 20px 0 0;
+    }
     .theme-preview-card {
       display: flex;
       flex-direction: column;
@@ -1301,8 +1308,13 @@
       Each theme ships a distinct <strong>surface profile</strong> — not just colors, but background treatment,
       decor, and motion. Full frontend-slides bold-template-pack coverage (34 systems) plus STYLE_PRESETS and
       gallery-craft originals. Install more with <span class="inline-code">npm i @presentation-md/theme-&lt;name&gt;</span>.
-      Agents call <span class="inline-code">preview_themes</span> to render live theme previews before you commit. Live craft cards below show the title slide at true 16:9 — open any preview for grid, comparison, and the full surface.
+      Agents call <span class="inline-code">preview_themes</span> to render live theme previews before you commit. Live craft cards below — toggle <strong>Title</strong> vs <strong>Bento</strong> to judge cover vs body craft (progressive disclosure). Open any preview for comparison and the full surface.
     </p>
+    <div class="theme-preview-crop-bar" role="toolbar" aria-label="Preview crop depth">
+      <span class="filter-label">Judge</span>
+      <button type="button" class="theme-filter-chip active" data-preview-crop="title">Title</button>
+      <button type="button" class="theme-filter-chip" data-preview-crop="bento">Bento / body</button>
+    </div>
 
     <div class="theme-preview-strip" aria-label="Live theme craft previews">
       <a href="/previews/claude.html" target="_blank" rel="noopener" class="theme-preview-card">
@@ -4603,6 +4615,25 @@
 
   function fitAll() {
     document.querySelectorAll('.theme-preview-frame').forEach(fitFrame);
+  }
+
+  function setCrop(crop) {
+    document.querySelectorAll('.theme-preview-frame').forEach(function (frame) {
+      frame.setAttribute('data-crop', crop);
+      fitFrame(frame);
+    });
+    document.querySelectorAll('[data-preview-crop]').forEach(function (btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-preview-crop') === crop);
+    });
+  }
+
+  var cropBar = document.querySelector('.theme-preview-crop-bar');
+  if (cropBar) {
+    cropBar.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-preview-crop]');
+      if (!btn) return;
+      setCrop(btn.getAttribute('data-preview-crop') || 'title');
+    });
   }
 
   if (document.readyState === 'loading') {

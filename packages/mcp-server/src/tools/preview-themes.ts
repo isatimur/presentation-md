@@ -301,10 +301,19 @@ export const previewThemesTool: ToolDefinition = {
       output_dir: outputDir,
       ...(matchedShortlist ? { shortlist: matchedShortlist } : {}),
       ...(shortlistError ? { shortlist_error: shortlistError } : {}),
+      ...(mode === "title" && themes.length >= 2
+        ? {
+            layouts_recommended: true,
+            layouts_hint:
+              "Pick-3 compares: re-run preview_themes with mode=\"layouts\" so body craft (cards, comparison, stats, quote, code) is visible before locking meta.theme.",
+          }
+        : {}),
       instruction:
         mode === "layouts"
           ? "Open each multi-layout preview and scroll past the title — judge cards, comparison, stats, quote, and code. After they pick a theme, set meta.theme and generate the full deck."
-          : "Open each preview HTML in a browser (or show the user the file paths). For deeper craft judgment, re-run with mode=\"layouts\". After they pick a theme, set meta.theme and generate the full deck.",
+          : themes.length >= 2
+            ? "Open each title preview. For pick-3 craft judgment, re-run with mode=\"layouts\" (recommended). After they pick a theme, set meta.theme and generate the full deck."
+            : "Open each preview HTML in a browser (or show the user the file paths). For deeper craft judgment, re-run with mode=\"layouts\". After they pick a theme, set meta.theme and generate the full deck.",
     };
   },
 };

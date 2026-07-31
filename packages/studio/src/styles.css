@@ -476,6 +476,39 @@ body {
   display: flex; flex-direction: column; gap: 10px;
   background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 14px;
 }
+.gen-discover-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+}
+.gen-discover-card {
+  display: flex; flex-direction: column; gap: 5px; align-items: stretch;
+  padding: 8px; border: 1px solid var(--line); border-radius: 10px;
+  background: var(--panel-2); cursor: pointer; text-align: left;
+  font-family: inherit; color: var(--text);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.65) inset, 0 10px 22px -16px rgba(11,18,32,0.22);
+  transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+.gen-discover-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+  transform: translateY(-1px);
+}
+.gen-discover-card.active {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent),
+    0 12px 24px -14px rgba(11,18,32,0.28);
+  background: var(--accent-soft);
+}
+.gen-discover-swatch {
+  height: 40px; border-radius: 7px; border: 1px solid var(--line-2);
+  background: linear-gradient(135deg, var(--swatch-bg, #0B1220) 52%, var(--swatch-accent, #FF3B1F) 52%);
+}
+.gen-discover-name { font-size: 12px; font-weight: 700; }
+.gen-discover-vibe {
+  font-size: 10px; line-height: 1.3;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+@media (max-width: 560px) {
+  .gen-discover-grid { grid-template-columns: 1fr; }
+}
 .checkbox-field { display: flex; align-items: center; gap: 8px; cursor: pointer; }
 .checkbox-field input { accent-color: var(--accent); }
 .privacy-note { line-height: 1.5; margin: 0; }

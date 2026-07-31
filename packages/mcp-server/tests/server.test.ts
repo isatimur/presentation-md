@@ -263,6 +263,29 @@ describe("preview_themes", () => {
     }
   });
 
+  it("recommends layouts mode for pick-3 title compares", async () => {
+    const { previewThemesTool } = await import("../src/tools/preview-themes.js");
+    const { mkdtemp, rm } = await import("node:fs/promises");
+    const { join } = await import("node:path");
+    const dir = await mkdtemp(join(process.cwd(), "pmd-preview-trio-"));
+    try {
+      const result = (await previewThemesTool.handler({
+        themes: ["default-tech", "aurora-glass", "soft-editorial"],
+        title: "Trio",
+        output_dir: dir,
+      })) as {
+        layouts_recommended?: boolean;
+        layouts_hint?: string;
+        instruction: string;
+      };
+      expect(result.layouts_recommended).toBe(true);
+      expect(result.layouts_hint).toMatch(/mode=.?layouts/i);
+      expect(result.instruction).toMatch(/layouts/i);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+
   it("layouts mode writes multi-slide craft previews", async () => {
     const { previewThemesTool } = await import("../src/tools/preview-themes.js");
     const { mkdtemp, readFile, rm } = await import("node:fs/promises");

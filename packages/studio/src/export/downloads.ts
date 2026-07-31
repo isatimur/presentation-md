@@ -10,7 +10,8 @@ function triggerDownload(blob: Blob, filename: string): void {
   document.body.appendChild(a);
   a.click();
   a.remove();
-  URL.revokeObjectURL(url);
+  // Delay revoke so Chromium headless can start the download.
+  window.setTimeout(() => URL.revokeObjectURL(url), 2_000);
 }
 
 function safeName(deck: DeckJson, ext: string): string {

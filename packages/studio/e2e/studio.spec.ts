@@ -76,6 +76,9 @@ test("Generate modal opens, validates input, and offers the agent-handoff path",
   await page.locator("textarea.brief-input").fill("A launch deck for a developer CLI.");
   await expect(copyBtn).toBeEnabled();
 
+  // Visual pick-3 compare is present (show-don't-tell).
+  await expect(page.locator(".gen-discover-grid .gen-discover-card")).toHaveCount(3);
+
   // …and generating without an API key surfaces a clear error (no network call).
   await page.getByRole("button", { name: /^Generate deck$/ }).click();
   await expect(page.getByText(/Enter your Anthropic API key/)).toBeVisible();

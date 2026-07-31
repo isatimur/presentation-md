@@ -4,6 +4,8 @@ import {
   findThemeShortlist,
   listThemeNames,
   listThemeShortlists,
+  listThemeSummaries,
+  resolveTheme,
 } from "../render/themes.js";
 import { GEN_MODELS, type GenModelId, type DensityMode, buildAgentPrompt, generateDeck } from "../ai/generate.js";
 
@@ -36,11 +38,35 @@ export function GenerateModal({
   const [copied, setCopied] = useState(false);
 
   const themeNames = listThemeNames();
+  const themes = useMemo(() => listThemeSummaries(), []);
   const shortlists = useMemo(() => listThemeShortlists(), []);
   const activeShortlist = shortlistId ? findThemeShortlist(shortlistId) : undefined;
   const selectableThemes = activeShortlist
     ? themeNames.filter((t) => activeShortlist.themes.includes(t))
     : themeNames;
+
+  /** Pick-3 visual compare from the active shortlist (or popular core defaults). */
+  const discoverThree = useMemo(() => {
+    const names = (activeShortlist?.themes ?? ["default-tech", "aurora-glass", "soft-editorial"])
+      .filter((n) => themeNames.includes(n))
+      .slice(0, 3);
+    while (names.length < 3) {
+      const fallback = themeNames.find((n) => !names.includes(n));
+      if (!fallback) break;
+      names.push(fallback);
+    }
+    return names.map((name) => {
+      const summary = themes.find((t) => t.name === name);
+      if (summary) return summary;
+      const resolved = resolveTheme(name);
+      return {
+        name,
+        vibe: resolved.manifest.description ?? name,
+        bg: resolved.palette.bg,
+        accent: resolved.palette.accent,
+      };
+    });
+  }, [activeShortlist, themeNames, themes]);
 
   const runGenerate = async () => {
     setBusy(true);
@@ -144,6 +170,32 @@ export function GenerateModal({
               >
                 {s.popular ? "★ " : ""}
                 {s.label.split(/[/(]/)[0]!.trim()}
+              </button>
+            ))}
+          </div>
+
+          <label className="field-label">Pick visually (show, don’t tell)</label>
+          <div className="gen-discover-grid" role="listbox" aria-label="Pick 3 theme compare">
+            {discoverThree.map((t) => (
+              <button
+                key={t.name}
+                type="button"
+                role="option"
+                aria-selected={t.name === theme}
+                className={`gen-discover-card${t.name === theme ? " active" : ""}`}
+                onClick={() => setTheme(t.name)}
+                title={t.vibe}
+              >
+                <span
+                  className="gen-discover-swatch"
+                  style={{
+                    ["--swatch-bg" as string]: t.bg,
+                    ["--swatch-accent" as string]: t.accent,
+                  }}
+                  aria-hidden
+                />
+                <span className="gen-discover-name">{t.name}</span>
+                <span className="gen-discover-vibe muted small">{t.vibe}</span>
               </button>
             ))}
           </div>
