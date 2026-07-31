@@ -1,5 +1,13 @@
 # @presentation-md/export
 
+## 1.20.4
+
+### Patch Changes
+
+- ffc72f5: Densify thin-peer PPTX card strokes and chrome for claude, default-tech, corporate, playful, data-editorial, developer-dark, fintech-clean, scandinavian, pastel-dreamy, scatterbrain, split-pastel, and risograph-zine.
+- Updated dependencies [a5985a3]
+  - @presentation-md/core@1.12.3
+
 ## 1.20.3
 
 ### Patch Changes
