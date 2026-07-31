@@ -222,6 +222,8 @@
       color: var(--ink);
       margin: 0 0 20px;
       line-height: 0.92;
+      max-width: 9.2em;
+      hyphens: none;
       animation: pmd-brand-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
     .brand-mark::after {
@@ -589,6 +591,73 @@
       margin-bottom: 0;
     }
 
+
+    /* ── live theme craft strip ─────────────────────────── */
+    .theme-preview-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 40px 0 48px;
+    }
+    .theme-preview-card {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid var(--rule);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--paper2);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+    .theme-preview-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(11, 18, 32, 0.12);
+      border-color: color-mix(in srgb, var(--accent) 35%, var(--rule));
+      text-decoration: none;
+      color: inherit;
+    }
+    .theme-preview-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: color-mix(in srgb, var(--ink) 6%, var(--paper2));
+      border-bottom: 1px solid var(--rule);
+    }
+    .theme-preview-frame iframe {
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: 1280px;
+      height: 1600px; /* pad + 2 slides + gaps — enough for bento crop */
+      border: 0;
+      pointer-events: none;
+      transform-origin: top left;
+      background: transparent;
+    }
+    .theme-preview-card .theme-preview-label {
+      padding: 12px 14px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .theme-preview-card .theme-preview-label em {
+      font-style: normal;
+      color: var(--ink-light);
+      font-size: 11px;
+    }
+    .theme-preview-card .theme-preview-label::after {
+      content: "↗";
+      color: var(--accent);
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
     /* ── themes gallery ─────────────────────────────────── */
     .themes-grid {
       display: grid;
@@ -836,6 +905,10 @@
       .layout-cell:nth-child(7) { border-radius: 0; }
       h1 { font-size: 2.2rem; }
       .themes-grid { grid-template-columns: 1fr; }
+      .brand-mark { font-size: clamp(2.35rem, 10.5vw, 3.6rem); max-width: 9.2em; hyphens: none; word-break: keep-all; }
+      .ctas .btn { padding: 12px 16px; font-size: 14px; }
+      .hero-copy { max-width: 100%; }
+      .tagline { max-width: 100%; }
     }
 
     @media (max-width: 500px) {
@@ -891,7 +964,7 @@
 <header class="site-hero">
   <div class="header-inner">
     <div class="hero-copy">
-      <p class="brand-mark" aria-label="presentation-md">presentation-md</p>
+      <p class="brand-mark" aria-label="presentation-md">presentation-<wbr>md</p>
       <h1>Your AI agent makes the deck. PowerPoint opens it.</h1>
       <p class="tagline">
         Notes in → asymmetric schema craft out. Export native PowerPoint, Keynote, or Google Slides — or tune it in Studio.
@@ -1090,257 +1163,153 @@
       Each theme ships a distinct <strong>surface profile</strong> — not just colors, but background treatment,
       decor, and motion. Full frontend-slides bold-template-pack coverage (34 systems) plus STYLE_PRESETS and
       gallery-craft originals. Install more with <span class="inline-code">npm i @presentation-md/theme-&lt;name&gt;</span>.
-      Agents call <span class="inline-code">preview_themes</span> to render live theme previews before you commit. Cards below crop to the bento craft slide — open any preview for title, grid, and comparison.
+      Agents call <span class="inline-code">preview_themes</span> to render live theme previews before you commit. Live craft cards below show the title slide at true 16:9 — open any preview for grid, comparison, and the full surface.
     </p>
 
-    <div class="theme-preview-strip" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:40px;">
-      <a href="previews/claude.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/claude.html" title="claude theme preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">claude · warm paper</div>
+    <div class="theme-preview-strip" aria-label="Live theme craft previews">
+      <a href="/previews/claude.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/claude.html" title="claude theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">claude <em>· warm paper</em></div>
       </a>
-      <a href="previews/default-tech.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/default-tech.html" title="default-tech preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">default-tech · neon glow</div>
+      <a href="/previews/aurora-glass.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/aurora-glass.html" title="aurora-glass theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">aurora-glass <em>· aurora glow</em></div>
       </a>
-      <a href="previews/editorial-serif.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/editorial-serif.html" title="editorial-serif preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">editorial-serif · masthead rule</div>
+      <a href="/previews/genz-bento.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/genz-bento.html" title="genz-bento theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">genz-bento <em>· hard shadow</em></div>
       </a>
-      <a href="previews/retro-arcade.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/retro-arcade.html" title="retro-arcade preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">retro-arcade · scanline neon</div>
+      <a href="/previews/soft-editorial.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/soft-editorial.html" title="soft-editorial theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">soft-editorial <em>· cream magazine</em></div>
       </a>
-      <a href="previews/brutalist-mono.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/brutalist-mono.html" title="brutalist-mono preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">brutalist-mono · hard grid</div>
+      <a href="/previews/broadsheet.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/broadsheet.html" title="broadsheet theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">broadsheet <em>· newsprint</em></div>
       </a>
-      <a href="previews/pastel-dreamy.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/pastel-dreamy.html" title="pastel-dreamy preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">pastel-dreamy · soft cloud</div>
+      <a href="/previews/signal.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/signal.html" title="signal theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">signal <em>· cream navy gold</em></div>
       </a>
-      <a href="previews/aurora-glass.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/aurora-glass.html" title="aurora-glass preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">aurora-glass · aurora glow</div>
+      <a href="/previews/kinetic-wrapped.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/kinetic-wrapped.html" title="kinetic-wrapped theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">kinetic-wrapped <em>· acid lime</em></div>
       </a>
-      <a href="previews/genz-bento.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/genz-bento.html" title="genz-bento preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">genz-bento · hard shadow</div>
+      <a href="/previews/blueprint.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/blueprint.html" title="blueprint theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">blueprint <em>· cyan grid</em></div>
       </a>
-      <a href="previews/crt-terminal.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/crt-terminal.html" title="crt-terminal preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">crt-terminal · phosphor</div>
+      <a href="/previews/neon-noir.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/neon-noir.html" title="neon-noir theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">neon-noir <em>· rain neon</em></div>
       </a>
-      <a href="previews/aerospace-hud.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/aerospace-hud.html" title="aerospace-hud preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">aerospace-hud · HUD grid</div>
+      <a href="/previews/bauhaus.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/bauhaus.html" title="bauhaus theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">bauhaus <em>· primary blocks</em></div>
       </a>
-      <a href="previews/bauhaus.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/bauhaus.html" title="bauhaus preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">bauhaus · primary blocks</div>
+      <a href="/previews/crt-terminal.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/crt-terminal.html" title="crt-terminal theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">crt-terminal <em>· phosphor</em></div>
       </a>
-      <a href="previews/neon-noir.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/neon-noir.html" title="neon-noir preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">neon-noir · rain neon</div>
+      <a href="/previews/bold-poster.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/bold-poster.html" title="bold-poster theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">bold-poster <em>· tomato shrikhand</em></div>
       </a>
-      <a href="previews/vaporwave.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/vaporwave.html" title="vaporwave preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">vaporwave · horizon grid</div>
+      <a href="/previews/default-tech.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/default-tech.html" title="default-tech theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">default-tech <em>· neon glow</em></div>
       </a>
-      <a href="previews/botanical-luxe.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/botanical-luxe.html" title="botanical-luxe preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">botanical-luxe · gold leaf</div>
+      <a href="/previews/editorial-forest.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/editorial-forest.html" title="editorial-forest theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">editorial-forest <em>· oat cream</em></div>
       </a>
-      <a href="previews/developer-dark.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/developer-dark.html" title="developer-dark preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">developer-dark · forge night</div>
+      <a href="/previews/notebook-tabs.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/notebook-tabs.html" title="notebook-tabs theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">notebook-tabs <em>· cream paper</em></div>
       </a>
-      <a href="previews/art-deco.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/art-deco.html" title="art-deco preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">art-deco · gold leaf</div>
+      <a href="/previews/vaporwave.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/vaporwave.html" title="vaporwave theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">vaporwave <em>· horizon grid</em></div>
       </a>
-      <a href="previews/kinetic-wrapped.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/kinetic-wrapped.html" title="kinetic-wrapped preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">kinetic-wrapped · acid lime</div>
+      <a href="/previews/neo-grid-bold.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/neo-grid-bold.html" title="neo-grid-bold theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">neo-grid-bold <em>· lemon panels</em></div>
       </a>
-      <a href="previews/blueprint.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/blueprint.html" title="blueprint preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">blueprint · cyan grid</div>
+      <a href="/previews/raw-grid.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/raw-grid.html" title="raw-grid theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">raw-grid <em>· neo-brutal</em></div>
       </a>
-      <a href="previews/glassmorphism.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/glassmorphism.html" title="glassmorphism preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">glassmorphism · soft glass</div>
+      <a href="/previews/aerospace-hud.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/aerospace-hud.html" title="aerospace-hud theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">aerospace-hud <em>· HUD grid</em></div>
       </a>
-      <a href="previews/broadsheet.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/broadsheet.html" title="broadsheet preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">broadsheet · newsprint</div>
+      <a href="/previews/glassmorphism.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/glassmorphism.html" title="glassmorphism theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">glassmorphism <em>· soft glass</em></div>
       </a>
-      <a href="previews/soft-editorial.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/soft-editorial.html" title="soft-editorial preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">soft editorial · cream magazine</div>
+      <a href="/previews/art-deco.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/art-deco.html" title="art-deco theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">art-deco <em>· gold leaf</em></div>
       </a>
-      <a href="previews/editorial-forest.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/editorial-forest.html" title="editorial-forest preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">editorial forest · oat cream</div>
+      <a href="/previews/developer-dark.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/developer-dark.html" title="developer-dark theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">developer-dark <em>· forge night</em></div>
       </a>
-      <a href="previews/pin-and-paper.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/pin-and-paper.html" title="pin-and-paper preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">pin & paper · legal pad</div>
+      <a href="/previews/split-pastel.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/split-pastel.html" title="split-pastel theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">split-pastel <em>· peach lavender</em></div>
       </a>
-      <a href="previews/vellum.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/vellum.html" title="vellum preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">vellum · periwinkle field</div>
-      </a>
-      <a href="previews/neo-grid-bold.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/neo-grid-bold.html" title="neo-grid-bold preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">neo-grid bold · lemon panels</div>
-      </a>
-      <a href="previews/editorial-tri-tone.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/editorial-tri-tone.html" title="editorial-tri-tone preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">editorial tri-tone · blush wine</div>
-      </a>
-      <a href="previews/creative-mode.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/creative-mode.html" title="creative-mode preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">creative mode · hard blocks</div>
-      </a>
-      <a href="previews/broadside.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/broadside.html" title="broadside preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">broadside · fire orange</div>
-      </a>
-      <a href="previews/bold-signal.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/bold-signal.html" title="bold-signal preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">bold signal · orange card</div>
-      </a>
-      <a href="previews/notebook-tabs.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/notebook-tabs.html" title="notebook-tabs preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">notebook tabs · cream paper</div>
-      </a>
-      <a href="previews/creative-voltage.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/creative-voltage.html" title="creative-voltage preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">creative voltage · electric blue</div>
-      </a>
-      <a href="previews/signal.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/signal.html" title="signal preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">signal · cream navy gold</div>
-      </a>
-      <a href="previews/electric-studio.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/electric-studio.html" title="electric-studio preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">electric studio · white blue split</div>
-      </a>
-      <a href="previews/dark-botanical.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/dark-botanical.html" title="dark-botanical preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">dark botanical · warm void</div>
-      </a>
-      <a href="previews/pastel-geometry.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/pastel-geometry.html" title="pastel-geometry preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">pastel geometry · sky pills</div>
-      </a>
-      <a href="previews/split-pastel.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/split-pastel.html" title="split-pastel preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">split pastel · peach lavender</div>
-      </a>
-      <a href="previews/vintage-editorial.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/vintage-editorial.html" title="vintage-editorial preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">vintage editorial · cream fraunces</div>
-      </a>
-      <a href="previews/paper-ink.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/paper-ink.html" title="paper-ink preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">paper & ink · cream crimson</div>
-      </a>
-      <a href="previews/biennale-yellow.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/biennale-yellow.html" title="biennale-yellow preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">biennale yellow · solar parchment</div>
-      </a>
-      <a href="previews/bold-poster.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/bold-poster.html" title="bold-poster preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">bold poster · tomato shrikhand</div>
-      </a>
-      <a href="previews/coral.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/coral.html" title="coral preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">coral · bebas hatch</div>
-      </a>
-      <a href="previews/emerald-editorial.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/emerald-editorial.html" title="emerald-editorial preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">emerald editorial · masthead</div>
-      </a>
-      <a href="previews/sakura-chroma.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/sakura-chroma.html" title="sakura-chroma preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">sakura chroma · cassette</div>
-      </a>
-      <a href="previews/pink-script.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/pink-script.html" title="pink-script preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">pink script · after hours</div>
-      </a>
-      <a href="previews/block-frame.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/block-frame.html" title="block-frame preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">block-frame · neobrutal</div>
-      </a>
-      <a href="previews/capsule.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/capsule.html" title="capsule preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">capsule · candy pills</div>
-      </a>
-      <a href="previews/cobalt-grid.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/cobalt-grid.html" title="cobalt-grid preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">cobalt grid · graph paper</div>
-      </a>
-      <a href="previews/8-bit-orbit.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/8-bit-orbit.html" title="8-bit-orbit preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">8-bit orbit · neon arcade</div>
-      </a>
-      <a href="previews/studio.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/studio.html" title="studio preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">studio · acid yellow</div>
-      </a>
-      <a href="previews/grove.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/grove.html" title="grove preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">grove · forest playfair</div>
-      </a>
-      <a href="previews/scatterbrain.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/scatterbrain.html" title="scatterbrain preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">scatterbrain · sticky notes</div>
-      </a>
-      <a href="previews/peoples-platform.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/peoples-platform.html" title="peoples-platform preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">peoples-platform · protest poster</div>
-      </a>
-      <a href="previews/retro-windows.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/retro-windows.html" title="retro-windows preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">retro-windows · win95 chrome</div>
-      </a>
-      <a href="previews/raw-grid.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/raw-grid.html" title="raw-grid preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">raw-grid · neo-brutal</div>
-      </a>
-      <a href="previews/long-table.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/long-table.html" title="long-table preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">long-table · supper club</div>
-      </a>
-      <a href="previews/mat.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/mat.html" title="mat preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">mat · wood glow</div>
-      </a>
-      <a href="previews/stencil-tablet.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/stencil-tablet.html" title="stencil-tablet preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">stencil-tablet · earth stencil</div>
-      </a>
-      <a href="previews/cartesian.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/cartesian.html" title="cartesian preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">cartesian · draft playfair</div>
-      </a>
-      <a href="previews/monochrome.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/monochrome.html" title="monochrome preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">monochrome · ivory ledger</div>
-      </a>
-      <a href="previews/blue-professional.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/blue-professional.html" title="blue-professional preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">blue-professional · cobalt cream</div>
-      </a>
-      <a href="previews/daisy-days.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/daisy-days.html" title="daisy-days preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">daisy-days · pastel stickers</div>
-      </a>
-      <a href="previews/retro-zine.html" target="_blank" rel="noopener" class="theme-preview-card" style="text-decoration:none;color:inherit;border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper2);">
-        <iframe src="previews/retro-zine.html" title="retro-zine preview" loading="lazy" style="width:100%;height:160px;border:0;pointer-events:none;transform:scale(0.55) translateY(-368px);transform-origin:top left;width:181.8%;height:290px;margin-bottom:-130px;"></iframe>
-        <div style="padding:12px 14px;font-family:var(--mono);font-size:12px;">retro-zine · khaki riso</div>
+      <a href="/previews/retro-arcade.html" target="_blank" rel="noopener" class="theme-preview-card">
+        <div class="theme-preview-frame" data-crop="title">
+          <iframe src="/previews/retro-arcade.html" title="retro-arcade theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+        </div>
+        <div class="theme-preview-label">retro-arcade <em>· scanline neon</em></div>
       </a>
     </div>
 
@@ -4341,5 +4310,47 @@
     });
   })();
 </script>
+
+<script>
+(function () {
+  var BODY_PAD = 48; // preview body padding-top
+  var SLIDE_H = 720;
+  var GAP = 48;
+  var CROPS = {
+    title: BODY_PAD,
+    bento: BODY_PAD + SLIDE_H + GAP
+  };
+
+  function fitFrame(frame) {
+    var iframe = frame.querySelector('iframe');
+    if (!iframe) return;
+    var w = frame.clientWidth || 280;
+    var scale = w / 1280;
+    var crop = CROPS[frame.getAttribute('data-crop') || 'title'] || CROPS.title;
+    iframe.style.transform = 'scale(' + scale + ') translateY(-' + crop + 'px)';
+    frame.style.height = (SLIDE_H * scale) + 'px';
+  }
+
+  function fitAll() {
+    document.querySelectorAll('.theme-preview-frame').forEach(fitFrame);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fitAll);
+  } else {
+    fitAll();
+  }
+  window.addEventListener('resize', fitAll);
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) fitFrame(e.target);
+      });
+    }, { rootMargin: '120px' });
+    document.querySelectorAll('.theme-preview-frame').forEach(function (f) { io.observe(f); });
+  }
+})();
+</script>
+
 </body>
 </html>

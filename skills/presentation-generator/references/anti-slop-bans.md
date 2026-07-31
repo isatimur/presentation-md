@@ -22,8 +22,15 @@ Prefer distinctive pairings from the theme packages (Archivo Black, Fraunces, Or
 | Purple-on-white gradients | Peak slop |
 | `#667eea` → `#764ba2` hero gradients | Overused template |
 | Rainbow accents on one slide | No hierarchy |
+| Warm cream `#F4F1EA` + terracotta as a “safe” default when the brief isn’t paper/editorial | Samey AI-deck fingerprint — pick a theme with a real surface (signal, aurora, blueprint, kinetic) |
+| Dark mode + purple glow for every “tech” deck | Lazy neon; prefer `developer-dark`, `aerospace-hud`, `blueprint`, or `default-tech` with discipline |
 
 Use the theme's `--accent` and `--accent-2` roles. If custom, pick **one** dominant accent + one supporting hue.
+
+## Site / product chrome (presentation-md brand)
+
+When designing marketing UI or Studio chrome for this pack — not slide themes — use **signal-grid**:
+cool paper `#E8EEF4`, signal red `#FF3B1F`, **Syne / DM Sans / IBM Plex Mono**. Never Inter-on-purple dashboards.
 
 ## Layout tells (see also Deadly Sins in SKILL.md)
 

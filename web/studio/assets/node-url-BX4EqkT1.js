@@ -1,0 +1,1 @@
+function n(e){const t=typeof e=="string"?e:e.href;if(t.startsWith("file:"))return decodeURIComponent(t.replace(/^file:\/\//,""));try{return new URL(t).pathname}catch{return t}}function r(e){return new URL(`file://${e}`)}const o={fileURLToPath:n,pathToFileURL:r};export{o as default,n as fileURLToPath,r as pathToFileURL};

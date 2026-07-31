@@ -186,6 +186,13 @@ Brand match: `import_brand_theme` MCP or `npx @presentation-md/create-theme --fr
 When a brief matches a stunning-25 vibe, open that structured proof and match its craft ceiling —
 do not invent a watered-down palette.
 
+**Default craft bar (beat Gamma / Beautiful.ai / md-slides on first glance):**
+1. Open a stunning-25 structured proof before writing slides — match density, type scale, and asymmetry.
+2. Prefer `image-hero` or a composed visual beat on slide 1 for investor/launch/brand decks.
+3. Force asymmetry early: `comparison` + `emphasis`, `two-column` with non-1-1 `ratio`, or `feature-grid` `columns: "bento"`.
+4. Run `audit_deck` then `judge_deck` (`t1` minimum, `t2` before delivery). Schema-valid ≠ shippable.
+5. Read `references/anti-slop-bans.md` — Inter/purple/cream-terracotta defaults are banned unless the theme owns them.
+
 
 ## Typography Hierarchy — The Scale System
 

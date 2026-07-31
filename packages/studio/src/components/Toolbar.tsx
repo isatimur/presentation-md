@@ -299,11 +299,18 @@ export function Toolbar({
           </span>
         )}
       </button>
-      <button className="btn" onClick={() => downloadJson(deck)}>JSON</button>
-      <button className="btn" onClick={() => downloadHtml(deck)}>HTML</button>
-      <button className="btn btn-primary" disabled={busy} onClick={exportPptx}>
-        {busy ? "…" : "Download .pptx"}
-      </button>
+      <div className="toolbar-cluster" role="group" aria-label="Export">
+        <details className="export-more">
+          <summary className="btn btn-sm" title="Download Deck JSON or self-contained HTML">Source ▾</summary>
+          <div className="export-more-panel">
+            <button type="button" className="btn" onClick={() => downloadJson(deck)}>Download JSON</button>
+            <button type="button" className="btn" onClick={() => downloadHtml(deck)}>Download HTML</button>
+          </div>
+        </details>
+        <button className="btn btn-primary" disabled={busy} onClick={exportPptx}>
+          {busy ? "…" : "Download .pptx"}
+        </button>
+      </div>
 
       <input
         ref={fileRef}
