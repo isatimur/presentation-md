@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.6.1
+
+### Patch Changes
+
+- 8027a0e: Shared data-beat craft gate in auditCraft; aerospace-hud PPTX grid/reticle chrome.
+
 ## 1.6.0
 
 ### Minor Changes
