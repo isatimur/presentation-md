@@ -1,5 +1,16 @@
 # @presentation-md/studio
 
+## 1.4.3
+
+### Patch Changes
+
+- 079c760: Gate signal briefing and luxury-minimalist quiet-luxe craft; extend skill/MCP/Studio honesty and layout recipes (no web deploy).
+- Updated dependencies [079c760]
+- Updated dependencies [fadff85]
+- Updated dependencies [d28fc27]
+  - @presentation-md/core@1.12.2
+  - @presentation-md/export@1.20.3
+
 ## 1.4.2
 
 ### Patch Changes

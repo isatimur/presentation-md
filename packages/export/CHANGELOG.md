@@ -1,5 +1,14 @@
 # @presentation-md/export
 
+## 1.20.3
+
+### Patch Changes
+
+- fadff85: Densify signal, long-table dashed, quiet-luxe/biennale top-rule, and thin peer PPTX card strokes.
+- Updated dependencies [079c760]
+- Updated dependencies [d28fc27]
+  - @presentation-md/core@1.12.2
+
 ## 1.20.2
 
 ### Patch Changes
