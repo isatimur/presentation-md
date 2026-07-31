@@ -41,7 +41,7 @@ export const generateDeckPromptTool: ToolDefinition = {
     const craftMandate = [
       "CRAFT MANDATE (non-negotiable):",
       "- Prefer stunning-25 themes when the brief matches (see stunning_25_reference).",
-      "- Include ≥1 image-hero for visual/investor/launch/brand decks.",
+      "- Include ≥1 image-hero for visual/investor/launch/brand decks (kinetic-wrapped wraps may use ranked/streak/metric/hero-stat instead).",
       "- Every comparison MUST set emphasis left|right; prefer non-1-1 two-column ratios; 5-card grids use columns:\"bento\".",
       "- Rankings / top-N → layout ranked-list (not custom-html bars). Mega wrap numbers → stat-row variant:\"hero\".",
       "- Day streaks → streak-grid. Circular KPI / percentile → metric-ring (not a plain stat chip).",

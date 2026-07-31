@@ -141,6 +141,11 @@ function judgeDeckJson(deck: Record<string, unknown>): {
 
   const hasImageHero = layouts.includes("image-hero");
   const hasChart = layouts.includes("chart");
+  const theme =
+    typeof (deck["meta"] as Record<string, unknown> | undefined)?.["theme"] === "string"
+      ? String((deck["meta"] as Record<string, unknown>)["theme"])
+      : "";
+  const isWrap = theme === "kinetic-wrapped";
   const hasAsymmetry =
     layouts.includes("comparison") ||
     layouts.includes("code") ||
@@ -152,7 +157,7 @@ function judgeDeckJson(deck: Record<string, unknown>): {
     layouts.includes("logo-wall") ||
     slides.some((s) => s["layout"] === "feature-grid" && s["columns"] === "bento");
 
-  if (slides.length >= 5 && !hasImageHero) {
+  if (slides.length >= 5 && !hasImageHero && !isWrap) {
     flags.push({
       id: "visual_beat",
       severity: "warn",

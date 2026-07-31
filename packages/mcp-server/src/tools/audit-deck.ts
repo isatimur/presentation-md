@@ -45,6 +45,9 @@ function lightStructuralChecks(deck: Record<string, unknown>): Issue[] {
   }
 
   const layouts = slides.map((s) => (s as Record<string, unknown>)["layout"] as string | undefined);
+  const meta = deck["meta"] as Record<string, unknown> | undefined;
+  const theme = typeof meta?.["theme"] === "string" ? meta["theme"] : "";
+  const isWrap = theme === "kinetic-wrapped";
   const hasImageHero = layouts.includes("image-hero");
   const hasComparison = layouts.includes("comparison");
   const hasCode = layouts.includes("code");
@@ -53,9 +56,19 @@ function lightStructuralChecks(deck: Record<string, unknown>): Issue[] {
     const slide = s as Record<string, unknown>;
     return slide["layout"] === "feature-grid" && slide["columns"] === "bento";
   });
-  const hasAsymmetry = hasComparison || hasCode || hasTwoCol || hasBento;
+  const hasAsymmetry =
+    hasComparison ||
+    hasCode ||
+    hasTwoCol ||
+    hasBento ||
+    layouts.includes("ranked-list") ||
+    layouts.includes("streak-grid") ||
+    layouts.includes("metric-ring") ||
+    layouts.includes("logo-wall") ||
+    layouts.includes("custom-html");
 
-  if (slides.length >= 5 && !hasImageHero) {
+  // Wrap decks use hue/ranked/streak/ring beats — image-hero is optional.
+  if (slides.length >= 5 && !hasImageHero && !isWrap) {
     issues.push({
       severity: "warning",
       message:
@@ -67,8 +80,26 @@ function lightStructuralChecks(deck: Record<string, unknown>): Issue[] {
     issues.push({
       severity: "warning",
       message:
-        "Weak asymmetry — add comparison+emphasis, two-column (non-1-1 ratio), code, or feature-grid columns:\"bento\".",
+        "Weak asymmetry — add comparison+emphasis, two-column (non-1-1 ratio), code, bento, ranked-list, streak-grid, metric-ring, or logo-wall.",
     });
+  }
+
+  // Cadence: ≥3 identical layouts in a row.
+  let run = 1;
+  let runStart = 0;
+  for (let j = 1; j <= layouts.length; j++) {
+    if (j < layouts.length && layouts[j] === layouts[j - 1]) {
+      run++;
+    } else {
+      if (run >= 3) {
+        issues.push({
+          severity: "warning",
+          message: `Slides ${runStart + 1}-${j}: '${layouts[runStart]}' repeats ${run}x in a row — vary the layout cadence.`,
+        });
+      }
+      run = 1;
+      runStart = j;
+    }
   }
 
   for (let i = 0; i < slides.length; i++) {
@@ -181,8 +212,6 @@ function lightStructuralChecks(deck: Record<string, unknown>): Issue[] {
     });
   }
 
-  const meta = deck["meta"] as Record<string, unknown> | undefined;
-  const theme = typeof meta?.["theme"] === "string" ? meta["theme"] : "";
   const copyBlob = JSON.stringify(slides).toLowerCase();
   if (
     /partner|customer|trusted by|logo wall|backers/.test(copyBlob) &&
@@ -193,7 +222,7 @@ function lightStructuralChecks(deck: Record<string, unknown>): Issue[] {
       message: 'Social-proof / customer marks copy without logo-wall — prefer layout "logo-wall".',
     });
   }
-  if (theme === "kinetic-wrapped") {
+  if (isWrap) {
     const toned = slides.filter((s) => {
       const t = (s as Record<string, unknown>)["tone"];
       return typeof t === "string" && t !== "default" && t.trim() !== "";
