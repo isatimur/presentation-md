@@ -8,4 +8,4 @@ npm i @presentation-md/theme-retro-zine
 
 Use: `"meta": { "theme": "retro-zine" }` · Surface: `retro-zine-riso`.
 
-Faithful to frontend-slides `bold-template-pack retro-zine`.
+Surface craft: hard ink frame + offset green plate + cream card on every slide (HTML). PPTX mirrors frame/plate and square hard-border cards.

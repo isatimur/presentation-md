@@ -83,9 +83,9 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   coral gets a hatch frame + coral left wash;
   peoples-platform gets a cobalt top bar + amber stub + hard frame;
   raw-grid gets blush/sage bands + cross rules;
-  retro-zine heroes get an offset green plate + cream card;
+  retro-zine gets a hard frame + offset green plate + cream card on every slide + square hard-border cards;
   sakura-chroma gets a chroma strip + stamp orbs on heroes;
-  daisy-days gets pastel dots + daisy/pill ornaments;
+  daisy-days gets hard frame + charcoal offset shadow + pastel dots + daisy/pill ornaments on every slide + plump hard-border cards;
   block-frame gets a hard frame + pastel offset blocks on heroes;
   editorial-tri-tone gets a butter split + burgundy wash;
   broadside gets a fire-orange rail + corner block + outer border (heroes also get a top stub);
@@ -99,7 +99,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   vintage-editorial heroes get a geometric ring + dots;
   studio gets acid hairline rails + hard frame (heroes also get an acid accent block);
   grove gets a monograph inset frame + top hairline + coral stub + accent2 hairline;
-  stencil-tablet heroes get earth tablet blocks;
+  stencil-tablet gets a hard frame + earth tablet blocks on every slide + plump hard-border cards;
   cartesian gets draft axes + concentric rings;
   monochrome gets ledger frame + hairlines;
   blue-professional gets a soft wash band + accent stub + clean frame;

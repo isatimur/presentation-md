@@ -8,4 +8,4 @@ npm i @presentation-md/theme-stencil-tablet
 
 Use: `"meta": { "theme": "stencil-tablet" }` · Surface: `stencil-tablet-earth`.
 
-Faithful to frontend-slides `bold-template-pack stencil-tablet`.
+Surface craft: hard black frame + earth-tone tablet blocks on every slide (HTML). PPTX mirrors frame/tablets and hard-border plump cards.

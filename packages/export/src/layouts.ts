@@ -19,6 +19,14 @@ function cardStroke(
   if (ctx.themeName === "candy-pop") {
     return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.75 : 2.5 };
   }
+  // daisy-days-pastel cards: 3px charcoal
+  if (ctx.themeName === "daisy-days") {
+    return { color: "2D2D2D", width: opts.hero || opts.highlighted ? 2.75 : 2.5 };
+  }
+  // stencil-tablet-earth / retro-zine-riso cards: 2px hard ink
+  if (ctx.themeName === "stencil-tablet" || ctx.themeName === "retro-zine") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.25 : 2 };
+  }
   if (opts.hero || opts.highlighted) {
     return { color: ctx.colors.accent, width: opts.highlighted ? 1.75 : 1.5 };
   }
@@ -34,6 +42,12 @@ function cardRadius(ctx: ExportContext): number {
   if (ctx.themeName === "capsule") return 0.29;
   // long-table-supper cards: border-radius 1.25rem ≈ 0.21"
   if (ctx.themeName === "long-table") return 0.21;
+  // daisy-days-pastel cards: border-radius 20px ≈ 0.21"
+  if (ctx.themeName === "daisy-days") return 0.21;
+  // stencil-tablet-earth cards: border-radius 24px ≈ 0.25"
+  if (ctx.themeName === "stencil-tablet") return 0.25;
+  // retro-zine-riso cards: square
+  if (ctx.themeName === "retro-zine") return 0;
   return 0.06;
 }
 
@@ -3955,8 +3969,9 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     });
   }
 
-  if (theme === "retro-zine" && isHero) {
-    // Offset green plate + cream card (retro-zine-riso).
+  if (theme === "retro-zine") {
+    // Hard frame + offset green plate + cream card on every slide (retro-zine-riso).
+    // HTML ::before/::after are not hero-gated.
     slide.addShape(ctx.shapeRoundRect, {
       x: ctx.width * 0.68,
       y: ctx.height * 0.18,
@@ -3972,7 +3987,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       w: ctx.width * 0.26,
       h: ctx.height * 0.34,
       fill: { color: ctx.colors.cardBg },
-      line: { color: ctx.colors.text, width: 1.5 },
+      line: { color: ctx.colors.text, width: 2 },
       rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
@@ -3981,7 +3996,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       w: ctx.width - 0.2,
       h: ctx.height - 0.2,
       fill: { color: ctx.colors.bg, transparency: 100 },
-      line: { color: ctx.colors.text, width: 2.5 },
+      line: { color: ctx.colors.text, width: 2.75 },
       rectRadius: 0,
     });
   }
@@ -4041,14 +4056,34 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "daisy-days") {
-    // Soft pastel dots + hard frame; daisy + pill on heroes (daisy-days-pastel).
+    // Hard frame + charcoal offset shadow + pastel dots + daisy/pill on every
+    // slide (daisy-days-pastel ::before/::after are not hero-gated).
+    const shadow = 0.08;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - shadow,
+      y: shadow,
+      w: shadow,
+      h: ctx.height - shadow,
+      fill: { color: "2D2D2D" },
+      line: { color: "2D2D2D", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: shadow,
+      y: ctx.height - shadow,
+      w: ctx.width - shadow,
+      h: shadow,
+      fill: { color: "2D2D2D" },
+      line: { color: "2D2D2D", width: 0 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.1,
       y: 0.1,
       w: ctx.width - 0.2,
       h: ctx.height - 0.2,
       fill: { color: ctx.colors.bg, transparency: 100 },
-      line: { color: "2D2D2D", width: 2.5 },
+      line: { color: "2D2D2D", width: 2.75 },
       rectRadius: 0.28,
     });
     const dots = [
@@ -4067,25 +4102,23 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         line: { color: d.color, width: 0 },
       });
     }
-    if (isHero) {
-      slide.addShape(ctx.shapeOval, {
-        x: ctx.width - 1.55,
-        y: 0.55,
-        w: 0.7,
-        h: 0.7,
-        fill: { color: "FDE68A" },
-        line: { color: "2D2D2D", width: 2 },
-      });
-      slide.addShape(ctx.shapeRoundRect, {
-        x: 0.55,
-        y: ctx.height - 0.95,
-        w: 0.95,
-        h: 0.36,
-        fill: { color: "A8D8F0" },
-        line: { color: "2D2D2D", width: 2 },
-        rectRadius: 0.18,
-      });
-    }
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 1.55,
+      y: 0.55,
+      w: 0.7,
+      h: 0.7,
+      fill: { color: "FDE68A" },
+      line: { color: "2D2D2D", width: 2 },
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.55,
+      y: ctx.height - 0.95,
+      w: 0.95,
+      h: 0.36,
+      fill: { color: "A8D8F0" },
+      line: { color: "2D2D2D", width: 2 },
+      rectRadius: 0.18,
+    });
   }
 
   if (theme === "block-frame") {
@@ -4654,15 +4687,16 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     });
   }
 
-  if (theme === "stencil-tablet" && isHero) {
-    // Earth tablet blocks (stencil-tablet-earth).
+  if (theme === "stencil-tablet") {
+    // Hard frame + earth tablet blocks on every slide (stencil-tablet-earth).
+    // HTML ::before/::after are not hero-gated.
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.1,
       y: 0.1,
       w: ctx.width - 0.2,
       h: ctx.height - 0.2,
       fill: { color: ctx.colors.bg, transparency: 100 },
-      line: { color: "000000", width: 2 },
+      line: { color: "000000", width: 2.25 },
       rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
@@ -4671,7 +4705,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       w: ctx.width * 0.18,
       h: ctx.height * 0.22,
       fill: { color: ctx.colors.accent },
-      line: { color: "000000", width: 1.5 },
+      line: { color: "000000", width: 1.75 },
       rectRadius: 0.22,
     });
     slide.addShape(ctx.shapeRoundRect, {
@@ -4680,7 +4714,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       w: ctx.width * 0.14,
       h: ctx.height * 0.18,
       fill: { color: ctx.colors.accent2 },
-      line: { color: "000000", width: 1.5 },
+      line: { color: "000000", width: 1.75 },
       rectRadius: 0.2,
     });
   }

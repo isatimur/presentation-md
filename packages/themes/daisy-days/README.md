@@ -8,4 +8,4 @@ npm i @presentation-md/theme-daisy-days
 
 Use: `"meta": { "theme": "daisy-days" }` · Surface: `daisy-days-pastel`.
 
-Faithful to frontend-slides `bold-template-pack daisy-days`.
+Surface craft: hard charcoal frame + offset shadow + daisy/pill stickers on every slide (HTML). PPTX mirrors frame/shadow/ornaments and plump hard-border cards.
