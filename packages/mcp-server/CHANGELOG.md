@@ -1,5 +1,19 @@
 # @presentation-md/mcp-server
 
+## 1.14.0
+
+### Minor Changes
+
+- 2c0a7dc: Ship PDF/deploy scripts in published core, sync Claude plugin skill + deck schema from core, document markdown craft heuristics, and harden MCP write paths with shared cwd containment + export/render tests.
+
+### Patch Changes
+
+- Updated dependencies [2c0a7dc]
+  - @presentation-md/core@1.16.0
+  - @presentation-md/create-theme@1.1.2
+  - @presentation-md/export@1.23.2
+  - @presentation-md/render@1.6.32
+
 ## 1.13.1
 
 ### Patch Changes
