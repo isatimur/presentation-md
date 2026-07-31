@@ -54,13 +54,13 @@ export function Toolbar({
     return t.name.toLowerCase().includes(q) || t.vibe.toLowerCase().includes(q);
   });
 
-  // Auto-open audit panel when live badge shows errors; keep craft panel live on change.
+  // Auto-open on live craft issues (errors or warnings) unless the user dismissed while dirty.
   useEffect(() => {
-    if (liveCraftErrors === 0) {
+    if (liveCraftIssues.length === 0) {
       suppressLivePanel.current = false;
       if (craftPanelOpen.current) {
-        setAuditIssues(liveCraftIssues);
-        if (liveCraftIssues.length === 0) craftPanelOpen.current = false;
+        setAuditIssues([]);
+        craftPanelOpen.current = false;
       }
       return;
     }
@@ -68,7 +68,9 @@ export function Toolbar({
     craftPanelOpen.current = true;
     setAuditIssues(liveCraftIssues);
     setAuditPanelOpen(true);
-    setAuditFilter((f) => (f === "warning" ? "all" : f));
+    if (liveCraftErrors > 0) {
+      setAuditFilter((f) => (f === "warning" ? "all" : f));
+    }
   }, [liveCraftIssues, liveCraftErrors]);
 
   const setMeta = (patch: Record<string, string>) =>
@@ -105,16 +107,22 @@ export function Toolbar({
     setStatus("Building .pptx…");
     try {
       const { warnings } = await downloadPptx(deck);
-      if (warnings.length) {
-        craftPanelOpen.current = false;
-        setAuditIssues(warnings.map((message) => ({ severity: "warning" as const, message })));
+      const exportIssues = warnings.map((message) => ({
+        severity: "warning" as const,
+        message: `PPTX: ${message}`,
+      }));
+      const merged = [...exportIssues, ...liveCraftIssues];
+      if (merged.length) {
+        // Keep craft ownership so deck edits still refresh the panel; export warns lead.
+        craftPanelOpen.current = true;
+        setAuditIssues(merged);
         setAuditPanelOpen(true);
         setStatus(
-          `Exported .pptx (${warnings.length} warning${warnings.length > 1 ? "s" : ""}) — see list`
+          warnings.length
+            ? `Exported .pptx (${warnings.length} warning${warnings.length > 1 ? "s" : ""}) — see list`
+            : `Exported .pptx (${liveCraftIssues.length} craft issue${liveCraftIssues.length > 1 ? "s" : ""})`
         );
       } else {
-        setAuditIssues([]);
-        craftPanelOpen.current = false;
         setStatus("Exported .pptx");
       }
     } catch (err) {
@@ -146,7 +154,7 @@ export function Toolbar({
   const dismissAuditPanel = () => {
     setAuditIssues([]);
     craftPanelOpen.current = false;
-    if (liveCraftErrors > 0) suppressLivePanel.current = true;
+    if (liveCraftIssues.length > 0) suppressLivePanel.current = true;
   };
 
   const copyLink = async () => {

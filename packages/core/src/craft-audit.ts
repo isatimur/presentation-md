@@ -399,5 +399,38 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     }
   }
 
+  const paperThemes = new Set([
+    "claude",
+    "soft-editorial",
+    "ft-editorial",
+    "broadsheet",
+    "heritage-editorial",
+    "vellum",
+    "paper-ink",
+    "editorial-serif",
+    "editorial-forest",
+    "emerald-editorial",
+    "pin-and-paper",
+    "vintage-editorial",
+    "monochrome",
+    "notebook-tabs",
+    "blue-professional",
+  ]);
+  if (paperThemes.has(theme) && slides.length >= 5) {
+    const hasEditorialBeat =
+      layouts.includes("quote") ||
+      (layouts.includes("comparison") &&
+        slides.some(
+          (s) => s["layout"] === "comparison" && (s["emphasis"] === "left" || s["emphasis"] === "right")
+        ));
+    if (!hasEditorialBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "Paper/editorial theme lacks a magazine beat — add quote or comparison+emphasis (not only soft cards).",
+      });
+    }
+  }
+
   return issues;
 }

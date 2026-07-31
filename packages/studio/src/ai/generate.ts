@@ -67,7 +67,9 @@ Authoring rules:
   - Year-wrap / kinetic-wrapped: use tone on ≥3 slides, stat-row variant:"hero" for mega numbers, ranked-list for top-N bars, streak-grid for day streaks, metric-ring for percentile KPIs, closing actions[] with icons for dual share pills. PPTX renders eyebrow chips + hard frames.
   - candy-pop: set meta.company (or meta.marquee) so the yellow ticker brands the deck — never hardcode Jellybean; PPTX cards get hard ink borders.
   - risograph-zine: prefer comparison+emphasis and a punchy quote for print-shop energy.
-  - Prefer loud/thin theme surfaces (coral, raw-grid, sakura-chroma, retro-windows, pin-and-paper, …) for brand atmosphere — PPTX approximates their chrome as native shapes; reserve custom-html for art PPTX cannot keep.
+  - Match atmosphere to the brief: loud/thin surfaces (coral, raw-grid, sakura, retro-windows, …) for punchy brand energy; paper/editorial themes (claude, soft-editorial, ft-editorial, vellum, paper-ink, heritage-editorial, broadsheet, …) for magazine quiet — prefer quote + comparison+emphasis + short literary leads; fiber grain is HTML-only.
+  - PPTX approximates theme chrome as native shapes; reserve custom-html for art PPTX cannot keep.
+  - Closing dual asks: stunning / wrap / launch / investor decks prefer actions[] with solid + outline pills and an icon on every pill (cta alone is weak).
   - Add brief "notes" on 2–4 key slides (talking points for the presenter).
 - Only emit fields defined above. Do not invent new layouts or fields.`;
 

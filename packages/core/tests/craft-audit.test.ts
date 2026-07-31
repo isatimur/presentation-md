@@ -187,4 +187,37 @@ describe("auditCraft", () => {
     const issues = auditCraft(deck);
     expect(issues.some((i) => /print beat/i.test(i.message))).toBe(true);
   });
+
+  it("warns when paper/editorial theme lacks a magazine beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "soft-editorial", title: "Flat paper" },
+      slides: [
+        { layout: "title", heading: "Cover" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        {
+          layout: "feature-grid",
+          heading: "Cards",
+          columns: 3,
+          cards: [
+            { title: "One", body: "A" },
+            { title: "Two", body: "B" },
+            { title: "Three", body: "C" },
+          ],
+        },
+        { layout: "stat-row", heading: "N", stats: [{ value: "1", label: "a" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Read", href: "#", style: "solid", icon: "fa-solid fa-book" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /magazine beat/i.test(i.message))).toBe(true);
+  });
 });

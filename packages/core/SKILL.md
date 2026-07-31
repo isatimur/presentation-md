@@ -148,7 +148,7 @@ Each layout is a tool. Match the layout to the job, not to the order.
 ### `custom-html` — Schema-safe art escape hatch
 **When to use:** one-off frontend-slides craft that no layout covers — without abandoning Deck JSON / Studio / theme tokens.
 **Props:** `{ heading?, lead?, html }`
-**Design rule:** use theme CSS variables (`var(--accent)`, `var(--heading-font)`, …). Scripts and event handlers are stripped. PPTX approximates `custom-html` to text — ship HTML when the art is the point. Theme surface chrome (grids, rails, mastheads, soft washes, hard frames, Win95 bars, etc.) is approximated as native PPTX shapes for every theme package. Pulse / risograph / candy-pop get denser soft-blob + frame stand-ins; Pulse eyebrows render as filled chips; candy-pop cards get hard ink borders (not just slide chrome). True `mix-blend-mode` / animated marquees remain HTML-only.
+**Design rule:** use theme CSS variables (`var(--accent)`, `var(--heading-font)`, …). Scripts and event handlers are stripped. PPTX approximates `custom-html` to text — ship HTML when the art is the point. Theme surface chrome (grids, rails, mastheads, soft washes, hard frames, Win95 bars, etc.) is approximated as native PPTX shapes for every theme package. Pulse / risograph / candy-pop get denser soft-blob + frame stand-ins; Pulse eyebrows render as filled chips; candy-pop cards get hard ink borders (not just slide chrome). Paper/editorial themes keep quiet fiber grain as HTML-only — PPTX carries rules/washes/mastheads. True `mix-blend-mode` / animated marquees remain HTML-only.
 
 ### `closing` — The ask / CTA
 **When to use:** every deck ends here. Make the next action unmissable.
@@ -479,5 +479,6 @@ Then walk every slide against this checklist and fix before delivering:
 - **Gallery honesty** — if you named a stunning-25 theme (aurora-glass, ft-editorial, luxury-minimalist, …), open its structured proof and match that craft ceiling.
 - **Candy honesty** — `candy-pop` marquees brand from `meta.company` (or `meta.marquee` / `meta.title`); never hardcode Jellybean.
 - **Riso honesty** — `risograph-zine` decks should feel printed: prefer `comparison` with `emphasis`, a punchy `quote`, and kraft-paper copy — not a stack of soft corporate cards.
+- **Paper honesty** — paper/editorial themes (`claude`, `soft-editorial`, `ft-editorial`, `broadsheet`, `heritage-editorial`, `vellum`, `paper-ink`, `editorial-serif`, `editorial-forest`, `emerald-editorial`, `pin-and-paper`, `vintage-editorial`, `monochrome`, `notebook-tabs`, `blue-professional`): magazine cadence (`quote`, `comparison`+`emphasis`, short literary leads) — not soft corporate card stacks. Quiet fiber grain is HTML surface craft; PPTX keeps rules/washes/mastheads only — prefer HTML when the tooth is the brand.
 
 For a rigorous, scored pass, run the **`deck-design-judge`** skill: it grades the deck against the design rubric, tells you exactly what to fix, and lets you re-score after the fix.
