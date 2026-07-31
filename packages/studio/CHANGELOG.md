@@ -1,5 +1,15 @@
 # @presentation-md/studio
 
+## 1.3.10
+
+### Patch Changes
+
+- d6d8191: Collapse Studio mobile secondary actions into More, and polish audit panel as a fixed bottom sheet on narrow viewports.
+- Updated dependencies [e3cd10d]
+- Updated dependencies [9274c8c]
+  - @presentation-md/export@1.14.0
+  - @presentation-md/core@1.8.3
+
 ## 1.3.9
 
 ### Patch Changes

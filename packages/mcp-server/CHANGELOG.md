@@ -1,5 +1,17 @@
 # @presentation-md/mcp-server
 
+## 1.6.14
+
+### Patch Changes
+
+- 9274c8c: Raise skill + MCP craft bar for paper/editorial magazine cadence and Claude Design rivalry; tighten anti-slop enforcement.
+- Updated dependencies [e3cd10d]
+- Updated dependencies [9274c8c]
+  - @presentation-md/export@1.14.0
+  - @presentation-md/core@1.8.3
+  - @presentation-md/render@1.6.12
+  - @presentation-md/create-theme@1.0.21
+
 ## 1.6.13
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.8.3
+
+### Patch Changes
+
+- 9274c8c: Raise skill + MCP craft bar for paper/editorial magazine cadence and Claude Design rivalry; tighten anti-slop enforcement.
+
 ## 1.8.2
 
 ### Patch Changes
