@@ -67,6 +67,26 @@ function cardStroke(
   if (ctx.themeName === "vaporwave" || ctx.themeName === "y2k-aero") {
     return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.5 : 1.25 };
   }
+  // broadside-fire cards: hard ink
+  if (ctx.themeName === "broadside") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.25 : 2 };
+  }
+  // cobalt-grid-paper cards: cobalt hairline, square
+  if (ctx.themeName === "cobalt-grid") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.5 : 1.25 };
+  }
+  // scanline-neon cards: cyan rim
+  if (ctx.themeName === "retro-arcade") {
+    return { color: ctx.colors.accent2, width: opts.hero || opts.highlighted ? 1.75 : 1.5 };
+  }
+  // mat-woodglow cards: dark ink on cream
+  if (ctx.themeName === "mat") {
+    return { color: "1E2820", width: opts.hero || opts.highlighted ? 1.5 : 1.25 };
+  }
+  // biennale-yellow-sun cards: indigo hairline
+  if (ctx.themeName === "biennale-yellow") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 1.35 : 1.1 };
+  }
   if (opts.hero || opts.highlighted) {
     return { color: ctx.colors.accent, width: opts.highlighted ? 1.75 : 1.5 };
   }
@@ -86,7 +106,7 @@ function cardRadius(ctx: ExportContext): number {
   if (ctx.themeName === "daisy-days") return 0.21;
   // stencil-tablet-earth cards: border-radius 24px ≈ 0.25"
   if (ctx.themeName === "stencil-tablet") return 0.25;
-  // retro-zine-riso / block-frame-brutal / creative-mode-blocks / 8-bit / Win95 / coral / peoples: square
+  // retro-zine-riso / block-frame-brutal / creative-mode-blocks / 8-bit / Win95 / coral / peoples / broadside / cobalt / mat / biennale / arcade: square
   if (
     ctx.themeName === "retro-zine" ||
     ctx.themeName === "block-frame" ||
@@ -94,14 +114,20 @@ function cardRadius(ctx: ExportContext): number {
     ctx.themeName === "8-bit-orbit" ||
     ctx.themeName === "retro-windows" ||
     ctx.themeName === "coral" ||
-    ctx.themeName === "peoples-platform"
+    ctx.themeName === "peoples-platform" ||
+    ctx.themeName === "broadside" ||
+    ctx.themeName === "cobalt-grid" ||
+    ctx.themeName === "mat" ||
+    ctx.themeName === "biennale-yellow" ||
+    ctx.themeName === "retro-arcade"
   ) {
     return 0;
   }
-  // bold-signal-card / aero-bubble / pastel-geometry: plump
+  // bold-signal-card / aero-bubble / pastel-geometry / pastel-dreamy: plump
   if (ctx.themeName === "bold-signal") return 0.16;
   if (ctx.themeName === "y2k-aero") return 0.18;
   if (ctx.themeName === "pastel-geometry") return 0.18;
+  if (ctx.themeName === "pastel-dreamy") return 0.22;
   // scatterbrain-cork cards: border-radius 2px ≈ 0.02"
   if (ctx.themeName === "scatterbrain") return 0.02;
   // sakura-chroma-cassette cards: border-radius 4px ≈ 0.04"
@@ -2004,41 +2030,71 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "mat") {
-    // Woodglow radials + hairline stubs (mat-woodglow ::before/::after).
+    // Woodglow radials + cream inset rim + hairline stubs (mat-woodglow).
     slide.addShape(ctx.shapeOval, {
-      x: ctx.width * 0.62,
-      y: ctx.height * 0.55,
-      w: ctx.width * 0.5,
-      h: ctx.height * 0.6,
-      fill: { color: ctx.colors.accent2, transparency: 72 },
+      x: ctx.width * 0.55,
+      y: ctx.height * 0.48,
+      w: ctx.width * 0.58,
+      h: ctx.height * 0.68,
+      fill: { color: ctx.colors.accent2, transparency: 68 },
       line: { color: ctx.colors.accent2, width: 0 },
     });
     slide.addShape(ctx.shapeOval, {
-      x: -ctx.width * 0.08,
-      y: -ctx.height * 0.12,
-      w: ctx.width * 0.35,
-      h: ctx.height * 0.4,
-      fill: { color: ctx.colors.accent, transparency: 88 },
+      x: ctx.width * 0.68,
+      y: ctx.height * 0.62,
+      w: ctx.width * 0.4,
+      h: ctx.height * 0.48,
+      fill: { color: ctx.colors.accent, transparency: 82 },
       line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: -ctx.width * 0.1,
+      y: -ctx.height * 0.14,
+      w: ctx.width * 0.4,
+      h: ctx.height * 0.45,
+      fill: { color: ctx.colors.accent, transparency: 86 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    // Cream inset rim (HTML inset box-shadow 0 0 0 1px cream@8%).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.2,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: "F0E8D2", width: 1 },
+      rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
       x: ctx.margin,
       y: ctx.height * 0.12,
-      w: 0.35,
-      h: 0.02,
+      w: 0.42,
+      h: 0.025,
       fill: { color: ctx.colors.accent },
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.width - ctx.margin - 1.4,
+      x: ctx.width - ctx.margin - 1.55,
       y: ctx.height - 0.85,
-      w: 1.4,
-      h: 0.035,
-      fill: { color: ctx.colors.accent, transparency: 15 },
+      w: 1.55,
+      h: 0.045,
+      fill: { color: ctx.colors.accent, transparency: 12 },
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0,
     });
+    if (isHero) {
+      // Mid-century accent block stub on heroes.
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width - ctx.margin - 0.95,
+        y: ctx.margin * 0.9,
+        w: 0.95,
+        h: 0.95,
+        fill: { color: ctx.colors.accent, transparency: 78 },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
   }
 
   if (theme === "electric-studio") {
@@ -3858,69 +3914,139 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "cobalt-grid") {
-    // Blueprint-ish cobalt grid + corner hatch (cobalt-grid-paper).
-    for (let i = 1; i < 14; i++) {
+    // Blueprint-ish cobalt grid + outer frame + diagonal corner hatch (cobalt-grid-paper).
+    for (let i = 1; i < 18; i++) {
       slide.addShape(ctx.shapeRoundRect, {
-        x: (ctx.width / 14) * i,
+        x: (ctx.width / 18) * i,
         y: 0,
-        w: 0.01,
+        w: 0.012,
         h: ctx.height,
-        fill: { color: ctx.colors.accent, transparency: 82 },
+        fill: { color: ctx.colors.accent, transparency: 78 },
         line: { color: ctx.colors.accent, width: 0 },
         rectRadius: 0,
       });
     }
-    for (let i = 1; i < 9; i++) {
+    for (let i = 1; i < 11; i++) {
       slide.addShape(ctx.shapeRoundRect, {
         x: 0,
-        y: (ctx.height / 9) * i,
+        y: (ctx.height / 11) * i,
         w: ctx.width,
-        h: 0.01,
-        fill: { color: ctx.colors.accent, transparency: 82 },
+        h: 0.012,
+        fill: { color: ctx.colors.accent, transparency: 78 },
         line: { color: ctx.colors.accent, width: 0 },
         rectRadius: 0,
       });
     }
+    // Corner hatch wash + diagonal stubs (HTML ::before top-left gradients).
     slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.width * 0.58,
-      y: ctx.height * 0.55,
-      w: ctx.width * 0.42,
-      h: ctx.height * 0.45,
-      fill: { color: ctx.colors.accent, transparency: 90 },
+      x: ctx.width * 0.55,
+      y: ctx.height * 0.52,
+      w: ctx.width * 0.45,
+      h: ctx.height * 0.48,
+      fill: { color: ctx.colors.accent, transparency: 88 },
       line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    for (let i = 0; i < 7; i++) {
+      const t = i / 6;
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width * (0.58 + t * 0.38),
+        y: ctx.height * (0.95 - t * 0.42),
+        w: 0.9,
+        h: 0.018,
+        fill: { color: ctx.colors.accent, transparency: 48 },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    // Quiet cobalt outer frame (HTML border accent@18%).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.08,
+      y: 0.08,
+      w: ctx.width - 0.16,
+      h: ctx.height - 0.16,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: 1.1 },
       rectRadius: 0,
     });
   }
 
   if (theme === "retro-arcade") {
-    // Scanlines + neon top rail (scanline-neon).
-    for (let i = 0; i < 9; i++) {
+    // Dense scanlines + dual neon rail + rim + floor glow + neon orbs (scanline-neon).
+    for (let i = 0; i < 14; i++) {
       slide.addShape(ctx.shapeRoundRect, {
         x: 0,
-        y: 0.3 + i * 0.75,
+        y: 0.18 + i * 0.52,
         w: ctx.width,
-        h: 0.03,
-        fill: { color: "000000", transparency: 78 },
+        h: 0.028,
+        fill: { color: "000000", transparency: 74 },
         line: { color: "000000", width: 0 },
         rectRadius: 0,
       });
     }
+    // Magenta → cyan top rail (HTML linear-gradient accent/accent2/accent).
     slide.addShape(ctx.shapeRoundRect, {
       x: 0,
       y: 0,
-      w: ctx.width,
-      h: 0.06,
+      w: ctx.width * 0.5,
+      h: 0.07,
       fill: { color: ctx.colors.accent },
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0,
     });
-    slide.addShape(ctx.shapeOval, {
-      x: ctx.width - 2.0,
-      y: -0.4,
-      w: 2.2,
-      h: 2.2,
-      fill: { color: ctx.colors.accent2, transparency: 70 },
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.5,
+      y: 0,
+      w: ctx.width * 0.5,
+      h: 0.07,
+      fill: { color: ctx.colors.accent2 },
       line: { color: ctx.colors.accent2, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 2.15,
+      y: -0.45,
+      w: 2.4,
+      h: 2.4,
+      fill: { color: ctx.colors.accent2, transparency: 66 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: -0.7,
+      y: ctx.height - 1.9,
+      w: 2.1,
+      h: 2.1,
+      fill: { color: ctx.colors.accent, transparency: 72 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    // Cyan rim (HTML neon border feel).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.08,
+      y: 0.08,
+      w: ctx.width - 0.16,
+      h: ctx.height - 0.16,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent2, width: 1.35 },
+      rectRadius: 0,
+    });
+    // Floor neon inset glow.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: ctx.height - 0.42,
+      w: ctx.width,
+      h: 0.42,
+      fill: { color: ctx.colors.accent, transparency: isHero ? 82 : 88 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: ctx.height - 0.08,
+      w: ctx.width,
+      h: 0.08,
+      fill: { color: ctx.colors.accent2, transparency: isHero ? 35 : 48 },
+      line: { color: ctx.colors.accent2, width: 0 },
+      rectRadius: 0,
     });
   }
 
@@ -4087,32 +4213,71 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "biennale-yellow") {
-    // Sun orb + top hairline (biennale-yellow-sun).
+    // Dense sun orbs + quiet indigo frame + top hairline + coral stub (biennale-yellow-sun).
     slide.addShape(ctx.shapeOval, {
-      x: ctx.width * 0.62,
-      y: -ctx.height * 0.18,
-      w: ctx.width * 0.5,
-      h: ctx.height * 0.55,
-      fill: { color: ctx.colors.accent, transparency: 35 },
+      x: ctx.width * 0.55,
+      y: -ctx.height * 0.22,
+      w: ctx.width * 0.58,
+      h: ctx.height * 0.62,
+      fill: { color: ctx.colors.accent, transparency: 28 },
       line: { color: ctx.colors.accent, width: 0 },
     });
     slide.addShape(ctx.shapeOval, {
-      x: ctx.width * 0.7,
-      y: ctx.height * 0.08,
-      w: ctx.width * 0.28,
-      h: ctx.height * 0.32,
-      fill: { color: "F8F39B", transparency: 45 },
+      x: ctx.width * 0.66,
+      y: ctx.height * 0.04,
+      w: ctx.width * 0.34,
+      h: ctx.height * 0.38,
+      fill: { color: "F8F39B", transparency: 40 },
       line: { color: "F8F39B", width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.78,
+      y: -0.2,
+      w: ctx.width * 0.28,
+      h: ctx.height * 0.28,
+      fill: { color: ctx.colors.accent, transparency: 55 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    // Quiet indigo outer frame (HTML border text@18%).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.2,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 1.1 },
+      rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
       x: ctx.margin,
       y: 0.55,
       w: ctx.width - ctx.margin * 2,
-      h: 0.015,
+      h: 0.018,
       fill: { color: ctx.colors.text },
       line: { color: ctx.colors.text, width: 0 },
       rectRadius: 0,
     });
+    // Coral accent stub (accent2) — gallery counterweight to the sun.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - ctx.margin - 1.15,
+      y: ctx.height - 0.72,
+      w: 1.15,
+      h: 0.035,
+      fill: { color: ctx.colors.accent2, transparency: 15 },
+      line: { color: ctx.colors.accent2, width: 0 },
+      rectRadius: 0,
+    });
+    if (isHero) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.margin,
+        y: ctx.height - 0.72,
+        w: 0.85,
+        h: 0.035,
+        fill: { color: ctx.colors.text, transparency: 35 },
+        line: { color: ctx.colors.text, width: 0 },
+        rectRadius: 0,
+      });
+    }
   }
 
   if (theme === "scatterbrain") {
@@ -4690,42 +4855,55 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "broadside") {
-    // Fire-orange left rail + corner block + thin outer border + hero top stub.
+    // Fire-orange left rail + corner blast + hard ink frame + always-on top stub
+    // (broadside-fire). Cards get hard ink strokes via cardStroke.
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.1,
       y: 0.1,
       w: ctx.width - 0.2,
       h: ctx.height - 0.2,
       fill: { color: ctx.colors.bg, transparency: 100 },
-      line: { color: ctx.colors.text, width: 1.5 },
+      line: { color: ctx.colors.text, width: 1.75 },
       rectRadius: 0,
     });
+    // HTML ::before is 10px ≈ 0.14".
     slide.addShape(ctx.shapeRoundRect, {
       x: 0,
       y: 0,
-      w: 0.12,
+      w: 0.14,
       h: ctx.height,
       fill: { color: ctx.colors.accent },
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.width - 1.55,
-      y: ctx.height - 1.55,
-      w: 1.7,
-      h: 1.7,
+      x: ctx.width - 1.7,
+      y: ctx.height - 1.7,
+      w: 1.85,
+      h: 1.85,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    // Always-on top stub (poster energy on body slides too).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin + 0.08,
+      y: 0.42,
+      w: isHero ? 1.35 : 0.95,
+      h: 0.065,
       fill: { color: ctx.colors.accent },
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0,
     });
     if (isHero) {
+      // Second fire bar for manifesto covers.
       slide.addShape(ctx.shapeRoundRect, {
-        x: ctx.margin,
-        y: 0.45,
-        w: 1.1,
-        h: 0.06,
-        fill: { color: ctx.colors.accent },
-        line: { color: ctx.colors.accent, width: 0 },
+        x: ctx.margin + 0.08,
+        y: 0.55,
+        w: 0.55,
+        h: 0.04,
+        fill: { color: ctx.colors.text },
+        line: { color: ctx.colors.text, width: 0 },
         rectRadius: 0,
       });
     }
@@ -5566,30 +5744,65 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "pastel-dreamy") {
-    // Soft cloud ovals + third mist blot (pastel-cloud).
+    // Soft cloud ovals + plump inset frame + soft shadow stub (pastel-cloud).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.38,
+      y: 0.36,
+      w: ctx.width - 0.5,
+      h: ctx.height - 0.5,
+      fill: { color: ctx.colors.text, transparency: 94 },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0.24,
+    });
     slide.addShape(ctx.shapeOval, {
-      x: -ctx.width * 0.05,
-      y: -ctx.height * 0.1,
-      w: ctx.width * 0.45,
-      h: ctx.height * 0.45,
-      fill: { color: ctx.colors.accent2, transparency: 74 },
+      x: -ctx.width * 0.08,
+      y: -ctx.height * 0.12,
+      w: ctx.width * 0.5,
+      h: ctx.height * 0.5,
+      fill: { color: ctx.colors.accent2, transparency: 70 },
       line: { color: ctx.colors.accent2, width: 0 },
     });
     slide.addShape(ctx.shapeOval, {
-      x: ctx.width * 0.55,
-      y: ctx.height * 0.05,
-      w: ctx.width * 0.4,
-      h: ctx.height * 0.4,
-      fill: { color: ctx.colors.accent, transparency: 78 },
+      x: ctx.width * 0.52,
+      y: -ctx.height * 0.02,
+      w: ctx.width * 0.48,
+      h: ctx.height * 0.45,
+      fill: { color: ctx.colors.accent, transparency: 74 },
       line: { color: ctx.colors.accent, width: 0 },
     });
     slide.addShape(ctx.shapeOval, {
-      x: ctx.width * 0.35,
-      y: ctx.height * 0.65,
-      w: ctx.width * 0.4,
-      h: ctx.height * 0.4,
-      fill: { color: ctx.colors.accent2, transparency: 86 },
+      x: ctx.width * 0.3,
+      y: ctx.height * 0.58,
+      w: ctx.width * 0.48,
+      h: ctx.height * 0.48,
+      fill: { color: ctx.colors.accent2, transparency: 84 },
       line: { color: ctx.colors.accent2, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.72,
+      y: ctx.height * 0.7,
+      w: ctx.width * 0.32,
+      h: ctx.height * 0.35,
+      fill: { color: ctx.colors.accent, transparency: 86 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.22,
+      y: 0.22,
+      w: ctx.width - 0.44,
+      h: ctx.height - 0.44,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.border, width: 1 },
+      rectRadius: 0.22,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: ctx.height - 0.58,
+      w: 0.9,
+      h: 0.03,
+      fill: { color: ctx.colors.accent, transparency: 25 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0.015,
     });
   }
 

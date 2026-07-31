@@ -33,3 +33,5 @@ npm i @presentation-md/theme-pastel-dreamy
 | border   | `rgba(58,46,77,0.10)` |
 
 > Screenshot placeholder — run the skill to preview.
+
+Surface craft: soft cloud washes, plump inset frame, soft shadow stub. PPTX mirrors denser cloud ovals + plump frame/shadow + plump card radius.

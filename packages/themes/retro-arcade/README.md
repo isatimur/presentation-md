@@ -34,3 +34,5 @@ npm i @presentation-md/theme-retro-arcade
 | border   | `rgba(0,255,255,0.20)`     |
 
 > Screenshot placeholder — run the skill to preview.
+
+Surface craft: dense scanlines, dual magenta/cyan top rail, neon orbs, cyan rim, floor glow. PPTX mirrors scanlines/rail/orbs/rim/floor + cyan card rims. Glow text-shadow stays HTML-only.

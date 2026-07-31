@@ -16,7 +16,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   alpha-composited over the slide background to an opaque hex so cards/borders stay visible.
 - CSS gradients and `color-mix(...)` are approximated where feasible: a translucent
   `bg2` wash over `bg`, plus theme-specific title chrome (`bold-signal` orange panel +
-  body blot/stub, `creative-voltage` split field, `mat` woodglow + hairlines). Exact CSS
+  body blot/stub, `creative-voltage` split field, `mat` denser woodglow + cream rim + hairlines). Exact CSS
   gradients are not reconstructed.
 
 ## Layout
@@ -74,12 +74,12 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   neo-grid-bold gets a modular grid + lemon corner panel + hard frame + accent offset shadow;
   bold-poster gets a hard frame + offset shadow + ink top bar (poster block on heroes);
   capsule gets plump frame + hard ink offset shadow + pastel blots + hero-gated coral pill/lime circles + plump card radius;
-  cobalt-grid gets a cobalt paper grid + corner hatch;
-  retro-arcade gets scanlines + neon top rail;
+  cobalt-grid gets a denser cobalt paper grid + diagonal corner hatch + outer frame + square cobalt card strokes;
+  retro-arcade gets denser scanlines + dual magenta/cyan top rail + neon orbs + cyan rim + floor glow + cyan card rims;
   brutalist-mono gets a dense mono grid + hard frame + ink offset shadow;
   creative-mode gets a hard frame + ink offset shadow on every slide + hero-gated stacked accent blocks + square hard-border cards;
   creative-voltage gets a hard accent frame + neon offset shadow on every slide (heroes also get the blue/dark split + voltage orb);
-  biennale-yellow gets a sun orb + top hairline;
+  biennale-yellow gets denser sun orbs + quiet indigo frame + top hairline + coral stub + square indigo card strokes;
   scatterbrain gets cork wash + ink offset shadow + sticky notes + pin dots (heroes also get a tape strip);
   split-pastel gets dual pastel corner washes (heroes also get a split field + stacked pastel pills);
   coral gets a hatch frame + coral left wash + square hard-border cards;
@@ -90,7 +90,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   daisy-days gets hard frame + charcoal offset shadow + pastel dots + daisy/pill ornaments on every slide + plump hard-border cards;
   block-frame gets a hard frame + ink offset shadow on every slide + pastel offset blocks on heroes + square hard-border cards;
   editorial-tri-tone gets a butter split + burgundy wash;
-  broadside gets a fire-orange rail + corner block + outer border (heroes also get a top stub);
+  broadside gets a thicker fire-orange rail + larger corner blast + hard ink frame + always-on top stub + square hard-border cards;
   pink-script gets dual inset frames + always-on accent hairline + hero-gated wash;
   retro-windows gets Win95 beveled chrome (white/black outer bevel + inset hilite/shade) + title bar + window buttons + CRT scanlines;
   pin-and-paper gets legal-pad rules + red margin + pin;
@@ -108,7 +108,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   broadsheet gets a newsprint masthead + quiet frame + double bottom rules + accent stub;
   editorial-forest gets a forest inset frame + dual hairlines + blush orb;
   signal gets a quiet briefing border + hairline + outline square + gold stub;
-  pastel-dreamy gets denser soft cloud ovals;
+  pastel-dreamy gets denser soft cloud ovals + plump inset frame + soft shadow stub + plump card radius;
   vellum gets a soft colorfield wash + teal/chartreuse orbs;
   editorial-serif gets an accent rule + deco ring + bottom stub;
   soft-editorial gets sage wash + hero-gated blush/lemon/lilac candy + plump inset frame (~28px) + soft shadow stub + plump card radius;
@@ -121,7 +121,8 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   playful gets denser soft blots + candy square;
   corporate gets a clean accent stub + soft top wash;
   electric-studio gets a hard frame + white/blue hero split with black rail (content slides get a full-height accent left rail + top stub on heroes);
-  bold-signal gets a soft shadow stub + rounded frame + orange blot/stub (heroes also get the focal panel) + plump card radius.
+  bold-signal gets a soft shadow stub + rounded frame + orange blot/stub (heroes also get the focal panel) + plump card radius;
+  mat gets denser woodglow radials + cream inset rim + accent hairlines (heroes also get a mid-century accent block) + square dark card strokes.
   Quiet HTML paper fiber grain (editorial / parchment themes) is not drawn in PPTX —
   ship HTML when the tooth is the brand. True CSS `mix-blend-mode` / animated marquees
   remain HTML-only.
