@@ -1,5 +1,17 @@
 # @presentation-md/mcp-server
 
+## 1.6.17
+
+### Patch Changes
+
+- 6fcf4db: Extend loud honesty craft guidance for always-on PPTX offset-shadow strips on block-frame / creative-mode / sakura-chroma (and peers).
+- Updated dependencies [68cc6a6]
+- Updated dependencies [6fcf4db]
+  - @presentation-md/export@1.16.1
+  - @presentation-md/core@1.8.6
+  - @presentation-md/render@1.6.15
+  - @presentation-md/create-theme@1.0.24
+
 ## 1.6.16
 
 ### Patch Changes

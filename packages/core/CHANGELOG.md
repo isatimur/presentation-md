@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.8.6
+
+### Patch Changes
+
+- 6fcf4db: Extend loud honesty craft guidance for always-on PPTX offset-shadow strips on block-frame / creative-mode / sakura-chroma (and peers).
+
 ## 1.8.5
 
 ### Patch Changes
