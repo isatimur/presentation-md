@@ -1,5 +1,16 @@
 # @presentation-md/export
 
+## 1.5.0
+
+### Minor Changes
+
+- 46e081e: PPTX custom-html approximates ranked bars, colored panels, and text stacks
+
+### Patch Changes
+
+- Updated dependencies [dc54af0]
+  - @presentation-md/core@1.2.1
+
 ## 1.4.0
 
 ### Minor Changes

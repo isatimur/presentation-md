@@ -1,5 +1,21 @@
 # @presentation-md/mcp-server
 
+## 1.3.0
+
+### Minor Changes
+
+- dc54af0: judge_deck T2/T3: HTML metrics + Chrome screenshots; document harness `#__shot` for per-slide capture
+
+### Patch Changes
+
+- Updated dependencies [dc54af0]
+- Updated dependencies [46e081e]
+- Updated dependencies [abe9cd4]
+  - @presentation-md/render@1.3.1
+  - @presentation-md/core@1.2.1
+  - @presentation-md/export@1.5.0
+  - @presentation-md/create-theme@1.0.5
+
 ## 1.2.0
 
 ### Minor Changes

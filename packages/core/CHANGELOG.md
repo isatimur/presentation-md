@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.2.1
+
+### Patch Changes
+
+- dc54af0: judge_deck T2/T3: HTML metrics + Chrome screenshots; document harness `#__shot` for per-slide capture
+
 ## 1.2.0
 
 ### Minor Changes

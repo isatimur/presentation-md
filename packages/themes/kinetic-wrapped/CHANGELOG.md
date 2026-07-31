@@ -1,5 +1,11 @@
 # @presentation-md/theme-kinetic-wrapped
 
+## 1.0.4
+
+### Patch Changes
+
+- abe9cd4: Pulse wrapped-block soft blobs, tone-field craft, and gallery-closer structured proof
+
 ## 1.0.3
 
 ### Patch Changes
