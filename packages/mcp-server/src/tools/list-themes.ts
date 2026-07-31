@@ -108,7 +108,11 @@ export const listThemesTool: ToolDefinition = {
       );
     }
 
-    const result: Record<string, unknown> = { themes };
+    const result: Record<string, unknown> = {
+      themes,
+      discovery_hint:
+        "Theme Discovery: pick a shortlist (prefer popular:true), then preview_themes with 3 names and mode=\"layouts\" (safe + bold + wildcard). Lock meta.theme before generating the full deck.",
+    };
     if (matchedShortlist) {
       result.shortlist = matchedShortlist;
     } else if (shortlistId) {

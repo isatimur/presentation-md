@@ -105,8 +105,10 @@ describe("list_themes", () => {
   it("returns an array with at least one theme", async () => {
     const result = (await listThemesTool.handler({})) as {
       themes: Array<{ name: string; version: string }>;
+      discovery_hint?: string;
     };
     expect(result.themes.length).toBeGreaterThan(0);
+    expect(result.discovery_hint).toMatch(/preview_themes|layouts/i);
   });
 
   it("includes default-tech theme", async () => {
