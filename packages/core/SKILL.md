@@ -349,6 +349,8 @@ Fill gaps with intelligent defaults. Never ask more than 3 clarifying questions.
 
 ## MCP Tools
 
+Eleven tools via `@presentation-md/mcp-server` (not the legacy `@presentation-skill-pack/mcp-server`, which only had five). Restart the client after switching packages.
+
 | Tool | Use it to |
 |------|-----------|
 | `render_deck` | Convert deck JSON → polished HTML |

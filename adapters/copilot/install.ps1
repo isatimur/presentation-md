@@ -49,7 +49,7 @@ if ($Mode -eq "full") {
     $cfg.servers | Add-Member -Force -NotePropertyName "presentation-md" -NotePropertyValue ([PSCustomObject]@{
         type    = "stdio"
         command = "npx"
-        args    = @("@presentation-md/mcp-server")
+        args    = @("-y", "@presentation-md/mcp-server")
     })
 
     $cfg | ConvertTo-Json -Depth 10 | Set-Content $McpFile

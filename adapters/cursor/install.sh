@@ -55,9 +55,11 @@ if [ "$MODE" = "full" ]; then
     UPDATED=$(node -e "
       const cfg = JSON.parse(process.argv[1]);
       cfg.mcpServers = cfg.mcpServers || {};
+      // Migrate legacy 5-tool package name → full @presentation-md/mcp-server (11 tools).
+      delete cfg.mcpServers['presentation-skill-pack'];
       cfg.mcpServers['presentation-md'] = {
         command: 'npx',
-        args: ['@presentation-md/mcp-server']
+        args: ['-y', '@presentation-md/mcp-server']
       };
       process.stdout.write(JSON.stringify(cfg, null, 2));
     " "$EXISTING")
@@ -69,7 +71,7 @@ if [ "$MODE" = "full" ]; then
   "mcpServers": {
     "presentation-md": {
       "command": "npx",
-      "args": ["@presentation-md/mcp-server"]
+      "args": ["-y", "@presentation-md/mcp-server"]
     }
   }
 }

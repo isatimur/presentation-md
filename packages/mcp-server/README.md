@@ -1,16 +1,21 @@
 # @presentation-md/mcp-server
 
-MCP server that exposes presentation-md tools to any MCP-compatible AI agent (Claude Code, Cursor, etc.).
+MCP server that exposes **11** presentation-md tools to any MCP-compatible AI agent (Claude Code, Cursor, etc.).
 
 ## Install
 
 ```bash
-npx @presentation-md/mcp-server
+npx -y @presentation-md/mcp-server
 ```
 
-## Add to Claude Code
+> **Migration:** the old package `@presentation-skill-pack/mcp-server@0.1.0` only shipped 5 tools
+> (`render_deck`, `list_themes`, `apply_theme`, `audit_deck`, `generate_deck_prompt`).
+> Point clients at `@presentation-md/mcp-server` (this package) to get the full set including
+> `export_deck`, `judge_deck`, `import_*`, and `preview_themes`.
 
-Add to your project's `.claude/mcp.json` (or `~/.claude/mcp.json` for global):
+## Add to Claude Code / Cursor
+
+Add to the project's MCP config (or `~/.claude/mcp.json` / `~/.cursor/mcp.json` for global):
 
 ```json
 {
@@ -22,6 +27,9 @@ Add to your project's `.claude/mcp.json` (or `~/.claude/mcp.json` for global):
   }
 }
 ```
+
+If you still have a `presentation-skill-pack` entry pointing at `@presentation-skill-pack/mcp-server`,
+replace it with the block above (or re-run `npx @presentation-md/install cursor` / `claude-code`).
 
 ## Tools
 

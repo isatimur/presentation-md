@@ -69,10 +69,11 @@ if [ "$MODE" = "full" ]; then
     UPDATED=$(node -e "
       const cfg = JSON.parse(process.argv[1]);
       cfg.servers = cfg.servers || {};
+      delete cfg.servers['presentation-skill-pack'];
       cfg.servers['presentation-md'] = {
         type: 'stdio',
         command: 'npx',
-        args: ['@presentation-md/mcp-server']
+        args: ['-y', '@presentation-md/mcp-server']
       };
       process.stdout.write(JSON.stringify(cfg, null, 2));
     " "$EXISTING")
@@ -84,7 +85,7 @@ if [ "$MODE" = "full" ]; then
     "presentation-md": {
       "type": "stdio",
       "command": "npx",
-      "args": ["@presentation-md/mcp-server"]
+      "args": ["-y", "@presentation-md/mcp-server"]
     }
   }
 }

@@ -5,6 +5,7 @@ import { listThemesTool } from "../src/tools/list-themes.js";
 import { generateDeckPromptTool } from "../src/tools/generate-deck-prompt.js";
 import { judgeDeckTool } from "../src/tools/judge-deck.js";
 import { importMarkdownTool } from "../src/tools/import-markdown.js";
+import { listToolDefinitions, TOOL_NAMES } from "../src/server.js";
 
 const MINIMAL_VALID_DECK = {
   type: "deck",
@@ -14,6 +15,32 @@ const MINIMAL_VALID_DECK = {
     { layout: "closing", heading: "Thank you" }
   ]
 };
+
+describe("tool registry", () => {
+  it("registers all 11 MCP tools for client discovery", () => {
+    const tools = listToolDefinitions();
+    expect(tools).toHaveLength(11);
+    expect(TOOL_NAMES).toEqual([
+      "render_deck",
+      "export_deck",
+      "list_themes",
+      "apply_theme",
+      "audit_deck",
+      "judge_deck",
+      "generate_deck_prompt",
+      "import_brand_theme",
+      "import_pptx",
+      "import_markdown",
+      "preview_themes",
+    ]);
+    for (const t of tools) {
+      expect(t.name).toBeTruthy();
+      expect(t.description.length).toBeGreaterThan(20);
+      expect(t.inputSchema).toBeTruthy();
+      expect(typeof t.handler).toBe("function");
+    }
+  });
+});
 
 describe("audit_deck", () => {
   it("returns valid=true for a minimal valid deck", async () => {

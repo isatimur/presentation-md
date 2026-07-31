@@ -24,7 +24,8 @@ export interface ToolDefinition {
   handler: (input: Record<string, unknown>) => Promise<unknown>;
 }
 
-const TOOLS: ToolDefinition[] = [
+/** Canonical tool registry — keep in sync with README + skill MCP tables (11 tools). */
+export const TOOLS: ToolDefinition[] = [
   renderDeckTool,
   exportDeckTool,
   listThemesTool,
@@ -37,6 +38,8 @@ const TOOLS: ToolDefinition[] = [
   importMarkdownTool,
   previewThemesTool,
 ];
+
+export const TOOL_NAMES = TOOLS.map((t) => t.name);
 
 export function listToolDefinitions(): ToolDefinition[] {
   return TOOLS;
@@ -84,7 +87,16 @@ export async function main() {
   await server.connect(transport);
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+const isDirectRun =
+  process.argv[1] &&
+  (process.argv[1].endsWith("/server.js") ||
+    process.argv[1].endsWith("\\server.js") ||
+    process.argv[1].endsWith("/server.ts") ||
+    process.argv[1].includes("presentation-md-mcp"));
+
+if (isDirectRun) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}

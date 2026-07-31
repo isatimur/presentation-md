@@ -59,9 +59,13 @@ if ($Mode -eq "full") {
         if (-not $cfg.mcpServers) {
             $cfg | Add-Member -NotePropertyName "mcpServers" -NotePropertyValue ([PSCustomObject]@{})
         }
+        # Migrate legacy 5-tool package name → full @presentation-md/mcp-server (11 tools).
+        if ($cfg.mcpServers.PSObject.Properties.Name -contains "presentation-skill-pack") {
+            $cfg.mcpServers.PSObject.Properties.Remove("presentation-skill-pack")
+        }
         $entry = [PSCustomObject]@{
             command = "npx"
-            args    = @("@presentation-md/mcp-server")
+            args    = @("-y", "@presentation-md/mcp-server")
         }
         $cfg.mcpServers | Add-Member -NotePropertyName "presentation-md" `
                                       -NotePropertyValue $entry -Force
@@ -72,7 +76,7 @@ if ($Mode -eq "full") {
             mcpServers = @{
                 "presentation-md" = @{
                     command = "npx"
-                    args    = @("@presentation-md/mcp-server")
+                    args    = @("-y", "@presentation-md/mcp-server")
                 }
             }
         } | ConvertTo-Json -Depth 10 | Set-Content $McpConfig -Encoding UTF8
