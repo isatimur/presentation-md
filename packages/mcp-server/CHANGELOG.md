@@ -1,5 +1,16 @@
 # @presentation-md/mcp-server
 
+## 1.6.3
+
+### Patch Changes
+
+- 8027a0e: Shared data-beat craft gate in auditCraft; aerospace-hud PPTX grid/reticle chrome.
+- Updated dependencies [8027a0e]
+  - @presentation-md/core@1.6.1
+  - @presentation-md/export@1.9.1
+  - @presentation-md/create-theme@1.0.11
+  - @presentation-md/render@1.6.1
+
 ## 1.6.2
 
 ### Patch Changes

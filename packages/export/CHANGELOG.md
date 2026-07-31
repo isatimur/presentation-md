@@ -1,5 +1,13 @@
 # @presentation-md/export
 
+## 1.9.1
+
+### Patch Changes
+
+- 8027a0e: Shared data-beat craft gate in auditCraft; aerospace-hud PPTX grid/reticle chrome.
+- Updated dependencies [8027a0e]
+  - @presentation-md/core@1.6.1
+
 ## 1.9.0
 
 ### Minor Changes
