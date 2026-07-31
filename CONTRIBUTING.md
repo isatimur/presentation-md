@@ -121,3 +121,17 @@ gh pr create --base main --head changeset-release/main \
 CI intentionally ignores version-only path changes (`.changeset/**`, `**/CHANGELOG.md`,
 `**/package.json`, `**/pyproject.toml`) on `pull_request`. Those bumps already passed CI
 on `main`; skipping avoids empty `action_required` runs from `github-actions[bot]` PRs.
+
+## Deploying the marketing site (Vercel)
+
+The gallery/landing site under `web/` deploys via `.github/workflows/deploy-web.yml`
+(and `workflow_dispatch`).
+
+**Hobby / free-tier rate limits:** Vercel’s free plan caps concurrent builds and
+deployments. If CI or local `vercel deploy` returns **429** / “rate limit”, do
+**not** thrash retries or re-push docs-only commits to force another deploy —
+wait for the window to reset (often ~1 hour) or upgrade the project. Prefer
+`workflow_dispatch` once, not a burst of path-filtered pushes. Preview deploys
+count against the same budget; skip them when blocked.
+
+Site URLs stay valid even when a deploy is deferred; only content updates wait.

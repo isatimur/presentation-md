@@ -10,6 +10,14 @@ the latest published release of each package on its registry.
 
 ## [Unreleased]
 
+### Added
+- `judge_deck` MCP tiers **t2/t3**: HTML metrics (G1–G5) + Chrome screenshots; t3 agent rubric or `judge_panel.py` when keys exist.
+- Pulse / `kinetic-wrapped` soft blob chrome + tone-field craft closer to gallery HTML; structured proof uses `custom-html` bar stack.
+- PPTX `custom-html` approximates ranked bars, colored panels, and text stack (not crude single text blob).
+
+### Docs
+- Vercel Hobby/free-tier **429** deploy rate-limit: wait / don't thrash (see CONTRIBUTING.md). Do not burst-redeploy when blocked.
+
 ### Planned
 
 - `@presentation-md/studio` — publish as an npm package (currently hosted at [presentation-md.vercel.app/studio](https://presentation-md.vercel.app/studio)).
