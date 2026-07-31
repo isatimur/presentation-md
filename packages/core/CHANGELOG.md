@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.16.3
+
+### Patch Changes
+
+- e341b5f: Document CLI `--preview-compare` pick-3 craft bake alongside `preview_themes` in the skill tool table.
+
 ## 1.16.2
 
 ### Patch Changes

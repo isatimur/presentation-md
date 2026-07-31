@@ -1,5 +1,17 @@
 # @presentation-md/studio
 
+## 1.6.0
+
+### Minor Changes
+
+- e3ba1f2: Studio pick-3 live compare gains Title/Bento/Compare crops; Generate modal live discover iframes; HTML download uses cached preview + Source menu z-index above audit (e2e-stable).
+
+### Patch Changes
+
+- Updated dependencies [e341b5f]
+  - @presentation-md/core@1.16.3
+  - @presentation-md/export@1.23.5
+
 ## 1.5.4
 
 ### Patch Changes
