@@ -10,11 +10,11 @@
     "bg": "#0a0a0a",
     "bg2": "#0d0d0d",
     "text": "#ffffff",
-    "muted": "#9c9c9c",
+    "muted": "#c8c8c8",
     "accent": "#c8ff00",
     "accent2": "#ff00cc",
-    "cardBg": "rgba(200,255,0,0.08)",
-    "border": "rgba(200,255,0,0.4)"
+    "cardBg": "rgba(200,255,0,0.12)",
+    "border": "rgba(200,255,0,0.55)"
   },
   "typography": {
     "headingFont": "'Archivo Black', system-ui, sans-serif",
