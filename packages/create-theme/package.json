@@ -1,6 +1,6 @@
 {
   "name": "@presentation-md/create-theme",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Scaffold a new presentation-md theme package.",
   "license": "MIT",
   "type": "module",
