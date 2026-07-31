@@ -121,8 +121,12 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   playful gets denser soft blots + candy square;
   corporate gets a clean accent stub + soft top wash;
   electric-studio gets a hard frame + white/blue hero split with black rail (content slides get a full-height accent left rail + top stub on heroes);
-  bold-signal gets a soft shadow stub + rounded frame + orange blot/stub (heroes also get the focal panel) + plump card radius;
-  mat gets denser woodglow radials + cream inset rim + accent hairlines (heroes also get a mid-century accent block) + square dark card strokes.
+  bold-signal gets a soft shadow stub + rounded frame + orange blot/stub (heroes also get the focal panel) + plump accent-rim cards;
+  mat gets denser woodglow radials + cream inset rim + accent hairlines (heroes also get a mid-century accent block) + square dark card strokes;
+  vintage-editorial gets a quiet outer border on all slides + hero geo ring/dots + near-square 2px ink cards;
+  electric-studio / studio / grove / cartesian / botanical-luxe / dark-botanical / editorial-serif cards get square hairline strokes;
+  aurora-glass / glassmorphism cards get frosted white/glass rims (plump);
+  crt-terminal / brutalist-mono cards get square accent/ink strokes.
   Quiet HTML paper fiber grain (editorial / parchment themes) is not drawn in PPTX —
   ship HTML when the tooth is the brand. True CSS `mix-blend-mode` / animated marquees
   remain HTML-only.

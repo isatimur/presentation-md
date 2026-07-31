@@ -127,6 +127,47 @@ function cardStroke(
   if (ctx.themeName === "swiss-typographic") {
     return { color: ctx.colors.border, width: opts.hero || opts.highlighted ? 1.25 : 1 };
   }
+  // bold-signal-card: accent rim (plump radius stays in cardRadius)
+  if (ctx.themeName === "bold-signal") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.5 : 1.25 };
+  }
+  // vintage-editorial-geo cards: 2px ink, near-square
+  if (ctx.themeName === "vintage-editorial") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.25 : 2 };
+  }
+  // electric-studio-split / studio-acid / grove-monograph / cartesian-draft / botanical /
+  // dark-botanical / editorial-serif: square hairline cards
+  if (
+    ctx.themeName === "electric-studio" ||
+    ctx.themeName === "studio" ||
+    ctx.themeName === "grove" ||
+    ctx.themeName === "cartesian" ||
+    ctx.themeName === "botanical-luxe" ||
+    ctx.themeName === "dark-botanical" ||
+    ctx.themeName === "editorial-serif"
+  ) {
+    const color =
+      ctx.themeName === "studio"
+        ? "2E2E2C"
+        : ctx.themeName === "botanical-luxe"
+          ? ctx.colors.accent
+          : ctx.themeName === "electric-studio" || ctx.themeName === "dark-botanical"
+            ? ctx.colors.text
+            : ctx.colors.border;
+    return { color, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
+  }
+  // aurora-glass / glass-mist: frosted white/glass rim
+  if (ctx.themeName === "aurora-glass" || ctx.themeName === "glassmorphism") {
+    return { color: "FFFFFF", width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
+  }
+  // crt-phosphor cards: accent hairline, square
+  if (ctx.themeName === "crt-terminal") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.5 : 1.25 };
+  }
+  // brutalist-grid (brutalist-mono): hard ink, square
+  if (ctx.themeName === "brutalist-mono") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.25 : 2 };
+  }
   if (opts.hero || opts.highlighted) {
     return { color: ctx.colors.accent, width: opts.highlighted ? 1.75 : 1.5 };
   }
@@ -170,17 +211,29 @@ function cardRadius(ctx: ExportContext): number {
     ctx.themeName === "kinetic-wrapped" ||
     ctx.themeName === "aerospace-hud" ||
     ctx.themeName === "blueprint" ||
-    ctx.themeName === "swiss-typographic"
+    ctx.themeName === "swiss-typographic" ||
+    ctx.themeName === "electric-studio" ||
+    ctx.themeName === "studio" ||
+    ctx.themeName === "grove" ||
+    ctx.themeName === "cartesian" ||
+    ctx.themeName === "botanical-luxe" ||
+    ctx.themeName === "dark-botanical" ||
+    ctx.themeName === "editorial-serif" ||
+    ctx.themeName === "crt-terminal" ||
+    ctx.themeName === "brutalist-mono"
   ) {
     return 0;
   }
   // hard-bento (genz-bento) cards: border-radius 14px ≈ 0.15"
   if (ctx.themeName === "genz-bento") return 0.15;
-  // bold-signal-card / aero-bubble / pastel-geometry / pastel-dreamy: plump
+  // bold-signal-card / aero-bubble / pastel-geometry / pastel-dreamy / glass: plump
   if (ctx.themeName === "bold-signal") return 0.16;
   if (ctx.themeName === "y2k-aero") return 0.18;
   if (ctx.themeName === "pastel-geometry") return 0.18;
   if (ctx.themeName === "pastel-dreamy") return 0.22;
+  if (ctx.themeName === "aurora-glass" || ctx.themeName === "glassmorphism") return 0.14;
+  // vintage-editorial-geo cards: border-radius 4px ≈ 0.04"
+  if (ctx.themeName === "vintage-editorial") return 0.04;
   // scatterbrain-cork cards: border-radius 2px ≈ 0.02"
   if (ctx.themeName === "scatterbrain") return 0.02;
   // sakura-chroma-cassette cards: border-radius 4px ≈ 0.04"
