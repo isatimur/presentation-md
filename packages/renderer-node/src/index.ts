@@ -8,8 +8,10 @@ import {
   validateDeckJson as coreValidateDeckJson,
   loadTheme,
   surfaceForTheme,
+  renderChartSvg,
+  sanitizeCustomHtml,
 } from "@presentation-md/core";
-import type { ValidationResult } from "@presentation-md/core";
+import type { ValidationResult, ChartSeries } from "@presentation-md/core";
 import { deckToPptxBuffer, type DeckJson as ExportDeckJson } from "@presentation-md/export";
 
 export { validateDeckJson } from "@presentation-md/core";
@@ -27,6 +29,8 @@ const VALID_LAYOUTS = new Set([
   "image-hero",
   "comparison",
   "code",
+  "chart",
+  "custom-html",
 ]);
 
 function structuralValidateDeckJson(json: string): ValidationResult {
@@ -228,6 +232,22 @@ function normalizeSlideData(slide: SlideData): Record<string, unknown> {
     }
   }
 
+  if (slide.layout === "chart") {
+    const series = (Array.isArray(slide.series) ? slide.series : []) as ChartSeries[];
+    out["chartSvg"] = renderChartSvg({
+      chartType: typeof slide.chartType === "string" ? slide.chartType : "bar",
+      categories: Array.isArray(slide.categories) ? (slide.categories as string[]) : [],
+      series,
+      showLegend: slide.showLegend !== false,
+      showValues: slide.showValues === true,
+      stacked: slide.stacked === true,
+    });
+  }
+
+  if (slide.layout === "custom-html") {
+    out["html"] = sanitizeCustomHtml(slide.html);
+  }
+
   if (slide.cta?.href !== undefined) {
     out["cta"] = { ...slide.cta, href: sanitizeLink(slide.cta.href) };
   }
@@ -243,7 +263,12 @@ async function renderSlide(slide: SlideData, layoutsDir: string): Promise<string
   const templatePath = join(layoutsDir, `${layoutName}.html`);
   const template = await readFile(templatePath, "utf-8");
   const data = normalizeSlideData(slide);
-  return Mustache.render(template, data);
+  let html = Mustache.render(template, data);
+  const tone = typeof slide.tone === "string" ? slide.tone.trim() : "";
+  if (tone && /^[a-z0-9-]+$/i.test(tone)) {
+    html = html.replace(/<section(\s+class="slide)/i, `<section data-tone="${tone}"$1`);
+  }
+  return html;
 }
 
 /**
@@ -265,6 +290,11 @@ export async function renderDeck(deckJson: string, opts?: RenderOptions): Promis
   }
 
   const deck = JSON.parse(deckJson) as DeckJson;
+  for (const slide of deck.slides) {
+    if (slide.layout === "custom-html" && typeof slide.html === "string") {
+      slide.html = sanitizeCustomHtml(slide.html);
+    }
+  }
   const themeName = deck.meta?.theme ?? "default-tech";
   const themesDir = opts?.themesDir ?? getBundledThemesDir();
   const bundled = getBundledThemesDir();

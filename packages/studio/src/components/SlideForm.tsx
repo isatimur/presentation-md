@@ -1,4 +1,4 @@
-import type { Slide, Card, Stat, Step } from "@presentation-md/export";
+import type { Slide, Card, Stat, Step, ChartSeries } from "@presentation-md/export";
 import { LAYOUT_LABELS } from "../deck.js";
 import type { LayoutType } from "../deck.js";
 import { TextInput, TextArea, StringSelect, ListEditor } from "./fields.js";
@@ -194,6 +194,24 @@ export function SlideForm({
           </>
         );
 
+      case "chart":
+        return <ChartFields slide={slide} set={set} />;
+
+      case "custom-html":
+        return (
+          <>
+            <TextInput label="Eyebrow" value={slide.eyebrow} onChange={(v) => set({ eyebrow: v })} />
+            <TextInput label="Heading" value={slide.heading} onChange={(v) => set({ heading: v })} />
+            <TextArea label="Lead" value={slide.lead} onChange={(v) => set({ lead: v })} />
+            <TextArea
+              label="HTML fragment (scripts stripped on render)"
+              value={slide.html}
+              onChange={(v) => set({ html: v })}
+              rows={10}
+            />
+          </>
+        );
+
       case "timeline":
         return (
           <>
@@ -283,6 +301,120 @@ function DataTableFields({ slide, set }: { slide: Slide; set: (patch: Partial<Sl
               />
             ))}
           </div>
+        )}
+      />
+    </>
+  );
+}
+
+function ChartFields({ slide, set }: { slide: Slide; set: (patch: Partial<Slide>) => void }) {
+  const categories = slide.categories ?? [];
+  const series = slide.series ?? [];
+  const catCount = Math.max(categories.length, ...series.map((s) => s.values?.length ?? 0), 1);
+
+  const setCategory = (i: number, v: string) => {
+    const next = categories.slice();
+    while (next.length < catCount) next.push(`C${next.length + 1}`);
+    next[i] = v;
+    set({ categories: next });
+  };
+
+  return (
+    <>
+      <TextInput label="Eyebrow" value={slide.eyebrow} onChange={(v) => set({ eyebrow: v })} />
+      <TextInput label="Heading" value={slide.heading} onChange={(v) => set({ heading: v })} />
+      <TextArea label="Lead" value={slide.lead} onChange={(v) => set({ lead: v })} rows={2} />
+      <StringSelect
+        label="Chart type"
+        value={slide.chartType ?? "bar"}
+        onChange={(v) => set({ chartType: v })}
+        options={[
+          { value: "bar", label: "Bar (columns)" },
+          { value: "horizontal-bar", label: "Horizontal bar" },
+          { value: "line", label: "Line" },
+          { value: "area", label: "Area" },
+          { value: "pie", label: "Pie" },
+          { value: "donut", label: "Donut" },
+        ]}
+      />
+      <div className="row-inline" style={{ gap: 16 }}>
+        <label className="field">
+          <span className="field-label">Show legend</span>
+          <input
+            type="checkbox"
+            checked={slide.showLegend !== false}
+            onChange={(e) => set({ showLegend: e.target.checked })}
+          />
+        </label>
+        <label className="field">
+          <span className="field-label">Show values</span>
+          <input
+            type="checkbox"
+            checked={slide.showValues === true}
+            onChange={(e) => set({ showValues: e.target.checked })}
+          />
+        </label>
+        <label className="field">
+          <span className="field-label">Stacked</span>
+          <input
+            type="checkbox"
+            checked={slide.stacked === true}
+            onChange={(e) => set({ stacked: e.target.checked })}
+          />
+        </label>
+      </div>
+      <div className="list-editor">
+        <div className="list-editor-head">
+          <span className="field-label">Categories</span>
+          <button
+            className="btn btn-sm"
+            onClick={() =>
+              set({
+                categories: [...categories, `C${categories.length + 1}`],
+                series: series.map((s) => ({ ...s, values: [...(s.values ?? []), 0] })),
+              })
+            }
+          >
+            + Category
+          </button>
+        </div>
+        {Array.from({ length: catCount }).map((_, i) => (
+          <div className="row-inline" key={i}>
+            <input
+              className="text-input"
+              value={categories[i] ?? ""}
+              placeholder={`Category ${i + 1}`}
+              onChange={(e) => setCategory(i, e.target.value)}
+            />
+          </div>
+        ))}
+      </div>
+      <ListEditor<ChartSeries>
+        label="Series"
+        items={series}
+        onChange={(next) => set({ series: next })}
+        blank={() => ({ name: "Series", values: Array.from({ length: catCount }, () => 0) })}
+        renderItem={(s, setItem) => (
+          <>
+            <TextInput label="Name" value={s.name} onChange={(v) => setItem({ ...s, name: v })} />
+            <div className="row-cells">
+              {Array.from({ length: catCount }).map((_, c) => (
+                <input
+                  key={c}
+                  className="text-input"
+                  type="number"
+                  value={s.values?.[c] ?? 0}
+                  placeholder={categories[c] ?? `C${c + 1}`}
+                  onChange={(e) => {
+                    const values = (s.values ?? []).slice();
+                    while (values.length < catCount) values.push(0);
+                    values[c] = Number(e.target.value) || 0;
+                    setItem({ ...s, values });
+                  }}
+                />
+              ))}
+            </div>
+          </>
         )}
       />
     </>

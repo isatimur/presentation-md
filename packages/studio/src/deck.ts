@@ -9,12 +9,14 @@ export const LAYOUTS: LayoutType[] = [
   "feature-grid",
   "data-table",
   "stat-row",
+  "chart",
   "timeline",
   "quote",
   "closing",
   "image-hero",
   "comparison",
   "code",
+  "custom-html",
 ];
 
 export const LAYOUT_LABELS: Record<LayoutType, string> = {
@@ -24,12 +26,14 @@ export const LAYOUT_LABELS: Record<LayoutType, string> = {
   "feature-grid": "Feature grid",
   "data-table": "Data table",
   "stat-row": "Stat row",
+  chart: "Chart",
   timeline: "Timeline",
   quote: "Quote",
   closing: "Closing",
   "image-hero": "Image hero",
   comparison: "Comparison",
   code: "Code",
+  "custom-html": "Custom HTML",
 };
 
 /** A reasonable starter slide for each layout, so new slides aren't blank. */
@@ -77,6 +81,24 @@ export function blankSlide(layout: LayoutType): Slide {
       return { layout, heading: "Table", columns: ["Column A", "Column B"], rows: [["a1", "b1"], ["a2", "b2"]] };
     case "stat-row":
       return { layout, heading: "Stats", stats: [{ value: "100%", label: "Metric" }, { value: "2x", label: "Metric" }] };
+    case "chart":
+      return {
+        layout,
+        eyebrow: "Traction",
+        heading: "Revenue by quarter",
+        chartType: "bar",
+        categories: ["Q1", "Q2", "Q3", "Q4"],
+        series: [{ name: "ARR ($M)", values: [2.1, 2.8, 3.6, 4.9] }],
+        showLegend: true,
+        showValues: false,
+      };
+    case "custom-html":
+      return {
+        layout,
+        eyebrow: "Art direction",
+        heading: "One-off craft",
+        html: `<div style="display:flex;gap:16px;align-items:stretch;height:100%"><div style="flex:1;background:var(--accent);border-radius:16px;padding:24px;color:var(--bg)"><div style="font:800 48px/1 var(--heading-font)">01</div><p style="margin-top:12px;opacity:.85">Accent panel</p></div><div style="flex:1.4;border:2px solid var(--border);border-radius:16px;padding:24px"><p style="font:700 28px/1.15 var(--heading-font);color:var(--text)">Schema-safe HTML for frontend-slides energy.</p></div></div>`,
+      };
     case "timeline":
       return { layout, heading: "Timeline", steps: [{ title: "Step one", body: "Detail." }, { title: "Step two", body: "Detail." }] };
     case "quote":
@@ -144,8 +166,21 @@ export const EXAMPLE_DECK: DeckJson = {
       code: "npx @presentation-md/install claude-code\n# then: create a presentation about…",
     },
     { layout: "stat-row", heading: "By the numbers", stats: [
-      { value: "75", label: "Themes" }, { value: "12", label: "Layouts" }, { value: "1", label: "Install" },
+      { value: "75", label: "Themes" }, { value: "14", label: "Layouts" }, { value: "1", label: "Install" },
     ] },
+    {
+      layout: "chart",
+      eyebrow: "Proof",
+      heading: "Agents ship charts, not screenshot jpegs.",
+      chartType: "bar",
+      categories: ["Jan", "Feb", "Mar", "Apr"],
+      series: [
+        { name: "HTML decks", values: [12, 19, 28, 41] },
+        { name: "PPTX exports", values: [8, 14, 22, 33] },
+      ],
+      showLegend: true,
+      notes: "Native editable charts in PPTX via pptxgenjs.",
+    },
     { layout: "quote", quote: "Make it work, make it right, make it fast.", by: "Kent Beck" },
     { layout: "closing", heading: "Thank you", lead: "Questions?", cta: { label: "Get started", href: "https://presentation-md.vercel.app" } },
   ],

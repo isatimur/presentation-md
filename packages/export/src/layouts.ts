@@ -56,17 +56,61 @@ function renderHero(slide: PSlide, ctx: ExportContext, data: Slide): void {
   const x = ctx.margin;
   const w = ctx.width - ctx.margin * 2;
   let y = ctx.height * 0.32;
+  const inverted =
+    ctx.themeName === "kinetic-wrapped" &&
+    (data.layout === "title" ||
+      data.layout === "closing" ||
+      ["lime", "magenta", "cyan", "orange"].includes(String(data.tone ?? "")));
+  const text = inverted ? "0A0A0A" : ctx.colors.text;
+  const muted = inverted ? "1A1A1A" : ctx.colors.muted;
+  const accent = inverted ? "0A0A0A" : ctx.colors.accent2;
 
   if (data.eyebrow) {
-    eyebrow(slide, ctx, data.eyebrow, x, y, w);
+    slide.addText(data.eyebrow.toUpperCase(), {
+      x,
+      y,
+      w,
+      h: 0.35,
+      fontFace: ctx.fonts.body,
+      fontSize: 13,
+      bold: true,
+      color: accent,
+      charSpacing: 2,
+      align: "left",
+      valign: "middle",
+    });
     y += 0.5;
   }
   if (data.heading) {
-    heading(slide, ctx, data.heading, { x, y, w, h: 1.8, fontSize: 44 });
+    slide.addText(data.heading, {
+      x,
+      y,
+      w,
+      h: 1.8,
+      fontFace: ctx.fonts.heading,
+      bold: ctx.fonts.headingBold,
+      color: text,
+      fontSize: 44,
+      fit: "shrink",
+      valign: "top",
+      align: "left",
+    });
     y += 1.9;
   }
   if (data.lead) {
-    body(slide, ctx, data.lead, { x, y, w, h: 1.2, fontSize: 20 });
+    slide.addText(data.lead, {
+      x,
+      y,
+      w,
+      h: 1.2,
+      fontFace: ctx.fonts.body,
+      color: muted,
+      fontSize: 20,
+      fit: "shrink",
+      valign: "top",
+      align: "left",
+      lineSpacingMultiple: 1.15,
+    });
     y += 1.2;
   }
   if (data.cta?.label) {
@@ -77,8 +121,8 @@ function renderHero(slide: PSlide, ctx: ExportContext, data: Slide): void {
       y: y + 0.1,
       w: btnW,
       h: 0.6,
-      fill: { color: ctx.colors.accent },
-      color: ctx.colors.bg,
+      fill: { color: inverted ? "0A0A0A" : ctx.colors.accent },
+      color: inverted ? "C8FF00" : ctx.colors.bg,
       fontFace: ctx.fonts.body,
       fontSize: 16,
       bold: true,
@@ -804,6 +848,110 @@ function renderCode(slide: PSlide, ctx: ExportContext, data: Slide): void {
   });
 }
 
+function chartTypeToPptx(chartType: string | undefined): "bar" | "line" | "area" | "pie" | "doughnut" {
+  switch (chartType) {
+    case "line":
+      return "line";
+    case "area":
+      return "area";
+    case "pie":
+      return "pie";
+    case "donut":
+      return "doughnut";
+    case "horizontal-bar":
+    case "bar":
+    default:
+      return "bar";
+  }
+}
+
+function renderChart(slide: PSlide, ctx: ExportContext, data: Slide): void {
+  const top = renderHeaderBlock(slide, ctx, data);
+  const series = data.series ?? [];
+  if (series.length === 0) {
+    ctx.warn("chart slide has no series — skipped chart.");
+    return;
+  }
+
+  const categories =
+    data.categories && data.categories.length > 0
+      ? data.categories
+      : Array.from(
+          { length: Math.max(...series.map((s) => s.values?.length ?? 0), 1) },
+          (_, i) => String(i + 1)
+        );
+
+  const chartData = series.map((s) => ({
+    name: s.name || "Series",
+    labels: categories,
+    values: (s.values ?? []).map((v) => Number(v) || 0),
+  }));
+
+  const type = chartTypeToPptx(data.chartType);
+  const colors = [
+    ctx.colors.accent,
+    ctx.colors.accent2,
+    ctx.colors.muted,
+    ctx.colors.text,
+  ];
+
+  const opts: Record<string, unknown> = {
+    x: ctx.margin,
+    y: top + 0.15,
+    w: ctx.width - ctx.margin * 2,
+    h: ctx.height - top - ctx.margin - 0.2,
+    showTitle: false,
+    showLegend: data.showLegend !== false && (series.length > 1 || type === "pie" || type === "doughnut"),
+    showValue: data.showValues === true,
+    chartColors: colors,
+    chartColorsOpacity: 100,
+    border: { pt: 0, color: ctx.colors.bg },
+    chartArea: { fill: { color: ctx.colors.cardBg } },
+  };
+
+  if (type === "bar") {
+    opts["barGrouping"] = data.stacked ? "stacked" : "clustered";
+    opts["barDir"] = data.chartType === "horizontal-bar" ? "bar" : "col";
+  }
+
+  try {
+    slide.addChart(type, chartData, opts);
+  } catch (err) {
+    ctx.warn(`chart export failed (${(err as Error).message}) — falling back to table.`);
+    // Fallback: dump as a simple table so data is not lost.
+    const headers = ["Category", ...series.map((s) => s.name || "Series")];
+    const rows = categories.map((cat, i) => [
+      cat,
+      ...series.map((s) => String(s.values?.[i] ?? "")),
+    ]);
+    renderDataTable(slide, ctx, {
+      ...data,
+      layout: "data-table",
+      columns: headers,
+      rows,
+    });
+  }
+}
+
+function renderCustomHtml(slide: PSlide, ctx: ExportContext, data: Slide): void {
+  const top = renderHeaderBlock(slide, ctx, data);
+  // PPTX cannot host arbitrary HTML — surface the lead/body and a clear note.
+  const note =
+    "This slide used custom-html in the HTML deck. Re-create the art in PowerPoint or keep the HTML export for fidelity.";
+  slide.addText(data.body || data.lead || note, {
+    x: ctx.margin,
+    y: top + 0.2,
+    w: ctx.width - ctx.margin * 2,
+    h: ctx.height - top - ctx.margin - 0.3,
+    fontFace: ctx.fonts.body,
+    color: ctx.colors.muted,
+    fontSize: 16,
+    valign: "top",
+    fit: "shrink",
+  });
+  ctx.warn("custom-html layout approximates to text in PPTX — HTML export keeps full craft.");
+}
+
 const RENDERERS: Record<string, (s: PSlide, ctx: ExportContext, d: Slide) => void> = {
   title: renderHero,
   closing: renderHero,
@@ -817,6 +965,8 @@ const RENDERERS: Record<string, (s: PSlide, ctx: ExportContext, d: Slide) => voi
   "image-hero": renderImageHero,
   comparison: renderComparison,
   code: renderCode,
+  chart: renderChart,
+  "custom-html": renderCustomHtml,
 };
 
 /**
@@ -921,6 +1071,35 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       h: ctx.height * 0.55,
       fill: { color: ctx.colors.accent, transparency: 78 },
       line: { color: ctx.colors.accent, width: 0 },
+    });
+  }
+
+  if (theme === "kinetic-wrapped") {
+    const tone = typeof data.tone === "string" ? data.tone : undefined;
+    const hueMap: Record<string, string> = {
+      lime: "C8FF00",
+      magenta: "CC00FF",
+      cyan: "00E5FF",
+      orange: "FF4D00",
+      violet: "7A00FF",
+    };
+    if (isHero) {
+      // Lime-field cover/closing — matches wrapped-block HTML flip.
+      slide.background = { color: "C8FF00" };
+      return;
+    }
+    if (tone && hueMap[tone]) {
+      slide.background = { color: hueMap[tone]! };
+      return;
+    }
+    // Magenta accent blot — stand-in for multi-hue body energy.
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 2.2,
+      y: -0.4,
+      w: 2.8,
+      h: 2.8,
+      fill: { color: ctx.colors.accent2, transparency: 35 },
+      line: { color: ctx.colors.accent2, width: 0 },
     });
   }
 }

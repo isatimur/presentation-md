@@ -10,7 +10,7 @@ const HEADING_LAYOUTS = new Set(["title", "section", "closing"]);
 const VALID_LAYOUTS = new Set([
   "title", "two-column", "feature-grid", "quote",
   "data-table", "stat-row", "timeline", "section", "closing",
-  "image-hero", "comparison", "code",
+  "image-hero", "comparison", "code", "chart", "custom-html",
 ]);
 
 function manualValidate(deck: Record<string, unknown>): { valid: boolean; issues: Issue[] } {

@@ -67,6 +67,25 @@ Use `aside` for a pull-quote panel when there is no image. `ratio` / `reverse` u
 `{ "layout": "code", "eyebrow"?, "heading"?, "lead"?, "code", "language"?, "filename"? }`
 Plain-text snippet in window chrome. HTML is escaped on render — no markup inside `code`.
 
+### chart
+`{ "layout": "chart", "eyebrow"?, "heading"?, "lead"?,
+   "chartType"?: "bar"|"horizontal-bar"|"line"|"area"|"pie"|"donut",
+   "categories"?: string[],
+   "series": [ { "name"?, "values": number[] } ],
+   "showLegend"?: boolean, "showValues"?: boolean, "stacked"?: boolean }`
+Theme-colored SVG in HTML; native editable charts in PPTX. Prefer `bar`/`line` for trends,
+`pie`/`donut` for composition (single series). Set `showValues` sparingly — labels are craft, not default noise.
+
+### custom-html
+`{ "layout": "custom-html", "eyebrow"?, "heading"?, "lead"?, "html" }`
+Schema-preserving escape hatch for one-off art (frontend-slides energy without abandoning Deck JSON).
+Scripts, event handlers, and dangerous URLs are stripped on render. PPTX approximates to text —
+keep HTML export when the art matters.
+
+### tone (any slide)
+Optional `tone`: `"default"|"lime"|"magenta"|"cyan"|"orange"|"violet"` — per-slide hue beat for
+`kinetic-wrapped` / Pulse multi-hue craft. Omit to use surface auto-cycle accents.
+
 ## Example
 ```json
 {

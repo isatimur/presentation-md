@@ -86,6 +86,22 @@
       ]
     },
     {
+      "layout": "chart",
+      "eyebrow": "Trend",
+      "heading": "ARR climbed — enterprise still carries the story.",
+      "lead": "Sentence before the marks. Signal red for the motion that moved.",
+      "chartType": "bar",
+      "categories": ["Q3", "Q4", "Q1", "Q2"],
+      "series": [
+        { "name": "Enterprise", "values": [38, 41, 44, 48] },
+        { "name": "Mid-market", "values": [14, 16, 18, 22] },
+        { "name": "Self-serve", "values": [5, 6, 7, 9] }
+      ],
+      "showLegend": true,
+      "showValues": false,
+      "notes": "Board: enterprise is still ~60% of ARR — protect win rate before chasing self-serve vanity growth."
+    },
+    {
       "layout": "two-column",
       "eyebrow": "Risk flag",
       "heading": "Enterprise win rate cooled",

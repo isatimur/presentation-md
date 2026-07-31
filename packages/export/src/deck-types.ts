@@ -19,7 +19,9 @@ export type LayoutType =
   | "closing"
   | "image-hero"
   | "comparison"
-  | "code";
+  | "code"
+  | "chart"
+  | "custom-html";
 
 export interface Card {
   icon?: string;
@@ -40,6 +42,11 @@ export interface Step {
 export interface Cta {
   label?: string;
   href?: string;
+}
+
+export interface ChartSeries {
+  name?: string;
+  values: number[];
 }
 
 export interface Slide {
@@ -79,6 +86,17 @@ export interface Slide {
   rightLabel?: string;
   left?: string;
   right?: string;
+  /** chart layout */
+  chartType?: "bar" | "horizontal-bar" | "line" | "area" | "pie" | "donut" | string;
+  categories?: string[];
+  series?: ChartSeries[];
+  showLegend?: boolean;
+  showValues?: boolean;
+  stacked?: boolean;
+  /** custom-html: sanitized HTML fragment. */
+  html?: string;
+  /** Optional per-slide hue beat (Pulse / kinetic-wrapped). */
+  tone?: "default" | "lime" | "magenta" | "cyan" | "orange" | "violet" | string;
   [key: string]: unknown;
 }
 

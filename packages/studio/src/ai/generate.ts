@@ -28,7 +28,7 @@ Top level:
 
 Every Slide has a "layout" and layout-specific fields. Optional on every slide: "notes"?: string (speaker notes — shown in Studio present mode and exported to PPTX notes pane; not rendered on the HTML slide face).
 
-The twelve layouts:
+The fourteen layouts:
 
 - title        { layout, eyebrow?, heading, lead? }
 - section      { layout, number, eyebrow?, heading, lead? }        // number like "01"
@@ -38,14 +38,17 @@ The twelve layouts:
 - feature-grid { layout, heading, columns, cards }                 // columns: 2|3|4|"bento"; cards: [{ icon?, title, body }]
 - data-table   { layout, eyebrow?, heading, columns, rows }        // columns: string[]; rows: string[][] (each row = one string per column)
 - stat-row     { layout, heading, stats }                          // stats: [{ value, label }] — value like "98%", "$1.2M"
+- chart        { layout, eyebrow?, heading?, lead?, chartType?, categories?, series, showLegend?, showValues?, stacked? }
+               // chartType: bar|horizontal-bar|line|area|pie|donut; series: [{ name?, values: number[] }]
 - timeline     { layout, heading, steps }                          // steps: [{ title, body }]
 - quote        { layout, quote, by? }
 - code         { layout, eyebrow?, heading?, lead?, code, language?, filename? }  // plain-text snippet in a window chrome
+- custom-html  { layout, eyebrow?, heading?, lead?, html }         // sanitized one-off art; prefer schema layouts first
 - closing      { layout, eyebrow?, heading, lead?, cta?: { label, href } }
 
 Authoring rules:
 - Open with a "title" slide and end with a "closing" slide.
-- 6–10 slides total. Use a mix of layouts that fits the content — section dividers for chapters, stat-row for metrics, data-table for tabular data, timeline for roadmaps, quote for a punchy line.
+- 6–10 slides total. Use a mix of layouts that fits the content — section dividers for chapters, stat-row for KPIs, chart for trends/composition, data-table for tabular data, timeline for roadmaps, quote for a punchy line.
 - Keep text tight and presentation-grade: headings are short, leads are one line, card/stat bodies are a phrase, not a paragraph.
 - Prefer concrete, specific content over filler. No lorem ipsum.
 - Craft (required when the layout supports it):
@@ -53,6 +56,7 @@ Authoring rules:
   - two-column: prefer a non-1-1 "ratio" ("2-1", "1-2", "3-2", or "2-3") unless the content is truly equal weight; use "reverse" when the image/aside should lead.
   - feature-grid with 5 cards: set columns to "bento" so one hero card dominates.
   - Include at least one "image-hero" when the brief implies a visual product, place, or atmosphere.
+  - Prefer "chart" over stuffing trend data into a data-table when the shape of the series is the point.
   - Add brief "notes" on 2–4 key slides (talking points for the presenter).
 - Only emit fields defined above. Do not invent new layouts or fields.`;
 

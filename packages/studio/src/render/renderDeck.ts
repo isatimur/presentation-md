@@ -1,6 +1,7 @@
 import Mustache from "mustache";
 import type { ResolvedTheme } from "@presentation-md/core";
-import type { DeckJson, Slide } from "@presentation-md/export";
+import { renderChartSvg, sanitizeCustomHtml } from "@presentation-md/core";
+import type { DeckJson, Slide, ChartSeries } from "@presentation-md/export";
 import baseCssTemplate from "../../../shared/base.css?raw";
 import surfacesCss from "../../../shared/surfaces.css?raw";
 import themeSurfaces from "../../../shared/theme-surfaces.json";
@@ -80,6 +81,20 @@ function normalizeSlideData(slide: Slide): Record<string, unknown> {
       out["columns"] = 3;
     }
   }
+  if (slide.layout === "chart") {
+    const series = (Array.isArray(slide.series) ? slide.series : []) as ChartSeries[];
+    out["chartSvg"] = renderChartSvg({
+      chartType: typeof slide.chartType === "string" ? slide.chartType : "bar",
+      categories: Array.isArray(slide.categories) ? slide.categories : [],
+      series: series.map((s) => ({ name: s.name || "Series", values: s.values ?? [] })),
+      showLegend: slide.showLegend !== false,
+      showValues: slide.showValues === true,
+      stacked: slide.stacked === true,
+    });
+  }
+  if (slide.layout === "custom-html") {
+    out["html"] = sanitizeCustomHtml(slide.html);
+  }
   if (slide.cta?.href !== undefined) {
     out["cta"] = { ...slide.cta, href: sanitizeLink(slide.cta.href) };
   }
@@ -156,9 +171,21 @@ export function renderDeckHtml(deck: DeckJson, theme: ResolvedTheme): string {
       if (!template) {
         return `<section class="slide"><h2>Unknown layout: ${slide.layout}</h2></section>`;
       }
-      return Mustache.render(template, normalizeSlideData(slide));
+      let html = Mustache.render(template, normalizeSlideData(slide));
+      const tone = typeof slide.tone === "string" ? slide.tone.trim() : "";
+      if (tone && /^[a-z0-9-]+$/i.test(tone)) {
+        html = html.replace(/<section(\s+class="slide)/i, `<section data-tone="${tone}"$1`);
+      }
+      return html;
     })
     .join("\n");
+
+  // Sanitize custom-html before embed so Studio round-trips stay safe.
+  for (const slide of deck.slides ?? []) {
+    if (slide.layout === "custom-html" && slide.html !== undefined) {
+      slide.html = sanitizeCustomHtml(slide.html);
+    }
+  }
 
   const title = deck.meta?.title ?? deck.meta?.company ?? "Presentation";
   return Mustache.render(documentTemplate, {

@@ -42,8 +42,56 @@
             "closing",
             "image-hero",
             "comparison",
-            "code"
+            "code",
+            "chart",
+            "custom-html"
           ]
+        },
+        "chartType": {
+          "type": "string",
+          "enum": ["bar", "horizontal-bar", "line", "area", "pie", "donut"],
+          "description": "chart: visualization type (default bar)."
+        },
+        "categories": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "chart: category / x-axis labels (also pie slice labels)."
+        },
+        "series": {
+          "type": "array",
+          "description": "chart: one or more named numeric series.",
+          "items": {
+            "type": "object",
+            "required": ["values"],
+            "properties": {
+              "name": { "type": "string" },
+              "values": {
+                "type": "array",
+                "items": { "type": "number" }
+              }
+            }
+          }
+        },
+        "showLegend": {
+          "type": "boolean",
+          "description": "chart: show series/slice legend (default true)."
+        },
+        "showValues": {
+          "type": "boolean",
+          "description": "chart: annotate data values on marks (default false)."
+        },
+        "stacked": {
+          "type": "boolean",
+          "description": "chart: stack bar series (bar / horizontal-bar only)."
+        },
+        "html": {
+          "type": "string",
+          "description": "custom-html: sanitized HTML fragment for one-off art (no scripts)."
+        },
+        "tone": {
+          "type": "string",
+          "enum": ["default", "lime", "magenta", "cyan", "orange", "violet"],
+          "description": "Optional per-slide hue beat (kinetic-wrapped / Pulse multi-hue craft)."
         },
         "eyebrow": { "type": "string" },
         "heading": { "type": "string" },

@@ -25,3 +25,8 @@ export type {
   ContrastAdjustment,
   ContrastSafeResult,
 } from "./brand-extract.js";
+export { renderChartSvg } from "./chart-svg.js";
+export type { ChartType, ChartSeries, ChartSpec, ChartColors } from "./chart-svg.js";
+export { sanitizeCustomHtml } from "./sanitize-html.js";
+export { markdownToDeck } from "./md-to-deck.js";
+export type { MdDeck, MdSlide, MdToDeckOptions } from "./md-to-deck.js";

@@ -18,6 +18,7 @@ export type {
   Stat,
   Step,
   Cta,
+  ChartSeries,
 } from "./deck-types.js";
 
 export { prefetchDeckImages };

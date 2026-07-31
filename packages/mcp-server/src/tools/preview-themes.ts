@@ -60,10 +60,20 @@ function layoutsPreviewDeck(title: string, theme: string, company?: string): str
         eyebrow: "Proof",
         heading: "Numbers that read at billboard scale",
         stats: [
-          { value: "12", label: "Schema layouts" },
+          { value: "14", label: "Schema layouts" },
           { value: "75", label: "Theme surfaces" },
           { value: "1", label: "JSON field to swap vibe" },
         ],
+      },
+      {
+        layout: "chart",
+        eyebrow: "Data viz",
+        heading: "Charts stay on-palette.",
+        chartType: "bar",
+        categories: ["Q1", "Q2", "Q3", "Q4"],
+        series: [{ name: "Signal", values: [12, 19, 28, 41] }],
+        showLegend: false,
+        showValues: true,
       },
       {
         layout: "quote",
@@ -160,7 +170,7 @@ export const previewThemesTool: ToolDefinition = {
         path,
         filename,
         mode,
-        slides: mode === "layouts" ? 7 : 1,
+        slides: mode === "layouts" ? 8 : 1,
       });
     }
 

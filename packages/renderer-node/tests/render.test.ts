@@ -194,6 +194,46 @@ describe("renderDeck", () => {
     await expect(renderDeck(deck)).resolves.toContain("Q1");
   });
 
+  it("renders chart layout as theme-colored SVG", async () => {
+    const deck = JSON.stringify({
+      type: "deck",
+      slides: [
+        {
+          layout: "chart",
+          heading: "Revenue",
+          chartType: "bar",
+          categories: ["Q1", "Q2", "Q3"],
+          series: [{ name: "ARR", values: [10, 14, 18] }],
+          showValues: true,
+        },
+      ],
+    });
+    const html = await renderDeck(deck);
+    expect(html).toContain('data-layout="chart"');
+    expect(html).toContain("pmd-chart");
+    expect(html).toContain("Q1");
+    expect(html).toContain("<rect");
+  });
+
+  it("renders custom-html after sanitizing scripts", async () => {
+    const deck = JSON.stringify({
+      type: "deck",
+      slides: [
+        {
+          layout: "custom-html",
+          heading: "Art",
+          html: `<div class="panel">Hello<script>alert(1)</script></div>`,
+        },
+      ],
+    });
+    const html = await renderDeck(deck);
+    expect(html).toContain('data-layout="custom-html"');
+    expect(html).toContain("Hello");
+    expect(html).not.toContain("alert(1)");
+    const custom = html.match(/data-layout="custom-html"[\s\S]*?<\/section>/)?.[0] ?? "";
+    expect(custom).not.toMatch(/<script/i);
+  });
+
   it("renders section layout without throwing", async () => {
     const deck = JSON.stringify({
       type: "deck",
