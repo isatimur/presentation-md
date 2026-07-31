@@ -1,5 +1,11 @@
 # @presentation-md/render
 
+## 1.6.33
+
+### Patch Changes
+
+- 4043229: Export `buildProgram` for hermetic CLI tests; document `--from-md`; cover list/validate/theme/format/from-pptx/from-md/stdin flags.
+
 ## 1.6.32
 
 ### Patch Changes
