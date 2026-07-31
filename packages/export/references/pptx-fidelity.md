@@ -109,9 +109,14 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   pastel-dreamy gets soft cloud ovals;
   vellum gets a soft colorfield wash;
   editorial-serif gets an accent rule + deco ring;
+  soft-editorial gets a sage wash + blush candy orb;
+  claude (warm-paper) gets a soft coral corner wash;
+  default-tech gets a neon corner bloom;
   playful gets soft accent blots;
   corporate gets a clean accent stub.
-  True CSS `mix-blend-mode` / animated marquees remain HTML-only.
+  Quiet HTML paper fiber grain (editorial / parchment themes) is not drawn in PPTX —
+  ship HTML when the tooth is the brand. True CSS `mix-blend-mode` / animated marquees
+  remain HTML-only.
 - Closing `actions[].icon` maps to a glyph prefix on PPTX pills (FA brands → letter/symbol).
 
 - Every non-mappable field emits a warning (via `opts.onWarn` / `result.warnings`) — nothing

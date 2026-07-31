@@ -1939,13 +1939,47 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "soft-editorial") {
-    // Soft sage radial stand-in (top-right wash).
+    // Soft sage radial stand-in (top-right wash) + blush candy orb.
     slide.addShape(ctx.shapeOval, {
       x: ctx.width * 0.55,
       y: -ctx.height * 0.15,
       w: ctx.width * 0.55,
       h: ctx.height * 0.55,
       fill: { color: ctx.colors.accent, transparency: 78 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 2.35,
+      y: 0.45,
+      w: 1.7,
+      h: 1.7,
+      fill: { color: ctx.colors.accent2, transparency: 42 },
+      line: { color: ctx.colors.accent2, width: 0 },
+      rectRadius: 0.32,
+    });
+  }
+
+  if (theme === "claude") {
+    // Warm-paper coral corner wash (grain stays HTML-only).
+    slide.addShape(ctx.shapeOval, {
+      x: -1.1,
+      y: ctx.height - 2.4,
+      w: 3.0,
+      h: 3.0,
+      fill: { color: ctx.colors.accent, transparency: 82 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+  }
+
+  if (theme === "default-tech") {
+    // Neon-glow corner bloom (HTML blur → soft oval).
+    const glowT = isHero ? 55 : 72;
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 4.2,
+      y: -2.2,
+      w: 6.5,
+      h: 6.5,
+      fill: { color: ctx.colors.accent, transparency: glowT },
       line: { color: ctx.colors.accent, width: 0 },
     });
   }
