@@ -109,15 +109,42 @@ describe("generate_deck_prompt", () => {
     })) as {
       theme: string;
       intent: string;
+      craft_mandate: string;
       palette: Record<string, string>;
       typography: object;
     };
 
     expect(result.theme).toBe("default-tech");
     expect(result.intent).toBe("Show quarterly results");
+    expect(result.craft_mandate).toMatch(/image-hero/i);
     expect(result.palette).toHaveProperty("bg");
     expect(result.palette).toHaveProperty("accent");
     expect(result.typography).toHaveProperty("headingFont");
+  });
+});
+
+describe("audit_deck craft warnings", () => {
+  it("warns when comparison lacks emphasis", async () => {
+    const deck = {
+      type: "deck",
+      meta: { title: "Craft", theme: "default-tech" },
+      slides: [
+        { layout: "title", heading: "A" },
+        {
+          layout: "comparison",
+          heading: "Vs",
+          left: "Old",
+          right: "New",
+        },
+        { layout: "closing", heading: "Bye" },
+      ],
+    };
+    const result = (await auditDeckTool.handler({
+      json: JSON.stringify(deck),
+    })) as { issues: Array<{ severity: string; message: string }> };
+    expect(
+      result.issues.some((i) => i.severity === "warning" && i.message.includes("emphasis")),
+    ).toBe(true);
   });
 });
 

@@ -43,6 +43,33 @@ function lightStructuralChecks(deck: Record<string, unknown>): Issue[] {
     issues.push({ severity: "warning", message: "Deck has fewer than 2 slides — consider adding more content" });
   }
 
+  const layouts = slides.map((s) => (s as Record<string, unknown>)["layout"] as string | undefined);
+  const hasImageHero = layouts.includes("image-hero");
+  const hasComparison = layouts.includes("comparison");
+  const hasCode = layouts.includes("code");
+  const hasTwoCol = layouts.includes("two-column");
+  const hasBento = slides.some((s) => {
+    const slide = s as Record<string, unknown>;
+    return slide["layout"] === "feature-grid" && slide["columns"] === "bento";
+  });
+  const hasAsymmetry = hasComparison || hasCode || hasTwoCol || hasBento;
+
+  if (slides.length >= 5 && !hasImageHero) {
+    issues.push({
+      severity: "warning",
+      message:
+        "No image-hero slide — investor/launch/brand decks need a cinematic visual beat (see references/stunning-25.md).",
+    });
+  }
+
+  if (slides.length >= 5 && !hasAsymmetry) {
+    issues.push({
+      severity: "warning",
+      message:
+        "Weak asymmetry — add comparison+emphasis, two-column (non-1-1 ratio), code, or feature-grid columns:\"bento\".",
+    });
+  }
+
   for (let i = 0; i < slides.length; i++) {
     const slide = slides[i] as Record<string, unknown>;
     const layout = slide["layout"] as string | undefined;
@@ -61,9 +88,32 @@ function lightStructuralChecks(deck: Record<string, unknown>): Issue[] {
       });
     }
 
+    if (layout === "comparison" && slide["emphasis"] !== "left" && slide["emphasis"] !== "right") {
+      issues.push({
+        severity: "warning",
+        message: `Slide ${i + 1} (comparison): set "emphasis" to "left" or "right" — equal columns read as filler.`,
+      });
+    }
+
+    if (layout === "two-column") {
+      const ratio = slide["ratio"];
+      if (ratio === undefined || ratio === "1-1") {
+        issues.push({
+          severity: "warning",
+          message: `Slide ${i + 1} (two-column): prefer a non-1-1 ratio unless weight is truly equal.`,
+        });
+      }
+    }
+
     if (layout === "feature-grid") {
       const columns = slide["columns"];
       const cards = slide["cards"];
+      if (Array.isArray(cards) && cards.length === 5 && columns !== "bento") {
+        issues.push({
+          severity: "warning",
+          message: `Slide ${i + 1} (feature-grid): 5 cards should use columns: "bento" for asymmetric craft.`,
+        });
+      }
       if (typeof columns === "number" && Array.isArray(cards)) {
         if (cards.length % columns !== 0) {
           issues.push({
@@ -73,6 +123,14 @@ function lightStructuralChecks(deck: Record<string, unknown>): Issue[] {
         }
       }
     }
+  }
+
+  const withNotes = slides.filter((s) => typeof (s as Record<string, unknown>)["notes"] === "string").length;
+  if (slides.length >= 6 && withNotes === 0) {
+    issues.push({
+      severity: "warning",
+      message: "No speaker notes — add brief notes on 2–4 key slides for present mode / PPTX.",
+    });
   }
 
   return issues;

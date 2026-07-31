@@ -30,17 +30,30 @@ export const generateDeckPromptTool: ToolDefinition = {
     const coreRoot = getCoreRoot();
     const themesDir = getBundledThemesDir();
 
-    const [theme, skill, deckSchemaReference] = await Promise.all([
+    const [theme, skill, deckSchemaReference, stunning25] = await Promise.all([
       loadTheme(themeName, { themesDir }),
       readFile(join(coreRoot, "SKILL.md"), "utf-8"),
-      readFile(join(coreRoot, "references", "deck-schema.md"), "utf-8")
+      readFile(join(coreRoot, "references", "deck-schema.md"), "utf-8"),
+      readFile(join(coreRoot, "references", "stunning-25.md"), "utf-8").catch(() => ""),
     ]);
+
+    const craftMandate = [
+      "CRAFT MANDATE (non-negotiable):",
+      "- Prefer stunning-25 themes when the brief matches (see stunning_25_reference).",
+      "- Include ≥1 image-hero for visual/investor/launch/brand decks.",
+      "- Every comparison MUST set emphasis left|right; prefer non-1-1 two-column ratios; 5-card grids use columns:\"bento\".",
+      "- Add brief notes on 2–4 key slides.",
+      "- Call audit_deck before shipping; fix warnings that mention asymmetry, image-hero, or emphasis.",
+      "- Open the theme's structured gallery proof when listed in stunning-25 — match that ceiling, do not water down.",
+    ].join("\n");
 
     return {
       theme: themeName,
       intent,
+      craft_mandate: craftMandate,
       skill,
       deck_schema_reference: deckSchemaReference,
+      stunning_25_reference: stunning25 || undefined,
       palette: theme.palette as unknown as Record<string, string>,
       typography: theme.typography
     };
