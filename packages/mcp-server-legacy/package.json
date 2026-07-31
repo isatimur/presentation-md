@@ -1,0 +1,34 @@
+{
+  "name": "@presentation-skill-pack/mcp-server",
+  "version": "0.1.0",
+  "description": "DEPRECATED — thin redirect to @presentation-md/mcp-server (11 tools). Use the new package name.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "presentation-skill-pack-mcp": "./bin.js",
+    "presentation-md-mcp-legacy": "./bin.js"
+  },
+  "files": [
+    "bin.js",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "node -e \"process.exit(0)\"",
+    "test": "node --test test/bin.test.js",
+    "typecheck": "node -e \"process.exit(0)\""
+  },
+  "dependencies": {
+    "@presentation-md/mcp-server": "^1.10.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "deprecated": "Package renamed: use @presentation-md/mcp-server (11 tools). This stub only redirects.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/isatimur/presentation-md.git",
+    "directory": "packages/mcp-server-legacy"
+  },
+  "homepage": "https://presentation-md.vercel.app",
+  "bugs": "https://github.com/isatimur/presentation-md/issues"
+}

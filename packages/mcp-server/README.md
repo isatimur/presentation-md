@@ -8,10 +8,10 @@ MCP server that exposes **11** presentation-md tools to any MCP-compatible AI ag
 npx -y @presentation-md/mcp-server
 ```
 
-> **Migration:** the old package `@presentation-skill-pack/mcp-server@0.1.0` only shipped 5 tools
-> (`render_deck`, `list_themes`, `apply_theme`, `audit_deck`, `generate_deck_prompt`).
-> Point clients at `@presentation-md/mcp-server` (this package) to get the full set including
-> `export_deck`, `judge_deck`, `import_*`, and `preview_themes`.
+> **Migration:** `@presentation-skill-pack/mcp-server` is deprecated. `0.1.0` only shipped 5 tools;
+> `0.2.0+` is a thin redirect stub that warns and starts this package. Point clients at
+> `@presentation-md/mcp-server` for the full 11-tool set (`export_deck`, `judge_deck`, `import_*`,
+> `preview_themes`, …) without the redirect hop.
 
 ## Add to Claude Code / Cursor
 
