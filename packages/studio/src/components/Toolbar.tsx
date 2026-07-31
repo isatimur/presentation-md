@@ -25,8 +25,9 @@ export function Toolbar({
   const [busy, setBusy] = useState(false);
   const [themeQuery, setThemeQuery] = useState("");
   const [auditIssues, setAuditIssues] = useState<
-    Array<{ severity: "error" | "warning"; message: string }>
+    Array<{ severity: "error" | "warning"; message: string; slide?: number }>
   >([]);
+  const [auditFilter, setAuditFilter] = useState<"all" | "error" | "warning">("all");
 
   const themes = useMemo(() => listThemeSummaries(), []);
   const theme = deck.meta?.theme ?? "default-tech";
@@ -95,10 +96,11 @@ export function Toolbar({
   const runCraftAudit = () => {
     const issues = auditCraft(deck);
     setAuditIssues(issues);
+    setAuditFilter("all");
     const errors = issues.filter((i) => i.severity === "error");
     const warns = issues.filter((i) => i.severity === "warning");
     if (!issues.length) {
-      setStatus("Craft audit: clean");
+      setStatus("Craft audit clean");
       return;
     }
     setStatus(
@@ -255,17 +257,42 @@ export function Toolbar({
 
       {status && <span className="status muted small">{status}</span>}
       {auditIssues.length > 0 && (
-        <details className="audit-panel">
+        <details className="audit-panel" open>
           <summary className="btn btn-sm">
-            Issues ({auditIssues.length})
+            Issues ({auditIssues.length}
+            {auditIssues.some((i) => i.severity === "error")
+              ? ` · ${auditIssues.filter((i) => i.severity === "error").length} err`
+              : ""}
+            )
           </summary>
+          <div className="audit-filters">
+            {(["all", "error", "warning"] as const).map((f) => {
+              const count =
+                f === "all" ? auditIssues.length : auditIssues.filter((i) => i.severity === f).length;
+              return (
+                <button
+                  key={f}
+                  type="button"
+                  className={`btn btn-sm${auditFilter === f ? " audit-filter-active" : ""}`}
+                  onClick={() => setAuditFilter(f)}
+                >
+                  {f} ({count})
+                </button>
+              );
+            })}
+          </div>
           <ul className="audit-list">
-            {auditIssues.map((issue, i) => (
-              <li key={`${issue.severity}-${i}`} className={`audit-item audit-${issue.severity}`}>
-                <span className="audit-sev">{issue.severity}</span>
-                <span>{issue.message}</span>
-              </li>
-            ))}
+            {auditIssues
+              .filter((issue) => auditFilter === "all" || issue.severity === auditFilter)
+              .map((issue, i) => (
+                <li key={`${issue.severity}-${issue.slide ?? "g"}-${i}`} className={`audit-item audit-${issue.severity}`}>
+                  <span className="audit-sev">
+                    {issue.severity}
+                    {typeof issue.slide === "number" ? ` · s${issue.slide}` : ""}
+                  </span>
+                  <span>{issue.message}</span>
+                </li>
+              ))}
           </ul>
           <button type="button" className="btn btn-sm" onClick={() => setAuditIssues([])}>
             Dismiss

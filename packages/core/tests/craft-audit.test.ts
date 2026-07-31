@@ -97,4 +97,31 @@ describe("auditCraft", () => {
     const issues = auditCraft(deck);
     expect(issues.some((i) => /data beat/i.test(i.message))).toBe(true);
   });
+
+  it("warns when candy-pop lacks company/marquee brand", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "candy-pop", title: "Launch" },
+      slides: [
+        { layout: "title", heading: "Hi" },
+        { layout: "closing", heading: "Bye", cta: { label: "Go", href: "#" } },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /candy-pop marquee/i.test(i.message))).toBe(true);
+  });
+
+  it("attaches slide index on local craft issues", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "default-tech", title: "X" },
+      slides: [
+        { layout: "title", heading: "A" },
+        { layout: "comparison", heading: "Diff", left: "A", right: "B" },
+      ],
+    };
+    const issues = auditCraft(deck);
+    const cmp = issues.find((i) => /emphasis/i.test(i.message));
+    expect(cmp?.slide).toBe(2);
+  });
 });

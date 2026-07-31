@@ -6,11 +6,13 @@
 export interface CraftIssue {
   severity: "error" | "warning";
   message: string;
+  /** 1-based slide index when the issue is slide-local. */
+  slide?: number;
 }
 
 /** Minimal deck shape — avoids coupling core to export DeckJson. */
 export interface CraftAuditDeck {
-  meta?: { theme?: string };
+  meta?: { theme?: string; company?: string; title?: string; marquee?: string };
   slides?: unknown;
 }
 
@@ -66,6 +68,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
   const layouts = slides.map((s) => s["layout"] as string | undefined);
   const theme = typeof deck.meta?.theme === "string" ? deck.meta.theme : "";
   const isWrap = theme === "kinetic-wrapped";
+  const isCandy = theme === "candy-pop";
   const hasImageHero = layouts.includes("image-hero");
   const hasAsymmetry =
     layouts.includes("comparison") ||
@@ -77,6 +80,19 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     layouts.includes("metric-ring") ||
     layouts.includes("logo-wall") ||
     slides.some((s) => s["layout"] === "feature-grid" && s["columns"] === "bento");
+
+  if (isCandy) {
+    const hasBrand =
+      (typeof deck.meta?.company === "string" && deck.meta.company.trim() !== "") ||
+      (typeof deck.meta?.marquee === "string" && deck.meta.marquee.trim() !== "");
+    if (!hasBrand) {
+      issues.push({
+        severity: "warning",
+        message:
+          'candy-pop marquee brands from meta.company (or meta.marquee) — set company so the ticker isn\'t a generic "CANDY POP" fallback.',
+      });
+    }
+  }
 
   // Wrap decks use hue/ranked/streak/ring beats — image-hero is optional.
   if (slides.length >= 5 && !hasImageHero && !isWrap) {
@@ -121,6 +137,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (layout && !CRAFT_VALID_LAYOUTS.has(layout)) {
       issues.push({
         severity: "error",
+        slide: n,
         message: `Slide ${n}: unknown layout "${layout}"`,
       });
     }
@@ -128,6 +145,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (layout && HEADING_LAYOUTS.has(layout) && !slide["heading"]) {
       issues.push({
         severity: "warning",
+        slide: n,
         message: `Slide ${n} (layout "${layout}") is missing a "heading" field`,
       });
     }
@@ -135,6 +153,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (layout === "comparison" && slide["emphasis"] !== "left" && slide["emphasis"] !== "right") {
       issues.push({
         severity: "warning",
+        slide: n,
         message: `Slide ${n} (comparison): set "emphasis" to "left" or "right" — equal columns read as filler.`,
       });
     }
@@ -144,6 +163,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       if (ratio === undefined || ratio === "1-1") {
         issues.push({
           severity: "warning",
+          slide: n,
           message: `Slide ${n} (two-column): prefer a non-1-1 ratio unless weight is truly equal.`,
         });
       }
@@ -155,6 +175,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       if (Array.isArray(cards) && cards.length === 5 && columns !== "bento") {
         issues.push({
           severity: "warning",
+          slide: n,
           message: `Slide ${n} (feature-grid): 5 cards should use columns: "bento" for asymmetric craft.`,
         });
       }
@@ -162,6 +183,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
         if (cards.length % columns !== 0) {
           issues.push({
             severity: "warning",
+            slide: n,
             message: `Slide ${n} (feature-grid): "cards" count (${cards.length}) is not a multiple of "columns" (${columns})`,
           });
         }
@@ -182,6 +204,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
           if (withIcon / featureLike.length < 0.5) {
             issues.push({
               severity: "warning",
+              slide: n,
               message: `Slide ${n} (feature-grid): fewer than half the cards have icons — add FA icons for scannability.`,
             });
           }
@@ -198,8 +221,26 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       if (!hasAction) {
         issues.push({
           severity: "warning",
+          slide: n,
           message: `Slide ${n} (closing): missing CTA — set actions[] (or cta) so the ask is unmissable.`,
         });
+      }
+      if (Array.isArray(actions) && actions.length >= 2) {
+        const blob = JSON.stringify(slide).toLowerCase();
+        const social = /share|instagram|tiktok|twitter|\bx\b|linkedin|discord|github/.test(blob);
+        if (social) {
+          const withIcon = actions.filter((a) => {
+            const action = a as Record<string, unknown>;
+            return typeof action["icon"] === "string" && action["icon"].trim() !== "";
+          }).length;
+          if (withIcon === 0) {
+            issues.push({
+              severity: "warning",
+              slide: n,
+              message: `Slide ${n} (closing): social/share actions without icons — add FA brands so pills stay scannable in HTML + PPTX.`,
+            });
+          }
+        }
       }
     }
   }

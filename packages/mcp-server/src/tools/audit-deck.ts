@@ -4,6 +4,7 @@ import type { ToolDefinition } from "../server.js";
 interface Issue {
   severity: "error" | "warning";
   message: string;
+  slide?: number;
 }
 
 function manualValidate(deck: Record<string, unknown>): { valid: boolean; issues: Issue[] } {

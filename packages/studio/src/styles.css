@@ -353,11 +353,21 @@ body {
   list-style: none;
   cursor: pointer;
 }
+.audit-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.audit-filter-active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
 .audit-list {
   list-style: none;
   margin: 10px 0;
   padding: 0;
-  max-height: 240px;
+  max-height: 280px;
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -365,7 +375,7 @@ body {
 }
 .audit-item {
   display: grid;
-  grid-template-columns: 64px 1fr;
+  grid-template-columns: 78px 1fr;
   gap: 8px;
   font-size: 12px;
   line-height: 1.4;
