@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.8.2
+
+### Patch Changes
+
+- d922258: Raise the default craft bar in the skill (stunning-25 first, asymmetry, audit/judge) and tighten anti-slop bans for cream/purple defaults.
+
 ## 1.8.1
 
 ### Patch Changes

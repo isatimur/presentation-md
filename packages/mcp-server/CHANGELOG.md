@@ -1,5 +1,17 @@
 # @presentation-md/mcp-server
 
+## 1.6.13
+
+### Patch Changes
+
+- 00efbcb: Strengthen generate_deck_prompt craft mandate with rivalry bar and anti-slop reference so agents default to stunning, on-brand decks.
+- Updated dependencies [054408d]
+- Updated dependencies [d922258]
+  - @presentation-md/export@1.13.2
+  - @presentation-md/core@1.8.2
+  - @presentation-md/render@1.6.11
+  - @presentation-md/create-theme@1.0.20
+
 ## 1.6.12
 
 ### Patch Changes
