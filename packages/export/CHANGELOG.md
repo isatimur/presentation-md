@@ -1,5 +1,13 @@
 # @presentation-md/export
 
+## 1.13.2
+
+### Patch Changes
+
+- 054408d: Densify still-light PPTX surface chrome for claude, soft-editorial, editorial-forest, broadsheet/ft, signal, bold-poster, split-pastel, genz-bento, broadside, and notebook-tabs.
+- Updated dependencies [d922258]
+  - @presentation-md/core@1.8.2
+
 ## 1.13.1
 
 ### Patch Changes
