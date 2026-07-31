@@ -547,5 +547,68 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     }
   }
 
+  const glassThemes = new Set(["aurora-glass", "glassmorphism"]);
+  if (glassThemes.has(theme) && slides.length >= 5) {
+    const hasGlassBeat =
+      layouts.includes("image-hero") ||
+      layouts.includes("quote") ||
+      layouts.includes("custom-html") ||
+      layouts.includes("stat-row");
+    if (!hasGlassBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "Glass theme (aurora-glass / glassmorphism) needs a frosted product beat — add image-hero, quote, punchy stats, or a composed custom-html moment.",
+      });
+    }
+  }
+
+  const electricThemes = new Set(["electric-studio", "studio"]);
+  if (electricThemes.has(theme) && slides.length >= 5) {
+    const hasElectricBeat =
+      layouts.includes("image-hero") ||
+      layouts.includes("comparison") ||
+      layouts.includes("stat-row") ||
+      layouts.includes("quote");
+    if (!hasElectricBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "electric-studio / studio needs a loud brand beat — add image-hero, comparison+emphasis, punchy stats, or quote (not only soft grids).",
+      });
+    }
+  }
+
+  if (theme === "brutalist-mono" && slides.length >= 5) {
+    const hasMonoBeat =
+      layouts.includes("comparison") ||
+      layouts.includes("quote") ||
+      layouts.includes("image-hero") ||
+      layouts.includes("stat-row");
+    if (!hasMonoBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "brutalist-mono Concrete needs a hard mono beat — add comparison+emphasis, quote, image-hero, or punchy stats.",
+      });
+    }
+  }
+
+  if (theme === "cartesian" && slides.length >= 5) {
+    const hasDraftBeat =
+      layouts.includes("chart") ||
+      layouts.includes("data-table") ||
+      layouts.includes("timeline") ||
+      layouts.includes("ranked-list") ||
+      layouts.includes("stat-row");
+    if (!hasDraftBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "cartesian draft needs a plotted data beat — add chart, data-table, timeline, ranked-list, or stat-row.",
+      });
+    }
+  }
+
   return issues;
 }

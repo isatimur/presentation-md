@@ -508,4 +508,136 @@ describe("auditCraft", () => {
     const issues = auditCraft(deck);
     expect(issues.some((i) => /genz-bento|hard-bento beat/i.test(i.message))).toBe(true);
   });
+
+  it("warns when aurora-glass lacks a frosted product beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "aurora-glass", title: "Flat glass" },
+      slides: [
+        { layout: "title", heading: "Glass" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        {
+          layout: "feature-grid",
+          heading: "Cards",
+          columns: 3,
+          cards: [
+            { title: "One", body: "A", icon: "fa-solid fa-1" },
+            { title: "Two", body: "B", icon: "fa-solid fa-2" },
+            { title: "Three", body: "C", icon: "fa-solid fa-3" },
+          ],
+        },
+        { layout: "timeline", heading: "Steps", items: [{ label: "One", detail: "A" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /Glass theme|frosted product beat/i.test(i.message))).toBe(true);
+  });
+
+  it("warns when electric-studio lacks a loud brand beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "electric-studio", title: "Flat electric" },
+      slides: [
+        { layout: "title", heading: "Electric" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        {
+          layout: "feature-grid",
+          heading: "Cards",
+          columns: 3,
+          cards: [
+            { title: "One", body: "A", icon: "fa-solid fa-1" },
+            { title: "Two", body: "B", icon: "fa-solid fa-2" },
+            { title: "Three", body: "C", icon: "fa-solid fa-3" },
+          ],
+        },
+        { layout: "timeline", heading: "Steps", items: [{ label: "One", detail: "A" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /electric-studio|loud brand beat/i.test(i.message))).toBe(true);
+  });
+
+  it("warns when brutalist-mono lacks a hard mono beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "brutalist-mono", title: "Flat concrete" },
+      slides: [
+        { layout: "title", heading: "Concrete" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        {
+          layout: "feature-grid",
+          heading: "Cards",
+          columns: 3,
+          cards: [
+            { title: "One", body: "A", icon: "fa-solid fa-1" },
+            { title: "Two", body: "B", icon: "fa-solid fa-2" },
+            { title: "Three", body: "C", icon: "fa-solid fa-3" },
+          ],
+        },
+        { layout: "timeline", heading: "Steps", items: [{ label: "One", detail: "A" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /brutalist-mono|hard mono beat/i.test(i.message))).toBe(true);
+  });
+
+  it("warns when cartesian lacks a plotted data beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "cartesian", title: "Flat draft" },
+      slides: [
+        { layout: "title", heading: "Draft" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        {
+          layout: "feature-grid",
+          heading: "Cards",
+          columns: 3,
+          cards: [
+            { title: "One", body: "A", icon: "fa-solid fa-1" },
+            { title: "Two", body: "B", icon: "fa-solid fa-2" },
+            { title: "Three", body: "C", icon: "fa-solid fa-3" },
+          ],
+        },
+        { layout: "quote", heading: "Note", quote: "Plot it." },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /cartesian|plotted data beat/i.test(i.message))).toBe(true);
+  });
 });

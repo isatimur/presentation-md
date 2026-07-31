@@ -162,3 +162,63 @@ Themes: `aerospace-hud`, `crt-terminal`, `blueprint`. Instrument chrome + a real
 07 two-column    — Ops note + visual (ratio: 2-1)
 08 closing       — Dual ask with icons
 ```
+
+## Modernist short (8)
+
+Themes: `bauhaus`, `swiss-typographic`, `art-deco`. Geometry + hard type — not soft SaaS cards.
+
+```
+01 title         — Manifesto / system name
+02 image-hero OR quote — Primary visual / epigraph
+03 comparison    — Old craft vs new craft (emphasis)
+04 feature-grid  — 3 pillars (icons)
+05 two-column    — Principle + diagram (ratio: 2-1)
+06 stat-row      — 1–3 proof numbers
+07 timeline      — Build sequence
+08 closing       — Dual ask with icons
+```
+
+## Hard-bento short (8)
+
+Themes: `genz-bento` (+ loud studio peers). Chunky ink borders, offset shadow energy.
+
+```
+01 title         — Loud product promise
+02 image-hero    — Hero product / lifestyle still
+03 comparison    — Before vs after (emphasis)
+04 feature-grid  — 5 cards with columns:"bento"
+05 stat-row      — Punchy launch numbers
+06 quote         — Community / founder line
+07 logo-wall OR timeline — Partners / ship plan
+08 closing       — Dual ask (solid + outline) with icons
+```
+
+## Glass product short (8)
+
+Themes: `aurora-glass`, `glassmorphism`. Frosted product energy — cinematic, not flat cards.
+
+```
+01 title         — Soft product promise
+02 image-hero    — Product in atmosphere
+03 quote         — One sharp product line
+04 feature-grid  — 3 capabilities (icons)
+05 stat-row      — Trust / adoption numbers
+06 two-column    — Moment + copy (ratio: 2-1)
+07 comparison    — Status quo vs glass (emphasis)
+08 closing       — Dual ask with icons
+```
+
+## Electric brand short (8)
+
+Themes: `electric-studio`, `studio`, `creative-voltage`. Loud split/rail brand decks.
+
+```
+01 title         — Brand call to action
+02 image-hero    — Signature brand visual
+03 comparison    — Noise vs signal (emphasis)
+04 feature-grid  — 3 offerings (icons)
+05 quote         — Brand manifesto line
+06 stat-row      — Proof numbers
+07 timeline OR logo-wall — Work / clients
+08 closing       — Dual ask with icons
+```
