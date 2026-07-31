@@ -23,6 +23,18 @@ function cardStroke(
   if (ctx.themeName === "daisy-days") {
     return { color: "2D2D2D", width: opts.hero || opts.highlighted ? 2.75 : 2.5 };
   }
+  // block-frame-brutal cards: 4px ink
+  if (ctx.themeName === "block-frame") {
+    return { color: "000000", width: opts.hero || opts.highlighted ? 3.25 : 3 };
+  }
+  // creative-mode-blocks cards: 3px ink
+  if (ctx.themeName === "creative-mode") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.75 : 2.5 };
+  }
+  // sakura-chroma-cassette cards: 2px ink
+  if (ctx.themeName === "sakura-chroma") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2 : 1.75 };
+  }
   // stencil-tablet-earth / retro-zine-riso cards: 2px hard ink
   if (ctx.themeName === "stencil-tablet" || ctx.themeName === "retro-zine") {
     return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.25 : 2 };
@@ -46,8 +58,16 @@ function cardRadius(ctx: ExportContext): number {
   if (ctx.themeName === "daisy-days") return 0.21;
   // stencil-tablet-earth cards: border-radius 24px ≈ 0.25"
   if (ctx.themeName === "stencil-tablet") return 0.25;
-  // retro-zine-riso cards: square
-  if (ctx.themeName === "retro-zine") return 0;
+  // retro-zine-riso / block-frame-brutal / creative-mode-blocks cards: square
+  if (
+    ctx.themeName === "retro-zine" ||
+    ctx.themeName === "block-frame" ||
+    ctx.themeName === "creative-mode"
+  ) {
+    return 0;
+  }
+  // sakura-chroma-cassette cards: border-radius 4px ≈ 0.04"
+  if (ctx.themeName === "sakura-chroma") return 0.04;
   return 0.06;
 }
 
@@ -2696,12 +2716,32 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "brutalist-acid") {
-    // Hard acid frame on every slide; hero gets offset shadow block.
+    // Hard acid frame + 10px accent offset shadow every slide (acid-block);
+    // hero also gets the offset lime plate (::after is hero-gated in HTML).
+    const shadow = 0.12;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - shadow,
+      y: shadow,
+      w: shadow,
+      h: ctx.height - shadow,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: shadow,
+      y: ctx.height - shadow,
+      w: ctx.width - shadow,
+      h: shadow,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.1,
       y: 0.1,
-      w: ctx.width - 0.2,
-      h: ctx.height - 0.2,
+      w: ctx.width - 0.1 - shadow,
+      h: ctx.height - 0.1 - shadow,
       fill: { color: ctx.colors.bg, transparency: 100 },
       line: { color: ctx.colors.accent, width: 2.5 },
       rectRadius: 0,
@@ -3412,13 +3452,33 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "neo-grid-bold") {
-    // Modular grid + lemon corner panel + hard border (neo-grid-panels).
+    // Modular grid + lemon corner panel + hard border + 8px accent offset
+    // shadow (neo-grid-panels).
+    const shadow = 0.1;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - shadow,
+      y: shadow,
+      w: shadow,
+      h: ctx.height - shadow,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: shadow,
+      y: ctx.height - shadow,
+      w: ctx.width - shadow,
+      h: shadow,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
     for (let i = 1; i < 10; i++) {
       slide.addShape(ctx.shapeRoundRect, {
         x: (ctx.width / 10) * i,
         y: 0,
         w: 0.012,
-        h: ctx.height,
+        h: ctx.height - shadow,
         fill: { color: ctx.colors.text, transparency: 85 },
         line: { color: ctx.colors.text, width: 0 },
         rectRadius: 0,
@@ -3428,7 +3488,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       slide.addShape(ctx.shapeRoundRect, {
         x: 0,
         y: (ctx.height / 6) * i,
-        w: ctx.width,
+        w: ctx.width - shadow,
         h: 0.012,
         fill: { color: ctx.colors.text, transparency: 85 },
         line: { color: ctx.colors.text, width: 0 },
@@ -3438,14 +3498,14 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.08,
       y: 0.08,
-      w: ctx.width - 0.16,
-      h: ctx.height - 0.16,
+      w: ctx.width - 0.08 - shadow,
+      h: ctx.height - 0.08 - shadow,
       fill: { color: ctx.colors.bg, transparency: 100 },
       line: { color: ctx.colors.text, width: 2.5 },
       rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.width - 1.55,
+      x: ctx.width - 1.55 - shadow,
       y: 0.55,
       w: 0.95,
       h: 0.95,
@@ -3653,13 +3713,32 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "brutalist-mono") {
-    // Dense mono grid + hard outer frame (brutalist-grid).
+    // Dense mono grid + hard outer frame + 8px ink offset shadow (brutalist-grid).
+    const shadow = 0.1;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - shadow,
+      y: shadow,
+      w: shadow,
+      h: ctx.height - shadow,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: shadow,
+      y: ctx.height - shadow,
+      w: ctx.width - shadow,
+      h: shadow,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
     for (let i = 1; i < 16; i++) {
       slide.addShape(ctx.shapeRoundRect, {
         x: (ctx.width / 16) * i,
         y: 0,
         w: 0.01,
-        h: ctx.height,
+        h: ctx.height - shadow,
         fill: { color: ctx.colors.border, transparency: 55 },
         line: { color: ctx.colors.border, width: 0 },
         rectRadius: 0,
@@ -3669,7 +3748,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       slide.addShape(ctx.shapeRoundRect, {
         x: 0,
         y: (ctx.height / 10) * i,
-        w: ctx.width,
+        w: ctx.width - shadow,
         h: 0.01,
         fill: { color: ctx.colors.border, transparency: 55 },
         line: { color: ctx.colors.border, width: 0 },
@@ -3679,8 +3758,8 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.1,
       y: 0.1,
-      w: ctx.width - 0.2,
-      h: ctx.height - 0.2,
+      w: ctx.width - 0.1 - shadow,
+      h: ctx.height - 0.1 - shadow,
       fill: { color: ctx.colors.bg, transparency: 100 },
       line: { color: ctx.colors.text, width: 2.5 },
       rectRadius: 0,
@@ -3688,34 +3767,56 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "creative-mode") {
-    // Hard shadow frame + stacked accent blocks (creative-mode-blocks).
+    // Hard frame + 10px ink offset shadow every slide; stacked accent blocks
+    // only on heroes (creative-mode-blocks ::before/::after are body-softened).
+    const shadow = 0.12;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - shadow,
+      y: shadow,
+      w: shadow,
+      h: ctx.height - shadow,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: shadow,
+      y: ctx.height - shadow,
+      w: ctx.width - shadow,
+      h: shadow,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.12,
       y: 0.12,
-      w: ctx.width - 0.12,
-      h: ctx.height - 0.12,
+      w: ctx.width - 0.12 - shadow,
+      h: ctx.height - 0.12 - shadow,
       fill: { color: ctx.colors.bg, transparency: 100 },
       line: { color: ctx.colors.text, width: 3 },
       rectRadius: 0,
     });
-    slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.width - 2.0,
-      y: 0.55,
-      w: 1.2,
-      h: 1.2,
-      fill: { color: ctx.colors.accent2 },
-      line: { color: ctx.colors.accent2, width: 0 },
-      rectRadius: 0,
-    });
-    slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.width - 2.85,
-      y: 1.35,
-      w: 0.75,
-      h: 0.75,
-      fill: { color: ctx.colors.accent },
-      line: { color: ctx.colors.accent, width: 0 },
-      rectRadius: 0,
-    });
+    if (isHero) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width - 2.0,
+        y: 0.55,
+        w: 1.2,
+        h: 1.2,
+        fill: { color: ctx.colors.accent2 },
+        line: { color: ctx.colors.accent2, width: 0 },
+        rectRadius: 0,
+      });
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width - 2.85,
+        y: 1.35,
+        w: 0.75,
+        h: 0.75,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
   }
 
   if (theme === "biennale-yellow") {
@@ -3911,11 +4012,31 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "raw-grid") {
-    // Blush/sage bands + cross rules + hard frame (raw-grid-brutal).
+    // Blush/sage bands + cross rules + hard frame + 6px ink offset shadow
+    // (raw-grid-brutal box-shadow is always-on).
+    const shadow = 0.08;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - shadow,
+      y: shadow,
+      w: shadow,
+      h: ctx.height - shadow,
+      fill: { color: "0A0A0A" },
+      line: { color: "0A0A0A", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: shadow,
+      y: ctx.height - shadow,
+      w: ctx.width - shadow,
+      h: shadow,
+      fill: { color: "0A0A0A" },
+      line: { color: "0A0A0A", width: 0 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0,
       y: 0,
-      w: ctx.width,
+      w: ctx.width - shadow,
       h: ctx.height * 0.28,
       fill: { color: "F2D4CF" },
       line: { color: "F2D4CF", width: 0 },
@@ -3925,7 +4046,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       x: 0,
       y: 0,
       w: ctx.width * 0.22,
-      h: ctx.height,
+      h: ctx.height - shadow,
       fill: { color: "E5EDD6" },
       line: { color: "E5EDD6", width: 0 },
       rectRadius: 0,
@@ -3943,7 +4064,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     slide.addShape(ctx.shapeRoundRect, {
       x: 0,
       y: ctx.height * 0.28,
-      w: ctx.width,
+      w: ctx.width - shadow,
       h: 0.035,
       fill: { color: "0A0A0A" },
       line: { color: "0A0A0A", width: 0 },
@@ -3953,7 +4074,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       x: ctx.width * 0.22,
       y: 0,
       w: 0.035,
-      h: ctx.height,
+      h: ctx.height - shadow,
       fill: { color: "0A0A0A" },
       line: { color: "0A0A0A", width: 0 },
       rectRadius: 0,
@@ -3961,8 +4082,8 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.08,
       y: 0.08,
-      w: ctx.width - 0.16,
-      h: ctx.height - 0.16,
+      w: ctx.width - 0.08 - shadow,
+      h: ctx.height - 0.08 - shadow,
       fill: { color: ctx.colors.bg, transparency: 100 },
       line: { color: "0A0A0A", width: 2.5 },
       rectRadius: 0,
@@ -4002,19 +4123,39 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "sakura-chroma") {
-    // Hard frame always; chroma strip + stamp orbs on heroes (sakura-chroma-cassette).
+    // Hard frame + accent-tinted offset shadow every slide; chroma strip +
+    // stamp orbs stay hero-gated (sakura-chroma-cassette).
+    const shadow = 0.12;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - shadow,
+      y: shadow,
+      w: shadow,
+      h: ctx.height - shadow,
+      fill: { color: ctx.colors.accent, transparency: 65 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: shadow,
+      y: ctx.height - shadow,
+      w: ctx.width - shadow,
+      h: shadow,
+      fill: { color: ctx.colors.accent, transparency: 65 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.08,
       y: 0.08,
-      w: ctx.width - 0.16,
-      h: ctx.height - 0.16,
+      w: ctx.width - 0.08 - shadow,
+      h: ctx.height - 0.08 - shadow,
       fill: { color: ctx.colors.bg, transparency: 100 },
       line: { color: ctx.colors.text, width: 2 },
       rectRadius: 0.06,
     });
     if (isHero) {
       const chroma = ["E5392A", "E54489", "F09131", "3D9F47", "3F8BC4", "F0BC2A"];
-      const stripW = ctx.width * 0.48;
+      const stripW = (ctx.width - shadow) * 0.48;
       const band = stripW / chroma.length;
       for (let i = 0; i < chroma.length; i++) {
         slide.addShape(ctx.shapeRoundRect, {
@@ -4028,10 +4169,10 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         });
       }
       const stamps = [
-        { x: ctx.width - 1.85, y: 0.55, color: "E54489" },
-        { x: ctx.width - 1.35, y: 0.72, color: "F09131" },
-        { x: ctx.width - 1.6, y: 1.15, color: "3F8BC4" },
-        { x: ctx.width - 1.95, y: 1.05, color: "3D9F47" },
+        { x: ctx.width - 1.85 - shadow, y: 0.55, color: "E54489" },
+        { x: ctx.width - 1.35 - shadow, y: 0.72, color: "F09131" },
+        { x: ctx.width - 1.6 - shadow, y: 1.15, color: "3F8BC4" },
+        { x: ctx.width - 1.95 - shadow, y: 1.05, color: "3D9F47" },
       ];
       for (const s of stamps) {
         slide.addShape(ctx.shapeOval, {
@@ -4045,7 +4186,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       }
       slide.addShape(ctx.shapeRoundRect, {
         x: 0.55,
-        y: ctx.height - 0.85,
+        y: ctx.height - 0.85 - shadow,
         w: 0.7,
         h: 0.28,
         fill: { color: ctx.colors.accent },
@@ -4122,19 +4263,39 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "block-frame") {
-    // Hard neobrutalist frame; pastel offset blocks on heroes (block-frame-brutal).
+    // Hard neobrutalist frame + 8px ink offset shadow every slide; pastel
+    // offset blocks stay hero-gated (block-frame-brutal).
+    const shadow = 0.1;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - shadow,
+      y: shadow,
+      w: shadow,
+      h: ctx.height - shadow,
+      fill: { color: "000000" },
+      line: { color: "000000", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: shadow,
+      y: ctx.height - shadow,
+      w: ctx.width - shadow,
+      h: shadow,
+      fill: { color: "000000" },
+      line: { color: "000000", width: 0 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.1,
       y: 0.1,
-      w: ctx.width - 0.2,
-      h: ctx.height - 0.2,
+      w: ctx.width - 0.1 - shadow,
+      h: ctx.height - 0.1 - shadow,
       fill: { color: ctx.colors.bg, transparency: 100 },
       line: { color: "000000", width: 3.5 },
       rectRadius: 0,
     });
     if (isHero) {
       slide.addShape(ctx.shapeRoundRect, {
-        x: ctx.width * 0.72,
+        x: ctx.width * 0.72 - shadow,
         y: ctx.height * 0.12,
         w: ctx.width * 0.28,
         h: ctx.height * 0.18,

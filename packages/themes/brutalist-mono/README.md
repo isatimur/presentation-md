@@ -33,3 +33,5 @@ npm i @presentation-md/theme-brutalist-mono
 | border   | `rgba(10,10,10,0.85)` |
 
 > Screenshot placeholder — run the skill to preview.
+
+Surface craft: dense mono grid + hard frame + ink offset shadow (HTML). PPTX mirrors grid/frame/shadow.

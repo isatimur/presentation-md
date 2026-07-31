@@ -60,7 +60,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   vaporwave gets horizon wash + pink sun; y2k-aero gets glossy bubble ovals;
   aurora-glass / glassmorphism get dual mist ovals + glass frames; luxury-minimalist gets a gold hairline on heroes and a quiet border on body slides; crt-terminal gets phosphor wash + denser scanlines + bezel;
   blueprint gets a light grid + dual reticles + outer frame; brutalist-acid gets a
-  hard acid frame (heroes also get an offset block); aerospace-hud gets a HUD
+  hard acid frame + accent offset shadow (heroes also get an offset plate); aerospace-hud gets a HUD
   grid + dual reticles + telemetry stub; swiss-typographic gets a modular grid + red left rail;
   ft-editorial gets a masthead bar + quiet frame + double bottom rules + accent stub; bauhaus gets a hard frame (heroes get
   red square + blue circle; body gets a quiet accent stub); fintech-clean / scandinavian get soft radial washes + clean frames; art-deco gets a gold frame + hairline
@@ -70,23 +70,23 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   dark-botanical gets bloom washes + a left rail;
   pastel-geometry gets a card wash + vertical pastel edge pills;
   8-bit-orbit gets scanlines + neon orbs + pixel HUD chips;
-  neo-grid-bold gets a modular grid + lemon corner panel + hard frame;
+  neo-grid-bold gets a modular grid + lemon corner panel + hard frame + accent offset shadow;
   bold-poster gets a hard frame + offset shadow + ink top bar (poster block on heroes);
   capsule gets plump frame + soft shadow + pastel blots + hero-gated coral pill/lime circles + plump card radius;
   cobalt-grid gets a cobalt paper grid + corner hatch;
   retro-arcade gets scanlines + neon top rail;
-  brutalist-mono gets a dense mono grid + hard frame;
-  creative-mode gets a hard shadow frame + stacked accent blocks;
+  brutalist-mono gets a dense mono grid + hard frame + ink offset shadow;
+  creative-mode gets a hard frame + ink offset shadow on every slide + hero-gated stacked accent blocks + square hard-border cards;
   biennale-yellow gets a sun orb + top hairline;
   scatterbrain gets cork sticky notes + pin dots;
   split-pastel gets dual pastel corner washes (heroes also get a split field + stacked pastel pills);
   coral gets a hatch frame + coral left wash;
   peoples-platform gets a cobalt top bar + amber stub + hard frame;
-  raw-grid gets blush/sage bands + cross rules;
+  raw-grid gets blush/sage bands + cross rules + ink offset shadow;
   retro-zine gets a hard frame + offset green plate + cream card on every slide + square hard-border cards;
-  sakura-chroma gets a chroma strip + stamp orbs on heroes;
+  sakura-chroma gets a hard frame + accent-tinted offset shadow on every slide + chroma strip/stamp orbs on heroes + hard-border cards;
   daisy-days gets hard frame + charcoal offset shadow + pastel dots + daisy/pill ornaments on every slide + plump hard-border cards;
-  block-frame gets a hard frame + pastel offset blocks on heroes;
+  block-frame gets a hard frame + ink offset shadow on every slide + pastel offset blocks on heroes + square hard-border cards;
   editorial-tri-tone gets a butter split + burgundy wash;
   broadside gets a fire-orange rail + corner block + outer border (heroes also get a top stub);
   pink-script gets a soft pink wash + inset frame + hairline;
