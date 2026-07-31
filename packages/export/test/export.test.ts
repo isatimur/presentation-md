@@ -388,6 +388,73 @@ describe("deckToPptx", () => {
     expect(result.warnings.some((w) => w.includes("Unknown layout"))).toBe(false);
   });
 
+
+  it("paints soft blob chrome for Pulse, risograph, and candy-pop", async () => {
+    const palettes: Record<string, ResolvedTheme["palette"]> = {
+      "kinetic-wrapped": {
+        bg: "#0a0a0a",
+        bg2: "#0d0d0d",
+        text: "#ffffff",
+        muted: "#c8c8c8",
+        accent: "#c8ff00",
+        accent2: "#ff00cc",
+        cardBg: "rgba(200,255,0,0.12)",
+        border: "rgba(200,255,0,0.55)",
+      },
+      "risograph-zine": {
+        bg: "#f3ecdd",
+        bg2: "#e8dfc8",
+        text: "#1a1209",
+        muted: "#685a46",
+        accent: "#ff4f4f",
+        accent2: "#2b3aff",
+        cardBg: "rgba(255,79,79,0.06)",
+        border: "rgba(26,18,9,0.18)",
+      },
+      "candy-pop": {
+        bg: "#fdf3e7",
+        bg2: "#f7e8d4",
+        text: "#1a1a2e",
+        muted: "#6a5c6f",
+        accent: "#ff5d8f",
+        accent2: "#2d7dd2",
+        cardBg: "rgba(255,93,143,0.08)",
+        border: "rgba(26,26,46,0.14)",
+      },
+    };
+    for (const themeName of ["kinetic-wrapped", "risograph-zine", "candy-pop"] as const) {
+      const t: ResolvedTheme = {
+        ...theme,
+        name: themeName,
+        palette: palettes[themeName]!,
+      };
+      const deck: DeckJson = {
+        type: "deck",
+        meta: { title: "Chrome", theme: themeName },
+        slides: [
+          { layout: "title", heading: "Cover", lead: "Hero chrome" },
+          {
+            layout: "section",
+            heading: "Body",
+            lead: "Tone or overprint",
+            ...(themeName === "kinetic-wrapped" ? { tone: "magenta" } : {}),
+          },
+          {
+            layout: "closing",
+            heading: "Close",
+            actions: [
+              { label: "Primary", href: "#", style: "solid" },
+              { label: "Secondary", href: "#", style: "outline" },
+            ],
+          },
+        ],
+      };
+      const result = await buildPptx(deck, t);
+      expect(result.slideCount).toBe(3);
+      expect(result.warnings.some((w) => w.includes("Unknown layout"))).toBe(false);
+    }
+  });
+
   it("exports streak-grid, metric-ring, and dual closing actions", async () => {
     const deck: DeckJson = {
       type: "deck",

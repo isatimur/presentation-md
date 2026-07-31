@@ -44,7 +44,10 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   `pct` is 1–99), and closing `actions[]`
   (solid + outline pills; `cta` remains an alias for the first action). Geometry is
   native shapes, not a screenshot — expect editability over pixel parity.
-- Soft blob / mix-blend Pulse chrome is HTML-only; PPTX approximates tone fills.
+- Soft blob / mix-blend chrome is approximated in PPTX (not pixel-perfect): Pulse
+  gets multi-oval soft blobs on hero/tone/body; risograph gets layered coral+blue
+  overprint washes; candy-pop gets pink/blue blobs plus a yellow ticker strip on
+  title/closing. True CSS `mix-blend-mode` / animated marquees remain HTML-only.
 - Every non-mappable field emits a warning (via `opts.onWarn` / `result.warnings`) — nothing
   is dropped silently.
 

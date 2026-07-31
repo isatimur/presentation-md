@@ -1854,16 +1854,57 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       orange: "FF4D00",
       violet: "7A00FF",
     };
+    // Secondary blob hue per tone (HTML soft-blob / mix-blend stand-in).
+    const secondaryBlob: Record<string, string> = {
+      lime: "FF00CC",
+      magenta: "00E5FF",
+      cyan: "C8FF00",
+      orange: "7A00FF",
+      violet: "FF4D00",
+    };
     if (isHero) {
-      // Lime-field cover/closing — matches wrapped-block HTML flip.
+      // Lime-field cover/closing + cyan/yellow soft blobs (wrapped-block ::before/::after).
       slide.background = { color: "C8FF00" };
+      slide.addShape(ctx.shapeOval, {
+        x: ctx.width * 0.55,
+        y: -ctx.height * 0.18,
+        w: ctx.width * 0.52,
+        h: ctx.height * 0.58,
+        fill: { color: "00E5FF", transparency: 55 },
+        line: { color: "00E5FF", width: 0 },
+      });
+      slide.addShape(ctx.shapeOval, {
+        x: -ctx.width * 0.1,
+        y: ctx.height * 0.52,
+        w: ctx.width * 0.42,
+        h: ctx.height * 0.55,
+        fill: { color: "FFEA00", transparency: 40 },
+        line: { color: "FFEA00", width: 0 },
+      });
       return;
     }
     if (tone && hueMap[tone]) {
       slide.background = { color: hueMap[tone]! };
+      const blob = secondaryBlob[tone] ?? "FFFFFF";
+      slide.addShape(ctx.shapeOval, {
+        x: ctx.width * 0.58,
+        y: -ctx.height * 0.2,
+        w: ctx.width * 0.5,
+        h: ctx.height * 0.55,
+        fill: { color: blob, transparency: 62 },
+        line: { color: blob, width: 0 },
+      });
+      slide.addShape(ctx.shapeOval, {
+        x: -ctx.width * 0.08,
+        y: ctx.height * 0.58,
+        w: ctx.width * 0.36,
+        h: ctx.height * 0.48,
+        fill: { color: "0A0A0A", transparency: 70 },
+        line: { color: "0A0A0A", width: 0 },
+      });
       return;
     }
-    // Magenta accent blot — stand-in for multi-hue body energy.
+    // Body: lime wash + magenta blot + cyan secondary (multi-hue energy).
     slide.addShape(ctx.shapeOval, {
       x: ctx.width - 2.2,
       y: -0.4,
@@ -1872,6 +1913,85 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       fill: { color: ctx.colors.accent2, transparency: 35 },
       line: { color: ctx.colors.accent2, width: 0 },
     });
+    slide.addShape(ctx.shapeOval, {
+      x: -0.8,
+      y: ctx.height - 2.0,
+      w: 2.4,
+      h: 2.4,
+      fill: { color: "00E5FF", transparency: 55 },
+      line: { color: "00E5FF", width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.35,
+      y: ctx.height * 0.7,
+      w: 1.6,
+      h: 1.6,
+      fill: { color: ctx.colors.accent, transparency: 72 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+  }
+
+  if (theme === "risograph-zine") {
+    // Overprint multiply stand-ins — translucent coral + blue washes (mix-blend ≈ layered ovals).
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.48,
+      y: -ctx.height * 0.12,
+      w: ctx.width * 0.58,
+      h: ctx.height * 0.58,
+      fill: { color: ctx.colors.accent, transparency: 78 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: -ctx.width * 0.08,
+      y: ctx.height * 0.48,
+      w: ctx.width * 0.48,
+      h: ctx.height * 0.55,
+      fill: { color: ctx.colors.accent2, transparency: 76 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+    if (isHero) {
+      // Extra misregistration blot on cover/closing.
+      slide.addShape(ctx.shapeOval, {
+        x: ctx.width * 0.72,
+        y: ctx.height * 0.62,
+        w: 1.8,
+        h: 1.8,
+        fill: { color: ctx.colors.accent, transparency: 70 },
+        line: { color: ctx.colors.accent, width: 0 },
+      });
+    }
+  }
+
+  if (theme === "candy-pop") {
+    // Soft pink + blue blobs (candy-blob radial washes).
+    slide.addShape(ctx.shapeOval, {
+      x: -ctx.width * 0.08,
+      y: -ctx.height * 0.15,
+      w: ctx.width * 0.48,
+      h: ctx.height * 0.55,
+      fill: { color: ctx.colors.accent, transparency: 72 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.55,
+      y: ctx.height * 0.45,
+      w: ctx.width * 0.5,
+      h: ctx.height * 0.55,
+      fill: { color: ctx.colors.accent2, transparency: 68 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+    if (isHero) {
+      // Yellow ticker-strip stand-in (gallery marquee bar).
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: ctx.height - 0.55,
+        w: ctx.width,
+        h: 0.55,
+        fill: { color: "FFE566" },
+        line: { color: ctx.colors.text, width: 1.5 },
+        rectRadius: 0,
+      });
+    }
   }
 }
 

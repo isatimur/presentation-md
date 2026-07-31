@@ -11,3 +11,5 @@ npm i @presentation-md/theme-candy-pop
 Use in deck JSON: `"meta": { "theme": "candy-pop" }`
 
 Surface profile: `candy-blob`.
+
+Gallery-parity: yellow marquee ticker on title/closing; soft pink/blue blobs in HTML + PPTX.
