@@ -15,9 +15,9 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
 - Solid hex maps directly. Translucent `rgba(...)` tokens (cardBg, border) are
   alpha-composited over the slide background to an opaque hex so cards/borders stay visible.
 - CSS gradients and `color-mix(...)` are approximated where feasible: a translucent
-  `bg2` wash over `bg`, plus theme-specific title chrome (`bold-signal` orange panel,
-  `creative-voltage` split field, `mat` woodglow oval). Exact CSS gradients are not
-  reconstructed.
+  `bg2` wash over `bg`, plus theme-specific title chrome (`bold-signal` orange panel +
+  body blot/stub, `creative-voltage` split field, `mat` woodglow + hairlines). Exact CSS
+  gradients are not reconstructed.
 
 ## Layout
 - Geometry uses `theme.geometry.slideWidth` (px → inches at 96dpi) at native 16:9.
@@ -59,9 +59,10 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   neon-noir gets magenta/cyan glow ovals;
   vaporwave gets horizon wash + pink sun; y2k-aero gets glossy bubble ovals;
   aurora-glass / glassmorphism get dual mist ovals; luxury-minimalist heroes get a
-  gold hairline; crt-terminal gets phosphor scanlines; blueprint gets a light grid +
-  reticle; brutalist-acid heroes get an acid offset block; aerospace-hud gets a HUD
-  grid + reticle; swiss-typographic gets a modular grid + red left rail;
+  gold hairline; crt-terminal gets phosphor wash + denser scanlines + bezel;
+  blueprint gets a light grid + dual reticles + outer frame; brutalist-acid gets a
+  hard acid frame (heroes also get an offset block); aerospace-hud gets a HUD
+  grid + dual reticles + telemetry stub; swiss-typographic gets a modular grid + red left rail;
   ft-editorial gets a masthead bar + bottom rule; bauhaus heroes get red square +
   blue circle; fintech-clean / scandinavian get soft radial washes; art-deco heroes
   get a gold hairline + deco ring; botanical-luxe gets a gold hairline + leaf ring;
@@ -95,7 +96,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   emerald-editorial gets masthead rules + inset frame;
   notebook-tabs gets pastel side tabs + binder holes;
   long-table gets speckles + outline pill + hairline;
-  paper-ink gets crimson top/bottom rules;
+  paper-ink gets crimson top/bottom rules + corner stub;
   vintage-editorial heroes get a geometric ring + dots;
   studio gets acid hairline rails;
   grove gets a quiet hairline + coral stub;
@@ -107,7 +108,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   editorial-forest gets a forest rule + blush orb;
   signal gets a briefing hairline + outline square;
   pastel-dreamy gets soft cloud ovals;
-  vellum gets a soft colorfield wash;
+  vellum gets a soft colorfield wash + teal/chartreuse orbs;
   editorial-serif gets an accent rule + deco ring;
   soft-editorial gets a sage wash + blush candy orb;
   claude (warm-paper) gets a soft coral corner wash;
