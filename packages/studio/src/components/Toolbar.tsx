@@ -280,13 +280,23 @@ export function Toolbar({
           </ul>
         </div>
       </details>
-      <button className="btn" onClick={() => void copyLink()} title="Copy a shareable Studio deep-link">
-        Copy link
-      </button>
-      <button className="btn" onClick={() => fileRef.current?.click()} title="Open a deck .html, .json, or .pptx">Open</button>
-      <button className="btn" onClick={onPresent} title="Present fullscreen">Present</button>
+      <div className="toolbar-secondary" role="group" aria-label="Deck actions">
+        <button className="btn toolbar-desktop-only" onClick={() => void copyLink()} title="Copy a shareable Studio deep-link">
+          Copy link
+        </button>
+        <button className="btn toolbar-desktop-only" onClick={() => fileRef.current?.click()} title="Open a deck .html, .json, or .pptx">Open</button>
+        <button className="btn toolbar-desktop-only" onClick={onPresent} title="Present fullscreen">Present</button>
+        <details className="toolbar-more toolbar-mobile-only">
+          <summary className="btn btn-sm" title="More deck actions">More ▾</summary>
+          <div className="toolbar-more-panel">
+            <button type="button" className="btn" onClick={() => void copyLink()}>Copy link</button>
+            <button type="button" className="btn" onClick={() => fileRef.current?.click()}>Open file</button>
+            <button type="button" className="btn" onClick={onPresent}>Present</button>
+          </div>
+        </details>
+      </div>
       <button
-        className={`btn${liveCraftIssues.length ? " audit-live-dirty" : ""}`}
+        className={`btn btn-audit${liveCraftIssues.length ? " audit-live-dirty" : ""}`}
         onClick={runCraftAudit}
         title="Run craft gates. Panel auto-opens on live errors and refreshes as you edit."
       >
