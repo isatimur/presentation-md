@@ -1,5 +1,20 @@
 # @presentation-md/mcp-server
 
+## 1.8.0
+
+### Minor Changes
+
+- 8fd4189: Extend generate_deck_prompt craft mandate for mat / cobalt-grid / biennale / pastel / retro-arcade honesty and denser PPTX chrome expectations.
+
+### Patch Changes
+
+- Updated dependencies [8fd4189]
+- Updated dependencies [fb22ade]
+  - @presentation-md/core@1.10.0
+  - @presentation-md/export@1.18.0
+  - @presentation-md/create-theme@1.0.27
+  - @presentation-md/render@1.6.19
+
 ## 1.7.0
 
 ### Minor Changes

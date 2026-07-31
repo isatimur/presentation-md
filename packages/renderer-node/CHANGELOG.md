@@ -1,5 +1,14 @@
 # @presentation-md/render
 
+## 1.6.19
+
+### Patch Changes
+
+- Updated dependencies [8fd4189]
+- Updated dependencies [fb22ade]
+  - @presentation-md/core@1.10.0
+  - @presentation-md/export@1.18.0
+
 ## 1.6.18
 
 ### Patch Changes
