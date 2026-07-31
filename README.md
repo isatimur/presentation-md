@@ -41,7 +41,7 @@ Demo without installing: open the [gallery](https://presentation-md.vercel.app/#
 | | presentation-md | frontend-slides |
 |---|---|---|
 | **Themes** | **75** published + create-from-brand | Style presets / template pack |
-| **Discovery** | Studio **pick-3 compare** + mood/popular browse + `preview_themes` layouts bake | Live style gallery (strong) |
+| **Discovery** | Studio **pick-3 compare** with Title/Bento/Compare crops + mood/popular browse + CLI `--preview-compare` + `preview_themes` layouts bake | Live style gallery (strong) |
 | **One-shot quality** | Anti-slop + stunning-25-first + density lock + `audit_deck`/`judge_deck` | Anti-slop rules; no shared audit product |
 | **Authoring model** | Schema-validated **Deck JSON** agents can diff/edit one slide | Prompt → HTML (harder to surgically edit) |
 | **Layouts** | **18** craft layouts (`ranked-list`, `logo-wall`, `streak-grid`, `metric-ring`, `chart`, `custom-html`, `image-hero`, bento, comparison, code…) | Template-driven HTML |

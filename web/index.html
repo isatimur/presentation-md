@@ -541,6 +541,25 @@
       .brand-mark, .brand-mark::after, .site-hero h1, .tagline, .ctas,
       .hero-stage, .hero-stage-frame iframe,
       .showreel-track { animation: none !important; }
+      .theme-card, .gallery-card {
+        transition: none !important;
+        transform: none !important;
+        will-change: auto;
+      }
+      .theme-card:hover, .gallery-card:hover {
+        transform: none !important;
+      }
+      .theme-card::before, .gallery-card::before {
+        opacity: 0.4;
+        transform: none !important;
+        filter: blur(5px);
+      }
+      .theme-card::after, .gallery-card::after {
+        /* Static sheen — no pointer-driven brush */
+        background:
+          radial-gradient(circle at 30% 18%, rgba(255,255,255,0.28), transparent 42%),
+          linear-gradient(125deg, rgba(255,255,255,0.22) 0%, transparent 36%, transparent 62%, rgba(11,18,32,0.06) 100%);
+      }
     }
     @media (max-width: 920px) {
       .header-inner { grid-template-columns: 1fr; padding-top: 36px; }
@@ -1314,6 +1333,7 @@
       <span class="filter-label">Judge</span>
       <button type="button" class="theme-filter-chip active" data-preview-crop="title">Title</button>
       <button type="button" class="theme-filter-chip" data-preview-crop="bento">Bento / body</button>
+      <button type="button" class="theme-filter-chip" data-preview-crop="comparison">Comparison</button>
     </div>
 
     <div class="theme-preview-strip" aria-label="Live theme craft previews">
@@ -4544,11 +4564,12 @@
     apply(btn.getAttribute('data-filter') || 'all');
   });
 
-  // Cloth-inspired soft brush: cursor tilt + sheen + contact shadow (no WebGL)
+  // Cloth-inspired soft brush: stronger tilt + sheen; respect reduced-motion
   function attachBrush(sel) {
+    var reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
     document.querySelectorAll(sel).forEach(function (card) {
       card.addEventListener('pointermove', function (ev) {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (reduceMq.matches) return;
         var r = card.getBoundingClientRect();
         var nx = (ev.clientX - r.left) / r.width;
         var ny = (ev.clientY - r.top) / r.height;
@@ -4556,7 +4577,9 @@
         var y = ny - 0.5;
         card.style.setProperty('--sheen-x', (nx * 100).toFixed(1) + '%');
         card.style.setProperty('--sheen-y', (ny * 100).toFixed(1) + '%');
-        card.style.transform = 'translateY(-4px) rotateX(' + (-y * 7) + 'deg) rotateY(' + (x * 9) + 'deg)';
+        // Cloth-ish brush strength: lift + tilt + slight scale
+        card.style.transform =
+          'translateY(-5px) scale(1.015) rotateX(' + (-y * 9) + 'deg) rotateY(' + (x * 11) + 'deg)';
       });
       card.addEventListener('pointerleave', function () {
         card.style.transform = '';
@@ -4600,7 +4623,8 @@
   var GAP = 48;
   var CROPS = {
     title: BODY_PAD,
-    bento: BODY_PAD + SLIDE_H + GAP
+    bento: BODY_PAD + SLIDE_H + GAP,
+    comparison: BODY_PAD + 2 * (SLIDE_H + GAP)
   };
 
   function fitFrame(frame) {
