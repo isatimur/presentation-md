@@ -1,6 +1,6 @@
 {
   "name": "@presentation-md/core",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Core methodology, deck + theme schemas, theme loader, and bundled default theme for presentation-md.",
   "license": "MIT",
   "type": "module",
