@@ -1,5 +1,14 @@
 # @presentation-md/render
 
+## 1.2.11
+
+### Patch Changes
+
+- b114335: Punch kinetic-wrapped toward Pulse craft — brighter muted, louder acid borders, lime title/closing fields.
+- 517fd38: Align luxury-minimalist with Solstice ultra-luxury craft (nocturnal stage, cream type, gold hairlines) and PPTX emphasis fills.
+- Updated dependencies [517fd38]
+  - @presentation-md/export@1.3.7
+
 ## 1.2.10
 
 ### Patch Changes

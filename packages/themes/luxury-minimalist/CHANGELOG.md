@@ -1,5 +1,11 @@
 # @presentation-md/theme-luxury-minimalist
 
+## 1.0.2
+
+### Patch Changes
+
+- 517fd38: Align luxury-minimalist with Solstice ultra-luxury craft (nocturnal stage, cream type, gold hairlines) and PPTX emphasis fills.
+
 ## 1.0.1
 
 ### Patch Changes

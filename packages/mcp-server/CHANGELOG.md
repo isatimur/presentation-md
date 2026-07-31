@@ -1,5 +1,15 @@
 # @presentation-md/mcp-server
 
+## 1.1.12
+
+### Patch Changes
+
+- 502992c: Tighten audit_deck craft warnings and inject stunning-25 craft mandate into generate_deck_prompt.
+- Updated dependencies [b114335]
+- Updated dependencies [517fd38]
+  - @presentation-md/render@1.2.11
+  - @presentation-md/export@1.3.7
+
 ## 1.1.11
 
 ### Patch Changes
