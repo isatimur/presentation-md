@@ -1,5 +1,16 @@
 # @presentation-md/export
 
+## 1.15.0
+
+### Minor Changes
+
+- e7c5f4e: Densify capsule, long-table, and paper-ink PPTX chrome with hero-gated ornaments matching HTML surfaces (plump frames, speckles/borders, crimson rules + drop-cap stubs).
+
+### Patch Changes
+
+- Updated dependencies [bc3f18f]
+  - @presentation-md/core@1.8.4
+
 ## 1.14.0
 
 ### Minor Changes
