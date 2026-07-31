@@ -316,4 +316,26 @@ describe("deckToPptx", () => {
     expect(result.slideCount).toBe(1);
     expect(result.warnings.some((w) => w.includes("Unknown layout"))).toBe(true);
   });
+
+  it("approximates custom-html bars into PPTX without failing", async () => {
+    const deck: DeckJson = {
+      type: "deck",
+      meta: { title: "Custom HTML", theme: "kinetic-wrapped" },
+      slides: [
+        {
+          layout: "custom-html",
+          tone: "magenta",
+          heading: "RUNNING IS YOUR THING.",
+          html: `<div class="pulse-bar-stack">
+            <div style="width:88%;background:#ffffff;color:#cc00ff">Running · 142</div>
+            <div style="width:58%;background:#aaaaaa;color:#ffffff">Strength · 94</div>
+          </div>
+          <p>You ran far.</p>`,
+        },
+      ],
+    };
+    const result = await buildPptx(deck, theme);
+    expect(result.slideCount).toBe(1);
+    expect(result.warnings.some((w) => w.includes("custom-html"))).toBe(true);
+  });
 });

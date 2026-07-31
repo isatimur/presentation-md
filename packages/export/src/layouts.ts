@@ -60,10 +60,13 @@ function renderHero(slide: PSlide, ctx: ExportContext, data: Slide): void {
     ctx.themeName === "kinetic-wrapped" &&
     (data.layout === "title" ||
       data.layout === "closing" ||
-      ["lime", "magenta", "cyan", "orange"].includes(String(data.tone ?? "")));
-  const text = inverted ? "0A0A0A" : ctx.colors.text;
-  const muted = inverted ? "1A1A1A" : ctx.colors.muted;
-  const accent = inverted ? "0A0A0A" : ctx.colors.accent2;
+      ["lime", "cyan", "orange"].includes(String(data.tone ?? "")));
+  const onHueLight =
+    ctx.themeName === "kinetic-wrapped" &&
+    ["magenta", "violet"].includes(String(data.tone ?? ""));
+  const text = inverted ? "0A0A0A" : onHueLight ? "FFFFFF" : ctx.colors.text;
+  const muted = inverted ? "1A1A1A" : onHueLight ? "F0F0F0" : ctx.colors.muted;
+  const accent = inverted ? "0A0A0A" : onHueLight ? "FFFFFF" : ctx.colors.accent2;
 
   if (data.eyebrow) {
     slide.addText(data.eyebrow.toUpperCase(), {
@@ -933,23 +936,236 @@ function renderChart(slide: PSlide, ctx: ExportContext, data: Slide): void {
   }
 }
 
+/** Extract #RRGGBB from a CSS color fragment (best-effort). */
+function cssColorToHex(raw: string | undefined): string | undefined {
+  if (!raw) return undefined;
+  const v = raw.trim();
+  const hex = v.match(/#([0-9a-fA-F]{3,8})\b/);
+  if (hex) {
+    let h = hex[1]!;
+    if (h.length === 3 || h.length === 4) h = [...h].map((c) => c + c).join("");
+    return h.slice(0, 6).toUpperCase();
+  }
+  const rgb = v.match(/rgba?\(\s*(\d+)\s*[, ]\s*(\d+)\s*[, ]\s*(\d+)/i);
+  if (rgb) {
+    const to = (n: string) => Number(n).toString(16).padStart(2, "0");
+    return `${to(rgb[1]!)}${to(rgb[2]!)}${to(rgb[3]!)}`.toUpperCase();
+  }
+  return undefined;
+}
+
+interface HtmlBlock {
+  kind: "heading" | "body" | "bar" | "panel";
+  text: string;
+  fill?: string;
+  color?: string;
+  widthPct?: number;
+}
+
+function decodeEntities(s: string): string {
+  return s
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'");
+}
+
+function stripTags(s: string): string {
+  return decodeEntities(s.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim());
+}
+
+/** Approximate custom-html craft into PPTX shapes + ranked bars + text stack. */
+function parseCustomHtmlBlocks(html: string): HtmlBlock[] {
+  const blocks: HtmlBlock[] = [];
+  const src = html;
+
+  // Ranked / progress bars: elements with style width:NN%
+  const barRe =
+    /<([a-z0-9]+)([^>]*style\s*=\s*["'][^"']*width\s*:\s*(\d+(?:\.\d+)?)%[^"']*["'][^>]*)>([\s\S]*?)<\/\1>/gi;
+  let m: RegExpExecArray | null;
+  const consumed: string[] = [];
+  while ((m = barRe.exec(src))) {
+    const styleAttr = m[2] ?? "";
+    const pct = Number(m[3]);
+    const inner = stripTags(m[4] ?? "");
+    const fillMatch = styleAttr.match(/background(?:-color)?\s*:\s*([^;"']+)/i);
+    const colorMatch = styleAttr.match(/(?:^|[^-])color\s*:\s*([^;"']+)/i);
+    if (inner && pct > 0) {
+      blocks.push({
+        kind: "bar",
+        text: inner,
+        widthPct: Math.min(100, pct),
+        fill: cssColorToHex(fillMatch?.[1]) ?? undefined,
+        color: cssColorToHex(colorMatch?.[1]) ?? undefined,
+      });
+      consumed.push(m[0]);
+    }
+  }
+
+  let remainder = src;
+  for (const c of consumed) remainder = remainder.replace(c, " ");
+
+  // Colored panels (div/span with background, no width%)
+  const panelRe =
+    /<(div|section|aside|article)([^>]*style\s*=\s*["'][^"']*background(?:-color)?\s*:\s*([^;"']+)[^"']*["'][^>]*)>([\s\S]*?)<\/\1>/gi;
+  while ((m = panelRe.exec(remainder))) {
+    const fill = cssColorToHex(m[3]);
+    const text = stripTags(m[4] ?? "");
+    if (fill && text && text.length < 200) {
+      blocks.push({ kind: "panel", text, fill });
+      remainder = remainder.replace(m[0], " ");
+    }
+  }
+
+  for (const hm of remainder.matchAll(/<h[1-3][^>]*>([\s\S]*?)<\/h[1-3]>/gi)) {
+    const t = stripTags(hm[1] ?? "");
+    if (t) blocks.push({ kind: "heading", text: t });
+  }
+  for (const pm of remainder.matchAll(/<(p|li|blockquote)[^>]*>([\s\S]*?)<\/\1>/gi)) {
+    const t = stripTags(pm[2] ?? "");
+    if (t) blocks.push({ kind: "body", text: t });
+  }
+
+  if (!blocks.length) {
+    const plain = stripTags(src);
+    if (plain) blocks.push({ kind: "body", text: plain });
+  }
+  return blocks;
+}
+
 function renderCustomHtml(slide: PSlide, ctx: ExportContext, data: Slide): void {
   const top = renderHeaderBlock(slide, ctx, data);
-  // PPTX cannot host arbitrary HTML — surface the lead/body and a clear note.
-  const note =
-    "This slide used custom-html in the HTML deck. Re-create the art in PowerPoint or keep the HTML export for fidelity.";
-  slide.addText(data.body || data.lead || note, {
-    x: ctx.margin,
-    y: top + 0.2,
-    w: ctx.width - ctx.margin * 2,
-    h: ctx.height - top - ctx.margin - 0.3,
-    fontFace: ctx.fonts.body,
-    color: ctx.colors.muted,
-    fontSize: 16,
-    valign: "top",
-    fit: "shrink",
-  });
-  ctx.warn("custom-html layout approximates to text in PPTX — HTML export keeps full craft.");
+  const html = typeof data.html === "string" ? data.html : "";
+  const blocks = parseCustomHtmlBlocks(html);
+
+  const contentW = ctx.width - ctx.margin * 2;
+  let y = top + 0.15;
+  const bottom = ctx.height - ctx.margin - 0.15;
+  const tone = typeof data.tone === "string" ? data.tone : "";
+  const onHue =
+    ctx.themeName === "kinetic-wrapped" &&
+    ["magenta", "violet"].includes(tone);
+  const defaultText = onHue ? "FFFFFF" : ctx.colors.text;
+  const defaultMuted = onHue ? "F0F0F0" : ctx.colors.muted;
+
+  if (!blocks.length) {
+    const note =
+      "This slide used custom-html in the HTML deck. Re-create the art in PowerPoint or keep the HTML export for fidelity.";
+    slide.addText(data.body || data.lead || note, {
+      x: ctx.margin,
+      y,
+      w: contentW,
+      h: Math.max(0.8, bottom - y),
+      fontFace: ctx.fonts.body,
+      color: defaultMuted,
+      fontSize: 16,
+      valign: "top",
+      fit: "shrink",
+    });
+    ctx.warn("custom-html layout had no parseable content — text fallback.");
+    return;
+  }
+
+  const bars = blocks.filter((b) => b.kind === "bar");
+  const others = blocks.filter((b) => b.kind !== "bar");
+
+  for (const b of others) {
+    if (y >= bottom - 0.4) break;
+    if (b.kind === "panel" && b.fill) {
+      const h = Math.min(1.1, bottom - y);
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.margin,
+        y,
+        w: contentW * 0.72,
+        h,
+        fill: { color: b.fill },
+        line: { color: b.fill, width: 0 },
+        rectRadius: 0.04,
+      });
+      slide.addText(b.text, {
+        x: ctx.margin + 0.15,
+        y: y + 0.12,
+        w: contentW * 0.72 - 0.3,
+        h: h - 0.2,
+        fontFace: ctx.fonts.heading,
+        color: defaultText,
+        fontSize: 18,
+        bold: true,
+        valign: "middle",
+        fit: "shrink",
+      });
+      y += h + 0.12;
+      continue;
+    }
+    const isHead = b.kind === "heading";
+    const h = isHead ? 0.55 : Math.min(1.2, 0.28 + b.text.length * 0.012);
+    slide.addText(b.text, {
+      x: ctx.margin,
+      y,
+      w: contentW,
+      h,
+      fontFace: isHead ? ctx.fonts.heading : ctx.fonts.body,
+      color: isHead ? defaultText : defaultMuted,
+      fontSize: isHead ? 28 : 15,
+      bold: isHead,
+      valign: "top",
+      fit: "shrink",
+    });
+    y += h + 0.08;
+  }
+
+  if (bars.length) {
+    y += 0.08;
+    const barH = Math.min(0.55, (bottom - y - 0.1) / bars.length - 0.1);
+    bars.forEach((bar, i) => {
+      const by = y + i * (barH + 0.12);
+      if (by + barH > bottom) return;
+      // rank gutter
+      slide.addText(String(i + 1).padStart(2, "0"), {
+        x: ctx.margin,
+        y: by,
+        w: 0.55,
+        h: barH,
+        fontFace: ctx.fonts.heading,
+        color: defaultText,
+        fontSize: 22,
+        bold: true,
+        valign: "middle",
+      });
+      const trackX = ctx.margin + 0.65;
+      const trackW = contentW - 0.65;
+      const fillW = Math.max(0.4, trackW * ((bar.widthPct ?? 50) / 100));
+      const fill = bar.fill ?? (i === 0 ? "FFFFFF" : ctx.colors.accent);
+      const ink = bar.color ?? (fill.toUpperCase() === "FFFFFF" ? "0A0A0A" : defaultText);
+      slide.addShape(ctx.shapeRoundRect, {
+        x: trackX,
+        y: by,
+        w: fillW,
+        h: barH,
+        fill: { color: fill },
+        line: { color: fill, width: 0 },
+        rectRadius: 0.02,
+      });
+      slide.addText(bar.text, {
+        x: trackX + 0.12,
+        y: by,
+        w: Math.max(0.5, fillW - 0.2),
+        h: barH,
+        fontFace: ctx.fonts.heading,
+        color: ink,
+        fontSize: 14,
+        bold: true,
+        valign: "middle",
+        fit: "shrink",
+      });
+    });
+  }
+
+  ctx.warn(
+    "custom-html layout approximates structure (bars/panels/text) in PPTX — HTML export keeps full craft."
+  );
 }
 
 const RENDERERS: Record<string, (s: PSlide, ctx: ExportContext, d: Slide) => void> = {
