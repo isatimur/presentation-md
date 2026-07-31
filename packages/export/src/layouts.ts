@@ -168,6 +168,35 @@ function cardStroke(
   if (ctx.themeName === "brutalist-mono") {
     return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.25 : 2 };
   }
+  // emerald-editorial / pink-script / vellum / broadsheet / editorial-forest /
+  // soft-editorial / paper-ink / pin-and-paper / monochrome / notebook-tabs
+  if (ctx.themeName === "emerald-editorial") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.25 : 2 };
+  }
+  if (ctx.themeName === "pink-script") {
+    return { color: "ED3D8C", width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
+  }
+  if (ctx.themeName === "vellum") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
+  }
+  if (
+    ctx.themeName === "broadsheet" ||
+    ctx.themeName === "editorial-forest" ||
+    ctx.themeName === "monochrome" ||
+    ctx.themeName === "soft-editorial" ||
+    ctx.themeName === "pin-and-paper" ||
+    ctx.themeName === "paper-ink" ||
+    ctx.themeName === "notebook-tabs" ||
+    ctx.themeName === "heritage-editorial"
+  ) {
+    const color =
+      ctx.themeName === "heritage-editorial"
+        ? ctx.colors.accent
+        : ctx.themeName === "paper-ink"
+          ? ctx.colors.accent
+          : ctx.colors.text;
+    return { color, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
+  }
   if (opts.hero || opts.highlighted) {
     return { color: ctx.colors.accent, width: opts.highlighted ? 1.75 : 1.5 };
   }
@@ -220,7 +249,14 @@ function cardRadius(ctx: ExportContext): number {
     ctx.themeName === "dark-botanical" ||
     ctx.themeName === "editorial-serif" ||
     ctx.themeName === "crt-terminal" ||
-    ctx.themeName === "brutalist-mono"
+    ctx.themeName === "brutalist-mono" ||
+    ctx.themeName === "emerald-editorial" ||
+    ctx.themeName === "pink-script" ||
+    ctx.themeName === "vellum" ||
+    ctx.themeName === "broadsheet" ||
+    ctx.themeName === "editorial-forest" ||
+    ctx.themeName === "monochrome" ||
+    ctx.themeName === "paper-ink"
   ) {
     return 0;
   }
@@ -232,6 +268,10 @@ function cardRadius(ctx: ExportContext): number {
   if (ctx.themeName === "pastel-geometry") return 0.18;
   if (ctx.themeName === "pastel-dreamy") return 0.22;
   if (ctx.themeName === "aurora-glass" || ctx.themeName === "glassmorphism") return 0.14;
+  // pin-and-paper / notebook-tabs / heritage: soft paper radii (soft-editorial already above)
+  if (ctx.themeName === "pin-and-paper") return 0.08;
+  if (ctx.themeName === "notebook-tabs") return 0.1;
+  if (ctx.themeName === "heritage-editorial") return 0.06;
   // vintage-editorial-geo cards: border-radius 4px ≈ 0.04"
   if (ctx.themeName === "vintage-editorial") return 0.04;
   // scatterbrain-cork cards: border-radius 2px ≈ 0.02"

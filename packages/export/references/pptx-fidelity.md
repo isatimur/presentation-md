@@ -126,7 +126,9 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   vintage-editorial gets a quiet outer border on all slides + hero geo ring/dots + near-square 2px ink cards;
   electric-studio / studio / grove / cartesian / botanical-luxe / dark-botanical / editorial-serif cards get square hairline strokes;
   aurora-glass / glassmorphism cards get frosted white/glass rims (plump);
-  crt-terminal / brutalist-mono cards get square accent/ink strokes.
+  crt-terminal / brutalist-mono cards get square accent/ink strokes;
+  emerald-editorial / pink-script / vellum / broadsheet / editorial-forest / monochrome / paper-ink cards get square ink/accent strokes;
+  soft-editorial / pin-and-paper / notebook-tabs / heritage-editorial cards get theme-native hairlines with soft radii.
   Quiet HTML paper fiber grain (editorial / parchment themes) is not drawn in PPTX —
   ship HTML when the tooth is the brand. True CSS `mix-blend-mode` / animated marquees
   remain HTML-only.
