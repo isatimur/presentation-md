@@ -1,5 +1,19 @@
 # @presentation-md/mcp-server
 
+## 1.10.3
+
+### Patch Changes
+
+- 079c760: Gate signal briefing and luxury-minimalist quiet-luxe craft; extend skill/MCP/Studio honesty and layout recipes (no web deploy).
+- d28fc27: Document and test the full 11-tool MCP registry; migrate adapters off the legacy 5-tool `@presentation-skill-pack/mcp-server` package.
+- Updated dependencies [079c760]
+- Updated dependencies [fadff85]
+- Updated dependencies [d28fc27]
+  - @presentation-md/core@1.12.2
+  - @presentation-md/export@1.20.3
+  - @presentation-md/create-theme@1.0.31
+  - @presentation-md/render@1.6.24
+
 ## 1.10.2
 
 ### Patch Changes
