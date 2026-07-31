@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.2.0
+
+### Minor Changes
+
+- de75364: Add chart + custom-html layouts, Markdown→Deck JSON bridge, judge_deck MCP, and Pulse multi-hue craft.
+
 ## 1.1.2
 
 ### Patch Changes
