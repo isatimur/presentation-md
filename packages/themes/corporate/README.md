@@ -33,3 +33,5 @@ npm i @presentation-md/theme-corporate
 | border   | `rgba(0,0,0,0.08)`   |
 
 > Screenshot placeholder — run the skill to preview.
+
+Surface craft: soft top wash + navy stub + quiet border frame; PPTX accent-hairline cards (clean-light).

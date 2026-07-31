@@ -34,4 +34,4 @@ npm i @presentation-md/theme-pastel-dreamy
 
 > Screenshot placeholder — run the skill to preview.
 
-Surface craft: soft cloud washes, plump inset frame, soft shadow stub. PPTX mirrors denser cloud ovals + plump frame/shadow + plump card radius.
+Surface craft: soft cloud washes, plump inset frame, soft shadow stub. PPTX mirrors denser cloud ovals + plump frame/shadow + soft-plum card hairlines.

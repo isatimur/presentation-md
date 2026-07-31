@@ -7,3 +7,5 @@ npm i @presentation-md/theme-developer-dark
 ```
 
 Use: `"meta": { "theme": "developer-dark" }` · Surface: `dev-terminal`.
+
+Surface craft: title-bar + traffic lights; PPTX terminal-border card hairlines (dev-terminal).

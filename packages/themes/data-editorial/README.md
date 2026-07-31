@@ -7,3 +7,5 @@ npm i @presentation-md/theme-data-editorial
 ```
 
 Use: `"meta": { "theme": "data-editorial" }` · Surface: `data-rule`.
+
+Surface craft: accent rule + hard frame; PPTX ink card hairlines (data-rule).

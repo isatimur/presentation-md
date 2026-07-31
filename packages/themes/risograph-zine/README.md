@@ -11,3 +11,5 @@ Use: `"meta": { "theme": "risograph-zine" }` · Surface: `riso-print`.
 Gallery-parity: kraft frame + coral offset shadow; coral + blue overprint washes
 (`mix-blend-mode: multiply` in HTML; misregistered layered ovals + hero speckles in
 PPTX). True multiply blending stays HTML-only.
+
+Surface craft: kraft frame + overprint ovals + offset shadow; PPTX hard ink cards (riso-print).

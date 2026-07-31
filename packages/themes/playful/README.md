@@ -33,3 +33,5 @@ npm i @presentation-md/theme-playful
 | border   | `rgba(255,71,87,0.15)`     |
 
 > Screenshot placeholder — run the skill to preview.
+
+Surface craft: soft blots + candy square + plump frame; PPTX coral-rim plump cards (soft-bento).
