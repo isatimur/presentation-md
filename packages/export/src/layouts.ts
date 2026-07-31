@@ -1897,39 +1897,20 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
 
   // Generic bg→bg2 wash (stands in for linear/radial HTML gradients).
   if (ctx.colors.bg2.toLowerCase() !== ctx.colors.bg.toLowerCase()) {
-    if (theme === "creative-voltage" && isHero) {
-      // Left electric blue / right dark — mirrors creative-voltage-split.
-      slide.background = { color: ctx.colors.bg };
+    if (theme === "creative-voltage") {
+      // Split field + frame + offset shadow live in the dedicated block below.
+    } else {
+      // Bottom-right wash of bg2 over flat bg (≈ diagonal gradient).
       slide.addShape(ctx.shapeRoundRect, {
-        x: ctx.width * 0.48,
-        y: 0,
-        w: ctx.width * 0.52,
-        h: ctx.height,
-        fill: { color: ctx.colors.bg2 },
+        x: ctx.width * 0.35,
+        y: ctx.height * 0.35,
+        w: ctx.width * 0.65,
+        h: ctx.height * 0.65,
+        fill: { color: ctx.colors.bg2, transparency: 55 },
         line: { color: ctx.colors.bg2, width: 0 },
         rectRadius: 0,
       });
-      slide.addShape(ctx.shapeOval, {
-        x: ctx.width - 1.6,
-        y: 0.55,
-        w: 0.95,
-        h: 0.95,
-        fill: { color: ctx.colors.accent },
-        line: { color: ctx.colors.accent, width: 0 },
-      });
-      return;
     }
-
-    // Bottom-right wash of bg2 over flat bg (≈ diagonal gradient).
-    slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.width * 0.35,
-      y: ctx.height * 0.35,
-      w: ctx.width * 0.65,
-      h: ctx.height * 0.65,
-      fill: { color: ctx.colors.bg2, transparency: 55 },
-      line: { color: ctx.colors.bg2, width: 0 },
-      rectRadius: 0,
-    });
   }
 
   if (theme === "bold-signal") {
@@ -3817,6 +3798,61 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         rectRadius: 0,
       });
     }
+  }
+
+  if (theme === "creative-voltage") {
+    // Hard accent frame + 8px neon offset shadow every slide; hero split field
+    // + voltage orb (creative-voltage-split). Body slides stay dark (#1a1a2e).
+    const shadow = 0.1;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - shadow,
+      y: shadow,
+      w: shadow,
+      h: ctx.height - shadow,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: shadow,
+      y: ctx.height - shadow,
+      w: ctx.width - shadow,
+      h: shadow,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    if (isHero) {
+      slide.background = { color: ctx.colors.bg };
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.width * 0.48,
+        y: 0,
+        w: ctx.width * 0.52 - shadow,
+        h: ctx.height - shadow,
+        fill: { color: ctx.colors.bg2 },
+        line: { color: ctx.colors.bg2, width: 0 },
+        rectRadius: 0,
+      });
+      slide.addShape(ctx.shapeOval, {
+        x: ctx.width - 1.6 - shadow,
+        y: 0.55,
+        w: 0.95,
+        h: 0.95,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.accent, width: 0 },
+      });
+    } else {
+      slide.background = { color: ctx.colors.bg2 };
+    }
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.1 - shadow,
+      h: ctx.height - 0.1 - shadow,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: 2 },
+      rectRadius: 0,
+    });
   }
 
   if (theme === "biennale-yellow") {

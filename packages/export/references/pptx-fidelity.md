@@ -77,6 +77,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   retro-arcade gets scanlines + neon top rail;
   brutalist-mono gets a dense mono grid + hard frame + ink offset shadow;
   creative-mode gets a hard frame + ink offset shadow on every slide + hero-gated stacked accent blocks + square hard-border cards;
+  creative-voltage gets a hard accent frame + neon offset shadow on every slide (heroes also get the blue/dark split + voltage orb);
   biennale-yellow gets a sun orb + top hairline;
   scatterbrain gets cork sticky notes + pin dots;
   split-pastel gets dual pastel corner washes (heroes also get a split field + stacked pastel pills);
