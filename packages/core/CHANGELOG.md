@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.9.0
+
+### Minor Changes
+
+- ad33c66: Raise craft gates for pink-script/long-table magazine beats plus neon atmosphere and poster theme bold-beat warnings; ship layout-recipes reference for agents.
+
 ## 1.8.7
 
 ### Patch Changes
