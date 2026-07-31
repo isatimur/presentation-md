@@ -152,7 +152,7 @@ importers:
   packages/mcp-server-legacy:
     dependencies:
       '@presentation-md/mcp-server':
-        specifier: ^1.10.5
+        specifier: ^1.12.0
         version: link:../mcp-server
 
   packages/renderer-node:

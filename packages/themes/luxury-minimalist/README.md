@@ -31,3 +31,5 @@ npm i @presentation-md/theme-luxury-minimalist
 | accent2  | `#e8d5a3`                  |
 | cardBg   | `rgba(249,246,239,0.04)`   |
 | border   | `rgba(249,246,239,0.12)`   |
+
+Surface craft: nocturnal gold hairlines on a near-black stage (HTML). PPTX keeps quiet-luxe chrome; cards get a gold top accent rule (top-rule peer of `biennale-yellow` / `ft-editorial` — no full box stroke).
