@@ -10,11 +10,40 @@ import {
   surfaceForTheme,
   renderChartSvg,
   sanitizeCustomHtml,
+  candyMarqueeText,
 } from "@presentation-md/core";
 import type { ValidationResult, ChartSeries } from "@presentation-md/core";
 import { deckToPptxBuffer, type DeckJson as ExportDeckJson } from "@presentation-md/export";
 
 export { validateDeckJson } from "@presentation-md/core";
+
+function escapeAttr(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/\n/g, " ");
+}
+
+/** Attach candy-blob ticker brand from deck meta onto title/closing sections. */
+function injectCandyMarquee(
+  html: string,
+  layout: string,
+  surface: string,
+  meta: { company?: string; title?: string; marquee?: string } | undefined
+): string {
+  if (surface !== "candy-blob") return html;
+  if (layout !== "title" && layout !== "closing") return html;
+  const ticker = candyMarqueeText({
+    company: meta?.company,
+    title: meta?.title,
+    marquee: typeof meta?.marquee === "string" ? meta.marquee : undefined,
+  });
+  return html.replace(
+    /<section(\s+class="slide)/i,
+    `<section data-marquee="${escapeAttr(ticker)}"$1`
+  );
+}
 
 const VALID_LAYOUTS = new Set([
   "title",
@@ -189,6 +218,8 @@ interface DeckJson {
     company?: string;
     description?: string;
     theme?: string;
+    /** candy-pop: optional custom ticker unit (else company/title). */
+    marquee?: string;
   };
   slides: SlideData[];
 }
@@ -399,7 +430,12 @@ function normalizeSlideData(slide: SlideData): Record<string, unknown> {
   return out;
 }
 
-async function renderSlide(slide: SlideData, layoutsDir: string): Promise<string> {
+async function renderSlide(
+  slide: SlideData,
+  layoutsDir: string,
+  surface: string,
+  meta: DeckJson["meta"]
+): Promise<string> {
   const layoutName = slide.layout;
   const templatePath = join(layoutsDir, `${layoutName}.html`);
   const template = await readFile(templatePath, "utf-8");
@@ -409,7 +445,7 @@ async function renderSlide(slide: SlideData, layoutsDir: string): Promise<string
   if (tone && /^[a-z0-9-]+$/i.test(tone)) {
     html = html.replace(/<section(\s+class="slide)/i, `<section data-tone="${tone}"$1`);
   }
-  return html;
+  return injectCandyMarquee(html, layoutName, surface, meta);
 }
 
 /**
@@ -484,7 +520,7 @@ export async function renderDeck(deckJson: string, opts?: RenderOptions): Promis
 
   const layoutsDir = join(sharedDir, "layouts");
   const slideParts = await Promise.all(
-    deck.slides.map((slide) => renderSlide(slide, layoutsDir))
+    deck.slides.map((slide) => renderSlide(slide, layoutsDir, surface, deck.meta))
   );
   const slidesHtml = slideParts.join("\n");
 

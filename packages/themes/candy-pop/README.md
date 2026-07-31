@@ -12,4 +12,5 @@ Use in deck JSON: `"meta": { "theme": "candy-pop" }`
 
 Surface profile: `candy-blob`.
 
-Gallery-parity: yellow marquee ticker on title/closing; soft pink/blue blobs in HTML + PPTX.
+Gallery-parity: yellow marquee ticker on title/closing brands from `meta.company`
+(or `meta.marquee` / `meta.title`); soft pink/blue blobs in HTML + PPTX.

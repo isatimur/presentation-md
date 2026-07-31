@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { resolve } from "node:path";
 import { renderDeck } from "../src/index.js";
 
 const MINIMAL_DECK = JSON.stringify({
@@ -66,6 +67,23 @@ describe("renderDeck", () => {
     expect(html).not.toContain('href="javascript');
     expect(html).not.toContain('src="javascript');
     expect(html).toContain('href="#"');
+  });
+
+  it("parameterizes candy-pop marquee from company", async () => {
+    const deck = JSON.stringify({
+      type: "deck",
+      meta: { title: "Drop", company: "Sourbean", theme: "candy-pop" },
+      slides: [
+        { layout: "title", heading: "Snack energy" },
+        { layout: "closing", heading: "Grab a tin", cta: { label: "Shop", href: "#" } },
+      ],
+    });
+    const html = await renderDeck(deck, {
+      themesDir: resolve(process.cwd(), "../themes"),
+    });
+    expect(html).toContain("data-marquee=");
+    expect(html).toContain("SOURBEAN");
+    expect(html).not.toContain("JELLYBEAN");
   });
 
   it("preserves safe https links", async () => {

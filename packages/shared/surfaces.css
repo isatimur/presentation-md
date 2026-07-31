@@ -402,7 +402,7 @@
   filter: none;
   border: 3px solid var(--text);
 }
-/* Gallery marquee ticker — yellow strip on cover/closing (Jellybean parity) */
+/* Gallery marquee ticker — yellow strip on cover/closing (brand from data-marquee) */
 @keyframes candy-marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -413,7 +413,8 @@
 }
 .deck[data-surface="candy-blob"] .title-slide::before,
 .deck[data-surface="candy-blob"] .closing-slide::before {
-  content: "★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·  ";
+  /* Injected by renderer via data-marquee from meta.company / meta.title */
+  content: attr(data-marquee);
   position: absolute;
   left: 0;
   right: auto;
@@ -438,6 +439,10 @@
   filter: none;
   border-radius: 0;
   animation: candy-marquee 22s linear infinite;
+}
+.deck[data-surface="candy-blob"] .title-slide:not([data-marquee])::before,
+.deck[data-surface="candy-blob"] .closing-slide:not([data-marquee])::before {
+  content: "★ SAVE TOGETHER  ·  WIN TOGETHER  ·  CANDY POP  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  CANDY POP  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  CANDY POP  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  CANDY POP  ·  ";
 }
 .deck[data-surface="candy-blob"] .card {
   border: 2.5px solid var(--text);

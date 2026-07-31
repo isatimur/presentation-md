@@ -1,6 +1,6 @@
 import Mustache from "mustache";
 import type { ResolvedTheme } from "@presentation-md/core";
-import { renderChartSvg, sanitizeCustomHtml } from "@presentation-md/core";
+import { renderChartSvg, sanitizeCustomHtml, candyMarqueeText } from "@presentation-md/core";
 import type { DeckJson, Slide, ChartSeries } from "@presentation-md/export";
 import baseCssTemplate from "../../../shared/base.css?raw";
 import surfacesCss from "../../../shared/surfaces.css?raw";
@@ -9,6 +9,33 @@ import documentTemplate from "../../../shared/document.html?raw";
 
 function surfaceForTheme(name: string): string {
   return (themeSurfaces as Record<string, string>)[name] ?? "gradient";
+}
+
+function escapeAttr(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/\n/g, " ");
+}
+
+function injectCandyMarquee(
+  html: string,
+  layout: string,
+  surface: string,
+  meta: DeckJson["meta"]
+): string {
+  if (surface !== "candy-blob") return html;
+  if (layout !== "title" && layout !== "closing") return html;
+  const ticker = candyMarqueeText({
+    company: meta?.company,
+    title: meta?.title,
+    marquee: meta?.marquee,
+  });
+  return html.replace(
+    /<section(\s+class="slide)/i,
+    `<section data-marquee="${escapeAttr(ticker)}"$1`
+  );
 }
 
 /**
@@ -283,7 +310,7 @@ export function renderDeckHtml(deck: DeckJson, theme: ResolvedTheme): string {
       if (tone && /^[a-z0-9-]+$/i.test(tone)) {
         html = html.replace(/<section(\s+class="slide)/i, `<section data-tone="${tone}"$1`);
       }
-      return html;
+      return injectCandyMarquee(html, slide.layout, surface, deck.meta);
     })
     .join("\n");
 
