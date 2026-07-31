@@ -1,5 +1,13 @@
 # @presentation-md/mcp-server
 
+## 1.14.7
+
+### Patch Changes
+
+- 5c27794: Share canonical title/layouts theme-preview decks between CLI `--preview-compare` and MCP `preview_themes` (incl. kinetic-wrapped craft).
+- Updated dependencies [5c27794]
+  - @presentation-md/render@1.7.1
+
 ## 1.14.6
 
 ### Patch Changes
