@@ -1,5 +1,16 @@
 # @presentation-md/mcp-server
 
+## 1.10.1
+
+### Patch Changes
+
+- d1749c0: Add modernist honesty for bauhaus / swiss / art-deco in generate_deck_prompt.
+- Updated dependencies [d1749c0]
+  - @presentation-md/core@1.12.1
+  - @presentation-md/create-theme@1.0.30
+  - @presentation-md/export@1.20.1
+  - @presentation-md/render@1.6.22
+
 ## 1.10.0
 
 ### Minor Changes

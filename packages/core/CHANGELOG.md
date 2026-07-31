@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.12.1
+
+### Patch Changes
+
+- d1749c0: Add swiss-typographic / art-deco modernist craft gates and honesty.
+
 ## 1.12.0
 
 ### Minor Changes

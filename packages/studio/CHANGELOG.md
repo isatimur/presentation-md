@@ -1,5 +1,14 @@
 # @presentation-md/studio
 
+## 1.4.1
+
+### Patch Changes
+
+- d1749c0: Add modernist honesty (swiss / art-deco / bauhaus) to Studio generate craft mandate.
+- Updated dependencies [d1749c0]
+  - @presentation-md/core@1.12.1
+  - @presentation-md/export@1.20.1
+
 ## 1.4.0
 
 ### Minor Changes
