@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.12.4
+
+### Patch Changes
+
+- f512620: Add neon-tech, data-editorial, and scatterbrain layout recipes; sync craft-mandate recipe lists and paper-ink left-rule honesty across skill, MCP, and Studio.
+
 ## 1.12.3
 
 ### Patch Changes
