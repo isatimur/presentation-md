@@ -30,11 +30,12 @@ export const generateDeckPromptTool: ToolDefinition = {
     const coreRoot = getCoreRoot();
     const themesDir = getBundledThemesDir();
 
-    const [theme, skill, deckSchemaReference, stunning25] = await Promise.all([
+    const [theme, skill, deckSchemaReference, stunning25, themesMd] = await Promise.all([
       loadTheme(themeName, { themesDir }),
       readFile(join(coreRoot, "SKILL.md"), "utf-8"),
       readFile(join(coreRoot, "references", "deck-schema.md"), "utf-8"),
       readFile(join(coreRoot, "references", "stunning-25.md"), "utf-8").catch(() => ""),
+      readFile(join(coreRoot, "references", "themes.md"), "utf-8").catch(() => ""),
     ]);
 
     const craftMandate = [
@@ -53,6 +54,7 @@ export const generateDeckPromptTool: ToolDefinition = {
       craft_mandate: craftMandate,
       skill,
       deck_schema_reference: deckSchemaReference,
+      themes_reference: themesMd || undefined,
       stunning_25_reference: stunning25 || undefined,
       palette: theme.palette as unknown as Record<string, string>,
       typography: theme.typography
