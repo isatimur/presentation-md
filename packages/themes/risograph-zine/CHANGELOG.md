@@ -1,5 +1,11 @@
 # @presentation-md/theme-risograph-zine
 
+## 1.0.2
+
+### Patch Changes
+
+- c7ce9a5: PPTX soft-blob / overprint approximations for Pulse, risograph, and candy-pop; HTML candy marquee + stronger riso multiply; stunning-25 dual-CTA closings.
+
 ## 1.0.1
 
 ### Patch Changes

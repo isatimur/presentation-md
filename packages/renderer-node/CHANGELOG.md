@@ -1,5 +1,21 @@
 # @presentation-md/render
 
+## 1.6.0
+
+### Minor Changes
+
+- c7ce9a5: PPTX soft-blob / overprint approximations for Pulse, risograph, and candy-pop; HTML candy marquee + stronger riso multiply; stunning-25 dual-CTA closings.
+
+### Patch Changes
+
+- Updated dependencies [96d87eb]
+- Updated dependencies [d58fa5a]
+- Updated dependencies [c7ce9a5]
+- Updated dependencies [c7ce9a5]
+- Updated dependencies [090d2c6]
+  - @presentation-md/export@1.9.0
+  - @presentation-md/core@1.6.0
+
 ## 1.5.2
 
 ### Patch Changes

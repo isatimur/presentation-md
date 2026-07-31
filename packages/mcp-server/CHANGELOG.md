@@ -1,5 +1,22 @@
 # @presentation-md/mcp-server
 
+## 1.6.2
+
+### Patch Changes
+
+- 96d87eb: Closing action icons in PPTX, aurora/glass/luxe chrome, candy ticker text, and dual-CTA auditCraft for launch closes.
+- d58fa5a: PPTX chrome for neon-noir / vaporwave / y2k-aero; broaden dual-CTA craft mandate for launch/investor closes.
+- c7ce9a5: Extract shared `auditCraft` into `@presentation-md/core` so Studio Audit and MCP `audit_deck` share one craft-gate source.
+- Updated dependencies [96d87eb]
+- Updated dependencies [d58fa5a]
+- Updated dependencies [c7ce9a5]
+- Updated dependencies [c7ce9a5]
+- Updated dependencies [090d2c6]
+  - @presentation-md/export@1.9.0
+  - @presentation-md/core@1.6.0
+  - @presentation-md/render@1.6.0
+  - @presentation-md/create-theme@1.0.10
+
 ## 1.6.1
 
 ### Patch Changes
