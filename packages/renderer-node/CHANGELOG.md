@@ -1,5 +1,11 @@
 # @presentation-md/render
 
+## 1.6.34
+
+### Patch Changes
+
+- 42881e7: Cover `--from-pptx --assets-dir` in CLI tests and document the flag in the render README.
+
 ## 1.6.33
 
 ### Patch Changes
