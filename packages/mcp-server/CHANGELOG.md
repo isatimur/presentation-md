@@ -1,5 +1,11 @@
 # @presentation-md/mcp-server
 
+## 1.14.5
+
+### Patch Changes
+
+- c527f9f: generate_deck_prompt accepts density (speaker/reading) and injects a density lock into the craft mandate — parity with Studio Generate.
+
 ## 1.14.4
 
 ### Patch Changes
