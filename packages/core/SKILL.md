@@ -447,6 +447,8 @@ Then walk every slide against this checklist and fix before delivering:
 - **HUD honesty** — `aerospace-hud` / `crt-terminal` / `blueprint`: expect instrument chrome (grid/scanlines/reticles) plus a data beat (`chart`, `data-table`, `stat-row`, `ranked-list`, `timeline`, or `metric-ring`) — not soft marketing grids.
 - **Glass honesty** — `aurora-glass` / `glassmorphism`: expect a frosted product beat (`image-hero`, punchy `quote`, or stats) — PPTX keeps glass rims (not true blur).
 - **Modernist honesty** — `bauhaus` / `swiss-typographic` / `art-deco`: geometry + hard type with a modernist beat (quote / image-hero / comparison / icon feature-grid).
+- **Briefing honesty** — `signal`: quiet dual-surface chrome + an editorial beat (quote / image-hero / comparison / stats); PPTX keeps briefing frames and border-hairline cards.
+- **Quiet-luxe honesty** — `luxury-minimalist`: top-rule cards + a restrained luxury beat (quote / image-hero / comparison) — not soft SaaS stacks. `long-table` keeps dashed rust supper cards under paper honesty.
 - **Recipe honesty** — match a `references/layout-recipes.md` slide map for the brief before inventing a 14-slide feature-grid funeral.
 
 For a rigorous, scored pass, run the **`deck-design-judge`** skill: it grades the deck against the design rubric, tells you exactly what to fix, and lets you re-score after the fix.

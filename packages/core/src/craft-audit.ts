@@ -626,5 +626,34 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     }
   }
 
+  if (theme === "signal" && slides.length >= 5) {
+    const hasBriefingBeat =
+      layouts.includes("quote") ||
+      layouts.includes("image-hero") ||
+      layouts.includes("comparison") ||
+      layouts.includes("stat-row");
+    if (!hasBriefingBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "signal briefing needs an editorial beat — add quote, image-hero, comparison+emphasis, or punchy stats (not only soft grids).",
+      });
+    }
+  }
+
+  if (theme === "luxury-minimalist" && slides.length >= 5) {
+    const hasLuxeBeat =
+      layouts.includes("quote") ||
+      layouts.includes("image-hero") ||
+      layouts.includes("comparison");
+    if (!hasLuxeBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "luxury-minimalist (quiet-luxe) needs a restrained luxury beat — add quote, image-hero, or comparison+emphasis (top-rule cards, not soft SaaS stacks).",
+      });
+    }
+  }
+
   return issues;
 }

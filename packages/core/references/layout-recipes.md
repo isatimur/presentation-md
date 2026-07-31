@@ -222,3 +222,33 @@ Themes: `electric-studio`, `studio`, `creative-voltage`. Loud split/rail brand d
 07 timeline OR logo-wall — Work / clients
 08 closing       — Dual ask with icons
 ```
+
+## Signal briefing short (8)
+
+Themes: `signal`. Cream/navy dual-surface briefing — quiet chrome, editorial beats.
+
+```
+01 title         — Briefing cover lead
+02 quote         — Opening line
+03 comparison    — Thesis vs foil (emphasis)
+04 image-hero    — Composed still / map moment
+05 two-column    — Analysis beat (ratio: 2-1)
+06 stat-row      — 1–3 proof numbers
+07 feature-grid  — 3 sparse pillars (icons)
+08 closing       — Dual ask with icons
+```
+
+## Quiet-luxe short (8)
+
+Themes: `luxury-minimalist`. Top-rule cards, gold hairlines, restrained luxury — not soft SaaS.
+
+```
+01 title         — Quiet manifesto
+02 quote         — One cream line on dark
+03 image-hero    — Singular photograph
+04 comparison    — Discretion vs noise (emphasis)
+05 two-column    — Thesis + proof (ratio: 2-1)
+06 feature-grid  — 3 sparse pillars (icons)
+07 stat-row      — One quiet proof number
+08 closing       — Dual ask with icons
+```

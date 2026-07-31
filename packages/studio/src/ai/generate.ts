@@ -67,13 +67,15 @@ Authoring rules:
   - Year-wrap / kinetic-wrapped: use tone on ≥3 slides, stat-row variant:"hero" for mega numbers, ranked-list for top-N bars, streak-grid for day streaks, metric-ring for percentile KPIs, closing actions[] with icons for dual share pills. PPTX renders eyebrow chips + hard frames.
   - candy-pop: set meta.company (or meta.marquee) so the yellow ticker brands the deck — never hardcode Jellybean; PPTX cards get hard ink borders.
   - risograph-zine: prefer comparison+emphasis and a punchy quote for print-shop energy.
-  - Match a layout recipe for the brief (pitch / launch / wrap / neon / poster / paper / hud / modernist / hard-bento / glass / electric) before freehanding layouts.
+  - Match a layout recipe for the brief (pitch / launch / wrap / neon / poster / paper / hud / modernist / hard-bento / glass / electric / briefing / quiet-luxe) before freehanding layouts.
   - Loud honesty: stencil / retro-zine / daisy / block-frame / creative-mode / sakura / capsule / scatterbrain / 8-bit / retro-windows / cobalt / genz-bento / bauhaus / neo-grid / bold-poster / raw-grid / creative-voltage / electric-studio / studio / brutalist-mono expect hard frames + hard-border cards — don't invent custom-html stickers for atmosphere.
   - Atmosphere honesty: neon-noir / vaporwave / y2k-aero / retro-arcade need cyan/pink rims + cinematic image-hero or quote.
   - Poster honesty: coral / peoples-platform / bold-signal / broadside need hard poster frames + hard-border cards + a bold beat; bold-signal cards get accent rims in PPTX.
   - HUD honesty: aerospace-hud / crt-terminal / blueprint need instrument chrome + a data beat (chart / data-table / stat-row / ranked-list / timeline / metric-ring).
   - Glass honesty: aurora-glass / glassmorphism need a frosted product beat (image-hero / quote / stats) — PPTX keeps glass rims (not true blur).
   - Modernist honesty: bauhaus / swiss-typographic / art-deco need geometry + hard type with a modernist beat (quote / image-hero / comparison / icon feature-grid).
+  - Briefing honesty: signal needs an editorial beat (quote / image-hero / comparison / stats); PPTX keeps briefing frames + border-hairline cards.
+  - Quiet-luxe honesty: luxury-minimalist needs top-rule cards + quote / image-hero / comparison; long-table keeps dashed rust cards under paper honesty.
   - Paper honesty: paper/editorial themes prefer quote + comparison+emphasis; fiber grain is HTML-only.
   - Match atmosphere to the brief: loud/thin surfaces for punchy brand energy; neon/vapor/arcade for night; HUD/tech for instruments; glass for frosted product; paper/editorial for magazine quiet.
   - PPTX approximates theme chrome as native shapes (electric-studio split/rail, studio acid frame, grove monograph rules, hard-card strokes, HUD reticles, …); reserve custom-html for art PPTX cannot keep.

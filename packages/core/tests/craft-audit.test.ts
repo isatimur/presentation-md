@@ -664,4 +664,72 @@ describe("auditCraft", () => {
     const issues = auditCraft(deck);
     expect(issues.some((i) => /swiss-typographic|modernist beat/i.test(i.message))).toBe(true);
   });
+
+  it("warns when signal lacks a briefing beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "signal", title: "Flat briefing" },
+      slides: [
+        { layout: "title", heading: "Signal" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        {
+          layout: "feature-grid",
+          heading: "Cards",
+          columns: 3,
+          cards: [
+            { title: "One", body: "A", icon: "fa-solid fa-1" },
+            { title: "Two", body: "B", icon: "fa-solid fa-2" },
+            { title: "Three", body: "C", icon: "fa-solid fa-3" },
+          ],
+        },
+        { layout: "timeline", heading: "Steps", items: [{ label: "One", detail: "A" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /signal|briefing beat/i.test(i.message))).toBe(true);
+  });
+
+  it("warns when luxury-minimalist lacks a quiet-luxe beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "luxury-minimalist", title: "Flat luxe" },
+      slides: [
+        { layout: "title", heading: "Luxe" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        {
+          layout: "feature-grid",
+          heading: "Cards",
+          columns: 3,
+          cards: [
+            { title: "One", body: "A", icon: "fa-solid fa-1" },
+            { title: "Two", body: "B", icon: "fa-solid fa-2" },
+            { title: "Three", body: "C", icon: "fa-solid fa-3" },
+          ],
+        },
+        { layout: "stat-row", heading: "Nums", stats: [{ value: "1", label: "A" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /luxury-minimalist|quiet-luxe|restrained luxury/i.test(i.message))).toBe(
+      true
+    );
+  });
 });
