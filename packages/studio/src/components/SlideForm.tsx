@@ -1,4 +1,4 @@
-import type { Slide, Card, Stat, Step, ChartSeries, RankedItem } from "@presentation-md/export";
+import type { Slide, Card, Stat, Step, ChartSeries, RankedItem, Cta } from "@presentation-md/export";
 import { LAYOUT_LABELS } from "../deck.js";
 import type { LayoutType } from "../deck.js";
 import { TextInput, TextArea, StringSelect, ListEditor } from "./fields.js";
@@ -49,10 +49,35 @@ export function SlideForm({
             <TextInput label="Heading" value={slide.heading} onChange={(v) => set({ heading: v })} />
             <TextArea label="Lead" value={slide.lead} onChange={(v) => set({ lead: v })} />
             {slide.layout === "closing" && (
-              <>
-                <TextInput label="CTA label" value={slide.cta?.label} onChange={(v) => set({ cta: { ...slide.cta, label: v } })} />
-                <TextInput label="CTA link" value={slide.cta?.href} onChange={(v) => set({ cta: { ...slide.cta, href: v } })} />
-              </>
+              <ListEditor<Cta>
+                label="Actions (share pills)"
+                items={
+                  Array.isArray(slide.actions) && slide.actions.length
+                    ? slide.actions
+                    : slide.cta?.label
+                      ? [slide.cta]
+                      : []
+                }
+                onChange={(actions) => set({ actions: actions, cta: actions[0] })}
+                blank={() => ({ label: "Action", href: "#", style: "solid" })}
+                renderItem={(action, setItem) => (
+                  <>
+                    <TextInput label="Label" value={action.label} onChange={(v) => setItem({ ...action, label: v })} />
+                    <TextInput label="Link" value={action.href} onChange={(v) => setItem({ ...action, href: v })} />
+                    <StringSelect
+                      label="Style"
+                      value={typeof action.style === "string" ? action.style : "solid"}
+                      options={[
+                        { value: "solid", label: "Solid" },
+                        { value: "outline", label: "Outline" },
+                        { value: "ghost", label: "Ghost" },
+                      ]}
+                      onChange={(v) => setItem({ ...action, style: v })}
+                    />
+                    <TextInput label="Icon (FA class)" value={action.icon} onChange={(v) => setItem({ ...action, icon: v })} />
+                  </>
+                )}
+              />
             )}
           </>
         );
@@ -272,14 +297,68 @@ export function SlideForm({
               blank={() => ({ title: "Brand", body: "" })}
               renderItem={(card, setItem) => (
                 <>
-                  <TextInput label="Title / fallback" value={card.title} onChange={(v) => setItem({ ...card, title: v })} />
+                  <TextInput label="Title" value={card.title} onChange={(v) => setItem({ ...card, title: v })} />
                   <TextInput label="Image URL" value={card.image} onChange={(v) => setItem({ ...card, image: v })} />
                   <TextInput label="Image alt" value={card.imageAlt} onChange={(v) => setItem({ ...card, imageAlt: v })} />
-                  <TextInput label="Icon (if no image)" value={card.icon} onChange={(v) => setItem({ ...card, icon: v })} />
-                  <TextInput label="Caption" value={card.body} onChange={(v) => setItem({ ...card, body: v })} />
+                  <TextInput label="Icon" value={card.icon} onChange={(v) => setItem({ ...card, icon: v })} />
+                  <TextInput label="Body" value={card.body} onChange={(v) => setItem({ ...card, body: v })} />
                 </>
               )}
             />
+          </>
+        );
+
+      case "streak-grid":
+        return (
+          <>
+            <TextInput label="Eyebrow" value={slide.eyebrow} onChange={(v) => set({ eyebrow: v })} />
+            <TextInput label="Heading" value={slide.heading} onChange={(v) => set({ heading: v })} />
+            <TextArea label="Lead" value={slide.lead} onChange={(v) => set({ lead: v })} />
+            <TextInput
+              label="Filled"
+              value={slide.filled !== undefined ? String(slide.filled) : ""}
+              onChange={(v) => {
+                const n = Number(v);
+                set({ filled: Number.isFinite(n) ? n : undefined });
+              }}
+            />
+            <TextInput
+              label="Total"
+              value={slide.total !== undefined ? String(slide.total) : ""}
+              onChange={(v) => {
+                const n = Number(v);
+                set({ total: Number.isFinite(n) ? n : undefined });
+              }}
+            />
+            <TextInput
+              label="Columns"
+              value={slide.cols !== undefined ? String(slide.cols) : "10"}
+              onChange={(v) => {
+                const n = Number(v);
+                set({ cols: Number.isFinite(n) ? n : 10 });
+              }}
+            />
+            <TextArea label="Caption / body" value={slide.body} onChange={(v) => set({ body: v })} rows={2} />
+          </>
+        );
+
+      case "metric-ring":
+        return (
+          <>
+            <TextInput label="Eyebrow" value={slide.eyebrow} onChange={(v) => set({ eyebrow: v })} />
+            <TextInput label="Heading" value={slide.heading} onChange={(v) => set({ heading: v })} />
+            <TextInput label="Value" value={slide.value} onChange={(v) => set({ value: v })} />
+            <TextInput label="Label" value={slide.label} onChange={(v) => set({ label: v })} />
+            <TextInput
+              label="Ring %"
+              value={slide.pct !== undefined ? String(slide.pct) : "100"}
+              onChange={(v) => {
+                const n = Number(v);
+                set({ pct: Number.isFinite(n) ? n : 100 });
+              }}
+            />
+            <TextArea label="Lead" value={slide.lead} onChange={(v) => set({ lead: v })} rows={3} />
+            <TextArea label="Body" value={slide.body} onChange={(v) => set({ body: v })} rows={2} />
           </>
         );
 

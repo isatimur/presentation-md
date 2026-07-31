@@ -751,11 +751,18 @@ tbody tr:hover td {
 .section-slide h2 { font-size: clamp(32px, 4vw, 56px); margin-top: 8px; }
 
 /* closing / CTA */
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 28px;
+  align-items: center;
+}
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-top: 28px;
+  margin-top: 0;
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
@@ -763,6 +770,113 @@ tbody tr:hover td {
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
+  border: 3px solid transparent;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--text);
+}
+.btn-ghost {
+  background: color-mix(in srgb, var(--text) 12%, transparent);
+  color: var(--text);
+  border-color: transparent;
+}
+.closing-slide > .btn { margin-top: 28px; }
+
+/* streak-grid — Pulse-style filled day cells */
+.streak-grid-slide { justify-content: flex-start; }
+.streak-grid-slide .lead {
+  max-width: 36ch;
+  margin-bottom: clamp(16px, 2vw, 28px);
+}
+.streak-boxes {
+  display: grid;
+  grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
+  gap: 8px;
+  max-width: min(580px, 100%);
+  color: var(--accent);
+}
+.streak-box {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: currentColor;
+  opacity: 0.9;
+}
+.streak-box.dim { opacity: 0.15; }
+.streak-box.mid { opacity: 0.45; }
+.streak-caption {
+  margin-top: clamp(16px, 2vw, 28px);
+  color: var(--muted);
+  max-width: 40ch;
+  font-size: clamp(14px, 1.4vw, 18px);
+}
+
+/* metric-ring — circular KPI badge / arc */
+.metric-ring-slide { justify-content: flex-start; }
+.pct-wrap {
+  margin-top: clamp(20px, 2.5vw, 40px);
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(24px, 4vw, 60px);
+  flex-wrap: wrap;
+}
+.pct-ring {
+  width: clamp(160px, 28vw, 280px);
+  height: clamp(160px, 28vw, 280px);
+  border-radius: 50%;
+  border: clamp(10px, 2vw, 20px) solid currentColor;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.pct-ring-arc {
+  border-color: transparent;
+}
+.pct-ring-arc .pct-ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.pct-ring-center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.pct-num {
+  font-family: var(--heading-font);
+  font-weight: 800;
+  font-size: clamp(44px, 7vw, 88px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+.pct-label {
+  font-family: var(--body-font);
+  font-weight: 700;
+  font-size: clamp(9px, 1vw, 13px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-top: 6px;
+}
+.pct-desc {
+  max-width: 28ch;
+  flex: 1;
+  min-width: min(240px, 100%);
+}
+.pct-desc .lead { margin-top: 0; }
+.pct-body {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: clamp(14px, 1.4vw, 18px);
 }
 
 /* Entrance motion — applied when the deck loads; disabled under reduced-motion */

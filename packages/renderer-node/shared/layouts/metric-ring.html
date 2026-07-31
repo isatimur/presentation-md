@@ -1,0 +1,25 @@
+<section class="slide metric-ring-slide" data-layout="metric-ring">
+  {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
+  {{#heading}}<h2>{{heading}}</h2>{{/heading}}
+  <div class="pct-wrap">
+    {{#isArc}}
+    <div class="pct-ring pct-ring-arc" role="img" aria-label="{{value}} {{label}}">
+      {{{ringSvg}}}
+      <div class="pct-ring-center">
+        <span class="pct-num">{{value}}</span>
+        {{#label}}<span class="pct-label">{{label}}</span>{{/label}}
+      </div>
+    </div>
+    {{/isArc}}
+    {{^isArc}}
+    <div class="pct-ring" role="img" aria-label="{{value}} {{label}}">
+      <span class="pct-num">{{value}}</span>
+      {{#label}}<span class="pct-label">{{label}}</span>{{/label}}
+    </div>
+    {{/isArc}}
+    <div class="pct-desc">
+      {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
+      {{#body}}<p class="pct-body">{{body}}</p>{{/body}}
+    </div>
+  </div>
+</section>

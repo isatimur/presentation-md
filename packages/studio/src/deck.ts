@@ -19,6 +19,8 @@ export const LAYOUTS: LayoutType[] = [
   "custom-html",
   "ranked-list",
   "logo-wall",
+  "streak-grid",
+  "metric-ring",
 ];
 
 export const LAYOUT_LABELS: Record<LayoutType, string> = {
@@ -38,6 +40,8 @@ export const LAYOUT_LABELS: Record<LayoutType, string> = {
   "custom-html": "Custom HTML",
   "ranked-list": "Ranked list",
   "logo-wall": "Logo wall",
+  "streak-grid": "Streak grid",
+  "metric-ring": "Metric ring",
 };
 
 /** A reasonable starter slide for each layout, so new slides aren't blank. */
@@ -129,12 +133,41 @@ export function blankSlide(layout: LayoutType): Slide {
           { title: "Pulse", body: "Consumer" },
         ],
       };
+    case "streak-grid":
+      return {
+        layout,
+        eyebrow: "Best streak",
+        heading: "No excuses.",
+        lead: "47 days straight. March 3 → April 18.",
+        filled: 47,
+        total: 60,
+        cols: 10,
+      };
+    case "metric-ring":
+      return {
+        layout,
+        eyebrow: "Global ranking",
+        heading: "TOP 3%.",
+        value: "3%",
+        label: "globally",
+        pct: 100,
+        lead: "Out of millions of users, you outworked nearly everyone.",
+      };
     case "timeline":
       return { layout, heading: "Timeline", steps: [{ title: "Step one", body: "Detail." }, { title: "Step two", body: "Detail." }] };
     case "quote":
       return { layout, quote: "A memorable quote.", by: "Attribution" };
     case "closing":
-      return { layout, eyebrow: "Thanks", heading: "Closing", lead: "Call to action.", cta: { label: "Get started", href: "https://example.com" } };
+      return {
+        layout,
+        eyebrow: "Thanks",
+        heading: "Closing",
+        lead: "Call to action.",
+        actions: [
+          { label: "Get started", href: "https://example.com", style: "solid" },
+          { label: "Learn more", href: "https://example.com", style: "outline" },
+        ],
+      };
     default:
       return { layout, heading: "Slide" };
   }
@@ -196,7 +229,7 @@ export const EXAMPLE_DECK: DeckJson = {
       code: "npx @presentation-md/install claude-code\n# then: create a presentation about…",
     },
     { layout: "stat-row", heading: "By the numbers", stats: [
-      { value: "75", label: "Themes" }, { value: "15", label: "Layouts" }, { value: "1", label: "Install" },
+      { value: "75", label: "Themes" }, { value: "18", label: "Layouts" }, { value: "1", label: "Install" },
     ] },
     {
       layout: "chart",

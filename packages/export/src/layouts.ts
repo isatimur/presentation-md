@@ -116,23 +116,64 @@ function renderHero(slide: PSlide, ctx: ExportContext, data: Slide): void {
     });
     y += 1.2;
   }
-  if (data.cta?.label) {
-    const btnW = Math.min(3.2, w);
-    slide.addText(data.cta.label, {
-      shape: ctx.shapeRoundRect,
-      x,
-      y: y + 0.1,
-      w: btnW,
-      h: 0.6,
-      fill: { color: inverted ? "0A0A0A" : ctx.colors.accent },
-      color: inverted ? "C8FF00" : ctx.colors.bg,
-      fontFace: ctx.fonts.body,
-      fontSize: 16,
-      bold: true,
-      align: "center",
-      valign: "middle",
-      rectRadius: 0.08,
-      ...(data.cta.href ? { hyperlink: { url: data.cta.href } } : {}),
+  const actions =
+    Array.isArray(data.actions) && data.actions.length
+      ? data.actions.slice(0, 3)
+      : data.cta?.label
+        ? [data.cta]
+        : [];
+  if (actions.length) {
+    let bx = x;
+    const btnH = 0.55;
+    const gap = 0.18;
+    actions.forEach((action, i) => {
+      if (!action.label) return;
+      const style =
+        typeof action.style === "string"
+          ? action.style
+          : i === 0
+            ? "solid"
+            : "outline";
+      const btnW = Math.min(3.4, Math.max(2.2, action.label.length * 0.14 + 1.2));
+      if (bx + btnW > x + w && i > 0) {
+        bx = x;
+        y += btnH + gap;
+      }
+      const isOutline = style === "outline" || style === "ghost";
+      slide.addText(action.label, {
+        shape: ctx.shapeRoundRect,
+        x: bx,
+        y: y + 0.1,
+        w: btnW,
+        h: btnH,
+        fill: {
+          color: isOutline
+            ? inverted
+              ? "C8FF00"
+              : ctx.colors.bg
+            : inverted
+              ? "0A0A0A"
+              : ctx.colors.accent,
+        },
+        color: isOutline
+          ? inverted
+            ? "0A0A0A"
+            : ctx.colors.text
+          : inverted
+            ? "C8FF00"
+            : ctx.colors.bg,
+        fontFace: ctx.fonts.body,
+        fontSize: 15,
+        bold: true,
+        align: "center",
+        valign: "middle",
+        rectRadius: 0.25,
+        line: isOutline
+          ? { color: inverted ? "0A0A0A" : ctx.colors.text, width: 1.5 }
+          : undefined,
+        ...(action.href ? { hyperlink: { url: action.href } } : {}),
+      });
+      bx += btnW + gap;
     });
   }
 }
@@ -1506,6 +1547,155 @@ function renderLogoWall(slide: PSlide, ctx: ExportContext, data: Slide): void {
   });
 }
 
+function renderStreakGrid(slide: PSlide, ctx: ExportContext, data: Slide): void {
+  const top = renderHeaderBlock(slide, ctx, data);
+  const filledRaw = typeof data.filled === "number" ? data.filled : 0;
+  const filled = Math.max(0, Math.min(120, Math.round(filledRaw)));
+  const totalRaw = typeof data.total === "number" ? data.total : filled || 1;
+  const total = Math.max(filled, Math.min(120, Math.round(totalRaw)));
+  const colsRaw = typeof data.cols === "number" ? data.cols : 10;
+  const cols = Math.max(4, Math.min(16, Math.round(colsRaw)));
+  const rows = Math.ceil(total / cols);
+  const gap = 0.08;
+  const areaW = Math.min(6.2, ctx.width - ctx.margin * 2);
+  const cell = Math.min(0.42, (areaW - gap * (cols - 1)) / cols);
+  const availH = ctx.height - top - ctx.margin - (data.body ? 0.7 : 0.2);
+  const maxCell = Math.min(cell, (availH - gap * (rows - 1)) / rows);
+  const tone = typeof data.tone === "string" ? data.tone : "";
+  const onHue =
+    ctx.themeName === "kinetic-wrapped" &&
+    ["magenta", "violet", "lime", "cyan", "orange"].includes(tone);
+  const fill = onHue ? (tone === "lime" || tone === "cyan" || tone === "orange" ? "0A0A0A" : "FFFFFF") : ctx.colors.accent;
+
+  for (let i = 0; i < total; i++) {
+    const col = i % cols;
+    const row = Math.floor(i / cols);
+    const x = ctx.margin + col * (maxCell + gap);
+    const y = top + 0.15 + row * (maxCell + gap);
+    const dim = i >= filled;
+    slide.addShape(ctx.shapeRoundRect, {
+      x,
+      y,
+      w: maxCell,
+      h: maxCell,
+      fill: { color: fill, transparency: dim ? 85 : 10 },
+      line: { color: fill, width: 0 },
+      rectRadius: 0.04,
+    });
+  }
+  if (data.body) {
+    slide.addText(data.body, {
+      x: ctx.margin,
+      y: top + 0.2 + rows * (maxCell + gap) + 0.1,
+      w: ctx.width - ctx.margin * 2,
+      h: 0.55,
+      fontFace: ctx.fonts.body,
+      color: ctx.colors.muted,
+      fontSize: 14,
+      fit: "shrink",
+    });
+  }
+}
+
+function renderMetricRing(slide: PSlide, ctx: ExportContext, data: Slide): void {
+  const top = renderHeaderBlock(slide, ctx, data);
+  const pctRaw = typeof data.pct === "number" ? data.pct : 100;
+  const pct = Math.max(0, Math.min(100, pctRaw));
+  const value = typeof data.value === "string" ? data.value : `${Math.round(pct)}%`;
+  const label = typeof data.label === "string" ? data.label : "";
+  const ringSize = 2.4;
+  const x = ctx.margin;
+  const y = top + 0.15;
+  const tone = typeof data.tone === "string" ? data.tone : "";
+  const onHueLight =
+    ctx.themeName === "kinetic-wrapped" &&
+    ["magenta", "violet"].includes(tone);
+  const inverted =
+    ctx.themeName === "kinetic-wrapped" &&
+    ["lime", "cyan", "orange"].includes(tone);
+  const ink = inverted ? "0A0A0A" : onHueLight ? "FFFFFF" : ctx.colors.text;
+  const ring = inverted ? "0A0A0A" : onHueLight ? "FFFFFF" : ctx.colors.accent;
+
+  // Outer ring — solid oval with thick stroke over bg hole approximation.
+  slide.addShape(ctx.shapeOval, {
+    x,
+    y,
+    w: ringSize,
+    h: ringSize,
+    fill: { color: inverted ? "C8FF00" : onHueLight ? tone === "magenta" ? "CC00FF" : "7B2FFF" : ctx.colors.bg },
+    line: { color: ring, width: pct >= 100 || pct <= 0 ? 14 : 10 },
+  });
+  // Inner hole so the center reads as a ring badge.
+  const inset = 0.22;
+  slide.addShape(ctx.shapeOval, {
+    x: x + inset,
+    y: y + inset,
+    w: ringSize - inset * 2,
+    h: ringSize - inset * 2,
+    fill: { color: inverted ? "C8FF00" : onHueLight ? (tone === "magenta" ? "CC00FF" : "7B2FFF") : ctx.colors.bg },
+    line: { color: inverted ? "C8FF00" : onHueLight ? (tone === "magenta" ? "CC00FF" : "7B2FFF") : ctx.colors.bg, width: 0 },
+  });
+  if (pct > 0 && pct < 100) {
+    ctx.warn("metric-ring arc approximates as a full oval ring in PPTX — HTML keeps the stroke arc.");
+  }
+  slide.addText(value, {
+    x,
+    y: y + ringSize * 0.28,
+    w: ringSize,
+    h: 0.7,
+    fontFace: ctx.fonts.heading,
+    bold: true,
+    color: ink,
+    fontSize: 36,
+    align: "center",
+    valign: "middle",
+    fit: "shrink",
+  });
+  if (label) {
+    slide.addText(label.toUpperCase(), {
+      x,
+      y: y + ringSize * 0.55,
+      w: ringSize,
+      h: 0.35,
+      fontFace: ctx.fonts.body,
+      color: ink,
+      fontSize: 11,
+      bold: true,
+      align: "center",
+      charSpacing: 2,
+    });
+  }
+  const textX = x + ringSize + 0.35;
+  const textW = ctx.width - textX - ctx.margin;
+  let ty = y + 0.2;
+  if (data.lead) {
+    slide.addText(data.lead, {
+      x: textX,
+      y: ty,
+      w: textW,
+      h: 1.4,
+      fontFace: ctx.fonts.body,
+      color: ink,
+      fontSize: 18,
+      fit: "shrink",
+      valign: "top",
+    });
+    ty += 1.5;
+  }
+  if (data.body) {
+    slide.addText(data.body, {
+      x: textX,
+      y: ty,
+      w: textW,
+      h: 1.0,
+      fontFace: ctx.fonts.body,
+      color: inverted || onHueLight ? ink : ctx.colors.muted,
+      fontSize: 14,
+      fit: "shrink",
+    });
+  }
+}
+
 const RENDERERS: Record<string, (s: PSlide, ctx: ExportContext, d: Slide) => void> = {
   title: renderHero,
   closing: renderHero,
@@ -1523,6 +1713,8 @@ const RENDERERS: Record<string, (s: PSlide, ctx: ExportContext, d: Slide) => voi
   "custom-html": renderCustomHtml,
   "ranked-list": renderRankedList,
   "logo-wall": renderLogoWall,
+  "streak-grid": renderStreakGrid,
+  "metric-ring": renderMetricRing,
 };
 
 /**

@@ -33,6 +33,8 @@ const VALID_LAYOUTS = new Set([
   "custom-html",
   "ranked-list",
   "logo-wall",
+  "streak-grid",
+  "metric-ring",
 ]);
 
 function structuralValidateDeckJson(json: string): ValidationResult {
@@ -170,6 +172,13 @@ interface SlideData {
   stats?: Array<{ value: string; label: string }>;
   steps?: Array<{ title: string; body?: string }>;
   cta?: { label?: string; href?: string };
+  actions?: Array<{ label: string; href?: string; style?: string; icon?: string }>;
+  filled?: number;
+  total?: number;
+  cols?: number;
+  value?: string;
+  label?: string;
+  pct?: number;
   [key: string]: unknown;
 }
 
@@ -215,6 +224,51 @@ function sanitizeImage(url: unknown): string | undefined {
   if (/^data:image\//i.test(cleaned)) return cleaned;
   const s = schemeOf(cleaned);
   return s && s !== "http" && s !== "https" ? "" : cleaned;
+}
+
+/** Allow FontAwesome class tokens only (fa-*, fab, fas, far, fal, fat, fad, fak). */
+function sanitizeIconClass(icon: unknown): string | undefined {
+  if (typeof icon !== "string") return undefined;
+  const cleaned = stripControls(icon).trim();
+  if (!cleaned || cleaned.length > 80) return undefined;
+  if (!/^fa[a-z0-9 -]*$/i.test(cleaned)) return undefined;
+  return cleaned.replace(/\s+/g, " ");
+}
+
+function normalizeClosingActions(slide: SlideData): Array<Record<string, unknown>> {
+  const raw = Array.isArray(slide.actions)
+    ? (slide.actions as Array<Record<string, unknown>>)
+    : slide.cta?.label
+      ? [{ label: slide.cta.label, href: slide.cta.href, style: "solid" }]
+      : [];
+  return raw.slice(0, 3).map((a, i) => {
+    const styleRaw = typeof a.style === "string" ? a.style : i === 0 ? "solid" : "outline";
+    const style = ["solid", "outline", "ghost"].includes(styleRaw) ? styleRaw : i === 0 ? "solid" : "outline";
+    const icon = sanitizeIconClass(a.icon);
+    return {
+      label: String(a.label ?? ""),
+      href: sanitizeLink(a.href) ?? "#",
+      style,
+      icon,
+      isOutline: style === "outline",
+      isGhost: style === "ghost",
+    };
+  });
+}
+
+function buildMetricRingSvg(pct: number): string {
+  const r = 42;
+  const c = 2 * Math.PI * r;
+  const clamped = Math.max(0, Math.min(100, pct));
+  const dash = (clamped / 100) * c;
+  return (
+    `<svg class="pct-ring-svg" viewBox="0 0 100 100" aria-hidden="true">` +
+    `<circle cx="50" cy="50" r="${r}" fill="none" stroke="currentColor" stroke-opacity="0.15" stroke-width="10"/>` +
+    `<circle cx="50" cy="50" r="${r}" fill="none" stroke="currentColor" stroke-width="10" ` +
+    `stroke-linecap="round" stroke-dasharray="${dash.toFixed(2)} ${c.toFixed(2)}" ` +
+    `transform="rotate(-90 50 50)"/>` +
+    `</svg>`
+  );
 }
 
 function normalizeSlideData(slide: SlideData): Record<string, unknown> {
@@ -297,12 +351,46 @@ function normalizeSlideData(slide: SlideData): Record<string, unknown> {
     }
   }
 
+  if (slide.layout === "streak-grid") {
+    const filledRaw = typeof slide.filled === "number" ? slide.filled : 0;
+    const filled = Math.max(0, Math.min(120, Math.round(filledRaw)));
+    const totalRaw = typeof slide.total === "number" ? slide.total : filled || 1;
+    const total = Math.max(filled, Math.min(120, Math.round(totalRaw)));
+    const colsRaw = typeof slide.cols === "number" ? slide.cols : 10;
+    const cols = Math.max(4, Math.min(16, Math.round(colsRaw)));
+    out["filled"] = filled;
+    out["total"] = total;
+    out["cols"] = cols;
+    out["cells"] = Array.from({ length: total }, (_, i) => ({
+      dim: i >= filled,
+      mid: false,
+    }));
+  }
+
+  if (slide.layout === "metric-ring") {
+    const pctRaw = typeof slide.pct === "number" ? slide.pct : 100;
+    const pct = Math.max(0, Math.min(100, pctRaw));
+    const isArc = pct > 0 && pct < 100;
+    out["pct"] = pct;
+    out["isArc"] = isArc;
+    out["value"] = typeof slide.value === "string" ? slide.value : `${Math.round(pct)}%`;
+    out["label"] = typeof slide.label === "string" ? slide.label : "";
+    if (isArc) {
+      out["ringSvg"] = buildMetricRingSvg(pct);
+    }
+  }
+
   if (slide.layout === "timeline") {
     out["isVertical"] = slide.orientation === "vertical";
   }
 
-  if (slide.cta?.href !== undefined) {
-    out["cta"] = { ...slide.cta, href: sanitizeLink(slide.cta.href) };
+  if (slide.layout === "closing" || slide.cta || slide.actions) {
+    const actions = normalizeClosingActions(slide);
+    out["actions"] = actions;
+    out["hasActions"] = actions.length > 0;
+    if (actions.length) {
+      out["cta"] = { label: String(actions[0]!.label ?? ""), href: String(actions[0]!.href ?? "#") };
+    }
   }
   if (slide.image !== undefined) {
     out["image"] = sanitizeImage(slide.image);

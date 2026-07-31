@@ -46,7 +46,9 @@
             "chart",
             "custom-html",
             "ranked-list",
-            "logo-wall"
+            "logo-wall",
+            "streak-grid",
+            "metric-ring"
           ]
         },
         "variant": {
@@ -214,10 +216,65 @@
         },
         "cta": {
           "type": "object",
+          "description": "closing: primary CTA (alias for actions[0]).",
           "properties": {
             "label": { "type": "string" },
             "href": { "type": "string" }
           }
+        },
+        "actions": {
+          "type": "array",
+          "maxItems": 3,
+          "description": "closing: up to 3 CTAs (solid + outline share pills). Prefer over single cta for wrap/store duals.",
+          "items": {
+            "type": "object",
+            "required": ["label"],
+            "properties": {
+              "label": { "type": "string" },
+              "href": { "type": "string" },
+              "style": {
+                "type": "string",
+                "enum": ["solid", "outline", "ghost"],
+                "description": "Button treatment (default solid for first, outline for rest)."
+              },
+              "icon": {
+                "type": "string",
+                "description": "FontAwesome class, e.g. fa-brands fa-instagram"
+              }
+            }
+          }
+        },
+        "filled": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 120,
+          "description": "streak-grid: number of filled cells."
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 120,
+          "description": "streak-grid: total cells (default filled, capped at 120)."
+        },
+        "cols": {
+          "type": "integer",
+          "minimum": 4,
+          "maximum": 16,
+          "description": "streak-grid: columns per row (default 10)."
+        },
+        "value": {
+          "type": "string",
+          "description": "metric-ring: center display value (e.g. \"3%\")."
+        },
+        "label": {
+          "type": "string",
+          "description": "metric-ring: caption under the value (e.g. \"globally\")."
+        },
+        "pct": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "metric-ring: ring fill 0–100 (omit/100 = full badge ring; 1–99 = arc)."
         },
         "leftLabel": { "type": "string", "description": "comparison: label for the left column." },
         "rightLabel": { "type": "string", "description": "comparison: label for the right column." },

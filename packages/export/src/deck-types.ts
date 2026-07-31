@@ -23,7 +23,9 @@ export type LayoutType =
   | "chart"
   | "custom-html"
   | "ranked-list"
-  | "logo-wall";
+  | "logo-wall"
+  | "streak-grid"
+  | "metric-ring";
 
 export interface Card {
   icon?: string;
@@ -54,6 +56,8 @@ export interface Step {
 export interface Cta {
   label?: string;
   href?: string;
+  style?: "solid" | "outline" | "ghost" | string;
+  icon?: string;
 }
 
 export interface ChartSeries {
@@ -97,6 +101,16 @@ export interface Slide {
   orientation?: "horizontal" | "vertical" | string;
   steps?: Step[];
   cta?: Cta;
+  /** closing: up to 3 CTAs (solid + outline share pills). Prefer over single cta. */
+  actions?: Cta[];
+  /** streak-grid: filled / total cells (capped at 120). */
+  filled?: number;
+  total?: number;
+  cols?: number;
+  /** metric-ring: center value + caption + ring fill pct. */
+  value?: string;
+  label?: string;
+  pct?: number;
   /** Speaker notes — round-trip via PPTX import/export; not rendered on the HTML slide. */
   notes?: string;
   /** comparison: column labels and body copy. */

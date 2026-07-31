@@ -1,0 +1,11 @@
+<section class="slide streak-grid-slide" data-layout="streak-grid">
+  {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
+  {{#heading}}<h2>{{heading}}</h2>{{/heading}}
+  {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
+  <div class="streak-boxes" style="--streak-cols: {{cols}}">
+    {{#cells}}
+    <div class="streak-box{{#dim}} dim{{/dim}}{{#mid}} mid{{/mid}}"></div>
+    {{/cells}}
+  </div>
+  {{#body}}<p class="streak-caption">{{body}}</p>{{/body}}
+</section>

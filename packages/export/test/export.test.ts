@@ -387,4 +387,42 @@ describe("deckToPptx", () => {
     expect(result.slideCount).toBe(1);
     expect(result.warnings.some((w) => w.includes("Unknown layout"))).toBe(false);
   });
+
+  it("exports streak-grid, metric-ring, and dual closing actions", async () => {
+    const deck: DeckJson = {
+      type: "deck",
+      meta: { title: "Pulse", theme: "kinetic-wrapped" },
+      slides: [
+        {
+          layout: "streak-grid",
+          tone: "violet",
+          heading: "No excuses.",
+          filled: 47,
+          total: 60,
+          cols: 10,
+        },
+        {
+          layout: "metric-ring",
+          tone: "cyan",
+          heading: "TOP 3%.",
+          value: "3%",
+          label: "globally",
+          pct: 100,
+          lead: "Outworked 97%.",
+        },
+        {
+          layout: "closing",
+          tone: "lime",
+          heading: "Share it.",
+          actions: [
+            { label: "Instagram", href: "https://instagram.com", style: "solid" },
+            { label: "Post to X", href: "https://x.com", style: "outline" },
+          ],
+        },
+      ],
+    };
+    const result = await buildPptx(deck, theme);
+    expect(result.slideCount).toBe(3);
+    expect(result.warnings.some((w) => w.includes("Unknown layout"))).toBe(false);
+  });
 });

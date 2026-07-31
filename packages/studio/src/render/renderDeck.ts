@@ -134,11 +134,76 @@ function normalizeSlideData(slide: Slide): Record<string, unknown> {
       }));
     }
   }
+  if (slide.layout === "streak-grid") {
+    const filledRaw = typeof slide.filled === "number" ? slide.filled : 0;
+    const filled = Math.max(0, Math.min(120, Math.round(filledRaw)));
+    const totalRaw = typeof slide.total === "number" ? slide.total : filled || 1;
+    const total = Math.max(filled, Math.min(120, Math.round(totalRaw)));
+    const colsRaw = typeof slide.cols === "number" ? slide.cols : 10;
+    const cols = Math.max(4, Math.min(16, Math.round(colsRaw)));
+    out["filled"] = filled;
+    out["total"] = total;
+    out["cols"] = cols;
+    out["cells"] = Array.from({ length: total }, (_, i) => ({
+      dim: i >= filled,
+      mid: false,
+    }));
+  }
+  if (slide.layout === "metric-ring") {
+    const pctRaw = typeof slide.pct === "number" ? slide.pct : 100;
+    const pct = Math.max(0, Math.min(100, pctRaw));
+    const isArc = pct > 0 && pct < 100;
+    out["pct"] = pct;
+    out["isArc"] = isArc;
+    out["value"] = typeof slide.value === "string" ? slide.value : `${Math.round(pct)}%`;
+    out["label"] = typeof slide.label === "string" ? slide.label : "";
+    if (isArc) {
+      const r = 42;
+      const c = 2 * Math.PI * r;
+      const dash = (pct / 100) * c;
+      out["ringSvg"] =
+        `<svg class="pct-ring-svg" viewBox="0 0 100 100" aria-hidden="true">` +
+        `<circle cx="50" cy="50" r="${r}" fill="none" stroke="currentColor" stroke-opacity="0.15" stroke-width="10"/>` +
+        `<circle cx="50" cy="50" r="${r}" fill="none" stroke="currentColor" stroke-width="10" ` +
+        `stroke-linecap="round" stroke-dasharray="${dash.toFixed(2)} ${c.toFixed(2)}" ` +
+        `transform="rotate(-90 50 50)"/></svg>`;
+    }
+  }
   if (slide.layout === "timeline") {
     out["isVertical"] = slide.orientation === "vertical";
   }
-  if (slide.cta?.href !== undefined) {
-    out["cta"] = { ...slide.cta, href: sanitizeLink(slide.cta.href) };
+  // Normalize closing actions (cta remains alias for actions[0]).
+  {
+    const raw = Array.isArray(slide.actions)
+      ? slide.actions
+      : slide.cta?.label
+        ? [slide.cta]
+        : [];
+    if (raw.length || slide.layout === "closing") {
+      const actions = raw.slice(0, 3).map((a, i) => {
+        const styleRaw = typeof a.style === "string" ? a.style : i === 0 ? "solid" : "outline";
+        const style = ["solid", "outline", "ghost"].includes(styleRaw) ? styleRaw : i === 0 ? "solid" : "outline";
+        const icon =
+          typeof a.icon === "string" && /^fa[a-z0-9 -]*$/i.test(a.icon.trim())
+            ? a.icon.trim().replace(/\s+/g, " ")
+            : undefined;
+        return {
+          label: String(a.label ?? ""),
+          href: sanitizeLink(a.href) ?? "#",
+          style,
+          icon,
+          isOutline: style === "outline",
+          isGhost: style === "ghost",
+        };
+      });
+      out["actions"] = actions;
+      out["hasActions"] = actions.length > 0;
+      if (actions.length) {
+        out["cta"] = { label: actions[0]!.label, href: actions[0]!.href };
+      }
+    } else if (slide.cta?.href !== undefined) {
+      out["cta"] = { ...slide.cta, href: sanitizeLink(slide.cta.href) };
+    }
   }
   if (slide.image !== undefined) {
     out["image"] = sanitizeImage(slide.image);

@@ -272,6 +272,59 @@ describe("renderDeck", () => {
     expect(html).toContain("Acme");
   });
 
+  it("renders streak-grid, metric-ring, and dual closing actions", async () => {
+    const deck = JSON.stringify({
+      type: "deck",
+      meta: { theme: "default-tech", title: "Pulse" },
+      slides: [
+        {
+          layout: "streak-grid",
+          tone: "violet",
+          heading: "No excuses.",
+          filled: 47,
+          total: 60,
+          cols: 10,
+        },
+        {
+          layout: "metric-ring",
+          tone: "cyan",
+          heading: "TOP 3%.",
+          value: "3%",
+          label: "globally",
+          pct: 100,
+          lead: "Outworked 97%.",
+        },
+        {
+          layout: "metric-ring",
+          heading: "Progress",
+          value: "72%",
+          label: "complete",
+          pct: 72,
+        },
+        {
+          layout: "closing",
+          tone: "lime",
+          heading: "Share it.",
+          actions: [
+            { label: "Instagram", href: "https://instagram.com", style: "solid", icon: "fa-brands fa-instagram" },
+            { label: "Post to X", href: "javascript:alert(1)", style: "outline" },
+          ],
+        },
+      ],
+    });
+    const html = await renderDeck(deck);
+    expect(html).toContain('data-layout="streak-grid"');
+    expect(html).toContain("streak-box");
+    expect(html).toContain('data-layout="metric-ring"');
+    expect(html).toContain("pct-ring");
+    expect(html).toContain("pct-ring-svg");
+    expect(html).toContain("cta-row");
+    expect(html).toContain("btn-outline");
+    expect(html).toContain("fa-brands fa-instagram");
+    expect(html).not.toContain('href="javascript');
+    expect(html).toContain('href="#"');
+  });
+
   it("renders custom-html after sanitizing scripts", async () => {
     const deck = JSON.stringify({
       type: "deck",

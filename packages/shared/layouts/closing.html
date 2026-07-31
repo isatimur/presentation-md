@@ -2,5 +2,11 @@
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   <h1>{{heading}}</h1>
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
-  {{#cta}}<a class="btn" href="{{href}}"><i class="fa-solid fa-arrow-right"></i> {{label}}</a>{{/cta}}
+  {{#hasActions}}
+  <div class="cta-row">
+    {{#actions}}
+    <a class="btn{{#isOutline}} btn-outline{{/isOutline}}{{#isGhost}} btn-ghost{{/isGhost}}" href="{{href}}">{{#icon}}<i class="{{icon}}"></i> {{/icon}}{{label}}</a>
+    {{/actions}}
+  </div>
+  {{/hasActions}}
 </section>

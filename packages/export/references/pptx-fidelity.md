@@ -38,9 +38,12 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   accent marker: rounded chip (or circle for circle/dot icons) filled with `accent`,
   labeled with the icon's first letter when a class is present (e.g. `fa-bolt` → `B`).
 - **Craft layouts that *are* mapped:** `columns: "bento"` (hero + satellite cards),
-  comparison `emphasis`, two-column `ratio`/`reverse`, image-hero bottom/side scrims, and
-  code window chrome (traffic-light dots + filename). Geometry is native shapes, not a
-  screenshot — expect editability over pixel parity.
+  comparison `emphasis`, two-column `ratio`/`reverse`, image-hero bottom/side scrims,
+  code window chrome (traffic-light dots + filename), `ranked-list` bars, `logo-wall`
+  tiles, `streak-grid` cells, `metric-ring` oval + center value, and closing `actions[]`
+  (solid + outline pills; `cta` remains an alias for the first action). Geometry is
+  native shapes, not a screenshot — expect editability over pixel parity.
+- Soft blob / mix-blend Pulse chrome is HTML-only; PPTX approximates tone fills.
 - Every non-mappable field emits a warning (via `opts.onWarn` / `result.warnings`) — nothing
   is dropped silently.
 
