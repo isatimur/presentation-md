@@ -110,13 +110,13 @@
       <thead><tr><th style="width:34%">Criterion</th><th style="width:33%">presentation-md</th><th style="width:33%">frontend-slides</th></tr></thead>
       <tbody>
         <tr><td>Where it runs</td><td class="col-us">Claude Code, Cursor, Copilot, Codex, Gemini CLI + MCP</td><td>Agent prompt packs + HTML template gallery</td></tr>
-        <tr><td>Authoring model</td><td class="col-us"><span class="check">✓</span> Typed Deck JSON schema (16 layouts incl. <code>ranked-list</code>, <code>chart</code>, <code>custom-html</code>)</td><td>Freeform / template-guided HTML from prompts</td></tr>
-        <tr><td>Theme proofs</td><td class="col-us"><span class="check">✓</span> 75 schema-validated structured proofs</td><td>Showcase HTML templates (discovery-first)</td></tr>
-        <tr><td>Live theme preview</td><td class="col-us"><span class="check">✓</span> <code>preview_themes</code> MCP (title + layouts bake)</td><td><span class="check">✓</span> Strong live style gallery UX</td></tr>
-        <tr><td>Design craft</td><td class="col-us">Asymmetric ratios, emphasis, bento, image-heroes, surfaces</td><td>Bold visual systems; agent writes full HTML</td></tr>
+        <tr><td>Authoring model</td><td class="col-us"><span class="check">✓</span> Typed Deck JSON schema (18 layouts incl. <code>ranked-list</code>, <code>streak-grid</code>, <code>metric-ring</code>, <code>chart</code>, <code>custom-html</code>)</td><td>Freeform / template-guided HTML from prompts</td></tr>
+        <tr><td>Theme proofs</td><td class="col-us"><span class="check">✓</span> 75 schema-validated structured proofs + mood/popular browse</td><td>Showcase HTML templates (discovery-first)</td></tr>
+        <tr><td>Live theme preview</td><td class="col-us"><span class="check">✓</span> <code>preview_themes</code> MCP (title + layouts bake) + safe/bold/wildcard trio</td><td><span class="check">✓</span> Strong live style gallery UX</td></tr>
+        <tr><td>Design craft</td><td class="col-us">Asymmetric ratios, emphasis, bento, image-heroes, surfaces, craft gates</td><td>Bold visual systems; agent writes full HTML</td></tr>
         <tr><td>PowerPoint</td><td class="col-us"><span class="check">✓</span> Native PPTX export + import round-trip + speaker notes + theme-native card/frame chrome</td><td><span class="cross">✗</span> HTML-first; no first-class PPTX pipeline</td></tr>
-        <tr><td>Browser Studio</td><td class="col-us"><span class="check">✓</span> Hosted Studio with craft controls</td><td><span class="cross">✗</span> No equivalent editor product</td></tr>
-        <tr><td>MCP tools</td><td class="col-us"><span class="check">✓</span> 9 typed tools (render, export, audit, themes, brand, import…)</td><td>Skill / prompt workflow, not a typed MCP product</td></tr>
+        <tr><td>Browser Studio</td><td class="col-us"><span class="check">✓</span> Hosted Studio with craft controls + density modes</td><td><span class="cross">✗</span> No equivalent editor product</td></tr>
+        <tr><td>MCP tools</td><td class="col-us"><span class="check">✓</span> 11 typed tools (render, export, audit, judge, themes, brand, import…)</td><td>Skill / prompt workflow, not a typed MCP product</td></tr>
         <tr><td>Brand import</td><td class="col-us"><span class="check">✓</span> CSS / URL → contrast-safe theme package</td><td>Manual template restyle</td></tr>
         <tr><td>Output ownership</td><td class="col-us">Self-contained HTML you own + optional PPTX</td><td>Self-contained HTML you own</td></tr>
         <tr><td>License / price</td><td class="col-us"><span class="check">✓</span> Free, MIT, no account</td><td><span class="check">✓</span> Open-source skill / templates</td></tr>
@@ -129,17 +129,19 @@
   <div class="container">
     <h2>Where frontend-slides is stronger</h2>
     <ul>
-      <li>Discovery UX that made “pick a vibe first” feel obvious</li>
+      <li>Community momentum and README gallery energy as the reference for bold agent slide aesthetics</li>
       <li>Fully freeform multi-page HTML when you abandon schema on purpose (we keep <code>custom-html</code> for one-off art inside Deck JSON)</li>
-      <li>Community momentum as the reference for bold agent slide aesthetics</li>
+      <li>Claude Code plugin marketplace install flow as a first-class slash command</li>
     </ul>
     <h2 style="margin-top:36px">Where presentation-md is stronger</h2>
     <ul>
-      <li>Schema-validated Deck JSON — reproducible, auditable agent output</li>
-      <li>75 structured theme proofs with craft surfaces, not only showcase HTML</li>
+      <li>Same show-don’t-tell discovery — mandatory 3-theme previews with safe/bold/wildcard mix + <code>preview_themes</code> layouts bake</li>
+      <li>Schema-validated Deck JSON — reproducible, auditable agent output across 18 layouts</li>
+      <li>75 structured theme proofs with popular/mood browse on the site + Studio shortlists</li>
       <li>Native PPTX export/import with speaker notes — opens in PowerPoint, Keynote, Google Slides</li>
-      <li>Browser Studio + 9 MCP tools for agents that need a product, not only a prompt</li>
+      <li>Browser Studio + 11 MCP tools (incl. <code>judge_deck</code>, <code>import_markdown</code>) for agents that need a product, not only a prompt</li>
       <li>Brand import with contrast guards so muted copy stays readable</li>
+      <li>Density modes (speaker-led vs reading-first) in skill + Studio generate</li>
     </ul>
   </div>
 </section>
@@ -147,7 +149,7 @@
 <section>
   <div class="container">
     <h2>Verdict</h2>
-    <div class="verdict">Use frontend-slides when you want maximum HTML freedom and gallery energy. Use presentation-md when the deck must survive re-theme, audit, PPTX handoff, and agent loops — same discovery energy, plus the structured layer competitors cannot match.</div>
+    <div class="verdict">Use frontend-slides when you want maximum HTML freedom and slash-command gallery energy. Use presentation-md when the deck must survive re-theme, audit, PPTX handoff, and agent loops — we matched their show-don’t-tell discovery bar, then shipped the structured product layer a skill-only repo cannot.</div>
     <br>
     <p>Try presentation-md in one command:</p>
     <pre>npx @presentation-md/install claude-code</pre>

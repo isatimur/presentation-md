@@ -18,7 +18,7 @@ pnpm --filter @presentation-md/studio test:e2e  # Playwright flow (needs: npx pl
 
 ## What it does
 
-- **Slide list** — add (any of the 12 layouts), duplicate, reorder, delete.
+- **Slide list** — add (any of the 18 layouts), duplicate, reorder, delete.
 - **Form editor** — fields per layout (cards, stats, steps, table rows…), driven by the deck schema, plus speaker notes that export to the PPTX notes pane.
 - **Live preview** — an `<iframe>` rendered with the same shared Mustache layouts + theme tokens as
   the canonical Node renderer, so what you see matches the published deck.
