@@ -1,5 +1,16 @@
 # @presentation-md/studio
 
+## 1.3.1
+
+### Patch Changes
+
+- 1941cf9: Document that every theme package now gets native PPTX surface-chrome approximations, and steer agents toward loud/thin themes instead of custom-html for brand atmosphere.
+- Updated dependencies [a481a33]
+- Updated dependencies [1941cf9]
+- Updated dependencies [2f8f516]
+  - @presentation-md/export@1.11.0
+  - @presentation-md/core@1.7.2
+
 ## 1.3.0
 
 ### Minor Changes
