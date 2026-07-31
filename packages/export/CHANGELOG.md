@@ -1,5 +1,21 @@
 # @presentation-md/export
 
+## 1.9.0
+
+### Minor Changes
+
+- c7ce9a5: PPTX soft-blob / overprint approximations for Pulse, risograph, and candy-pop; HTML candy marquee + stronger riso multiply; stunning-25 dual-CTA closings.
+
+### Patch Changes
+
+- 96d87eb: Closing action icons in PPTX, aurora/glass/luxe chrome, candy ticker text, and dual-CTA auditCraft for launch closes.
+- d58fa5a: PPTX chrome for neon-noir / vaporwave / y2k-aero; broaden dual-CTA craft mandate for launch/investor closes.
+- 090d2c6: Studio audit/PPTX issues panel; CRT/blueprint/acid PPTX surface chrome.
+- Updated dependencies [96d87eb]
+- Updated dependencies [d58fa5a]
+- Updated dependencies [c7ce9a5]
+  - @presentation-md/core@1.6.0
+
 ## 1.8.1
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @presentation-md/studio
 
+## 1.1.6
+
+### Patch Changes
+
+- c7ce9a5: Extract shared `auditCraft` into `@presentation-md/core` so Studio Audit and MCP `audit_deck` share one craft-gate source.
+- 090d2c6: Studio audit/PPTX issues panel; CRT/blueprint/acid PPTX surface chrome.
+- Updated dependencies [96d87eb]
+- Updated dependencies [d58fa5a]
+- Updated dependencies [c7ce9a5]
+- Updated dependencies [c7ce9a5]
+- Updated dependencies [090d2c6]
+  - @presentation-md/export@1.9.0
+  - @presentation-md/core@1.6.0
+
 ## 1.1.5
 
 ### Patch Changes
