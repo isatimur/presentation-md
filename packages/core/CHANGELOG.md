@@ -1,5 +1,16 @@
 # @presentation-md/core
 
+## 1.3.0
+
+### Minor Changes
+
+- b1f2b74: Add logo-wall layout for customer/partner marks; fix export prefer-const lint.
+- 1fb09b1: Add ranked-list layout and stat-row hero mega-stat for wrap decks; Studio tone editing; Pulse gallery parity.
+
+### Patch Changes
+
+- 9463f80: Align PPTX timeline with horizontal HTML rail; add orientation vertical process option.
+
 ## 1.2.1
 
 ### Patch Changes

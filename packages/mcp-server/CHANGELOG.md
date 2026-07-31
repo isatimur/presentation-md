@@ -1,5 +1,24 @@
 # @presentation-md/mcp-server
 
+## 1.4.0
+
+### Minor Changes
+
+- b48ff58: Deepen stunning-25 body chrome; improve PPTX icons/timeline; local_draft T3 when panel keys missing.
+- 1fb09b1: Add ranked-list layout and stat-row hero mega-stat for wrap decks; Studio tone editing; Pulse gallery parity.
+
+### Patch Changes
+
+- b1f2b74: Add logo-wall layout for customer/partner marks; fix export prefer-const lint.
+- Updated dependencies [b48ff58]
+- Updated dependencies [b1f2b74]
+- Updated dependencies [1fb09b1]
+- Updated dependencies [9463f80]
+  - @presentation-md/export@1.6.0
+  - @presentation-md/render@1.4.0
+  - @presentation-md/core@1.3.0
+  - @presentation-md/create-theme@1.0.6
+
 ## 1.3.0
 
 ### Minor Changes
