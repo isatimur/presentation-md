@@ -1,5 +1,19 @@
 # @presentation-md/mcp-server
 
+## 1.15.0
+
+### Minor Changes
+
+- e653c9e: Generate modal gains Title/Bento/Compare live crops (parity with theme tray); Example browser shows a live featured trio + theme swatches; `preview_themes` auto-defaults pick-3 (≥2 themes) to layouts mode; flagship Deck JSON leads with title → feature-grid → comparison for Studio crop alignment; site + skill copy densify show-don't-tell vs frontend-slides.
+
+### Patch Changes
+
+- Updated dependencies [e653c9e]
+  - @presentation-md/core@1.16.4
+  - @presentation-md/create-theme@1.1.6
+  - @presentation-md/export@1.23.6
+  - @presentation-md/render@1.7.2
+
 ## 1.14.7
 
 ### Patch Changes
