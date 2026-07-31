@@ -217,7 +217,68 @@ function mapBlock(block: string, index: number, total: number): MdSlide {
     };
   }
 
+  // Streak / ring heuristics (heading + body; no bullets required).
+  if (heading) {
+    const blob = heading.text + " " + paras.join(" ");
+    if (/streak|days?\s+straight|habit\s+grid/i.test(blob)) {
+      const filledMatch = blob.match(/\b(\d{1,3})\s*days?\b/i);
+      const filled = filledMatch ? Math.min(120, Number(filledMatch[1])) : 30;
+      const total = Math.min(120, Math.max(filled, Math.ceil(filled * 1.25)));
+      return {
+        layout: "streak-grid",
+        heading: heading.text,
+        lead: paras[0],
+        filled,
+        total,
+        cols: 10,
+      };
+    }
+    const pctMatch = blob.match(/\b(\d{1,3})\s*%/);
+    if (/top\s*\d|percentile|globally|completion|progress\s*ring/i.test(blob) && pctMatch) {
+      const pct = Math.min(100, Number(pctMatch[1]));
+      return {
+        layout: "metric-ring",
+        heading: heading.text,
+        value: `${pct}%`,
+        label: /global/i.test(blob) ? "globally" : "complete",
+        pct: /top\s*\d/i.test(blob) ? 100 : pct,
+        lead: paras[0],
+        body: paras[1],
+      };
+    }
+  }
+
   const items = bullets(block);
+
+  // Closing before list heuristics so share/CTA bullets become actions[], not a feature-grid.
+  if (
+    index === total - 1 &&
+    heading &&
+    /thank|next|let'?s|contact|join|get started|share|download|try/i.test(heading.text)
+  ) {
+    const labels = [...paras.slice(1), ...items].filter(Boolean).slice(0, 3);
+    if (labels.length >= 2) {
+      return {
+        layout: "closing",
+        heading: heading.text,
+        lead: paras[0],
+        actions: labels.map((label, i) => ({
+          label,
+          href: "#",
+          style: i === 0 ? "solid" : "outline",
+        })),
+      };
+    }
+    return {
+      layout: "closing",
+      heading: heading.text,
+      lead: paras[0],
+      actions: paras[1]
+        ? [{ label: paras[1], href: "#", style: "solid" }]
+        : [{ label: "Get started", href: "#", style: "solid" }],
+    };
+  }
+
   if (items.length >= 2 && heading) {
     // Heuristic: short items → feature-grid; value/label pairs → stat-row;
     // "N. Label — value" or "Label · value · NN%" → ranked-list
@@ -255,6 +316,21 @@ function mapBlock(block: string, index: number, total: number): MdSlide {
       return { layout: "ranked-list", heading: heading.text, items: asRanked };
     }
 
+    // Logo wall: partner/customer marks as short list items
+    if (
+      /logo|partner|customer|trusted by|backers|members/i.test(heading.text) &&
+      items.length >= 3 &&
+      items.every((t) => t.length <= 28)
+    ) {
+      return {
+        layout: "logo-wall",
+        heading: heading.text,
+        lead: paras[0],
+        columns: Math.min(Math.max(items.length, 3), 4),
+        cards: items.map((title) => ({ title })),
+      };
+    }
+
     const asStats = items
       .map((item) => {
         const m = item.match(/^(\S+)\s+[—–\-:]\s+(.+)$/) || item.match(/^(\S+)\s{2,}(.+)$/);
@@ -269,16 +345,6 @@ function mapBlock(block: string, index: number, total: number): MdSlide {
       heading: heading.text,
       columns: Math.min(Math.max(items.length, 2), 4),
       cards: items.map((title) => ({ title })),
-    };
-  }
-
-  // Closing heuristic: last slide with CTA-ish heading
-  if (index === total - 1 && heading && /thank|next|let'?s|contact|join|get started/i.test(heading.text)) {
-    return {
-      layout: "closing",
-      heading: heading.text,
-      lead: paras[0],
-      cta: paras[1] ? { label: paras[1], href: "#" } : undefined,
     };
   }
 
