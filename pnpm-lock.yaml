@@ -182,6 +182,9 @@ importers:
       '@anthropic-ai/sdk':
         specifier: ^0.109.0
         version: 0.109.1
+      '@presentation-md/core':
+        specifier: workspace:*
+        version: link:../core
       '@presentation-md/export':
         specifier: workspace:*
         version: link:../export
@@ -198,9 +201,6 @@ importers:
       '@playwright/test':
         specifier: ^1.48.0
         version: 1.61.1
-      '@presentation-md/core':
-        specifier: workspace:*
-        version: link:../core
       '@types/mustache':
         specifier: ^4.2.5
         version: 4.2.6
