@@ -62,16 +62,16 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   blueprint gets a light grid + dual reticles + outer frame; brutalist-acid gets a
   hard acid frame (heroes also get an offset block); aerospace-hud gets a HUD
   grid + dual reticles + telemetry stub; swiss-typographic gets a modular grid + red left rail;
-  ft-editorial gets a masthead bar + bottom rule; bauhaus gets a hard frame (heroes get
+  ft-editorial gets a masthead bar + quiet frame + double bottom rules + accent stub; bauhaus gets a hard frame (heroes get
   red square + blue circle; body gets a quiet accent stub); fintech-clean / scandinavian get soft radial washes + clean frames; art-deco gets a gold frame + hairline
   (heroes also get a deco ring); botanical-luxe gets a gold hairline + leaf ring;
-  genz-bento gets a hard border + corner blot; heritage-editorial gets quiet hairlines + mid stub;
+  genz-bento gets a hard border + offset shadow strips + corner blot; heritage-editorial gets quiet hairlines + mid stub;
   developer-dark gets a title-bar + traffic lights; data-editorial gets an accent rule + hard frame;
   dark-botanical gets bloom washes + a left rail;
   pastel-geometry gets a card wash + vertical pastel edge pills;
   8-bit-orbit gets scanlines + neon orbs + pixel HUD chips;
   neo-grid-bold gets a modular grid + lemon corner panel + hard frame;
-  bold-poster gets an ink top bar + poster block;
+  bold-poster gets a hard frame + offset shadow + ink top bar (poster block on heroes);
   capsule gets pill/circle ornaments;
   cobalt-grid gets a cobalt paper grid + corner hatch;
   retro-arcade gets scanlines + neon top rail;
@@ -79,7 +79,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   creative-mode gets a hard shadow frame + stacked accent blocks;
   biennale-yellow gets a sun orb + top hairline;
   scatterbrain gets cork sticky notes + pin dots;
-  split-pastel heroes get a split field + stacked pastel pills;
+  split-pastel gets dual pastel corner washes (heroes also get a split field + stacked pastel pills);
   coral gets a hatch frame + coral left wash;
   peoples-platform gets a cobalt top bar + amber stub + hard frame;
   raw-grid gets blush/sage bands + cross rules;
@@ -88,12 +88,12 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   daisy-days gets pastel dots + daisy/pill ornaments;
   block-frame gets a hard frame + pastel offset blocks on heroes;
   editorial-tri-tone gets a butter split + burgundy wash;
-  broadside gets a fire-orange rail + corner block;
+  broadside gets a fire-orange rail + corner block + outer border (heroes also get a top stub);
   pink-script gets a soft pink wash + inset frame + hairline;
   retro-windows gets a Win95 title bar + window buttons;
   pin-and-paper gets legal-pad rules + red margin + pin;
   emerald-editorial gets masthead rules + inset frame;
-  notebook-tabs gets pastel side tabs + binder holes;
+  notebook-tabs gets a dark mat frame + pastel side tabs + binder holes + left margin rule;
   long-table gets speckles + outline pill + hairline;
   paper-ink gets crimson top/bottom rules + corner stub;
   vintage-editorial heroes get a geometric ring + dots;
@@ -103,14 +103,14 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   cartesian gets draft axes + concentric rings;
   monochrome gets ledger frame + hairlines;
   blue-professional gets a soft wash band + accent stub + clean frame;
-  broadsheet gets a newsprint masthead + bottom rule;
-  editorial-forest gets a forest rule + blush orb;
-  signal gets a briefing hairline + outline square;
+  broadsheet gets a newsprint masthead + quiet frame + double bottom rules + accent stub;
+  editorial-forest gets a forest inset frame + dual hairlines + blush orb;
+  signal gets a quiet briefing border + hairline + outline square + gold stub;
   pastel-dreamy gets denser soft cloud ovals;
   vellum gets a soft colorfield wash + teal/chartreuse orbs;
   editorial-serif gets an accent rule + deco ring + bottom stub;
-  soft-editorial gets a sage wash + blush candy orb;
-  claude (warm-paper) gets a soft coral corner wash;
+  soft-editorial gets a sage wash + blush candy orb + inset frame + bottom stub;
+  claude (warm-paper) gets a soft coral corner wash + accent2 mist + quiet inset frame + accent stub;
   default-tech gets dual neon corner blooms (accent + accent2);
   playful gets denser soft blots + candy square;
   corporate gets a clean accent stub + soft top wash;

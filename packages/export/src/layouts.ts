@@ -2018,7 +2018,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "soft-editorial") {
-    // Soft sage radial stand-in (top-right wash) + blush candy orb.
+    // Soft sage wash + blush candy orb + quiet inset frame + bottom accent stub.
     slide.addShape(ctx.shapeOval, {
       x: ctx.width * 0.55,
       y: -ctx.height * 0.15,
@@ -2036,10 +2036,28 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       line: { color: ctx.colors.accent2, width: 0 },
       rectRadius: 0.32,
     });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.28,
+      y: 0.28,
+      w: ctx.width - 0.56,
+      h: ctx.height - 0.56,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.border, width: 1.15 },
+      rectRadius: 0.12,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: ctx.height - 0.55,
+      w: 0.85,
+      h: 0.03,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
   }
 
   if (theme === "claude") {
-    // Warm-paper coral corner wash (grain stays HTML-only).
+    // Warm-paper coral corner wash + soft accent2 mist + quiet inset frame (grain stays HTML-only).
     slide.addShape(ctx.shapeOval, {
       x: -1.1,
       y: ctx.height - 2.4,
@@ -2047,6 +2065,32 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       h: 3.0,
       fill: { color: ctx.colors.accent, transparency: 82 },
       line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 2.8,
+      y: -1.2,
+      w: 3.4,
+      h: 3.4,
+      fill: { color: ctx.colors.accent2, transparency: 86 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.32,
+      y: 0.32,
+      w: ctx.width - 0.64,
+      h: ctx.height - 0.64,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.border, width: 1 },
+      rectRadius: 0.1,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: 0.58,
+      w: 0.72,
+      h: 0.02,
+      fill: { color: ctx.colors.accent, transparency: 25 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
     });
   }
 
@@ -2820,7 +2864,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "ft-editorial") {
-    // Broadsheet masthead bar + bottom rule (broadsheet-rule).
+    // Broadsheet masthead + double rule + quiet outer frame + accent mid stub.
     slide.addShape(ctx.shapeRoundRect, {
       x: 0,
       y: 0,
@@ -2831,12 +2875,39 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
+      x: 0.14,
+      y: 0.14,
+      w: ctx.width - 0.28,
+      h: ctx.height - 0.28,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 0.75 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
       x: ctx.margin,
       y: ctx.height - 0.7,
       w: ctx.width - ctx.margin * 2,
       h: 0.025,
       fill: { color: ctx.colors.text },
       line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: ctx.height - 0.62,
+      w: ctx.width - ctx.margin * 2,
+      h: 0.012,
+      fill: { color: ctx.colors.accent, transparency: 35 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: 0.55,
+      w: 0.55,
+      h: 0.03,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0,
     });
   }
@@ -3006,12 +3077,31 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "genz-bento") {
-    // Hard border shadow + accent2 corner blot (hard-bento).
+    // Hard border + 10px offset shadow strips + accent2 corner blot (hard-bento).
+    const shadow = 0.12;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - shadow,
+      y: shadow,
+      w: shadow,
+      h: ctx.height - shadow,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: shadow,
+      y: ctx.height - shadow,
+      w: ctx.width - shadow,
+      h: shadow,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.12,
       y: 0.12,
-      w: ctx.width - 0.12,
-      h: ctx.height - 0.12,
+      w: ctx.width - 0.24,
+      h: ctx.height - 0.24,
       fill: { color: ctx.colors.bg, transparency: 100 },
       line: { color: ctx.colors.text, width: 2.5 },
       rectRadius: 0,
@@ -3285,7 +3375,35 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "bold-poster") {
-    // Ink top bar + offset poster block (bold-poster-ink).
+    // Hard frame + offset shadow every slide; ink top bar; poster block on heroes.
+    const shadow = 0.11;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - shadow,
+      y: shadow,
+      w: shadow,
+      h: ctx.height - shadow,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: shadow,
+      y: ctx.height - shadow,
+      w: ctx.width - shadow,
+      h: shadow,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.2,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 2.25 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0,
       y: 0,
@@ -3544,27 +3662,55 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
     }
   }
 
-  if (theme === "split-pastel" && isHero) {
-    // Split field + stacked pastel pills (split-pastel-panels).
-    slide.addShape(ctx.shapeRoundRect, {
-      x: ctx.width * 0.5,
-      y: 0,
-      w: ctx.width * 0.5,
-      h: ctx.height,
-      fill: { color: ctx.colors.bg2 },
-      line: { color: ctx.colors.bg2, width: 0 },
-      rectRadius: 0,
+  if (theme === "split-pastel") {
+    // Soft dual pastel corner washes on every slide; full split + pills on heroes.
+    slide.addShape(ctx.shapeOval, {
+      x: -1.4,
+      y: ctx.height - 2.6,
+      w: 3.2,
+      h: 3.2,
+      fill: { color: ctx.colors.accent, transparency: 84 },
+      line: { color: ctx.colors.accent, width: 0 },
     });
-    const stack = [ctx.colors.accent, ctx.colors.accent2, "F0F0C8"];
-    for (let i = 0; i < stack.length; i++) {
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 2.4,
+      y: -1.4,
+      w: 3.0,
+      h: 3.0,
+      fill: { color: ctx.colors.accent2, transparency: 84 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+    if (isHero) {
       slide.addShape(ctx.shapeRoundRect, {
-        x: ctx.width - 1.55,
-        y: ctx.height - 1.35 + i * 0.32,
-        w: 0.95,
-        h: 0.26,
-        fill: { color: stack[i]! },
-        line: { color: stack[i]!, width: 0 },
-        rectRadius: 0.13,
+        x: ctx.width * 0.5,
+        y: 0,
+        w: ctx.width * 0.5,
+        h: ctx.height,
+        fill: { color: ctx.colors.bg2 },
+        line: { color: ctx.colors.bg2, width: 0 },
+        rectRadius: 0,
+      });
+      const stack = [ctx.colors.accent, ctx.colors.accent2, "F0F0C8"];
+      for (let i = 0; i < stack.length; i++) {
+        slide.addShape(ctx.shapeRoundRect, {
+          x: ctx.width - 1.55,
+          y: ctx.height - 1.35 + i * 0.32,
+          w: 0.95,
+          h: 0.26,
+          fill: { color: stack[i]! },
+          line: { color: stack[i]!, width: 0 },
+          rectRadius: 0.13,
+        });
+      }
+    } else {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.margin,
+        y: 0.55,
+        w: 0.9,
+        h: 0.02,
+        fill: { color: ctx.colors.accent, transparency: 30 },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
       });
     }
   }
@@ -3891,7 +4037,16 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "broadside") {
-    // Fire-orange left rail + corner block (broadside-fire).
+    // Fire-orange left rail + corner block + thin outer border + hero top stub.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.2,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 1.5 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: 0,
       y: 0,
@@ -3910,6 +4065,17 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0,
     });
+    if (isHero) {
+      slide.addShape(ctx.shapeRoundRect, {
+        x: ctx.margin,
+        y: 0.45,
+        w: 1.1,
+        h: 0.06,
+        fill: { color: ctx.colors.accent },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
   }
 
   if (theme === "pink-script") {
@@ -4040,7 +4206,16 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "notebook-tabs") {
-    // Pastel side tabs + binder holes (notebook-tabs-page).
+    // Dark mat frame + pastel side tabs + binder holes + left margin rule.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.06,
+      y: 0.06,
+      w: ctx.width - 0.12,
+      h: ctx.height - 0.12,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: "2D2D2D", width: 2.5 },
+      rectRadius: 0.04,
+    });
     const tabs = ["98D4BB", "C7B8EA", "F4B8C5", "A8D8EA", "FFE6A7"];
     const tabH = (ctx.height * 0.72) / tabs.length;
     for (let i = 0; i < tabs.length; i++) {
@@ -4064,6 +4239,15 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         line: { color: "D0CCC4", width: 0 },
       });
     }
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.72,
+      y: 0.4,
+      w: 0.018,
+      h: ctx.height - 0.8,
+      fill: { color: ctx.colors.accent, transparency: 55 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
   }
 
   if (theme === "long-table") {
@@ -4385,7 +4569,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "broadsheet") {
-    // Newsprint masthead bar + bottom rule (newsprint-masthead).
+    // Newsprint masthead + quiet frame + double bottom rules + accent stub.
     slide.addShape(ctx.shapeRoundRect, {
       x: 0,
       y: 0,
@@ -4393,6 +4577,15 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       h: 0.42,
       fill: { color: ctx.colors.text },
       line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.14,
+      y: 0.14,
+      w: ctx.width - 0.28,
+      h: ctx.height - 0.28,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 0.85 },
       rectRadius: 0,
     });
     slide.addShape(ctx.shapeRoundRect, {
@@ -4404,10 +4597,37 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       line: { color: ctx.colors.text, width: 0 },
       rectRadius: 0,
     });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: ctx.height - 0.62,
+      w: ctx.width - ctx.margin * 2,
+      h: 0.012,
+      fill: { color: ctx.colors.accent, transparency: 40 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: 0.58,
+      w: 0.6,
+      h: 0.035,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
   }
 
   if (theme === "editorial-forest") {
-    // Forest rule + blush orb (editorial-forest-paper).
+    // Forest inset frame + dual hairlines + larger blush orb.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.26,
+      y: 0.26,
+      w: ctx.width - 0.52,
+      h: ctx.height - 0.52,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: 1.15 },
+      rectRadius: 0.06,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: ctx.margin,
       y: 0.55,
@@ -4417,18 +4637,36 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0,
     });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: 0.68,
+      w: 0.55,
+      h: 0.015,
+      fill: { color: ctx.colors.accent2, transparency: 25 },
+      line: { color: ctx.colors.accent2, width: 0 },
+      rectRadius: 0,
+    });
     slide.addShape(ctx.shapeOval, {
-      x: ctx.width - 1.65,
-      y: ctx.height - 1.55,
-      w: 0.95,
-      h: 0.95,
-      fill: { color: ctx.colors.accent2, transparency: 35 },
+      x: ctx.width - 1.85,
+      y: ctx.height - 1.75,
+      w: 1.2,
+      h: 1.2,
+      fill: { color: ctx.colors.accent2, transparency: 32 },
       line: { color: ctx.colors.accent2, width: 0 },
     });
   }
 
   if (theme === "signal") {
-    // Briefing hairline + outline square (signal-briefing).
+    // Quiet briefing border + hairline + outline square + bottom gold stub.
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.22,
+      y: 0.22,
+      w: ctx.width - 0.44,
+      h: ctx.height - 0.44,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 1.1 },
+      rectRadius: 0.04,
+    });
     slide.addShape(ctx.shapeRoundRect, {
       x: ctx.margin,
       y: 0.55,
@@ -4445,6 +4683,15 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       h: 0.65,
       fill: { color: ctx.colors.bg, transparency: 100 },
       line: { color: ctx.colors.accent2, width: 1.25 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: ctx.height - 0.55,
+      w: 0.95,
+      h: 0.03,
+      fill: { color: ctx.colors.accent2 },
+      line: { color: ctx.colors.accent2, width: 0 },
       rectRadius: 0,
     });
   }
