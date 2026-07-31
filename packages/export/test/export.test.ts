@@ -1304,4 +1304,89 @@ describe("deckToPptx", () => {
     expect(pulse.slideCount).toBe(3);
     expect(pulse.warnings.some((w) => w.includes("Unknown layout"))).toBe(false);
   });
+
+  it("applies thin-peer theme-native card strokes in PPTX XML", async () => {
+    const JSZip = (await import("jszip")).default;
+    const basePalette = {
+      bg: "#ffffff",
+      bg2: "#f5f7fa",
+      text: "#0f172a",
+      muted: "#64748b",
+      accent: "#1e40af",
+      accent2: "#3b82f6",
+      cardBg: "#f8fafc",
+      border: "#94a3b8",
+    };
+    const cases: Array<{
+      themeName: string;
+      color: string;
+      minPt: number;
+      maxPt: number;
+      ruleCard?: boolean;
+    }> = [
+      { themeName: "corporate", color: "1E40AF", minPt: 1.1, maxPt: 1.4 },
+      { themeName: "playful", color: "1E40AF", minPt: 1.1, maxPt: 1.4 },
+      { themeName: "default-tech", color: "1E40AF", minPt: 1.2, maxPt: 1.6 },
+      { themeName: "data-editorial", color: "0F172A", minPt: 1.1, maxPt: 1.4 },
+      { themeName: "developer-dark", color: "94A3B8", minPt: 1.1, maxPt: 1.4 },
+      { themeName: "claude", color: "94A3B8", minPt: 1.1, maxPt: 1.4 },
+      { themeName: "risograph-zine", color: "0F172A", minPt: 1.9, maxPt: 2.3 },
+      { themeName: "split-pastel", color: "0F172A", minPt: 0.85, maxPt: 1.15 },
+      { themeName: "paper-ink", color: "1E40AF", minPt: 0, maxPt: 0, ruleCard: true },
+      { themeName: "luxury-minimalist", color: "1E40AF", minPt: 0, maxPt: 0, ruleCard: true },
+    ];
+
+    for (const c of cases) {
+      const t: ResolvedTheme = {
+        ...theme,
+        name: c.themeName,
+        palette: { ...basePalette },
+      };
+      const buf = await deckToPptxBuffer(
+        {
+          type: "deck",
+          meta: { title: "Cards", theme: c.themeName },
+          slides: [
+            {
+              layout: "feature-grid",
+              heading: "Peers",
+              columns: 3,
+              cards: [
+                { title: "A", body: "One." },
+                { title: "B", body: "Two." },
+                { title: "C", body: "Three." },
+              ],
+            },
+          ],
+        },
+        t,
+        { attribution: false }
+      );
+      const zip = await JSZip.loadAsync(buf);
+      const xml = (await zip.file("ppt/slides/slide1.xml")?.async("string")) ?? "";
+      expect(xml.length).toBeGreaterThan(100);
+
+      if (c.ruleCard) {
+        // Top/left-rule cards: filled accent rail, no full box stroke ≥1.1pt.
+        const filled = [...xml.matchAll(/<a:solidFill><a:srgbClr val="([A-F0-9]+)"/g)].map(
+          (m) => m[1]
+        );
+        expect(filled).toContain(c.color);
+        const heavy = [
+          ...xml.matchAll(/<a:ln[^>]*\bw="(\d+)"[^>]*>[\s\S]*?<a:srgbClr val="([A-F0-9]+)"/g),
+        ]
+          .map((m) => ({ pt: Number(m[1]) / 12700, color: m[2] }))
+          .filter((x) => x.color === c.color && x.pt >= 1.1);
+        expect(heavy.length).toBe(0);
+        continue;
+      }
+
+      const hits = [
+        ...xml.matchAll(/<a:ln[^>]*\bw="(\d+)"[^>]*>[\s\S]*?<a:srgbClr val="([A-F0-9]+)"/g),
+      ]
+        .map((m) => ({ pt: Number(m[1]) / 12700, color: m[2] }))
+        .filter((x) => x.color === c.color && x.pt >= c.minPt && x.pt <= c.maxPt);
+      expect(hits.length).toBeGreaterThanOrEqual(3);
+    }
+  });
 });

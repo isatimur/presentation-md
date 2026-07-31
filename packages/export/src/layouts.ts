@@ -17,6 +17,8 @@ type CardStroke = {
   dashType?: "solid" | "dash" | "dashDot" | "lgDash" | "lgDashDot" | "lgDashDotDot" | "sysDash" | "sysDot";
   /** quiet-luxe / biennale: top hairline instead of a full box stroke */
   topRule?: boolean;
+  /** paper-ink literary: left accent rule instead of a full box stroke */
+  leftRule?: boolean;
 };
 
 /** Candy-pop cards use hard ink strokes + plump radius (candy-blob `.card`). */
@@ -193,17 +195,20 @@ function cardStroke(
     ctx.themeName === "monochrome" ||
     ctx.themeName === "soft-editorial" ||
     ctx.themeName === "pin-and-paper" ||
-    ctx.themeName === "paper-ink" ||
     ctx.themeName === "notebook-tabs" ||
     ctx.themeName === "heritage-editorial"
   ) {
     const color =
-      ctx.themeName === "heritage-editorial"
-        ? ctx.colors.accent
-        : ctx.themeName === "paper-ink"
-          ? ctx.colors.accent
-          : ctx.colors.text;
+      ctx.themeName === "heritage-editorial" ? ctx.colors.accent : ctx.colors.text;
     return { color, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
+  }
+  // paper-ink-literary cards: 3px left accent rule (HTML border-left)
+  if (ctx.themeName === "paper-ink") {
+    return {
+      color: ctx.colors.accent,
+      width: opts.hero || opts.highlighted ? 2.75 : 2.5,
+      leftRule: true,
+    };
   }
   // long-table-supper cards: dashed rust rim (HTML 1.5px dashed)
   if (ctx.themeName === "long-table") {
@@ -287,7 +292,7 @@ function cardStroke(
   return { color: ctx.colors.border, width: 1 };
 }
 
-/** Draw a filled card shell with theme-native stroke (incl. dashed / top-rule). */
+/** Draw a filled card shell with theme-native stroke (incl. dashed / top-rule / left-rule). */
 function drawCardFace(
   slide: PSlide,
   ctx: ExportContext,
@@ -300,7 +305,7 @@ function drawCardFace(
 ): void {
   const stroke = cardStroke(ctx, opts);
   const radius = cardRadius(ctx);
-  if (stroke.topRule) {
+  if (stroke.topRule || stroke.leftRule) {
     slide.addShape(ctx.shapeRoundRect, {
       x,
       y,
@@ -310,16 +315,31 @@ function drawCardFace(
       line: { color: fill, width: 0 },
       rectRadius: radius,
     });
-    const ruleH = opts.hero || opts.highlighted ? 0.028 : 0.02;
-    slide.addShape(ctx.shapeRoundRect, {
-      x: x + 0.04,
-      y,
-      w: Math.max(0.2, w - 0.08),
-      h: ruleH,
-      fill: { color: stroke.color },
-      line: { color: stroke.color, width: 0 },
-      rectRadius: 0,
-    });
+    if (stroke.topRule) {
+      const ruleH = opts.hero || opts.highlighted ? 0.028 : 0.02;
+      slide.addShape(ctx.shapeRoundRect, {
+        x: x + 0.04,
+        y,
+        w: Math.max(0.2, w - 0.08),
+        h: ruleH,
+        fill: { color: stroke.color },
+        line: { color: stroke.color, width: 0 },
+        rectRadius: 0,
+      });
+    }
+    if (stroke.leftRule) {
+      // HTML border-left ~3px ≈ 0.03"; keep a readable literary rail in PPTX.
+      const ruleW = Math.max(0.028, Math.min(0.04, stroke.width * 0.012));
+      slide.addShape(ctx.shapeRoundRect, {
+        x,
+        y: y + 0.04,
+        w: ruleW,
+        h: Math.max(0.2, h - 0.08),
+        fill: { color: stroke.color },
+        line: { color: stroke.color, width: 0 },
+        rectRadius: 0,
+      });
+    }
     return;
   }
   const line: { color: string; width: number; dashType?: CardStroke["dashType"] } = {

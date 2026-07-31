@@ -126,7 +126,8 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   electric-studio / studio / grove / cartesian / botanical-luxe / dark-botanical / editorial-serif cards get square hairline strokes;
   aurora-glass / glassmorphism cards get frosted white/glass rims (plump);
   crt-terminal / brutalist-mono cards get square accent/ink strokes;
-  emerald-editorial / pink-script / vellum / broadsheet / editorial-forest / monochrome / paper-ink cards get square ink/accent strokes;
+  emerald-editorial / pink-script / vellum / broadsheet / editorial-forest / monochrome cards get square ink/accent strokes;
+  paper-ink cards get a crimson left accent rule (literary rail — no full box stroke);
   soft-editorial / pin-and-paper / notebook-tabs / heritage-editorial cards get theme-native hairlines with soft radii;
   long-table cards get dashed rust rims (plump); signal cards get quiet briefing border hairlines;
   luxury-minimalist / biennale-yellow cards get top-rule hairlines (no full box stroke);
