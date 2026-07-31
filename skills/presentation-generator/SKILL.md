@@ -179,11 +179,11 @@ Each theme is a complete design language: colors, typography, geometry, motion, 
 **Use for:** consumer apps, gaming, education, health & wellness, community products
 
 ### `luxury-minimalist`
-**Soul:** The brand that knows silence is louder than noise.
-**Palette:** `#f9f6ef` cream · `#1c1917` near-black · `#c9a84c` gold · `#78716c` warm grey
-**Fonts:** Cormorant Garamond headings · Inter 300 body
-**Geometry:** zero radius, hairline rules, extreme whitespace, monogram watermarks
-**Use for:** private equity, family offices, luxury goods, architecture, premium fashion
+**Soul:** Ultra-luxury that earns the silence — nocturnal stage, cream type, gold hairlines. Gallery: Solstice Capital.
+**Palette:** `#0f0d0c` stage · `#f9f6ef` cream · `#c9a84c` gold · `#a8a29e` warm muted
+**Fonts:** Cormorant Garamond 300 headings · Inter 300 body
+**Geometry:** zero radius, gold hairlines, extreme whitespace, no gradients
+**Use for:** private equity LP updates, family offices, luxury goods, architecture, premium fashion
 
 ### `retro-arcade`
 **Soul:** The future that 1984 imagined — and it arrived exactly as promised.
@@ -979,9 +979,11 @@ For native, editable PowerPoint, use the Studio export mentioned above instead �
 
 You have been staring at this deck while building it, so you now see what you *intended*, not what is actually on the slide. Assume there are problems and go find them — a deliberate review pass is not optional, even for a 3-slide deck.
 
-**Tooling first (deck-spec path):**
-1. Call `audit_deck` on the deck JSON — fix every `error`, then address `warning`s.
-2. Render with `render_deck` / CLI, open the HTML, and spot-check with keyboard arrows.
+**Tooling first (deck-spec path) — non-skippable when MCP/CLI is available:**
+1. Call `preview_themes` (or open gallery structured proofs) before locking a vibe — never invent a palette.
+2. Call `audit_deck` on the deck JSON — fix every `error`, then address `warning`s.
+3. Render with `render_deck` / CLI, open the HTML, and spot-check with keyboard arrows.
+4. When `deck-design-judge` is installed, run a T2 screenshot pass before delivery. Self-score → fix → re-score. Do not ship on schema-valid alone.
 
 Then walk every slide against this checklist and fix before delivering:
 
@@ -989,9 +991,12 @@ Then walk every slide against this checklist and fix before delivering:
 - **Overflow & overlap** — nothing clipped at an edge, nothing colliding, every element inside the safe margin.
 - **Contrast** — every text block is legible against its actual background (see AI-Slop Tell #17).
 - **AI-slop tells** — no accent line under a title, no text-only content slide, no centered paragraphs.
+- **Visual beat** — investor, launch, brand, and wrap decks need ≥1 real `image-hero` (composed SVG/data URI or asset). Icon grids alone are not a visual.
+- **Asymmetry** — at least one `comparison` with `emphasis`, `two-column`, `code`, or `columns: "bento"` — never a stack of identical three-up cards.
 - **Token discipline** — colors and fonts all trace back to the chosen theme; no off-palette one-offs.
 - **The 3-second test** — pick any slide at random: is its single point obvious in three seconds?
 - **Arc integrity** — the deck still follows one narrative arc end to end; every slide sets up or pays off the one before it.
 - **Schema honesty** — every `layout` value is one of the twelve enums; no invented layout names.
+- **Gallery honesty** — if you named a stunning-25 theme (aurora-glass, ft-editorial, luxury-minimalist, …), open its structured proof and match that craft ceiling.
 
-For a rigorous, scored pass, run the **`deck-design-judge`** skill: it grades the deck against the design rubric, tells you exactly what to fix, and lets you re-score after the fix. Self-score → fix → re-score, then deliver.
+For a rigorous, scored pass, run the **`deck-design-judge`** skill: it grades the deck against the design rubric, tells you exactly what to fix, and lets you re-score after the fix.
