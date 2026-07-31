@@ -674,9 +674,12 @@
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 16px;
       margin-top: 48px;
+      perspective: 1200px;
     }
 
     .theme-card {
+      --sheen-x: 30%;
+      --sheen-y: 18%;
       border: 1px solid var(--rule);
       border-radius: 12px;
       overflow: hidden;
@@ -689,7 +692,21 @@
       position: relative;
       box-shadow:
         0 1px 0 rgba(255,255,255,0.65) inset,
-        0 10px 28px -18px rgba(11,18,32,0.28);
+        0 10px 28px -18px rgba(11,18,32,0.28),
+        0 22px 36px -24px rgba(11,18,32,0.32);
+    }
+    .theme-card::before {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      left: 12%; right: 12%; bottom: -14px;
+      height: 22px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(11,18,32,0.28), transparent 70%);
+      filter: blur(7px);
+      opacity: 0.55;
+      z-index: -1;
+      transition: opacity 0.2s ease, transform 0.2s ease;
     }
     .theme-card::after {
       content: "";
@@ -697,18 +714,22 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: linear-gradient(125deg, rgba(255,255,255,0.28) 0%, transparent 36%, transparent 62%, rgba(11,18,32,0.06) 100%);
-      opacity: 0.55;
+      background:
+        radial-gradient(circle at var(--sheen-x) var(--sheen-y), rgba(255,255,255,0.42), transparent 42%),
+        linear-gradient(125deg, rgba(255,255,255,0.28) 0%, transparent 36%, transparent 62%, rgba(11,18,32,0.06) 100%);
+      opacity: 0.62;
       mix-blend-mode: soft-light;
     }
     .theme-card:hover {
       box-shadow:
-        0 1px 0 rgba(255,255,255,0.8) inset,
-        0 18px 40px -16px rgba(11,18,32,0.32),
+        0 1px 0 rgba(255,255,255,0.85) inset,
+        0 18px 40px -16px rgba(11,18,32,0.34),
+        0 28px 48px -22px rgba(11,18,32,0.28),
         0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent);
-      transform: translateY(-3px);
+      transform: translateY(-4px);
       border-color: color-mix(in srgb, var(--ink) 22%, transparent);
     }
+    .theme-card:hover::before { opacity: 0.75; transform: scaleX(1.06); }
     .theme-card.is-hidden { display: none; }
     .theme-card.is-featured .theme-name::after {
       content: " · popular";
@@ -1007,22 +1028,36 @@
     }
 
     /* ── gallery ─────────────────────────────────────────── */
-    .gallery-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; margin-top:32px; }
-    .gallery-card { border-radius:12px; overflow:hidden; background:
+    .gallery-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; margin-top:32px; perspective:1200px; }
+    .gallery-card {
+      --sheen-x: 28%; --sheen-y: 16%;
+      border-radius:12px; overflow:hidden; background:
       linear-gradient(165deg, rgba(255,255,255,0.5) 0%, transparent 40%),
       color-mix(in srgb, var(--paper2) 55%, white);
       border:1.5px solid color-mix(in srgb, var(--ink) 16%, transparent);
       transition:transform 0.2s ease,box-shadow 0.2s ease,border-color 0.2s ease;
-      box-shadow: 0 1px 0 rgba(255,255,255,0.55) inset, 0 12px 28px -18px rgba(11,18,32,0.22);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.55) inset,
+        0 12px 28px -18px rgba(11,18,32,0.22),
+        0 24px 40px -26px rgba(11,18,32,0.3);
       position: relative;
+      transform-style: preserve-3d;
+    }
+    .gallery-card::before {
+      content:""; pointer-events:none; position:absolute;
+      left:12%; right:12%; bottom:-14px; height:22px; border-radius:50%;
+      background: radial-gradient(ellipse at center, rgba(11,18,32,0.26), transparent 70%);
+      filter: blur(7px); opacity:0.5; z-index:-1;
     }
     .gallery-card::after {
       content:""; pointer-events:none; position:absolute; inset:0; border-radius:inherit;
-      background: linear-gradient(125deg, rgba(255,255,255,0.22) 0%, transparent 38%, transparent 70%, rgba(11,18,32,0.05) 100%);
-      opacity:0.5; mix-blend-mode: soft-light;
+      background:
+        radial-gradient(circle at var(--sheen-x) var(--sheen-y), rgba(255,255,255,0.38), transparent 42%),
+        linear-gradient(125deg, rgba(255,255,255,0.22) 0%, transparent 38%, transparent 70%, rgba(11,18,32,0.05) 100%);
+      opacity:0.58; mix-blend-mode: soft-light;
     }
-    .gallery-card:hover { transform:translateY(-4px) rotateX(1.5deg);
-      box-shadow:0 18px 40px -16px rgba(11,18,32,0.28), 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent);
+    .gallery-card:hover { transform:translateY(-5px) rotateX(2deg);
+      box-shadow:0 18px 40px -16px rgba(11,18,32,0.3), 0 28px 48px -22px rgba(11,18,32,0.26), 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent);
       border-color:color-mix(in srgb, var(--ink) 28%, transparent);
     }
     .thumb { height:156px; }
@@ -4497,18 +4532,24 @@
     apply(btn.getAttribute('data-filter') || 'all');
   });
 
-  // Cloth-inspired soft brush: cursor tilt on theme + gallery cards
+  // Cloth-inspired soft brush: cursor tilt + sheen + contact shadow (no WebGL)
   function attachBrush(sel) {
     document.querySelectorAll(sel).forEach(function (card) {
       card.addEventListener('pointermove', function (ev) {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         var r = card.getBoundingClientRect();
-        var x = (ev.clientX - r.left) / r.width - 0.5;
-        var y = (ev.clientY - r.top) / r.height - 0.5;
-        card.style.transform = 'translateY(-3px) rotateX(' + (-y * 4) + 'deg) rotateY(' + (x * 5) + 'deg)';
+        var nx = (ev.clientX - r.left) / r.width;
+        var ny = (ev.clientY - r.top) / r.height;
+        var x = nx - 0.5;
+        var y = ny - 0.5;
+        card.style.setProperty('--sheen-x', (nx * 100).toFixed(1) + '%');
+        card.style.setProperty('--sheen-y', (ny * 100).toFixed(1) + '%');
+        card.style.transform = 'translateY(-4px) rotateX(' + (-y * 7) + 'deg) rotateY(' + (x * 9) + 'deg)';
       });
       card.addEventListener('pointerleave', function () {
         card.style.transform = '';
+        card.style.removeProperty('--sheen-x');
+        card.style.removeProperty('--sheen-y');
       });
     });
   }
