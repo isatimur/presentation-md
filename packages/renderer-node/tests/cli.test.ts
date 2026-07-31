@@ -61,6 +61,9 @@ describe("buildProgram", () => {
         "--from-md",
         "--assets-dir",
         "--list-themes",
+        "--preview-compare",
+        "--preview-dir",
+        "--preview-mode",
         "--validate",
       ])
     );
@@ -97,6 +100,29 @@ describe("presentation-md-render CLI flags", () => {
     expect(code).toBe(0);
     expect(stdout).toMatch(/default-tech@/);
     expect(stdout).toMatch(/\[bundled\]/);
+  });
+
+  it("--preview-compare writes multi-layout craft previews for up to 3 themes", async () => {
+    const dir = await tempDir();
+    const previewDir = join(dir, "previews");
+    const { code, stdout, stderr } = await runCli(
+      [
+        "--preview-compare",
+        "default-tech,claude",
+        "--preview-dir",
+        previewDir,
+        "--preview-mode",
+        "layouts",
+      ],
+      { cwd: dir }
+    );
+    expect(stderr).not.toMatch(/^Error:/);
+    expect(code).toBe(0);
+    expect(stdout).toMatch(/Preview compare \(layouts\): 2 theme/);
+    const html = await readFile(join(previewDir, "default-tech-layouts-preview.html"), "utf-8");
+    expect(html).toContain("<!doctype html>");
+    expect(html).toMatch(/feature-grid|comparison/i);
+    await access(join(previewDir, "claude-layouts-preview.html"));
   });
 
   it("--validate accepts valid deck JSON", async () => {

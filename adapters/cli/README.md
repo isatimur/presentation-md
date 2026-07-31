@@ -10,6 +10,7 @@ npx @presentation-md/render --from-md deck.md -o deck.json
 npx @presentation-md/render --from-pptx board.pptx -o deck.json --theme corporate
 npx @presentation-md/render --from-pptx board.pptx -o deck.json --assets-dir ./assets
 npx @presentation-md/render --list-themes
+npx @presentation-md/render --preview-compare aurora-glass,signal,claude
 npx @presentation-md/render --validate deck.json
 ```
 
@@ -59,6 +60,9 @@ echo '{"type":"deck","meta":{"title":"Test","theme":"retro-arcade"},"slides":[..
 | `--from-md <path>` | Import Marp/md-slides Markdown to deck JSON instead of rendering |
 | `--assets-dir <dir>` | With `--from-pptx`, write images to this directory instead of data URIs |
 | `--list-themes` | Print all available themes and exit |
+| `--preview-compare <themes>` | Write 1–3 multi-layout craft previews (comma-separated themes) and exit |
+| `--preview-dir <dir>` | Output dir for `--preview-compare` (default: `.presentation-md/theme-previews`) |
+| `--preview-mode <mode>` | `title` or `layouts` (default) for `--preview-compare` |
 | `--validate` | Validate the deck JSON without rendering |
 
 ## Themes

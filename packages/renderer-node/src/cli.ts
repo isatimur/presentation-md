@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { realpathSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -8,6 +8,12 @@ import { Command } from "commander";
 import { renderDeck, renderDeckPptx, getBundledThemesDir } from "./index.js";
 import { discoverInstalledThemes, markdownToDeck } from "@presentation-md/core";
 import { pptxToDeck } from "@presentation-md/export/import";
+import {
+  buildLayoutsPreviewDeck,
+  buildTitlePreviewDeck,
+  parsePreviewCompareThemes,
+  type PreviewMode,
+} from "./theme-preview-deck.js";
 
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
@@ -46,6 +52,19 @@ export function buildProgram(): Command {
     .option("--from-md <path>", "import Marp/md-slides Markdown to deck JSON instead of rendering")
     .option("--assets-dir <dir>", "with --from-pptx, write images to this directory instead of data URIs")
     .option("--list-themes", "list available themes and exit")
+    .option(
+      "--preview-compare <themes>",
+      "comma-separated themes (1–3); write craft preview HTML and exit (pick-3 discovery)"
+    )
+    .option(
+      "--preview-dir <dir>",
+      "output directory for --preview-compare (default: .presentation-md/theme-previews)"
+    )
+    .option(
+      "--preview-mode <mode>",
+      "title | layouts for --preview-compare (default: layouts)",
+      "layouts"
+    )
     .option("--validate", "validate only, do not render")
     .action(async (inputPath: string | undefined, options: {
       output?: string;
@@ -55,6 +74,9 @@ export function buildProgram(): Command {
       fromMd?: string;
       assetsDir?: string;
       listThemes?: boolean;
+      previewCompare?: string;
+      previewDir?: string;
+      previewMode?: string;
       validate?: boolean;
     }) => {
       if (options.listThemes) {
@@ -69,6 +91,52 @@ export function buildProgram(): Command {
           for (const t of themes) {
             process.stdout.write(`${t.name}@${t.version} [${t.source}]\n`);
           }
+        }
+        return;
+      }
+
+      if (options.previewCompare) {
+        const themes = parsePreviewCompareThemes(options.previewCompare);
+        if (themes.length === 0) {
+          process.stderr.write(
+            "Error: --preview-compare requires 1–3 theme names (comma-separated)\n"
+          );
+          process.exit(1);
+        }
+        const modeRaw = (options.previewMode ?? "layouts").toLowerCase();
+        if (modeRaw !== "title" && modeRaw !== "layouts") {
+          process.stderr.write(
+            `Error: unknown --preview-mode "${options.previewMode}" (expected title | layouts)\n`
+          );
+          process.exit(1);
+        }
+        const mode = modeRaw as PreviewMode;
+        const outDir = resolve(
+          process.cwd(),
+          options.previewDir ?? ".presentation-md/theme-previews"
+        );
+        await mkdir(outDir, { recursive: true });
+        try {
+          for (const theme of themes) {
+            const deckJson =
+              mode === "layouts"
+                ? buildLayoutsPreviewDeck(theme)
+                : buildTitlePreviewDeck(theme);
+            const html = await renderDeck(deckJson, {});
+            const filename =
+              mode === "layouts"
+                ? `${theme}-layouts-preview.html`
+                : `${theme}-preview.html`;
+            const outPath = join(outDir, filename);
+            await writeFile(outPath, html, "utf-8");
+            process.stdout.write(`${theme} → ${outPath}\n`);
+          }
+          process.stdout.write(
+            `Preview compare (${mode}): ${themes.length} theme(s) in ${outDir}\n`
+          );
+        } catch (err) {
+          process.stderr.write(`Error: ${(err as Error).message}\n`);
+          process.exit(1);
         }
         return;
       }
