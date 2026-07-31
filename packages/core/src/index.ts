@@ -41,6 +41,7 @@ export {
   loadThemeSelectionIndex,
   loadLayoutRecipesMarkdown,
   findShortlist,
+  sortShortlistsForDiscovery,
   shortlistCoveredThemes,
   resolveThemeAlias,
   themeMatchesMood,

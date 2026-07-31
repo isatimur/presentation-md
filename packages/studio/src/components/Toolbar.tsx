@@ -233,10 +233,11 @@ export function Toolbar({
               <button
                 key={s.id}
                 type="button"
-                className={`chip${shortlistId === s.id ? " active" : ""}`}
+                className={`chip${shortlistId === s.id ? " active" : ""}${s.popular ? " chip-popular" : ""}`}
                 onClick={() => setShortlistId(s.id === shortlistId ? "" : s.id)}
                 title={s.why ?? s.label}
               >
+                {s.popular ? "★ " : ""}
                 {s.label.split(/[/(]/)[0]!.trim()}
               </button>
             ))}

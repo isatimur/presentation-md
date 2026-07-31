@@ -3,6 +3,7 @@ import {
   loadThemeShortlists,
   loadThemeSelectionIndex,
   findShortlist,
+  sortShortlistsForDiscovery,
   themeMatchesMood,
   themeMatchesQuery,
 } from "@presentation-md/core";
@@ -56,7 +57,7 @@ export const listThemesTool: ToolDefinition = {
       loadThemeSelectionIndex(),
     ]);
 
-    const shortlists = shortlistsDoc.shortlists;
+    const shortlists = sortShortlistsForDiscovery(shortlistsDoc.shortlists);
     const selectionByName = new Map(
       selectionIndex.themes.map((t) => [t.name, t] as const)
     );

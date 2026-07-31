@@ -313,7 +313,12 @@ Match frontend-slides' mandatory visual discovery — but with structured themes
      and open that structured proof / Studio `?example=` before authoring.
    - Optional fast path: `references/theme-shortlists.json` — pick a use-case shortlist
      (Series A, developer demo, swiss agency, …) instead of scanning all 75.
-2. Shortlist **3** themes that fit purpose + audience + density.
+     Prefer shortlists marked `"popular": true` when the vibe is vague.
+2. Shortlist **3** themes that fit purpose + audience + density. **Preview mix (mandatory):**
+   - **1 safe / readable** theme (core-defaults, corporate, soft-product, quiet paper)
+   - **1 bold / expressive** theme (stunning-25, neon, brutal/poster, wrap)
+   - **1 wildcard** — either a second bold shortlist pick **or** a brand/import-driven custom direction
+     that creates useful contrast (do not force three near-identical pastels)
 3. **Required when tooling is available:** call `preview_themes` with those 3 names
    (writes `.presentation-md/theme-previews/<theme>-preview.html`). Prefer `mode: "layouts"` when
    comparing craft across body slides. Open each file for the user — they pick visually, not from adjectives alone.
@@ -324,6 +329,15 @@ Match frontend-slides' mandatory visual discovery — but with structured themes
 6. When a theme has a `gallery` field, open that craft deck as a multi-slide proof (not just the title preview).
 
 If they already named a theme, alias, or brand URL, skip discovery (`import_brand_theme` for brand match).
+
+### Density modes (ask once with purpose)
+
+| Density | Best for | Design behavior |
+|---------|----------|-----------------|
+| **Speaker-led (low)** | Talks, keynotes, live pitches | One idea per slide, large type, generous space, 1–3 bullets max, more slides if needed |
+| **Reading-first (high)** | Board packs, async review, handouts | Self-contained slides, structured grids/tables, tighter but intentional spacing |
+
+Never shrink until cramped — split into more slides instead.
 
 See also: `references/animation-patterns.md` for motion craft on the direct-HTML path.
 

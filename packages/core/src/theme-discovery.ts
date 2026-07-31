@@ -12,6 +12,8 @@ export interface ThemeShortlist {
   label: string;
   themes: string[];
   why?: string;
+  /** Discovery UX: surface these shortlists first (popularity / flagship use-cases). */
+  popular?: boolean;
 }
 
 export interface ThemeShortlistsDoc {
@@ -78,6 +80,14 @@ export function findShortlist(
   const needle = id.trim();
   if (!needle) return undefined;
   return doc.shortlists.find((s) => s.id === needle);
+}
+
+/**
+ * Sort shortlists for discovery UX — popular / flagship sets first, then the rest
+ * in catalog order. Mirrors frontend-slides "popularity" browsing without inventing ranks.
+ */
+export function sortShortlistsForDiscovery(shortlists: ThemeShortlist[]): ThemeShortlist[] {
+  return [...shortlists].sort((a, b) => Number(!!b.popular) - Number(!!a.popular));
 }
 
 /** Themes that appear in at least one shortlist. */

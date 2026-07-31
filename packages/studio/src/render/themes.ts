@@ -59,6 +59,7 @@ export interface ThemeShortlistSummary {
   label: string;
   themes: string[];
   why?: string;
+  popular?: boolean;
 }
 
 export function listThemeNames(): string[] {
@@ -82,14 +83,16 @@ export function listThemeSummaries(): ThemeSummary[] {
   });
 }
 
-/** Theme Discovery shortlists (same catalog MCP list_themes / preview_themes use). */
+/** Theme Discovery shortlists (same catalog MCP list_themes / preview_themes use). Popular first. */
 export function listThemeShortlists(): ThemeShortlistSummary[] {
-  return (shortlistsDoc.shortlists ?? []).map((s) => ({
+  const list = (shortlistsDoc.shortlists ?? []).map((s) => ({
     id: s.id,
     label: s.label,
     themes: s.themes,
     why: s.why,
+    popular: Boolean((s as { popular?: boolean }).popular),
   }));
+  return list.sort((a, b) => Number(b.popular) - Number(a.popular));
 }
 
 export function findThemeShortlist(id: string): ThemeShortlistSummary | undefined {

@@ -5,7 +5,7 @@ import {
   listThemeNames,
   listThemeShortlists,
 } from "../render/themes.js";
-import { GEN_MODELS, type GenModelId, buildAgentPrompt, generateDeck } from "../ai/generate.js";
+import { GEN_MODELS, type GenModelId, type DensityMode, buildAgentPrompt, generateDeck } from "../ai/generate.js";
 
 const KEY_STORAGE = "pmd-studio-anthropic-key";
 
@@ -27,6 +27,7 @@ export function GenerateModal({
   const [brief, setBrief] = useState("");
   const [theme, setTheme] = useState(currentTheme);
   const [shortlistId, setShortlistId] = useState("");
+  const [density, setDensity] = useState<DensityMode>("speaker");
   const [model, setModel] = useState<GenModelId>(GEN_MODELS[0].id);
   const [apiKey, setApiKey] = useState(() => localStorage.getItem(KEY_STORAGE) ?? "");
   const [remember, setRemember] = useState(() => !!localStorage.getItem(KEY_STORAGE));
@@ -47,7 +48,7 @@ export function GenerateModal({
     try {
       if (remember) localStorage.setItem(KEY_STORAGE, apiKey.trim());
       else localStorage.removeItem(KEY_STORAGE);
-      const deck = await generateDeck({ apiKey, model, brief, theme });
+      const deck = await generateDeck({ apiKey, model, brief, theme, density });
       onGenerate(deck);
       onClose();
     } catch (err) {
@@ -59,7 +60,7 @@ export function GenerateModal({
 
   const copyAgentPrompt = async () => {
     try {
-      await navigator.clipboard.writeText(buildAgentPrompt(brief, theme));
+      await navigator.clipboard.writeText(buildAgentPrompt(brief, theme, density));
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
@@ -95,6 +96,26 @@ export function GenerateModal({
             ))}
           </div>
 
+          <label className="field-label">Density</label>
+          <div className="theme-shortlist-row" role="listbox" aria-label="Deck density">
+            <button
+              type="button"
+              className={`chip${density === "speaker" ? " active" : ""}`}
+              onClick={() => setDensity("speaker")}
+              title="One idea per slide, large type, live talks"
+            >
+              Speaker-led
+            </button>
+            <button
+              type="button"
+              className={`chip${density === "reading" ? " active" : ""}`}
+              onClick={() => setDensity("reading")}
+              title="Self-contained slides for async / board packs"
+            >
+              Reading-first
+            </button>
+          </div>
+
           <label className="field-label">Theme shortlist</label>
           <div className="theme-shortlist-row" role="listbox" aria-label="Theme shortlists">
             <button
@@ -108,7 +129,7 @@ export function GenerateModal({
               <button
                 key={s.id}
                 type="button"
-                className={`chip${shortlistId === s.id ? " active" : ""}`}
+                className={`chip${shortlistId === s.id ? " active" : ""}${s.popular ? " chip-popular" : ""}`}
                 title={s.why ?? s.label}
                 onClick={() => {
                   const next = s.id === shortlistId ? "" : s.id;
@@ -121,6 +142,7 @@ export function GenerateModal({
                   }
                 }}
               >
+                {s.popular ? "★ " : ""}
                 {s.label.split(/[/(]/)[0]!.trim()}
               </button>
             ))}

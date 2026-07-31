@@ -18,6 +18,8 @@ export const GEN_MODELS = [
 
 export type GenModelId = (typeof GEN_MODELS)[number]["id"];
 
+export type DensityMode = "speaker" | "reading";
+
 /** The deck schema, written for a model. Shared by both generate paths. */
 const SCHEMA_PROMPT = `You author slide decks as a single JSON object matching this schema — the "Deck JSON" spec used by presentation-md.
 
@@ -88,18 +90,31 @@ Authoring rules:
   - Add brief "notes" on 2–4 key slides (talking points for the presenter).
 - Only emit fields defined above. Do not invent new layouts or fields.`;
 
-function buildUserBrief(brief: string, theme: string): string {
+function buildUserBrief(
+  brief: string,
+  theme: string,
+  density: DensityMode = "speaker"
+): string {
+  const densityLine =
+    density === "reading"
+      ? "Density: reading-first (self-contained slides, structured grids/tables, still no overflow)."
+      : "Density: speaker-led (one idea per slide, large type, generous space, 1–3 bullets max).";
   return `Create a deck for the following brief. Set meta.theme to "${theme}".
+${densityLine}
 
 Brief:
 ${brief.trim()}`;
 }
 
 /** The full prompt to hand to an agent that has the skill installed. */
-export function buildAgentPrompt(brief: string, theme: string): string {
+export function buildAgentPrompt(
+  brief: string,
+  theme: string,
+  density: DensityMode = "speaker"
+): string {
   return `${SCHEMA_PROMPT}
 
-${buildUserBrief(brief, theme)}
+${buildUserBrief(brief, theme, density)}
 
 Respond with ONLY the JSON object — no prose, no markdown fences.`;
 }
@@ -119,6 +134,7 @@ export interface GenerateArgs {
   model: GenModelId;
   brief: string;
   theme: string;
+  density?: DensityMode;
   signal?: AbortSignal;
 }
 
@@ -129,7 +145,7 @@ export interface GenerateArgs {
  * SPA where the user supplies their own key.
  */
 export async function generateDeck(args: GenerateArgs): Promise<DeckJson> {
-  const { apiKey, model, brief, theme, signal } = args;
+  const { apiKey, model, brief, theme, density = "speaker", signal } = args;
   if (!brief.trim()) throw new Error("Describe your deck first.");
   if (!apiKey.trim()) throw new Error("Enter your Anthropic API key.");
 
@@ -144,7 +160,7 @@ export async function generateDeck(args: GenerateArgs): Promise<DeckJson> {
       messages: [
         {
           role: "user",
-          content: `${buildUserBrief(brief, theme)}\n\nRespond with ONLY the JSON object — no prose, no markdown fences.`,
+          content: `${buildUserBrief(brief, theme, density)}\n\nRespond with ONLY the JSON object — no prose, no markdown fences.`,
         },
       ],
     },

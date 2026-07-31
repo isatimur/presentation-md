@@ -7,6 +7,7 @@ import {
   loadThemeSelectionIndex,
   loadLayoutRecipesMarkdown,
   findShortlist,
+  sortShortlistsForDiscovery,
   shortlistCoveredThemes,
   resolveThemeAlias,
   themeMatchesMood,
@@ -44,6 +45,18 @@ describe("theme-discovery references", () => {
     expect(core?.themes).toEqual(
       expect.arrayContaining(["default-tech", "claude", "developer-dark"])
     );
+    expect(core?.popular).toBe(true);
+  });
+
+  it("sorts popular shortlists first for discovery UX", async () => {
+    const doc = await loadThemeShortlists();
+    const sorted = sortShortlistsForDiscovery(doc.shortlists);
+    expect(sorted[0]?.popular).toBe(true);
+    expect(sorted.filter((s) => s.popular).length).toBeGreaterThanOrEqual(8);
+    const firstNonPopular = sorted.findIndex((s) => !s.popular);
+    if (firstNonPopular >= 0) {
+      expect(sorted.slice(0, firstNonPopular).every((s) => s.popular)).toBe(true);
+    }
   });
 
   it("every shortlist theme exists as an installed theme package", async () => {
