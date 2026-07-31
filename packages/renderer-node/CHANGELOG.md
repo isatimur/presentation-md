@@ -1,5 +1,17 @@
 # @presentation-md/render
 
+## 1.7.0
+
+### Minor Changes
+
+- 50a7c3b: CLI `--preview-compare` writes 1–3 multi-layout craft theme previews (pick-3 discovery without MCP).
+
+### Patch Changes
+
+- Updated dependencies [e341b5f]
+  - @presentation-md/core@1.16.3
+  - @presentation-md/export@1.23.5
+
 ## 1.6.36
 
 ### Patch Changes
