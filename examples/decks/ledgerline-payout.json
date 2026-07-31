@@ -15,6 +15,50 @@
       "notes": "Cold open — land the one-line claim before logos."
     },
     {
+      "layout": "feature-grid",
+      "eyebrow": "Product",
+      "heading": "Payouts finance can defend",
+      "columns": "bento",
+      "cards": [
+        {
+          "icon": "fa-solid fa-bolt",
+          "title": "RTP rails",
+          "body": "Seconds to settle — sellers stop chasing support."
+        },
+        {
+          "icon": "fa-solid fa-fingerprint",
+          "title": "Idempotent APIs",
+          "body": "Retry safely. Duplicate keys are a no-op, not a double pay."
+        },
+        {
+          "icon": "fa-solid fa-scale-balanced",
+          "title": "Reconciliation",
+          "body": "Receipts finance trusts without a midnight spreadsheet."
+        },
+        {
+          "icon": "fa-solid fa-shield-halved",
+          "title": "Returns automated",
+          "body": "Webhooks + exception budgets instead of ticket piles."
+        },
+        {
+          "icon": "fa-solid fa-compass",
+          "title": "Clear north star",
+          "body": "One decisive story beat — not a wall of equal tiles."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Economics",
+      "heading": "Cost that CFOs can defend.",
+      "leftLabel": "Legacy rails",
+      "left": "1.5% + $0.30\nT+2 settlement\nManual exception queues",
+      "rightLabel": "LedgerLine",
+      "right": "0.2% + $0.10\nSeconds on RTP\nAutomated returns + webhooks",
+      "emphasis": "right",
+      "notes": "Name the loser column first, then punch the winner."
+    },
+    {
       "layout": "image-hero",
       "eyebrow": "Realtime payouts",
       "heading": "Pay sellers before they chase you.",
@@ -38,17 +82,6 @@
       "filename": "ledgerline-payout.js",
       "language": "js",
       "code": "const ll = new LedgerLine({ apiKey: process.env.LL_KEY });\n\nconst payout = await ll.payouts.create({\n  amount: 25000,\n  currency: 'usd',\n  destination: 'seller_9kXm2p',\n  rail: 'rtp',\n  idempotency_key: 'order_abc123',\n});\n\n// payout.status === 'settled'  (avg 68s)"
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Economics",
-      "heading": "Cost that CFOs can defend.",
-      "leftLabel": "Legacy rails",
-      "left": "1.5% + $0.30\nT+2 settlement\nManual exception queues",
-      "rightLabel": "LedgerLine",
-      "right": "0.2% + $0.10\nSeconds on RTP\nAutomated returns + webhooks",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
     },
     {
       "layout": "stat-row",

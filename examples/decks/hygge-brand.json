@@ -15,6 +15,50 @@
       "notes": "Cold open — land the one-line claim before logos."
     },
     {
+      "layout": "feature-grid",
+      "eyebrow": "Collection",
+      "heading": "Materials that stay quiet",
+      "columns": "bento",
+      "cards": [
+        {
+          "icon": "fa-solid fa-couch",
+          "title": "Soft seating",
+          "body": "Low profiles. Honest wood. Covers you can wash."
+        },
+        {
+          "icon": "fa-solid fa-lightbulb",
+          "title": "Warm light",
+          "body": "Lamps that pool, not glare."
+        },
+        {
+          "icon": "fa-solid fa-mug-hot",
+          "title": "Clay accents",
+          "body": "Ceramics with clay warmth — no logo shouting."
+        },
+        {
+          "icon": "fa-solid fa-leaf",
+          "title": "Repair-friendly",
+          "body": "Design that lasts past spring sales."
+        },
+        {
+          "icon": "fa-solid fa-eye",
+          "title": "Show, do not pad",
+          "body": "Asymmetry beats another identical third column."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Retail",
+      "heading": "Trend stack vs. lasting floor",
+      "leftLabel": "Fast home",
+      "left": "Seasonal noise.\nPlastic warmth.\nDiscounts as identity.\nForgettable by spring.",
+      "rightLabel": "Hygge",
+      "right": "Quiet materials.\nRepair-friendly design.\nWholesale partners who stay.\nWarmth you can hold.",
+      "emphasis": "right",
+      "notes": "Name the loser column first, then punch the winner."
+    },
+    {
       "layout": "image-hero",
       "eyebrow": "Brand · Home",
       "heading": "Linen light. Clay warmth.",
@@ -54,17 +98,6 @@
           "label": "Online YoY"
         }
       ]
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Retail",
-      "heading": "Trend stack vs. lasting floor",
-      "leftLabel": "Fast home",
-      "left": "Seasonal noise.\nPlastic warmth.\nDiscounts as identity.\nForgettable by spring.",
-      "rightLabel": "Hygge",
-      "right": "Quiet materials.\nRepair-friendly design.\nWholesale partners who stay.\nWarmth you can hold.",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
     },
     {
       "layout": "logo-wall",

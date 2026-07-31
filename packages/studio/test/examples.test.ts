@@ -20,6 +20,19 @@ describe("studio examples", () => {
     expect(slugs).toContain("pulse-wrapped");
   });
 
+  it("leads every stunning-25 flagship with title → feature-grid → comparison", () => {
+    const flagshipSlugs = STUDIO_EXAMPLES.map((e) => e.slug).filter(
+      (s) => s !== "acme" && s !== "briefing-signal" && s !== "posterforge-campaign"
+    );
+    expect(flagshipSlugs.length).toBe(25);
+    for (const slug of flagshipSlugs) {
+      const deck = getExampleDeck(slug)!;
+      expect(deck.slides[0]?.layout, slug).toBe("title");
+      expect(deck.slides[1]?.layout, slug).toBe("feature-grid");
+      expect(deck.slides[2]?.layout, slug).toBe("comparison");
+    }
+  });
+
   it("returns cloned decks for every catalog entry", () => {
     for (const ex of STUDIO_EXAMPLES) {
       const deck = getExampleDeck(ex.slug);

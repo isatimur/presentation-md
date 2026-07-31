@@ -15,6 +15,50 @@
       "notes": "Cold open — land the one-line claim before logos."
     },
     {
+      "layout": "feature-grid",
+      "eyebrow": "System",
+      "heading": "Modules that survive engineering",
+      "columns": "bento",
+      "cards": [
+        {
+          "icon": "fa-solid fa-border-all",
+          "title": "Grid as identity",
+          "body": "Modular columns and baseline rhythm — not decoration."
+        },
+        {
+          "icon": "fa-solid fa-font",
+          "title": "Two faces max",
+          "body": "One display. One text. Signal red for emphasis only."
+        },
+        {
+          "icon": "fa-solid fa-ruler-combined",
+          "title": "Ratios documented",
+          "body": "Every breakpoint inherits the same proportion language."
+        },
+        {
+          "icon": "fa-solid fa-layer-group",
+          "title": "Stack for scan",
+          "body": "Hierarchy first. Spreadsheets second. Spreadsheets never."
+        },
+        {
+          "icon": "fa-solid fa-scissors",
+          "title": "Cut the filler",
+          "body": "If a card does not change the decision, it does not earn the pixel."
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Contrast",
+      "heading": "Decoration vs. structure.",
+      "leftLabel": "Trend design",
+      "left": "Gradients as identity.\nFonts as costume.\nLayouts that can't resize.",
+      "rightLabel": "Swiss Modern",
+      "right": "Grid as identity.\nType as structure.\nLayouts that scale.",
+      "emphasis": "right",
+      "notes": "Name the loser column first, then punch the winner."
+    },
+    {
       "layout": "image-hero",
       "eyebrow": "Studio · Zürich / NYC",
       "heading": "Systems before styles.",
@@ -30,17 +74,6 @@
       "body": "Modular columns, baseline rhythm, and ratios documented for every breakpoint. One display face, one text face. Signal red for emphasis only.",
       "aside": "Systems before styles. Production kits that survive engineering.",
       "ratio": "3-2"
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Contrast",
-      "heading": "Decoration vs. structure.",
-      "leftLabel": "Trend design",
-      "left": "Gradients as identity.\nFonts as costume.\nLayouts that can't resize.",
-      "rightLabel": "Swiss Modern",
-      "right": "Grid as identity.\nType as structure.\nLayouts that scale.",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
     },
     {
       "layout": "stat-row",
