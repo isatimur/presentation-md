@@ -43,8 +43,11 @@ export const generateDeckPromptTool: ToolDefinition = {
       "- Prefer stunning-25 themes when the brief matches (see stunning_25_reference).",
       "- Include ≥1 image-hero for visual/investor/launch/brand decks.",
       "- Every comparison MUST set emphasis left|right; prefer non-1-1 two-column ratios; 5-card grids use columns:\"bento\".",
+      "- Rankings / top-N → layout ranked-list (not custom-html bars). Mega wrap numbers → stat-row variant:\"hero\".",
+      "- Logo / customer walls → logo-wall. Year wraps (kinetic-wrapped) need tone on ≥3 slides.",
       "- Add brief notes on 2–4 key slides.",
-      "- Call audit_deck before shipping; fix warnings that mention asymmetry, image-hero, or emphasis.",
+      "- Call audit_deck before shipping; fix warnings that mention asymmetry, image-hero, tone, or emphasis.",
+      "- Call judge_deck (t1→t2; t3 when stakes are high). Treat local_draft as a floor, not a ship grade.",
       "- Open the theme's structured gallery proof when listed in stunning-25 — match that ceiling, do not water down.",
     ].join("\n");
 
