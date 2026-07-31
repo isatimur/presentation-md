@@ -678,14 +678,92 @@
 
     .theme-card {
       border: 1px solid var(--rule);
-      border-radius: 8px;
+      border-radius: 12px;
       overflow: hidden;
-      background: var(--paper2);
-      transition: box-shadow 0.15s, transform 0.1s;
+      background:
+        linear-gradient(165deg, rgba(255,255,255,0.55) 0%, transparent 42%),
+        var(--paper2);
+      transition: box-shadow 0.22s ease, transform 0.18s ease, border-color 0.18s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+      position: relative;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.65) inset,
+        0 10px 28px -18px rgba(11,18,32,0.28);
+    }
+    .theme-card::after {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(125deg, rgba(255,255,255,0.28) 0%, transparent 36%, transparent 62%, rgba(11,18,32,0.06) 100%);
+      opacity: 0.55;
+      mix-blend-mode: soft-light;
     }
     .theme-card:hover {
-      box-shadow: 0 4px 20px rgba(42,38,34,0.10);
-      transform: translateY(-2px);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.8) inset,
+        0 18px 40px -16px rgba(11,18,32,0.32),
+        0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent);
+      transform: translateY(-3px);
+      border-color: color-mix(in srgb, var(--ink) 22%, transparent);
+    }
+    .theme-card.is-hidden { display: none; }
+    .theme-card.is-featured .theme-name::after {
+      content: " · popular";
+      color: var(--accent);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+    }
+
+    .theme-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 28px 0 0;
+      align-items: center;
+    }
+    .theme-filter-bar .filter-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-right: 4px;
+    }
+    .theme-filter-chip {
+      appearance: none;
+      border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
+      background: color-mix(in srgb, var(--paper2) 70%, white);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 7px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s, box-shadow 0.15s;
+    }
+    .theme-filter-chip:hover {
+      border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+      color: var(--ink);
+    }
+    .theme-filter-chip.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fff;
+      box-shadow: 0 8px 20px -12px rgba(11,18,32,0.45);
+    }
+    .theme-filter-chip.active[data-filter="popular"] {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .theme-filter-count {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-light);
+      margin-left: auto;
     }
 
     .theme-preview {
@@ -930,8 +1008,23 @@
 
     /* ── gallery ─────────────────────────────────────────── */
     .gallery-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; margin-top:32px; }
-    .gallery-card { border-radius:8px; overflow:hidden; background:color-mix(in srgb, var(--paper2) 55%, white); border:1.5px solid color-mix(in srgb, var(--ink) 16%, transparent); transition:transform 0.15s,box-shadow 0.15s,border-color 0.15s; }
-    .gallery-card:hover { transform:translateY(-3px); box-shadow:0 10px 32px rgba(11,18,32,0.14); border-color:color-mix(in srgb, var(--ink) 28%, transparent); }
+    .gallery-card { border-radius:12px; overflow:hidden; background:
+      linear-gradient(165deg, rgba(255,255,255,0.5) 0%, transparent 40%),
+      color-mix(in srgb, var(--paper2) 55%, white);
+      border:1.5px solid color-mix(in srgb, var(--ink) 16%, transparent);
+      transition:transform 0.2s ease,box-shadow 0.2s ease,border-color 0.2s ease;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.55) inset, 0 12px 28px -18px rgba(11,18,32,0.22);
+      position: relative;
+    }
+    .gallery-card::after {
+      content:""; pointer-events:none; position:absolute; inset:0; border-radius:inherit;
+      background: linear-gradient(125deg, rgba(255,255,255,0.22) 0%, transparent 38%, transparent 70%, rgba(11,18,32,0.05) 100%);
+      opacity:0.5; mix-blend-mode: soft-light;
+    }
+    .gallery-card:hover { transform:translateY(-4px) rotateX(1.5deg);
+      box-shadow:0 18px 40px -16px rgba(11,18,32,0.28), 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent);
+      border-color:color-mix(in srgb, var(--ink) 28%, transparent);
+    }
     .thumb { height:156px; }
     .card-meta { padding:14px 16px 16px; }
     .card-title { font-weight:700; font-size:0.95rem; margin-bottom:6px; color:var(--ink); letter-spacing:-0.01em; }
@@ -1321,6 +1414,21 @@
         </div>
         <div class="theme-preview-label">retro-arcade <em>· scanline neon</em></div>
       </a>
+    </div>
+
+    <div class="theme-filter-bar" id="theme-filters" role="toolbar" aria-label="Filter themes by mood">
+      <span class="filter-label">Browse</span>
+      <button type="button" class="theme-filter-chip active" data-filter="all">All 75</button>
+      <button type="button" class="theme-filter-chip" data-filter="popular">Popular</button>
+      <button type="button" class="theme-filter-chip" data-filter="dark">Dark</button>
+      <button type="button" class="theme-filter-chip" data-filter="light">Light</button>
+      <button type="button" class="theme-filter-chip" data-filter="editorial">Editorial</button>
+      <button type="button" class="theme-filter-chip" data-filter="neon">Neon</button>
+      <button type="button" class="theme-filter-chip" data-filter="playful">Playful</button>
+      <button type="button" class="theme-filter-chip" data-filter="brutal">Brutal / poster</button>
+      <button type="button" class="theme-filter-chip" data-filter="luxury">Luxury</button>
+      <button type="button" class="theme-filter-chip" data-filter="tech">Tech</button>
+      <span class="theme-filter-count" id="theme-filter-count" aria-live="polite"></span>
     </div>
 
     <div class="themes-grid">
@@ -2590,7 +2698,7 @@
 <section id="layouts">
   <div class="container">
     <span class="eyebrow">Layouts</span>
-    <h2>Twelve layouts. Mix and match.</h2>
+    <h2>Eighteen layouts. Mix and match.</h2>
     <p class="section-lead">
       Every slide picks exactly one layout. The agent chooses the right one for the content;
       you can always override. Each layout is a purpose-built HTML/CSS template — no DIY needed.
@@ -2668,6 +2776,42 @@
         <div class="layout-icon"><i class="fa-solid fa-code"></i></div>
         <h3>code</h3>
         <p>API / SDK snippet in window chrome. Dev demos, install recipes, one-file “aha” moments — plain text, HTML-escaped.</p>
+      </div>
+
+      <div class="layout-cell">
+        <div class="layout-icon"><i class="fa-solid fa-chart-pie"></i></div>
+        <h3>chart</h3>
+        <p>Theme-colored SVG charts — bar, line, area, pie, donut. Trends and composition without leaving Deck JSON.</p>
+      </div>
+
+      <div class="layout-cell">
+        <div class="layout-icon"><i class="fa-solid fa-ranking-star"></i></div>
+        <h3>ranked-list</h3>
+        <p>Top-N bars with ranks and widths. Year wraps, leaderboards, and “what won” slides.</p>
+      </div>
+
+      <div class="layout-cell">
+        <div class="layout-icon"><i class="fa-solid fa-building"></i></div>
+        <h3>logo-wall</h3>
+        <p>Customer / partner marks in a clean grid. Social proof without inventing custom HTML stickers.</p>
+      </div>
+
+      <div class="layout-cell">
+        <div class="layout-icon"><i class="fa-solid fa-fire"></i></div>
+        <h3>streak-grid</h3>
+        <p>Day-streak cells for wrap energy — filled vs total, Pulse-style craft beats.</p>
+      </div>
+
+      <div class="layout-cell">
+        <div class="layout-icon"><i class="fa-solid fa-circle-notch"></i></div>
+        <h3>metric-ring</h3>
+        <p>Circular KPI with arc or badge ring. Percentile moments that stop the room.</p>
+      </div>
+
+      <div class="layout-cell">
+        <div class="layout-icon"><i class="fa-solid fa-paintbrush"></i></div>
+        <h3>custom-html</h3>
+        <p>Sanitized one-off art when schema layouts aren’t enough — still round-trips in Deck JSON + Studio.</p>
       </div>
 
     </div>
@@ -4053,7 +4197,7 @@
       <div class="step">
         <span class="step-icon"><i class="fa-solid fa-robot"></i></span>
         <h3>Any agent, not just Claude</h3>
-        <p>One <span class="inline-code">npx @presentation-md/install</span> for Claude Code, Cursor, Codex, Gemini CLI, and Copilot — with 9 MCP tools.</p>
+        <p>One <span class="inline-code">npx @presentation-md/install</span> for Claude Code, Cursor, Codex, Gemini CLI, and Copilot — with 11 MCP tools.</p>
       </div>
     </div>
   </div>
@@ -4300,6 +4444,81 @@
     </div>
   </div>
 </footer>
+
+<script type="application/json" id="pmd-theme-mood-index">{"claude":{"scheme":"light","mood":["warm","editorial","human","high-craft"],"formality":"medium","popular":true},"default-tech":{"scheme":"dark","mood":["edgy","neon","startup","confident"],"formality":"medium","popular":true},"corporate":{"scheme":"light","mood":["formal","restrained","boardroom","clean"],"formality":"high","popular":true},"playful":{"scheme":"light","mood":["bright","friendly","creative","energetic"],"formality":"low","popular":true},"luxury-minimalist":{"scheme":"dark","mood":["quiet","premium","nocturnal","gold","serif"],"formality":"high","popular":true},"retro-arcade":{"scheme":"dark","mood":["neon","nostalgic","pixel","loud"],"formality":"low","popular":false},"editorial-serif":{"scheme":"light","mood":["magazine","ink","literary","crimson"],"formality":"medium-high","popular":false},"brutalist-mono":{"scheme":"light","mood":["raw","technical","monospace","hazard"],"formality":"medium","popular":false},"pastel-dreamy":{"scheme":"light","mood":["soft","approachable","blush","gentle"],"formality":"low-medium","popular":false},"aurora-glass":{"scheme":"dark","mood":["aurora","glass","neon","cinematic"],"formality":"medium","popular":true},"ft-editorial":{"scheme":"light","mood":["broadsheet","ink","financial","serious"],"formality":"high","popular":true},"genz-bento":{"scheme":"light","mood":["bold","sticker","youthful","hard-shadow"],"formality":"low","popular":true},"crt-terminal":{"scheme":"dark","mood":["phosphor","hacker","retro","monospace"],"formality":"low","popular":true},"swiss-typographic":{"scheme":"light","mood":["grid","minimal","signal-red","international"],"formality":"medium-high","popular":true},"candy-pop":{"scheme":"light","mood":["sweet","playful","rounded","loud"],"formality":"low","popular":true},"aerospace-hud":{"scheme":"dark","mood":["hud","cyan","instrument","precise"],"formality":"medium","popular":false},"brutalist-acid":{"scheme":"dark","mood":["acid","brutal","mono","loud"],"formality":"medium","popular":false},"bauhaus":{"scheme":"light","mood":["geometric","primary","modernist","bold"],"formality":"medium","popular":true},"y2k-aero":{"scheme":"light","mood":["aero","bubble","optimistic","chrome"],"formality":"low","popular":false},"risograph-zine":{"scheme":"light","mood":["print","zine","craft","overprint"],"formality":"low-medium","popular":false},"neon-noir":{"scheme":"dark","mood":["noir","neon","cinematic","night"],"formality":"medium","popular":true},"vaporwave":{"scheme":"dark","mood":["nostalgic","sunset","chrome","mallsoft"],"formality":"low","popular":true},"botanical-luxe":{"scheme":"dark","mood":["forest","gold","serif","impact"],"formality":"high","popular":false},"heritage-editorial":{"scheme":"light","mood":["heritage","serif","warm","terracotta"],"formality":"high","popular":false},"fintech-clean":{"scheme":"light","mood":["clean","violet","mint","product"],"formality":"medium-high","popular":false},"developer-dark":{"scheme":"dark","mood":["github","code","terminal","green"],"formality":"medium","popular":true},"data-editorial":{"scheme":"light","mood":["report","navy","chart","serif"],"formality":"high","popular":false},"scandinavian":{"scheme":"light","mood":["hygge","sage","linen","calm"],"formality":"medium","popular":false},"art-deco":{"scheme":"dark","mood":["deco","gold","emerald","investor"],"formality":"high","popular":false},"kinetic-wrapped":{"scheme":"dark","mood":["wrapped","acid","loud","year-in-review"],"formality":"low","popular":true},"blueprint":{"scheme":"dark","mood":["engineering","cyan","grid","mission"],"formality":"medium","popular":false},"glassmorphism":{"scheme":"light","mood":["glass","soft","indigo","pricing"],"formality":"medium","popular":true},"broadsheet":{"scheme":"light","mood":["newspaper","ink","masthead","print"],"formality":"high","popular":false},"soft-editorial":{"scheme":"light","mood":["editorial","warm","magazine","pastel"],"formality":"medium-high","popular":true},"editorial-forest":{"scheme":"light","mood":["editorial","forest","quiet","literary"],"formality":"high","popular":false},"pin-and-paper":{"scheme":"light","mood":["notebook","field-report","playful","analog"],"formality":"low","popular":false},"vellum":{"scheme":"dark","mood":["gallery","monochrome","literary","still"],"formality":"high","popular":false},"neo-grid-bold":{"scheme":"light","mood":["poster","grid","brutal","editorial"],"formality":"medium","popular":false},"editorial-tri-tone":{"scheme":"light","mood":["arts","tri-tone","literary","poster"],"formality":"medium-high","popular":false},"creative-mode":{"scheme":"light","mood":["neo-brutalist","zine","loud","graphic"],"formality":"medium-low","popular":false},"broadside":{"scheme":"dark","mood":["protest","editorial","loud","newspaper"],"formality":"medium-high","popular":false},"bold-signal":{"scheme":"dark","mood":["confident","high-impact","modern","bold"],"formality":"medium","popular":true},"notebook-tabs":{"scheme":"light","mood":["editorial","tactile","organized","notebook"],"formality":"medium-high","popular":false},"creative-voltage":{"scheme":"dark","mood":["energetic","retro-modern","electric","creative"],"formality":"low","popular":false},"signal":{"scheme":"light","mood":["literary","intelligence","restrained","editorial"],"formality":"high","popular":false},"electric-studio":{"scheme":"light","mood":["bold","clean","professional","high-contrast"],"formality":"high","popular":true},"dark-botanical":{"scheme":"dark","mood":["elegant","botanical","premium","artistic"],"formality":"high","popular":false},"pastel-geometry":{"scheme":"light","mood":["friendly","organized","pastel","approachable"],"formality":"medium-low","popular":false},"split-pastel":{"scheme":"light","mood":["playful","friendly","creative","pastel"],"formality":"low","popular":false},"vintage-editorial":{"scheme":"light","mood":["witty","editorial","vintage","confident"],"formality":"medium","popular":false},"paper-ink":{"scheme":"light","mood":["literary","editorial","thoughtful","classic"],"formality":"high","popular":false},"biennale-yellow":{"scheme":"light","mood":["editorial","atmospheric","cultural-institution","poster-like"],"formality":"high","popular":false},"bold-poster":{"scheme":"light","mood":["bold","editorial","loud","poster"],"formality":"medium","popular":false},"coral":{"scheme":"mixed","mood":["bold","poster","sport-editorial","high-impact"],"formality":"medium","popular":false},"emerald-editorial":{"scheme":"mixed","mood":["editorial","magazine","theatrical","fashion"],"formality":"medium-high","popular":false},"sakura-chroma":{"scheme":"light","mood":["playful","japanese-print","cassette","chroma"],"formality":"low","popular":false},"pink-script":{"scheme":"dark","mood":["couture","nocturnal","editorial","luxury"],"formality":"medium-high","popular":false},"block-frame":{"scheme":"light","mood":["neobrutalist","playful","loud","toy-packaging"],"formality":"medium-low","popular":false},"capsule":{"scheme":"light","mood":["playful","editorial","memphis","soft-pop"],"formality":"medium-low","popular":false},"cobalt-grid":{"scheme":"light","mood":["architectural","analytical","classical","precise"],"formality":"high","popular":false},"8-bit-orbit":{"scheme":"dark","mood":["retro-tech","arcade","neon","cyberpunk"],"formality":"low","popular":false},"studio":{"scheme":"dark","mood":["electric","bold","graphic","design-led"],"formality":"medium","popular":false},"grove":{"scheme":"dark","mood":["organic","literary","warm","considered"],"formality":"medium-high","popular":false},"scatterbrain":{"scheme":"light","mood":["playful","workshop","messy-on-purpose","warm"],"formality":"low","popular":false},"peoples-platform":{"scheme":"light","mood":["activist","loud","graphic","honest"],"formality":"medium-low","popular":false},"retro-windows":{"scheme":"light","mood":["nostalgic","retro","geeky","playful"],"formality":"low","popular":false},"raw-grid":{"scheme":"light","mood":["raw","punchy","energetic","confident"],"formality":"medium-low","popular":false},"long-table":{"scheme":"light","mood":["warm","intimate","hospitality","editorial"],"formality":"medium","popular":false},"mat":{"scheme":"dark","mood":["mid-century","tactile","warm-modern","considered"],"formality":"medium","popular":false},"stencil-tablet":{"scheme":"light","mood":["archival","earthy","tactile","graphic"],"formality":"medium-high","popular":false},"cartesian":{"scheme":"light","mood":["quiet","elegant","warm-minimal","considered"],"formality":"high","popular":false},"monochrome":{"scheme":"light","mood":["restrained","literary","archival","ledger"],"formality":"high","popular":false},"blue-professional":{"scheme":"light","mood":["professional","modern","calm","trustworthy"],"formality":"medium-high","popular":false},"daisy-days":{"scheme":"light","mood":["cheerful","friendly","soft","playful"],"formality":"low","popular":false},"retro-zine":{"scheme":"light","mood":["crafted","lo-fi","underground","warm-retro"],"formality":"medium-low","popular":false}}</script>
+<script>
+(function () {
+  var idxEl = document.getElementById('pmd-theme-mood-index');
+  var bar = document.getElementById('theme-filters');
+  var countEl = document.getElementById('theme-filter-count');
+  if (!idxEl || !bar) return;
+  var INDEX = {};
+  try { INDEX = JSON.parse(idxEl.textContent || '{}'); } catch (e) { INDEX = {}; }
+
+  function themeName(card) {
+    var el = card.querySelector('.theme-name');
+    return (el && el.textContent || '').trim().toLowerCase();
+  }
+
+  function matches(meta, filter) {
+    if (!meta) return filter === 'all';
+    if (filter === 'all') return true;
+    if (filter === 'popular') return !!meta.popular;
+    if (filter === 'dark' || filter === 'light') return meta.scheme === filter;
+    var hay = ((meta.mood || []).join(' ') + ' ' + (meta.formality || '')).toLowerCase();
+    if (filter === 'editorial') return /editorial|literary|magazine|paper|serif|human|warm|quiet/.test(hay);
+    if (filter === 'neon') return /neon|cyber|arcade|voltage|kinetic|edgy/.test(hay);
+    if (filter === 'playful') return /playful|pastel|candy|friendly|fun|soft|consumer/.test(hay);
+    if (filter === 'brutal') return /brutal|poster|zine|acid|neo|loud|graphic|rebel/.test(hay);
+    if (filter === 'luxury') return /luxury|luxe|heritage|deco|quiet|gallery|nocturnal/.test(hay);
+    if (filter === 'tech') return /tech|developer|startup|saas|hud|terminal|forge|confident/.test(hay);
+    return true;
+  }
+
+  function apply(filter) {
+    var cards = document.querySelectorAll('.themes-grid .theme-card');
+    var shown = 0;
+    cards.forEach(function (card) {
+      var name = themeName(card);
+      var meta = INDEX[name];
+      if (meta && meta.popular) card.classList.add('is-featured');
+      var ok = matches(meta || { scheme: 'light', mood: [] }, filter);
+      card.classList.toggle('is-hidden', !ok);
+      if (ok) shown++;
+    });
+    if (countEl) countEl.textContent = shown + ' themes';
+  }
+
+  bar.addEventListener('click', function (e) {
+    var btn = e.target.closest('.theme-filter-chip');
+    if (!btn) return;
+    bar.querySelectorAll('.theme-filter-chip').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    apply(btn.getAttribute('data-filter') || 'all');
+  });
+
+  // Cloth-inspired soft brush: cursor tilt on theme + gallery cards
+  function attachBrush(sel) {
+    document.querySelectorAll(sel).forEach(function (card) {
+      card.addEventListener('pointermove', function (ev) {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var r = card.getBoundingClientRect();
+        var x = (ev.clientX - r.left) / r.width - 0.5;
+        var y = (ev.clientY - r.top) / r.height - 0.5;
+        card.style.transform = 'translateY(-3px) rotateX(' + (-y * 4) + 'deg) rotateY(' + (x * 5) + 'deg)';
+      });
+      card.addEventListener('pointerleave', function () {
+        card.style.transform = '';
+      });
+    });
+  }
+
+  apply('all');
+  attachBrush('.themes-grid .theme-card');
+  attachBrush('.gallery-card');
+})();
+</script>
+
 
 <script>
   (function () {
