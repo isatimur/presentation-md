@@ -1,5 +1,16 @@
 # @presentation-md/export
 
+## 1.21.0
+
+### Minor Changes
+
+- a8e8c0a: Map editorial-serif and vintage-editorial cards to literary left accent rules (HTML + PPTX peers of paper-ink).
+
+### Patch Changes
+
+- Updated dependencies [8a839a8]
+  - @presentation-md/core@1.13.0
+
 ## 1.20.5
 
 ### Patch Changes

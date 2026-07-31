@@ -1,5 +1,12 @@
 # @presentation-md/install
 
+## 1.0.34
+
+### Patch Changes
+
+- Updated dependencies [8a839a8]
+  - @presentation-md/core@1.13.0
+
 ## 1.0.33
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.13.0
+
+### Minor Changes
+
+- 8a839a8: Gate loud/hard-card and botanical themes in auditCraft; count timeline as a long-deck data beat; extend literary left-rule paper honesty.
+
 ## 1.12.4
 
 ### Patch Changes

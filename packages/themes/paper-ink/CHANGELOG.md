@@ -1,5 +1,11 @@
 # @presentation-md/theme-paper-ink
 
+## 1.0.2
+
+### Patch Changes
+
+- a8e8c0a: Map editorial-serif and vintage-editorial cards to literary left accent rules (HTML + PPTX peers of paper-ink).
+
 ## 1.0.1
 
 ### Patch Changes
