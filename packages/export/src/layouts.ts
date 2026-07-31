@@ -2464,6 +2464,128 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       line: { color: ctx.colors.accent2, width: 0 },
     });
   }
+
+  if (theme === "genz-bento") {
+    // Hard border shadow + accent2 corner blot (hard-bento).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.12,
+      y: 0.12,
+      w: ctx.width - 0.12,
+      h: ctx.height - 0.12,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 2.5 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 1.6,
+      y: -0.5,
+      w: 1.8,
+      h: 1.8,
+      fill: { color: ctx.colors.accent2, transparency: 45 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+  }
+
+  if (theme === "heritage-editorial") {
+    // Quiet hairlines (heritage-wash).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: 0.6,
+      w: ctx.width - ctx.margin * 2,
+      h: 0.012,
+      fill: { color: ctx.colors.accent, transparency: 45 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - ctx.margin - 0.85,
+      y: ctx.height - 0.65,
+      w: 0.85,
+      h: 0.012,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "developer-dark") {
+    // Title-bar chrome + traffic-light dots (dev-terminal).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: ctx.width,
+      h: 0.32,
+      fill: { color: ctx.colors.bg2 },
+      line: { color: ctx.colors.border, width: 1 },
+      rectRadius: 0,
+    });
+    const dots = [
+      { x: 0.2, color: ctx.colors.accent },
+      { x: 0.38, color: "D29922" },
+      { x: 0.56, color: "F85149" },
+    ];
+    for (const d of dots) {
+      slide.addShape(ctx.shapeOval, {
+        x: d.x,
+        y: 0.11,
+        w: 0.1,
+        h: 0.1,
+        fill: { color: d.color },
+        line: { color: d.color, width: 0 },
+      });
+    }
+  }
+
+  if (theme === "data-editorial") {
+    // Accent rule + stub (data-rule).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: 0.55,
+      w: ctx.width - ctx.margin * 2,
+      h: 0.035,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: 0.55,
+      w: 0.035,
+      h: 0.55,
+      fill: { color: ctx.colors.accent2 },
+      line: { color: ctx.colors.accent2, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "dark-botanical") {
+    // Bloom wash + left accent rail (dark-botanical-bloom).
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.62,
+      y: -ctx.height * 0.15,
+      w: ctx.width * 0.45,
+      h: ctx.height * 0.55,
+      fill: { color: ctx.colors.accent2, transparency: 72 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.7,
+      y: ctx.height * 0.05,
+      w: ctx.width * 0.28,
+      h: ctx.height * 0.35,
+      fill: { color: ctx.colors.accent, transparency: 78 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.55,
+      y: 0.7,
+      w: 0.015,
+      h: ctx.height - 1.4,
+      fill: { color: ctx.colors.accent, transparency: 45 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+  }
 }
 
 export function renderSlide(slide: PSlide, ctx: ExportContext, data: Slide): void {

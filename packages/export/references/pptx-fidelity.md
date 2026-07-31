@@ -56,7 +56,10 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   grid + reticle; swiss-typographic gets a modular grid + red left rail;
   ft-editorial gets a masthead bar + bottom rule; bauhaus heroes get red square +
   blue circle; fintech-clean / scandinavian get soft radial washes; art-deco heroes
-  get a gold hairline + deco ring; botanical-luxe gets a gold hairline + leaf ring.
+  get a gold hairline + deco ring; botanical-luxe gets a gold hairline + leaf ring;
+  genz-bento gets a hard border + corner blot; heritage-editorial gets quiet hairlines;
+  developer-dark gets a title-bar + traffic lights; data-editorial gets an accent rule;
+  dark-botanical gets bloom washes + a left rail.
   True CSS `mix-blend-mode` / animated marquees remain HTML-only.
 - Closing `actions[].icon` maps to a glyph prefix on PPTX pills (FA brands → letter/symbol).
 

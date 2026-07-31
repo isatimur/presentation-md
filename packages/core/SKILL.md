@@ -477,5 +477,6 @@ Then walk every slide against this checklist and fix before delivering:
 - **Schema honesty** — every `layout` value is one of the eighteen enums; no invented layout names.
 - **Wrap honesty** — `kinetic-wrapped` decks need `tone` on ≥3 slides and a visual beat (`ranked-list`, `streak-grid`, `metric-ring`, `stat-row` `variant:"hero"`, or `image-hero`).
 - **Gallery honesty** — if you named a stunning-25 theme (aurora-glass, ft-editorial, luxury-minimalist, …), open its structured proof and match that craft ceiling.
+- **Candy honesty** — `candy-pop` marquees brand from `meta.company` (or `meta.marquee` / `meta.title`); never hardcode Jellybean.
 
 For a rigorous, scored pass, run the **`deck-design-judge`** skill: it grades the deck against the design rubric, tells you exactly what to fix, and lets you re-score after the fix.
