@@ -1,5 +1,17 @@
 # @presentation-md/mcp-server
 
+## 1.6.16
+
+### Patch Changes
+
+- 44b46db: Add loud honesty craft guidance for always-on stencil/retro-zine/daisy PPTX frames and plates.
+- Updated dependencies [05d8c04]
+- Updated dependencies [44b46db]
+  - @presentation-md/export@1.16.0
+  - @presentation-md/core@1.8.5
+  - @presentation-md/render@1.6.14
+  - @presentation-md/create-theme@1.0.23
+
 ## 1.6.15
 
 ### Patch Changes
