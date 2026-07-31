@@ -30,3 +30,5 @@ export type { ChartType, ChartSeries, ChartSpec, ChartColors } from "./chart-svg
 export { sanitizeCustomHtml } from "./sanitize-html.js";
 export { markdownToDeck } from "./md-to-deck.js";
 export type { MdDeck, MdSlide, MdToDeckOptions } from "./md-to-deck.js";
+export { auditCraft, CRAFT_VALID_LAYOUTS } from "./craft-audit.js";
+export type { CraftIssue, CraftAuditDeck } from "./craft-audit.js";
