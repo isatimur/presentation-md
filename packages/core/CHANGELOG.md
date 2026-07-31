@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.4.1
+
+### Patch Changes
+
+- 2e00f07: Harden wrap audit/judge gates, fix agent layout-count recipes, native PPTX metric-ring blockArc, and bring stunning-25 proofs up to notes/logo-wall craft ceilings.
+
 ## 1.4.0
 
 ### Minor Changes

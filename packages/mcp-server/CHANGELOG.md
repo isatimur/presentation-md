@@ -1,5 +1,19 @@
 # @presentation-md/mcp-server
 
+## 1.6.0
+
+### Minor Changes
+
+- 2e00f07: Harden wrap audit/judge gates, fix agent layout-count recipes, native PPTX metric-ring blockArc, and bring stunning-25 proofs up to notes/logo-wall craft ceilings.
+
+### Patch Changes
+
+- Updated dependencies [2e00f07]
+  - @presentation-md/core@1.4.1
+  - @presentation-md/export@1.8.0
+  - @presentation-md/create-theme@1.0.8
+  - @presentation-md/render@1.5.1
+
 ## 1.5.0
 
 ### Minor Changes
