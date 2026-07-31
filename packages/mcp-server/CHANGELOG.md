@@ -1,5 +1,20 @@
 # @presentation-md/mcp-server
 
+## 1.9.0
+
+### Minor Changes
+
+- 2a8d979: Extend generate_deck_prompt craft mandate for HUD honesty and hard-card loud peers.
+
+### Patch Changes
+
+- Updated dependencies [2a8d979]
+- Updated dependencies [92387aa]
+  - @presentation-md/core@1.11.0
+  - @presentation-md/export@1.19.0
+  - @presentation-md/create-theme@1.0.28
+  - @presentation-md/render@1.6.20
+
 ## 1.8.0
 
 ### Minor Changes

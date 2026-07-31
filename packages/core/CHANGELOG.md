@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.11.0
+
+### Minor Changes
+
+- 2a8d979: Add HUD/tech, bauhaus, and genz-bento craft gates; extend loud honesty for hard-border cards; add HUD layout recipe.
+
 ## 1.10.0
 
 ### Minor Changes
