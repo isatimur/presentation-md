@@ -148,7 +148,7 @@ Each layout is a tool. Match the layout to the job, not to the order.
 ### `custom-html` — Schema-safe art escape hatch
 **When to use:** one-off frontend-slides craft that no layout covers — without abandoning Deck JSON / Studio / theme tokens.
 **Props:** `{ heading?, lead?, html }`
-**Design rule:** use theme CSS variables (`var(--accent)`, `var(--heading-font)`, …). Scripts and event handlers are stripped. PPTX approximates to text — ship HTML when the art is the point.
+**Design rule:** use theme CSS variables (`var(--accent)`, `var(--heading-font)`, …). Scripts and event handlers are stripped. PPTX approximates `custom-html` to text — ship HTML when the art is the point. Theme surface chrome (grids, rails, mastheads, soft washes, Win95 bars, etc.) is approximated as native PPTX shapes for every theme package; true `mix-blend-mode` / animated marquees remain HTML-only.
 
 ### `closing` — The ask / CTA
 **When to use:** every deck ends here. Make the next action unmissable.

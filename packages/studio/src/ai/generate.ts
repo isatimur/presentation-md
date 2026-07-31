@@ -65,6 +65,7 @@ Authoring rules:
   - Include at least one "image-hero" when the brief implies a visual product, place, or atmosphere.
   - Prefer "chart" over stuffing trend data into a data-table when the shape of the series is the point.
   - Year-wrap / kinetic-wrapped: use tone on ≥3 slides, stat-row variant:"hero" for mega numbers, ranked-list for top-N bars, streak-grid for day streaks, metric-ring for percentile KPIs, closing actions[] with icons for dual share pills.
+  - Prefer loud/thin theme surfaces (coral, raw-grid, sakura-chroma, retro-windows, pin-and-paper, …) for brand atmosphere — PPTX approximates their chrome as native shapes; reserve custom-html for art PPTX cannot keep.
   - Add brief "notes" on 2–4 key slides (talking points for the presenter).
 - Only emit fields defined above. Do not invent new layouts or fields.`;
 
