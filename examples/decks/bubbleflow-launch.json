@@ -110,12 +110,14 @@
         {
           "label": "Open BubbleFlow",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-rocket"
         },
         {
           "label": "Request a demo",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-play"
         }
       ]
     }

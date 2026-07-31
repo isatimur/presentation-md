@@ -131,12 +131,14 @@
         {
           "label": "Request rates",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-file-invoice-dollar"
         },
         {
           "label": "Download the kit",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-download"
         }
       ]
     }

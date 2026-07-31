@@ -115,12 +115,14 @@
         {
           "label": "Star on GitHub",
           "href": "https://github.com/retronet",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-brands fa-github"
         },
         {
           "label": "Join Discord",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-brands fa-discord"
         }
       ]
     }

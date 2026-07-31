@@ -160,12 +160,14 @@
         {
           "label": "Download Bounce",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-rocket"
         },
         {
           "label": "Watch the demo",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-play"
         }
       ]
     }

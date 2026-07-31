@@ -214,12 +214,14 @@
         {
           "label": "Schedule kickoff",
           "href": "https://meridian.example/kickoff",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-calendar"
         },
         {
           "label": "Open the tracker",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-list-check"
         }
       ]
     }

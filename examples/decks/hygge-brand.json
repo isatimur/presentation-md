@@ -100,12 +100,14 @@
         {
           "label": "Book a visit",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-calendar"
         },
         {
           "label": "Browse the catalog",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-book"
         }
       ]
     }

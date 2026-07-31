@@ -234,12 +234,14 @@
         {
           "label": "Download the PDF",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-download"
         },
         {
           "label": "Share with the board",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-share-nodes"
         }
       ]
     }

@@ -100,12 +100,14 @@
         {
           "label": "Pre-order",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-cart-shopping"
         },
         {
           "label": "Join the waitlist",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-envelope"
         }
       ]
     }

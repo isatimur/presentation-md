@@ -133,12 +133,14 @@
         {
           "label": "Request membership",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-id-card"
         },
         {
           "label": "See the salon calendar",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-calendar"
         }
       ]
     }

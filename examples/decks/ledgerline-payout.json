@@ -103,12 +103,14 @@
         {
           "label": "Book a walkthrough",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-calendar"
         },
         {
           "label": "Open sandbox",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-flask"
         }
       ]
     }

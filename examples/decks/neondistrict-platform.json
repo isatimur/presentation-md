@@ -133,12 +133,14 @@
         {
           "label": "Request access",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-key"
         },
         {
           "label": "Book a venue",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-calendar"
         }
       ]
     }

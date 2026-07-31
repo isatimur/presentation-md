@@ -186,12 +186,14 @@
         {
           "label": "Open data room",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-folder-open"
         },
         {
           "label": "Email IR",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-envelope"
         }
       ]
     }

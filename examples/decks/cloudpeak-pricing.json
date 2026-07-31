@@ -132,12 +132,14 @@
         {
           "label": "Start free trial",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-rocket"
         },
         {
           "label": "Talk to sales",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-comments"
         }
       ]
     }

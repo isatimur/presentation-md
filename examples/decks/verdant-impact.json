@@ -125,12 +125,14 @@
         {
           "label": "Download report",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-download"
         },
         {
           "label": "Join the Farm Network",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-seedling"
         }
       ]
     }

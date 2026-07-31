@@ -110,12 +110,14 @@
         {
           "label": "Join the mall",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-shop"
         },
         {
           "label": "Get a guest pass",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-ticket"
         }
       ]
     }

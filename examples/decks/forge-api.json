@@ -103,12 +103,14 @@
         {
           "label": "Read the docs",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-book"
         },
         {
           "label": "Get an API key",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-key"
         }
       ]
     }

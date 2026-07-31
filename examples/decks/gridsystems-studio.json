@@ -75,12 +75,14 @@
         {
           "label": "Start a system sprint",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-bolt"
         },
         {
           "label": "View case studies",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-folder-open"
         }
       ]
     }

@@ -110,12 +110,14 @@
         {
           "label": "Request a mission brief",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-file-lines"
         },
         {
           "label": "Tour the console",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-display"
         }
       ]
     }

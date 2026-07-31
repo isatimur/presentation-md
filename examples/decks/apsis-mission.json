@@ -138,12 +138,14 @@
         {
           "label": "Request ICD",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-file-lines"
         },
         {
           "label": "Book a tech sync",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-calendar"
         }
       ]
     }

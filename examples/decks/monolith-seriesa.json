@@ -108,12 +108,14 @@
         {
           "label": "Read the memo",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-file-lines"
         },
         {
           "label": "Book a meeting",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-calendar"
         }
       ]
     }

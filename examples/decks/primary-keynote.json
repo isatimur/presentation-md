@@ -110,12 +110,14 @@
         {
           "label": "Get the kit",
           "href": "#",
-          "style": "solid"
+          "style": "solid",
+          "icon": "fa-solid fa-download"
         },
         {
           "label": "Browse examples",
           "href": "#",
-          "style": "outline"
+          "style": "outline",
+          "icon": "fa-solid fa-images"
         }
       ]
     }
