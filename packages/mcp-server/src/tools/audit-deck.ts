@@ -10,7 +10,8 @@ const HEADING_LAYOUTS = new Set(["title", "section", "closing"]);
 const VALID_LAYOUTS = new Set([
   "title", "two-column", "feature-grid", "quote",
   "data-table", "stat-row", "timeline", "section", "closing",
-  "image-hero", "comparison", "code", "chart", "custom-html", "ranked-list", "logo-wall",
+  "image-hero", "comparison", "code", "chart", "custom-html",
+  "ranked-list", "logo-wall", "streak-grid", "metric-ring",
 ]);
 
 function manualValidate(deck: Record<string, unknown>): { valid: boolean; issues: Issue[] } {
@@ -122,6 +123,53 @@ function lightStructuralChecks(deck: Record<string, unknown>): Issue[] {
           });
         }
       }
+      if (Array.isArray(cards) && cards.length >= 3) {
+        const featureLike = cards.filter((c) => {
+          const card = c as Record<string, unknown>;
+          const title = typeof card["title"] === "string" ? card["title"].trim() : "";
+          // Skip mega-number tiles (community proof) — icons aren't the craft.
+          if (/^[\d.,]+[%KkMmBx×+]*$/.test(title)) return false;
+          return true;
+        });
+        if (featureLike.length >= 3) {
+          const withIcon = featureLike.filter((c) => {
+            const card = c as Record<string, unknown>;
+            return typeof card["icon"] === "string" && card["icon"].trim() !== "";
+          }).length;
+          if (withIcon / featureLike.length < 0.5) {
+            issues.push({
+              severity: "warning",
+              message: `Slide ${i + 1} (feature-grid): fewer than half the cards have icons — add FA icons for scannability.`,
+            });
+          }
+        }
+      }
+    }
+
+    if (layout === "closing") {
+      const actions = slide["actions"];
+      const cta = slide["cta"] as Record<string, unknown> | undefined;
+      const hasAction =
+        (Array.isArray(actions) && actions.length > 0) ||
+        (cta && typeof cta["label"] === "string" && cta["label"].trim() !== "");
+      if (!hasAction) {
+        issues.push({
+          severity: "warning",
+          message: `Slide ${i + 1} (closing): missing CTA — set actions[] (or cta) so the ask is unmissable.`,
+        });
+      }
+    }
+  }
+
+  const last = slides[slides.length - 1] as Record<string, unknown> | undefined;
+  if (last && last["layout"] === "closing") {
+    const blob = JSON.stringify(last).toLowerCase();
+    if ((/share|instagram|tiktok|wrapped/.test(blob)) && !Array.isArray(last["actions"])) {
+      issues.push({
+        severity: "warning",
+        message:
+          "Closing mentions share/social — prefer actions[] with solid + outline pills (not a single cta).",
+      });
     }
   }
 
@@ -135,6 +183,16 @@ function lightStructuralChecks(deck: Record<string, unknown>): Issue[] {
 
   const meta = deck["meta"] as Record<string, unknown> | undefined;
   const theme = typeof meta?.["theme"] === "string" ? meta["theme"] : "";
+  const copyBlob = JSON.stringify(slides).toLowerCase();
+  if (
+    /partner|customer|trusted by|logo wall|backers/.test(copyBlob) &&
+    !layouts.includes("logo-wall")
+  ) {
+    issues.push({
+      severity: "warning",
+      message: 'Social-proof / customer marks copy without logo-wall — prefer layout "logo-wall".',
+    });
+  }
   if (theme === "kinetic-wrapped") {
     const toned = slides.filter((s) => {
       const t = (s as Record<string, unknown>)["tone"];
@@ -150,6 +208,8 @@ function lightStructuralChecks(deck: Record<string, unknown>): Issue[] {
     const hasVisual =
       layouts.includes("image-hero") ||
       layouts.includes("ranked-list") ||
+      layouts.includes("streak-grid") ||
+      layouts.includes("metric-ring") ||
       layouts.includes("custom-html") ||
       slides.some((s) => {
         const slide = s as Record<string, unknown>;
@@ -159,7 +219,13 @@ function lightStructuralChecks(deck: Record<string, unknown>): Issue[] {
       issues.push({
         severity: "warning",
         message:
-          "kinetic-wrapped wrap needs a visual beat — use ranked-list, stat-row variant:\"hero\", image-hero, or custom-html.",
+          'kinetic-wrapped wrap needs a visual beat — use ranked-list, streak-grid, metric-ring, stat-row variant:"hero", or image-hero.',
+      });
+    }
+    if (/streak/.test(copyBlob) && !layouts.includes("streak-grid")) {
+      issues.push({
+        severity: "warning",
+        message: 'kinetic-wrapped mentions streak without streak-grid — prefer layout "streak-grid".',
       });
     }
   }

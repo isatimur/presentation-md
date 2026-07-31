@@ -70,6 +70,20 @@ PPTX maps natively (no crude text blob).
 Customer / partner / team marks. Prefer `image` (URL or data URI); falls back to icon or title text.
 PPTX embeds images when prefetchable.
 
+### streak-grid
+`{ "layout": "streak-grid", "eyebrow"?, "heading"?, "lead"?, "filled", "total"?, "cols"?, "body"? }`
+Day-streak / habit cells (Pulse gallery parity). Cap `total` at 120. Prefer over `custom-html` squares.
+
+### metric-ring
+`{ "layout": "metric-ring", "eyebrow"?, "heading"?, "value", "label"?, "pct"?, "lead"?, "body"? }`
+Circular KPI badge. Omit/`pct: 100` = full ring; `1–99` = arc progress. Prefer over plain stats for percentile flex.
+
+### closing
+`{ "layout": "closing", "eyebrow"?, "heading", "lead"?,
+   "actions"?: [ { "label", "href"?, "style"?: "solid"|"outline"|"ghost", "icon"? } ],
+   "cta"?: { "label"?, "href"? } }`
+Prefer `actions[]` for dual share pills (solid + outline). `cta` is alias for `actions[0]`.
+
 ### timeline
 `{ "layout": "timeline", "eyebrow"?, "heading"?, "orientation"?: "horizontal"|"vertical",
    "steps": [ { "title", "body"? } ] }`
@@ -95,7 +109,7 @@ Theme-colored SVG in HTML; native editable charts in PPTX. Prefer `bar`/`line` f
 ### custom-html
 `{ "layout": "custom-html", "eyebrow"?, "heading"?, "lead"?, "html" }`
 Schema-preserving escape hatch for one-off art (frontend-slides energy without abandoning Deck JSON).
-Scripts, event handlers, and dangerous URLs are stripped on render. Prefer `ranked-list` /
+Scripts, event handlers, and dangerous URLs are stripped on render. Prefer `ranked-list` / `streak-grid` / `metric-ring` /
 `stat-row` hero / `chart` when the art fits those shapes. PPTX approximates bars/panels/text —
 keep HTML export when the art matters.
 

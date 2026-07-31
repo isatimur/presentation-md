@@ -147,6 +147,9 @@ function judgeDeckJson(deck: Record<string, unknown>): {
     layouts.includes("two-column") ||
     layouts.includes("custom-html") ||
     layouts.includes("ranked-list") ||
+    layouts.includes("streak-grid") ||
+    layouts.includes("metric-ring") ||
+    layouts.includes("logo-wall") ||
     slides.some((s) => s["layout"] === "feature-grid" && s["columns"] === "bento");
 
   if (slides.length >= 5 && !hasImageHero) {
@@ -160,7 +163,7 @@ function judgeDeckJson(deck: Record<string, unknown>): {
     flags.push({
       id: "asymmetry",
       severity: "warn",
-      detail: "Weak asymmetry — add comparison+emphasis, two-column, code, bento, ranked-list, or custom-html.",
+      detail: "Weak asymmetry — add comparison+emphasis, two-column, code, bento, ranked-list, streak-grid, metric-ring, or logo-wall.",
     });
   }
   if (
@@ -168,13 +171,30 @@ function judgeDeckJson(deck: Record<string, unknown>): {
     !hasChart &&
     !layouts.includes("stat-row") &&
     !layouts.includes("data-table") &&
-    !layouts.includes("ranked-list")
+    !layouts.includes("ranked-list") &&
+    !layouts.includes("metric-ring")
   ) {
     flags.push({
       id: "data_viz",
       severity: "warn",
-      detail: "Long deck with no chart/stat-row/data-table/ranked-list — consider a data beat.",
+      detail: "Long deck with no chart/stat-row/data-table/ranked-list/metric-ring — consider a data beat.",
     });
+  }
+
+  const last = slides[slides.length - 1];
+  if (last?.["layout"] === "closing") {
+    const actions = last["actions"];
+    const cta = last["cta"] as Record<string, unknown> | undefined;
+    const hasAction =
+      (Array.isArray(actions) && actions.length > 0) ||
+      (cta && typeof cta["label"] === "string" && String(cta["label"]).trim() !== "");
+    if (!hasAction) {
+      flags.push({
+        id: "close",
+        severity: "warn",
+        detail: "Closing slide has no actions[]/cta — the ask is missing.",
+      });
+    }
   }
 
   return {

@@ -151,11 +151,19 @@ Each layout is a tool. Match the layout to the job, not to the order.
 **Design rule:** use theme CSS variables (`var(--accent)`, `var(--heading-font)`, …). Scripts and event handlers are stripped. PPTX approximates to text — ship HTML when the art is the point.
 
 ### `closing` — The ask / CTA
-
-### `closing` — The ask / CTA
 **When to use:** every deck ends here. Make the next action unmissable.
-**Props:** `{ heading, lead?, cta?: { label?, href? } }`
-**Design rule:** one primary action. Two is confusion. Three is abandonment.
+**Props:** `{ heading, lead?, actions?: [{ label, href?, style?: "solid"|"outline"|"ghost", icon? }], cta?: { label?, href? } }`
+**Design rule:** one primary action by default. For wrap/share/store duals, use `actions[]` with solid + outline pills (max 3). `cta` is an alias for `actions[0]`.
+
+### `streak-grid` — Day-streak / habit cells
+**When to use:** year-wrap streak beats, habit calendars, filled-vs-empty progress grids.
+**Props:** `{ heading?, lead?, filled, total?, cols?, body? }`
+**Design rule:** keep `total ≤ 120`. Prefer over `custom-html` squares. PPTX maps to rounded rects.
+
+### `metric-ring` — Circular KPI
+**When to use:** percentile flex, completion %, single hero ring KPI (Pulse / Verdant / Bounce energy).
+**Props:** `{ heading?, value, label?, pct?, lead?, body? }`
+**Design rule:** omit/`pct: 100` = full badge ring; `1–99` = arc progress. Prefer over a lone stat chip when the ring is the story.
 
 ---
 
@@ -466,8 +474,8 @@ Then walk every slide against this checklist and fix before delivering:
 - **Token discipline** — colors and fonts all trace back to the chosen theme; no off-palette one-offs.
 - **The 3-second test** — pick any slide at random: is its single point obvious in three seconds?
 - **Arc integrity** — the deck still follows one narrative arc end to end; every slide sets up or pays off the one before it.
-- **Schema honesty** — every `layout` value is one of the sixteen enums; no invented layout names.
-- **Wrap honesty** — `kinetic-wrapped` decks need `tone` on ≥3 slides and either `ranked-list`, `stat-row` `variant:"hero"`, or `image-hero`.
+- **Schema honesty** — every `layout` value is one of the eighteen enums; no invented layout names.
+- **Wrap honesty** — `kinetic-wrapped` decks need `tone` on ≥3 slides and a visual beat (`ranked-list`, `streak-grid`, `metric-ring`, `stat-row` `variant:"hero"`, or `image-hero`).
 - **Gallery honesty** — if you named a stunning-25 theme (aurora-glass, ft-editorial, luxury-minimalist, …), open its structured proof and match that craft ceiling.
 
 For a rigorous, scored pass, run the **`deck-design-judge`** skill: it grades the deck against the design rubric, tells you exactly what to fix, and lets you re-score after the fix.

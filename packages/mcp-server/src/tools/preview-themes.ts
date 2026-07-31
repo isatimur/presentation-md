@@ -106,12 +106,36 @@ function layoutsPreviewDeck(title: string, theme: string, company?: string): str
             }
           : {
               stats: [
-                { value: "15", label: "Schema layouts" },
+                { value: "18", label: "Schema layouts" },
                 { value: "75", label: "Theme surfaces" },
                 { value: "1", label: "JSON field to swap vibe" },
               ],
             }),
       },
+      ...(isWrap
+        ? [
+            {
+              layout: "streak-grid",
+              tone: "violet",
+              eyebrow: "Streak",
+              heading: "No excuses.",
+              lead: "Schema cells — not custom-html squares.",
+              filled: 47,
+              total: 60,
+              cols: 10,
+            },
+            {
+              layout: "metric-ring",
+              tone: "cyan",
+              eyebrow: "Percentile",
+              heading: "TOP 3%.",
+              value: "3%",
+              label: "globally",
+              pct: 100,
+              lead: "Circular KPI without inventing HTML.",
+            },
+          ]
+        : []),
       {
         layout: "chart",
         eyebrow: "Data viz",
@@ -141,7 +165,12 @@ function layoutsPreviewDeck(title: string, theme: string, company?: string): str
         eyebrow: "Next",
         heading: "Pick this vibe — or preview another.",
         lead: "Set meta.theme and generate the full deck.",
-        cta: { label: "Lock theme", href: "#" },
+        actions: isWrap
+          ? [
+              { label: "Share Wrapped", href: "#", style: "solid" },
+              { label: "Post to X", href: "#", style: "outline" },
+            ]
+          : [{ label: "Lock theme", href: "#", style: "solid" }],
         ...(isWrap ? { tone: "lime" } : {}),
       },
   ];
@@ -156,7 +185,7 @@ function layoutsPreviewDeck(title: string, theme: string, company?: string): str
 export const previewThemesTool: ToolDefinition = {
   name: "preview_themes",
   description:
-    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Default mode is a title slide; pass mode=\"layouts\" for a multi-slide craft preview (title, image-hero, bento, two-column, comparison, ranked-list, stat-row, quote, code, closing). kinetic-wrapped previews inject tone + hero mega-stat.",
+    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Default mode is a title slide; pass mode=\"layouts\" for a multi-slide craft preview (title, image-hero, bento, comparison, ranked-list, streak/metric on wrap, stats, quote, code, closing). kinetic-wrapped previews inject tone + hero mega-stat + share pills.",
   inputSchema: {
     type: "object",
     properties: {
