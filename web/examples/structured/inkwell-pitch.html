@@ -1334,6 +1334,7 @@ tbody tr:hover td {
               radial-gradient(circle at 88% 78%, color-mix(in srgb, var(--accent2) 35%, var(--bg)), var(--bg) 48%);
   border: 3px solid var(--text);
   box-shadow: 0 18px 0 color-mix(in srgb, var(--accent) 35%, transparent);
+  overflow: hidden;
 }
 .deck[data-surface="candy-blob"] .slide::after {
   width: 180px;
@@ -1345,6 +1346,43 @@ tbody tr:hover td {
   opacity: 0.55;
   filter: none;
   border: 3px solid var(--text);
+}
+/* Gallery marquee ticker — yellow strip on cover/closing (Jellybean parity) */
+@keyframes candy-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.deck[data-surface="candy-blob"] .title-slide,
+.deck[data-surface="candy-blob"] .closing-slide {
+  padding-bottom: 56px;
+}
+.deck[data-surface="candy-blob"] .title-slide::before,
+.deck[data-surface="candy-blob"] .closing-slide::before {
+  content: "★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·  ";
+  position: absolute;
+  left: 0;
+  right: auto;
+  bottom: 0;
+  top: auto;
+  width: max-content;
+  min-width: 200%;
+  height: auto;
+  padding: 10px 0;
+  background: #ffe566;
+  border-top: 3px solid var(--text);
+  border-bottom: 3px solid var(--text);
+  color: var(--text);
+  font-family: var(--heading-font);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 1;
+  filter: none;
+  border-radius: 0;
+  animation: candy-marquee 22s linear infinite;
 }
 .deck[data-surface="candy-blob"] .card {
   border: 2.5px solid var(--text);
@@ -1466,26 +1504,46 @@ tbody tr:hover td {
   --slide-bg: var(--bg);
   border: 2px solid var(--text);
   box-shadow: 6px 6px 0 color-mix(in srgb, var(--accent) 55%, transparent);
+  overflow: hidden;
 }
 .deck[data-surface="riso-print"] .slide::before {
   width: 55%;
   height: 55%;
   right: -4%;
   top: -6%;
-  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  border-radius: 40% 55% 45% 50%;
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
   mix-blend-mode: multiply;
   filter: none;
+  opacity: 1;
 }
 .deck[data-surface="riso-print"] .slide::after {
-  width: 40%;
-  height: 45%;
-  left: -2%;
-  bottom: -4%;
+  width: 42%;
+  height: 48%;
+  left: -3%;
+  bottom: -5%;
   top: auto;
   right: auto;
-  background: color-mix(in srgb, var(--accent2) 20%, transparent);
+  border-radius: 50% 40% 55% 45%;
+  background: color-mix(in srgb, var(--accent2) 24%, transparent);
   mix-blend-mode: multiply;
   filter: none;
+  opacity: 1;
+}
+/* Hero/closing: stronger overprint + slight misregistration */
+.deck[data-surface="riso-print"] .title-slide::before,
+.deck[data-surface="riso-print"] .closing-slide::before {
+  width: 62%;
+  height: 62%;
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+  transform: translate(6px, 4px);
+}
+.deck[data-surface="riso-print"] .title-slide::after,
+.deck[data-surface="riso-print"] .closing-slide::after {
+  width: 48%;
+  height: 52%;
+  background: color-mix(in srgb, var(--accent2) 30%, transparent);
+  transform: translate(-4px, -3px);
 }
 
 /* ── neon-rain (neon-noir) ── */
@@ -5904,13 +5962,14 @@ Subscribers who keep the issue.</p>
   <p class="lead">Pre-orders close when the drum heats up.</p>
   <div class="cta-row">
     <a class="btn" href="#">Pre-order</a>
+    <a class="btn btn-outline" href="#">Join the waitlist</a>
   </div>
 </section>
 
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Inkwell — Zine Pitch","company":"Inkwell","description":"Risograph zine pitch — risograph-zine multi-slide proof.","theme":"risograph-zine"},"slides":[{"layout":"title","eyebrow":"Zine · Issue 12","heading":"Overprint or nothing.","lead":"Kraft paper. Red + blue riso. Mistakes that look intentional.","notes":"Cold open — land the one-line claim before logos."},{"layout":"image-hero","eyebrow":"Zine · Issue 12","heading":"Overprint or nothing.","lead":"Kraft paper. Red + blue riso. Mistakes that look intentional.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23e8dfc8%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f3ecdd%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C79%2C79%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C79%2C79%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2843%2C58%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28255%2C79%2C79%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C223%2C200%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C79%2C79%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28255%2C79%2C79%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C79%2C79%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2843%2C58%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2843%2C58%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2843%2C58%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f3ecdd%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22300%22%20cy%3D%22700%22%20rx%3D%22520%22%20ry%3D%22360%22%20fill%3D%22rgba%28255%2C79%2C79%2C0.220%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221300%22%20cy%3D%22160%22%20rx%3D%22420%22%20ry%3D%22300%22%20fill%3D%22rgba%2843%2C58%2C255%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M180%20780%20C260%20520%20420%20420%20520%20280%20C560%20360%20620%20460%20640%20620%20C480%20640%20300%20700%20180%20780%20Z%22%20fill%3D%22rgba%28255%2C79%2C79%2C0.450%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M1180%20120%20C1280%20180%201380%20260%201460%20380%20C1340%20360%201240%20300%201180%20120%20Z%22%20fill%3D%22rgba%2843%2C58%2C255%2C0.400%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M980%20700%20C1080%20560%201220%20500%201360%20420%20C1380%20540%201320%20660%201220%20760%20Z%22%20fill%3D%22rgba%28255%2C79%2C79%2C0.250%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%22860%22%20cy%3D%22240%22%20r%3D%2290%22%20fill%3D%22rgba%2843%2C58%2C255%2C0.200%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22640%22%20y%3D%22360%22%20width%3D%22360%22%20height%3D%22220%22%20rx%3D%2218%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%20stroke%3D%22rgba%28255%2C79%2C79%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22420%22%20width%3D%22200%22%20height%3D%2214%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C79%2C79%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22455%22%20width%3D%22260%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Inkwell craft visual","notes":"Hold the visual beat — let the room feel the product."},{"layout":"feature-grid","eyebrow":"Press","heading":"How we print","columns":"bento","cards":[{"icon":"fa-solid fa-print","title":"Two-ink runs","body":"Red and blue only — depth from overlap."},{"icon":"fa-solid fa-hand","title":"Hand collate","body":"Every copy slightly different. That's the point."},{"icon":"fa-solid fa-truck","title":"Mail drops","body":"Subscribers get ink smell included."},{"icon":"fa-solid fa-scissors","title":"Cut the filler","body":"If a card doesn't change the decision, it doesn't earn the pixel."},{"icon":"fa-solid fa-layer-group","title":"Stack for scan","body":"Hierarchy first. Decoration second. Decoration never."}]},{"layout":"quote","quote":"Digital is infinite. Riso is a decision.","by":"Press note · Issue 11"},{"layout":"stat-row","eyebrow":"Edition","heading":"Small runs. Loud loyalty.","stats":[{"value":"800","label":"Copies / issue"},{"value":"96%","label":"Sold through"},{"value":"11","label":"Cities stocked"}]},{"layout":"comparison","eyebrow":"Medium","heading":"Infinite scroll vs. wet ink","leftLabel":"Digital zine","left":"Unlimited pages.\nZero smell.\nPerfect registration.\nForgettable by morning.","rightLabel":"Inkwell riso","right":"Two-ink decisions.\nHand collate.\nOverprint as craft.\nSubscribers who keep the issue.","emphasis":"right","notes":"Name the loser column first, then punch the winner."},{"layout":"closing","eyebrow":"Subscribe","heading":"Get Issue 12 wet.","lead":"Pre-orders close when the drum heats up.","cta":{"label":"Pre-order","href":"#"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Inkwell — Zine Pitch","company":"Inkwell","description":"Risograph zine pitch — risograph-zine multi-slide proof.","theme":"risograph-zine"},"slides":[{"layout":"title","eyebrow":"Zine · Issue 12","heading":"Overprint or nothing.","lead":"Kraft paper. Red + blue riso. Mistakes that look intentional.","notes":"Cold open — land the one-line claim before logos."},{"layout":"image-hero","eyebrow":"Zine · Issue 12","heading":"Overprint or nothing.","lead":"Kraft paper. Red + blue riso. Mistakes that look intentional.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23e8dfc8%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f3ecdd%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C79%2C79%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C79%2C79%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2843%2C58%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28255%2C79%2C79%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C223%2C200%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C79%2C79%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28255%2C79%2C79%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C79%2C79%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2843%2C58%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2843%2C58%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2843%2C58%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f3ecdd%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22300%22%20cy%3D%22700%22%20rx%3D%22520%22%20ry%3D%22360%22%20fill%3D%22rgba%28255%2C79%2C79%2C0.220%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221300%22%20cy%3D%22160%22%20rx%3D%22420%22%20ry%3D%22300%22%20fill%3D%22rgba%2843%2C58%2C255%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M180%20780%20C260%20520%20420%20420%20520%20280%20C560%20360%20620%20460%20640%20620%20C480%20640%20300%20700%20180%20780%20Z%22%20fill%3D%22rgba%28255%2C79%2C79%2C0.450%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M1180%20120%20C1280%20180%201380%20260%201460%20380%20C1340%20360%201240%20300%201180%20120%20Z%22%20fill%3D%22rgba%2843%2C58%2C255%2C0.400%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M980%20700%20C1080%20560%201220%20500%201360%20420%20C1380%20540%201320%20660%201220%20760%20Z%22%20fill%3D%22rgba%28255%2C79%2C79%2C0.250%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%22860%22%20cy%3D%22240%22%20r%3D%2290%22%20fill%3D%22rgba%2843%2C58%2C255%2C0.200%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22640%22%20y%3D%22360%22%20width%3D%22360%22%20height%3D%22220%22%20rx%3D%2218%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%20stroke%3D%22rgba%28255%2C79%2C79%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22420%22%20width%3D%22200%22%20height%3D%2214%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C79%2C79%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22455%22%20width%3D%22260%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Inkwell craft visual","notes":"Hold the visual beat — let the room feel the product."},{"layout":"feature-grid","eyebrow":"Press","heading":"How we print","columns":"bento","cards":[{"icon":"fa-solid fa-print","title":"Two-ink runs","body":"Red and blue only — depth from overlap."},{"icon":"fa-solid fa-hand","title":"Hand collate","body":"Every copy slightly different. That's the point."},{"icon":"fa-solid fa-truck","title":"Mail drops","body":"Subscribers get ink smell included."},{"icon":"fa-solid fa-scissors","title":"Cut the filler","body":"If a card doesn't change the decision, it doesn't earn the pixel."},{"icon":"fa-solid fa-layer-group","title":"Stack for scan","body":"Hierarchy first. Decoration second. Decoration never."}]},{"layout":"quote","quote":"Digital is infinite. Riso is a decision.","by":"Press note · Issue 11"},{"layout":"stat-row","eyebrow":"Edition","heading":"Small runs. Loud loyalty.","stats":[{"value":"800","label":"Copies / issue"},{"value":"96%","label":"Sold through"},{"value":"11","label":"Cities stocked"}]},{"layout":"comparison","eyebrow":"Medium","heading":"Infinite scroll vs. wet ink","leftLabel":"Digital zine","left":"Unlimited pages.\nZero smell.\nPerfect registration.\nForgettable by morning.","rightLabel":"Inkwell riso","right":"Two-ink decisions.\nHand collate.\nOverprint as craft.\nSubscribers who keep the issue.","emphasis":"right","notes":"Name the loser column first, then punch the winner."},{"layout":"closing","eyebrow":"Subscribe","heading":"Get Issue 12 wet.","lead":"Pre-orders close when the drum heats up.","actions":[{"label":"Pre-order","href":"#","style":"solid"},{"label":"Join the waitlist","href":"#","style":"outline"}]}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
