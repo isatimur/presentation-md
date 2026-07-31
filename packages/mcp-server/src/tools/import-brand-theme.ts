@@ -1,5 +1,4 @@
-import { extname, join, resolve, sep } from "node:path";
-import { realpath } from "node:fs/promises";
+import { extname, join } from "node:path";
 import {
   extractBrand,
   buildThemeViewFromBrand,
@@ -9,6 +8,7 @@ import {
   deriveNameFromUrl,
 } from "@presentation-md/create-theme";
 import type { ToolDefinition } from "../server.js";
+import { assertExistingPathInCwd, assertWritablePathInCwd } from "../lib/cwd-path.js";
 
 export const importBrandThemeTool: ToolDefinition = {
   name: "import_brand_theme",
@@ -18,15 +18,24 @@ export const importBrandThemeTool: ToolDefinition = {
     type: "object",
     properties: {
       url: { type: "string", description: "Brand website URL to extract colors and fonts from" },
-      cssPath: { type: "string", description: "Local path to a CSS file to extract from, as an alternative to url" },
+      cssPath: {
+        type: "string",
+        description: "Local path to a CSS file to extract from, as an alternative to url",
+      },
       name: {
         type: "string",
-        description: "Theme name in kebab-case; derived from the URL's hostname if omitted (required when using cssPath)",
+        description:
+          "Theme name in kebab-case; derived from the URL's hostname if omitted (required when using cssPath)",
       },
       write: {
         type: "boolean",
         description:
-          "Also scaffold the full installable theme package to disk under packages/themes/<name>. Defaults to false.",
+          "Also scaffold the full installable theme package to disk. Defaults to false.",
+      },
+      output_dir: {
+        type: "string",
+        description:
+          "Directory within the current working directory for the scaffolded package when write=true (default: packages/themes/<name>).",
       },
     },
   },
@@ -40,16 +49,7 @@ export const importBrandThemeTool: ToolDefinition = {
       if (extname(cssPath).toLowerCase() !== ".css") {
         throw new Error("'cssPath' must point to a .css file.");
       }
-      const root = await realpath(process.cwd());
-      let resolvedPath: string;
-      try {
-        resolvedPath = await realpath(resolve(process.cwd(), cssPath));
-      } catch {
-        throw new Error(`'cssPath' not found: ${cssPath}`);
-      }
-      if (resolvedPath !== root && !resolvedPath.startsWith(root + sep)) {
-        throw new Error(`'cssPath' must be within the current working directory (${root}).`);
-      }
+      await assertExistingPathInCwd(cssPath, "cssPath");
     }
 
     let name = input.name as string | undefined;
@@ -65,7 +65,11 @@ export const importBrandThemeTool: ToolDefinition = {
 
     let writtenTo: string | undefined;
     if (input.write === true) {
-      const outputDir = join(process.cwd(), "packages", "themes", name);
+      const outputDirInput =
+        typeof input.output_dir === "string" && input.output_dir.trim()
+          ? input.output_dir
+          : join("packages", "themes", name);
+      const outputDir = await assertWritablePathInCwd(outputDirInput, "output_dir");
       await scaffoldTheme(view, outputDir);
       writtenTo = outputDir;
     }

@@ -1,8 +1,9 @@
 import { mkdir, writeFile } from "node:fs/promises";
-import { join, resolve } from "node:path";
+import { join } from "node:path";
 import { findShortlist, loadThemeShortlists, type ThemeShortlist } from "@presentation-md/core";
 import { renderDeck } from "@presentation-md/render";
 import { resolveThemesDir } from "../lib/resolve-themes.js";
+import { assertWritablePathInCwd } from "../lib/cwd-path.js";
 import type { ToolDefinition } from "../server.js";
 
 const DEFAULT_PREVIEW_DIR = ".presentation-md/theme-previews";
@@ -219,7 +220,7 @@ export const previewThemesTool: ToolDefinition = {
       },
       output_dir: {
         type: "string",
-        description: `Directory to write preview HTML files (default: ${DEFAULT_PREVIEW_DIR})`,
+        description: `Directory within the current working directory to write preview HTML files (default: ${DEFAULT_PREVIEW_DIR})`,
       },
     },
   },
@@ -260,9 +261,9 @@ export const previewThemesTool: ToolDefinition = {
     const company = input["company"] as string | undefined;
     const mode: PreviewMode =
       input["mode"] === "layouts" ? "layouts" : "title";
-    const outputDir = resolve(
-      process.cwd(),
-      (input["output_dir"] as string | undefined) ?? DEFAULT_PREVIEW_DIR
+    const outputDir = await assertWritablePathInCwd(
+      (input["output_dir"] as string | undefined) ?? DEFAULT_PREVIEW_DIR,
+      "output_dir"
     );
 
     await mkdir(outputDir, { recursive: true });

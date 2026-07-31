@@ -311,6 +311,9 @@ export function buildProgram(): Command {
         process.stdout.write(`\nTheme "${name}" scaffolded successfully!\n`);
         process.stdout.write(`\nNext steps:\n`);
         process.stdout.write(`  cd ${outputDir}\n`);
+        process.stdout.write(`  npx validate-theme theme.json\n`);
+        process.stdout.write(`  # from a workspace that can resolve the theme package:\n`);
+        process.stdout.write(`  npx @presentation-md/render --list-themes | grep ${name}\n`);
         process.stdout.write(`  npm publish --access public\n`);
       }
     );

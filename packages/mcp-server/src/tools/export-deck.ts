@@ -2,6 +2,7 @@ import { writeFile } from "node:fs/promises";
 import { renderDeck, renderDeckPptx } from "@presentation-md/render";
 import type { ToolDefinition } from "../server.js";
 import { resolveThemesDir } from "../lib/resolve-themes.js";
+import { assertWritablePathInCwd } from "../lib/cwd-path.js";
 
 function applyThemeOverride(rawJson: string, theme?: string): string {
   if (!theme) return rawJson;
@@ -40,7 +41,10 @@ export const exportDeckTool: ToolDefinition = {
         description: "Output format (default: pptx)",
       },
       theme: { type: "string", description: "Theme name to apply (overrides meta.theme in the deck)" },
-      output_path: { type: "string", description: "Path to write the exported file" },
+      output_path: {
+        type: "string",
+        description: "Path within the current working directory to write the exported file",
+      },
     },
     required: ["json"],
   },
@@ -48,7 +52,7 @@ export const exportDeckTool: ToolDefinition = {
     const rawJson = input["json"] as string;
     const format = ((input["format"] as string | undefined) ?? "pptx").toLowerCase();
     const theme = input["theme"] as string | undefined;
-    const outputPath = input["output_path"] as string | undefined;
+    const outputPathInput = input["output_path"] as string | undefined;
 
     if (format !== "pptx" && format !== "html") {
       throw new Error(`Unknown format "${format}" (expected pptx | html)`);
@@ -57,6 +61,9 @@ export const exportDeckTool: ToolDefinition = {
     const deckJson = applyThemeOverride(rawJson, theme);
     const warnings: string[] = [];
     const slide_count = slideCountOf(deckJson);
+    const outputPath = outputPathInput
+      ? await assertWritablePathInCwd(outputPathInput, "output_path")
+      : undefined;
 
     if (format === "html") {
       const html = await renderDeck(deckJson, resolveThemesDir());

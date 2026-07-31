@@ -1,54 +1,8 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { basename, dirname, extname, join, resolve, sep } from "node:path";
-import { realpath } from "node:fs/promises";
+import { dirname, extname } from "node:path";
 import { pptxToDeck } from "@presentation-md/export/import";
 import type { ToolDefinition } from "../server.js";
-
-/**
- * Resolve a path under cwd using realpath on the nearest existing ancestor so
- * cwd-relative symlinks cannot escape the workspace on write.
- */
-async function assertWritablePathInCwd(relPath: string, label: string): Promise<string> {
-  const root = await realpath(process.cwd());
-  const resolved = resolve(process.cwd(), relPath);
-  const segments: string[] = [];
-  let probe = resolved;
-  for (;;) {
-    try {
-      const real = await realpath(probe);
-      if (real !== root && !real.startsWith(root + sep)) {
-        throw new Error(`'${label}' must be within the current working directory (${root}).`);
-      }
-      const finalPath = segments.length ? join(real, ...segments.reverse()) : real;
-      if (finalPath !== root && !finalPath.startsWith(root + sep)) {
-        throw new Error(`'${label}' must be within the current working directory (${root}).`);
-      }
-      return finalPath;
-    } catch (err) {
-      if (err instanceof Error && /must be within/.test(err.message)) throw err;
-      const parent = dirname(probe);
-      if (parent === probe) {
-        throw new Error(`'${label}' not found: ${relPath}`);
-      }
-      segments.push(basename(probe));
-      probe = parent;
-    }
-  }
-}
-
-async function assertExistingPathInCwd(relPath: string, label: string): Promise<string> {
-  const root = await realpath(process.cwd());
-  let resolvedPath: string;
-  try {
-    resolvedPath = await realpath(resolve(process.cwd(), relPath));
-  } catch {
-    throw new Error(`'${label}' not found: ${relPath}`);
-  }
-  if (resolvedPath !== root && !resolvedPath.startsWith(root + sep)) {
-    throw new Error(`'${label}' must be within the current working directory (${root}).`);
-  }
-  return resolvedPath;
-}
+import { assertExistingPathInCwd, assertWritablePathInCwd } from "../lib/cwd-path.js";
 
 async function assertPptxPathInCwd(pptxPath: string): Promise<string> {
   if (extname(pptxPath).toLowerCase() !== ".pptx") {

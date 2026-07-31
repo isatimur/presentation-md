@@ -2,6 +2,7 @@ import { writeFile } from "node:fs/promises";
 import { renderDeck } from "@presentation-md/render";
 import type { ToolDefinition } from "../server.js";
 import { resolveThemesDir } from "../lib/resolve-themes.js";
+import { assertWritablePathInCwd } from "../lib/cwd-path.js";
 
 export const renderDeckTool: ToolDefinition = {
   name: "render_deck",
@@ -12,14 +13,17 @@ export const renderDeckTool: ToolDefinition = {
     properties: {
       json: { type: "string", description: "Deck JSON string conforming to the deck schema" },
       theme: { type: "string", description: "Theme name to apply (overrides meta.theme in the deck)" },
-      output_path: { type: "string", description: "Absolute or relative path to write the rendered HTML file" }
+      output_path: {
+        type: "string",
+        description: "Path within the current working directory to write the rendered HTML file",
+      },
     },
-    required: ["json"]
+    required: ["json"],
   },
   handler: async (input: Record<string, unknown>) => {
     const rawJson = input["json"] as string;
     const theme = input["theme"] as string | undefined;
-    const outputPath = input["output_path"] as string | undefined;
+    const outputPathInput = input["output_path"] as string | undefined;
 
     let deckJson = rawJson;
     if (theme) {
@@ -47,14 +51,15 @@ export const renderDeckTool: ToolDefinition = {
 
     const result: { html: string; path?: string; slide_count: number } = {
       html,
-      slide_count: slideCount
+      slide_count: slideCount,
     };
 
-    if (outputPath) {
+    if (outputPathInput) {
+      const outputPath = await assertWritablePathInCwd(outputPathInput, "output_path");
       await writeFile(outputPath, html, "utf-8");
       result.path = outputPath;
     }
 
     return result;
-  }
+  },
 };

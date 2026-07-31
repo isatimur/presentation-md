@@ -241,67 +241,76 @@ describe("audit_deck craft warnings", () => {
 describe("preview_themes", () => {
   it("defaults to title mode with one slide filenames", async () => {
     const { previewThemesTool } = await import("../src/tools/preview-themes.js");
-    const { mkdtemp } = await import("node:fs/promises");
-    const { tmpdir } = await import("node:os");
+    const { mkdtemp, rm } = await import("node:fs/promises");
     const { join } = await import("node:path");
-    const dir = await mkdtemp(join(tmpdir(), "pmd-preview-"));
-    const result = (await previewThemesTool.handler({
-      themes: ["default-tech"],
-      title: "Preview Test",
-      output_dir: dir,
-    })) as {
-      mode: string;
-      previews: Array<{ filename: string; slides: number; mode: string }>;
-    };
-    expect(result.mode).toBe("title");
-    expect(result.previews[0]!.filename).toBe("default-tech-preview.html");
-    expect(result.previews[0]!.slides).toBe(1);
+    const dir = await mkdtemp(join(process.cwd(), "pmd-preview-"));
+    try {
+      const result = (await previewThemesTool.handler({
+        themes: ["default-tech"],
+        title: "Preview Test",
+        output_dir: dir,
+      })) as {
+        mode: string;
+        previews: Array<{ filename: string; slides: number; mode: string }>;
+      };
+      expect(result.mode).toBe("title");
+      expect(result.previews[0]!.filename).toBe("default-tech-preview.html");
+      expect(result.previews[0]!.slides).toBe(1);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 
   it("layouts mode writes multi-slide craft previews", async () => {
     const { previewThemesTool } = await import("../src/tools/preview-themes.js");
-    const { mkdtemp, readFile } = await import("node:fs/promises");
-    const { tmpdir } = await import("node:os");
+    const { mkdtemp, readFile, rm } = await import("node:fs/promises");
     const { join } = await import("node:path");
-    const dir = await mkdtemp(join(tmpdir(), "pmd-preview-layouts-"));
-    const result = (await previewThemesTool.handler({
-      themes: ["default-tech"],
-      title: "Craft Preview",
-      mode: "layouts",
-      output_dir: dir,
-    })) as {
-      mode: string;
-      previews: Array<{ filename: string; slides: number; path: string }>;
-    };
-    expect(result.mode).toBe("layouts");
-    expect(result.previews[0]!.filename).toBe("default-tech-layouts-preview.html");
-    expect(result.previews[0]!.slides).toBe(8);
-    const html = await readFile(result.previews[0]!.path, "utf-8");
-    expect(html).toContain('data-layout="comparison"');
-    expect(html).toContain('data-layout="code"');
-    expect(html).toContain('data-layout="stat-row"');
+    const dir = await mkdtemp(join(process.cwd(), "pmd-preview-layouts-"));
+    try {
+      const result = (await previewThemesTool.handler({
+        themes: ["default-tech"],
+        title: "Craft Preview",
+        mode: "layouts",
+        output_dir: dir,
+      })) as {
+        mode: string;
+        previews: Array<{ filename: string; slides: number; path: string }>;
+      };
+      expect(result.mode).toBe("layouts");
+      expect(result.previews[0]!.filename).toBe("default-tech-layouts-preview.html");
+      expect(result.previews[0]!.slides).toBe(8);
+      const html = await readFile(result.previews[0]!.path, "utf-8");
+      expect(html).toContain('data-layout="comparison"');
+      expect(html).toContain('data-layout="code"');
+      expect(html).toContain('data-layout="stat-row"');
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 
   it("resolves themes from a shortlist id when themes is omitted", async () => {
     const { previewThemesTool } = await import("../src/tools/preview-themes.js");
-    const { mkdtemp } = await import("node:fs/promises");
-    const { tmpdir } = await import("node:os");
+    const { mkdtemp, rm } = await import("node:fs/promises");
     const { join } = await import("node:path");
-    const dir = await mkdtemp(join(tmpdir(), "pmd-preview-shortlist-"));
-    const result = (await previewThemesTool.handler({
-      shortlist: "core-defaults",
-      title: "Shortlist Preview",
-      output_dir: dir,
-    })) as {
-      previews: Array<{ theme: string }>;
-      shortlist?: { id: string; themes: string[] };
-      error?: string;
-    };
-    expect(result.error).toBeUndefined();
-    expect(result.shortlist?.id).toBe("core-defaults");
-    expect(result.previews.map((p) => p.theme).sort()).toEqual(
-      [...(result.shortlist?.themes ?? [])].slice(0, 3).sort()
-    );
+    const dir = await mkdtemp(join(process.cwd(), "pmd-preview-shortlist-"));
+    try {
+      const result = (await previewThemesTool.handler({
+        shortlist: "core-defaults",
+        title: "Shortlist Preview",
+        output_dir: dir,
+      })) as {
+        previews: Array<{ theme: string }>;
+        shortlist?: { id: string; themes: string[] };
+        error?: string;
+      };
+      expect(result.error).toBeUndefined();
+      expect(result.shortlist?.id).toBe("core-defaults");
+      expect(result.previews.map((p) => p.theme).sort()).toEqual(
+        [...(result.shortlist?.themes ?? [])].slice(0, 3).sort()
+      );
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 });
 

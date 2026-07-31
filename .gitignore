@@ -13,3 +13,6 @@ out/
 packages/mcp-server/import-brand-theme-test-*/
 wave/
 web/.vercel/
+packages/mcp-server/mcp-export-test-*/
+packages/mcp-server/import-pptx-test-*/
+packages/mcp-server/pmd-preview-*/

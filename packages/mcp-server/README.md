@@ -47,4 +47,4 @@ replace it with the block above (or re-run `npx @presentation-md/install cursor`
 | `import_markdown` | Convert Markdown outline → Deck JSON (`chart` / `html` fences supported). |
 | `import_brand_theme` | Generate a theme from a brand's URL or CSS file, with a contrast-safety pass. |
 
-Note: when using `import_brand_theme` with a local CSS file, the `cssPath` parameter must be a `.css` file that resolves within the MCP server's working directory. Likewise, `import_pptx`'s `pptx_path` must be a `.pptx` within the working directory. For `judge_deck` t3 live panel scoring, set `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` (or `PRESENTATION_MD_JUDGE_SCRIPTS` pointing at `skills/deck-design-judge/scripts`).
+Note: filesystem inputs/outputs are confined to the MCP server's working directory (`cssPath`, `pptx_path`, `output_path`, `output_dir`, `assets_dir`). For `judge_deck` t3 live panel scoring, set `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` (or `PRESENTATION_MD_JUDGE_SCRIPTS` pointing at `skills/deck-design-judge/scripts`).
