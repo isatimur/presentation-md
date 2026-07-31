@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.16.5
+
+### Patch Changes
+
+- 976c2a4: Document Studio Generate live-by-default and pick-3 auto-live discovery so skill agents match the show-don't-tell bar vs frontend-slides.
+
 ## 1.16.4
 
 ### Patch Changes
