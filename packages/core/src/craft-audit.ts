@@ -498,5 +498,54 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     }
   }
 
+  const hudThemes = new Set(["aerospace-hud", "crt-terminal", "blueprint"]);
+  if (hudThemes.has(theme) && slides.length >= 5) {
+    const hasHudBeat =
+      layouts.includes("chart") ||
+      layouts.includes("data-table") ||
+      layouts.includes("stat-row") ||
+      layouts.includes("ranked-list") ||
+      layouts.includes("timeline") ||
+      layouts.includes("metric-ring");
+    if (!hasHudBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "HUD/tech theme (aerospace-hud / crt-terminal / blueprint) needs an instrument beat — add chart, data-table, stat-row, ranked-list, timeline, or metric-ring.",
+      });
+    }
+  }
+
+  if (theme === "bauhaus" && slides.length >= 5) {
+    const hasBauhausBeat =
+      layouts.includes("quote") ||
+      layouts.includes("image-hero") ||
+      layouts.includes("comparison") ||
+      layouts.includes("feature-grid");
+    if (!hasBauhausBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "bauhaus Primary needs a modernist beat — add quote, image-hero, comparison+emphasis, or icon feature-grid (not only soft SaaS stacks).",
+      });
+    }
+  }
+
+  if (theme === "genz-bento" && slides.length >= 5) {
+    const hasBentoBeat =
+      layouts.includes("image-hero") ||
+      layouts.includes("comparison") ||
+      layouts.includes("stat-row") ||
+      (layouts.includes("feature-grid") &&
+        slides.some((s) => s["layout"] === "feature-grid" && s["columns"] === "bento"));
+    if (!hasBentoBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "genz-bento Bounce needs a hard-bento beat — add image-hero, comparison+emphasis, punchy stats, or feature-grid columns:\"bento\".",
+      });
+    }
+  }
+
   return issues;
 }

@@ -418,4 +418,94 @@ describe("auditCraft", () => {
     const issues = auditCraft(deck);
     expect(issues.some((i) => /magazine beat/i.test(i.message))).toBe(true);
   });
+
+  it("warns when aerospace-hud lacks an instrument beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "aerospace-hud", title: "Flat HUD" },
+      slides: [
+        { layout: "title", heading: "Callsign" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        {
+          layout: "feature-grid",
+          heading: "Modules",
+          columns: 3,
+          cards: [
+            { title: "One", body: "A", icon: "fa-solid fa-1" },
+            { title: "Two", body: "B", icon: "fa-solid fa-2" },
+            { title: "Three", body: "C", icon: "fa-solid fa-3" },
+          ],
+        },
+        { layout: "quote", heading: "Status", quote: "Nominal." },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /HUD\/tech|instrument beat/i.test(i.message))).toBe(true);
+  });
+
+  it("warns when bauhaus lacks a modernist beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "bauhaus", title: "Flat Primary" },
+      slides: [
+        { layout: "title", heading: "Primary" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        { layout: "timeline", heading: "Steps", items: [{ label: "One", detail: "A" }] },
+        { layout: "stat-row", heading: "Nums", stats: [{ value: "1", label: "A" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /bauhaus|modernist beat/i.test(i.message))).toBe(true);
+  });
+
+  it("warns when genz-bento lacks a hard-bento beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "genz-bento", title: "Flat Bounce" },
+      slides: [
+        { layout: "title", heading: "Bounce" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        {
+          layout: "feature-grid",
+          heading: "Soft cards",
+          columns: 3,
+          cards: [
+            { title: "One", body: "A", icon: "fa-solid fa-1" },
+            { title: "Two", body: "B", icon: "fa-solid fa-2" },
+            { title: "Three", body: "C", icon: "fa-solid fa-3" },
+          ],
+        },
+        { layout: "timeline", heading: "Steps", items: [{ label: "One", detail: "A" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /genz-bento|hard-bento beat/i.test(i.message))).toBe(true);
+  });
 });

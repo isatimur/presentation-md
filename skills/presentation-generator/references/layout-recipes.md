@@ -147,3 +147,18 @@ Themes: paper honesty set (`soft-editorial`, `ft-editorial`, `pink-script`, `lon
 07 stat-row      — One quiet proof number
 08 closing       — Dual ask (read more / subscribe)
 ```
+
+## HUD / tech short (8)
+
+Themes: `aerospace-hud`, `crt-terminal`, `blueprint`. Instrument chrome + a real data beat — not soft marketing grids.
+
+```
+01 title         — Mission / system callsign
+02 image-hero OR quote — Status visual / terse readout
+03 stat-row      — Telemetry numbers (3)
+04 chart OR data-table — The instrument proof
+05 timeline OR ranked-list — Sequence / priority stack
+06 feature-grid  — 3 modules (icons) — keep sparse
+07 two-column    — Ops note + visual (ratio: 2-1)
+08 closing       — Dual ask with icons
+```
