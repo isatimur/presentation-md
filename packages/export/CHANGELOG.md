@@ -1,5 +1,16 @@
 # @presentation-md/export
 
+## 1.17.0
+
+### Minor Changes
+
+- eeea009: Densify neon-noir / vaporwave / y2k-aero PPTX chrome (rim, scanlines, horizon glow, soft shadow) plus coral / peoples-platform / pastel-geometry / pink-script / bold-signal frames and hard-border cards.
+
+### Patch Changes
+
+- Updated dependencies [ad33c66]
+  - @presentation-md/core@1.9.0
+
 ## 1.16.3
 
 ### Patch Changes

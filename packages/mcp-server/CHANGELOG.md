@@ -1,5 +1,20 @@
 # @presentation-md/mcp-server
 
+## 1.7.0
+
+### Minor Changes
+
+- ad33c66: Inject layout recipes + atmosphere/poster honesty into generate_deck_prompt craft mandate.
+
+### Patch Changes
+
+- Updated dependencies [ad33c66]
+- Updated dependencies [eeea009]
+  - @presentation-md/core@1.9.0
+  - @presentation-md/export@1.17.0
+  - @presentation-md/create-theme@1.0.26
+  - @presentation-md/render@1.6.18
+
 ## 1.6.19
 
 ### Patch Changes
