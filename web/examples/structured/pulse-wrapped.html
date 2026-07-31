@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Pulse — Year Wrapped</title>
-<meta name="description" content="Spotify-Wrapped style recap — kinetic-wrapped multi-slide proof." />
+<meta name="description" content="Spotify-Wrapped style recap — kinetic-wrapped multi-hue proof approaching gallery craft." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600&display=swap');
@@ -432,6 +432,44 @@ tbody tr:hover td {
   max-width: 18ch;
   line-height: 1.35;
 }
+
+/* chart */
+.chart-slide { justify-content: flex-start; }
+.chart-slide .lead {
+  margin-top: 8px;
+  max-width: 52ch;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.4;
+}
+.chart-frame {
+  flex: 1;
+  margin-top: 20px;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  border-radius: calc(var(--radius) + 2px);
+  background: color-mix(in srgb, var(--card-bg) 88%, transparent);
+  padding: 18px 20px 12px;
+  overflow: hidden;
+}
+.chart-frame .pmd-chart {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+}
+
+/* custom-html escape hatch */
+.custom-html-slide { justify-content: flex-start; }
+.custom-html-frame {
+  flex: 1;
+  margin-top: 16px;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+.custom-html-frame > *:first-child { margin-top: 0; }
 
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
@@ -3714,6 +3752,276 @@ tbody tr:hover td {
   letter-spacing: -0.02em;
 }
 
+/* Pulse multi-hue — accent2 magenta chrome + per-slide tone beats */
+.deck[data-surface="wrapped-block"] .stat:nth-child(even) {
+  border-top-color: var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .stat:nth-child(even) .value {
+  color: var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .comparison-col:first-child {
+  border-color: var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .card:nth-child(3n) {
+  border-color: var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .chart-frame {
+  border-color: var(--accent);
+  box-shadow: 8px 8px 0 var(--accent2);
+}
+
+/* Gallery-parity soft blobs (handcrafted Pulse uses absolute .blob circles) */
+.deck[data-surface="wrapped-block"] .slide {
+  overflow: hidden;
+}
+.deck[data-surface="wrapped-block"] .slide::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  width: min(52vw, 640px);
+  height: min(52vw, 640px);
+  border-radius: 50%;
+  right: -18%;
+  top: -22%;
+  background: var(--accent);
+  opacity: 0.14;
+  filter: blur(2px);
+}
+.deck[data-surface="wrapped-block"] .title-slide::before,
+.deck[data-surface="wrapped-block"] .closing-slide::before {
+  background: #00e5ff;
+  opacity: 0.35;
+  right: -12%;
+  top: -18%;
+  width: min(48vw, 560px);
+  height: min(48vw, 560px);
+  filter: none;
+}
+.deck[data-surface="wrapped-block"] .title-slide::after,
+.deck[data-surface="wrapped-block"] .closing-slide::after {
+  /* secondary cyan/lime blob stand-in — keep hard corner accent as second beat */
+  width: min(36vw, 420px);
+  height: min(36vw, 420px);
+  border-radius: 50%;
+  left: -10%;
+  bottom: -16%;
+  top: auto;
+  right: auto;
+  background: #ffea00;
+  opacity: 0.55;
+}
+.deck[data-surface="wrapped-block"] .stat-row-slide .stat .value {
+  font-size: clamp(56px, 8vw, 120px);
+  letter-spacing: -0.05em;
+}
+.deck[data-surface="wrapped-block"] .stat-row-slide .stat:only-child .value,
+.deck[data-surface="wrapped-block"] .stat-row-slide .stats:has(> .stat:nth-child(1):last-child) .value {
+  font-size: clamp(88px, 18vw, 220px);
+}
+.deck[data-surface="wrapped-block"] .eyebrow {
+  display: inline-block;
+  padding: 0.35em 0.7em;
+  background: var(--accent);
+  color: #0a0a0a;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  border-radius: 0;
+}
+.deck[data-surface="wrapped-block"] .title-slide .eyebrow,
+.deck[data-surface="wrapped-block"] .closing-slide .eyebrow {
+  background: #0a0a0a;
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 640px;
+  margin-top: 12px;
+  width: 100%;
+}
+.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-rank {
+  font-family: var(--heading-font);
+  font-size: clamp(28px, 4vw, 48px);
+  min-width: 2ch;
+  letter-spacing: -0.04em;
+}
+.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-fill {
+  flex: 1;
+  font-family: var(--heading-font);
+  font-size: clamp(16px, 2vw, 22px);
+  padding: 14px 18px;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+/* Explicit tone overrides (set slide.tone in Deck JSON) */
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] {
+  --slide-bg: #cc00ff;
+  color: #ffffff;
+  border-color: #0a0a0a;
+  box-shadow: 12px 12px 0 #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"]::before {
+  background: #ff00cc;
+  opacity: 0.45;
+  filter: none;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"]::after {
+  background: #5500ff;
+  border-radius: 50%;
+  width: min(40vw, 480px);
+  height: min(40vw, 480px);
+  opacity: 0.5;
+  bottom: -18%;
+  right: -8%;
+  top: auto;
+  left: auto;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] h1,
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] h2,
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .lead,
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .eyebrow,
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .stat .value,
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .stat .label {
+  color: #ffffff;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .eyebrow {
+  background: #ffffff;
+  color: #cc00ff;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] {
+  --slide-bg: #00e5ff;
+  color: #001a33;
+  border-color: #0a0a0a;
+  box-shadow: 12px 12px 0 #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"]::before {
+  background: #00aaff;
+  opacity: 0.4;
+  filter: none;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"]::after {
+  background: #0055cc;
+  border-radius: 50%;
+  width: min(34vw, 400px);
+  height: min(34vw, 400px);
+  opacity: 0.35;
+  bottom: -14%;
+  left: 4%;
+  top: auto;
+  right: auto;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] h1,
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] h2,
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] .lead,
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] .eyebrow,
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] .stat .value,
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] .stat .label {
+  color: #001a33;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] .eyebrow {
+  background: #001a33;
+  color: #00e5ff;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] {
+  --slide-bg: #ff4d00;
+  color: #ffff00;
+  border-color: #0a0a0a;
+  box-shadow: 12px 12px 0 #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"]::before {
+  background: #ff8800;
+  opacity: 0.5;
+  filter: none;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"]::after {
+  background: #cc0000;
+  border-radius: 50%;
+  width: min(32vw, 380px);
+  height: min(32vw, 380px);
+  opacity: 0.45;
+  bottom: -16%;
+  left: -6%;
+  top: auto;
+  right: auto;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] h1,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] h2,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .lead,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .eyebrow,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .stat .value,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .stat .label {
+  color: #ffff00;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .lead,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .stat .label {
+  color: #ffffff;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .eyebrow {
+  background: #ffff00;
+  color: #ff4d00;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="violet"] {
+  --slide-bg: #7a00ff;
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 12px 12px 0 var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="violet"]::before {
+  background: #cc00ff;
+  opacity: 0.35;
+  filter: none;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="violet"] .eyebrow {
+  background: var(--accent);
+  color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="lime"] {
+  --slide-bg: var(--accent);
+  color: #0a0a0a;
+  border-color: #0a0a0a;
+  box-shadow: 12px 12px 0 #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="lime"] h1,
+.deck[data-surface="wrapped-block"] .slide[data-tone="lime"] h2,
+.deck[data-surface="wrapped-block"] .slide[data-tone="lime"] .lead,
+.deck[data-surface="wrapped-block"] .slide[data-tone="lime"] .eyebrow {
+  color: #0a0a0a;
+}
+
+/* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
+.deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
+  border-color: var(--accent2);
+  box-shadow: 12px 12px 0 var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone])::before {
+  background: var(--accent2);
+  opacity: 0.2;
+}
+.deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone])::after {
+  background: var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .slide:nth-child(5n+4):not(.title-slide):not(.closing-slide):not([data-tone]) {
+  border-color: #00e5ff;
+  box-shadow: 12px 12px 0 #00e5ff;
+}
+.deck[data-surface="wrapped-block"] .slide:nth-child(5n+4):not(.title-slide):not(.closing-slide):not([data-tone])::before {
+  background: #00e5ff;
+  opacity: 0.22;
+}
+.deck[data-surface="wrapped-block"] .slide:nth-child(5n+4):not(.title-slide):not(.closing-slide):not([data-tone])::after {
+  background: #00e5ff;
+}
+
 /* Notebook tabs — keep side tabs; enrich cards/stats */
 .deck[data-surface="notebook-tabs-page"] .stat {
   border-top: 2px solid var(--accent);
@@ -4951,43 +5259,59 @@ tbody tr:hover td {
 <body>
 <main class="deck" data-surface="wrapped-block">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Your 2026</span>
-  <h1>YOU LISTENED HARD.</h1>
-  <p class="lead">Black field. Acid lime. Archivo Black yelling the truth.</p>
-</section>
-
-<section class="slide image-hero-slide" data-layout="image-hero">
-  <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230d0d0d%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%230a0a0a%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2813%2C13%2C13%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230a0a0a%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.9%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22880%22%20cy%3D%22220%22%20rx%3D%22220%22%20ry%3D%22140%22%20fill%3D%22rgba%28255%2C0%2C204%2C0.220%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M0%20640%20C320%20520%20640%20780%20960%20600%20S1400%20480%201600%20560%20L1600%20900%20L0%20900%20Z%22%20fill%3D%22rgba%28200%2C255%2C0%2C0.120%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.55%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22260%22%20cy%3D%22180%22%20r%3D%2218%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22520%22%20cy%3D%22140%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22980%22%20cy%3D%22210%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22320%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221100%22%20cy%3D%22120%22%20r%3D%228%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="Pulse craft visual" />
-    <div class="image-hero-scrim"></div>
-  </div>
-  <div class="image-hero-content">
-    <span class="eyebrow">Your 2026</span>
-    <h2>YOU LISTENED HARD.</h2>
-    <p class="lead">Black field. Acid lime. Archivo Black yelling the truth.</p>
-  </div>
+  <span class="eyebrow">Pulse · 2026</span>
+  <h1>YOUR 2026, WRAPPED.</h1>
+  <p class="lead">Every beat. Every drop of sweat. Here&#39;s what you actually did this year.</p>
 </section>
 
 <section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">The year</span>
-  <h2>Unignorable totals.</h2>
+  <span class="eyebrow">Workouts</span>
+  <h2>You showed up.</h2>
   <div class="stats">
     <div class="stat">
-      <div class="value">48,291</div>
-      <div class="label">Minutes</div>
+      <div class="value">287</div>
+      <div class="label">Workouts this year</div>
     </div>
     <div class="stat">
-      <div class="value">612</div>
-      <div class="label">Artists</div>
+      <div class="value">5.5×</div>
+      <div class="label">per week avg</div>
     </div>
     <div class="stat">
-      <div class="value">3AM</div>
-      <div class="label">Peak hour</div>
+      <div class="value">+34%</div>
+      <div class="label">vs 2025</div>
     </div>
   </div>
 </section>
 
-<section class="slide two-column-slide" data-layout="two-column">
+<section data-tone="magenta" class="slide custom-html-slide" data-layout="custom-html">
+  <span class="eyebrow">Top Activity</span>
+  <h2>RUNNING IS YOUR THING.</h2>
+  
+  <div class="custom-html-frame">
+    <div class="pulse-bar-stack"><div class="pulse-bar-item"><span class="pulse-bar-rank">01</span><div class="pulse-bar-fill" style="width:88%;background:#ffffff;color:#cc00ff">Running · 142 sessions</div></div><div class="pulse-bar-item"><span class="pulse-bar-rank" style="opacity:.55">02</span><div class="pulse-bar-fill" style="width:58%;background:rgba(255,255,255,.3);color:#fff">Strength · 94 sessions</div></div><div class="pulse-bar-item"><span class="pulse-bar-rank" style="opacity:.35">03</span><div class="pulse-bar-fill" style="width:34%;background:rgba(255,255,255,.15);color:#fff">HIIT · 51 sessions</div></div></div><p class="lead" style="margin-top:20px;opacity:.75">You ran a combined 1,847 km this year. That's London → Istanbul.</p>
+  </div>
+</section>
+
+<section data-tone="orange" class="slide stat-row-slide" data-layout="stat-row">
+  <span class="eyebrow">Minutes Moved</span>
+  <h2>Ten full days of motion.</h2>
+  <div class="stats">
+    <div class="stat">
+      <div class="value">14,892</div>
+      <div class="label">Minutes moved</div>
+    </div>
+    <div class="stat">
+      <div class="value">248 hrs</div>
+      <div class="label">total hours</div>
+    </div>
+    <div class="stat">
+      <div class="value">52 min</div>
+      <div class="label">avg session</div>
+    </div>
+  </div>
+</section>
+
+<section data-tone="cyan" class="slide two-column-slide" data-layout="two-column">
   <div class="cols ratio-2-1">
     <div class="cols-copy">
       <span class="eyebrow">Top genres</span>
@@ -4999,12 +5323,12 @@ tbody tr:hover td {
   </div>
 </section>
 
-<section class="slide quote-slide" data-layout="quote">
+<section data-tone="lime" class="slide quote-slide" data-layout="quote">
   <p class="quote">Your top track was on repeat so hard it became a personality trait.</p>
   <p class="quote-by">— Pulse Wrapped · 2026</p>
 </section>
 
-<section class="slide comparison-slide" data-layout="comparison">
+<section data-tone="orange" class="slide comparison-slide" data-layout="comparison">
   <span class="eyebrow">Format</span>
   <h2>Annual PDF vs. kinetic wrap</h2>
   <div class="comparison-cols emphasis-right">
@@ -5058,6 +5382,32 @@ Motion as hierarchy.</p>
   </div>
 </section>
 
+<section data-tone="violet" class="slide chart-slide" data-layout="chart">
+  <span class="eyebrow">Minutes by month</span>
+  <h2>THE SPIKE WAS REAL.</h2>
+  <p class="lead">March broke the curve. Everything else was warmup.</p>
+  <div class="chart-frame">
+    <svg class="pmd-chart" viewBox="0 0 920 420" width="100%" height="100%" role="img" aria-label="Chart" xmlns="http://www.w3.org/2000/svg">
+  
+  <g class="chart-grid"><line x1="52" y1="16" x2="896" y2="16" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="20" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">10000</text><line x1="52" y1="106" x2="896" y2="106" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="110" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">7500</text><line x1="52" y1="196" x2="896" y2="196" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="200" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">5000</text><line x1="52" y1="286" x2="896" y2="286" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="290" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2500</text><line x1="52" y1="376" x2="896" y2="376" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="380" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">0</text></g>
+  <g class="chart-marks"><rect x="60" y="260.8" width="122.66666666666666" height="115.2" rx="3" fill="var(--accent)"/><text x="122.33333333333333" y="254.8" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">3200</text><rect x="200.66666666666666" y="228.4" width="122.66666666666666" height="147.6" rx="3" fill="var(--accent)"/><text x="263" y="222.4" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">4100</text><rect x="341.3333333333333" y="44.80000000000001" width="122.66666666666666" height="331.2" rx="3" fill="var(--accent)"/><text x="403.66666666666663" y="38.80000000000001" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">9200</text><rect x="482" y="156.4" width="122.66666666666666" height="219.6" rx="3" fill="var(--accent)"/><text x="544.3333333333334" y="150.4" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">6100</text><rect x="622.6666666666666" y="167.20000000000002" width="122.66666666666666" height="208.79999999999998" rx="3" fill="var(--accent)"/><text x="685" y="161.20000000000002" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">5800</text><rect x="763.3333333333333" y="116.80000000000001" width="122.66666666666666" height="259.2" rx="3" fill="var(--accent)"/><text x="825.6666666666666" y="110.80000000000001" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">7200</text></g>
+  <g class="chart-cats"><text x="122.33333333333333" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Jan</text><text x="263" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Feb</text><text x="403.66666666666663" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Mar</text><text x="544.3333333333334" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Apr</text><text x="685" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">May</text><text x="825.6666666666666" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Jun</text></g>
+</svg>
+  </div>
+</section>
+
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.750%29%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.000%29%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.650%29%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.000%29%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230a0a0a%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="Pulse share visual" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">Share frame</span>
+    <h2>BUILT TO SCREENSHOT.</h2>
+    <p class="lead">Magenta blobs. Lime floor. One frame that leaves the deck.</p>
+  </div>
+</section>
+
 <section class="slide title-slide closing-slide" data-layout="closing">
   <span class="eyebrow">Share</span>
   <h1>POST THE LIME.</h1>
@@ -5068,7 +5418,7 @@ Motion as hierarchy.</p>
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Pulse — Year Wrapped","company":"Pulse","description":"Spotify-Wrapped style recap — kinetic-wrapped multi-slide proof.","theme":"kinetic-wrapped"},"slides":[{"layout":"title","eyebrow":"Your 2026","heading":"YOU LISTENED HARD.","lead":"Black field. Acid lime. Archivo Black yelling the truth."},{"layout":"image-hero","eyebrow":"Your 2026","heading":"YOU LISTENED HARD.","lead":"Black field. Acid lime. Archivo Black yelling the truth.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230d0d0d%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%230a0a0a%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2813%2C13%2C13%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230a0a0a%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.9%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22880%22%20cy%3D%22220%22%20rx%3D%22220%22%20ry%3D%22140%22%20fill%3D%22rgba%28255%2C0%2C204%2C0.220%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M0%20640%20C320%20520%20640%20780%20960%20600%20S1400%20480%201600%20560%20L1600%20900%20L0%20900%20Z%22%20fill%3D%22rgba%28200%2C255%2C0%2C0.120%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.55%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22260%22%20cy%3D%22180%22%20r%3D%2218%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22520%22%20cy%3D%22140%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22980%22%20cy%3D%22210%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22320%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221100%22%20cy%3D%22120%22%20r%3D%228%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Pulse craft visual"},{"layout":"stat-row","eyebrow":"The year","heading":"Unignorable totals.","stats":[{"value":"48,291","label":"Minutes"},{"value":"612","label":"Artists"},{"value":"3AM","label":"Peak hour"}]},{"layout":"two-column","eyebrow":"Top genres","heading":"Your three obsessions","body":"Hyperpop: 34% of your year — no notes. Afrobeats — The commute soundtrack that stuck.","aside":"Every Sunday after midnight.","ratio":"2-1"},{"layout":"quote","quote":"Your top track was on repeat so hard it became a personality trait.","by":"Pulse Wrapped · 2026"},{"layout":"comparison","eyebrow":"Format","heading":"Annual PDF vs. kinetic wrap","leftLabel":"Year in review","left":"Forty pages.\nEqual-weight charts.\nNobody finishes.\nNo share moment.","rightLabel":"Pulse Wrapped","right":"Full-bleed beats.\nOne claim per frame.\nBuilt to screenshot.\nMotion as hierarchy.","emphasis":"right"},{"layout":"feature-grid","eyebrow":"Beats","heading":"What the wrap ships","columns":"bento","cards":[{"icon":"fa-solid fa-bolt","title":"Cold open","body":"One line that lands before the logo."},{"icon":"fa-solid fa-chart-line","title":"Peak moment","body":"The number that defines the year."},{"icon":"fa-solid fa-users","title":"Crowd proof","body":"People, not just percentages."},{"icon":"fa-solid fa-share-nodes","title":"Share frame","body":"Designed to leave the deck."},{"icon":"fa-solid fa-forward","title":"Next season","body":"Close with a dare, not a thank-you."}]},{"layout":"closing","eyebrow":"Share","heading":"POST THE LIME.","lead":"One story template. Zero soft pastels.","cta":{"label":"Share your Wrapped","href":"#"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Pulse — Year Wrapped","company":"Pulse","description":"Spotify-Wrapped style recap — kinetic-wrapped multi-hue proof approaching gallery craft.","theme":"kinetic-wrapped"},"slides":[{"layout":"title","eyebrow":"Pulse · 2026","heading":"YOUR 2026, WRAPPED.","lead":"Every beat. Every drop of sweat. Here's what you actually did this year.","notes":"Cold open — yell the year before the logo."},{"layout":"stat-row","eyebrow":"Workouts","heading":"You showed up.","stats":[{"value":"287","label":"Workouts this year"},{"value":"5.5×","label":"per week avg"},{"value":"+34%","label":"vs 2025"}],"notes":"Total workouts — the unignorable number."},{"layout":"custom-html","tone":"magenta","eyebrow":"Top Activity","heading":"RUNNING IS YOUR THING.","html":"\u003cdiv class=\"pulse-bar-stack\">\u003cdiv class=\"pulse-bar-item\">\u003cspan class=\"pulse-bar-rank\">01\u003c/span>\u003cdiv class=\"pulse-bar-fill\" style=\"width:88%;background:#ffffff;color:#cc00ff\">Running · 142 sessions\u003c/div>\u003c/div>\u003cdiv class=\"pulse-bar-item\">\u003cspan class=\"pulse-bar-rank\" style=\"opacity:.55\">02\u003c/span>\u003cdiv class=\"pulse-bar-fill\" style=\"width:58%;background:rgba(255,255,255,.3);color:#fff\">Strength · 94 sessions\u003c/div>\u003c/div>\u003cdiv class=\"pulse-bar-item\">\u003cspan class=\"pulse-bar-rank\" style=\"opacity:.35\">03\u003c/span>\u003cdiv class=\"pulse-bar-fill\" style=\"width:34%;background:rgba(255,255,255,.15);color:#fff\">HIIT · 51 sessions\u003c/div>\u003c/div>\u003c/div>\u003cp class=\"lead\" style=\"margin-top:20px;opacity:.75\">You ran a combined 1,847 km this year. That's London → Istanbul.\u003c/p>","notes":"Ranked activity bars — gallery bar-stack craft via custom-html."},{"layout":"stat-row","tone":"orange","eyebrow":"Minutes Moved","heading":"Ten full days of motion.","stats":[{"value":"14,892","label":"Minutes moved"},{"value":"248 hrs","label":"total hours"},{"value":"52 min","label":"avg session"}],"notes":"Minutes mega beat — orange field."},{"layout":"two-column","eyebrow":"Top genres","heading":"Your three obsessions","body":"Hyperpop: 34% of your year — no notes. Afrobeats — The commute soundtrack that stuck.","aside":"Every Sunday after midnight.","ratio":"2-1","tone":"cyan","notes":"Genre obsessions — three only."},{"layout":"quote","tone":"lime","quote":"Your top track was on repeat so hard it became a personality trait.","by":"Pulse Wrapped · 2026","notes":"Personality-trait beat — pause for laughter."},{"layout":"comparison","eyebrow":"Format","heading":"Annual PDF vs. kinetic wrap","leftLabel":"Year in review","left":"Forty pages.\nEqual-weight charts.\nNobody finishes.\nNo share moment.","rightLabel":"Pulse Wrapped","right":"Full-bleed beats.\nOne claim per frame.\nBuilt to screenshot.\nMotion as hierarchy.","emphasis":"right","tone":"orange","notes":"Kill the annual PDF. Sell the wrap."},{"layout":"feature-grid","eyebrow":"Beats","heading":"What the wrap ships","columns":"bento","cards":[{"icon":"fa-solid fa-bolt","title":"Cold open","body":"One line that lands before the logo."},{"icon":"fa-solid fa-chart-line","title":"Peak moment","body":"The number that defines the year."},{"icon":"fa-solid fa-users","title":"Crowd proof","body":"People, not just percentages."},{"icon":"fa-solid fa-share-nodes","title":"Share frame","body":"Designed to leave the deck."},{"icon":"fa-solid fa-forward","title":"Next season","body":"Close with a dare, not a thank-you."}],"notes":"Five wrap beats — bento hero is the cold open."},{"layout":"chart","tone":"violet","eyebrow":"Minutes by month","heading":"THE SPIKE WAS REAL.","lead":"March broke the curve. Everything else was warmup.","chartType":"bar","categories":["Jan","Feb","Mar","Apr","May","Jun"],"series":[{"name":"Minutes","values":[3200,4100,9200,6100,5800,7200]}],"showLegend":false,"showValues":true,"notes":"Point at March — the shareable spike."},{"layout":"image-hero","eyebrow":"Share frame","heading":"BUILT TO SCREENSHOT.","lead":"Magenta blobs. Lime floor. One frame that leaves the deck.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.750%29%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.000%29%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.650%29%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.000%29%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230a0a0a%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Pulse share visual","notes":"Hold on the visual beat — let the field do the talking."},{"layout":"closing","eyebrow":"Share","heading":"POST THE LIME.","lead":"One story template. Zero soft pastels.","cta":{"label":"Share your Wrapped","href":"#"},"notes":"CTA is share, not thank-you."}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
@@ -5123,6 +5473,17 @@ Motion as hierarchy.</p>
       slides[slides.length - 1].scrollIntoView({ behavior: "smooth", block: "center" });
     }
   });
+
+  /* T2/T3 screenshot harness — #__shot=N scrolls slide N into view and forces reveals */
+  var shot = location.hash.match(/__shot=(\d+)/);
+  if (shot) {
+    var si = +shot[1] - 1;
+    slides.forEach(function (s) { s.classList.add("in-view"); });
+    if (slides[si]) {
+      document.documentElement.style.scrollSnapType = "none";
+      slides[si].scrollIntoView({ behavior: "instant", block: "start" });
+    }
+  }
 })();
 </script>
 </body>

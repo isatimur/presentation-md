@@ -2,8 +2,8 @@
   "name": "kinetic-wrapped",
   "version": "0.1.0",
   "extends": "default-tech",
-  "description": "Kinetic Wrapped — acid lime on black, Archivo Black, year-in-review energy.",
-  "vibe": "Kinetic Wrapped — black + #c8ff00 acid lime, Archivo Black (matches Pulse gallery).",
+  "description": "Kinetic Wrapped — acid lime on black, Archivo Black, multi-hue tone beats (Pulse gallery parity).",
+  "vibe": "Kinetic Wrapped — black + #c8ff00 acid lime + magenta/cyan/orange tone fields, soft blobs, Archivo Black (matches Pulse gallery).",
   "license": "MIT",
   "author": "Timur Isachenko",
   "roles": {

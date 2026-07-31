@@ -1,64 +1,66 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Pulse \u2014 Year Wrapped",
+    "title": "Pulse — Year Wrapped",
     "company": "Pulse",
-    "description": "Spotify-Wrapped style recap \u2014 kinetic-wrapped multi-slide proof.",
+    "description": "Spotify-Wrapped style recap — kinetic-wrapped multi-hue proof approaching gallery craft.",
     "theme": "kinetic-wrapped"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Your 2026",
-      "heading": "YOU LISTENED HARD.",
-      "lead": "Black field. Acid lime. Archivo Black yelling the truth.",
-      "notes": "Cold open \u2014 yell the year before the logo."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Your 2026",
-      "heading": "YOU LISTENED HARD.",
-      "lead": "Magenta blobs. Lime floor. Built to screenshot.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230d0d0d%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%230a0a0a%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2813%2C13%2C13%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230a0a0a%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.9%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22880%22%20cy%3D%22220%22%20rx%3D%22220%22%20ry%3D%22140%22%20fill%3D%22rgba%28255%2C0%2C204%2C0.220%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M0%20640%20C320%20520%20640%20780%20960%20600%20S1400%20480%201600%20560%20L1600%20900%20L0%20900%20Z%22%20fill%3D%22rgba%28200%2C255%2C0%2C0.120%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.55%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22260%22%20cy%3D%22180%22%20r%3D%2218%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22520%22%20cy%3D%22140%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22980%22%20cy%3D%22210%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22320%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221100%22%20cy%3D%22120%22%20r%3D%228%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Pulse craft visual",
-      "notes": "Hold on the visual beat \u2014 let the field do the talking."
+      "eyebrow": "Pulse · 2026",
+      "heading": "YOUR 2026, WRAPPED.",
+      "lead": "Every beat. Every drop of sweat. Here's what you actually did this year.",
+      "notes": "Cold open — yell the year before the logo."
     },
     {
       "layout": "stat-row",
-      "eyebrow": "The year",
-      "heading": "Unignorable totals.",
+      "eyebrow": "Workouts",
+      "heading": "You showed up.",
       "stats": [
-        {
-          "value": "48,291",
-          "label": "Minutes"
-        },
-        {
-          "value": "612",
-          "label": "Artists"
-        },
-        {
-          "value": "3AM",
-          "label": "Peak hour"
-        }
+        { "value": "287", "label": "Workouts this year" },
+        { "value": "5.5×", "label": "per week avg" },
+        { "value": "+34%", "label": "vs 2025" }
       ],
+      "notes": "Total workouts — the unignorable number."
+    },
+    {
+      "layout": "custom-html",
       "tone": "magenta",
-      "notes": "Minutes first \u2014 the unignorable total."
+      "eyebrow": "Top Activity",
+      "heading": "RUNNING IS YOUR THING.",
+      "html": "<div class=\"pulse-bar-stack\"><div class=\"pulse-bar-item\"><span class=\"pulse-bar-rank\">01</span><div class=\"pulse-bar-fill\" style=\"width:88%;background:#ffffff;color:#cc00ff\">Running · 142 sessions</div></div><div class=\"pulse-bar-item\"><span class=\"pulse-bar-rank\" style=\"opacity:.55\">02</span><div class=\"pulse-bar-fill\" style=\"width:58%;background:rgba(255,255,255,.3);color:#fff\">Strength · 94 sessions</div></div><div class=\"pulse-bar-item\"><span class=\"pulse-bar-rank\" style=\"opacity:.35\">03</span><div class=\"pulse-bar-fill\" style=\"width:34%;background:rgba(255,255,255,.15);color:#fff\">HIIT · 51 sessions</div></div></div><p class=\"lead\" style=\"margin-top:20px;opacity:.75\">You ran a combined 1,847 km this year. That's London → Istanbul.</p>",
+      "notes": "Ranked activity bars — gallery bar-stack craft via custom-html."
+    },
+    {
+      "layout": "stat-row",
+      "tone": "orange",
+      "eyebrow": "Minutes Moved",
+      "heading": "Ten full days of motion.",
+      "stats": [
+        { "value": "14,892", "label": "Minutes moved" },
+        { "value": "248 hrs", "label": "total hours" },
+        { "value": "52 min", "label": "avg session" }
+      ],
+      "notes": "Minutes mega beat — orange field."
     },
     {
       "layout": "two-column",
       "eyebrow": "Top genres",
       "heading": "Your three obsessions",
-      "body": "Hyperpop: 34% of your year \u2014 no notes. Afrobeats \u2014 The commute soundtrack that stuck.",
+      "body": "Hyperpop: 34% of your year — no notes. Afrobeats — The commute soundtrack that stuck.",
       "aside": "Every Sunday after midnight.",
       "ratio": "2-1",
       "tone": "cyan",
-      "notes": "Genre obsessions \u2014 three only."
+      "notes": "Genre obsessions — three only."
     },
     {
       "layout": "quote",
+      "tone": "lime",
       "quote": "Your top track was on repeat so hard it became a personality trait.",
-      "by": "Pulse Wrapped \u00b7 2026",
-      "notes": "Personality-trait beat \u2014 pause for laughter."
+      "by": "Pulse Wrapped · 2026",
+      "notes": "Personality-trait beat — pause for laughter."
     },
     {
       "layout": "comparison",
@@ -78,33 +80,13 @@
       "heading": "What the wrap ships",
       "columns": "bento",
       "cards": [
-        {
-          "icon": "fa-solid fa-bolt",
-          "title": "Cold open",
-          "body": "One line that lands before the logo."
-        },
-        {
-          "icon": "fa-solid fa-chart-line",
-          "title": "Peak moment",
-          "body": "The number that defines the year."
-        },
-        {
-          "icon": "fa-solid fa-users",
-          "title": "Crowd proof",
-          "body": "People, not just percentages."
-        },
-        {
-          "icon": "fa-solid fa-share-nodes",
-          "title": "Share frame",
-          "body": "Designed to leave the deck."
-        },
-        {
-          "icon": "fa-solid fa-forward",
-          "title": "Next season",
-          "body": "Close with a dare, not a thank-you."
-        }
+        { "icon": "fa-solid fa-bolt", "title": "Cold open", "body": "One line that lands before the logo." },
+        { "icon": "fa-solid fa-chart-line", "title": "Peak moment", "body": "The number that defines the year." },
+        { "icon": "fa-solid fa-users", "title": "Crowd proof", "body": "People, not just percentages." },
+        { "icon": "fa-solid fa-share-nodes", "title": "Share frame", "body": "Designed to leave the deck." },
+        { "icon": "fa-solid fa-forward", "title": "Next season", "body": "Close with a dare, not a thank-you." }
       ],
-      "notes": "Five wrap beats \u2014 bento hero is the cold open."
+      "notes": "Five wrap beats — bento hero is the cold open."
     },
     {
       "layout": "chart",
@@ -113,30 +95,20 @@
       "heading": "THE SPIKE WAS REAL.",
       "lead": "March broke the curve. Everything else was warmup.",
       "chartType": "bar",
-      "categories": [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun"
-      ],
-      "series": [
-        {
-          "name": "Minutes",
-          "values": [
-            3200,
-            4100,
-            9200,
-            6100,
-            5800,
-            7200
-          ]
-        }
-      ],
+      "categories": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+      "series": [{ "name": "Minutes", "values": [3200, 4100, 9200, 6100, 5800, 7200] }],
       "showLegend": false,
       "showValues": true,
-      "notes": "Point at March \u2014 the shareable spike."
+      "notes": "Point at March — the shareable spike."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Share frame",
+      "heading": "BUILT TO SCREENSHOT.",
+      "lead": "Magenta blobs. Lime floor. One frame that leaves the deck.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.750%29%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C255%2C0%2C0.000%29%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.650%29%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C0%2C204%2C0.000%29%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230a0a0a%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
+      "imageAlt": "Pulse share visual",
+      "notes": "Hold on the visual beat — let the field do the talking."
     },
     {
       "layout": "closing",
