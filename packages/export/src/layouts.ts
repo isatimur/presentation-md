@@ -87,6 +87,46 @@ function cardStroke(
   if (ctx.themeName === "biennale-yellow") {
     return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 1.35 : 1.1 };
   }
+  // hard-bento (genz-bento) cards: 2.5px ink
+  if (ctx.themeName === "genz-bento") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.75 : 2.5 };
+  }
+  // acid-block (brutalist-acid) cards: 2px accent, square
+  if (ctx.themeName === "brutalist-acid") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 2.25 : 2 };
+  }
+  // bauhaus-blocks cards: 2px ink, square
+  if (ctx.themeName === "bauhaus") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.25 : 2 };
+  }
+  // neo-grid-panels / bold-poster-ink / tri-tone-blocks cards: 2px ink, square
+  if (
+    ctx.themeName === "neo-grid-bold" ||
+    ctx.themeName === "bold-poster" ||
+    ctx.themeName === "editorial-tri-tone"
+  ) {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.25 : 2 };
+  }
+  // raw-grid-brutal cards: 3px ink, square
+  if (ctx.themeName === "raw-grid") {
+    return { color: "0A0A0A", width: opts.hero || opts.highlighted ? 3.25 : 3 };
+  }
+  // creative-voltage-split cards: 1px neon accent, square
+  if (ctx.themeName === "creative-voltage") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.5 : 1.25 };
+  }
+  // wrapped-block (kinetic-wrapped) cards: 3px accent, square
+  if (ctx.themeName === "kinetic-wrapped") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 3.25 : 3 };
+  }
+  // hud-grid / blueprint-grid cards: accent hairline, square
+  if (ctx.themeName === "aerospace-hud" || ctx.themeName === "blueprint") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
+  }
+  // swiss-grid cards: quiet border, square
+  if (ctx.themeName === "swiss-typographic") {
+    return { color: ctx.colors.border, width: opts.hero || opts.highlighted ? 1.25 : 1 };
+  }
   if (opts.hero || opts.highlighted) {
     return { color: ctx.colors.accent, width: opts.highlighted ? 1.75 : 1.5 };
   }
@@ -106,7 +146,7 @@ function cardRadius(ctx: ExportContext): number {
   if (ctx.themeName === "daisy-days") return 0.21;
   // stencil-tablet-earth cards: border-radius 24px ≈ 0.25"
   if (ctx.themeName === "stencil-tablet") return 0.25;
-  // retro-zine-riso / block-frame-brutal / creative-mode-blocks / 8-bit / Win95 / coral / peoples / broadside / cobalt / mat / biennale / arcade: square
+  // retro-zine-riso / block-frame-brutal / creative-mode-blocks / 8-bit / Win95 / coral / peoples / broadside / cobalt / mat / biennale / arcade / acid / bauhaus / neo-grid / bold-poster / tri-tone / raw-grid / voltage / Pulse / hud / blueprint / swiss: square
   if (
     ctx.themeName === "retro-zine" ||
     ctx.themeName === "block-frame" ||
@@ -119,10 +159,23 @@ function cardRadius(ctx: ExportContext): number {
     ctx.themeName === "cobalt-grid" ||
     ctx.themeName === "mat" ||
     ctx.themeName === "biennale-yellow" ||
-    ctx.themeName === "retro-arcade"
+    ctx.themeName === "retro-arcade" ||
+    ctx.themeName === "brutalist-acid" ||
+    ctx.themeName === "bauhaus" ||
+    ctx.themeName === "neo-grid-bold" ||
+    ctx.themeName === "bold-poster" ||
+    ctx.themeName === "editorial-tri-tone" ||
+    ctx.themeName === "raw-grid" ||
+    ctx.themeName === "creative-voltage" ||
+    ctx.themeName === "kinetic-wrapped" ||
+    ctx.themeName === "aerospace-hud" ||
+    ctx.themeName === "blueprint" ||
+    ctx.themeName === "swiss-typographic"
   ) {
     return 0;
   }
+  // hard-bento (genz-bento) cards: border-radius 14px ≈ 0.15"
+  if (ctx.themeName === "genz-bento") return 0.15;
   // bold-signal-card / aero-bubble / pastel-geometry / pastel-dreamy: plump
   if (ctx.themeName === "bold-signal") return 0.16;
   if (ctx.themeName === "y2k-aero") return 0.18;
@@ -2863,25 +2916,26 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "aerospace-hud") {
-    // HUD grid + border + dual reticles + orange telemetry stub.
-    for (let i = 1; i < 10; i++) {
+    // Denser HUD grid + border + dual reticles + crosshair ticks + orange
+    // telemetry stub (hud-grid). Cards get accent hairline via cardStroke.
+    for (let i = 1; i < 12; i++) {
       slide.addShape(ctx.shapeRoundRect, {
-        x: (ctx.width / 10) * i,
+        x: (ctx.width / 12) * i,
         y: 0,
         w: 0.012,
         h: ctx.height,
-        fill: { color: ctx.colors.accent, transparency: 80 },
+        fill: { color: ctx.colors.accent, transparency: 78 },
         line: { color: ctx.colors.accent, width: 0 },
         rectRadius: 0,
       });
     }
-    for (let i = 1; i < 6; i++) {
+    for (let i = 1; i < 8; i++) {
       slide.addShape(ctx.shapeRoundRect, {
         x: 0,
-        y: (ctx.height / 6) * i,
+        y: (ctx.height / 8) * i,
         w: ctx.width,
         h: 0.012,
-        fill: { color: ctx.colors.accent, transparency: 80 },
+        fill: { color: ctx.colors.accent, transparency: 78 },
         line: { color: ctx.colors.accent, width: 0 },
         rectRadius: 0,
       });
@@ -2892,19 +2946,20 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       w: ctx.width - 0.2,
       h: ctx.height - 0.2,
       fill: { color: ctx.colors.bg, transparency: 100 },
-      line: { color: ctx.colors.accent, width: 1.15 },
+      line: { color: ctx.colors.accent, width: 1.35 },
       rectRadius: 0,
     });
+    // Bottom-left instrument square (warning orange).
     slide.addShape(ctx.shapeRoundRect, {
       x: ctx.margin,
-      y: ctx.margin,
+      y: ctx.height - ctx.margin - 0.55,
       w: 0.55,
       h: 0.55,
       fill: { color: ctx.colors.bg, transparency: 100 },
       line: { color: ctx.colors.accent2, width: 1.5 },
       rectRadius: 0,
     });
-    // Top-right reticle (hud-grid ::after).
+    // Top-right reticle (hud-grid ::after) + crosshair ticks.
     slide.addShape(ctx.shapeOval, {
       x: ctx.width - 1.45,
       y: 0.45,
@@ -2922,11 +2977,29 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       line: { color: ctx.colors.accent, width: 0.75 },
     });
     slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 1.08,
+      y: 0.82,
+      w: 0.12,
+      h: 0.02,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 1.05,
+      y: 0.7,
+      w: 0.02,
+      h: 0.28,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
       x: ctx.width - 2.1,
       y: ctx.height - 0.72,
       w: 1.35,
       h: 0.08,
-      fill: { color: ctx.colors.accent2, transparency: 25 },
+      fill: { color: ctx.colors.accent2, transparency: 20 },
       line: { color: ctx.colors.accent2, width: 0 },
       rectRadius: 0,
     });
@@ -3201,7 +3274,8 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "bauhaus") {
-    // Hard frame on every slide; red square + blue circle on heroes (bauhaus-blocks).
+    // Hard frame + red square + blue circle on every slide (bauhaus-blocks
+    // ::before/::after are not hero-gated). Heroes get larger primary blocks.
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.08,
       y: 0.08,
@@ -3211,36 +3285,29 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       line: { color: ctx.colors.text, width: 2 },
       rectRadius: 0,
     });
-    if (isHero) {
-      slide.addShape(ctx.shapeRoundRect, {
-        x: ctx.width - 2.3,
-        y: 0.7,
-        w: 1.05,
-        h: 1.05,
-        fill: { color: ctx.colors.accent },
-        line: { color: ctx.colors.accent, width: 0 },
-        rectRadius: 0,
-      });
-      slide.addShape(ctx.shapeOval, {
-        x: ctx.width - 2.9,
-        y: 1.35,
-        w: 1.05,
-        h: 1.05,
-        fill: { color: ctx.colors.accent2, transparency: 12 },
-        line: { color: ctx.colors.accent2, width: 0 },
-      });
-    } else {
-      // Quiet primary stub on body — keeps Primary energy without fighting copy.
-      slide.addShape(ctx.shapeRoundRect, {
-        x: ctx.width - ctx.margin - 0.55,
-        y: ctx.margin * 0.9,
-        w: 0.55,
-        h: 0.55,
-        fill: { color: ctx.colors.accent },
-        line: { color: ctx.colors.accent, width: 0 },
-        rectRadius: 0,
-      });
-    }
+    const sq = isHero ? 1.05 : 0.72;
+    const circ = isHero ? 1.05 : 0.72;
+    const sqX = isHero ? ctx.width - 2.3 : ctx.width - 1.55;
+    const sqY = isHero ? 0.7 : 0.55;
+    const circX = isHero ? ctx.width - 2.9 : ctx.width - 2.05;
+    const circY = isHero ? 1.35 : 1.0;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: sqX,
+      y: sqY,
+      w: sq,
+      h: sq,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: circX,
+      y: circY,
+      w: circ,
+      h: circ,
+      fill: { color: ctx.colors.accent2, transparency: isHero ? 12 : 22 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
   }
 
   if (theme === "fintech-clean") {
