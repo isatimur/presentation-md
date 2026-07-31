@@ -1,5 +1,18 @@
 # @presentation-md/studio
 
+## 1.7.0
+
+### Minor Changes
+
+- e57e02b: Generate modal defaults live Title/Bento/Compare discover on; theme pick-3 auto-enables live when the tray hits 3 — show-don't-tell without an extra click vs frontend-slides galleries.
+
+### Patch Changes
+
+- c197f45: Lead the four leftover stunning-25 flagships (gridsystems, ledgerline, hygge, pulse-wrapped) with title → feature-grid → comparison so Studio crop deep-links and Example live trio stay aligned — Deck JSON only, no HTML regen.
+- Updated dependencies [976c2a4]
+  - @presentation-md/core@1.16.5
+  - @presentation-md/export@1.23.7
+
 ## 1.6.1
 
 ### Patch Changes
