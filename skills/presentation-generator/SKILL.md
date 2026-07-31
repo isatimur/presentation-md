@@ -315,7 +315,7 @@ frontend-slides wins on discovery UX; presentation-md wins when the **first** em
 1. **Stunning-25-first** — when the brief matches a flagship vibe, lock that theme (or a popular shortlist sibling) and open the structured proof / Studio `?example=` *before* writing slides.
 2. **Density lock** — speaker-led vs reading-first chosen once; never mix cramped reading density into a live-talk deck (or vice versa).
 3. **Anti-slop gate** — read `references/anti-slop-bans.md` before any custom styling; ban Inter-only / purple-on-white / cream-terracotta / accent-underline titles / text-only content slides unless the chosen theme owns them.
-4. **Layouts preview for pick-3** — `preview_themes` with `mode: "layouts"` (not title-only) when comparing 3 themes.
+4. **Layouts preview for pick-3** — `preview_themes` with ≥2 themes **auto-defaults to `mode: "layouts"`** (pass `mode: "title"` only for a cover skim).
 5. **Craft gates before ship** — `audit_deck` then `judge_deck` (t1→t2). Schema-valid ≠ shippable. Fix asymmetry, emphasis, dual CTA, image-hero, data beat, notes.
 
 Default when vibe is vague: a popular shortlist + one stunning-25 bold option in the preview mix — never three near-identical safe corporate looks.
@@ -334,9 +334,9 @@ Default when vibe is vague: a popular shortlist + one stunning-25 bold option in
    - **1 wildcard** — either a second bold shortlist pick **or** a brand/import-driven custom direction
      that creates useful contrast (do not force three near-identical pastels)
 3. **Required when tooling is available:** call `preview_themes` with those 3 names
-   (writes `.presentation-md/theme-previews/<theme>-preview.html`). **Default to
-   `mode: "layouts"` for pick-3 compares** so body craft (cards, comparison, stats, quote, code)
-   is visible — title-only is a fast skim, not a craft decision. Open each file for the user —
+   (writes `.presentation-md/theme-previews/<theme>-layouts-preview.html` for pick-3). **≥2 themes
+   auto-defaults to `mode: "layouts"`** so body craft (cards, comparison, stats, quote, code)
+   is visible — pass `mode: "title"` only for a cover skim. Open each file for the user —
    they pick visually, not from adjectives alone.
 4. If MCP is unavailable, run:
    `npx @presentation-md/render preview.json -o previews/<theme>.html --theme <name>` three times

@@ -17,7 +17,7 @@ const DEFAULT_PREVIEW_DIR = ".presentation-md/theme-previews";
 export const previewThemesTool: ToolDefinition = {
   name: "preview_themes",
   description:
-    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Pass themes[] and/or a shortlist id from theme-shortlists.json (shortlist themes fill when themes is omitted; otherwise themes wins, capped at 3). For pick-3 compares, prefer mode=\"layouts\" so agents judge body craft (cards/comparison/stats/quote/code) — title mode is a fast skim only. Default mode is a title slide; pass mode=\"layouts\" for a multi-slide craft preview. kinetic-wrapped previews inject tone + hero mega-stat + share pills.",
+    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Pass themes[] and/or a shortlist id from theme-shortlists.json (shortlist themes fill when themes is omitted; otherwise themes wins, capped at 3). Pick-3 / duo compares (≥2 themes) default to mode=\"layouts\" so agents judge body craft without a second call — pass mode=\"title\" for a fast cover-only skim. Single-theme default remains title. kinetic-wrapped previews inject tone + hero mega-stat + share pills.",
   inputSchema: {
     type: "object",
     properties: {
@@ -46,7 +46,7 @@ export const previewThemesTool: ToolDefinition = {
         type: "string",
         enum: ["title", "layouts"],
         description:
-          'Preview depth. "title" (default) = one cover slide. "layouts" = multi-slide craft bake (comparison, stats, quote, code, closing).',
+          'Preview depth. Omit to auto-pick: layouts when ≥2 themes (pick-3), title for a single theme. "title" = one cover slide. "layouts" = multi-slide craft bake (comparison, stats, quote, code, closing).',
       },
       output_dir: {
         type: "string",
@@ -89,8 +89,13 @@ export const previewThemesTool: ToolDefinition = {
 
     const title = (input["title"] as string | undefined) ?? "Your Deck Title";
     const company = input["company"] as string | undefined;
+    const explicitMode = input["mode"];
     const mode: PreviewMode =
-      input["mode"] === "layouts" ? "layouts" : "title";
+      explicitMode === "layouts" || explicitMode === "title"
+        ? explicitMode
+        : themes.length >= 2
+          ? "layouts"
+          : "title";
     const outputDir = await assertWritablePathInCwd(
       (input["output_dir"] as string | undefined) ?? DEFAULT_PREVIEW_DIR,
       "output_dir"

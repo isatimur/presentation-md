@@ -281,7 +281,7 @@ describe("preview_themes", () => {
     }
   });
 
-  it("recommends layouts mode for pick-3 title compares", async () => {
+  it("auto-defaults pick-3 compares to layouts mode", async () => {
     const { previewThemesTool } = await import("../src/tools/preview-themes.js");
     const { mkdtemp, rm } = await import("node:fs/promises");
     const { join } = await import("node:path");
@@ -292,10 +292,39 @@ describe("preview_themes", () => {
         title: "Trio",
         output_dir: dir,
       })) as {
+        mode: string;
+        layouts_recommended?: boolean;
+        previews: Array<{ filename: string; slides: number }>;
+        instruction: string;
+      };
+      expect(result.mode).toBe("layouts");
+      expect(result.layouts_recommended).toBeUndefined();
+      expect(result.previews[0]!.filename).toMatch(/layouts-preview\.html$/);
+      expect(result.previews[0]!.slides).toBeGreaterThan(1);
+      expect(result.instruction).toMatch(/multi-layout|cards|comparison/i);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it("still allows explicit title mode on pick-3 with layouts hint", async () => {
+    const { previewThemesTool } = await import("../src/tools/preview-themes.js");
+    const { mkdtemp, rm } = await import("node:fs/promises");
+    const { join } = await import("node:path");
+    const dir = await mkdtemp(join(process.cwd(), "pmd-preview-trio-title-"));
+    try {
+      const result = (await previewThemesTool.handler({
+        themes: ["default-tech", "aurora-glass", "soft-editorial"],
+        title: "Trio",
+        mode: "title",
+        output_dir: dir,
+      })) as {
+        mode: string;
         layouts_recommended?: boolean;
         layouts_hint?: string;
         instruction: string;
       };
+      expect(result.mode).toBe("title");
       expect(result.layouts_recommended).toBe(true);
       expect(result.layouts_hint).toMatch(/mode=.?layouts/i);
       expect(result.instruction).toMatch(/layouts/i);
