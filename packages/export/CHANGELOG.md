@@ -1,5 +1,11 @@
 # @presentation-md/export
 
+## 1.3.7
+
+### Patch Changes
+
+- 517fd38: Align luxury-minimalist with Solstice ultra-luxury craft (nocturnal stage, cream type, gold hairlines) and PPTX emphasis fills.
+
 ## 1.3.6
 
 ### Patch Changes

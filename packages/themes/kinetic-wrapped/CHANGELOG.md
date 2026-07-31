@@ -1,5 +1,11 @@
 # @presentation-md/theme-kinetic-wrapped
 
+## 1.0.2
+
+### Patch Changes
+
+- b114335: Punch kinetic-wrapped toward Pulse craft — brighter muted, louder acid borders, lime title/closing fields.
+
 ## 1.0.1
 
 ### Patch Changes

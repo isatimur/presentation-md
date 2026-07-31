@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-luxury-minimalist",
-  "version": "1.0.1",
-  "description": "Ultra-luxury nocturnal presentation theme \u2014 near-black stage, cream serif, gold hairlines.",
+  "version": "1.0.2",
+  "description": "Ultra-luxury nocturnal presentation theme — near-black stage, cream serif, gold hairlines.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",
