@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.12.0
+
+### Minor Changes
+
+- 7d0a0e6: Add glass/electric/mono/cartesian craft gates; modernist/hard-bento/glass/electric layout recipes; extend loud + glass honesty.
+
 ## 1.11.0
 
 ### Minor Changes

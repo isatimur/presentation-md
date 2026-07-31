@@ -1,5 +1,19 @@
 # @presentation-md/studio
 
+## 1.4.0
+
+### Minor Changes
+
+- 7d0a0e6: Raise Studio generate craft mandate to match MCP honesty (recipes, HUD/glass/loud hard-card peers).
+
+### Patch Changes
+
+- Updated dependencies [7d0a0e6]
+- Updated dependencies [c37edbe]
+- Updated dependencies [0264b50]
+  - @presentation-md/core@1.12.0
+  - @presentation-md/export@1.20.0
+
 ## 1.3.18
 
 ### Patch Changes
