@@ -207,11 +207,29 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
   const last = slides[slides.length - 1];
   if (last && last["layout"] === "closing") {
     const blob = JSON.stringify(last).toLowerCase();
-    if (/share|instagram|tiktok|wrapped/.test(blob) && !Array.isArray(last["actions"])) {
+    const actions = last["actions"];
+    const actionCount = Array.isArray(actions)
+      ? actions.length
+      : last["cta"]
+        ? 1
+        : 0;
+    if (/share|instagram|tiktok|wrapped/.test(blob) && !Array.isArray(actions)) {
       issues.push({
         severity: "warning",
         message:
           "Closing mentions share/social — prefer actions[] with solid + outline pills (not a single cta).",
+      });
+    }
+    const deckBlob = JSON.stringify(deck).toLowerCase();
+    const launchy =
+      /launch|waitlist|download|investor|series [abc]|get the app|join the|pre-order|book a|request (access|membership|rates)/i.test(
+        deckBlob
+      );
+    if (launchy && actionCount === 1) {
+      issues.push({
+        severity: "warning",
+        message:
+          "Launch/investor closing has a single CTA — prefer actions[] with solid + outline pills (stunning-25 dual ask).",
       });
     }
   }

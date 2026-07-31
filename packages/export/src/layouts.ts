@@ -134,13 +134,15 @@ function renderHero(slide: PSlide, ctx: ExportContext, data: Slide): void {
           : i === 0
             ? "solid"
             : "outline";
-      const btnW = Math.min(3.4, Math.max(2.2, action.label.length * 0.14 + 1.2));
+      const glyph = action.icon ? iconMarkerGlyph(action.icon) : "";
+      const label = glyph ? `${glyph}  ${action.label}` : action.label;
+      const btnW = Math.min(3.8, Math.max(2.2, label.length * 0.13 + 1.2));
       if (bx + btnW > x + w && i > 0) {
         bx = x;
         y += btnH + gap;
       }
       const isOutline = style === "outline" || style === "ghost";
-      slide.addText(action.label, {
+      slide.addText(label, {
         shape: ctx.shapeRoundRect,
         x: bx,
         y: y + 0.1,
@@ -361,6 +363,14 @@ function iconMarkerGlyph(icon?: string): string {
     [/forward|arrow-right|chevron-right/, "→"],
     [/layer|stack/, "▣"],
     [/eye|vision/, "◉"],
+    [/instagram/, "◉"],
+    [/tiktok/, "♪"],
+    [/twitter|x-twitter|\bfa-x\b/, "𝕏"],
+    [/github/, "⌥"],
+    [/discord/, "💬"],
+    [/linkedin/, "in"],
+    [/play|demo/, "▶"],
+    [/download|arrow-down/, "↓"],
   ];
   for (const [re, glyph] of map) {
     if (re.test(raw)) return glyph;
@@ -1981,7 +1991,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       line: { color: ctx.colors.accent2, width: 0 },
     });
     if (isHero) {
-      // Yellow ticker-strip stand-in (gallery marquee bar).
+      // Yellow ticker-strip stand-in (gallery marquee bar + static ticker text).
       slide.addShape(ctx.shapeRoundRect, {
         x: 0,
         y: ctx.height - 0.55,
@@ -1991,7 +2001,72 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         line: { color: ctx.colors.text, width: 1.5 },
         rectRadius: 0,
       });
+      slide.addText("★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·", {
+        x: 0.15,
+        y: ctx.height - 0.5,
+        w: ctx.width - 0.3,
+        h: 0.45,
+        fontFace: ctx.fonts.heading,
+        fontSize: 12,
+        bold: true,
+        color: ctx.colors.text,
+        align: "left",
+        valign: "middle",
+      });
     }
+  }
+
+  if (theme === "aurora-glass") {
+    // Dual aurora washes (accent + accent2 translucent ovals).
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.55,
+      y: -ctx.height * 0.25,
+      w: ctx.width * 0.55,
+      h: ctx.height * 0.65,
+      fill: { color: ctx.colors.accent, transparency: 58 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: -ctx.width * 0.15,
+      y: ctx.height * 0.5,
+      w: ctx.width * 0.5,
+      h: ctx.height * 0.6,
+      fill: { color: ctx.colors.accent2, transparency: 65 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+  }
+
+  if (theme === "glassmorphism") {
+    // Soft mist blob top-left + cyan orb top-right.
+    slide.addShape(ctx.shapeOval, {
+      x: -ctx.width * 0.1,
+      y: -ctx.height * 0.2,
+      w: ctx.width * 0.55,
+      h: ctx.height * 0.55,
+      fill: { color: ctx.colors.accent, transparency: 78 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.6,
+      y: -ctx.height * 0.15,
+      w: ctx.width * 0.45,
+      h: ctx.height * 0.5,
+      fill: { color: ctx.colors.accent2, transparency: 70 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+  }
+
+  if (theme === "luxury-minimalist" && isHero) {
+    // Gold hairline accent (quiet-luxe title/closing ::before).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: ctx.height * 0.48,
+      w: 0.55,
+      h: 0.02,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
   }
 
   if (theme === "neon-noir") {

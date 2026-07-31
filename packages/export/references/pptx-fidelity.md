@@ -46,10 +46,13 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   native shapes, not a screenshot — expect editability over pixel parity.
 - Soft blob / mix-blend chrome is approximated in PPTX (not pixel-perfect): Pulse
   gets multi-oval soft blobs on hero/tone/body; risograph gets layered coral+blue
-  overprint washes; candy-pop gets pink/blue blobs plus a yellow ticker strip on
-  title/closing; neon-noir gets magenta/cyan glow ovals; vaporwave gets horizon
-  wash + pink sun; y2k-aero gets glossy bubble ovals. True CSS `mix-blend-mode` /
-  animated marquees remain HTML-only.
+  overprint washes; candy-pop gets pink/blue blobs plus a yellow ticker strip with
+  static marquee text on title/closing; neon-noir gets magenta/cyan glow ovals;
+  vaporwave gets horizon wash + pink sun; y2k-aero gets glossy bubble ovals;
+  aurora-glass / glassmorphism get dual mist ovals; luxury-minimalist heroes get a
+  gold hairline. True CSS `mix-blend-mode` / animated marquees remain HTML-only.
+- Closing `actions[].icon` maps to a glyph prefix on PPTX pills (FA brands → letter/symbol).
+
 - Every non-mappable field emits a warning (via `opts.onWarn` / `result.warnings`) — nothing
   is dropped silently.
 

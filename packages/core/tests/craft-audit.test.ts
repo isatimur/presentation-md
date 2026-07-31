@@ -52,4 +52,25 @@ describe("auditCraft", () => {
     const issues = auditCraft({ type: "deck", slides: [] });
     expect(issues.some((i) => i.severity === "error" && /no slides/i.test(i.message))).toBe(true);
   });
+
+  it("warns when launch closing has a single CTA", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "genz-bento", title: "Launch" },
+      slides: [
+        { layout: "title", heading: "App launch" },
+        { layout: "image-hero", heading: "Hero", image: "https://x/y.png" },
+        { layout: "comparison", heading: "Diff", left: "A", right: "B", emphasis: "right" },
+        { layout: "stat-row", heading: "Stats", stats: [{ value: "1", label: "a" }] },
+        { layout: "quote", quote: "Nice", by: "User" },
+        {
+          layout: "closing",
+          heading: "Download the waitlist app",
+          cta: { label: "Get the app", href: "#" },
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /single CTA|dual ask/i.test(i.message))).toBe(true);
+  });
 });
