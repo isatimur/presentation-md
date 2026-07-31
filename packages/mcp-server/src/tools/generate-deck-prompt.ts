@@ -49,6 +49,8 @@ export const generateDeckPromptTool: ToolDefinition = {
       "- Wrap / store / launch / investor closes → closing actions[] with solid + outline pills (cta alone is weak on stunning-25).",
       "- Every closing actions[] pill needs an icon (FA brands for social; rocket/download/calendar/book for CTAs) — PPTX maps icons to glyph prefixes.",
       "- Loud/thin surfaces (coral, raw-grid, sakura-chroma, retro-windows, pin-and-paper, …) keep PPTX craft chrome as native shapes — prefer them over custom-html for brand atmosphere.",
+      "- Pulse (kinetic-wrapped): set tone on ≥3 slides + a ranked/streak/metric/hero-stat beat — PPTX carries hard frames + soft blobs, not mix-blend.",
+      "- risograph-zine: prefer comparison+emphasis and a punchy quote — PPTX overprint is layered ovals, not true multiply.",
       "- candy-pop: set meta.company (or meta.marquee) so the yellow ticker brands the deck — never hardcode Jellybean.",
       "- Add brief notes on 2–4 key slides.",
       "- Call audit_deck before shipping; fix warnings that mention asymmetry, image-hero, tone, emphasis, dual CTA, or closing icons.",

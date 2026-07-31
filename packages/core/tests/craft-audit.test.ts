@@ -159,4 +159,32 @@ describe("auditCraft", () => {
     const issues = auditCraft(deck);
     expect(issues.some((i) => /Stunning-25 theme closing/i.test(i.message))).toBe(true);
   });
+
+  it("warns when risograph-zine lacks a print beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "risograph-zine", title: "Flat zine" },
+      slides: [
+        { layout: "title", heading: "Ink" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        { layout: "feature-grid", heading: "Cards", columns: 3, cards: [
+          { title: "One", body: "A", icon: "fa-solid fa-1" },
+          { title: "Two", body: "B", icon: "fa-solid fa-2" },
+          { title: "Three", body: "C", icon: "fa-solid fa-3" },
+        ] },
+        { layout: "stat-row", heading: "N", stats: [{ value: "1", label: "a" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Print", href: "#", style: "solid", icon: "fa-solid fa-print" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /print beat/i.test(i.message))).toBe(true);
+  });
 });

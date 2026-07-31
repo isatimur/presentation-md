@@ -385,5 +385,19 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     }
   }
 
+  if (theme === "risograph-zine" && slides.length >= 5) {
+    const hasPrintBeat =
+      layouts.includes("comparison") ||
+      layouts.includes("quote") ||
+      layouts.includes("image-hero");
+    if (!hasPrintBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "risograph-zine deck lacks a print beat — add comparison+emphasis, quote, or image-hero for zine energy.",
+      });
+    }
+  }
+
   return issues;
 }
