@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.12.3
+
+### Patch Changes
+
+- a5985a3: Gate soft-product, playful, neon-tech, scatterbrain, and data-editorial craft beats; extend paper honesty to scandinavian and PPTX thin-peer card strokes.
+
 ## 1.12.2
 
 ### Patch Changes

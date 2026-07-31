@@ -1,5 +1,15 @@
 # @presentation-md/studio
 
+## 1.4.4
+
+### Patch Changes
+
+- a5985a3: Gate soft-product, playful, neon-tech, scatterbrain, and data-editorial craft beats; extend paper honesty to scandinavian and PPTX thin-peer card strokes.
+- Updated dependencies [a5985a3]
+- Updated dependencies [ffc72f5]
+  - @presentation-md/core@1.12.3
+  - @presentation-md/export@1.20.4
+
 ## 1.4.3
 
 ### Patch Changes
