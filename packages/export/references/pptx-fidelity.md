@@ -109,7 +109,11 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   pastel-dreamy gets denser soft cloud ovals;
   vellum gets a soft colorfield wash + teal/chartreuse orbs;
   editorial-serif gets an accent rule + deco ring + bottom stub;
-  soft-editorial gets a sage wash + blush candy orb + inset frame + bottom stub;
+  soft-editorial gets sage wash + hero-gated blush/lemon/lilac candy + plump inset frame (~28px) + soft shadow stub + plump card radius;
+  heritage-editorial gets parchment wash ovals + terracotta hairlines;
+  emerald-editorial gets true double masthead rules + dual inset frame;
+  vintage-editorial gets a quiet outer border on all slides + hero geo ring/dots;
+  pink-script gets dual inset frames + hero-gated wash/hairline;
   claude (warm-paper) gets a soft coral corner wash + accent2 mist + quiet inset frame + accent stub;
   default-tech gets dual neon corner blooms (accent + accent2);
   playful gets denser soft blots + candy square;
