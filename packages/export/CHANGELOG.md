@@ -1,5 +1,16 @@
 # @presentation-md/export
 
+## 1.14.0
+
+### Minor Changes
+
+- e3cd10d: Densify soft-editorial leftovers (hero-gated candy, plump cards/frame) plus heritage wash, emerald double mastheads, vintage body frame, and pink-script dual insets.
+
+### Patch Changes
+
+- Updated dependencies [9274c8c]
+  - @presentation-md/core@1.8.3
+
 ## 1.13.2
 
 ### Patch Changes

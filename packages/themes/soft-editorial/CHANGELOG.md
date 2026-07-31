@@ -1,5 +1,11 @@
 # @presentation-md/theme-soft-editorial
 
+## 1.0.3
+
+### Patch Changes
+
+- e3cd10d: Densify soft-editorial leftovers (hero-gated candy, plump cards/frame) plus heritage wash, emerald double mastheads, vintage body frame, and pink-script dual insets.
+
 ## 1.0.2
 
 ### Patch Changes
