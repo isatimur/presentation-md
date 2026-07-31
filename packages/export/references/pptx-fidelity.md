@@ -88,7 +88,21 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   notebook-tabs gets pastel side tabs + binder holes;
   long-table gets speckles + outline pill + hairline;
   paper-ink gets crimson top/bottom rules;
-  vintage-editorial heroes get a geometric ring + dots.
+  vintage-editorial heroes get a geometric ring + dots;
+  studio gets acid hairline rails;
+  grove gets a quiet hairline + coral stub;
+  stencil-tablet heroes get earth tablet blocks;
+  cartesian gets draft axes + concentric rings;
+  monochrome gets ledger hairlines;
+  blue-professional gets a soft wash band + accent stub;
+  broadsheet gets a newsprint masthead + bottom rule;
+  editorial-forest gets a forest rule + blush orb;
+  signal gets a briefing hairline + outline square;
+  pastel-dreamy gets soft cloud ovals;
+  vellum gets a soft colorfield wash;
+  editorial-serif gets an accent rule + deco ring;
+  playful gets soft accent blots;
+  corporate gets a clean accent stub.
   True CSS `mix-blend-mode` / animated marquees remain HTML-only.
 - Closing `actions[].icon` maps to a glyph prefix on PPTX pills (FA brands → letter/symbol).
 

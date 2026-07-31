@@ -3591,6 +3591,315 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       line: { color: ctx.colors.accent, width: 0 },
     });
   }
+
+  if (theme === "studio") {
+    // Acid hairline rails (studio-acid).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: ctx.width,
+      h: 0.02,
+      fill: { color: ctx.colors.border },
+      line: { color: ctx.colors.border, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: ctx.height - 0.02,
+      w: ctx.width,
+      h: 0.02,
+      fill: { color: ctx.colors.border },
+      line: { color: ctx.colors.border, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "grove") {
+    // Quiet top hairline + coral stub (grove-monograph).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.05,
+      y: ctx.height * 0.06,
+      w: ctx.width * 0.9,
+      h: 0.015,
+      fill: { color: "D4CFBF", transparency: 70 },
+      line: { color: "D4CFBF", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.05,
+      y: ctx.height * 0.9,
+      w: 0.45,
+      h: 0.03,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "stencil-tablet" && isHero) {
+    // Earth tablet blocks (stencil-tablet-earth).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.2,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: "000000", width: 2 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.77,
+      y: ctx.height * 0.1,
+      w: ctx.width * 0.18,
+      h: ctx.height * 0.22,
+      fill: { color: ctx.colors.accent },
+      line: { color: "000000", width: 1.5 },
+      rectRadius: 0.22,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.05,
+      y: ctx.height * 0.72,
+      w: ctx.width * 0.14,
+      h: ctx.height * 0.18,
+      fill: { color: ctx.colors.accent2 },
+      line: { color: "000000", width: 1.5 },
+      rectRadius: 0.2,
+    });
+  }
+
+  if (theme === "cartesian") {
+    // Draft axes + concentric rings (cartesian-draft).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.06,
+      y: ctx.height * 0.1,
+      w: ctx.width * 0.88,
+      h: 0.015,
+      fill: { color: ctx.colors.border, transparency: 35 },
+      line: { color: ctx.colors.border, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.06,
+      y: ctx.height * 0.1,
+      w: 0.015,
+      h: ctx.height * 0.8,
+      fill: { color: ctx.colors.border, transparency: 35 },
+      line: { color: ctx.colors.border, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.78,
+      y: ctx.height * 0.08,
+      w: 1.4,
+      h: 1.4,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: "B8B0A4", width: 1 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.74,
+      y: ctx.height * 0.04,
+      w: 2.0,
+      h: 2.0,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: "B8B0A4", width: 0.75 },
+    });
+  }
+
+  if (theme === "monochrome") {
+    // Ledger hairlines (monochrome-ledger).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.06,
+      y: ctx.height * 0.08,
+      w: ctx.width * 0.88,
+      h: 0.015,
+      fill: { color: ctx.colors.text, transparency: 75 },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width * 0.06,
+      y: ctx.height * 0.9,
+      w: 0.35,
+      h: 0.015,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "blue-professional") {
+    // Soft blue wash band + accent stub (blue-professional-clean).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: ctx.width,
+      h: ctx.height * 0.18,
+      fill: { color: ctx.colors.accent, transparency: 92 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.55,
+      y: 0.5,
+      w: 0.6,
+      h: 0.05,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0.02,
+    });
+  }
+
+  if (theme === "broadsheet") {
+    // Newsprint masthead bar + bottom rule (newsprint-masthead).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0,
+      y: 0,
+      w: ctx.width,
+      h: 0.42,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: ctx.height - 0.7,
+      w: ctx.width - ctx.margin * 2,
+      h: 0.03,
+      fill: { color: ctx.colors.text },
+      line: { color: ctx.colors.text, width: 0 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "editorial-forest") {
+    // Forest rule + blush orb (editorial-forest-paper).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: 0.55,
+      w: ctx.width - ctx.margin * 2,
+      h: 0.025,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 1.65,
+      y: ctx.height - 1.55,
+      w: 0.95,
+      h: 0.95,
+      fill: { color: ctx.colors.accent2, transparency: 35 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+  }
+
+  if (theme === "signal") {
+    // Briefing hairline + outline square (signal-briefing).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: 0.55,
+      w: ctx.width - ctx.margin * 2,
+      h: 0.015,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 1.35,
+      y: ctx.height - 1.35,
+      w: 0.65,
+      h: 0.65,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent2, width: 1.25 },
+      rectRadius: 0,
+    });
+  }
+
+  if (theme === "pastel-dreamy") {
+    // Soft cloud ovals (pastel-cloud).
+    slide.addShape(ctx.shapeOval, {
+      x: -ctx.width * 0.05,
+      y: -ctx.height * 0.1,
+      w: ctx.width * 0.45,
+      h: ctx.height * 0.45,
+      fill: { color: ctx.colors.accent2, transparency: 78 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.55,
+      y: ctx.height * 0.05,
+      w: ctx.width * 0.4,
+      h: ctx.height * 0.4,
+      fill: { color: ctx.colors.accent, transparency: 82 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+  }
+
+  if (theme === "vellum") {
+    // Soft colorfield wash (vellum-colorfield).
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.15,
+      y: ctx.height * 0.05,
+      w: ctx.width * 0.7,
+      h: ctx.height * 0.7,
+      fill: { color: ctx.colors.bg2, transparency: 45 },
+      line: { color: ctx.colors.bg2, width: 0 },
+    });
+  }
+
+  if (theme === "editorial-serif") {
+    // Accent rule + deco ring (editorial-rule).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.margin,
+      y: 0.55,
+      w: ctx.width - ctx.margin * 2,
+      h: 0.05,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 1.45,
+      y: 0.75,
+      w: 0.7,
+      h: 0.7,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: 1.5 },
+    });
+  }
+
+  if (theme === "playful") {
+    // Soft accent blot (soft-bento).
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.75,
+      y: -ctx.height * 0.05,
+      w: ctx.width * 0.35,
+      h: ctx.height * 0.35,
+      fill: { color: ctx.colors.accent2, transparency: 72 },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 2.0,
+      y: ctx.height - 2.0,
+      w: 1.4,
+      h: 1.4,
+      fill: { color: ctx.colors.accent, transparency: 82 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0.28,
+    });
+  }
+
+  if (theme === "corporate") {
+    // Clean accent stub (clean-light).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.55,
+      y: 0.55,
+      w: 0.08,
+      h: 0.95,
+      fill: { color: ctx.colors.accent },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0.04,
+    });
+  }
 }
 
 export function renderSlide(slide: PSlide, ctx: ExportContext, data: Slide): void {
