@@ -1,5 +1,11 @@
 # @presentation-md/theme-kinetic-wrapped
 
+## 1.0.5
+
+### Patch Changes
+
+- 932ace2: Add streak-grid + metric-ring layouts and closing actions[] for Pulse share pills; wire Studio/export/MCP and close gallery leftovers.
+
 ## 1.0.4
 
 ### Patch Changes

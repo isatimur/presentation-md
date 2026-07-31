@@ -1,5 +1,12 @@
 # @presentation-md/studio
 
+## 1.1.3
+
+### Patch Changes
+
+- Updated dependencies [932ace2]
+  - @presentation-md/export@1.7.0
+
 ## 1.1.2
 
 ### Patch Changes

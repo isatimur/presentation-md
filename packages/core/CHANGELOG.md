@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.4.0
+
+### Minor Changes
+
+- 932ace2: Add streak-grid + metric-ring layouts and closing actions[] for Pulse share pills; wire Studio/export/MCP and close gallery leftovers.
+
 ## 1.3.0
 
 ### Minor Changes
