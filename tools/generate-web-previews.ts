@@ -1,7 +1,8 @@
 #!/usr/bin/env tsx
 /**
- * Generate one-slide theme preview HTML for the marketing site (web/previews/).
- * Run: pnpm exec tsx tools/generate-web-previews.ts
+ * Generate multi-layout theme preview HTML for the marketing site (web/previews/).
+ * Every theme bakes title + bento feature-grid + comparison (emphasis) so visitors
+ * judge craft beyond the cover. Run: pnpm generate:previews
  */
 import { mkdir, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
@@ -88,45 +89,18 @@ const PACKAGED_THEMES = [
   "retro-zine",
 ];
 
+/** Every theme gets title + bento + comparison so gallery opens show craft, not covers alone. */
 function previewDeck(theme: string): string {
-  const craftThemes = new Set([
-    "soft-editorial",
-    "mat",
-    "bold-signal",
-    "creative-voltage",
-    "electric-studio",
-    "studio",
-    "emerald-editorial",
-    "grove",
-    "signal",
-    "daisy-days",
-    // Loud / dual-surface craft — show comparison + bento emphasis
-    "candy-pop",
-    "vaporwave",
-    "neon-noir",
-    "retro-arcade",
-    "genz-bento",
-    "y2k-aero",
-    "bauhaus",
-    "creative-mode",
-    "bold-poster",
-    "brutalist-acid",
-    "raw-grid",
-    "broadside",
-    "neo-grid-bold",
-    "block-frame",
-    "retro-zine",
-  ]);
-  const slides: Array<Record<string, unknown>> = [
-    {
-      layout: "title",
-      eyebrow: theme.replace(/-/g, " "),
-      heading: "Your Deck Title",
-      lead: "Typography, palette, and surface — pick visually before you commit.",
-    },
-  ];
-  if (craftThemes.has(theme)) {
-    slides.push(
+  return JSON.stringify({
+    type: "deck",
+    meta: { title: "Theme Preview", theme },
+    slides: [
+      {
+        layout: "title",
+        eyebrow: theme.replace(/-/g, " "),
+        heading: "Your Deck Title",
+        lead: "Typography, palette, and surface — pick visually before you commit.",
+      },
       {
         layout: "feature-grid",
         eyebrow: "Craft",
@@ -148,13 +122,8 @@ function previewDeck(theme: string): string {
         rightLabel: "Clear signal",
         right: "Body copy that survives cream cards and accent fills.",
         emphasis: "right",
-      }
-    );
-  }
-  return JSON.stringify({
-    type: "deck",
-    meta: { title: "Theme Preview", theme },
-    slides,
+      },
+    ],
   });
 }
 

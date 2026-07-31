@@ -4907,10 +4907,58 @@ tbody tr:hover td {
   <p class="lead">Typography, palette, and surface — pick visually before you commit.</p>
 </section>
 
+<section class="slide feature-grid-slide" data-layout="feature-grid">
+  <span class="eyebrow">Craft</span>
+  <h2>Cards that clear contrast</h2>
+  <div class="grid cols-bento">
+    <div class="card">
+      <i class="fa-solid fa-bolt"></i>
+      <h3>Hero tile</h3>
+      <p>Asymmetric bento energy with readable body copy.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-layer-group"></i>
+      <h3>Surface</h3>
+      <p>Tint washes stay AA.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-palette"></i>
+      <h3>Palette</h3>
+      <p>Roles that export to PPTX.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-table"></i>
+      <h3>Structure</h3>
+      <p>Schema-validated layouts.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-check"></i>
+      <h3>Proof</h3>
+      <p>What the gallery actually ships.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide comparison-slide" data-layout="comparison">
+  
+  <h2>Before vs after</h2>
+  <div class="comparison-cols emphasis-right">
+    <div class="comparison-col">
+      <span class="comparison-label">Soft whisper</span>
+      <p>Muted that fails on tint washes.</p>
+    </div>
+    <div class="comparison-vs" aria-hidden="true">vs</div>
+    <div class="comparison-col">
+      <span class="comparison-label">Clear signal</span>
+      <p>Body copy that survives cream cards and accent fills.</p>
+    </div>
+  </div>
+</section>
+
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Theme Preview","theme":"coral"},"slides":[{"layout":"title","eyebrow":"coral","heading":"Your Deck Title","lead":"Typography, palette, and surface — pick visually before you commit."}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Theme Preview","theme":"coral"},"slides":[{"layout":"title","eyebrow":"coral","heading":"Your Deck Title","lead":"Typography, palette, and surface — pick visually before you commit."},{"layout":"feature-grid","eyebrow":"Craft","heading":"Cards that clear contrast","columns":"bento","cards":[{"icon":"fa-solid fa-bolt","title":"Hero tile","body":"Asymmetric bento energy with readable body copy."},{"icon":"fa-solid fa-layer-group","title":"Surface","body":"Tint washes stay AA."},{"icon":"fa-solid fa-palette","title":"Palette","body":"Roles that export to PPTX."},{"icon":"fa-solid fa-table","title":"Structure","body":"Schema-validated layouts."},{"icon":"fa-solid fa-check","title":"Proof","body":"What the gallery actually ships."}]},{"layout":"comparison","heading":"Before vs after","leftLabel":"Soft whisper","left":"Muted that fails on tint washes.","rightLabel":"Clear signal","right":"Body copy that survives cream cards and accent fills.","emphasis":"right"}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
