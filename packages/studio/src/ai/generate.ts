@@ -28,7 +28,7 @@ Top level:
 
 Every Slide has a "layout" and layout-specific fields. Optional on every slide: "notes"?: string (speaker notes — shown in Studio present mode and exported to PPTX notes pane; not rendered on the HTML slide face).
 
-The fifteen layouts:
+The sixteen layouts:
 
 - title        { layout, eyebrow?, heading, lead? }
 - section      { layout, number, eyebrow?, heading, lead? }        // number like "01"
@@ -39,6 +39,7 @@ The fifteen layouts:
 - data-table   { layout, eyebrow?, heading, columns, rows }        // columns: string[]; rows: string[][] (each row = one string per column)
 - stat-row     { layout, heading, lead?, variant?: "default"|"hero", stats }  // hero = mega-number wrap beat
 - ranked-list  { layout, eyebrow?, heading?, lead?, items }        // items: [{ rank?, label, value?, widthPct? }] — prefer over custom-html bars
+- logo-wall    { layout, eyebrow?, heading?, lead?, columns?, cards } // cards: [{ title, image?, imageAlt?, icon?, body? }]
 - chart        { layout, eyebrow?, heading?, lead?, chartType?, categories?, series, showLegend?, showValues?, stacked? }
                // chartType: bar|horizontal-bar|line|area|pie|donut; series: [{ name?, values: number[] }]
 - timeline     { layout, heading, steps }                          // steps: [{ title, body }]

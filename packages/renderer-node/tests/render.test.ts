@@ -249,6 +249,29 @@ describe("renderDeck", () => {
     expect(html).toContain('data-tone="magenta"');
   });
 
+  it("renders logo-wall with fallback titles", async () => {
+    const deck = JSON.stringify({
+      type: "deck",
+      meta: { theme: "default-tech", title: "Logos" },
+      slides: [
+        {
+          layout: "logo-wall",
+          heading: "Customers",
+          columns: 3,
+          cards: [
+            { title: "Acme" },
+            { title: "Globex", body: "Enterprise" },
+            { title: "Initech" },
+          ],
+        },
+      ],
+    });
+    const html = await renderDeck(deck);
+    expect(html).toContain('data-layout="logo-wall"');
+    expect(html).toContain("logo-tile");
+    expect(html).toContain("Acme");
+  });
+
   it("renders custom-html after sanitizing scripts", async () => {
     const deck = JSON.stringify({
       type: "deck",

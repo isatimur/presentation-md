@@ -64,6 +64,12 @@ Use `aside` for a pull-quote panel when there is no image. `ratio` / `reverse` u
 Ordered progress / ranking bars — prefer this over `custom-html` for Pulse-style stacks.
 PPTX maps natively (no crude text blob).
 
+### logo-wall
+`{ "layout": "logo-wall", "eyebrow"?, "heading"?, "lead"?, "columns"?: 2|3|4|5|6,
+   "cards": [ { "title", "image"?, "imageAlt"?, "icon"?, "body"? } ] }`
+Customer / partner / team marks. Prefer `image` (URL or data URI); falls back to icon or title text.
+PPTX embeds images when prefetchable.
+
 ### timeline
 `{ "layout": "timeline", "eyebrow"?, "heading"?, "steps": [ { "title", "body"? } ] }`
 

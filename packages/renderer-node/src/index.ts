@@ -32,6 +32,7 @@ const VALID_LAYOUTS = new Set([
   "chart",
   "custom-html",
   "ranked-list",
+  "logo-wall",
 ]);
 
 function structuralValidateDeckJson(json: string): ValidationResult {
@@ -164,7 +165,7 @@ interface SlideData {
   filename?: string;
   emphasis?: string;
   columns?: number | string | string[];
-  cards?: Array<{ icon?: string; title: string; body?: string }>;
+  cards?: Array<{ icon?: string; title: string; body?: string; image?: string; imageAlt?: string }>;
   rows?: Array<string[]>;
   stats?: Array<{ value: string; label: string }>;
   steps?: Array<{ title: string; body?: string }>;
@@ -277,6 +278,22 @@ function normalizeSlideData(slide: SlideData): Record<string, unknown> {
     const stats = Array.isArray(slide.stats) ? (slide.stats as Array<Record<string, unknown>>) : [];
     if (isHero && stats.length) {
       out["stats"] = stats.map((s, i) => ({ ...s, isMega: i === 0 }));
+    }
+  }
+
+  if (slide.layout === "logo-wall") {
+    const cols =
+      typeof slide.columns === "number" && slide.columns >= 2 && slide.columns <= 6
+        ? slide.columns
+        : Array.isArray(slide.cards)
+          ? Math.min(Math.max(slide.cards.length, 2), 4)
+          : 4;
+    out["columns"] = cols;
+    if (Array.isArray(slide.cards)) {
+      out["cards"] = slide.cards.map((c) => ({
+        ...c,
+        image: c.image !== undefined ? sanitizeImage(c.image) : undefined,
+      }));
     }
   }
 

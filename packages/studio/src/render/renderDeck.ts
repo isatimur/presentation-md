@@ -119,6 +119,21 @@ function normalizeSlideData(slide: Slide): Record<string, unknown> {
       out["stats"] = stats.map((s, i) => ({ ...s, isMega: i === 0 }));
     }
   }
+  if (slide.layout === "logo-wall") {
+    const cols =
+      typeof slide.columns === "number" && slide.columns >= 2 && slide.columns <= 6
+        ? slide.columns
+        : Array.isArray(slide.cards)
+          ? Math.min(Math.max(slide.cards.length, 2), 4)
+          : 4;
+    out["columns"] = cols;
+    if (Array.isArray(slide.cards)) {
+      out["cards"] = slide.cards.map((c) => ({
+        ...c,
+        image: c.image !== undefined ? sanitizeImage(c.image) : undefined,
+      }));
+    }
+  }
   if (slide.cta?.href !== undefined) {
     out["cta"] = { ...slide.cta, href: sanitizeLink(slide.cta.href) };
   }

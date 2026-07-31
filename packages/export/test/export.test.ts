@@ -369,4 +369,22 @@ describe("deckToPptx", () => {
     expect(result.slideCount).toBe(2);
     expect(result.warnings.some((w) => w.includes("Unknown layout"))).toBe(false);
   });
+
+  it("exports logo-wall without failing", async () => {
+    const deck: DeckJson = {
+      type: "deck",
+      meta: { title: "Logos", theme: "default-tech" },
+      slides: [
+        {
+          layout: "logo-wall",
+          heading: "Customers",
+          columns: 3,
+          cards: [{ title: "Acme" }, { title: "Globex", body: "Enterprise" }, { title: "Initech" }],
+        },
+      ],
+    };
+    const result = await buildPptx(deck, theme);
+    expect(result.slideCount).toBe(1);
+    expect(result.warnings.some((w) => w.includes("Unknown layout"))).toBe(false);
+  });
 });

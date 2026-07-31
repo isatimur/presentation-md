@@ -667,7 +667,7 @@ function renderRankedList(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   const contentW = ctx.width - ctx.margin * 2;
-  let y = top + 0.2;
+  const y = top + 0.2;
   const bottom = ctx.height - ctx.margin - 0.1;
   const tone = typeof data.tone === "string" ? data.tone : "";
   const onHue =
@@ -1352,6 +1352,93 @@ function renderCustomHtml(slide: PSlide, ctx: ExportContext, data: Slide): void 
   );
 }
 
+function renderLogoWall(slide: PSlide, ctx: ExportContext, data: Slide): void {
+  const top = renderHeaderBlock(slide, ctx, data);
+  const cards = data.cards ?? [];
+  if (!cards.length) {
+    ctx.warn("logo-wall layout has no cards.");
+    return;
+  }
+  const cols =
+    typeof data.columns === "number" && data.columns >= 2 && data.columns <= 6
+      ? data.columns
+      : Math.min(Math.max(cards.length, 2), 4);
+  const gap = 0.2;
+  const areaW = ctx.width - ctx.margin * 2;
+  const cellW = (areaW - gap * (cols - 1)) / cols;
+  const rows = Math.ceil(cards.length / cols);
+  const availH = ctx.height - top - ctx.margin - 0.1;
+  const cellH = Math.min(1.35, (availH - gap * (rows - 1)) / rows);
+
+  cards.forEach((card, i) => {
+    const col = i % cols;
+    const row = Math.floor(i / cols);
+    const x = ctx.margin + col * (cellW + gap);
+    const y = top + 0.1 + row * (cellH + gap);
+    slide.addShape(ctx.shapeRoundRect, {
+      x,
+      y,
+      w: cellW,
+      h: cellH,
+      fill: { color: ctx.colors.cardBg },
+      line: { color: ctx.colors.border, width: 1 },
+      rectRadius: 0.06,
+    });
+    const img = typeof card.image === "string" ? card.image.trim() : "";
+    if (img && (/^data:image\//i.test(img) || /^https?:\/\//i.test(img))) {
+      try {
+        slide.addImage({
+          data: img,
+          x: x + 0.15,
+          y: y + 0.2,
+          w: cellW - 0.3,
+          h: cellH - (card.body ? 0.55 : 0.4),
+          sizing: { type: "contain", w: cellW - 0.3, h: cellH - (card.body ? 0.55 : 0.4) },
+        });
+      } catch {
+        slide.addText(card.title, {
+          x: x + 0.1,
+          y: y + cellH * 0.28,
+          w: cellW - 0.2,
+          h: 0.4,
+          fontFace: ctx.fonts.heading,
+          bold: true,
+          color: ctx.colors.cardText,
+          fontSize: 16,
+          align: "center",
+          fit: "shrink",
+        });
+      }
+    } else {
+      slide.addText(card.title, {
+        x: x + 0.1,
+        y: y + cellH * 0.28,
+        w: cellW - 0.2,
+        h: 0.4,
+        fontFace: ctx.fonts.heading,
+        bold: true,
+        color: ctx.colors.cardText,
+        fontSize: 16,
+        align: "center",
+        fit: "shrink",
+      });
+    }
+    if (card.body) {
+      slide.addText(card.body, {
+        x: x + 0.1,
+        y: y + cellH - 0.42,
+        w: cellW - 0.2,
+        h: 0.35,
+        fontFace: ctx.fonts.body,
+        color: ctx.colors.cardMuted,
+        fontSize: 11,
+        align: "center",
+        fit: "shrink",
+      });
+    }
+  });
+}
+
 const RENDERERS: Record<string, (s: PSlide, ctx: ExportContext, d: Slide) => void> = {
   title: renderHero,
   closing: renderHero,
@@ -1368,6 +1455,7 @@ const RENDERERS: Record<string, (s: PSlide, ctx: ExportContext, d: Slide) => voi
   chart: renderChart,
   "custom-html": renderCustomHtml,
   "ranked-list": renderRankedList,
+  "logo-wall": renderLogoWall,
 };
 
 /**

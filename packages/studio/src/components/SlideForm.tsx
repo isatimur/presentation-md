@@ -247,6 +247,42 @@ export function SlideForm({
           </>
         );
 
+      case "logo-wall":
+        return (
+          <>
+            <TextInput label="Eyebrow" value={slide.eyebrow} onChange={(v) => set({ eyebrow: v })} />
+            <TextInput label="Heading" value={slide.heading} onChange={(v) => set({ heading: v })} />
+            <TextArea label="Lead" value={slide.lead} onChange={(v) => set({ lead: v })} />
+            <StringSelect
+              label="Columns"
+              value={String(typeof slide.columns === "number" ? slide.columns : 4)}
+              options={[
+                { value: "2", label: "2" },
+                { value: "3", label: "3" },
+                { value: "4", label: "4" },
+                { value: "5", label: "5" },
+                { value: "6", label: "6" },
+              ]}
+              onChange={(v) => set({ columns: Number(v) })}
+            />
+            <ListEditor<Card>
+              label="Logos / marks"
+              items={slide.cards ?? []}
+              onChange={(cards) => set({ cards })}
+              blank={() => ({ title: "Brand", body: "" })}
+              renderItem={(card, setItem) => (
+                <>
+                  <TextInput label="Title / fallback" value={card.title} onChange={(v) => setItem({ ...card, title: v })} />
+                  <TextInput label="Image URL" value={card.image} onChange={(v) => setItem({ ...card, image: v })} />
+                  <TextInput label="Image alt" value={card.imageAlt} onChange={(v) => setItem({ ...card, imageAlt: v })} />
+                  <TextInput label="Icon (if no image)" value={card.icon} onChange={(v) => setItem({ ...card, icon: v })} />
+                  <TextInput label="Caption" value={card.body} onChange={(v) => setItem({ ...card, body: v })} />
+                </>
+              )}
+            />
+          </>
+        );
+
       case "chart":
         return <ChartFields slide={slide} set={set} />;
 

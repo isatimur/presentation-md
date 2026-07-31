@@ -18,6 +18,7 @@ export const LAYOUTS: LayoutType[] = [
   "code",
   "custom-html",
   "ranked-list",
+  "logo-wall",
 ];
 
 export const LAYOUT_LABELS: Record<LayoutType, string> = {
@@ -36,6 +37,7 @@ export const LAYOUT_LABELS: Record<LayoutType, string> = {
   code: "Code",
   "custom-html": "Custom HTML",
   "ranked-list": "Ranked list",
+  "logo-wall": "Logo wall",
 };
 
 /** A reasonable starter slide for each layout, so new slides aren't blank. */
@@ -111,6 +113,20 @@ export function blankSlide(layout: LayoutType): Slide {
           { label: "Running", value: "142 sessions", widthPct: 88 },
           { label: "Strength", value: "94 sessions", widthPct: 58 },
           { label: "HIIT", value: "51 sessions", widthPct: 34 },
+        ],
+      };
+    case "logo-wall":
+      return {
+        layout,
+        eyebrow: "Customers",
+        heading: "Trusted by teams who ship",
+        lead: "Logo marks stay editable in PPTX.",
+        columns: 4,
+        cards: [
+          { title: "Nova", body: "Series A" },
+          { title: "Meridian", body: "Enterprise" },
+          { title: "Forge", body: "Platform" },
+          { title: "Pulse", body: "Consumer" },
         ],
       };
     case "timeline":

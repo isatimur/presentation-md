@@ -45,7 +45,8 @@
             "code",
             "chart",
             "custom-html",
-            "ranked-list"
+            "ranked-list",
+            "logo-wall"
           ]
         },
         "variant": {
@@ -173,7 +174,9 @@
             "properties": {
               "icon": { "type": "string", "description": "FontAwesome class, e.g. fa-solid fa-bolt" },
               "title": { "type": "string" },
-              "body": { "type": "string" }
+              "body": { "type": "string" },
+              "image": { "type": "string", "description": "logo-wall / cards: image URL or data URI" },
+              "imageAlt": { "type": "string" }
             }
           }
         },

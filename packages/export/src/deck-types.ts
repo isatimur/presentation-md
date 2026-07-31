@@ -22,12 +22,16 @@ export type LayoutType =
   | "code"
   | "chart"
   | "custom-html"
-  | "ranked-list";
+  | "ranked-list"
+  | "logo-wall";
 
 export interface Card {
   icon?: string;
   title: string;
   body?: string;
+  /** logo-wall: mark / avatar image. */
+  image?: string;
+  imageAlt?: string;
 }
 
 export interface Stat {

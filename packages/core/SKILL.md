@@ -1,6 +1,6 @@
 ---
 name: presentation-generator
-description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 75 themes and 15 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
+description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 75 themes and 16 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
 license: MIT
 metadata:
   author: isatimur
@@ -466,7 +466,7 @@ Then walk every slide against this checklist and fix before delivering:
 - **Token discipline** — colors and fonts all trace back to the chosen theme; no off-palette one-offs.
 - **The 3-second test** — pick any slide at random: is its single point obvious in three seconds?
 - **Arc integrity** — the deck still follows one narrative arc end to end; every slide sets up or pays off the one before it.
-- **Schema honesty** — every `layout` value is one of the fifteen enums; no invented layout names.
+- **Schema honesty** — every `layout` value is one of the sixteen enums; no invented layout names.
 - **Wrap honesty** — `kinetic-wrapped` decks need `tone` on ≥3 slides and either `ranked-list`, `stat-row` `variant:"hero"`, or `image-hero`.
 - **Gallery honesty** — if you named a stunning-25 theme (aurora-glass, ft-editorial, luxury-minimalist, …), open its structured proof and match that craft ceiling.
 
