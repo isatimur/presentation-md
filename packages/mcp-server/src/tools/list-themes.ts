@@ -61,7 +61,7 @@ export const listThemesTool: ToolDefinition = {
       selectionIndex.themes.map((t) => [t.name, t] as const)
     );
 
-    let matchedShortlist = shortlistId ? findShortlist(shortlistsDoc, shortlistId) : undefined;
+    const matchedShortlist = shortlistId ? findShortlist(shortlistsDoc, shortlistId) : undefined;
     let allowNames: Set<string> | null = null;
     if (matchedShortlist) {
       allowNames = new Set(matchedShortlist.themes);
