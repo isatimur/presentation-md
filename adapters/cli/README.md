@@ -5,6 +5,9 @@ The CLI renderer is available directly via npx — no install step required for 
 ```bash
 npx @presentation-md/render deck.json -o deck.html
 npx @presentation-md/render deck.json -o deck.html --theme corporate
+npx @presentation-md/render deck.json --format pptx -o deck.pptx
+npx @presentation-md/render --from-md deck.md -o deck.json
+npx @presentation-md/render --from-pptx board.pptx -o deck.json --theme corporate
 npx @presentation-md/render --list-themes
 npx @presentation-md/render --validate deck.json
 ```
@@ -48,14 +51,18 @@ echo '{"type":"deck","meta":{"title":"Test","theme":"retro-arcade"},"slides":[..
 
 | Flag | Description |
 |------|-------------|
-| `-o, --output <path>` | Output `.html` file path (default: `deck.html`) |
+| `-o, --output <path>` | Output path (default: `deck.html`, `deck.pptx`, or `deck.json`) |
+| `-f, --format <fmt>` | Output format: `html` (default) or `pptx` |
 | `-t, --theme <name>` | Override the theme declared in `meta.theme` |
+| `--from-pptx <path>` | Import a `.pptx` file to deck JSON instead of rendering |
+| `--from-md <path>` | Import Marp/md-slides Markdown to deck JSON instead of rendering |
+| `--assets-dir <dir>` | With `--from-pptx`, write images to this directory instead of data URIs |
 | `--list-themes` | Print all available themes and exit |
 | `--validate` | Validate the deck JSON without rendering |
 
 ## Themes
 
-Run `npx @presentation-md/render --list-themes` to see what's installed. Bundled themes: `default-tech`, `corporate`, `playful`, `luxury-minimalist`, `retro-arcade`.
+Run `npx @presentation-md/render --list-themes` to see what's installed. Bundled with the renderer: `default-tech`, `claude`. Dozens more ship as `@presentation-md/theme-*` packages.
 
 Install additional themes:
 

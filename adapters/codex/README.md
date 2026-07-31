@@ -6,7 +6,7 @@ Installs the `presentation-generator` skill into OpenAI Codex so the agent can t
 
 | Mode | What happens |
 |------|-------------|
-| **full** (default) | Copies `SKILL.md` + `references/` to `~/.codex/skills/presentation-generator/` **and** registers the MCP server in `~/.codex/config.json`. |
+| **full** (default) | Copies `SKILL.md` + `references/` to `~/.codex/skills/presentation-generator/` **and** registers the MCP server in `~/.codex/config.json`, enabling all **11** MCP tools: `render_deck`, `export_deck`, `audit_deck`, `judge_deck`, `list_themes`, `apply_theme`, `generate_deck_prompt`, `preview_themes`, `import_pptx`, `import_markdown`, `import_brand_theme`. |
 | **lite** | Copies `SKILL.md` + `references/` only — no MCP server. |
 
 ## Install
