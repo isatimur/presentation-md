@@ -12,7 +12,7 @@
   --line-2: rgba(11, 18, 32, 0.18);
   --text: #0B1220;
   --muted: #4A5568;
-  --faint: #7A8496;
+  --faint: #5B6575; /* ≥4.5:1 on panel for theme count / slide nums */
   --accent: #FF3B1F;       /* signal-grid signal red */
   --accent-soft: rgba(255, 59, 31, 0.12);
   --accent-2: #0D9488;     /* teal echo */
