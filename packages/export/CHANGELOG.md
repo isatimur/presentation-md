@@ -1,5 +1,11 @@
 # @presentation-md/export
 
+## 1.20.2
+
+### Patch Changes
+
+- 74ce065: Densify art-deco PPTX gold frame/hairline/dual deco ring and square gold card strokes.
+
 ## 1.20.1
 
 ### Patch Changes
