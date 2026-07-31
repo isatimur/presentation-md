@@ -1,5 +1,15 @@
 # @presentation-md/studio
 
+## 1.3.2
+
+### Patch Changes
+
+- 582e094: Riso print-beat craft gate + skill/MCP Pulse/riso/candy guidance; Studio live craft badge on Audit craft as you edit.
+- Updated dependencies [582e094]
+- Updated dependencies [c9e59f2]
+  - @presentation-md/core@1.7.3
+  - @presentation-md/export@1.11.1
+
 ## 1.3.1
 
 ### Patch Changes
