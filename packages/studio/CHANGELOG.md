@@ -1,5 +1,15 @@
 # @presentation-md/studio
 
+## 1.4.7
+
+### Patch Changes
+
+- d6ca564: preview_themes accepts shortlist ids for Theme Discovery; sync FT/biennale top-rule honesty across skill, MCP craft mandate, and Studio.
+- Updated dependencies [58c81f2]
+- Updated dependencies [d6ca564]
+  - @presentation-md/export@1.22.0
+  - @presentation-md/core@1.13.1
+
 ## 1.4.6
 
 ### Patch Changes

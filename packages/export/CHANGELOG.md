@@ -1,5 +1,16 @@
 # @presentation-md/export
 
+## 1.22.0
+
+### Minor Changes
+
+- 58c81f2: Map ft-editorial cards to broadsheet top accent rules in PPTX (HTML border-top peers of quiet-luxe / biennale), and clarify literary left-rule peers stay paper-ink / editorial-serif / vintage-editorial only.
+
+### Patch Changes
+
+- Updated dependencies [d6ca564]
+  - @presentation-md/core@1.13.1
+
 ## 1.21.0
 
 ### Minor Changes
