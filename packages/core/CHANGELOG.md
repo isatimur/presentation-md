@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.5.0
+
+### Minor Changes
+
+- 40d506a: Markdown→deck maps streak-grid, metric-ring, logo-wall, and dual closing actions; Studio adds Audit craft button.
+
 ## 1.4.1
 
 ### Patch Changes

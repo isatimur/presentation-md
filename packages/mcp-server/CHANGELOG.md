@@ -1,5 +1,16 @@
 # @presentation-md/mcp-server
 
+## 1.6.1
+
+### Patch Changes
+
+- 40d506a: Markdown→deck maps streak-grid, metric-ring, logo-wall, and dual closing actions; Studio adds Audit craft button.
+- Updated dependencies [40d506a]
+  - @presentation-md/core@1.5.0
+  - @presentation-md/create-theme@1.0.9
+  - @presentation-md/export@1.8.1
+  - @presentation-md/render@1.5.2
+
 ## 1.6.0
 
 ### Minor Changes

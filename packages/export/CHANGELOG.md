@@ -1,5 +1,12 @@
 # @presentation-md/export
 
+## 1.8.1
+
+### Patch Changes
+
+- Updated dependencies [40d506a]
+  - @presentation-md/core@1.5.0
+
 ## 1.8.0
 
 ### Minor Changes
