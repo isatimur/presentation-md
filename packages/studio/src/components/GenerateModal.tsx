@@ -7,7 +7,13 @@ import {
   listThemeSummaries,
   resolveTheme,
 } from "../render/themes.js";
-import { PREVIEW_CROP_OFFSET_PX, themePreviewUrl } from "../render/themePreview.js";
+import {
+  PREVIEW_CROP_LABEL,
+  PREVIEW_CROP_OFFSET_PX,
+  PREVIEW_CROPS,
+  themePreviewUrl,
+  type PreviewCrop,
+} from "../render/themePreview.js";
 import { GEN_MODELS, type GenModelId, type DensityMode, buildAgentPrompt, generateDeck } from "../ai/generate.js";
 
 const KEY_STORAGE = "pmd-studio-anthropic-key";
@@ -38,6 +44,7 @@ export function GenerateModal({
   const [status, setStatus] = useState("");
   const [copied, setCopied] = useState(false);
   const [liveDiscover, setLiveDiscover] = useState(false);
+  const [crop, setCrop] = useState<PreviewCrop>("title");
 
   const themeNames = listThemeNames();
   const themes = useMemo(() => listThemeSummaries(), []);
@@ -69,6 +76,8 @@ export function GenerateModal({
       };
     });
   }, [activeShortlist, themeNames, themes]);
+
+  const cropOffset = PREVIEW_CROP_OFFSET_PX[crop];
 
   const runGenerate = async () => {
     setBusy(true);
@@ -182,11 +191,38 @@ export function GenerateModal({
               type="button"
               className={`chip${liveDiscover ? " active" : ""}`}
               onClick={() => setLiveDiscover((v) => !v)}
-              title="Load live title-slide craft previews for the trio"
+              title="Load live multi-layout craft previews (title / bento / comparison crops)"
             >
               {liveDiscover ? "Hide live" : "Show live"}
             </button>
           </div>
+          {liveDiscover ? (
+            <div
+              className="gen-discover-crop-bar"
+              role="toolbar"
+              aria-label="Preview layout crop"
+            >
+              <span className="gen-discover-crop-label">Judge</span>
+              {PREVIEW_CROPS.map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  className={`chip${crop === c ? " active" : ""}`}
+                  aria-pressed={crop === c}
+                  onClick={() => setCrop(c)}
+                  title={
+                    c === "title"
+                      ? "Crop to title slide"
+                      : c === "bento"
+                        ? "Crop to feature-grid / bento body craft"
+                        : "Crop to comparison slide"
+                  }
+                >
+                  {PREVIEW_CROP_LABEL[c]}
+                </button>
+              ))}
+            </div>
+          ) : null}
           <div className="gen-discover-grid" role="listbox" aria-label="Pick 3 theme compare">
             {discoverThree.map((t) => (
               <button
@@ -201,12 +237,13 @@ export function GenerateModal({
                 {liveDiscover ? (
                   <span
                     className="gen-discover-frame"
-                    style={{ ["--crop-y" as string]: `${PREVIEW_CROP_OFFSET_PX.title}px` }}
+                    data-crop={crop}
+                    style={{ ["--crop-y" as string]: `${cropOffset}px` }}
                     aria-hidden
                   >
                     <iframe
                       src={themePreviewUrl(t.name)}
-                      title={`${t.name} craft preview`}
+                      title={`${t.name} craft preview (${PREVIEW_CROP_LABEL[crop]})`}
                       loading="lazy"
                       tabIndex={-1}
                     />

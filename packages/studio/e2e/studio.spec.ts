@@ -89,6 +89,13 @@ test("Generate modal opens, validates input, and offers the agent-handoff path",
   await expect(page.locator(".gen-discover-grid .gen-discover-card")).toHaveCount(3);
   await page.getByRole("button", { name: /Show live/i }).click();
   await expect(page.locator(".gen-discover-frame iframe")).toHaveCount(3);
+  // Multi-layout crop depth (Title / Bento / Compare) — beats title-only live.
+  const cropBar = page.locator(".modal .gen-discover-crop-bar");
+  await expect(cropBar).toBeVisible();
+  await cropBar.getByRole("button", { name: /^Bento$/ }).click();
+  await expect(page.locator(".gen-discover-frame[data-crop='bento']")).toHaveCount(3);
+  await cropBar.getByRole("button", { name: /^Compare$/ }).click();
+  await expect(page.locator(".gen-discover-frame[data-crop='comparison']")).toHaveCount(3);
 
   // …and generating without an API key surfaces a clear error (no network call).
   await page.getByRole("button", { name: /^Generate deck$/ }).click();

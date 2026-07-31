@@ -6,11 +6,19 @@ import {
   listThemeSummaries,
   resolveTheme,
 } from "../render/themes.js";
-import { COMPARE_LIMIT, toggleCompareSlot } from "../render/themePreview.js";
+import {
+  COMPARE_LIMIT,
+  PREVIEW_CROP_OFFSET_PX,
+  themePreviewUrl,
+  toggleCompareSlot,
+} from "../render/themePreview.js";
 import { downloadHtml, downloadPptx, downloadJson, parseDeckFile, importPptxFile } from "../export/downloads.js";
 import { STUDIO_EXAMPLES, studioExampleLink } from "../examples.js";
 import { auditCraft } from "../craft/auditCraft.js";
 import { ThemeCompareTray } from "./ThemeCompareTray.js";
+
+/** Flagship trio for Example browser show-don't-tell (matches site proof strip). */
+const FEATURED_EXAMPLE_SLUGS = ["novaspark-pitch", "bounce-launch", "forge-api"] as const;
 
 export function Toolbar({
   deck,
@@ -52,6 +60,31 @@ export function Toolbar({
 
   const themes = useMemo(() => listThemeSummaries(), []);
   const shortlists = useMemo(() => listThemeShortlists(), []);
+  const featuredExamples = useMemo(
+    () =>
+      FEATURED_EXAMPLE_SLUGS.map((slug) => STUDIO_EXAMPLES.find((e) => e.slug === slug)).filter(
+        (e): e is (typeof STUDIO_EXAMPLES)[number] => !!e
+      ),
+    []
+  );
+  const exampleThemeLooks = useMemo(() => {
+    const map = new Map<string, { bg: string; accent: string; theme: string }>();
+    for (const ex of STUDIO_EXAMPLES) {
+      const themeName = ex.deck.meta?.theme ?? "default-tech";
+      const summary = themes.find((t) => t.name === themeName);
+      if (summary) {
+        map.set(ex.slug, { bg: summary.bg, accent: summary.accent, theme: themeName });
+      } else {
+        const resolved = resolveTheme(themeName);
+        map.set(ex.slug, {
+          bg: resolved.palette.bg,
+          accent: resolved.palette.accent,
+          theme: themeName,
+        });
+      }
+    }
+    return map;
+  }, [themes]);
   const liveCraftIssues = useMemo(() => auditCraft(deck), [deck]);
   const liveCraftErrors = liveCraftIssues.filter((i) => i.severity === "error").length;
   const liveCraftWarns = liveCraftIssues.length - liveCraftErrors;
@@ -358,22 +391,69 @@ export function Toolbar({
       <details className="example-browser">
         <summary className="btn" title="Load a curated example deck">Example ▾</summary>
         <div className="example-browser-panel">
-          <ul className="example-list">
-            {STUDIO_EXAMPLES.map((ex) => (
-              <li key={ex.slug}>
+          <div className="example-featured" aria-label="Featured craft examples">
+            {featuredExamples.map((ex) => {
+              const look = exampleThemeLooks.get(ex.slug);
+              const previewTheme = look?.theme ?? ex.deck.meta?.theme ?? "default-tech";
+              return (
                 <button
+                  key={ex.slug}
                   type="button"
-                  className={exampleSlug === ex.slug ? "active" : undefined}
+                  className={`example-featured-card${exampleSlug === ex.slug ? " active" : ""}`}
+                  title={ex.label}
                   onClick={(e) => {
                     onLoadExample(ex.slug);
                     const details = (e.currentTarget as HTMLElement).closest("details");
                     if (details) details.open = false;
                   }}
                 >
-                  {ex.label}
+                  <span
+                    className="example-featured-frame"
+                    style={{ ["--crop-y" as string]: `${PREVIEW_CROP_OFFSET_PX.title}px` }}
+                    aria-hidden
+                  >
+                    <iframe
+                      src={themePreviewUrl(previewTheme)}
+                      title={`${ex.label} craft preview`}
+                      loading="lazy"
+                      tabIndex={-1}
+                    />
+                  </span>
+                  <span className="example-featured-name">{ex.label.split("(")[0]!.trim()}</span>
                 </button>
-              </li>
-            ))}
+              );
+            })}
+          </div>
+          <p className="example-list-label">All examples</p>
+          <ul className="example-list">
+            {STUDIO_EXAMPLES.map((ex) => {
+              const look = exampleThemeLooks.get(ex.slug);
+              return (
+                <li key={ex.slug}>
+                  <button
+                    type="button"
+                    className={exampleSlug === ex.slug ? "active" : undefined}
+                    onClick={(e) => {
+                      onLoadExample(ex.slug);
+                      const details = (e.currentTarget as HTMLElement).closest("details");
+                      if (details) details.open = false;
+                    }}
+                  >
+                    {look ? (
+                      <span
+                        className="example-list-swatch"
+                        style={{
+                          ["--swatch-bg" as string]: look.bg,
+                          ["--swatch-accent" as string]: look.accent,
+                        }}
+                        aria-hidden
+                      />
+                    ) : null}
+                    {ex.label}
+                  </button>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </details>

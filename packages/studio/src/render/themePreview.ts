@@ -24,8 +24,10 @@ export const COMPARE_LIMIT = 3;
 
 /**
  * Live-iframe crop depths for multi-layout craft judgment.
- * Matches gallery/site preview math: body pad 48 + 720 slide + 48 gap.
- * Structured proofs are title → feature-grid (bento) → comparison.
+ * Matches gallery theme-preview math (`web/previews/`): body pad 48 + 720 slide + 48 gap.
+ * Theme previews bake title → feature-grid (bento) → comparison so Title/Bento/Compare
+ * crops land on the right slide. Flagship Deck JSON in examples/decks/ leads with the
+ * same proof trio for Studio deep-links (site HTML may lag until next structured regen).
  */
 export type PreviewCrop = "title" | "bento" | "comparison";
 
