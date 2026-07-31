@@ -1,5 +1,20 @@
 # @presentation-md/mcp-server
 
+## 1.12.0
+
+### Minor Changes
+
+- d6ca564: preview_themes accepts shortlist ids for Theme Discovery; sync FT/biennale top-rule honesty across skill, MCP craft mandate, and Studio.
+
+### Patch Changes
+
+- Updated dependencies [58c81f2]
+- Updated dependencies [d6ca564]
+  - @presentation-md/export@1.22.0
+  - @presentation-md/render@1.6.28
+  - @presentation-md/core@1.13.1
+  - @presentation-md/create-theme@1.0.35
+
 ## 1.11.0
 
 ### Minor Changes
