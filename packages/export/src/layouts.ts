@@ -235,6 +235,52 @@ function cardStroke(
   if (ctx.themeName === "ft-editorial") {
     return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
   }
+  // claude warm-paper cards: quiet paper border hairline
+  if (ctx.themeName === "claude") {
+    return { color: ctx.colors.border, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
+  }
+  // default-tech neon-glow cards: violet accent rim
+  if (ctx.themeName === "default-tech") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.5 : 1.25 };
+  }
+  // corporate clean-light cards: navy-blue accent hairline
+  if (ctx.themeName === "corporate") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
+  }
+  // playful soft-bento cards: coral accent rim (plump)
+  if (ctx.themeName === "playful") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
+  }
+  // data-editorial data-rule cards: ink hairline
+  if (ctx.themeName === "data-editorial") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
+  }
+  // developer-dark / fintech-clean / scandinavian peers
+  if (ctx.themeName === "developer-dark") {
+    return { color: ctx.colors.border, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
+  }
+  if (ctx.themeName === "fintech-clean") {
+    return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
+  }
+  if (ctx.themeName === "scandinavian") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 1.25 : 1.1 };
+  }
+  // pastel-dreamy soft plum hairline (plump radius stays in cardRadius)
+  if (ctx.themeName === "pastel-dreamy") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 1.15 : 1 };
+  }
+  // scatterbrain sticky notes: ink hairline on yellow
+  if (ctx.themeName === "scatterbrain") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 1.15 : 1 };
+  }
+  // split-pastel soft white cards: quiet ink hairline (HTML border:none → soft rim)
+  if (ctx.themeName === "split-pastel") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 1.1 : 0.9 };
+  }
+  // risograph-zine riso-print cards: hard ink (near-square)
+  if (ctx.themeName === "risograph-zine") {
+    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.25 : 2 };
+  }
   if (opts.hero || opts.highlighted) {
     return { color: ctx.colors.accent, width: opts.highlighted ? 1.75 : 1.5 };
   }
@@ -354,8 +400,8 @@ function cardRadius(ctx: ExportContext): number {
   }
   // signal-briefing cards: theme geometry 2px ≈ 0.02"
   if (ctx.themeName === "signal") return 0.02;
-  // blue-professional-clean cards: border-radius 12px ≈ 0.125"
-  if (ctx.themeName === "blue-professional") return 0.125;
+  // blue-professional-clean / fintech-soft cards: border-radius 12px ≈ 0.125"
+  if (ctx.themeName === "blue-professional" || ctx.themeName === "fintech-clean") return 0.125;
   // hard-bento (genz-bento) cards: border-radius 14px ≈ 0.15"
   if (ctx.themeName === "genz-bento") return 0.15;
   // bold-signal-card / aero-bubble / pastel-geometry / pastel-dreamy / glass: plump
@@ -370,10 +416,26 @@ function cardRadius(ctx: ExportContext): number {
   if (ctx.themeName === "heritage-editorial") return 0.06;
   // vintage-editorial-geo cards: border-radius 4px ≈ 0.04"
   if (ctx.themeName === "vintage-editorial") return 0.04;
-  // scatterbrain-cork cards: border-radius 2px ≈ 0.02"
-  if (ctx.themeName === "scatterbrain") return 0.02;
+  // scatterbrain-cork / risograph-zine cards: border-radius 2px ≈ 0.02"
+  if (ctx.themeName === "scatterbrain" || ctx.themeName === "risograph-zine") return 0.02;
   // sakura-chroma-cassette cards: border-radius 4px ≈ 0.04"
   if (ctx.themeName === "sakura-chroma") return 0.04;
+  // claude warm-paper cards: geometry 12px * 0.85 ≈ 0.1"
+  if (ctx.themeName === "claude") return 0.1;
+  // default-tech neon-glow cards: geometry 18px * 0.85 ≈ 0.16"
+  if (ctx.themeName === "default-tech") return 0.16;
+  // corporate clean-light cards: geometry 8px * 0.85 ≈ 0.07"
+  if (ctx.themeName === "corporate") return 0.07;
+  // playful soft-bento cards: border-radius 20px ≈ 0.21"
+  if (ctx.themeName === "playful") return 0.21;
+  // data-editorial data-rule cards: geometry 4px ≈ 0.04"
+  if (ctx.themeName === "data-editorial") return 0.04;
+  // developer-dark title-bar cards: geometry 8px ≈ 0.08"
+  if (ctx.themeName === "developer-dark") return 0.08;
+  // scandinavian hygge cards: geometry 16px * 0.85 ≈ 0.14"
+  if (ctx.themeName === "scandinavian") return 0.14;
+  // split-pastel soft white cards: border-radius 18px ≈ 0.19"
+  if (ctx.themeName === "split-pastel") return 0.19;
   return 0.06;
 }
 
@@ -2483,7 +2545,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "default-tech") {
-    // Neon-glow corner bloom + secondary cyan wash (HTML blur → soft ovals).
+    // Neon-glow corner bloom + secondary cyan wash + quiet neon inset frame.
     const glowT = isHero ? 55 : 72;
     slide.addShape(ctx.shapeOval, {
       x: ctx.width - 4.2,
@@ -2500,6 +2562,15 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       h: 4.2,
       fill: { color: ctx.colors.accent2, transparency: isHero ? 68 : 80 },
       line: { color: ctx.colors.accent2, width: 0 },
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.28,
+      y: 0.28,
+      w: ctx.width - 0.56,
+      h: ctx.height - 0.56,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.accent, width: isHero ? 1.25 : 1 },
+      rectRadius: 0.14,
     });
   }
 
@@ -6099,7 +6170,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   if (theme === "playful") {
-    // Soft accent blot + rounded candy square + second cloud (soft-bento).
+    // Soft accent blot + rounded candy square + second cloud + plump soft frame.
     slide.addShape(ctx.shapeOval, {
       x: ctx.width * 0.75,
       y: -ctx.height * 0.05,
@@ -6125,10 +6196,19 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0.28,
     });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.22,
+      y: 0.22,
+      w: ctx.width - 0.44,
+      h: ctx.height - 0.44,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.border, width: 1.1 },
+      rectRadius: 0.2,
+    });
   }
 
   if (theme === "corporate") {
-    // Clean accent stub + soft top wash (clean-light).
+    // Clean accent stub + soft top wash + quiet navy hairline frame (clean-light).
     slide.addShape(ctx.shapeRoundRect, {
       x: 0,
       y: 0,
@@ -6146,6 +6226,15 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       fill: { color: ctx.colors.accent },
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0.045,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.28,
+      y: 0.28,
+      w: ctx.width - 0.56,
+      h: ctx.height - 0.56,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.border, width: 1 },
+      rectRadius: 0.06,
     });
   }
 }

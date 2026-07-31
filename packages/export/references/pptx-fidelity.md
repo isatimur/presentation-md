@@ -63,9 +63,9 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   blueprint gets a light grid + dual reticles + outer frame + square accent card hairlines; brutalist-acid gets a
   hard acid frame + accent offset shadow (heroes also get an offset plate) + square accent card strokes; aerospace-hud gets a denser HUD
   grid + reticle crosshair + orange telemetry stub + square accent card hairlines; swiss-typographic gets a modular grid + red left rail + square card strokes;
-  ft-editorial gets a masthead bar + quiet frame + double bottom rules + accent stub; bauhaus gets a hard frame + red square + blue circle on every slide (heroes larger) + square hard-border cards; fintech-clean / scandinavian get soft radial washes + clean frames; art-deco gets a denser gold frame + always-on top hairline (heroes also get a dual deco ring) + square gold card strokes; botanical-luxe gets a gold hairline + leaf ring;
+  fintech-clean / scandinavian get soft radial washes + clean frames + accent/ink card hairlines; art-deco gets a denser gold frame + always-on top hairline (heroes also get a dual deco ring) + square gold card strokes; botanical-luxe gets a gold hairline + leaf ring;
   genz-bento gets a hard border + offset shadow strips + corner blot + plump hard-border cards; heritage-editorial gets quiet hairlines + mid stub;
-  developer-dark gets a title-bar + traffic lights; data-editorial gets an accent rule + hard frame;
+  developer-dark gets a title-bar + traffic lights + terminal-border card hairlines; data-editorial gets an accent rule + hard frame + ink card hairlines;
   dark-botanical gets bloom washes + a left rail;
   pastel-geometry gets an outer sky matte ring + soft shadow + vertical pastel edge pills + plump card radius;
   8-bit-orbit gets scanlines + neon orbs + dual yellow/pink offset-shadow strips + accent frame + always-on pixel HUD chips;
@@ -79,8 +79,8 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   creative-voltage gets a hard accent frame + neon offset shadow on every slide (heroes also get the blue/dark split + voltage orb) + square neon card strokes;
   kinetic-wrapped cards get 3pt accent hard borders (square);
   biennale-yellow gets denser sun orbs + quiet indigo frame + top hairline + coral stub + top-rule cards;
-  scatterbrain gets cork wash + ink offset shadow + sticky notes + pin dots (heroes also get a tape strip);
-  split-pastel gets dual pastel corner washes (heroes also get a split field + stacked pastel pills);
+  scatterbrain gets cork wash + ink offset shadow + sticky notes + pin dots (heroes also get a tape strip) + ink sticky-card hairlines;
+  split-pastel gets dual pastel corner washes (heroes also get a split field + stacked pastel pills) + soft plump card hairlines;
   coral gets a hatch frame + coral left wash + square hard-border cards;
   peoples-platform gets a cobalt top bar + amber stub + hard frame + ink speckles + square hard-border cards;
   raw-grid gets blush/sage bands + cross rules + ink offset shadow + square hard-border cards;
@@ -107,7 +107,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   broadsheet gets a newsprint masthead + quiet frame + double bottom rules + accent stub;
   editorial-forest gets a forest inset frame + dual hairlines + blush orb;
   signal gets a quiet briefing border + hairline + outline square + gold stub + quiet border card hairlines;
-  pastel-dreamy gets denser soft cloud ovals + plump inset frame + soft shadow stub + plump card radius;
+  pastel-dreamy gets denser soft cloud ovals + plump inset frame + soft shadow stub + plump soft-plum card hairlines;
   vellum gets a soft colorfield wash + teal/chartreuse orbs;
   editorial-serif gets an accent rule + deco ring + bottom stub;
   soft-editorial gets sage wash + hero-gated blush/lemon/lilac candy + plump inset frame (~28px) + soft shadow stub + plump card radius;
@@ -115,10 +115,10 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   emerald-editorial gets true double masthead rules + dual inset frame;
   vintage-editorial gets a quiet outer border on all slides + hero geo ring/dots;
   pink-script gets dual inset frames + always-on accent hairline + hero-gated wash;
-  claude (warm-paper) gets a soft coral corner wash + accent2 mist + quiet inset frame + accent stub;
-  default-tech gets dual neon corner blooms (accent + accent2);
-  playful gets denser soft blots + candy square;
-  corporate gets a clean accent stub + soft top wash;
+  claude (warm-paper) gets a soft coral corner wash + accent2 mist + quiet inset frame + accent stub + paper-border card hairlines;
+  default-tech gets dual neon corner blooms (accent + accent2) + quiet neon inset frame + accent-rim cards;
+  playful gets denser soft blots + candy square + plump soft frame + coral-rim cards;
+  corporate gets a clean accent stub + soft top wash + quiet border frame + accent-hairline cards;
   electric-studio gets a hard frame + white/blue hero split with black rail (content slides get a full-height accent left rail + top stub on heroes);
   bold-signal gets a soft shadow stub + rounded frame + orange blot/stub (heroes also get the focal panel) + plump accent-rim cards;
   mat gets denser woodglow radials + cream inset rim + accent hairlines (heroes also get a mid-century accent block) + square dark card strokes;
@@ -130,7 +130,10 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   soft-editorial / pin-and-paper / notebook-tabs / heritage-editorial cards get theme-native hairlines with soft radii;
   long-table cards get dashed rust rims (plump); signal cards get quiet briefing border hairlines;
   luxury-minimalist / biennale-yellow cards get top-rule hairlines (no full box stroke);
-  blue-professional / pastel-geometry / ft-editorial cards get theme-native hairlines.
+  blue-professional / pastel-geometry / ft-editorial cards get theme-native hairlines;
+  claude / corporate / fintech-clean / scandinavian cards get paper/clean hairlines with theme radii;
+  default-tech / developer-dark cards get neon/terminal rims; playful / split-pastel / pastel-dreamy get soft plump rims;
+  data-editorial / scatterbrain / risograph-zine cards get ink hairlines (riso hard 2pt).
   Quiet HTML paper fiber grain (editorial / parchment themes) is not drawn in PPTX —
   ship HTML when the tooth is the brand. True CSS `mix-blend-mode` / animated marquees
   remain HTML-only.
