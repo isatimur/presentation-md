@@ -1,5 +1,12 @@
 # @presentation-md/mcp-server
 
+## 1.14.1
+
+### Patch Changes
+
+- Updated dependencies [4043229]
+  - @presentation-md/render@1.6.33
+
 ## 1.14.0
 
 ### Minor Changes
