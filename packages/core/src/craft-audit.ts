@@ -417,6 +417,8 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     "notebook-tabs",
     "blue-professional",
     "pink-script",
+    "biennale-yellow",
+    "pastel-dreamy",
   ]);
   if (paperThemes.has(theme) && slides.length >= 5) {
     const hasEditorialBeat =
@@ -434,7 +436,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     }
   }
 
-  const atmosphereThemes = new Set(["neon-noir", "vaporwave", "y2k-aero"]);
+  const atmosphereThemes = new Set(["neon-noir", "vaporwave", "y2k-aero", "retro-arcade"]);
   if (atmosphereThemes.has(theme) && slides.length >= 5) {
     const hasAtmosphereBeat =
       layouts.includes("image-hero") ||
@@ -444,7 +446,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         message:
-          "Atmosphere theme (neon-noir / vaporwave / y2k-aero) needs a cinematic beat — add image-hero, quote, or a composed custom-html moment.",
+          "Atmosphere theme (neon-noir / vaporwave / y2k-aero / retro-arcade) needs a cinematic beat — add image-hero, quote, or a composed custom-html moment.",
       });
     }
   }
@@ -461,6 +463,37 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
         severity: "warning",
         message:
           "Poster theme lacks a bold beat — add image-hero, comparison+emphasis, punchy quote, or stat-row (not only soft grids).",
+      });
+    }
+  }
+
+  if (theme === "mat" && slides.length >= 5) {
+    const hasMatBeat =
+      layouts.includes("quote") ||
+      layouts.includes("image-hero") ||
+      layouts.includes("stat-row") ||
+      layouts.includes("comparison");
+    if (!hasMatBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "mat woodglow theme needs a mid-century beat — add quote, image-hero, comparison, or punchy stat-row (not only soft grids).",
+      });
+    }
+  }
+
+  if (theme === "cobalt-grid" && slides.length >= 5) {
+    const hasGridBeat =
+      layouts.includes("chart") ||
+      layouts.includes("data-table") ||
+      layouts.includes("stat-row") ||
+      layouts.includes("ranked-list") ||
+      layouts.includes("timeline");
+    if (!hasGridBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "cobalt-grid paper needs a drafted data beat — add chart, data-table, stat-row, ranked-list, or timeline.",
       });
     }
   }

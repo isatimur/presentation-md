@@ -105,7 +105,7 @@ Theme: `kinetic-wrapped`. Set `tone` on ≥3 slides. Prefer wrap layouts over so
 
 ## Neon / Atmosphere short (8)
 
-Themes: `neon-noir`, `vaporwave`, `y2k-aero`. Prefer cinematic beats over SaaS grids.
+Themes: `neon-noir`, `vaporwave`, `y2k-aero`, `retro-arcade`. Prefer cinematic beats over SaaS grids.
 
 ```
 01 title         — Mood-forward positioning
@@ -135,7 +135,7 @@ Themes: `coral`, `peoples-platform`, `bold-signal`, `broadside`. Big type, hard 
 
 ## Paper / editorial short (8)
 
-Themes: paper honesty set (`soft-editorial`, `ft-editorial`, `pink-script`, `long-table`, …). Magazine cadence.
+Themes: paper honesty set (`soft-editorial`, `ft-editorial`, `pink-script`, `long-table`, `biennale-yellow`, `pastel-dreamy`, …). Magazine cadence.
 
 ```
 01 title         — Literary cover lead

@@ -319,4 +319,103 @@ describe("auditCraft", () => {
     const issues = auditCraft(deck);
     expect(issues.some((i) => /poster theme|bold beat/i.test(i.message))).toBe(true);
   });
+
+  it("warns when mat lacks a mid-century beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "mat", title: "Flat mat" },
+      slides: [
+        { layout: "title", heading: "Wood" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        {
+          layout: "feature-grid",
+          heading: "Cards",
+          columns: 3,
+          cards: [
+            { title: "One", body: "A", icon: "fa-solid fa-1" },
+            { title: "Two", body: "B", icon: "fa-solid fa-2" },
+            { title: "Three", body: "C", icon: "fa-solid fa-3" },
+          ],
+        },
+        { layout: "timeline", heading: "Steps", items: [{ label: "One", detail: "A" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /mat woodglow|mid-century beat/i.test(i.message))).toBe(true);
+  });
+
+  it("warns when cobalt-grid lacks a drafted data beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "cobalt-grid", title: "Flat grid" },
+      slides: [
+        { layout: "title", heading: "Grid" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        {
+          layout: "feature-grid",
+          heading: "Cards",
+          columns: 3,
+          cards: [
+            { title: "One", body: "A", icon: "fa-solid fa-1" },
+            { title: "Two", body: "B", icon: "fa-solid fa-2" },
+            { title: "Three", body: "C", icon: "fa-solid fa-3" },
+          ],
+        },
+        { layout: "two-column", heading: "Split", left: "A", right: "B", ratio: "2-1" },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /cobalt-grid|drafted data beat/i.test(i.message))).toBe(true);
+  });
+
+  it("warns when biennale-yellow lacks a magazine beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "biennale-yellow", title: "Flat sun" },
+      slides: [
+        { layout: "title", heading: "Sun" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        {
+          layout: "feature-grid",
+          heading: "Cards",
+          columns: 3,
+          cards: [
+            { title: "One", body: "A", icon: "fa-solid fa-1" },
+            { title: "Two", body: "B", icon: "fa-solid fa-2" },
+            { title: "Three", body: "C", icon: "fa-solid fa-3" },
+          ],
+        },
+        { layout: "timeline", heading: "Steps", items: [{ label: "One", detail: "A" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /magazine beat/i.test(i.message))).toBe(true);
+  });
 });
