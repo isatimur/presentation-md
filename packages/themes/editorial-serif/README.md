@@ -33,3 +33,5 @@ npm i @presentation-md/theme-editorial-serif
 | border   | `rgba(28,26,23,0.12)`|
 
 > Screenshot placeholder — run the skill to preview.
+
+Surface craft: masthead rule + deco ring with quiet cream paper grain (HTML). PPTX approximates rule + ring — grain is HTML-only.

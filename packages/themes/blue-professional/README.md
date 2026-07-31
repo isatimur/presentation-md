@@ -9,3 +9,5 @@ npm i @presentation-md/theme-blue-professional
 Use: `"meta": { "theme": "blue-professional" }` · Surface: `blue-professional-clean`.
 
 Faithful to frontend-slides `bold-template-pack blue-professional`.
+
+Surface craft: soft wash band + accent stub with quiet cream paper grain (HTML). PPTX approximates wash + stub — grain is HTML-only.
