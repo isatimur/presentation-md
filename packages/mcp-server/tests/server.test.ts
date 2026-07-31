@@ -168,7 +168,9 @@ describe("generate_deck_prompt", () => {
     }
     if (result.layout_recipes_reference) {
       expect(result.layout_recipes_reference).toMatch(/Pitch Deck|Product Launch/i);
+      expect(result.layout_recipes_reference).toMatch(/Neon-tech short|Data-editorial short|Scatterbrain workshop/i);
     }
+    expect(result.craft_mandate).toMatch(/neon-tech|data-editorial|scatterbrain/i);
   });
 });
 

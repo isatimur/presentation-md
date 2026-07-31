@@ -178,7 +178,7 @@ Each theme is a complete design language: colors, typography, geometry, motion, 
 2. **Compact vibe table** — `references/themes.md` (all 75 one-liners)
 3. **Selection index** — `references/theme-selection-index.json` (mood, best_for, aliases, gallery)
 4. **Stunning twenty-five** — `references/stunning-25.md` (flagship craft ceilings + Studio `?example=`)
-5. **Layout recipes** — `references/layout-recipes.md` (pitch / launch / wrap / neon / poster / paper slide maps)
+5. **Layout recipes** — `references/layout-recipes.md` (pitch / launch / wrap / neon / poster / paper / hud / modernist / soft-product / playful / neon-tech / data-editorial / scatterbrain slide maps)
 6. **Visual pick** — MCP `preview_themes` / `list_themes` (never ask the user to choose from bare names)
 
 Install: `npm i @presentation-md/theme-<name>`. Scaffold: `npx @presentation-md/create-theme`.
@@ -195,7 +195,7 @@ do not invent a watered-down palette.
 5. Read `references/anti-slop-bans.md` — Inter/purple/cream-terracotta defaults are banned unless the theme owns them.
 6. Prefer theme-native PPTX chrome (paper washes, masthead double rules, hero-gated candy/pills/corner blots on `soft-editorial` / `capsule` / `long-table` / `paper-ink`; always-on hard frames / offset-shadow strips / plates / tablets / multi-layer arcade shadows / Win95 bevels on `stencil-tablet` / `retro-zine` / `daisy-days` / `block-frame` / `creative-mode` / `sakura-chroma` / `8-bit-orbit` / `retro-windows` / `scatterbrain`; neon rim/scanlines/horizon glow/soft aero shadow on `neon-noir` / `vaporwave` / `y2k-aero`; poster hatch/speckle frames + hard cards on `coral` / `peoples-platform` / `bold-signal`; hard-card strokes on `genz-bento` / `brutalist-acid` / `bauhaus` / `neo-grid-bold` / `bold-poster` / `raw-grid` / `creative-voltage` / `kinetic-wrapped`; HUD grid/reticle chrome on `aerospace-hud` / `blueprint` / `crt-terminal`) over inventing flat card stacks — export is a craft surface, not a screenshot dump.
 7. When the brief is paper/editorial (`soft-editorial`, `heritage-editorial`, `emerald-editorial`, `vintage-editorial`, `pink-script`, `claude`, `paper-ink`, `long-table`), write magazine cadence — short literary leads, one quote beat, comparison with emphasis — not SaaS three-up grids.
-8. Open `references/layout-recipes.md` and match a slide-count contract for the brief (pitch, launch, wrap, neon, poster, paper, hud, modernist, hard-bento, glass, electric) before freehanding layouts.
+8. Open `references/layout-recipes.md` and match a slide-count contract for the brief (pitch, launch, wrap, neon, poster, paper, hud, modernist, hard-bento, glass, electric, briefing, quiet-luxe, soft-product, playful, neon-tech, data-editorial, scatterbrain) before freehanding layouts.
 
 
 ## Typography Hierarchy — The Scale System
@@ -349,7 +349,7 @@ Fill gaps with intelligent defaults. Never ask more than 3 clarifying questions.
 
 ## MCP Tools
 
-Eleven tools via `@presentation-md/mcp-server` (not the legacy `@presentation-skill-pack/mcp-server`, which only had five). Restart the client after switching packages.
+Eleven tools via `@presentation-md/mcp-server` (not the deprecated `@presentation-skill-pack/mcp-server` stub — it only redirects). Restart the client after switching packages.
 
 | Tool | Use it to |
 |------|-----------|
@@ -440,7 +440,7 @@ Then walk every slide against this checklist and fix before delivering:
 - **Gallery honesty** — if you named a stunning-25 theme (aurora-glass, ft-editorial, luxury-minimalist, …), open its structured proof and match that craft ceiling.
 - **Candy honesty** — `candy-pop` marquees brand from `meta.company` (or `meta.marquee` / `meta.title`); never hardcode Jellybean.
 - **Riso honesty** — `risograph-zine` decks should feel printed: prefer `comparison` with `emphasis`, a punchy `quote`, and kraft-paper copy — not a stack of soft corporate cards.
-- **Paper honesty** — paper/editorial themes (`claude`, `soft-editorial`, `ft-editorial`, `broadsheet`, `heritage-editorial`, `vellum`, `paper-ink`, `long-table`, `editorial-serif`, `editorial-forest`, `emerald-editorial`, `pin-and-paper`, `vintage-editorial`, `monochrome`, `notebook-tabs`, `blue-professional`, `pink-script`, `biennale-yellow`, `pastel-dreamy`, `scandinavian`): magazine cadence (`quote`, `comparison`+`emphasis`, short literary leads) — not soft corporate card stacks. Quiet fiber grain is HTML surface craft; PPTX keeps rules/washes/mastheads + always-on pink-script hairline / hero-gated ornaments / biennale sun frame / pastel plump clouds + theme-native card hairlines — prefer HTML when the tooth is the brand.
+- **Paper honesty** — paper/editorial themes (`claude`, `soft-editorial`, `ft-editorial`, `broadsheet`, `heritage-editorial`, `vellum`, `paper-ink`, `long-table`, `editorial-serif`, `editorial-forest`, `emerald-editorial`, `pin-and-paper`, `vintage-editorial`, `monochrome`, `notebook-tabs`, `blue-professional`, `pink-script`, `biennale-yellow`, `pastel-dreamy`, `scandinavian`): magazine cadence (`quote`, `comparison`+`emphasis`, short literary leads) — not soft corporate card stacks. Quiet fiber grain is HTML surface craft; PPTX keeps rules/washes/mastheads + always-on pink-script hairline / hero-gated ornaments / biennale sun frame / pastel plump clouds + theme-native card hairlines (`paper-ink` crimson left rule) — prefer HTML when the tooth is the brand.
 - **Loud honesty** — loud/neobrutal peers (`stencil-tablet`, `retro-zine`, `daisy-days`, `block-frame`, `creative-mode`, `sakura-chroma`, `brutalist-acid`, `raw-grid`, `capsule`, `scatterbrain`, `8-bit-orbit`, `retro-windows`, `cobalt-grid`, `genz-bento`, `bauhaus`, `neo-grid-bold`, `bold-poster`, `creative-voltage`, `electric-studio`, `studio`, `brutalist-mono`): expect hard frames + offset-shadow strips (or multi-layer arcade / Win95 bevel / cobalt grid+hatch chrome) **and hard-border cards** on body slides (pills/tape/blocks/chroma may stay hero-gated) — don’t invent `custom-html` stickers for atmosphere. `scatterbrain` wants a workshop beat (feature-grid / image-hero / quote / stats) with ink sticky-card hairlines in PPTX.
 - **Atmosphere honesty** — `neon-noir` / `vaporwave` / `y2k-aero` / `retro-arcade`: expect cyan/pink rims, rain/arcade scanlines or horizon glow, soft aero shadow stubs, and a cinematic `image-hero` or punchy `quote` — don’t flatten into SaaS three-up grids.
 - **Poster honesty** — `coral` / `peoples-platform` / `bold-signal` / `broadside`: expect hard poster frames + square (or plump bold-signal accent-rim) hard-border cards and a bold beat (`image-hero`, comparison, quote, or punchy stats) — not soft corporate card stacks. `mat` wants a mid-century beat (`quote` / `image-hero` / comparison / punchy stats) with woodglow + cream rim chrome.

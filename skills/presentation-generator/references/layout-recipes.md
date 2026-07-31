@@ -282,3 +282,48 @@ Themes: `playful`, `split-pastel`. Plump card rims, soft blots / split washes.
 07 two-column    — Story beat
 08 closing       — Dual ask with icons
 ```
+
+## Neon-tech short (8)
+
+Themes: `default-tech`, `developer-dark`. Neon/terminal card rims, product-in-code energy.
+
+```
+01 title         — Product / SDK cover
+02 code          — One-file aha (filename + language)
+03 feature-grid  — 3 capabilities (icons)
+04 comparison    — Before vs after (emphasis)
+05 chart OR stat-row — Proof numbers
+06 two-column    — Architecture beat (ratio: 2-1)
+07 image-hero OR quote — Signature moment
+08 closing       — Dual ask with icons
+```
+
+## Data-editorial short (8)
+
+Themes: `data-editorial`. Reported ink hairlines — chart/table first, not soft SaaS grids.
+
+```
+01 title         — Report cover lead
+02 stat-row      — 1–3 headline numbers
+03 chart         — Primary finding
+04 data-table    — Supporting cut
+05 ranked-list OR timeline — Order / sequence
+06 comparison    — Thesis vs foil (emphasis)
+07 quote         — Analyst line
+08 closing       — Dual ask with icons
+```
+
+## Scatterbrain workshop short (8)
+
+Themes: `scatterbrain`. Cork-board sticky energy — workshop beats, not soft corporate stacks.
+
+```
+01 title         — Workshop cover
+02 feature-grid  — 3–5 sticky ideas (bento ok)
+03 image-hero    — Wall / board moment
+04 quote         — Sharpie manifesto
+05 stat-row      — Punchy counts
+06 comparison    — Keep vs kill (emphasis)
+07 two-column    — Next actions
+08 closing       — Dual ask with icons
+```
