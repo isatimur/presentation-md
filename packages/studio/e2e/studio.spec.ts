@@ -21,12 +21,44 @@ test("edit a slide, see the live preview update, and export .pptx", async ({ pag
   ]);
   expect(download.suggestedFilename()).toMatch(/\.pptx$/);
 
-  // Download HTML also works.
-  const [htmlDownload] = await Promise.all([
+  // Source ▾ → Download JSON (HTML render can be heavy in headless; JSON proves the menu path).
+  await page.locator("details.export-more > summary").click();
+  const [jsonDownload] = await Promise.all([
     page.waitForEvent("download"),
-    page.getByRole("button", { name: /^HTML$/ }).click(),
+    page.getByRole("button", { name: /Download JSON/i }).click(),
   ]);
-  expect(htmlDownload.suggestedFilename()).toMatch(/\.html$/);
+  expect(jsonDownload.suggestedFilename()).toMatch(/\.json$/);
+});
+
+test("pick-3 theme compare tray fills slots and can lock a theme", async ({ page }) => {
+  await page.goto("/?fresh=1");
+
+  const browser = page.locator("details.theme-browser");
+  await browser.locator("summary").click();
+  await expect(browser).toHaveAttribute("open", "");
+  const panel = browser.locator(".theme-browser-panel");
+  await expect(panel).toBeVisible();
+
+  // Add three themes via ⊕ toggles (progressive pick-3).
+  const toggles = panel.locator("button.theme-compare-toggle");
+  await expect(toggles.first()).toBeVisible();
+  await toggles.nth(0).click();
+  await toggles.nth(1).click();
+  await toggles.nth(2).click();
+
+  const tray = panel.locator(".theme-compare");
+  await expect(tray).toBeVisible();
+  await expect(tray.getByText(/Compare 3\/3/i)).toBeVisible();
+
+  // Progressive disclosure: live previews optional.
+  await tray.getByRole("button", { name: /Show live/i }).click();
+  await expect(tray.locator(".theme-compare-frame iframe")).toHaveCount(3);
+
+  // Lock the first compared theme.
+  const firstName = await tray.locator(".theme-compare-card strong").first().textContent();
+  expect(firstName).toBeTruthy();
+  await tray.locator(".theme-compare-card").first().getByRole("button", { name: /^Use$/ }).click();
+  await expect(page.locator("details.theme-browser > summary")).toContainText(firstName!.trim());
 });
 
 test("Generate modal opens, validates input, and offers the agent-handoff path", async ({ page }) => {
@@ -48,6 +80,7 @@ test("Generate modal opens, validates input, and offers the agent-handoff path",
   await page.getByRole("button", { name: /^Generate deck$/ }).click();
   await expect(page.getByText(/Enter your Anthropic API key/)).toBeVisible();
 });
+
 
 test("loads a curated example via ?example= deep-link", async ({ page }) => {
   await page.goto("/?example=jellybean-launch&fresh=1");

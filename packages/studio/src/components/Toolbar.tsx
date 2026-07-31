@@ -6,9 +6,11 @@ import {
   listThemeSummaries,
   resolveTheme,
 } from "../render/themes.js";
+import { COMPARE_LIMIT, toggleCompareSlot } from "../render/themePreview.js";
 import { downloadHtml, downloadPptx, downloadJson, parseDeckFile, importPptxFile } from "../export/downloads.js";
 import { STUDIO_EXAMPLES, studioExampleLink } from "../examples.js";
 import { auditCraft } from "../craft/auditCraft.js";
+import { ThemeCompareTray } from "./ThemeCompareTray.js";
 
 export function Toolbar({
   deck,
@@ -37,6 +39,8 @@ export function Toolbar({
   const [busy, setBusy] = useState(false);
   const [themeQuery, setThemeQuery] = useState("");
   const [shortlistId, setShortlistId] = useState("");
+  const [compare, setCompare] = useState<string[]>([]);
+  const [liveCompare, setLiveCompare] = useState(false);
   const [auditIssues, setAuditIssues] = useState<
     Array<{ severity: "error" | "warning"; message: string; slide?: number }>
   >([]);
@@ -201,9 +205,11 @@ export function Toolbar({
         if (!(e.target as HTMLDetailsElement).open) {
           setThemeQuery("");
           setShortlistId("");
+          setCompare([]);
+          setLiveCompare(false);
         }
       }}>
-        <summary className="btn btn-sm theme-trigger" title="Browse themes (shortlists + search)">
+        <summary className="btn btn-sm theme-trigger" title="Browse themes (shortlists + pick-3 compare)">
           <span
             className="theme-swatch"
             style={{ ["--swatch-bg" as string]: active.bg, ["--swatch-accent" as string]: active.accent }}
@@ -212,7 +218,7 @@ export function Toolbar({
           <span>{theme}</span>
           <span aria-hidden>▾</span>
         </summary>
-        <div className="theme-browser-panel">
+        <div className={`theme-browser-panel${compare.length ? " has-compare" : ""}`}>
           <input
             className="text-input theme-search"
             value={themeQuery}
@@ -245,32 +251,70 @@ export function Toolbar({
           <div className="theme-count">
             {filtered.length} / {themes.length} themes
             {activeShortlist ? ` · ${activeShortlist.id}` : ""}
+            {compare.length ? ` · compare ${compare.length}/${COMPARE_LIMIT}` : " · ⊕ to compare"}
           </div>
           <ul className="theme-list">
-            {filtered.map((t) => (
-              <li key={t.name}>
-                <button
-                  type="button"
-                  className={`theme-option${t.name === theme ? " active" : ""}`}
-                  onClick={(e) => {
-                    setTheme(t.name);
-                    const details = (e.currentTarget as HTMLElement).closest("details");
-                    if (details) details.open = false;
-                  }}
-                >
-                  <span
-                    className="theme-swatch"
-                    style={{ ["--swatch-bg" as string]: t.bg, ["--swatch-accent" as string]: t.accent }}
-                    aria-hidden
-                  />
-                  <span className="theme-option-meta">
-                    <span className="theme-option-name">{t.name}</span>
-                    <span className="theme-option-vibe">{t.vibe}</span>
-                  </span>
-                </button>
-              </li>
-            ))}
+            {filtered.map((t) => {
+              const inCompare = compare.includes(t.name);
+              return (
+                <li key={t.name}>
+                  <div className={`theme-option-row${t.name === theme ? " active" : ""}${inCompare ? " in-compare" : ""}`}>
+                    <button
+                      type="button"
+                      className={`theme-option${t.name === theme ? " active" : ""}`}
+                      onClick={(e) => {
+                        setTheme(t.name);
+                        const details = (e.currentTarget as HTMLElement).closest("details");
+                        if (details) details.open = false;
+                      }}
+                    >
+                      <span
+                        className="theme-swatch"
+                        style={{ ["--swatch-bg" as string]: t.bg, ["--swatch-accent" as string]: t.accent }}
+                        aria-hidden
+                      />
+                      <span className="theme-option-meta">
+                        <span className="theme-option-name">{t.name}</span>
+                        <span className="theme-option-vibe">{t.vibe}</span>
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      className={`theme-compare-toggle${inCompare ? " active" : ""}`}
+                      title={
+                        inCompare
+                          ? `Remove ${t.name} from compare`
+                          : `Add ${t.name} to pick-${COMPARE_LIMIT} compare`
+                      }
+                      aria-pressed={inCompare}
+                      onClick={() => setCompare((prev) => toggleCompareSlot(prev, t.name))}
+                    >
+                      {inCompare ? "✓" : "⊕"}
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
+          <ThemeCompareTray
+            compare={compare}
+            themes={themes}
+            livePreview={liveCompare}
+            activeTheme={theme}
+            onLivePreview={setLiveCompare}
+            onRemove={(name) => setCompare((prev) => prev.filter((n) => n !== name))}
+            onClear={() => {
+              setCompare([]);
+              setLiveCompare(false);
+            }}
+            onUse={(name) => {
+              setTheme(name);
+              setCompare([]);
+              setLiveCompare(false);
+              const details = document.querySelector("details.theme-browser") as HTMLDetailsElement | null;
+              if (details) details.open = false;
+            }}
+          />
         </div>
       </details>
 
