@@ -888,6 +888,8 @@ Match frontend-slides' mandatory visual discovery — but with structured themes
 1. Read `references/theme-selection-index.json` (mood, best_for, avoid_for, scheme, **aliases**).
    - frontend-slides STYLE_PRESET names map via aliases: **Neon Cyber** → `neon-noir`,
      **Terminal Green** → `crt-terminal`, **Swiss Modern** → `swiss-typographic`.
+   - **Stunning twenty-five:** when the brief matches a flagship vibe, read `references/stunning-25.md`
+     and open that structured proof / Studio `?example=` before authoring.
    - Optional fast path: `references/theme-shortlists.json` — pick a use-case shortlist
      (Series A, developer demo, swiss agency, …) instead of scanning all 75.
 2. Shortlist **3** themes that fit purpose + audience + density.
