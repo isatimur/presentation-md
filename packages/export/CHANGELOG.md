@@ -1,5 +1,11 @@
 # @presentation-md/export
 
+## 1.3.6
+
+### Patch Changes
+
+- c166225: Fix PPTX dual-surface emphasis fills for bold-signal, peoples-platform, stencil-tablet, coral, and split-pastel so winner panels match HTML AA craft.
+
 ## 1.3.5
 
 ### Patch Changes
