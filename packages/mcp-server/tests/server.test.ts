@@ -3,6 +3,8 @@ import { auditDeckTool } from "../src/tools/audit-deck.js";
 import { applyThemeTool } from "../src/tools/apply-theme.js";
 import { listThemesTool } from "../src/tools/list-themes.js";
 import { generateDeckPromptTool } from "../src/tools/generate-deck-prompt.js";
+import { judgeDeckTool } from "../src/tools/judge-deck.js";
+import { importMarkdownTool } from "../src/tools/import-markdown.js";
 
 const MINIMAL_VALID_DECK = {
   type: "deck",
@@ -185,10 +187,37 @@ describe("preview_themes", () => {
     };
     expect(result.mode).toBe("layouts");
     expect(result.previews[0]!.filename).toBe("default-tech-layouts-preview.html");
-    expect(result.previews[0]!.slides).toBe(7);
+    expect(result.previews[0]!.slides).toBe(8);
     const html = await readFile(result.previews[0]!.path, "utf-8");
     expect(html).toContain('data-layout="comparison"');
     expect(html).toContain('data-layout="code"');
     expect(html).toContain('data-layout="stat-row"');
+  });
+});
+
+
+describe("judge_deck", () => {
+  it("passes a tight two-slide deck", async () => {
+    const result = (await judgeDeckTool.handler({
+      json: JSON.stringify({
+        type: "deck",
+        slides: [
+          { layout: "title", heading: "Hello" },
+          { layout: "closing", heading: "Bye" },
+        ],
+      }),
+    })) as { pass: boolean; valid: boolean };
+    expect(result.valid).toBe(true);
+    expect(result.pass).toBe(true);
+  });
+});
+
+describe("import_markdown", () => {
+  it("converts markdown into deck json", async () => {
+    const result = (await importMarkdownTool.handler({
+      markdown: "---\ntheme: signal\n---\n\n# Hello\n\nLead.\n\n---\n\n## Thanks\n\nDone.\n",
+    })) as { slide_count: number; theme: string };
+    expect(result.slide_count).toBeGreaterThanOrEqual(2);
+    expect(result.theme).toBe("signal");
   });
 });

@@ -13,7 +13,9 @@ import { auditDeckTool } from "./tools/audit-deck.js";
 import { generateDeckPromptTool } from "./tools/generate-deck-prompt.js";
 import { importBrandThemeTool } from "./tools/import-brand-theme.js";
 import { importPptxTool } from "./tools/import-pptx.js";
+import { importMarkdownTool } from "./tools/import-markdown.js";
 import { previewThemesTool } from "./tools/preview-themes.js";
+import { judgeDeckTool } from "./tools/judge-deck.js";
 
 export interface ToolDefinition {
   name: string;
@@ -28,9 +30,11 @@ const TOOLS: ToolDefinition[] = [
   listThemesTool,
   applyThemeTool,
   auditDeckTool,
+  judgeDeckTool,
   generateDeckPromptTool,
   importBrandThemeTool,
   importPptxTool,
+  importMarkdownTool,
   previewThemesTool,
 ];
 

@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, extname, join, resolve } from "node:path";
 import { Command } from "commander";
 import { renderDeck, renderDeckPptx, getBundledThemesDir } from "./index.js";
-import { discoverInstalledThemes } from "@presentation-md/core";
+import { discoverInstalledThemes, markdownToDeck } from "@presentation-md/core";
 import { pptxToDeck } from "@presentation-md/export/import";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -40,6 +40,7 @@ program
   .option("-f, --format <fmt>", "output format: html | pptx", "html")
   .option("-t, --theme <name>", "theme name (overrides deck meta.theme)")
   .option("--from-pptx <path>", "import a .pptx file to deck JSON instead of rendering")
+  .option("--from-md <path>", "import Marp/md-slides Markdown to deck JSON instead of rendering")
   .option("--assets-dir <dir>", "with --from-pptx, write images to this directory instead of data URIs")
   .option("--list-themes", "list available themes and exit")
   .option("--validate", "validate only, do not render")
@@ -48,6 +49,7 @@ program
     format: string;
     theme?: string;
     fromPptx?: string;
+    fromMd?: string;
     assetsDir?: string;
     listThemes?: boolean;
     validate?: boolean;
@@ -85,6 +87,21 @@ program
         for (const w of warnings) process.stderr.write(`  warning: ${w}\n`);
         const warnNote = warnings.length ? ` (${warnings.length} warnings)` : "";
         process.stdout.write(`Imported ${deck.slides.length} slides${warnNote} → ${outputPath}\n`);
+      } catch (err) {
+        process.stderr.write(`Error: ${(err as Error).message}\n`);
+        process.exit(1);
+      }
+      return;
+    }
+
+    if (options.fromMd) {
+      const mdPath = resolve(process.cwd(), options.fromMd);
+      try {
+        const markdown = await readFile(mdPath, "utf-8");
+        const deck = markdownToDeck(markdown, { theme: options.theme });
+        const outputPath = resolve(process.cwd(), options.output ?? "deck.json");
+        await writeFile(outputPath, JSON.stringify(deck, null, 2), "utf-8");
+        process.stdout.write(`Imported ${deck.slides.length} slides from Markdown → ${outputPath}\n`);
       } catch (err) {
         process.stderr.write(`Error: ${(err as Error).message}\n`);
         process.exit(1);
