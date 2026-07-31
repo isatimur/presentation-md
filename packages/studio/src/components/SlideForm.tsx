@@ -17,15 +17,15 @@ export function SlideForm({
     <div className="slide-form">
       <h2 className="panel-title">{LAYOUT_LABELS[layout] ?? slide.layout}</h2>
       <StringSelect
-        label="Tone (kinetic wrap hue)"
+        label="Tone (optional wrap hue)"
         value={typeof slide.tone === "string" ? slide.tone : "default"}
         options={[
           { value: "default", label: "Default / auto" },
-          { value: "lime", label: "Lime" },
-          { value: "magenta", label: "Magenta" },
-          { value: "cyan", label: "Cyan" },
-          { value: "orange", label: "Orange" },
-          { value: "violet", label: "Violet" },
+          { value: "lime", label: "Lime (kinetic wrap)" },
+          { value: "magenta", label: "Magenta (kinetic wrap)" },
+          { value: "cyan", label: "Cyan (kinetic wrap)" },
+          { value: "orange", label: "Orange (kinetic wrap)" },
+          { value: "violet", label: "Violet (kinetic wrap)" },
         ]}
         onChange={(v) => set({ tone: v === "default" ? undefined : v })}
       />
