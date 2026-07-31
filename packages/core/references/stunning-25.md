@@ -32,9 +32,10 @@ These gallery flagships are the **#1 craft ceiling**. When a brief matches their
 
 ## Agent rules
 
-1. **Preview first** — open `web/examples/structured/<slug>.html` or Studio `?example=<slug>&fresh=1` before writing slides.
+1. **Preview first** — open `web/examples/structured/<slug>.html` or Studio `?example=<slug>&fresh=1` before writing slides. For theme discovery, also run `preview_themes` with `mode:"layouts"` on a safe/bold/wildcard trio.
 2. **Match the ceiling** — image-hero, asymmetric comparison/bento/code, and theme-true atmosphere are mandatory for these vibes.
-3. **Do not water down** — if the brief is PE/LP, use nocturnal `luxury-minimalist` (Solstice), not a cream template.
-4. **Honesty** — MONOLITH is `brutalist-acid` (lime on charcoal). Light concrete mono is `brutalist-mono` (Concrete deck).
+3. **One-shot** — the first deck JSON must already match this ceiling (anti-slop + craft gates). No watered-down “vibe draft.”
+4. **Do not water down** — if the brief is PE/LP, use nocturnal `luxury-minimalist` (Solstice), not a cream template.
+5. **Honesty** — MONOLITH is `brutalist-acid` (lime on charcoal). Light concrete mono is `brutalist-mono` (Concrete deck).
 
 Handcrafted HTML lives under `web/examples/` (same deck names). Schema sources: `examples/decks/`.
