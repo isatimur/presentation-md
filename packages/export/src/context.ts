@@ -42,6 +42,7 @@ export interface ExportContext {
   /** pptxgenjs ShapeType handles, supplied from the presentation instance. */
   shapeRoundRect: PptxShapeArg;
   shapeOval: PptxShapeArg;
+  shapeBlockArc: PptxShapeArg;
   warn: (msg: string) => void;
 }
 
@@ -114,6 +115,7 @@ const DUAL_SURFACE: Record<
 export interface ContextShapes {
   roundRect: PptxShapeArg;
   oval: PptxShapeArg;
+  blockArc: PptxShapeArg;
 }
 
 const PX_PER_INCH = 96;
@@ -178,6 +180,7 @@ export function buildContext(
     },
     shapeRoundRect: shapes.roundRect,
     shapeOval: shapes.oval,
+    shapeBlockArc: shapes.blockArc,
     warn,
   };
 }

@@ -25,4 +25,4 @@ Proofs: `examples/decks/pulse-wrapped.json` Â· Studio `?example=pulse-wrapped` Â
 ### Honest leftovers vs handcrafted gallery
 
 - Soft blob / mix-blend chrome is stronger in handcrafted gallery HTML than PPTX.
-- PPTX approximates tone fills, ranked bars, streak cells, and dual pills; ring arc is a native oval stand-in.
+- PPTX approximates tone fills, ranked bars, streak cells, dual pills, and metric-ring via oval / native `blockArc`.

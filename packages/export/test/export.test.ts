@@ -411,6 +411,14 @@ describe("deckToPptx", () => {
           lead: "Outworked 97%.",
         },
         {
+          layout: "metric-ring",
+          heading: "Progress",
+          value: "72%",
+          label: "complete",
+          pct: 72,
+          lead: "Almost there.",
+        },
+        {
           layout: "closing",
           tone: "lime",
           heading: "Share it.",
@@ -422,7 +430,8 @@ describe("deckToPptx", () => {
       ],
     };
     const result = await buildPptx(deck, theme);
-    expect(result.slideCount).toBe(3);
+    expect(result.slideCount).toBe(4);
     expect(result.warnings.some((w) => w.includes("Unknown layout"))).toBe(false);
+    expect(result.warnings.some((w) => w.includes("approximates as a full oval"))).toBe(false);
   });
 });

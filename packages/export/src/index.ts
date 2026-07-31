@@ -80,7 +80,7 @@ export async function buildPptx(
   const pptx = new PptxGenJS();
   const ctx = buildContext(
     theme,
-    { roundRect: pptx.ShapeType.roundRect, oval: pptx.ShapeType.ellipse },
+    { roundRect: pptx.ShapeType.roundRect, oval: pptx.ShapeType.ellipse, blockArc: pptx.ShapeType.blockArc },
     warn
   );
 

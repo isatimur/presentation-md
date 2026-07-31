@@ -1615,28 +1615,51 @@ function renderMetricRing(slide: PSlide, ctx: ExportContext, data: Slide): void 
     ["lime", "cyan", "orange"].includes(tone);
   const ink = inverted ? "0A0A0A" : onHueLight ? "FFFFFF" : ctx.colors.text;
   const ring = inverted ? "0A0A0A" : onHueLight ? "FFFFFF" : ctx.colors.accent;
+  const field =
+    inverted ? "C8FF00" : onHueLight ? (tone === "magenta" ? "CC00FF" : "7B2FFF") : ctx.colors.bg;
 
-  // Outer ring — solid oval with thick stroke over bg hole approximation.
-  slide.addShape(ctx.shapeOval, {
-    x,
-    y,
-    w: ringSize,
-    h: ringSize,
-    fill: { color: inverted ? "C8FF00" : onHueLight ? tone === "magenta" ? "CC00FF" : "7B2FFF" : ctx.colors.bg },
-    line: { color: ring, width: pct >= 100 || pct <= 0 ? 14 : 10 },
-  });
-  // Inner hole so the center reads as a ring badge.
-  const inset = 0.22;
-  slide.addShape(ctx.shapeOval, {
-    x: x + inset,
-    y: y + inset,
-    w: ringSize - inset * 2,
-    h: ringSize - inset * 2,
-    fill: { color: inverted ? "C8FF00" : onHueLight ? (tone === "magenta" ? "CC00FF" : "7B2FFF") : ctx.colors.bg },
-    line: { color: inverted ? "C8FF00" : onHueLight ? (tone === "magenta" ? "CC00FF" : "7B2FFF") : ctx.colors.bg, width: 0 },
-  });
   if (pct > 0 && pct < 100) {
-    ctx.warn("metric-ring arc approximates as a full oval ring in PPTX — HTML keeps the stroke arc.");
+    // Soft track ring
+    slide.addShape(ctx.shapeOval, {
+      x,
+      y,
+      w: ringSize,
+      h: ringSize,
+      fill: { color: field },
+      line: { color: ring, width: 2, transparency: 70 },
+    });
+    // Native blockArc for the filled portion (0° = 3 o'clock; start at top = 270°).
+    const sweep = pct * 3.6;
+    const endAngle = (270 + sweep) % 360;
+    slide.addShape(ctx.shapeBlockArc, {
+      x,
+      y,
+      w: ringSize,
+      h: ringSize,
+      fill: { color: ring },
+      line: { color: ring, width: 0 },
+      angleRange: [270, endAngle] as [number, number],
+      arcThicknessRatio: 0.22,
+    });
+  } else {
+    // Full badge ring — outer + inner hole.
+    slide.addShape(ctx.shapeOval, {
+      x,
+      y,
+      w: ringSize,
+      h: ringSize,
+      fill: { color: field },
+      line: { color: ring, width: 14 },
+    });
+    const inset = 0.22;
+    slide.addShape(ctx.shapeOval, {
+      x: x + inset,
+      y: y + inset,
+      w: ringSize - inset * 2,
+      h: ringSize - inset * 2,
+      fill: { color: field },
+      line: { color: field, width: 0 },
+    });
   }
   slide.addText(value, {
     x,

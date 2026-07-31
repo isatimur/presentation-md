@@ -40,7 +40,8 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
 - **Craft layouts that *are* mapped:** `columns: "bento"` (hero + satellite cards),
   comparison `emphasis`, two-column `ratio`/`reverse`, image-hero bottom/side scrims,
   code window chrome (traffic-light dots + filename), `ranked-list` bars, `logo-wall`
-  tiles, `streak-grid` cells, `metric-ring` oval + center value, and closing `actions[]`
+  tiles, `streak-grid` cells, `metric-ring` (full oval badge or native `blockArc` when
+  `pct` is 1–99), and closing `actions[]`
   (solid + outline pills; `cta` remains an alias for the first action). Geometry is
   native shapes, not a screenshot — expect editability over pixel parity.
 - Soft blob / mix-blend Pulse chrome is HTML-only; PPTX approximates tone fills.
