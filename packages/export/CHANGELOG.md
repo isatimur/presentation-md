@@ -1,5 +1,16 @@
 # @presentation-md/export
 
+## 1.16.0
+
+### Minor Changes
+
+- 05d8c04: Densify stencil-tablet, retro-zine, and daisy-days PPTX chrome: ungated hard frames/plates/ornaments matching HTML, plus hard-border card radii.
+
+### Patch Changes
+
+- Updated dependencies [44b46db]
+  - @presentation-md/core@1.8.5
+
 ## 1.15.0
 
 ### Minor Changes

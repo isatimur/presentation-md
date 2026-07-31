@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.8.5
+
+### Patch Changes
+
+- 44b46db: Add loud honesty craft guidance for always-on stencil/retro-zine/daisy PPTX frames and plates.
+
 ## 1.8.4
 
 ### Patch Changes
