@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-dark-botanical",
-  "version": "1.0.0",
-  "description": "Dark Botanical \u2014 Cormorant on near-black with warm pink/gold accents.",
+  "version": "1.0.1",
+  "description": "Dark Botanical — Cormorant on near-black with warm pink/gold accents.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",
