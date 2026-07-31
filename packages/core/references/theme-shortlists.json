@@ -52,9 +52,15 @@
     },
     {
       "id": "luxury-brand",
-      "label": "Luxury / heritage brand",
+      "label": "Luxury / heritage / LP update",
       "themes": ["luxury-minimalist", "heritage-editorial", "art-deco"],
-      "why": "Quiet luxe, heritage wash, deco gold."
+      "why": "Solstice ultra-luxury (nocturnal gold), heritage wash, deco emerald+gold."
+    },
+    {
+      "id": "stunning-flagships",
+      "label": "Stunning twenty-five (canonical showcase)",
+      "themes": ["aurora-glass", "ft-editorial", "genz-bento"],
+      "why": "Lead proofs from the gallery flagship set — see references/stunning-25.md for all 25."
     },
     {
       "id": "bold-poster-pack",
