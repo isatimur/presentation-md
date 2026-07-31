@@ -1,6 +1,6 @@
 [project]
 name = "presentation-md-theme-paper-ink"
-version = "1.0.0"
+version = "1.0.1"
 description = "Paper & Ink — Cormorant Garamond + Source Serif 4 on warm cream with crimson accent."
 readme = "README.md"
 license = "MIT"

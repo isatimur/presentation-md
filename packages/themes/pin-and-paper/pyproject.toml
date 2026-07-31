@@ -1,6 +1,6 @@
 [project]
 name = "presentation-md-theme-pin-and-paper"
-version = "1.0.0"
+version = "1.0.2"
 description = "Pin & Paper — yellow legal-pad field with cobalt ink, Space Grotesk + Caveat."
 readme = "README.md"
 license = "MIT"

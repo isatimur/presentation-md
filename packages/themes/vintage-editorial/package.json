@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-vintage-editorial",
-  "version": "1.0.0",
-  "description": "Vintage Editorial \u2014 Fraunces on cream with geometric accents.",
+  "version": "1.0.1",
+  "description": "Vintage Editorial — Fraunces on cream with geometric accents.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

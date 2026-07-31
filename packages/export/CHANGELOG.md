@@ -1,5 +1,13 @@
 # @presentation-md/export
 
+## 1.12.1
+
+### Patch Changes
+
+- a200fcb: PPTX chrome for bundled claude (warm-paper coral wash) and default-tech (neon bloom); deepen soft-editorial blush orb; document paper grain honesty in fidelity notes.
+- Updated dependencies [83d16c1]
+  - @presentation-md/core@1.7.5
+
 ## 1.12.0
 
 ### Minor Changes

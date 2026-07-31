@@ -1,6 +1,6 @@
 [project]
 name = "presentation-md-theme-broadsheet"
-version = "1.0.0"
+version = "1.0.2"
 description = "Newspaper broadsheet theme — newsprint, ink, Playfair + Lora."
 readme = "README.md"
 license = "MIT"

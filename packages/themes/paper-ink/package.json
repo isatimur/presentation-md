@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/theme-paper-ink",
-  "version": "1.0.0",
-  "description": "Paper & Ink \u2014 Cormorant Garamond + Source Serif 4 on warm cream with crimson accent.",
+  "version": "1.0.1",
+  "description": "Paper & Ink — Cormorant Garamond + Source Serif 4 on warm cream with crimson accent.",
   "license": "MIT",
   "type": "module",
   "main": "./theme.json",

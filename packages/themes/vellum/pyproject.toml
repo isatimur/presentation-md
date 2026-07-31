@@ -1,6 +1,6 @@
 [project]
 name = "presentation-md-theme-vellum"
-version = "1.0.0"
+version = "1.0.2"
 description = "Vellum — deep periwinkle field with chartreuse italic Cormorant type."
 readme = "README.md"
 license = "MIT"

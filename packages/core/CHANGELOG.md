@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.7.5
+
+### Patch Changes
+
+- 83d16c1: Paper/editorial craft honesty for agents: magazine beat gate in auditCraft, skill + MCP mandates that balance loud/thin chrome with quiet paper themes, and grain HTML-only guidance.
+
 ## 1.7.4
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 [project]
 name = "presentation-md-theme-notebook-tabs"
-version = "1.0.0"
+version = "1.0.1"
 description = "Notebook Tabs — cream paper card on dark with mint/lavender/pink tabs, Bodoni Moda."
 readme = "README.md"
 license = "MIT"

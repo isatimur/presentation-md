@@ -1,5 +1,15 @@
 # @presentation-md/render
 
+## 1.6.7
+
+### Patch Changes
+
+- c17dfbf: Quiet HTML paper fiber grain across editorial / parchment theme surfaces (vellum, heritage, pin-and-paper, paper-ink, FT, and peers). PPTX still approximates rules/washes only — grain stays HTML-only.
+- Updated dependencies [a200fcb]
+- Updated dependencies [83d16c1]
+  - @presentation-md/export@1.12.1
+  - @presentation-md/core@1.7.5
+
 ## 1.6.6
 
 ### Patch Changes

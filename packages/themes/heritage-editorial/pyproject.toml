@@ -1,6 +1,6 @@
 [project]
 name = "presentation-md-theme-heritage-editorial"
-version = "1.0.0"
+version = "1.0.2"
 description = "Heritage editorial theme — parchment, terracotta, Playfair serif."
 readme = "README.md"
 license = "MIT"

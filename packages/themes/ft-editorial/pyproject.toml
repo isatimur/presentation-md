@@ -1,6 +1,6 @@
 [project]
 name = "presentation-md-theme-ft-editorial"
-version = "1.0.0"
+version = "1.0.2"
 description = "FT-inspired editorial presentation theme — cream paper, ink serif, blue rules."
 readme = "README.md"
 license = "MIT"

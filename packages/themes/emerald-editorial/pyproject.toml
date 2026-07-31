@@ -1,6 +1,6 @@
 [project]
 name = "presentation-md-theme-emerald-editorial"
-version = "1.0.0"
+version = "1.0.2"
 description = "Emerald magazine masthead with Bodoni Moda + navy ink."
 readme = "README.md"
 license = "MIT"

@@ -1,5 +1,18 @@
 # @presentation-md/mcp-server
 
+## 1.6.9
+
+### Patch Changes
+
+- 83d16c1: Paper/editorial craft honesty for agents: magazine beat gate in auditCraft, skill + MCP mandates that balance loud/thin chrome with quiet paper themes, and grain HTML-only guidance.
+- Updated dependencies [a200fcb]
+- Updated dependencies [c17dfbf]
+- Updated dependencies [83d16c1]
+  - @presentation-md/export@1.12.1
+  - @presentation-md/render@1.6.7
+  - @presentation-md/core@1.7.5
+  - @presentation-md/create-theme@1.0.17
+
 ## 1.6.8
 
 ### Patch Changes

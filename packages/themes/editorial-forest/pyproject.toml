@@ -1,6 +1,6 @@
 [project]
 name = "presentation-md-theme-editorial-forest"
-version = "1.0.0"
+version = "1.0.2"
 description = "Editorial Forest — Source Serif 4 on oat-cream with forest green and dusty rose."
 readme = "README.md"
 license = "MIT"
