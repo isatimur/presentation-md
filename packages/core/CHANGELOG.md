@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.16.1
+
+### Patch Changes
+
+- c3f9ca7: Popular shortlist discovery UX: mark flagship shortlists, sort them first in MCP list_themes + Studio, and add speaker/reading density to Studio generate — beats frontend-slides template-popularity browse with structured themes.
+
 ## 1.16.0
 
 ### Minor Changes

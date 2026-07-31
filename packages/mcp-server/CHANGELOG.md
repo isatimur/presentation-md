@@ -1,5 +1,16 @@
 # @presentation-md/mcp-server
 
+## 1.14.3
+
+### Patch Changes
+
+- c3f9ca7: Popular shortlist discovery UX: mark flagship shortlists, sort them first in MCP list_themes + Studio, and add speaker/reading density to Studio generate — beats frontend-slides template-popularity browse with structured themes.
+- Updated dependencies [c3f9ca7]
+  - @presentation-md/core@1.16.1
+  - @presentation-md/create-theme@1.1.3
+  - @presentation-md/export@1.23.3
+  - @presentation-md/render@1.6.35
+
 ## 1.14.2
 
 ### Patch Changes
