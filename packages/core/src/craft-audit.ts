@@ -331,12 +331,13 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     !layouts.includes("stat-row") &&
     !layouts.includes("data-table") &&
     !layouts.includes("ranked-list") &&
-    !layouts.includes("metric-ring")
+    !layouts.includes("metric-ring") &&
+    !layouts.includes("timeline")
   ) {
     issues.push({
       severity: "warning",
       message:
-        "Long deck with no chart/stat-row/data-table/ranked-list/metric-ring — consider a data beat.",
+        "Long deck with no chart/stat-row/data-table/ranked-list/metric-ring/timeline — consider a data beat.",
     });
   }
 
@@ -732,6 +733,71 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
         severity: "warning",
         message:
           "data-editorial needs a reported data beat — add chart, data-table, stat-row, ranked-list, or timeline.",
+      });
+    }
+  }
+
+  // Loud / hard-card pack themes not covered by more specific gates above.
+  const loudPackThemes = new Set([
+    "8-bit-orbit",
+    "block-frame",
+    "bold-poster",
+    "capsule",
+    "creative-mode",
+    "creative-voltage",
+    "daisy-days",
+    "editorial-tri-tone",
+    "neo-grid-bold",
+    "raw-grid",
+    "retro-windows",
+    "retro-zine",
+    "sakura-chroma",
+    "stencil-tablet",
+  ]);
+  if (loudPackThemes.has(theme) && slides.length >= 5) {
+    const hasLoudBeat =
+      layouts.includes("image-hero") ||
+      layouts.includes("comparison") ||
+      layouts.includes("stat-row") ||
+      layouts.includes("quote") ||
+      (layouts.includes("feature-grid") &&
+        slides.some((s) => s["layout"] === "feature-grid" && s["columns"] === "bento"));
+    if (!hasLoudBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "Loud/hard-card theme needs a punchy beat — add image-hero, comparison+emphasis, punchy stats, quote, or feature-grid columns:\"bento\" (not only soft sections).",
+      });
+    }
+  }
+
+  if (theme === "pastel-geometry" && slides.length >= 5) {
+    const hasPastelBeat =
+      layouts.includes("feature-grid") ||
+      layouts.includes("image-hero") ||
+      layouts.includes("stat-row") ||
+      layouts.includes("quote");
+    if (!hasPastelBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "pastel-geometry needs a soft-geometry beat — add feature-grid, image-hero, punchy stats, or quote (not only soft sections).",
+      });
+    }
+  }
+
+  const botanicalThemes = new Set(["grove", "dark-botanical"]);
+  if (botanicalThemes.has(theme) && slides.length >= 5) {
+    const hasBotanicalBeat =
+      layouts.includes("quote") ||
+      layouts.includes("image-hero") ||
+      layouts.includes("comparison") ||
+      layouts.includes("stat-row");
+    if (!hasBotanicalBeat) {
+      issues.push({
+        severity: "warning",
+        message:
+          "grove / dark-botanical needs a botanical monograph beat — add quote, image-hero, comparison+emphasis, or punchy stats.",
       });
     }
   }

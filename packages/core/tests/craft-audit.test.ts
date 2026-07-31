@@ -98,6 +98,83 @@ describe("auditCraft", () => {
     expect(issues.some((i) => /data beat/i.test(i.message))).toBe(true);
   });
 
+  it("accepts timeline as a long-deck data beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "bauhaus", title: "Talk" },
+      slides: [
+        { layout: "title", heading: "T" },
+        { layout: "image-hero", heading: "H", image: "https://x/y.png" },
+        { layout: "comparison", heading: "C", left: "A", right: "B", emphasis: "left" },
+        { layout: "quote", quote: "Q", by: "B" },
+        { layout: "feature-grid", heading: "G", columns: 3, cards: [
+          { title: "One", body: "A", icon: "fa-solid fa-1" },
+          { title: "Two", body: "B", icon: "fa-solid fa-2" },
+          { title: "Three", body: "C", icon: "fa-solid fa-3" },
+        ]},
+        { layout: "timeline", heading: "Road", items: [{ title: "Q1", body: "Ship" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Go", href: "#", style: "solid", icon: "fa-solid fa-rocket" },
+            { label: "More", href: "#", style: "outline", icon: "fa-solid fa-book" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /data beat/i.test(i.message))).toBe(false);
+  });
+
+  it("warns when loud/hard-card pack lacks a punchy beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "block-frame", title: "Flat loud" },
+      slides: [
+        { layout: "title", heading: "Loud" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        { layout: "section", heading: "C" },
+        { layout: "two-column", heading: "Notes", left: "A", right: "B" },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /loud\/hard-card|punchy beat/i.test(i.message))).toBe(true);
+  });
+
+  it("warns when grove lacks a botanical monograph beat", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "grove", title: "Flat grove" },
+      slides: [
+        { layout: "title", heading: "Grove" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        { layout: "section", heading: "C" },
+        { layout: "two-column", heading: "Notes", left: "A", right: "B" },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Enter", href: "#", style: "solid", icon: "fa-solid fa-door-open" },
+            { label: "Share", href: "#", style: "outline", icon: "fa-solid fa-share" },
+          ],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => /grove|botanical monograph/i.test(i.message))).toBe(true);
+  });
+
   it("warns when candy-pop lacks company/marquee brand", () => {
     const deck = {
       type: "deck",
