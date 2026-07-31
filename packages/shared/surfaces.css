@@ -389,6 +389,7 @@
               radial-gradient(circle at 88% 78%, color-mix(in srgb, var(--accent2) 35%, var(--bg)), var(--bg) 48%);
   border: 3px solid var(--text);
   box-shadow: 0 18px 0 color-mix(in srgb, var(--accent) 35%, transparent);
+  overflow: hidden;
 }
 .deck[data-surface="candy-blob"] .slide::after {
   width: 180px;
@@ -400,6 +401,43 @@
   opacity: 0.55;
   filter: none;
   border: 3px solid var(--text);
+}
+/* Gallery marquee ticker — yellow strip on cover/closing (Jellybean parity) */
+@keyframes candy-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.deck[data-surface="candy-blob"] .title-slide,
+.deck[data-surface="candy-blob"] .closing-slide {
+  padding-bottom: 56px;
+}
+.deck[data-surface="candy-blob"] .title-slide::before,
+.deck[data-surface="candy-blob"] .closing-slide::before {
+  content: "★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  JELLYBEAN  ·  ";
+  position: absolute;
+  left: 0;
+  right: auto;
+  bottom: 0;
+  top: auto;
+  width: max-content;
+  min-width: 200%;
+  height: auto;
+  padding: 10px 0;
+  background: #ffe566;
+  border-top: 3px solid var(--text);
+  border-bottom: 3px solid var(--text);
+  color: var(--text);
+  font-family: var(--heading-font);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 1;
+  filter: none;
+  border-radius: 0;
+  animation: candy-marquee 22s linear infinite;
 }
 .deck[data-surface="candy-blob"] .card {
   border: 2.5px solid var(--text);
@@ -521,26 +559,46 @@
   --slide-bg: var(--bg);
   border: 2px solid var(--text);
   box-shadow: 6px 6px 0 color-mix(in srgb, var(--accent) 55%, transparent);
+  overflow: hidden;
 }
 .deck[data-surface="riso-print"] .slide::before {
   width: 55%;
   height: 55%;
   right: -4%;
   top: -6%;
-  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  border-radius: 40% 55% 45% 50%;
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
   mix-blend-mode: multiply;
   filter: none;
+  opacity: 1;
 }
 .deck[data-surface="riso-print"] .slide::after {
-  width: 40%;
-  height: 45%;
-  left: -2%;
-  bottom: -4%;
+  width: 42%;
+  height: 48%;
+  left: -3%;
+  bottom: -5%;
   top: auto;
   right: auto;
-  background: color-mix(in srgb, var(--accent2) 20%, transparent);
+  border-radius: 50% 40% 55% 45%;
+  background: color-mix(in srgb, var(--accent2) 24%, transparent);
   mix-blend-mode: multiply;
   filter: none;
+  opacity: 1;
+}
+/* Hero/closing: stronger overprint + slight misregistration */
+.deck[data-surface="riso-print"] .title-slide::before,
+.deck[data-surface="riso-print"] .closing-slide::before {
+  width: 62%;
+  height: 62%;
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+  transform: translate(6px, 4px);
+}
+.deck[data-surface="riso-print"] .title-slide::after,
+.deck[data-surface="riso-print"] .closing-slide::after {
+  width: 48%;
+  height: 52%;
+  background: color-mix(in srgb, var(--accent2) 30%, transparent);
+  transform: translate(-4px, -3px);
 }
 
 /* ── neon-rain (neon-noir) ── */
