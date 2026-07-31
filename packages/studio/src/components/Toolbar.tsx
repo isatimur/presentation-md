@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { DeckJson } from "@presentation-md/export";
 import { listThemeSummaries, resolveTheme } from "../render/themes.js";
 import { downloadHtml, downloadPptx, downloadJson, parseDeckFile, importPptxFile } from "../export/downloads.js";
@@ -24,6 +24,10 @@ export function Toolbar({
   onSelectSlide?: (slideIndex1Based: number) => void;
 }) {
   const fileRef = useRef<HTMLInputElement>(null);
+  /** Suppress auto-open until craft errors clear (user dismissed while dirty). */
+  const suppressLivePanel = useRef(false);
+  /** Panel was opened from craft (live/manual) — refresh on deck change. */
+  const craftPanelOpen = useRef(false);
   const [status, setStatus] = useState<string>("");
   const [busy, setBusy] = useState(false);
   const [themeQuery, setThemeQuery] = useState("");
@@ -31,6 +35,7 @@ export function Toolbar({
     Array<{ severity: "error" | "warning"; message: string; slide?: number }>
   >([]);
   const [auditFilter, setAuditFilter] = useState<"all" | "error" | "warning">("all");
+  const [auditPanelOpen, setAuditPanelOpen] = useState(true);
 
   const themes = useMemo(() => listThemeSummaries(), []);
   const liveCraftIssues = useMemo(() => auditCraft(deck), [deck]);
@@ -48,6 +53,23 @@ export function Toolbar({
     const q = themeQuery.trim().toLowerCase();
     return t.name.toLowerCase().includes(q) || t.vibe.toLowerCase().includes(q);
   });
+
+  // Auto-open audit panel when live badge shows errors; keep craft panel live on change.
+  useEffect(() => {
+    if (liveCraftErrors === 0) {
+      suppressLivePanel.current = false;
+      if (craftPanelOpen.current) {
+        setAuditIssues(liveCraftIssues);
+        if (liveCraftIssues.length === 0) craftPanelOpen.current = false;
+      }
+      return;
+    }
+    if (suppressLivePanel.current) return;
+    craftPanelOpen.current = true;
+    setAuditIssues(liveCraftIssues);
+    setAuditPanelOpen(true);
+    setAuditFilter((f) => (f === "warning" ? "all" : f));
+  }, [liveCraftIssues, liveCraftErrors]);
 
   const setMeta = (patch: Record<string, string>) =>
     onChange({ ...deck, meta: { ...deck.meta, ...patch } });
@@ -84,12 +106,15 @@ export function Toolbar({
     try {
       const { warnings } = await downloadPptx(deck);
       if (warnings.length) {
+        craftPanelOpen.current = false;
         setAuditIssues(warnings.map((message) => ({ severity: "warning" as const, message })));
+        setAuditPanelOpen(true);
         setStatus(
           `Exported .pptx (${warnings.length} warning${warnings.length > 1 ? "s" : ""}) — see list`
         );
       } else {
         setAuditIssues([]);
+        craftPanelOpen.current = false;
         setStatus("Exported .pptx");
       }
     } catch (err) {
@@ -101,11 +126,15 @@ export function Toolbar({
 
   const runCraftAudit = () => {
     const issues = auditCraft(deck);
+    suppressLivePanel.current = false;
+    craftPanelOpen.current = true;
     setAuditIssues(issues);
     setAuditFilter("all");
+    setAuditPanelOpen(true);
     const errors = issues.filter((i) => i.severity === "error");
     const warns = issues.filter((i) => i.severity === "warning");
     if (!issues.length) {
+      craftPanelOpen.current = false;
       setStatus("Craft audit clean");
       return;
     }
@@ -114,11 +143,19 @@ export function Toolbar({
     );
   };
 
+  const dismissAuditPanel = () => {
+    setAuditIssues([]);
+    craftPanelOpen.current = false;
+    if (liveCraftErrors > 0) suppressLivePanel.current = true;
+  };
+
   const copyLink = async () => {
     const slug = exampleSlug ?? "acme";
     const path = studioExampleLink(slug);
     const absolute =
-      typeof window !== "undefined" ? `${window.location.origin}${path.startsWith("/") ? path : `/${path}`}` : path;
+      typeof window !== "undefined"
+        ? `${window.location.origin}${path.startsWith("/") ? path : `/${path}`}`
+        : path;
     try {
       await navigator.clipboard.writeText(absolute);
       setStatus("Copied Studio link");
@@ -243,7 +280,7 @@ export function Toolbar({
       <button
         className={`btn${liveCraftIssues.length ? " audit-live-dirty" : ""}`}
         onClick={runCraftAudit}
-        title="Run craft gates (asymmetry, image-hero, notes, wrap tone). Badge updates live as you edit."
+        title="Run craft gates. Panel auto-opens on live errors and refreshes as you edit."
       >
         Audit craft
         {liveCraftIssues.length > 0 && (
@@ -274,7 +311,11 @@ export function Toolbar({
 
       {status && <span className="status muted small">{status}</span>}
       {auditIssues.length > 0 && (
-        <details className="audit-panel" open>
+        <details
+          className="audit-panel"
+          open={auditPanelOpen}
+          onToggle={(e) => setAuditPanelOpen((e.target as HTMLDetailsElement).open)}
+        >
           <summary className="btn btn-sm">
             Issues ({auditIssues.length}
             {auditIssues.some((i) => i.severity === "error")
@@ -325,7 +366,7 @@ export function Toolbar({
                 );
               })}
           </ul>
-          <button type="button" className="btn btn-sm" onClick={() => setAuditIssues([])}>
+          <button type="button" className="btn btn-sm" onClick={dismissAuditPanel}>
             Dismiss
           </button>
         </details>
