@@ -192,8 +192,8 @@ do not invent a watered-down palette.
 3. Force asymmetry early: `comparison` + `emphasis`, `two-column` with non-1-1 `ratio`, or `feature-grid` `columns: "bento"`.
 4. Run `audit_deck` then `judge_deck` (`t1` minimum, `t2` before delivery). Schema-valid ≠ shippable.
 5. Read `references/anti-slop-bans.md` — Inter/purple/cream-terracotta defaults are banned unless the theme owns them.
-6. Prefer theme-native PPTX chrome (paper washes, masthead double rules, hero-gated candy) over inventing flat card stacks — export is a craft surface, not a screenshot dump.
-7. When the brief is paper/editorial (`soft-editorial`, `heritage-editorial`, `emerald-editorial`, `vintage-editorial`, `pink-script`, `claude`), write magazine cadence — short literary leads, one quote beat, comparison with emphasis — not SaaS three-up grids.
+6. Prefer theme-native PPTX chrome (paper washes, masthead double rules, hero-gated candy/pills/corner blots on `soft-editorial` / `capsule` / `long-table` / `paper-ink`) over inventing flat card stacks — export is a craft surface, not a screenshot dump.
+7. When the brief is paper/editorial (`soft-editorial`, `heritage-editorial`, `emerald-editorial`, `vintage-editorial`, `pink-script`, `claude`, `paper-ink`, `long-table`), write magazine cadence — short literary leads, one quote beat, comparison with emphasis — not SaaS three-up grids.
 
 
 ## Typography Hierarchy — The Scale System
@@ -490,6 +490,6 @@ Then walk every slide against this checklist and fix before delivering:
 - **Gallery honesty** — if you named a stunning-25 theme (aurora-glass, ft-editorial, luxury-minimalist, …), open its structured proof and match that craft ceiling.
 - **Candy honesty** — `candy-pop` marquees brand from `meta.company` (or `meta.marquee` / `meta.title`); never hardcode Jellybean.
 - **Riso honesty** — `risograph-zine` decks should feel printed: prefer `comparison` with `emphasis`, a punchy `quote`, and kraft-paper copy — not a stack of soft corporate cards.
-- **Paper honesty** — paper/editorial themes (`claude`, `soft-editorial`, `ft-editorial`, `broadsheet`, `heritage-editorial`, `vellum`, `paper-ink`, `editorial-serif`, `editorial-forest`, `emerald-editorial`, `pin-and-paper`, `vintage-editorial`, `monochrome`, `notebook-tabs`, `blue-professional`): magazine cadence (`quote`, `comparison`+`emphasis`, short literary leads) — not soft corporate card stacks. Quiet fiber grain is HTML surface craft; PPTX keeps rules/washes/mastheads only — prefer HTML when the tooth is the brand.
+- **Paper honesty** — paper/editorial themes (`claude`, `soft-editorial`, `ft-editorial`, `broadsheet`, `heritage-editorial`, `vellum`, `paper-ink`, `long-table`, `editorial-serif`, `editorial-forest`, `emerald-editorial`, `pin-and-paper`, `vintage-editorial`, `monochrome`, `notebook-tabs`, `blue-professional`): magazine cadence (`quote`, `comparison`+`emphasis`, short literary leads) — not soft corporate card stacks. Quiet fiber grain is HTML surface craft; PPTX keeps rules/washes/mastheads + hero-gated ornaments only — prefer HTML when the tooth is the brand.
 
 For a rigorous, scored pass, run the **`deck-design-judge`** skill: it grades the deck against the design rubric, tells you exactly what to fix, and lets you re-score after the fix.
