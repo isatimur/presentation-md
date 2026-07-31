@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.15.0
+
+### Minor Changes
+
+- 1630a4e: Expand Theme Discovery shortlists to cover the full catalog (28 shortlists / 75 themes) with seven new use-case sets for previously orphan loud, arts, couture, archival, and Win95 themes.
+
 ## 1.14.0
 
 ### Minor Changes

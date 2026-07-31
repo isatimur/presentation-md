@@ -1,5 +1,16 @@
 # @presentation-md/mcp-server
 
+## 1.13.1
+
+### Patch Changes
+
+- 764e3b8: Isolate each `.slide` into a mini HTML before headless Chrome capture in deck-design-judge `render_slides.sh` (parity with MCP screenshot-slides), with unit tests for the isolate helper.
+- Updated dependencies [1630a4e]
+  - @presentation-md/core@1.15.0
+  - @presentation-md/create-theme@1.1.1
+  - @presentation-md/export@1.23.1
+  - @presentation-md/render@1.6.31
+
 ## 1.13.0
 
 ### Minor Changes

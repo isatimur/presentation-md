@@ -1,5 +1,17 @@
 # @presentation-md/install
 
+## 1.1.0
+
+### Minor Changes
+
+- 7e6480f: Wire deck-design-judge into gemini-cli, copilot, and cli adapters (bash + PowerShell), fix broken Windows MCP merge in claude/codex/gemini install.ps1, and add install-matrix + vitest coverage for judge wiring.
+
+### Patch Changes
+
+- 764e3b8: Isolate each `.slide` into a mini HTML before headless Chrome capture in deck-design-judge `render_slides.sh` (parity with MCP screenshot-slides), with unit tests for the isolate helper.
+- Updated dependencies [1630a4e]
+  - @presentation-md/core@1.15.0
+
 ## 1.0.37
 
 ### Patch Changes
