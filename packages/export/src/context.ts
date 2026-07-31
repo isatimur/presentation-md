@@ -60,7 +60,13 @@ const DUAL_SURFACE: Record<
   }>
 > = {
   mat: { cardMuted: "#454038", cardText: "#1E2820", emphasisFill: "accent", emphasisText: "#1a1208" },
-  "bold-signal": { cardMuted: "#e8e5e4", cardText: "#ffffff", emphasisFill: "accent", emphasisText: "#ffffff" },
+  "bold-signal": {
+    cardMuted: "#e8e5e4",
+    cardText: "#ffffff",
+    // HTML: color-mix(accent 55%, #1a1a1a) — full #FF5722 fails white AA
+    emphasisFill: "#983c1e",
+    emphasisText: "#ffffff",
+  },
   "creative-voltage": { cardMuted: "#ebebf0", cardText: "#ffffff" },
   "soft-editorial": { cardMuted: "#4A4338", cardText: "#2A241B" },
   studio: { emphasisFill: "accent", emphasisText: "#1c1c1c" },
@@ -71,8 +77,10 @@ const DUAL_SURFACE: Record<
   "broadside": { emphasisFill: "accent", emphasisText: "#111111" },
   "neo-grid-bold": { emphasisFill: "accent", emphasisText: "#0a0a0a" },
   "block-frame": { emphasisFill: "accent", emphasisText: "#0a0a0a" },
-  "peoples-platform": { emphasisFill: "accent", emphasisText: "#0a0a0a" },
-  "stencil-tablet": { emphasisFill: "accent", emphasisText: "#1a1208" },
+  // HTML uses accent2 amber + ink (cobalt accent fails dark text)
+  "peoples-platform": { emphasisFill: "#F2A03A", emphasisText: "#1a1a1a" },
+  // HTML uses accent2 magenta + white (sienna accent fails dark text)
+  "stencil-tablet": { emphasisFill: "#C73B7A", emphasisText: "#ffffff" },
   "retro-zine": { cardMuted: "#3a342c", cardText: "#1A1A1A" },
   "emerald-editorial": { cardMuted: "#2a3a28", cardText: "#1a1a17" },
   // Loud craft: HTML uses color-mix / accent2 — explicit hex mirrors AA fills.
@@ -85,6 +93,9 @@ const DUAL_SURFACE: Record<
   bauhaus: { emphasisFill: "accent", emphasisText: "#0d0d0d" },
   "creative-mode": { emphasisFill: "accent", emphasisText: "#111111" },
   "bold-poster": { emphasisFill: "accent", emphasisText: "#ffffff" },
+  // Coral mix(accent 88%, white) + ink; mint accent + ink
+  coral: { emphasisFill: "#eb7070", emphasisText: "#1a1a1a" },
+  "split-pastel": { emphasisFill: "accent", emphasisText: "#1a1a1a" },
 };
 
 export interface ContextShapes {
