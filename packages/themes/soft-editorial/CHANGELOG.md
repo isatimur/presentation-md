@@ -1,5 +1,11 @@
 # @presentation-md/theme-soft-editorial
 
+## 1.0.2
+
+### Patch Changes
+
+- d1a8408: Quieter HTML paper grain for soft-editorial / warm-paper / broadsheet; skill + MCP/Studio guidance for Pulse chips and candy card borders.
+
 ## 1.0.1
 
 ### Patch Changes

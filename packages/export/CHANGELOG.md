@@ -1,5 +1,16 @@
 # @presentation-md/export
 
+## 1.12.0
+
+### Minor Changes
+
+- e67f07e: Card-level candy hard borders and Pulse eyebrow chips in PPTX layouts (not just slide chrome); fidelity + theme README honesty.
+
+### Patch Changes
+
+- Updated dependencies [d1a8408]
+  - @presentation-md/core@1.7.4
+
 ## 1.11.1
 
 ### Patch Changes

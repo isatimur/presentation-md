@@ -1,5 +1,11 @@
 # @presentation-md/theme-candy-pop
 
+## 1.0.5
+
+### Patch Changes
+
+- e67f07e: Card-level candy hard borders and Pulse eyebrow chips in PPTX layouts (not just slide chrome); fidelity + theme README honesty.
+
 ## 1.0.4
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @presentation-md/mcp-server
 
+## 1.6.8
+
+### Patch Changes
+
+- d1a8408: Quieter HTML paper grain for soft-editorial / warm-paper / broadsheet; skill + MCP/Studio guidance for Pulse chips and candy card borders.
+- Updated dependencies [e67f07e]
+- Updated dependencies [d1a8408]
+  - @presentation-md/export@1.12.0
+  - @presentation-md/render@1.6.6
+  - @presentation-md/core@1.7.4
+  - @presentation-md/create-theme@1.0.16
+
 ## 1.6.7
 
 ### Patch Changes
