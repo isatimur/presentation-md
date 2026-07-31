@@ -45,10 +45,14 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   (solid + outline pills; `cta` remains an alias for the first action). Geometry is
   native shapes, not a screenshot — expect editability over pixel parity.
 - Soft blob / mix-blend chrome is approximated in PPTX (not pixel-perfect): Pulse
-  gets multi-oval soft blobs on hero/tone/body; risograph gets layered coral+blue
-  overprint washes; candy-pop gets pink/blue blobs plus a yellow ticker strip with
-  static marquee text from `meta.company` / `meta.title` / `meta.marquee` (not
-  Jellybean-hardcoded) on title/closing; neon-noir gets magenta/cyan glow ovals;
+  gets hard frames + offset shadow strips, multi-oval soft blobs, tone-matched
+  secondary/tertiary washes, and a hard corner square on body slides; risograph
+  gets kraft frames, coral offset shadow, misregistered coral/blue overprint
+  layers, and hero ink speckles; candy-pop gets a hard candy frame, pink/blue
+  washes, an outlined blue ornament circle, a butter blot, body pink drop-shadow,
+  plus a yellow ticker strip with static marquee text from `meta.company` /
+  `meta.title` / `meta.marquee` (not Jellybean-hardcoded) on title/closing;
+  neon-noir gets magenta/cyan glow ovals;
   vaporwave gets horizon wash + pink sun; y2k-aero gets glossy bubble ovals;
   aurora-glass / glassmorphism get dual mist ovals; luxury-minimalist heroes get a
   gold hairline; crt-terminal gets phosphor scanlines; blueprint gets a light grid +

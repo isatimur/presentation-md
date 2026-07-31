@@ -1865,14 +1865,51 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       orange: "FF4D00",
       violet: "7A00FF",
     };
-    // Secondary blob hue per tone (HTML soft-blob / mix-blend stand-in).
+    // Secondary + tertiary blob hues (HTML soft-blob / mix-blend stand-ins).
     const secondaryBlob: Record<string, string> = {
       lime: "FF00CC",
-      magenta: "00E5FF",
-      cyan: "C8FF00",
+      magenta: "FF00CC",
+      cyan: "00AAFF",
       orange: "7A00FF",
       violet: "FF4D00",
     };
+    const tertiaryBlob: Record<string, string> = {
+      lime: "00E5FF",
+      magenta: "5500FF",
+      cyan: "0055CC",
+      orange: "FFEA00",
+      violet: "CC00FF",
+    };
+    // Hard frame + offset shadow (wrapped-block border / 12px box-shadow).
+    const frameInk = isHero || (tone && hueMap[tone]) ? "0A0A0A" : ctx.colors.accent;
+    const shadow = 0.14;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - shadow,
+      y: shadow,
+      w: shadow,
+      h: ctx.height - shadow,
+      fill: { color: frameInk },
+      line: { color: frameInk, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: shadow,
+      y: ctx.height - shadow,
+      w: ctx.width - shadow,
+      h: shadow,
+      fill: { color: frameInk },
+      line: { color: frameInk, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.08,
+      y: 0.08,
+      w: ctx.width - 0.08 - shadow,
+      h: ctx.height - 0.08 - shadow,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: frameInk, width: 3.25 },
+      rectRadius: 0,
+    });
     if (isHero) {
       // Lime-field cover/closing + cyan/yellow soft blobs (wrapped-block ::before/::after).
       slide.background = { color: "C8FF00" };
@@ -1881,7 +1918,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         y: -ctx.height * 0.18,
         w: ctx.width * 0.52,
         h: ctx.height * 0.58,
-        fill: { color: "00E5FF", transparency: 55 },
+        fill: { color: "00E5FF", transparency: 50 },
         line: { color: "00E5FF", width: 0 },
       });
       slide.addShape(ctx.shapeOval, {
@@ -1889,39 +1926,57 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         y: ctx.height * 0.52,
         w: ctx.width * 0.42,
         h: ctx.height * 0.55,
-        fill: { color: "FFEA00", transparency: 40 },
+        fill: { color: "FFEA00", transparency: 35 },
         line: { color: "FFEA00", width: 0 },
+      });
+      // Mid-field accent blot (extra soft-blob density).
+      slide.addShape(ctx.shapeOval, {
+        x: ctx.width * 0.28,
+        y: ctx.height * 0.08,
+        w: ctx.width * 0.22,
+        h: ctx.height * 0.28,
+        fill: { color: "FFFFFF", transparency: 72 },
+        line: { color: "FFFFFF", width: 0 },
       });
       return;
     }
     if (tone && hueMap[tone]) {
       slide.background = { color: hueMap[tone]! };
       const blob = secondaryBlob[tone] ?? "FFFFFF";
+      const tert = tertiaryBlob[tone] ?? "0A0A0A";
       slide.addShape(ctx.shapeOval, {
-        x: ctx.width * 0.58,
-        y: -ctx.height * 0.2,
-        w: ctx.width * 0.5,
-        h: ctx.height * 0.55,
-        fill: { color: blob, transparency: 62 },
+        x: ctx.width * 0.52,
+        y: -ctx.height * 0.22,
+        w: ctx.width * 0.55,
+        h: ctx.height * 0.58,
+        fill: { color: blob, transparency: 55 },
         line: { color: blob, width: 0 },
       });
       slide.addShape(ctx.shapeOval, {
-        x: -ctx.width * 0.08,
-        y: ctx.height * 0.58,
-        w: ctx.width * 0.36,
-        h: ctx.height * 0.48,
-        fill: { color: "0A0A0A", transparency: 70 },
-        line: { color: "0A0A0A", width: 0 },
+        x: tone === "cyan" || tone === "orange" ? -ctx.width * 0.05 : ctx.width * 0.58,
+        y: ctx.height * 0.55,
+        w: ctx.width * 0.4,
+        h: ctx.height * 0.5,
+        fill: { color: tert, transparency: 58 },
+        line: { color: tert, width: 0 },
       });
       return;
     }
-    // Body: lime wash + magenta blot + cyan secondary (multi-hue energy).
+    // Body: soft accent wash (::before) + hard corner square (::after) + cyan/magenta energy.
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.55,
+      y: -ctx.height * 0.2,
+      w: ctx.width * 0.55,
+      h: ctx.height * 0.55,
+      fill: { color: ctx.colors.accent, transparency: 82 },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
     slide.addShape(ctx.shapeOval, {
       x: ctx.width - 2.2,
       y: -0.4,
       w: 2.8,
       h: 2.8,
-      fill: { color: ctx.colors.accent2, transparency: 35 },
+      fill: { color: ctx.colors.accent2, transparency: 38 },
       line: { color: ctx.colors.accent2, width: 0 },
     });
     slide.addShape(ctx.shapeOval, {
@@ -1932,24 +1987,66 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       fill: { color: "00E5FF", transparency: 55 },
       line: { color: "00E5FF", width: 0 },
     });
-    slide.addShape(ctx.shapeOval, {
-      x: ctx.width * 0.35,
-      y: ctx.height * 0.7,
-      w: 1.6,
-      h: 1.6,
-      fill: { color: ctx.colors.accent, transparency: 72 },
+    // Hard corner accent (wrapped-block ::after square).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - 1.35,
+      y: -0.15,
+      w: 1.25,
+      h: 1.25,
+      fill: { color: ctx.colors.accent },
       line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
     });
   }
 
   if (theme === "risograph-zine") {
-    // Overprint multiply stand-ins — translucent coral + blue washes (mix-blend ≈ layered ovals).
+    // Hard kraft frame + coral offset shadow (riso-print border/box-shadow).
+    const shadow = 0.1;
+    slide.addShape(ctx.shapeRoundRect, {
+      x: ctx.width - shadow,
+      y: shadow,
+      w: shadow,
+      h: ctx.height - shadow,
+      fill: { color: ctx.colors.accent, transparency: 40 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: shadow,
+      y: ctx.height - shadow,
+      w: ctx.width - shadow,
+      h: shadow,
+      fill: { color: ctx.colors.accent, transparency: 40 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.08,
+      y: 0.08,
+      w: ctx.width - 0.08 - shadow,
+      h: ctx.height - 0.08 - shadow,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 2 },
+      rectRadius: 0,
+    });
+    // Overprint multiply stand-ins — layered coral + blue washes (mix-blend ≈ ovals).
+    const coralT = isHero ? 70 : 76;
+    const blueT = isHero ? 68 : 74;
     slide.addShape(ctx.shapeOval, {
       x: ctx.width * 0.48,
       y: -ctx.height * 0.12,
       w: ctx.width * 0.58,
       h: ctx.height * 0.58,
-      fill: { color: ctx.colors.accent, transparency: 78 },
+      fill: { color: ctx.colors.accent, transparency: coralT },
+      line: { color: ctx.colors.accent, width: 0 },
+    });
+    // Misregistration duplicate — slightly offset coral plate.
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.52,
+      y: -ctx.height * 0.08,
+      w: ctx.width * 0.52,
+      h: ctx.height * 0.52,
+      fill: { color: ctx.colors.accent, transparency: isHero ? 78 : 85 },
       line: { color: ctx.colors.accent, width: 0 },
     });
     slide.addShape(ctx.shapeOval, {
@@ -1957,30 +2054,67 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       y: ctx.height * 0.48,
       w: ctx.width * 0.48,
       h: ctx.height * 0.55,
-      fill: { color: ctx.colors.accent2, transparency: 76 },
+      fill: { color: ctx.colors.accent2, transparency: blueT },
+      line: { color: ctx.colors.accent2, width: 0 },
+    });
+    // Blue misregistration offset.
+    slide.addShape(ctx.shapeOval, {
+      x: -ctx.width * 0.12,
+      y: ctx.height * 0.52,
+      w: ctx.width * 0.44,
+      h: ctx.height * 0.5,
+      fill: { color: ctx.colors.accent2, transparency: isHero ? 80 : 88 },
       line: { color: ctx.colors.accent2, width: 0 },
     });
     if (isHero) {
-      // Extra misregistration blot on cover/closing.
+      // Extra misregistration blot + ink speckles on cover/closing.
       slide.addShape(ctx.shapeOval, {
         x: ctx.width * 0.72,
         y: ctx.height * 0.62,
         w: 1.8,
         h: 1.8,
-        fill: { color: ctx.colors.accent, transparency: 70 },
+        fill: { color: ctx.colors.accent, transparency: 68 },
         line: { color: ctx.colors.accent, width: 0 },
       });
+      const speckles = [
+        { x: 0.35, y: 0.45 },
+        { x: 1.1, y: 1.2 },
+        { x: ctx.width * 0.4, y: 0.9 },
+        { x: ctx.width * 0.65, y: ctx.height * 0.35 },
+        { x: ctx.width * 0.85, y: ctx.height * 0.55 },
+        { x: ctx.width * 0.3, y: ctx.height * 0.7 },
+      ];
+      for (const s of speckles) {
+        slide.addShape(ctx.shapeOval, {
+          x: s.x,
+          y: s.y,
+          w: 0.08,
+          h: 0.08,
+          fill: { color: ctx.colors.text, transparency: 55 },
+          line: { color: ctx.colors.text, width: 0 },
+        });
+      }
     }
   }
 
   if (theme === "candy-pop") {
-    // Soft pink + blue blobs (candy-blob radial washes).
+    // Hard candy frame (candy-blob 3px border).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.1,
+      y: 0.1,
+      w: ctx.width - 0.2,
+      h: ctx.height - 0.2,
+      fill: { color: ctx.colors.bg, transparency: 100 },
+      line: { color: ctx.colors.text, width: 2.75 },
+      rectRadius: 0.08,
+    });
+    // Soft pink + blue radial washes.
     slide.addShape(ctx.shapeOval, {
       x: -ctx.width * 0.08,
       y: -ctx.height * 0.15,
       w: ctx.width * 0.48,
       h: ctx.height * 0.55,
-      fill: { color: ctx.colors.accent, transparency: 72 },
+      fill: { color: ctx.colors.accent, transparency: 70 },
       line: { color: ctx.colors.accent, width: 0 },
     });
     slide.addShape(ctx.shapeOval, {
@@ -1988,9 +2122,39 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       y: ctx.height * 0.45,
       w: ctx.width * 0.5,
       h: ctx.height * 0.55,
-      fill: { color: ctx.colors.accent2, transparency: 68 },
+      fill: { color: ctx.colors.accent2, transparency: 65 },
       line: { color: ctx.colors.accent2, width: 0 },
     });
+    // Outlined blue ornament circle (candy-blob ::after).
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width - 2.35,
+      y: 0.35,
+      w: 1.7,
+      h: 1.7,
+      fill: { color: ctx.colors.accent2, transparency: 45 },
+      line: { color: ctx.colors.text, width: 2.5 },
+    });
+    // Butter accent blot.
+    slide.addShape(ctx.shapeOval, {
+      x: ctx.width * 0.42,
+      y: ctx.height * 0.62,
+      w: 1.1,
+      h: 1.1,
+      fill: { color: "FFE566", transparency: 55 },
+      line: { color: "FFE566", width: 0 },
+    });
+    if (!isHero) {
+      // Pink drop-shadow stand-in (0 18px box-shadow) on body slides.
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0.15,
+        y: ctx.height - 0.22,
+        w: ctx.width - 0.3,
+        h: 0.14,
+        fill: { color: ctx.colors.accent, transparency: 55 },
+        line: { color: ctx.colors.accent, width: 0 },
+        rectRadius: 0,
+      });
+    }
     if (isHero) {
       // Yellow ticker-strip stand-in (gallery marquee bar + static ticker text).
       const ticker = candyMarqueeText({
@@ -2004,7 +2168,7 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         w: ctx.width,
         h: 0.55,
         fill: { color: "FFE566" },
-        line: { color: ctx.colors.text, width: 1.5 },
+        line: { color: ctx.colors.text, width: 2 },
         rectRadius: 0,
       });
       slide.addText(ticker, {

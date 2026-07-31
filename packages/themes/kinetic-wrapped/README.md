@@ -24,6 +24,7 @@ Proofs: `examples/decks/pulse-wrapped.json` Â· Studio `?example=pulse-wrapped` Â
 
 ### Honest leftovers vs handcrafted gallery
 
-- Soft blob / mix-blend chrome is stronger in handcrafted gallery HTML than PPTX.
-- PPTX approximates Pulse soft blobs (multi-oval), tone fills, ranked bars, streak cells,
-  dual pills, and metric-ring via oval / native `blockArc`.
+- True CSS `mix-blend-mode` / blur soft blobs stay HTML-only.
+- PPTX approximates Pulse with hard frames + offset shadows, multi-oval soft blobs,
+  tone-matched secondary/tertiary washes, a hard corner square on body slides,
+  ranked bars, streak cells, dual pills, and metric-ring via oval / native `blockArc`.
