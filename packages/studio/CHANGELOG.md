@@ -1,5 +1,19 @@
 # @presentation-md/studio
 
+## 1.2.0
+
+### Minor Changes
+
+- 2bd5d7e: Craft-audit slide indices, candy-pop brand gate, social closing icon hint; Studio audit panel severity filters; MCP craft mandate for candy marquee.
+
+### Patch Changes
+
+- Updated dependencies [2bd5d7e]
+- Updated dependencies [2bd5d7e]
+- Updated dependencies [dfa2b5a]
+  - @presentation-md/core@1.7.0
+  - @presentation-md/export@1.10.0
+
 ## 1.1.7
 
 ### Patch Changes

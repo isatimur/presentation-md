@@ -1,5 +1,16 @@
 # @presentation-md/core
 
+## 1.7.0
+
+### Minor Changes
+
+- 2bd5d7e: Dense PPTX chrome for swiss/FT/bauhaus/fintech/scandi/art-deco/botanical themes; candy marquee brands from meta.company/title/marquee (not Jellybean-hardcoded).
+
+### Patch Changes
+
+- 2bd5d7e: Craft-audit slide indices, candy-pop brand gate, social closing icon hint; Studio audit panel severity filters; MCP craft mandate for candy marquee.
+- dfa2b5a: PPTX chrome approximations for genz-bento, heritage-editorial, developer-dark, data-editorial, and dark-botanical; candy marquee brand honesty in SKILL.
+
 ## 1.6.1
 
 ### Patch Changes
