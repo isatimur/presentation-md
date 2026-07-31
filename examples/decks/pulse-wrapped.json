@@ -3,7 +3,7 @@
   "meta": {
     "title": "Pulse — Year Wrapped",
     "company": "Pulse",
-    "description": "Spotify-Wrapped style recap — kinetic-wrapped gallery parity via ranked-list + mega-stat tones.",
+    "description": "Spotify-Wrapped style recap — kinetic-wrapped gallery parity via ranked-list, mega-stat, streak-grid, metric-ring, dual share pills.",
     "theme": "kinetic-wrapped"
   },
   "slides": [
@@ -58,30 +58,27 @@
       "notes": "Minutes mega beat — orange field."
     },
     {
-      "layout": "stat-row",
-      "variant": "hero",
+      "layout": "metric-ring",
       "tone": "cyan",
       "eyebrow": "Global Ranking",
       "heading": "TOP 3%.",
-      "lead": "Out of 4.8 million Pulse users worldwide, you outworked 97% of them. City rank #14. Age group: top 1%.",
-      "stats": [
-        { "value": "3%", "label": "globally" },
-        { "value": "#14", "label": "in your city" },
-        { "value": "1%", "label": "age group" }
-      ],
-      "notes": "Percentile flex — cyan field."
+      "value": "3%",
+      "label": "globally",
+      "pct": 100,
+      "lead": "Out of 4.8 million Pulse users worldwide, you outworked 97% of them.",
+      "body": "City rank #14. Age group: top 1%.",
+      "notes": "Percentile flex — cyan field + metric-ring badge."
     },
     {
-      "layout": "stat-row",
-      "variant": "hero",
+      "layout": "streak-grid",
       "tone": "violet",
       "eyebrow": "Best Streak",
       "heading": "No excuses.",
       "lead": "47 days straight. March 3 → April 18. The streak that changed everything.",
-      "stats": [
-        { "value": "47", "label": "Days straight — longest streak ever" }
-      ],
-      "notes": "Streak mega — violet/magenta night."
+      "filled": 47,
+      "total": 60,
+      "cols": 10,
+      "notes": "Streak grid — violet/magenta night."
     },
     {
       "layout": "stat-row",
@@ -131,11 +128,21 @@
       "eyebrow": "Share Your Wrapped",
       "heading": "LET THE WORLD KNOW.",
       "lead": "You moved 14,892 minutes. You hit top 3% globally. You earned this flex.",
-      "cta": {
-        "label": "Share your Wrapped",
-        "href": "#"
-      },
-      "notes": "Share close — dual energy; second pill lives in gallery HTML."
+      "actions": [
+        {
+          "label": "Share on Instagram",
+          "href": "#",
+          "style": "solid",
+          "icon": "fa-brands fa-instagram"
+        },
+        {
+          "label": "Post to X",
+          "href": "#",
+          "style": "outline",
+          "icon": "fa-brands fa-x-twitter"
+        }
+      ],
+      "notes": "Share close — dual solid + outline pills."
     }
   ]
 }

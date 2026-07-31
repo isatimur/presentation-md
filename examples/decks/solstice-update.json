@@ -45,6 +45,31 @@
       ]
     },
     {
+      "layout": "logo-wall",
+      "eyebrow": "Limited partners",
+      "heading": "Backed by operators who underwrite the long game.",
+      "lead": "Marks stay editable in PPTX \u2014 text tiles when assets are private.",
+      "columns": 4,
+      "cards": [
+        {
+          "title": "Northline",
+          "body": "Lead LP"
+        },
+        {
+          "title": "Harbor",
+          "body": "Growth"
+        },
+        {
+          "title": "Axiom",
+          "body": "Family office"
+        },
+        {
+          "title": "Meridian",
+          "body": "Strategic"
+        }
+      ]
+    },
+    {
       "layout": "feature-grid",
       "eyebrow": "Portfolio highlights",
       "heading": "Three names driving the quarter",

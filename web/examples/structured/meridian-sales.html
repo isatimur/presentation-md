@@ -433,6 +433,210 @@ tbody tr:hover td {
   line-height: 1.35;
 }
 
+/* Mega-stat wrap beat (Spotify-Wrapped energy) */
+.stat-row-slide.stat-row-hero {
+  justify-content: center;
+}
+.stat-row-slide.stat-row-hero .lead {
+  margin-top: 8px;
+  max-width: 34ch;
+  font-size: clamp(18px, 2.2vw, 26px);
+}
+.stat-row-slide.stat-row-hero .stats {
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+  flex: 0 0 auto;
+}
+.stat-row-slide.stat-row-hero .stat.is-mega {
+  flex: none;
+  min-width: 0;
+  border-top: none;
+  padding: 0;
+}
+.stat-row-slide.stat-row-hero .stat.is-mega .value {
+  font-size: clamp(88px, 18vw, 220px);
+  letter-spacing: -0.06em;
+  line-height: 0.85;
+}
+.stat-row-slide.stat-row-hero .stat.is-mega .label {
+  font-size: clamp(16px, 2vw, 22px);
+  max-width: 28ch;
+  margin-top: 16px;
+  color: var(--text);
+}
+.stat-row-slide.stat-row-hero .stat:not(.is-mega) {
+  flex: none;
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 0;
+  border-top: 2px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+  padding-top: 12px;
+  margin-right: 28px;
+}
+.stat-row-slide.stat-row-hero .stat:not(.is-mega) .value {
+  font-size: clamp(28px, 3.5vw, 40px);
+}
+
+/* ranked-list — schema bars (Pulse / Gamma progress energy) */
+.ranked-list-slide { justify-content: flex-start; }
+.ranked-list-slide .lead {
+  margin-top: 8px;
+  max-width: 42ch;
+}
+.ranked-list-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 640px;
+  margin-top: 20px;
+  width: 100%;
+}
+.ranked-list-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.ranked-list-rank {
+  font-family: var(--heading-font);
+  font-weight: var(--heading-weight);
+  font-size: clamp(28px, 4vw, 48px);
+  min-width: 2ch;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  opacity: 0.55;
+  line-height: 1;
+}
+.ranked-list-item.is-primary .ranked-list-rank {
+  opacity: 1;
+}
+.ranked-list-track {
+  flex: 1;
+  min-width: 0;
+}
+.ranked-list-fill {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  color: var(--text);
+  font-family: var(--heading-font);
+  font-weight: var(--heading-weight);
+  font-size: clamp(16px, 2vw, 22px);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  min-width: 4ch;
+}
+.ranked-list-item.is-primary .ranked-list-fill {
+  background: var(--accent);
+  color: var(--bg);
+}
+.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-value {
+  opacity: 0.85;
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
+/* logo-wall — customer / partner / team marks */
+.logo-wall-slide { justify-content: flex-start; }
+.logo-wall-slide .lead {
+  margin-top: 8px;
+  max-width: 48ch;
+}
+.logo-wall {
+  display: grid;
+  gap: 16px;
+  margin-top: 28px;
+  width: 100%;
+  align-items: stretch;
+}
+.logo-wall.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.logo-wall.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.logo-wall.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.logo-wall.cols-5 { grid-template-columns: repeat(5, 1fr); }
+.logo-wall.cols-6 { grid-template-columns: repeat(6, 1fr); }
+.logo-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 96px;
+  padding: 18px 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+.logo-tile-img {
+  max-width: 100%;
+  max-height: 48px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(0.15);
+}
+.logo-tile i {
+  font-size: 28px;
+  color: var(--accent);
+}
+.logo-tile-fallback {
+  font-family: var(--heading-font);
+  font-weight: var(--heading-weight);
+  font-size: clamp(16px, 2vw, 22px);
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.logo-tile-caption {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 16ch;
+  line-height: 1.3;
+}
+
+/* chart */
+.chart-slide { justify-content: flex-start; }
+.chart-slide .lead {
+  margin-top: 8px;
+  max-width: 52ch;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.4;
+}
+.chart-frame {
+  flex: 1;
+  margin-top: 20px;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  border-radius: calc(var(--radius) + 2px);
+  background: color-mix(in srgb, var(--card-bg) 88%, transparent);
+  padding: 18px 20px 12px;
+  overflow: hidden;
+}
+.chart-frame .pmd-chart {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+}
+
+/* custom-html escape hatch */
+.custom-html-slide { justify-content: flex-start; }
+.custom-html-frame {
+  flex: 1;
+  margin-top: 16px;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+.custom-html-frame > *:first-child { margin-top: 0; }
+
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
@@ -458,6 +662,33 @@ tbody tr:hover td {
 }
 .timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
 .timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+
+/* Vertical process stack (orientation: "vertical") */
+.timeline.is-vertical {
+  flex-direction: column;
+  gap: 0;
+  max-width: 640px;
+}
+.timeline.is-vertical .node {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  column-gap: 16px;
+  padding: 0 0 28px 0;
+  flex: none;
+}
+.timeline.is-vertical .node::before {
+  top: 18px;
+  bottom: -8px;
+  left: 8px;
+  right: auto;
+  width: 2px;
+  height: auto;
+  background: linear-gradient(180deg, var(--accent), var(--border));
+}
+.timeline.is-vertical .node:last-child::before { display: none; }
+.timeline.is-vertical .dot { grid-row: 1 / span 2; margin-top: 4px; }
+.timeline.is-vertical .node h3 { margin: 0 0 6px; }
+.timeline.is-vertical .node p { margin: 0; }
 
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
@@ -531,11 +762,18 @@ tbody tr:hover td {
 .section-slide h2 { font-size: clamp(32px, 4vw, 56px); margin-top: 8px; }
 
 /* closing / CTA */
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 28px;
+  align-items: center;
+}
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-top: 28px;
+  margin-top: 0;
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
@@ -543,6 +781,113 @@ tbody tr:hover td {
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
+  border: 3px solid transparent;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--text);
+}
+.btn-ghost {
+  background: color-mix(in srgb, var(--text) 12%, transparent);
+  color: var(--text);
+  border-color: transparent;
+}
+.closing-slide > .btn { margin-top: 28px; }
+
+/* streak-grid — Pulse-style filled day cells */
+.streak-grid-slide { justify-content: flex-start; }
+.streak-grid-slide .lead {
+  max-width: 36ch;
+  margin-bottom: clamp(16px, 2vw, 28px);
+}
+.streak-boxes {
+  display: grid;
+  grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
+  gap: 8px;
+  max-width: min(580px, 100%);
+  color: var(--accent);
+}
+.streak-box {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: currentColor;
+  opacity: 0.9;
+}
+.streak-box.dim { opacity: 0.15; }
+.streak-box.mid { opacity: 0.45; }
+.streak-caption {
+  margin-top: clamp(16px, 2vw, 28px);
+  color: var(--muted);
+  max-width: 40ch;
+  font-size: clamp(14px, 1.4vw, 18px);
+}
+
+/* metric-ring — circular KPI badge / arc */
+.metric-ring-slide { justify-content: flex-start; }
+.pct-wrap {
+  margin-top: clamp(20px, 2.5vw, 40px);
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(24px, 4vw, 60px);
+  flex-wrap: wrap;
+}
+.pct-ring {
+  width: clamp(160px, 28vw, 280px);
+  height: clamp(160px, 28vw, 280px);
+  border-radius: 50%;
+  border: clamp(10px, 2vw, 20px) solid currentColor;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.pct-ring-arc {
+  border-color: transparent;
+}
+.pct-ring-arc .pct-ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.pct-ring-center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.pct-num {
+  font-family: var(--heading-font);
+  font-weight: 800;
+  font-size: clamp(44px, 7vw, 88px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+.pct-label {
+  font-family: var(--body-font);
+  font-weight: 700;
+  font-size: clamp(9px, 1vw, 13px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-top: 6px;
+}
+.pct-desc {
+  max-width: 28ch;
+  flex: 1;
+  min-width: min(240px, 100%);
+}
+.pct-desc .lead { margin-top: 0; }
+.pct-body {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: clamp(14px, 1.4vw, 18px);
 }
 
 /* Entrance motion — applied when the deck loads; disabled under reduced-motion */
@@ -776,7 +1121,7 @@ tbody tr:hover td {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
-/* ── quiet-luxe (luxury-minimalist) ── */
+/* ── quiet-luxe (luxury-minimalist) — nocturnal ultra-luxury ── */
 .deck[data-surface="quiet-luxe"] .slide {
   --slide-bg: var(--bg);
   box-shadow: none;
@@ -786,8 +1131,23 @@ tbody tr:hover td {
   display: none;
 }
 .deck[data-surface="quiet-luxe"] .slide h1 {
-  letter-spacing: -0.03em;
-  font-weight: 400;
+  letter-spacing: -0.02em;
+  font-weight: 300;
+}
+.deck[data-surface="quiet-luxe"] .slide.title-slide,
+.deck[data-surface="quiet-luxe"] .slide.closing-slide {
+  border-color: transparent;
+}
+.deck[data-surface="quiet-luxe"] .slide.title-slide::before,
+.deck[data-surface="quiet-luxe"] .slide.closing-slide::before {
+  content: "";
+  position: absolute;
+  left: 64px;
+  top: 48%;
+  width: 48px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.75;
 }
 
 /* ── editorial-rule (editorial-serif) ── */
@@ -1378,6 +1738,30 @@ tbody tr:hover td {
 .deck[data-surface="wrapped-block"] .slide h1 {
   text-transform: uppercase;
   letter-spacing: -0.03em;
+}
+/* Pulse craft: lime-field cover + closing (acid on black elsewhere) */
+.deck[data-surface="wrapped-block"] .title-slide,
+.deck[data-surface="wrapped-block"] .closing-slide {
+  --slide-bg: var(--accent);
+  color: #0a0a0a;
+  border-color: #0a0a0a;
+  box-shadow: 12px 12px 0 #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .title-slide::after,
+.deck[data-surface="wrapped-block"] .closing-slide::after {
+  background: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .title-slide h1,
+.deck[data-surface="wrapped-block"] .closing-slide h1,
+.deck[data-surface="wrapped-block"] .title-slide .lead,
+.deck[data-surface="wrapped-block"] .closing-slide .lead,
+.deck[data-surface="wrapped-block"] .title-slide .subtitle,
+.deck[data-surface="wrapped-block"] .closing-slide .subtitle,
+.deck[data-surface="wrapped-block"] .title-slide .eyebrow,
+.deck[data-surface="wrapped-block"] .closing-slide .eyebrow,
+.deck[data-surface="wrapped-block"] .title-slide > p,
+.deck[data-surface="wrapped-block"] .closing-slide > p {
+  color: #0a0a0a;
 }
 
 /* ── blueprint-grid ── */
@@ -3628,6 +4012,12 @@ tbody tr:hover td {
 }
 
 /* Kinetic wrapped — acid lime content chrome */
+.deck[data-surface="wrapped-block"] .eyebrow,
+.deck[data-surface="wrapped-block"] .stat .label {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
 .deck[data-surface="wrapped-block"] .stat {
   border-top: 4px solid var(--accent);
 }
@@ -3640,6 +4030,10 @@ tbody tr:hover td {
   border: 3px solid var(--accent);
   border-radius: 0;
   background: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .card p,
+.deck[data-surface="wrapped-block"] .card .lead {
+  color: var(--muted);
 }
 .deck[data-surface="wrapped-block"] .comparison-col {
   border: 3px solid var(--accent);
@@ -3663,6 +4057,294 @@ tbody tr:hover td {
   border-left: 6px solid var(--accent);
   text-transform: uppercase;
   letter-spacing: -0.02em;
+}
+
+/* Pulse multi-hue — accent2 magenta chrome + per-slide tone beats */
+.deck[data-surface="wrapped-block"] .stat:nth-child(even) {
+  border-top-color: var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .stat:nth-child(even) .value {
+  color: var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .comparison-col:first-child {
+  border-color: var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .card:nth-child(3n) {
+  border-color: var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .chart-frame {
+  border-color: var(--accent);
+  box-shadow: 8px 8px 0 var(--accent2);
+}
+
+/* Gallery-parity soft blobs (handcrafted Pulse uses absolute .blob circles) */
+.deck[data-surface="wrapped-block"] .slide {
+  overflow: hidden;
+}
+.deck[data-surface="wrapped-block"] .slide::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  width: min(52vw, 640px);
+  height: min(52vw, 640px);
+  border-radius: 50%;
+  right: -18%;
+  top: -22%;
+  background: var(--accent);
+  opacity: 0.14;
+  filter: blur(2px);
+}
+.deck[data-surface="wrapped-block"] .title-slide::before,
+.deck[data-surface="wrapped-block"] .closing-slide::before {
+  background: #00e5ff;
+  opacity: 0.35;
+  right: -12%;
+  top: -18%;
+  width: min(48vw, 560px);
+  height: min(48vw, 560px);
+  filter: none;
+}
+.deck[data-surface="wrapped-block"] .title-slide::after,
+.deck[data-surface="wrapped-block"] .closing-slide::after {
+  /* secondary cyan/lime blob stand-in — keep hard corner accent as second beat */
+  width: min(36vw, 420px);
+  height: min(36vw, 420px);
+  border-radius: 50%;
+  left: -10%;
+  bottom: -16%;
+  top: auto;
+  right: auto;
+  background: #ffea00;
+  opacity: 0.55;
+}
+.deck[data-surface="wrapped-block"] .stat-row-slide .stat .value {
+  font-size: clamp(56px, 8vw, 120px);
+  letter-spacing: -0.05em;
+}
+.deck[data-surface="wrapped-block"] .stat-row-slide .stat:only-child .value,
+.deck[data-surface="wrapped-block"] .stat-row-slide .stats:has(> .stat:nth-child(1):last-child) .value {
+  font-size: clamp(88px, 18vw, 220px);
+}
+.deck[data-surface="wrapped-block"] .eyebrow {
+  display: inline-block;
+  padding: 0.35em 0.7em;
+  background: var(--accent);
+  color: #0a0a0a;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  border-radius: 0;
+}
+.deck[data-surface="wrapped-block"] .title-slide .eyebrow,
+.deck[data-surface="wrapped-block"] .closing-slide .eyebrow {
+  background: #0a0a0a;
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-stack,
+.deck[data-surface="wrapped-block"] .ranked-list-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 640px;
+  margin-top: 12px;
+  width: 100%;
+}
+.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-item,
+.deck[data-surface="wrapped-block"] .ranked-list-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-rank,
+.deck[data-surface="wrapped-block"] .ranked-list-rank {
+  font-family: var(--heading-font);
+  font-size: clamp(28px, 4vw, 48px);
+  min-width: 2ch;
+  letter-spacing: -0.04em;
+}
+.deck[data-surface="wrapped-block"] .custom-html-frame .pulse-bar-fill,
+.deck[data-surface="wrapped-block"] .ranked-list-fill {
+  flex: 1;
+  font-family: var(--heading-font);
+  font-size: clamp(16px, 2vw, 22px);
+  padding: 14px 18px;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.deck[data-surface="wrapped-block"] .ranked-list-item.is-primary .ranked-list-fill {
+  background: #ffffff;
+  color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .ranked-list-item:not(.is-primary) .ranked-list-fill {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .ranked-list-item.is-primary .ranked-list-fill {
+  color: #cc00ff;
+}
+.deck[data-surface="wrapped-block"] .stat-row-hero .stat.is-mega .value {
+  font-size: clamp(88px, 18vw, 240px);
+}
+
+/* Explicit tone overrides (set slide.tone in Deck JSON) */
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] {
+  --slide-bg: #cc00ff;
+  color: #ffffff;
+  border-color: #0a0a0a;
+  box-shadow: 12px 12px 0 #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"]::before {
+  background: #ff00cc;
+  opacity: 0.45;
+  filter: none;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"]::after {
+  background: #5500ff;
+  border-radius: 50%;
+  width: min(40vw, 480px);
+  height: min(40vw, 480px);
+  opacity: 0.5;
+  bottom: -18%;
+  right: -8%;
+  top: auto;
+  left: auto;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] h1,
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] h2,
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .lead,
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .eyebrow,
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .stat .value,
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .stat .label {
+  color: #ffffff;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="magenta"] .eyebrow {
+  background: #ffffff;
+  color: #cc00ff;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] {
+  --slide-bg: #00e5ff;
+  color: #001a33;
+  border-color: #0a0a0a;
+  box-shadow: 12px 12px 0 #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"]::before {
+  background: #00aaff;
+  opacity: 0.4;
+  filter: none;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"]::after {
+  background: #0055cc;
+  border-radius: 50%;
+  width: min(34vw, 400px);
+  height: min(34vw, 400px);
+  opacity: 0.35;
+  bottom: -14%;
+  left: 4%;
+  top: auto;
+  right: auto;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] h1,
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] h2,
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] .lead,
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] .eyebrow,
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] .stat .value,
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] .stat .label {
+  color: #001a33;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="cyan"] .eyebrow {
+  background: #001a33;
+  color: #00e5ff;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] {
+  --slide-bg: #ff4d00;
+  color: #ffff00;
+  border-color: #0a0a0a;
+  box-shadow: 12px 12px 0 #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"]::before {
+  background: #ff8800;
+  opacity: 0.5;
+  filter: none;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"]::after {
+  background: #cc0000;
+  border-radius: 50%;
+  width: min(32vw, 380px);
+  height: min(32vw, 380px);
+  opacity: 0.45;
+  bottom: -16%;
+  left: -6%;
+  top: auto;
+  right: auto;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] h1,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] h2,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .lead,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .eyebrow,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .stat .value,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .stat .label {
+  color: #ffff00;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .lead,
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .stat .label {
+  color: #ffffff;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="orange"] .eyebrow {
+  background: #ffff00;
+  color: #ff4d00;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="violet"] {
+  --slide-bg: #7a00ff;
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 12px 12px 0 var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="violet"]::before {
+  background: #cc00ff;
+  opacity: 0.35;
+  filter: none;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="violet"] .eyebrow {
+  background: var(--accent);
+  color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="lime"] {
+  --slide-bg: var(--accent);
+  color: #0a0a0a;
+  border-color: #0a0a0a;
+  box-shadow: 12px 12px 0 #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .slide[data-tone="lime"] h1,
+.deck[data-surface="wrapped-block"] .slide[data-tone="lime"] h2,
+.deck[data-surface="wrapped-block"] .slide[data-tone="lime"] .lead,
+.deck[data-surface="wrapped-block"] .slide[data-tone="lime"] .eyebrow {
+  color: #0a0a0a;
+}
+
+/* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
+.deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
+  border-color: var(--accent2);
+  box-shadow: 12px 12px 0 var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone])::before {
+  background: var(--accent2);
+  opacity: 0.2;
+}
+.deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone])::after {
+  background: var(--accent2);
+}
+.deck[data-surface="wrapped-block"] .slide:nth-child(5n+4):not(.title-slide):not(.closing-slide):not([data-tone]) {
+  border-color: #00e5ff;
+  box-shadow: 12px 12px 0 #00e5ff;
+}
+.deck[data-surface="wrapped-block"] .slide:nth-child(5n+4):not(.title-slide):not(.closing-slide):not([data-tone])::before {
+  background: #00e5ff;
+  opacity: 0.22;
+}
+.deck[data-surface="wrapped-block"] .slide:nth-child(5n+4):not(.title-slide):not(.closing-slide):not([data-tone])::after {
+  background: #00e5ff;
 }
 
 /* Notebook tabs — keep side tabs; enrich cards/stats */
@@ -4877,6 +5559,224 @@ tbody tr:hover td {
   }
 }
 
+/* ── Stunning-25 body chrome: keep content slides on-brand past the cover ── */
+
+/* Aurora glass / glass mist — frosted cards, soft winner, code window sheen */
+.deck[data-surface="aurora-glass"] .card,
+.deck[data-surface="glass-mist"] .card {
+  backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--card-bg) 72%, transparent);
+  border: 1px solid color-mix(in srgb, #ffffff 28%, var(--border));
+  box-shadow: 0 12px 40px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.deck[data-surface="aurora-glass"] .grid.cols-bento .card:first-child,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--accent) 55%, transparent),
+    color-mix(in srgb, var(--accent-2) 40%, var(--card-bg))
+  );
+  border-color: color-mix(in srgb, #ffffff 40%, transparent);
+  color: #fff;
+}
+.deck[data-surface="aurora-glass"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="aurora-glass"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="aurora-glass"] .grid.cols-bento .card:first-child i,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: #fff;
+}
+.deck[data-surface="aurora-glass"] .comparison-col:last-child,
+.deck[data-surface="glass-mist"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.deck[data-surface="aurora-glass"] .code-window,
+.deck[data-surface="glass-mist"] .code-window {
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, #0b1220 78%, transparent);
+  border: 1px solid color-mix(in srgb, #ffffff 18%, transparent);
+}
+.deck[data-surface="aurora-glass"] .quote,
+.deck[data-surface="glass-mist"] .quote {
+  border-left: 3px solid transparent;
+  border-image: linear-gradient(180deg, var(--accent), var(--accent-2)) 1;
+  font-weight: 500;
+}
+.deck[data-surface="aurora-glass"] .chart-frame,
+.deck[data-surface="glass-mist"] .chart-frame {
+  backdrop-filter: blur(8px);
+  background: color-mix(in srgb, var(--card-bg) 65%, transparent);
+  border-radius: 16px;
+  padding: 12px;
+}
+.deck[data-surface="aurora-glass"] .image-hero-slide .hero-caption,
+.deck[data-surface="glass-mist"] .image-hero-slide .hero-caption {
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, #06101f 88%, transparent));
+}
+
+/* Fintech soft — calm panels, accent winner, tabular metrics */
+.deck[data-surface="fintech-soft"] .card {
+  background: var(--card-bg);
+  border: 1px solid color-mix(in srgb, var(--text) 8%, var(--border));
+  border-radius: 12px;
+  box-shadow: 0 1px 0 color-mix(in srgb, #fff 70%, transparent) inset;
+}
+.deck[data-surface="fintech-soft"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+.deck[data-surface="fintech-soft"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent) 12%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+.deck[data-surface="fintech-soft"] .stat .value {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+}
+.deck[data-surface="fintech-soft"] .data-table th {
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg2));
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.75em;
+}
+.deck[data-surface="fintech-soft"] .quote {
+  border-left: 3px solid var(--accent);
+  color: var(--text);
+}
+
+/* Hygge soft — warm paper cards, soft quote, gentle winner */
+.deck[data-surface="hygge-soft"] .card {
+  background: color-mix(in srgb, var(--card-bg) 92%, #fff);
+  border: none;
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--text) 8%, transparent);
+  border-radius: 18px;
+}
+.deck[data-surface="hygge-soft"] .comparison-col {
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--card-bg) 88%, #fff);
+}
+.deck[data-surface="hygge-soft"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 18%, var(--card-bg));
+}
+.deck[data-surface="hygge-soft"] .quote {
+  border-left: none;
+  padding-left: 0;
+  font-style: italic;
+  max-width: 30ch;
+}
+.deck[data-surface="hygge-soft"] .quote::before {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+.deck[data-surface="hygge-soft"] .stat {
+  border-top: 2px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+}
+
+/* Broadsheet rule — masthead typography on body beats */
+.deck[data-surface="broadsheet-rule"] .card,
+.deck[data-surface="broadsheet-rule"] .comparison-col {
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  border-top: 2px solid var(--text);
+  box-shadow: none;
+}
+.deck[data-surface="broadsheet-rule"] .comparison-col:last-child {
+  border-top-color: var(--accent);
+  background: transparent;
+}
+.deck[data-surface="broadsheet-rule"] .grid.cols-bento .card:first-child {
+  background: var(--text);
+  color: var(--bg);
+  border: none;
+  padding: 24px;
+}
+.deck[data-surface="broadsheet-rule"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="broadsheet-rule"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="broadsheet-rule"] .grid.cols-bento .card:first-child i {
+  color: var(--bg);
+}
+.deck[data-surface="broadsheet-rule"] .quote {
+  border-left: 4px solid var(--text);
+  font-family: var(--heading-font);
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1.15;
+}
+.deck[data-surface="broadsheet-rule"] .stat .value {
+  font-family: var(--heading-font);
+  font-weight: 700;
+}
+.deck[data-surface="broadsheet-rule"] .data-table {
+  border-top: 2px solid var(--text);
+  border-bottom: 2px solid var(--text);
+}
+.deck[data-surface="broadsheet-rule"] .data-table th {
+  border-bottom: 1px solid var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72em;
+}
+
+/* Heritage wash — museum card mats + gold emphasis */
+.deck[data-surface="heritage-wash"] .card {
+  background: color-mix(in srgb, var(--card-bg) 94%, #fff);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--bg2) 80%, transparent);
+}
+.deck[data-surface="heritage-wash"] .comparison-col:last-child {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--card-bg));
+}
+.deck[data-surface="heritage-wash"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--text) 92%, var(--accent));
+  color: var(--bg);
+  border-color: var(--accent);
+}
+.deck[data-surface="heritage-wash"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="heritage-wash"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="heritage-wash"] .grid.cols-bento .card:first-child i {
+  color: var(--bg);
+}
+.deck[data-surface="heritage-wash"] .quote {
+  border-left: 2px solid var(--accent);
+  font-family: var(--heading-font);
+  font-weight: 400;
+}
+.deck[data-surface="heritage-wash"] .stat .value {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Quiet luxe — deepen remaining body shells */
+.deck[data-surface="quiet-luxe"] .card {
+  background: transparent;
+  border: none;
+  border-top: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
+  border-radius: 0;
+  padding-top: 20px;
+}
+.deck[data-surface="quiet-luxe"] .grid.cols-bento .card:first-child {
+  border-top-width: 2px;
+  border-top-color: var(--accent);
+}
+.deck[data-surface="quiet-luxe"] .code-window {
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+  background: color-mix(in srgb, var(--bg2) 90%, #000);
+}
+.deck[data-surface="quiet-luxe"] .chart-frame {
+  border-top: 1px solid var(--accent);
+  padding-top: 16px;
+}
+
 
 
 /* presentation-md attribution footer */
@@ -4919,6 +5819,34 @@ tbody tr:hover td {
   </div>
 </section>
 
+<section class="slide logo-wall-slide" data-layout="logo-wall">
+  <span class="eyebrow">Customers</span>
+  <h2>Trusted by analytics teams who ship weekly.</h2>
+  
+  <div class="logo-wall cols-4">
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Helix</span>
+      <p class="logo-tile-caption">Data platform</p>
+    </div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Northwind</span>
+      <p class="logo-tile-caption">Retail</p>
+    </div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Cobalt</span>
+      <p class="logo-tile-caption">Fintech</p>
+    </div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Parcel</span>
+      <p class="logo-tile-caption">Logistics</p>
+    </div>
+  </div>
+</section>
+
 <section class="slide feature-grid-slide" data-layout="feature-grid">
   <span class="eyebrow">Agenda · 45 minutes</span>
   <h2>Four sections</h2>
@@ -4954,6 +5882,7 @@ tbody tr:hover td {
 <section class="slide stat-row-slide" data-layout="stat-row">
   <span class="eyebrow">Current cost analysis</span>
   <h2>Projected annual savings</h2>
+  
   <div class="stats">
     <div class="stat">
       <div class="value">$118k</div>
@@ -5083,13 +6012,15 @@ Live pipeline tied to activity.</p>
   <span class="eyebrow">Next steps</span>
   <h1>Let&#39;s lock a start date.</h1>
   <p class="lead">Action owners and dates go into the shared tracker this week.</p>
-  <a class="btn" href="https:&#x2F;&#x2F;meridian.example&#x2F;kickoff"><i class="fa-solid fa-arrow-right"></i> Schedule kickoff</a>
+  <div class="cta-row">
+    <a class="btn" href="https:&#x2F;&#x2F;meridian.example&#x2F;kickoff">Schedule kickoff</a>
+  </div>
 </section>
 
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Meridian × Hargrove Partners","company":"Meridian","description":"Sales deck — data platform for professional services.","theme":"ft-editorial"},"slides":[{"layout":"title","eyebrow":"Hargrove Partners","heading":"Data that moves the needle.","lead":"A proposal for automated reporting, client intelligence, and forecast clarity."},{"layout":"image-hero","eyebrow":"Hargrove Partners","heading":"Data that moves the needle.","lead":"A proposal for automated reporting, client intelligence, and forecast clarity.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f2efe8%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f7f5f0%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28242%2C239%2C232%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f7f5f0%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%2826%2C79%2C216%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23f2efe8%22%20stroke%3D%22rgba%2826%2C79%2C216%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%28192%2C57%2C43%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%231a4fd8%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%2826%2C79%2C216%2C0.150%29%22%20stroke%3D%22rgba%28192%2C57%2C43%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%28192%2C57%2C43%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%28192%2C57%2C43%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Meridian craft visual"},{"layout":"feature-grid","eyebrow":"Agenda · 45 minutes","heading":"Four sections","columns":"bento","cards":[{"title":"01 · Cost of inaction","body":"What manual reporting and fragmented tooling cost Hargrove today."},{"title":"02 · Recommended modules","body":"Three purpose-built modules scoped to your data environment."},{"title":"03 · Implementation & ROI","body":"Timeline, savings model, and a similar-client reference."},{"title":"04 · Pricing & next steps","body":"Commercial terms and a concrete action plan."},{"icon":"fa-solid fa-layer-group","title":"Stack for scan","body":"Hierarchy first. Decoration second. Decoration never."}]},{"layout":"stat-row","eyebrow":"Current cost analysis","heading":"Projected annual savings","stats":[{"value":"$118k","label":"Projected annual save"},{"value":"$95/hr","label":"Blended analyst rate"},{"value":"400+","label":"Hours reclaimed / year"}]},{"layout":"feature-grid","eyebrow":"Recommended modules","heading":"Built for Hargrove's workflow","columns":3,"cards":[{"icon":"fa-solid fa-file-lines","title":"Automated Reporting","body":"Client-ready packs on a schedule — no spreadsheet assembly."},{"icon":"fa-solid fa-users","title":"Client Intelligence","body":"One dashboard per account: engagement, risk, opportunity."},{"icon":"fa-solid fa-chart-pie","title":"Pipeline Forecasting","body":"Revenue forecast tied to fee-earner activity, not gut feel."}]},{"layout":"timeline","eyebrow":"Implementation","heading":"Discovery to go-live","steps":[{"title":"2 weeks","body":"Discovery & data mapping."},{"title":"5 weeks","body":"Module build & integrations."},{"title":"10 days","body":"UAT with practice leads."},{"title":"Go-live","body":"Training + hypercare week."}]},{"layout":"comparison","eyebrow":"Pain → Module","heading":"How each module lands","leftLabel":"Today's pain","left":"Manual reporting packs.\nFragmented CRM + finance views.\nForecasts rebuilt every Monday.","rightLabel":"With Meridian","right":"Scheduled, branded reports.\nUnified client intelligence.\nLive pipeline tied to activity.","emphasis":"right"},{"layout":"data-table","eyebrow":"12-month ROI model","heading":"Savings detail","columns":["Line item","Annual"],"rows":[["Analyst time — reporting (220 hrs × $95)","$20,900"],["Analyst time — data cleaning (180 hrs × $95)","$17,100"],["Partner time — forecast rework","$42,000"],["Tooling consolidation","$38,000"],["Total projected","$118,000"]]},{"layout":"quote","quote":"We cut weekly reporting from two days to forty minutes — and partners finally trust the numbers.","by":"COO, mid-size regional professional services firm"},{"layout":"section","number":"09","eyebrow":"Pricing & terms","heading":"Transparent commercial frame","lead":"Platform + three modules · annual commit · success criteria written into the SOW."},{"layout":"two-column","eyebrow":"Implementation","heading":"Ninety days to first pack","leftTitle":"Weeks 1–6","left":"Data map + security review.\nPilot on two practice groups.\nAnalyst training live.","rightTitle":"Weeks 7–12","right":"Client packs on a schedule.\nForecast dashboard live.\nROI readout for partners."},{"layout":"closing","eyebrow":"Next steps","heading":"Let's lock a start date.","lead":"Action owners and dates go into the shared tracker this week.","cta":{"label":"Schedule kickoff","href":"https://meridian.example/kickoff"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Meridian × Hargrove Partners","company":"Meridian","description":"Sales deck — data platform for professional services.","theme":"ft-editorial"},"slides":[{"layout":"title","eyebrow":"Hargrove Partners","heading":"Data that moves the needle.","lead":"A proposal for automated reporting, client intelligence, and forecast clarity."},{"layout":"image-hero","eyebrow":"Hargrove Partners","heading":"Data that moves the needle.","lead":"A proposal for automated reporting, client intelligence, and forecast clarity.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f2efe8%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f7f5f0%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28242%2C239%2C232%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f7f5f0%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%2826%2C79%2C216%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23f2efe8%22%20stroke%3D%22rgba%2826%2C79%2C216%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%28192%2C57%2C43%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%231a4fd8%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%2826%2C79%2C216%2C0.150%29%22%20stroke%3D%22rgba%28192%2C57%2C43%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%28192%2C57%2C43%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%28192%2C57%2C43%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Meridian craft visual"},{"layout":"logo-wall","eyebrow":"Customers","heading":"Trusted by analytics teams who ship weekly.","columns":4,"cards":[{"title":"Helix","body":"Data platform"},{"title":"Northwind","body":"Retail"},{"title":"Cobalt","body":"Fintech"},{"title":"Parcel","body":"Logistics"}]},{"layout":"feature-grid","eyebrow":"Agenda · 45 minutes","heading":"Four sections","columns":"bento","cards":[{"title":"01 · Cost of inaction","body":"What manual reporting and fragmented tooling cost Hargrove today."},{"title":"02 · Recommended modules","body":"Three purpose-built modules scoped to your data environment."},{"title":"03 · Implementation & ROI","body":"Timeline, savings model, and a similar-client reference."},{"title":"04 · Pricing & next steps","body":"Commercial terms and a concrete action plan."},{"icon":"fa-solid fa-layer-group","title":"Stack for scan","body":"Hierarchy first. Decoration second. Decoration never."}]},{"layout":"stat-row","eyebrow":"Current cost analysis","heading":"Projected annual savings","stats":[{"value":"$118k","label":"Projected annual save"},{"value":"$95/hr","label":"Blended analyst rate"},{"value":"400+","label":"Hours reclaimed / year"}]},{"layout":"feature-grid","eyebrow":"Recommended modules","heading":"Built for Hargrove's workflow","columns":3,"cards":[{"icon":"fa-solid fa-file-lines","title":"Automated Reporting","body":"Client-ready packs on a schedule — no spreadsheet assembly."},{"icon":"fa-solid fa-users","title":"Client Intelligence","body":"One dashboard per account: engagement, risk, opportunity."},{"icon":"fa-solid fa-chart-pie","title":"Pipeline Forecasting","body":"Revenue forecast tied to fee-earner activity, not gut feel."}]},{"layout":"timeline","eyebrow":"Implementation","heading":"Discovery to go-live","steps":[{"title":"2 weeks","body":"Discovery & data mapping."},{"title":"5 weeks","body":"Module build & integrations."},{"title":"10 days","body":"UAT with practice leads."},{"title":"Go-live","body":"Training + hypercare week."}]},{"layout":"comparison","eyebrow":"Pain → Module","heading":"How each module lands","leftLabel":"Today's pain","left":"Manual reporting packs.\nFragmented CRM + finance views.\nForecasts rebuilt every Monday.","rightLabel":"With Meridian","right":"Scheduled, branded reports.\nUnified client intelligence.\nLive pipeline tied to activity.","emphasis":"right"},{"layout":"data-table","eyebrow":"12-month ROI model","heading":"Savings detail","columns":["Line item","Annual"],"rows":[["Analyst time — reporting (220 hrs × $95)","$20,900"],["Analyst time — data cleaning (180 hrs × $95)","$17,100"],["Partner time — forecast rework","$42,000"],["Tooling consolidation","$38,000"],["Total projected","$118,000"]]},{"layout":"quote","quote":"We cut weekly reporting from two days to forty minutes — and partners finally trust the numbers.","by":"COO, mid-size regional professional services firm"},{"layout":"section","number":"09","eyebrow":"Pricing & terms","heading":"Transparent commercial frame","lead":"Platform + three modules · annual commit · success criteria written into the SOW."},{"layout":"two-column","eyebrow":"Implementation","heading":"Ninety days to first pack","leftTitle":"Weeks 1–6","left":"Data map + security review.\nPilot on two practice groups.\nAnalyst training live.","rightTitle":"Weeks 7–12","right":"Client packs on a schedule.\nForecast dashboard live.\nROI readout for partners."},{"layout":"closing","eyebrow":"Next steps","heading":"Let's lock a start date.","lead":"Action owners and dates go into the shared tracker this week.","cta":{"label":"Schedule kickoff","href":"https://meridian.example/kickoff"}}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
@@ -5144,6 +6075,17 @@ Live pipeline tied to activity.</p>
       slides[slides.length - 1].scrollIntoView({ behavior: "smooth", block: "center" });
     }
   });
+
+  /* T2/T3 screenshot harness — #__shot=N scrolls slide N into view and forces reveals */
+  var shot = location.hash.match(/__shot=(\d+)/);
+  if (shot) {
+    var si = +shot[1] - 1;
+    slides.forEach(function (s) { s.classList.add("in-view"); });
+    if (slides[si]) {
+      document.documentElement.style.scrollSnapType = "none";
+      slides[si].scrollIntoView({ behavior: "instant", block: "start" });
+    }
+  }
 })();
 </script>
 </body>

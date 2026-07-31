@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Pulse — Year Wrapped</title>
-<meta name="description" content="Spotify-Wrapped style recap — kinetic-wrapped gallery parity via ranked-list + mega-stat tones." />
+<meta name="description" content="Spotify-Wrapped style recap — kinetic-wrapped gallery parity via ranked-list, mega-stat, streak-grid, metric-ring, dual share pills." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600&display=swap');
@@ -541,6 +541,64 @@ tbody tr:hover td {
   white-space: nowrap;
 }
 
+/* logo-wall — customer / partner / team marks */
+.logo-wall-slide { justify-content: flex-start; }
+.logo-wall-slide .lead {
+  margin-top: 8px;
+  max-width: 48ch;
+}
+.logo-wall {
+  display: grid;
+  gap: 16px;
+  margin-top: 28px;
+  width: 100%;
+  align-items: stretch;
+}
+.logo-wall.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.logo-wall.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.logo-wall.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.logo-wall.cols-5 { grid-template-columns: repeat(5, 1fr); }
+.logo-wall.cols-6 { grid-template-columns: repeat(6, 1fr); }
+.logo-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 96px;
+  padding: 18px 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+.logo-tile-img {
+  max-width: 100%;
+  max-height: 48px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(0.15);
+}
+.logo-tile i {
+  font-size: 28px;
+  color: var(--accent);
+}
+.logo-tile-fallback {
+  font-family: var(--heading-font);
+  font-weight: var(--heading-weight);
+  font-size: clamp(16px, 2vw, 22px);
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.logo-tile-caption {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 16ch;
+  line-height: 1.3;
+}
+
 /* chart */
 .chart-slide { justify-content: flex-start; }
 .chart-slide .lead {
@@ -604,6 +662,33 @@ tbody tr:hover td {
 }
 .timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
 .timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+
+/* Vertical process stack (orientation: "vertical") */
+.timeline.is-vertical {
+  flex-direction: column;
+  gap: 0;
+  max-width: 640px;
+}
+.timeline.is-vertical .node {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  column-gap: 16px;
+  padding: 0 0 28px 0;
+  flex: none;
+}
+.timeline.is-vertical .node::before {
+  top: 18px;
+  bottom: -8px;
+  left: 8px;
+  right: auto;
+  width: 2px;
+  height: auto;
+  background: linear-gradient(180deg, var(--accent), var(--border));
+}
+.timeline.is-vertical .node:last-child::before { display: none; }
+.timeline.is-vertical .dot { grid-row: 1 / span 2; margin-top: 4px; }
+.timeline.is-vertical .node h3 { margin: 0 0 6px; }
+.timeline.is-vertical .node p { margin: 0; }
 
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
@@ -677,11 +762,18 @@ tbody tr:hover td {
 .section-slide h2 { font-size: clamp(32px, 4vw, 56px); margin-top: 8px; }
 
 /* closing / CTA */
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 28px;
+  align-items: center;
+}
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-top: 28px;
+  margin-top: 0;
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
@@ -689,6 +781,113 @@ tbody tr:hover td {
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
+  border: 3px solid transparent;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--text);
+}
+.btn-ghost {
+  background: color-mix(in srgb, var(--text) 12%, transparent);
+  color: var(--text);
+  border-color: transparent;
+}
+.closing-slide > .btn { margin-top: 28px; }
+
+/* streak-grid — Pulse-style filled day cells */
+.streak-grid-slide { justify-content: flex-start; }
+.streak-grid-slide .lead {
+  max-width: 36ch;
+  margin-bottom: clamp(16px, 2vw, 28px);
+}
+.streak-boxes {
+  display: grid;
+  grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
+  gap: 8px;
+  max-width: min(580px, 100%);
+  color: var(--accent);
+}
+.streak-box {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: currentColor;
+  opacity: 0.9;
+}
+.streak-box.dim { opacity: 0.15; }
+.streak-box.mid { opacity: 0.45; }
+.streak-caption {
+  margin-top: clamp(16px, 2vw, 28px);
+  color: var(--muted);
+  max-width: 40ch;
+  font-size: clamp(14px, 1.4vw, 18px);
+}
+
+/* metric-ring — circular KPI badge / arc */
+.metric-ring-slide { justify-content: flex-start; }
+.pct-wrap {
+  margin-top: clamp(20px, 2.5vw, 40px);
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(24px, 4vw, 60px);
+  flex-wrap: wrap;
+}
+.pct-ring {
+  width: clamp(160px, 28vw, 280px);
+  height: clamp(160px, 28vw, 280px);
+  border-radius: 50%;
+  border: clamp(10px, 2vw, 20px) solid currentColor;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.pct-ring-arc {
+  border-color: transparent;
+}
+.pct-ring-arc .pct-ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.pct-ring-center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.pct-num {
+  font-family: var(--heading-font);
+  font-weight: 800;
+  font-size: clamp(44px, 7vw, 88px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+.pct-label {
+  font-family: var(--body-font);
+  font-weight: 700;
+  font-size: clamp(9px, 1vw, 13px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-top: 6px;
+}
+.pct-desc {
+  max-width: 28ch;
+  flex: 1;
+  min-width: min(240px, 100%);
+}
+.pct-desc .lead { margin-top: 0; }
+.pct-body {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: clamp(14px, 1.4vw, 18px);
 }
 
 /* Entrance motion — applied when the deck loads; disabled under reduced-motion */
@@ -5360,6 +5559,224 @@ tbody tr:hover td {
   }
 }
 
+/* ── Stunning-25 body chrome: keep content slides on-brand past the cover ── */
+
+/* Aurora glass / glass mist — frosted cards, soft winner, code window sheen */
+.deck[data-surface="aurora-glass"] .card,
+.deck[data-surface="glass-mist"] .card {
+  backdrop-filter: blur(14px);
+  background: color-mix(in srgb, var(--card-bg) 72%, transparent);
+  border: 1px solid color-mix(in srgb, #ffffff 28%, var(--border));
+  box-shadow: 0 12px 40px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+.deck[data-surface="aurora-glass"] .grid.cols-bento .card:first-child,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--accent) 55%, transparent),
+    color-mix(in srgb, var(--accent-2) 40%, var(--card-bg))
+  );
+  border-color: color-mix(in srgb, #ffffff 40%, transparent);
+  color: #fff;
+}
+.deck[data-surface="aurora-glass"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="aurora-glass"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="aurora-glass"] .grid.cols-bento .card:first-child i,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: #fff;
+}
+.deck[data-surface="aurora-glass"] .comparison-col:last-child,
+.deck[data-surface="glass-mist"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.deck[data-surface="aurora-glass"] .code-window,
+.deck[data-surface="glass-mist"] .code-window {
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, #0b1220 78%, transparent);
+  border: 1px solid color-mix(in srgb, #ffffff 18%, transparent);
+}
+.deck[data-surface="aurora-glass"] .quote,
+.deck[data-surface="glass-mist"] .quote {
+  border-left: 3px solid transparent;
+  border-image: linear-gradient(180deg, var(--accent), var(--accent-2)) 1;
+  font-weight: 500;
+}
+.deck[data-surface="aurora-glass"] .chart-frame,
+.deck[data-surface="glass-mist"] .chart-frame {
+  backdrop-filter: blur(8px);
+  background: color-mix(in srgb, var(--card-bg) 65%, transparent);
+  border-radius: 16px;
+  padding: 12px;
+}
+.deck[data-surface="aurora-glass"] .image-hero-slide .hero-caption,
+.deck[data-surface="glass-mist"] .image-hero-slide .hero-caption {
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, #06101f 88%, transparent));
+}
+
+/* Fintech soft — calm panels, accent winner, tabular metrics */
+.deck[data-surface="fintech-soft"] .card {
+  background: var(--card-bg);
+  border: 1px solid color-mix(in srgb, var(--text) 8%, var(--border));
+  border-radius: 12px;
+  box-shadow: 0 1px 0 color-mix(in srgb, #fff 70%, transparent) inset;
+}
+.deck[data-surface="fintech-soft"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+.deck[data-surface="fintech-soft"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--accent) 12%, var(--card-bg));
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+.deck[data-surface="fintech-soft"] .stat .value {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+}
+.deck[data-surface="fintech-soft"] .data-table th {
+  background: color-mix(in srgb, var(--accent) 8%, var(--bg2));
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.75em;
+}
+.deck[data-surface="fintech-soft"] .quote {
+  border-left: 3px solid var(--accent);
+  color: var(--text);
+}
+
+/* Hygge soft — warm paper cards, soft quote, gentle winner */
+.deck[data-surface="hygge-soft"] .card {
+  background: color-mix(in srgb, var(--card-bg) 92%, #fff);
+  border: none;
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--text) 8%, transparent);
+  border-radius: 18px;
+}
+.deck[data-surface="hygge-soft"] .comparison-col {
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--card-bg) 88%, #fff);
+}
+.deck[data-surface="hygge-soft"] .comparison-col:last-child {
+  background: color-mix(in srgb, var(--accent) 18%, var(--card-bg));
+}
+.deck[data-surface="hygge-soft"] .quote {
+  border-left: none;
+  padding-left: 0;
+  font-style: italic;
+  max-width: 30ch;
+}
+.deck[data-surface="hygge-soft"] .quote::before {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+.deck[data-surface="hygge-soft"] .stat {
+  border-top: 2px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+}
+
+/* Broadsheet rule — masthead typography on body beats */
+.deck[data-surface="broadsheet-rule"] .card,
+.deck[data-surface="broadsheet-rule"] .comparison-col {
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  border-top: 2px solid var(--text);
+  box-shadow: none;
+}
+.deck[data-surface="broadsheet-rule"] .comparison-col:last-child {
+  border-top-color: var(--accent);
+  background: transparent;
+}
+.deck[data-surface="broadsheet-rule"] .grid.cols-bento .card:first-child {
+  background: var(--text);
+  color: var(--bg);
+  border: none;
+  padding: 24px;
+}
+.deck[data-surface="broadsheet-rule"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="broadsheet-rule"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="broadsheet-rule"] .grid.cols-bento .card:first-child i {
+  color: var(--bg);
+}
+.deck[data-surface="broadsheet-rule"] .quote {
+  border-left: 4px solid var(--text);
+  font-family: var(--heading-font);
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1.15;
+}
+.deck[data-surface="broadsheet-rule"] .stat .value {
+  font-family: var(--heading-font);
+  font-weight: 700;
+}
+.deck[data-surface="broadsheet-rule"] .data-table {
+  border-top: 2px solid var(--text);
+  border-bottom: 2px solid var(--text);
+}
+.deck[data-surface="broadsheet-rule"] .data-table th {
+  border-bottom: 1px solid var(--text);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72em;
+}
+
+/* Heritage wash — museum card mats + gold emphasis */
+.deck[data-surface="heritage-wash"] .card {
+  background: color-mix(in srgb, var(--card-bg) 94%, #fff);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--bg2) 80%, transparent);
+}
+.deck[data-surface="heritage-wash"] .comparison-col:last-child {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, var(--card-bg));
+}
+.deck[data-surface="heritage-wash"] .grid.cols-bento .card:first-child {
+  background: color-mix(in srgb, var(--text) 92%, var(--accent));
+  color: var(--bg);
+  border-color: var(--accent);
+}
+.deck[data-surface="heritage-wash"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="heritage-wash"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="heritage-wash"] .grid.cols-bento .card:first-child i {
+  color: var(--bg);
+}
+.deck[data-surface="heritage-wash"] .quote {
+  border-left: 2px solid var(--accent);
+  font-family: var(--heading-font);
+  font-weight: 400;
+}
+.deck[data-surface="heritage-wash"] .stat .value {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Quiet luxe — deepen remaining body shells */
+.deck[data-surface="quiet-luxe"] .card {
+  background: transparent;
+  border: none;
+  border-top: 1px solid color-mix(in srgb, var(--accent) 55%, var(--border));
+  border-radius: 0;
+  padding-top: 20px;
+}
+.deck[data-surface="quiet-luxe"] .grid.cols-bento .card:first-child {
+  border-top-width: 2px;
+  border-top-color: var(--accent);
+}
+.deck[data-surface="quiet-luxe"] .code-window {
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+  background: color-mix(in srgb, var(--bg2) 90%, #000);
+}
+.deck[data-surface="quiet-luxe"] .chart-frame {
+  border-top: 1px solid var(--accent);
+  padding-top: 16px;
+}
+
 
 
 /* presentation-md attribution footer */
@@ -5473,36 +5890,88 @@ tbody tr:hover td {
   </div>
 </section>
 
-<section data-tone="cyan" class="slide stat-row-slide stat-row-hero" data-layout="stat-row">
+<section data-tone="cyan" class="slide metric-ring-slide" data-layout="metric-ring">
   <span class="eyebrow">Global Ranking</span>
   <h2>TOP 3%.</h2>
-  <p class="lead">Out of 4.8 million Pulse users worldwide, you outworked 97% of them. City rank #14. Age group: top 1%.</p>
-  <div class="stats">
-    <div class="stat is-mega">
-      <div class="value">3%</div>
-      <div class="label">globally</div>
+  <div class="pct-wrap">
+    <div class="pct-ring" role="img" aria-label="3% globally">
+      <span class="pct-num">3%</span>
+      <span class="pct-label">globally</span>
     </div>
-    <div class="stat">
-      <div class="value">#14</div>
-      <div class="label">in your city</div>
-    </div>
-    <div class="stat">
-      <div class="value">1%</div>
-      <div class="label">age group</div>
+    <div class="pct-desc">
+      <p class="lead">Out of 4.8 million Pulse users worldwide, you outworked 97% of them.</p>
+      <p class="pct-body">City rank #14. Age group: top 1%.</p>
     </div>
   </div>
 </section>
 
-<section data-tone="violet" class="slide stat-row-slide stat-row-hero" data-layout="stat-row">
+<section data-tone="violet" class="slide streak-grid-slide" data-layout="streak-grid">
   <span class="eyebrow">Best Streak</span>
   <h2>No excuses.</h2>
   <p class="lead">47 days straight. March 3 → April 18. The streak that changed everything.</p>
-  <div class="stats">
-    <div class="stat is-mega">
-      <div class="value">47</div>
-      <div class="label">Days straight — longest streak ever</div>
-    </div>
+  <div class="streak-boxes" style="--streak-cols: 10">
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box"></div>
+    <div class="streak-box dim"></div>
+    <div class="streak-box dim"></div>
+    <div class="streak-box dim"></div>
+    <div class="streak-box dim"></div>
+    <div class="streak-box dim"></div>
+    <div class="streak-box dim"></div>
+    <div class="streak-box dim"></div>
+    <div class="streak-box dim"></div>
+    <div class="streak-box dim"></div>
+    <div class="streak-box dim"></div>
+    <div class="streak-box dim"></div>
+    <div class="streak-box dim"></div>
+    <div class="streak-box dim"></div>
   </div>
+  
 </section>
 
 <section data-tone="lime" class="slide stat-row-slide stat-row-hero" data-layout="stat-row">
@@ -5576,13 +6045,16 @@ tbody tr:hover td {
   <span class="eyebrow">Share Your Wrapped</span>
   <h1>LET THE WORLD KNOW.</h1>
   <p class="lead">You moved 14,892 minutes. You hit top 3% globally. You earned this flex.</p>
-  <a class="btn" href="#"><i class="fa-solid fa-arrow-right"></i> Share your Wrapped</a>
+  <div class="cta-row">
+    <a class="btn" href="#"><i class="fa-brands fa-instagram"></i> Share on Instagram</a>
+    <a class="btn btn-outline" href="#"><i class="fa-brands fa-x-twitter"></i> Post to X</a>
+  </div>
 </section>
 
 </main>
 <div class="nav-hint" aria-hidden="true">← → to navigate</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Pulse — Year Wrapped","company":"Pulse","description":"Spotify-Wrapped style recap — kinetic-wrapped gallery parity via ranked-list + mega-stat tones.","theme":"kinetic-wrapped"},"slides":[{"layout":"title","tone":"lime","eyebrow":"Pulse · 2026","heading":"YOUR 2026, WRAPPED.","lead":"Every beat. Every drop of sweat. Here's what you actually did this year.","notes":"Cold open — yell the year before the logo."},{"layout":"stat-row","variant":"hero","eyebrow":"Workouts","heading":"You showed up.","lead":"You worked out 287 times this year. That's basically every single day, plus a spare.","stats":[{"value":"287","label":"Workouts this year"},{"value":"5.5×","label":"per week avg"},{"value":"63","label":"rest days total"},{"value":"+34%","label":"vs 2025"}],"notes":"Mega workouts — lime on black energy."},{"layout":"ranked-list","tone":"magenta","eyebrow":"Top Activity","heading":"RUNNING IS YOUR THING.","lead":"You ran a combined 1,847 km this year. That's London → Istanbul.","items":[{"rank":"01","label":"Running","value":"142 sessions","widthPct":88},{"rank":"02","label":"Strength","value":"94 sessions","widthPct":58},{"rank":"03","label":"HIIT","value":"51 sessions","widthPct":34}],"notes":"Ranked activity bars — first-class ranked-list."},{"layout":"stat-row","variant":"hero","tone":"orange","eyebrow":"Minutes Moved","heading":"Ten full days of motion.","lead":"You spent 14,892 minutes moving in 2026. That's 248 hours of pure motion.","stats":[{"value":"14,892","label":"Minutes moved"},{"value":"52 min","label":"avg session"},{"value":"248 hrs","label":"total hours"},{"value":"41 min","label":"daily average"}],"notes":"Minutes mega beat — orange field."},{"layout":"stat-row","variant":"hero","tone":"cyan","eyebrow":"Global Ranking","heading":"TOP 3%.","lead":"Out of 4.8 million Pulse users worldwide, you outworked 97% of them. City rank #14. Age group: top 1%.","stats":[{"value":"3%","label":"globally"},{"value":"#14","label":"in your city"},{"value":"1%","label":"age group"}],"notes":"Percentile flex — cyan field."},{"layout":"stat-row","variant":"hero","tone":"violet","eyebrow":"Best Streak","heading":"No excuses.","lead":"47 days straight. March 3 → April 18. The streak that changed everything.","stats":[{"value":"47","label":"Days straight — longest streak ever"}],"notes":"Streak mega — violet/magenta night."},{"layout":"stat-row","variant":"hero","tone":"lime","eyebrow":"Soundtrack","heading":"YOU PLAYED 6,204 TRACKS.","lead":"Most-played genre: Electronic. Power song: \"All In\" by ODESZA — 94 times during workouts.","stats":[{"value":"6,204","label":"tracks played"},{"value":"311 hrs","label":"music listened"},{"value":"142 BPM","label":"your sweet spot"}],"notes":"Soundtrack beat — lime on deep green."},{"layout":"feature-grid","tone":"orange","eyebrow":"Community","heading":"YOU'RE NOT ALONE IN THIS.","columns":4,"cards":[{"title":"382","body":"friends on Pulse"},{"title":"28","body":"group challenges won"},{"title":"1,047","body":"high-fives given"},{"title":"4.9M","body":"collective mins moved"}],"notes":"Squad proof — yellow/navy community cards."},{"layout":"stat-row","variant":"hero","tone":"orange","eyebrow":"Peak Month","heading":"OCTOBER WAS YOUR MONTH.","lead":"You crushed 34 workouts in October alone. Every single day — plus 3 doubles.","stats":[{"value":"34","label":"workouts in Oct"},{"value":"1,842","label":"minutes in Oct"},{"value":"3","label":"personal records"}],"notes":"Peak month — navy/orange."},{"layout":"closing","tone":"lime","eyebrow":"Share Your Wrapped","heading":"LET THE WORLD KNOW.","lead":"You moved 14,892 minutes. You hit top 3% globally. You earned this flex.","cta":{"label":"Share your Wrapped","href":"#"},"notes":"Share close — dual energy; second pill lives in gallery HTML."}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Pulse — Year Wrapped","company":"Pulse","description":"Spotify-Wrapped style recap — kinetic-wrapped gallery parity via ranked-list, mega-stat, streak-grid, metric-ring, dual share pills.","theme":"kinetic-wrapped"},"slides":[{"layout":"title","tone":"lime","eyebrow":"Pulse · 2026","heading":"YOUR 2026, WRAPPED.","lead":"Every beat. Every drop of sweat. Here's what you actually did this year.","notes":"Cold open — yell the year before the logo."},{"layout":"stat-row","variant":"hero","eyebrow":"Workouts","heading":"You showed up.","lead":"You worked out 287 times this year. That's basically every single day, plus a spare.","stats":[{"value":"287","label":"Workouts this year"},{"value":"5.5×","label":"per week avg"},{"value":"63","label":"rest days total"},{"value":"+34%","label":"vs 2025"}],"notes":"Mega workouts — lime on black energy."},{"layout":"ranked-list","tone":"magenta","eyebrow":"Top Activity","heading":"RUNNING IS YOUR THING.","lead":"You ran a combined 1,847 km this year. That's London → Istanbul.","items":[{"rank":"01","label":"Running","value":"142 sessions","widthPct":88},{"rank":"02","label":"Strength","value":"94 sessions","widthPct":58},{"rank":"03","label":"HIIT","value":"51 sessions","widthPct":34}],"notes":"Ranked activity bars — first-class ranked-list."},{"layout":"stat-row","variant":"hero","tone":"orange","eyebrow":"Minutes Moved","heading":"Ten full days of motion.","lead":"You spent 14,892 minutes moving in 2026. That's 248 hours of pure motion.","stats":[{"value":"14,892","label":"Minutes moved"},{"value":"52 min","label":"avg session"},{"value":"248 hrs","label":"total hours"},{"value":"41 min","label":"daily average"}],"notes":"Minutes mega beat — orange field."},{"layout":"metric-ring","tone":"cyan","eyebrow":"Global Ranking","heading":"TOP 3%.","value":"3%","label":"globally","pct":100,"lead":"Out of 4.8 million Pulse users worldwide, you outworked 97% of them.","body":"City rank #14. Age group: top 1%.","notes":"Percentile flex — cyan field + metric-ring badge."},{"layout":"streak-grid","tone":"violet","eyebrow":"Best Streak","heading":"No excuses.","lead":"47 days straight. March 3 → April 18. The streak that changed everything.","filled":47,"total":60,"cols":10,"notes":"Streak grid — violet/magenta night."},{"layout":"stat-row","variant":"hero","tone":"lime","eyebrow":"Soundtrack","heading":"YOU PLAYED 6,204 TRACKS.","lead":"Most-played genre: Electronic. Power song: \"All In\" by ODESZA — 94 times during workouts.","stats":[{"value":"6,204","label":"tracks played"},{"value":"311 hrs","label":"music listened"},{"value":"142 BPM","label":"your sweet spot"}],"notes":"Soundtrack beat — lime on deep green."},{"layout":"feature-grid","tone":"orange","eyebrow":"Community","heading":"YOU'RE NOT ALONE IN THIS.","columns":4,"cards":[{"title":"382","body":"friends on Pulse"},{"title":"28","body":"group challenges won"},{"title":"1,047","body":"high-fives given"},{"title":"4.9M","body":"collective mins moved"}],"notes":"Squad proof — yellow/navy community cards."},{"layout":"stat-row","variant":"hero","tone":"orange","eyebrow":"Peak Month","heading":"OCTOBER WAS YOUR MONTH.","lead":"You crushed 34 workouts in October alone. Every single day — plus 3 doubles.","stats":[{"value":"34","label":"workouts in Oct"},{"value":"1,842","label":"minutes in Oct"},{"value":"3","label":"personal records"}],"notes":"Peak month — navy/orange."},{"layout":"closing","tone":"lime","eyebrow":"Share Your Wrapped","heading":"LET THE WORLD KNOW.","lead":"You moved 14,892 minutes. You hit top 3% globally. You earned this flex.","actions":[{"label":"Share on Instagram","href":"#","style":"solid","icon":"fa-brands fa-instagram"},{"label":"Post to X","href":"#","style":"outline","icon":"fa-brands fa-x-twitter"}],"notes":"Share close — dual solid + outline pills."}]}</script>
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));

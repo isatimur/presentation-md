@@ -177,6 +177,26 @@
       "lead": "Lead $8M \u00b7 Co-investors filling $6M \u00b7 18 months runway to $8M ARR."
     },
     {
+      "layout": "logo-wall",
+      "eyebrow": "Design partners",
+      "heading": "Building with teams who feel the pain daily.",
+      "columns": 3,
+      "cards": [
+        {
+          "title": "Signal",
+          "body": "Pilot"
+        },
+        {
+          "title": "Vertex",
+          "body": "Pilot"
+        },
+        {
+          "title": "Quanta",
+          "body": "Design partner"
+        }
+      ]
+    },
+    {
       "layout": "closing",
       "eyebrow": "The Opportunity",
       "heading": "AI deserves better plumbing.",

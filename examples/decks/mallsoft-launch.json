@@ -1,9 +1,9 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Mallsoft — Launch",
+    "title": "Mallsoft \u2014 Launch",
     "company": "Mallsoft",
-    "description": "Vaporwave consumer launch — vaporwave multi-slide proof.",
+    "description": "Vaporwave consumer launch \u2014 vaporwave multi-slide proof.",
     "theme": "vaporwave"
   },
   "slides": [
@@ -40,7 +40,7 @@
         {
           "icon": "fa-solid fa-bag-shopping",
           "title": "Food court NFT",
-          "body": "Just kidding — real snacks, real lines."
+          "body": "Just kidding \u2014 real snacks, real lines."
         },
         {
           "icon": "fa-solid fa-eye",
@@ -50,7 +50,7 @@
         {
           "icon": "fa-solid fa-compass",
           "title": "Clear north star",
-          "body": "One decisive story beat — not a wall of equal tiles."
+          "body": "One decisive story beat \u2014 not a wall of equal tiles."
         }
       ]
     },
@@ -68,7 +68,7 @@
           "label": "City pop-ups"
         },
         {
-          "value": "∞",
+          "value": "\u221e",
           "label": "Sunset loops"
         }
       ]
@@ -86,7 +86,7 @@
     {
       "layout": "quote",
       "quote": "The mall never closed. It just went online and got sadder. We're fixing the lighting.",
-      "by": "Mallsoft · Founders"
+      "by": "Mallsoft \u00b7 Founders"
     },
     {
       "layout": "two-column",
@@ -95,7 +95,8 @@
       "leftTitle": "Aesthetic",
       "left": "Pink/cyan grid.\nPalm silhouettes.\nSlow scroll, high fidelity.",
       "rightTitle": "Ship",
-      "right": "Real SKUs.\nReal drop dates.\nNo infinite waitlist theater."
+      "right": "Real SKUs.\nReal drop dates.\nNo infinite waitlist theater.",
+      "ratio": "2-1"
     },
     {
       "layout": "closing",
