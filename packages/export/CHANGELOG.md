@@ -1,5 +1,12 @@
 # @presentation-md/export
 
+## 1.22.1
+
+### Patch Changes
+
+- Updated dependencies [059c89f]
+  - @presentation-md/core@1.13.2
+
 ## 1.22.0
 
 ### Minor Changes

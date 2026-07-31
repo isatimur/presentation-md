@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.13.2
+
+### Patch Changes
+
+- 059c89f: Raise present-mode craft floors (notes / dual-CTA / long-deck data beats) in the skill + MCP mandate, and lock gallery example decks behind a zero-warning auditCraft regression.
+
 ## 1.13.1
 
 ### Patch Changes
