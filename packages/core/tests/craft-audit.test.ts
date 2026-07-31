@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { readdirSync, readFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import { auditCraft } from "../src/craft-audit.js";
 
 describe("auditCraft", () => {
@@ -932,5 +932,20 @@ describe("auditCraft", () => {
     };
     const issues = auditCraft(deck);
     expect(issues.some((i) => /data-editorial|reported data beat/i.test(i.message))).toBe(true);
+  });
+
+  it("gallery example decks clear the craft floor (notes / dual-CTA / data beats)", () => {
+    const dir = resolve(process.cwd(), "../../examples/decks");
+    const files = readdirSync(dir).filter((f) => f.endsWith(".json")).sort();
+    expect(files.length).toBeGreaterThan(50);
+    const failures: string[] = [];
+    for (const file of files) {
+      const deck = JSON.parse(readFileSync(join(dir, file), "utf-8"));
+      const issues = auditCraft(deck).filter((i) => i.severity === "warning" || i.severity === "error");
+      if (issues.length) {
+        failures.push(`${file}: ${issues.map((i) => i.message).join(" | ")}`);
+      }
+    }
+    expect(failures).toEqual([]);
   });
 });

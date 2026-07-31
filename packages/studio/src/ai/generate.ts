@@ -84,6 +84,7 @@ Authoring rules:
   - Match atmosphere to the brief: loud/thin surfaces for punchy brand energy; neon/vapor/arcade for night; HUD/tech for instruments; glass for frosted product; paper/editorial for magazine quiet.
   - PPTX approximates theme chrome as native shapes (electric-studio split/rail, studio acid frame, grove monograph rules, hard-card strokes, HUD reticles, …); reserve custom-html for art PPTX cannot keep.
   - Closing dual asks: stunning / wrap / launch / investor decks prefer actions[] with solid + outline pills and an icon on every pill (cta alone is weak).
+  - Long decks (≥6 slides) need a data beat (chart / stat-row / data-table / ranked-list / metric-ring / timeline).
   - Add brief "notes" on 2–4 key slides (talking points for the presenter).
 - Only emit fields defined above. Do not invent new layouts or fields.`;
 

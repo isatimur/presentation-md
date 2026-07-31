@@ -207,6 +207,8 @@ describe("generate_deck_prompt", () => {
     expect(result.craft_mandate).toMatch(/theme_shortlists|core-defaults/i);
     expect(result.craft_mandate).toMatch(/preview_themes.*shortlist|shortlist:<id>/i);
     expect(result.craft_mandate).toMatch(/top-rule|ft-editorial/i);
+    expect(result.craft_mandate).toMatch(/Long decks|data beat/i);
+    expect(result.craft_mandate).toMatch(/launch\/investor/i);
     expect(result.theme_shortlists_reference).toMatch(/series-a-pitch|core-defaults/i);
   });
 });
