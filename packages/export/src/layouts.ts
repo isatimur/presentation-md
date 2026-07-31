@@ -17,7 +17,7 @@ type CardStroke = {
   dashType?: "solid" | "dash" | "dashDot" | "lgDash" | "lgDashDot" | "lgDashDotDot" | "sysDash" | "sysDot";
   /** quiet-luxe / biennale: top hairline instead of a full box stroke */
   topRule?: boolean;
-  /** paper-ink literary: left accent rule instead of a full box stroke */
+  /** Literary left-rule peers (paper-ink / editorial-serif / vintage-editorial): left accent instead of a full box stroke */
   leftRule?: boolean;
 };
 
@@ -137,20 +137,15 @@ function cardStroke(
   if (ctx.themeName === "bold-signal") {
     return { color: ctx.colors.accent, width: opts.hero || opts.highlighted ? 1.5 : 1.25 };
   }
-  // vintage-editorial-geo cards: 2px ink, near-square
-  if (ctx.themeName === "vintage-editorial") {
-    return { color: ctx.colors.text, width: opts.hero || opts.highlighted ? 2.25 : 2 };
-  }
   // electric-studio-split / studio-acid / grove-monograph / cartesian-draft / botanical /
-  // dark-botanical / editorial-serif: square hairline cards
+  // dark-botanical: square hairline cards
   if (
     ctx.themeName === "electric-studio" ||
     ctx.themeName === "studio" ||
     ctx.themeName === "grove" ||
     ctx.themeName === "cartesian" ||
     ctx.themeName === "botanical-luxe" ||
-    ctx.themeName === "dark-botanical" ||
-    ctx.themeName === "editorial-serif"
+    ctx.themeName === "dark-botanical"
   ) {
     const color =
       ctx.themeName === "studio"
@@ -202,10 +197,17 @@ function cardStroke(
       ctx.themeName === "heritage-editorial" ? ctx.colors.accent : ctx.colors.text;
     return { color, width: opts.hero || opts.highlighted ? 1.35 : 1.15 };
   }
-  // paper-ink-literary cards: 3px left accent rule (HTML border-left)
-  if (ctx.themeName === "paper-ink") {
+  // Literary left-rule peers (HTML border-left only — no full box stroke):
+  // paper-ink crimson rail, editorial-serif masthead crimson, vintage-editorial ink rail
+  if (
+    ctx.themeName === "paper-ink" ||
+    ctx.themeName === "editorial-serif" ||
+    ctx.themeName === "vintage-editorial"
+  ) {
+    const color =
+      ctx.themeName === "vintage-editorial" ? ctx.colors.text : ctx.colors.accent;
     return {
-      color: ctx.colors.accent,
+      color,
       width: opts.hero || opts.highlighted ? 2.75 : 2.5,
       leftRule: true,
     };

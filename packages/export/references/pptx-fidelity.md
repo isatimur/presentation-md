@@ -122,12 +122,12 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   electric-studio gets a hard frame + white/blue hero split with black rail (content slides get a full-height accent left rail + top stub on heroes);
   bold-signal gets a soft shadow stub + rounded frame + orange blot/stub (heroes also get the focal panel) + plump accent-rim cards;
   mat gets denser woodglow radials + cream inset rim + accent hairlines (heroes also get a mid-century accent block) + square dark card strokes;
-  vintage-editorial gets a quiet outer border on all slides + hero geo ring/dots + near-square 2px ink cards;
-  electric-studio / studio / grove / cartesian / botanical-luxe / dark-botanical / editorial-serif cards get square hairline strokes;
+  electric-studio / studio / grove / cartesian / botanical-luxe / dark-botanical cards get square hairline strokes;
   aurora-glass / glassmorphism cards get frosted white/glass rims (plump);
   crt-terminal / brutalist-mono cards get square accent/ink strokes;
   emerald-editorial / pink-script / vellum / broadsheet / editorial-forest / monochrome cards get square ink/accent strokes;
-  paper-ink cards get a crimson left accent rule (literary rail — no full box stroke);
+  paper-ink / editorial-serif / vintage-editorial cards get a literary left accent rule
+  (crimson/ink rail — no full box stroke);
   soft-editorial / pin-and-paper / notebook-tabs / heritage-editorial cards get theme-native hairlines with soft radii;
   long-table cards get dashed rust rims (plump); signal cards get quiet briefing border hairlines;
   luxury-minimalist / biennale-yellow cards get top-rule hairlines (no full box stroke);

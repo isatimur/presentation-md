@@ -80,7 +80,7 @@ Authoring rules:
   - Playful honesty: playful / split-pastel need a soft-bento beat (feature-grid / image-hero / stats / quote); PPTX keeps plump card rims.
   - Neon-tech honesty: default-tech / developer-dark need a tech product beat (code / feature-grid / chart / comparison / stats); PPTX keeps neon/terminal card rims.
   - Data-editorial honesty: data-editorial needs a reported data beat (chart / data-table / stat-row / ranked-list / timeline).
-  - Paper honesty: paper/editorial themes (incl. scandinavian / pastel-dreamy / claude) prefer quote + comparison+emphasis; fiber grain is HTML-only; PPTX keeps theme-native card hairlines (paper-ink: crimson left rule).
+  - Paper honesty: paper/editorial themes (incl. scandinavian / pastel-dreamy / claude) prefer quote + comparison+emphasis; fiber grain is HTML-only; PPTX keeps theme-native card hairlines (paper-ink / editorial-serif / vintage-editorial: literary left rules).
   - Match atmosphere to the brief: loud/thin surfaces for punchy brand energy; neon/vapor/arcade for night; HUD/tech for instruments; glass for frosted product; paper/editorial for magazine quiet.
   - PPTX approximates theme chrome as native shapes (electric-studio split/rail, studio acid frame, grove monograph rules, hard-card strokes, HUD reticles, …); reserve custom-html for art PPTX cannot keep.
   - Closing dual asks: stunning / wrap / launch / investor decks prefer actions[] with solid + outline pills and an icon on every pill (cta alone is weak).

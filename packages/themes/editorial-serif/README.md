@@ -35,3 +35,5 @@ npm i @presentation-md/theme-editorial-serif
 > Screenshot placeholder — run the skill to preview.
 
 Surface craft: masthead rule + deco ring with quiet cream paper grain (HTML). PPTX approximates rule + ring — grain is HTML-only.
+
+Surface craft: masthead crimson rules (HTML). PPTX keeps rules/washes; cards get a crimson left accent rule (literary rail peer of paper-ink).

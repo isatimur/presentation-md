@@ -1717,8 +1717,9 @@
 }
 .deck[data-surface="vintage-editorial-geo"] .card {
   background: #fff;
-  border: 2px solid var(--text);
-  border-radius: 4px;
+  border: none;
+  border-left: 3px solid var(--text);
+  border-radius: 0;
 }
 
 /* ── paper-ink-literary (paper-ink) ── */
@@ -4830,7 +4831,8 @@
 .deck[data-surface="editorial-rule"] .card {
   border-radius: 0;
   background: transparent;
-  border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+  border: none;
+  border-left: 3px solid var(--accent);
 }
 
 /* Scroll-triggered reveals (populated by document.html script) */
