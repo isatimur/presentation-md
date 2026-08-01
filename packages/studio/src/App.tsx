@@ -328,8 +328,8 @@ export function App() {
       />
       <div className="studio-strip" role="note">
         <span>
-          Live preview · Click a slide to edit · Undo/Redo · Paste MD · Share link · Present with
-          notes · Export editable PPTX
+          Live preview · Filmstrip thumbs · Click a slide to edit · Undo/Redo · Paste MD · Share
+          link · Present with notes · Export editable PPTX
         </span>
         <a href="https://presentation-md.vercel.app/" target="_blank" rel="noopener noreferrer">
           Docs &amp; gallery
@@ -337,7 +337,13 @@ export function App() {
       </div>
       <div className="workspace">
         <aside className="panel panel-left">
-          <SlideList slides={deck.slides} selected={selected} onSelect={setSelected} onChange={setSlides} />
+          <SlideList
+            slides={deck.slides}
+            selected={selected}
+            html={html}
+            onSelect={setSelected}
+            onChange={setSlides}
+          />
         </aside>
         <main className="panel panel-center">
           <Preview html={html} selectedSlide={selected} onSelectSlide={setSelected} />

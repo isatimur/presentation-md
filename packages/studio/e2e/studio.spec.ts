@@ -256,10 +256,14 @@ test("preview scrolls to selected slide and click-to-edit syncs the form", async
   const frame = page.frameLocator(".preview-frame");
   await expect(frame.locator("section.slide").first()).toBeVisible();
 
-  // Select slide 3 from the list → preview marks it selected.
-  // Click the main text (not ↑↓ actions — those stopPropagation).
+  // Filmstrip thumbs mount (lazy) beside the list labels.
   const rows = page.locator(".slide-row");
   expect(await rows.count()).toBeGreaterThanOrEqual(3);
+  await expect(page.locator(".slide-thumb").first()).toBeVisible();
+  await expect(page.locator(".slide-thumb-frame").first()).toBeVisible({ timeout: 15_000 });
+
+  // Select slide 3 from the list → preview marks it selected.
+  // Click the main text (not ↑↓ actions — those stopPropagation).
   await rows.nth(2).locator(".slide-row-main").click();
   await expect(rows.nth(2)).toHaveClass(/active/);
   await expect(frame.locator("section.slide.pmd-studio-selected")).toHaveCount(1);
