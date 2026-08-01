@@ -1,5 +1,12 @@
 # @presentation-md/mcp-server
 
+## 1.27.1
+
+### Patch Changes
+
+- Updated dependencies [fb48c18]
+  - @presentation-md/render@1.10.0
+
 ## 1.27.0
 
 ### Minor Changes
