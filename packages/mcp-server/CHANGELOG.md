@@ -1,5 +1,19 @@
 # @presentation-md/mcp-server
 
+## 1.30.0
+
+### Minor Changes
+
+- 2d01abe: Universal Studio deep-links: every list_themes entry gets studio_url (`?example=` for stunning-25, `?theme=` otherwise); preview_themes returns studio_share_url (`?d=`) for the exact bake deck.
+
+### Patch Changes
+
+- Updated dependencies [2d01abe]
+  - @presentation-md/core@1.25.0
+  - @presentation-md/create-theme@1.1.25
+  - @presentation-md/export@1.23.25
+  - @presentation-md/render@1.12.1
+
 ## 1.29.1
 
 ### Patch Changes
