@@ -725,6 +725,16 @@ body {
   background: var(--paper);
   border: 1px solid var(--line);
 }
+.audit-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+}
+.audit-insert {
+  flex-shrink: 0;
+}
 .audit-sev {
   font-size: 10px;
   font-weight: 700;

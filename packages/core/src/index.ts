@@ -30,8 +30,26 @@ export type { ChartType, ChartSeries, ChartSpec, ChartColors } from "./chart-svg
 export { sanitizeCustomHtml } from "./sanitize-html.js";
 export { markdownToDeck } from "./md-to-deck.js";
 export type { MdDeck, MdSlide, MdToDeckOptions } from "./md-to-deck.js";
-export { auditCraft, repairCraft, CRAFT_VALID_LAYOUTS } from "./craft-audit.js";
-export type { CraftIssue, CraftAuditDeck, CraftRepairResult } from "./craft-audit.js";
+export { auditCraft, repairCraft, repairCraftBeat, CRAFT_VALID_LAYOUTS } from "./craft-audit.js";
+export type {
+  CraftIssue,
+  CraftAuditDeck,
+  CraftRepairResult,
+  CraftFixId,
+} from "./craft-audit.js";
+export {
+  scaffoldDeck,
+  listScaffoldPurposes,
+  resolveScaffoldPurpose,
+  SCAFFOLD_PURPOSE_IDS,
+  SCAFFOLD_RECIPES,
+} from "./scaffold-deck.js";
+export type {
+  ScaffoldPurpose,
+  ScaffoldDeckOptions,
+  ScaffoldDeckResult,
+  ScaffoldRecipe,
+} from "./scaffold-deck.js";
 export { candyMarqueeText, candyMarqueeBrand } from "./candy-marquee.js";
 export type { CandyMarqueeMeta } from "./candy-marquee.js";
 export {

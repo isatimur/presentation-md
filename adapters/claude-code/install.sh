@@ -42,7 +42,7 @@ if [ "$MODE" = "full" ]; then
     UPDATED=$(node -e "
       const cfg = JSON.parse(process.argv[1]);
       cfg.mcpServers = cfg.mcpServers || {};
-      // Migrate legacy 5-tool package name → full @presentation-md/mcp-server (11 tools).
+      // Migrate legacy 5-tool package name → full @presentation-md/mcp-server (12 tools).
       delete cfg.mcpServers['presentation-skill-pack'];
       cfg.mcpServers['presentation-md'] = {
         command: 'npx',

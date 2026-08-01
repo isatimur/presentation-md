@@ -20,7 +20,7 @@ presentation-md gives AI agents a schema-validated workflow for creating slide d
 - **Output format:** Single self-contained HTML file (no external dependencies)
 - **Themes:** 75 vibes (`claude` + `default-tech` bundled; 73 more as `@presentation-md/theme-*`); brand import from URL/CSS
 - **Layouts:** 18 schema-validated layouts (incl. `ranked-list`, `streak-grid`, `metric-ring`, `chart`, `custom-html`)
-- **MCP server:** 11 typed tools (`render_deck`, `export_deck`, `audit_deck`, `judge_deck`, `list_themes`, `apply_theme`, `generate_deck_prompt`, `preview_themes`, `import_pptx`, `import_markdown`, `import_brand_theme`)
+- **MCP server:** 12 typed tools (`render_deck`, `export_deck`, `audit_deck`, `judge_deck`, `list_themes`, `apply_theme`, `generate_deck_prompt`, `preview_themes`, `import_pptx`, `import_markdown`, `import_brand_theme`)
 - **Import:** PPTX → Deck JSON; Markdown → Deck JSON; brand URL → theme
 - **Export:** HTML, editable `.pptx` (PowerPoint / Keynote / Google Slides)
 - **Studio:** Browser editor at https://presentation-md.vercel.app/studio
@@ -81,7 +81,7 @@ npx @presentation-md/render --from-pptx deck.pptx -o deck.json
 
 ## How it differs from alternatives
 
-- **vs. frontend-slides:** Same discovery energy (3 live theme previews); plus schema-validated Deck JSON, 75 structured proofs, PPTX round-trip, 11 MCP tools, and Studio
+- **vs. frontend-slides:** Same discovery energy (3 live theme previews); plus schema-validated Deck JSON, 75 structured proofs, PPTX round-trip, 12 MCP tools, and Studio
 - **vs. Gamma/Pitch/Tome/Beautiful.ai:** Runs inside the AI agent you already use; output is a portable HTML file you own, not locked to a platform
 - **vs. Canva:** Template/design SaaS vs schema-validated Deck JSON from your coding agent
 - **vs. reveal.js/Slidev/Marp:** No manual authoring — the agent writes the spec; the renderer handles design

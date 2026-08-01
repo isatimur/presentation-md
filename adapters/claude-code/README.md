@@ -6,7 +6,7 @@ Installs the `presentation-generator` skill into Claude Code so the agent can tu
 
 | Mode | What happens |
 |------|-------------|
-| **full** (default) | Copies `SKILL.md` + `references/` to `~/.claude/skills/presentation-generator/` **and** registers the MCP server (`presentation-md`) in `~/.claude/mcp.json`, enabling all **11** MCP tools: `render_deck`, `export_deck`, `audit_deck`, `judge_deck`, `list_themes`, `apply_theme`, `generate_deck_prompt`, `preview_themes`, `import_pptx`, `import_markdown`, `import_brand_theme`. |
+| **full** (default) | Copies `SKILL.md` + `references/` to `~/.claude/skills/presentation-generator/` **and** registers the MCP server (`presentation-md`) in `~/.claude/mcp.json`, enabling all **12** MCP tools: `render_deck`, `export_deck`, `audit_deck`, `judge_deck`, `list_themes`, `apply_theme`, `generate_deck_prompt`, `scaffold_deck`, `preview_themes`, `import_pptx`, `import_markdown`, `import_brand_theme`. |
 | **lite** | Copies `SKILL.md` + `references/` only. The skill is available but no MCP tools. Claude uses the deck-spec CLI path or direct-HTML fallback. |
 
 ## Install

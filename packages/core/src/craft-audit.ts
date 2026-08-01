@@ -3,11 +3,27 @@
  * Schema AJV validation stays separate; this is the agent-facing craft bar.
  */
 
+/** Targeted repair action Studio / agents can apply for one issue. */
+export type CraftFixId =
+  | "image_hero"
+  | "comparison"
+  | "stat_row"
+  | "logo_wall"
+  | "quote"
+  | "ranked_list"
+  | "streak_grid"
+  | "feature_grid"
+  | "code"
+  | "wrap_tones"
+  | "safe_fields";
+
 export interface CraftIssue {
   severity: "error" | "warning";
   message: string;
   /** 1-based slide index when the issue is slide-local. */
   slide?: number;
+  /** When set, Studio can offer a per-issue Insert beat / Apply fix button. */
+  fixId?: CraftFixId;
 }
 
 /** Minimal deck shape — avoids coupling core to export DeckJson. */
@@ -98,6 +114,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
   if (slides.length >= 5 && !hasImageHero && !isWrap) {
     issues.push({
       severity: "warning",
+      fixId: "image_hero",
       message:
         "No image-hero slide — investor/launch/brand decks need a cinematic visual beat (see references/stunning-25.md).",
     });
@@ -106,6 +123,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
   if (slides.length >= 5 && !hasAsymmetry) {
     issues.push({
       severity: "warning",
+      fixId: "comparison",
       message:
         "Weak asymmetry — add comparison+emphasis, two-column (non-1-1 ratio), code, bento, ranked-list, streak-grid, metric-ring, or logo-wall.",
     });
@@ -321,6 +339,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
   if (slides.length >= 6 && withNotes === 0) {
     issues.push({
       severity: "warning",
+      fixId: "safe_fields",
       message: "No speaker notes — add brief notes on 2–4 key slides for present mode / PPTX.",
     });
   }
@@ -336,7 +355,8 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
   ) {
     issues.push({
       severity: "warning",
-      message:
+      fixId: "stat_row",
+        message:
         "Long deck with no chart/stat-row/data-table/ranked-list/metric-ring/timeline — consider a data beat.",
     });
   }
@@ -348,6 +368,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
   ) {
     issues.push({
       severity: "warning",
+      fixId: "logo_wall",
       message: 'Social-proof / customer marks copy without logo-wall — prefer layout "logo-wall".',
     });
   }
@@ -360,8 +381,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (toned < 3) {
       issues.push({
         severity: "warning",
-        message:
-          "kinetic-wrapped deck has fewer than 3 toned slides — set tone (lime/magenta/cyan/orange/violet) for wrap hue beats.",
+        fixId: "wrap_tones",
+      message:
+        "kinetic-wrapped deck has fewer than 3 toned slides — set tone (lime/magenta/cyan/orange/violet) for wrap hue beats.",
       });
     }
     const hasVisual =
@@ -374,14 +396,16 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasVisual) {
       issues.push({
         severity: "warning",
-        message:
-          'kinetic-wrapped wrap needs a visual beat — use ranked-list, streak-grid, metric-ring, stat-row variant:"hero", or image-hero.',
+        fixId: "ranked_list",
+      message:
+        'kinetic-wrapped wrap needs a visual beat — use ranked-list, streak-grid, metric-ring, stat-row variant:"hero", or image-hero.',
       });
     }
     if (/streak/.test(copyBlob) && !layouts.includes("streak-grid")) {
       issues.push({
         severity: "warning",
-        message: 'kinetic-wrapped mentions streak without streak-grid — prefer layout "streak-grid".',
+        fixId: "streak_grid",
+      message: 'kinetic-wrapped mentions streak without streak-grid — prefer layout "streak-grid".',
       });
     }
   }
@@ -394,8 +418,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasPrintBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "risograph-zine deck lacks a print beat — add comparison+emphasis, quote, or image-hero for zine energy.",
+        fixId: "quote",
+      message:
+        "risograph-zine deck lacks a print beat — add comparison+emphasis, quote, or image-hero for zine energy.",
       });
     }
   }
@@ -432,8 +457,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasEditorialBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "Paper/editorial theme lacks a magazine beat — add quote or comparison+emphasis (not only soft cards).",
+        fixId: "quote",
+      message:
+        "Paper/editorial theme lacks a magazine beat — add quote or comparison+emphasis (not only soft cards).",
       });
     }
   }
@@ -447,8 +473,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasAtmosphereBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "Atmosphere theme (neon-noir / vaporwave / y2k-aero / retro-arcade) needs a cinematic beat — add image-hero, quote, or a composed custom-html moment.",
+        fixId: "image_hero",
+      message:
+        "Atmosphere theme (neon-noir / vaporwave / y2k-aero / retro-arcade) needs a cinematic beat — add image-hero, quote, or a composed custom-html moment.",
       });
     }
   }
@@ -463,8 +490,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasPosterBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "Poster theme lacks a bold beat — add image-hero, comparison+emphasis, punchy quote, or stat-row (not only soft grids).",
+        fixId: "comparison",
+      message:
+        "Poster theme lacks a bold beat — add image-hero, comparison+emphasis, punchy quote, or stat-row (not only soft grids).",
       });
     }
   }
@@ -478,8 +506,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasMatBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "mat woodglow theme needs a mid-century beat — add quote, image-hero, comparison, or punchy stat-row (not only soft grids).",
+        fixId: "quote",
+      message:
+        "mat woodglow theme needs a mid-century beat — add quote, image-hero, comparison, or punchy stat-row (not only soft grids).",
       });
     }
   }
@@ -494,8 +523,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasGridBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "cobalt-grid paper needs a drafted data beat — add chart, data-table, stat-row, ranked-list, or timeline.",
+        fixId: "stat_row",
+      message:
+        "cobalt-grid paper needs a drafted data beat — add chart, data-table, stat-row, ranked-list, or timeline.",
       });
     }
   }
@@ -512,8 +542,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasHudBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "HUD/tech theme (aerospace-hud / crt-terminal / blueprint) needs an instrument beat — add chart, data-table, stat-row, ranked-list, timeline, or metric-ring.",
+        fixId: "stat_row",
+      message:
+        "HUD/tech theme (aerospace-hud / crt-terminal / blueprint) needs an instrument beat — add chart, data-table, stat-row, ranked-list, timeline, or metric-ring.",
       });
     }
   }
@@ -527,8 +558,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasBauhausBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "bauhaus Primary needs a modernist beat — add quote, image-hero, comparison+emphasis, or icon feature-grid (not only soft SaaS stacks).",
+        fixId: "quote",
+      message:
+        "bauhaus Primary needs a modernist beat — add quote, image-hero, comparison+emphasis, or icon feature-grid (not only soft SaaS stacks).",
       });
     }
   }
@@ -543,8 +575,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasBentoBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "genz-bento Bounce needs a hard-bento beat — add image-hero, comparison+emphasis, punchy stats, or feature-grid columns:\"bento\".",
+        fixId: "feature_grid",
+      message:
+        "genz-bento Bounce needs a hard-bento beat — add image-hero, comparison+emphasis, punchy stats, or feature-grid columns:\"bento\".",
       });
     }
   }
@@ -559,8 +592,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasGlassBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "Glass theme (aurora-glass / glassmorphism) needs a frosted product beat — add image-hero, quote, punchy stats, or a composed custom-html moment.",
+        fixId: "image_hero",
+      message:
+        "Glass theme (aurora-glass / glassmorphism) needs a frosted product beat — add image-hero, quote, punchy stats, or a composed custom-html moment.",
       });
     }
   }
@@ -575,8 +609,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasElectricBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "electric-studio / studio needs a loud brand beat — add image-hero, comparison+emphasis, punchy stats, or quote (not only soft grids).",
+        fixId: "comparison",
+      message:
+        "electric-studio / studio needs a loud brand beat — add image-hero, comparison+emphasis, punchy stats, or quote (not only soft grids).",
       });
     }
   }
@@ -590,8 +625,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasMonoBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "brutalist-mono Concrete needs a hard mono beat — add comparison+emphasis, quote, image-hero, or punchy stats.",
+        fixId: "comparison",
+      message:
+        "brutalist-mono Concrete needs a hard mono beat — add comparison+emphasis, quote, image-hero, or punchy stats.",
       });
     }
   }
@@ -606,8 +642,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasDraftBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "cartesian draft needs a plotted data beat — add chart, data-table, timeline, ranked-list, or stat-row.",
+        fixId: "stat_row",
+      message:
+        "cartesian draft needs a plotted data beat — add chart, data-table, timeline, ranked-list, or stat-row.",
       });
     }
   }
@@ -622,8 +659,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasModernistBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "swiss-typographic / art-deco needs a modernist beat — add quote, image-hero, comparison+emphasis, or icon feature-grid.",
+        fixId: "quote",
+      message:
+        "swiss-typographic / art-deco needs a modernist beat — add quote, image-hero, comparison+emphasis, or icon feature-grid.",
       });
     }
   }
@@ -637,8 +675,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasBriefingBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "signal briefing needs an editorial beat — add quote, image-hero, comparison+emphasis, or punchy stats (not only soft grids).",
+        fixId: "quote",
+      message:
+        "signal briefing needs an editorial beat — add quote, image-hero, comparison+emphasis, or punchy stats (not only soft grids).",
       });
     }
   }
@@ -651,8 +690,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasLuxeBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "luxury-minimalist (quiet-luxe) needs a restrained luxury beat — add quote, image-hero, or comparison+emphasis (top-rule cards, not soft SaaS stacks).",
+        fixId: "quote",
+      message:
+        "luxury-minimalist (quiet-luxe) needs a restrained luxury beat — add quote, image-hero, or comparison+emphasis (top-rule cards, not soft SaaS stacks).",
       });
     }
   }
@@ -667,8 +707,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasProductBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "corporate / fintech-clean needs a clean product beat — add stat-row, comparison+emphasis, feature-grid, or chart (not only soft sections).",
+        fixId: "stat_row",
+      message:
+        "corporate / fintech-clean needs a clean product beat — add stat-row, comparison+emphasis, feature-grid, or chart (not only soft sections).",
       });
     }
   }
@@ -683,8 +724,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasPlayfulBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "playful / split-pastel needs a soft-bento beat — add feature-grid, image-hero, punchy stats, or quote (not only soft sections).",
+        fixId: "feature_grid",
+      message:
+        "playful / split-pastel needs a soft-bento beat — add feature-grid, image-hero, punchy stats, or quote (not only soft sections).",
       });
     }
   }
@@ -700,8 +742,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasTechBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "default-tech / developer-dark needs a tech product beat — add code, feature-grid, chart, comparison, or punchy stats.",
+        fixId: "code",
+      message:
+        "default-tech / developer-dark needs a tech product beat — add code, feature-grid, chart, comparison, or punchy stats.",
       });
     }
   }
@@ -715,8 +758,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasWorkshopBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "scatterbrain cork board needs a workshop beat — add feature-grid, image-hero, punchy quote, or stats (sticky energy, not soft SaaS).",
+        fixId: "feature_grid",
+      message:
+        "scatterbrain cork board needs a workshop beat — add feature-grid, image-hero, punchy quote, or stats (sticky energy, not soft SaaS).",
       });
     }
   }
@@ -731,8 +775,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasDataBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "data-editorial needs a reported data beat — add chart, data-table, stat-row, ranked-list, or timeline.",
+        fixId: "stat_row",
+      message:
+        "data-editorial needs a reported data beat — add chart, data-table, stat-row, ranked-list, or timeline.",
       });
     }
   }
@@ -765,8 +810,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasLoudBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "Loud/hard-card theme needs a punchy beat — add image-hero, comparison+emphasis, punchy stats, quote, or feature-grid columns:\"bento\" (not only soft sections).",
+        fixId: "comparison",
+      message:
+        "Loud/hard-card theme needs a punchy beat — add image-hero, comparison+emphasis, punchy stats, quote, or feature-grid columns:\"bento\" (not only soft sections).",
       });
     }
   }
@@ -780,8 +826,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasPastelBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "pastel-geometry needs a soft-geometry beat — add feature-grid, image-hero, punchy stats, or quote (not only soft sections).",
+        fixId: "feature_grid",
+      message:
+        "pastel-geometry needs a soft-geometry beat — add feature-grid, image-hero, punchy stats, or quote (not only soft sections).",
       });
     }
   }
@@ -796,8 +843,9 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasBotanicalBeat) {
       issues.push({
         severity: "warning",
-        message:
-          "grove / dark-botanical needs a botanical monograph beat — add quote, image-hero, comparison+emphasis, or punchy stats.",
+        fixId: "quote",
+      message:
+        "grove / dark-botanical needs a botanical monograph beat — add quote, image-hero, comparison+emphasis, or punchy stats.",
       });
     }
   }
@@ -1388,6 +1436,393 @@ export function repairCraft(deck: CraftAuditDeck): CraftRepairResult {
       }
       fixes.push(`Slide ${idx + 1}: added speaker notes`);
     }
+  }
+
+  // ── Theme-honesty leftovers — insert cheapest beat when gate still fails ──
+  {
+    const layoutsNow = layoutList(slides);
+    const hasQuote = layoutsNow.includes("quote");
+    const hasComparison = layoutsNow.includes("comparison");
+    const hasImageHeroNow = layoutsNow.includes("image-hero");
+    const hasStat = layoutsNow.includes("stat-row");
+    const hasFeature = layoutsNow.includes("feature-grid");
+    const hasCode = layoutsNow.includes("code");
+    const hasDataish =
+      hasStat ||
+      layoutsNow.includes("chart") ||
+      layoutsNow.includes("data-table") ||
+      layoutsNow.includes("ranked-list") ||
+      layoutsNow.includes("timeline") ||
+      layoutsNow.includes("metric-ring");
+    const paperThemes = new Set([
+      "claude",
+      "soft-editorial",
+      "ft-editorial",
+      "broadsheet",
+      "heritage-editorial",
+      "vellum",
+      "paper-ink",
+      "long-table",
+      "editorial-serif",
+      "editorial-forest",
+      "emerald-editorial",
+      "pin-and-paper",
+      "vintage-editorial",
+      "monochrome",
+      "notebook-tabs",
+      "blue-professional",
+      "pink-script",
+      "biennale-yellow",
+      "pastel-dreamy",
+      "scandinavian",
+    ]);
+    const atmosphereThemes = new Set(["neon-noir", "vaporwave", "y2k-aero", "retro-arcade"]);
+    const posterThemes = new Set(["coral", "peoples-platform", "bold-signal", "broadside"]);
+    const hudThemes = new Set(["aerospace-hud", "crt-terminal", "blueprint"]);
+    const glassThemes = new Set(["aurora-glass", "glassmorphism"]);
+    const electricThemes = new Set(["electric-studio", "studio"]);
+    const modernistThemes = new Set(["swiss-typographic", "art-deco"]);
+    const softProductThemes = new Set(["corporate", "fintech-clean"]);
+    const playfulSoftThemes = new Set(["playful", "split-pastel"]);
+    const neonTechThemes = new Set(["default-tech", "developer-dark"]);
+    const loudPackThemes = new Set([
+      "8-bit-orbit",
+      "block-frame",
+      "bold-poster",
+      "capsule",
+      "creative-mode",
+      "creative-voltage",
+      "daisy-days",
+      "editorial-tri-tone",
+      "neo-grid-bold",
+      "raw-grid",
+      "retro-windows",
+      "retro-zine",
+      "sakura-chroma",
+      "stencil-tablet",
+    ]);
+    const botanicalThemes = new Set(["grove", "dark-botanical"]);
+
+    const needQuote =
+      slides.length >= 5 &&
+      !hasQuote &&
+      !hasComparison &&
+      (paperThemes.has(theme) ||
+        theme === "risograph-zine" ||
+        theme === "mat" ||
+        theme === "bauhaus" ||
+        modernistThemes.has(theme) ||
+        theme === "signal" ||
+        theme === "luxury-minimalist" ||
+        botanicalThemes.has(theme));
+
+    const needCinematic =
+      slides.length >= 5 &&
+      !hasImageHeroNow &&
+      !hasQuote &&
+      (atmosphereThemes.has(theme) || glassThemes.has(theme));
+
+    const needPunchy =
+      slides.length >= 5 &&
+      !hasImageHeroNow &&
+      !hasComparison &&
+      !hasStat &&
+      !hasQuote &&
+      (posterThemes.has(theme) ||
+        electricThemes.has(theme) ||
+        theme === "brutalist-mono" ||
+        loudPackThemes.has(theme) ||
+        theme === "genz-bento");
+
+    const needHonestyData =
+      slides.length >= 5 &&
+      !hasDataish &&
+      (theme === "cobalt-grid" ||
+        hudThemes.has(theme) ||
+        theme === "cartesian" ||
+        theme === "data-editorial" ||
+        softProductThemes.has(theme));
+
+    const needFeature =
+      slides.length >= 5 &&
+      !hasFeature &&
+      !hasImageHeroNow &&
+      !hasStat &&
+      !hasQuote &&
+      (playfulSoftThemes.has(theme) ||
+        theme === "scatterbrain" ||
+        theme === "pastel-geometry" ||
+        theme === "genz-bento");
+
+    const needCode =
+      slides.length >= 5 &&
+      !hasCode &&
+      !hasFeature &&
+      !hasStat &&
+      !hasComparison &&
+      !layoutsNow.includes("chart") &&
+      neonTechThemes.has(theme);
+
+    if (needQuote) {
+      const company =
+        (typeof meta["company"] === "string" && meta["company"].trim()) || "Team";
+      const at = insertBeforeClosing(slides, {
+        layout: "quote",
+        quote: `The line that makes ${title} stick.`,
+        by: company,
+      });
+      fixes.push(`Inserted quote at slide ${at + 1} (theme-honesty magazine/editorial beat)`);
+    } else if (needCinematic && !layoutList(slides).includes("image-hero")) {
+      const at = insertAfterTitle(slides, {
+        layout: "image-hero",
+        eyebrow: "Visual beat",
+        heading: title,
+        lead: "Show the product, place, or atmosphere — not an icon grid.",
+        image: craftHeroDataUri(title),
+        imageAlt: `${title} craft field`,
+      });
+      fixes.push(`Inserted image-hero at slide ${at + 1} (theme-honesty cinematic beat)`);
+    } else if (needPunchy && !hasAsymmetryLayouts(slides)) {
+      const at = insertBeforeClosing(slides, {
+        layout: "comparison",
+        heading: "Before vs after",
+        leftLabel: "Before",
+        left: "Flat cadence — same layout repeated, no tension.",
+        rightLabel: "After",
+        right: `${title} — asymmetric craft that holds on first glance.`,
+        emphasis: "right",
+      });
+      fixes.push(`Inserted comparison at slide ${at + 1} (theme-honesty punchy beat)`);
+    } else if (needPunchy && !layoutList(slides).includes("quote") && !layoutList(slides).includes("comparison")) {
+      const at = insertBeforeClosing(slides, {
+        layout: "comparison",
+        heading: "Before vs after",
+        leftLabel: "Before",
+        left: "Flat cadence — same layout repeated, no tension.",
+        rightLabel: "After",
+        right: `${title} — asymmetric craft that holds on first glance.`,
+        emphasis: "right",
+      });
+      fixes.push(`Inserted comparison at slide ${at + 1} (theme-honesty punchy beat)`);
+    }
+
+    if (needHonestyData && !hasDataBeat(slides)) {
+      const at = insertBeforeClosing(slides, {
+        layout: "stat-row",
+        heading: "By the numbers",
+        stats: [
+          { value: "3×", label: "Faster path" },
+          { value: "1", label: "Schema" },
+          { value: "100%", label: "Editable PPTX" },
+        ],
+      });
+      fixes.push(`Inserted stat-row at slide ${at + 1} (theme-honesty data beat · placeholder — replace)`);
+    }
+
+    if (needFeature && !layoutList(slides).includes("feature-grid")) {
+      const at = insertBeforeClosing(slides, {
+        layout: "feature-grid",
+        heading: "Three pillars",
+        columns: theme === "genz-bento" || theme === "pastel-geometry" ? "bento" : undefined,
+        cards:
+          theme === "genz-bento"
+            ? [
+                { title: "Tile one", body: "Replace.", icon: "fa-solid fa-bolt" },
+                { title: "Tile two", body: "Replace.", icon: "fa-solid fa-star" },
+                { title: "Tile three", body: "Replace.", icon: "fa-solid fa-heart" },
+                { title: "Tile four", body: "Replace.", icon: "fa-solid fa-fire" },
+                { title: "Tile five", body: "Replace.", icon: "fa-solid fa-wand-magic-sparkles" },
+              ]
+            : [
+                { title: "Pillar one", body: "Replace.", icon: "fa-solid fa-bolt" },
+                { title: "Pillar two", body: "Replace.", icon: "fa-solid fa-layer-group" },
+                { title: "Pillar three", body: "Replace.", icon: "fa-solid fa-compass" },
+              ],
+      });
+      if (at >= 0) {
+        const slide = slides[at]!;
+        if (!slide["columns"]) delete slide["columns"];
+        fixes.push(`Inserted feature-grid at slide ${at + 1} (theme-honesty soft-bento/workshop beat)`);
+      }
+    }
+
+    if (needCode && !layoutList(slides).includes("code")) {
+      const at = insertBeforeClosing(slides, {
+        layout: "code",
+        heading: "One-file aha",
+        language: "ts",
+        filename: "aha.ts",
+        code: `// ${title}\nexport const ready = true;`,
+      });
+      fixes.push(`Inserted code at slide ${at + 1} (theme-honesty neon-tech beat)`);
+    }
+  }
+
+  next.slides = slides;
+  return { deck: next, fixes };
+}
+
+/**
+ * Apply a single beat-class repair (Studio per-issue Insert). Falls back to full
+ * `repairCraft` for `safe_fields`. Idempotent when the beat already exists.
+ */
+export function repairCraftBeat(deck: CraftAuditDeck, fixId: CraftFixId): CraftRepairResult {
+  if (fixId === "safe_fields") {
+    return repairCraft(deck);
+  }
+
+  const next = cloneDeck(deck);
+  const fixes: string[] = [];
+  const slides = asSlides(next);
+  if (!slides.length) return { deck: next, fixes };
+
+  if (!next.meta || typeof next.meta !== "object") next.meta = {};
+  const meta = next.meta as Record<string, unknown>;
+  const title = deckTitle(meta, slides);
+  const layouts = layoutList(slides);
+
+  const insertQuote = () => {
+    if (layouts.includes("quote")) return;
+    const company =
+      (typeof meta["company"] === "string" && meta["company"].trim()) || "Team";
+    const at = insertBeforeClosing(slides, {
+      layout: "quote",
+      quote: `The line that makes ${title} stick.`,
+      by: company,
+    });
+    fixes.push(`Inserted quote at slide ${at + 1}`);
+  };
+
+  switch (fixId) {
+    case "image_hero":
+      if (!layouts.includes("image-hero")) {
+        const at = insertAfterTitle(slides, {
+          layout: "image-hero",
+          eyebrow: "Visual beat",
+          heading: title,
+          lead: "Show the product, place, or atmosphere — not an icon grid.",
+          image: craftHeroDataUri(title),
+          imageAlt: `${title} craft field`,
+        });
+        fixes.push(`Inserted image-hero at slide ${at + 1}`);
+      }
+      break;
+    case "comparison":
+      if (!layouts.includes("comparison")) {
+        const at = insertBeforeClosing(slides, {
+          layout: "comparison",
+          heading: "Before vs after",
+          leftLabel: "Before",
+          left: "Flat cadence — same layout repeated, no tension.",
+          rightLabel: "After",
+          right: `${title} — asymmetric craft that holds on first glance.`,
+          emphasis: "right",
+        });
+        fixes.push(`Inserted comparison at slide ${at + 1}`);
+      }
+      break;
+    case "stat_row":
+      if (!layouts.includes("stat-row")) {
+        const at = insertBeforeClosing(slides, {
+          layout: "stat-row",
+          heading: "By the numbers",
+          stats: [
+            { value: "3×", label: "Faster path" },
+            { value: "1", label: "Schema" },
+            { value: "100%", label: "Editable PPTX" },
+          ],
+        });
+        fixes.push(`Inserted stat-row at slide ${at + 1}`);
+      }
+      break;
+    case "logo_wall":
+      if (!layouts.includes("logo-wall")) {
+        const at = insertBeforeClosing(slides, {
+          layout: "logo-wall",
+          eyebrow: "Trusted by",
+          heading: "Teams that ship with us.",
+          columns: 4,
+          cards: ["Northstar", "Harbor", "Fieldkit", "Lumen"].map((name) => ({
+            title: name,
+            body: "Partner",
+          })),
+        });
+        fixes.push(`Inserted logo-wall at slide ${at + 1}`);
+      }
+      break;
+    case "quote":
+      insertQuote();
+      break;
+    case "ranked_list":
+      if (!layouts.includes("ranked-list")) {
+        const at = insertBeforeClosing(slides, {
+          layout: "ranked-list",
+          heading: "Top moments",
+          items: [
+            { label: title, widthPct: 92 },
+            { label: "The beat that stuck", widthPct: 74 },
+            { label: "Share-worthy closer", widthPct: 58 },
+          ],
+        });
+        fixes.push(`Inserted ranked-list at slide ${at + 1}`);
+      }
+      break;
+    case "streak_grid":
+      if (!layouts.includes("streak-grid")) {
+        const at = insertBeforeClosing(slides, {
+          layout: "streak-grid",
+          heading: "Streak board",
+          filled: 21,
+          total: 30,
+          cols: 10,
+        });
+        fixes.push(`Inserted streak-grid at slide ${at + 1}`);
+      }
+      break;
+    case "feature_grid":
+      if (!layouts.includes("feature-grid")) {
+        const at = insertBeforeClosing(slides, {
+          layout: "feature-grid",
+          heading: "Three pillars",
+          cards: [
+            { title: "Pillar one", body: "Replace.", icon: "fa-solid fa-bolt" },
+            { title: "Pillar two", body: "Replace.", icon: "fa-solid fa-layer-group" },
+            { title: "Pillar three", body: "Replace.", icon: "fa-solid fa-compass" },
+          ],
+        });
+        fixes.push(`Inserted feature-grid at slide ${at + 1}`);
+      }
+      break;
+    case "code":
+      if (!layouts.includes("code")) {
+        const at = insertBeforeClosing(slides, {
+          layout: "code",
+          heading: "One-file aha",
+          language: "ts",
+          filename: "aha.ts",
+          code: `// ${title}\nexport const ready = true;`,
+        });
+        fixes.push(`Inserted code at slide ${at + 1}`);
+      }
+      break;
+    case "wrap_tones": {
+      let assigned = 0;
+      const already = slides.filter((s) => {
+        const t = s["tone"];
+        return typeof t === "string" && t !== "default" && t.trim() !== "";
+      }).length;
+      for (let i = 0; i < slides.length && already + assigned < 3; i++) {
+        const slide = slides[i]!;
+        const t = slide["tone"];
+        if (typeof t === "string" && t !== "default" && t.trim() !== "") continue;
+        slide["tone"] = WRAP_TONES[(already + assigned) % WRAP_TONES.length]!;
+        assigned += 1;
+        fixes.push(`Slide ${i + 1}: set tone "${slide["tone"]}"`);
+      }
+      break;
+    }
+    default:
+      break;
   }
 
   next.slides = slides;

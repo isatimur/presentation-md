@@ -23,7 +23,8 @@ import {
   importPptxFile,
 } from "../export/downloads.js";
 import { STUDIO_EXAMPLES, studioExampleLink } from "../examples.js";
-import { auditCraft, repairCraft } from "../craft/auditCraft.js";
+import { auditCraft, repairCraft, repairCraftBeat } from "../craft/auditCraft.js";
+import type { CraftFixId } from "../craft/auditCraft.js";
 import { ThemeCompareTray } from "./ThemeCompareTray.js";
 import { ThemeCraftShotStrip } from "./ThemeCraftShotStrip.js";
 
@@ -64,7 +65,7 @@ export function Toolbar({
   const [compare, setCompare] = useState<string[]>([]);
   const [liveCompare, setLiveCompare] = useState(false);
   const [auditIssues, setAuditIssues] = useState<
-    Array<{ severity: "error" | "warning"; message: string; slide?: number }>
+    Array<{ severity: "error" | "warning"; message: string; slide?: number; fixId?: CraftFixId }>
   >([]);
   const [auditFilter, setAuditFilter] = useState<"all" | "error" | "warning">("all");
   const [auditPanelOpen, setAuditPanelOpen] = useState(true);
@@ -241,6 +242,26 @@ export function Toolbar({
       issues.length
         ? `Applied ${fixes.length} craft fix${fixes.length === 1 ? "" : "es"} · ${issues.length} issue${issues.length === 1 ? "" : "s"} remain`
         : `Applied ${fixes.length} craft fix${fixes.length === 1 ? "" : "es"} · craft clean`
+    );
+  };
+
+  const applyIssueBeat = (fixId: CraftFixId) => {
+    const { deck: repaired, fixes } = repairCraftBeat(deck, fixId);
+    if (!fixes.length) {
+      setStatus("Beat already present — nothing to insert");
+      return;
+    }
+    onChange(repaired as DeckJson);
+    const issues = auditCraft(repaired);
+    setAuditIssues(issues);
+    setAuditFilter("all");
+    setAuditPanelOpen(issues.length > 0);
+    craftPanelOpen.current = issues.length > 0;
+    suppressLivePanel.current = false;
+    setStatus(
+      issues.length
+        ? `Inserted beat · ${issues.length} issue${issues.length === 1 ? "" : "s"} remain`
+        : `Inserted beat · craft clean`
     );
   };
 
@@ -695,24 +716,39 @@ export function Toolbar({
               .filter((issue) => auditFilter === "all" || issue.severity === auditFilter)
               .map((issue, i) => {
                 const jumpable = typeof issue.slide === "number" && onSelectSlide;
+                const canInsert = Boolean(issue.fixId);
                 return (
-                  <li key={`${issue.severity}-${issue.slide ?? "g"}-${i}`} className={`audit-item audit-${issue.severity}`}>
+                  <li key={`${issue.severity}-${issue.slide ?? "g"}-${i}`} className={`audit-item audit-${issue.severity}${canInsert ? " audit-item-fixable" : ""}`}>
                     <span className="audit-sev">
                       {issue.severity}
                       {typeof issue.slide === "number" ? ` · s${issue.slide}` : ""}
                     </span>
-                    {jumpable ? (
-                      <button
-                        type="button"
-                        className="audit-jump"
-                        title={`Jump to slide ${issue.slide}`}
-                        onClick={() => onSelectSlide(issue.slide!)}
-                      >
-                        {issue.message}
-                      </button>
-                    ) : (
-                      <span>{issue.message}</span>
-                    )}
+                    <div className="audit-body">
+                      {jumpable ? (
+                        <button
+                          type="button"
+                          className="audit-jump"
+                          title={`Jump to slide ${issue.slide}`}
+                          onClick={() => onSelectSlide(issue.slide!)}
+                        >
+                          {issue.message}
+                        </button>
+                      ) : (
+                        <span>{issue.message}</span>
+                      )}
+                      {canInsert && issue.fixId ? (
+                        <button
+                          type="button"
+                          className="btn btn-sm audit-insert"
+                          title={`Insert beat for: ${issue.fixId}`}
+                          onClick={() => applyIssueBeat(issue.fixId!)}
+                        >
+                          {issue.fixId === "safe_fields" || issue.fixId === "wrap_tones"
+                            ? "Apply fix"
+                            : "Insert beat"}
+                        </button>
+                      ) : null}
+                    </div>
                   </li>
                 );
               })}

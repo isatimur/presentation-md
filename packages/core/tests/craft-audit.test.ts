@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readdirSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
-import { auditCraft, repairCraft } from "../src/craft-audit.js";
+import { auditCraft, repairCraft, repairCraftBeat } from "../src/craft-audit.js";
 
 describe("auditCraft", () => {
   it("does not require image-hero on kinetic-wrapped wrap decks", () => {
@@ -1161,5 +1161,61 @@ describe("repairCraft", () => {
 
     const after = auditCraft(repaired);
     expect(after.some((i) => /repeats 3x/i.test(i.message))).toBe(false);
+  });
+
+  it("inserts theme-honesty quote for paper editorial decks", () => {
+    const deck = {
+      meta: { title: "Paper", theme: "soft-editorial" },
+      slides: [
+        { layout: "title", heading: "Paper" },
+        {
+          layout: "two-column",
+          heading: "Essay",
+          left: "Left",
+          right: "Right",
+          ratio: "2-1",
+        },
+        { layout: "section", heading: "Two" },
+        {
+          layout: "feature-grid",
+          heading: "Grid",
+          cards: [
+            { title: "A", body: "b", icon: "fa-solid fa-bolt" },
+            { title: "B", body: "b", icon: "fa-solid fa-bolt" },
+            { title: "C", body: "b", icon: "fa-solid fa-bolt" },
+          ],
+        },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Go", href: "#", style: "solid", icon: "fa-solid fa-rocket" },
+            { label: "More", href: "#", style: "outline", icon: "fa-solid fa-book" },
+          ],
+        },
+      ],
+    };
+    const before = auditCraft(deck);
+    expect(before.some((i) => i.fixId === "quote")).toBe(true);
+
+    const { deck: repaired, fixes } = repairCraft(deck);
+    expect(fixes.some((f) => /theme-honesty|quote/i.test(f))).toBe(true);
+    const after = auditCraft(repaired);
+    expect(after.some((i) => /magazine beat/i.test(i.message))).toBe(false);
+  });
+});
+
+describe("repairCraftBeat", () => {
+  it("inserts a single image-hero beat", () => {
+    const deck = {
+      meta: { title: "Solo", theme: "default-tech" },
+      slides: [
+        { layout: "title", heading: "Solo" },
+        { layout: "closing", heading: "Bye" },
+      ],
+    };
+    const { deck: repaired, fixes } = repairCraftBeat(deck, "image_hero");
+    expect(fixes.length).toBeGreaterThan(0);
+    expect((repaired.slides as Array<Record<string, unknown>>).some((s) => s["layout"] === "image-hero")).toBe(true);
   });
 });

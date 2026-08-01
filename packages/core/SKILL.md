@@ -382,16 +382,17 @@ Fill gaps with intelligent defaults (`theme-shortlists.json` / `list_themes` wit
 
 ## MCP Tools
 
-Eleven tools via `@presentation-md/mcp-server` (not the deprecated `@presentation-skill-pack/mcp-server` stub — it only redirects). Restart the client after switching packages.
+Twelve tools via `@presentation-md/mcp-server` (not the deprecated `@presentation-skill-pack/mcp-server` stub — it only redirects). Restart the client after switching packages.
 
 | Tool | Use it to |
 |------|-----------|
 | `render_deck` | Convert deck JSON → polished HTML |
 | `export_deck` | Export deck JSON → `.pptx`, vector PDF, or html |
-| `audit_deck` | Schema-validate + craft gates; optional `apply_safe_fixes` returns repaired JSON (fields + beat inserts: image-hero / comparison / data / logo-wall / wrap tones) |
+| `audit_deck` | Schema-validate + craft gates; optional `apply_safe_fixes` returns repaired JSON (fields + beat inserts: image-hero / comparison / data / logo-wall / wrap tones + theme-honesty leftovers) |
 | `list_themes` | See installed themes with vibe/description + proof deep-links; filter with `browse` chips (site/Studio parity), shortlist, mood, or query; use `suggested_preview` (safe/bold/wildcard) for pick-3 |
 | `apply_theme` | Swap `meta.theme` without rewriting slides |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
+| `scaffold_deck` | Scaffold a recipe skeleton (pitch / launch / wrap / paper / …) with craft floors pre-wired — fill copy, then audit |
 | `preview_themes` | Render 1–3 theme HTML previews; **inline PNG screenshots** (title + bento + comparison in layouts mode) on by default; pass `mode: "layouts"` for multi-slide craft bake |
 | CLI `--preview-compare` | Same pick-3 craft bake + discovery PNGs without MCP: `presentation-md-render --preview-compare a,b,c` |
 | `import_pptx` | Import a `.pptx` into deck JSON (see `references/pptx-import.md`) |
@@ -453,7 +454,7 @@ You have been staring at this deck while building it, so you now see what you *i
 
 **Tooling first (deck-spec path) — non-skippable when MCP/CLI is available:**
 1. Call `preview_themes` (or open gallery structured proofs) before locking a vibe — never invent a palette.
-2. Call `audit_deck` on the deck JSON — fix every `error`, then address `warning`s. Pass `apply_safe_fixes: true` to auto-fill safe structural craft **and insert missing beats** (image-hero, comparison, stat-row, logo-wall, wrap tones/ranked/streak, cadence swaps, emphasis, ratio, bento, CTA/icons, speaker notes, candy-pop brand) and get back `json` + `fixes_applied[]`; re-audit any theme-honesty leftovers manually.
+2. Call `audit_deck` on the deck JSON — fix every `error`, then address `warning`s. Pass `apply_safe_fixes: true` to auto-fill safe structural craft **and insert missing beats** (image-hero, comparison, stat-row, logo-wall, wrap tones/ranked/streak, cadence swaps, theme-honesty leftovers, emphasis, ratio, bento, CTA/icons, speaker notes, candy-pop brand) and get back `json` + `fixes_applied[]`. Prefer `scaffold_deck` when starting from a brief so the first JSON already clears craft floors.
 3. Call `judge_deck` for craft gates (`tier=t1`). Escalate to `tier=t2` (HTML metrics + **inline slide PNGs**) before delivery; `tier=t3` when highest stakes.
 4. Render with `render_deck` / CLI, open the HTML, and spot-check with keyboard arrows.
 5. Re-run `judge_deck` at t2/t3 with attached shots → fix → re-score. Do not ship on schema-valid alone.

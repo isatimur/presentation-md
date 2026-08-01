@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/mcp-server",
   "version": "1.24.0",
-  "description": "MCP server exposing all 11 presentation-md tools (render/export/audit/judge/import/preview) to any MCP-compatible AI agent.",
+  "description": "MCP server exposing all 12 presentation-md tools (render/export/audit/judge/scaffold/import/preview) to any MCP-compatible AI agent.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/server.js",

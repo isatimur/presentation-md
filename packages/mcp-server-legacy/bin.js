@@ -10,7 +10,7 @@ import { spawn } from "node:child_process";
 const require = createRequire(import.meta.url);
 
 process.stderr.write(
-  "[deprecated] @presentation-skill-pack/mcp-server → use @presentation-md/mcp-server (11 tools). Restart your MCP client after switching.\n"
+  "[deprecated] @presentation-skill-pack/mcp-server → use @presentation-md/mcp-server (12 tools). Restart your MCP client after switching.\n"
 );
 
 let pkgJsonPath;

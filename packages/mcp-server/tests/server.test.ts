@@ -17,9 +17,9 @@ const MINIMAL_VALID_DECK = {
 };
 
 describe("tool registry", () => {
-  it("registers all 11 MCP tools for client discovery", () => {
+  it("registers all 12 MCP tools for client discovery", () => {
     const tools = listToolDefinitions();
-    expect(tools).toHaveLength(11);
+    expect(tools).toHaveLength(12);
     expect(TOOL_NAMES).toEqual([
       "render_deck",
       "export_deck",
@@ -28,6 +28,7 @@ describe("tool registry", () => {
       "audit_deck",
       "judge_deck",
       "generate_deck_prompt",
+      "scaffold_deck",
       "import_brand_theme",
       "import_pptx",
       "import_markdown",
@@ -605,5 +606,25 @@ describe("import_markdown", () => {
     })) as { slide_count: number; theme: string };
     expect(result.slide_count).toBeGreaterThanOrEqual(2);
     expect(result.theme).toBe("signal");
+  });
+});
+
+describe("scaffold_deck", () => {
+  it("lists purposes and scaffolds a launch deck", async () => {
+    const { scaffoldDeckTool } = await import("../src/tools/scaffold-deck.js");
+    const catalog = (await scaffoldDeckTool.handler({ list_purposes: true })) as {
+      purposes: Array<{ id: string }>;
+    };
+    expect(catalog.purposes.some((p) => p.id === "launch")).toBe(true);
+
+    const result = (await scaffoldDeckTool.handler({
+      purpose: "launch",
+      theme: "genz-bento",
+      title: "Bounce",
+    })) as { slide_count: number; theme: string; json: string; purpose: string };
+    expect(result.purpose).toBe("launch");
+    expect(result.theme).toBe("genz-bento");
+    expect(result.slide_count).toBe(10);
+    expect(result.json).toContain('"layout": "image-hero"');
   });
 });
