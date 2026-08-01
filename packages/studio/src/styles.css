@@ -704,6 +704,27 @@ body {
     0 12px 24px -14px rgba(11,18,32,0.28);
   background: var(--accent-soft);
 }
+.gen-discover-grid.is-live .gen-discover-card {
+  min-height: 132px;
+}
+.gen-discover-restyle {
+  position: relative; width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden; border-radius: 5px; border: 1px solid var(--line-2);
+  background: color-mix(in srgb, var(--text) 6%, var(--paper));
+  container-type: inline-size;
+}
+.gen-discover-restyle .theme-compare-restyle-frame {
+  position: absolute; inset: 0 auto auto 0;
+  width: 1280px; height: 720px; border: 0; pointer-events: none;
+  transform-origin: top left;
+  transform: scale(0.12);
+}
+@supports (width: 1cqw) {
+  .gen-discover-restyle .theme-compare-restyle-frame {
+    transform: scale(calc(100cqw / 1280));
+  }
+}
 .gen-discover-swatch {
   height: 40px; border-radius: 7px; border: 1px solid var(--line-2);
   background: linear-gradient(135deg, var(--swatch-bg, #0B1220) 52%, var(--swatch-accent, #FF3B1F) 52%);

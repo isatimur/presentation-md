@@ -116,11 +116,16 @@ test("Generate modal opens, validates input, and offers the agent-handoff path",
   await page.locator("textarea.brief-input").fill("A launch deck for a developer CLI.");
   await expect(copyBtn).toBeEnabled();
 
-  // Visual pick-3 compare is live by default (shared-iframe shot strip).
+  // Visual pick-3 compare is live by default — My deck restyles the selected slide.
   await expect(page.locator(".gen-discover-grid .gen-discover-card")).toHaveCount(3);
   await expect(page.getByRole("button", { name: /Hide live/i })).toBeVisible();
+  await expect(page.getByRole("button", { name: /My deck/i })).toBeVisible();
+  await expect(page.locator(".gen-discover-restyle")).toHaveCount(3);
+  await expect(page.locator(".gen-discover-restyle iframe")).toHaveCount(3);
+
+  // Craft proofs still one toggle away (Title/Bento/Compare shot strip).
+  await page.getByRole("button", { name: /Craft proofs/i }).click();
   await expect(page.locator(".gen-discover-shot-strip")).toHaveCount(3);
-  await expect(page.locator(".gen-discover-shot-strip iframe")).toHaveCount(3);
   await expect(page.locator(".gen-discover-grid .craft-shot-strip-label[data-crop='title']")).toHaveCount(3);
   await expect(page.locator(".gen-discover-grid .craft-shot-strip-label[data-crop='bento']")).toHaveCount(3);
   await expect(page.locator(".gen-discover-grid .craft-shot-strip-label[data-crop='comparison']")).toHaveCount(3);

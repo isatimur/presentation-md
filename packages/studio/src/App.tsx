@@ -370,6 +370,8 @@ export function App() {
       {generating && (
         <GenerateModal
           currentTheme={deck.meta?.theme ?? "claude"}
+          deck={deck}
+          slideIndex0={selected}
           onGenerate={(next) => {
             const { deck: repaired } = repairCraft(next);
             commitDeck(repaired as DeckJson);

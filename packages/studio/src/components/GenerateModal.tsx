@@ -17,6 +17,8 @@ import {
   type ThemeBrowseFilterId,
 } from "../render/themes.js";
 import { ThemeCraftShotStrip } from "./ThemeCraftShotStrip.js";
+import { DeckRestylePreview } from "./DeckRestylePreview.js";
+import type { LiveCompareMode } from "./ThemeCompareTray.js";
 import { GEN_MODELS, type GenModelId, type DensityMode, buildAgentPrompt, generateDeck } from "../ai/generate.js";
 
 const KEY_STORAGE = "pmd-studio-anthropic-key";
@@ -32,10 +34,15 @@ const SCAFFOLD_PURPOSE_CHIPS = listScaffoldPurposes();
 
 export function GenerateModal({
   currentTheme,
+  deck,
+  slideIndex0 = 0,
   onGenerate,
   onClose,
 }: {
   currentTheme: string;
+  /** Current Studio deck — My deck restyle discovery uses YOUR selected slide. */
+  deck: DeckJson;
+  slideIndex0?: number;
   onGenerate: (deck: DeckJson) => void;
   onClose: () => void;
 }) {
@@ -51,8 +58,11 @@ export function GenerateModal({
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState("");
   const [copied, setCopied] = useState(false);
-  /** Show-don't-tell: live Title/Bento/Compare shot strip on by default. */
+  /** Show-don't-tell: live previews on by default (My deck restyle / craft proofs). */
   const [liveDiscover, setLiveDiscover] = useState(true);
+  /** Match pick-3 tray: content-true My deck first; Craft proofs one toggle away. */
+  const [liveMode, setLiveMode] = useState<LiveCompareMode>("deck");
+  const slideLabel = `Slide ${Math.max(1, slideIndex0 + 1)}`;
 
   const themeNames = listThemeNames();
   const themes = useMemo(() => listThemeSummaries(), []);
@@ -254,12 +264,37 @@ export function GenerateModal({
               type="button"
               className={`chip${liveDiscover ? " active" : ""}`}
               onClick={() => setLiveDiscover((v) => !v)}
-              title="Load live multi-layout craft shot strip (shared iframe · title + bento + comparison)"
+              title="Toggle live discover (My deck restyle or craft proof shot strip)"
             >
               {liveDiscover ? "Hide live" : "Show live"}
             </button>
           </div>
-          <div className="gen-discover-grid" role="listbox" aria-label="Pick 3 theme compare">
+          {liveDiscover ? (
+            <div className="gen-discover-crop-bar" role="group" aria-label="Live discover mode">
+              <span className="gen-discover-crop-label">Live</span>
+              <button
+                type="button"
+                className={`chip${liveMode === "deck" ? " active" : ""}`}
+                onClick={() => setLiveMode("deck")}
+                title="Re-theme your selected Studio slide in each slot — content-true restyle"
+              >
+                My deck · {slideLabel}
+              </button>
+              <button
+                type="button"
+                className={`chip${liveMode === "proofs" ? " active" : ""}`}
+                onClick={() => setLiveMode("proofs")}
+                title="Shared-iframe Title / Bento / Compare craft proofs"
+              >
+                Craft proofs
+              </button>
+            </div>
+          ) : null}
+          <div
+            className={`gen-discover-grid${liveDiscover ? " is-live" : ""}`}
+            role="listbox"
+            aria-label="Pick 3 theme compare"
+          >
             {discoverThree.map((t) => (
               <button
                 key={t.name}
@@ -271,12 +306,22 @@ export function GenerateModal({
                 title={t.vibe}
               >
                 {liveDiscover ? (
-                  <ThemeCraftShotStrip
-                    theme={t.name}
-                    title={`${t.name} craft preview`}
-                    className="gen-discover-shot-strip"
-                    compact
-                  />
+                  liveMode === "deck" ? (
+                    <DeckRestylePreview
+                      deck={deck}
+                      theme={t.name}
+                      slideIndex0={slideIndex0}
+                      title={`${t.name} · your ${slideLabel}`}
+                      className="gen-discover-restyle"
+                    />
+                  ) : (
+                    <ThemeCraftShotStrip
+                      theme={t.name}
+                      title={`${t.name} craft preview`}
+                      className="gen-discover-shot-strip"
+                      compact
+                    />
+                  )
                 ) : (
                   <span
                     className="gen-discover-swatch"
@@ -292,6 +337,12 @@ export function GenerateModal({
               </button>
             ))}
           </div>
+          {liveDiscover && liveMode === "deck" ? (
+            <p className="muted small" style={{ margin: 0 }}>
+              My deck restyles <strong>{slideLabel}</strong> live — judge your content across themes
+              before generating (pick-3 tray parity).
+            </p>
+          ) : null}
 
           <div className="field-grid">
             <label className="inline-field">
