@@ -51,13 +51,13 @@ test("pick-3 theme compare tray fills slots and can lock a theme", async ({ page
   await expect(tray).toBeVisible();
   await expect(tray.getByText(/Compare 3\/3/i)).toBeVisible();
 
-  // Shortlist / pick-3 auto-enables live; denser Title+Bento+Compare shot strip.
+  // Shortlist / pick-3 auto-enables live; denser shared-iframe Title+Bento+Compare strip.
   await expect(tray.getByRole("button", { name: /Hide live/i })).toBeVisible();
-  await expect(tray.locator(".theme-compare-frame iframe")).toHaveCount(9);
-  await expect(tray.locator(".theme-compare-frame[data-crop='title']")).toHaveCount(3);
-  await expect(tray.locator(".theme-compare-frame[data-crop='bento']")).toHaveCount(3);
-  await expect(tray.locator(".theme-compare-frame[data-crop='comparison']")).toHaveCount(3);
   await expect(tray.locator(".theme-compare-shot-strip")).toHaveCount(3);
+  await expect(tray.locator(".theme-compare-shot-strip iframe")).toHaveCount(3);
+  await expect(tray.locator(".craft-shot-strip-label[data-crop='title']")).toHaveCount(3);
+  await expect(tray.locator(".craft-shot-strip-label[data-crop='bento']")).toHaveCount(3);
+  await expect(tray.locator(".craft-shot-strip-label[data-crop='comparison']")).toHaveCount(3);
 
   // Lock the first compared theme.
   const firstName = await tray.locator(".theme-compare-card strong").first().textContent();
@@ -81,13 +81,14 @@ test("Generate modal opens, validates input, and offers the agent-handoff path",
   await page.locator("textarea.brief-input").fill("A launch deck for a developer CLI.");
   await expect(copyBtn).toBeEnabled();
 
-  // Visual pick-3 compare is live by default (show-don't-tell shot strip).
+  // Visual pick-3 compare is live by default (shared-iframe shot strip).
   await expect(page.locator(".gen-discover-grid .gen-discover-card")).toHaveCount(3);
   await expect(page.getByRole("button", { name: /Hide live/i })).toBeVisible();
-  await expect(page.locator(".gen-discover-frame iframe")).toHaveCount(9);
-  await expect(page.locator(".gen-discover-frame[data-crop='title']")).toHaveCount(3);
-  await expect(page.locator(".gen-discover-frame[data-crop='bento']")).toHaveCount(3);
-  await expect(page.locator(".gen-discover-frame[data-crop='comparison']")).toHaveCount(3);
+  await expect(page.locator(".gen-discover-shot-strip")).toHaveCount(3);
+  await expect(page.locator(".gen-discover-shot-strip iframe")).toHaveCount(3);
+  await expect(page.locator(".gen-discover-grid .craft-shot-strip-label[data-crop='title']")).toHaveCount(3);
+  await expect(page.locator(".gen-discover-grid .craft-shot-strip-label[data-crop='bento']")).toHaveCount(3);
+  await expect(page.locator(".gen-discover-grid .craft-shot-strip-label[data-crop='comparison']")).toHaveCount(3);
 
   // …and generating without an API key surfaces a clear error (no network call).
   await page.getByRole("button", { name: /^Generate deck$/ }).click();
@@ -144,12 +145,12 @@ test("Example featured trio shows Title/Bento/Compare shot strip via local /prev
   const panel = browser.locator(".example-browser-panel");
   await expect(panel).toBeVisible();
 
-  // All three crops visible at once (parity with pick-3 / Generate shot strip).
+  // Shared iframe per theme (3 total) — Title/Bento/Compare scroll-crop labels.
   await expect(panel.locator(".example-featured-shot-strip")).toHaveCount(3);
-  await expect(panel.locator(".example-featured-frame iframe")).toHaveCount(9);
-  await expect(panel.locator(".example-featured-frame[data-crop='title']")).toHaveCount(3);
-  await expect(panel.locator(".example-featured-frame[data-crop='bento']")).toHaveCount(3);
-  await expect(panel.locator(".example-featured-frame[data-crop='comparison']")).toHaveCount(3);
+  await expect(panel.locator(".example-featured-shot-strip iframe")).toHaveCount(3);
+  await expect(panel.locator(".craft-shot-strip-label[data-crop='title']")).toHaveCount(3);
+  await expect(panel.locator(".craft-shot-strip-label[data-crop='bento']")).toHaveCount(3);
+  await expect(panel.locator(".craft-shot-strip-label[data-crop='comparison']")).toHaveCount(3);
 
   // Local Vite middleware serves repo web/previews (no Vercel CDN).
   const previewRes = await page.request.get("/previews/aurora-glass.html");

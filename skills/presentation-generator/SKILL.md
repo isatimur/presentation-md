@@ -307,7 +307,7 @@ These are the details that make a deck read as machine-generated. A reviewer clo
 ## Theme Discovery (show, don't tell)
 
 Do **not** ask the user to pick a theme from a bare name list when they are unsure.
-Match frontend-slides' mandatory visual discovery — but with structured themes + MCP + a **one-shot quality bar** so the first draft already beats their vibe-pack defaults. Studio matches that bar in-product: Generate modal **live Title/Bento/Compare shot strip on by default**, theme pick-3 **auto-enables live** when the tray hits 3, and Example featured trio shows the **same shot strip** (plus **Compare 3 themes** → live theme tray).
+Match frontend-slides' mandatory visual discovery — but with structured themes + MCP + a **one-shot quality bar** so the first draft already beats their vibe-pack defaults. Studio matches that bar in-product: Generate modal **live Title/Bento/Compare shot strip on by default**, theme pick-3 **auto-enables live** when the tray hits 3, and Example featured trio shows the **same shared-iframe shot strip** (scroll-crop densified — one live document per theme, not 3× iframes) plus **Compare 3 themes** → live theme tray.
 
 ### One-shot quality bar (beat frontend-slides first drafts)
 

@@ -11,12 +11,7 @@ import {
   themePassesBrowseFilter,
   type ThemeBrowseFilterId,
 } from "../render/themes.js";
-import {
-  PREVIEW_CROP_LABEL,
-  PREVIEW_CROP_OFFSET_PX,
-  PREVIEW_CROPS,
-  themePreviewUrl,
-} from "../render/themePreview.js";
+import { ThemeCraftShotStrip } from "./ThemeCraftShotStrip.js";
 import { GEN_MODELS, type GenModelId, type DensityMode, buildAgentPrompt, generateDeck } from "../ai/generate.js";
 
 const KEY_STORAGE = "pmd-studio-anthropic-key";
@@ -234,7 +229,7 @@ export function GenerateModal({
               type="button"
               className={`chip${liveDiscover ? " active" : ""}`}
               onClick={() => setLiveDiscover((v) => !v)}
-              title="Load live multi-layout craft shot strip (title + bento + comparison)"
+              title="Load live multi-layout craft shot strip (shared iframe · title + bento + comparison)"
             >
               {liveDiscover ? "Hide live" : "Show live"}
             </button>
@@ -251,27 +246,12 @@ export function GenerateModal({
                 title={t.vibe}
               >
                 {liveDiscover ? (
-                  <span className="gen-discover-shot-strip" aria-hidden>
-                    {PREVIEW_CROPS.map((crop) => (
-                      <span key={crop} className="gen-discover-shot">
-                        <span className="gen-discover-shot-label">{PREVIEW_CROP_LABEL[crop]}</span>
-                        <span
-                          className="gen-discover-frame"
-                          data-crop={crop}
-                          style={{
-                            ["--crop-y" as string]: `${PREVIEW_CROP_OFFSET_PX[crop]}px`,
-                          }}
-                        >
-                          <iframe
-                            src={themePreviewUrl(t.name)}
-                            title={`${t.name} craft preview (${PREVIEW_CROP_LABEL[crop]})`}
-                            loading="lazy"
-                            tabIndex={-1}
-                          />
-                        </span>
-                      </span>
-                    ))}
-                  </span>
+                  <ThemeCraftShotStrip
+                    theme={t.name}
+                    title={`${t.name} craft preview`}
+                    className="gen-discover-shot-strip"
+                    compact
+                  />
                 ) : (
                   <span
                     className="gen-discover-swatch"

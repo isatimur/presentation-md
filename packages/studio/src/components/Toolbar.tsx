@@ -12,16 +12,13 @@ import {
 } from "../render/themes.js";
 import {
   COMPARE_LIMIT,
-  PREVIEW_CROP_LABEL,
-  PREVIEW_CROP_OFFSET_PX,
-  PREVIEW_CROPS,
-  themePreviewUrl,
   toggleCompareSlot,
 } from "../render/themePreview.js";
 import { downloadHtml, downloadPptx, downloadJson, parseDeckFile, importPptxFile } from "../export/downloads.js";
 import { STUDIO_EXAMPLES, studioExampleLink } from "../examples.js";
 import { auditCraft } from "../craft/auditCraft.js";
 import { ThemeCompareTray } from "./ThemeCompareTray.js";
+import { ThemeCraftShotStrip } from "./ThemeCraftShotStrip.js";
 
 /** Flagship trio for Example browser show-don't-tell (matches site proof strip). */
 const FEATURED_EXAMPLE_SLUGS = ["novaspark-pitch", "bounce-launch", "forge-api"] as const;
@@ -64,6 +61,8 @@ export function Toolbar({
   >([]);
   const [auditFilter, setAuditFilter] = useState<"all" | "error" | "warning">("all");
   const [auditPanelOpen, setAuditPanelOpen] = useState(true);
+  /** Mount featured shot-strip iframes only while Example is open (cut idle loads). */
+  const [exampleOpen, setExampleOpen] = useState(false);
 
   const themes = useMemo(() => listThemeSummaries(), []);
   const shortlists = useMemo(() => listThemeShortlists(), []);
@@ -457,7 +456,10 @@ export function Toolbar({
       <div className="spacer" />
 
       <button className="btn btn-generate" onClick={onGenerate} title="Generate a deck from a prompt">Generate</button>
-      <details className="example-browser">
+      <details
+        className="example-browser"
+        onToggle={(e) => setExampleOpen((e.currentTarget as HTMLDetailsElement).open)}
+      >
         <summary className="btn" title="Load a curated example deck">Example ▾</summary>
         <div className="example-browser-panel">
           <div className="example-featured-head">
@@ -474,6 +476,7 @@ export function Toolbar({
                 if (themes.length === 0) return;
                 setCompare(themes);
                 setLiveCompare(true);
+                setExampleOpen(false);
                 const exampleDetails = document.querySelector(
                   "details.example-browser"
                 ) as HTMLDetailsElement | null;
@@ -501,38 +504,29 @@ export function Toolbar({
                     onLoadExample(ex.slug);
                     const details = (e.currentTarget as HTMLElement).closest("details");
                     if (details) details.open = false;
+                    setExampleOpen(false);
                   }}
                 >
-                  <span className="example-featured-shot-strip" aria-hidden>
-                    {PREVIEW_CROPS.map((crop) => (
-                      <span key={crop} className="example-featured-shot">
-                        <span className="example-featured-shot-label">
-                          {PREVIEW_CROP_LABEL[crop]}
-                        </span>
-                        <span
-                          className="example-featured-frame"
-                          data-crop={crop}
-                          style={{
-                            ["--crop-y" as string]: `${PREVIEW_CROP_OFFSET_PX[crop]}px`,
-                          }}
-                        >
-                          <iframe
-                            src={themePreviewUrl(previewTheme)}
-                            title={`${ex.label} craft preview (${PREVIEW_CROP_LABEL[crop]})`}
-                            loading="lazy"
-                            tabIndex={-1}
-                          />
-                        </span>
-                      </span>
-                    ))}
-                  </span>
+                  {exampleOpen ? (
+                    <ThemeCraftShotStrip
+                      theme={previewTheme}
+                      title={`${ex.label} craft preview`}
+                      className="example-featured-shot-strip"
+                      compact
+                    />
+                  ) : (
+                    <span
+                      className="example-featured-shot-strip example-featured-shot-strip-placeholder"
+                      aria-hidden
+                    />
+                  )}
                   <span className="example-featured-name">{ex.label.split("(")[0]!.trim()}</span>
                 </button>
               );
             })}
           </div>
           <p className="example-featured-hint muted small">
-            Shot strip shows Title / Bento / Compare at once · click a card to load the deck ·
+            Shared iframe shot strip (Title / Bento / Compare scroll-crop) · click a card to load ·
             Compare 3 themes jumps to live theme tray
           </p>
           <p className="example-list-label">All examples</p>

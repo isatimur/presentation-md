@@ -50,6 +50,14 @@ export const PREVIEW_CROP_OFFSET_PX: Record<PreviewCrop, number> = {
   comparison: BODY_PAD + 2 * (SLIDE_H + GAP),
 };
 
+/**
+ * Shared-iframe shot strip: one preview document, scroll-cropped to the
+ * title → bento → comparison proof stack (no trailing body pad).
+ * Cuts 3 iframes/theme → 1 while keeping all three crops visible.
+ */
+export const PREVIEW_STRIP_START_PX = BODY_PAD;
+export const PREVIEW_STRIP_HEIGHT_PX = 3 * SLIDE_H + 2 * GAP;
+
 export const PREVIEW_CROP_LABEL: Record<PreviewCrop, string> = {
   title: "Title",
   bento: "Bento",

@@ -1,15 +1,10 @@
 import type { ThemeSummary } from "../render/themes.js";
-import {
-  COMPARE_LIMIT,
-  PREVIEW_CROP_LABEL,
-  PREVIEW_CROP_OFFSET_PX,
-  PREVIEW_CROPS,
-  themePreviewUrl,
-} from "../render/themePreview.js";
+import { COMPARE_LIMIT } from "../render/themePreview.js";
+import { ThemeCraftShotStrip } from "./ThemeCraftShotStrip.js";
 
 /**
  * Progressive pick-3 compare tray — swatches first, optional live iframe
- * shot strip (Title + Bento + Compare stacked) for denser craft judgment.
+ * shot strip (one shared document scroll-cropped to Title + Bento + Compare).
  */
 export function ThemeCompareTray({
   compare,
@@ -55,7 +50,7 @@ export function ThemeCompareTray({
             type="button"
             className={`chip${livePreview ? " active" : ""}`}
             onClick={() => onLivePreview(!livePreview)}
-            title="Load live multi-layout craft shot strip (title + bento + comparison)"
+            title="Load live multi-layout craft shot strip (shared iframe · title + bento + comparison)"
           >
             {livePreview ? "Hide live" : "Show live"}
           </button>
@@ -71,27 +66,11 @@ export function ThemeCompareTray({
             className={`theme-compare-card${t.name === activeTheme ? " is-active" : ""}`}
           >
             {livePreview ? (
-              <div className="theme-compare-shot-strip" aria-label={`${t.name} craft shot strip`}>
-                {PREVIEW_CROPS.map((crop) => (
-                  <div key={crop} className="theme-compare-shot">
-                    <span className="theme-compare-shot-label">{PREVIEW_CROP_LABEL[crop]}</span>
-                    <div
-                      className="theme-compare-frame"
-                      data-crop={crop}
-                      style={{
-                        ["--crop-y" as string]: `${PREVIEW_CROP_OFFSET_PX[crop]}px`,
-                      }}
-                    >
-                      <iframe
-                        src={themePreviewUrl(t.name)}
-                        title={`${t.name} preview (${PREVIEW_CROP_LABEL[crop]})`}
-                        loading="lazy"
-                        tabIndex={-1}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <ThemeCraftShotStrip
+                theme={t.name}
+                title={`${t.name} craft preview`}
+                className="theme-compare-shot-strip"
+              />
             ) : (
               <div
                 className="theme-compare-swatch"
@@ -132,8 +111,8 @@ export function ThemeCompareTray({
         ))}
       </div>
       <p className="theme-compare-hint muted small">
-        Click ⊕ on themes to fill slots · live auto-on at pick-3 · shot strip shows Title /
-        Bento / Compare at once · Use to lock <code>meta.theme</code>
+        Click ⊕ on themes to fill slots · live auto-on at pick-3 · shared iframe shot strip shows
+        Title / Bento / Compare · Use to lock <code>meta.theme</code>
       </p>
     </div>
   );

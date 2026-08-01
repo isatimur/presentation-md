@@ -3,6 +3,8 @@ import {
   COMPARE_LIMIT,
   PREVIEW_CROP_OFFSET_PX,
   PREVIEW_CROPS,
+  PREVIEW_STRIP_HEIGHT_PX,
+  PREVIEW_STRIP_START_PX,
   isPreviewCrop,
   toggleCompareSlot,
   themePreviewUrl,
@@ -38,6 +40,14 @@ describe("themePreview compare helpers", () => {
     expect(PREVIEW_CROP_OFFSET_PX.bento).toBeGreaterThan(PREVIEW_CROP_OFFSET_PX.title);
     expect(PREVIEW_CROP_OFFSET_PX.comparison).toBeGreaterThan(
       PREVIEW_CROP_OFFSET_PX.bento
+    );
+  });
+
+  it("exposes shared-iframe strip math (title→bento→compare stack)", () => {
+    expect(PREVIEW_STRIP_START_PX).toBe(PREVIEW_CROP_OFFSET_PX.title);
+    expect(PREVIEW_STRIP_HEIGHT_PX).toBe(3 * 720 + 2 * 48);
+    expect(PREVIEW_STRIP_START_PX + PREVIEW_STRIP_HEIGHT_PX).toBe(
+      PREVIEW_CROP_OFFSET_PX.comparison + 720
     );
   });
 });
