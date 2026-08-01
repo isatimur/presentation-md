@@ -220,8 +220,8 @@ export function App() {
       />
       <div className="studio-strip" role="note">
         <span>
-          Live preview · Share deck link · Deep-link examples · Open HTML / JSON / PPTX · Present
-          with notes · Export editable PPTX
+          Live preview · Click a slide to edit · Share deck link · Open HTML / JSON / MD / PPTX ·
+          Present with notes · Export editable PPTX
         </span>
         <a href="https://presentation-md.vercel.app/" target="_blank" rel="noopener noreferrer">
           Docs &amp; gallery
@@ -232,7 +232,7 @@ export function App() {
           <SlideList slides={deck.slides} selected={selected} onSelect={setSelected} onChange={setSlides} />
         </aside>
         <main className="panel panel-center">
-          <Preview html={html} />
+          <Preview html={html} selectedSlide={selected} onSelectSlide={setSelected} />
         </main>
         <aside className="panel panel-right">
           {current ? (

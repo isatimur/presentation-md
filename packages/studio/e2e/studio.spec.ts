@@ -251,6 +251,34 @@ test("opens a created .html and recovers the editable deck from embedded source"
   await expect(frame.getByText("Edited After Reopen")).toBeVisible();
 });
 
+test("preview scrolls to selected slide and click-to-edit syncs the form", async ({ page }) => {
+  await page.goto("/?fresh=1");
+  const frame = page.frameLocator(".preview-frame");
+  await expect(frame.locator("section.slide").first()).toBeVisible();
+
+  // Select slide 3 from the list → preview marks it selected.
+  // Click the main text (not ↑↓ actions — those stopPropagation).
+  const rows = page.locator(".slide-row");
+  expect(await rows.count()).toBeGreaterThanOrEqual(3);
+  await rows.nth(2).locator(".slide-row-main").click();
+  await expect(rows.nth(2)).toHaveClass(/active/);
+  await expect(frame.locator("section.slide.pmd-studio-selected")).toHaveCount(1);
+  const selectedHeading = await frame
+    .locator("section.slide.pmd-studio-selected")
+    .locator("h1, h2, h3")
+    .first()
+    .textContent();
+  expect(selectedHeading?.trim().length).toBeGreaterThan(0);
+  await expect(page.getByLabel("Heading").first()).toHaveValue(selectedHeading!.trim());
+
+  // Click another slide inside the preview → list + form follow.
+  await frame.locator("section.slide").nth(0).click({ force: true });
+  await expect(rows.nth(0)).toHaveClass(/active/);
+  await expect(frame.locator("section.slide").nth(0)).toHaveClass(/pmd-studio-selected/);
+  const titleHeading = await frame.locator("section.slide").nth(0).locator("h1, h2, h3").first().textContent();
+  await expect(page.getByLabel("Heading").first()).toHaveValue(titleHeading!.trim());
+});
+
 test("imports Marp-style Markdown via Open", async ({ page }) => {
   await page.goto("/?fresh=1");
   const frame = page.frameLocator(".preview-frame");

@@ -48,9 +48,16 @@ export function PresentMode({
   }, [onClose, slideCount]);
 
   useEffect(() => {
-    const doc = frameRef.current?.contentDocument;
-    const sections = doc?.querySelectorAll<HTMLElement>("section.slide");
-    sections?.[i]?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const frame = frameRef.current;
+    if (!frame) return;
+    const scrollToSlide = () => {
+      const sections = frame.contentDocument?.querySelectorAll<HTMLElement>("section.slide");
+      sections?.[i]?.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    frame.addEventListener("load", scrollToSlide);
+    // First open can race srcDoc paint — load handler covers it; call anyway if ready.
+    if (frame.contentDocument?.readyState === "complete") scrollToSlide();
+    return () => frame.removeEventListener("load", scrollToSlide);
   }, [i, presentHtml]);
 
   return (
