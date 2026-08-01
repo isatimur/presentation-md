@@ -1,5 +1,13 @@
 # @presentation-md/render
 
+## 1.9.1
+
+### Patch Changes
+
+- Updated dependencies [2390e2b]
+  - @presentation-md/core@1.19.4
+  - @presentation-md/export@1.23.14
+
 ## 1.9.0
 
 ### Minor Changes

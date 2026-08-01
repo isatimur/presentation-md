@@ -1,5 +1,16 @@
 # @presentation-md/mcp-server
 
+## 1.22.1
+
+### Patch Changes
+
+- 2390e2b: Studio Example featured trio shows Title/Bento/Compare shot strip (parity with pick-3 + Generate) and a Compare 3 themes bridge into the live theme tray; skill/MCP discovery copy matches.
+- Updated dependencies [2390e2b]
+  - @presentation-md/core@1.19.4
+  - @presentation-md/create-theme@1.1.14
+  - @presentation-md/export@1.23.14
+  - @presentation-md/render@1.9.1
+
 ## 1.22.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.19.4
+
+### Patch Changes
+
+- 2390e2b: Studio Example featured trio shows Title/Bento/Compare shot strip (parity with pick-3 + Generate) and a Compare 3 themes bridge into the live theme tray; skill/MCP discovery copy matches.
+
 ## 1.19.3
 
 ### Patch Changes
