@@ -1,5 +1,11 @@
 # @presentation-md/render
 
+## 1.13.0
+
+### Minor Changes
+
+- 1a7764e: CLI `--format notes_txt` / `notes_vtt` exports speaker-notes handouts (MCP export_deck + Studio parity).
+
 ## 1.12.2
 
 ### Patch Changes
