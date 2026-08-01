@@ -17,9 +17,9 @@ const MINIMAL_VALID_DECK = {
 };
 
 describe("tool registry", () => {
-  it("registers all 12 MCP tools for client discovery", () => {
+  it("registers all 13 MCP tools for client discovery", () => {
     const tools = listToolDefinitions();
-    expect(tools).toHaveLength(12);
+    expect(tools).toHaveLength(13);
     expect(TOOL_NAMES).toEqual([
       "render_deck",
       "export_deck",
@@ -29,6 +29,7 @@ describe("tool registry", () => {
       "judge_deck",
       "generate_deck_prompt",
       "scaffold_deck",
+      "share_deck_link",
       "import_brand_theme",
       "import_pptx",
       "import_markdown",
@@ -706,5 +707,25 @@ describe("scaffold_deck", () => {
     expect(result.theme).toBe("genz-bento");
     expect(result.slide_count).toBe(10);
     expect(result.json).toContain('"layout": "image-hero"');
+  });
+});
+
+describe("share_deck_link", () => {
+  it("returns a Studio ?d= URL that round-trips through decodeShareDeck", async () => {
+    const { shareDeckLinkTool } = await import("../src/tools/share-deck-link.js");
+    const { decodeShareDeck } = await import("@presentation-md/core");
+    const result = (await shareDeckLinkTool.handler({
+      json: MINIMAL_VALID_DECK,
+      include_token: true,
+    })) as { studio_url: string; token: string };
+
+    expect(result.studio_url).toMatch(/^https:\/\/presentation-md\.vercel\.app\/studio\/\?/);
+    expect(result.studio_url).toMatch(/[?&]d=d1\./);
+    expect(result.studio_url).toMatch(/fresh=1/);
+    expect(result.token.startsWith("d1.")).toBe(true);
+
+    const decoded = await decodeShareDeck(result.token);
+    expect(decoded?.meta?.title).toBe("Test Deck");
+    expect(decoded?.slides).toHaveLength(2);
   });
 });

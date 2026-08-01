@@ -382,7 +382,7 @@ Fill gaps with intelligent defaults (`theme-shortlists.json` / `list_themes` wit
 
 ## MCP Tools
 
-Twelve tools via `@presentation-md/mcp-server` (not the deprecated `@presentation-skill-pack/mcp-server` stub — it only redirects). Restart the client after switching packages.
+Thirteen tools via `@presentation-md/mcp-server` (not the deprecated `@presentation-skill-pack/mcp-server` stub — it only redirects). Restart the client after switching packages.
 
 | Tool | Use it to |
 |------|-----------|
@@ -393,6 +393,7 @@ Twelve tools via `@presentation-md/mcp-server` (not the deprecated `@presentatio
 | `apply_theme` | Swap `meta.theme` (default also runs `repairCraft` for theme honesty — Studio My deck Use parity; pass `apply_safe_fixes:false` for a pure swap) |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
 | `scaffold_deck` | Scaffold a recipe skeleton (pitch / launch / wrap / paper / …) with craft floors pre-wired — fill copy, then audit |
+| `share_deck_link` | Encode Deck JSON → Studio `?d=` URL (Copy link parity) for editable user handoff |
 | `preview_themes` | Render 1–3 theme HTML previews; **inline PNG screenshots** on by default; pass `json` for Studio **My deck** restyle (content-true) + optional `slide_index`; `mode: "layouts"` for multi-slide craft bake |
 | CLI `--preview-compare` | Same pick-3 craft bake + discovery PNGs without MCP: `presentation-md-render --preview-compare a,b,c` |
 | `import_pptx` | Import a `.pptx` into deck JSON (see `references/pptx-import.md`) |

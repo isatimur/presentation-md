@@ -17,6 +17,7 @@ import { importMarkdownTool } from "./tools/import-markdown.js";
 import { previewThemesTool } from "./tools/preview-themes.js";
 import { judgeDeckTool } from "./tools/judge-deck.js";
 import { scaffoldDeckTool } from "./tools/scaffold-deck.js";
+import { shareDeckLinkTool } from "./tools/share-deck-link.js";
 import { isRichToolResult } from "./lib/rich-result.js";
 
 export interface ToolDefinition {
@@ -26,7 +27,7 @@ export interface ToolDefinition {
   handler: (input: Record<string, unknown>) => Promise<unknown>;
 }
 
-/** Canonical tool registry — keep in sync with README + skill MCP tables (12 tools). */
+/** Canonical tool registry — keep in sync with README + skill MCP tables (13 tools). */
 export const TOOLS: ToolDefinition[] = [
   renderDeckTool,
   exportDeckTool,
@@ -36,6 +37,7 @@ export const TOOLS: ToolDefinition[] = [
   judgeDeckTool,
   generateDeckPromptTool,
   scaffoldDeckTool,
+  shareDeckLinkTool,
   importBrandThemeTool,
   importPptxTool,
   importMarkdownTool,

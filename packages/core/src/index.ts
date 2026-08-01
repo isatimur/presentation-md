@@ -86,3 +86,15 @@ export type {
   DiscoveryPreviewTrio,
 } from "./theme-discovery.js";
 export { relativeLuminance, contrastRatio, hexToRgb, rgbToHex } from "./color.js";
+export {
+  MAX_SHARE_TOKEN_CHARS,
+  SHARE_PREFIX,
+  DEFAULT_STUDIO_ORIGIN,
+  encodeShareDeck,
+  decodeShareDeck,
+  studioShareLink,
+  readShareTokenFromLocation,
+  isShareDeck,
+} from "./share-deck.js";
+export type { ShareDeckLike, StudioShareLinkOptions } from "./share-deck.js";
+
