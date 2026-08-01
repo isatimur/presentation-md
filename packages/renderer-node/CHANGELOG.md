@@ -1,5 +1,11 @@
 # @presentation-md/render
 
+## 1.10.0
+
+### Minor Changes
+
+- fb48c18: CLI `--preview-deck` + `--preview-slide` restyle your Deck JSON across `--preview-compare` themes (Studio/MCP My deck parity).
+
 ## 1.9.9
 
 ### Patch Changes
