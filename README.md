@@ -25,6 +25,7 @@
 ```bash
 npx @presentation-md/install claude-code
 # also: cursor | copilot | codex | gemini-cli | cli
+# Claude Code plugin: /slides <brief> (marketplace) — same skill + MCP
 ```
 
 Restart your agent and ask: *create a presentation about…*  
@@ -44,11 +45,11 @@ Demo without installing: open the [gallery](https://presentation-md.vercel.app/#
 | **Discovery** | Studio **pick-3 compare** (live auto-on at 3) + Generate **live-by-default** Title/Bento/Compare crops + Example live trio + mood/popular browse + CLI `--preview-compare` + `preview_themes` **auto-layouts** on pick-3 | Live style gallery (strong) |
 | **One-shot quality** | Anti-slop + stunning-25-first + density lock + `audit_deck`/`judge_deck` | Anti-slop rules; no shared audit product |
 | **Authoring model** | Schema-validated **Deck JSON** agents can diff/edit one slide | Prompt → HTML (harder to surgically edit) |
-| **Layouts** | **18** craft layouts (`ranked-list`, `logo-wall`, `streak-grid`, `metric-ring`, `chart`, `custom-html`, `image-hero`, bento, comparison, code…) | Template-driven HTML |
+| **Layouts** | **18** craft layouts + `custom-html` recipes (`ranked-list`, `logo-wall`, `streak-grid`, `metric-ring`, `chart`, `custom-html`, `image-hero`, bento, comparison, code…) | Template-driven HTML |
 | **MCP** | Typed tools: render, export, audit, judge, preview, import PPTX/Markdown, brand theme | — |
 | **Export** | Native editable **PPTX** ↔ Deck JSON round-trip | HTML-first |
 | **Proofs** | **75/75** structured gallery + Studio live preview | Showcase templates |
-| **Install** | `npx @presentation-md/install <agent>` | Clone / copy skill |
+| **Install** | `npx @presentation-md/install <agent>` + Claude `/slides` plugin | Clone / copy skill |
 
 Also beats Gamma / Slidev / Marp on the agent path: structured JSON (not opaque slides), any coding agent (not one app), and PowerPoint you can still edit.
 

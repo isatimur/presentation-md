@@ -69,6 +69,12 @@ fi
 
 echo ""
 echo "Done. Restart Claude Code to pick up the changes."
+echo ""
+echo "Next:"
+echo "  • Ask: create a presentation about…"
+echo "  • Or /slides <brief> if the Claude Code plugin marketplace install is enabled"
+echo "  • Full mode MCP: preview_themes (pick-3 layouts) → audit_deck → render_deck / export_deck PPTX"
+echo "  • Studio: https://presentation-md.vercel.app/studio (Generate live Title/Bento/Compare)"
 if [ "$MODE" = "lite" ]; then
   echo "  (lite mode — MCP server not registered; use the deck-spec CLI path or"
   echo "   re-run with 'full' to enable MCP tools)"

@@ -2,8 +2,8 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "presentation-md",
   "displayName": "presentation-md",
-  "version": "0.1.1",
-  "description": "Turn rough notes into a polished slide deck inside any AI agent, then export to native, editable PowerPoint, Keynote, and Google Slides. The agent authors decks as structured JSON.",
+  "version": "0.2.0",
+  "description": "Turn rough notes into a polished slide deck inside Claude Code — /slides slash, schema Deck JSON, 75 themes, MCP craft gates, native editable PowerPoint.",
   "author": {
     "name": "Timur Isachenko",
     "url": "https://github.com/isatimur"
@@ -19,6 +19,7 @@
     "keynote",
     "claude-code",
     "claude-skill",
-    "ai-agent"
+    "ai-agent",
+    "mcp"
   ]
 }

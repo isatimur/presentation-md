@@ -56,7 +56,9 @@ Restart Claude Code. Then ask:
 
 > "Create a 10-slide pitch deck for Acme using the corporate theme. Here are my notes: ..."
 
-Claude picks up the skill automatically when the trigger words match ("presentation", "slide deck", "pitch deck", "slides").
+Or, if the Claude Code **plugin marketplace** install is enabled, run `/slides <brief>` — same one-shot path (preview themes → Deck JSON → audit → HTML/PPTX).
+
+Claude picks up the skill automatically when the trigger words match ("presentation", "slide deck", "pitch deck", "slides"). Full mode MCP unlocks `preview_themes` pick-3 layouts, `audit_deck` craft gates, and native PPTX export.
 
 ## Uninstall
 

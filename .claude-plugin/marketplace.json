@@ -10,10 +10,10 @@
     {
       "name": "presentation-md",
       "source": "./",
-      "description": "The presentation-generator skill (author decks as structured JSON, export to native PPTX/Keynote/Slides) plus deck-design-judge: a tiered deck scorecard with deterministic gates, a 10-dimension rubric, and an optional cross-vendor multi-model judge panel that emits shareable scorecard.json results.",
+      "description": "Slash /slides + presentation-generator skill + deck-design-judge + MCP (preview_themes pick-3 layouts, audit_deck craft gates, PPTX export). Schema Deck JSON — not prompt-only HTML.",
       "homepage": "https://presentation-md.vercel.app",
       "license": "MIT",
-      "keywords": ["presentation", "slides", "deck-generator", "pptx", "keynote", "design-review", "llm-judge", "eval"]
+      "keywords": ["presentation", "slides", "deck-generator", "pptx", "keynote", "design-review", "llm-judge", "eval", "mcp"]
     }
   ]
 }

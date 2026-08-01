@@ -79,6 +79,12 @@ if ($Mode -eq "full") {
 
 Write-Host ""
 Write-Host "Done. Restart Claude Code to pick up the changes."
+Write-Host ""
+Write-Host "Next:"
+Write-Host "  • Ask: create a presentation about…"
+Write-Host "  • Or /slides <brief> if the Claude Code plugin marketplace install is enabled"
+Write-Host "  • Full mode MCP: preview_themes (pick-3 layouts) → audit_deck → render_deck / export_deck PPTX"
+Write-Host "  • Studio: https://presentation-md.vercel.app/studio (Generate live Title/Bento/Compare)"
 if ($Mode -eq "lite") {
     Write-Host "  (lite mode — MCP server not registered; re-run with 'full' to enable MCP tools)"
 }
