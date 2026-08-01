@@ -28,6 +28,7 @@ import { auditCraft, repairCraft, repairCraftBeat } from "../craft/auditCraft.js
 import type { CraftFixId } from "../craft/auditCraft.js";
 import { ThemeCompareTray, type LiveCompareMode } from "./ThemeCompareTray.js";
 import { ThemeCraftShotStrip } from "./ThemeCraftShotStrip.js";
+import { studioShareLink } from "../share/shareDeck.js";
 
 /** Flagship trio for Example browser show-don't-tell (matches site proof strip). */
 const FEATURED_EXAMPLE_SLUGS = ["novaspark-pitch", "bounce-launch", "forge-api"] as const;
@@ -37,6 +38,7 @@ export function Toolbar({
   html,
   exampleSlug,
   selectedSlide = 0,
+  statusHint,
   onChange,
   onLoadExample,
   onPresent,
@@ -49,6 +51,8 @@ export function Toolbar({
   exampleSlug: string | null;
   /** 0-based index of the slide shown in My deck restyle compare. */
   selectedSlide?: number;
+  /** One-shot status from App (e.g. shared-deck hydrate). */
+  statusHint?: string | null;
   onChange: (next: DeckJson) => void;
   onLoadExample: (slug?: string) => void;
   onPresent: () => void;
@@ -77,6 +81,10 @@ export function Toolbar({
   const [auditPanelOpen, setAuditPanelOpen] = useState(true);
   /** Mount featured shot-strip iframes only while Example is open (cut idle loads). */
   const [exampleOpen, setExampleOpen] = useState(false);
+
+  useEffect(() => {
+    if (statusHint) setStatus(statusHint);
+  }, [statusHint]);
 
   const themes = useMemo(() => listThemeSummaries(), []);
   const shortlists = useMemo(() => listThemeShortlists(), []);
@@ -166,9 +174,13 @@ export function Toolbar({
         );
         return;
       }
-      const opened = parseDeckFile(file.name, await file.text());
+      const opened = parseDeckFile(file.name, await file.text(), theme);
       onChange(opened);
-      setStatus(`Opened ${file.name}`);
+      setStatus(
+        /\.(md|markdown)$/i.test(file.name)
+          ? `Imported Markdown → ${opened.slides.length} slides (${opened.meta?.theme ?? theme})`
+          : `Opened ${file.name}`
+      );
     } catch (err) {
       setStatus(`Open failed: ${(err as Error).message}`);
     } finally {
@@ -296,17 +308,30 @@ export function Toolbar({
   };
 
   const copyLink = async () => {
-    const slug = exampleSlug ?? "acme";
-    const path = studioExampleLink(slug);
-    const absolute =
-      typeof window !== "undefined"
-        ? `${window.location.origin}${path.startsWith("/") ? path : `/${path}`}`
-        : path;
     try {
+      const path = await studioShareLink(deck);
+      const absolute =
+        typeof window !== "undefined"
+          ? `${window.location.origin}${path.startsWith("/") ? path : `/${path}`}`
+          : path;
       await navigator.clipboard.writeText(absolute);
-      setStatus("Copied Studio link");
-    } catch {
-      setStatus(absolute);
+      setStatus("Copied shareable deck link");
+    } catch (err) {
+      // Oversized / compress failure → curated example deep-link fallback.
+      const slug = exampleSlug ?? "acme";
+      const path = studioExampleLink(slug);
+      const absolute =
+        typeof window !== "undefined"
+          ? `${window.location.origin}${path.startsWith("/") ? path : `/${path}`}`
+          : path;
+      try {
+        await navigator.clipboard.writeText(absolute);
+        setStatus(
+          `Deck too large to embed — copied example link (${(err as Error).message})`
+        );
+      } catch {
+        setStatus(absolute);
+      }
     }
   };
 
@@ -655,10 +680,20 @@ export function Toolbar({
         </div>
       </details>
       <div className="toolbar-secondary" role="group" aria-label="Deck actions">
-        <button className="btn toolbar-desktop-only" onClick={() => void copyLink()} title="Copy a shareable Studio deep-link">
+        <button
+          className="btn toolbar-desktop-only"
+          onClick={() => void copyLink()}
+          title="Copy a shareable Studio link that restores this editable deck (?d= compressed JSON)"
+        >
           Copy link
         </button>
-        <button className="btn toolbar-desktop-only" onClick={() => fileRef.current?.click()} title="Open a deck .html, .json, or .pptx">Open</button>
+        <button
+          className="btn toolbar-desktop-only"
+          onClick={() => fileRef.current?.click()}
+          title="Open Deck JSON, rendered HTML, PowerPoint (.pptx), or Marp/md-slides Markdown (.md)"
+        >
+          Open
+        </button>
         <button className="btn toolbar-desktop-only" onClick={onPresent} title="Present fullscreen">Present</button>
         <details className="toolbar-more toolbar-mobile-only">
           <summary className="btn btn-sm" title="More deck actions">More ▾</summary>
@@ -708,7 +743,7 @@ export function Toolbar({
       <input
         ref={fileRef}
         type="file"
-        accept=".html,.htm,.json,.pptx,application/json,text/html,application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        accept=".html,.htm,.json,.md,.markdown,.pptx,application/json,text/html,text/markdown,application/vnd.openxmlformats-officedocument.presentationml.presentation"
         hidden
         onChange={(e) => {
           const f = e.target.files?.[0];

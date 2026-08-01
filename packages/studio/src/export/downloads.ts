@@ -1,4 +1,5 @@
 import type { DeckJson } from "@presentation-md/export";
+import { markdownToDeck } from "@presentation-md/core";
 import { resolveTheme } from "../render/themes.js";
 import { renderDeckHtml } from "../render/renderDeck.js";
 
@@ -311,7 +312,15 @@ export function extractDeckFromHtml(html: string): DeckJson {
   return parseDeckJson(json);
 }
 
-/** Open a `.html` (embedded deck) or `.json` deck file by content type. */
-export function parseDeckFile(filename: string, text: string): DeckJson {
-  return /\.html?$/i.test(filename) ? extractDeckFromHtml(text) : parseDeckJson(text);
+/** Convert Marp / md-slides flavored Markdown into Deck JSON (MCP `import_markdown` parity). */
+export function importMarkdownFile(text: string, theme = "default-tech"): DeckJson {
+  if (!text.trim()) throw new Error("Markdown file is empty");
+  return markdownToDeck(text, { theme }) as DeckJson;
+}
+
+/** Open `.html` (embedded), `.json`, or `.md` / `.markdown` by filename. */
+export function parseDeckFile(filename: string, text: string, theme = "default-tech"): DeckJson {
+  if (/\.html?$/i.test(filename)) return extractDeckFromHtml(text);
+  if (/\.(md|markdown)$/i.test(filename)) return importMarkdownFile(text, theme);
+  return parseDeckJson(text);
 }

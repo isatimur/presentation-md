@@ -335,7 +335,7 @@ pnpm --filter @presentation-md/studio build:web   # static build → web/studio/
 | `audit_deck` | Schema-validate + craft gates; optional `apply_safe_fixes` returns repaired JSON |
 | `judge_deck` | Design judge — t0/t1 JSON gates; **t2** HTML metrics + Chrome shots; **t3** panel/agent rubric |
 | `list_themes` | Enumerate available themes (bundled + installed) with name, version, and vibe |
-| `apply_theme` | Swap `meta.theme` on a deck without rewriting slides |
+| `apply_theme` | Swap `meta.theme` (default also runs `repairCraft` — Studio My deck Use parity; pass `apply_safe_fixes:false` for a pure swap) |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
 | `import_pptx` | Import a `.pptx` into Deck JSON |
 | `import_markdown` | Convert Markdown (+ optional front matter) into Deck JSON |

@@ -250,3 +250,33 @@ test("opens a created .html and recovers the editable deck from embedded source"
   await heading.fill("Edited After Reopen");
   await expect(frame.getByText("Edited After Reopen")).toBeVisible();
 });
+
+test("imports Marp-style Markdown via Open", async ({ page }) => {
+  await page.goto("/?fresh=1");
+  const frame = page.frameLocator(".preview-frame");
+
+  await page.locator('input[type="file"]').setInputFiles("e2e/fixtures/import-brief.md");
+
+  await expect(page.getByText(/Imported Markdown/i)).toBeVisible();
+  await expect(frame.getByText("Imported From Markdown")).toBeVisible();
+  await expect(page.getByLabel("Heading").first()).toHaveValue("Imported From Markdown");
+});
+
+test("Copy link embeds the live deck and hydrates via ?d=", async ({ page, context }) => {
+  await page.goto("/?fresh=1");
+  await page.getByLabel("Heading").first().fill("Shared Restyle Title");
+
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.getByRole("button", { name: /^Copy link$/ }).click();
+  await expect(page.getByText(/Copied shareable deck link/i)).toBeVisible();
+
+  const href = await page.evaluate(async () => navigator.clipboard.readText());
+  expect(href).toMatch(/[?&]d=d1\./);
+  expect(href).toMatch(/fresh=1/);
+
+  const path = href.replace(/^https?:\/\/[^/]+/, "");
+  await page.goto(path.startsWith("/") ? path : `/${path}`);
+  await expect(page.getByText(/Opened shared deck/i)).toBeVisible({ timeout: 15_000 });
+  await expect(page.frameLocator(".preview-frame").getByText("Shared Restyle Title")).toBeVisible();
+  await expect(page.getByLabel("Heading").first()).toHaveValue("Shared Restyle Title");
+});

@@ -116,8 +116,8 @@
         <tr><td>One-shot agent quality</td><td class="col-us"><span class="check">✓</span> Anti-slop + stunning-25-first + density lock + <code>audit_deck</code>/<code>judge_deck</code> craft gates + <code>apply_safe_fixes</code> one-hop repair</td><td>Anti-slop rules; no shared craft audit product</td></tr>
         <tr><td>Design craft</td><td class="col-us">Asymmetric ratios, emphasis, bento, image-heroes, surfaces, craft gates</td><td>Bold visual systems; agent writes full HTML</td></tr>
         <tr><td>PowerPoint / PDF</td><td class="col-us"><span class="check">✓</span> Native PPTX export + import round-trip + speaker notes + theme-native card/frame chrome + MCP/CLI <strong>vector PDF</strong> + Studio <strong>Download PDF</strong> blob (local headless Chromium; static hosts raster; print fallback)</td><td><span class="cross">✗</span> HTML-first; no first-class PPTX/PDF pipeline</td></tr>
-        <tr><td>Browser Studio</td><td class="col-us"><span class="check">✓</span> Hosted Studio — pick-3 <strong>My deck restyle</strong>, densified Craft proof strips, Compare-3 bridge, density modes, craft audit + <strong>Apply safe fixes</strong> / Insert beat, Land scaffold, Download PDF</td><td><span class="cross">✗</span> No equivalent editor product</td></tr>
-        <tr><td>MCP tools</td><td class="col-us"><span class="check">✓</span> 12 typed tools (render, export, audit, judge, scaffold, themes, brand, import…)</td><td>Skill / prompt workflow, not a typed MCP product</td></tr>
+        <tr><td>Browser Studio</td><td class="col-us"><span class="check">✓</span> Hosted Studio — <strong>shareable ?d= deck links</strong>, Open <strong>.md</strong> (Marp/md-slides) + PPTX/HTML/JSON, pick-3 <strong>My deck restyle</strong>, densified Craft proof strips, Compare-3 bridge, density modes, craft audit + <strong>Apply safe fixes</strong> / Insert beat, Land scaffold, Download PDF</td><td><span class="cross">✗</span> No equivalent editor product</td></tr>
+        <tr><td>MCP tools</td><td class="col-us"><span class="check">✓</span> 12 typed tools (render, export, audit, judge, scaffold, themes, brand, import…) — <code>apply_theme</code> defaults to <code>repairCraft</code> (Studio Use parity)</td><td>Skill / prompt workflow, not a typed MCP product</td></tr>
         <tr><td>Brand import</td><td class="col-us"><span class="check">✓</span> CSS / URL → contrast-safe theme package</td><td>Manual template restyle</td></tr>
         <tr><td>Output ownership</td><td class="col-us">Self-contained HTML you own + optional PPTX</td><td>Self-contained HTML you own</td></tr>
         <tr><td>License / price</td><td class="col-us"><span class="check">✓</span> Free, MIT, no account</td><td><span class="check">✓</span> Open-source skill / templates</td></tr>
@@ -131,17 +131,17 @@
     <h2>Where frontend-slides is stronger</h2>
     <ul>
       <li>Community momentum and README gallery energy as the reference for bold agent slide aesthetics</li>
-      <li>Fully freeform multi-page HTML when you abandon schema on purpose (we keep <code>custom-html</code> + craft recipes for one-off art inside Deck JSON)</li>
+      <li>Fully freeform multi-page HTML when you abandon schema on purpose (we keep <code>custom-html</code> + craft recipes for one-off art inside Deck JSON; Studio also <strong>Open</strong>s Marp/md-slides <code>.md</code> into Deck JSON)</li>
       <li>Early marketplace install mindshare — we now ship <code>/slides</code> + plugin MCP too; their clone/copy skill flow remains familiar</li>
     </ul>
     <h2 style="margin-top:36px">Where presentation-md is stronger</h2>
     <ul>
-      <li>Same show-don’t-tell discovery — site/Studio/MCP mood browse chips + Studio pick-3 <strong>My deck restyle</strong> (your slide live across themes) + Craft proofs Title/Bento/Compare strips + <strong>Compare 3</strong> (safe/bold/wildcard) + Example bridge + MCP <code>suggested_preview</code> + <code>preview_themes</code> <strong>inline PNGs</strong> + CLI <code>--preview-compare</code> PNG parity</li>
+      <li>Same show-don’t-tell discovery — site/Studio/MCP mood browse chips + Studio pick-3 <strong>My deck restyle</strong> (your slide live across themes) + Craft proofs Title/Bento/Compare strips + <strong>Compare 3</strong> (safe/bold/wildcard) + Example bridge + MCP <code>suggested_preview</code> + <code>preview_themes</code> <strong>inline PNGs</strong> + CLI <code>--preview-compare</code> PNG parity + Studio <strong>Copy link</strong> restores the editable deck (compressed <code>?d=</code>)</li>
       <li>One-shot craft bar — stunning-25-first, anti-slop, density lock, then <code>audit_deck</code>/<code>judge_deck</code> before ship (optional <code>apply_safe_fixes</code>)</li>
       <li>Schema-validated Deck JSON — reproducible, auditable agent output across 18 layouts</li>
       <li>75 structured theme proofs with popular/mood browse on the site + Studio shortlists</li>
       <li>Native PPTX export/import with speaker notes — opens in PowerPoint, Keynote, Google Slides — plus MCP/CLI vector PDF (print pipeline, not screenshots)</li>
-      <li>Browser Studio + 12 MCP tools (incl. <code>judge_deck</code>, <code>import_markdown</code>, craft-gate <code>audit_deck</code>) for agents that need a product, not only a prompt</li>
+      <li>Browser Studio + 12 MCP tools (incl. <code>judge_deck</code>, <code>import_markdown</code>, craft-gate <code>audit_deck</code>, <code>apply_theme</code> + default <code>repairCraft</code>) for agents that need a product, not only a prompt — Studio also Opens <code>.md</code> / PPTX and shares live decks via Copy link</li>
       <li>Claude Code <code>/slides</code> slash + marketplace plugin MCP — install via plugin <em>or</em> <code>npx @presentation-md/install claude-code</code></li>
       <li>Schema-safe <code>custom-html</code> recipes (split / big-number / stamps / type explosion) + Studio insert presets — freeform energy without abandoning Deck JSON</li>
       <li>Brand import with contrast guards so muted copy stays readable</li>

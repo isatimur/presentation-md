@@ -82,23 +82,53 @@ describe("apply_theme", () => {
     const original = JSON.stringify(MINIMAL_VALID_DECK);
     const result = (await applyThemeTool.handler({
       json: original,
-      target_theme: "corporate"
-    })) as { json: string };
+      target_theme: "corporate",
+      apply_safe_fixes: false,
+    })) as { json: string; theme: string; fixes_applied: string[] };
 
     const parsed = JSON.parse(result.json) as { meta: { theme: string }; slides: unknown[] };
     expect(parsed.meta.theme).toBe("corporate");
     expect(parsed.slides).toHaveLength(2);
+    expect(result.theme).toBe("corporate");
+    expect(result.fixes_applied).toEqual([]);
   });
 
   it("adds meta if not present", async () => {
     const deck = { type: "deck", slides: [{ layout: "title", heading: "Hi" }] };
     const result = (await applyThemeTool.handler({
       json: JSON.stringify(deck),
-      target_theme: "playful"
+      target_theme: "playful",
+      apply_safe_fixes: false,
     })) as { json: string };
 
     const parsed = JSON.parse(result.json) as { meta: { theme: string } };
     expect(parsed.meta.theme).toBe("playful");
+  });
+
+  it("defaults to repairCraft after theme swap", async () => {
+    const thin = {
+      type: "deck",
+      meta: { title: "Thin", theme: "default-tech" },
+      slides: [
+        { layout: "title", heading: "Hello" },
+        { layout: "bullets", heading: "Only bullets", items: ["a", "b"] },
+        { layout: "closing", heading: "Done", cta: "Go" },
+      ],
+    };
+    const result = (await applyThemeTool.handler({
+      json: JSON.stringify(thin),
+      target_theme: "aurora-glass",
+    })) as { json: string; fixes_applied: string[]; theme: string };
+
+    expect(result.theme).toBe("aurora-glass");
+    const parsed = JSON.parse(result.json) as {
+      meta: { theme: string };
+      slides: Array<{ layout: string }>;
+    };
+    expect(parsed.meta.theme).toBe("aurora-glass");
+    expect(Array.isArray(result.fixes_applied)).toBe(true);
+    // Glass honesty / craft floors usually insert at least one beat on thin decks.
+    expect(parsed.slides.length).toBeGreaterThanOrEqual(thin.slides.length);
   });
 });
 

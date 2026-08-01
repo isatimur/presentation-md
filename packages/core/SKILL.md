@@ -390,7 +390,7 @@ Twelve tools via `@presentation-md/mcp-server` (not the deprecated `@presentatio
 | `export_deck` | Export deck JSON → `.pptx`, vector PDF, or html |
 | `audit_deck` | Schema-validate + craft gates; optional `apply_safe_fixes` returns repaired JSON (fields + beat inserts: image-hero / comparison / data / logo-wall / wrap tones + theme-honesty leftovers) |
 | `list_themes` | See installed themes with vibe/description + proof deep-links; filter with `browse` chips (site/Studio parity), shortlist, mood, or query; use `suggested_preview` (safe/bold/wildcard) for pick-3 |
-| `apply_theme` | Swap `meta.theme` without rewriting slides |
+| `apply_theme` | Swap `meta.theme` (default also runs `repairCraft` for theme honesty — Studio My deck Use parity; pass `apply_safe_fixes:false` for a pure swap) |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
 | `scaffold_deck` | Scaffold a recipe skeleton (pitch / launch / wrap / paper / …) with craft floors pre-wired — fill copy, then audit |
 | `preview_themes` | Render 1–3 theme HTML previews; **inline PNG screenshots** (title + bento + comparison in layouts mode) on by default; pass `mode: "layouts"` for multi-slide craft bake |

@@ -38,7 +38,7 @@ replace it with the block above (or re-run `npx @presentation-md/install cursor`
 | `render_deck` | Render a deck JSON spec to a self-contained HTML slide deck; optionally write to a file. |
 | `export_deck` | Export deck JSON to native, editable PowerPoint (`.pptx`), vector PDF, or HTML. |
 | `list_themes` | List installed themes (name, version, vibe, description). Optional `shortlist` / `browse` (site/Studio mood chips) / `mood` / `query` filters + `include_shortlists` / `include_browse_filters`. Returns `suggested_preview` (safe/bold/wildcard trio) for one-shot Theme Discovery. |
-| `apply_theme` | Swap the theme in `meta.theme` while keeping all slide content unchanged. |
+| `apply_theme` | Swap `meta.theme` (default: also `repairCraft` for theme-honesty / craft floors; Studio My deck Use parity). |
 | `audit_deck` | Schema validate **plus** craft gates (asymmetry, loud/atmosphere/paper honesty, dual CTA, data beats). Optional `apply_safe_fixes` auto-repairs structural craft **and inserts missing beats** (image-hero / comparison / data / logo-wall / wrap tones) — returns `json` + `fixes_applied[]`. Schema-valid ≠ shippable — call before the user sees a first draft. |
 | `judge_deck` | Craft QA tiers: `t1` schema gates, `t2` HTML metrics + screenshots (**inline PNGs** by default), `t3` agent rubric / panel when keys exist. |
 | `generate_deck_prompt` | Build a one-shot craft system prompt (theme palette, anti-slop, layout recipes, custom-html recipes, shortlists) + optional `density` (`speaker` / `reading`) lock. |
