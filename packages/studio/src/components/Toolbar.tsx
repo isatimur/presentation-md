@@ -26,7 +26,7 @@ import {
 import { STUDIO_EXAMPLES, studioExampleLink } from "../examples.js";
 import { auditCraft, repairCraft, repairCraftBeat } from "../craft/auditCraft.js";
 import type { CraftFixId } from "../craft/auditCraft.js";
-import { ThemeCompareTray } from "./ThemeCompareTray.js";
+import { ThemeCompareTray, type LiveCompareMode } from "./ThemeCompareTray.js";
 import { ThemeCraftShotStrip } from "./ThemeCraftShotStrip.js";
 
 /** Flagship trio for Example browser show-don't-tell (matches site proof strip). */
@@ -36,6 +36,7 @@ export function Toolbar({
   deck,
   html,
   exampleSlug,
+  selectedSlide = 0,
   onChange,
   onLoadExample,
   onPresent,
@@ -46,6 +47,8 @@ export function Toolbar({
   /** Live-rendered deck HTML from App — used for instant HTML download. */
   html?: string;
   exampleSlug: string | null;
+  /** 0-based index of the slide shown in My deck restyle compare. */
+  selectedSlide?: number;
   onChange: (next: DeckJson) => void;
   onLoadExample: (slug?: string) => void;
   onPresent: () => void;
@@ -65,6 +68,8 @@ export function Toolbar({
   const [shortlistId, setShortlistId] = useState("");
   const [compare, setCompare] = useState<string[]>([]);
   const [liveCompare, setLiveCompare] = useState(false);
+  /** Default My deck — content-true restyle beats canned craft proofs for pick-3. */
+  const [liveCompareMode, setLiveCompareMode] = useState<LiveCompareMode>("deck");
   const [auditIssues, setAuditIssues] = useState<
     Array<{ severity: "error" | "warning"; message: string; slide?: number; fixId?: CraftFixId }>
   >([]);
@@ -490,19 +495,33 @@ export function Toolbar({
             compare={compare}
             themes={themes}
             livePreview={liveCompare}
+            liveMode={liveCompareMode}
+            deck={deck}
+            slideIndex0={selectedSlide}
             activeTheme={theme}
             onLivePreview={setLiveCompare}
+            onLiveMode={setLiveCompareMode}
             onRemove={(name) => setCompare((prev) => prev.filter((n) => n !== name))}
             onClear={() => {
               setCompare([]);
               setLiveCompare(false);
             }}
             onUse={(name) => {
-              setTheme(name);
+              const themed: DeckJson = {
+                ...deck,
+                meta: { ...deck.meta, theme: name },
+              };
+              const { deck: repaired, fixes } = repairCraft(themed);
+              onChange(repaired as DeckJson);
               setCompare([]);
               setLiveCompare(false);
               const details = document.querySelector("details.theme-browser") as HTMLDetailsElement | null;
               if (details) details.open = false;
+              setStatus(
+                fixes.length
+                  ? `Theme → ${name} · ${fixes.length} craft fix${fixes.length === 1 ? "" : "es"}`
+                  : `Theme → ${name}`
+              );
             }}
           />
         </div>

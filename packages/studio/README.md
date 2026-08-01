@@ -25,7 +25,7 @@ pnpm --filter @presentation-md/studio test:e2e  # Playwright flow (needs: npx pl
 - **Live preview** — an `<iframe>` rendered with the same shared Mustache layouts + theme tokens as
   the canonical Node renderer, so what you see matches the published deck.
 - **Generate** — Anthropic key path, agent-handoff prompt, or **Land scaffold** (same recipes as MCP `scaffold_deck` — no key).
-- **Export** — Download HTML, **Download PDF** (headless blob locally / client raster on static / print fallback), Download `.pptx`, or export the raw Deck JSON. Import any Deck JSON to keep editing. Theme picker covers every bundled + workspace theme. Craft audit panel includes **Apply safe fixes** / per-issue **Insert beat** (same `repairCraft` path as MCP `audit_deck` `apply_safe_fixes`).
+- **Export** — Download HTML, **Download PDF** (headless blob locally / client raster on static / print fallback), Download `.pptx`, or export the raw Deck JSON. Import any Deck JSON to keep editing. Theme picker covers every bundled + workspace theme; pick-3 live defaults to **My deck restyle** (selected slide across themes) with Craft proofs as the alternate. Craft audit panel includes **Apply safe fixes** / per-issue **Insert beat** (same `repairCraft` path as MCP `audit_deck` `apply_safe_fixes`). Use on compare applies theme + safe craft repair.
 
 ## How it stays in sync with the renderer
 

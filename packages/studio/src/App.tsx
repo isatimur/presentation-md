@@ -149,6 +149,7 @@ export function App() {
         deck={deck}
         html={html}
         exampleSlug={exampleSlug}
+        selectedSlide={selected}
         onChange={(next) => {
           setDeck(next);
           setExampleSlug(null);

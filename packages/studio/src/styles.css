@@ -251,6 +251,28 @@ body {
     linear-gradient(135deg, var(--swatch-bg, #0B1220) 52%, var(--swatch-accent, #FF3B1F) 52%);
   box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset;
 }
+/* My deck restyle — selected slide re-themed (content-true pick-3) */
+.theme-compare-restyle {
+  position: relative; width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden; border-radius: 8px; border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--text) 6%, var(--paper));
+  container-type: inline-size;
+}
+.theme-compare-restyle-frame {
+  position: absolute; inset: 0 auto auto 0;
+  width: 1280px; height: 720px; border: 0; pointer-events: none;
+  transform-origin: top left;
+  transform: scale(0.2);
+}
+@supports (width: 1cqw) {
+  .theme-compare-restyle-frame {
+    transform: scale(calc(100cqw / 1280));
+  }
+}
+.theme-compare-grid.is-live .theme-compare-card {
+  min-height: 148px;
+}
 /* Shared Title/Bento/Compare shot strip — one iframe, scroll-cropped proof stack */
 .craft-shot-strip {
   display: block; min-width: 0;

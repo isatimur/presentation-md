@@ -71,15 +71,21 @@ test("pick-3 theme compare tray fills slots and can lock a theme", async ({ page
   await expect(tray).toBeVisible();
   await expect(tray.getByText(/Compare 3\/3/i)).toBeVisible();
 
-  // Shortlist / pick-3 auto-enables live; denser shared-iframe Title+Bento+Compare strip.
+  // Shortlist / pick-3 auto-enables live; default My deck restyles the selected slide.
   await expect(tray.getByRole("button", { name: /Hide live/i })).toBeVisible();
+  await expect(tray.getByRole("button", { name: /My deck/i })).toBeVisible();
+  await expect(tray.locator(".theme-compare-restyle")).toHaveCount(3);
+  await expect(tray.locator(".theme-compare-restyle-frame")).toHaveCount(3);
+
+  // Craft proofs still available as the alternate live mode.
+  await tray.getByRole("button", { name: /Craft proofs/i }).click();
   await expect(tray.locator(".theme-compare-shot-strip")).toHaveCount(3);
   await expect(tray.locator(".theme-compare-shot-strip iframe")).toHaveCount(3);
   await expect(tray.locator(".craft-shot-strip-label[data-crop='title']")).toHaveCount(3);
   await expect(tray.locator(".craft-shot-strip-label[data-crop='bento']")).toHaveCount(3);
   await expect(tray.locator(".craft-shot-strip-label[data-crop='comparison']")).toHaveCount(3);
 
-  // Lock the first compared theme.
+  // Lock the first compared theme (applies theme + craft repair).
   const firstName = await tray.locator(".theme-compare-card strong").first().textContent();
   expect(firstName).toBeTruthy();
   await tray.locator(".theme-compare-card").first().getByRole("button", { name: /^Use$/ }).click();
@@ -192,7 +198,7 @@ test("Example featured trio shows Title/Bento/Compare shot strip via local /prev
   await expect(tray).toBeVisible();
   await expect(tray.getByText(/Compare 3\/3/i)).toBeVisible();
   await expect(tray.getByRole("button", { name: /Hide live/i })).toBeVisible();
-  await expect(tray.locator(".theme-compare-shot-strip")).toHaveCount(3);
+  await expect(tray.locator(".theme-compare-restyle")).toHaveCount(3);
 });
 
 test("auto-opens craft audit panel and supports jump + dismiss", async ({ page }) => {
