@@ -1,6 +1,6 @@
 {
   "name": "@presentation-md/studio",
-  "version": "1.16.0",
+  "version": "1.17.0",
   "description": "Browser-based editor studio for presentation-md decks: edit, live-preview, and export to HTML or PowerPoint (.pptx).",
   "license": "MIT",
   "private": true,
