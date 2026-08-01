@@ -1,5 +1,24 @@
 # @presentation-md/render
 
+## 1.14.0
+
+### Minor Changes
+
+- 9d3c5a5: Non-LLM structural density remorph (`remorphDensity`) + Present blackout/timer + CLI `--share-link`.
+
+  `audit_deck remorph_density` / CLI `--remorph-density` / Studio Speaker·Reading density buttons split crowded lists or promote notes; Present gains B blackout + T elapsed timer; CLI `--share-link` prints Studio `?d=` URLs.
+
+- a784e9e: CLI `--generate-prompt` + Present digit jump / blackout e2e.
+
+  Extract shared `buildGenerateDeckPrompt` into core (MCP + CLI), wire CLI one-shot craft prompt export, and Present 1–9 / Home / End jump with blackout + timer coverage.
+
+### Patch Changes
+
+- Updated dependencies [9d3c5a5]
+- Updated dependencies [a784e9e]
+  - @presentation-md/core@1.27.0
+  - @presentation-md/export@1.23.27
+
 ## 1.13.0
 
 ### Minor Changes
