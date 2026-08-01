@@ -160,7 +160,7 @@ export const listThemesTool: ToolDefinition = {
     const result: Record<string, unknown> = {
       themes,
       discovery_hint:
-        "Theme Discovery: offer browse chips (list_themes include_browse_filters) or a shortlist (prefer popular:true), use suggested_preview (safe/bold/wildcard) or open studio_url / preview_url (show-don't-tell), then preview_themes with those 3 names (layouts auto). Lock meta.theme before generating the full deck.",
+        "Theme Discovery: offer browse chips (list_themes include_browse_filters) or a shortlist (prefer popular:true), use suggested_preview (safe/bold/wildcard) or open studio_url / preview_url, then preview_themes with those 3 names (layouts auto; inline PNGs default — vision show-don't-tell). Lock meta.theme before generating the full deck.",
     };
     if (suggested_preview) {
       result.suggested_preview = suggested_preview;

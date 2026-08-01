@@ -164,6 +164,8 @@ export async function screenshotSlides(
     width?: number;
     height?: number;
     maxSlides?: number;
+    /** 1-based slide numbers to capture (skips others). Defaults to 1..min(count, maxSlides). */
+    slideIndices?: number[];
   } = {}
 ): Promise<ScreenshotResult> {
   const chrome = await findChrome();
@@ -185,10 +187,21 @@ export async function screenshotSlides(
 
   await writeFile(join(shotsDir, "deck.html"), html, "utf-8");
   const chunks = extractSlideChunks(html);
-  const n = Math.min(Math.max(chunks.length, 1), opts.maxSlides ?? 40);
+  const slideCount = Math.max(chunks.length, 1);
+  const maxSlides = opts.maxSlides ?? 40;
+  const indices =
+    opts.slideIndices && opts.slideIndices.length > 0
+      ? [
+          ...new Set(
+            opts.slideIndices
+              .map((n) => Math.floor(n))
+              .filter((n) => n >= 1 && n <= slideCount)
+          ),
+        ].sort((a, b) => a - b)
+      : Array.from({ length: Math.min(slideCount, maxSlides) }, (_, i) => i + 1);
   const shots: ShotMeta[] = [];
 
-  for (let i = 1; i <= n; i++) {
+  for (const i of indices) {
     const idx = String(i).padStart(2, "0");
     const outPath = join(shotsDir, `slide-${idx}.png`);
     const chunk =

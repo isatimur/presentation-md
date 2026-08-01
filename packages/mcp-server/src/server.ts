@@ -16,6 +16,7 @@ import { importPptxTool } from "./tools/import-pptx.js";
 import { importMarkdownTool } from "./tools/import-markdown.js";
 import { previewThemesTool } from "./tools/preview-themes.js";
 import { judgeDeckTool } from "./tools/judge-deck.js";
+import { isRichToolResult } from "./lib/rich-result.js";
 
 export interface ToolDefinition {
   name: string;
@@ -71,6 +72,27 @@ export async function main() {
       const result = await tool.handler(
         (request.params.arguments ?? {}) as Record<string, unknown>
       );
+      if (isRichToolResult(result)) {
+        const content: Array<
+          | { type: "text"; text: string }
+          | { type: "image"; data: string; mimeType: string }
+        > = [];
+        for (const img of result.images ?? []) {
+          if (img.label) {
+            content.push({ type: "text", text: img.label });
+          }
+          content.push({
+            type: "image",
+            data: img.data,
+            mimeType: img.mimeType,
+          });
+        }
+        content.push({
+          type: "text",
+          text: JSON.stringify(result.payload, null, 2),
+        });
+        return { content };
+      }
       return {
         content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
       };

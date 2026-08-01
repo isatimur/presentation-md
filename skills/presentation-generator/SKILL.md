@@ -316,7 +316,7 @@ frontend-slides wins on discovery UX; presentation-md wins when the **first** em
 1. **Stunning-25-first** — when the brief matches a flagship vibe, lock that theme (or a popular shortlist sibling) and open the structured proof / Studio `?example=` *before* writing slides.
 2. **Density lock** — speaker-led vs reading-first chosen once; never mix cramped reading density into a live-talk deck (or vice versa).
 3. **Anti-slop gate** — read `references/anti-slop-bans.md` before any custom styling; ban Inter-only / purple-on-white / cream-terracotta / accent-underline titles / text-only content slides unless the chosen theme owns them.
-4. **Layouts preview for pick-3** — `preview_themes` with ≥2 themes **auto-defaults to `mode: "layouts"`** (pass `mode: "title"` only for a cover skim).
+4. **Layouts preview for pick-3** — `preview_themes` with ≥2 themes **auto-defaults to `mode: "layouts"`** (pass `mode: "title"` only for a cover skim). Inline PNGs attach as MCP image content by default — compare in-chat, then lock `meta.theme`.
 5. **Craft gates before ship** — `audit_deck` then `judge_deck` (t1→t2). Schema-valid ≠ shippable. Fix asymmetry, emphasis, dual CTA, image-hero, data beat, notes.
 
 Default when vibe is vague: a popular shortlist + one stunning-25 bold option in the preview mix — never three near-identical safe corporate looks.
@@ -392,7 +392,7 @@ Eleven tools via `@presentation-md/mcp-server` (not the deprecated `@presentatio
 | `list_themes` | See installed themes with vibe/description + proof deep-links; filter with `browse` chips (site/Studio parity), shortlist, mood, or query; use `suggested_preview` (safe/bold/wildcard) for pick-3 |
 | `apply_theme` | Swap `meta.theme` without rewriting slides |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
-| `preview_themes` | Render 1–3 theme HTML previews; pass `mode: "layouts"` for multi-slide craft bake |
+| `preview_themes` | Render 1–3 theme HTML previews; **inline PNG screenshots** (MCP image content) on by default; pass `mode: "layouts"` for multi-slide craft bake |
 | CLI `--preview-compare` | Same pick-3 craft bake without MCP: `presentation-md-render --preview-compare a,b,c` |
 | `import_pptx` | Import a `.pptx` into deck JSON (see `references/pptx-import.md`) |
 | `import_markdown` | Import Marp/md-slides Markdown → Deck JSON (`---` splits, ` ```chart ` / ` ```html `) |

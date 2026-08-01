@@ -208,6 +208,6 @@ export function pickDiscoveryPreviewTrio(
   return {
     themes,
     roles,
-    hint: "Call preview_themes with these themes (≥2 auto-defaults to mode=\"layouts\"). Offer safe + bold + wildcard; lock meta.theme after the user picks.",
+    hint: "Call preview_themes with these themes (≥2 auto-defaults to mode=\"layouts\"; inline PNGs on by default). Offer safe + bold + wildcard; lock meta.theme after the user picks.",
   };
 }
