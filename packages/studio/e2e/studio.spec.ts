@@ -290,6 +290,34 @@ test("imports Marp-style Markdown via Open", async ({ page }) => {
   await expect(page.getByLabel("Heading").first()).toHaveValue("Imported From Markdown");
 });
 
+test("pastes Marp-style Markdown via Paste MD panel", async ({ page }) => {
+  await page.goto("/?fresh=1");
+  const frame = page.frameLocator(".preview-frame");
+
+  await page.locator("details.paste-md > summary").click();
+  await expect(page.locator(".paste-md-panel")).toBeVisible();
+  await page.getByLabel("Markdown outline").fill(`---
+title: Paste Wave
+theme: default-tech
+---
+
+# Pasted From Markdown
+
+Lead line from the paste panel.
+
+---
+
+## Second beat
+
+- No file picker
+- Same as Open .md
+`);
+  await page.getByRole("button", { name: /^Apply$/ }).click();
+  await expect(page.getByText(/Pasted Markdown/i)).toBeVisible();
+  await expect(frame.getByText("Pasted From Markdown")).toBeVisible();
+  await expect(page.getByLabel("Heading").first()).toHaveValue("Pasted From Markdown");
+});
+
 test("Copy link embeds the live deck and hydrates via ?d=", async ({ page, context }) => {
   await page.goto("/?fresh=1");
   await page.getByLabel("Heading").first().fill("Shared Restyle Title");

@@ -437,6 +437,24 @@ body {
   box-shadow: 0 18px 40px -18px rgba(11, 18, 32, 0.35);
 }
 .export-more-panel .btn { width: 100%; justify-content: flex-start; }
+.paste-md { position: relative; }
+.paste-md > summary { list-style: none; cursor: pointer; user-select: none; }
+.paste-md > summary::-webkit-details-marker { display: none; }
+.paste-md-panel {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 50;
+  width: min(420px, 92vw); padding: 12px;
+  display: flex; flex-direction: column; gap: 10px;
+  background: var(--panel-2); border: 1px solid var(--line-2); border-radius: 12px;
+  box-shadow: 0 22px 48px -20px rgba(11, 18, 32, 0.4);
+}
+.paste-md-input {
+  width: 100%; min-height: 180px; resize: vertical;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px; line-height: 1.45;
+}
+.paste-md-actions {
+  display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap;
+}
 .btn-icon { padding: 4px 7px; font-size: 12px; line-height: 1; }
 .btn-danger { color: var(--danger); }
 .btn-generate {

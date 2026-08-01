@@ -22,8 +22,9 @@ import {
   printDeckPdf,
   parseDeckFile,
   importPptxFile,
+  importMarkdownFile,
 } from "../export/downloads.js";
-import { STUDIO_EXAMPLES, studioExampleLink } from "../examples.js";
+import { STUDIO_EXAMPLES } from "../examples.js";
 import { auditCraft, repairCraft, repairCraftBeat } from "../craft/auditCraft.js";
 import type { CraftFixId } from "../craft/auditCraft.js";
 import { ThemeCompareTray, type LiveCompareMode } from "./ThemeCompareTray.js";
@@ -81,6 +82,8 @@ export function Toolbar({
   const [auditPanelOpen, setAuditPanelOpen] = useState(true);
   /** Mount featured shot-strip iframes only while Example is open (cut idle loads). */
   const [exampleOpen, setExampleOpen] = useState(false);
+  const [pasteMdOpen, setPasteMdOpen] = useState(false);
+  const [pasteMd, setPasteMd] = useState("");
 
   useEffect(() => {
     if (statusHint) setStatus(statusHint);
@@ -331,21 +334,39 @@ export function Toolbar({
       await navigator.clipboard.writeText(absolute);
       setStatus("Copied shareable deck link");
     } catch (err) {
-      // Oversized / compress failure → curated example deep-link fallback.
-      const slug = exampleSlug ?? "acme";
-      const path = studioExampleLink(slug);
-      const absolute =
-        typeof window !== "undefined"
-          ? `${window.location.origin}${path.startsWith("/") ? path : `/${path}`}`
-          : path;
-      try {
-        await navigator.clipboard.writeText(absolute);
-        setStatus(
-          `Deck too large to embed — copied example link (${(err as Error).message})`
-        );
-      } catch {
-        setStatus(absolute);
+      // Oversized / compress failure — do NOT copy a curated example (mis-share trap).
+      setStatus(
+        `${(err as Error).message} — use Source ▾ → Download JSON instead`
+      );
+    }
+  };
+
+  const applyPastedMarkdown = (raw: string) => {
+    try {
+      const opened = importMarkdownFile(raw, theme);
+      onChange(opened);
+      setPasteMd("");
+      setPasteMdOpen(false);
+      setStatus(
+        `Pasted Markdown → ${opened.slides.length} slides (${opened.meta?.theme ?? theme})`
+      );
+    } catch (err) {
+      setStatus(`Paste Markdown failed: ${(err as Error).message}`);
+    }
+  };
+
+  const pasteMdFromClipboard = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      if (!text.trim()) {
+        setStatus("Clipboard is empty — paste Marp/md-slides Markdown into the box");
+        return;
       }
+      setPasteMd(text);
+      setPasteMdOpen(true);
+      setStatus("Clipboard Markdown loaded — Apply to convert");
+    } catch (err) {
+      setStatus(`Clipboard read failed: ${(err as Error).message}`);
     }
   };
 
@@ -698,6 +719,50 @@ export function Toolbar({
         >
           Open
         </button>
+        <details
+          className="paste-md"
+          open={pasteMdOpen}
+          onToggle={(e) => setPasteMdOpen((e.currentTarget as HTMLDetailsElement).open)}
+        >
+          <summary
+            className="btn"
+            title="Paste Marp / md-slides Markdown → Deck JSON (no file picker)"
+          >
+            Paste MD
+          </summary>
+          <div className="paste-md-panel" role="dialog" aria-label="Paste Markdown">
+            <p className="muted small" style={{ margin: 0 }}>
+              Marp / md-slides outline → structured Deck JSON. Same path as Open .md and MCP{" "}
+              <code>import_markdown</code>.
+            </p>
+            <textarea
+              className="text-input paste-md-input"
+              rows={10}
+              value={pasteMd}
+              placeholder={"---\ntitle: My deck\ntheme: neon-noir\n---\n\n# Title\n\nLead…\n\n---\n\n## Next slide\n\n- Point one\n- Point two"}
+              onChange={(e) => setPasteMd(e.target.value)}
+              aria-label="Markdown outline"
+            />
+            <div className="paste-md-actions">
+              <button
+                type="button"
+                className="btn"
+                onClick={() => void pasteMdFromClipboard()}
+                title="Load Markdown from the system clipboard"
+              >
+                From clipboard
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                disabled={!pasteMd.trim()}
+                onClick={() => applyPastedMarkdown(pasteMd)}
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        </details>
         <button className="btn toolbar-desktop-only" onClick={onPresent} title="Present fullscreen">Present</button>
         <details className="toolbar-more toolbar-mobile-only">
           <summary className="btn btn-sm" title="More deck actions">More ▾</summary>
