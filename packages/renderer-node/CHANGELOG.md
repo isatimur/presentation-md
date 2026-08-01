@@ -1,5 +1,14 @@
 # @presentation-md/render
 
+## 1.10.2
+
+### Patch Changes
+
+- 3c10303: Studio Present mode gains an **Up next** slide peek beside speaker notes (Pitch-class dual pane). CLI `--preview-mode` error copy includes `deck`.
+- Updated dependencies [3e26a49]
+  - @presentation-md/core@1.23.0
+  - @presentation-md/export@1.23.23
+
 ## 1.10.1
 
 ### Patch Changes

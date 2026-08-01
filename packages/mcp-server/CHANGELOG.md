@@ -1,5 +1,20 @@
 # @presentation-md/mcp-server
 
+## 1.28.0
+
+### Minor Changes
+
+- 3e26a49: MCP `share_deck_link` encodes Deck JSON into a Studio `?d=` URL (same CompressionStream codec in `@presentation-md/core`) for editable agent→user handoff after scaffold/audit/theme.
+
+### Patch Changes
+
+- Updated dependencies [3e26a49]
+- Updated dependencies [3c10303]
+  - @presentation-md/core@1.23.0
+  - @presentation-md/render@1.10.2
+  - @presentation-md/create-theme@1.1.23
+  - @presentation-md/export@1.23.23
+
 ## 1.27.2
 
 ### Patch Changes

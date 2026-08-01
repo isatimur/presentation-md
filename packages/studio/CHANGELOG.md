@@ -1,5 +1,22 @@
 # @presentation-md/studio
 
+## 1.21.0
+
+### Minor Changes
+
+- af245a8: Studio SlideForm **Layout** morph keeps heading/notes/shared fields when switching layouts (title ↔ comparison ↔ quote bridge) — structured craft without rewriting the slide.
+- 77fcc4c: Studio **Paste MD** panel converts Marp/md-slides outlines to Deck JSON without a file picker (Open .md / MCP import_markdown parity). Oversized Copy link no longer mis-shares a curated example URL.
+- 3c10303: Studio Present mode gains an **Up next** slide peek beside speaker notes (Pitch-class dual pane). CLI `--preview-mode` error copy includes `deck`.
+- feef0a0: Studio preview syncs selection both ways: list pick scrolls + outlines the slide; click a slide in the iframe to edit (PresentMode load race fixed).
+- 85d2a32: Studio Undo/Redo for deck edits (theme pick, repairCraft, Generate, Paste MD, slide list) with coalesced form typing and ⌘Z / ⇧⌘Z shortcuts — makes aggressive craft gates safe.
+
+### Patch Changes
+
+- 3e26a49: MCP `share_deck_link` encodes Deck JSON into a Studio `?d=` URL (same CompressionStream codec in `@presentation-md/core`) for editable agent→user handoff after scaffold/audit/theme.
+- Updated dependencies [3e26a49]
+  - @presentation-md/core@1.23.0
+  - @presentation-md/export@1.23.23
+
 ## 1.20.0
 
 ### Minor Changes
