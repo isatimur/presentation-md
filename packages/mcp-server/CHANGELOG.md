@@ -1,5 +1,19 @@
 # @presentation-md/mcp-server
 
+## 1.29.0
+
+### Minor Changes
+
+- 1e61cb2: Deck → Marp/md-slides **Markdown export** (`deckToMarkdown`): Studio Download Markdown, MCP/CLI `format: md`, round-trip with import_markdown / Paste MD / Open .md.
+
+### Patch Changes
+
+- Updated dependencies [1e61cb2]
+  - @presentation-md/core@1.24.0
+  - @presentation-md/render@1.11.0
+  - @presentation-md/create-theme@1.1.24
+  - @presentation-md/export@1.23.24
+
 ## 1.28.0
 
 ### Minor Changes
