@@ -40,6 +40,10 @@ export function Toolbar({
   exampleSlug,
   selectedSlide = 0,
   statusHint,
+  canUndo = false,
+  canRedo = false,
+  onUndo,
+  onRedo,
   onChange,
   onLoadExample,
   onPresent,
@@ -54,6 +58,10 @@ export function Toolbar({
   selectedSlide?: number;
   /** One-shot status from App (e.g. shared-deck hydrate). */
   statusHint?: string | null;
+  canUndo?: boolean;
+  canRedo?: boolean;
+  onUndo?: () => void;
+  onRedo?: () => void;
   onChange: (next: DeckJson) => void;
   onLoadExample: (slug?: string) => void;
   onPresent: () => void;
@@ -706,6 +714,26 @@ export function Toolbar({
       </details>
       <div className="toolbar-secondary" role="group" aria-label="Deck actions">
         <button
+          type="button"
+          className="btn btn-icon toolbar-desktop-only"
+          disabled={!canUndo || !onUndo}
+          onClick={() => onUndo?.()}
+          title="Undo (⌘Z / Ctrl+Z)"
+          aria-label="Undo"
+        >
+          ↶
+        </button>
+        <button
+          type="button"
+          className="btn btn-icon toolbar-desktop-only"
+          disabled={!canRedo || !onRedo}
+          onClick={() => onRedo?.()}
+          title="Redo (⇧⌘Z / Ctrl+Y)"
+          aria-label="Redo"
+        >
+          ↷
+        </button>
+        <button
           className="btn toolbar-desktop-only"
           onClick={() => void copyLink()}
           title="Copy a shareable Studio link that restores this editable deck (?d= compressed JSON)"
@@ -767,6 +795,12 @@ export function Toolbar({
         <details className="toolbar-more toolbar-mobile-only">
           <summary className="btn btn-sm" title="More deck actions">More ▾</summary>
           <div className="toolbar-more-panel">
+            <button type="button" className="btn" disabled={!canUndo || !onUndo} onClick={() => onUndo?.()}>
+              Undo
+            </button>
+            <button type="button" className="btn" disabled={!canRedo || !onRedo} onClick={() => onRedo?.()}>
+              Redo
+            </button>
             <button type="button" className="btn" onClick={() => void copyLink()}>Copy link</button>
             <button type="button" className="btn" onClick={() => fileRef.current?.click()}>Open file</button>
             <button type="button" className="btn" onClick={onPresent}>Present</button>

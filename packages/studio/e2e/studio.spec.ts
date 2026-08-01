@@ -290,6 +290,23 @@ test("imports Marp-style Markdown via Open", async ({ page }) => {
   await expect(page.getByLabel("Heading").first()).toHaveValue("Imported From Markdown");
 });
 
+test("undo restores deck after Apply safe fixes", async ({ page }) => {
+  await page.goto("/?fresh=1");
+
+  const panel = page.locator("details.audit-panel");
+  await expect(panel).toBeVisible();
+  await panel.getByRole("button", { name: /Apply safe fixes/i }).click();
+  await expect(page.getByText(/Applied \d+ craft fix/i)).toBeVisible();
+
+  const undoBtn = page.getByRole("button", { name: /^Undo$/ }).first();
+  await expect(undoBtn).toBeEnabled();
+  await undoBtn.click();
+  await expect(page.locator(".status")).toContainText(/Undo/i);
+  // Craft warning returns after undo (Acme feature-grid missing icons).
+  await expect(page.locator("details.audit-panel")).toBeVisible({ timeout: 10_000 });
+  await expect(page.locator("details.audit-panel .audit-item")).toContainText(/icons/i);
+});
+
 test("pastes Marp-style Markdown via Paste MD panel", async ({ page }) => {
   await page.goto("/?fresh=1");
   const frame = page.frameLocator(".preview-frame");

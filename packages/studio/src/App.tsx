@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { DeckJson, Slide } from "@presentation-md/export";
 import { EXAMPLE_DECK } from "./deck.js";
 import { getExampleDeck, resolveExampleSlug } from "./examples.js";
@@ -12,9 +12,21 @@ import { PresentMode } from "./components/PresentMode.js";
 import { GenerateModal } from "./components/GenerateModal.js";
 import { repairCraft } from "./craft/auditCraft.js";
 import { decodeShareDeck, readShareTokenFromLocation } from "./share/shareDeck.js";
+import {
+  canRedo,
+  canUndo,
+  createDeckHistory,
+  pushDeck,
+  redoDeck,
+  replaceDeck,
+  undoDeck,
+  type DeckHistory,
+} from "./history.js";
 
 const STORAGE_KEY = "pmd-studio-deck-v1";
 const EXAMPLE_SLUG_KEY = "pmd-studio-example-slug";
+/** Coalesce rapid SlideForm keystrokes into one undo step. */
+const EDIT_COALESCE_MS = 700;
 
 function readQuery(): {
   example: string | null;
@@ -118,14 +130,80 @@ function stripConsumedQuery(): void {
   }
 }
 
+function clampSelected(index: number, slideCount: number): number {
+  return Math.max(0, Math.min(index, Math.max(0, slideCount - 1)));
+}
+
 export function App() {
   const initial = useMemo(() => loadInitialDeck(), []);
-  const [deck, setDeck] = useState<DeckJson>(initial.deck);
+  const [history, setHistory] = useState<DeckHistory>(() => createDeckHistory(initial.deck));
   const [exampleSlug, setExampleSlug] = useState<string | null>(initial.exampleSlug);
   const [selected, setSelected] = useState(0);
   const [presenting, setPresenting] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [shareStatus, setShareStatus] = useState<string | null>(null);
+  const coalescingRef = useRef(false);
+  const coalesceTimerRef = useRef<number | null>(null);
+
+  const deck = history.present;
+  const undoAvailable = canUndo(history);
+  const redoAvailable = canRedo(history);
+
+  const endCoalesce = () => {
+    coalescingRef.current = false;
+    if (coalesceTimerRef.current != null) {
+      window.clearTimeout(coalesceTimerRef.current);
+      coalesceTimerRef.current = null;
+    }
+  };
+
+  const bumpCoalesce = () => {
+    if (coalesceTimerRef.current != null) window.clearTimeout(coalesceTimerRef.current);
+    coalesceTimerRef.current = window.setTimeout(() => {
+      coalescingRef.current = false;
+      coalesceTimerRef.current = null;
+    }, EDIT_COALESCE_MS);
+  };
+
+  /** Significant deck change — always a new undo step (theme, open, generate, list ops). */
+  const commitDeck = (next: DeckJson, mode: "push" | "replace" = "push") => {
+    endCoalesce();
+    setHistory((h) => (mode === "replace" ? replaceDeck(h, next) : pushDeck(h, next)));
+    setSelected((s) => clampSelected(s, next.slides.length));
+  };
+
+  /** SlideForm typing — coalesce into one undo step while keys keep coming. */
+  const editDeck = (next: DeckJson) => {
+    setHistory((h) => {
+      if (!coalescingRef.current) {
+        coalescingRef.current = true;
+        return pushDeck(h, next);
+      }
+      return { ...h, present: next, future: [] };
+    });
+    setSelected((s) => clampSelected(s, next.slides.length));
+    bumpCoalesce();
+  };
+
+  const undo = () => {
+    endCoalesce();
+    setHistory((h) => {
+      const next = undoDeck(h);
+      setSelected((s) => clampSelected(s, next.present.slides.length));
+      return next;
+    });
+    setShareStatus("Undo");
+  };
+
+  const redo = () => {
+    endCoalesce();
+    setHistory((h) => {
+      const next = redoDeck(h);
+      setSelected((s) => clampSelected(s, next.present.slides.length));
+      return next;
+    });
+    setShareStatus("Redo");
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -138,7 +216,7 @@ export function App() {
       const shared = await decodeShareDeck(token);
       if (cancelled) return;
       if (shared) {
-        setDeck(shared);
+        commitDeck(shared, "replace");
         setExampleSlug(null);
         setSelected(0);
         setShareStatus("Opened shared deck");
@@ -150,6 +228,7 @@ export function App() {
     return () => {
       cancelled = true;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- hydrate once from initial token
   }, [initial.pendingShare]);
 
   // Autosave to localStorage so work survives refreshes.
@@ -163,6 +242,32 @@ export function App() {
     }
   }, [deck, exampleSlug]);
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const tag = target?.tagName;
+      const typing =
+        tag === "INPUT" ||
+        tag === "TEXTAREA" ||
+        tag === "SELECT" ||
+        !!target?.isContentEditable;
+      // Let the browser undo text in fields; deck undo when focus is elsewhere.
+      if (typing) return;
+      const mod = e.metaKey || e.ctrlKey;
+      if (!mod) return;
+      if (e.key === "z" || e.key === "Z") {
+        e.preventDefault();
+        if (e.shiftKey) redo();
+        else undo();
+      } else if (e.key === "y" || e.key === "Y") {
+        e.preventDefault();
+        redo();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
+
   const html = useMemo(() => {
     try {
       return renderDeckHtml(deck, resolveTheme(deck.meta?.theme ?? "default-tech"));
@@ -172,17 +277,17 @@ export function App() {
   }, [deck]);
 
   const setSlides = (slides: Slide[], select?: number) => {
-    setDeck({ ...deck, slides });
+    commitDeck({ ...deck, slides });
     if (select !== undefined) setSelected(select);
   };
 
   const updateSlide = (next: Slide) => {
-    setDeck({ ...deck, slides: deck.slides.map((s, i) => (i === selected ? next : s)) });
+    editDeck({ ...deck, slides: deck.slides.map((s, i) => (i === selected ? next : s)) });
   };
 
   const loadExample = (slug = "acme") => {
     const next = getExampleDeck(slug) ?? EXAMPLE_DECK;
-    setDeck(next);
+    commitDeck(next, "replace");
     setExampleSlug(resolveExampleSlug(slug) ?? "acme");
     setSelected(0);
     try {
@@ -206,8 +311,12 @@ export function App() {
         exampleSlug={exampleSlug}
         selectedSlide={selected}
         statusHint={shareStatus}
+        canUndo={undoAvailable}
+        canRedo={redoAvailable}
+        onUndo={undo}
+        onRedo={redo}
         onChange={(next) => {
-          setDeck(next);
+          commitDeck(next);
           setExampleSlug(null);
         }}
         onLoadExample={loadExample}
@@ -220,8 +329,8 @@ export function App() {
       />
       <div className="studio-strip" role="note">
         <span>
-          Live preview · Click a slide to edit · Share deck link · Open HTML / JSON / MD / PPTX ·
-          Present with notes · Export editable PPTX
+          Live preview · Click a slide to edit · Undo/Redo · Paste MD · Share link · Present with
+          notes · Export editable PPTX
         </span>
         <a href="https://presentation-md.vercel.app/" target="_blank" rel="noopener noreferrer">
           Docs &amp; gallery
@@ -255,7 +364,7 @@ export function App() {
           currentTheme={deck.meta?.theme ?? "claude"}
           onGenerate={(next) => {
             const { deck: repaired } = repairCraft(next);
-            setDeck(repaired as DeckJson);
+            commitDeck(repaired as DeckJson);
             setExampleSlug(null);
             setSelected(0);
           }}
