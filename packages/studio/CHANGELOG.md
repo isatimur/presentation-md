@@ -1,5 +1,11 @@
 # @presentation-md/studio
 
+## 1.22.0
+
+### Minor Changes
+
+- f4f4f8e: Studio SlideList **filmstrip thumbnails** — live scaled slide previews beside each row (lazy IntersectionObserver iframes via restyleSlideHtml), so navigation matches frontend-slides visual strip UX.
+
 ## 1.21.0
 
 ### Minor Changes
