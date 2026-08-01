@@ -289,6 +289,13 @@ body {
 .example-featured {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
 }
+.example-featured-crop-bar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px;
+}
+.example-featured-crop-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--faint); margin-right: 2px;
+}
 .example-featured-card {
   display: flex; flex-direction: column; gap: 4px; align-items: stretch;
   padding: 6px; border: 1px solid var(--line); border-radius: 8px;

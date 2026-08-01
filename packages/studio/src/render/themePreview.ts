@@ -1,22 +1,25 @@
 /**
  * Resolve a theme preview HTML URL for Studio's pick-3 compare tray.
- * Same-origin `/previews/` when hosted with the site; otherwise production CDN.
+ * Prefer same-origin `/previews/` (hosted site, Vite middleware, or static `web/`)
+ * so local verify never depends on the Vercel CDN.
  */
 export function themePreviewUrl(name: string): string {
   const safe = encodeURIComponent(name);
+  const localPath = `/previews/${safe}.html`;
   if (typeof window === "undefined") {
-    return `https://presentation-md.vercel.app/previews/${safe}.html`;
+    return localPath;
   }
   const { origin, pathname } = window.location;
-  // Hosted studio lives under /studio/ next to /previews/
+  // Hosted /studio, local Vite/Playwright, or any presentation-md host.
   if (
     pathname.startsWith("/studio") ||
+    /localhost|127\.0\.0\.1/i.test(origin) ||
     /presentation-md|vercel\.app/i.test(origin)
   ) {
-    return `${origin}/previews/${safe}.html`;
+    return `${origin}${localPath}`;
   }
-  // Local Vite / Playwright preview — load production craft proofs
-  return `https://presentation-md.vercel.app/previews/${safe}.html`;
+  // Unknown host — fall back to production proofs.
+  return `https://presentation-md.vercel.app${localPath}`;
 }
 
 /** Cap for pick-3 compare (frontend-slides style progressive disclosure). */

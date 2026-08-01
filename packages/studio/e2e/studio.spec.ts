@@ -110,6 +110,29 @@ test("loads a curated example via ?example= deep-link", async ({ page }) => {
   await expect(page.getByRole("button", { name: /Copy link/ })).toBeVisible();
 });
 
+test("Example featured trio supports Title/Bento/Compare crops via local /previews", async ({
+  page,
+}) => {
+  await page.goto("/?fresh=1");
+  const browser = page.locator("details.example-browser");
+  await browser.locator("summary").click();
+  await expect(browser).toHaveAttribute("open", "");
+  const panel = browser.locator(".example-browser-panel");
+  await expect(panel).toBeVisible();
+  await expect(panel.locator(".example-featured-frame iframe")).toHaveCount(3);
+
+  // Local Vite middleware serves repo web/previews (no Vercel CDN).
+  const previewRes = await page.request.get("/previews/aurora-glass.html");
+  expect(previewRes.ok()).toBeTruthy();
+
+  const cropBar = panel.getByRole("toolbar", { name: /Featured example layout crop/i });
+  await expect(cropBar).toBeVisible();
+  await cropBar.getByRole("button", { name: /^Bento$/ }).click();
+  await expect(panel.locator(".example-featured-frame[data-crop='bento']")).toHaveCount(3);
+  await cropBar.getByRole("button", { name: /^Compare$/ }).click();
+  await expect(panel.locator(".example-featured-frame[data-crop='comparison']")).toHaveCount(3);
+});
+
 test("auto-opens craft audit panel and supports jump + dismiss", async ({ page }) => {
   // Acme EXAMPLE_DECK has a live warning (feature-grid cards missing icons).
   await page.goto("/?fresh=1");

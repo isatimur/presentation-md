@@ -8,9 +8,12 @@ import {
 } from "../render/themes.js";
 import {
   COMPARE_LIMIT,
+  PREVIEW_CROP_LABEL,
   PREVIEW_CROP_OFFSET_PX,
+  PREVIEW_CROPS,
   themePreviewUrl,
   toggleCompareSlot,
+  type PreviewCrop,
 } from "../render/themePreview.js";
 import { downloadHtml, downloadPptx, downloadJson, parseDeckFile, importPptxFile } from "../export/downloads.js";
 import { STUDIO_EXAMPLES, studioExampleLink } from "../examples.js";
@@ -52,6 +55,7 @@ export function Toolbar({
   const [shortlistId, setShortlistId] = useState("");
   const [compare, setCompare] = useState<string[]>([]);
   const [liveCompare, setLiveCompare] = useState(false);
+  const [exampleCrop, setExampleCrop] = useState<PreviewCrop>("title");
   const [auditIssues, setAuditIssues] = useState<
     Array<{ severity: "error" | "warning"; message: string; slide?: number }>
   >([]);
@@ -401,6 +405,31 @@ export function Toolbar({
       <details className="example-browser">
         <summary className="btn" title="Load a curated example deck">Example ▾</summary>
         <div className="example-browser-panel">
+          <div
+            className="example-featured-crop-bar"
+            role="toolbar"
+            aria-label="Featured example layout crop"
+          >
+            <span className="example-featured-crop-label">Judge</span>
+            {PREVIEW_CROPS.map((c) => (
+              <button
+                key={c}
+                type="button"
+                className={`chip${exampleCrop === c ? " active" : ""}`}
+                aria-pressed={exampleCrop === c}
+                onClick={() => setExampleCrop(c)}
+                title={
+                  c === "title"
+                    ? "Crop to title slide"
+                    : c === "bento"
+                      ? "Crop to feature-grid / bento body craft"
+                      : "Crop to comparison slide"
+                }
+              >
+                {PREVIEW_CROP_LABEL[c]}
+              </button>
+            ))}
+          </div>
           <div className="example-featured" aria-label="Featured craft examples">
             {featuredExamples.map((ex) => {
               const look = exampleThemeLooks.get(ex.slug);
@@ -419,12 +448,13 @@ export function Toolbar({
                 >
                   <span
                     className="example-featured-frame"
-                    style={{ ["--crop-y" as string]: `${PREVIEW_CROP_OFFSET_PX.title}px` }}
+                    data-crop={exampleCrop}
+                    style={{ ["--crop-y" as string]: `${PREVIEW_CROP_OFFSET_PX[exampleCrop]}px` }}
                     aria-hidden
                   >
                     <iframe
                       src={themePreviewUrl(previewTheme)}
-                      title={`${ex.label} craft preview`}
+                      title={`${ex.label} craft preview (${PREVIEW_CROP_LABEL[exampleCrop]})`}
                       loading="lazy"
                       tabIndex={-1}
                     />

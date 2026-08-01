@@ -24,10 +24,8 @@ describe("themePreview compare helpers", () => {
     expect(toggleCompareSlot(["a", "b"], "a")).toEqual(["b"]);
   });
 
-  it("points theme previews at production craft proofs outside hosted studio", () => {
-    expect(themePreviewUrl("aurora-glass")).toMatch(
-      /\/previews\/aurora-glass\.html$/
-    );
+  it("points theme previews at same-origin /previews craft proofs", () => {
+    expect(themePreviewUrl("aurora-glass")).toBe("/previews/aurora-glass.html");
   });
 
   it("exposes title → bento → comparison crop offsets for multi-layout live compare", () => {
