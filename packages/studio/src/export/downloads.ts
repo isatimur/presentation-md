@@ -97,6 +97,11 @@ export function downloadMarkdown(deck: DeckJson): void {
   );
 }
 
+/** Same Markdown as download — for clipboard paste into Marp / agents. */
+export function deckMarkdown(deck: DeckJson): string {
+  return deckToMarkdown(deck);
+}
+
 /**
  * Local Vite / preview middleware — Chromium printToPDF (same @page 16:9 as MCP/CLI).
  * Absent on static Vercel hosts; callers fall through to client raster or print.

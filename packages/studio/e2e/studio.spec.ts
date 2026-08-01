@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("edit a slide, see the live preview update, and export .pptx", async ({ page }) => {
+test("edit a slide, see the live preview update, and export .pptx", async ({ page, context }) => {
   test.setTimeout(120_000);
   await page.goto("/");
 
@@ -33,6 +33,15 @@ test("edit a slide, see the live preview update, and export .pptx", async ({ pag
     page.getByRole("button", { name: /Download Markdown/i }).click(),
   ]);
   expect(mdDownload.suggestedFilename()).toMatch(/\.md$/);
+  await sourceMenu.evaluate((el) => {
+    (el as HTMLDetailsElement).open = true;
+  });
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.getByRole("button", { name: /Copy Markdown/i }).click();
+  await expect(page.getByText(/Copied Markdown to clipboard/i)).toBeVisible();
+  const mdClip = await page.evaluate(async () => navigator.clipboard.readText());
+  expect(mdClip).toMatch(/^---/m);
+  expect(mdClip).toMatch(/Edited Title|# /);
   await sourceMenu.evaluate((el) => {
     (el as HTMLDetailsElement).open = true;
   });

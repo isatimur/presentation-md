@@ -19,6 +19,7 @@ import {
   downloadPptx,
   downloadJson,
   downloadMarkdown,
+  deckMarkdown,
   downloadPdf,
   printDeckPdf,
   parseDeckFile,
@@ -935,6 +936,23 @@ export function Toolbar({
               title="Export Marp/md-slides Markdown — re-open via Open .md or Paste MD"
             >
               Download Markdown
+            </button>
+            <button
+              type="button"
+              className="btn"
+              onClick={() => {
+                void (async () => {
+                  try {
+                    await navigator.clipboard.writeText(deckMarkdown(deck));
+                    setStatus("Copied Markdown to clipboard");
+                  } catch (err) {
+                    setStatus(`Copy Markdown failed: ${(err as Error).message}`);
+                  }
+                })();
+              }}
+              title="Copy Marp/md-slides Markdown to the clipboard"
+            >
+              Copy Markdown
             </button>
             <button type="button" className="btn" onClick={() => downloadHtml(deck, html)}>Download HTML</button>
             <button
