@@ -354,7 +354,7 @@ test("pastes Marp-style Markdown via Paste MD panel", async ({ page }) => {
   const frame = page.frameLocator(".preview-frame");
 
   await page.locator("details.paste-md > summary").click();
-  await expect(page.locator(".paste-md-panel")).toBeVisible();
+  await expect(page.locator("details.paste-md .paste-md-panel")).toBeVisible();
   await page.getByLabel("Markdown outline").fill(`---
 title: Paste Wave
 theme: default-tech
@@ -375,6 +375,27 @@ Lead line from the paste panel.
   await expect(page.getByText(/Pasted Markdown/i)).toBeVisible();
   await expect(frame.getByText("Pasted From Markdown")).toBeVisible();
   await expect(page.getByLabel("Heading").first()).toHaveValue("Pasted From Markdown");
+});
+
+test("pastes brand CSS into an ephemeral Studio theme", async ({ page }) => {
+  await page.goto("/?fresh=1");
+  const frame = page.frameLocator(".preview-frame");
+
+  await page.locator("details.paste-brand > summary").click();
+  await expect(page.locator(".paste-brand-panel")).toBeVisible();
+  await page.getByLabel("Brand theme name").fill("e2e-brand");
+  await page.getByLabel("Brand stylesheet").fill(`:root {
+  --bg: #0a0a0a;
+  --text: #fafafa;
+  --accent: #22c55e;
+}
+h1 { font-family: Poppins, sans-serif; }
+body { font-family: Inter, sans-serif; }
+`);
+  await page.getByRole("button", { name: /Apply theme/i }).click();
+  await expect(page.getByText(/Brand CSS → theme "e2e-brand"/i)).toBeVisible();
+  await expect(page.locator("summary.theme-trigger")).toContainText("e2e-brand");
+  await expect(frame.locator("section.slide").first()).toBeVisible();
 });
 
 test("Copy link embeds the live deck and hydrates via ?d=", async ({ page, context }) => {

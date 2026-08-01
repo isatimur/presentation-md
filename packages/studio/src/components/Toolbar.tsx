@@ -31,6 +31,8 @@ import type { CraftFixId } from "../craft/auditCraft.js";
 import { ThemeCompareTray, type LiveCompareMode } from "./ThemeCompareTray.js";
 import { ThemeCraftShotStrip } from "./ThemeCraftShotStrip.js";
 import { studioShareLink } from "../share/shareDeck.js";
+import { themeFromBrandCss } from "../brand/pasteBrandTheme.js";
+import { registerCustomTheme } from "../render/themes.js";
 
 /** Flagship trio for Example browser show-don't-tell (matches site proof strip). */
 const FEATURED_EXAMPLE_SLUGS = ["novaspark-pitch", "bounce-launch", "forge-api"] as const;
@@ -93,12 +95,17 @@ export function Toolbar({
   const [exampleOpen, setExampleOpen] = useState(false);
   const [pasteMdOpen, setPasteMdOpen] = useState(false);
   const [pasteMd, setPasteMd] = useState("");
+  const [pasteBrandOpen, setPasteBrandOpen] = useState(false);
+  const [pasteBrandCss, setPasteBrandCss] = useState("");
+  const [pasteBrandName, setPasteBrandName] = useState("brand-paste");
+  /** Bump when registering Paste Brand themes so the browser list refreshes. */
+  const [themeEpoch, setThemeEpoch] = useState(0);
 
   useEffect(() => {
     if (statusHint) setStatus(statusHint);
   }, [statusHint]);
 
-  const themes = useMemo(() => listThemeSummaries(), []);
+  const themes = useMemo(() => listThemeSummaries(), [themeEpoch]);
   const shortlists = useMemo(() => listThemeShortlists(), []);
   const featuredExamples = useMemo(
     () =>
@@ -374,6 +381,43 @@ export function Toolbar({
       setPasteMd(text);
       setPasteMdOpen(true);
       setStatus("Clipboard Markdown loaded — Apply to convert");
+    } catch (err) {
+      setStatus(`Clipboard read failed: ${(err as Error).message}`);
+    }
+  };
+
+  const applyPastedBrandCss = () => {
+    try {
+      const { manifest, name, adjustments, stillFailing } = themeFromBrandCss(
+        pasteBrandCss,
+        pasteBrandName
+      );
+      registerCustomTheme(manifest);
+      setThemeEpoch((n) => n + 1);
+      applyThemeWithRepair(name);
+      setPasteBrandOpen(false);
+      const adj =
+        adjustments.length > 0
+          ? ` · ${adjustments.length} contrast tweak${adjustments.length === 1 ? "" : "s"}`
+          : "";
+      const fail =
+        stillFailing.length > 0 ? ` · still weak: ${stillFailing.slice(0, 2).join(", ")}` : "";
+      setStatus(`Brand CSS → theme "${name}"${adj}${fail}`);
+    } catch (err) {
+      setStatus(`Brand CSS failed: ${(err as Error).message}`);
+    }
+  };
+
+  const pasteBrandFromClipboard = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      if (!text.trim()) {
+        setStatus("Clipboard is empty — paste :root CSS variables into the box");
+        return;
+      }
+      setPasteBrandCss(text);
+      setPasteBrandOpen(true);
+      setStatus("Clipboard CSS loaded — Apply to register theme");
     } catch (err) {
       setStatus(`Clipboard read failed: ${(err as Error).message}`);
     }
@@ -788,6 +832,60 @@ export function Toolbar({
                 onClick={() => applyPastedMarkdown(pasteMd)}
               >
                 Apply
+              </button>
+            </div>
+          </div>
+        </details>
+        <details
+          className="paste-brand"
+          open={pasteBrandOpen}
+          onToggle={(e) => setPasteBrandOpen((e.currentTarget as HTMLDetailsElement).open)}
+        >
+          <summary
+            className="btn"
+            title="Paste brand CSS (:root vars) → ephemeral Studio theme (import_brand_theme parity)"
+          >
+            Paste Brand
+          </summary>
+          <div className="paste-md-panel paste-brand-panel" role="dialog" aria-label="Paste brand theme">
+            <p className="muted small" style={{ margin: 0 }}>
+              Extract colors/fonts from <code>:root</code> CSS → session theme. Same extraction as MCP{" "}
+              <code>import_brand_theme</code> / <code>--from-css</code>, without scaffolding a package.
+            </p>
+            <label className="inline-field">
+              <span className="muted small">Theme name</span>
+              <input
+                className="text-input"
+                value={pasteBrandName}
+                onChange={(e) => setPasteBrandName(e.target.value)}
+                aria-label="Brand theme name"
+                placeholder="brand-paste"
+              />
+            </label>
+            <textarea
+              className="text-input paste-md-input"
+              rows={8}
+              value={pasteBrandCss}
+              placeholder={":root {\n  --bg: #0a0a0a;\n  --text: #fafafa;\n  --accent: #22c55e;\n}\nbody { font-family: Inter, sans-serif; }\nh1 { font-family: \"Space Grotesk\", sans-serif; }"}
+              onChange={(e) => setPasteBrandCss(e.target.value)}
+              aria-label="Brand stylesheet"
+            />
+            <div className="paste-md-actions">
+              <button
+                type="button"
+                className="btn"
+                onClick={() => void pasteBrandFromClipboard()}
+                title="Load CSS from the system clipboard"
+              >
+                From clipboard
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                disabled={!pasteBrandCss.trim()}
+                onClick={applyPastedBrandCss}
+              >
+                Apply theme
               </button>
             </div>
           </div>

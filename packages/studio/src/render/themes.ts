@@ -56,6 +56,18 @@ for (const mod of Object.values(manifestModules)) {
   if (manifest?.name) REGISTRY.set(manifest.name, manifest);
 }
 
+/** Session-only themes from Paste Brand CSS (not bundled on disk). */
+const CUSTOM_REGISTRY = new Map<string, ThemeManifest>();
+
+export function registerCustomTheme(manifest: ThemeManifest): void {
+  if (!manifest?.name) throw new Error("Custom theme requires a name.");
+  CUSTOM_REGISTRY.set(manifest.name, manifest);
+}
+
+export function listCustomThemeNames(): string[] {
+  return [...CUSTOM_REGISTRY.keys()].sort();
+}
+
 const SELECTION_BY_NAME = new Map(
   (selectionIndexDoc.themes ?? []).map((t) => [
     t.name,
@@ -91,7 +103,7 @@ export { THEME_BROWSE_FILTERS, pickDiscoveryPreviewTrio };
 export type { ThemeBrowseFilterId };
 
 export function listThemeNames(): string[] {
-  return [...REGISTRY.keys()].sort();
+  return [...new Set([...REGISTRY.keys(), ...CUSTOM_REGISTRY.keys()])].sort();
 }
 
 /** Browseable theme cards — name + vibe + palette cues + mood meta for Studio filters. */
@@ -150,14 +162,16 @@ export function themePassesBrowseFilter(
 
 export function resolveTheme(name: string): ResolvedTheme {
   const chain: ThemeManifest[] = [];
-  let current: string | undefined = REGISTRY.has(name) ? name : "default-tech";
+  let current: string | undefined =
+    CUSTOM_REGISTRY.has(name) || REGISTRY.has(name) ? name : "default-tech";
   const seen = new Set<string>();
   while (current && !seen.has(current)) {
     seen.add(current);
-    const manifest = REGISTRY.get(current);
-    if (!manifest) break;
-    chain.unshift(manifest);
-    current = manifest.extends;
+    const next: ThemeManifest | undefined =
+      CUSTOM_REGISTRY.get(current) ?? REGISTRY.get(current);
+    if (!next) break;
+    chain.unshift(next);
+    current = next.extends;
   }
 
   const palette = { ...DEFAULT_PALETTE };
