@@ -535,9 +535,13 @@ body {
 .present-main { flex: 1; min-height: 0; display: flex; }
 .present-stage { flex: 1; min-height: 0; display: flex; min-width: 0; }
 .present-frame { flex: 1; border: 0; width: 100%; height: 100%; background: #fff; }
-.present-notes {
-  width: min(340px, 32vw); flex-shrink: 0;
+.present-rail {
+  width: min(360px, 34vw); flex-shrink: 0;
   background: #111827; border-left: 1px solid rgba(232,238,244,0.12);
+  display: flex; flex-direction: column; min-height: 0;
+}
+.present-notes {
+  flex: 1 1 auto; min-height: 0;
   padding: 20px 18px; overflow-y: auto; color: #E8EEF4;
   display: flex; flex-direction: column; gap: 10px;
 }
@@ -552,6 +556,36 @@ body {
 .present-notes-empty {
   font-family: var(--sans); font-size: 13px; line-height: 1.45; color: #6B7280;
 }
+.present-next {
+  flex: 0 0 auto;
+  border-top: 1px solid rgba(232,238,244,0.12);
+  padding: 14px 18px 18px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.present-next-end { padding-bottom: 20px; }
+.present-next-frame-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0B1220;
+  border: 1px solid rgba(232,238,244,0.14);
+  container-type: inline-size;
+}
+.present-next-frame {
+  position: absolute; inset: 0 auto auto 0;
+  width: 1280px; height: 720px;
+  border: 0;
+  transform-origin: top left;
+  transform: scale(0.25);
+  pointer-events: none;
+}
+@supports (width: 1cqw) {
+  .present-next-frame {
+    transform: scale(calc(100cqw / 1280));
+  }
+}
 .present-bar {
   display: flex; align-items: center; justify-content: center; gap: 16px;
   padding: 10px; background: #0B1220; border-top: 1px solid rgba(232,238,244,0.12); color: #A8B0BE;
@@ -562,7 +596,10 @@ body {
 
 @media (max-width: 720px) {
   .present-main { flex-direction: column; }
-  .present-notes { width: 100%; max-height: 28vh; border-left: 0; border-top: 1px solid rgba(232,238,244,0.12); }
+  .present-rail {
+    width: 100%; max-height: 36vh; border-left: 0;
+    border-top: 1px solid rgba(232,238,244,0.12);
+  }
 }
 
 /* ── Saved indicator / onboarding ──────────────────────────────────── */

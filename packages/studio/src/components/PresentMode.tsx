@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { restyleSlideHtml } from "./DeckRestylePreview.js";
 
 // Injected into the deck so each slide fills the viewport and pages cleanly.
 const PRESENT_CSS = `
@@ -12,12 +13,15 @@ export function PresentMode({
   html,
   slideCount,
   notes = [],
+  slideHeadings = [],
   onClose,
 }: {
   html: string;
   slideCount: number;
   /** Per-slide speaker notes (index-aligned). Not baked into HTML slides. */
   notes?: Array<string | undefined>;
+  /** Short titles for the up-next peek. */
+  slideHeadings?: Array<string | undefined>;
   onClose: () => void;
 }) {
   const frameRef = useRef<HTMLIFrameElement>(null);
@@ -26,6 +30,19 @@ export function PresentMode({
   const presentHtml = html.replace("</head>", `<style>${PRESENT_CSS}</style></head>`);
   const currentNotes = (notes[i] ?? "").trim();
   const hasAnyNotes = notes.some((n) => (n ?? "").trim().length > 0);
+  const nextIndex = i + 1 < slideCount ? i + 1 : null;
+  const nextHeading =
+    nextIndex != null
+      ? (slideHeadings[nextIndex] ?? "").trim() || `Slide ${nextIndex + 1}`
+      : null;
+  const nextPeekHtml = useMemo(() => {
+    if (nextIndex == null) return null;
+    try {
+      return restyleSlideHtml(html, nextIndex);
+    } catch {
+      return null;
+    }
+  }, [html, nextIndex]);
 
   const go = (n: number) => setI((p) => Math.max(0, Math.min(slideCount - 1, p + n)));
 
@@ -73,14 +90,37 @@ export function PresentMode({
           />
         </div>
         {showNotes && (
-          <aside className="present-notes" aria-label="Speaker notes">
-            <div className="present-notes-label">Speaker notes · S to hide</div>
-            {currentNotes ? (
-              <p className="present-notes-body">{currentNotes}</p>
+          <aside className="present-rail" aria-label="Presenter notes and next slide">
+            <div className="present-notes">
+              <div className="present-notes-label">Speaker notes · S to hide</div>
+              {currentNotes ? (
+                <p className="present-notes-body">{currentNotes}</p>
+              ) : (
+                <p className="present-notes-empty">
+                  {hasAnyNotes
+                    ? "No notes on this slide."
+                    : "No speaker notes yet — add them in the slide form (exports to PPTX)."}
+                </p>
+              )}
+            </div>
+            {nextIndex != null && nextPeekHtml ? (
+              <div className="present-next" aria-label={`Up next: ${nextHeading}`}>
+                <div className="present-notes-label">Up next · {nextHeading}</div>
+                <div className="present-next-frame-wrap">
+                  <iframe
+                    className="present-next-frame"
+                    title={`Next slide ${nextIndex + 1}`}
+                    srcDoc={nextPeekHtml}
+                    sandbox="allow-same-origin"
+                    tabIndex={-1}
+                  />
+                </div>
+              </div>
             ) : (
-              <p className="present-notes-empty">
-                {hasAnyNotes ? "No notes on this slide." : "No speaker notes yet — add them in the slide form (exports to PPTX)."}
-              </p>
+              <div className="present-next present-next-end">
+                <div className="present-notes-label">Up next</div>
+                <p className="present-notes-empty">Last slide — wrap or take questions.</p>
+              </div>
             )}
           </aside>
         )}

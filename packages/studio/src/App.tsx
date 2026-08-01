@@ -228,7 +228,6 @@ export function App() {
     return () => {
       cancelled = true;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- hydrate once from initial token
   }, [initial.pendingShare]);
 
   // Autosave to localStorage so work survives refreshes.
@@ -356,6 +355,9 @@ export function App() {
           html={html}
           slideCount={deck.slides.length}
           notes={deck.slides.map((s) => s.notes)}
+          slideHeadings={deck.slides.map(
+            (s) => s.heading ?? s.quote ?? s.eyebrow ?? s.layout
+          )}
           onClose={() => setPresenting(false)}
         />
       )}

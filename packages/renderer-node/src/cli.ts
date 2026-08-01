@@ -150,7 +150,7 @@ export function buildProgram(): Command {
         ).toLowerCase();
         if (!userDeck && modeRaw !== "title" && modeRaw !== "layouts") {
           process.stderr.write(
-            `Error: unknown --preview-mode "${options.previewMode}" (expected title | layouts)\n`
+            `Error: unknown --preview-mode "${options.previewMode}" (expected title | layouts | deck)\n`
           );
           process.exit(1);
         }

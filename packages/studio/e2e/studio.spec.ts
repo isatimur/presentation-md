@@ -290,6 +290,22 @@ test("imports Marp-style Markdown via Open", async ({ page }) => {
   await expect(page.getByLabel("Heading").first()).toHaveValue("Imported From Markdown");
 });
 
+test("Present mode shows up-next peek and advances with ArrowRight", async ({ page }) => {
+  await page.goto("/?fresh=1");
+  await page.getByRole("button", { name: /^Present$/ }).click();
+  await expect(page.locator(".present-overlay")).toBeVisible();
+  await expect(page.locator(".present-next")).toBeVisible();
+  await expect(page.locator(".present-next")).toContainText(/Up next/i);
+  await expect(page.locator(".present-next-frame")).toHaveCount(1);
+
+  await page.keyboard.press("ArrowRight");
+  await expect(page.locator(".present-count")).toContainText(/2\s*\/\s*/);
+  await expect(page.locator(".present-next")).toContainText(/Up next/i);
+
+  await page.keyboard.press("Escape");
+  await expect(page.locator(".present-overlay")).toHaveCount(0);
+});
+
 test("changes layout via morph while preserving the heading", async ({ page }) => {
   await page.goto("/?fresh=1");
   const frame = page.frameLocator(".preview-frame");
