@@ -56,6 +56,10 @@ presentation-md-render --from-md outline.md -o deck.json --theme signal
 
 # Export to native, editable PowerPoint
 presentation-md-render deck.json --format pptx -o deck.pptx
+
+# Speaker-notes handouts (Studio / MCP notes_txt · notes_vtt parity)
+presentation-md-render deck.json --format notes_txt -o notes.txt
+presentation-md-render deck.json --format notes_vtt -o notes.vtt
 ```
 
 ## Programmatic API

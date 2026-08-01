@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, extname, join, resolve } from "node:path";
 import { Command } from "commander";
 import { renderDeck, renderDeckPptx, renderDeckPdf, getBundledThemesDir } from "./index.js";
-import { discoverInstalledThemes, markdownToDeck, deckToMarkdown, scaffoldDeck, listScaffoldPurposes, resolveScaffoldPurpose, auditCraft, repairCraft, type ScaffoldPurpose } from "@presentation-md/core";
+import { discoverInstalledThemes, markdownToDeck, deckToMarkdown, notesHandoutTxt, notesHandoutVtt, scaffoldDeck, listScaffoldPurposes, resolveScaffoldPurpose, auditCraft, repairCraft, type ScaffoldPurpose } from "@presentation-md/core";
 import { pptxToDeck } from "@presentation-md/export/import";
 import {
   buildLayoutsPreviewDeck,
@@ -52,7 +52,7 @@ export function buildProgram(): Command {
     .version(readVersion())
     .argument("[deck.json]", "path to deck JSON file (reads stdin if omitted)")
     .option("-o, --output <path>", "output file (default: deck.html, deck.pptx, or deck.json)")
-    .option("-f, --format <fmt>", "output format: html | pptx | pdf | md", "html")
+    .option("-f, --format <fmt>", "output format: html | pptx | pdf | md | notes_txt | notes_vtt", "html")
     .option("-t, --theme <name>", "theme name (overrides deck meta.theme)")
     .option("--from-pptx <path>", "import a .pptx file to deck JSON instead of rendering")
     .option("--from-md <path>", "import Marp/md-slides Markdown to deck JSON instead of rendering")
@@ -453,10 +453,14 @@ export function buildProgram(): Command {
         format !== "pptx" &&
         format !== "pdf" &&
         format !== "md" &&
-        format !== "markdown"
+        format !== "markdown" &&
+        format !== "notes_txt" &&
+        format !== "notes_vtt" &&
+        format !== "txt" &&
+        format !== "vtt"
       ) {
         process.stderr.write(
-          `Error: unknown format "${options.format}" (expected html | pptx | pdf | md)\n`
+          `Error: unknown format "${options.format}" (expected html | pptx | pdf | md | notes_txt | notes_vtt)\n`
         );
         process.exit(1);
       }
@@ -468,7 +472,11 @@ export function buildProgram(): Command {
             ? "deck.pdf"
             : format === "md" || format === "markdown"
               ? "deck.md"
-              : "deck.html";
+              : format === "notes_vtt" || format === "vtt"
+                ? "notes.vtt"
+                : format === "notes_txt" || format === "txt"
+                  ? "notes.txt"
+                  : "deck.html";
       const outputPath = resolve(process.cwd(), options.output ?? defaultOutput);
 
       try {
@@ -483,6 +491,18 @@ export function buildProgram(): Command {
         } else if (format === "md" || format === "markdown") {
           const deck = JSON.parse(deckJson) as Parameters<typeof deckToMarkdown>[0];
           await writeFile(outputPath, deckToMarkdown(deck), "utf-8");
+        } else if (
+          format === "notes_txt" ||
+          format === "txt" ||
+          format === "notes_vtt" ||
+          format === "vtt"
+        ) {
+          const deck = JSON.parse(deckJson) as Parameters<typeof notesHandoutTxt>[0];
+          const text =
+            format === "notes_vtt" || format === "vtt"
+              ? notesHandoutVtt(deck)
+              : notesHandoutTxt(deck);
+          await writeFile(outputPath, text, "utf-8");
         } else {
           const html = await renderDeck(deckJson, {});
           await writeFile(outputPath, html, "utf-8");
@@ -492,10 +512,13 @@ export function buildProgram(): Command {
         process.exit(1);
       }
 
+      const isNotes = format === "notes_txt" || format === "txt" || format === "notes_vtt" || format === "vtt";
       process.stdout.write(
         format === "md" || format === "markdown"
           ? `Exported Markdown → ${outputPath}\n`
-          : `Rendered → ${outputPath}\n`
+          : isNotes
+            ? `Exported notes → ${outputPath}\n`
+            : `Rendered → ${outputPath}\n`
       );
     });
 

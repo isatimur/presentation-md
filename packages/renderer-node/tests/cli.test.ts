@@ -262,6 +262,38 @@ describe("presentation-md-render CLI flags", () => {
     expect(stderr).toMatch(/unknown format/i);
   });
 
+  it("--format notes_txt / notes_vtt write speaker-notes handouts", async () => {
+    const dir = await tempDir();
+    const deck = {
+      ...MINIMAL_DECK,
+      slides: [
+        { layout: "title", heading: "Hello CLI", notes: "Open strong." },
+        { layout: "closing", heading: "Bye" },
+      ],
+    };
+    const deckPath = join(dir, "deck.json");
+    await writeFile(deckPath, JSON.stringify(deck));
+    const txtPath = join(dir, "handout.txt");
+    const { code, stdout } = await runCli(
+      [deckPath, "--format", "notes_txt", "-o", txtPath],
+      { cwd: dir }
+    );
+    expect(code).toBe(0);
+    expect(stdout).toMatch(/Exported notes →/);
+    const txt = await readFile(txtPath, "utf-8");
+    expect(txt).toContain("Open strong.");
+    expect(txt).toContain("(no speaker notes)");
+
+    const vttPath = join(dir, "handout.vtt");
+    const vttRun = await runCli([deckPath, "--format", "notes_vtt", "-o", vttPath], {
+      cwd: dir,
+    });
+    expect(vttRun.code).toBe(0);
+    const vtt = await readFile(vttPath, "utf-8");
+    expect(vtt.startsWith("WEBVTT")).toBe(true);
+    expect(vtt).toContain("Open strong.");
+  });
+
   it("--format pdf writes a PDF file", async () => {
     const dir = await tempDir();
     const deckPath = join(dir, "deck.json");
