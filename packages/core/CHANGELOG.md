@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.22.1
+
+### Patch Changes
+
+- 706e441: Studio Download PDF blob (headless Chromium locally, client raster on static hosts) + Generate Land scaffold recipes (MCP scaffold_deck parity).
+
 ## 1.22.0
 
 ### Minor Changes
