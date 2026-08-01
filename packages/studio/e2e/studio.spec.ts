@@ -26,7 +26,16 @@ test("edit a slide, see the live preview update, and export .pptx", async ({ pag
   const sourceMenu = page.locator("details.export-more");
   await sourceMenu.locator("summary").click();
   await expect(page.getByRole("button", { name: /Download HTML/i })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Download Markdown/i })).toBeVisible();
   await expect(page.getByRole("button", { name: /Download PDF/i })).toBeVisible();
+  const [mdDownload] = await Promise.all([
+    page.waitForEvent("download", { timeout: 15_000 }),
+    page.getByRole("button", { name: /Download Markdown/i }).click(),
+  ]);
+  expect(mdDownload.suggestedFilename()).toMatch(/\.md$/);
+  await sourceMenu.evaluate((el) => {
+    (el as HTMLDetailsElement).open = true;
+  });
   const [htmlDownload] = await Promise.all([
     page.waitForEvent("download", { timeout: 15_000 }),
     page.getByRole("button", { name: /Download HTML/i }).click(),

@@ -18,6 +18,7 @@ import {
   downloadHtml,
   downloadPptx,
   downloadJson,
+  downloadMarkdown,
   downloadPdf,
   printDeckPdf,
   parseDeckFile,
@@ -826,6 +827,17 @@ export function Toolbar({
           <summary className="btn btn-sm" title="Download Deck JSON, HTML, or PDF">Source ▾</summary>
           <div className="export-more-panel">
             <button type="button" className="btn" onClick={() => downloadJson(deck)}>Download JSON</button>
+            <button
+              type="button"
+              className="btn"
+              onClick={() => {
+                downloadMarkdown(deck);
+                setStatus("Downloaded Markdown (Marp / md-slides round-trip)");
+              }}
+              title="Export Marp/md-slides Markdown — re-open via Open .md or Paste MD"
+            >
+              Download Markdown
+            </button>
             <button type="button" className="btn" onClick={() => downloadHtml(deck, html)}>Download HTML</button>
             <button
               type="button"

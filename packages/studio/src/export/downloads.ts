@@ -1,5 +1,5 @@
 import type { DeckJson } from "@presentation-md/export";
-import { markdownToDeck } from "@presentation-md/core";
+import { deckToMarkdown, markdownToDeck } from "@presentation-md/core";
 import { resolveTheme } from "../render/themes.js";
 import { renderDeckHtml } from "../render/renderDeck.js";
 
@@ -85,6 +85,15 @@ export function downloadJson(deck: DeckJson): void {
   triggerDownload(
     new Blob([JSON.stringify(deck, null, 2)], { type: "application/json" }),
     safeName(deck, "json")
+  );
+}
+
+/** Marp / md-slides Markdown — round-trip with Open .md / Paste MD / import_markdown. */
+export function downloadMarkdown(deck: DeckJson): void {
+  const md = deckToMarkdown(deck);
+  triggerDownload(
+    new Blob([md], { type: "text/markdown;charset=utf-8" }),
+    safeName(deck, "md")
   );
 }
 

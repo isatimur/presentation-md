@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { markdownToDeck } from "../src/index.js";
+import { markdownToDeck, deckToMarkdown } from "../src/index.js";
 
 describe("markdownToDeck", () => {
   it("parses front matter and --- slide splits", () => {
@@ -104,5 +104,77 @@ You earned this flex.
     expect(closing.layout).toBe("closing");
     expect(Array.isArray(closing["actions"])).toBe(true);
     expect((closing["actions"] as unknown[]).length).toBe(2);
+  });
+});
+
+describe("deckToMarkdown", () => {
+  it("round-trips front matter and common layouts", () => {
+    const md = `---
+title: Acme Pitch
+theme: signal
+company: Acme
+---
+
+# We make X faster
+
+One line positioning.
+
+---
+
+## Why Acme
+
+- Fast
+- Trusted
+- Proven
+
+---
+
+## Thanks
+
+Let's talk.
+
+- Book a demo
+- Read the docs
+`;
+    const deck = markdownToDeck(md);
+    const out = deckToMarkdown(deck);
+    expect(out).toContain("title: Acme Pitch");
+    expect(out).toContain("theme: signal");
+    expect(out).toContain("# We make X faster");
+    expect(out).toContain("- Fast");
+    const again = markdownToDeck(out);
+    expect(again.meta.theme).toBe("signal");
+    expect(again.slides[0]?.layout).toBe("title");
+    expect(again.slides[1]?.layout).toBe("feature-grid");
+    expect(again.slides.at(-1)?.layout).toBe("closing");
+  });
+
+  it("exports chart and code fences", () => {
+    const deck = {
+      type: "deck" as const,
+      meta: { title: "Data", theme: "default-tech" },
+      slides: [
+        {
+          layout: "chart",
+          heading: "ARR",
+          chartType: "bar",
+          categories: ["Q1", "Q2"],
+          series: [{ name: "ARR", values: [10, 14] }],
+        },
+        {
+          layout: "code",
+          heading: "Snippet",
+          language: "ts",
+          code: "console.log(1);",
+        },
+      ],
+    };
+    const out = deckToMarkdown(deck);
+    expect(out).toContain("```chart bar");
+    expect(out).toContain("Category,ARR");
+    expect(out).toContain("```ts");
+    const again = markdownToDeck(out);
+    expect(again.slides[0]?.layout).toBe("chart");
+    expect(again.slides[1]?.layout).toBe("code");
   });
 });

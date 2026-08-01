@@ -12,6 +12,16 @@ presentation-md-render --from-md ./deck.md -o deck.json --theme signal
 
 `import_markdown` with `{ markdown, theme?, title?, output_path? }`.
 
+## Export Markdown
+
+```bash
+presentation-md-render deck.json --format md -o deck.md
+```
+
+MCP `export_deck` with `{ format: "md" }` returns the Markdown string (or writes `output_path`).
+
+Studio: **Source ▾ → Download Markdown**. Round-trips with Open `.md` / Paste MD / `import_markdown`.
+
 ## Front matter
 
 ```yaml

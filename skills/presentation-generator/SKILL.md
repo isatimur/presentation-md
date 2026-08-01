@@ -387,7 +387,7 @@ Thirteen tools via `@presentation-md/mcp-server` (not the deprecated `@presentat
 | Tool | Use it to |
 |------|-----------|
 | `render_deck` | Convert deck JSON → polished HTML |
-| `export_deck` | Export deck JSON → `.pptx`, vector PDF, or html |
+| `export_deck` | Export deck JSON → `.pptx`, vector PDF, html, or **Markdown** (`format: "md"` — Marp round-trip) |
 | `audit_deck` | Schema-validate + craft gates; optional `apply_safe_fixes` returns repaired JSON (fields + beat inserts: image-hero / comparison / data / logo-wall / wrap tones + theme-honesty leftovers) |
 | `list_themes` | See installed themes with vibe/description + proof deep-links; filter with `browse` chips (site/Studio parity), shortlist, mood, or query; use `suggested_preview` (safe/bold/wildcard) for pick-3 |
 | `apply_theme` | Swap `meta.theme` (default also runs `repairCraft` for theme honesty — Studio My deck Use parity; pass `apply_safe_fixes:false` for a pure swap) |
@@ -425,6 +425,8 @@ presentation-md-render --from-md ./deck.md -o deck.json --theme kinetic-wrapped
 
 Or call `import_markdown`. Front matter sets `theme` / `title` / `company`. Slides split on `---`.
 Use fenced ` ```chart bar ` CSV blocks for charts and ` ```html ` for custom-html art.
+
+**Export the other way:** `presentation-md-render deck.json --format md -o deck.md`, MCP `export_deck` `format: "md"`, or Studio **Source ▾ → Download Markdown** — same Marp/md-slides dialect for round-trip.
 
 ## Import from PowerPoint
 
