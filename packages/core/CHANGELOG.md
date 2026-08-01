@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.26.0
+
+### Minor Changes
+
+- 54f5d3c: MCP export_deck gains notes_txt / notes_vtt speaker-notes handouts (shared core helpers; Studio downloads re-export the same builders).
+
 ## 1.25.0
 
 ### Minor Changes

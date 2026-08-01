@@ -1,5 +1,19 @@
 # @presentation-md/mcp-server
 
+## 1.31.0
+
+### Minor Changes
+
+- 54f5d3c: MCP export_deck gains notes_txt / notes_vtt speaker-notes handouts (shared core helpers; Studio downloads re-export the same builders).
+
+### Patch Changes
+
+- Updated dependencies [54f5d3c]
+  - @presentation-md/core@1.26.0
+  - @presentation-md/create-theme@1.1.26
+  - @presentation-md/export@1.23.26
+  - @presentation-md/render@1.12.2
+
 ## 1.30.0
 
 ### Minor Changes

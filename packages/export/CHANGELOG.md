@@ -1,5 +1,12 @@
 # @presentation-md/export
 
+## 1.23.26
+
+### Patch Changes
+
+- Updated dependencies [54f5d3c]
+  - @presentation-md/core@1.26.0
+
 ## 1.23.25
 
 ### Patch Changes
