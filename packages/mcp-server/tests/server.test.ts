@@ -76,6 +76,41 @@ describe("audit_deck", () => {
     const warnings = result.issues.filter((i) => i.severity === "warning");
     expect(warnings.some((w) => w.message.toLowerCase().includes("fewer than 2"))).toBe(true);
   });
+
+  it("remorph_density speaker splits crowded grids and returns json", async () => {
+    const deck = {
+      type: "deck",
+      meta: { title: "Crowded", theme: "default-tech" },
+      slides: [
+        {
+          layout: "feature-grid",
+          heading: "Six",
+          columns: 3,
+          cards: Array.from({ length: 6 }, (_, i) => ({ title: `C${i + 1}`, body: "x" })),
+        },
+        { layout: "closing", heading: "Bye" },
+      ],
+    };
+    const result = (await auditDeckTool.handler({
+      json: JSON.stringify(deck),
+      remorph_density: "speaker",
+    })) as {
+      remorph_density?: string;
+      remorph_changes?: string[];
+      json?: string;
+      slide_count: number;
+    };
+    expect(result.remorph_density).toBe("speaker");
+    expect(result.remorph_changes?.some((c) => /split feature-grid/i.test(c))).toBe(true);
+    expect(result.json).toBeTruthy();
+    const parsed = JSON.parse(result.json!) as {
+      meta: { density?: string };
+      slides: unknown[];
+    };
+    expect(parsed.meta.density).toBe("speaker");
+    expect(parsed.slides.length).toBeGreaterThan(2);
+    expect(result.slide_count).toBe(parsed.slides.length);
+  });
 });
 
 describe("apply_theme", () => {

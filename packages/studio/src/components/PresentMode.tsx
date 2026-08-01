@@ -10,6 +10,13 @@ body { gap: 0 !important; padding: 0 !important; }
 .pmd-attribution { display: none !important; }
 `;
 
+function formatElapsed(ms: number): string {
+  const totalSec = Math.floor(ms / 1000);
+  const m = Math.floor(totalSec / 60);
+  const s = totalSec % 60;
+  return `${m}:${s.toString().padStart(2, "0")}`;
+}
+
 export function PresentMode({
   html,
   slideCount,
@@ -29,6 +36,11 @@ export function PresentMode({
   const [i, setI] = useState(0);
   const [showNotes, setShowNotes] = useState(true);
   const [showStrip, setShowStrip] = useState(true);
+  const [blackout, setBlackout] = useState(false);
+  const [elapsedMs, setElapsedMs] = useState(0);
+  const [timerRunning, setTimerRunning] = useState(true);
+  const startedAt = useRef(Date.now());
+  const accumulated = useRef(0);
   const presentHtml = html.replace("</head>", `<style>${PRESENT_CSS}</style></head>`);
   const currentNotes = (notes[i] ?? "").trim();
   const hasAnyNotes = notes.some((n) => (n ?? "").trim().length > 0);
@@ -49,9 +61,36 @@ export function PresentMode({
   const go = (n: number) => setI((p) => Math.max(0, Math.min(slideCount - 1, p + n)));
 
   useEffect(() => {
+    if (!timerRunning) return;
+    const id = window.setInterval(() => {
+      setElapsedMs(accumulated.current + (Date.now() - startedAt.current));
+    }, 500);
+    return () => window.clearInterval(id);
+  }, [timerRunning]);
+
+  useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-      else if (e.key === "s" || e.key === "S") {
+      if (e.key === "Escape") {
+        if (blackout) {
+          e.preventDefault();
+          setBlackout(false);
+          return;
+        }
+        onClose();
+      } else if (e.key === "b" || e.key === "B") {
+        e.preventDefault();
+        setBlackout((v) => !v);
+      } else if (e.key === "t" || e.key === "T") {
+        e.preventDefault();
+        if (timerRunning) {
+          accumulated.current += Date.now() - startedAt.current;
+          setTimerRunning(false);
+          setElapsedMs(accumulated.current);
+        } else {
+          startedAt.current = Date.now();
+          setTimerRunning(true);
+        }
+      } else if (e.key === "s" || e.key === "S") {
         e.preventDefault();
         setShowNotes((v) => !v);
       } else if (e.key === "f" || e.key === "F") {
@@ -59,15 +98,17 @@ export function PresentMode({
         setShowStrip((v) => !v);
       } else if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
         e.preventDefault();
+        setBlackout(false);
         setI((p) => Math.min(slideCount - 1, p + 1));
       } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
         e.preventDefault();
+        setBlackout(false);
         setI((p) => Math.max(0, p - 1));
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose, slideCount]);
+  }, [onClose, slideCount, blackout, timerRunning]);
 
   useEffect(() => {
     const frame = frameRef.current;
@@ -93,6 +134,17 @@ export function PresentMode({
             srcDoc={presentHtml}
             sandbox="allow-same-origin"
           />
+          {blackout ? (
+            <div
+              className="present-blackout"
+              role="status"
+              aria-live="polite"
+              onClick={() => setBlackout(false)}
+              title="Click or press B to restore"
+            >
+              <span className="present-blackout-hint">Blackout · B or click to restore</span>
+            </div>
+          ) : null}
         </div>
         {showNotes && (
           <aside className="present-rail" aria-label="Presenter notes and next slide">
@@ -139,6 +191,13 @@ export function PresentMode({
         <button className="btn btn-icon" title="Previous (←)" onClick={() => go(-1)}>←</button>
         <span className="present-count">{i + 1} / {slideCount}</span>
         <button className="btn btn-icon" title="Next (→)" onClick={() => go(1)}>→</button>
+        <span
+          className={`present-timer${timerRunning ? "" : " present-timer-paused"}`}
+          title="Elapsed · T to pause/resume"
+        >
+          {formatElapsed(elapsedMs)}
+          {timerRunning ? "" : " · paused"}
+        </span>
         <button
           className="btn"
           title="Toggle speaker notes (S)"
@@ -155,6 +214,13 @@ export function PresentMode({
             {showStrip ? "Hide strip · F" : "Strip · F"}
           </button>
         ) : null}
+        <button
+          className="btn"
+          title="Blackout screen (B)"
+          onClick={() => setBlackout((v) => !v)}
+        >
+          {blackout ? "Restore · B" : "Blackout · B"}
+        </button>
         <button className="btn" onClick={onClose}>Exit · Esc</button>
       </div>
     </div>

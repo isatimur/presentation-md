@@ -29,7 +29,7 @@ import {
   importMarkdownFile,
 } from "../export/downloads.js";
 import { STUDIO_EXAMPLES } from "../examples.js";
-import { auditCraft, repairCraft, repairCraftBeat } from "../craft/auditCraft.js";
+import { auditCraft, repairCraft, repairCraftBeat, remorphDensity } from "../craft/auditCraft.js";
 import type { CraftFixId } from "../craft/auditCraft.js";
 import { ThemeCompareTray, type LiveCompareMode } from "./ThemeCompareTray.js";
 import { ThemeCraftShotStrip } from "./ThemeCraftShotStrip.js";
@@ -296,6 +296,26 @@ export function Toolbar({
       issues.length
         ? `Applied ${fixes.length} craft fix${fixes.length === 1 ? "" : "es"} · ${issues.length} issue${issues.length === 1 ? "" : "s"} remain`
         : `Applied ${fixes.length} craft fix${fixes.length === 1 ? "" : "es"} · craft clean`
+    );
+  };
+
+  const applyDensityRemorph = (mode: "speaker" | "reading") => {
+    const { deck: remorphed, changes } = remorphDensity(deck as unknown as Record<string, unknown>, mode);
+    if (!changes.length) {
+      setStatus(`Density already ${mode}`);
+      return;
+    }
+    onChange(remorphed as DeckJson);
+    const issues = auditCraft(remorphed);
+    setAuditIssues(issues);
+    setAuditFilter("all");
+    setAuditPanelOpen(issues.length > 0);
+    craftPanelOpen.current = issues.length > 0;
+    suppressLivePanel.current = false;
+    setStatus(
+      issues.length
+        ? `Remorphed ${mode} · ${changes.length} change${changes.length === 1 ? "" : "s"} · ${issues.length} issue${issues.length === 1 ? "" : "s"} remain`
+        : `Remorphed ${mode} · ${changes.length} change${changes.length === 1 ? "" : "s"} · craft clean`
     );
   };
 
@@ -1087,6 +1107,22 @@ export function Toolbar({
               title="Apply safe craft fixes (fields + beat inserts: image-hero, comparison, data, logo-wall, wrap tones) — same as MCP audit_deck apply_safe_fixes"
             >
               Apply safe fixes
+            </button>
+            <button
+              type="button"
+              className="btn btn-sm"
+              onClick={() => applyDensityRemorph("speaker")}
+              title="Non-LLM speaker density: split crowded grids/lists and move overflow body into notes (MCP remorph_density)"
+            >
+              Speaker density
+            </button>
+            <button
+              type="button"
+              className="btn btn-sm"
+              onClick={() => applyDensityRemorph("reading")}
+              title="Non-LLM reading density: merge thin continuation lists and promote notes onto thin bodies (MCP remorph_density)"
+            >
+              Reading density
             </button>
             <button type="button" className="btn btn-sm" onClick={dismissAuditPanel}>
               Dismiss

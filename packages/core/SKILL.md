@@ -314,7 +314,7 @@ Match frontend-slides' mandatory visual discovery — but with structured themes
 frontend-slides wins on discovery UX; presentation-md wins when the **first** emitted deck is already shippable craft — not a purple SaaS skeleton.
 
 1. **Stunning-25-first** — when the brief matches a flagship vibe, lock that theme (or a popular shortlist sibling) and open the structured proof / Studio `?example=` *before* writing slides.
-2. **Density lock** — speaker-led vs reading-first chosen once; never mix cramped reading density into a live-talk deck (or vice versa).
+2. **Density lock** — speaker-led vs reading-first chosen once; never mix cramped reading density into a live-talk deck (or vice versa). If density drifts after drafting, call `audit_deck` with `remorph_density` (or Studio **Speaker density** / **Reading density**, or CLI `--remorph-density`) before rewriting copy.
 3. **Anti-slop gate** — read `references/anti-slop-bans.md` before any custom styling; ban Inter-only / purple-on-white / cream-terracotta / accent-underline titles / text-only content slides unless the chosen theme owns them.
 4. **Layouts preview for pick-3** — `preview_themes` with ≥2 themes **auto-defaults to `mode: "layouts"`** (pass `mode: "title"` only for a cover skim). Pass `json` (Deck JSON) to restyle **your** slides across the pick (Studio My deck parity; optional `slide_index`). Inline PNGs attach as MCP image content by default — compare in-chat, then `apply_theme`.
 5. **Craft gates before ship** — `audit_deck` then `judge_deck` (t1→t2). Schema-valid ≠ shippable. Fix asymmetry, emphasis, dual CTA, image-hero, data beat, notes.
@@ -390,7 +390,7 @@ Thirteen tools via `@presentation-md/mcp-server` (not the deprecated `@presentat
 |------|-----------|
 | `render_deck` | Convert deck JSON → polished HTML |
 | `export_deck` | Export deck JSON → `.pptx`, vector PDF, html, **Markdown** (`format: "md"` — Marp round-trip), or **speaker-notes** handouts (`format: "notes_txt"` / `"notes_vtt"`) |
-| `audit_deck` | Schema-validate + craft gates; optional `apply_safe_fixes` returns repaired JSON (fields + beat inserts: image-hero / comparison / data / logo-wall / wrap tones + theme-honesty leftovers) |
+| `audit_deck` | Schema-validate + craft gates; optional `apply_safe_fixes` returns repaired JSON (fields + beat inserts: image-hero / comparison / data / logo-wall / wrap tones + theme-honesty leftovers); optional `remorph_density` (`speaker`/`reading`) for non-LLM structural density remorph |
 | `list_themes` | See installed themes with vibe/description + proof deep-links (`preview_url` + always-on `studio_url`); filter with `browse` chips (site/Studio parity), shortlist, mood, or query; use `suggested_preview` (safe/bold/wildcard) for pick-3 |
 | `apply_theme` | Swap `meta.theme` (default also runs `repairCraft` for theme honesty — Studio My deck Use parity; pass `apply_safe_fixes:false` for a pure swap) |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
@@ -459,7 +459,7 @@ You have been staring at this deck while building it, so you now see what you *i
 
 **Tooling first (deck-spec path) — non-skippable when MCP/CLI is available:**
 1. Call `preview_themes` (or open gallery structured proofs) before locking a vibe — never invent a palette.
-2. Call `audit_deck` on the deck JSON — fix every `error`, then address `warning`s. Pass `apply_safe_fixes: true` to auto-fill safe structural craft **and insert missing beats** (image-hero, comparison, stat-row, logo-wall, wrap tones/ranked/streak, cadence swaps, theme-honesty leftovers, emphasis, ratio, bento, CTA/icons, speaker notes, candy-pop brand) and get back `json` + `fixes_applied[]`. Prefer `scaffold_deck` when starting from a brief so the first JSON already clears craft floors.
+2. Call `audit_deck` on the deck JSON — fix every `error`, then address `warning`s. Pass `apply_safe_fixes: true` to auto-fill safe structural craft **and insert missing beats** (image-hero, comparison, stat-row, logo-wall, wrap tones/ranked/streak, cadence swaps, theme-honesty leftovers, emphasis, ratio, bento, CTA/icons, speaker notes, candy-pop brand) and get back `json` + `fixes_applied[]`. Pass `remorph_density: "speaker"|"reading"` for a **non-LLM structural density remorph** (speaker splits crowded grids/lists + moves overflow body into notes; reading merges thin continuation lists + promotes notes onto thin bodies) — Studio craft panel + CLI `--remorph-density` parity. Prefer `scaffold_deck` when starting from a brief so the first JSON already clears craft floors.
 3. Call `judge_deck` for craft gates (`tier=t1`). Escalate to `tier=t2` (HTML metrics + **inline slide PNGs**) before delivery; `tier=t3` when highest stakes.
 4. Render with `render_deck` / CLI, open the HTML, and spot-check with keyboard arrows.
 5. Re-run `judge_deck` at t2/t3 with attached shots → fix → re-score. Do not ship on schema-valid alone.

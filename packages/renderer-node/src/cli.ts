@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, extname, join, resolve } from "node:path";
 import { Command } from "commander";
 import { renderDeck, renderDeckPptx, renderDeckPdf, getBundledThemesDir } from "./index.js";
-import { discoverInstalledThemes, markdownToDeck, deckToMarkdown, notesHandoutTxt, notesHandoutVtt, scaffoldDeck, listScaffoldPurposes, resolveScaffoldPurpose, auditCraft, repairCraft, type ScaffoldPurpose } from "@presentation-md/core";
+import { discoverInstalledThemes, markdownToDeck, deckToMarkdown, notesHandoutTxt, notesHandoutVtt, scaffoldDeck, listScaffoldPurposes, resolveScaffoldPurpose, auditCraft, repairCraft, remorphDensity, studioShareLink, isShareDeck, type ScaffoldPurpose, type DensityMode } from "@presentation-md/core";
 import { pptxToDeck } from "@presentation-md/export/import";
 import {
   buildLayoutsPreviewDeck,
@@ -80,6 +80,14 @@ export function buildProgram(): Command {
       "with --apply-theme, only swap meta.theme (skip repairCraft)"
     )
     .option(
+      "--remorph-density <mode>",
+      "structural density remorph (speaker|reading) and write JSON — non-LLM; MCP audit_deck remorph_density parity"
+    )
+    .option(
+      "--share-link",
+      "print a Studio ?d= share URL for the deck (MCP share_deck_link parity) and exit"
+    )
+    .option(
       "--preview-compare <themes>",
       "comma-separated themes (1–3); write craft preview HTML and exit (pick-3 discovery)"
     )
@@ -120,6 +128,8 @@ export function buildProgram(): Command {
       fix?: boolean;
       applyTheme?: string;
       repair?: boolean;
+      remorphDensity?: string;
+      shareLink?: boolean;
       previewCompare?: string;
       previewDir?: string;
       previewMode?: string;
@@ -373,6 +383,59 @@ export function buildProgram(): Command {
           process.stderr.write(`Invalid deck JSON:\n${result.errors.map((e) => `  - ${e}`).join("\n")}\n`);
           process.exit(1);
         }
+      }
+
+      if (options.shareLink) {
+        let deck: unknown;
+        try {
+          deck = JSON.parse(deckJson);
+        } catch (err) {
+          process.stderr.write(`Error: invalid JSON: ${(err as Error).message}\n`);
+          process.exit(1);
+        }
+        if (!isShareDeck(deck)) {
+          process.stderr.write(
+            'Error: --share-link requires a Deck with type:"deck" and a non-empty slides array\n'
+          );
+          process.exit(1);
+        }
+        try {
+          const url = await studioShareLink(deck);
+          process.stdout.write(`${url}\n`);
+        } catch (err) {
+          process.stderr.write(`Error: ${(err as Error).message}\n`);
+          process.exit(1);
+        }
+        return;
+      }
+
+      if (options.remorphDensity) {
+        const mode = options.remorphDensity.toLowerCase();
+        if (mode !== "speaker" && mode !== "reading") {
+          process.stderr.write(
+            `Error: --remorph-density must be "speaker" or "reading" (got "${options.remorphDensity}")\n`
+          );
+          process.exit(1);
+        }
+        let deck: Record<string, unknown>;
+        try {
+          deck = JSON.parse(deckJson) as Record<string, unknown>;
+        } catch (err) {
+          process.stderr.write(`Error: invalid JSON: ${(err as Error).message}\n`);
+          process.exit(1);
+        }
+        const { deck: remorphed, changes } = remorphDensity(deck, mode as DensityMode);
+        const outputPath = resolve(
+          process.cwd(),
+          options.output ?? (inputPath ? inputPath : "deck.json")
+        );
+        await writeFile(outputPath, JSON.stringify(remorphed, null, 2), "utf-8");
+        for (const c of changes) process.stdout.write(`  ${c}\n`);
+        const slideCount = Array.isArray(remorphed.slides) ? remorphed.slides.length : 0;
+        process.stdout.write(
+          `Remorphed density=${mode} (${changes.length} change(s), ${slideCount} slides) → ${outputPath}\n`
+        );
+        return;
       }
 
       if (options.applyTheme) {

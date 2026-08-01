@@ -67,6 +67,8 @@ describe("buildProgram", () => {
         "--fix",
         "--apply-theme",
         "--no-repair",
+        "--remorph-density",
+        "--share-link",
         "--preview-compare",
         "--preview-dir",
         "--preview-mode",
@@ -527,5 +529,48 @@ describe("presentation-md-render CLI flags", () => {
     };
     expect(deck.meta.theme).toBe("signal");
     expect(deck.slides.length).toBe(beforeSlides);
+  });
+
+  it("--remorph-density speaker splits crowded grids", async () => {
+    const dir = await tempDir();
+    const deckPath = join(dir, "crowded.json");
+    const outPath = join(dir, "speaker.json");
+    const crowded = {
+      type: "deck",
+      meta: { title: "Crowded", theme: "default-tech" },
+      slides: [
+        {
+          layout: "feature-grid",
+          heading: "Six",
+          columns: 3,
+          cards: Array.from({ length: 6 }, (_, i) => ({ title: `C${i + 1}`, body: "x" })),
+        },
+        { layout: "closing", heading: "Bye" },
+      ],
+    };
+    await writeFile(deckPath, JSON.stringify(crowded));
+    const { code, stdout, stderr } = await runCli(
+      ["--remorph-density", "speaker", "-o", outPath, deckPath],
+      { cwd: dir }
+    );
+    expect(stderr).not.toMatch(/^Error:/);
+    expect(code).toBe(0);
+    expect(stdout).toMatch(/Remorphed density=speaker/);
+    const deck = JSON.parse(await readFile(outPath, "utf-8")) as {
+      meta: { density?: string };
+      slides: unknown[];
+    };
+    expect(deck.meta.density).toBe("speaker");
+    expect(deck.slides.length).toBeGreaterThan(2);
+  });
+
+  it("--share-link prints a Studio ?d= URL", async () => {
+    const dir = await tempDir();
+    const deckPath = join(dir, "deck.json");
+    await writeFile(deckPath, JSON.stringify(MINIMAL_DECK));
+    const { code, stdout, stderr } = await runCli(["--share-link", deckPath], { cwd: dir });
+    expect(stderr).not.toMatch(/^Error:/);
+    expect(code).toBe(0);
+    expect(stdout.trim()).toMatch(/[?&]d=d1\./);
   });
 });

@@ -41,6 +41,12 @@ export type {
   CraftRepairResult,
   CraftFixId,
 } from "./craft-audit.js";
+export { remorphDensity } from "./remorph-density.js";
+export type {
+  DensityMode,
+  RemorphDeck,
+  RemorphDensityResult,
+} from "./remorph-density.js";
 export {
   scaffoldDeck,
   listScaffoldPurposes,

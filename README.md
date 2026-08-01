@@ -43,7 +43,7 @@ Demo without installing: open the [gallery](https://presentation-md.vercel.app/#
 |---|---|---|
 | **Themes** | **75** published + create-from-brand | Style presets / template pack |
 | **Discovery** | Studio **mood browse chips** + **Compare 3** + **My deck restyle** + **Copy link** (`?d=`) + MCP `list_themes` **browse** + `preview_themes` **json deck restyle** + CLI `--preview-deck` + **inline PNGs** + shot strips | Live style gallery (strong) |
-| **One-shot quality** | Anti-slop + stunning-25-first + density lock + `audit_deck`/`judge_deck` + **`apply_safe_fixes`** | Anti-slop rules; no shared audit product |
+| **One-shot quality** | Anti-slop + stunning-25-first + density lock + **non-LLM `remorph_density`** + `audit_deck`/`judge_deck` + **`apply_safe_fixes`** | Anti-slop rules; no shared audit product |
 | **Authoring model** | Schema-validated **Deck JSON** agents can diff/edit one slide | Prompt → HTML (harder to surgically edit) |
 | **Layouts** | **18** craft layouts + `custom-html` recipes (`ranked-list`, `logo-wall`, `streak-grid`, `metric-ring`, `chart`, `custom-html`, `image-hero`, bento, comparison, code…) | Template-driven HTML |
 | **MCP** | Typed tools: render, export, audit, judge, preview, import PPTX/Markdown, brand theme | — |

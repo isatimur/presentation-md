@@ -34,6 +34,13 @@ presentation-md-render deck.json --audit --fix -o deck.json
 presentation-md-render deck.json --apply-theme aurora-glass -o deck.json
 presentation-md-render deck.json --apply-theme signal --no-repair -o deck.json
 
+# Structural density remorph (non-LLM — MCP audit_deck remorph_density parity)
+presentation-md-render deck.json --remorph-density speaker -o deck.json
+presentation-md-render deck.json --remorph-density reading -o deck.json
+
+# Studio share link (MCP share_deck_link parity)
+presentation-md-render deck.json --share-link
+
 # List available themes
 presentation-md-render --list-themes
 
