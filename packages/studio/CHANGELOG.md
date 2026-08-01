@@ -1,5 +1,12 @@
 # @presentation-md/studio
 
+## 1.24.0
+
+### Minor Changes
+
+- fd84042: Generate discover pick-3 defaults to **My deck restyle** (selected slide live across themes) with Craft proofs one toggle away — ThemeCompareTray parity so theme judgment is content-true before generate/scaffold.
+- 05498f1: Studio **Paste Brand** panel: paste `:root` CSS → ephemeral session theme (contrast-safe extract + Apply with repairCraft) — MCP `import_brand_theme` / `--from-css` parity without scaffolding a package.
+
 ## 1.23.0
 
 ### Minor Changes
