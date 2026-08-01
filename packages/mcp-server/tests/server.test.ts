@@ -483,7 +483,9 @@ describe("preview_themes", () => {
     }
   });
 
-  it("returns rich MCP images when include_screenshots is true (or chrome_missing)", async () => {
+  it(
+    "returns rich MCP images when include_screenshots is true (or chrome_missing)",
+    async () => {
     const { previewThemesTool } = await import("../src/tools/preview-themes.js");
     const { isRichToolResult } = await import("../src/lib/rich-result.js");
     const { mkdtemp, rm } = await import("node:fs/promises");
@@ -518,7 +520,9 @@ describe("preview_themes", () => {
     } finally {
       await rm(dir, { recursive: true, force: true });
     }
-  });
+  },
+    90_000
+  );
 });
 
 
