@@ -119,6 +119,29 @@ describe("list_themes", () => {
     expect(names).toContain("default-tech");
   });
 
+  it("includes proof deep-links on every listed theme", async () => {
+    const result = (await listThemesTool.handler({})) as {
+      themes: Array<{
+        name: string;
+        preview_url?: string;
+        studio_url?: string;
+        studio_example?: string;
+        gallery_url?: string;
+      }>;
+    };
+    expect(result.themes.length).toBeGreaterThan(0);
+    for (const t of result.themes) {
+      expect(t.preview_url).toBe(
+        `https://presentation-md.vercel.app/previews/${encodeURIComponent(t.name)}.html`
+      );
+    }
+    // When a stunning-25 theme is installed, studio deep-link is present.
+    const withStudio = result.themes.find((t) => t.studio_example);
+    if (withStudio) {
+      expect(withStudio.studio_url).toContain(`example=${withStudio.studio_example}`);
+    }
+  });
+
   it("filters by shortlist id and can return the shortlists catalog", async () => {
     const result = (await listThemesTool.handler({
       shortlist: "core-defaults",
@@ -193,6 +216,7 @@ describe("generate_deck_prompt", () => {
     })) as {
       anti_slop_reference?: string;
       layout_recipes_reference?: string;
+      custom_html_recipes_reference?: string;
       theme_shortlists_reference?: string;
       craft_mandate: string;
     };
@@ -207,6 +231,10 @@ describe("generate_deck_prompt", () => {
       expect(result.layout_recipes_reference).toMatch(/Pitch Deck|Product Launch/i);
       expect(result.layout_recipes_reference).toMatch(/Neon-tech short|Data-editorial short|Scatterbrain workshop/i);
     }
+    if (result.custom_html_recipes_reference) {
+      expect(result.custom_html_recipes_reference).toMatch(/Split panels|Poster stamp|Big number/i);
+    }
+    expect(result.craft_mandate).toMatch(/custom_html_recipes|custom-html/i);
     expect(result.craft_mandate).toMatch(/neon-tech|data-editorial|scatterbrain/i);
     expect(result.craft_mandate).toMatch(/theme_shortlists|core-defaults/i);
     expect(result.craft_mandate).toMatch(/preview_themes.*shortlist|shortlist:<id>/i);

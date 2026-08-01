@@ -6,6 +6,7 @@ import {
   sortShortlistsForDiscovery,
   themeMatchesMood,
   themeMatchesQuery,
+  themeDiscoveryLinks,
 } from "@presentation-md/core";
 import { getBundledThemesDir } from "@presentation-md/render";
 import type { ToolDefinition } from "../server.js";
@@ -13,7 +14,7 @@ import type { ToolDefinition } from "../server.js";
 export const listThemesTool: ToolDefinition = {
   name: "list_themes",
   description:
-    "List available presentation-md themes (name, version, vibe, description). Optional filters: shortlist id (theme-shortlists.json), mood/query from the selection index — use for Theme Discovery before locking meta.theme. Set include_shortlists to get the full shortlist catalog for intelligent defaults.",
+    "List available presentation-md themes (name, version, vibe, description, proof deep-links). Optional filters: shortlist id (theme-shortlists.json), mood/query from the selection index — use for Theme Discovery before locking meta.theme. Each theme may include preview_url, studio_url, gallery_url. Set include_shortlists to get the full shortlist catalog for intelligent defaults.",
   inputSchema: {
     type: "object",
     properties: {
@@ -70,6 +71,7 @@ export const listThemesTool: ToolDefinition = {
 
     let themes = discovered.map((d) => {
       const sel = selectionByName.get(d.name);
+      const links = themeDiscoveryLinks(d.name, sel?.gallery);
       return {
         name: d.name,
         version: d.version,
@@ -81,6 +83,8 @@ export const listThemesTool: ToolDefinition = {
         aliases: sel?.aliases,
         scheme: sel?.scheme,
         formality: sel?.formality,
+        gallery: sel?.gallery,
+        ...links,
       };
     });
 
@@ -111,7 +115,7 @@ export const listThemesTool: ToolDefinition = {
     const result: Record<string, unknown> = {
       themes,
       discovery_hint:
-        "Theme Discovery: pick a shortlist (prefer popular:true), then preview_themes with 3 names and mode=\"layouts\" (safe + bold + wildcard). Lock meta.theme before generating the full deck.",
+        "Theme Discovery: pick a shortlist (prefer popular:true), open studio_url / preview_url (show-don't-tell), then preview_themes with 3 names and mode=\"layouts\" (safe + bold + wildcard). Lock meta.theme before generating the full deck.",
     };
     if (matchedShortlist) {
       result.shortlist = matchedShortlist;

@@ -47,6 +47,9 @@ export {
   themeMatchesMood,
   themeMatchesQuery,
   parseLayoutRecipeHeadings,
+  themeDiscoveryLinks,
+  PRESENTATION_MD_SITE,
+  STUNNING_25_STUDIO_EXAMPLES,
 } from "./theme-discovery.js";
 export type {
   ThemeShortlist,

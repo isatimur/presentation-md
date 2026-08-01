@@ -148,9 +148,10 @@ Each layout is a tool. Match the layout to the job, not to the order.
 **Craft tip:** Set `showValues` only when the exact number matters more than the shape — otherwise let the marks speak.
 
 ### `custom-html` — Schema-safe art escape hatch
-**When to use:** one-off frontend-slides craft that no layout covers — without abandoning Deck JSON / Studio / theme tokens.
+**When to use:** one-off frontend-slides craft that no layout covers — without abandoning Deck JSON / Studio / theme tokens. At most **one** intentional art beat per deck unless the brief is pure poster.
 **Props:** `{ heading?, lead?, html }`
 **Design rule:** use theme CSS variables (`var(--accent)`, `var(--heading-font)`, …). Scripts and event handlers are stripped. PPTX approximates `custom-html` to text — ship HTML when the art is the point. Theme surface chrome (grids, rails, mastheads, soft washes, hard frames, Win95 bars, electric-studio split/rail, studio acid frame, grove monograph rules, etc.) is approximated as native PPTX shapes for every theme package. Pulse / risograph / candy-pop get denser soft-blob + frame stand-ins; Pulse eyebrows render as filled chips; candy-pop cards get hard ink borders (not just slide chrome). Paper/editorial themes keep quiet fiber grain as HTML-only — PPTX carries rules/washes/mastheads. True `mix-blend-mode` / animated marquees remain HTML-only.
+**Recipes:** `references/custom-html-recipes.md` — split panels, big-number + hairline, poster stamp stack, typographic explosion. Prefer those over inventing sticker piles.
 
 ### `closing` — The ask / CTA
 **When to use:** every deck ends here. Make the next action unmissable.
@@ -328,6 +329,8 @@ Default when vibe is vague: a popular shortlist + one stunning-25 bold option in
    - Optional fast path: `references/theme-shortlists.json` — pick a use-case shortlist
      (Series A, developer demo, swiss agency, …) instead of scanning all 75.
      Prefer shortlists marked `"popular": true` when the vibe is vague.
+   - `list_themes` returns `preview_url`, and for stunning-25 themes `studio_url` /
+     `studio_example` / `gallery_url` — open those before authoring (show-don't-tell).
 2. Shortlist **3** themes that fit purpose + audience + density. **Preview mix (mandatory):**
    - **1 safe / readable** theme (core-defaults, corporate, soft-product, quiet paper)
    - **1 bold / expressive** theme (stunning-25, neon, brutal/poster, wrap)
@@ -386,7 +389,7 @@ Eleven tools via `@presentation-md/mcp-server` (not the deprecated `@presentatio
 | `render_deck` | Convert deck JSON → polished HTML |
 | `export_deck` | Export deck JSON → `.pptx` (or html) |
 | `audit_deck` | Schema-validate + structured severity issues before shipping |
-| `list_themes` | See installed themes with vibe/description |
+| `list_themes` | See installed themes with vibe/description + `preview_url` / `studio_url` / `gallery_url` proof deep-links |
 | `apply_theme` | Swap `meta.theme` without rewriting slides |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
 | `preview_themes` | Render 1–3 theme HTML previews; pass `mode: "layouts"` for multi-slide craft bake |

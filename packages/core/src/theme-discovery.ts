@@ -154,6 +154,63 @@ export function themeMatchesQuery(
   return hay.includes(q);
 }
 
+/** Public site origin for agent deep-links (gallery / Studio / previews). */
+export const PRESENTATION_MD_SITE = "https://presentation-md.vercel.app";
+
+/**
+ * Stunning-25 theme → Studio `?example=` slug (canonical craft ceiling).
+ * Keep in sync with packages/core/references/stunning-25.md.
+ */
+export const STUNNING_25_STUDIO_EXAMPLES: Readonly<Record<string, string>> = {
+  "aurora-glass": "novaspark-pitch",
+  "ft-editorial": "meridian-sales",
+  "genz-bento": "bounce-launch",
+  "luxury-minimalist": "solstice-update",
+  "crt-terminal": "retronet-demo",
+  "swiss-typographic": "gridsystems-studio",
+  "brutalist-acid": "monolith-seriesa",
+  "candy-pop": "jellybean-launch",
+  "aerospace-hud": "axiom-robotics",
+  "heritage-editorial": "atelier-brand",
+  "fintech-clean": "ledgerline-payout",
+  "developer-dark": "forge-api",
+  "data-editorial": "signalbox-report",
+  bauhaus: "primary-keynote",
+  "y2k-aero": "bubbleflow-launch",
+  "risograph-zine": "inkwell-pitch",
+  "neon-noir": "neondistrict-platform",
+  scandinavian: "hygge-brand",
+  "art-deco": "meridianclub-investor",
+  vaporwave: "mallsoft-launch",
+  broadsheet: "dailyledger-mediakit",
+  glassmorphism: "cloudpeak-pricing",
+  "kinetic-wrapped": "pulse-wrapped",
+  "botanical-luxe": "verdant-impact",
+  blueprint: "apsis-mission",
+};
+
+/** Absolute URLs for Theme Discovery — open proofs before authoring. */
+export function themeDiscoveryLinks(themeName: string, galleryPath?: string): {
+  preview_url: string;
+  studio_url?: string;
+  gallery_url?: string;
+  studio_example?: string;
+} {
+  const preview_url = `${PRESENTATION_MD_SITE}/previews/${encodeURIComponent(themeName)}.html`;
+  const studio_example = STUNNING_25_STUDIO_EXAMPLES[themeName];
+  const studio_url = studio_example
+    ? `${PRESENTATION_MD_SITE}/studio/?example=${encodeURIComponent(studio_example)}&fresh=1`
+    : undefined;
+  let gallery_url: string | undefined;
+  if (galleryPath?.trim()) {
+    const rel = galleryPath.trim().replace(/^\//, "");
+    gallery_url = rel.startsWith("http")
+      ? rel
+      : `${PRESENTATION_MD_SITE}/${rel.replace(/^examples\//, "examples/")}`;
+  }
+  return { preview_url, studio_url, gallery_url, studio_example };
+}
+
 /** Recipe heading titles from layout-recipes.md (## Name). */
 export function parseLayoutRecipeHeadings(md: string): string[] {
   const headings: string[] = [];
