@@ -1,5 +1,12 @@
 # @presentation-md/install
 
+## 1.1.19
+
+### Patch Changes
+
+- Updated dependencies [0e8e59c]
+  - @presentation-md/core@1.22.2
+
 ## 1.1.18
 
 ### Patch Changes

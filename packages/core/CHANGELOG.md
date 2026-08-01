@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.22.2
+
+### Patch Changes
+
+- 0e8e59c: Studio pick-3 **My deck restyle** (selected slide live across themes; Use applies theme + craft repair) + sync web badges/JSON-LD to core@1.22.1 / mcp@1.25.1 / render@1.9.6.
+
 ## 1.22.1
 
 ### Patch Changes
