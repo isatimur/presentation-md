@@ -69,6 +69,9 @@ describe("buildProgram", () => {
         "--no-repair",
         "--remorph-density",
         "--share-link",
+        "--generate-prompt",
+        "--prompt-intent",
+        "--prompt-density",
         "--preview-compare",
         "--preview-dir",
         "--preview-mode",
@@ -572,5 +575,39 @@ describe("presentation-md-render CLI flags", () => {
     expect(stderr).not.toMatch(/^Error:/);
     expect(code).toBe(0);
     expect(stdout.trim()).toMatch(/[?&]d=d1\./);
+  });
+
+  it("--generate-prompt writes craft prompt JSON", async () => {
+    const dir = await tempDir();
+    const outPath = join(dir, "prompt.json");
+    const { code, stdout, stderr } = await runCli(
+      [
+        "--generate-prompt",
+        "--theme",
+        "default-tech",
+        "--prompt-density",
+        "reading",
+        "--prompt-intent",
+        "Ship the board pack",
+        "-o",
+        outPath,
+      ],
+      { cwd: dir }
+    );
+    expect(stderr).not.toMatch(/^Error:/);
+    expect(code).toBe(0);
+    expect(stdout).toMatch(/Wrote craft prompt/);
+    const prompt = JSON.parse(await readFile(outPath, "utf-8")) as {
+      theme: string;
+      density: string;
+      intent: string;
+      craft_mandate: string;
+      skill: string;
+    };
+    expect(prompt.theme).toBe("default-tech");
+    expect(prompt.density).toBe("reading");
+    expect(prompt.intent).toMatch(/board pack/i);
+    expect(prompt.craft_mandate).toMatch(/remorph_density/i);
+    expect(prompt.skill.length).toBeGreaterThan(100);
   });
 });

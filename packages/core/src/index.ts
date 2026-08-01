@@ -47,6 +47,11 @@ export type {
   RemorphDeck,
   RemorphDensityResult,
 } from "./remorph-density.js";
+export { buildGenerateDeckPrompt } from "./generate-deck-prompt.js";
+export type {
+  BuildGenerateDeckPromptOptions,
+  GenerateDeckPromptResult,
+} from "./generate-deck-prompt.js";
 export {
   scaffoldDeck,
   listScaffoldPurposes,

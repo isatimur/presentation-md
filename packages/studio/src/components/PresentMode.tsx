@@ -104,6 +104,19 @@ export function PresentMode({
         e.preventDefault();
         setBlackout(false);
         setI((p) => Math.max(0, p - 1));
+      } else if (/^[1-9]$/.test(e.key)) {
+        e.preventDefault();
+        setBlackout(false);
+        const target = Number(e.key) - 1;
+        if (target < slideCount) setI(target);
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        setBlackout(false);
+        setI(0);
+      } else if (e.key === "End") {
+        e.preventDefault();
+        setBlackout(false);
+        setI(slideCount - 1);
       }
     };
     window.addEventListener("keydown", onKey);

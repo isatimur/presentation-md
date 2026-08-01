@@ -41,6 +41,10 @@ presentation-md-render deck.json --remorph-density reading -o deck.json
 # Studio share link (MCP share_deck_link parity)
 presentation-md-render deck.json --share-link
 
+# One-shot craft prompt (MCP generate_deck_prompt parity)
+presentation-md-render --generate-prompt --theme aurora-glass --prompt-density speaker -o craft-prompt.json
+presentation-md-render --generate-prompt --prompt-intent "Board pack" --prompt-density reading -o craft-prompt.json
+
 # List available themes
 presentation-md-render --list-themes
 

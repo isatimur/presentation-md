@@ -356,6 +356,16 @@ test("Present mode shows up-next peek and advances with ArrowRight", async ({ pa
   await expect(page.locator(".present-count")).toContainText(/4\s*\/\s*/);
   await expect(page.locator(".present-next")).toContainText(/Up next/i);
 
+  await page.keyboard.press("1");
+  await expect(page.locator(".present-count")).toContainText(/1\s*\/\s*/);
+
+  await page.keyboard.press("b");
+  await expect(page.locator(".present-blackout")).toBeVisible();
+  await page.keyboard.press("b");
+  await expect(page.locator(".present-blackout")).toHaveCount(0);
+
+  await expect(page.locator(".present-timer")).toBeVisible();
+
   await page.keyboard.press("Escape");
   await expect(page.locator(".present-overlay")).toHaveCount(0);
 });

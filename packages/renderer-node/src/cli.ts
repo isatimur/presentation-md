@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, extname, join, resolve } from "node:path";
 import { Command } from "commander";
 import { renderDeck, renderDeckPptx, renderDeckPdf, getBundledThemesDir } from "./index.js";
-import { discoverInstalledThemes, markdownToDeck, deckToMarkdown, notesHandoutTxt, notesHandoutVtt, scaffoldDeck, listScaffoldPurposes, resolveScaffoldPurpose, auditCraft, repairCraft, remorphDensity, studioShareLink, isShareDeck, type ScaffoldPurpose, type DensityMode } from "@presentation-md/core";
+import { discoverInstalledThemes, markdownToDeck, deckToMarkdown, notesHandoutTxt, notesHandoutVtt, scaffoldDeck, listScaffoldPurposes, resolveScaffoldPurpose, auditCraft, repairCraft, remorphDensity, studioShareLink, isShareDeck, buildGenerateDeckPrompt, type ScaffoldPurpose, type DensityMode } from "@presentation-md/core";
 import { pptxToDeck } from "@presentation-md/export/import";
 import {
   buildLayoutsPreviewDeck,
@@ -88,6 +88,18 @@ export function buildProgram(): Command {
       "print a Studio ?d= share URL for the deck (MCP share_deck_link parity) and exit"
     )
     .option(
+      "--generate-prompt",
+      "write a one-shot craft system prompt JSON (MCP generate_deck_prompt parity) and exit"
+    )
+    .option(
+      "--prompt-intent <text>",
+      "with --generate-prompt, what the deck should argue or show"
+    )
+    .option(
+      "--prompt-density <mode>",
+      "with --generate-prompt, speaker|reading density lock (default speaker)"
+    )
+    .option(
       "--preview-compare <themes>",
       "comma-separated themes (1–3); write craft preview HTML and exit (pick-3 discovery)"
     )
@@ -130,6 +142,9 @@ export function buildProgram(): Command {
       repair?: boolean;
       remorphDensity?: string;
       shareLink?: boolean;
+      generatePrompt?: boolean;
+      promptIntent?: string;
+      promptDensity?: string;
       previewCompare?: string;
       previewDir?: string;
       previewMode?: string;
@@ -157,6 +172,34 @@ export function buildProgram(): Command {
       if (options.listScaffoldPurposes) {
         for (const p of listScaffoldPurposes()) {
           process.stdout.write(`${p.id}\t${p.label ?? p.id}\n`);
+        }
+        return;
+      }
+
+      if (options.generatePrompt) {
+        const densityRaw = (options.promptDensity ?? "speaker").toLowerCase();
+        if (densityRaw !== "speaker" && densityRaw !== "reading") {
+          process.stderr.write(
+            `Error: --prompt-density must be "speaker" or "reading" (got "${options.promptDensity}")\n`
+          );
+          process.exit(1);
+        }
+        try {
+          const result = await buildGenerateDeckPrompt({
+            theme: options.theme,
+            intent: options.promptIntent,
+            density: densityRaw as DensityMode,
+            themesDir: getBundledThemesDir(),
+            fallbackThemesDirs: [process.cwd()],
+          });
+          const outputPath = resolve(process.cwd(), options.output ?? "craft-prompt.json");
+          await writeFile(outputPath, JSON.stringify(result, null, 2), "utf-8");
+          process.stdout.write(
+            `Wrote craft prompt (${result.theme}, density=${result.density}) → ${outputPath}\n`
+          );
+        } catch (err) {
+          process.stderr.write(`Error: ${(err as Error).message}\n`);
+          process.exit(1);
         }
         return;
       }
