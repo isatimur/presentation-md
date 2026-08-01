@@ -1,5 +1,12 @@
 # @presentation-md/export
 
+## 1.23.12
+
+### Patch Changes
+
+- Updated dependencies [f7445a4]
+  - @presentation-md/core@1.19.2
+
 ## 1.23.11
 
 ### Patch Changes
