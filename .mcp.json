@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "presentation-md": {
+      "command": "npx",
+      "args": ["-y", "@presentation-md/mcp-server"]
+    }
+  }
+}
