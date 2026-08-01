@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.19.5
+
+### Patch Changes
+
+- 7b9976e: Densify Studio Title/Bento/Compare shot strips to one shared iframe per theme (scroll-crop), including Example open-gated mounts; skill/MCP/vs copy keep pace.
+
 ## 1.19.4
 
 ### Patch Changes
