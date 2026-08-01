@@ -1,5 +1,11 @@
 # @presentation-md/studio
 
+## 1.25.0
+
+### Minor Changes
+
+- 6b535e6: Studio horizontal densified filmstrip (one iframe), preview Fit/zoom controls, and speaker-notes handout TXT/VTT export.
+
 ## 1.24.1
 
 ### Patch Changes
