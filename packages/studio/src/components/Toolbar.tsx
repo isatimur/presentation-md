@@ -18,6 +18,7 @@ import {
   downloadHtml,
   downloadPptx,
   downloadJson,
+  downloadPdf,
   printDeckPdf,
   parseDeckFile,
   importPptxFile,
@@ -265,12 +266,27 @@ export function Toolbar({
     );
   };
 
-  const exportPdf = () => {
+  const exportPdf = async () => {
+    setBusy(true);
+    setStatus("Building PDF…");
     try {
-      printDeckPdf(deck, html);
-      setStatus("Print / PDF — choose Save as PDF in the dialog (16:9 print CSS)");
+      const { mode } = await downloadPdf(deck, html);
+      if (mode === "headless") {
+        setStatus("Downloaded PDF (vector · headless Chromium)");
+      } else if (mode === "client") {
+        setStatus("Downloaded PDF (client raster · 16:9 pages)");
+      } else {
+        setStatus("Print dialog — Save as PDF (16:9 print CSS fallback)");
+      }
     } catch (err) {
-      setStatus(`Print / PDF failed: ${(err as Error).message}`);
+      try {
+        printDeckPdf(deck, html);
+        setStatus(`PDF blob failed (${(err as Error).message}) — use Save as PDF in the print dialog`);
+      } catch (printErr) {
+        setStatus(`Download PDF failed: ${(printErr as Error).message}`);
+      }
+    } finally {
+      setBusy(false);
     }
   };
 
@@ -650,17 +666,18 @@ export function Toolbar({
       </button>
       <div className="toolbar-cluster" role="group" aria-label="Export">
         <details className="export-more">
-          <summary className="btn btn-sm" title="Download Deck JSON, HTML, or Print / PDF">Source ▾</summary>
+          <summary className="btn btn-sm" title="Download Deck JSON, HTML, or PDF">Source ▾</summary>
           <div className="export-more-panel">
             <button type="button" className="btn" onClick={() => downloadJson(deck)}>Download JSON</button>
             <button type="button" className="btn" onClick={() => downloadHtml(deck, html)}>Download HTML</button>
             <button
               type="button"
               className="btn"
-              onClick={exportPdf}
-              title="Opens print dialog — Save as PDF uses the same @page 16:9 rules as MCP/CLI vector PDF"
+              disabled={busy}
+              onClick={() => void exportPdf()}
+              title="Downloads a .pdf blob — local Studio uses headless Chromium (MCP/CLI parity); static hosts use client raster; print dialog is last-resort fallback"
             >
-              Print / PDF
+              {busy ? "…" : "Download PDF"}
             </button>
           </div>
         </details>

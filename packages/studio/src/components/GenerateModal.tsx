@@ -1,6 +1,11 @@
 import { useMemo, useState } from "react";
 import type { DeckJson } from "@presentation-md/export";
 import {
+  listScaffoldPurposes,
+  scaffoldDeck,
+  type ScaffoldPurpose,
+} from "@presentation-md/core";
+import {
   THEME_BROWSE_FILTERS,
   findThemeShortlist,
   listThemeNames,
@@ -22,6 +27,9 @@ const EXAMPLE_BRIEFS = [
   "Launch deck for a developer CLI: what it is, how it works, why it's fast.",
 ];
 
+/** Same recipe catalog as MCP `scaffold_deck` — craft floor without an API key. */
+const SCAFFOLD_PURPOSE_CHIPS = listScaffoldPurposes();
+
 export function GenerateModal({
   currentTheme,
   onGenerate,
@@ -36,6 +44,7 @@ export function GenerateModal({
   const [moodFilter, setMoodFilter] = useState<ThemeBrowseFilterId>("all");
   const [shortlistId, setShortlistId] = useState("");
   const [density, setDensity] = useState<DensityMode>("speaker");
+  const [purpose, setPurpose] = useState<ScaffoldPurpose>("pitch");
   const [model, setModel] = useState<GenModelId>(GEN_MODELS[0].id);
   const [apiKey, setApiKey] = useState(() => localStorage.getItem(KEY_STORAGE) ?? "");
   const [remember, setRemember] = useState(() => !!localStorage.getItem(KEY_STORAGE));
@@ -114,6 +123,22 @@ export function GenerateModal({
       setStatus((err as Error).message);
     } finally {
       setBusy(false);
+    }
+  };
+
+  const landScaffold = () => {
+    try {
+      const title =
+        brief.trim().split(/[.!?\n]/)[0]?.trim().slice(0, 80) || "Untitled deck";
+      const result = scaffoldDeck({
+        purpose,
+        theme,
+        title,
+      });
+      onGenerate(result.deck as DeckJson);
+      onClose();
+    } catch (err) {
+      setStatus((err as Error).message);
     }
   };
 
@@ -307,6 +332,38 @@ export function GenerateModal({
             </p>
             <button className="btn btn-primary btn-block" disabled={busy} onClick={runGenerate}>
               {busy ? "Generating…" : "Generate deck"}
+            </button>
+          </div>
+
+          <div className="gen-divider"><span>or land a craft scaffold (no key)</span></div>
+
+          <div className="gen-panel">
+            <p className="muted small">
+              Same recipes as MCP <code>scaffold_deck</code> — layouts, asymmetry, dual CTAs, and notes
+              pre-wired. Beats freeform vibe drafts; rewrite placeholder copy, then Audit craft.
+            </p>
+            <label className="field-label">Recipe</label>
+            <div className="theme-shortlist-row" role="listbox" aria-label="Scaffold recipe">
+              {SCAFFOLD_PURPOSE_CHIPS.map((p) => (
+                <button
+                  key={p.id}
+                  type="button"
+                  className={`chip${purpose === p.id ? " active" : ""}`}
+                  title={`${p.label} · ${p.slide_count} slides · default ${p.defaultTheme}`}
+                  onClick={() => setPurpose(p.id)}
+                >
+                  {p.id}
+                </button>
+              ))}
+            </div>
+            <button
+              className="btn btn-block"
+              type="button"
+              disabled={busy}
+              onClick={landScaffold}
+              title="Land schema-native Deck JSON skeleton — no Anthropic key"
+            >
+              Land {purpose} scaffold
             </button>
           </div>
 

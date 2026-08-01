@@ -4,8 +4,10 @@ A browser-based editor studio for presentation-md decks. Edit slides through
 schema-driven forms, see a live preview, and export to HTML or **native, editable PowerPoint
 (`.pptx`)** — which also opens in Keynote and imports into Google Slides.
 
-It's a fully **static** Vite + React SPA: rendering and `.pptx` generation happen client-side, so
-there's no backend, no API keys, and nothing to host beyond static files.
+It's a fully **static** Vite + React SPA for hosted builds: rendering and `.pptx` generation happen
+client-side. Local `vite` / `vite preview` also mounts `/api/export-pdf` (headless Chromium) so
+**Download PDF** returns a real `.pdf` blob — same `@page` 16:9 print pipeline as MCP/CLI. On static
+hosts the button falls back to client raster, then the print dialog.
 
 ## Develop
 
@@ -22,7 +24,8 @@ pnpm --filter @presentation-md/studio test:e2e  # Playwright flow (needs: npx pl
 - **Form editor** — fields per layout (cards, stats, steps, table rows…), driven by the deck schema, plus speaker notes that export to the PPTX notes pane.
 - **Live preview** — an `<iframe>` rendered with the same shared Mustache layouts + theme tokens as
   the canonical Node renderer, so what you see matches the published deck.
-- **Export** — Download HTML, **Print / PDF** (browser Save as PDF via the same `@page` 16:9 print CSS as MCP/CLI), Download `.pptx`, or export the raw Deck JSON. Import any Deck JSON to keep editing. Theme picker covers every bundled + workspace theme. Craft audit panel includes **Apply safe fixes** (same `repairCraft` path as MCP `audit_deck` `apply_safe_fixes`).
+- **Generate** — Anthropic key path, agent-handoff prompt, or **Land scaffold** (same recipes as MCP `scaffold_deck` — no key).
+- **Export** — Download HTML, **Download PDF** (headless blob locally / client raster on static / print fallback), Download `.pptx`, or export the raw Deck JSON. Import any Deck JSON to keep editing. Theme picker covers every bundled + workspace theme. Craft audit panel includes **Apply safe fixes** / per-issue **Insert beat** (same `repairCraft` path as MCP `audit_deck` `apply_safe_fixes`).
 
 ## How it stays in sync with the renderer
 

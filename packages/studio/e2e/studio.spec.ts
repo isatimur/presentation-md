@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("edit a slide, see the live preview update, and export .pptx", async ({ page }) => {
+  test.setTimeout(120_000);
   await page.goto("/");
 
   const frame = page.frameLocator(".preview-frame");
@@ -21,15 +22,33 @@ test("edit a slide, see the live preview update, and export .pptx", async ({ pag
   ]);
   expect(download.suggestedFilename()).toMatch(/\.pptx$/);
 
-  // Source ▾ → Download HTML (cached render + octet-stream; panel above audit).
-  await page.locator("details.export-more > summary").click();
+  // Source ▾ → Download HTML + PDF (cached render; panel above audit).
+  const sourceMenu = page.locator("details.export-more");
+  await sourceMenu.locator("summary").click();
   await expect(page.getByRole("button", { name: /Download HTML/i })).toBeVisible();
-  await expect(page.getByRole("button", { name: /Print \/ PDF/i })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Download PDF/i })).toBeVisible();
   const [htmlDownload] = await Promise.all([
     page.waitForEvent("download", { timeout: 15_000 }),
     page.getByRole("button", { name: /Download HTML/i }).click(),
   ]);
   expect(htmlDownload.suggestedFilename()).toMatch(/\.html$/);
+
+  // Force Source ▾ open — downloads / re-renders can collapse <details>.
+  await sourceMenu.evaluate((el) => {
+    (el as HTMLDetailsElement).open = true;
+  });
+  await expect(page.getByRole("button", { name: /Download PDF/i })).toBeVisible();
+  const [pdfDownload] = await Promise.all([
+    page.waitForEvent("download", { timeout: 90_000 }),
+    page.getByRole("button", { name: /Download PDF/i }).click(),
+  ]);
+  expect(pdfDownload.suggestedFilename()).toMatch(/\.pdf$/);
+  const pdfPath = await pdfDownload.path();
+  expect(pdfPath).toBeTruthy();
+  const { readFile } = await import("node:fs/promises");
+  const pdfBytes = await readFile(pdfPath!);
+  expect(pdfBytes.subarray(0, 4).toString("utf8")).toBe("%PDF");
+  expect(pdfBytes.byteLength).toBeGreaterThan(1_000);
 });
 
 test("pick-3 theme compare tray fills slots and can lock a theme", async ({ page }) => {
@@ -94,6 +113,13 @@ test("Generate modal opens, validates input, and offers the agent-handoff path",
   // …and generating without an API key surfaces a clear error (no network call).
   await page.getByRole("button", { name: /^Generate deck$/ }).click();
   await expect(page.getByText(/Enter your Anthropic API key/)).toBeVisible();
+
+  // Craft scaffold lands without a key (MCP scaffold_deck parity).
+  await page.getByRole("button", { name: /^launch$/i }).click();
+  await page.getByRole("button", { name: /Land launch scaffold/i }).click();
+  await expect(page.getByRole("heading", { name: "Generate a deck" }).or(page.getByText("Generate a deck"))).toHaveCount(0);
+  const frame = page.frameLocator(".preview-frame");
+  await expect(frame.locator("section").first()).toBeVisible();
 });
 
 

@@ -26,8 +26,24 @@ function themeName(deck: DeckJson): string {
   return deck.meta?.theme ?? "default-tech";
 }
 
+function deckHtml(deck: DeckJson, renderedHtml?: string): string {
+  return (
+    renderedHtml ??
+    (() => {
+      const theme = resolveTheme(themeName(deck));
+      return renderDeckHtml(deck, theme);
+    })()
+  );
+}
+
 export interface PptxDownloadResult {
   warnings: string[];
+}
+
+export type PdfDownloadMode = "headless" | "client" | "print";
+
+export interface PdfDownloadResult {
+  mode: PdfDownloadMode;
 }
 
 /** Prefetch http(s) + local images to data URIs so PPTX export can embed them. */
@@ -55,12 +71,7 @@ export async function downloadPptx(deck: DeckJson): Promise<PptxDownloadResult> 
 export function downloadHtml(deck: DeckJson, renderedHtml?: string): void {
   // Prefer the already-rendered Studio preview HTML so the click stays
   // gesture-associated (avoids headless re-render cost).
-  const html =
-    renderedHtml ??
-    (() => {
-      const theme = resolveTheme(themeName(deck));
-      return renderDeckHtml(deck, theme);
-    })();
+  const html = deckHtml(deck, renderedHtml);
   // application/octet-stream: Chromium blocks blob: downloads of text/html
   // (phishing protection) — which flakes Playwright and some browsers.
   triggerDownload(
@@ -77,21 +88,154 @@ export function downloadJson(deck: DeckJson): void {
 }
 
 /**
+ * Local Vite / preview middleware — Chromium printToPDF (same @page 16:9 as MCP/CLI).
+ * Absent on static Vercel hosts; callers fall through to client raster or print.
+ */
+export async function fetchHeadlessPdfBlob(html: string): Promise<Blob | null> {
+  try {
+    const controller = new AbortController();
+    const timer = globalThis.setTimeout(() => controller.abort(), 45_000);
+    let res: Response;
+    try {
+      res = await fetch("/api/export-pdf", {
+        method: "POST",
+        headers: { "Content-Type": "text/html; charset=utf-8" },
+        body: html,
+        signal: controller.signal,
+      });
+    } finally {
+      globalThis.clearTimeout(timer);
+    }
+    if (!res.ok) return null;
+    const blob = await res.blob();
+    if (!blob.size) return null;
+    if (/pdf/i.test(blob.type)) return blob;
+    // Some servers omit Content-Type — accept bodies that look like PDF.
+    const head = new Uint8Array(await blob.slice(0, 5).arrayBuffer());
+    const magic = String.fromCharCode(...head);
+    if (!magic.startsWith("%PDF")) return null;
+    return new Blob([blob], { type: "application/pdf" });
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Client-side PDF: rasterize each `.slide` into a 16:9 page (production Studio
+ * has no headless Chromium). Prefer `fetchHeadlessPdfBlob` when the Vite API exists.
+ */
+export async function downloadPdfClientRaster(
+  deck: DeckJson,
+  renderedHtml?: string
+): Promise<void> {
+  const html = deckHtml(deck, renderedHtml);
+  const [{ default: html2canvas }, { PDFDocument }] = await Promise.all([
+    import("html2canvas"),
+    import("pdf-lib"),
+  ]);
+
+  const iframe = document.createElement("iframe");
+  iframe.setAttribute("aria-hidden", "true");
+  iframe.style.cssText =
+    "position:fixed;left:-12000px;top:0;width:1920px;height:1080px;border:0;opacity:0;pointer-events:none";
+  document.body.appendChild(iframe);
+
+  try {
+    const doc = iframe.contentDocument;
+    if (!doc) throw new Error("Could not open PDF render frame");
+    doc.open();
+    doc.write(html);
+    doc.close();
+
+    await new Promise<void>((resolve) => {
+      if (doc.readyState === "complete") resolve();
+      else iframe.addEventListener("load", () => resolve(), { once: true });
+    });
+    // Fonts / theme CSS settle before capture.
+    await new Promise((r) => window.setTimeout(r, 350));
+    try {
+      await doc.fonts?.ready;
+    } catch {
+      /* ignore */
+    }
+
+    const slides = [...doc.querySelectorAll(".slide")] as HTMLElement[];
+    if (!slides.length) {
+      throw new Error("No .slide elements found to rasterize");
+    }
+
+    const pdf = await PDFDocument.create();
+    const pageW = 1920;
+    const pageH = 1080;
+
+    for (const slide of slides) {
+      const canvas = await html2canvas(slide, {
+        scale: 1,
+        width: pageW,
+        height: pageH,
+        windowWidth: pageW,
+        windowHeight: pageH,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: null,
+        logging: false,
+      });
+      const dataUrl = canvas.toDataURL("image/jpeg", 0.92);
+      const jpgBytes = await fetch(dataUrl).then((r) => r.arrayBuffer());
+      const jpg = await pdf.embedJpg(jpgBytes);
+      const page = pdf.addPage([pageW, pageH]);
+      page.drawImage(jpg, { x: 0, y: 0, width: pageW, height: pageH });
+    }
+
+    const bytes = await pdf.save();
+    const copy = new Uint8Array(bytes);
+    triggerDownload(
+      new Blob([copy], { type: "application/pdf" }),
+      safeName(deck, "pdf")
+    );
+  } finally {
+    iframe.remove();
+  }
+}
+
+/**
+ * True PDF blob download when possible:
+ * 1. Local Vite headless Chromium (vector, selectable text — MCP/CLI parity)
+ * 2. Client raster (static hosts)
+ * 3. Browser print dialog as last resort
+ */
+export async function downloadPdf(
+  deck: DeckJson,
+  renderedHtml?: string
+): Promise<PdfDownloadResult> {
+  const html = deckHtml(deck, renderedHtml);
+
+  const headless = await fetchHeadlessPdfBlob(html);
+  if (headless) {
+    triggerDownload(headless, safeName(deck, "pdf"));
+    return { mode: "headless" };
+  }
+
+  try {
+    await downloadPdfClientRaster(deck, html);
+    return { mode: "client" };
+  } catch {
+    printDeckPdf(deck, html);
+    return { mode: "print" };
+  }
+}
+
+/**
  * Open the rendered deck in a print window so the browser's Save as PDF uses the
  * same `@media print` / `@page` 16:9 rules as MCP/CLI vector PDF (one page per slide).
- * Pure client path — no server round-trip.
+ * Pure client path — no server round-trip. Kept as fallback when blob export fails.
  */
 export function printDeckPdf(deck: DeckJson, renderedHtml?: string): void {
-  const html =
-    renderedHtml ??
-    (() => {
-      const theme = resolveTheme(themeName(deck));
-      return renderDeckHtml(deck, theme);
-    })();
+  const html = deckHtml(deck, renderedHtml);
   const w = window.open("", "_blank", "noopener,noreferrer");
   if (!w) {
     throw new Error(
-      "Pop-up blocked — allow pop-ups for Studio, then try Print / PDF again (or use MCP/CLI `format: pdf`)."
+      "Pop-up blocked — allow pop-ups for Studio, then try Download PDF again (or use MCP/CLI `format: pdf`)."
     );
   }
   w.document.open();

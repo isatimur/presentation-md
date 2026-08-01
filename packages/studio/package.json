@@ -16,12 +16,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.109.0",
     "@presentation-md/core": "workspace:*",
     "@presentation-md/export": "workspace:*",
+    "html2canvas": "^1.4.1",
     "mustache": "^4.2.0",
+    "pdf-lib": "^1.17.1",
     "react": "^18.3.0",
-    "react-dom": "^18.3.0",
-    "@anthropic-ai/sdk": "^0.109.0"
+    "react-dom": "^18.3.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.48.0",
