@@ -1,5 +1,11 @@
 # @presentation-md/render
 
+## 1.12.0
+
+### Minor Changes
+
+- ce899cf: CLI craft loop: `--scaffold`, `--audit [--fix]`, and `--apply-theme` (MCP scaffold/audit/apply_theme parity for shell agents).
+
 ## 1.11.0
 
 ### Minor Changes
