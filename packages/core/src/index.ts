@@ -46,6 +46,11 @@ export {
   resolveThemeAlias,
   themeMatchesMood,
   themeMatchesQuery,
+  THEME_BROWSE_FILTERS,
+  THEME_BROWSE_POPULAR,
+  isThemeBrowsePopular,
+  themeMatchesBrowseFilter,
+  isThemeBrowseFilterId,
   parseLayoutRecipeHeadings,
   themeDiscoveryLinks,
   PRESENTATION_MD_SITE,
@@ -56,5 +61,7 @@ export type {
   ThemeShortlistsDoc,
   ThemeSelectionEntry,
   ThemeSelectionIndex,
+  ThemeBrowseFilterId,
+  ThemeBrowseMeta,
 } from "./theme-discovery.js";
 export { relativeLuminance, contrastRatio, hexToRgb, rgbToHex } from "./color.js";

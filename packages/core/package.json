@@ -17,6 +17,7 @@
     "./validate-deck": "./dist/validate-deck.js",
     "./theme-surface": "./dist/theme-surface.js",
     "./theme-loader": "./dist/theme-loader.js",
+    "./theme-browse": "./dist/theme-browse.js",
     "./skill": "./SKILL.md",
     "./deck-schema": "./deck.schema.json",
     "./theme-schema": "./theme.schema.json",

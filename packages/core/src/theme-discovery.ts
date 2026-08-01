@@ -128,6 +128,15 @@ export function themeMatchesMood(entry: ThemeSelectionEntry, mood: string): bool
   return (entry.mood ?? []).some((x) => x.toLowerCase().includes(m));
 }
 
+export {
+  THEME_BROWSE_FILTERS,
+  THEME_BROWSE_POPULAR,
+  isThemeBrowsePopular,
+  themeMatchesBrowseFilter,
+  isThemeBrowseFilterId,
+} from "./theme-browse.js";
+export type { ThemeBrowseFilterId, ThemeBrowseMeta } from "./theme-browse.js";
+
 export function themeMatchesQuery(
   fields: {
     name: string;

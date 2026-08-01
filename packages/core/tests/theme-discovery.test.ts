@@ -126,6 +126,44 @@ describe("theme-discovery helpers", () => {
     expect(themeMatchesQuery(entry, "boardroom")).toBe(false);
   });
 
+  it("matches site mood-browse chips (popular / dark / editorial / neon)", async () => {
+    const { themeMatchesBrowseFilter, THEME_BROWSE_FILTERS, THEME_BROWSE_POPULAR } =
+      await import("../src/theme-browse.js");
+    expect(THEME_BROWSE_FILTERS.map((f) => f.id)).toEqual([
+      "all",
+      "popular",
+      "dark",
+      "light",
+      "editorial",
+      "neon",
+      "playful",
+      "brutal",
+      "luxury",
+      "tech",
+    ]);
+    expect(THEME_BROWSE_POPULAR.has("aurora-glass")).toBe(true);
+    expect(
+      themeMatchesBrowseFilter(
+        { scheme: "dark", mood: ["neon", "cinematic"], popular: true },
+        "popular",
+        "aurora-glass"
+      )
+    ).toBe(true);
+    expect(
+      themeMatchesBrowseFilter({ scheme: "dark", mood: ["neon", "edgy"] }, "neon", "default-tech")
+    ).toBe(true);
+    expect(
+      themeMatchesBrowseFilter(
+        { scheme: "light", mood: ["magazine", "ink", "literary"] },
+        "editorial",
+        "editorial-serif"
+      )
+    ).toBe(true);
+    expect(
+      themeMatchesBrowseFilter({ scheme: "light", mood: ["playful"] }, "dark", "playful")
+    ).toBe(false);
+  });
+
   it("parses layout recipe headings from the recipes markdown", async () => {
     const md = await loadLayoutRecipesMarkdown();
     const headings = parseLayoutRecipeHeadings(md);
