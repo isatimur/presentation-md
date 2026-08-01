@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.19.1
+
+### Patch Changes
+
+- 05cf502: Wire vector PDF into MCP `export_deck` and CLI `--format pdf` (Chromium print via core export-pdf pipeline), plus `@page` 16:9 print sizing.
+
 ## 1.19.0
 
 ### Minor Changes
