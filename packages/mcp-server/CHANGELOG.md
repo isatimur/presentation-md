@@ -1,5 +1,19 @@
 # @presentation-md/mcp-server
 
+## 1.25.0
+
+### Minor Changes
+
+- a384de0: Add `scaffold_deck` MCP (layout-recipe skeletons), theme-honesty `repairCraft` expansions + Studio per-issue Insert beat buttons, and sync web badges to core@1.21.0 / mcp@1.24.0 / render@1.9.4.
+
+### Patch Changes
+
+- Updated dependencies [a384de0]
+  - @presentation-md/core@1.22.0
+  - @presentation-md/create-theme@1.1.18
+  - @presentation-md/export@1.23.18
+  - @presentation-md/render@1.9.5
+
 ## 1.24.0
 
 ### Minor Changes
