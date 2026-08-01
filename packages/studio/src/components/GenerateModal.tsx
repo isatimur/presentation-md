@@ -6,6 +6,7 @@ import {
   listThemeNames,
   listThemeShortlists,
   listThemeSummaries,
+  pickDiscoveryPreviewTrio,
   resolveTheme,
   themePassesBrowseFilter,
   type ThemeBrowseFilterId,
@@ -66,14 +67,29 @@ export function GenerateModal({
     });
   }, [activeShortlist, moodFilter, themeNames, themes]);
 
-  /** Pick-3 visual compare from the active shortlist (or popular / mood-filtered defaults). */
+  /** Pick-3 visual compare — safe/bold/wildcard from shortlist or mood filter (frontend-slides mix). */
   const discoverThree = useMemo(() => {
-    const pool =
-      activeShortlist?.themes ??
-      (moodFilter === "all"
-        ? ["default-tech", "aurora-glass", "soft-editorial"]
-        : selectableThemes);
-    const names = pool.filter((n) => themeNames.includes(n)).slice(0, 3);
+    const poolNames = activeShortlist?.themes?.length
+      ? activeShortlist.themes.filter((n) => themeNames.includes(n))
+      : moodFilter === "all"
+        ? ["default-tech", "aurora-glass", "soft-editorial"].filter((n) =>
+            themeNames.includes(n)
+          )
+        : selectableThemes;
+    const trio =
+      pickDiscoveryPreviewTrio(
+        poolNames.map((name) => {
+          const summary = themes.find((t) => t.name === name);
+          return {
+            name,
+            scheme: summary?.scheme,
+            mood: summary?.mood,
+            formality: summary?.formality,
+            popular: summary?.popular,
+          };
+        })
+      )?.themes ?? poolNames.slice(0, 3);
+    const names = [...trio];
     while (names.length < 3) {
       const fallback = themeNames.find((n) => !names.includes(n));
       if (!fallback) break;

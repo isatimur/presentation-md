@@ -42,7 +42,7 @@ Demo without installing: open the [gallery](https://presentation-md.vercel.app/#
 | | presentation-md | frontend-slides |
 |---|---|---|
 | **Themes** | **75** published + create-from-brand | Style presets / template pack |
-| **Discovery** | Studio **mood browse chips** (site parity) + MCP `list_themes` **browse** chips + **pick-3 compare** (live auto-on at 3) + Generate **live-by-default** Title/Bento/Compare crops + Example live trio + CLI `--preview-compare` + `preview_themes` **auto-layouts** + `file_url`/`compare_summary` DX | Live style gallery (strong) |
+| **Discovery** | Studio **mood browse chips** (site parity) + **Compare 3** (safe/bold/wildcard fill) + MCP `list_themes` **browse** chips + **`suggested_preview` trio** + **pick-3 compare** (live auto-on at 3) + Generate **live-by-default** Title/Bento/Compare crops + Example live trio + CLI `--preview-compare` + `preview_themes` **auto-layouts** + `file_url`/`compare_summary` DX | Live style gallery (strong) |
 | **One-shot quality** | Anti-slop + stunning-25-first + density lock + `audit_deck`/`judge_deck` | Anti-slop rules; no shared audit product |
 | **Authoring model** | Schema-validated **Deck JSON** agents can diff/edit one slide | Prompt → HTML (harder to surgically edit) |
 | **Layouts** | **18** craft layouts + `custom-html` recipes (`ranked-list`, `logo-wall`, `streak-grid`, `metric-ring`, `chart`, `custom-html`, `image-hero`, bento, comparison, code…) | Template-driven HTML |

@@ -8,6 +8,7 @@ import type {
 import {
   THEME_BROWSE_FILTERS,
   isThemeBrowsePopular,
+  pickDiscoveryPreviewTrio,
   themeMatchesBrowseFilter,
   type ThemeBrowseFilterId,
   type ThemeBrowseMeta,
@@ -86,7 +87,7 @@ export interface ThemeShortlistSummary {
   popular?: boolean;
 }
 
-export { THEME_BROWSE_FILTERS };
+export { THEME_BROWSE_FILTERS, pickDiscoveryPreviewTrio };
 export type { ThemeBrowseFilterId };
 
 export function listThemeNames(): string[] {

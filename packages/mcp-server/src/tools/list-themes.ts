@@ -10,6 +10,7 @@ import {
   THEME_BROWSE_FILTERS,
   isThemeBrowseFilterId,
   themeMatchesBrowseFilter,
+  pickDiscoveryPreviewTrio,
   type ThemeBrowseFilterId,
 } from "@presentation-md/core";
 import { getBundledThemesDir } from "@presentation-md/render";
@@ -18,7 +19,7 @@ import type { ToolDefinition } from "../server.js";
 export const listThemesTool: ToolDefinition = {
   name: "list_themes",
   description:
-    "List available presentation-md themes (name, version, vibe, description, proof deep-links). Optional filters: shortlist id, browse chip id (site/Studio mood bar: popular/dark/editorial/neon/…), mood/query from the selection index — use for Theme Discovery before locking meta.theme. Each theme may include preview_url, studio_url, gallery_url. Set include_shortlists / include_browse_filters for catalogs.",
+    "List available presentation-md themes (name, version, vibe, description, proof deep-links). Optional filters: shortlist id, browse chip id (site/Studio mood bar: popular/dark/editorial/neon/…), mood/query from the selection index — use for Theme Discovery before locking meta.theme. Each theme may include preview_url, studio_url, gallery_url. Returns suggested_preview (safe/bold/wildcard trio) when ≥1 themes match. Set include_shortlists / include_browse_filters for catalogs.",
   inputSchema: {
     type: "object",
     properties: {
@@ -147,11 +148,23 @@ export const listThemesTool: ToolDefinition = {
       );
     }
 
+    const suggested_preview = pickDiscoveryPreviewTrio(
+      themes.map((t) => ({
+        name: t.name,
+        scheme: t.scheme,
+        mood: t.mood,
+        formality: t.formality,
+      }))
+    );
+
     const result: Record<string, unknown> = {
       themes,
       discovery_hint:
-        "Theme Discovery: offer browse chips (list_themes include_browse_filters) or a shortlist (prefer popular:true), open studio_url / preview_url (show-don't-tell), then preview_themes with 3 names and mode=\"layouts\" (safe + bold + wildcard). Lock meta.theme before generating the full deck.",
+        "Theme Discovery: offer browse chips (list_themes include_browse_filters) or a shortlist (prefer popular:true), use suggested_preview (safe/bold/wildcard) or open studio_url / preview_url (show-don't-tell), then preview_themes with those 3 names (layouts auto). Lock meta.theme before generating the full deck.",
     };
+    if (suggested_preview) {
+      result.suggested_preview = suggested_preview;
+    }
     if (browse) {
       result.browse = browse;
     } else if (browseInvalid) {

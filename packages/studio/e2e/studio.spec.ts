@@ -133,6 +133,13 @@ test("theme browser mood chips filter the catalog like the site gallery", async 
   const neonCount = await panel.locator("li").count();
   expect(neonCount).toBeGreaterThan(0);
   expect(neonCount).toBeLessThan(popularCount);
+
+  // Compare 3 — safe/bold/wildcard fill from the active browse filter.
+  await panel.getByRole("button", { name: /^Compare 3$/ }).click();
+  const tray = panel.locator(".theme-compare");
+  await expect(tray).toBeVisible();
+  await expect(tray.getByText(/Compare 3\/3/i)).toBeVisible();
+  await expect(tray.getByRole("button", { name: /Hide live/i })).toBeVisible();
 });
 
 test("Example featured trio supports Title/Bento/Compare crops via local /previews", async ({

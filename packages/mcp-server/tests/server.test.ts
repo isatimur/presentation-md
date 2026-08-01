@@ -216,6 +216,24 @@ describe("list_themes", () => {
     expect(result.browse_error).toMatch(/Unknown browse chip/i);
     expect(result.browse_filters?.some((f) => f.id === "neon")).toBe(true);
   });
+
+  it("returns suggested_preview safe/bold/wildcard trio", async () => {
+    const result = (await listThemesTool.handler({ browse: "popular" })) as {
+      suggested_preview?: {
+        themes: string[];
+        roles: { safe?: string; bold?: string; wildcard?: string };
+        hint: string;
+      };
+    };
+    expect(result.suggested_preview?.themes.length).toBeGreaterThan(0);
+    expect(result.suggested_preview?.themes.length).toBeLessThanOrEqual(3);
+    expect(result.suggested_preview?.hint).toMatch(/preview_themes/i);
+    expect(
+      result.suggested_preview?.roles.safe ||
+        result.suggested_preview?.roles.bold ||
+        result.suggested_preview?.roles.wildcard
+    ).toBeTruthy();
+  });
 });
 
 describe("generate_deck_prompt", () => {

@@ -134,8 +134,14 @@ export {
   isThemeBrowsePopular,
   themeMatchesBrowseFilter,
   isThemeBrowseFilterId,
+  pickDiscoveryPreviewTrio,
 } from "./theme-browse.js";
-export type { ThemeBrowseFilterId, ThemeBrowseMeta } from "./theme-browse.js";
+export type {
+  ThemeBrowseFilterId,
+  ThemeBrowseMeta,
+  DiscoveryPreviewCandidate,
+  DiscoveryPreviewTrio,
+} from "./theme-browse.js";
 
 export function themeMatchesQuery(
   fields: {

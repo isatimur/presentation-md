@@ -51,6 +51,7 @@ export {
   isThemeBrowsePopular,
   themeMatchesBrowseFilter,
   isThemeBrowseFilterId,
+  pickDiscoveryPreviewTrio,
   parseLayoutRecipeHeadings,
   themeDiscoveryLinks,
   PRESENTATION_MD_SITE,
@@ -63,5 +64,7 @@ export type {
   ThemeSelectionIndex,
   ThemeBrowseFilterId,
   ThemeBrowseMeta,
+  DiscoveryPreviewCandidate,
+  DiscoveryPreviewTrio,
 } from "./theme-discovery.js";
 export { relativeLuminance, contrastRatio, hexToRgb, rgbToHex } from "./color.js";

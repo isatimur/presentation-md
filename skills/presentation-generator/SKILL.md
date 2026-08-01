@@ -389,7 +389,7 @@ Eleven tools via `@presentation-md/mcp-server` (not the deprecated `@presentatio
 | `render_deck` | Convert deck JSON → polished HTML |
 | `export_deck` | Export deck JSON → `.pptx` (or html) |
 | `audit_deck` | Schema-validate + structured severity issues before shipping |
-| `list_themes` | See installed themes with vibe/description + proof deep-links; filter with `browse` chips (site/Studio parity), shortlist, mood, or query |
+| `list_themes` | See installed themes with vibe/description + proof deep-links; filter with `browse` chips (site/Studio parity), shortlist, mood, or query; use `suggested_preview` (safe/bold/wildcard) for pick-3 |
 | `apply_theme` | Swap `meta.theme` without rewriting slides |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
 | `preview_themes` | Render 1–3 theme HTML previews; pass `mode: "layouts"` for multi-slide craft bake |

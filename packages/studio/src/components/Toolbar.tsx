@@ -5,6 +5,7 @@ import {
   findThemeShortlist,
   listThemeShortlists,
   listThemeSummaries,
+  pickDiscoveryPreviewTrio,
   resolveTheme,
   themePassesBrowseFilter,
   type ThemeBrowseFilterId,
@@ -335,10 +336,34 @@ export function Toolbar({
             ))}
           </div>
           <div className="theme-count">
-            {filtered.length} / {themes.length} themes
-            {moodFilter !== "all" ? ` · ${moodFilter}` : ""}
-            {activeShortlist ? ` · ${activeShortlist.id}` : ""}
-            {compare.length ? ` · compare ${compare.length}/${COMPARE_LIMIT}` : " · ⊕ to compare"}
+            <span>
+              {filtered.length} / {themes.length} themes
+              {moodFilter !== "all" ? ` · ${moodFilter}` : ""}
+              {activeShortlist ? ` · ${activeShortlist.id}` : ""}
+              {compare.length ? ` · compare ${compare.length}/${COMPARE_LIMIT}` : " · ⊕ to compare"}
+            </span>
+            <button
+              type="button"
+              className="chip"
+              disabled={filtered.length === 0}
+              title="Fill pick-3 with a safe + bold + wildcard mix from the current browse filter"
+              onClick={() => {
+                const trio = pickDiscoveryPreviewTrio(
+                  filtered.map((t) => ({
+                    name: t.name,
+                    scheme: t.scheme,
+                    mood: t.mood,
+                    formality: t.formality,
+                    popular: t.popular,
+                  }))
+                );
+                const slots = (trio?.themes ?? filtered.map((t) => t.name)).slice(0, COMPARE_LIMIT);
+                setCompare(slots);
+                setLiveCompare(slots.length >= COMPARE_LIMIT);
+              }}
+            >
+              Compare 3
+            </button>
           </div>
           <ul className="theme-list">
             {filtered.map((t) => {
