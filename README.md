@@ -42,7 +42,7 @@ Demo without installing: open the [gallery](https://presentation-md.vercel.app/#
 | | presentation-md | frontend-slides |
 |---|---|---|
 | **Themes** | **75** published + create-from-brand | Style presets / template pack |
-| **Discovery** | Studio **mood browse chips** (site parity) + **Compare 3** (safe/bold/wildcard fill) + MCP `list_themes` **browse** chips + **`suggested_preview` trio** + **pick-3 / Generate / Example shared-iframe shot strips** (Title/Bento/Compare scroll-crop densified) + Example **Compare 3 themes** bridge + CLI `--preview-compare` **PNGs** + `preview_themes` **inline PNGs** + **auto-layouts** + `file_url`/`compare_summary` DX | Live style gallery (strong) |
+| **Discovery** | Studio **mood browse chips** + **Compare 3** + **My deck restyle** + **Copy link** (`?d=`) + MCP `list_themes` **browse** + `preview_themes` **json deck restyle** + **inline PNGs** + shot strips + CLI `--preview-compare` | Live style gallery (strong) |
 | **One-shot quality** | Anti-slop + stunning-25-first + density lock + `audit_deck`/`judge_deck` + **`apply_safe_fixes`** | Anti-slop rules; no shared audit product |
 | **Authoring model** | Schema-validated **Deck JSON** agents can diff/edit one slide | Prompt → HTML (harder to surgically edit) |
 | **Layouts** | **18** craft layouts + `custom-html` recipes (`ranked-list`, `logo-wall`, `streak-grid`, `metric-ring`, `chart`, `custom-html`, `image-hero`, bento, comparison, code…) | Template-driven HTML |
@@ -339,7 +339,7 @@ pnpm --filter @presentation-md/studio build:web   # static build → web/studio/
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
 | `import_pptx` | Import a `.pptx` into Deck JSON |
 | `import_markdown` | Convert Markdown (+ optional front matter) into Deck JSON |
-| `preview_themes` | Render 1–3 theme previews; optional `mode: "layouts"` for multi-slide craft bake |
+| `preview_themes` | Render 1–3 theme previews; pass `json` for My deck restyle; optional `mode: "layouts"` for multi-slide craft bake |
 | `import_brand_theme` | Generate a theme from a brand URL or CSS file |
 
 ---

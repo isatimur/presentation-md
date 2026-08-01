@@ -390,6 +390,56 @@ describe("preview_themes", () => {
     return { payload: raw as Record<string, unknown>, images: [] as never[] };
   }
 
+  it("restyles a caller deck across themes (Studio My deck parity)", async () => {
+    const { mkdtemp, rm, readFile } = await import("node:fs/promises");
+    const { join } = await import("node:path");
+    const dir = await mkdtemp(join(process.cwd(), "pmd-preview-deck-"));
+    const deck = {
+      type: "deck",
+      meta: { title: "Restyle Me", theme: "default-tech" },
+      slides: [
+        { layout: "title", heading: "Content-true restyle" },
+        { layout: "feature-grid", heading: "Body", cards: [{ title: "A", body: "one" }] },
+      ],
+    };
+    try {
+      const { payload: result } = await runPreview({
+        themes: ["aurora-glass", "soft-editorial"],
+        json: JSON.stringify(deck),
+        slide_index: 1,
+        output_dir: dir,
+      });
+      expect(result.mode).toBe("deck");
+      expect(result.restyle).toBe(true);
+      expect(result.slide_index).toBe(1);
+      const previews = result.previews as Array<{
+        filename: string;
+        mode: string;
+        slides: number;
+        slide_index?: number;
+      }>;
+      expect(previews).toHaveLength(2);
+      expect(previews[0]!.filename).toBe("aurora-glass-deck-restyle.html");
+      expect(previews[0]!.mode).toBe("deck");
+      expect(previews[0]!.slides).toBe(2);
+      expect(previews[0]!.slide_index).toBe(1);
+      const html = await readFile(join(dir, "aurora-glass-deck-restyle.html"), "utf-8");
+      expect(html).toMatch(/Content-true restyle/);
+      expect(result.dx_hint as string).toMatch(/deck-restyle|apply_theme|My deck/i);
+      expect(result.instruction as string).toMatch(/apply_theme|YOUR content/i);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it("rejects mode deck without json", async () => {
+    const { payload: result } = await runPreview({
+      themes: ["default-tech"],
+      mode: "deck",
+    });
+    expect(result.error).toMatch(/requires json/i);
+  });
+
   it("defaults to title mode with one slide filenames", async () => {
     const { mkdtemp, rm } = await import("node:fs/promises");
     const { join } = await import("node:path");
