@@ -1,5 +1,18 @@
 # @presentation-md/studio
 
+## 1.26.0
+
+### Minor Changes
+
+- a1d6f6e: Present mode reuses the densified horizontal filmstrip as a jump peek (toggle F) beside up-next + speaker notes.
+
+### Patch Changes
+
+- 54f5d3c: MCP export_deck gains notes_txt / notes_vtt speaker-notes handouts (shared core helpers; Studio downloads re-export the same builders).
+- Updated dependencies [54f5d3c]
+  - @presentation-md/core@1.26.0
+  - @presentation-md/export@1.23.26
+
 ## 1.25.1
 
 ### Patch Changes
