@@ -1,5 +1,15 @@
 # @presentation-md/core
 
+## 1.17.0
+
+### Minor Changes
+
+- 9ddc04b: `list_themes` returns proof deep-links (`preview_url`, `studio_url`, `gallery_url`) via shared stunning-25 discovery helpers — agents open proofs in one hop vs path-only vibe text.
+
+### Patch Changes
+
+- 976a9b6: Add custom-html craft recipes + fix one-shot anti-slop list so agents get freeform energy without abandoning schema.
+
 ## 1.16.5
 
 ### Patch Changes

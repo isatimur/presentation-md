@@ -1,5 +1,14 @@
 # @presentation-md/install
 
+## 1.1.7
+
+### Patch Changes
+
+- 743b6e8: Post-install next-steps sell pick-3 preview, audit_deck, PPTX, /slides plugin path.
+- Updated dependencies [976a9b6]
+- Updated dependencies [9ddc04b]
+  - @presentation-md/core@1.17.0
+
 ## 1.1.6
 
 ### Patch Changes

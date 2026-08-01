@@ -1,5 +1,21 @@
 # @presentation-md/mcp-server
 
+## 1.16.0
+
+### Minor Changes
+
+- 9ddc04b: `list_themes` returns proof deep-links (`preview_url`, `studio_url`, `gallery_url`) via shared stunning-25 discovery helpers — agents open proofs in one hop vs path-only vibe text.
+
+### Patch Changes
+
+- 976a9b6: Sell craft gates in audit_deck / generate_deck_prompt descriptions and wire custom-html recipes into the one-shot prompt.
+- Updated dependencies [976a9b6]
+- Updated dependencies [9ddc04b]
+  - @presentation-md/core@1.17.0
+  - @presentation-md/create-theme@1.1.8
+  - @presentation-md/export@1.23.8
+  - @presentation-md/render@1.7.4
+
 ## 1.15.1
 
 ### Patch Changes
