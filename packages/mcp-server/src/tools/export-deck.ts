@@ -1,5 +1,5 @@
 import { writeFile } from "node:fs/promises";
-import { renderDeck, renderDeckPptx } from "@presentation-md/render";
+import { renderDeck, renderDeckPptx, renderDeckPdf } from "@presentation-md/render";
 import type { ToolDefinition } from "../server.js";
 import { resolveThemesDir } from "../lib/resolve-themes.js";
 import { assertWritablePathInCwd } from "../lib/cwd-path.js";
@@ -30,15 +30,16 @@ function slideCountOf(json: string): number {
 export const exportDeckTool: ToolDefinition = {
   name: "export_deck",
   description:
-    "Export a presentation-md deck JSON spec to a native, editable PowerPoint (.pptx) file — opens directly in PowerPoint and Keynote, and imports into Google Slides. Also supports html. Writes to output_path when given, otherwise returns base64 bytes.",
+    "Export a presentation-md deck JSON spec to native PowerPoint (.pptx), vector PDF (Chromium print — one page per slide, selectable text), or HTML. Writes to output_path when given, otherwise returns base64 bytes (pptx/pdf) or html string.",
   inputSchema: {
     type: "object",
     properties: {
       json: { type: "string", description: "Deck JSON string conforming to the deck schema" },
       format: {
         type: "string",
-        enum: ["pptx", "html"],
-        description: "Output format (default: pptx)",
+        enum: ["pptx", "html", "pdf"],
+        description:
+          "Output format (default: pptx). pdf uses headless Chromium print (vector, not screenshots).",
       },
       theme: { type: "string", description: "Theme name to apply (overrides meta.theme in the deck)" },
       output_path: {
@@ -54,8 +55,8 @@ export const exportDeckTool: ToolDefinition = {
     const theme = input["theme"] as string | undefined;
     const outputPathInput = input["output_path"] as string | undefined;
 
-    if (format !== "pptx" && format !== "html") {
-      throw new Error(`Unknown format "${format}" (expected pptx | html)`);
+    if (format !== "pptx" && format !== "html" && format !== "pdf") {
+      throw new Error(`Unknown format "${format}" (expected pptx | html | pdf)`);
     }
 
     const deckJson = applyThemeOverride(rawJson, theme);
@@ -76,6 +77,28 @@ export const exportDeckTool: ToolDefinition = {
         result.path = outputPath;
       } else {
         result.html = html;
+      }
+      return result;
+    }
+
+    if (format === "pdf") {
+      const buffer = await renderDeckPdf(deckJson, resolveThemesDir());
+      const result: {
+        format: string;
+        slide_count: number;
+        byte_length: number;
+        path?: string;
+        bytes_base64?: string;
+      } = {
+        format,
+        slide_count,
+        byte_length: buffer.byteLength,
+      };
+      if (outputPath) {
+        await writeFile(outputPath, buffer);
+        result.path = outputPath;
+      } else {
+        result.bytes_base64 = buffer.toString("base64");
       }
       return result;
     }

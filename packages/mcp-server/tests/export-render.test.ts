@@ -67,10 +67,25 @@ describe("export_deck / render_deck tools", () => {
   });
 
   it("export_deck rejects unknown formats", async () => {
-    await expect(exportDeckTool.handler({ json: MINI_DECK, format: "pdf" })).rejects.toThrow(
+    await expect(exportDeckTool.handler({ json: MINI_DECK, format: "docx" })).rejects.toThrow(
       /unknown format/i
     );
   });
+
+  it("export_deck format=pdf returns PDF bytes", async () => {
+    const result = (await exportDeckTool.handler({ json: MINI_DECK, format: "pdf" })) as {
+      format: string;
+      slide_count: number;
+      byte_length: number;
+      bytes_base64?: string;
+    };
+    expect(result.format).toBe("pdf");
+    expect(result.slide_count).toBe(2);
+    expect(result.byte_length).toBeGreaterThan(500);
+    expect(result.bytes_base64).toBeTruthy();
+    const buf = Buffer.from(result.bytes_base64!, "base64");
+    expect(buf.subarray(0, 4).toString("utf-8")).toBe("%PDF");
+  }, 120_000);
 
   it("render_deck returns html and honors theme override", async () => {
     const result = (await renderDeckTool.handler({

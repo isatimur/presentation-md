@@ -25,10 +25,16 @@ const browser = await chromium.launch();
 try {
   const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
   await page.goto(pathToFileURL(inputPath).href, { waitUntil: "networkidle" });
+  // Force 16:9 print pages so Chromium doesn't fall back to Letter/A4 and
+  // collapse multi-slide decks onto one tall sheet.
+  await page.addStyleTag({
+    content: `@page { size: 1920px 1080px; margin: 0; }`,
+  });
   await page.emulateMedia({ media: "print" });
   await page.pdf({
     path: outputPath,
     printBackground: true,
+    preferCSSPageSize: true,
     width: "1920px",
     height: "1080px",
     margin: { top: 0, right: 0, bottom: 0, left: 0 },

@@ -36,7 +36,7 @@ replace it with the block above (or re-run `npx @presentation-md/install cursor`
 | Tool | Description |
 |------|-------------|
 | `render_deck` | Render a deck JSON spec to a self-contained HTML slide deck; optionally write to a file. |
-| `export_deck` | Export deck JSON to native, editable PowerPoint (`.pptx`) or HTML. |
+| `export_deck` | Export deck JSON to native, editable PowerPoint (`.pptx`), vector PDF, or HTML. |
 | `list_themes` | List installed themes (name, version, vibe, description). Optional `shortlist` / `browse` (site/Studio mood chips) / `mood` / `query` filters + `include_shortlists` / `include_browse_filters`. Returns `suggested_preview` (safe/bold/wildcard trio) for one-shot Theme Discovery. |
 | `apply_theme` | Swap the theme in `meta.theme` while keeping all slide content unchanged. |
 | `audit_deck` | Schema validate **plus** craft gates (asymmetry, loud/atmosphere/paper honesty, dual CTA, data beats). Schema-valid ≠ shippable — call before the user sees a first draft. |

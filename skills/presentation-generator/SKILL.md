@@ -387,7 +387,7 @@ Eleven tools via `@presentation-md/mcp-server` (not the deprecated `@presentatio
 | Tool | Use it to |
 |------|-----------|
 | `render_deck` | Convert deck JSON → polished HTML |
-| `export_deck` | Export deck JSON → `.pptx` (or html) |
+| `export_deck` | Export deck JSON → `.pptx`, vector PDF, or html |
 | `audit_deck` | Schema-validate + structured severity issues before shipping |
 | `list_themes` | See installed themes with vibe/description + proof deep-links; filter with `browse` chips (site/Studio parity), shortlist, mood, or query; use `suggested_preview` (safe/bold/wildcard) for pick-3 |
 | `apply_theme` | Swap `meta.theme` without rewriting slides |
@@ -440,7 +440,7 @@ Or call the `import_pptx` MCP tool. Then review layouts, adjust copy, swap theme
 
 Once a deck is done, it can leave the browser two ways. Both scripts live inside *this skill's own directory*, not the user's project — resolve `<skill-dir>` to wherever this `SKILL.md` is installed (e.g. `~/.claude/skills/presentation-generator/` or the plugin's skill path) and invoke them from there, passing the deck's path as an argument:
 
-- **PDF** — `bash <skill-dir>/scripts/export-pdf.sh ./deck.html [./output.pdf]`. Renders through headless Chromium's print pipeline (not screenshots): vector output, selectable text, one page per slide via the deck's own `@media print` rule. Installs Playwright on first run. Good for email, Slack, Notion, or printing.
+- **PDF** — MCP `export_deck` with `format: "pdf"`, CLI `presentation-md-render deck.json --format pdf -o deck.pdf`, or `bash <skill-dir>/scripts/export-pdf.sh ./deck.html [./output.pdf]`. Renders through headless Chromium's print pipeline (not screenshots): vector output, selectable text, one page per slide via the deck's own `@media print` rule. Installs Playwright on first run. Good for email, Slack, Notion, or printing.
 - **Live URL** — `bash <skill-dir>/scripts/deploy.sh ./deck.html` (or a deck directory). Deploys to Vercel and prints a shareable URL that works on any device. Defaults to a **preview** deployment, not production — pass `--prod` only once the human has confirmed it's fine to publish permanently. **Confirm with the human before running this**: it's an externally-visible action, and decks are often confidential drafts. Requires `npx vercel login` once, interactively, beforehand. A single-file deck that references local images/fonts will be refused (they'd 404 once deployed) — inline them as `data:` URLs first, or deploy the deck's whole directory instead.
 
 For native, editable PowerPoint, use the Studio export mentioned above instead — it's a different fidelity trade-off (editable shapes vs. exact CSS rendering).

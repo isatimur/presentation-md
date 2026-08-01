@@ -296,12 +296,14 @@ slide shapes. One exporter covers all three apps:
 ```bash
 # CLI
 presentation-md-render deck.json --format pptx -o deck.pptx
+presentation-md-render deck.json --format pdf -o deck.pdf
 ```
 
 ```ts
 // Programmatic (Node)
-import { renderDeckPptx } from "@presentation-md/render";
+import { renderDeckPptx, renderDeckPdf } from "@presentation-md/render";
 await writeFile("deck.pptx", await renderDeckPptx(deckJson));
+await writeFile("deck.pdf", await renderDeckPdf(deckJson));
 ```
 
 The result is a **native, editable** `.pptx`:
@@ -310,7 +312,7 @@ The result is a **native, editable** `.pptx`:
 - **Keynote** — File → Open (Keynote has no portable native format; `.pptx` is the bridge).
 - **Google Slides** — File → Import slides / upload to Drive → opens as an editable Slides deck.
 
-Agents can call the `export_deck` MCP tool. Fidelity notes (fonts, colors, images) live in
+Agents can call the `export_deck` MCP tool (`format: "pptx" | "html" | "pdf"`). PDF uses Chromium's print pipeline (vector, selectable text). Fidelity notes (fonts, colors, images) live in
 [`packages/export/references/pptx-fidelity.md`](packages/export/references/pptx-fidelity.md).
 
 ## Studio
@@ -329,7 +331,7 @@ pnpm --filter @presentation-md/studio build:web   # static build → web/studio/
 | Tool | Purpose |
 |---|---|
 | `render_deck` | Render a Deck JSON string to a self-contained HTML file |
-| `export_deck` | Export a Deck JSON to a native, editable PowerPoint (`.pptx`) — or html |
+| `export_deck` | Export a Deck JSON to native PowerPoint (`.pptx`), vector PDF, or html |
 | `audit_deck` | Schema-validate a deck and return structured issues with severity |
 | `judge_deck` | Design judge — t0/t1 JSON gates; **t2** HTML metrics + Chrome shots; **t3** panel/agent rubric |
 | `list_themes` | Enumerate available themes (bundled + installed) with name, version, and vibe |

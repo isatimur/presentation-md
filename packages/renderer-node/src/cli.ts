@@ -5,7 +5,7 @@ import { realpathSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, extname, join, resolve } from "node:path";
 import { Command } from "commander";
-import { renderDeck, renderDeckPptx, getBundledThemesDir } from "./index.js";
+import { renderDeck, renderDeckPptx, renderDeckPdf, getBundledThemesDir } from "./index.js";
 import { discoverInstalledThemes, markdownToDeck } from "@presentation-md/core";
 import { pptxToDeck } from "@presentation-md/export/import";
 import {
@@ -46,7 +46,7 @@ export function buildProgram(): Command {
     .version(readVersion())
     .argument("[deck.json]", "path to deck JSON file (reads stdin if omitted)")
     .option("-o, --output <path>", "output file (default: deck.html, deck.pptx, or deck.json)")
-    .option("-f, --format <fmt>", "output format: html | pptx", "html")
+    .option("-f, --format <fmt>", "output format: html | pptx | pdf", "html")
     .option("-t, --theme <name>", "theme name (overrides deck meta.theme)")
     .option("--from-pptx <path>", "import a .pptx file to deck JSON instead of rendering")
     .option("--from-md <path>", "import Marp/md-slides Markdown to deck JSON instead of rendering")
@@ -207,12 +207,15 @@ export function buildProgram(): Command {
       }
 
       const format = options.format.toLowerCase();
-      if (format !== "html" && format !== "pptx") {
-        process.stderr.write(`Error: unknown format "${options.format}" (expected html | pptx)\n`);
+      if (format !== "html" && format !== "pptx" && format !== "pdf") {
+        process.stderr.write(
+          `Error: unknown format "${options.format}" (expected html | pptx | pdf)\n`
+        );
         process.exit(1);
       }
 
-      const defaultOutput = format === "pptx" ? "deck.pptx" : "deck.html";
+      const defaultOutput =
+        format === "pptx" ? "deck.pptx" : format === "pdf" ? "deck.pdf" : "deck.html";
       const outputPath = resolve(process.cwd(), options.output ?? defaultOutput);
 
       try {
@@ -220,6 +223,9 @@ export function buildProgram(): Command {
           const buffer = await renderDeckPptx(deckJson, {
             onWarn: (msg) => process.stderr.write(`  warning: ${msg}\n`),
           });
+          await writeFile(outputPath, buffer);
+        } else if (format === "pdf") {
+          const buffer = await renderDeckPdf(deckJson, {});
           await writeFile(outputPath, buffer);
         } else {
           const html = await renderDeck(deckJson, {});

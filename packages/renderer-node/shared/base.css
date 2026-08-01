@@ -920,6 +920,10 @@ tbody tr:hover td {
 }
 
 @media print {
+  @page {
+    size: 1920px 1080px;
+    margin: 0;
+  }
   body { padding: 0; gap: 0; }
   .slide {
     box-shadow: none;

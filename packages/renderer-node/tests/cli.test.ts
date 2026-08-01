@@ -174,10 +174,27 @@ describe("presentation-md-render CLI flags", () => {
     const dir = await tempDir();
     const deckPath = join(dir, "deck.json");
     await writeFile(deckPath, JSON.stringify(MINIMAL_DECK));
-    const { code, stderr } = await runCli([deckPath, "--format", "pdf"], { cwd: dir });
+    const { code, stderr } = await runCli([deckPath, "--format", "docx"], { cwd: dir });
     expect(code).toBe(1);
     expect(stderr).toMatch(/unknown format/i);
   });
+
+  it("--format pdf writes a PDF file", async () => {
+    const dir = await tempDir();
+    const deckPath = join(dir, "deck.json");
+    const outPath = join(dir, "deck.pdf");
+    await writeFile(deckPath, JSON.stringify(MINIMAL_DECK));
+    const { code, stdout, stderr } = await runCli(
+      [deckPath, "--format", "pdf", "-o", outPath],
+      { cwd: dir }
+    );
+    expect(stderr).not.toMatch(/unknown format/i);
+    expect(code).toBe(0);
+    expect(stdout).toMatch(/Rendered →/);
+    const buf = await readFile(outPath);
+    expect(buf.byteLength).toBeGreaterThan(500);
+    expect(buf.subarray(0, 4).toString("utf-8")).toBe("%PDF");
+  }, 120_000);
 
   it("--format pptx writes a PowerPoint file", async () => {
     const dir = await tempDir();

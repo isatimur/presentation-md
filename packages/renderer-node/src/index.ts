@@ -592,3 +592,19 @@ export async function renderDeckPptx(
     prefetchImages: true,
   });
 }
+
+/**
+ * Render a deck JSON spec to a vector PDF Buffer (one page per slide via Chromium
+ * print). Uses the published core `scripts/export-pdf.sh` pipeline — Playwright
+ * installs on first run into core/scripts.
+ */
+export async function renderDeckPdf(
+  deckJson: string,
+  opts?: RenderOptions
+): Promise<Buffer> {
+  const html = await renderDeck(deckJson, opts);
+  const { htmlStringToPdfBuffer } = await import("./pdf.js");
+  return htmlStringToPdfBuffer(html);
+}
+
+export { htmlFileToPdfBuffer, htmlStringToPdfBuffer, resolveExportPdfScript } from "./pdf.js";
