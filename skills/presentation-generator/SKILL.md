@@ -392,8 +392,8 @@ Eleven tools via `@presentation-md/mcp-server` (not the deprecated `@presentatio
 | `list_themes` | See installed themes with vibe/description + proof deep-links; filter with `browse` chips (site/Studio parity), shortlist, mood, or query; use `suggested_preview` (safe/bold/wildcard) for pick-3 |
 | `apply_theme` | Swap `meta.theme` without rewriting slides |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
-| `preview_themes` | Render 1–3 theme HTML previews; **inline PNG screenshots** (MCP image content) on by default; pass `mode: "layouts"` for multi-slide craft bake |
-| CLI `--preview-compare` | Same pick-3 craft bake without MCP: `presentation-md-render --preview-compare a,b,c` |
+| `preview_themes` | Render 1–3 theme HTML previews; **inline PNG screenshots** (title + bento + comparison in layouts mode) on by default; pass `mode: "layouts"` for multi-slide craft bake |
+| CLI `--preview-compare` | Same pick-3 craft bake + discovery PNGs without MCP: `presentation-md-render --preview-compare a,b,c` |
 | `import_pptx` | Import a `.pptx` into deck JSON (see `references/pptx-import.md`) |
 | `import_markdown` | Import Marp/md-slides Markdown → Deck JSON (`---` splits, ` ```chart ` / ` ```html `) |
 | `judge_deck` | Design judge — `tier` t0/t1 JSON gates; **t2** HTML metrics + Chrome shots; **t3** panel or agent rubric |
