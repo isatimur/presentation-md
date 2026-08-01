@@ -1,5 +1,17 @@
 # @presentation-md/studio
 
+## 1.15.0
+
+### Minor Changes
+
+- 129dbba: Extend `repairCraft` with safe beat inserts (image-hero, comparison, data, logo-wall, wrap tones/ranked/streak, cadence) + Studio Generate auto-repair; `judge_deck` t2/t3 attaches inline slide PNGs by default.
+
+### Patch Changes
+
+- Updated dependencies [129dbba]
+  - @presentation-md/core@1.21.0
+  - @presentation-md/export@1.23.17
+
 ## 1.14.0
 
 ### Minor Changes
