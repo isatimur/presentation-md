@@ -389,7 +389,7 @@ Thirteen tools via `@presentation-md/mcp-server` (not the deprecated `@presentat
 | Tool | Use it to |
 |------|-----------|
 | `render_deck` | Convert deck JSON → polished HTML |
-| `export_deck` | Export deck JSON → `.pptx`, vector PDF, html, or **Markdown** (`format: "md"` — Marp round-trip) |
+| `export_deck` | Export deck JSON → `.pptx`, vector PDF, html, **Markdown** (`format: "md"` — Marp round-trip), or **speaker-notes** handouts (`format: "notes_txt"` / `"notes_vtt"`) |
 | `audit_deck` | Schema-validate + craft gates; optional `apply_safe_fixes` returns repaired JSON (fields + beat inserts: image-hero / comparison / data / logo-wall / wrap tones + theme-honesty leftovers) |
 | `list_themes` | See installed themes with vibe/description + proof deep-links (`preview_url` + always-on `studio_url`); filter with `browse` chips (site/Studio parity), shortlist, mood, or query; use `suggested_preview` (safe/bold/wildcard) for pick-3 |
 | `apply_theme` | Swap `meta.theme` (default also runs `repairCraft` for theme honesty — Studio My deck Use parity; pass `apply_safe_fixes:false` for a pure swap) |

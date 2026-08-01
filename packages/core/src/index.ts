@@ -32,6 +32,8 @@ export { markdownToDeck } from "./md-to-deck.js";
 export type { MdDeck, MdSlide, MdToDeckOptions } from "./md-to-deck.js";
 export { deckToMarkdown } from "./deck-to-md.js";
 export type { DeckToMarkdownOptions } from "./deck-to-md.js";
+export { notesHandoutTxt, notesHandoutVtt, formatVttTime } from "./notes-handout.js";
+export type { NotesHandoutDeck, NotesHandoutSlide } from "./notes-handout.js";
 export { auditCraft, repairCraft, repairCraftBeat, CRAFT_VALID_LAYOUTS } from "./craft-audit.js";
 export type {
   CraftIssue,

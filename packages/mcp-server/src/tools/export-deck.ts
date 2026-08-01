@@ -30,16 +30,16 @@ function slideCountOf(json: string): number {
 export const exportDeckTool: ToolDefinition = {
   name: "export_deck",
   description:
-    "Export a presentation-md deck JSON spec to native PowerPoint (.pptx), vector PDF (Chromium print — one page per slide, selectable text), HTML, or Marp/md-slides Markdown (round-trip with import_markdown). Writes to output_path when given, otherwise returns base64 bytes (pptx/pdf), html string, or markdown string.",
+    "Export a presentation-md deck JSON spec to native PowerPoint (.pptx), vector PDF (Chromium print — one page per slide, selectable text), HTML, Marp/md-slides Markdown (round-trip with import_markdown), or speaker-notes handouts (notes_txt / notes_vtt). Writes to output_path when given, otherwise returns base64 bytes (pptx/pdf), html/markdown/text string.",
   inputSchema: {
     type: "object",
     properties: {
       json: { type: "string", description: "Deck JSON string conforming to the deck schema" },
       format: {
         type: "string",
-        enum: ["pptx", "html", "pdf", "md", "markdown"],
+        enum: ["pptx", "html", "pdf", "md", "markdown", "notes_txt", "notes_vtt", "txt", "vtt"],
         description:
-          "Output format (default: pptx). pdf uses headless Chromium print (vector, not screenshots). md/markdown emits Marp-style Markdown for round-trip import.",
+          "Output format (default: pptx). pdf uses headless Chromium print (vector, not screenshots). md/markdown emits Marp-style Markdown. notes_txt/txt and notes_vtt/vtt emit speaker-notes handouts (Studio Source ▾ parity).",
       },
       theme: { type: "string", description: "Theme name to apply (overrides meta.theme in the deck)" },
       output_path: {
@@ -60,9 +60,15 @@ export const exportDeckTool: ToolDefinition = {
       format !== "html" &&
       format !== "pdf" &&
       format !== "md" &&
-      format !== "markdown"
+      format !== "markdown" &&
+      format !== "notes_txt" &&
+      format !== "notes_vtt" &&
+      format !== "txt" &&
+      format !== "vtt"
     ) {
-      throw new Error(`Unknown format "${format}" (expected pptx | html | pdf | md)`);
+      throw new Error(
+        `Unknown format "${format}" (expected pptx | html | pdf | md | notes_txt | notes_vtt)`
+      );
     }
 
     const deckJson = applyThemeOverride(rawJson, theme);
@@ -71,6 +77,43 @@ export const exportDeckTool: ToolDefinition = {
     const outputPath = outputPathInput
       ? await assertWritablePathInCwd(outputPathInput, "output_path")
       : undefined;
+
+    if (
+      format === "notes_txt" ||
+      format === "txt" ||
+      format === "notes_vtt" ||
+      format === "vtt"
+    ) {
+      const { notesHandoutTxt, notesHandoutVtt } = await import("@presentation-md/core");
+      let deck: Parameters<typeof notesHandoutTxt>[0];
+      try {
+        deck = JSON.parse(deckJson) as Parameters<typeof notesHandoutTxt>[0];
+      } catch (err) {
+        throw new Error(`Invalid JSON: ${(err as Error).message}`);
+      }
+      if (!deck || !Array.isArray(deck.slides)) {
+        throw new Error("json must be a deck with a slides array");
+      }
+      const isVtt = format === "notes_vtt" || format === "vtt";
+      const text = isVtt ? notesHandoutVtt(deck) : notesHandoutTxt(deck);
+      const outFormat = isVtt ? "notes_vtt" : "notes_txt";
+      const result: {
+        format: string;
+        slide_count: number;
+        path?: string;
+        text?: string;
+      } = {
+        format: outFormat,
+        slide_count,
+      };
+      if (outputPath) {
+        await writeFile(outputPath, text, "utf-8");
+        result.path = outputPath;
+      } else {
+        result.text = text;
+      }
+      return result;
+    }
 
     if (format === "md" || format === "markdown") {
       const { deckToMarkdown } = await import("@presentation-md/core");

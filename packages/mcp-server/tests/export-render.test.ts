@@ -87,6 +87,45 @@ describe("export_deck / render_deck tools", () => {
     expect(buf.subarray(0, 4).toString("utf-8")).toBe("%PDF");
   }, 120_000);
 
+  it("export_deck format=notes_txt / notes_vtt returns handouts", async () => {
+    const withNotes = JSON.stringify({
+      type: "deck",
+      meta: { title: "Notes Export", theme: "default-tech" },
+      slides: [
+        { layout: "title", heading: "Hello", notes: "Say the claim." },
+        { layout: "closing", heading: "Thanks" },
+      ],
+    });
+    const txt = (await exportDeckTool.handler({
+      json: withNotes,
+      format: "notes_txt",
+    })) as { format: string; slide_count: number; text?: string };
+    expect(txt.format).toBe("notes_txt");
+    expect(txt.slide_count).toBe(2);
+    expect(txt.text).toContain("Say the claim.");
+    expect(txt.text).toContain("(no speaker notes)");
+
+    const vtt = (await exportDeckTool.handler({
+      json: withNotes,
+      format: "notes_vtt",
+    })) as { format: string; text?: string };
+    expect(vtt.format).toBe("notes_vtt");
+    expect(vtt.text?.startsWith("WEBVTT")).toBe(true);
+    expect(vtt.text).toContain("Say the claim.");
+
+    const dir = await tempDir();
+    const rel = join(dir.replace(process.cwd() + "/", ""), "handout.txt");
+    const written = (await exportDeckTool.handler({
+      json: withNotes,
+      format: "txt",
+      output_path: rel,
+    })) as { path?: string; format: string };
+    expect(written.format).toBe("notes_txt");
+    expect(written.path).toBeTruthy();
+    const body = await readFile(written.path!, "utf-8");
+    expect(body).toContain("Notes Export — speaker notes");
+  });
+
   it("render_deck returns html and honors theme override", async () => {
     const result = (await renderDeckTool.handler({
       json: MINI_DECK,
