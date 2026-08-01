@@ -1,5 +1,19 @@
 # @presentation-md/mcp-server
 
+## 1.19.0
+
+### Minor Changes
+
+- 031f94b: Shared pickDiscoveryPreviewTrio (safe/bold/wildcard) powers MCP list_themes suggested_preview, Studio Compare 3, and Generate mood pick-3 — frontend-slides-style discovery mix from schema themes.
+
+### Patch Changes
+
+- Updated dependencies [031f94b]
+  - @presentation-md/core@1.19.0
+  - @presentation-md/create-theme@1.1.10
+  - @presentation-md/export@1.23.10
+  - @presentation-md/render@1.7.6
+
 ## 1.18.0
 
 ### Minor Changes
