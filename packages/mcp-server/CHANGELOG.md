@@ -1,5 +1,11 @@
 # @presentation-md/mcp-server
 
+## 1.18.0
+
+### Minor Changes
+
+- f24cf7e: list_themes gains site/Studio mood-browse chip parity (`browse` + `include_browse_filters`) so agents offer the same discovery chips as the gallery.
+
 ## 1.17.0
 
 ### Minor Changes
