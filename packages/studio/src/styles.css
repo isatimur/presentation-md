@@ -118,16 +118,25 @@ body {
   max-height: min(640px, 86vh);
 }
 .theme-search { width: 100%; }
+.theme-filter-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.04em;
+  text-transform: uppercase; color: var(--muted); align-self: center;
+  padding-right: 2px;
+}
+.theme-mood-row,
 .theme-shortlist-row {
   display: flex; flex-wrap: wrap; gap: 5px; max-height: 88px; overflow: auto;
   padding: 2px 0;
 }
+.theme-mood-row .chip,
 .theme-shortlist-row .chip {
   font-size: 11px; padding: 3px 8px; border-radius: 999px;
   border: 1px solid var(--line); background: var(--paper); color: var(--muted);
   cursor: pointer; font-family: inherit; white-space: nowrap;
 }
+.theme-mood-row .chip:hover,
 .theme-shortlist-row .chip:hover { border-color: var(--accent); color: var(--text); }
+.theme-mood-row .chip.active,
 .theme-shortlist-row .chip.active {
   background: var(--accent-soft);
   border-color: color-mix(in srgb, var(--accent) 45%, var(--line));

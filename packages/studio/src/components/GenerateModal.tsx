@@ -1,11 +1,14 @@
 import { useMemo, useState } from "react";
 import type { DeckJson } from "@presentation-md/export";
 import {
+  THEME_BROWSE_FILTERS,
   findThemeShortlist,
   listThemeNames,
   listThemeShortlists,
   listThemeSummaries,
   resolveTheme,
+  themePassesBrowseFilter,
+  type ThemeBrowseFilterId,
 } from "../render/themes.js";
 import {
   PREVIEW_CROP_LABEL,
@@ -35,6 +38,7 @@ export function GenerateModal({
 }) {
   const [brief, setBrief] = useState("");
   const [theme, setTheme] = useState(currentTheme);
+  const [moodFilter, setMoodFilter] = useState<ThemeBrowseFilterId>("all");
   const [shortlistId, setShortlistId] = useState("");
   const [density, setDensity] = useState<DensityMode>("speaker");
   const [model, setModel] = useState<GenModelId>(GEN_MODELS[0].id);
@@ -51,15 +55,25 @@ export function GenerateModal({
   const themes = useMemo(() => listThemeSummaries(), []);
   const shortlists = useMemo(() => listThemeShortlists(), []);
   const activeShortlist = shortlistId ? findThemeShortlist(shortlistId) : undefined;
-  const selectableThemes = activeShortlist
-    ? themeNames.filter((t) => activeShortlist.themes.includes(t))
-    : themeNames;
+  const selectableThemes = useMemo(() => {
+    const base = activeShortlist
+      ? themeNames.filter((t) => activeShortlist.themes.includes(t))
+      : themeNames;
+    return base.filter((name) => {
+      const summary = themes.find((t) => t.name === name);
+      if (!summary) return moodFilter === "all";
+      return themePassesBrowseFilter(summary, moodFilter);
+    });
+  }, [activeShortlist, moodFilter, themeNames, themes]);
 
-  /** Pick-3 visual compare from the active shortlist (or popular core defaults). */
+  /** Pick-3 visual compare from the active shortlist (or popular / mood-filtered defaults). */
   const discoverThree = useMemo(() => {
-    const names = (activeShortlist?.themes ?? ["default-tech", "aurora-glass", "soft-editorial"])
-      .filter((n) => themeNames.includes(n))
-      .slice(0, 3);
+    const pool =
+      activeShortlist?.themes ??
+      (moodFilter === "all"
+        ? ["default-tech", "aurora-glass", "soft-editorial"]
+        : selectableThemes);
+    const names = pool.filter((n) => themeNames.includes(n)).slice(0, 3);
     while (names.length < 3) {
       const fallback = themeNames.find((n) => !names.includes(n));
       if (!fallback) break;
@@ -76,7 +90,7 @@ export function GenerateModal({
         accent: resolved.palette.accent,
       };
     });
-  }, [activeShortlist, themeNames, themes]);
+  }, [activeShortlist, moodFilter, selectableThemes, themeNames, themes]);
 
   const cropOffset = PREVIEW_CROP_OFFSET_PX[crop];
 
@@ -152,6 +166,22 @@ export function GenerateModal({
             >
               Reading-first
             </button>
+          </div>
+
+          <label className="field-label">Browse by mood</label>
+          <div className="theme-mood-row" role="toolbar" aria-label="Filter themes by mood">
+            {THEME_BROWSE_FILTERS.map((f) => (
+              <button
+                key={f.id}
+                type="button"
+                className={`chip${moodFilter === f.id ? " active" : ""}`}
+                aria-pressed={moodFilter === f.id}
+                onClick={() => setMoodFilter(f.id)}
+                title={f.id === "all" ? "Show all themes" : `Filter by ${f.label.toLowerCase()}`}
+              >
+                {f.id === "all" ? `All ${themes.length}` : f.label}
+              </button>
+            ))}
           </div>
 
           <label className="field-label">Theme shortlist</label>

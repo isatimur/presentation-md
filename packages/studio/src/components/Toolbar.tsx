@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { DeckJson } from "@presentation-md/export";
 import {
+  THEME_BROWSE_FILTERS,
   findThemeShortlist,
   listThemeShortlists,
   listThemeSummaries,
   resolveTheme,
+  themePassesBrowseFilter,
+  type ThemeBrowseFilterId,
 } from "../render/themes.js";
 import {
   COMPARE_LIMIT,
@@ -52,6 +55,7 @@ export function Toolbar({
   const [status, setStatus] = useState<string>("");
   const [busy, setBusy] = useState(false);
   const [themeQuery, setThemeQuery] = useState("");
+  const [moodFilter, setMoodFilter] = useState<ThemeBrowseFilterId>("all");
   const [shortlistId, setShortlistId] = useState("");
   const [compare, setCompare] = useState<string[]>([]);
   const [liveCompare, setLiveCompare] = useState(false);
@@ -101,10 +105,15 @@ export function Toolbar({
   };
   const activeShortlist = shortlistId ? findThemeShortlist(shortlistId) : undefined;
   const filtered = themes.filter((t) => {
+    if (!themePassesBrowseFilter(t, moodFilter)) return false;
     if (activeShortlist && !activeShortlist.themes.includes(t.name)) return false;
     if (!themeQuery.trim()) return true;
     const q = themeQuery.trim().toLowerCase();
-    return t.name.toLowerCase().includes(q) || t.vibe.toLowerCase().includes(q);
+    return (
+      t.name.toLowerCase().includes(q) ||
+      t.vibe.toLowerCase().includes(q) ||
+      (t.mood ?? []).some((m) => m.toLowerCase().includes(q))
+    );
   });
 
   // Auto-open on live craft issues (errors or warnings) unless the user dismissed while dirty.
@@ -244,12 +253,13 @@ export function Toolbar({
       <details className="theme-browser" onToggle={(e) => {
         if (!(e.target as HTMLDetailsElement).open) {
           setThemeQuery("");
+          setMoodFilter("all");
           setShortlistId("");
           setCompare([]);
           setLiveCompare(false);
         }
       }}>
-        <summary className="btn btn-sm theme-trigger" title="Browse themes (shortlists + pick-3 compare)">
+        <summary className="btn btn-sm theme-trigger" title="Browse themes (mood + shortlists + pick-3 compare)">
           <span
             className="theme-swatch"
             style={{ ["--swatch-bg" as string]: active.bg, ["--swatch-accent" as string]: active.accent }}
@@ -266,6 +276,27 @@ export function Toolbar({
             autoFocus
             onChange={(e) => setThemeQuery(e.target.value)}
           />
+          <div className="theme-mood-row" role="toolbar" aria-label="Filter themes by mood">
+            <span className="theme-filter-label">Browse</span>
+            {THEME_BROWSE_FILTERS.map((f) => (
+              <button
+                key={f.id}
+                type="button"
+                className={`chip${moodFilter === f.id ? " active" : ""}`}
+                aria-pressed={moodFilter === f.id}
+                onClick={() => setMoodFilter(f.id)}
+                title={
+                  f.id === "all"
+                    ? "Show all themes"
+                    : f.id === "popular"
+                      ? "Flagship / discovery-popular themes"
+                      : `Filter by ${f.label.toLowerCase()} mood`
+                }
+              >
+                {f.id === "all" ? `All ${themes.length}` : f.label}
+              </button>
+            ))}
+          </div>
           <div className="theme-shortlist-row" role="listbox" aria-label="Theme shortlists">
             <button
               type="button"
@@ -273,7 +304,7 @@ export function Toolbar({
               onClick={() => setShortlistId("")}
               title="Show all themes"
             >
-              All
+              Shortlists
             </button>
             {shortlists.map((s) => (
               <button
@@ -305,6 +336,7 @@ export function Toolbar({
           </div>
           <div className="theme-count">
             {filtered.length} / {themes.length} themes
+            {moodFilter !== "all" ? ` · ${moodFilter}` : ""}
             {activeShortlist ? ` · ${activeShortlist.id}` : ""}
             {compare.length ? ` · compare ${compare.length}/${COMPARE_LIMIT}` : " · ⊕ to compare"}
           </div>

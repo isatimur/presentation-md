@@ -110,6 +110,31 @@ test("loads a curated example via ?example= deep-link", async ({ page }) => {
   await expect(page.getByRole("button", { name: /Copy link/ })).toBeVisible();
 });
 
+test("theme browser mood chips filter the catalog like the site gallery", async ({ page }) => {
+  await page.goto("/?fresh=1");
+
+  const browser = page.locator("details.theme-browser");
+  await browser.locator("summary").click();
+  await expect(browser).toHaveAttribute("open", "");
+  const panel = browser.locator(".theme-browser-panel");
+  const moodBar = panel.getByRole("toolbar", { name: /Filter themes by mood/i });
+  await expect(moodBar).toBeVisible();
+  await expect(moodBar.getByRole("button", { name: /^Popular$/ })).toBeVisible();
+  await expect(moodBar.getByRole("button", { name: /^Neon$/ })).toBeVisible();
+
+  await moodBar.getByRole("button", { name: /^Popular$/ }).click();
+  await expect(panel.locator(".theme-count")).toContainText(/popular/i);
+  const popularCount = await panel.locator("li").count();
+  expect(popularCount).toBeGreaterThanOrEqual(15);
+  expect(popularCount).toBeLessThanOrEqual(25);
+
+  await moodBar.getByRole("button", { name: /^Neon$/ }).click();
+  await expect(panel.locator(".theme-count")).toContainText(/neon/i);
+  const neonCount = await panel.locator("li").count();
+  expect(neonCount).toBeGreaterThan(0);
+  expect(neonCount).toBeLessThan(popularCount);
+});
+
 test("Example featured trio supports Title/Bento/Compare crops via local /previews", async ({
   page,
 }) => {

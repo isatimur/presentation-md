@@ -5,7 +5,15 @@ import type {
   Typography,
   Geometry,
 } from "@presentation-md/core/theme-types";
+import {
+  THEME_BROWSE_FILTERS,
+  isThemeBrowsePopular,
+  themeMatchesBrowseFilter,
+  type ThemeBrowseFilterId,
+  type ThemeBrowseMeta,
+} from "@presentation-md/core/theme-browse";
 import shortlistsDoc from "../../../core/references/theme-shortlists.json";
+import selectionIndexDoc from "../../../core/references/theme-selection-index.json";
 
 /**
  * Browser theme registry. Bundles every `theme.json` in the monorepo (core +
@@ -47,11 +55,27 @@ for (const mod of Object.values(manifestModules)) {
   if (manifest?.name) REGISTRY.set(manifest.name, manifest);
 }
 
+const SELECTION_BY_NAME = new Map(
+  (selectionIndexDoc.themes ?? []).map((t) => [
+    t.name,
+    {
+      scheme: t.scheme,
+      mood: t.mood,
+      formality: t.formality,
+      popular: isThemeBrowsePopular(t.name),
+    } satisfies ThemeBrowseMeta,
+  ])
+);
+
 export interface ThemeSummary {
   name: string;
   vibe: string;
   bg: string;
   accent: string;
+  scheme?: string;
+  mood?: string[];
+  formality?: string;
+  popular?: boolean;
 }
 
 export interface ThemeShortlistSummary {
@@ -62,11 +86,14 @@ export interface ThemeShortlistSummary {
   popular?: boolean;
 }
 
+export { THEME_BROWSE_FILTERS };
+export type { ThemeBrowseFilterId };
+
 export function listThemeNames(): string[] {
   return [...REGISTRY.keys()].sort();
 }
 
-/** Browseable theme cards — name + vibe + palette cues for the Studio picker. */
+/** Browseable theme cards — name + vibe + palette cues + mood meta for Studio filters. */
 export function listThemeSummaries(): ThemeSummary[] {
   return listThemeNames().map((name) => {
     const theme = resolveTheme(name);
@@ -74,11 +101,16 @@ export function listThemeSummaries(): ThemeSummary[] {
       (theme.manifest as ThemeManifest & { vibe?: string }).vibe ??
       theme.manifest.description ??
       name;
+    const sel = SELECTION_BY_NAME.get(name);
     return {
       name,
       vibe,
       bg: theme.palette.bg,
       accent: theme.palette.accent,
+      scheme: sel?.scheme,
+      mood: sel?.mood,
+      formality: sel?.formality,
+      popular: sel?.popular ?? isThemeBrowsePopular(name),
     };
   });
 }
@@ -97,6 +129,22 @@ export function listThemeShortlists(): ThemeShortlistSummary[] {
 
 export function findThemeShortlist(id: string): ThemeShortlistSummary | undefined {
   return listThemeShortlists().find((s) => s.id === id);
+}
+
+export function themePassesBrowseFilter(
+  theme: ThemeSummary,
+  filter: ThemeBrowseFilterId
+): boolean {
+  return themeMatchesBrowseFilter(
+    {
+      scheme: theme.scheme,
+      mood: theme.mood,
+      formality: theme.formality,
+      popular: theme.popular,
+    },
+    filter,
+    theme.name
+  );
 }
 
 export function resolveTheme(name: string): ResolvedTheme {
