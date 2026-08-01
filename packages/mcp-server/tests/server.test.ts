@@ -173,6 +173,49 @@ describe("list_themes", () => {
       )
     ).toBe(true);
   });
+
+  it("filters by site/Studio browse chip and can return browse_filters", async () => {
+    const all = (await listThemesTool.handler({})) as {
+      themes: Array<{ name: string }>;
+    };
+    const result = (await listThemesTool.handler({
+      browse: "popular",
+      include_browse_filters: true,
+    })) as {
+      themes: Array<{ name: string }>;
+      browse?: string;
+      browse_filters?: Array<{ id: string; label: string }>;
+      discovery_hint?: string;
+    };
+    expect(result.browse).toBe("popular");
+    expect(result.themes.length).toBeGreaterThan(0);
+    expect(result.themes.length).toBeLessThanOrEqual(all.themes.length);
+    // Popular chip uses the shared flagship set — every hit must be in that set.
+    const { THEME_BROWSE_POPULAR } = await import("@presentation-md/core");
+    expect(result.themes.every((t) => THEME_BROWSE_POPULAR.has(t.name))).toBe(true);
+    expect(result.browse_filters?.map((f) => f.id)).toEqual([
+      "all",
+      "popular",
+      "dark",
+      "light",
+      "editorial",
+      "neon",
+      "playful",
+      "brutal",
+      "luxury",
+      "tech",
+    ]);
+    expect(result.discovery_hint).toMatch(/browse/i);
+  });
+
+  it("returns browse_error for unknown chip ids", async () => {
+    const result = (await listThemesTool.handler({ browse: "not-a-chip" })) as {
+      browse_error?: string;
+      browse_filters?: Array<{ id: string }>;
+    };
+    expect(result.browse_error).toMatch(/Unknown browse chip/i);
+    expect(result.browse_filters?.some((f) => f.id === "neon")).toBe(true);
+  });
 });
 
 describe("generate_deck_prompt", () => {
