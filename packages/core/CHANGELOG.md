@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.22.4
+
+### Patch Changes
+
+- e0731d9: MCP `preview_themes` accepts Deck JSON (`json` / mode `deck`) for Studio My deck restyle parity — content-true theme compares with optional `slide_index` PNGs.
+
 ## 1.22.3
 
 ### Patch Changes
