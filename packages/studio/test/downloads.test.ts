@@ -60,3 +60,35 @@ describe("EXAMPLE_DECK stays exportable", () => {
     expect(EXAMPLE_DECK.slides.length).toBeGreaterThan(0);
   });
 });
+
+describe("speaker-notes handout", () => {
+  it("builds TXT blocks per slide", async () => {
+    const { notesHandoutTxt } = await import("../src/export/downloads.js");
+    const deck = {
+      ...EXAMPLE_DECK,
+      slides: [
+        { ...EXAMPLE_DECK.slides[0]!, notes: "Open with the claim." },
+        { ...EXAMPLE_DECK.slides[1]!, notes: "" },
+      ],
+    };
+    const txt = notesHandoutTxt(deck);
+    expect(txt).toContain("speaker notes");
+    expect(txt).toContain("Slide 1:");
+    expect(txt).toContain("Open with the claim.");
+    expect(txt).toContain("(no speaker notes)");
+  });
+
+  it("builds WebVTT cues with timestamps", async () => {
+    const { notesHandoutVtt, formatVttTime } = await import("../src/export/downloads.js");
+    expect(formatVttTime(0)).toBe("00:00:00.000");
+    expect(formatVttTime(30)).toBe("00:00:30.000");
+    expect(formatVttTime(90)).toBe("00:01:30.000");
+    const vtt = notesHandoutVtt({
+      ...EXAMPLE_DECK,
+      slides: [{ ...EXAMPLE_DECK.slides[0]!, notes: "Cue one" }],
+    });
+    expect(vtt.startsWith("WEBVTT")).toBe(true);
+    expect(vtt).toContain("00:00:00.000 --> 00:00:30.000");
+    expect(vtt).toContain("Cue one");
+  });
+});

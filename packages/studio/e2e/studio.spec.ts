@@ -279,16 +279,28 @@ test("preview scrolls to selected slide and click-to-edit syncs the form", async
   const frame = page.frameLocator(".preview-frame");
   await expect(frame.locator("section.slide").first()).toBeVisible();
 
-  // Filmstrip thumbs mount (lazy) beside the list labels.
+  // Preview zoom toolbar ships Fit + % controls.
+  await expect(page.getByRole("toolbar", { name: /Preview zoom/i })).toBeVisible();
+  await page.getByRole("button", { name: "100%" }).click();
+  await expect(page.locator(".preview.is-zoom")).toBeVisible();
+  await page.getByRole("button", { name: "Fit" }).click();
+  await expect(page.locator(".preview.is-fit")).toBeVisible();
+
+  // Horizontal densified filmstrip (one iframe for all thumbs).
   const rows = page.locator(".slide-row");
   expect(await rows.count()).toBeGreaterThanOrEqual(3);
-  await expect(page.locator(".slide-thumb").first()).toBeVisible();
-  await expect(page.locator(".slide-thumb-frame").first()).toBeVisible({ timeout: 15_000 });
+  await expect(page.locator(".slide-filmstrip")).toBeVisible();
+  await expect(page.locator(".slide-filmstrip-frame")).toBeVisible({ timeout: 15_000 });
+  await expect(page.locator(".slide-filmstrip-hit")).toHaveCount(await rows.count());
 
   // Select slide 3 from the list → preview marks it selected.
   // Click the main text (not ↑↓ actions — those stopPropagation).
   await rows.nth(2).locator(".slide-row-main").click();
   await expect(rows.nth(2)).toHaveClass(/active/);
+  await expect(page.locator('.slide-filmstrip-hit[data-filmstrip-i="2"]')).toHaveAttribute(
+    "aria-selected",
+    "true"
+  );
   await expect(frame.locator("section.slide.pmd-studio-selected")).toHaveCount(1);
   const selectedHeading = await frame
     .locator("section.slide.pmd-studio-selected")
@@ -297,6 +309,11 @@ test("preview scrolls to selected slide and click-to-edit syncs the form", async
     .textContent();
   expect(selectedHeading?.trim().length).toBeGreaterThan(0);
   await expect(page.getByLabel("Heading").first()).toHaveValue(selectedHeading!.trim());
+
+  // Click filmstrip hit → list + form follow.
+  await page.locator('.slide-filmstrip-hit[data-filmstrip-i="1"]').click();
+  await expect(rows.nth(1)).toHaveClass(/active/);
+  await expect(frame.locator("section.slide").nth(1)).toHaveClass(/pmd-studio-selected/);
 
   // Click another slide inside the preview → list + form follow.
   await frame.locator("section.slide").nth(0).click({ force: true });

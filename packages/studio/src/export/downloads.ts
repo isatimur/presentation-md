@@ -102,6 +102,68 @@ export function deckMarkdown(deck: DeckJson): string {
   return deckToMarkdown(deck);
 }
 
+function slideTitle(slide: DeckJson["slides"][number], index: number): string {
+  return (slide.heading ?? slide.quote ?? slide.eyebrow ?? `Slide ${index + 1}`).trim();
+}
+
+/** Speaker-notes handout — plain text for print / async review. */
+export function notesHandoutTxt(deck: DeckJson): string {
+  const title = deck.meta?.title?.trim() || "Deck";
+  const blocks = deck.slides.map((slide, i) => {
+    const heading = slideTitle(slide, i);
+    const notes = (slide.notes ?? "").trim() || "(no speaker notes)";
+    return `--- Slide ${i + 1}: ${heading} ---\n${notes}`;
+  });
+  return `${title} — speaker notes\n\n${blocks.join("\n\n")}\n`;
+}
+
+export function downloadNotesTxt(deck: DeckJson): void {
+  triggerDownload(
+    new Blob([notesHandoutTxt(deck)], { type: "text/plain;charset=utf-8" }),
+    safeName(deck, "notes.txt")
+  );
+}
+
+function pad2(n: number): string {
+  return String(n).padStart(2, "0");
+}
+
+/** Format seconds as WebVTT timestamp (HH:MM:SS.mmm). */
+export function formatVttTime(totalSeconds: number): string {
+  const s = Math.max(0, Math.floor(totalSeconds));
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+  return `${pad2(h)}:${pad2(m)}:${pad2(sec)}.000`;
+}
+
+/**
+ * WebVTT chapter-style cues — one cue per slide (30s placeholder span) for
+ * handout / caption pipelines that consume VTT beside Present mode notes.
+ */
+export function notesHandoutVtt(deck: DeckJson): string {
+  const cueSecs = 30;
+  const cues = deck.slides.map((slide, i) => {
+    const start = formatVttTime(i * cueSecs);
+    const end = formatVttTime((i + 1) * cueSecs);
+    const heading = slideTitle(slide, i);
+    const notes = (slide.notes ?? "").trim() || heading;
+    const body = notes
+      .split(/\r?\n/)
+      .map((line) => line.trimEnd())
+      .join("\n");
+    return `${i + 1}\n${start} --> ${end}\n${heading}\n${body}`;
+  });
+  return `WEBVTT\n\n${cues.join("\n\n")}\n`;
+}
+
+export function downloadNotesVtt(deck: DeckJson): void {
+  triggerDownload(
+    new Blob([notesHandoutVtt(deck)], { type: "text/vtt;charset=utf-8" }),
+    safeName(deck, "notes.vtt")
+  );
+}
+
 /**
  * Local Vite / preview middleware — Chromium printToPDF (same @page 16:9 as MCP/CLI).
  * Absent on static Vercel hosts; callers fall through to client raster or print.

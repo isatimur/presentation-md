@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /** Selection chrome injected into the sandboxed preview (parent owns the DOM). */
 const SELECT_CSS = `
@@ -9,10 +9,21 @@ section.slide.pmd-studio-selected {
 }
 `;
 
+export type PreviewFit = "fit" | 50 | 75 | 100 | 125;
+
+const FIT_OPTIONS: { value: PreviewFit; label: string }[] = [
+  { value: "fit", label: "Fit" },
+  { value: 50, label: "50%" },
+  { value: 75, label: "75%" },
+  { value: 100, label: "100%" },
+  { value: 125, label: "125%" },
+];
+
 /**
- * Live deck preview with selection sync:
- * - Slide list selection scrolls the matching `section.slide` into view
+ * Live deck preview with selection sync + zoom/fit controls:
+ * - Slide list / filmstrip selection scrolls the matching `section.slide` into view
  * - Click a slide in the iframe to select it (form + list update)
+ * - Fit scales the stage to the panel; % zooms the document inside a scrollport
  *
  * Sandbox has no `allow-scripts` — parent attaches listeners via `contentDocument`.
  */
@@ -31,6 +42,7 @@ export function Preview({
   const onSelectRef = useRef(onSelectSlide);
   selectedRef.current = selectedSlide;
   onSelectRef.current = onSelectSlide;
+  const [fit, setFit] = useState<PreviewFit>("fit");
 
   const syncSelection = () => {
     const doc = frameRef.current?.contentDocument;
@@ -90,16 +102,47 @@ export function Preview({
     syncSelection();
   }, [selectedSlide, html]);
 
+  const zoomPct = fit === "fit" ? null : fit;
+
   return (
-    <div className="preview">
-      <iframe
-        ref={frameRef}
-        className="preview-frame"
-        title="Deck preview"
-        srcDoc={html}
-        sandbox="allow-same-origin"
-        referrerPolicy="no-referrer"
-      />
+    <div className={`preview${fit === "fit" ? " is-fit" : " is-zoom"}`}>
+      <div className="preview-toolbar" role="toolbar" aria-label="Preview zoom">
+        {FIT_OPTIONS.map((opt) => (
+          <button
+            key={String(opt.value)}
+            type="button"
+            className={`btn btn-sm preview-zoom-btn${fit === opt.value ? " is-active" : ""}`}
+            aria-pressed={fit === opt.value}
+            onClick={() => setFit(opt.value)}
+          >
+            {opt.label}
+          </button>
+        ))}
+      </div>
+      <div className="preview-stage">
+        <div
+          className="preview-zoom-shell"
+          style={
+            zoomPct
+              ? {
+                  width: `${zoomPct}%`,
+                  height: `${zoomPct}%`,
+                  minWidth: "640px",
+                  minHeight: "360px",
+                }
+              : undefined
+          }
+        >
+          <iframe
+            ref={frameRef}
+            className="preview-frame"
+            title="Deck preview"
+            srcDoc={html}
+            sandbox="allow-same-origin"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+      </div>
     </div>
   );
 }

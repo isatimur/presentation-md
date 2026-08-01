@@ -20,6 +20,8 @@ import {
   downloadJson,
   downloadMarkdown,
   deckMarkdown,
+  downloadNotesTxt,
+  downloadNotesVtt,
   downloadPdf,
   printDeckPdf,
   parseDeckFile,
@@ -953,6 +955,28 @@ export function Toolbar({
               title="Copy Marp/md-slides Markdown to the clipboard"
             >
               Copy Markdown
+            </button>
+            <button
+              type="button"
+              className="btn"
+              onClick={() => {
+                downloadNotesTxt(deck);
+                setStatus("Downloaded speaker-notes handout (.txt)");
+              }}
+              title="Plain-text speaker notes handout — one block per slide"
+            >
+              Download notes TXT
+            </button>
+            <button
+              type="button"
+              className="btn"
+              onClick={() => {
+                downloadNotesVtt(deck);
+                setStatus("Downloaded speaker-notes handout (.vtt)");
+              }}
+              title="WebVTT cues from speaker notes — chapter-style handout"
+            >
+              Download notes VTT
             </button>
             <button type="button" className="btn" onClick={() => downloadHtml(deck, html)}>Download HTML</button>
             <button

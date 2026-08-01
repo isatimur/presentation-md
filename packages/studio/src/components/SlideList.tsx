@@ -1,73 +1,16 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useState } from "react";
 import type { Slide } from "@presentation-md/export";
 import { LAYOUTS, LAYOUT_LABELS, blankSlide } from "../deck.js";
 import type { LayoutType } from "../deck.js";
-import { restyleSlideHtml } from "./DeckRestylePreview.js";
-
-/** Lazy-mounted scaled slide thumb — one iframe only when the row is near the viewport. */
-function SlideThumb({
-  html,
-  index,
-  label,
-}: {
-  html: string;
-  index: number;
-  label: string;
-}) {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = wrapRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) setVisible(true);
-      },
-      { rootMargin: "120px 0px", threshold: 0.01 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  const srcDoc = useMemo(() => {
-    if (!visible || !html) return null;
-    try {
-      return restyleSlideHtml(html, index);
-    } catch {
-      return null;
-    }
-  }, [html, index, visible]);
-
-  return (
-    <div ref={wrapRef} className="slide-thumb" aria-hidden>
-      {srcDoc ? (
-        <iframe
-          className="slide-thumb-frame"
-          title={label}
-          srcDoc={srcDoc}
-          sandbox="allow-same-origin"
-          referrerPolicy="no-referrer"
-          tabIndex={-1}
-        />
-      ) : (
-        <span className="slide-thumb-placeholder" />
-      )}
-    </div>
-  );
-}
 
 export function SlideList({
   slides,
   selected,
-  html,
   onSelect,
   onChange,
 }: {
   slides: Slide[];
   selected: number;
-  /** Live rendered deck HTML — filmstrip thumbs crop one slide each. */
-  html?: string;
   onSelect: (i: number) => void;
   onChange: (next: Slide[], select?: number) => void;
 }) {
@@ -105,18 +48,11 @@ export function SlideList({
         </select>
         <button className="btn btn-sm" onClick={add}>+ Add</button>
       </div>
-      <ul className="slides" aria-label="Slide filmstrip">
+      <ul className="slides" aria-label="Slide list">
         {slides.map((slide, i) => (
           <li key={i} className={`slide-row ${i === selected ? "active" : ""}`} onClick={() => onSelect(i)}>
             <div className="slide-row-main">
               <span className="slide-row-num">{i + 1}</span>
-              {html ? (
-                <SlideThumb
-                  html={html}
-                  index={i}
-                  label={`Slide ${i + 1} thumbnail`}
-                />
-              ) : null}
               <div className="slide-row-text">
                 <span className="slide-row-layout">
                   {LAYOUT_LABELS[slide.layout as LayoutType] ?? slide.layout}

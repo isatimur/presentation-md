@@ -401,10 +401,13 @@ body {
 }
 
 /* ── Workspace ─────────────────────────────────────────────────────── */
-.workspace { display: grid; grid-template-columns: 280px 1fr 372px; flex: 1; min-height: 0; }
+.workspace { display: grid; grid-template-columns: 220px 1fr 372px; flex: 1; min-height: 0; }
 .panel { overflow: auto; min-height: 0; }
 .panel-left { background: transparent; border-right: 1px solid var(--line); }
-.panel-center { background: var(--bg-deep); display: flex; padding: 22px; }
+.panel-center {
+  background: var(--bg-deep); display: flex; flex-direction: column; gap: 10px;
+  padding: 16px 18px 12px; min-height: 0;
+}
 .panel-right { background: transparent; border-left: 1px solid var(--line); padding: 16px; }
 
 /* ── Buttons ───────────────────────────────────────────────────────── */
@@ -473,7 +476,7 @@ body {
 }
 .text-input:focus { outline: 2px solid color-mix(in srgb, var(--accent) 35%, transparent); border-color: var(--accent); }
 
-/* ── Slide list (filmstrip thumbs) ─────────────────────────────────── */
+/* ── Slide list ────────────────────────────────────────────────────── */
 .slide-list { padding: 14px; }
 .add-row { display: flex; gap: 6px; margin-bottom: 14px; }
 .slides { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
@@ -491,29 +494,6 @@ body {
 }
 .slide-row-main { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1; }
 .slide-row-num { color: var(--faint); font-family: var(--mono); font-size: 11px; width: 16px; text-align: right; flex-shrink: 0; }
-.slide-thumb {
-  position: relative; flex-shrink: 0;
-  width: 72px; aspect-ratio: 16 / 9;
-  overflow: hidden; border-radius: 5px; border: 1px solid var(--line);
-  background: color-mix(in srgb, var(--text) 6%, var(--paper));
-  container-type: inline-size;
-}
-.slide-row.active .slide-thumb { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
-.slide-thumb-placeholder {
-  display: block; width: 100%; height: 100%;
-  background: linear-gradient(135deg, var(--panel) 40%, var(--panel-2) 60%);
-}
-.slide-thumb-frame {
-  position: absolute; inset: 0 auto auto 0;
-  width: 1280px; height: 720px; border: 0; pointer-events: none;
-  transform-origin: top left;
-  transform: scale(0.05625); /* 72/1280 */
-}
-@supports (width: 1cqw) {
-  .slide-thumb-frame {
-    transform: scale(calc(100cqw / 1280));
-  }
-}
 .slide-row-text { display: flex; flex-direction: column; min-width: 0; flex: 1; }
 .slide-row-layout { font-size: 10px; color: var(--accent-2); text-transform: uppercase; letter-spacing: 0.09em; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
 .notes-dot {
@@ -523,15 +503,82 @@ body {
   color: var(--accent); font-size: 9px; letter-spacing: 0; font-weight: 700;
   text-transform: none;
 }
-.slide-row-title { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 110px; }
+.slide-row-title { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
 .slide-row-actions { display: flex; gap: 3px; opacity: 0; transition: opacity .12s; flex-shrink: 0; }
 .slide-row:hover .slide-row-actions, .slide-row.active .slide-row-actions { opacity: 1; }
 
+/* ── Horizontal densified filmstrip (one iframe) ───────────────────── */
+.slide-filmstrip {
+  flex: 0 0 auto;
+  overflow-x: auto; overflow-y: hidden;
+  border: 1px solid var(--line); border-radius: 12px;
+  background: var(--panel-2);
+  padding: 8px;
+  scrollbar-width: thin;
+}
+.slide-filmstrip-track {
+  position: relative;
+  flex-shrink: 0;
+}
+.slide-filmstrip-frame {
+  position: absolute; inset: 0 auto auto 0;
+  width: 1280px; height: 720px; border: 0; pointer-events: none;
+  transform-origin: top left;
+  transform: scale(var(--filmstrip-scale, 0.0889));
+}
+.slide-filmstrip-hit {
+  position: absolute; top: 0;
+  margin: 0; padding: 0; border: 1px solid transparent; border-radius: 6px;
+  background: transparent; cursor: pointer;
+  overflow: hidden;
+}
+.slide-filmstrip-hit:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+.slide-filmstrip-hit.is-active {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+.slide-filmstrip-num {
+  position: absolute; left: 4px; top: 3px; z-index: 1;
+  font-family: var(--mono); font-size: 9px; line-height: 1;
+  color: #fff; background: rgba(11, 18, 32, 0.55);
+  padding: 2px 4px; border-radius: 3px; pointer-events: none;
+}
+.slide-filmstrip-hit.is-active .slide-filmstrip-num { background: var(--accent); }
+
 /* ── Preview ───────────────────────────────────────────────────────── */
-.preview { flex: 1; display: flex; min-height: 0; }
+.preview {
+  flex: 1; display: flex; flex-direction: column; gap: 8px; min-height: 0;
+}
+.preview-toolbar {
+  display: flex; align-items: center; gap: 4px; flex-shrink: 0;
+}
+.preview-zoom-btn.is-active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, var(--panel-2));
+  color: var(--accent);
+  font-weight: 600;
+}
+.preview-stage {
+  flex: 1; min-height: 0; display: flex;
+  border: 1px solid var(--line-2); border-radius: 14px;
+  background: color-mix(in srgb, var(--text) 4%, var(--bg-deep));
+  overflow: auto;
+}
+.preview.is-fit .preview-stage { overflow: hidden; }
+.preview-zoom-shell {
+  flex: 1; min-width: 0; min-height: 0; display: flex;
+}
+.preview.is-zoom .preview-zoom-shell {
+  flex: 0 0 auto;
+  margin: auto;
+}
 .preview-frame {
-  flex: 1; border: 1px solid var(--line-2); border-radius: 14px; width: 100%; height: 100%;
+  flex: 1; border: 0; border-radius: 0; width: 100%; height: 100%;
   background: #fff; box-shadow: 0 24px 60px -28px rgba(11, 18, 32, 0.45);
+}
+.preview.is-fit .preview-frame { border-radius: 13px; }
+.preview.is-zoom .preview-frame {
+  border: 1px solid var(--line); border-radius: 8px;
 }
 
 /* ── Form ──────────────────────────────────────────────────────────── */

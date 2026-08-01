@@ -8,6 +8,7 @@ import { Toolbar } from "./components/Toolbar.js";
 import { SlideList } from "./components/SlideList.js";
 import { SlideForm } from "./components/SlideForm.js";
 import { Preview } from "./components/Preview.js";
+import { SlideFilmstrip } from "./components/SlideFilmstrip.js";
 import { PresentMode } from "./components/PresentMode.js";
 import { GenerateModal } from "./components/GenerateModal.js";
 import { repairCraft } from "./craft/auditCraft.js";
@@ -328,7 +329,7 @@ export function App() {
       />
       <div className="studio-strip" role="note">
         <span>
-          Live preview · Filmstrip thumbs · Click a slide to edit · Undo/Redo · Paste MD · Share
+          Live preview · Horizontal filmstrip · Click a slide to edit · Undo/Redo · Paste MD · Share
           link · Present with notes · Export editable PPTX
         </span>
         <a href="https://presentation-md.vercel.app/" target="_blank" rel="noopener noreferrer">
@@ -340,13 +341,18 @@ export function App() {
           <SlideList
             slides={deck.slides}
             selected={selected}
-            html={html}
             onSelect={setSelected}
             onChange={setSlides}
           />
         </aside>
         <main className="panel panel-center">
           <Preview html={html} selectedSlide={selected} onSelectSlide={setSelected} />
+          <SlideFilmstrip
+            html={html}
+            count={deck.slides.length}
+            selected={selected}
+            onSelect={setSelected}
+          />
         </main>
         <aside className="panel panel-right">
           {current ? (
