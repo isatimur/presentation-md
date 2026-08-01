@@ -1,5 +1,19 @@
 # @presentation-md/studio
 
+## 1.8.0
+
+### Minor Changes
+
+- 7d24bf5: Local Vite/Playwright serves repo `web/previews` (no Vercel CDN); Example featured trio gains Title/Bento/Compare crop parity with Generate + theme tray.
+
+### Patch Changes
+
+- 976a9b6: Add custom-html insert presets (split / big number / stamps / type explosion) in the slide editor.
+- Updated dependencies [976a9b6]
+- Updated dependencies [9ddc04b]
+  - @presentation-md/core@1.17.0
+  - @presentation-md/export@1.23.8
+
 ## 1.7.0
 
 ### Minor Changes
