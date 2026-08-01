@@ -329,8 +329,10 @@ Default when vibe is vague: a popular shortlist + one stunning-25 bold option in
    - Optional fast path: `references/theme-shortlists.json` — pick a use-case shortlist
      (Series A, developer demo, swiss agency, …) instead of scanning all 75.
      Prefer shortlists marked `"popular": true` when the vibe is vague.
-   - `list_themes` returns `preview_url`, and for stunning-25 themes `studio_url` /
-     `studio_example` / `gallery_url` — open those before authoring (show-don't-tell).
+   - `list_themes` returns `preview_url` + `studio_url` on **every** theme (stunning-25 →
+     `?example=` craft; others → `?theme=` blank slate) plus `studio_example` / `gallery_url`
+     when available — open those before authoring (show-don't-tell).
+     `preview_themes` also returns `studio_share_url` (`?d=`) for the exact bake deck.
 2. Shortlist **3** themes that fit purpose + audience + density. **Preview mix (mandatory):**
    - **1 safe / readable** theme (core-defaults, corporate, soft-product, quiet paper)
    - **1 bold / expressive** theme (stunning-25, neon, brutal/poster, wrap)
@@ -389,12 +391,12 @@ Thirteen tools via `@presentation-md/mcp-server` (not the deprecated `@presentat
 | `render_deck` | Convert deck JSON → polished HTML |
 | `export_deck` | Export deck JSON → `.pptx`, vector PDF, html, or **Markdown** (`format: "md"` — Marp round-trip) |
 | `audit_deck` | Schema-validate + craft gates; optional `apply_safe_fixes` returns repaired JSON (fields + beat inserts: image-hero / comparison / data / logo-wall / wrap tones + theme-honesty leftovers) |
-| `list_themes` | See installed themes with vibe/description + proof deep-links; filter with `browse` chips (site/Studio parity), shortlist, mood, or query; use `suggested_preview` (safe/bold/wildcard) for pick-3 |
+| `list_themes` | See installed themes with vibe/description + proof deep-links (`preview_url` + always-on `studio_url`); filter with `browse` chips (site/Studio parity), shortlist, mood, or query; use `suggested_preview` (safe/bold/wildcard) for pick-3 |
 | `apply_theme` | Swap `meta.theme` (default also runs `repairCraft` for theme honesty — Studio My deck Use parity; pass `apply_safe_fixes:false` for a pure swap) |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
 | `scaffold_deck` | Scaffold a recipe skeleton (pitch / launch / wrap / paper / …) with craft floors pre-wired — fill copy, then audit |
 | `share_deck_link` | Encode Deck JSON → Studio `?d=` URL (Copy link parity) for editable user handoff |
-| `preview_themes` | Render 1–3 theme HTML previews; **inline PNG screenshots** on by default; pass `json` for Studio **My deck** restyle (content-true) + optional `slide_index`; `mode: "layouts"` for multi-slide craft bake |
+| `preview_themes` | Render 1–3 theme HTML previews; **inline PNG screenshots** on by default; `studio_share_url` for the exact bake; pass `json` for Studio **My deck** restyle (content-true) + optional `slide_index`; `mode: "layouts"` for multi-slide craft bake |
 | CLI `--preview-compare` | Same pick-3 craft bake + discovery PNGs without MCP: `presentation-md-render --preview-compare a,b,c` |
 | `import_pptx` | Import a `.pptx` into deck JSON (see `references/pptx-import.md`) |
 | `import_markdown` | Import Marp/md-slides Markdown → Deck JSON (`---` splits, ` ```chart ` / ` ```html `) |

@@ -204,18 +204,29 @@ export const STUNNING_25_STUDIO_EXAMPLES: Readonly<Record<string, string>> = {
   blueprint: "apsis-mission",
 };
 
+/**
+ * Studio deep-link for any theme — stunning-25 get curated `?example=` craft,
+ * everyone else opens Studio with `?theme=` so agents always have an editable hop.
+ */
+export function themeStudioUrl(themeName: string): string {
+  const studio_example = STUNNING_25_STUDIO_EXAMPLES[themeName];
+  if (studio_example) {
+    return `${PRESENTATION_MD_SITE}/studio/?example=${encodeURIComponent(studio_example)}&fresh=1`;
+  }
+  return `${PRESENTATION_MD_SITE}/studio/?theme=${encodeURIComponent(themeName)}&fresh=1`;
+}
+
 /** Absolute URLs for Theme Discovery — open proofs before authoring. */
 export function themeDiscoveryLinks(themeName: string, galleryPath?: string): {
   preview_url: string;
-  studio_url?: string;
+  /** Always set — example craft for stunning-25, else `?theme=` blank slate. */
+  studio_url: string;
   gallery_url?: string;
   studio_example?: string;
 } {
   const preview_url = `${PRESENTATION_MD_SITE}/previews/${encodeURIComponent(themeName)}.html`;
   const studio_example = STUNNING_25_STUDIO_EXAMPLES[themeName];
-  const studio_url = studio_example
-    ? `${PRESENTATION_MD_SITE}/studio/?example=${encodeURIComponent(studio_example)}&fresh=1`
-    : undefined;
+  const studio_url = themeStudioUrl(themeName);
   let gallery_url: string | undefined;
   if (galleryPath?.trim()) {
     const rel = galleryPath.trim().replace(/^\//, "");

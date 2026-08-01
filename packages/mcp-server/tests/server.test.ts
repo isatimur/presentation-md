@@ -166,11 +166,12 @@ describe("list_themes", () => {
       expect(t.preview_url).toBe(
         `https://presentation-md.vercel.app/previews/${encodeURIComponent(t.name)}.html`
       );
-    }
-    // When a stunning-25 theme is installed, studio deep-link is present.
-    const withStudio = result.themes.find((t) => t.studio_example);
-    if (withStudio) {
-      expect(withStudio.studio_url).toContain(`example=${withStudio.studio_example}`);
+      expect(t.studio_url).toBeTruthy();
+      if (t.studio_example) {
+        expect(t.studio_url).toContain(`example=${t.studio_example}`);
+      } else {
+        expect(t.studio_url).toContain(`theme=${encodeURIComponent(t.name)}`);
+      }
     }
   });
 
@@ -460,6 +461,8 @@ describe("preview_themes", () => {
         scheme?: string;
         swatches?: string[];
         preview_url?: string;
+        studio_url?: string;
+        studio_share_url?: string;
       }>;
       expect(previews[0]!.filename).toBe("default-tech-preview.html");
       expect(previews[0]!.slides).toBe(1);
@@ -467,7 +470,12 @@ describe("preview_themes", () => {
       expect(previews[0]!.scheme).toBeTruthy();
       expect(previews[0]!.swatches).toEqual(expect.any(Array));
       expect(previews[0]!.preview_url).toMatch(/\/previews\/default-tech\.html$/);
+      expect(previews[0]!.studio_url).toContain("theme=default-tech");
+      expect(previews[0]!.studio_share_url).toMatch(/[?&]d=d1\./);
       expect(result.compare_summary).toHaveLength(1);
+      expect(
+        (result.compare_summary as Array<{ studio_share_url?: string }>)[0]!.studio_share_url
+      ).toMatch(/[?&]d=d1\./);
       expect(result.dx_hint).toMatch(/file_url|swatches|Screenshots skipped/i);
     } finally {
       await rm(dir, { recursive: true, force: true });

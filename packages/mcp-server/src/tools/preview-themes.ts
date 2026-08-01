@@ -4,8 +4,10 @@ import { pathToFileURL } from "node:url";
 import {
   discoverInstalledThemes,
   findShortlist,
+  isShareDeck,
   loadThemeSelectionIndex,
   loadThemeShortlists,
+  studioShareLink,
   themeDiscoveryLinks,
   type ThemeShortlist,
 } from "@presentation-md/core";
@@ -58,7 +60,7 @@ function restyleDeckJson(deck: DeckLike, theme: string): string {
 export const previewThemesTool: ToolDefinition = {
   name: "preview_themes",
   description:
-    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Returns file paths + file:// URLs, mood/scheme/swatches, proof deep-links, layout bake list, and — by default — inline PNG screenshots as MCP image content (title cover; layouts mode also captures bento + comparison — Studio Title/Bento/Compare parity). Pass include_screenshots:false to skip Chrome. Pass themes[] and/or a shortlist id from theme-shortlists.json. Pick-3 / duo compares (≥2 themes) default to mode=\"layouts\"; pass mode=\"title\" for a fast cover-only skim. Single-theme default remains title. Pass json (Deck JSON) for Studio My deck restyle parity — re-themes YOUR slides across the pick (mode=\"deck\"); optional slide_index (1-based) picks which slide to screenshot. kinetic-wrapped canned previews inject tone + hero mega-stat + share pills.",
+    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Returns file paths + file:// URLs, mood/scheme/swatches, proof deep-links (preview_url, studio_url, studio_share_url for the exact bake via ?d=), layout bake list, and — by default — inline PNG screenshots as MCP image content (title cover; layouts mode also captures bento + comparison — Studio Title/Bento/Compare parity). Pass include_screenshots:false to skip Chrome. Pass themes[] and/or a shortlist id from theme-shortlists.json. Pick-3 / duo compares (≥2 themes) default to mode=\"layouts\"; pass mode=\"title\" for a fast cover-only skim. Single-theme default remains title. Pass json (Deck JSON) for Studio My deck restyle parity — re-themes YOUR slides across the pick (mode=\"deck\"); optional slide_index (1-based) picks which slide to screenshot. kinetic-wrapped canned previews inject tone + hero mega-stat + share pills.",
   inputSchema: {
     type: "object",
     properties: {
@@ -235,6 +237,16 @@ export const previewThemesTool: ToolDefinition = {
             ? layoutsPreviewSlideCount(theme)
             : 1;
 
+      let studio_share_url: string | undefined;
+      try {
+        const baked = JSON.parse(deckJson) as unknown;
+        if (isShareDeck(baked)) {
+          studio_share_url = await studioShareLink(baked);
+        }
+      } catch {
+        /* share optional — HTML + preview_url still usable */
+      }
+
       const preview: Record<string, unknown> = {
         theme,
         path,
@@ -252,6 +264,7 @@ export const previewThemesTool: ToolDefinition = {
         best_for: sel?.best_for,
         ...(mode === "deck" ? { slide_index: slideIndex1 } : {}),
         ...links,
+        ...(studio_share_url ? { studio_share_url } : {}),
       };
 
       if (includeScreenshots) {
@@ -317,6 +330,7 @@ export const previewThemesTool: ToolDefinition = {
         file_url: p.file_url,
         preview_url: p.preview_url,
         studio_url: p.studio_url,
+        studio_share_url: p.studio_share_url,
         screenshots: p.screenshots,
         ...(mode === "deck" ? { slide_index: p.slide_index } : {}),
       })),

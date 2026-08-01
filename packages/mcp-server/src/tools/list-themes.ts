@@ -19,7 +19,7 @@ import type { ToolDefinition } from "../server.js";
 export const listThemesTool: ToolDefinition = {
   name: "list_themes",
   description:
-    "List available presentation-md themes (name, version, vibe, description, proof deep-links). Optional filters: shortlist id, browse chip id (site/Studio mood bar: popular/dark/editorial/neon/…), mood/query from the selection index — use for Theme Discovery before locking meta.theme. Each theme may include preview_url, studio_url, gallery_url. Returns suggested_preview (safe/bold/wildcard trio) when ≥1 themes match. Set include_shortlists / include_browse_filters for catalogs.",
+    "List available presentation-md themes (name, version, vibe, description, proof deep-links). Optional filters: shortlist id, browse chip id (site/Studio mood bar: popular/dark/editorial/neon/…), mood/query from the selection index — use for Theme Discovery before locking meta.theme. Every theme includes preview_url + studio_url (stunning-25 → ?example= craft; others → ?theme= blank slate). Returns suggested_preview (safe/bold/wildcard trio) when ≥1 themes match. Set include_shortlists / include_browse_filters for catalogs.",
   inputSchema: {
     type: "object",
     properties: {
@@ -160,7 +160,7 @@ export const listThemesTool: ToolDefinition = {
     const result: Record<string, unknown> = {
       themes,
       discovery_hint:
-        "Theme Discovery: offer browse chips (list_themes include_browse_filters) or a shortlist (prefer popular:true), use suggested_preview (safe/bold/wildcard) or open studio_url / preview_url, then preview_themes with those 3 names (layouts auto; inline PNGs default — vision show-don't-tell). Lock meta.theme before generating the full deck.",
+        "Theme Discovery: offer browse chips (list_themes include_browse_filters) or a shortlist (prefer popular:true), use suggested_preview (safe/bold/wildcard) or open studio_url / preview_url, then preview_themes with those 3 names (layouts auto; inline PNGs + studio_share_url for the exact bake — vision show-don't-tell). Lock meta.theme before generating the full deck.",
     };
     if (suggested_preview) {
       result.suggested_preview = suggested_preview;

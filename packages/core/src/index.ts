@@ -74,6 +74,7 @@ export {
   pickDiscoveryPreviewTrio,
   parseLayoutRecipeHeadings,
   themeDiscoveryLinks,
+  themeStudioUrl,
   PRESENTATION_MD_SITE,
   STUNNING_25_STUDIO_EXAMPLES,
 } from "./theme-discovery.js";
