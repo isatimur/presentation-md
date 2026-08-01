@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { restyleSlideHtml } from "./DeckRestylePreview.js";
+import { SlideFilmstrip } from "./SlideFilmstrip.js";
 
 // Injected into the deck so each slide fills the viewport and pages cleanly.
 const PRESENT_CSS = `
@@ -27,6 +28,7 @@ export function PresentMode({
   const frameRef = useRef<HTMLIFrameElement>(null);
   const [i, setI] = useState(0);
   const [showNotes, setShowNotes] = useState(true);
+  const [showStrip, setShowStrip] = useState(true);
   const presentHtml = html.replace("</head>", `<style>${PRESENT_CSS}</style></head>`);
   const currentNotes = (notes[i] ?? "").trim();
   const hasAnyNotes = notes.some((n) => (n ?? "").trim().length > 0);
@@ -52,6 +54,9 @@ export function PresentMode({
       else if (e.key === "s" || e.key === "S") {
         e.preventDefault();
         setShowNotes((v) => !v);
+      } else if (e.key === "f" || e.key === "F") {
+        e.preventDefault();
+        setShowStrip((v) => !v);
       } else if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
         e.preventDefault();
         setI((p) => Math.min(slideCount - 1, p + 1));
@@ -125,6 +130,11 @@ export function PresentMode({
           </aside>
         )}
       </div>
+      {showStrip && slideCount > 1 ? (
+        <div className="present-filmstrip" aria-label="Slide filmstrip peek">
+          <SlideFilmstrip html={html} count={slideCount} selected={i} onSelect={setI} />
+        </div>
+      ) : null}
       <div className="present-bar">
         <button className="btn btn-icon" title="Previous (←)" onClick={() => go(-1)}>←</button>
         <span className="present-count">{i + 1} / {slideCount}</span>
@@ -136,6 +146,15 @@ export function PresentMode({
         >
           {showNotes ? "Hide notes · S" : "Notes · S"}
         </button>
+        {slideCount > 1 ? (
+          <button
+            className="btn"
+            title="Toggle filmstrip peek (F)"
+            onClick={() => setShowStrip((v) => !v)}
+          >
+            {showStrip ? "Hide strip · F" : "Strip · F"}
+          </button>
+        ) : null}
         <button className="btn" onClick={onClose}>Exit · Esc</button>
       </div>
     </div>

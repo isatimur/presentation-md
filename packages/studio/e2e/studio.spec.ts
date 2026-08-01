@@ -341,9 +341,19 @@ test("Present mode shows up-next peek and advances with ArrowRight", async ({ pa
   await expect(page.locator(".present-next")).toBeVisible();
   await expect(page.locator(".present-next")).toContainText(/Up next/i);
   await expect(page.locator(".present-next-frame")).toHaveCount(1);
+  await expect(page.locator(".present-filmstrip .slide-filmstrip")).toBeVisible();
+  await expect(page.locator(".present-filmstrip .slide-filmstrip-hit")).toHaveCount(
+    await page.locator(".present-count").evaluate((el) => {
+      const m = (el.textContent ?? "").match(/\/\s*(\d+)/);
+      return m ? Number(m[1]) : 0;
+    })
+  );
+
+  await page.locator('.present-filmstrip .slide-filmstrip-hit[data-filmstrip-i="2"]').click();
+  await expect(page.locator(".present-count")).toContainText(/3\s*\/\s*/);
 
   await page.keyboard.press("ArrowRight");
-  await expect(page.locator(".present-count")).toContainText(/2\s*\/\s*/);
+  await expect(page.locator(".present-count")).toContainText(/4\s*\/\s*/);
   await expect(page.locator(".present-next")).toContainText(/Up next/i);
 
   await page.keyboard.press("Escape");

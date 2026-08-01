@@ -667,12 +667,26 @@ body {
 .present-bar .btn-icon { font-size: 14px; }
 .present-count { min-width: 64px; text-align: center; }
 
+/* Present-mode densified filmstrip peek — jump to any slide while presenting. */
+.present-filmstrip {
+  flex: 0 0 auto;
+  padding: 8px 12px 4px;
+  background: #0B1220;
+  border-top: 1px solid rgba(232,238,244,0.12);
+}
+.present-filmstrip .slide-filmstrip {
+  border-color: rgba(232,238,244,0.14);
+  background: #111827;
+  border-radius: 10px;
+}
+
 @media (max-width: 720px) {
   .present-main { flex-direction: column; }
   .present-rail {
     width: 100%; max-height: 36vh; border-left: 0;
     border-top: 1px solid rgba(232,238,244,0.12);
   }
+  .present-filmstrip { display: none; }
 }
 
 /* ── Saved indicator / onboarding ──────────────────────────────────── */
