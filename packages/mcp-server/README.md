@@ -42,7 +42,7 @@ replace it with the block above (or re-run `npx @presentation-md/install cursor`
 | `audit_deck` | Schema validate **plus** craft gates (asymmetry, loud/atmosphere/paper honesty, dual CTA, data beats). Schema-valid ≠ shippable — call before the user sees a first draft. |
 | `judge_deck` | Craft QA tiers: `t1` schema gates, `t2` HTML metrics + screenshots, `t3` agent rubric / panel when keys exist. |
 | `generate_deck_prompt` | Build a one-shot craft system prompt (theme palette, anti-slop, layout recipes, custom-html recipes, shortlists) + optional `density` (`speaker` / `reading`) lock. |
-| `preview_themes` | Render 1–3 theme HTML previews for visual discovery. Pass `themes[]` and/or `shortlist` id (fills themes from theme-shortlists.json). **Pick-3 (≥2 themes) auto-defaults to `mode: "layouts"`** (multi-slide craft bake); pass `mode: "title"` only for a cover skim. Title-mode trios return `layouts_recommended`. |
+| `preview_themes` | Render 1–3 theme HTML previews for visual discovery. Pass `themes[]` and/or `shortlist` id (fills themes from theme-shortlists.json). **Pick-3 (≥2 themes) auto-defaults to `mode: "layouts"`** (multi-slide craft bake); pass `mode: "title"` only for a cover skim. Title-mode trios return `layouts_recommended`. Each preview includes `file_url`, `compare_summary` (mood/swatches/vibe), proof deep-links, and layout bake list — agent DX without inline PNGs. |
 | `import_pptx` | Import a `.pptx` file into deck JSON (text, tables, images, notes → layouts). |
 | `import_markdown` | Convert Markdown outline → Deck JSON (`chart` / `html` fences supported). |
 | `import_brand_theme` | Generate a theme from a brand's URL or CSS file, with a contrast-safety pass. |

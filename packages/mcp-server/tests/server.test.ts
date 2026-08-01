@@ -299,11 +299,27 @@ describe("preview_themes", () => {
         output_dir: dir,
       })) as {
         mode: string;
-        previews: Array<{ filename: string; slides: number; mode: string }>;
+        dx_hint?: string;
+        compare_summary?: unknown[];
+        previews: Array<{
+          filename: string;
+          slides: number;
+          mode: string;
+          file_url?: string;
+          scheme?: string;
+          swatches?: string[];
+          preview_url?: string;
+        }>;
       };
       expect(result.mode).toBe("title");
       expect(result.previews[0]!.filename).toBe("default-tech-preview.html");
       expect(result.previews[0]!.slides).toBe(1);
+      expect(result.previews[0]!.file_url).toMatch(/^file:\/\//);
+      expect(result.previews[0]!.scheme).toBeTruthy();
+      expect(result.previews[0]!.swatches).toEqual(expect.any(Array));
+      expect(result.previews[0]!.preview_url).toMatch(/\/previews\/default-tech\.html$/);
+      expect(result.compare_summary).toHaveLength(1);
+      expect(result.dx_hint).toMatch(/file_url|swatches/i);
     } finally {
       await rm(dir, { recursive: true, force: true });
     }

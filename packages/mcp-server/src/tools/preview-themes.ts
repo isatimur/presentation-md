@@ -1,9 +1,18 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { findShortlist, loadThemeShortlists, type ThemeShortlist } from "@presentation-md/core";
+import { pathToFileURL } from "node:url";
+import {
+  discoverInstalledThemes,
+  findShortlist,
+  loadThemeSelectionIndex,
+  loadThemeShortlists,
+  themeDiscoveryLinks,
+  type ThemeShortlist,
+} from "@presentation-md/core";
 import {
   buildLayoutsPreviewDeck,
   buildTitlePreviewDeck,
+  getBundledThemesDir,
   layoutsPreviewSlideCount,
   renderDeck,
   type PreviewMode,
@@ -14,10 +23,31 @@ import type { ToolDefinition } from "../server.js";
 
 const DEFAULT_PREVIEW_DIR = ".presentation-md/theme-previews";
 
+/** Layout sequence baked into layouts-mode previews (agents can narrate without opening HTML). */
+const LAYOUTS_PREVIEW_LAYOUTS = [
+  "title",
+  "image-hero",
+  "feature-grid",
+  "two-column",
+  "comparison",
+  "ranked-list",
+  "stat-row",
+  "quote",
+  "code",
+  "closing",
+] as const;
+
+const LAYOUTS_PREVIEW_LAYOUTS_WRAPPED = [
+  ...LAYOUTS_PREVIEW_LAYOUTS.slice(0, -1),
+  "streak-grid",
+  "metric-ring",
+  "closing",
+] as const;
+
 export const previewThemesTool: ToolDefinition = {
   name: "preview_themes",
   description:
-    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Pass themes[] and/or a shortlist id from theme-shortlists.json (shortlist themes fill when themes is omitted; otherwise themes wins, capped at 3). Pick-3 / duo compares (≥2 themes) default to mode=\"layouts\" so agents judge body craft without a second call — pass mode=\"title\" for a fast cover-only skim. Single-theme default remains title. kinetic-wrapped previews inject tone + hero mega-stat + share pills.",
+    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Returns file paths + file:// URLs, mood/scheme/swatches, proof deep-links, and layout bake list — rich enough for agents to compare without inline PNGs. Pass themes[] and/or a shortlist id from theme-shortlists.json (shortlist themes fill when themes is omitted; otherwise themes wins, capped at 3). Pick-3 / duo compares (≥2 themes) default to mode=\"layouts\" so agents judge body craft without a second call — pass mode=\"title\" for a fast cover-only skim. Single-theme default remains title. kinetic-wrapped previews inject tone + hero mega-stat + share pills.",
   inputSchema: {
     type: "object",
     properties: {
@@ -103,13 +133,17 @@ export const previewThemesTool: ToolDefinition = {
 
     await mkdir(outputDir, { recursive: true });
 
-    const previews: Array<{
-      theme: string;
-      path: string;
-      filename: string;
-      mode: PreviewMode;
-      slides: number;
-    }> = [];
+    const [selectionIndex, discovered] = await Promise.all([
+      loadThemeSelectionIndex(),
+      discoverInstalledThemes({
+        bundledThemesDir: getBundledThemesDir(),
+        nodeModulesRoot: process.cwd(),
+      }),
+    ]);
+    const selectionByName = new Map(selectionIndex.themes.map((t) => [t.name, t] as const));
+    const discoveredByName = new Map(discovered.map((d) => [d.name, d] as const));
+
+    const previews: Array<Record<string, unknown>> = [];
 
     for (const theme of themes) {
       const deckJson =
@@ -121,12 +155,34 @@ export const previewThemesTool: ToolDefinition = {
         mode === "layouts" ? `${theme}-layouts-preview.html` : `${theme}-preview.html`;
       const path = join(outputDir, filename);
       await writeFile(path, html, "utf-8");
+
+      const sel = selectionByName.get(theme);
+      const disc = discoveredByName.get(theme);
+      const links = themeDiscoveryLinks(theme, sel?.gallery);
+      const layouts =
+        mode === "layouts"
+          ? theme === "kinetic-wrapped"
+            ? [...LAYOUTS_PREVIEW_LAYOUTS_WRAPPED]
+            : [...LAYOUTS_PREVIEW_LAYOUTS]
+          : (["title"] as string[]);
+      const fileUrl = pathToFileURL(path).href;
+
       previews.push({
         theme,
         path,
         filename,
+        file_url: fileUrl,
+        open_hint: `Open ${fileUrl} in a browser (or drag the file onto a tab).`,
         mode,
         slides: mode === "layouts" ? layoutsPreviewSlideCount(theme) : 1,
+        layouts,
+        vibe: disc?.manifest.vibe ?? disc?.manifest.description ?? sel?.aliases?.[0],
+        scheme: sel?.scheme,
+        mood: sel?.mood,
+        formality: sel?.formality,
+        swatches: sel?.swatches,
+        best_for: sel?.best_for,
+        ...links,
       });
     }
 
@@ -134,6 +190,18 @@ export const previewThemesTool: ToolDefinition = {
       previews,
       mode,
       output_dir: outputDir,
+      compare_summary: previews.map((p) => ({
+        theme: p.theme,
+        scheme: p.scheme,
+        mood: p.mood,
+        swatches: p.swatches,
+        vibe: p.vibe,
+        file_url: p.file_url,
+        preview_url: p.preview_url,
+        studio_url: p.studio_url,
+      })),
+      dx_hint:
+        "No inline PNGs — open each file_url (local HTML) or preview_url (hosted proof). Use compare_summary swatches + mood to narrate the pick before the user opens files. Prefer layouts mode for body craft.",
       ...(matchedShortlist ? { shortlist: matchedShortlist } : {}),
       ...(shortlistError ? { shortlist_error: shortlistError } : {}),
       ...(mode === "title" && themes.length >= 2
@@ -145,10 +213,10 @@ export const previewThemesTool: ToolDefinition = {
         : {}),
       instruction:
         mode === "layouts"
-          ? "Open each multi-layout preview and scroll past the title — judge cards, comparison, stats, quote, and code. After they pick a theme, set meta.theme and generate the full deck."
+          ? "Open each multi-layout preview (file_url) and scroll past the title — judge cards, comparison, stats, quote, and code. Or skim compare_summary swatches/mood first. After they pick a theme, set meta.theme and generate the full deck."
           : themes.length >= 2
-            ? "Open each title preview. For pick-3 craft judgment, re-run with mode=\"layouts\" (recommended). After they pick a theme, set meta.theme and generate the full deck."
-            : "Open each preview HTML in a browser (or show the user the file paths). For deeper craft judgment, re-run with mode=\"layouts\". After they pick a theme, set meta.theme and generate the full deck.",
+            ? "Open each title preview via file_url. For pick-3 craft judgment, re-run with mode=\"layouts\" (recommended). After they pick a theme, set meta.theme and generate the full deck."
+            : "Open the preview HTML via file_url (or show the user the path). For deeper craft judgment, re-run with mode=\"layouts\". After they pick a theme, set meta.theme and generate the full deck.",
     };
   },
 };
