@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.20.0
+
+### Minor Changes
+
+- 41bb08c: Craft `repairCraft` + MCP `audit_deck` `apply_safe_fixes` (returns repaired JSON) and Studio **Apply safe fixes** / **Print / PDF** — agents clear structural craft in one hop; Studio closes the browser PDF gap via the same `@page` 16:9 print CSS as MCP/CLI.
+
 ## 1.19.5
 
 ### Patch Changes
