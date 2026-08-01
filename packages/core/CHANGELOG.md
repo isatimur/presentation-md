@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.22.3
+
+### Patch Changes
+
+- 0608094: Studio **Copy link** shares a compressed `?d=` editable deck (hydrate on open) + Open Marp/md-slides `.md`; MCP `apply_theme` defaults to `repairCraft` (Studio My deck Use parity).
+
 ## 1.22.2
 
 ### Patch Changes
