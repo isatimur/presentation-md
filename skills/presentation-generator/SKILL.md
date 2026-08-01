@@ -388,7 +388,7 @@ Eleven tools via `@presentation-md/mcp-server` (not the deprecated `@presentatio
 |------|-----------|
 | `render_deck` | Convert deck JSON → polished HTML |
 | `export_deck` | Export deck JSON → `.pptx`, vector PDF, or html |
-| `audit_deck` | Schema-validate + craft gates; optional `apply_safe_fixes` returns repaired JSON |
+| `audit_deck` | Schema-validate + craft gates; optional `apply_safe_fixes` returns repaired JSON (fields + beat inserts: image-hero / comparison / data / logo-wall / wrap tones) |
 | `list_themes` | See installed themes with vibe/description + proof deep-links; filter with `browse` chips (site/Studio parity), shortlist, mood, or query; use `suggested_preview` (safe/bold/wildcard) for pick-3 |
 | `apply_theme` | Swap `meta.theme` without rewriting slides |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
@@ -396,7 +396,7 @@ Eleven tools via `@presentation-md/mcp-server` (not the deprecated `@presentatio
 | CLI `--preview-compare` | Same pick-3 craft bake + discovery PNGs without MCP: `presentation-md-render --preview-compare a,b,c` |
 | `import_pptx` | Import a `.pptx` into deck JSON (see `references/pptx-import.md`) |
 | `import_markdown` | Import Marp/md-slides Markdown → Deck JSON (`---` splits, ` ```chart ` / ` ```html `) |
-| `judge_deck` | Design judge — `tier` t0/t1 JSON gates; **t2** HTML metrics + Chrome shots; **t3** panel or agent rubric |
+| `judge_deck` | Design judge — `tier` t0/t1 JSON gates; **t2** HTML metrics + Chrome shots (**inline PNGs** by default); **t3** panel or agent rubric |
 | `import_brand_theme` | Generate a theme from a brand URL or CSS file |
 
 ---
@@ -453,10 +453,10 @@ You have been staring at this deck while building it, so you now see what you *i
 
 **Tooling first (deck-spec path) — non-skippable when MCP/CLI is available:**
 1. Call `preview_themes` (or open gallery structured proofs) before locking a vibe — never invent a palette.
-2. Call `audit_deck` on the deck JSON — fix every `error`, then address `warning`s. Pass `apply_safe_fixes: true` to auto-fill safe structural craft (emphasis, ratio, bento, CTA/icons, speaker notes, candy-pop brand) and get back `json` + `fixes_applied[]`; re-audit leftovers manually.
-3. Call `judge_deck` for craft gates (`tier=t1`). Escalate to `tier=t2` (HTML metrics + screenshots) before delivery; `tier=t3` when highest stakes.
+2. Call `audit_deck` on the deck JSON — fix every `error`, then address `warning`s. Pass `apply_safe_fixes: true` to auto-fill safe structural craft **and insert missing beats** (image-hero, comparison, stat-row, logo-wall, wrap tones/ranked/streak, cadence swaps, emphasis, ratio, bento, CTA/icons, speaker notes, candy-pop brand) and get back `json` + `fixes_applied[]`; re-audit any theme-honesty leftovers manually.
+3. Call `judge_deck` for craft gates (`tier=t1`). Escalate to `tier=t2` (HTML metrics + **inline slide PNGs**) before delivery; `tier=t3` when highest stakes.
 4. Render with `render_deck` / CLI, open the HTML, and spot-check with keyboard arrows.
-5. Re-run `judge_deck` at t2/t3 with shot paths → fix → re-score. Do not ship on schema-valid alone.
+5. Re-run `judge_deck` at t2/t3 with attached shots → fix → re-score. Do not ship on schema-valid alone.
 
 Then walk every slide against this checklist and fix before delivering:
 

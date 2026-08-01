@@ -91,8 +91,11 @@ describe("audit_deck craft gates", () => {
     expect(result.fixes_applied!.length).toBeGreaterThan(0);
     expect(result.json).toBeTruthy();
     const repaired = JSON.parse(result.json!);
-    expect(repaired.slides[1].emphasis).toBe("right");
-    expect(repaired.slides[5].actions?.length).toBeGreaterThanOrEqual(1);
+    const comparison = repaired.slides.find((s: { layout?: string }) => s.layout === "comparison");
+    const closing = repaired.slides.find((s: { layout?: string }) => s.layout === "closing");
+    expect(comparison?.emphasis).toBe("right");
+    expect(closing?.actions?.length).toBeGreaterThanOrEqual(1);
+    expect(repaired.slides.some((s: { layout?: string }) => s.layout === "image-hero")).toBe(true);
     expect(result.issues.some((i) => /emphasis/i.test(i.message))).toBe(false);
     expect(result.issues.some((i) => /missing CTA/i.test(i.message))).toBe(false);
   });

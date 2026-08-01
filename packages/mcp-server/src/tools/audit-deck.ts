@@ -30,7 +30,7 @@ function manualValidate(deck: Record<string, unknown>): { valid: boolean; issues
 export const auditDeckTool: ToolDefinition = {
   name: "audit_deck",
   description:
-    "Validate Deck JSON against the schema AND run craft gates (asymmetry, loud/atmosphere/paper honesty, dual CTA, data beats, custom-html vs ranked-list misuse). Returns structured issues — call before the user sees a first draft; schema-valid ≠ shippable. Pass apply_safe_fixes:true to auto-apply safe structural repairs (emphasis, ratio, bento, CTA/icons, speaker notes, candy-pop brand) and get back repaired json + fixes_applied — agents clear craft warnings in one hop vs frontend-slides vibe drafts.",
+    "Validate Deck JSON against the schema AND run craft gates (asymmetry, loud/atmosphere/paper honesty, dual CTA, data beats, custom-html vs ranked-list misuse). Returns structured issues — call before the user sees a first draft; schema-valid ≠ shippable. Pass apply_safe_fixes:true to auto-apply safe structural repairs (emphasis, ratio, bento, CTA/icons, speaker notes, candy-pop brand) PLUS beat inserts (image-hero, comparison, stat-row, logo-wall, wrap tones/ranked/streak, cadence swaps) and get back repaired json + fixes_applied — agents clear craft warnings in one hop vs frontend-slides vibe drafts.",
   inputSchema: {
     type: "object",
     properties: {
@@ -38,7 +38,7 @@ export const auditDeckTool: ToolDefinition = {
       apply_safe_fixes: {
         type: "boolean",
         description:
-          "When true, apply safe structural craft repairs before re-auditing. Returns repaired `json` string plus `fixes_applied[]`. Does not invent themes or body copy.",
+          "When true, apply safe structural craft repairs + beat inserts before re-auditing. Returns repaired `json` string plus `fixes_applied[]`. Does not invent themes or long body copy; placeholder stats are flagged in fixes_applied.",
       },
     },
     required: ["json"],

@@ -10,6 +10,7 @@ import { SlideForm } from "./components/SlideForm.js";
 import { Preview } from "./components/Preview.js";
 import { PresentMode } from "./components/PresentMode.js";
 import { GenerateModal } from "./components/GenerateModal.js";
+import { repairCraft } from "./craft/auditCraft.js";
 
 const STORAGE_KEY = "pmd-studio-deck-v1";
 const EXAMPLE_SLUG_KEY = "pmd-studio-example-slug";
@@ -191,7 +192,8 @@ export function App() {
         <GenerateModal
           currentTheme={deck.meta?.theme ?? "claude"}
           onGenerate={(next) => {
-            setDeck(next);
+            const { deck: repaired } = repairCraft(next);
+            setDeck(repaired as DeckJson);
             setExampleSlug(null);
             setSelected(0);
           }}

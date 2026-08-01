@@ -990,12 +990,16 @@ describe("repairCraft", () => {
     const { deck: repaired, fixes } = repairCraft(deck);
     expect(fixes.length).toBeGreaterThan(3);
     const slides = repaired.slides as Array<Record<string, unknown>>;
-    expect(slides[2]?.["emphasis"]).toBe("right");
-    expect(slides[1]?.["columns"]).toBe("bento");
-    expect(slides[3]?.["ratio"]).toBe("2-1");
-    expect(Array.isArray(slides[5]?.["actions"])).toBe(true);
+    const comparison = slides.find((s) => s["layout"] === "comparison");
+    const feature = slides.find((s) => s["layout"] === "feature-grid");
+    const twoCol = slides.find((s) => s["layout"] === "two-column");
+    const closing = slides.find((s) => s["layout"] === "closing");
+    expect(comparison?.["emphasis"]).toBe("right");
+    expect(feature?.["columns"]).toBe("bento");
+    expect(twoCol?.["ratio"]).toBe("2-1");
+    expect(Array.isArray(closing?.["actions"])).toBe(true);
     expect(
-      (slides[1]?.["cards"] as Array<Record<string, unknown>>).every(
+      (feature?.["cards"] as Array<Record<string, unknown>>).every(
         (c) => typeof c["icon"] === "string" && c["icon"]
       )
     ).toBe(true);
@@ -1014,5 +1018,148 @@ describe("repairCraft", () => {
     );
     const { fixes } = repairCraft(pulse);
     expect(fixes).toEqual([]);
+  });
+
+  it("inserts image-hero, comparison, and data beats for flat long decks", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "default-tech", title: "Flat Launch" },
+      slides: Array.from({ length: 6 }, (_, i) =>
+        i === 0
+          ? { layout: "title", heading: "Flat Launch" }
+          : i === 5
+            ? {
+                layout: "closing",
+                heading: "Bye",
+                actions: [
+                  { label: "Go", href: "#", style: "solid", icon: "fa-solid fa-rocket" },
+                  { label: "More", href: "#", style: "outline", icon: "fa-solid fa-book" },
+                ],
+              }
+            : {
+                layout: "feature-grid",
+                heading: `Slide ${i + 1}`,
+                columns: 3,
+                cards: [
+                  { title: "One", body: "A", icon: "fa-solid fa-1" },
+                  { title: "Two", body: "B", icon: "fa-solid fa-2" },
+                  { title: "Three", body: "C", icon: "fa-solid fa-3" },
+                ],
+              }
+      ),
+    };
+    const before = auditCraft(deck);
+    expect(before.some((i) => /image-hero/i.test(i.message))).toBe(true);
+    expect(before.some((i) => /asymmetry/i.test(i.message))).toBe(true);
+    expect(before.some((i) => /data beat/i.test(i.message))).toBe(true);
+
+    const { deck: repaired, fixes } = repairCraft(deck);
+    expect(fixes.some((f) => /image-hero/i.test(f))).toBe(true);
+    expect(fixes.some((f) => /comparison/i.test(f))).toBe(true);
+    expect(fixes.some((f) => /stat-row|data beat/i.test(f))).toBe(true);
+
+    const layouts = (repaired.slides as Array<Record<string, unknown>>).map((s) => s["layout"]);
+    expect(layouts).toContain("image-hero");
+    expect(layouts).toContain("comparison");
+    expect(layouts).toContain("stat-row");
+
+    const after = auditCraft(repaired);
+    expect(after.some((i) => /image-hero/i.test(i.message))).toBe(false);
+    expect(after.some((i) => /asymmetry/i.test(i.message))).toBe(false);
+    expect(after.some((i) => /data beat/i.test(i.message))).toBe(false);
+  });
+
+  it("assigns wrap tones and inserts wrap visual when missing", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "kinetic-wrapped", title: "Flat wrap" },
+      slides: [
+        { layout: "title", heading: "Year" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        { layout: "section", heading: "C" },
+        { layout: "closing", heading: "Bye", cta: { label: "Go", href: "#" } },
+      ],
+    };
+    const before = auditCraft(deck);
+    expect(before.some((i) => /fewer than 3 toned/i.test(i.message))).toBe(true);
+    expect(before.some((i) => /wrap needs a visual beat/i.test(i.message))).toBe(true);
+
+    const { deck: repaired, fixes } = repairCraft(deck);
+    expect(fixes.some((f) => /tone/i.test(f))).toBe(true);
+    expect(fixes.some((f) => /ranked-list/i.test(f))).toBe(true);
+
+    const after = auditCraft(repaired);
+    expect(after.some((i) => /fewer than 3 toned/i.test(i.message))).toBe(false);
+    expect(after.some((i) => /wrap needs a visual beat/i.test(i.message))).toBe(false);
+  });
+
+  it("fills missing headings and inserts logo-wall for social-proof copy", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "fintech-clean", title: "Trusted partners" },
+      slides: [
+        { layout: "title", lead: "Trusted by customers worldwide" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        { layout: "section", heading: "C" },
+        { layout: "quote", quote: "Great partners.", by: "CEO" },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Go", href: "#", style: "solid", icon: "fa-solid fa-rocket" },
+            { label: "More", href: "#", style: "outline", icon: "fa-solid fa-book" },
+          ],
+        },
+      ],
+    };
+    const before = auditCraft(deck);
+    expect(before.some((i) => /missing a "heading"/i.test(i.message))).toBe(true);
+    expect(before.some((i) => /logo-wall/i.test(i.message))).toBe(true);
+
+    const { deck: repaired, fixes } = repairCraft(deck);
+    expect(fixes.some((f) => /heading/i.test(f))).toBe(true);
+    expect(fixes.some((f) => /logo-wall/i.test(f))).toBe(true);
+    const slides = repaired.slides as Array<Record<string, unknown>>;
+    expect(slides[0]?.["heading"]).toBeTruthy();
+    expect(slides.some((s) => s["layout"] === "logo-wall")).toBe(true);
+
+    const after = auditCraft(repaired);
+    expect(after.some((i) => /missing a "heading"/i.test(i.message))).toBe(false);
+    expect(after.some((i) => /logo-wall/i.test(i.message))).toBe(false);
+  });
+
+  it("breaks identical layout cadence with a lossless swap", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "default-tech", title: "Cadence" },
+      slides: [
+        { layout: "title", heading: "Cadence" },
+        { layout: "image-hero", heading: "Hero", image: "https://x/y.png" },
+        { layout: "section", heading: "A" },
+        { layout: "section", heading: "B" },
+        { layout: "section", heading: "C" },
+        { layout: "stat-row", heading: "N", stats: [{ value: "1", label: "a" }] },
+        {
+          layout: "closing",
+          heading: "Bye",
+          actions: [
+            { label: "Go", href: "#", style: "solid", icon: "fa-solid fa-rocket" },
+            { label: "More", href: "#", style: "outline", icon: "fa-solid fa-book" },
+          ],
+        },
+      ],
+    };
+    const before = auditCraft(deck);
+    expect(before.some((i) => /repeats 3x/i.test(i.message))).toBe(true);
+
+    const { deck: repaired, fixes } = repairCraft(deck);
+    expect(fixes.some((f) => /cadence/i.test(f))).toBe(true);
+    const layouts = (repaired.slides as Array<Record<string, unknown>>).map((s) => s["layout"]);
+    expect(layouts.filter((l) => l === "section").length).toBeLessThan(3);
+
+    const after = auditCraft(repaired);
+    expect(after.some((i) => /repeats 3x/i.test(i.message))).toBe(false);
   });
 });

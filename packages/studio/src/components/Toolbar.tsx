@@ -722,7 +722,7 @@ export function Toolbar({
               type="button"
               className="btn btn-sm btn-primary"
               onClick={applySafeCraftFixes}
-              title="Apply safe structural fixes (emphasis, ratio, bento, CTA/icons, notes) — same as MCP audit_deck apply_safe_fixes"
+              title="Apply safe craft fixes (fields + beat inserts: image-hero, comparison, data, logo-wall, wrap tones) — same as MCP audit_deck apply_safe_fixes"
             >
               Apply safe fixes
             </button>

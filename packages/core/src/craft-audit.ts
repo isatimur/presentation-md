@@ -859,10 +859,137 @@ function actionIconForLabel(label: string): string {
   return "fa-solid fa-arrow-right";
 }
 
+const WRAP_TONES = ["lime", "magenta", "cyan", "orange", "violet"] as const;
+
+/** Abstract composed SVG for repair-inserted image-hero beats (gallery-class data URI). */
+function craftHeroDataUri(title: string): string {
+  const safe = title.replace(/[<>&"]/g, "").slice(0, 48) || "Craft";
+  return (
+    "data:image/svg+xml," +
+    encodeURIComponent(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0B1220"/><stop offset="1" stop-color="#FF3B1F"/></linearGradient></defs><rect width="1600" height="900" fill="url(#g)"/><circle cx="1180" cy="280" r="180" fill="#0D9488" opacity=".35"/><text x="96" y="780" fill="#F8FAFC" font-family="Georgia,serif" font-size="54" font-weight="700">${safe}</text></svg>`
+    )
+  );
+}
+
+function deckTitle(meta: Record<string, unknown>, slides: Array<Record<string, unknown>>): string {
+  if (typeof meta["title"] === "string" && meta["title"].trim()) return meta["title"].trim();
+  const titleSlide = slides.find((s) => s["layout"] === "title");
+  if (titleSlide && typeof titleSlide["heading"] === "string" && titleSlide["heading"].trim()) {
+    return String(titleSlide["heading"]).trim();
+  }
+  return "Presentation";
+}
+
+function insertBeforeClosing(
+  slides: Array<Record<string, unknown>>,
+  slide: Record<string, unknown>
+): number {
+  const closeIdx = slides.findIndex((s) => s["layout"] === "closing");
+  const at = closeIdx >= 0 ? closeIdx : slides.length;
+  slides.splice(at, 0, slide);
+  return at;
+}
+
+function insertAfterTitle(
+  slides: Array<Record<string, unknown>>,
+  slide: Record<string, unknown>
+): number {
+  const titleIdx = slides.findIndex((s) => s["layout"] === "title");
+  const at = titleIdx >= 0 ? titleIdx + 1 : Math.min(1, slides.length);
+  slides.splice(at, 0, slide);
+  return at;
+}
+
+function layoutList(slides: Array<Record<string, unknown>>): Array<string | undefined> {
+  return slides.map((s) => s["layout"] as string | undefined);
+}
+
+function hasAsymmetryLayouts(slides: Array<Record<string, unknown>>): boolean {
+  const layouts = layoutList(slides);
+  return (
+    layouts.includes("comparison") ||
+    layouts.includes("code") ||
+    layouts.includes("two-column") ||
+    layouts.includes("custom-html") ||
+    layouts.includes("ranked-list") ||
+    layouts.includes("streak-grid") ||
+    layouts.includes("metric-ring") ||
+    layouts.includes("logo-wall") ||
+    slides.some((s) => s["layout"] === "feature-grid" && s["columns"] === "bento")
+  );
+}
+
+function hasDataBeat(slides: Array<Record<string, unknown>>): boolean {
+  const layouts = layoutList(slides);
+  return (
+    layouts.includes("chart") ||
+    layouts.includes("stat-row") ||
+    layouts.includes("data-table") ||
+    layouts.includes("ranked-list") ||
+    layouts.includes("metric-ring") ||
+    layouts.includes("timeline")
+  );
+}
+
+function extractNumericStats(
+  slides: Array<Record<string, unknown>>
+): Array<{ value: string; label: string }> {
+  const found: Array<{ value: string; label: string }> = [];
+  const re = /\b(\d[\d.,]*[%KkMmBx×+]?)\b/g;
+  for (const slide of slides) {
+    const heading = typeof slide["heading"] === "string" ? slide["heading"] : "";
+    const blob = `${heading} ${JSON.stringify(slide)}`;
+    let m: RegExpExecArray | null;
+    re.lastIndex = 0;
+    while ((m = re.exec(blob)) !== null && found.length < 3) {
+      const value = m[1]!;
+      if (found.some((s) => s.value === value)) continue;
+      const label =
+        heading.trim().slice(0, 28) ||
+        (typeof slide["layout"] === "string" ? slide["layout"] : "Metric");
+      found.push({ value, label });
+    }
+    if (found.length >= 3) break;
+  }
+  return found;
+}
+
+function extractPartnerLabels(slides: Array<Record<string, unknown>>): string[] {
+  const labels: string[] = [];
+  for (const slide of slides) {
+    const cards = slide["cards"];
+    if (Array.isArray(cards)) {
+      for (const c of cards) {
+        const card = c as Record<string, unknown>;
+        const title = typeof card["title"] === "string" ? card["title"].trim() : "";
+        if (title && !/^[\d.,]+[%KkMmBx×+]*$/.test(title) && !labels.includes(title)) {
+          labels.push(title.slice(0, 24));
+        }
+        if (labels.length >= 4) return labels;
+      }
+    }
+    const items = slide["items"];
+    if (Array.isArray(items)) {
+      for (const it of items) {
+        const item = it as Record<string, unknown>;
+        const label =
+          (typeof item["label"] === "string" && item["label"].trim()) ||
+          (typeof item["title"] === "string" && item["title"].trim()) ||
+          "";
+        if (label && !labels.includes(label)) labels.push(label.slice(0, 24));
+        if (labels.length >= 4) return labels;
+      }
+    }
+  }
+  return labels;
+}
+
 /**
  * Apply safe structural craft fixes agents / Studio can accept in one hop.
- * Never invents slide copy or themes — only fills missing craft fields that
- * `auditCraft` already flags (emphasis, ratio, bento, CTA, icons, notes, brand).
+ * Fills missing craft fields AND inserts beat slides when audit gates require
+ * them (image-hero, asymmetry, data, logo-wall, wrap tones) — never invents
+ * themes or long body copy.
  */
 export function repairCraft(deck: CraftAuditDeck): CraftRepairResult {
   const next = cloneDeck(deck);
@@ -875,13 +1002,14 @@ export function repairCraft(deck: CraftAuditDeck): CraftRepairResult {
   }
   const meta = next.meta as Record<string, unknown>;
   const theme = typeof meta["theme"] === "string" ? meta["theme"] : "";
+  const isWrap = theme === "kinetic-wrapped";
+  const title = deckTitle(meta, slides);
 
   if (theme === "candy-pop") {
     const hasBrand =
       (typeof meta["company"] === "string" && String(meta["company"]).trim() !== "") ||
       (typeof meta["marquee"] === "string" && String(meta["marquee"]).trim() !== "");
     if (!hasBrand) {
-      const title = typeof meta["title"] === "string" ? String(meta["title"]).trim() : "";
       if (title) {
         meta["company"] = title;
         fixes.push(`meta.company ← "${title}" (candy-pop marquee brand)`);
@@ -893,6 +1021,19 @@ export function repairCraft(deck: CraftAuditDeck): CraftRepairResult {
     const slide = slides[i]!;
     const layout = slide["layout"] as string | undefined;
     const n = i + 1;
+
+    if (layout && HEADING_LAYOUTS.has(layout) && !slide["heading"]) {
+      const fromLead =
+        typeof slide["lead"] === "string" && String(slide["lead"]).trim()
+          ? String(slide["lead"]).trim().slice(0, 80)
+          : "";
+      const fromEyebrow =
+        typeof slide["eyebrow"] === "string" && String(slide["eyebrow"]).trim()
+          ? String(slide["eyebrow"]).trim()
+          : "";
+      slide["heading"] = fromLead || fromEyebrow || title;
+      fixes.push(`Slide ${n} (${layout}): set heading from ${fromLead ? "lead" : fromEyebrow ? "eyebrow" : "meta.title"}`);
+    }
 
     if (layout === "comparison") {
       if (slide["emphasis"] !== "left" && slide["emphasis"] !== "right") {
@@ -927,8 +1068,8 @@ export function repairCraft(deck: CraftAuditDeck): CraftRepairResult {
         let filled = 0;
         cards.forEach((c, ci) => {
           const card = c as Record<string, unknown>;
-          const title = typeof card["title"] === "string" ? card["title"].trim() : "";
-          if (/^[\d.,]+[%KkMmBx×+]*$/.test(title)) return;
+          const cardTitle = typeof card["title"] === "string" ? card["title"].trim() : "";
+          if (/^[\d.,]+[%KkMmBx×+]*$/.test(cardTitle)) return;
           if (typeof card["icon"] === "string" && card["icon"].trim() !== "") return;
           card["icon"] = DEFAULT_ICONS[ci % DEFAULT_ICONS.length]!;
           filled += 1;
@@ -1017,6 +1158,197 @@ export function repairCraft(deck: CraftAuditDeck): CraftRepairResult {
           cta["icon"] = actionIconForLabel(String(cta["label"]));
           fixes.push(`Slide ${n} (closing): added icon on cta`);
         }
+      }
+    }
+  }
+
+  // ── Beat inserts — only gates auditCraft would flag on the pre-insert deck ──
+  const originalCount = slides.length;
+  const originalLayouts = layoutList(slides);
+  const needImageHero =
+    originalCount >= 5 && !originalLayouts.includes("image-hero") && !isWrap;
+  const needAsymmetry = originalCount >= 5 && !hasAsymmetryLayouts(slides);
+  const needDataBeat = originalCount >= 6 && !hasDataBeat(slides);
+  const originalCopy = JSON.stringify(slides).toLowerCase();
+  const needLogoWall =
+    /partner|customer|trusted by|logo wall|backers/.test(originalCopy) &&
+    !originalLayouts.includes("logo-wall");
+  const needWrapTones =
+    isWrap &&
+    slides.filter((s) => {
+      const t = s["tone"];
+      return typeof t === "string" && t !== "default" && t.trim() !== "";
+    }).length < 3;
+  const needWrapVisual =
+    isWrap &&
+    !(
+      originalLayouts.includes("image-hero") ||
+      originalLayouts.includes("ranked-list") ||
+      originalLayouts.includes("streak-grid") ||
+      originalLayouts.includes("metric-ring") ||
+      originalLayouts.includes("custom-html") ||
+      slides.some((s) => s["layout"] === "stat-row" && s["variant"] === "hero")
+    );
+  const needStreakGrid =
+    isWrap && /streak/.test(originalCopy) && !originalLayouts.includes("streak-grid");
+
+  if (needImageHero) {
+    const at = insertAfterTitle(slides, {
+      layout: "image-hero",
+      eyebrow: "Visual beat",
+      heading: title,
+      lead: "Show the product, place, or atmosphere — not an icon grid.",
+      image: craftHeroDataUri(title),
+      imageAlt: `${title} craft field`,
+    });
+    fixes.push(`Inserted image-hero at slide ${at + 1} (cinematic visual beat)`);
+  }
+
+  if (needAsymmetry && !hasAsymmetryLayouts(slides)) {
+    const at = insertBeforeClosing(slides, {
+      layout: "comparison",
+      heading: "Before vs after",
+      leftLabel: "Before",
+      left: "Flat cadence — same layout repeated, no tension.",
+      rightLabel: "After",
+      right: `${title} — asymmetric craft that holds on first glance.`,
+      emphasis: "right",
+    });
+    fixes.push(`Inserted comparison at slide ${at + 1} (asymmetry beat)`);
+  }
+
+  if (needDataBeat && !hasDataBeat(slides)) {
+    const extracted = extractNumericStats(slides);
+    const stats =
+      extracted.length >= 2
+        ? extracted
+        : [
+            { value: "3×", label: "Faster path" },
+            { value: "1", label: "Schema" },
+            { value: "100%", label: "Editable PPTX" },
+          ];
+    const at = insertBeforeClosing(slides, {
+      layout: "stat-row",
+      heading: "By the numbers",
+      stats,
+    });
+    fixes.push(
+      `Inserted stat-row at slide ${at + 1} (data beat${extracted.length >= 2 ? " from deck numbers" : " · placeholder stats — replace"})`
+    );
+  }
+
+  if (needLogoWall && !layoutList(slides).includes("logo-wall")) {
+    const partners = extractPartnerLabels(slides);
+    const names =
+      partners.length >= 3
+        ? partners.slice(0, 4)
+        : ["Northstar", "Harbor", "Fieldkit", "Lumen"];
+    const at = insertBeforeClosing(slides, {
+      layout: "logo-wall",
+      eyebrow: "Trusted by",
+      heading: "Teams that ship with us.",
+      columns: 4,
+      cards: names.map((name) => ({ title: name, body: "Partner" })),
+    });
+    fixes.push(
+      `Inserted logo-wall at slide ${at + 1} (social-proof beat${partners.length >= 3 ? " from deck labels" : ""})`
+    );
+  }
+
+  if (needWrapTones) {
+    const already = slides.filter((s) => {
+      const t = s["tone"];
+      return typeof t === "string" && t !== "default" && t.trim() !== "";
+    }).length;
+    let assigned = 0;
+    for (let i = 0; i < slides.length && already + assigned < 3; i++) {
+      const slide = slides[i]!;
+      const t = slide["tone"];
+      if (typeof t === "string" && t !== "default" && t.trim() !== "") continue;
+      slide["tone"] = WRAP_TONES[(already + assigned) % WRAP_TONES.length]!;
+      assigned += 1;
+      fixes.push(`Slide ${i + 1}: set tone "${slide["tone"]}" (wrap hue beat)`);
+    }
+  }
+
+  if (needWrapVisual) {
+    const at = insertBeforeClosing(slides, {
+      layout: "ranked-list",
+      heading: "Top moments",
+      items: [
+        { label: title, widthPct: 92 },
+        { label: "The beat that stuck", widthPct: 74 },
+        { label: "Share-worthy closer", widthPct: 58 },
+      ],
+    });
+    fixes.push(`Inserted ranked-list at slide ${at + 1} (wrap visual beat)`);
+  }
+
+  if (needStreakGrid && !layoutList(slides).includes("streak-grid")) {
+    const at = insertBeforeClosing(slides, {
+      layout: "streak-grid",
+      heading: "Streak board",
+      filled: 21,
+      total: 30,
+      cols: 10,
+    });
+    fixes.push(`Inserted streak-grid at slide ${at + 1} (wrap streak honesty)`);
+  }
+
+  // Cadence: break ≥3 identical layouts when a lossless swap exists.
+  {
+    const layouts = layoutList(slides);
+    let run = 1;
+    let runStart = 0;
+    for (let j = 1; j <= layouts.length; j++) {
+      if (j < layouts.length && layouts[j] === layouts[j - 1]) {
+        run++;
+      } else {
+        if (run >= 3) {
+          const mid = runStart + Math.floor(run / 2);
+          const slide = slides[mid]!;
+          const layout = layouts[runStart];
+          const keepTone =
+            typeof slide["tone"] === "string" && slide["tone"].trim()
+              ? { tone: slide["tone"] }
+              : {};
+          const keepNotes =
+            typeof slide["notes"] === "string" && slide["notes"].trim()
+              ? { notes: slide["notes"] }
+              : {};
+          if (layout === "feature-grid") {
+            const heading =
+              typeof slide["heading"] === "string" && slide["heading"].trim()
+                ? String(slide["heading"]).trim()
+                : title;
+            slides[mid] = {
+              layout: "section",
+              number: String(mid + 1).padStart(2, "0"),
+              heading,
+              ...(typeof slide["eyebrow"] === "string" ? { eyebrow: slide["eyebrow"] } : {}),
+              ...keepTone,
+              ...keepNotes,
+            };
+            fixes.push(`Slide ${mid + 1}: feature-grid → section (break ${run}× cadence)`);
+          } else if (layout === "section") {
+            const heading =
+              typeof slide["heading"] === "string" && slide["heading"].trim()
+                ? String(slide["heading"]).trim()
+                : title;
+            slides[mid] = {
+              layout: "quote",
+              quote: heading,
+              by:
+                (typeof meta["company"] === "string" && meta["company"].trim()) ||
+                "Team",
+              ...keepTone,
+              ...keepNotes,
+            };
+            fixes.push(`Slide ${mid + 1}: section → quote (break ${run}× cadence)`);
+          }
+        }
+        run = 1;
+        runStart = j;
       }
     }
   }

@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, writeFile, readFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
@@ -10,6 +10,7 @@ import type { ToolDefinition } from "../server.js";
 import { analyzeHtmlDeck, type MetricFlag } from "../lib/html-metrics.js";
 import { screenshotSlides } from "../lib/screenshot-slides.js";
 import { resolveThemesDir } from "../lib/resolve-themes.js";
+import { richToolResult, type McpImagePayload } from "../lib/rich-result.js";
 
 type Tier = "t0" | "t1" | "t2" | "t3";
 
@@ -363,7 +364,8 @@ export const judgeDeckTool: ToolDefinition = {
   description:
     "Design judge for Deck JSON / rendered HTML (deck-design-judge tiers). " +
     "t0/t1: structural JSON gates. t2: render + HTML metrics (G1–G5) + Chrome screenshots when available. " +
-    "t3: t2 + multi-model panel when judge_panel.py + API keys exist; otherwise returns a vision-free local_draft grade from metrics/flags plus shot paths for agent refinement.",
+    "t3: t2 + multi-model panel when judge_panel.py + API keys exist; otherwise returns a vision-free local_draft grade from metrics/flags plus shot paths for agent refinement. " +
+    "t2/t3 attach the first N slide PNGs as MCP image content by default (parity with preview_themes) so vision agents can QA in-chat — set include_inline_images:false for paths-only.",
   inputSchema: {
     type: "object",
     properties: {
@@ -392,6 +394,15 @@ export const judgeDeckTool: ToolDefinition = {
         type: "boolean",
         description: "If true, t2/t3 skip Chrome shots and only run HTML metrics",
       },
+      include_inline_images: {
+        type: "boolean",
+        description:
+          "When true (default), attach captured slide PNGs as MCP image content (capped) so vision agents can judge in-chat. Set false for path-only payloads.",
+      },
+      max_inline_images: {
+        type: "number",
+        description: "Cap inline MCP images (default 8). Paths still list all shots.",
+      },
       max_slides: {
         type: "number",
         description: "Cap screenshots to first N slides (default 40)",
@@ -404,6 +415,14 @@ export const judgeDeckTool: ToolDefinition = {
     const json = input["json"] != null ? String(input["json"]) : "";
     const htmlIn = input["html"] != null ? String(input["html"]) : "";
     const skipShots = Boolean(input["skip_screenshots"]);
+    const includeInline =
+      input["include_inline_images"] === undefined
+        ? true
+        : Boolean(input["include_inline_images"]);
+    const maxInline =
+      typeof input["max_inline_images"] === "number"
+        ? Math.max(1, Math.floor(input["max_inline_images"]))
+        : 8;
     const shotsDir = input["shots_dir"] != null ? String(input["shots_dir"]) : undefined;
     const maxSlides =
       typeof input["max_slides"] === "number" ? Math.max(1, Math.floor(input["max_slides"])) : 40;
@@ -587,7 +606,25 @@ export const judgeDeckTool: ToolDefinition = {
     const gateHits = mergedFlags.filter((f) => f.severity === "gate").length;
     const pass = schema.valid && gateHits === 0 && (screenshots.chrome_missing ? true : screenshots.ok !== false || skipShots);
 
-    return {
+    const mcpImages: McpImagePayload[] = [];
+    if (includeInline && !skipShots && screenshots.shots?.length) {
+      for (const shot of screenshots.shots) {
+        if (mcpImages.length >= maxInline) break;
+        if (!shot.path || !(shot.bytes > 0)) continue;
+        try {
+          const buf = await readFile(shot.path);
+          mcpImages.push({
+            data: buf.toString("base64"),
+            mimeType: "image/png",
+            label: `Slide ${shot.slide}${shot.warn ? ` · warn: ${shot.warn}` : ""}`,
+          });
+        } catch {
+          /* path listed even if read fails */
+        }
+      }
+    }
+
+    const payload = {
       valid: schema.valid,
       pass: schema.valid && gateHits === 0,
       tier,
@@ -597,6 +634,7 @@ export const judgeDeckTool: ToolDefinition = {
         structural_layouts: structural.metrics["layouts"],
         screenshots_ok: screenshots.ok,
         chrome_missing: screenshots.chrome_missing ?? false,
+        inline_images: mcpImages.length,
       },
       flags: mergedFlags,
       html_path: rendered_path,
@@ -606,16 +644,33 @@ export const judgeDeckTool: ToolDefinition = {
         shots_dir: screenshots.shots_dir,
         shots: screenshots.shots,
         detail: screenshots.detail,
+        inline_images: mcpImages.length,
       },
       panel,
       next: !schema.valid || gateHits > 0
         ? "Fix gate/schema issues, then re-run judge_deck at the same tier."
         : screenshots.chrome_missing
           ? "HTML metrics clear but Chrome missing — install Chrome for real T2 shots, or open html_path and review visually."
-          : tier === "t3" && panel && typeof panel === "object" && ["agent_rubric", "local_draft"].includes(String((panel as { status?: string }).status))
-            ? "Review local_draft / open each shot, refine rubric scores, apply top fixes, re-judge (add API keys for live panel)."
-            : "T2/T3 visual QA artifacts ready — review shots, apply top fixes if any warns remain, then ship.",
+          : mcpImages.length > 0
+            ? tier === "t3" && panel && typeof panel === "object" && ["agent_rubric", "local_draft"].includes(String((panel as { status?: string }).status))
+              ? "Review attached slide PNGs + local_draft / open each shot, refine rubric scores, apply top fixes, re-judge (add API keys for live panel)."
+              : "T2/T3 visual QA ready — review attached slide PNGs (and shot paths), apply top fixes if warns remain, then ship."
+            : tier === "t3" && panel && typeof panel === "object" && ["agent_rubric", "local_draft"].includes(String((panel as { status?: string }).status))
+              ? "Review local_draft / open each shot, refine rubric scores, apply top fixes, re-judge (add API keys for live panel)."
+              : "T2/T3 visual QA artifacts ready — review shots, apply top fixes if any warns remain, then ship.",
       screenshots_pass: pass,
+      dx_hint:
+        mcpImages.length > 0
+          ? `Attached ${mcpImages.length} slide PNG(s) as MCP image content (capped at ${maxInline}). Full shot paths remain in screenshots.shots.`
+          : skipShots
+            ? "Screenshots skipped — HTML metrics only."
+            : screenshots.chrome_missing
+              ? "Chrome missing — open html_path / shot paths when available."
+              : includeInline
+                ? "No inline images attached — open screenshots.shots paths."
+                : "Inline images disabled (include_inline_images:false) — open screenshots.shots paths.",
     };
+
+    return mcpImages.length > 0 ? richToolResult(payload, mcpImages) : payload;
   },
 };
