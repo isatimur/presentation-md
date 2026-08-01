@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.25.0
+
+### Minor Changes
+
+- 2d01abe: Universal Studio deep-links: every list_themes entry gets studio_url (`?example=` for stunning-25, `?theme=` otherwise); preview_themes returns studio_share_url (`?d=`) for the exact bake deck.
+
 ## 1.24.0
 
 ### Minor Changes
