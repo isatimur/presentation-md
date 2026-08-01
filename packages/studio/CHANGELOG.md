@@ -1,5 +1,11 @@
 # @presentation-md/studio
 
+## 1.20.0
+
+### Minor Changes
+
+- 29639e3: Studio theme browser applies repairCraft on every theme pick (My deck Use / MCP apply_theme parity). Harden CLI --preview-compare PNG assertions against partial Chrome densify flakes on macOS CI.
+
 ## 1.19.1
 
 ### Patch Changes
