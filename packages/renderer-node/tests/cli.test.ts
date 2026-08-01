@@ -64,6 +64,8 @@ describe("buildProgram", () => {
         "--preview-compare",
         "--preview-dir",
         "--preview-mode",
+        "--preview-deck",
+        "--preview-slide",
         "--no-preview-shots",
         "--validate",
       ])
@@ -125,6 +127,43 @@ describe("presentation-md-render CLI flags", () => {
     expect(html).toContain("<!doctype html>");
     expect(html).toMatch(/feature-grid|comparison/i);
     await access(join(previewDir, "claude-layouts-preview.html"));
+  });
+
+  it("--preview-deck restyles caller JSON across themes (My deck parity)", async () => {
+    const dir = await tempDir();
+    const previewDir = join(dir, "previews");
+    const deckPath = join(dir, "mine.json");
+    await writeFile(
+      deckPath,
+      JSON.stringify({
+        type: "deck",
+        meta: { title: "Mine", theme: "default-tech" },
+        slides: [
+          { layout: "title", heading: "CLI Restyle Title" },
+          { layout: "closing", heading: "Done" },
+        ],
+      })
+    );
+    const { code, stdout, stderr } = await runCli(
+      [
+        "--preview-compare",
+        "default-tech,claude",
+        "--preview-deck",
+        deckPath,
+        "--preview-slide",
+        "1",
+        "--preview-dir",
+        previewDir,
+        "--no-preview-shots",
+      ],
+      { cwd: dir }
+    );
+    expect(stderr).not.toMatch(/^Error:/);
+    expect(code).toBe(0);
+    expect(stdout).toMatch(/Preview deck restyle \(slide 1\): 2 theme/);
+    const html = await readFile(join(previewDir, "default-tech-deck-restyle.html"), "utf-8");
+    expect(html).toContain("CLI Restyle Title");
+    await access(join(previewDir, "claude-deck-restyle.html"));
   });
 
   it(

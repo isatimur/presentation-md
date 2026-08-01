@@ -68,8 +68,17 @@ export function buildProgram(): Command {
     )
     .option(
       "--preview-mode <mode>",
-      "title | layouts for --preview-compare (default: layouts)",
+      "title | layouts | deck for --preview-compare (default: layouts; deck requires --preview-deck)",
       "layouts"
+    )
+    .option(
+      "--preview-deck <path>",
+      "Deck JSON to restyle across --preview-compare themes (Studio/MCP My deck parity; implies mode=deck)"
+    )
+    .option(
+      "--preview-slide <n>",
+      "1-based slide to PNG in deck restyle mode (default: 1)",
+      "1"
     )
     .option(
       "--no-preview-shots",
@@ -87,6 +96,8 @@ export function buildProgram(): Command {
       previewCompare?: string;
       previewDir?: string;
       previewMode?: string;
+      previewDeck?: string;
+      previewSlide?: string;
       previewShots?: boolean;
       validate?: boolean;
     }) => {
@@ -114,14 +125,45 @@ export function buildProgram(): Command {
           );
           process.exit(1);
         }
-        const modeRaw = (options.previewMode ?? "layouts").toLowerCase();
-        if (modeRaw !== "title" && modeRaw !== "layouts") {
+
+        let userDeck: { type?: string; meta?: Record<string, unknown>; slides?: unknown[] } | undefined;
+        if (options.previewDeck) {
+          const deckPath = resolve(process.cwd(), options.previewDeck);
+          try {
+            userDeck = JSON.parse(await readFile(deckPath, "utf-8")) as typeof userDeck;
+          } catch (err) {
+            process.stderr.write(`Error: cannot read --preview-deck: ${(err as Error).message}\n`);
+            process.exit(1);
+          }
+          if (
+            userDeck?.type !== "deck" ||
+            !Array.isArray(userDeck.slides) ||
+            userDeck.slides.length === 0
+          ) {
+            process.stderr.write("Error: --preview-deck must be Deck JSON with slides\n");
+            process.exit(1);
+          }
+        }
+
+        const modeRaw = (
+          userDeck ? "deck" : (options.previewMode ?? "layouts")
+        ).toLowerCase();
+        if (!userDeck && modeRaw !== "title" && modeRaw !== "layouts") {
           process.stderr.write(
             `Error: unknown --preview-mode "${options.previewMode}" (expected title | layouts)\n`
           );
           process.exit(1);
         }
-        const mode = modeRaw as PreviewMode;
+        if (modeRaw === "deck" && !userDeck) {
+          process.stderr.write("Error: --preview-mode deck requires --preview-deck <path>\n");
+          process.exit(1);
+        }
+        const mode = modeRaw as PreviewMode | "deck";
+        const slideCountUser = userDeck?.slides?.length ?? 0;
+        const slideIndex1 = Math.max(
+          1,
+          Math.min(slideCountUser || 1, Math.floor(Number(options.previewSlide) || 1))
+        );
         const outDir = resolve(
           process.cwd(),
           options.previewDir ?? ".presentation-md/theme-previews"
@@ -133,27 +175,44 @@ export function buildProgram(): Command {
         try {
           for (const theme of themes) {
             const deckJson =
-              mode === "layouts"
-                ? buildLayoutsPreviewDeck(theme)
-                : buildTitlePreviewDeck(theme);
+              mode === "deck" && userDeck
+                ? JSON.stringify({
+                    ...userDeck,
+                    meta: { ...(userDeck.meta ?? {}), theme },
+                  })
+                : mode === "layouts"
+                  ? buildLayoutsPreviewDeck(theme)
+                  : buildTitlePreviewDeck(theme);
             const html = await renderDeck(deckJson, {});
             const filename =
-              mode === "layouts"
-                ? `${theme}-layouts-preview.html`
-                : `${theme}-preview.html`;
+              mode === "deck"
+                ? `${theme}-deck-restyle.html`
+                : mode === "layouts"
+                  ? `${theme}-layouts-preview.html`
+                  : `${theme}-preview.html`;
             const outPath = join(outDir, filename);
             await writeFile(outPath, html, "utf-8");
             process.stdout.write(`${theme} → ${outPath}\n`);
 
             if (wantShots) {
               const slideCount =
-                mode === "layouts" ? layoutsPreviewSlideCount(theme) : 1;
-              const layouts = layoutsPreviewLayoutNames(theme, mode);
+                mode === "deck"
+                  ? slideCountUser
+                  : mode === "layouts"
+                    ? layoutsPreviewSlideCount(theme)
+                    : 1;
+              const layouts =
+                mode === "deck"
+                  ? ((userDeck?.slides ?? []) as Array<{ layout?: string }>).map(
+                      (s, i) => s.layout ?? `slide-${i + 1}`
+                    )
+                  : layoutsPreviewLayoutNames(theme, mode);
               const shotResult = await screenshotSlides(html, {
                 shotsDir: join(outDir, `${theme}-shots`),
                 width: DISCOVERY_SHOT_W,
                 height: DISCOVERY_SHOT_H,
-                slideIndices: discoverySlideIndices(mode, slideCount),
+                slideIndices:
+                  mode === "deck" ? [slideIndex1] : discoverySlideIndices(mode, slideCount),
               });
               if (shotResult.chrome_missing) {
                 chromeMissing = true;
@@ -170,7 +229,9 @@ export function buildProgram(): Command {
             }
           }
           process.stdout.write(
-            `Preview compare (${mode}): ${themes.length} theme(s) in ${outDir}\n`
+            mode === "deck"
+              ? `Preview deck restyle (slide ${slideIndex1}): ${themes.length} theme(s) in ${outDir}\n`
+              : `Preview compare (${mode}): ${themes.length} theme(s) in ${outDir}\n`
           );
           if (wantShots) {
             if (chromeMissing) {
@@ -179,7 +240,9 @@ export function buildProgram(): Command {
               );
             } else if (shotsOk > 0) {
               process.stdout.write(
-                `PNG screenshots: ${shotsOk} discovery shot(s) (title${mode === "layouts" ? " + bento + comparison" : ""}).\n`
+                mode === "deck"
+                  ? `PNG screenshots: ${shotsOk} restyle shot(s) of your slide ${slideIndex1}.\n`
+                  : `PNG screenshots: ${shotsOk} discovery shot(s) (title${mode === "layouts" ? " + bento + comparison" : ""}).\n`
               );
             }
           }
