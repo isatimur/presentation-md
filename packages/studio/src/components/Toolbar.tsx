@@ -157,7 +157,21 @@ export function Toolbar({
 
   const setMeta = (patch: Record<string, string>) =>
     onChange({ ...deck, meta: { ...deck.meta, ...patch } });
-  const setTheme = (t: string) => setMeta({ theme: t });
+
+  /** Theme swap + repairCraft — same path as pick-3 Use / MCP apply_theme default. */
+  const applyThemeWithRepair = (name: string) => {
+    const themed: DeckJson = {
+      ...deck,
+      meta: { ...deck.meta, theme: name },
+    };
+    const { deck: repaired, fixes } = repairCraft(themed);
+    onChange(repaired as DeckJson);
+    setStatus(
+      fixes.length
+        ? `Theme → ${name} · ${fixes.length} craft fix${fixes.length === 1 ? "" : "es"}`
+        : `Theme → ${name}`
+    );
+  };
   const setTitle = (t: string) => setMeta({ title: t });
 
   const onOpen = async (file: File) => {
@@ -475,7 +489,7 @@ export function Toolbar({
                       type="button"
                       className={`theme-option${t.name === theme ? " active" : ""}`}
                       onClick={(e) => {
-                        setTheme(t.name);
+                        applyThemeWithRepair(t.name);
                         const details = (e.currentTarget as HTMLElement).closest("details");
                         if (details) details.open = false;
                       }}
@@ -532,21 +546,11 @@ export function Toolbar({
               setLiveCompare(false);
             }}
             onUse={(name) => {
-              const themed: DeckJson = {
-                ...deck,
-                meta: { ...deck.meta, theme: name },
-              };
-              const { deck: repaired, fixes } = repairCraft(themed);
-              onChange(repaired as DeckJson);
+              applyThemeWithRepair(name);
               setCompare([]);
               setLiveCompare(false);
               const details = document.querySelector("details.theme-browser") as HTMLDetailsElement | null;
               if (details) details.open = false;
-              setStatus(
-                fixes.length
-                  ? `Theme → ${name} · ${fixes.length} craft fix${fixes.length === 1 ? "" : "es"}`
-                  : `Theme → ${name}`
-              );
             }}
           />
         </div>
