@@ -39,10 +39,10 @@ replace it with the block above (or re-run `npx @presentation-md/install cursor`
 | `export_deck` | Export deck JSON to native, editable PowerPoint (`.pptx`) or HTML. |
 | `list_themes` | List installed themes (name, version, vibe, description). Optional `shortlist` / `mood` / `query` filters + `include_shortlists` for Theme Discovery defaults. |
 | `apply_theme` | Swap the theme in `meta.theme` while keeping all slide content unchanged. |
-| `audit_deck` | Validate deck JSON against the schema and return structured issues with severity (incl. kinetic-wrap tone / visual-beat warnings). |
+| `audit_deck` | Schema validate **plus** craft gates (asymmetry, loud/atmosphere/paper honesty, dual CTA, data beats). Schema-valid ≠ shippable — call before the user sees a first draft. |
 | `judge_deck` | Craft QA tiers: `t1` schema gates, `t2` HTML metrics + screenshots, `t3` agent rubric / panel when keys exist. |
-| `generate_deck_prompt` | Build a system prompt with theme palette, craft mandate, layout recipes, theme shortlists, and optional `density` (`speaker` / `reading`) lock. |
-| `preview_themes` | Render 1–3 theme HTML previews for visual discovery. Pass `themes[]` and/or `shortlist` id (fills themes from theme-shortlists.json). Default = title slide; `mode: "layouts"` = multi-slide craft bake (recommended for pick-3). Title-mode trios return `layouts_recommended`. |
+| `generate_deck_prompt` | Build a one-shot craft system prompt (theme palette, anti-slop, layout recipes, custom-html recipes, shortlists) + optional `density` (`speaker` / `reading`) lock. |
+| `preview_themes` | Render 1–3 theme HTML previews for visual discovery. Pass `themes[]` and/or `shortlist` id (fills themes from theme-shortlists.json). **Pick-3 (≥2 themes) auto-defaults to `mode: "layouts"`** (multi-slide craft bake); pass `mode: "title"` only for a cover skim. Title-mode trios return `layouts_recommended`. |
 | `import_pptx` | Import a `.pptx` file into deck JSON (text, tables, images, notes → layouts). |
 | `import_markdown` | Convert Markdown outline → Deck JSON (`chart` / `html` fences supported). |
 | `import_brand_theme` | Generate a theme from a brand's URL or CSS file, with a contrast-safety pass. |

@@ -49,7 +49,7 @@ The eighteen layouts:
 - timeline     { layout, heading, steps }                          // steps: [{ title, body }]
 - quote        { layout, quote, by? }
 - code         { layout, eyebrow?, heading?, lead?, code, language?, filename? }  // plain-text snippet in a window chrome
-- custom-html  { layout, eyebrow?, heading?, lead?, html }         // sanitized one-off art; prefer schema layouts first
+- custom-html  { layout, eyebrow?, heading?, lead?, html }         // sanitized one-off art; prefer schema layouts first; at most one intentional beat (Studio presets: split / big number / stamps / type explosion)
 - closing      { layout, eyebrow?, heading, lead?, actions?: [{ label, href?, style?, icon? }], cta?: { label, href } }
                // prefer actions[] for dual share pills (solid + outline) with icon on every pill; cta is alias for actions[0]
 
@@ -73,6 +73,7 @@ Authoring rules:
   - risograph-zine: prefer comparison+emphasis and a punchy quote for print-shop energy.
   - Match a layout recipe for the brief (pitch / launch / wrap / neon / poster / paper / hud / modernist / hard-bento / glass / electric / briefing / quiet-luxe / soft-product / playful / neon-tech / data-editorial / scatterbrain) before freehanding layouts.
   - Loud honesty: stencil / retro-zine / daisy / block-frame / creative-mode / sakura / capsule / scatterbrain / 8-bit / retro-windows / cobalt / genz-bento / bauhaus / neo-grid / bold-poster / raw-grid / creative-voltage / electric-studio / studio / brutalist-mono expect hard frames + hard-border cards — don't invent custom-html stickers for atmosphere. scatterbrain wants a workshop beat.
+  - When art is the point and no layout covers it: at most ONE intentional custom-html beat (split panels / big-number+rule / poster stamps / typographic explosion) — never stickers for theme chrome.
   - Atmosphere honesty: neon-noir / vaporwave / y2k-aero / retro-arcade need cyan/pink rims + cinematic image-hero or quote.
   - Poster honesty: coral / peoples-platform / bold-signal / broadside need hard poster frames + hard-border cards + a bold beat; bold-signal cards get accent rims in PPTX.
   - HUD honesty: aerospace-hud / crt-terminal / blueprint need instrument chrome + a data beat (chart / data-table / stat-row / ranked-list / timeline / metric-ring).

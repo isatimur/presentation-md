@@ -12,7 +12,7 @@ import { resolveThemesDir } from "../lib/resolve-themes.js";
 export const generateDeckPromptTool: ToolDefinition = {
   name: "generate_deck_prompt",
   description:
-    "Build a system prompt with the active theme's palette and the deck schema reference, for an agent to produce a deck JSON spec. Optional density locks speaker-led vs reading-first craft (matches Studio Generate).",
+    "Build a one-shot craft system prompt (theme palette + anti-slop + layout recipes + custom-html recipes + shortlists) so the first Deck JSON already clears audit/judge gates — beat frontend-slides vibe drafts. Optional density locks speaker-led vs reading-first (matches Studio Generate).",
   inputSchema: {
     type: "object",
     properties: {
@@ -35,7 +35,7 @@ export const generateDeckPromptTool: ToolDefinition = {
     const coreRoot = getCorePackageRoot();
     const { themesDir, fallbackThemesDirs } = resolveThemesDir();
 
-    const [theme, skill, deckSchemaReference, stunning25, themesMd, antiSlop, layoutRecipes, shortlistsDoc] =
+    const [theme, skill, deckSchemaReference, stunning25, themesMd, antiSlop, layoutRecipes, customHtmlRecipes, shortlistsDoc] =
       await Promise.all([
         loadTheme(themeName, { themesDir, fallbackThemesDirs }),
         readFile(join(coreRoot, "SKILL.md"), "utf-8"),
@@ -44,6 +44,7 @@ export const generateDeckPromptTool: ToolDefinition = {
         readFile(join(coreRoot, "references", "themes.md"), "utf-8").catch(() => ""),
         readFile(join(coreRoot, "references", "anti-slop-bans.md"), "utf-8").catch(() => ""),
         loadLayoutRecipesMarkdown().catch(() => ""),
+        readFile(join(coreRoot, "references", "custom-html-recipes.md"), "utf-8").catch(() => ""),
         loadThemeShortlists().catch(() => null),
       ]);
     const shortlists = shortlistsDoc ? JSON.stringify(shortlistsDoc, null, 2) : "";
@@ -67,6 +68,7 @@ export const generateDeckPromptTool: ToolDefinition = {
       "- Rankings / top-N → layout ranked-list (not custom-html bars). Mega wrap numbers → stat-row variant:\"hero\".",
       "- Day streaks → streak-grid. Circular KPI / percentile → metric-ring (not a plain stat chip).",
       "- Logo / customer walls → logo-wall. Year wraps (kinetic-wrapped) need tone on ≥3 slides.",
+      "- When art is the point and no layout covers it: at most ONE intentional custom-html beat from custom_html_recipes_reference (split panels / big-number+rule / poster stamps / typographic explosion). Never invent custom-html stickers for theme atmosphere.",
       "- Wrap / store / launch / investor closes → closing actions[] with solid + outline pills (cta alone is weak on stunning-25 and any launch/investor brief).",
       "- Every closing actions[] pill needs an icon (FA brands for social; rocket/download/calendar/book for CTAs) — PPTX maps icons to glyph prefixes.",
       "- Long decks (≥6 slides) need a data beat (chart / stat-row / data-table / ranked-list / metric-ring / timeline) — not only soft feature grids.",
@@ -104,6 +106,7 @@ export const generateDeckPromptTool: ToolDefinition = {
       stunning_25_reference: stunning25 || undefined,
       anti_slop_reference: antiSlop || undefined,
       layout_recipes_reference: layoutRecipes || undefined,
+      custom_html_recipes_reference: customHtmlRecipes || undefined,
       theme_shortlists_reference: shortlists || undefined,
       palette: theme.palette as unknown as Record<string, string>,
       typography: theme.typography,

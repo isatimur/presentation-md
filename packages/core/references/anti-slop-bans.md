@@ -47,7 +47,8 @@ The first JSON you emit must already clear this file. Do **not** ship a purple/I
 2. Lock density (speaker-led vs reading-first) once.
 3. Force asymmetry (`emphasis`, non-1-1 `ratio`, or `bento`) on the first body beat.
 4. Call `audit_deck` — fix errors before the user sees the draft.
-- Stock illustration SVGs
+5. Ban stock illustration SVGs and placeholder art — real product/place imagery or typographic craft only.
+6. Prefer schema layouts; at most **one** intentional `custom-html` art beat (see `custom-html-recipes.md`) — never stickers for theme atmosphere.
 
 ## Enforcement
 

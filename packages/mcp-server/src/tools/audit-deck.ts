@@ -30,7 +30,7 @@ function manualValidate(deck: Record<string, unknown>): { valid: boolean; issues
 export const auditDeckTool: ToolDefinition = {
   name: "audit_deck",
   description:
-    "Validate a deck JSON against the schema and return structured issues.",
+    "Validate Deck JSON against the schema AND run craft gates (asymmetry, loud/atmosphere/paper honesty, dual CTA, data beats, custom-html vs ranked-list misuse). Returns structured issues — call before the user sees a first draft; schema-valid ≠ shippable.",
   inputSchema: {
     type: "object",
     properties: {

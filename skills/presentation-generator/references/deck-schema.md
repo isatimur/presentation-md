@@ -113,7 +113,8 @@ Theme-colored SVG in HTML; native editable charts in PPTX. Prefer `bar`/`line` f
 Schema-preserving escape hatch for one-off art (frontend-slides energy without abandoning Deck JSON).
 Scripts, event handlers, and dangerous URLs are stripped on render. Prefer `ranked-list` / `streak-grid` / `metric-ring` /
 `stat-row` hero / `chart` when the art fits those shapes. PPTX approximates bars/panels/text —
-keep HTML export when the art matters.
+keep HTML export when the art matters. Copy-paste craft: `references/custom-html-recipes.md`
+(split panels, big-number+rule, poster stamps, typographic explosion).
 
 ### tone (any slide)
 Optional `tone`: `"default"|"lime"|"magenta"|"cyan"|"orange"|"violet"` — per-slide hue beat for
