@@ -1,5 +1,5 @@
 import type { Slide, Card, Stat, Step, ChartSeries, RankedItem, Cta } from "@presentation-md/export";
-import { LAYOUT_LABELS } from "../deck.js";
+import { LAYOUTS, LAYOUT_LABELS, morphSlide } from "../deck.js";
 import type { LayoutType } from "../deck.js";
 import { TextInput, TextArea, StringSelect, ListEditor } from "./fields.js";
 
@@ -40,6 +40,12 @@ export function SlideForm({
   return (
     <div className="slide-form">
       <h2 className="panel-title">{LAYOUT_LABELS[layout] ?? slide.layout}</h2>
+      <StringSelect
+        label="Layout"
+        value={layout}
+        options={LAYOUTS.map((l) => ({ value: l, label: LAYOUT_LABELS[l] }))}
+        onChange={(v) => onChange(morphSlide(slide, v as LayoutType))}
+      />
       <StringSelect
         label="Tone (optional wrap hue)"
         value={typeof slide.tone === "string" ? slide.tone : "default"}

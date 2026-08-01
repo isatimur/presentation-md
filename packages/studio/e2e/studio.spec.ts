@@ -290,6 +290,19 @@ test("imports Marp-style Markdown via Open", async ({ page }) => {
   await expect(page.getByLabel("Heading").first()).toHaveValue("Imported From Markdown");
 });
 
+test("changes layout via morph while preserving the heading", async ({ page }) => {
+  await page.goto("/?fresh=1");
+  const frame = page.frameLocator(".preview-frame");
+  await page.getByLabel("Heading").first().fill("Morph Keep Title");
+  await expect(frame.getByText("Morph Keep Title")).toBeVisible();
+
+  await page.getByLabel("Layout").selectOption("comparison");
+  await expect(page.getByLabel("Layout")).toHaveValue("comparison");
+  await expect(page.getByLabel("Heading").first()).toHaveValue("Morph Keep Title");
+  await expect(frame.getByText("Morph Keep Title")).toBeVisible();
+  await expect(page.getByLabel("Left label")).toBeVisible();
+});
+
 test("undo restores deck after Apply safe fixes", async ({ page }) => {
   await page.goto("/?fresh=1");
 

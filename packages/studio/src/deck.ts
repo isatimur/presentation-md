@@ -173,6 +173,51 @@ export function blankSlide(layout: LayoutType): Slide {
   }
 }
 
+/**
+ * Change a slide's layout while preserving shared craft (heading, notes, media, …).
+ * Layout-specific blanks fill any gaps — beats rewriting the slide from scratch.
+ */
+export function morphSlide(slide: Slide, layout: LayoutType): Slide {
+  if (slide.layout === layout) return slide;
+  const blank = blankSlide(layout);
+  const next: Slide = { ...blank, layout };
+  const from = slide as Record<string, unknown>;
+  for (const key of Object.keys(blank) as Array<keyof Slide>) {
+    if (key === "layout") continue;
+    const value = from[key as string];
+    if (value === undefined || value === null || value === "") continue;
+    (next as Record<string, unknown>)[key as string] = value;
+  }
+  // Carry shared craft even when the target blank omits the field (e.g. lead on comparison).
+  const always = [
+    "notes",
+    "tone",
+    "heading",
+    "eyebrow",
+    "lead",
+    "body",
+    "image",
+    "imageAlt",
+    "aside",
+    "number",
+  ] as const;
+  for (const key of always) {
+    const value = from[key];
+    if (value === undefined || value === null || value === "") continue;
+    (next as Record<string, unknown>)[key] = value;
+  }
+  // Quote layout uses `quote` not `heading` — bridge common title copy.
+  if (layout === "quote" && slide.heading && !from.quote) {
+    next.quote = slide.heading;
+  }
+  if (layout !== "quote" && typeof slide.quote === "string" && slide.quote) {
+    if (!from.heading || next.heading === blank.heading) {
+      next.heading = slide.quote;
+    }
+  }
+  return next;
+}
+
 export const EXAMPLE_DECK: DeckJson = {
   type: "deck",
   meta: { title: "Acme Q3", company: "Acme", theme: "signal", description: "Studio craft preview" },
