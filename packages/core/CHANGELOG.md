@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.19.3
+
+### Patch Changes
+
+- ab97a8f: CLI `--preview-compare` captures discovery PNGs via the shared Chrome isolate path with MCP `preview_themes` (title + bento + comparison); Studio pick-3 live compare shows a Title/Bento/Compare shot strip.
+
 ## 1.19.2
 
 ### Patch Changes
