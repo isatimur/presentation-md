@@ -304,20 +304,21 @@ body {
 .example-browser > summary::-webkit-details-marker { display: none; }
 .example-browser-panel {
   position: absolute; top: calc(100% + 8px); right: 0; z-index: 40;
-  width: min(320px, 86vw); max-height: min(420px, 70vh);
-  padding: 8px; background: var(--panel-2); border: 1px solid var(--line-2);
+  width: min(560px, 94vw); max-height: min(640px, 86vh);
+  padding: 10px; background: var(--panel-2); border: 1px solid var(--line-2);
   border-radius: 12px; box-shadow: 0 22px 48px -20px rgba(11, 18, 32, 0.4);
   display: flex; flex-direction: column; gap: 8px;
+  overflow: auto;
+}
+.example-featured-head {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px;
+}
+.example-featured-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--faint);
 }
 .example-featured {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;
-}
-.example-featured-crop-bar {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 4px;
-}
-.example-featured-crop-label {
-  font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em;
-  text-transform: uppercase; color: var(--faint); margin-right: 2px;
 }
 .example-featured-card {
   display: flex; flex-direction: column; gap: 4px; align-items: stretch;
@@ -331,6 +332,16 @@ body {
 .example-featured-card.active {
   border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
   background: var(--accent-soft);
+}
+.example-featured-shot-strip {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.example-featured-shot {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.example-featured-shot-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--faint); text-align: left;
 }
 .example-featured-frame {
   --crop-y: 48px;
@@ -353,6 +364,12 @@ body {
 .example-featured-name {
   font-size: 10px; font-weight: 700; line-height: 1.2;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.example-featured-hint {
+  margin: 0; line-height: 1.35; font-size: 11px;
+}
+@media (max-width: 560px) {
+  .example-featured { grid-template-columns: 1fr; }
 }
 .example-list-label {
   font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em;

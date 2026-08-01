@@ -134,7 +134,7 @@ test("theme browser mood chips filter the catalog like the site gallery", async 
   await expect(tray.getByRole("button", { name: /Hide live/i })).toBeVisible();
 });
 
-test("Example featured trio supports Title/Bento/Compare crops via local /previews", async ({
+test("Example featured trio shows Title/Bento/Compare shot strip via local /previews", async ({
   page,
 }) => {
   await page.goto("/?fresh=1");
@@ -143,18 +143,28 @@ test("Example featured trio supports Title/Bento/Compare crops via local /previe
   await expect(browser).toHaveAttribute("open", "");
   const panel = browser.locator(".example-browser-panel");
   await expect(panel).toBeVisible();
-  await expect(panel.locator(".example-featured-frame iframe")).toHaveCount(3);
+
+  // All three crops visible at once (parity with pick-3 / Generate shot strip).
+  await expect(panel.locator(".example-featured-shot-strip")).toHaveCount(3);
+  await expect(panel.locator(".example-featured-frame iframe")).toHaveCount(9);
+  await expect(panel.locator(".example-featured-frame[data-crop='title']")).toHaveCount(3);
+  await expect(panel.locator(".example-featured-frame[data-crop='bento']")).toHaveCount(3);
+  await expect(panel.locator(".example-featured-frame[data-crop='comparison']")).toHaveCount(3);
 
   // Local Vite middleware serves repo web/previews (no Vercel CDN).
   const previewRes = await page.request.get("/previews/aurora-glass.html");
   expect(previewRes.ok()).toBeTruthy();
 
-  const cropBar = panel.getByRole("toolbar", { name: /Featured example layout crop/i });
-  await expect(cropBar).toBeVisible();
-  await cropBar.getByRole("button", { name: /^Bento$/ }).click();
-  await expect(panel.locator(".example-featured-frame[data-crop='bento']")).toHaveCount(3);
-  await cropBar.getByRole("button", { name: /^Compare$/ }).click();
-  await expect(panel.locator(".example-featured-frame[data-crop='comparison']")).toHaveCount(3);
+  // Bridge: featured themes → live theme Compare tray.
+  await panel.getByRole("button", { name: /^Compare 3 themes$/ }).click();
+  await expect(browser).not.toHaveAttribute("open", "");
+  const themeBrowser = page.locator("details.theme-browser");
+  await expect(themeBrowser).toHaveAttribute("open", "");
+  const tray = themeBrowser.locator(".theme-compare");
+  await expect(tray).toBeVisible();
+  await expect(tray.getByText(/Compare 3\/3/i)).toBeVisible();
+  await expect(tray.getByRole("button", { name: /Hide live/i })).toBeVisible();
+  await expect(tray.locator(".theme-compare-shot-strip")).toHaveCount(3);
 });
 
 test("auto-opens craft audit panel and supports jump + dismiss", async ({ page }) => {

@@ -17,7 +17,6 @@ import {
   PREVIEW_CROPS,
   themePreviewUrl,
   toggleCompareSlot,
-  type PreviewCrop,
 } from "../render/themePreview.js";
 import { downloadHtml, downloadPptx, downloadJson, parseDeckFile, importPptxFile } from "../export/downloads.js";
 import { STUDIO_EXAMPLES, studioExampleLink } from "../examples.js";
@@ -60,7 +59,6 @@ export function Toolbar({
   const [shortlistId, setShortlistId] = useState("");
   const [compare, setCompare] = useState<string[]>([]);
   const [liveCompare, setLiveCompare] = useState(false);
-  const [exampleCrop, setExampleCrop] = useState<PreviewCrop>("title");
   const [auditIssues, setAuditIssues] = useState<
     Array<{ severity: "error" | "warning"; message: string; slide?: number }>
   >([]);
@@ -462,30 +460,32 @@ export function Toolbar({
       <details className="example-browser">
         <summary className="btn" title="Load a curated example deck">Example ▾</summary>
         <div className="example-browser-panel">
-          <div
-            className="example-featured-crop-bar"
-            role="toolbar"
-            aria-label="Featured example layout crop"
-          >
-            <span className="example-featured-crop-label">Judge</span>
-            {PREVIEW_CROPS.map((c) => (
-              <button
-                key={c}
-                type="button"
-                className={`chip${exampleCrop === c ? " active" : ""}`}
-                aria-pressed={exampleCrop === c}
-                onClick={() => setExampleCrop(c)}
-                title={
-                  c === "title"
-                    ? "Crop to title slide"
-                    : c === "bento"
-                      ? "Crop to feature-grid / bento body craft"
-                      : "Crop to comparison slide"
-                }
-              >
-                {PREVIEW_CROP_LABEL[c]}
-              </button>
-            ))}
+          <div className="example-featured-head">
+            <span className="example-featured-label">Featured craft · Title / Bento / Compare</span>
+            <button
+              type="button"
+              className="chip"
+              title="Fill theme Compare tray with these three flagship themes (live shot strip)"
+              onClick={() => {
+                const themes = featuredExamples
+                  .map((ex) => exampleThemeLooks.get(ex.slug)?.theme ?? ex.deck.meta?.theme)
+                  .filter((t): t is string => !!t)
+                  .slice(0, COMPARE_LIMIT);
+                if (themes.length === 0) return;
+                setCompare(themes);
+                setLiveCompare(true);
+                const exampleDetails = document.querySelector(
+                  "details.example-browser"
+                ) as HTMLDetailsElement | null;
+                if (exampleDetails) exampleDetails.open = false;
+                const themeDetails = document.querySelector(
+                  "details.theme-browser"
+                ) as HTMLDetailsElement | null;
+                if (themeDetails) themeDetails.open = true;
+              }}
+            >
+              Compare 3 themes
+            </button>
           </div>
           <div className="example-featured" aria-label="Featured craft examples">
             {featuredExamples.map((ex) => {
@@ -503,24 +503,38 @@ export function Toolbar({
                     if (details) details.open = false;
                   }}
                 >
-                  <span
-                    className="example-featured-frame"
-                    data-crop={exampleCrop}
-                    style={{ ["--crop-y" as string]: `${PREVIEW_CROP_OFFSET_PX[exampleCrop]}px` }}
-                    aria-hidden
-                  >
-                    <iframe
-                      src={themePreviewUrl(previewTheme)}
-                      title={`${ex.label} craft preview (${PREVIEW_CROP_LABEL[exampleCrop]})`}
-                      loading="lazy"
-                      tabIndex={-1}
-                    />
+                  <span className="example-featured-shot-strip" aria-hidden>
+                    {PREVIEW_CROPS.map((crop) => (
+                      <span key={crop} className="example-featured-shot">
+                        <span className="example-featured-shot-label">
+                          {PREVIEW_CROP_LABEL[crop]}
+                        </span>
+                        <span
+                          className="example-featured-frame"
+                          data-crop={crop}
+                          style={{
+                            ["--crop-y" as string]: `${PREVIEW_CROP_OFFSET_PX[crop]}px`,
+                          }}
+                        >
+                          <iframe
+                            src={themePreviewUrl(previewTheme)}
+                            title={`${ex.label} craft preview (${PREVIEW_CROP_LABEL[crop]})`}
+                            loading="lazy"
+                            tabIndex={-1}
+                          />
+                        </span>
+                      </span>
+                    ))}
                   </span>
                   <span className="example-featured-name">{ex.label.split("(")[0]!.trim()}</span>
                 </button>
               );
             })}
           </div>
+          <p className="example-featured-hint muted small">
+            Shot strip shows Title / Bento / Compare at once · click a card to load the deck ·
+            Compare 3 themes jumps to live theme tray
+          </p>
           <p className="example-list-label">All examples</p>
           <ul className="example-list">
             {STUDIO_EXAMPLES.map((ex) => {
