@@ -1,20 +1,29 @@
 name: Deploy web
 
-# Note: Vercel Hobby/free tier rate-limits deploys (429). If blocked, wait —
-# do not thrash with repeated pushes. See CONTRIBUTING.md "Deploying the marketing site".
+# HARD CONSTRAINT (Hobby rate limits): do NOT auto-deploy on push.
+# Verify locally (static `web/` + Studio vite / Playwright). Prod deploy is
+# manual only via workflow_dispatch when quota allows.
+# See CONTRIBUTING.md "Deploying the marketing site".
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "web/**"
-      - ".github/workflows/deploy-web.yml"
   workflow_dispatch:
+    inputs:
+      confirm:
+        description: "Type deploy to confirm a production Vercel deploy (uses Hobby quota)"
+        required: true
+        default: ""
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Require explicit confirm
+        if: ${{ github.event.inputs.confirm != 'deploy' }}
+        run: |
+          echo "Refusing deploy — set confirm=deploy on workflow_dispatch."
+          echo "Prefer local verify: pnpm --filter @presentation-md/studio test:e2e + static serve of web/"
+          exit 1
+
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v6
         with:
@@ -27,6 +36,6 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
-          # Single attempt — do not loop on 429; re-run workflow later if rate-limited.
+          # Single attempt — do not loop on 429; wait for Hobby quota reset.
           vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
           vercel deploy --prod --yes --token="$VERCEL_TOKEN"

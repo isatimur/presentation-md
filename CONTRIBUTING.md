@@ -124,14 +124,29 @@ on `main`; skipping avoids empty `action_required` runs from `github-actions[bot
 
 ## Deploying the marketing site (Vercel)
 
-The gallery/landing site under `web/` deploys via `.github/workflows/deploy-web.yml`
-(and `workflow_dispatch`).
+**Hard rule:** do **not** rely on Vercel for verification. Hobby quota is limited.
+`Deploy web` is **manual only** (`workflow_dispatch` with `confirm=deploy`).
+Pushes that touch `web/` update git history but **do not** auto-deploy.
 
-**Hobby / free-tier rate limits:** Vercel’s free plan caps concurrent builds and
-deployments. If CI or local `vercel deploy` returns **429** / “rate limit”, do
-**not** thrash retries or re-push docs-only commits to force another deploy —
-wait for the window to reset (often ~1 hour) or upgrade the project. Prefer
-`workflow_dispatch` once, not a burst of path-filtered pushes. Preview deploys
-count against the same budget; skip them when blocked.
+### Verify locally (required)
 
-Site URLs stay valid even when a deploy is deferred; only content updates wait.
+```bash
+# Studio UI + Generate live / pick-3 / Example crops
+pnpm --filter @presentation-md/studio test:e2e
+
+# Or interactive Studio (proxies /previews → web/previews)
+pnpm --filter @presentation-md/studio dev
+
+# Marketing site static
+pnpm --filter @presentation-md/studio run build:web   # optional: refresh web/studio
+npx --yes serve web -p 4173
+# then open http://localhost:4173/ and /studio/
+```
+
+Optional: `cd web && vercel build` for a local Vercel-shaped output — still **no**
+`vercel deploy` unless quota is confirmed free.
+
+**Hobby / free-tier rate limits:** If `vercel deploy` returns **429**, wait for the
+window (often hours) — never thrash pushes or `gh workflow run` to burn quota.
+Site URLs stay valid when a deploy is deferred; only content updates wait.
+Document deferred deploys as: *verify locally; prod deploy deferred*.
