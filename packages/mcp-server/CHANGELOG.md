@@ -1,5 +1,19 @@
 # @presentation-md/mcp-server
 
+## 1.17.0
+
+### Minor Changes
+
+- 539425a: preview_themes returns file_url, compare_summary (mood/swatches/vibe), proof deep-links, and layout bake list — agent DX without inline PNGs.
+
+### Patch Changes
+
+- Updated dependencies [9d22c98]
+  - @presentation-md/core@1.18.0
+  - @presentation-md/create-theme@1.1.9
+  - @presentation-md/export@1.23.9
+  - @presentation-md/render@1.7.5
+
 ## 1.16.0
 
 ### Minor Changes

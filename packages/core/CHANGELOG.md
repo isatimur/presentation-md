@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.18.0
+
+### Minor Changes
+
+- 9d22c98: Share site mood-browse chip helpers (`THEME_BROWSE_FILTERS` / `themeMatchesBrowseFilter`) for Studio parity with the gallery toolbar.
+
 ## 1.17.0
 
 ### Minor Changes

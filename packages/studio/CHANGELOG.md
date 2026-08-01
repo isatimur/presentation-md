@@ -1,5 +1,17 @@
 # @presentation-md/studio
 
+## 1.9.0
+
+### Minor Changes
+
+- 9441e8b: Theme browser + Generate modal mood chips match the site gallery browse bar (Popular / Dark / Light / Editorial / Neon / …).
+
+### Patch Changes
+
+- Updated dependencies [9d22c98]
+  - @presentation-md/core@1.18.0
+  - @presentation-md/export@1.23.9
+
 ## 1.8.0
 
 ### Minor Changes
