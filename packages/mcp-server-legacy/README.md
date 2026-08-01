@@ -1,6 +1,6 @@
 # @presentation-skill-pack/mcp-server (deprecated)
 
-**This package is a redirect stub.** Use [`@presentation-md/mcp-server`](https://www.npmjs.com/package/@presentation-md/mcp-server) instead — it ships all **12** presentation-md MCP tools (`export_deck`, `judge_deck`, `scaffold_deck`, `import_*`, `preview_themes`, …).
+**This package is a redirect stub.** Use [`@presentation-md/mcp-server`](https://www.npmjs.com/package/@presentation-md/mcp-server) instead — it ships all **13** presentation-md MCP tools (`export_deck`, `judge_deck`, `scaffold_deck`, `import_*`, `preview_themes`, …).
 
 ```bash
 npx -y @presentation-md/mcp-server

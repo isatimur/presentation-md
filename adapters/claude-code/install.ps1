@@ -52,7 +52,7 @@ if ($Mode -eq "full") {
         if (-not $cfg.mcpServers) {
             $cfg | Add-Member -NotePropertyName "mcpServers" -NotePropertyValue ([PSCustomObject]@{})
         }
-        # Migrate legacy 5-tool package name → full @presentation-md/mcp-server (12 tools).
+        # Migrate legacy 5-tool package name → full @presentation-md/mcp-server (13 tools).
         if ($cfg.mcpServers.PSObject.Properties.Name -contains "presentation-skill-pack") {
             $cfg.mcpServers.PSObject.Properties.Remove("presentation-skill-pack")
         }

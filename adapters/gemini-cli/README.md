@@ -9,7 +9,7 @@ Installs the `presentation-generator` skill as a Gemini CLI extension so the age
 | **full** (default) | Writes `SKILL.md` + `extension.json` to `~/.gemini/extensions/presentation-generator/`, installs **deck-design-judge** as a second extension, **and** registers the MCP server in `~/.gemini/settings.json`. |
 | **lite** | Writes the presentation-generator extension files only — no judge, no MCP server. |
 
-The `extension.json` tells Gemini CLI to load `SKILL.md` as a skill definition. With full mode, all **12** MCP tools are available: `render_deck`, `export_deck`, `audit_deck`, `judge_deck`, `list_themes`, `apply_theme`, `generate_deck_prompt`, `scaffold_deck`, `preview_themes`, `import_pptx`, `import_markdown`, `import_brand_theme`.
+The `extension.json` tells Gemini CLI to load `SKILL.md` as a skill definition. With full mode, all **13** MCP tools are available: `render_deck`, `export_deck`, `audit_deck`, `judge_deck`, `list_themes`, `apply_theme`, `generate_deck_prompt`, `scaffold_deck`, `share_deck_link`, `preview_themes`, `import_pptx`, `import_markdown`, `import_brand_theme`.
 
 ## Install
 

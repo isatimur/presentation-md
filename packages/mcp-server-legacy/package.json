@@ -1,7 +1,7 @@
 {
   "name": "@presentation-skill-pack/mcp-server",
   "version": "0.2.1",
-  "description": "DEPRECATED — thin redirect to @presentation-md/mcp-server (12 tools). Use the new package name.",
+  "description": "DEPRECATED — thin redirect to @presentation-md/mcp-server (13 tools). Use the new package name.",
   "license": "MIT",
   "type": "module",
   "bin": {
@@ -23,7 +23,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "deprecated": "Package renamed: use @presentation-md/mcp-server (12 tools). This stub only redirects.",
+  "deprecated": "Package renamed: use @presentation-md/mcp-server (13 tools). This stub only redirects.",
   "repository": {
     "type": "git",
     "url": "https://github.com/isatimur/presentation-md.git",

@@ -6,7 +6,7 @@ Installs the `presentation-generator` rule into Cursor so the agent can turn rou
 
 | Mode | What happens |
 |------|-------------|
-| **full** (default) | Writes `~/.cursor/rules/presentation-generator.mdc` (Cursor rule) **and** registers the MCP server in `~/.cursor/mcp.json`, enabling all **12** MCP tools: `render_deck`, `export_deck`, `audit_deck`, `judge_deck`, `list_themes`, `apply_theme`, `generate_deck_prompt`, `scaffold_deck`, `preview_themes`, `import_pptx`, `import_markdown`, `import_brand_theme`. |
+| **full** (default) | Writes `~/.cursor/rules/presentation-generator.mdc` (Cursor rule) **and** registers the MCP server in `~/.cursor/mcp.json`, enabling all **13** MCP tools: `render_deck`, `export_deck`, `audit_deck`, `judge_deck`, `list_themes`, `apply_theme`, `generate_deck_prompt`, `scaffold_deck`, `share_deck_link`, `preview_themes`, `import_pptx`, `import_markdown`, `import_brand_theme`. |
 | **lite** | Writes the `.mdc` rule only — no MCP server. Cursor uses the deck-spec CLI path or direct-HTML fallback. |
 
 The `.mdc` file contains the full skill definition (trigger description + instructions). Cursor picks it up as an agent rule that can be toggled per chat session.

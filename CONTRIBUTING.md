@@ -74,7 +74,7 @@ This reads the version from `packages/core/package.json` and writes it to every 
 packages/core/          schema, theme loader, validator
 packages/renderer-node/ Node.js HTML renderer + CLI (incl. PPTX flags)
 packages/export/        PPTX round-trip library (Deck JSON ↔ .pptx)
-packages/mcp-server/    MCP server (12 tools)
+packages/mcp-server/    MCP server (13 tools)
 packages/install/       one-command installer CLI
 packages/create-theme/  theme scaffold CLI
 packages/studio/        browser editor SPA (build → web/studio/)
