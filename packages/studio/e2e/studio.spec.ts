@@ -51,17 +51,13 @@ test("pick-3 theme compare tray fills slots and can lock a theme", async ({ page
   await expect(tray).toBeVisible();
   await expect(tray.getByText(/Compare 3\/3/i)).toBeVisible();
 
-  // Shortlist / pick-3 auto-enables live; multi-layout crop (Title / Bento / Compare).
+  // Shortlist / pick-3 auto-enables live; denser Title+Bento+Compare shot strip.
   await expect(tray.getByRole("button", { name: /Hide live/i })).toBeVisible();
-  await expect(tray.locator(".theme-compare-frame iframe")).toHaveCount(3);
-  await expect(tray.getByRole("toolbar", { name: /Preview layout crop/i })).toBeVisible();
-  await tray.getByRole("button", { name: /^Bento$/ }).click();
-  await expect(tray.locator(".theme-compare-frame").first()).toHaveAttribute("data-crop", "bento");
-  await tray.getByRole("button", { name: /^Compare$/ }).click();
-  await expect(tray.locator(".theme-compare-frame").first()).toHaveAttribute(
-    "data-crop",
-    "comparison"
-  );
+  await expect(tray.locator(".theme-compare-frame iframe")).toHaveCount(9);
+  await expect(tray.locator(".theme-compare-frame[data-crop='title']")).toHaveCount(3);
+  await expect(tray.locator(".theme-compare-frame[data-crop='bento']")).toHaveCount(3);
+  await expect(tray.locator(".theme-compare-frame[data-crop='comparison']")).toHaveCount(3);
+  await expect(tray.locator(".theme-compare-shot-strip")).toHaveCount(3);
 
   // Lock the first compared theme.
   const firstName = await tray.locator(".theme-compare-card strong").first().textContent();
@@ -85,16 +81,12 @@ test("Generate modal opens, validates input, and offers the agent-handoff path",
   await page.locator("textarea.brief-input").fill("A launch deck for a developer CLI.");
   await expect(copyBtn).toBeEnabled();
 
-  // Visual pick-3 compare is live by default (show-don't-tell).
+  // Visual pick-3 compare is live by default (show-don't-tell shot strip).
   await expect(page.locator(".gen-discover-grid .gen-discover-card")).toHaveCount(3);
   await expect(page.getByRole("button", { name: /Hide live/i })).toBeVisible();
-  await expect(page.locator(".gen-discover-frame iframe")).toHaveCount(3);
-  // Multi-layout crop depth (Title / Bento / Compare) — beats title-only live.
-  const cropBar = page.locator(".modal .gen-discover-crop-bar");
-  await expect(cropBar).toBeVisible();
-  await cropBar.getByRole("button", { name: /^Bento$/ }).click();
+  await expect(page.locator(".gen-discover-frame iframe")).toHaveCount(9);
+  await expect(page.locator(".gen-discover-frame[data-crop='title']")).toHaveCount(3);
   await expect(page.locator(".gen-discover-frame[data-crop='bento']")).toHaveCount(3);
-  await cropBar.getByRole("button", { name: /^Compare$/ }).click();
   await expect(page.locator(".gen-discover-frame[data-crop='comparison']")).toHaveCount(3);
 
   // …and generating without an API key surfaces a clear error (no network call).

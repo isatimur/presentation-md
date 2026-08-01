@@ -251,6 +251,16 @@ body {
     linear-gradient(135deg, var(--swatch-bg, #0B1220) 52%, var(--swatch-accent, #FF3B1F) 52%);
   box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset;
 }
+.theme-compare-shot-strip {
+  display: flex; flex-direction: column; gap: 5px;
+}
+.theme-compare-shot {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.theme-compare-shot-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--faint);
+}
 .theme-compare-frame {
   --crop-y: 48px; /* title body pad — overridden per crop */
   position: relative; width: 100%; aspect-ratio: 16 / 9;
@@ -589,6 +599,16 @@ body {
 .gen-discover-swatch {
   height: 40px; border-radius: 7px; border: 1px solid var(--line-2);
   background: linear-gradient(135deg, var(--swatch-bg, #0B1220) 52%, var(--swatch-accent, #FF3B1F) 52%);
+}
+.gen-discover-shot-strip {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.gen-discover-shot {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.gen-discover-shot-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--faint); text-align: left;
 }
 .gen-discover-frame {
   --crop-y: 48px;
