@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.24.0
+
+### Minor Changes
+
+- 1e61cb2: Deck → Marp/md-slides **Markdown export** (`deckToMarkdown`): Studio Download Markdown, MCP/CLI `format: md`, round-trip with import_markdown / Paste MD / Open .md.
+
 ## 1.23.0
 
 ### Minor Changes
