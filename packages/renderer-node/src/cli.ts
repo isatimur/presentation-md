@@ -11,9 +11,15 @@ import { pptxToDeck } from "@presentation-md/export/import";
 import {
   buildLayoutsPreviewDeck,
   buildTitlePreviewDeck,
+  discoverySlideIndices,
+  layoutsPreviewLayoutNames,
+  layoutsPreviewSlideCount,
   parsePreviewCompareThemes,
+  DISCOVERY_SHOT_H,
+  DISCOVERY_SHOT_W,
   type PreviewMode,
 } from "./theme-preview-deck.js";
+import { screenshotSlides } from "./screenshot-slides.js";
 
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
@@ -65,6 +71,10 @@ export function buildProgram(): Command {
       "title | layouts for --preview-compare (default: layouts)",
       "layouts"
     )
+    .option(
+      "--no-preview-shots",
+      "skip PNG screenshots for --preview-compare (HTML only; default captures title + bento + comparison)"
+    )
     .option("--validate", "validate only, do not render")
     .action(async (inputPath: string | undefined, options: {
       output?: string;
@@ -77,6 +87,7 @@ export function buildProgram(): Command {
       previewCompare?: string;
       previewDir?: string;
       previewMode?: string;
+      previewShots?: boolean;
       validate?: boolean;
     }) => {
       if (options.listThemes) {
@@ -116,6 +127,9 @@ export function buildProgram(): Command {
           options.previewDir ?? ".presentation-md/theme-previews"
         );
         await mkdir(outDir, { recursive: true });
+        const wantShots = options.previewShots !== false;
+        let shotsOk = 0;
+        let chromeMissing = false;
         try {
           for (const theme of themes) {
             const deckJson =
@@ -130,10 +144,45 @@ export function buildProgram(): Command {
             const outPath = join(outDir, filename);
             await writeFile(outPath, html, "utf-8");
             process.stdout.write(`${theme} → ${outPath}\n`);
+
+            if (wantShots) {
+              const slideCount =
+                mode === "layouts" ? layoutsPreviewSlideCount(theme) : 1;
+              const layouts = layoutsPreviewLayoutNames(theme, mode);
+              const shotResult = await screenshotSlides(html, {
+                shotsDir: join(outDir, `${theme}-shots`),
+                width: DISCOVERY_SHOT_W,
+                height: DISCOVERY_SHOT_H,
+                slideIndices: discoverySlideIndices(mode, slideCount),
+              });
+              if (shotResult.chrome_missing) {
+                chromeMissing = true;
+              } else {
+                for (const shot of shotResult.shots) {
+                  if (shot.bytes <= 0) continue;
+                  shotsOk += 1;
+                  const layoutName = layouts[shot.slide - 1] ?? `slide-${shot.slide}`;
+                  process.stdout.write(
+                    `  ${layoutName} → ${shot.path}\n`
+                  );
+                }
+              }
+            }
           }
           process.stdout.write(
             `Preview compare (${mode}): ${themes.length} theme(s) in ${outDir}\n`
           );
+          if (wantShots) {
+            if (chromeMissing) {
+              process.stdout.write(
+                "PNG screenshots skipped — Chrome/Chromium not found (HTML only).\n"
+              );
+            } else if (shotsOk > 0) {
+              process.stdout.write(
+                `PNG screenshots: ${shotsOk} discovery shot(s) (title${mode === "layouts" ? " + bento + comparison" : ""}).\n`
+              );
+            }
+          }
         } catch (err) {
           process.stderr.write(`Error: ${(err as Error).message}\n`);
           process.exit(1);

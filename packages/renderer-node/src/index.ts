@@ -19,10 +19,23 @@ export { validateDeckJson } from "@presentation-md/core";
 export {
   buildLayoutsPreviewDeck,
   buildTitlePreviewDeck,
+  discoverySlideIndices,
+  layoutsPreviewLayoutNames,
   layoutsPreviewSlideCount,
   parsePreviewCompareThemes,
+  DISCOVERY_SHOT_H,
+  DISCOVERY_SHOT_W,
+  LAYOUTS_PREVIEW_LAYOUTS,
   type PreviewMode,
 } from "./theme-preview-deck.js";
+export {
+  extractSlideChunks,
+  findChrome,
+  isolateSlideHtml,
+  screenshotSlides,
+  type ShotMeta,
+  type ScreenshotResult,
+} from "./screenshot-slides.js";
 
 function escapeAttr(value: string): string {
   return value

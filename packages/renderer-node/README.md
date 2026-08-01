@@ -32,6 +32,7 @@ presentation-md-render --list-themes
 # Pick-3 theme compare (multi-layout craft previews — beats title-only skim)
 presentation-md-render --preview-compare aurora-glass,signal,claude
 presentation-md-render --preview-compare default-tech,claude --preview-dir ./tmp/previews --preview-mode layouts
+presentation-md-render --preview-compare claude --no-preview-shots
 
 # Import a PowerPoint file to deck JSON
 presentation-md-render --from-pptx board-deck.pptx -o deck.json --theme claude

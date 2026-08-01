@@ -2,6 +2,9 @@ import { describe, expect, it } from "vitest";
 import {
   buildLayoutsPreviewDeck,
   buildTitlePreviewDeck,
+  discoverySlideIndices,
+  layoutsPreviewLayoutNames,
+  layoutsPreviewSlideCount,
   parsePreviewCompareThemes,
 } from "../src/theme-preview-deck.js";
 
@@ -29,5 +32,19 @@ describe("theme-preview-deck", () => {
     expect(wrap.slides.map((s: { layout: string }) => s.layout)).toEqual(
       expect.arrayContaining(["streak-grid", "metric-ring"])
     );
+  });
+
+  it("discoverySlideIndices densifies title + bento + comparison for layouts", () => {
+    expect(discoverySlideIndices("title", 1)).toEqual([1]);
+    expect(discoverySlideIndices("layouts", 11)).toEqual([1, 3, 5]);
+    expect(discoverySlideIndices("layouts", 2)).toEqual([1]);
+    expect(layoutsPreviewSlideCount("default-tech")).toBe(11);
+    expect(layoutsPreviewLayoutNames("default-tech")).toContain("chart");
+    expect(layoutsPreviewLayoutNames("default-tech")[2]).toBe("feature-grid");
+    expect(layoutsPreviewLayoutNames("default-tech")[4]).toBe("comparison");
+    const wrapLayouts = layoutsPreviewLayoutNames("kinetic-wrapped");
+    expect(wrapLayouts).toHaveLength(13);
+    expect(wrapLayouts.indexOf("streak-grid")).toBe(wrapLayouts.indexOf("stat-row") + 1);
+    expect(wrapLayouts.indexOf("metric-ring")).toBe(wrapLayouts.indexOf("stat-row") + 2);
   });
 });

@@ -64,6 +64,7 @@ describe("buildProgram", () => {
         "--preview-compare",
         "--preview-dir",
         "--preview-mode",
+        "--no-preview-shots",
         "--validate",
       ])
     );
@@ -113,6 +114,7 @@ describe("presentation-md-render CLI flags", () => {
         previewDir,
         "--preview-mode",
         "layouts",
+        "--no-preview-shots",
       ],
       { cwd: dir }
     );
@@ -124,6 +126,36 @@ describe("presentation-md-render CLI flags", () => {
     expect(html).toMatch(/feature-grid|comparison/i);
     await access(join(previewDir, "claude-layouts-preview.html"));
   });
+
+  it(
+    "--preview-compare captures discovery PNGs when Chrome is available",
+    async () => {
+      const dir = await tempDir();
+      const previewDir = join(dir, "previews");
+      const { code, stdout, stderr } = await runCli(
+        [
+          "--preview-compare",
+          "default-tech",
+          "--preview-dir",
+          previewDir,
+          "--preview-mode",
+          "layouts",
+        ],
+        { cwd: dir }
+      );
+      expect(stderr).not.toMatch(/^Error:/);
+      expect(code).toBe(0);
+      expect(stdout).toMatch(/Preview compare \(layouts\): 1 theme/);
+      if (/Chrome\/Chromium not found/i.test(stdout)) {
+        return;
+      }
+      expect(stdout).toMatch(/PNG screenshots: \d+ discovery/);
+      await access(join(previewDir, "default-tech-shots", "slide-01.png"));
+      await access(join(previewDir, "default-tech-shots", "slide-03.png"));
+      await access(join(previewDir, "default-tech-shots", "slide-05.png"));
+    },
+    90_000
+  );
 
   it("--validate accepts valid deck JSON", async () => {
     const dir = await tempDir();

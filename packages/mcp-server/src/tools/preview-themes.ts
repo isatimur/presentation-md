@@ -12,58 +12,27 @@ import {
 import {
   buildLayoutsPreviewDeck,
   buildTitlePreviewDeck,
+  discoverySlideIndices,
   getBundledThemesDir,
+  layoutsPreviewLayoutNames,
   layoutsPreviewSlideCount,
   renderDeck,
+  screenshotSlides,
+  DISCOVERY_SHOT_H,
+  DISCOVERY_SHOT_W,
   type PreviewMode,
 } from "@presentation-md/render";
 import { resolveThemesDir } from "../lib/resolve-themes.js";
 import { assertWritablePathInCwd } from "../lib/cwd-path.js";
 import { richToolResult, type McpImagePayload } from "../lib/rich-result.js";
-import { screenshotSlides } from "../lib/screenshot-slides.js";
 import type { ToolDefinition } from "../server.js";
 
 const DEFAULT_PREVIEW_DIR = ".presentation-md/theme-previews";
 
-/** Layout sequence baked into layouts-mode previews (agents can narrate without opening HTML). */
-const LAYOUTS_PREVIEW_LAYOUTS = [
-  "title",
-  "image-hero",
-  "feature-grid",
-  "two-column",
-  "comparison",
-  "ranked-list",
-  "stat-row",
-  "quote",
-  "code",
-  "closing",
-] as const;
-
-const LAYOUTS_PREVIEW_LAYOUTS_WRAPPED = [
-  ...LAYOUTS_PREVIEW_LAYOUTS.slice(0, -1),
-  "streak-grid",
-  "metric-ring",
-  "closing",
-] as const;
-
-/** Discovery-size shots — small enough for MCP image content, still readable. */
-const SHOT_W = 960;
-const SHOT_H = 540;
-
-/**
- * Title cover always; layouts mode also grabs the comparison body beat
- * (5th layout in the bake list — index 5 → slide 5).
- */
-function discoverySlideIndices(mode: PreviewMode, slideCount: number): number[] {
-  if (mode === "title" || slideCount <= 1) return [1];
-  const comparisonSlide = Math.min(5, slideCount);
-  return comparisonSlide > 1 ? [1, comparisonSlide] : [1];
-}
-
 export const previewThemesTool: ToolDefinition = {
   name: "preview_themes",
   description:
-    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Returns file paths + file:// URLs, mood/scheme/swatches, proof deep-links, layout bake list, and — by default — inline PNG screenshots as MCP image content (title cover; layouts mode also captures the comparison beat). Pass include_screenshots:false to skip Chrome. Pass themes[] and/or a shortlist id from theme-shortlists.json. Pick-3 / duo compares (≥2 themes) default to mode=\"layouts\"; pass mode=\"title\" for a fast cover-only skim. Single-theme default remains title. kinetic-wrapped previews inject tone + hero mega-stat + share pills.",
+    "Render 1–3 theme preview HTML files for visual discovery (show-don't-tell). Returns file paths + file:// URLs, mood/scheme/swatches, proof deep-links, layout bake list, and — by default — inline PNG screenshots as MCP image content (title cover; layouts mode also captures bento + comparison — Studio Title/Bento/Compare parity). Pass include_screenshots:false to skip Chrome. Pass themes[] and/or a shortlist id from theme-shortlists.json. Pick-3 / duo compares (≥2 themes) default to mode=\"layouts\"; pass mode=\"title\" for a fast cover-only skim. Single-theme default remains title. kinetic-wrapped previews inject tone + hero mega-stat + share pills.",
   inputSchema: {
     type: "object",
     properties: {
@@ -185,12 +154,7 @@ export const previewThemesTool: ToolDefinition = {
       const sel = selectionByName.get(theme);
       const disc = discoveredByName.get(theme);
       const links = themeDiscoveryLinks(theme, sel?.gallery);
-      const layouts =
-        mode === "layouts"
-          ? theme === "kinetic-wrapped"
-            ? [...LAYOUTS_PREVIEW_LAYOUTS_WRAPPED]
-            : [...LAYOUTS_PREVIEW_LAYOUTS]
-          : (["title"] as string[]);
+      const layouts = layoutsPreviewLayoutNames(theme, mode);
       const fileUrl = pathToFileURL(path).href;
       const slideCount = mode === "layouts" ? layoutsPreviewSlideCount(theme) : 1;
 
@@ -216,8 +180,8 @@ export const previewThemesTool: ToolDefinition = {
         const shotsDir = join(outputDir, `${theme}-shots`);
         const shotResult = await screenshotSlides(html, {
           shotsDir,
-          width: SHOT_W,
-          height: SHOT_H,
+          width: DISCOVERY_SHOT_W,
+          height: DISCOVERY_SHOT_H,
           slideIndices: discoverySlideIndices(mode, slideCount),
         });
         if (shotResult.chrome_missing) {
@@ -291,12 +255,12 @@ export const previewThemesTool: ToolDefinition = {
         detail: chromeMissing
           ? screenshotsDetail
           : screenshotsOk > 0
-            ? `Attached ${screenshotsOk} discovery PNG(s) as MCP image content (title${mode === "layouts" ? " + comparison" : ""}).`
+            ? `Attached ${screenshotsOk} discovery PNG(s) as MCP image content (title${mode === "layouts" ? " + bento + comparison" : ""}).`
             : "No screenshots captured.",
       };
       payload.dx_hint =
         screenshotsOk > 0
-          ? "Inline PNGs are attached as MCP image content — compare themes visually in-chat, then lock meta.theme. file_url still available for full HTML scroll."
+          ? "Inline PNGs are attached as MCP image content — compare themes visually in-chat (title / bento / comparison), then lock meta.theme. file_url still available for full HTML scroll."
           : chromeMissing
             ? "Chrome missing — open each file_url or preview_url; use compare_summary swatches + mood. Install Chrome for inline PNGs."
             : "Screenshots unavailable — open each file_url or preview_url; use compare_summary swatches + mood.";
@@ -308,7 +272,7 @@ export const previewThemesTool: ToolDefinition = {
     payload.instruction =
       mode === "layouts"
         ? screenshotsOk > 0
-          ? "Compare the attached title + comparison PNGs (and/or open file_url). After they pick a theme, set meta.theme and generate the full deck."
+          ? "Compare the attached title + bento + comparison PNGs (and/or open file_url). After they pick a theme, set meta.theme and generate the full deck."
           : "Open each multi-layout preview (file_url) and scroll past the title — judge cards, comparison, stats, quote, and code. Or skim compare_summary swatches/mood first. After they pick a theme, set meta.theme and generate the full deck."
         : themes.length >= 2
           ? screenshotsOk > 0

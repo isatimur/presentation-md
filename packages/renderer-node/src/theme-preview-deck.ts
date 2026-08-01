@@ -207,9 +207,55 @@ export function buildLayoutsPreviewDeck(
   });
 }
 
+/** Layout sequence baked into layouts-mode previews (CLI / MCP narrate without opening HTML). */
+export const LAYOUTS_PREVIEW_LAYOUTS = [
+  "title",
+  "image-hero",
+  "feature-grid",
+  "two-column",
+  "comparison",
+  "ranked-list",
+  "stat-row",
+  "chart",
+  "quote",
+  "code",
+  "closing",
+] as const;
+
+/** Discovery-size shots — small enough for MCP image content, still readable. */
+export const DISCOVERY_SHOT_W = 960;
+export const DISCOVERY_SHOT_H = 540;
+
+/**
+ * Layout names for a layouts-mode bake (kinetic-wrapped inserts streak + ring after stats).
+ * Title mode returns `["title"]`.
+ */
+export function layoutsPreviewLayoutNames(theme: string, mode: PreviewMode = "layouts"): string[] {
+  if (mode === "title") return ["title"];
+  const base: string[] = [...LAYOUTS_PREVIEW_LAYOUTS];
+  if (theme !== "kinetic-wrapped") return base;
+  const statIdx = base.indexOf("stat-row");
+  const insertAt = statIdx >= 0 ? statIdx + 1 : base.length - 1;
+  base.splice(insertAt, 0, "streak-grid", "metric-ring");
+  return base;
+}
+
 /** Count slides in a layouts bake (kinetic-wrapped adds streak + ring). */
 export function layoutsPreviewSlideCount(theme: string): number {
   return theme === "kinetic-wrapped" ? 13 : 11;
+}
+
+/**
+ * 1-based slide indices for discovery PNGs (CLI `--preview-compare` + MCP `preview_themes`).
+ * Title cover always; layouts mode also grabs bento (feature-grid) + comparison —
+ * Studio Title/Bento/Compare crop parity (layouts bake: 1=title, 3=feature-grid, 5=comparison).
+ */
+export function discoverySlideIndices(mode: PreviewMode, slideCount: number): number[] {
+  if (mode === "title" || slideCount <= 1) return [1];
+  const indices = [1];
+  if (slideCount >= 3) indices.push(3);
+  if (slideCount >= 5) indices.push(Math.min(5, slideCount));
+  return [...new Set(indices)].filter((n) => n >= 1 && n <= slideCount).sort((a, b) => a - b);
 }
 
 export function parsePreviewCompareThemes(raw: string): string[] {
