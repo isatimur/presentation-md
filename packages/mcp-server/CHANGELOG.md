@@ -1,5 +1,19 @@
 # @presentation-md/mcp-server
 
+## 1.21.0
+
+### Minor Changes
+
+- f7445a4: preview_themes returns inline PNG screenshots as MCP image content by default (title + comparison in layouts mode) so vision agents can compare themes in-chat — show-don't-tell vs frontend-slides path-only previews.
+
+### Patch Changes
+
+- Updated dependencies [f7445a4]
+  - @presentation-md/core@1.19.2
+  - @presentation-md/create-theme@1.1.12
+  - @presentation-md/export@1.23.12
+  - @presentation-md/render@1.8.1
+
 ## 1.20.0
 
 ### Minor Changes
