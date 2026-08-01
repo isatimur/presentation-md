@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { readdirSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
-import { auditCraft } from "../src/craft-audit.js";
+import { auditCraft, repairCraft } from "../src/craft-audit.js";
 
 describe("auditCraft", () => {
   it("does not require image-hero on kinetic-wrapped wrap decks", () => {
@@ -947,5 +947,72 @@ describe("auditCraft", () => {
       }
     }
     expect(failures).toEqual([]);
+  });
+});
+
+describe("repairCraft", () => {
+  it("fills safe structural craft fields and clears those warnings", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "aurora-glass", title: "Launch waitlist" },
+      slides: [
+        { layout: "title", heading: "Go" },
+        {
+          layout: "feature-grid",
+          heading: "Five",
+          cards: [
+            { title: "One", body: "A" },
+            { title: "Two", body: "B" },
+            { title: "Three", body: "C" },
+            { title: "Four", body: "D" },
+            { title: "Five", body: "E" },
+          ],
+        },
+        {
+          layout: "comparison",
+          heading: "Vs",
+          leftLabel: "A",
+          left: "old",
+          rightLabel: "B",
+          right: "new",
+        },
+        { layout: "two-column", heading: "Split", left: "L", right: "R" },
+        { layout: "section", heading: "More" },
+        { layout: "closing", heading: "Ship", cta: { label: "Join the waitlist", href: "#" } },
+      ],
+    };
+    const before = auditCraft(deck);
+    expect(before.some((i) => /emphasis/i.test(i.message))).toBe(true);
+    expect(before.some((i) => /bento/i.test(i.message))).toBe(true);
+    expect(before.some((i) => /ratio/i.test(i.message))).toBe(true);
+    expect(before.some((i) => /speaker notes/i.test(i.message))).toBe(true);
+
+    const { deck: repaired, fixes } = repairCraft(deck);
+    expect(fixes.length).toBeGreaterThan(3);
+    const slides = repaired.slides as Array<Record<string, unknown>>;
+    expect(slides[2]?.["emphasis"]).toBe("right");
+    expect(slides[1]?.["columns"]).toBe("bento");
+    expect(slides[3]?.["ratio"]).toBe("2-1");
+    expect(Array.isArray(slides[5]?.["actions"])).toBe(true);
+    expect(
+      (slides[1]?.["cards"] as Array<Record<string, unknown>>).every(
+        (c) => typeof c["icon"] === "string" && c["icon"]
+      )
+    ).toBe(true);
+
+    const after = auditCraft(repaired);
+    expect(after.some((i) => /emphasis/i.test(i.message))).toBe(false);
+    expect(after.some((i) => /bento/i.test(i.message))).toBe(false);
+    expect(after.some((i) => /ratio/i.test(i.message))).toBe(false);
+    expect(after.some((i) => /speaker notes/i.test(i.message))).toBe(false);
+    expect(after.some((i) => /single CTA|dual actions/i.test(i.message))).toBe(false);
+  });
+
+  it("is a no-op on already-clean stunning decks", () => {
+    const pulse = JSON.parse(
+      readFileSync(resolve(process.cwd(), "../../examples/decks/pulse-wrapped.json"), "utf-8")
+    );
+    const { fixes } = repairCraft(pulse);
+    expect(fixes).toEqual([]);
   });
 });

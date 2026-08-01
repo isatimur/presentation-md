@@ -1,4 +1,4 @@
-import { validateDeckJson, auditCraft } from "@presentation-md/core";
+import { validateDeckJson, auditCraft, repairCraft } from "@presentation-md/core";
 import type { ToolDefinition } from "../server.js";
 
 interface Issue {
@@ -17,7 +17,7 @@ function manualValidate(deck: Record<string, unknown>): { valid: boolean; issues
   const slides = deck["slides"];
   if (!Array.isArray(slides)) {
     issues.push({ severity: "error", message: `/ must have a "slides" array` });
-    return { valid: issues.length === 0, issues };
+    return { valid: issues.filter((i) => i.severity === "error").length === 0, issues };
   }
 
   if (slides.length === 0) {
@@ -30,16 +30,22 @@ function manualValidate(deck: Record<string, unknown>): { valid: boolean; issues
 export const auditDeckTool: ToolDefinition = {
   name: "audit_deck",
   description:
-    "Validate Deck JSON against the schema AND run craft gates (asymmetry, loud/atmosphere/paper honesty, dual CTA, data beats, custom-html vs ranked-list misuse). Returns structured issues — call before the user sees a first draft; schema-valid ≠ shippable.",
+    "Validate Deck JSON against the schema AND run craft gates (asymmetry, loud/atmosphere/paper honesty, dual CTA, data beats, custom-html vs ranked-list misuse). Returns structured issues — call before the user sees a first draft; schema-valid ≠ shippable. Pass apply_safe_fixes:true to auto-apply safe structural repairs (emphasis, ratio, bento, CTA/icons, speaker notes, candy-pop brand) and get back repaired json + fixes_applied — agents clear craft warnings in one hop vs frontend-slides vibe drafts.",
   inputSchema: {
     type: "object",
     properties: {
-      json: { type: "string", description: "Deck JSON string to validate" }
+      json: { type: "string", description: "Deck JSON string to validate" },
+      apply_safe_fixes: {
+        type: "boolean",
+        description:
+          "When true, apply safe structural craft repairs before re-auditing. Returns repaired `json` string plus `fixes_applied[]`. Does not invent themes or body copy.",
+      },
     },
-    required: ["json"]
+    required: ["json"],
   },
   handler: async (input: Record<string, unknown>) => {
     const json = input["json"] as string;
+    const applyFixes = input["apply_safe_fixes"] === true;
 
     let parsed: Record<string, unknown>;
     try {
@@ -48,8 +54,15 @@ export const auditDeckTool: ToolDefinition = {
       return {
         valid: false,
         issues: [{ severity: "error", message: `Invalid JSON: ${(err as Error).message}` }],
-        slide_count: 0
+        slide_count: 0,
       };
+    }
+
+    let fixesApplied: string[] = [];
+    if (applyFixes) {
+      const repaired = repairCraft(parsed);
+      parsed = repaired.deck as Record<string, unknown>;
+      fixesApplied = repaired.fixes;
     }
 
     // Attempt full schema validation via core. If AJV can't load the meta-schema
@@ -58,7 +71,7 @@ export const auditDeckTool: ToolDefinition = {
     let issues: Issue[] = [];
 
     try {
-      const result = validateDeckJson(json);
+      const result = validateDeckJson(JSON.stringify(parsed));
       valid = result.valid;
       issues = result.errors.map((msg) => ({ severity: "error" as const, message: msg }));
     } catch {
@@ -74,6 +87,16 @@ export const auditDeckTool: ToolDefinition = {
     const slides = parsed["slides"];
     const slideCount = Array.isArray(slides) ? slides.length : 0;
 
-    return { valid, issues, slide_count: slideCount };
-  }
+    const result: Record<string, unknown> = {
+      valid,
+      issues,
+      slide_count: slideCount,
+    };
+    if (applyFixes) {
+      result.fixes_applied = fixesApplied;
+      result.json = JSON.stringify(parsed, null, 2);
+      result.fixed = fixesApplied.length > 0;
+    }
+    return result;
+  },
 };

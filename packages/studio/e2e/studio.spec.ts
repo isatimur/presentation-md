@@ -24,6 +24,7 @@ test("edit a slide, see the live preview update, and export .pptx", async ({ pag
   // Source ▾ → Download HTML (cached render + octet-stream; panel above audit).
   await page.locator("details.export-more > summary").click();
   await expect(page.getByRole("button", { name: /Download HTML/i })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Print \/ PDF/i })).toBeVisible();
   const [htmlDownload] = await Promise.all([
     page.waitForEvent("download", { timeout: 15_000 }),
     page.getByRole("button", { name: /Download HTML/i }).click(),
@@ -190,8 +191,16 @@ test("auto-opens craft audit panel and supports jump + dismiss", async ({ page }
   await page.getByRole("button", { name: /Audit craft/i }).click();
   await expect(page.getByText(/Craft audit:/i)).toBeVisible();
 
-  await panel.getByRole("button", { name: /^Dismiss$/ }).click();
-  await expect(panel).toHaveCount(0);
+  // Apply safe fixes clears structural craft (icons on Acme feature-grid).
+  await panel.getByRole("button", { name: /Apply safe fixes/i }).click();
+  await expect(page.getByText(/Applied \d+ craft fix/i)).toBeVisible();
+
+  // Panel unmounts when craft is clean; otherwise dismiss leftovers.
+  const leftover = page.locator("details.audit-panel");
+  if ((await leftover.count()) > 0) {
+    await leftover.getByRole("button", { name: /^Dismiss$/ }).click();
+  }
+  await expect(page.locator("details.audit-panel")).toHaveCount(0);
 });
 
 test("opens a created .html and recovers the editable deck from embedded source", async ({ page }) => {

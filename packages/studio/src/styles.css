@@ -708,6 +708,12 @@ body {
   flex-direction: column;
   gap: 6px;
 }
+.audit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
 .audit-item {
   display: grid;
   grid-template-columns: 78px 1fr;

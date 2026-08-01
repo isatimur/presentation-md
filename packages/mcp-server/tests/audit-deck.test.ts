@@ -3,10 +3,13 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { auditDeckTool } from "../src/tools/audit-deck.js";
 
-async function audit(json: string) {
-  return auditDeckTool.handler({ json }) as Promise<{
+async function audit(json: string, apply_safe_fixes?: boolean) {
+  return auditDeckTool.handler({ json, apply_safe_fixes }) as Promise<{
     valid: boolean;
     issues: Array<{ severity: string; message: string }>;
+    fixes_applied?: string[];
+    json?: string;
+    fixed?: boolean;
   }>;
 }
 
@@ -57,5 +60,40 @@ describe("audit_deck craft gates", () => {
     });
     const result = await audit(deck);
     expect(result.issues.some((i) => /fewer than 3 toned/i.test(i.message))).toBe(true);
+  });
+
+  it("apply_safe_fixes returns repaired json and clears structural warnings", async () => {
+    const deck = JSON.stringify({
+      type: "deck",
+      meta: { theme: "default-tech", title: "Fix me" },
+      slides: [
+        { layout: "title", heading: "Hi" },
+        {
+          layout: "comparison",
+          heading: "Vs",
+          leftLabel: "A",
+          left: "old",
+          rightLabel: "B",
+          right: "new",
+        },
+        { layout: "two-column", heading: "Split", left: "L", right: "R", ratio: "1-1" },
+        { layout: "section", heading: "Mid" },
+        { layout: "stat-row", heading: "Nums", stats: [{ value: "1", label: "a" }] },
+        { layout: "closing", heading: "Bye" },
+      ],
+    });
+    const before = await audit(deck);
+    expect(before.issues.some((i) => /emphasis/i.test(i.message))).toBe(true);
+    expect(before.issues.some((i) => /missing CTA/i.test(i.message))).toBe(true);
+
+    const result = await audit(deck, true);
+    expect(result.fixed).toBe(true);
+    expect(result.fixes_applied!.length).toBeGreaterThan(0);
+    expect(result.json).toBeTruthy();
+    const repaired = JSON.parse(result.json!);
+    expect(repaired.slides[1].emphasis).toBe("right");
+    expect(repaired.slides[5].actions?.length).toBeGreaterThanOrEqual(1);
+    expect(result.issues.some((i) => /emphasis/i.test(i.message))).toBe(false);
+    expect(result.issues.some((i) => /missing CTA/i.test(i.message))).toBe(false);
   });
 });

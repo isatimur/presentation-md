@@ -22,8 +22,7 @@ pnpm --filter @presentation-md/studio test:e2e  # Playwright flow (needs: npx pl
 - **Form editor** — fields per layout (cards, stats, steps, table rows…), driven by the deck schema, plus speaker notes that export to the PPTX notes pane.
 - **Live preview** — an `<iframe>` rendered with the same shared Mustache layouts + theme tokens as
   the canonical Node renderer, so what you see matches the published deck.
-- **Export** — Download HTML, Download `.pptx`, or export the raw Deck JSON. Import any Deck JSON to
-  keep editing. Theme picker covers every bundled + workspace theme.
+- **Export** — Download HTML, **Print / PDF** (browser Save as PDF via the same `@page` 16:9 print CSS as MCP/CLI), Download `.pptx`, or export the raw Deck JSON. Import any Deck JSON to keep editing. Theme picker covers every bundled + workspace theme. Craft audit panel includes **Apply safe fixes** (same `repairCraft` path as MCP `audit_deck` `apply_safe_fixes`).
 
 ## How it stays in sync with the renderer
 

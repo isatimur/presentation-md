@@ -76,6 +76,44 @@ export function downloadJson(deck: DeckJson): void {
   );
 }
 
+/**
+ * Open the rendered deck in a print window so the browser's Save as PDF uses the
+ * same `@media print` / `@page` 16:9 rules as MCP/CLI vector PDF (one page per slide).
+ * Pure client path — no server round-trip.
+ */
+export function printDeckPdf(deck: DeckJson, renderedHtml?: string): void {
+  const html =
+    renderedHtml ??
+    (() => {
+      const theme = resolveTheme(themeName(deck));
+      return renderDeckHtml(deck, theme);
+    })();
+  const w = window.open("", "_blank", "noopener,noreferrer");
+  if (!w) {
+    throw new Error(
+      "Pop-up blocked — allow pop-ups for Studio, then try Print / PDF again (or use MCP/CLI `format: pdf`)."
+    );
+  }
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+  w.document.title = safeName(deck, "pdf").replace(/\.pdf$/i, "");
+  const trigger = () => {
+    try {
+      w.focus();
+      w.print();
+    } catch {
+      /* user can still File → Print */
+    }
+  };
+  // Give fonts/images a beat; print CSS already hides nav chrome.
+  if (w.document.readyState === "complete") {
+    window.setTimeout(trigger, 250);
+  } else {
+    w.addEventListener("load", () => window.setTimeout(trigger, 250), { once: true });
+  }
+}
+
 export function parseDeckJson(text: string): DeckJson {
   const parsed = JSON.parse(text) as DeckJson;
   if (parsed?.type !== "deck" || !Array.isArray(parsed.slides)) {

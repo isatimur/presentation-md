@@ -14,9 +14,16 @@ import {
   COMPARE_LIMIT,
   toggleCompareSlot,
 } from "../render/themePreview.js";
-import { downloadHtml, downloadPptx, downloadJson, parseDeckFile, importPptxFile } from "../export/downloads.js";
+import {
+  downloadHtml,
+  downloadPptx,
+  downloadJson,
+  printDeckPdf,
+  parseDeckFile,
+  importPptxFile,
+} from "../export/downloads.js";
 import { STUDIO_EXAMPLES, studioExampleLink } from "../examples.js";
-import { auditCraft } from "../craft/auditCraft.js";
+import { auditCraft, repairCraft } from "../craft/auditCraft.js";
 import { ThemeCompareTray } from "./ThemeCompareTray.js";
 import { ThemeCraftShotStrip } from "./ThemeCraftShotStrip.js";
 
@@ -215,6 +222,35 @@ export function Toolbar({
     setAuditIssues([]);
     craftPanelOpen.current = false;
     if (liveCraftIssues.length > 0) suppressLivePanel.current = true;
+  };
+
+  const applySafeCraftFixes = () => {
+    const { deck: repaired, fixes } = repairCraft(deck);
+    if (!fixes.length) {
+      setStatus("No safe craft fixes needed");
+      return;
+    }
+    onChange(repaired as DeckJson);
+    const issues = auditCraft(repaired);
+    setAuditIssues(issues);
+    setAuditFilter("all");
+    setAuditPanelOpen(issues.length > 0);
+    craftPanelOpen.current = issues.length > 0;
+    suppressLivePanel.current = false;
+    setStatus(
+      issues.length
+        ? `Applied ${fixes.length} craft fix${fixes.length === 1 ? "" : "es"} · ${issues.length} issue${issues.length === 1 ? "" : "s"} remain`
+        : `Applied ${fixes.length} craft fix${fixes.length === 1 ? "" : "es"} · craft clean`
+    );
+  };
+
+  const exportPdf = () => {
+    try {
+      printDeckPdf(deck, html);
+      setStatus("Print / PDF — choose Save as PDF in the dialog (16:9 print CSS)");
+    } catch (err) {
+      setStatus(`Print / PDF failed: ${(err as Error).message}`);
+    }
   };
 
   const copyLink = async () => {
@@ -593,10 +629,18 @@ export function Toolbar({
       </button>
       <div className="toolbar-cluster" role="group" aria-label="Export">
         <details className="export-more">
-          <summary className="btn btn-sm" title="Download Deck JSON or self-contained HTML">Source ▾</summary>
+          <summary className="btn btn-sm" title="Download Deck JSON, HTML, or Print / PDF">Source ▾</summary>
           <div className="export-more-panel">
             <button type="button" className="btn" onClick={() => downloadJson(deck)}>Download JSON</button>
             <button type="button" className="btn" onClick={() => downloadHtml(deck, html)}>Download HTML</button>
+            <button
+              type="button"
+              className="btn"
+              onClick={exportPdf}
+              title="Opens print dialog — Save as PDF uses the same @page 16:9 rules as MCP/CLI vector PDF"
+            >
+              Print / PDF
+            </button>
           </div>
         </details>
         <button className="btn btn-primary" disabled={busy} onClick={exportPptx}>
@@ -673,9 +717,19 @@ export function Toolbar({
                 );
               })}
           </ul>
-          <button type="button" className="btn btn-sm" onClick={dismissAuditPanel}>
-            Dismiss
-          </button>
+          <div className="audit-actions">
+            <button
+              type="button"
+              className="btn btn-sm btn-primary"
+              onClick={applySafeCraftFixes}
+              title="Apply safe structural fixes (emphasis, ratio, bento, CTA/icons, notes) — same as MCP audit_deck apply_safe_fixes"
+            >
+              Apply safe fixes
+            </button>
+            <button type="button" className="btn btn-sm" onClick={dismissAuditPanel}>
+              Dismiss
+            </button>
+          </div>
         </details>
       )}
     </header>

@@ -804,3 +804,260 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
 
   return issues;
 }
+
+export interface CraftRepairResult {
+  /** Deep-cloned deck with safe structural craft fixes applied. */
+  deck: CraftAuditDeck;
+  /** Human-readable descriptions of each mutation (empty when already clean). */
+  fixes: string[];
+}
+
+const STUNNING_25_FOR_REPAIR = new Set([
+  "aurora-glass",
+  "ft-editorial",
+  "genz-bento",
+  "luxury-minimalist",
+  "crt-terminal",
+  "swiss-typographic",
+  "brutalist-acid",
+  "candy-pop",
+  "aerospace-hud",
+  "heritage-editorial",
+  "fintech-clean",
+  "developer-dark",
+  "data-editorial",
+  "bauhaus",
+  "y2k-aero",
+  "risograph-zine",
+  "neon-noir",
+  "scandinavian",
+  "art-deco",
+  "vaporwave",
+  "broadsheet",
+  "glassmorphism",
+  "kinetic-wrapped",
+  "botanical-luxe",
+  "blueprint",
+]);
+
+function cloneDeck(deck: CraftAuditDeck): CraftAuditDeck {
+  return JSON.parse(JSON.stringify(deck)) as CraftAuditDeck;
+}
+
+function actionIconForLabel(label: string): string {
+  const l = label.toLowerCase();
+  if (/download|install|get the app/.test(l)) return "fa-solid fa-download";
+  if (/book|calendar|schedule|demo|sync/.test(l)) return "fa-solid fa-calendar";
+  if (/share|tweet|post/.test(l)) return "fa-solid fa-share-nodes";
+  if (/github/.test(l)) return "fa-brands fa-github";
+  if (/linkedin/.test(l)) return "fa-brands fa-linkedin";
+  if (/instagram/.test(l)) return "fa-brands fa-instagram";
+  if (/discord/.test(l)) return "fa-brands fa-discord";
+  if (/read|docs|story|learn/.test(l)) return "fa-solid fa-book-open";
+  if (/join|waitlist|sign|email|newsletter/.test(l)) return "fa-solid fa-envelope";
+  if (/rocket|launch|start/.test(l)) return "fa-solid fa-rocket";
+  return "fa-solid fa-arrow-right";
+}
+
+/**
+ * Apply safe structural craft fixes agents / Studio can accept in one hop.
+ * Never invents slide copy or themes — only fills missing craft fields that
+ * `auditCraft` already flags (emphasis, ratio, bento, CTA, icons, notes, brand).
+ */
+export function repairCraft(deck: CraftAuditDeck): CraftRepairResult {
+  const next = cloneDeck(deck);
+  const fixes: string[] = [];
+  const slides = asSlides(next);
+  if (!slides.length) return { deck: next, fixes };
+
+  if (!next.meta || typeof next.meta !== "object") {
+    next.meta = {};
+  }
+  const meta = next.meta as Record<string, unknown>;
+  const theme = typeof meta["theme"] === "string" ? meta["theme"] : "";
+
+  if (theme === "candy-pop") {
+    const hasBrand =
+      (typeof meta["company"] === "string" && String(meta["company"]).trim() !== "") ||
+      (typeof meta["marquee"] === "string" && String(meta["marquee"]).trim() !== "");
+    if (!hasBrand) {
+      const title = typeof meta["title"] === "string" ? String(meta["title"]).trim() : "";
+      if (title) {
+        meta["company"] = title;
+        fixes.push(`meta.company ← "${title}" (candy-pop marquee brand)`);
+      }
+    }
+  }
+
+  for (let i = 0; i < slides.length; i++) {
+    const slide = slides[i]!;
+    const layout = slide["layout"] as string | undefined;
+    const n = i + 1;
+
+    if (layout === "comparison") {
+      if (slide["emphasis"] !== "left" && slide["emphasis"] !== "right") {
+        slide["emphasis"] = "right";
+        fixes.push(`Slide ${n} (comparison): set emphasis "right"`);
+      }
+    }
+
+    if (layout === "two-column") {
+      const ratio = slide["ratio"];
+      if (ratio === undefined || ratio === "1-1") {
+        slide["ratio"] = "2-1";
+        fixes.push(`Slide ${n} (two-column): set ratio "2-1"`);
+      }
+    }
+
+    if (layout === "feature-grid") {
+      const cards = slide["cards"];
+      if (Array.isArray(cards) && cards.length === 5 && slide["columns"] !== "bento") {
+        slide["columns"] = "bento";
+        fixes.push(`Slide ${n} (feature-grid): set columns "bento" for 5 cards`);
+      }
+      if (Array.isArray(cards) && cards.length >= 3) {
+        const DEFAULT_ICONS = [
+          "fa-solid fa-bolt",
+          "fa-solid fa-layer-group",
+          "fa-solid fa-compass",
+          "fa-solid fa-shield-halved",
+          "fa-solid fa-scissors",
+          "fa-solid fa-chart-line",
+        ];
+        let filled = 0;
+        cards.forEach((c, ci) => {
+          const card = c as Record<string, unknown>;
+          const title = typeof card["title"] === "string" ? card["title"].trim() : "";
+          if (/^[\d.,]+[%KkMmBx×+]*$/.test(title)) return;
+          if (typeof card["icon"] === "string" && card["icon"].trim() !== "") return;
+          card["icon"] = DEFAULT_ICONS[ci % DEFAULT_ICONS.length]!;
+          filled += 1;
+        });
+        if (filled > 0) {
+          fixes.push(`Slide ${n} (feature-grid): added icons on ${filled} card(s)`);
+        }
+      }
+    }
+
+    if (layout === "closing") {
+      const actions = slide["actions"];
+      const cta = slide["cta"] as Record<string, unknown> | undefined;
+      const hasAction =
+        (Array.isArray(actions) && actions.length > 0) ||
+        (cta && typeof cta["label"] === "string" && String(cta["label"]).trim() !== "");
+
+      if (!hasAction) {
+        slide["actions"] = [
+          {
+            label: "Get started",
+            href: "#",
+            style: "solid",
+            icon: "fa-solid fa-arrow-right",
+          },
+          {
+            label: "Learn more",
+            href: "#",
+            style: "outline",
+            icon: "fa-solid fa-book-open",
+          },
+        ];
+        delete slide["cta"];
+        fixes.push(`Slide ${n} (closing): added dual actions[] CTA`);
+      } else if (Array.isArray(actions) && actions.length >= 2) {
+        let iconed = 0;
+        for (const a of actions) {
+          const action = a as Record<string, unknown>;
+          if (typeof action["icon"] === "string" && String(action["icon"]).trim() !== "") continue;
+          const label = typeof action["label"] === "string" ? action["label"] : "Continue";
+          action["icon"] = actionIconForLabel(label);
+          iconed += 1;
+        }
+        if (iconed > 0) {
+          fixes.push(`Slide ${n} (closing): added icons on ${iconed} action(s)`);
+        }
+      } else if (
+        !Array.isArray(actions) &&
+        cta &&
+        typeof cta["label"] === "string" &&
+        String(cta["label"]).trim() !== ""
+      ) {
+        const deckBlob = JSON.stringify(next).toLowerCase();
+        const launchy =
+          /launch|waitlist|download|investor|series [abc]|get the app|join the|pre-order|book a|request (access|membership|rates)/i.test(
+            deckBlob
+          );
+        if (STUNNING_25_FOR_REPAIR.has(theme) || launchy) {
+          const primaryLabel = String(cta["label"]).trim();
+          const primaryHref =
+            typeof cta["href"] === "string" && String(cta["href"]).trim()
+              ? String(cta["href"])
+              : "#";
+          slide["actions"] = [
+            {
+              label: primaryLabel,
+              href: primaryHref,
+              style: "solid",
+              icon:
+                typeof cta["icon"] === "string" && String(cta["icon"]).trim()
+                  ? String(cta["icon"])
+                  : actionIconForLabel(primaryLabel),
+            },
+            {
+              label: "Learn more",
+              href: "#",
+              style: "outline",
+              icon: "fa-solid fa-book-open",
+            },
+          ];
+          delete slide["cta"];
+          fixes.push(`Slide ${n} (closing): promoted cta → dual actions[]`);
+        } else if (
+          !(typeof cta["icon"] === "string" && String(cta["icon"]).trim() !== "")
+        ) {
+          cta["icon"] = actionIconForLabel(String(cta["label"]));
+          fixes.push(`Slide ${n} (closing): added icon on cta`);
+        }
+      }
+    }
+  }
+
+  const withNotes = slides.filter(
+    (s) => typeof s["notes"] === "string" && String(s["notes"]).trim()
+  ).length;
+  if (slides.length >= 6 && withNotes === 0) {
+    const targets: number[] = [];
+    const titleIdx = slides.findIndex((s) => s["layout"] === "title");
+    const closeIdx = slides.findIndex((s) => s["layout"] === "closing");
+    const midIdx = Math.floor(slides.length / 2);
+    for (const idx of [titleIdx, midIdx, closeIdx]) {
+      if (idx >= 0 && !targets.includes(idx)) targets.push(idx);
+    }
+    const visualIdx = slides.findIndex(
+      (s) => s["layout"] === "comparison" || s["layout"] === "image-hero"
+    );
+    if (visualIdx >= 0 && !targets.includes(visualIdx) && targets.length < 4) {
+      targets.push(visualIdx);
+    }
+    for (const idx of targets.slice(0, 4)) {
+      const slide = slides[idx]!;
+      const heading =
+        typeof slide["heading"] === "string" && String(slide["heading"]).trim()
+          ? String(slide["heading"]).trim()
+          : `Slide ${idx + 1}`;
+      const layout = slide["layout"] as string | undefined;
+      if (layout === "title") {
+        slide["notes"] = `Cold open — land "${heading}" before logos.`;
+      } else if (layout === "closing") {
+        slide["notes"] = `Close on the ask — pause after "${heading}".`;
+      } else if (layout === "comparison") {
+        slide["notes"] = "Name the loser column first, then punch the winner.";
+      } else {
+        slide["notes"] = `Hold the beat — one breath on "${heading}".`;
+      }
+      fixes.push(`Slide ${idx + 1}: added speaker notes`);
+    }
+  }
+
+  next.slides = slides;
+  return { deck: next, fixes };
+}
