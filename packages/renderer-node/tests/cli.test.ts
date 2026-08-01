@@ -61,6 +61,12 @@ describe("buildProgram", () => {
         "--from-md",
         "--assets-dir",
         "--list-themes",
+        "--scaffold",
+        "--list-scaffold-purposes",
+        "--audit",
+        "--fix",
+        "--apply-theme",
+        "--no-repair",
         "--preview-compare",
         "--preview-dir",
         "--preview-mode",
@@ -412,5 +418,82 @@ describe("presentation-md-render CLI flags", () => {
     expect(stdout).toMatch(/Rendered →/);
     const html = await readFile(outPath, "utf-8");
     expect(html).toContain("Hello CLI");
+  });
+
+  it("--list-scaffold-purposes prints recipe ids", async () => {
+    const { code, stdout } = await runCli(["--list-scaffold-purposes"]);
+    expect(code).toBe(0);
+    expect(stdout).toMatch(/^pitch\t/m);
+    expect(stdout).toMatch(/^launch\t/m);
+  });
+
+  it("--scaffold writes Deck JSON from a recipe", async () => {
+    const dir = await tempDir();
+    const outPath = join(dir, "scaffold.json");
+    const { code, stdout, stderr } = await runCli(
+      ["--scaffold", "pitch", "-o", outPath, "--theme", "default-tech"],
+      { cwd: dir }
+    );
+    expect(stderr).not.toMatch(/^Error:/);
+    expect(code).toBe(0);
+    expect(stdout).toMatch(/Scaffolded pitch/);
+    const deck = JSON.parse(await readFile(outPath, "utf-8")) as {
+      type: string;
+      meta: { theme: string };
+      slides: unknown[];
+    };
+    expect(deck.type).toBe("deck");
+    expect(deck.meta.theme).toBe("default-tech");
+    expect(deck.slides.length).toBeGreaterThan(5);
+  });
+
+  it("--audit reports craft issues", async () => {
+    const dir = await tempDir();
+    const deckPath = join(dir, "thin.json");
+    await writeFile(deckPath, JSON.stringify(MINIMAL_DECK));
+    const { code, stdout } = await runCli(["--audit", deckPath], { cwd: dir });
+    // Minimal 2-slide decks trip craft warnings/errors — either exit is fine if we print audit.
+    expect(stdout + "").toMatch(/Craft audit:/);
+    expect([0, 1]).toContain(code);
+  });
+
+  it("--apply-theme swaps theme and repairs by default", async () => {
+    const dir = await tempDir();
+    const deckPath = join(dir, "deck.json");
+    const outPath = join(dir, "themed.json");
+    await writeFile(deckPath, JSON.stringify(MINIMAL_DECK));
+    const { code, stdout, stderr } = await runCli(
+      ["--apply-theme", "claude", "-o", outPath, deckPath],
+      { cwd: dir }
+    );
+    expect(stderr).not.toMatch(/^Error:/);
+    expect(code).toBe(0);
+    expect(stdout).toMatch(/Applied theme claude/);
+    const deck = JSON.parse(await readFile(outPath, "utf-8")) as {
+      meta: { theme: string };
+      slides: unknown[];
+    };
+    expect(deck.meta.theme).toBe("claude");
+    expect(deck.slides.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("--apply-theme --no-repair only swaps meta.theme", async () => {
+    const dir = await tempDir();
+    const deckPath = join(dir, "deck.json");
+    const outPath = join(dir, "themed.json");
+    await writeFile(deckPath, JSON.stringify(MINIMAL_DECK));
+    const beforeSlides = MINIMAL_DECK.slides.length;
+    const { code, stdout } = await runCli(
+      ["--apply-theme", "signal", "--no-repair", "-o", outPath, deckPath],
+      { cwd: dir }
+    );
+    expect(code).toBe(0);
+    expect(stdout).toMatch(/Applied theme signal/);
+    const deck = JSON.parse(await readFile(outPath, "utf-8")) as {
+      meta: { theme: string };
+      slides: unknown[];
+    };
+    expect(deck.meta.theme).toBe("signal");
+    expect(deck.slides.length).toBe(beforeSlides);
   });
 });

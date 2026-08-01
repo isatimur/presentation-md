@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, extname, join, resolve } from "node:path";
 import { Command } from "commander";
 import { renderDeck, renderDeckPptx, renderDeckPdf, getBundledThemesDir } from "./index.js";
-import { discoverInstalledThemes, markdownToDeck, deckToMarkdown } from "@presentation-md/core";
+import { discoverInstalledThemes, markdownToDeck, deckToMarkdown, scaffoldDeck, listScaffoldPurposes, resolveScaffoldPurpose, auditCraft, repairCraft, type ScaffoldPurpose } from "@presentation-md/core";
 import { pptxToDeck } from "@presentation-md/export/import";
 import {
   buildLayoutsPreviewDeck,
@@ -59,6 +59,27 @@ export function buildProgram(): Command {
     .option("--assets-dir <dir>", "with --from-pptx, write images to this directory instead of data URIs")
     .option("--list-themes", "list available themes and exit")
     .option(
+      "--scaffold <purpose>",
+      "scaffold Deck JSON from a layout recipe (pitch / launch / wrap / …) and write JSON (MCP scaffold_deck parity)"
+    )
+    .option("--list-scaffold-purposes", "list scaffold recipe ids and exit")
+    .option(
+      "--audit",
+      "run craft gates on deck JSON (schema-valid ≠ shippable); exit 1 on craft errors"
+    )
+    .option(
+      "--fix",
+      "with --audit, apply repairCraft (safe fixes + beat inserts) and write repaired JSON"
+    )
+    .option(
+      "--apply-theme <name>",
+      "swap meta.theme and write JSON (default: also repairCraft — MCP apply_theme / Studio Use parity)"
+    )
+    .option(
+      "--no-repair",
+      "with --apply-theme, only swap meta.theme (skip repairCraft)"
+    )
+    .option(
       "--preview-compare <themes>",
       "comma-separated themes (1–3); write craft preview HTML and exit (pick-3 discovery)"
     )
@@ -93,6 +114,12 @@ export function buildProgram(): Command {
       fromMd?: string;
       assetsDir?: string;
       listThemes?: boolean;
+      scaffold?: string;
+      listScaffoldPurposes?: boolean;
+      audit?: boolean;
+      fix?: boolean;
+      applyTheme?: string;
+      repair?: boolean;
       previewCompare?: string;
       previewDir?: string;
       previewMode?: string;
@@ -113,6 +140,42 @@ export function buildProgram(): Command {
           for (const t of themes) {
             process.stdout.write(`${t.name}@${t.version} [${t.source}]\n`);
           }
+        }
+        return;
+      }
+
+      if (options.listScaffoldPurposes) {
+        for (const p of listScaffoldPurposes()) {
+          process.stdout.write(`${p.id}\t${p.label ?? p.id}\n`);
+        }
+        return;
+      }
+
+      if (options.scaffold) {
+        const purposes = listScaffoldPurposes().map((p) => p.id);
+        const resolved =
+          (purposes.includes(options.scaffold as ScaffoldPurpose)
+            ? (options.scaffold as ScaffoldPurpose)
+            : resolveScaffoldPurpose(options.scaffold)) ?? null;
+        if (!resolved) {
+          process.stderr.write(
+            `Error: unknown --scaffold purpose "${options.scaffold}". Try --list-scaffold-purposes.\n`
+          );
+          process.exit(1);
+        }
+        try {
+          const result = scaffoldDeck({
+            purpose: resolved,
+            theme: options.theme,
+          });
+          const outputPath = resolve(process.cwd(), options.output ?? "scaffold.json");
+          await writeFile(outputPath, JSON.stringify(result.deck, null, 2), "utf-8");
+          process.stdout.write(
+            `Scaffolded ${resolved} (${result.deck.slides.length} slides, ${result.recipe_label}) → ${outputPath}\n`
+          );
+        } catch (err) {
+          process.stderr.write(`Error: ${(err as Error).message}\n`);
+          process.exit(1);
         }
         return;
       }
@@ -310,6 +373,72 @@ export function buildProgram(): Command {
           process.stderr.write(`Invalid deck JSON:\n${result.errors.map((e) => `  - ${e}`).join("\n")}\n`);
           process.exit(1);
         }
+      }
+
+      if (options.applyTheme) {
+        let deck: Record<string, unknown>;
+        try {
+          deck = JSON.parse(deckJson) as Record<string, unknown>;
+        } catch (err) {
+          process.stderr.write(`Error: invalid JSON: ${(err as Error).message}\n`);
+          process.exit(1);
+        }
+        const meta = (deck["meta"] ?? {}) as Record<string, unknown>;
+        meta["theme"] = options.applyTheme;
+        deck["meta"] = meta;
+        const wantRepair = options.repair !== false;
+        let fixes: string[] = [];
+        if (wantRepair) {
+          const repaired = repairCraft(deck);
+          deck = repaired.deck as Record<string, unknown>;
+          fixes = repaired.fixes;
+        }
+        const outputPath = resolve(
+          process.cwd(),
+          options.output ?? (inputPath ? inputPath : "deck.json")
+        );
+        await writeFile(outputPath, JSON.stringify(deck, null, 2), "utf-8");
+        process.stdout.write(
+          `Applied theme ${options.applyTheme}${wantRepair ? ` (+ ${fixes.length} craft fix(es))` : ""} → ${outputPath}\n`
+        );
+        return;
+      }
+
+      if (options.audit) {
+        let deck: Record<string, unknown>;
+        try {
+          deck = JSON.parse(deckJson) as Record<string, unknown>;
+        } catch (err) {
+          process.stderr.write(`Error: invalid JSON: ${(err as Error).message}\n`);
+          process.exit(1);
+        }
+        let fixes: string[] = [];
+        if (options.fix) {
+          const repaired = repairCraft(deck);
+          deck = repaired.deck as Record<string, unknown>;
+          fixes = repaired.fixes;
+          const outputPath = resolve(
+            process.cwd(),
+            options.output ?? (inputPath ? inputPath : "deck.json")
+          );
+          await writeFile(outputPath, JSON.stringify(deck, null, 2), "utf-8");
+          process.stdout.write(
+            `Applied ${fixes.length} craft fix(es) → ${outputPath}\n`
+          );
+        }
+        const issues = auditCraft(deck);
+        const errors = issues.filter((i) => i.severity === "error");
+        const warns = issues.filter((i) => i.severity !== "error");
+        for (const issue of issues) {
+          const slide = issue.slide != null ? ` (slide ${issue.slide})` : "";
+          const line = `${issue.severity}${slide}: ${issue.message}\n`;
+          if (issue.severity === "error") process.stderr.write(line);
+          else process.stdout.write(line);
+        }
+        process.stdout.write(
+          `Craft audit: ${errors.length} error(s), ${warns.length} warning(s)${fixes.length ? `, ${fixes.length} fix(es) applied` : ""}\n`
+        );
+        process.exit(errors.length > 0 ? 1 : 0);
       }
 
       if (options.theme) {

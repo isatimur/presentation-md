@@ -26,6 +26,14 @@ cat deck.json | presentation-md-render -o slides.html
 # Validate only (no output file)
 presentation-md-render deck.json --validate
 
+# Craft loop (MCP scaffold_deck / audit_deck / apply_theme parity — no MCP required)
+presentation-md-render --list-scaffold-purposes
+presentation-md-render --scaffold pitch -o deck.json --theme default-tech
+presentation-md-render deck.json --audit
+presentation-md-render deck.json --audit --fix -o deck.json
+presentation-md-render deck.json --apply-theme aurora-glass -o deck.json
+presentation-md-render deck.json --apply-theme signal --no-repair -o deck.json
+
 # List available themes
 presentation-md-render --list-themes
 
