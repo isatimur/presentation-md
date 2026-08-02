@@ -1,5 +1,20 @@
 # @presentation-md/studio
 
+## 1.30.0
+
+### Minor Changes
+
+- 8056710: Present laser pointer (L) + Studio structural Judge (t0/t1).
+
+  Toggle a Keynote-style red laser with a short trail over the slide stage — mutually exclusive with blackout/whiteout/overview. Craft toolbar / ⌘K gain Judge (same `judgeDeckJson` gates as CLI `--judge` / MCP `judge_deck` t0/t1).
+
+### Patch Changes
+
+- Updated dependencies [b17bc3a]
+- Updated dependencies [8056710]
+  - @presentation-md/export@1.23.30
+  - @presentation-md/core@1.30.0
+
 ## 1.29.0
 
 ### Minor Changes
