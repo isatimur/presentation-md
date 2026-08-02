@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { restyleSlideHtml } from "./DeckRestylePreview.js";
 import { SlideFilmstrip } from "./SlideFilmstrip.js";
 import { prepareSandboxedPreviewHtml } from "../render/sandboxPreview.js";
@@ -25,12 +25,15 @@ const SHORTCUTS: Array<{ keys: string; label: string }> = [
   { keys: "G", label: "Overview grid" },
   { keys: "F", label: "Filmstrip peek" },
   { keys: "S", label: "Speaker notes" },
+  { keys: "L", label: "Laser pointer" },
   { keys: "B", label: "Blackout" },
   { keys: "W", label: "Whiteout" },
   { keys: "T", label: "Pause / resume timer" },
   { keys: "?", label: "Shortcuts" },
   { keys: "Esc", label: "Close overlay / exit" },
 ];
+
+const LASER_TRAIL = 5;
 
 export function PresentMode({
   html,
@@ -55,10 +58,13 @@ export function PresentMode({
   const [showHelp, setShowHelp] = useState(false);
   const [blackout, setBlackout] = useState(false);
   const [whiteout, setWhiteout] = useState(false);
+  const [laser, setLaser] = useState(false);
+  const [laserTrail, setLaserTrail] = useState<Array<{ x: number; y: number }>>([]);
   const [elapsedMs, setElapsedMs] = useState(0);
   const [timerRunning, setTimerRunning] = useState(true);
   const startedAt = useRef(Date.now());
   const accumulated = useRef(0);
+  const stageRef = useRef<HTMLDivElement>(null);
   const presentHtml = prepareSandboxedPreviewHtml(
     html.replace("</head>", `<style>${PRESENT_CSS}</style></head>`)
   );
@@ -99,6 +105,24 @@ export function PresentMode({
     setI(Math.max(0, Math.min(slideCount - 1, index)));
   };
 
+  const clearLaserTrail = () => setLaserTrail([]);
+
+  const onStagePointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (!laser || blackout || whiteout || showOverview || showHelp) return;
+    const stage = stageRef.current;
+    if (!stage) return;
+    const rect = stage.getBoundingClientRect();
+    const point = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    setLaserTrail((prev) => {
+      const next = [...prev, point];
+      return next.length > LASER_TRAIL ? next.slice(next.length - LASER_TRAIL) : next;
+    });
+  };
+
+  const onStagePointerLeave = () => {
+    if (laser) clearLaserTrail();
+  };
+
   useEffect(() => {
     if (!timerRunning) return;
     const id = window.setInterval(() => {
@@ -109,7 +133,8 @@ export function PresentMode({
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.defaultPrevented) return;
+      // Escape must win even if a closing command-palette capture handler marked
+      // the event defaultPrevented — otherwise Present can get stuck open.
       if (e.key === "Escape") {
         e.preventDefault();
         if (showHelp) {
@@ -128,8 +153,16 @@ export function PresentMode({
           setWhiteout(false);
           return;
         }
+        if (laser) {
+          setLaser(false);
+          setLaserTrail([]);
+          return;
+        }
         onClose();
-      } else if (e.key === "?" || (e.shiftKey && e.key === "/")) {
+        return;
+      }
+      if (e.defaultPrevented) return;
+      if (e.key === "?" || (e.shiftKey && e.key === "/")) {
         e.preventDefault();
         setShowHelp((v) => !v);
       } else if (e.key === "g" || e.key === "G") {
@@ -137,16 +170,32 @@ export function PresentMode({
         setShowHelp(false);
         setBlackout(false);
         setWhiteout(false);
+        setLaser(false);
+        setLaserTrail([]);
         setShowOverview((v) => !v);
+      } else if (e.key === "l" || e.key === "L") {
+        e.preventDefault();
+        setShowOverview(false);
+        setShowHelp(false);
+        setBlackout(false);
+        setWhiteout(false);
+        setLaser((v) => {
+          if (v) setLaserTrail([]);
+          return !v;
+        });
       } else if (e.key === "b" || e.key === "B") {
         e.preventDefault();
         setShowOverview(false);
         setWhiteout(false);
+        setLaser(false);
+        setLaserTrail([]);
         setBlackout((v) => !v);
       } else if (e.key === "w" || e.key === "W") {
         e.preventDefault();
         setShowOverview(false);
         setBlackout(false);
+        setLaser(false);
+        setLaserTrail([]);
         setWhiteout((v) => !v);
       } else if (e.key === "t" || e.key === "T") {
         e.preventDefault();
@@ -193,7 +242,7 @@ export function PresentMode({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose, slideCount, blackout, whiteout, timerRunning, showOverview, showHelp]);
+  }, [onClose, slideCount, blackout, whiteout, laser, timerRunning, showOverview, showHelp]);
 
   useEffect(() => {
     const frame = frameRef.current;
@@ -211,7 +260,10 @@ export function PresentMode({
   return (
     <div className="present-overlay">
       <div className="present-main">
-        <div className="present-stage">
+        <div
+          ref={stageRef}
+          className={`present-stage${laser ? " present-stage-laser" : ""}`}
+        >
           <iframe
             ref={frameRef}
             className="present-frame"
@@ -219,6 +271,31 @@ export function PresentMode({
             srcDoc={presentHtml}
             sandbox="allow-same-origin"
           />
+          {laser && !blackout && !whiteout && !showOverview && !showHelp ? (
+            <div
+              className="present-laser-layer"
+              aria-hidden
+              onPointerMove={onStagePointerMove}
+              onPointerLeave={onStagePointerLeave}
+            >
+              {laserTrail.map((p, idx) => {
+                const t = (idx + 1) / laserTrail.length;
+                const isTip = idx === laserTrail.length - 1;
+                return (
+                  <span
+                    key={idx}
+                    className={`present-laser-dot${isTip ? " is-tip" : ""}`}
+                    style={{
+                      left: p.x,
+                      top: p.y,
+                      opacity: 0.25 + t * 0.75,
+                      transform: `translate(-50%, -50%) scale(${0.45 + t * 0.55})`,
+                    }}
+                  />
+                );
+              })}
+            </div>
+          ) : null}
           {blackout ? (
             <div
               className="present-blackout"
@@ -381,6 +458,8 @@ export function PresentMode({
             onClick={() => {
               setBlackout(false);
               setWhiteout(false);
+              setLaser(false);
+              clearLaserTrail();
               setShowHelp(false);
               setShowOverview((v) => !v);
             }}
@@ -390,9 +469,27 @@ export function PresentMode({
         ) : null}
         <button
           className="btn"
+          title="Laser pointer (L)"
+          onClick={() => {
+            setShowOverview(false);
+            setShowHelp(false);
+            setBlackout(false);
+            setWhiteout(false);
+            setLaser((v) => {
+              if (v) clearLaserTrail();
+              return !v;
+            });
+          }}
+        >
+          {laser ? "Laser off · L" : "Laser · L"}
+        </button>
+        <button
+          className="btn"
           title="Blackout screen (B)"
           onClick={() => {
             setWhiteout(false);
+            setLaser(false);
+            clearLaserTrail();
             setBlackout((v) => !v);
           }}
         >
@@ -403,6 +500,8 @@ export function PresentMode({
           title="Whiteout screen (W)"
           onClick={() => {
             setBlackout(false);
+            setLaser(false);
+            clearLaserTrail();
             setWhiteout((v) => !v);
           }}
         >

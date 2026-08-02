@@ -64,6 +64,36 @@ describe("remorphDensity speaker", () => {
     expect(changes.some((c) => /overflow body/i.test(c))).toBe(true);
   });
 
+  it("morphs bullet-wall two-column into feature-grid and splits", () => {
+    const deck = {
+      type: "deck",
+      meta: {},
+      slides: [
+        {
+          layout: "two-column",
+          heading: "Why us",
+          body: [
+            "- Speed: ship in a day",
+            "- Quality: craft gates on every draft",
+            "- Ownership: editable PPTX you keep",
+            "- Agents: MCP tools not prompt soup",
+            "- Themes: seventy-five structured packs",
+          ].join("\n"),
+        },
+      ],
+    };
+    const { deck: out, changes } = remorphDensity(deck, "speaker");
+    const slides = out.slides as Array<Record<string, unknown>>;
+    expect(slides.every((s) => s.layout === "feature-grid")).toBe(true);
+    expect(slides.length).toBeGreaterThanOrEqual(2);
+    expect(changes.some((c) => /morph two-column bullet body/i.test(c))).toBe(true);
+    const cardCount = slides.reduce(
+      (n, s) => n + ((s.cards as unknown[] | undefined)?.length ?? 0),
+      0
+    );
+    expect(cardCount).toBe(5);
+  });
+
   it("splits ranked-list and timeline by caps", () => {
     const deck = {
       type: "deck",

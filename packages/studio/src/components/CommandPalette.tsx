@@ -47,7 +47,7 @@ export function CommandPalette({
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         e.preventDefault();
-        e.stopPropagation();
+        // Don't stopPropagation — Present (and other overlays) also listen for Esc.
         onOpenChange(false);
         return;
       }

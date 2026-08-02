@@ -25,7 +25,11 @@ const SPEAKER_CAPS: Record<string, { field: string; max: number }> = {
   timeline: { field: "steps", max: 4 },
   "logo-wall": { field: "cards", max: 6 },
   "data-table": { field: "rows", max: 5 },
+  "stat-row": { field: "stats", max: 4 },
 };
+
+/** Layouts whose prose `body` can safely morph into a feature-grid when bullet-heavy. */
+const BULLET_MORPH_LAYOUTS = new Set(["two-column"]);
 
 const READING_MERGE_CAPS: Record<string, { field: string; max: number }> = {
   "feature-grid": { field: "cards", max: 6 },
@@ -93,6 +97,73 @@ function splitListSlide(
   });
 }
 
+/**
+ * Extract bullet/numbered lines from a prose body. Returns null when the body
+ * is not clearly a list wall (needs ≥4 list-like lines covering most of the body).
+ */
+function parseBulletLines(body: string): string[] | null {
+  const lines = body
+    .split(/\n+/)
+    .map((l) => l.trim())
+    .filter(Boolean);
+  if (lines.length < 4) return null;
+  const bulletish = lines.filter(
+    (l) => /^[-*•●◦]\s+\S/.test(l) || /^\d+[.)]\s+\S/.test(l)
+  );
+  if (bulletish.length < 4) return null;
+  if (bulletish.length < Math.ceil(lines.length * 0.7)) return null;
+  return bulletish.map((l) =>
+    l.replace(/^[-*•●◦]\s+/, "").replace(/^\d+[.)]\s+/, "").trim()
+  );
+}
+
+function titleFromBullet(text: string): { title: string; body: string } {
+  const colon = text.indexOf(": ");
+  if (colon > 0 && colon < 40) {
+    return { title: text.slice(0, colon).trim(), body: text.slice(colon + 2).trim() || text };
+  }
+  const words = text.split(/\s+/);
+  if (words.length <= 4) return { title: text, body: text };
+  return {
+    title: words.slice(0, 3).join(" "),
+    body: text,
+  };
+}
+
+/**
+ * Speaker: morph bullet-wall two-column slides into feature-grid cards (then split by caps).
+ * Non-LLM — preserves bullet text; agents still rewrite placeholders.
+ */
+function morphBulletsToFeatureGrid(
+  slide: Record<string, unknown>,
+  slideIndex1: number,
+  changes: string[]
+): Record<string, unknown> {
+  const layout = typeof slide.layout === "string" ? slide.layout : "";
+  if (!BULLET_MORPH_LAYOUTS.has(layout)) return slide;
+  const body = typeof slide.body === "string" ? slide.body : "";
+  const bullets = parseBulletLines(body);
+  if (!bullets) return slide;
+
+  const cards = bullets.map((text, i) => {
+    const { title, body: cardBody } = titleFromBullet(text);
+    return { title: title || `Point ${i + 1}`, body: cardBody };
+  });
+  const next: Record<string, unknown> = {
+    ...slide,
+    layout: "feature-grid",
+    columns: Math.min(3, cards.length),
+    cards,
+  };
+  delete next.body;
+  delete next.image;
+  delete next.imageAlt;
+  changes.push(
+    `Slide ${slideIndex1}: morph ${layout} bullet body → feature-grid (${cards.length} cards)`
+  );
+  return next;
+}
+
 function trimBodyToNotes(
   slide: Record<string, unknown>,
   slideIndex1: number,
@@ -138,7 +209,8 @@ function remorphSpeaker(deck: RemorphDeck): RemorphDensityResult {
   const nextSlides: Array<Record<string, unknown>> = [];
 
   for (let i = 0; i < slides.length; i++) {
-    const slide = slides[i]!;
+    let slide = slides[i]!;
+    slide = morphBulletsToFeatureGrid(slide, i + 1, changes);
     const layout = typeof slide.layout === "string" ? slide.layout : "";
     // bento is intentional asymmetry — don't shred it.
     if (layout === "feature-grid" && slide.columns === "bento") {

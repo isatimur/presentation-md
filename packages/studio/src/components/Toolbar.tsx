@@ -31,8 +31,14 @@ import {
   assertStudioImportFileSize,
 } from "../export/downloads.js";
 import { STUDIO_EXAMPLES } from "../examples.js";
-import { auditCraft, repairCraft, repairCraftBeat, remorphDensity } from "../craft/auditCraft.js";
-import type { CraftFixId } from "../craft/auditCraft.js";
+import {
+  auditCraft,
+  judgeDeckJson,
+  repairCraft,
+  repairCraftBeat,
+  remorphDensity,
+} from "../craft/auditCraft.js";
+import type { CraftFixId, CraftIssue } from "../craft/auditCraft.js";
 import { ThemeCompareTray, type LiveCompareMode } from "./ThemeCompareTray.js";
 import { ThemeCraftShotStrip } from "./ThemeCraftShotStrip.js";
 import { CommandPalette, type StudioCommand } from "./CommandPalette.js";
@@ -362,6 +368,29 @@ export function Toolbar({
     );
   };
 
+  const runStructuralJudge = () => {
+    const { flags, metrics } = judgeDeckJson(deck as unknown as Record<string, unknown>);
+    const issues: CraftIssue[] = flags.map((f) => ({
+      severity: f.severity === "warn" ? "warning" : "error",
+      message: `[judge · ${f.id}] ${f.detail}`,
+      slide: typeof f.slide === "number" ? f.slide : undefined,
+    }));
+    suppressLivePanel.current = false;
+    craftPanelOpen.current = true;
+    setAuditIssues(issues);
+    setAuditFilter("all");
+    setAuditPanelOpen(issues.length > 0);
+    const gates = Number(metrics.gate_hits ?? 0);
+    if (!issues.length) {
+      craftPanelOpen.current = false;
+      setStatus("Judge t1 clean — escalate to MCP judge_deck t2 for HTML shots");
+      return;
+    }
+    setStatus(
+      `Judge t1: ${gates} gate${gates === 1 ? "" : "s"} · ${issues.length} flag${issues.length === 1 ? "" : "s"} (CLI --judge / MCP judge_deck parity)`
+    );
+  };
+
   const dismissAuditPanel = () => {
     setAuditIssues([]);
     craftPanelOpen.current = false;
@@ -619,7 +648,13 @@ export function Toolbar({
     () => [
       { id: "present", label: "Present", hint: "Fullscreen", keywords: "slideshow play", run: onPresent },
       { id: "generate", label: "Generate deck", hint: "Prompt", keywords: "ai craft", run: onGenerate },
-      { id: "audit", label: "Audit craft", keywords: "gates judge craft", run: runCraftAudit },
+      { id: "audit", label: "Audit craft", keywords: "gates craft", run: runCraftAudit },
+      {
+        id: "judge",
+        label: "Judge structure (t1)",
+        keywords: "gates judge density words",
+        run: runStructuralJudge,
+      },
       {
         id: "fix",
         label: "Apply safe craft fixes",
@@ -1223,6 +1258,13 @@ export function Toolbar({
             {liveCraftWarns > 0 ? `${liveCraftWarns}W` : liveCraftErrors > 0 ? "" : liveCraftIssues.length}
           </span>
         )}
+      </button>
+      <button
+        className="btn btn-sm"
+        onClick={runStructuralJudge}
+        title="Structural design judge t1 (same judgeDeckJson as CLI --judge / MCP judge_deck t0/t1)"
+      >
+        Judge
       </button>
       <div className="toolbar-cluster" role="group" aria-label="Export">
         <details className="export-more">

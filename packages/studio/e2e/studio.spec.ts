@@ -1063,6 +1063,20 @@ test("Present mode shows up-next peek and advances with ArrowRight", async ({ pa
   await page.keyboard.press("Escape");
   await expect(page.locator(".present-whiteout")).toHaveCount(0);
 
+  await page.keyboard.press("l");
+  await expect(page.locator(".present-stage-laser")).toBeVisible();
+  await expect(page.locator(".present-laser-layer")).toBeVisible();
+  const stage = page.locator(".present-stage");
+  const box = await stage.boundingBox();
+  expect(box).toBeTruthy();
+  if (box) {
+    await page.mouse.move(box.x + box.width * 0.4, box.y + box.height * 0.4);
+    await page.mouse.move(box.x + box.width * 0.55, box.y + box.height * 0.5);
+    await expect(page.locator(".present-laser-dot.is-tip")).toHaveCount(1);
+  }
+  await page.keyboard.press("l");
+  await expect(page.locator(".present-laser-layer")).toHaveCount(0);
+
   await expect(page.locator(".present-timer")).toBeVisible();
 
   await page.keyboard.press("g");
@@ -1100,6 +1114,18 @@ test("changes layout via morph while preserving the heading", async ({ page }) =
   await expect(page.getByLabel("Left label")).toBeVisible();
 });
 
+test("Judge button runs structural t1 gates into the issues panel", async ({ page }) => {
+  await page.goto("/?fresh=1");
+  await page.getByRole("button", { name: /^Judge$/ }).click();
+  await expect(page.locator(".status")).toContainText(/Judge t1/i);
+  // Default example usually has craft/judge flags; panel opens when flags exist.
+  const panel = page.locator("details.audit-panel");
+  if (await panel.count()) {
+    await expect(panel).toBeVisible();
+    await expect(panel.locator(".audit-item").first()).toContainText(/\[judge/i);
+  }
+});
+
 test("undo restores deck after Apply safe fixes", async ({ page }) => {
   await page.goto("/?fresh=1");
 
@@ -1132,7 +1158,8 @@ test("command palette opens with Meta+K and runs Present", async ({ page }) => {
   const presentCmd = page.locator(".command-palette-item").filter({ hasText: /Present/ }).first();
   await expect(presentCmd).toBeVisible();
   await presentCmd.click();
-  await expect(page.locator(".present-overlay")).toBeVisible();
+  // Wait for the real presenter (not the Suspense "Loading presenter…" fallback).
+  await expect(page.getByRole("button", { name: /Exit · Esc/i })).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.locator(".present-overlay")).toHaveCount(0);
 });
