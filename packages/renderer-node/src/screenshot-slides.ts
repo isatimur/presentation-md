@@ -4,7 +4,7 @@
  * hash-scroll timing (more reliable than #__shot for headless Chrome).
  */
 import { spawn } from "node:child_process";
-import { access, mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { constants } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
@@ -200,51 +200,57 @@ export async function screenshotSlides(
         ].sort((a, b) => a - b)
       : Array.from({ length: Math.min(slideCount, maxSlides) }, (_, i) => i + 1);
   const shots: ShotMeta[] = [];
+  const chromeProfileDir = await mkdtemp(join(tmpdir(), "pmd-chrome-profile-"));
 
-  for (const i of indices) {
-    const idx = String(i).padStart(2, "0");
-    const outPath = join(shotsDir, `slide-${idx}.png`);
-    const chunk =
-      chunks[i - 1] ?? `<section class="slide"><p>missing slide ${i}</p></section>`;
-    const isolated = isolateSlideHtml(html, chunk);
-    const isoPath = join(shotsDir, `slide-${idx}.html`);
-    await writeFile(isoPath, isolated, "utf-8");
+  try {
+    for (const i of indices) {
+      const idx = String(i).padStart(2, "0");
+      const outPath = join(shotsDir, `slide-${idx}.png`);
+      const chunk =
+        chunks[i - 1] ?? `<section class="slide"><p>missing slide ${i}</p></section>`;
+      const isolated = isolateSlideHtml(html, chunk);
+      const isoPath = join(shotsDir, `slide-${idx}.html`);
+      await writeFile(isoPath, isolated, "utf-8");
 
-    await runChrome(chrome, [
-      "--headless=new",
-      "--disable-gpu",
-      "--hide-scrollbars",
-      "--no-first-run",
-      "--no-default-browser-check",
-      `--window-size=${width},${height}`,
-      "--virtual-time-budget=5000",
-      "--run-all-compositor-stages-before-draw",
-      `--screenshot=${outPath}`,
-      `file://${isoPath}`,
-    ]);
+      await runChrome(chrome, [
+        "--headless=new",
+        "--disable-gpu",
+        "--hide-scrollbars",
+        "--no-first-run",
+        "--no-default-browser-check",
+        `--user-data-dir=${chromeProfileDir}`,
+        `--window-size=${width},${height}`,
+        "--virtual-time-budget=5000",
+        "--run-all-compositor-stages-before-draw",
+        `--screenshot=${outPath}`,
+        `file://${isoPath}`,
+      ]);
 
-    try {
-      const buf = await readFile(outPath);
-      const size = readPngSize(buf);
-      const meta: ShotMeta = {
-        slide: i,
-        path: outPath,
-        bytes: buf.length,
-        width: size?.width,
-        height: size?.height,
-      };
-      if (buf.length < 4_000) {
-        meta.warn = "shot looks near-empty (tiny file) — check overflow/blank slide";
+      try {
+        const buf = await readFile(outPath);
+        const size = readPngSize(buf);
+        const meta: ShotMeta = {
+          slide: i,
+          path: outPath,
+          bytes: buf.length,
+          width: size?.width,
+          height: size?.height,
+        };
+        if (buf.length < 4_000) {
+          meta.warn = "shot looks near-empty (tiny file) — check overflow/blank slide";
+        }
+        shots.push(meta);
+      } catch {
+        shots.push({
+          slide: i,
+          path: outPath,
+          bytes: 0,
+          warn: "screenshot file missing after Chrome run",
+        });
       }
-      shots.push(meta);
-    } catch {
-      shots.push({
-        slide: i,
-        path: outPath,
-        bytes: 0,
-        warn: "screenshot file missing after Chrome run",
-      });
     }
+  } finally {
+    await rm(chromeProfileDir, { recursive: true, force: true });
   }
 
   return {
