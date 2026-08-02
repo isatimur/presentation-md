@@ -114,7 +114,7 @@ function isRedirectStatus(status: number): boolean {
  * explicitly with `maxRedirects: 0`, re-checking every hop, and only the final
  * response is fulfilled. Fails closed at every step.
  */
-async function guardRoute(
+export async function guardRoute(
   route: import("playwright").Route,
   cache: Map<string, boolean>
 ): Promise<void> {
@@ -145,14 +145,23 @@ async function guardRoute(
   for (let hop = 0; isRedirectStatus(response.status()); hop++) {
     const location = response.headers()["location"];
     if (!location || hop >= MAX_REDIRECT_HOPS) {
+      await response.dispose();
       await route.abort();
       return;
     }
-    currentUrl = new URL(location, currentUrl).toString();
+    try {
+      currentUrl = new URL(location, currentUrl).toString();
+    } catch {
+      await response.dispose();
+      await route.abort();
+      return;
+    }
     if (!(await isPublicHttpUrl(currentUrl, cache))) {
+      await response.dispose();
       await route.abort();
       return;
     }
+    await response.dispose();
     response = await route.fetch({ url: currentUrl, maxRedirects: 0 });
   }
   await route.fulfill({ response });

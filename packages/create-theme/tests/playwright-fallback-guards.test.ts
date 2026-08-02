@@ -28,7 +28,7 @@ vi.mock("playwright", () => ({
   chromium: { launch: (...args: unknown[]) => launchMock(...(args as [])) },
 }));
 
-const { ensurePlaywrightInstalled, extractComputedStyles, isPublicHttpUrl } = await import(
+const { ensurePlaywrightInstalled, extractComputedStyles, guardRoute, isPublicHttpUrl } = await import(
   "../src/playwright-fallback.js"
 );
 
@@ -179,5 +179,98 @@ describe("isPublicHttpUrl", () => {
     } finally {
       vi.useRealTimers();
     }
+  });
+});
+
+function fakeRouteResponse(status: number, location?: string) {
+  return {
+    status: vi.fn(() => status),
+    headers: vi.fn(() => (location ? { location } : {})),
+    dispose: vi.fn(async () => undefined),
+  };
+}
+
+function fakeRoute(initialUrl: string, responses: ReturnType<typeof fakeRouteResponse>[]) {
+  const queue = [...responses];
+  const abort = vi.fn(async () => undefined);
+  const fetch = vi.fn(async () => {
+    const response = queue.shift();
+    if (!response) throw new Error("Unexpected route.fetch call");
+    return response;
+  });
+  const fulfill = vi.fn(async () => undefined);
+  const route = {
+    request: () => ({ url: () => initialUrl }),
+    continue: vi.fn(async () => undefined),
+    abort,
+    fetch,
+    fulfill,
+  } as unknown as import("playwright").Route;
+  return { route, abort, fetch, fulfill };
+}
+
+describe("guardRoute redirect response lifecycle", () => {
+  beforeEach(() => {
+    lookupMock.mockReset();
+    lookupMock.mockImplementation(async (hostname: string) => [
+      { address: hostname === "127.0.0.1" ? hostname : "93.184.216.34", family: 4 },
+    ]);
+  });
+
+  it("disposes a redirect response before blocking its private target", async () => {
+    const redirect = fakeRouteResponse(302, "http://127.0.0.1/private");
+    const harness = fakeRoute("https://public.example/start", [redirect]);
+
+    await guardRoute(harness.route, new Map());
+
+    expect(redirect.dispose).toHaveBeenCalledOnce();
+    expect(harness.abort).toHaveBeenCalledOnce();
+    expect(harness.fulfill).not.toHaveBeenCalled();
+  });
+
+  it("disposes each admitted redirect response before fetching the next hop", async () => {
+    const first = fakeRouteResponse(301, "/two");
+    const second = fakeRouteResponse(307, "/final");
+    const final = fakeRouteResponse(200);
+    const harness = fakeRoute("https://public.example/one", [first, second, final]);
+
+    await guardRoute(harness.route, new Map());
+
+    expect(first.dispose).toHaveBeenCalledOnce();
+    expect(second.dispose).toHaveBeenCalledOnce();
+    expect(final.dispose).not.toHaveBeenCalled();
+    expect(harness.fetch).toHaveBeenNthCalledWith(1, { maxRedirects: 0 });
+    expect(harness.fetch).toHaveBeenNthCalledWith(2, {
+      url: "https://public.example/two",
+      maxRedirects: 0,
+    });
+    expect(harness.fetch).toHaveBeenNthCalledWith(3, {
+      url: "https://public.example/final",
+      maxRedirects: 0,
+    });
+    expect(harness.fulfill).toHaveBeenCalledWith({ response: final });
+  });
+
+  it("disposes the terminal redirect response when the hop cap is reached", async () => {
+    const redirects = Array.from({ length: 6 }, () => fakeRouteResponse(302, "/loop"));
+    const harness = fakeRoute("https://public.example/loop", redirects);
+
+    await guardRoute(harness.route, new Map());
+
+    expect(harness.fetch).toHaveBeenCalledTimes(6);
+    expect(redirects.every((response) => response.dispose.mock.calls.length === 1)).toBe(true);
+    expect(harness.abort).toHaveBeenCalledOnce();
+    expect(harness.fulfill).not.toHaveBeenCalled();
+  });
+
+  it("disposes and blocks a malformed redirect target", async () => {
+    const redirect = fakeRouteResponse(302, "http://[");
+    const harness = fakeRoute("https://public.example/start", [redirect]);
+
+    await guardRoute(harness.route, new Map());
+
+    expect(redirect.dispose).toHaveBeenCalledOnce();
+    expect(harness.abort).toHaveBeenCalledOnce();
+    expect(harness.fulfill).not.toHaveBeenCalled();
   });
 });
