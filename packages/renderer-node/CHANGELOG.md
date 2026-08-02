@@ -1,5 +1,13 @@
 # @presentation-md/render
 
+## 1.15.3
+
+### Patch Changes
+
+- d66a8e9: Isolate headless Chrome screenshot runs with a temp `--user-data-dir`.
+
+  Avoids profile lock / state bleed across concurrent slide shots (judge_deck t2/t3 + preview_themes).
+
 ## 1.15.2
 
 ### Patch Changes
