@@ -1,5 +1,16 @@
 # @presentation-md/mcp-server
 
+## 1.32.8
+
+### Patch Changes
+
+- 1f3547c: Present chrome in exported HTML (B/W, notes, timer, digit jump).
+
+  Agent-delivered decks can present without Studio — blackout/whiteout, speaker notes from `#pmd-deck`, elapsed timer T/R, 1–9 jump, and `?` help. Screenshot/print hide the chrome.
+
+- Updated dependencies [1f3547c]
+  - @presentation-md/render@1.16.0
+
 ## 1.32.7
 
 ### Patch Changes
