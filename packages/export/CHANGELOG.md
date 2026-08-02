@@ -1,5 +1,13 @@
 # @presentation-md/export
 
+## 1.23.31
+
+### Patch Changes
+
+- a3a71c0: Preflight PPTX compressed-size limits on CLI/MCP import paths + CRC extract tests.
+
+  `assertZipArchiveSafe` runs before read/base64 decode; export tests cover streamed CRC mismatch and media size gates.
+
 ## 1.23.30
 
 ### Patch Changes
