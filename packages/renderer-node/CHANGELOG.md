@@ -1,5 +1,17 @@
 # @presentation-md/render
 
+## 1.14.1
+
+### Patch Changes
+
+- bf6d00d: Studio security hardening: sandboxed preview, PDF network policy, share inflate bounds, resilient autosave.
+
+  Bound share-deck inflate/encode bytes; block private PDF subresources (CLI/MCP/Studio); Studio gains deckGuard, async ownership, recovery autosave, lazy Present/Generate, and 38 e2e races.
+
+- Updated dependencies [bf6d00d]
+  - @presentation-md/core@1.28.0
+  - @presentation-md/export@1.23.28
+
 ## 1.14.0
 
 ### Minor Changes

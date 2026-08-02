@@ -1,5 +1,23 @@
 # @presentation-md/studio
 
+## 1.28.0
+
+### Minor Changes
+
+- c96d28a: Present overview grid (G) and shortcuts help (?).
+
+  Keynote-style slide overview with live thumbs plus an in-presenter shortcut sheet — beats filmstrip-only navigation.
+
+- bf6d00d: Studio security hardening: sandboxed preview, PDF network policy, share inflate bounds, resilient autosave.
+
+  Bound share-deck inflate/encode bytes; block private PDF subresources (CLI/MCP/Studio); Studio gains deckGuard, async ownership, recovery autosave, lazy Present/Generate, and 38 e2e races.
+
+### Patch Changes
+
+- Updated dependencies [bf6d00d]
+  - @presentation-md/core@1.28.0
+  - @presentation-md/export@1.23.28
+
 ## 1.27.0
 
 ### Minor Changes

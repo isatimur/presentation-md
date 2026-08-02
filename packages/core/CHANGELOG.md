@@ -1,5 +1,13 @@
 # @presentation-md/core
 
+## 1.28.0
+
+### Minor Changes
+
+- bf6d00d: Studio security hardening: sandboxed preview, PDF network policy, share inflate bounds, resilient autosave.
+
+  Bound share-deck inflate/encode bytes; block private PDF subresources (CLI/MCP/Studio); Studio gains deckGuard, async ownership, recovery autosave, lazy Present/Generate, and 38 e2e races.
+
 ## 1.27.0
 
 ### Minor Changes
