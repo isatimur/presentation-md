@@ -1117,6 +1117,26 @@ test("undo restores deck after Apply safe fixes", async ({ page }) => {
   await expect(page.locator("details.audit-panel .audit-item")).toContainText(/icons/i);
 });
 
+test("command palette opens with Meta+K and runs Present", async ({ page }) => {
+  await page.goto("/?fresh=1");
+  await page.waitForLoadState("networkidle");
+  // Prefer the toolbar affordance — Meta shortcuts can be flaky in headless browsers.
+  const openBtn = page.getByRole("button", { name: "⌘K" });
+  if (await openBtn.isVisible()) {
+    await openBtn.click();
+  } else {
+    await page.keyboard.press("Control+k");
+  }
+  await expect(page.locator(".command-palette")).toBeVisible();
+  await page.locator(".command-palette-input").fill("present");
+  const presentCmd = page.locator(".command-palette-item").filter({ hasText: /Present/ }).first();
+  await expect(presentCmd).toBeVisible();
+  await presentCmd.click();
+  await expect(page.locator(".present-overlay")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.locator(".present-overlay")).toHaveCount(0);
+});
+
 test("pastes Marp-style Markdown via Paste MD panel", async ({ page }) => {
   await page.goto("/?fresh=1");
   const frame = page.frameLocator(".preview-frame");

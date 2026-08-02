@@ -35,6 +35,7 @@ import { auditCraft, repairCraft, repairCraftBeat, remorphDensity } from "../cra
 import type { CraftFixId } from "../craft/auditCraft.js";
 import { ThemeCompareTray, type LiveCompareMode } from "./ThemeCompareTray.js";
 import { ThemeCraftShotStrip } from "./ThemeCraftShotStrip.js";
+import { CommandPalette, type StudioCommand } from "./CommandPalette.js";
 import { studioShareLink } from "../share/shareDeck.js";
 import { themeFromBrandCss } from "../brand/pasteBrandTheme.js";
 import { registerCustomTheme } from "../render/themes.js";
@@ -116,6 +117,7 @@ export function Toolbar({
   >([]);
   const [auditFilter, setAuditFilter] = useState<"all" | "error" | "warning">("all");
   const [auditPanelOpen, setAuditPanelOpen] = useState(true);
+  const [commandOpen, setCommandOpen] = useState(false);
   /** Mount featured shot-strip iframes only while Example is open (cut idle loads). */
   const [exampleOpen, setExampleOpen] = useState(false);
   const [pasteMdOpen, setPasteMdOpen] = useState(false);
@@ -613,8 +615,112 @@ export function Toolbar({
     }
   };
 
+  const studioCommands = useMemo<StudioCommand[]>(
+    () => [
+      { id: "present", label: "Present", hint: "Fullscreen", keywords: "slideshow play", run: onPresent },
+      { id: "generate", label: "Generate deck", hint: "Prompt", keywords: "ai craft", run: onGenerate },
+      { id: "audit", label: "Audit craft", keywords: "gates judge craft", run: runCraftAudit },
+      {
+        id: "fix",
+        label: "Apply safe craft fixes",
+        keywords: "repair beats",
+        run: applySafeCraftFixes,
+      },
+      {
+        id: "density-speaker",
+        label: "Speaker density remorph",
+        keywords: "remorph split notes",
+        run: () => applyDensityRemorph("speaker"),
+      },
+      {
+        id: "density-reading",
+        label: "Reading density remorph",
+        keywords: "remorph merge notes",
+        run: () => applyDensityRemorph("reading"),
+      },
+      { id: "copy-link", label: "Copy share link", keywords: "url share ?d=", run: () => void copyLink() },
+      {
+        id: "copy-md",
+        label: "Copy Markdown",
+        keywords: "marp md",
+        run: () => void copyMarkdown(),
+      },
+      {
+        id: "dl-html",
+        label: "Download HTML",
+        keywords: "export",
+        run: () => downloadHtml(deck, html),
+      },
+      {
+        id: "dl-md",
+        label: "Download Markdown",
+        keywords: "export marp",
+        run: () => downloadMarkdown(deck),
+      },
+      {
+        id: "dl-pdf",
+        label: "Download PDF",
+        keywords: "export print",
+        run: () => void exportPdf(),
+      },
+      {
+        id: "dl-pptx",
+        label: "Download PowerPoint",
+        keywords: "export pptx",
+        run: () => void exportPptx(),
+      },
+      {
+        id: "dl-json",
+        label: "Download Deck JSON",
+        keywords: "export source",
+        run: () => downloadJson(deck),
+      },
+      {
+        id: "dl-notes-txt",
+        label: "Download notes TXT",
+        keywords: "handout speaker",
+        run: () => downloadNotesTxt(deck),
+      },
+      {
+        id: "dl-notes-vtt",
+        label: "Download notes VTT",
+        keywords: "handout captions",
+        run: () => downloadNotesVtt(deck),
+      },
+      {
+        id: "undo",
+        label: "Undo",
+        hint: "⌘Z",
+        keywords: "history",
+        run: () => onUndo?.(),
+      },
+      {
+        id: "redo",
+        label: "Redo",
+        hint: "⇧⌘Z",
+        keywords: "history",
+        run: () => onRedo?.(),
+      },
+    ],
+    // Handlers close over latest deck/html; rebuild when those change.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [deck, html, onPresent, onGenerate, onUndo, onRedo]
+  );
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (!(e.metaKey || e.ctrlKey)) return;
+      if (e.key !== "k" && e.key !== "K") return;
+      e.preventDefault();
+      setCommandOpen((v) => !v);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   return (
     <header className="toolbar">
+      <CommandPalette open={commandOpen} onOpenChange={setCommandOpen} commands={studioCommands} />
       <div className="brand">
         <a className="brand-link" href="https://presentation-md.vercel.app/" target="_blank" rel="noopener noreferrer">
           <strong>presentation-md</strong>
@@ -840,6 +946,14 @@ export function Toolbar({
 
       <div className="spacer" />
 
+      <button
+        type="button"
+        className="btn toolbar-desktop-only"
+        title="Command palette (⌘K / Ctrl+K)"
+        onClick={() => setCommandOpen(true)}
+      >
+        ⌘K
+      </button>
       <button className="btn btn-generate" onClick={onGenerate} title="Generate a deck from a prompt">Generate</button>
       <details
         className="example-browser"
