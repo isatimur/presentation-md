@@ -1,5 +1,12 @@
 # @presentation-md/create-theme
 
+## 1.1.33
+
+### Patch Changes
+
+- Updated dependencies [4a7a941]
+  - @presentation-md/core@1.31.0
+
 ## 1.1.32
 
 ### Patch Changes
