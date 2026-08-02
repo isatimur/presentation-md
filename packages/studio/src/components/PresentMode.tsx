@@ -26,14 +26,19 @@ const SHORTCUTS: Array<{ keys: string; label: string }> = [
   { keys: "F", label: "Filmstrip peek" },
   { keys: "S", label: "Speaker notes" },
   { keys: "L", label: "Laser pointer" },
+  { keys: "D", label: "Ink / draw" },
+  { keys: "C", label: "Clear ink (when drawing)" },
   { keys: "B", label: "Blackout" },
   { keys: "W", label: "Whiteout" },
   { keys: "T", label: "Pause / resume timer" },
+  { keys: "R", label: "Reset timer" },
   { keys: "?", label: "Shortcuts" },
   { keys: "Esc", label: "Close overlay / exit" },
 ];
 
 const LASER_TRAIL = 5;
+const INK_COLOR = "#ef4444";
+const INK_WIDTH = 3.5;
 
 export function PresentMode({
   html,
@@ -60,11 +65,14 @@ export function PresentMode({
   const [whiteout, setWhiteout] = useState(false);
   const [laser, setLaser] = useState(false);
   const [laserTrail, setLaserTrail] = useState<Array<{ x: number; y: number }>>([]);
+  const [ink, setInk] = useState(false);
   const [elapsedMs, setElapsedMs] = useState(0);
   const [timerRunning, setTimerRunning] = useState(true);
   const startedAt = useRef(Date.now());
   const accumulated = useRef(0);
   const stageRef = useRef<HTMLDivElement>(null);
+  const inkCanvasRef = useRef<HTMLCanvasElement>(null);
+  const inkDrawing = useRef(false);
   const presentHtml = prepareSandboxedPreviewHtml(
     html.replace("</head>", `<style>${PRESENT_CSS}</style></head>`)
   );
@@ -106,6 +114,86 @@ export function PresentMode({
   };
 
   const clearLaserTrail = () => setLaserTrail([]);
+
+  const clearInk = () => {
+    const canvas = inkCanvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!canvas || !ctx) return;
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.restore();
+  };
+
+  const resetTimer = () => {
+    accumulated.current = 0;
+    startedAt.current = Date.now();
+    setElapsedMs(0);
+    setTimerRunning(true);
+  };
+
+  const syncInkCanvas = () => {
+    const stage = stageRef.current;
+    const canvas = inkCanvasRef.current;
+    if (!stage || !canvas) return;
+    const rect = stage.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+    const nextW = Math.max(1, Math.floor(rect.width * dpr));
+    const nextH = Math.max(1, Math.floor(rect.height * dpr));
+    if (canvas.width !== nextW || canvas.height !== nextH) {
+      canvas.width = nextW;
+      canvas.height = nextH;
+    }
+    canvas.style.width = `${rect.width}px`;
+    canvas.style.height = `${rect.height}px`;
+    const ctx = canvas.getContext("2d");
+    if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+
+  const inkPoint = (e: ReactPointerEvent<HTMLCanvasElement>) => {
+    const canvas = inkCanvasRef.current;
+    if (!canvas) return null;
+    const rect = canvas.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  };
+
+  const onInkPointerDown = (e: ReactPointerEvent<HTMLCanvasElement>) => {
+    if (!ink || blackout || whiteout || showOverview || showHelp) return;
+    e.preventDefault();
+    const canvas = inkCanvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    const pt = inkPoint(e);
+    if (!canvas || !ctx || !pt) return;
+    inkDrawing.current = true;
+    canvas.setPointerCapture(e.pointerId);
+    ctx.strokeStyle = INK_COLOR;
+    ctx.lineWidth = INK_WIDTH;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.beginPath();
+    ctx.moveTo(pt.x, pt.y);
+  };
+
+  const onInkPointerMove = (e: ReactPointerEvent<HTMLCanvasElement>) => {
+    if (!inkDrawing.current) return;
+    const ctx = inkCanvasRef.current?.getContext("2d");
+    const pt = inkPoint(e);
+    if (!ctx || !pt) return;
+    ctx.lineTo(pt.x, pt.y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(pt.x, pt.y);
+  };
+
+  const onInkPointerUp = (e: ReactPointerEvent<HTMLCanvasElement>) => {
+    if (!inkDrawing.current) return;
+    inkDrawing.current = false;
+    try {
+      inkCanvasRef.current?.releasePointerCapture(e.pointerId);
+    } catch {
+      /* already released */
+    }
+  };
 
   const onStagePointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
     if (!laser || blackout || whiteout || showOverview || showHelp) return;
@@ -158,6 +246,11 @@ export function PresentMode({
           setLaserTrail([]);
           return;
         }
+        if (ink) {
+          setInk(false);
+          inkDrawing.current = false;
+          return;
+        }
         onClose();
         return;
       }
@@ -172,6 +265,8 @@ export function PresentMode({
         setWhiteout(false);
         setLaser(false);
         setLaserTrail([]);
+        setInk(false);
+        inkDrawing.current = false;
         setShowOverview((v) => !v);
       } else if (e.key === "l" || e.key === "L") {
         e.preventDefault();
@@ -179,16 +274,35 @@ export function PresentMode({
         setShowHelp(false);
         setBlackout(false);
         setWhiteout(false);
+        setInk(false);
+        inkDrawing.current = false;
         setLaser((v) => {
           if (v) setLaserTrail([]);
           return !v;
         });
+      } else if (e.key === "d" || e.key === "D") {
+        e.preventDefault();
+        setShowOverview(false);
+        setShowHelp(false);
+        setBlackout(false);
+        setWhiteout(false);
+        setLaser(false);
+        setLaserTrail([]);
+        setInk((v) => {
+          if (v) inkDrawing.current = false;
+          return !v;
+        });
+      } else if ((e.key === "c" || e.key === "C") && ink) {
+        e.preventDefault();
+        clearInk();
       } else if (e.key === "b" || e.key === "B") {
         e.preventDefault();
         setShowOverview(false);
         setWhiteout(false);
         setLaser(false);
         setLaserTrail([]);
+        setInk(false);
+        inkDrawing.current = false;
         setBlackout((v) => !v);
       } else if (e.key === "w" || e.key === "W") {
         e.preventDefault();
@@ -196,7 +310,12 @@ export function PresentMode({
         setBlackout(false);
         setLaser(false);
         setLaserTrail([]);
+        setInk(false);
+        inkDrawing.current = false;
         setWhiteout((v) => !v);
+      } else if (e.key === "r" || e.key === "R") {
+        e.preventDefault();
+        resetTimer();
       } else if (e.key === "t" || e.key === "T") {
         e.preventDefault();
         if (timerRunning) {
@@ -242,7 +361,7 @@ export function PresentMode({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose, slideCount, blackout, whiteout, laser, timerRunning, showOverview, showHelp]);
+  }, [onClose, slideCount, blackout, whiteout, laser, ink, timerRunning, showOverview, showHelp]);
 
   useEffect(() => {
     const frame = frameRef.current;
@@ -257,12 +376,26 @@ export function PresentMode({
     return () => frame.removeEventListener("load", scrollToSlide);
   }, [i, presentHtml]);
 
+  useEffect(() => {
+    clearInk();
+    inkDrawing.current = false;
+  }, [i]);
+
+  useEffect(() => {
+    syncInkCanvas();
+    const stage = stageRef.current;
+    if (!stage || typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(() => syncInkCanvas());
+    ro.observe(stage);
+    return () => ro.disconnect();
+  }, []);
+
   return (
     <div className="present-overlay">
       <div className="present-main">
         <div
           ref={stageRef}
-          className={`present-stage${laser ? " present-stage-laser" : ""}`}
+          className={`present-stage${laser ? " present-stage-laser" : ""}${ink ? " present-stage-ink" : ""}`}
         >
           <iframe
             ref={frameRef}
@@ -270,6 +403,15 @@ export function PresentMode({
             title="Present deck"
             srcDoc={presentHtml}
             sandbox="allow-same-origin"
+          />
+          <canvas
+            ref={inkCanvasRef}
+            className={`present-ink-canvas${ink && !blackout && !whiteout && !showOverview && !showHelp ? " is-active" : ""}`}
+            aria-hidden
+            onPointerDown={onInkPointerDown}
+            onPointerMove={onInkPointerMove}
+            onPointerUp={onInkPointerUp}
+            onPointerCancel={onInkPointerUp}
           />
           {laser && !blackout && !whiteout && !showOverview && !showHelp ? (
             <div
@@ -430,7 +572,8 @@ export function PresentMode({
         <button className="btn btn-icon" title="Next (→)" onClick={() => go(1)}>→</button>
         <span
           className={`present-timer${timerRunning ? "" : " present-timer-paused"}`}
-          title="Elapsed · T to pause/resume"
+          title="Elapsed · T pause/resume · R reset"
+          onDoubleClick={resetTimer}
         >
           {formatElapsed(elapsedMs)}
           {timerRunning ? "" : " · paused"}
@@ -460,6 +603,8 @@ export function PresentMode({
               setWhiteout(false);
               setLaser(false);
               clearLaserTrail();
+              setInk(false);
+              inkDrawing.current = false;
               setShowHelp(false);
               setShowOverview((v) => !v);
             }}
@@ -475,6 +620,8 @@ export function PresentMode({
             setShowHelp(false);
             setBlackout(false);
             setWhiteout(false);
+            setInk(false);
+            inkDrawing.current = false;
             setLaser((v) => {
               if (v) clearLaserTrail();
               return !v;
@@ -485,11 +632,36 @@ export function PresentMode({
         </button>
         <button
           className="btn"
+          title="Ink / draw (D) · C clears"
+          onClick={() => {
+            setShowOverview(false);
+            setShowHelp(false);
+            setBlackout(false);
+            setWhiteout(false);
+            setLaser(false);
+            clearLaserTrail();
+            setInk((v) => {
+              if (v) inkDrawing.current = false;
+              return !v;
+            });
+          }}
+        >
+          {ink ? "Ink off · D" : "Ink · D"}
+        </button>
+        {ink ? (
+          <button className="btn" title="Clear ink (C)" onClick={clearInk}>
+            Clear ink · C
+          </button>
+        ) : null}
+        <button
+          className="btn"
           title="Blackout screen (B)"
           onClick={() => {
             setWhiteout(false);
             setLaser(false);
             clearLaserTrail();
+            setInk(false);
+            inkDrawing.current = false;
             setBlackout((v) => !v);
           }}
         >
@@ -502,6 +674,8 @@ export function PresentMode({
             setBlackout(false);
             setLaser(false);
             clearLaserTrail();
+            setInk(false);
+            inkDrawing.current = false;
             setWhiteout((v) => !v);
           }}
         >

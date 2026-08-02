@@ -1077,7 +1077,23 @@ test("Present mode shows up-next peek and advances with ArrowRight", async ({ pa
   await page.keyboard.press("l");
   await expect(page.locator(".present-laser-layer")).toHaveCount(0);
 
+  await page.keyboard.press("d");
+  await expect(page.locator(".present-ink-canvas.is-active")).toBeVisible();
+  const inkBox = await page.locator(".present-ink-canvas").boundingBox();
+  expect(inkBox).toBeTruthy();
+  if (inkBox) {
+    await page.mouse.move(inkBox.x + 40, inkBox.y + 40);
+    await page.mouse.down();
+    await page.mouse.move(inkBox.x + 120, inkBox.y + 90);
+    await page.mouse.up();
+  }
+  await page.keyboard.press("c");
+  await page.keyboard.press("d");
+  await expect(page.locator(".present-ink-canvas.is-active")).toHaveCount(0);
+
   await expect(page.locator(".present-timer")).toBeVisible();
+  await page.keyboard.press("r");
+  await expect(page.locator(".present-timer")).toContainText("0:00");
 
   await page.keyboard.press("g");
   await expect(page.locator(".present-overview")).toBeVisible();
