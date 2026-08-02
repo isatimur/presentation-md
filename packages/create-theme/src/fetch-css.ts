@@ -1,40 +1,42 @@
 import { lookup } from "node:dns/promises";
+import { isIP } from "node:net";
 
 const MAX_BYTES = 5 * 1024 * 1024;
 const MAX_REDIRECTS = 5;
 const TIMEOUT_MS = 10_000;
+const DNS_TIMEOUT_MS = 2_000;
 
-function ipToInt(ip: string): number {
-  return ip.split(".").reduce((acc, octet) => (acc << 8) + Number(octet), 0) >>> 0;
+function parseIpv4(address: string): number[] | null {
+  if (isIP(address) !== 4) return null;
+  const octets = address.split(".").map(Number);
+  return octets.length === 4 ? octets : null;
 }
 
-function isPrivateIPv4(ip: string): boolean {
-  const ranges: Array<[string, number]> = [
-    ["0.0.0.0", 8],
-    ["10.0.0.0", 8],
-    ["100.64.0.0", 10],
-    ["127.0.0.0", 8],
-    ["169.254.0.0", 16],
-    ["172.16.0.0", 12],
-    ["192.168.0.0", 16],
-    ["224.0.0.0", 4],
-  ];
-  const ipInt = ipToInt(ip);
-  return ranges.some(([base, bits]) => {
-    const baseInt = ipToInt(base);
-    const mask = bits === 0 ? 0 : (~0 << (32 - bits)) >>> 0;
-    return (ipInt & mask) === (baseInt & mask);
-  });
-}
-
-function isPrivateIPv6(ip: string): boolean {
-  const lower = ip.toLowerCase();
-  if (lower === "::1") return true;
-  if (/^fe[89ab][0-9a-f]:/.test(lower)) return true; // link-local fe80::/10
-  if (/^f[cd][0-9a-f]{2}:/.test(lower)) return true; // ULA fc00::/7
-  const mapped = lower.match(/^::ffff:(\d+\.\d+\.\d+\.\d+)$/);
-  if (mapped) return isPrivateIPv4(mapped[1]!);
-  return false;
+/** True only for ordinary globally routable unicast addresses. */
+export function isPublicNetworkAddress(rawAddress: string): boolean {
+  const address = rawAddress.trim().replace(/^\[|\]$/g, "").toLowerCase();
+  const ipv4 = parseIpv4(address);
+  if (ipv4) {
+    const [a = 0, b = 0, c = 0] = ipv4;
+    if (a === 0 || a === 10 || a === 127 || a >= 224) return false;
+    if (a === 100 && b >= 64 && b <= 127) return false;
+    if (a === 169 && b === 254) return false;
+    if (a === 172 && b >= 16 && b <= 31) return false;
+    if (a === 192 && (b === 168 || (b === 0 && (c === 0 || c === 2)))) return false;
+    if (a === 192 && b === 88 && c === 99) return false;
+    if (a === 198 && (b === 18 || b === 19 || (b === 51 && c === 100))) return false;
+    if (a === 203 && b === 0 && c === 113) return false;
+    return true;
+  }
+  if (isIP(address) !== 6) return false;
+  if (address.includes(".")) {
+    const mapped = address.slice(address.lastIndexOf(":") + 1);
+    return address.startsWith("::ffff:") && isPublicNetworkAddress(mapped);
+  }
+  const first = Number.parseInt(address.split(":", 1)[0] || "0", 16);
+  if (first < 0x2000 || first > 0x3fff) return false;
+  if (address.startsWith("2001:db8:") || address.startsWith("2002:")) return false;
+  return !address.startsWith("3fff:");
 }
 
 // DNS-rebinding caveat: this checks the resolved address at request time, but
@@ -45,16 +47,52 @@ function isPrivateIPv6(ip: string): boolean {
 // mitigation and matches what most SSRF-prevention guidance recommends as a
 // baseline.
 export async function assertPublicHostname(hostname: string): Promise<void> {
-  let addresses: Array<{ address: string; family: number }>;
-  try {
-    addresses = await lookup(hostname, { all: true });
-  } catch {
-    throw new Error(`Could not resolve hostname: ${hostname}`);
+  const normalized = hostname.trim().replace(/^\[|\]$/g, "").replace(/\.$/, "").toLowerCase();
+  if (
+    !normalized ||
+    normalized === "localhost" ||
+    normalized.endsWith(".localhost") ||
+    normalized.endsWith(".local") ||
+    normalized.endsWith(".internal") ||
+    normalized.endsWith(".home.arpa")
+  ) {
+    throw new Error(`Refusing to fetch ${hostname}: private/internal hostname`);
   }
-  for (const { address, family } of addresses) {
-    const isPrivate = family === 4 ? isPrivateIPv4(address) : isPrivateIPv6(address);
-    if (isPrivate) {
-      throw new Error(`Refusing to fetch ${hostname}: resolves to a private/internal address (${address})`);
+  if (isIP(normalized)) {
+    if (!isPublicNetworkAddress(normalized)) {
+      throw new Error(
+        `Refusing to fetch ${hostname}: resolves to a private/internal address (${normalized})`
+      );
+    }
+    return;
+  }
+
+  let addresses: Array<{ address: string; family: number }>;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    addresses = await Promise.race([
+      lookup(normalized, { all: true, verbatim: true }),
+      new Promise<never>((_, reject) => {
+        timer = setTimeout(
+          () => reject(new Error(`DNS lookup timed out for ${normalized}`)),
+          DNS_TIMEOUT_MS
+        );
+      }),
+    ]);
+  } catch (error) {
+    if (error instanceof Error && error.message.startsWith("DNS lookup timed out")) throw error;
+    throw new Error(`Could not resolve hostname: ${hostname}`);
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+  if (addresses.length === 0) {
+    throw new Error(`Could not resolve hostname: ${hostname} returned no addresses`);
+  }
+  for (const { address } of addresses) {
+    if (!isPublicNetworkAddress(address)) {
+      throw new Error(
+        `Refusing to fetch ${hostname}: resolves to a private/internal address (${address})`
+      );
     }
   }
 }

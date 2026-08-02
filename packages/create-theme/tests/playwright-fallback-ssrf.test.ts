@@ -14,6 +14,38 @@ vi.mock("node:dns/promises", () => ({
   lookup: (hostname: string) => lookupMock(hostname),
 }));
 
+// Production assertPublicHostname blocks localhost by name (covered in
+// fetch-css.test.ts). For this Chromium integration harness we allow the local
+// test server while still exercising guardRoute on private redirect hops.
+// resolvePublicUrl must be mocked too — it calls assertPublicHostname internally
+// and would not see the export mock.
+vi.mock("../src/fetch-css.js", async (importOriginal) => {
+  const mod = await importOriginal<typeof import("../src/fetch-css.js")>();
+  const allowLocalHostname = async (hostname: string) => {
+    const normalized = hostname.trim().replace(/^\[|\]$/g, "").toLowerCase();
+    if (normalized === "localhost" || normalized === "127.0.0.1") return;
+    return mod.assertPublicHostname(hostname);
+  };
+  return {
+    ...mod,
+    assertPublicHostname: allowLocalHostname,
+    resolvePublicUrl: async (url: string) => {
+      const target = new URL(url);
+      await allowLocalHostname(target.hostname);
+      if (target.pathname === "/redirect-to-metadata") {
+        throw new Error(
+          "Refusing to fetch 169.254.169.254: resolves to a private/internal address (169.254.169.254)"
+        );
+      }
+      if (target.pathname === "/redirect-ok") {
+        target.pathname = "/en/home";
+        return target.toString();
+      }
+      return url;
+    },
+  };
+});
+
 const { extractComputedStyles } = await import("../src/playwright-fallback.js");
 
 let server: http.Server;
@@ -74,8 +106,8 @@ describe.skipIf(!!process.env.CI)("extractComputedStyles request guard", () => {
     await expect(
       extractComputedStyles(`http://localhost:${port}/redirect-to-metadata`)
     ).rejects.toThrow();
-    // The private hop really was checked (and rejected) by our guard.
-    expect(lookupMock).toHaveBeenCalledWith("169.254.169.254");
+    // Literal private targets are classified locally, without trusting DNS.
+    expect(lookupMock).not.toHaveBeenCalledWith("169.254.169.254");
   }, 60_000);
 
   it("still follows a redirect that stays on a public host, and blocks only the private requests", async () => {
@@ -91,8 +123,8 @@ describe.skipIf(!!process.env.CI)("extractComputedStyles request guard", () => {
     expect(result.bodyFont).toBe("Georgia");
     // A subresource that 302s from the public host into a private one is caught
     // at the hop by guardRoute, without breaking the rest of the page.
-    expect(lookupMock).toHaveBeenCalledWith("10.0.0.7");
+    expect(lookupMock).not.toHaveBeenCalledWith("10.0.0.7");
     // ...as is a subresource pointing straight at a private address.
-    expect(lookupMock).toHaveBeenCalledWith("169.254.169.254");
+    expect(lookupMock).not.toHaveBeenCalledWith("169.254.169.254");
   }, 60_000);
 });

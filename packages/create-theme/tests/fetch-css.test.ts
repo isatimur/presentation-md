@@ -6,7 +6,13 @@ vi.mock("node:dns/promises", () => ({
   lookup: (...args: unknown[]) => lookupMock(...args),
 }));
 
-const { fetchText, fetchStylesheetsFromUrl, resolvePublicUrl } = await import("../src/fetch-css.js");
+const {
+  assertPublicHostname,
+  fetchText,
+  fetchStylesheetsFromUrl,
+  isPublicNetworkAddress,
+  resolvePublicUrl,
+} = await import("../src/fetch-css.js");
 
 function mockResponse(opts: {
   ok?: boolean;
@@ -21,6 +27,102 @@ function mockResponse(opts: {
     arrayBuffer: async () => new TextEncoder().encode(opts.text).buffer,
   } as unknown as Response;
 }
+
+describe("public network classification", () => {
+  it("allows ordinary globally routable IPv4 and IPv6 addresses", () => {
+    for (const address of ["93.184.216.34", "1.1.1.1", "2606:4700:4700::1111"]) {
+      expect(isPublicNetworkAddress(address), address).toBe(true);
+    }
+  });
+
+  it("rejects private, special-use, documentation, and malformed addresses", () => {
+    for (const address of [
+      "0.0.0.0",
+      "10.0.0.1",
+      "100.64.0.1",
+      "127.0.0.1",
+      "169.254.169.254",
+      "172.16.0.1",
+      "192.0.0.1",
+      "192.0.2.1",
+      "192.88.99.1",
+      "192.168.1.1",
+      "198.18.0.1",
+      "198.51.100.1",
+      "203.0.113.1",
+      "224.0.0.1",
+      "::",
+      "::1",
+      "::ffff:127.0.0.1",
+      "fc00::1",
+      "fe80::1",
+      "ff02::1",
+      "2001:db8::1",
+      "2002::1",
+      "3fff::1",
+      "not-an-ip",
+    ]) {
+      expect(isPublicNetworkAddress(address), address).toBe(false);
+    }
+  });
+});
+
+describe("assertPublicHostname", () => {
+  beforeEach(() => {
+    lookupMock.mockReset();
+  });
+
+  it("rejects local names and private literals without DNS", async () => {
+    for (const hostname of [
+      "localhost",
+      "worker.localhost",
+      "printer.local",
+      "metadata.internal",
+      "router.home.arpa",
+      "127.0.0.1",
+      "[::1]",
+    ]) {
+      await expect(assertPublicHostname(hostname), hostname).rejects.toThrow(/private\/internal/i);
+    }
+    expect(lookupMock).not.toHaveBeenCalled();
+  });
+
+  it("rejects empty and mixed public/private DNS answer sets", async () => {
+    lookupMock.mockResolvedValueOnce([]);
+    await expect(assertPublicHostname("empty.example")).rejects.toThrow(/no addresses/i);
+
+    lookupMock.mockResolvedValueOnce([
+      { address: "93.184.216.34", family: 4 },
+      { address: "127.0.0.1", family: 4 },
+    ]);
+    await expect(assertPublicHostname("mixed.example")).rejects.toThrow(/private\/internal/i);
+  });
+
+  it("accepts only when every DNS answer is globally routable", async () => {
+    lookupMock.mockResolvedValue([
+      { address: "93.184.216.34", family: 4 },
+      { address: "2606:4700:4700::1111", family: 6 },
+    ]);
+    await expect(assertPublicHostname("public.example")).resolves.toBeUndefined();
+    expect(lookupMock).toHaveBeenCalledWith("public.example", {
+      all: true,
+      verbatim: true,
+    });
+  });
+
+  it("bounds DNS resolution before any fetch timeout exists", async () => {
+    vi.useFakeTimers();
+    try {
+      lookupMock.mockImplementation(() => new Promise(() => {}));
+      const pending = assertPublicHostname("blackhole.example");
+      const assertion = expect(pending).rejects.toThrow(/dns lookup timed out/i);
+      await vi.advanceTimersByTimeAsync(2_000);
+      await assertion;
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+});
 
 describe("fetchText", () => {
   beforeEach(() => {
@@ -128,6 +230,16 @@ describe("fetchText", () => {
     await expect(fetchText("https://metadata.example.com/style.css")).rejects.toThrow(
       /private\/internal address/i
     );
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
+  it("rejects special-use addresses before calling fetch", async () => {
+    for (const address of ["198.18.0.1", "203.0.113.1", "2001:db8::1"]) {
+      lookupMock.mockResolvedValueOnce([{ address, family: address.includes(":") ? 6 : 4 }]);
+      await expect(fetchText(`https://special-${address.replaceAll(":", "-")}.example/`)).rejects.toThrow(
+        /private\/internal address/i
+      );
+    }
     expect(fetch).not.toHaveBeenCalled();
   });
 
