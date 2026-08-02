@@ -1,5 +1,20 @@
 # @presentation-md/render
 
+## 1.15.0
+
+### Minor Changes
+
+- 2a02ed4: CLI `--judge` t0/t1 + Present whiteout (W).
+
+  Extract shared `judgeDeckJson` into core for MCP/CLI structural parity; Present gains W whiteout (mutually exclusive with blackout).
+
+### Patch Changes
+
+- Updated dependencies [68d5e67]
+- Updated dependencies [2a02ed4]
+  - @presentation-md/export@1.23.29
+  - @presentation-md/core@1.29.0
+
 ## 1.14.1
 
 ### Patch Changes

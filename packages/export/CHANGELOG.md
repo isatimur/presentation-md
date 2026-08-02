@@ -1,5 +1,16 @@
 # @presentation-md/export
 
+## 1.23.29
+
+### Patch Changes
+
+- 68d5e67: Harden PPTX image prefetch against SSRF.
+
+  Block private/loopback hostnames before DNS/fetch, revalidate redirects, enforce timeouts and size checks on remote image fetches.
+
+- Updated dependencies [2a02ed4]
+  - @presentation-md/core@1.29.0
+
 ## 1.23.28
 
 ### Patch Changes
