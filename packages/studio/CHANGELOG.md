@@ -1,5 +1,18 @@
 # @presentation-md/studio
 
+## 1.31.0
+
+### Minor Changes
+
+- deee6da: Present ink/draw (D) + timer reset (R).
+
+  Freehand red ink on the slide stage (C clears); mutually exclusive with laser/blackout/whiteout. R resets the elapsed presenter timer.
+
+### Patch Changes
+
+- Updated dependencies [a3a71c0]
+  - @presentation-md/export@1.23.31
+
 ## 1.30.0
 
 ### Minor Changes
