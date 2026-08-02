@@ -14,7 +14,7 @@
 <main class="deck" data-surface="{{surface}}">
 {{{slides}}}
 </main>
-<div class="nav-hint" aria-hidden="true">← → · B/W · S notes · T timer · P pace · ? help</div>
+<div class="nav-hint" aria-hidden="true">← → · B/W · S notes · T timer · P pace · O speaker · ? help</div>
 <div class="pmd-curtain pmd-blackout" id="pmd-blackout" hidden role="status" aria-live="polite" title="Blackout · B or click to restore">
   <span class="pmd-curtain-hint">Blackout · B or click to restore</span>
 </div>
@@ -28,6 +28,7 @@
 <div class="pmd-present-bar" id="pmd-present-bar" aria-label="Presenter controls">
   <span class="pmd-present-count" id="pmd-present-count">1 / 1</span>
   <span class="pmd-present-timer" id="pmd-present-timer" title="Elapsed · P pace · T pause · R reset">0:00</span>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-speaker" title="Speaker notes window (O)">Speaker · O</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-notes" title="Toggle speaker notes (S)">Notes · S</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-blackout" title="Blackout (B)">Blackout · B</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-whiteout" title="Whiteout (W)">Whiteout · W</button>
@@ -49,6 +50,7 @@
       <li><kbd>T</kbd><span>Pause / resume timer</span></li>
       <li><kbd>R</kbd><span>Reset timer</span></li>
       <li><kbd>P</kbd><span>Pace target (5–30m countdown)</span></li>
+      <li><kbd>O</kbd><span>Speaker notes window</span></li>
       <li><kbd>?</kbd><span>Shortcuts</span></li>
       <li><kbd>Esc</kbd><span>Close overlay</span></li>
     </ul>
@@ -138,6 +140,7 @@
   var countEl = document.getElementById("pmd-present-count");
   var timerEl = document.getElementById("pmd-present-timer");
   var btnNotes = document.getElementById("pmd-btn-notes");
+  var btnSpeaker = document.getElementById("pmd-btn-speaker");
   var btnBlackout = document.getElementById("pmd-btn-blackout");
   var btnWhiteout = document.getElementById("pmd-btn-whiteout");
   var btnHelp = document.getElementById("pmd-btn-help");
@@ -172,6 +175,68 @@
     if (delta > 0.1) return "ahead";
     if (delta < -0.1) return "behind";
     return "on-pace";
+  }
+
+  var speakerWin = null;
+
+  function paintSpeakerWindow() {
+    if (!speakerWin || speakerWin.closed) return;
+    var idx = currentIndex();
+    var elapsed = elapsedNow();
+    var targetMs = paceMinutes > 0 ? paceMinutes * 60 * 1000 : 0;
+    var status = paceStatus(elapsed, targetMs, idx, slides.length);
+    var label = formatElapsed(elapsed);
+    if (targetMs > 0) {
+      if (status === "over") label += " · OVER";
+      else {
+        var left = formatElapsed(targetMs - elapsed);
+        var cue = status === "ahead" ? " · ahead" : status === "behind" ? " · behind" : " · on pace";
+        label += " · " + left + " left" + cue;
+      }
+    }
+    if (!timerRunning) label += " · paused";
+    var headingEl = slides[idx] && slides[idx].querySelector("h1, h2, h3");
+    var heading = headingEl ? (headingEl.textContent || "").trim() : ("Slide " + (idx + 1));
+    var notesText = notesBySlide[idx] || (notesBySlide.some(Boolean) ? "No notes on this slide." : "No speaker notes in this deck.");
+    var nextHeading = "— end —";
+    if (idx + 1 < slides.length) {
+      var nh = slides[idx + 1].querySelector("h1, h2, h3");
+      nextHeading = nh ? (nh.textContent || "").trim() : ("Slide " + (idx + 2));
+    }
+    var doc = speakerWin.document;
+    doc.title = "Speaker · " + (idx + 1) + "/" + slides.length;
+    if (!doc.getElementById("pmd-speaker-root")) {
+      doc.head.innerHTML = "<style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;padding:20px 22px 28px;font:15px/1.45 system-ui,sans-serif;background:#0b1220;color:#e8eef4;min-height:100vh}.meta{display:flex;gap:12px;flex-wrap:wrap;font:600 12px/1.2 ui-monospace,Menlo,monospace;color:#9ca3af;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}.timer{color:#e8eef4;font-variant-numeric:tabular-nums}.timer.is-paused{color:#f59e0b}.timer.is-ahead{color:#2dd4bf}.timer.is-behind{color:#fb7185}.timer.is-over{color:#f87171}h1{margin:0 0 18px;font:800 28px/1.15 system-ui,sans-serif;letter-spacing:-.03em}.label{font:600 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:#6b7280;margin:0 0 8px}.notes{white-space:pre-wrap;font-size:18px;line-height:1.5;margin:0 0 28px;min-height:4.5em}.notes.is-empty{color:#6b7280;font-style:italic}.next{padding-top:16px;border-top:1px solid rgba(232,238,244,.12)}.next p{margin:0;font-size:15px;color:#9ca3af}.hint{margin-top:28px;font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#5b6575}</style>";
+      doc.body.innerHTML = '<div id="pmd-speaker-root"><div class="meta"><span data-count></span><span class="timer" data-timer></span></div><h1 data-heading></h1><div class="label">Speaker notes</div><p class="notes" data-notes></p><div class="next"><div class="label">Up next</div><p data-next></p></div><p class="hint">Follows the deck window · O focuses</p></div>';
+    }
+    var root = doc.getElementById("pmd-speaker-root");
+    if (!root) return;
+    var count = root.querySelector("[data-count]");
+    if (count) count.textContent = (idx + 1) + " / " + slides.length;
+    var tEl = root.querySelector("[data-timer]");
+    if (tEl) {
+      tEl.textContent = label;
+      tEl.className = "timer" + (timerRunning ? "" : " is-paused") + (status === "ahead" ? " is-ahead" : status === "behind" ? " is-behind" : status === "over" ? " is-over" : "");
+    }
+    var hEl = root.querySelector("[data-heading]");
+    if (hEl) hEl.textContent = heading;
+    var nEl = root.querySelector("[data-notes]");
+    if (nEl) {
+      nEl.textContent = notesText;
+      nEl.classList.toggle("is-empty", !notesBySlide[idx]);
+    }
+    var nx = root.querySelector("[data-next]");
+    if (nx) nx.textContent = nextHeading;
+  }
+
+  function openSpeakerView() {
+    if (speakerWin && !speakerWin.closed) {
+      speakerWin.focus();
+      paintSpeakerWindow();
+      return;
+    }
+    speakerWin = window.open("", "pmd-speaker-view", "popup=yes,width=520,height=760");
+    if (speakerWin) paintSpeakerWindow();
   }
 
   function setBlackout(on) {
@@ -244,6 +309,7 @@
         : "Elapsed · P set pace · T pause · R reset";
     }
     if (showNotes) syncNotes();
+    paintSpeakerWindow();
   }
 
   function toggleTimer() {
@@ -316,6 +382,11 @@
       cyclePace();
       return;
     }
+    if (e.key === "o" || e.key === "O") {
+      e.preventDefault();
+      openSpeakerView();
+      return;
+    }
     if (showHelp) return;
     if (/^[1-9]$/.test(e.key)) {
       e.preventDefault();
@@ -345,6 +416,7 @@
   if (blackoutEl) blackoutEl.addEventListener("click", function () { setBlackout(false); });
   if (whiteoutEl) whiteoutEl.addEventListener("click", function () { setWhiteout(false); });
   if (btnNotes) btnNotes.addEventListener("click", function () { setNotes(!showNotes); });
+  if (btnSpeaker) btnSpeaker.addEventListener("click", openSpeakerView);
   if (btnBlackout) btnBlackout.addEventListener("click", function () { setBlackout(blackoutEl.hidden); });
   if (btnWhiteout) btnWhiteout.addEventListener("click", function () { setWhiteout(whiteoutEl.hidden); });
   if (btnHelp) btnHelp.addEventListener("click", function () { setHelp(!showHelp); });

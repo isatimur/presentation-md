@@ -1103,6 +1103,12 @@ test("Present mode shows up-next peek and advances with ArrowRight", async ({ pa
   await page.keyboard.press("p"); // off
   await expect(page.locator(".present-timer")).not.toContainText(/left|OVER/);
 
+  const speakerPopupPromise = page.waitForEvent("popup");
+  await page.keyboard.press("o");
+  const speakerPopup = await speakerPopupPromise;
+  await expect(speakerPopup.locator("[data-notes]")).toBeVisible();
+  await speakerPopup.close();
+
   await page.keyboard.press("g");
   await expect(page.locator(".present-overview")).toBeVisible();
   await expect(page.locator(".present-overview-card")).toHaveCount(

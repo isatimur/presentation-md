@@ -489,6 +489,7 @@ describe("renderDeck", () => {
     expect(html).toContain('id="pmd-present-timer"');
     expect(html).toContain("cyclePace");
     expect(html).toContain("PACE_PRESETS");
+    expect(html).toContain("openSpeakerView");
     expect(html).toContain("Hold for the room.");
     expect(html).toContain('getElementById("pmd-deck")');
     expect(html).toContain("pmd-shot-mode");

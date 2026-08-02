@@ -56,7 +56,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{{html}}}
   </div>
 </section>
-`,A=`<section class="slide data-table-slide" data-layout="data-table">
+`,q=`<section class="slide data-table-slide" data-layout="data-table">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <table>
@@ -70,7 +70,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     </tbody>
   </table>
 </section>
-`,q=`<section class="slide feature-grid-slide" data-layout="feature-grid">
+`,A=`<section class="slide feature-grid-slide" data-layout="feature-grid">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <div class="grid cols-{{columns}}">
@@ -83,7 +83,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/cards}}
   </div>
 </section>
-`,_=`<section class="slide image-hero-slide" data-layout="image-hero">
+`,S=`<section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
     {{#image}}<img src="{{image}}" alt="{{imageAlt}}" />{{/image}}
     <div class="image-hero-scrim"></div>
@@ -94,7 +94,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
   </div>
 </section>
-`,D=`<section class="slide logo-wall-slide" data-layout="logo-wall">
+`,_=`<section class="slide logo-wall-slide" data-layout="logo-wall">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -113,7 +113,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/cards}}
   </div>
 </section>
-`,S=`<section class="slide metric-ring-slide" data-layout="metric-ring">
+`,B=`<section class="slide metric-ring-slide" data-layout="metric-ring">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <div class="pct-wrap">
@@ -138,11 +138,11 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     </div>
   </div>
 </section>
-`,B=`<section class="slide quote-slide" data-layout="quote">
+`,D=`<section class="slide quote-slide" data-layout="quote">
   <p class="quote">{{quote}}</p>
   {{#by}}<p class="quote-by">— {{by}}</p>{{/by}}
 </section>
-`,T=`<section class="slide ranked-list-slide" data-layout="ranked-list">
+`,C=`<section class="slide ranked-list-slide" data-layout="ranked-list">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -160,12 +160,12 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/items}}
   </div>
 </section>
-`,C=`<section class="slide section-slide" data-layout="section">
+`,M=`<section class="slide section-slide" data-layout="section">
   {{#number}}<div class="section-number">{{number}}</div>{{/number}}
   <h2>{{heading}}</h2>
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
 </section>
-`,F=`<section class="slide stat-row-slide{{#isHero}} stat-row-hero{{/isHero}}" data-layout="stat-row">
+`,T=`<section class="slide stat-row-slide{{#isHero}} stat-row-hero{{/isHero}}" data-layout="stat-row">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -178,7 +178,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/stats}}
   </div>
 </section>
-`,M=`<section class="slide streak-grid-slide" data-layout="streak-grid">
+`,F=`<section class="slide streak-grid-slide" data-layout="streak-grid">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -202,12 +202,12 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/steps}}
   </div>
 </section>
-`,P=`<section class="slide title-slide" data-layout="title">
+`,W=`<section class="slide title-slide" data-layout="title">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   <h1>{{heading}}</h1>
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
 </section>
-`,j=`<section class="slide two-column-slide" data-layout="two-column">
+`,P=`<section class="slide two-column-slide" data-layout="two-column">
   <div class="cols{{#ratio}} ratio-{{ratio}}{{/ratio}}{{#reverse}} cols-reverse{{/reverse}}">
     <div class="cols-copy">
       {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
@@ -1332,7 +1332,7 @@ html.pmd-shot-mode .pmd-present-help {
   .pmd-curtain,
   .pmd-present-help { display: none !important; }
 }
-`,R=`/* Per-theme surface profiles — each theme gets a distinct stage, not one shared blob. */
+`,j=`/* Per-theme surface profiles — each theme gets a distinct stage, not one shared blob. */
 
 .deck[data-surface] .slide {
   background: var(--slide-bg, radial-gradient(125% 125% at 0% 0%, var(--bg-2), var(--bg)));
@@ -6408,7 +6408,7 @@ html.pmd-shot-mode .pmd-present-help {
   border-top: 1px solid var(--accent);
   padding-top: 16px;
 }
-`,n="warm-paper",a="clean-light",e="soft-bento",r="bauhaus-blocks",t="vapor-horizon",o="hygge-soft",d="blueprint-grid",c="glass-mist",i="newsprint-masthead",s="vellum-colorfield",l="broadside-fire",p="signal-briefing",b="coral-hatch",f="capsule-pills",g="studio-acid",u="grove-monograph",x="scatterbrain-cork",h="mat-woodglow",k="cartesian-draft",m="monochrome-ledger",N={claude:n,"default-tech":"neon-glow",corporate:a,playful:e,"luxury-minimalist":"quiet-luxe","retro-arcade":"scanline-neon","editorial-serif":"editorial-rule","brutalist-mono":"brutalist-grid","pastel-dreamy":"pastel-cloud","aurora-glass":"aurora-glass","ft-editorial":"broadsheet-rule","genz-bento":"hard-bento","crt-terminal":"crt-phosphor","swiss-typographic":"swiss-grid","candy-pop":"candy-blob","aerospace-hud":"hud-grid","brutalist-acid":"acid-block",bauhaus:r,"y2k-aero":"aero-bubble","risograph-zine":"riso-print","neon-noir":"neon-rain",vaporwave:t,"botanical-luxe":"botanical-leaf","heritage-editorial":"heritage-wash","fintech-clean":"fintech-soft","developer-dark":"dev-terminal","data-editorial":"data-rule",scandinavian:o,"art-deco":"deco-fan","kinetic-wrapped":"wrapped-block",blueprint:d,glassmorphism:c,broadsheet:i,"soft-editorial":"soft-editorial-paper","editorial-forest":"editorial-forest-paper","pin-and-paper":"pin-paper-pad",vellum:s,"neo-grid-bold":"neo-grid-panels","editorial-tri-tone":"tri-tone-blocks","creative-mode":"creative-mode-blocks",broadside:l,"bold-signal":"bold-signal-card","notebook-tabs":"notebook-tabs-page","creative-voltage":"creative-voltage-split",signal:p,"electric-studio":"electric-studio-split","dark-botanical":"dark-botanical-bloom","pastel-geometry":"pastel-geometry-pills","split-pastel":"split-pastel-panels","vintage-editorial":"vintage-editorial-geo","paper-ink":"paper-ink-literary","biennale-yellow":"biennale-yellow-sun","bold-poster":"bold-poster-ink",coral:b,"emerald-editorial":"emerald-editorial-masthead","sakura-chroma":"sakura-chroma-cassette","pink-script":"pink-script-afterhours","block-frame":"block-frame-brutal",capsule:f,"cobalt-grid":"cobalt-grid-paper","8-bit-orbit":"bit-orbit-arcade",studio:g,grove:u,scatterbrain:x,"peoples-platform":"peoples-platform-poster","retro-windows":"retro-windows-chrome","raw-grid":"raw-grid-brutal","long-table":"long-table-supper",mat:h,"stencil-tablet":"stencil-tablet-earth",cartesian:k,monochrome:m,"blue-professional":"blue-professional-clean","daisy-days":"daisy-days-pastel","retro-zine":"retro-zine-riso"},W=`<!doctype html>
+`,n="warm-paper",a="clean-light",e="soft-bento",r="bauhaus-blocks",t="vapor-horizon",o="hygge-soft",d="blueprint-grid",i="glass-mist",c="newsprint-masthead",s="vellum-colorfield",l="broadside-fire",p="signal-briefing",b="coral-hatch",f="capsule-pills",g="studio-acid",u="grove-monograph",x="scatterbrain-cork",h="mat-woodglow",m="cartesian-draft",k="monochrome-ledger",N={claude:n,"default-tech":"neon-glow",corporate:a,playful:e,"luxury-minimalist":"quiet-luxe","retro-arcade":"scanline-neon","editorial-serif":"editorial-rule","brutalist-mono":"brutalist-grid","pastel-dreamy":"pastel-cloud","aurora-glass":"aurora-glass","ft-editorial":"broadsheet-rule","genz-bento":"hard-bento","crt-terminal":"crt-phosphor","swiss-typographic":"swiss-grid","candy-pop":"candy-blob","aerospace-hud":"hud-grid","brutalist-acid":"acid-block",bauhaus:r,"y2k-aero":"aero-bubble","risograph-zine":"riso-print","neon-noir":"neon-rain",vaporwave:t,"botanical-luxe":"botanical-leaf","heritage-editorial":"heritage-wash","fintech-clean":"fintech-soft","developer-dark":"dev-terminal","data-editorial":"data-rule",scandinavian:o,"art-deco":"deco-fan","kinetic-wrapped":"wrapped-block",blueprint:d,glassmorphism:i,broadsheet:c,"soft-editorial":"soft-editorial-paper","editorial-forest":"editorial-forest-paper","pin-and-paper":"pin-paper-pad",vellum:s,"neo-grid-bold":"neo-grid-panels","editorial-tri-tone":"tri-tone-blocks","creative-mode":"creative-mode-blocks",broadside:l,"bold-signal":"bold-signal-card","notebook-tabs":"notebook-tabs-page","creative-voltage":"creative-voltage-split",signal:p,"electric-studio":"electric-studio-split","dark-botanical":"dark-botanical-bloom","pastel-geometry":"pastel-geometry-pills","split-pastel":"split-pastel-panels","vintage-editorial":"vintage-editorial-geo","paper-ink":"paper-ink-literary","biennale-yellow":"biennale-yellow-sun","bold-poster":"bold-poster-ink",coral:b,"emerald-editorial":"emerald-editorial-masthead","sakura-chroma":"sakura-chroma-cassette","pink-script":"pink-script-afterhours","block-frame":"block-frame-brutal",capsule:f,"cobalt-grid":"cobalt-grid-paper","8-bit-orbit":"bit-orbit-arcade",studio:g,grove:u,scatterbrain:x,"peoples-platform":"peoples-platform-poster","retro-windows":"retro-windows-chrome","raw-grid":"raw-grid-brutal","long-table":"long-table-supper",mat:h,"stencil-tablet":"stencil-tablet-earth",cartesian:m,monochrome:k,"blue-professional":"blue-professional-clean","daisy-days":"daisy-days-pastel","retro-zine":"retro-zine-riso"},R=`<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -6424,7 +6424,7 @@ html.pmd-shot-mode .pmd-present-help {
 <main class="deck" data-surface="{{surface}}">
 {{{slides}}}
 </main>
-<div class="nav-hint" aria-hidden="true">← → · B/W · S notes · T timer · P pace · ? help</div>
+<div class="nav-hint" aria-hidden="true">← → · B/W · S notes · T timer · P pace · O speaker · ? help</div>
 <div class="pmd-curtain pmd-blackout" id="pmd-blackout" hidden role="status" aria-live="polite" title="Blackout · B or click to restore">
   <span class="pmd-curtain-hint">Blackout · B or click to restore</span>
 </div>
@@ -6438,6 +6438,7 @@ html.pmd-shot-mode .pmd-present-help {
 <div class="pmd-present-bar" id="pmd-present-bar" aria-label="Presenter controls">
   <span class="pmd-present-count" id="pmd-present-count">1 / 1</span>
   <span class="pmd-present-timer" id="pmd-present-timer" title="Elapsed · P pace · T pause · R reset">0:00</span>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-speaker" title="Speaker notes window (O)">Speaker · O</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-notes" title="Toggle speaker notes (S)">Notes · S</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-blackout" title="Blackout (B)">Blackout · B</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-whiteout" title="Whiteout (W)">Whiteout · W</button>
@@ -6459,6 +6460,7 @@ html.pmd-shot-mode .pmd-present-help {
       <li><kbd>T</kbd><span>Pause / resume timer</span></li>
       <li><kbd>R</kbd><span>Reset timer</span></li>
       <li><kbd>P</kbd><span>Pace target (5–30m countdown)</span></li>
+      <li><kbd>O</kbd><span>Speaker notes window</span></li>
       <li><kbd>?</kbd><span>Shortcuts</span></li>
       <li><kbd>Esc</kbd><span>Close overlay</span></li>
     </ul>
@@ -6548,6 +6550,7 @@ html.pmd-shot-mode .pmd-present-help {
   var countEl = document.getElementById("pmd-present-count");
   var timerEl = document.getElementById("pmd-present-timer");
   var btnNotes = document.getElementById("pmd-btn-notes");
+  var btnSpeaker = document.getElementById("pmd-btn-speaker");
   var btnBlackout = document.getElementById("pmd-btn-blackout");
   var btnWhiteout = document.getElementById("pmd-btn-whiteout");
   var btnHelp = document.getElementById("pmd-btn-help");
@@ -6582,6 +6585,68 @@ html.pmd-shot-mode .pmd-present-help {
     if (delta > 0.1) return "ahead";
     if (delta < -0.1) return "behind";
     return "on-pace";
+  }
+
+  var speakerWin = null;
+
+  function paintSpeakerWindow() {
+    if (!speakerWin || speakerWin.closed) return;
+    var idx = currentIndex();
+    var elapsed = elapsedNow();
+    var targetMs = paceMinutes > 0 ? paceMinutes * 60 * 1000 : 0;
+    var status = paceStatus(elapsed, targetMs, idx, slides.length);
+    var label = formatElapsed(elapsed);
+    if (targetMs > 0) {
+      if (status === "over") label += " · OVER";
+      else {
+        var left = formatElapsed(targetMs - elapsed);
+        var cue = status === "ahead" ? " · ahead" : status === "behind" ? " · behind" : " · on pace";
+        label += " · " + left + " left" + cue;
+      }
+    }
+    if (!timerRunning) label += " · paused";
+    var headingEl = slides[idx] && slides[idx].querySelector("h1, h2, h3");
+    var heading = headingEl ? (headingEl.textContent || "").trim() : ("Slide " + (idx + 1));
+    var notesText = notesBySlide[idx] || (notesBySlide.some(Boolean) ? "No notes on this slide." : "No speaker notes in this deck.");
+    var nextHeading = "— end —";
+    if (idx + 1 < slides.length) {
+      var nh = slides[idx + 1].querySelector("h1, h2, h3");
+      nextHeading = nh ? (nh.textContent || "").trim() : ("Slide " + (idx + 2));
+    }
+    var doc = speakerWin.document;
+    doc.title = "Speaker · " + (idx + 1) + "/" + slides.length;
+    if (!doc.getElementById("pmd-speaker-root")) {
+      doc.head.innerHTML = "<style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;padding:20px 22px 28px;font:15px/1.45 system-ui,sans-serif;background:#0b1220;color:#e8eef4;min-height:100vh}.meta{display:flex;gap:12px;flex-wrap:wrap;font:600 12px/1.2 ui-monospace,Menlo,monospace;color:#9ca3af;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}.timer{color:#e8eef4;font-variant-numeric:tabular-nums}.timer.is-paused{color:#f59e0b}.timer.is-ahead{color:#2dd4bf}.timer.is-behind{color:#fb7185}.timer.is-over{color:#f87171}h1{margin:0 0 18px;font:800 28px/1.15 system-ui,sans-serif;letter-spacing:-.03em}.label{font:600 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:#6b7280;margin:0 0 8px}.notes{white-space:pre-wrap;font-size:18px;line-height:1.5;margin:0 0 28px;min-height:4.5em}.notes.is-empty{color:#6b7280;font-style:italic}.next{padding-top:16px;border-top:1px solid rgba(232,238,244,.12)}.next p{margin:0;font-size:15px;color:#9ca3af}.hint{margin-top:28px;font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#5b6575}</style>";
+      doc.body.innerHTML = '<div id="pmd-speaker-root"><div class="meta"><span data-count></span><span class="timer" data-timer></span></div><h1 data-heading></h1><div class="label">Speaker notes</div><p class="notes" data-notes></p><div class="next"><div class="label">Up next</div><p data-next></p></div><p class="hint">Follows the deck window · O focuses</p></div>';
+    }
+    var root = doc.getElementById("pmd-speaker-root");
+    if (!root) return;
+    var count = root.querySelector("[data-count]");
+    if (count) count.textContent = (idx + 1) + " / " + slides.length;
+    var tEl = root.querySelector("[data-timer]");
+    if (tEl) {
+      tEl.textContent = label;
+      tEl.className = "timer" + (timerRunning ? "" : " is-paused") + (status === "ahead" ? " is-ahead" : status === "behind" ? " is-behind" : status === "over" ? " is-over" : "");
+    }
+    var hEl = root.querySelector("[data-heading]");
+    if (hEl) hEl.textContent = heading;
+    var nEl = root.querySelector("[data-notes]");
+    if (nEl) {
+      nEl.textContent = notesText;
+      nEl.classList.toggle("is-empty", !notesBySlide[idx]);
+    }
+    var nx = root.querySelector("[data-next]");
+    if (nx) nx.textContent = nextHeading;
+  }
+
+  function openSpeakerView() {
+    if (speakerWin && !speakerWin.closed) {
+      speakerWin.focus();
+      paintSpeakerWindow();
+      return;
+    }
+    speakerWin = window.open("", "pmd-speaker-view", "popup=yes,width=520,height=760");
+    if (speakerWin) paintSpeakerWindow();
   }
 
   function setBlackout(on) {
@@ -6654,6 +6719,7 @@ html.pmd-shot-mode .pmd-present-help {
         : "Elapsed · P set pace · T pause · R reset";
     }
     if (showNotes) syncNotes();
+    paintSpeakerWindow();
   }
 
   function toggleTimer() {
@@ -6726,6 +6792,11 @@ html.pmd-shot-mode .pmd-present-help {
       cyclePace();
       return;
     }
+    if (e.key === "o" || e.key === "O") {
+      e.preventDefault();
+      openSpeakerView();
+      return;
+    }
     if (showHelp) return;
     if (/^[1-9]$/.test(e.key)) {
       e.preventDefault();
@@ -6755,6 +6826,7 @@ html.pmd-shot-mode .pmd-present-help {
   if (blackoutEl) blackoutEl.addEventListener("click", function () { setBlackout(false); });
   if (whiteoutEl) whiteoutEl.addEventListener("click", function () { setWhiteout(false); });
   if (btnNotes) btnNotes.addEventListener("click", function () { setNotes(!showNotes); });
+  if (btnSpeaker) btnSpeaker.addEventListener("click", openSpeakerView);
   if (btnBlackout) btnBlackout.addEventListener("click", function () { setBlackout(blackoutEl.hidden); });
   if (btnWhiteout) btnWhiteout.addEventListener("click", function () { setWhiteout(whiteoutEl.hidden); });
   if (btnHelp) btnHelp.addEventListener("click", function () { setHelp(!showHelp); });
@@ -6780,4 +6852,4 @@ html.pmd-shot-mode .pmd-present-help {
 <\/script>
 </body>
 </html>
-`;export{j as _,P as a,H as b,M as c,F as d,C as e,T as f,B as g,S as h,D as i,_ as j,q as k,A as l,E as m,z as n,y as o,w as p,v as q,L as r,W as s,R as t,N as u};
+`;export{P as _,W as a,H as b,F as c,T as d,M as e,C as f,D as g,B as h,_ as i,S as j,A as k,q as l,E as m,z as n,y as o,w as p,v as q,L as r,R as s,j as t,N as u};

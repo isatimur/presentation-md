@@ -55,6 +55,7 @@ const SHORTCUTS: Array<{ keys: string; label: string }> = [
   { keys: "T", label: "Pause / resume timer" },
   { keys: "R", label: "Reset timer" },
   { keys: "P", label: "Pace target (5–30m countdown)" },
+  { keys: "O", label: "Speaker notes window" },
   { keys: "?", label: "Shortcuts" },
   { keys: "Esc", label: "Close overlay / exit" },
 ];
@@ -94,6 +95,7 @@ export function PresentMode({
   const [paceMinutes, setPaceMinutes] = useState(0);
   const startedAt = useRef(Date.now());
   const accumulated = useRef(0);
+  const speakerWin = useRef<Window | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const inkCanvasRef = useRef<HTMLCanvasElement>(null);
   const inkDrawing = useRef(false);
@@ -181,6 +183,102 @@ export function PresentMode({
     targetMs > 0
       ? `Pace ${paceMinutes}m · P cycle · T pause · R reset · dbl-click reset`
       : "Elapsed · P set pace · T pause/resume · R reset · dbl-click reset";
+
+  const paintSpeakerWindow = () => {
+    const w = speakerWin.current;
+    if (!w || w.closed) return;
+    const heading = (slideHeadings[i] ?? "").trim() || `Slide ${i + 1}`;
+    const next =
+      nextIndex != null
+        ? (slideHeadings[nextIndex] ?? "").trim() || `Slide ${nextIndex + 1}`
+        : "— end —";
+    const notesText =
+      currentNotes ||
+      (hasAnyNotes ? "No notes on this slide." : "No speaker notes in this deck.");
+    const doc = w.document;
+    doc.title = `Speaker · ${i + 1}/${slideCount}`;
+    if (!doc.getElementById("pmd-speaker-root")) {
+      doc.head.innerHTML = `<style>
+        :root { color-scheme: dark; }
+        * { box-sizing: border-box; }
+        body {
+          margin: 0; padding: 20px 22px 28px;
+          font: 15px/1.45 "DM Sans", "Avenir Next", system-ui, sans-serif;
+          background: #0b1220; color: #e8eef4; min-height: 100vh;
+        }
+        .meta { display: flex; gap: 12px; flex-wrap: wrap; align-items: baseline;
+          font: 600 12px/1.2 ui-monospace, Menlo, monospace; color: #9ca3af;
+          letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 14px; }
+        .timer { color: #e8eef4; font-variant-numeric: tabular-nums; }
+        .timer.is-paused { color: #f59e0b; }
+        .timer.is-ahead { color: #2dd4bf; }
+        .timer.is-behind { color: #fb7185; }
+        .timer.is-over { color: #f87171; }
+        h1 { margin: 0 0 18px; font: 800 28px/1.15 Syne, "Avenir Next", sans-serif;
+          letter-spacing: -0.03em; }
+        .label { font: 600 11px/1 ui-monospace, Menlo, monospace; letter-spacing: 0.12em;
+          text-transform: uppercase; color: #6b7280; margin: 0 0 8px; }
+        .notes { white-space: pre-wrap; font-size: 18px; line-height: 1.5;
+          color: #e8eef4; margin: 0 0 28px; min-height: 4.5em; }
+        .notes.is-empty { color: #6b7280; font-style: italic; }
+        .next { padding-top: 16px; border-top: 1px solid rgba(232,238,244,0.12); }
+        .next p { margin: 0; font-size: 15px; color: #9ca3af; }
+        .hint { margin-top: 28px; font: 500 11px/1.4 ui-monospace, Menlo, monospace;
+          color: #5b6575; }
+      </style>`;
+      doc.body.innerHTML = `<div id="pmd-speaker-root">
+        <div class="meta"><span data-count></span><span class="timer" data-timer></span></div>
+        <h1 data-heading></h1>
+        <div class="label">Speaker notes</div>
+        <p class="notes" data-notes></p>
+        <div class="next"><div class="label">Up next</div><p data-next></p></div>
+        <p class="hint">Follows the Present window · O focuses · Esc closes Present</p>
+      </div>`;
+    }
+    const root = doc.getElementById("pmd-speaker-root");
+    if (!root) return;
+    const setText = (sel: string, text: string) => {
+      const el = root.querySelector(sel);
+      if (el) el.textContent = text;
+    };
+    setText("[data-count]", `${i + 1} / ${slideCount}`);
+    const timerEl = root.querySelector("[data-timer]");
+    if (timerEl) {
+      timerEl.textContent = timerLabel;
+      timerEl.className = `timer${timerRunning ? "" : " is-paused"}${
+        status === "ahead"
+          ? " is-ahead"
+          : status === "behind"
+            ? " is-behind"
+            : status === "over"
+              ? " is-over"
+              : ""
+      }`;
+    }
+    setText("[data-heading]", heading);
+    const notesEl = root.querySelector("[data-notes]");
+    if (notesEl) {
+      notesEl.textContent = notesText;
+      notesEl.classList.toggle("is-empty", !currentNotes);
+    }
+    setText("[data-next]", next);
+  };
+
+  const openSpeakerView = () => {
+    if (speakerWin.current && !speakerWin.current.closed) {
+      speakerWin.current.focus();
+      paintSpeakerWindow();
+      return;
+    }
+    const w = window.open(
+      "",
+      "pmd-speaker-view",
+      "popup=yes,width=520,height=760"
+    );
+    if (!w) return;
+    speakerWin.current = w;
+    paintSpeakerWindow();
+  };
 
   const syncInkCanvas = () => {
     const stage = stageRef.current;
@@ -369,6 +467,9 @@ export function PresentMode({
       } else if (e.key === "p" || e.key === "P") {
         e.preventDefault();
         cyclePace();
+      } else if (e.key === "o" || e.key === "O") {
+        e.preventDefault();
+        openSpeakerView();
       } else if (e.key === "t" || e.key === "T") {
         e.preventDefault();
         if (timerRunning) {
@@ -415,6 +516,19 @@ export function PresentMode({
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose, slideCount, blackout, whiteout, laser, ink, timerRunning, showOverview, showHelp, paceMinutes]);
+
+  useEffect(() => {
+    paintSpeakerWindow();
+  }, [i, elapsedMs, timerRunning, paceMinutes, timerLabel, currentNotes, slideHeadings, slideCount, nextIndex, status]);
+
+  useEffect(() => {
+    return () => {
+      if (speakerWin.current && !speakerWin.current.closed) {
+        speakerWin.current.close();
+      }
+      speakerWin.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     const frame = frameRef.current;
@@ -638,6 +752,13 @@ export function PresentMode({
         >
           {timerLabel}
         </span>
+        <button
+          className="btn"
+          title="Speaker notes window (O)"
+          onClick={openSpeakerView}
+        >
+          Speaker · O
+        </button>
         <button
           className="btn"
           title="Toggle speaker notes (S)"
