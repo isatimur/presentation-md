@@ -1,4 +1,4 @@
-import { assertZipEntrySafe } from "./zip-limits.js";
+import { assertZipArchiveSafe, assertZipEntrySafe } from "./zip-limits.js";
 import { bytesToUtf8 } from "./bytes.js";
 import type {
   ExtractedImage,
@@ -28,6 +28,30 @@ const parser = new XMLParser({
       "Default",
     ].includes(name),
 });
+
+const CRC32_TABLE = Uint32Array.from({ length: 256 }, (_, index) => {
+  let value = index;
+  for (let bit = 0; bit < 8; bit += 1) {
+    value = value & 1 ? 0xedb88320 ^ (value >>> 1) : value >>> 1;
+  }
+  return value >>> 0;
+});
+
+function updateCrc32(crc: number, bytes: Uint8Array): number {
+  let next = crc;
+  for (const byte of bytes) {
+    next = (next >>> 8) ^ CRC32_TABLE[(next ^ byte) & 0xff]!;
+  }
+  return next >>> 0;
+}
+
+interface ZipEntryStream {
+  on(event: "data", callback: (chunk: Uint8Array) => void): ZipEntryStream;
+  on(event: "end", callback: () => void): ZipEntryStream;
+  on(event: "error", callback: (error: Error) => void): ZipEntryStream;
+  pause(): ZipEntryStream;
+  resume(): ZipEntryStream;
+}
 
 function asArray<T>(v: T | T[] | undefined | null): T[] {
   if (v == null) return [];
@@ -115,6 +139,11 @@ function declaredUncompressedSize(entry: JSZip.JSZipObject): number {
   return typeof n === "number" && n > 0 ? n : 0;
 }
 
+function declaredCrc32(entry: JSZip.JSZipObject): number | undefined {
+  const data = (entry as unknown as { _data?: { crc32?: number } })._data;
+  return typeof data?.crc32 === "number" ? data.crc32 >>> 0 : undefined;
+}
+
 function resolveRelTarget(baseDir: string, target: string): string {
   const joined = `${baseDir}/${target}`.replace(/\\/g, "/");
   const parts: string[] = [];
@@ -155,7 +184,11 @@ export async function extractPptx(
     opts.onWarn?.(msg);
   };
 
-  const zip = await JSZip.loadAsync(input, { checkCRC32: true });
+  assertZipArchiveSafe(input.byteLength);
+  // JSZip's checkCRC32 option eagerly inflates every entry before returning,
+  // which defeats all central-directory and streaming zip-bomb limits below.
+  // CRC is instead verified per entry while bounded chunks are consumed.
+  const zip = await JSZip.loadAsync(input, { checkCRC32: false });
   const entries = Object.values(zip.files).filter((f) => !f.dir);
   let entryCount = 0;
   let declaredTotal = 0;
@@ -167,6 +200,7 @@ export async function extractPptx(
       entryCount,
       uncompressedSize: declared,
       totalUncompressed: declaredTotal,
+      isMedia: /^ppt\/media\//i.test(entry.name),
     });
   }
 
@@ -179,15 +213,65 @@ export async function extractPptx(
     file: JSZip.JSZipObject,
     options: { isMedia?: boolean } = {}
   ): Promise<Uint8Array> {
-    const bytes = new Uint8Array(await file.async("uint8array"));
-    bytesRead += bytes.byteLength;
-    assertZipEntrySafe({
-      entryCount,
-      uncompressedSize: bytes.byteLength,
-      totalUncompressed: bytesRead,
-      isMedia: options.isMedia,
+    const stream = (
+      file as unknown as { internalStream(type: "uint8array"): ZipEntryStream }
+    ).internalStream("uint8array");
+    const chunks: Uint8Array[] = [];
+    let entryBytes = 0;
+    let crc = 0xffffffff;
+
+    return new Promise<Uint8Array>((resolve, reject) => {
+      let settled = false;
+      const fail = (error: unknown): void => {
+        if (settled) return;
+        settled = true;
+        try {
+          stream.pause();
+        } catch {
+          // The worker may already have stopped after a decompression error.
+        }
+        reject(error instanceof Error ? error : new Error(String(error)));
+      };
+
+      stream
+        .on("data", (chunk) => {
+          if (settled) return;
+          try {
+            const nextEntryBytes = entryBytes + chunk.byteLength;
+            assertZipEntrySafe({
+              entryCount,
+              uncompressedSize: nextEntryBytes,
+              totalUncompressed: bytesRead + nextEntryBytes,
+              isMedia: options.isMedia,
+            });
+            entryBytes = nextEntryBytes;
+            crc = updateCrc32(crc, chunk);
+            chunks.push(chunk);
+          } catch (error) {
+            fail(error);
+          }
+        })
+        .on("error", fail)
+        .on("end", () => {
+          if (settled) return;
+          const expectedCrc = declaredCrc32(file);
+          const actualCrc = (crc ^ 0xffffffff) >>> 0;
+          if (expectedCrc !== undefined && actualCrc !== expectedCrc) {
+            fail(new Error(`Corrupted zip entry '${path}': CRC32 mismatch`));
+            return;
+          }
+          settled = true;
+          bytesRead += entryBytes;
+          const bytes = new Uint8Array(entryBytes);
+          let offset = 0;
+          for (const chunk of chunks) {
+            bytes.set(chunk, offset);
+            offset += chunk.byteLength;
+          }
+          resolve(bytes);
+        })
+        .resume();
     });
-    return bytes;
   }
 
   async function readText(path: string): Promise<string | null> {
