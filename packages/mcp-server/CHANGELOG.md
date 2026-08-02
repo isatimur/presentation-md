@@ -1,5 +1,12 @@
 # @presentation-md/mcp-server
 
+## 1.32.2
+
+### Patch Changes
+
+- Updated dependencies [69778f3]
+  - @presentation-md/create-theme@1.1.29
+
 ## 1.32.1
 
 ### Patch Changes
