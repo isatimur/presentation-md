@@ -699,10 +699,152 @@ body {
   font-variant-numeric: tabular-nums;
 }
 .present-timer-paused { color: #F59E0B; }
+.present-overview {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  background: rgba(11, 18, 32, 0.96);
+  display: flex;
+  flex-direction: column;
+  padding: 16px 18px 20px;
+  overflow: hidden;
+}
+.present-overview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #A8B0BE;
+}
+.present-overview-grid {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+  padding-bottom: 8px;
+}
+.present-overview-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  background: transparent;
+  border: 1px solid rgba(232, 238, 244, 0.16);
+  border-radius: 10px;
+  padding: 8px;
+  color: #E8EEF4;
+  cursor: pointer;
+}
+.present-overview-card:hover,
+.present-overview-card:focus-visible {
+  border-color: rgba(255, 59, 31, 0.7);
+  outline: none;
+}
+.present-overview-card.is-active {
+  border-color: #FF3B1F;
+  box-shadow: 0 0 0 1px rgba(255, 59, 31, 0.35);
+}
+.present-overview-frame-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0B1220;
+  container-type: inline-size;
+}
+.present-overview-frame {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 1280px;
+  height: 720px;
+  border: 0;
+  transform-origin: top left;
+  transform: scale(0.2);
+  pointer-events: none;
+}
+@supports (width: 1cqw) {
+  .present-overview-frame {
+    transform: scale(calc(100cqw / 1280));
+  }
+}
+.present-overview-fallback {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  font-family: var(--mono);
+  color: #6B7280;
+}
+.present-overview-label {
+  font-family: var(--sans);
+  font-size: 12px;
+  line-height: 1.35;
+  color: #A8B0BE;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.present-overview-label strong {
+  color: #E8EEF4;
+  margin-right: 6px;
+  font-family: var(--mono);
+}
+.present-help {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  background: rgba(11, 18, 32, 0.72);
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+.present-help-card {
+  width: min(420px, 100%);
+  background: #111827;
+  border: 1px solid rgba(232, 238, 244, 0.16);
+  border-radius: 12px;
+  padding: 16px 18px 18px;
+  color: #E8EEF4;
+}
+.present-help-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.present-help-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: #A8B0BE;
+}
+.present-help-list kbd {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #E8EEF4;
+  background: #0B1220;
+  border: 1px solid rgba(232, 238, 244, 0.16);
+  border-radius: 6px;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
 .present-bar {
   display: flex; align-items: center; justify-content: center; gap: 16px;
   padding: 10px; background: #0B1220; border-top: 1px solid rgba(232,238,244,0.12); color: #A8B0BE;
   font-family: var(--mono); font-size: 12px;
+  flex-wrap: wrap;
 }
 .present-bar .btn-icon { font-size: 14px; }
 .present-count { min-width: 64px; text-align: center; }

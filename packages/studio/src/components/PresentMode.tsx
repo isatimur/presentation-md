@@ -18,6 +18,19 @@ function formatElapsed(ms: number): string {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
+const SHORTCUTS: Array<{ keys: string; label: string }> = [
+  { keys: "← → Space", label: "Previous / next slide" },
+  { keys: "1–9", label: "Jump to slide" },
+  { keys: "Home / End", label: "First / last slide" },
+  { keys: "G", label: "Overview grid" },
+  { keys: "F", label: "Filmstrip peek" },
+  { keys: "S", label: "Speaker notes" },
+  { keys: "B", label: "Blackout" },
+  { keys: "T", label: "Pause / resume timer" },
+  { keys: "?", label: "Shortcuts" },
+  { keys: "Esc", label: "Close overlay / exit" },
+];
+
 export function PresentMode({
   html,
   slideCount,
@@ -37,6 +50,8 @@ export function PresentMode({
   const [i, setI] = useState(0);
   const [showNotes, setShowNotes] = useState(true);
   const [showStrip, setShowStrip] = useState(true);
+  const [showOverview, setShowOverview] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
   const [blackout, setBlackout] = useState(false);
   const [elapsedMs, setElapsedMs] = useState(0);
   const [timerRunning, setTimerRunning] = useState(true);
@@ -61,7 +76,25 @@ export function PresentMode({
     }
   }, [html, nextIndex]);
 
+  const overviewThumbs = useMemo(() => {
+    if (!showOverview || slideCount < 1) return [];
+    return Array.from({ length: slideCount }, (_, idx) => {
+      try {
+        return prepareSandboxedPreviewHtml(restyleSlideHtml(html, idx));
+      } catch {
+        return null;
+      }
+    });
+  }, [html, slideCount, showOverview]);
+
   const go = (n: number) => setI((p) => Math.max(0, Math.min(slideCount - 1, p + n)));
+
+  const jumpTo = (index: number) => {
+    setBlackout(false);
+    setShowOverview(false);
+    setShowHelp(false);
+    setI(Math.max(0, Math.min(slideCount - 1, index)));
+  };
 
   useEffect(() => {
     if (!timerRunning) return;
@@ -75,14 +108,31 @@ export function PresentMode({
     const onKey = (e: KeyboardEvent) => {
       if (e.defaultPrevented) return;
       if (e.key === "Escape") {
+        e.preventDefault();
+        if (showHelp) {
+          setShowHelp(false);
+          return;
+        }
+        if (showOverview) {
+          setShowOverview(false);
+          return;
+        }
         if (blackout) {
-          e.preventDefault();
           setBlackout(false);
           return;
         }
         onClose();
+      } else if (e.key === "?" || (e.shiftKey && e.key === "/")) {
+        e.preventDefault();
+        setShowHelp((v) => !v);
+      } else if (e.key === "g" || e.key === "G") {
+        e.preventDefault();
+        setShowHelp(false);
+        setBlackout(false);
+        setShowOverview((v) => !v);
       } else if (e.key === "b" || e.key === "B") {
         e.preventDefault();
+        setShowOverview(false);
         setBlackout((v) => !v);
       } else if (e.key === "t" || e.key === "T") {
         e.preventDefault();
@@ -101,31 +151,33 @@ export function PresentMode({
         e.preventDefault();
         setShowStrip((v) => !v);
       } else if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+        if (showOverview || showHelp) return;
         e.preventDefault();
         setBlackout(false);
         setI((p) => Math.min(slideCount - 1, p + 1));
       } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+        if (showOverview || showHelp) return;
         e.preventDefault();
         setBlackout(false);
         setI((p) => Math.max(0, p - 1));
       } else if (/^[1-9]$/.test(e.key)) {
+        if (showOverview || showHelp) return;
         e.preventDefault();
-        setBlackout(false);
         const target = Number(e.key) - 1;
-        if (target < slideCount) setI(target);
+        if (target < slideCount) jumpTo(target);
       } else if (e.key === "Home") {
+        if (showOverview || showHelp) return;
         e.preventDefault();
-        setBlackout(false);
-        setI(0);
+        jumpTo(0);
       } else if (e.key === "End") {
+        if (showOverview || showHelp) return;
         e.preventDefault();
-        setBlackout(false);
-        setI(slideCount - 1);
+        jumpTo(slideCount - 1);
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose, slideCount, blackout, timerRunning]);
+  }, [onClose, slideCount, blackout, timerRunning, showOverview, showHelp]);
 
   useEffect(() => {
     const frame = frameRef.current;
@@ -160,6 +212,70 @@ export function PresentMode({
               title="Click or press B to restore"
             >
               <span className="present-blackout-hint">Blackout · B or click to restore</span>
+            </div>
+          ) : null}
+          {showOverview ? (
+            <div className="present-overview" role="dialog" aria-label="Slide overview">
+              <div className="present-overview-head">
+                <span>Overview · G or Esc to close</span>
+                <button type="button" className="btn btn-sm" onClick={() => setShowOverview(false)}>
+                  Close
+                </button>
+              </div>
+              <div className="present-overview-grid">
+                {overviewThumbs.map((srcDoc, idx) => {
+                  const heading =
+                    (slideHeadings[idx] ?? "").trim() || `Slide ${idx + 1}`;
+                  return (
+                    <button
+                      key={idx}
+                      type="button"
+                      className={`present-overview-card${idx === i ? " is-active" : ""}`}
+                      onClick={() => jumpTo(idx)}
+                      aria-label={`Go to slide ${idx + 1}: ${heading}`}
+                      aria-current={idx === i ? "true" : undefined}
+                    >
+                      <div className="present-overview-frame-wrap">
+                        {srcDoc ? (
+                          <iframe
+                            className="present-overview-frame"
+                            title={`Overview slide ${idx + 1}`}
+                            srcDoc={srcDoc}
+                            sandbox="allow-same-origin"
+                            tabIndex={-1}
+                            aria-hidden
+                          />
+                        ) : (
+                          <div className="present-overview-fallback">{idx + 1}</div>
+                        )}
+                      </div>
+                      <span className="present-overview-label">
+                        <strong>{idx + 1}</strong> {heading}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
+          {showHelp ? (
+            <div className="present-help" role="dialog" aria-label="Presenter shortcuts">
+              <div className="present-help-card">
+                <div className="present-overview-head">
+                  <span>Shortcuts · ? or Esc</span>
+                  <button type="button" className="btn btn-sm" onClick={() => setShowHelp(false)}>
+                    Close
+                  </button>
+                </div>
+                <ul className="present-help-list">
+                  {SHORTCUTS.map((row) => (
+                    <li key={row.keys}>
+                      <kbd>{row.keys}</kbd>
+                      <span>{row.label}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           ) : null}
         </div>
@@ -231,12 +347,32 @@ export function PresentMode({
             {showStrip ? "Hide strip · F" : "Strip · F"}
           </button>
         ) : null}
+        {slideCount > 1 ? (
+          <button
+            className="btn"
+            title="Overview grid (G)"
+            onClick={() => {
+              setBlackout(false);
+              setShowHelp(false);
+              setShowOverview((v) => !v);
+            }}
+          >
+            {showOverview ? "Close grid · G" : "Overview · G"}
+          </button>
+        ) : null}
         <button
           className="btn"
           title="Blackout screen (B)"
           onClick={() => setBlackout((v) => !v)}
         >
           {blackout ? "Restore · B" : "Blackout · B"}
+        </button>
+        <button
+          className="btn"
+          title="Shortcuts (?)"
+          onClick={() => setShowHelp((v) => !v)}
+        >
+          ? · Help
         </button>
         <button className="btn" onClick={onClose}>Exit · Esc</button>
       </div>

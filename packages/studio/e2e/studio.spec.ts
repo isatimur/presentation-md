@@ -1060,6 +1060,23 @@ test("Present mode shows up-next peek and advances with ArrowRight", async ({ pa
 
   await expect(page.locator(".present-timer")).toBeVisible();
 
+  await page.keyboard.press("g");
+  await expect(page.locator(".present-overview")).toBeVisible();
+  await expect(page.locator(".present-overview-card")).toHaveCount(
+    await page.locator(".present-count").evaluate((el) => {
+      const m = (el.textContent ?? "").match(/\/\s*(\d+)/);
+      return m ? Number(m[1]) : 0;
+    })
+  );
+  await page.locator(".present-overview-card").nth(2).click();
+  await expect(page.locator(".present-overview")).toHaveCount(0);
+  await expect(page.locator(".present-count")).toContainText(/3\s*\/\s*/);
+
+  await page.keyboard.press("Shift+/");
+  await expect(page.locator(".present-help")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.locator(".present-help")).toHaveCount(0);
+
   await page.keyboard.press("Escape");
   await expect(page.locator(".present-overlay")).toHaveCount(0);
   await expect(presentButton).toBeFocused();
