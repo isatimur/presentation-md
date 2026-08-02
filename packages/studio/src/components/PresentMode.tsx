@@ -26,6 +26,7 @@ const SHORTCUTS: Array<{ keys: string; label: string }> = [
   { keys: "F", label: "Filmstrip peek" },
   { keys: "S", label: "Speaker notes" },
   { keys: "B", label: "Blackout" },
+  { keys: "W", label: "Whiteout" },
   { keys: "T", label: "Pause / resume timer" },
   { keys: "?", label: "Shortcuts" },
   { keys: "Esc", label: "Close overlay / exit" },
@@ -53,6 +54,7 @@ export function PresentMode({
   const [showOverview, setShowOverview] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [blackout, setBlackout] = useState(false);
+  const [whiteout, setWhiteout] = useState(false);
   const [elapsedMs, setElapsedMs] = useState(0);
   const [timerRunning, setTimerRunning] = useState(true);
   const startedAt = useRef(Date.now());
@@ -91,6 +93,7 @@ export function PresentMode({
 
   const jumpTo = (index: number) => {
     setBlackout(false);
+    setWhiteout(false);
     setShowOverview(false);
     setShowHelp(false);
     setI(Math.max(0, Math.min(slideCount - 1, index)));
@@ -121,6 +124,10 @@ export function PresentMode({
           setBlackout(false);
           return;
         }
+        if (whiteout) {
+          setWhiteout(false);
+          return;
+        }
         onClose();
       } else if (e.key === "?" || (e.shiftKey && e.key === "/")) {
         e.preventDefault();
@@ -129,11 +136,18 @@ export function PresentMode({
         e.preventDefault();
         setShowHelp(false);
         setBlackout(false);
+        setWhiteout(false);
         setShowOverview((v) => !v);
       } else if (e.key === "b" || e.key === "B") {
         e.preventDefault();
         setShowOverview(false);
+        setWhiteout(false);
         setBlackout((v) => !v);
+      } else if (e.key === "w" || e.key === "W") {
+        e.preventDefault();
+        setShowOverview(false);
+        setBlackout(false);
+        setWhiteout((v) => !v);
       } else if (e.key === "t" || e.key === "T") {
         e.preventDefault();
         if (timerRunning) {
@@ -154,11 +168,13 @@ export function PresentMode({
         if (showOverview || showHelp) return;
         e.preventDefault();
         setBlackout(false);
+        setWhiteout(false);
         setI((p) => Math.min(slideCount - 1, p + 1));
       } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
         if (showOverview || showHelp) return;
         e.preventDefault();
         setBlackout(false);
+        setWhiteout(false);
         setI((p) => Math.max(0, p - 1));
       } else if (/^[1-9]$/.test(e.key)) {
         if (showOverview || showHelp) return;
@@ -177,7 +193,7 @@ export function PresentMode({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose, slideCount, blackout, timerRunning, showOverview, showHelp]);
+  }, [onClose, slideCount, blackout, whiteout, timerRunning, showOverview, showHelp]);
 
   useEffect(() => {
     const frame = frameRef.current;
@@ -212,6 +228,17 @@ export function PresentMode({
               title="Click or press B to restore"
             >
               <span className="present-blackout-hint">Blackout · B or click to restore</span>
+            </div>
+          ) : null}
+          {whiteout ? (
+            <div
+              className="present-whiteout"
+              role="status"
+              aria-live="polite"
+              onClick={() => setWhiteout(false)}
+              title="Click or press W to restore"
+            >
+              <span className="present-whiteout-hint">Whiteout · W or click to restore</span>
             </div>
           ) : null}
           {showOverview ? (
@@ -353,6 +380,7 @@ export function PresentMode({
             title="Overview grid (G)"
             onClick={() => {
               setBlackout(false);
+              setWhiteout(false);
               setShowHelp(false);
               setShowOverview((v) => !v);
             }}
@@ -363,9 +391,22 @@ export function PresentMode({
         <button
           className="btn"
           title="Blackout screen (B)"
-          onClick={() => setBlackout((v) => !v)}
+          onClick={() => {
+            setWhiteout(false);
+            setBlackout((v) => !v);
+          }}
         >
           {blackout ? "Restore · B" : "Blackout · B"}
+        </button>
+        <button
+          className="btn"
+          title="Whiteout screen (W)"
+          onClick={() => {
+            setBlackout(false);
+            setWhiteout((v) => !v);
+          }}
+        >
+          {whiteout ? "Restore · W" : "Whiteout · W"}
         </button>
         <button
           className="btn"

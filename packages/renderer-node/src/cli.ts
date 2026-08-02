@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, extname, join, resolve } from "node:path";
 import { Command } from "commander";
 import { renderDeck, renderDeckPptx, renderDeckPdf, getBundledThemesDir } from "./index.js";
-import { discoverInstalledThemes, markdownToDeck, deckToMarkdown, notesHandoutTxt, notesHandoutVtt, scaffoldDeck, listScaffoldPurposes, resolveScaffoldPurpose, auditCraft, repairCraft, remorphDensity, studioShareLink, isShareDeck, buildGenerateDeckPrompt, type ScaffoldPurpose, type DensityMode } from "@presentation-md/core";
+import { discoverInstalledThemes, markdownToDeck, deckToMarkdown, notesHandoutTxt, notesHandoutVtt, scaffoldDeck, listScaffoldPurposes, resolveScaffoldPurpose, auditCraft, repairCraft, remorphDensity, studioShareLink, isShareDeck, buildGenerateDeckPrompt, judgeDeckJson, validateDeckJson, type ScaffoldPurpose, type DensityMode } from "@presentation-md/core";
 import { pptxToDeck } from "@presentation-md/export/import";
 import {
   buildLayoutsPreviewDeck,
@@ -125,6 +125,14 @@ export function buildProgram(): Command {
       "--no-preview-shots",
       "skip PNG screenshots for --preview-compare (HTML only; default captures title + bento + comparison)"
     )
+    .option(
+      "--judge",
+      "structural design judge on deck JSON (MCP judge_deck t0/t1 parity); exit 1 on gate hits / schema errors"
+    )
+    .option(
+      "--judge-tier <tier>",
+      "with --judge, t0|t1 (default t1). t2/t3 HTML+screenshots stay on MCP judge_deck"
+    )
     .option("--validate", "validate only, do not render")
     .action(async (inputPath: string | undefined, options: {
       output?: string;
@@ -145,6 +153,8 @@ export function buildProgram(): Command {
       generatePrompt?: boolean;
       promptIntent?: string;
       promptDensity?: string;
+      judge?: boolean;
+      judgeTier?: string;
       previewCompare?: string;
       previewDir?: string;
       previewMode?: string;
@@ -545,6 +555,41 @@ export function buildProgram(): Command {
           `Craft audit: ${errors.length} error(s), ${warns.length} warning(s)${fixes.length ? `, ${fixes.length} fix(es) applied` : ""}\n`
         );
         process.exit(errors.length > 0 ? 1 : 0);
+      }
+
+      if (options.judge) {
+        const tierRaw = (options.judgeTier ?? "t1").toLowerCase().replace(/^tier[-_]?/, "");
+        if (tierRaw !== "t0" && tierRaw !== "0" && tierRaw !== "t1" && tierRaw !== "1") {
+          process.stderr.write(
+            `Error: --judge-tier must be t0|t1 (got "${options.judgeTier}"). Use MCP judge_deck for t2/t3 HTML+screenshots.\n`
+          );
+          process.exit(1);
+        }
+        const tier = tierRaw === "t0" || tierRaw === "0" ? "t0" : "t1";
+        const schema = validateDeckJson(deckJson);
+        let deck: Record<string, unknown>;
+        try {
+          deck = JSON.parse(deckJson) as Record<string, unknown>;
+        } catch (err) {
+          process.stderr.write(`Error: invalid JSON: ${(err as Error).message}\n`);
+          process.exit(1);
+        }
+        const structural = judgeDeckJson(deck);
+        const gateHits = structural.flags.filter((f) => f.severity === "gate").length;
+        const pass = schema.valid && gateHits === 0;
+        for (const flag of structural.flags) {
+          const slide = flag.slide != null ? ` (slide ${flag.slide})` : "";
+          const line = `${flag.severity}${slide}: ${flag.detail}\n`;
+          if (flag.severity === "gate" || flag.severity === "error") process.stderr.write(line);
+          else process.stdout.write(line);
+        }
+        if (!schema.valid) {
+          for (const err of schema.errors) process.stderr.write(`schema: ${err}\n`);
+        }
+        process.stdout.write(
+          `Judge ${tier}: ${pass ? "pass" : "fail"} · ${gateHits} gate(s) · ${structural.flags.filter((f) => f.severity === "warn").length} warn(s) · ${structural.metrics.slide_count ?? 0} slides\n`
+        );
+        process.exit(pass ? 0 : 1);
       }
 
       if (options.theme) {

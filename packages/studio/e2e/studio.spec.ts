@@ -1058,6 +1058,11 @@ test("Present mode shows up-next peek and advances with ArrowRight", async ({ pa
   await page.keyboard.press("b");
   await expect(page.locator(".present-blackout")).toHaveCount(0);
 
+  await page.keyboard.press("w");
+  await expect(page.locator(".present-whiteout")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.locator(".present-whiteout")).toHaveCount(0);
+
   await expect(page.locator(".present-timer")).toBeVisible();
 
   await page.keyboard.press("g");

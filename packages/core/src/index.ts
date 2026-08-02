@@ -52,6 +52,8 @@ export type {
   BuildGenerateDeckPromptOptions,
   GenerateDeckPromptResult,
 } from "./generate-deck-prompt.js";
+export { judgeDeckJson } from "./judge-deck-json.js";
+export type { JudgeFlag, JudgeDeckJsonResult } from "./judge-deck-json.js";
 export {
   scaffoldDeck,
   listScaffoldPurposes,

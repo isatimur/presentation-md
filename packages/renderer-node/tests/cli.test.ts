@@ -72,6 +72,8 @@ describe("buildProgram", () => {
         "--generate-prompt",
         "--prompt-intent",
         "--prompt-density",
+        "--judge",
+        "--judge-tier",
         "--preview-compare",
         "--preview-dir",
         "--preview-mode",
@@ -609,5 +611,37 @@ describe("presentation-md-render CLI flags", () => {
     expect(prompt.intent).toMatch(/board pack/i);
     expect(prompt.craft_mandate).toMatch(/remorph_density/i);
     expect(prompt.skill.length).toBeGreaterThan(100);
+  });
+
+  it("--judge t1 passes a clean minimal deck", async () => {
+    const dir = await tempDir();
+    const deckPath = join(dir, "deck.json");
+    await writeFile(deckPath, JSON.stringify(MINIMAL_DECK));
+    const { code, stdout, stderr } = await runCli(
+      ["--judge", "--judge-tier", "t1", deckPath],
+      { cwd: dir }
+    );
+    expect(stderr).not.toMatch(/^Error:/);
+    expect(code).toBe(0);
+    expect(stdout).toMatch(/Judge t1: pass/);
+  });
+
+  it("--judge exits 1 on wall-of-text gate", async () => {
+    const dir = await tempDir();
+    const deckPath = join(dir, "deck.json");
+    const wall = Array.from({ length: 45 }, () => "word").join(" ");
+    await writeFile(
+      deckPath,
+      JSON.stringify({
+        ...MINIMAL_DECK,
+        slides: [
+          { layout: "title", heading: "Hi" },
+          { layout: "section", heading: "Dense", body: wall },
+        ],
+      })
+    );
+    const { code, stderr } = await runCli(["--judge", deckPath], { cwd: dir });
+    expect(code).toBe(1);
+    expect(stderr).toMatch(/gate/);
   });
 });
