@@ -1,3 +1,4 @@
+import { createServer } from "node:http";
 import { describe, expect, it, vi } from "vitest";
 import { prefetchDeckImages } from "../src/prefetch-images.js";
 import type { DeckJson } from "../src/deck-types.js";
@@ -14,6 +15,29 @@ function imageDeck(...urls: string[]): DeckJson {
 }
 
 describe("remote image prefetch security", () => {
+  it("makes zero requests to a real loopback sentinel on the default Node path", async () => {
+    let requests = 0;
+    const server = createServer((_request, response) => {
+      requests += 1;
+      response.end("private response");
+    });
+    await new Promise<void>((resolve, reject) => {
+      server.once("error", reject);
+      server.listen(0, "127.0.0.1", resolve);
+    });
+    try {
+      const address = server.address();
+      if (!address || typeof address === "string") throw new Error("Sentinel did not bind TCP");
+      const result = await prefetchDeckImages(
+        imageDeck(`http://127.0.0.1:${address.port}/private.png`)
+      );
+      expect(result.warnings[0]).toContain("not public");
+      expect(requests).toBe(0);
+    } finally {
+      await new Promise<void>((resolve) => server.close(() => resolve()));
+    }
+  });
+
   it("blocks loopback literals and local hostnames before fetch or DNS", async () => {
     const fetchMock = vi.fn();
     const resolver = vi.fn(async () => ["93.184.216.34"]);
