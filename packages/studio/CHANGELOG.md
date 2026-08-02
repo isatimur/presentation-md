@@ -1,5 +1,19 @@
 # @presentation-md/studio
 
+## 1.32.0
+
+### Minor Changes
+
+- 4a7a941: CLI `--list-themes` discovery parity (browse / studio_url / suggested_preview) + Present pace countdown (P).
+
+  Shared `buildThemesDiscoveryList` powers MCP `list_themes` and CLI `--list-themes` / `--browse` / `--json`. Studio + exported HTML Present gain a P-cycled 5–30m pace timer with ahead/behind/over cues.
+
+### Patch Changes
+
+- Updated dependencies [4a7a941]
+  - @presentation-md/core@1.31.0
+  - @presentation-md/export@1.23.32
+
 ## 1.31.1
 
 ### Patch Changes
