@@ -14,13 +14,52 @@
 <main class="deck" data-surface="{{surface}}">
 {{{slides}}}
 </main>
-<div class="nav-hint" aria-hidden="true">← → to navigate</div>
+<div class="nav-hint" aria-hidden="true">← → · B/W · S notes · T timer · ? help</div>
+<div class="pmd-curtain pmd-blackout" id="pmd-blackout" hidden role="status" aria-live="polite" title="Blackout · B or click to restore">
+  <span class="pmd-curtain-hint">Blackout · B or click to restore</span>
+</div>
+<div class="pmd-curtain pmd-whiteout" id="pmd-whiteout" hidden role="status" aria-live="polite" title="Whiteout · W or click to restore">
+  <span class="pmd-curtain-hint">Whiteout · W or click to restore</span>
+</div>
+<aside class="pmd-notes-rail" id="pmd-notes-rail" hidden aria-label="Speaker notes">
+  <div class="pmd-notes-label">Speaker notes · S to hide</div>
+  <p class="pmd-notes-body" id="pmd-notes-body"></p>
+</aside>
+<div class="pmd-present-bar" id="pmd-present-bar" aria-label="Presenter controls">
+  <span class="pmd-present-count" id="pmd-present-count">1 / 1</span>
+  <span class="pmd-present-timer" id="pmd-present-timer" title="Elapsed · T pause · R reset">0:00</span>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-notes" title="Toggle speaker notes (S)">Notes · S</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-blackout" title="Blackout (B)">Blackout · B</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-whiteout" title="Whiteout (W)">Whiteout · W</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-help" title="Shortcuts (?)">?</button>
+</div>
+<div class="pmd-present-help" id="pmd-present-help" hidden role="dialog" aria-label="Presenter shortcuts">
+  <div class="pmd-present-help-card">
+    <div class="pmd-present-help-head">
+      <span>Shortcuts · ? or Esc</span>
+      <button type="button" class="pmd-present-btn" id="pmd-btn-help-close">Close</button>
+    </div>
+    <ul class="pmd-present-help-list">
+      <li><kbd>← → Space</kbd><span>Previous / next slide</span></li>
+      <li><kbd>1–9</kbd><span>Jump to slide</span></li>
+      <li><kbd>Home / End</kbd><span>First / last slide</span></li>
+      <li><kbd>S</kbd><span>Speaker notes</span></li>
+      <li><kbd>B</kbd><span>Blackout</span></li>
+      <li><kbd>W</kbd><span>Whiteout</span></li>
+      <li><kbd>T</kbd><span>Pause / resume timer</span></li>
+      <li><kbd>R</kbd><span>Reset timer</span></li>
+      <li><kbd>?</kbd><span>Shortcuts</span></li>
+      <li><kbd>Esc</kbd><span>Close overlay</span></li>
+    </ul>
+  </div>
+</div>
 {{{attribution}}}
 {{{deckData}}}
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
   if (!slides.length) return;
+  document.documentElement.classList.add("pmd-live-present");
 
   slides.forEach(function (slide) {
     var kids = slide.querySelectorAll("h1, h2, h3, .eyebrow, .lead, .card, .stat, .quote, .btn, table, .timeline .node");
@@ -42,6 +81,17 @@
     slides.forEach(function (s) { s.classList.add("in-view"); });
   }
 
+  function currentIndex() {
+    var y = window.scrollY || window.pageYOffset;
+    var best = 0;
+    var bestDist = Infinity;
+    for (var i = 0; i < slides.length; i++) {
+      var d = Math.abs(slides[i].offsetTop - y);
+      if (d < bestDist) { bestDist = d; best = i; }
+    }
+    return best;
+  }
+
   function go(delta) {
     var y = window.scrollY || window.pageYOffset;
     var target = null;
@@ -56,27 +106,215 @@
     }
     if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
   }
+
+  function jumpTo(index) {
+    var i = Math.max(0, Math.min(slides.length - 1, index));
+    setBlackout(false);
+    setWhiteout(false);
+    setHelp(false);
+    slides[i].scrollIntoView({ behavior: "smooth", block: "center" });
+    syncUi();
+  }
+
+  var notesBySlide = [];
+  try {
+    var deckEl = document.getElementById("pmd-deck") || document.getElementById("psp-deck");
+    if (deckEl && deckEl.textContent) {
+      var deck = JSON.parse(deckEl.textContent);
+      if (deck && Array.isArray(deck.slides)) {
+        notesBySlide = deck.slides.map(function (s) {
+          return s && typeof s.notes === "string" ? s.notes.trim() : "";
+        });
+      }
+    }
+  } catch (err) { /* ignore malformed embed */ }
+
+  var blackoutEl = document.getElementById("pmd-blackout");
+  var whiteoutEl = document.getElementById("pmd-whiteout");
+  var notesRail = document.getElementById("pmd-notes-rail");
+  var notesBody = document.getElementById("pmd-notes-body");
+  var helpEl = document.getElementById("pmd-present-help");
+  var countEl = document.getElementById("pmd-present-count");
+  var timerEl = document.getElementById("pmd-present-timer");
+  var btnNotes = document.getElementById("pmd-btn-notes");
+  var btnBlackout = document.getElementById("pmd-btn-blackout");
+  var btnWhiteout = document.getElementById("pmd-btn-whiteout");
+  var btnHelp = document.getElementById("pmd-btn-help");
+  var btnHelpClose = document.getElementById("pmd-btn-help-close");
+
+  var showNotes = false;
+  var showHelp = false;
+  var timerRunning = true;
+  var startedAt = Date.now();
+  var accumulated = 0;
+
+  function formatElapsed(ms) {
+    var totalSec = Math.floor(ms / 1000);
+    var m = Math.floor(totalSec / 60);
+    var s = totalSec % 60;
+    return m + ":" + String(s).padStart(2, "0");
+  }
+
+  function elapsedNow() {
+    return accumulated + (timerRunning ? (Date.now() - startedAt) : 0);
+  }
+
+  function setBlackout(on) {
+    if (!blackoutEl) return;
+    if (on) setWhiteout(false);
+    blackoutEl.hidden = !on;
+    if (btnBlackout) btnBlackout.textContent = on ? "Restore · B" : "Blackout · B";
+  }
+
+  function setWhiteout(on) {
+    if (!whiteoutEl) return;
+    if (on) setBlackout(false);
+    whiteoutEl.hidden = !on;
+    if (btnWhiteout) btnWhiteout.textContent = on ? "Restore · W" : "Whiteout · W";
+  }
+
+  function setHelp(on) {
+    showHelp = !!on;
+    if (helpEl) helpEl.hidden = !showHelp;
+  }
+
+  function setNotes(on) {
+    showNotes = !!on;
+    if (notesRail) notesRail.hidden = !showNotes;
+    if (btnNotes) btnNotes.textContent = showNotes ? "Hide notes · S" : "Notes · S";
+    document.documentElement.classList.toggle("pmd-notes-open", showNotes);
+    syncNotes();
+  }
+
+  function syncNotes() {
+    if (!notesBody) return;
+    var idx = currentIndex();
+    var text = notesBySlide[idx] || "";
+    if (text) {
+      notesBody.textContent = text;
+      notesBody.classList.remove("is-empty");
+    } else {
+      notesBody.textContent = notesBySlide.some(Boolean)
+        ? "No notes on this slide."
+        : "No speaker notes in this deck.";
+      notesBody.classList.add("is-empty");
+    }
+  }
+
+  function syncUi() {
+    var idx = currentIndex();
+    if (countEl) countEl.textContent = (idx + 1) + " / " + slides.length;
+    if (timerEl) {
+      timerEl.textContent = formatElapsed(elapsedNow()) + (timerRunning ? "" : " · paused");
+      timerEl.classList.toggle("is-paused", !timerRunning);
+    }
+    if (showNotes) syncNotes();
+  }
+
+  function toggleTimer() {
+    if (timerRunning) {
+      accumulated += Date.now() - startedAt;
+      timerRunning = false;
+    } else {
+      startedAt = Date.now();
+      timerRunning = true;
+    }
+    syncUi();
+  }
+
+  function resetTimer() {
+    accumulated = 0;
+    startedAt = Date.now();
+    timerRunning = true;
+    syncUi();
+  }
+
   window.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      if (showHelp) { setHelp(false); return; }
+      if (!blackoutEl.hidden) { setBlackout(false); return; }
+      if (!whiteoutEl.hidden) { setWhiteout(false); return; }
+      if (showNotes) { setNotes(false); return; }
+      return;
+    }
+    if (e.key === "?" || (e.shiftKey && e.key === "/")) {
+      e.preventDefault();
+      setHelp(!showHelp);
+      return;
+    }
+    if (e.key === "b" || e.key === "B") {
+      e.preventDefault();
+      setHelp(false);
+      setBlackout(blackoutEl.hidden);
+      return;
+    }
+    if (e.key === "w" || e.key === "W") {
+      e.preventDefault();
+      setHelp(false);
+      setWhiteout(whiteoutEl.hidden);
+      return;
+    }
+    if (e.key === "s" || e.key === "S") {
+      e.preventDefault();
+      setNotes(!showNotes);
+      return;
+    }
+    if (e.key === "t" || e.key === "T") {
+      e.preventDefault();
+      toggleTimer();
+      return;
+    }
+    if (e.key === "r" || e.key === "R") {
+      e.preventDefault();
+      resetTimer();
+      return;
+    }
+    if (showHelp) return;
+    if (/^[1-9]$/.test(e.key)) {
+      e.preventDefault();
+      var target = Number(e.key) - 1;
+      if (target < slides.length) jumpTo(target);
+      return;
+    }
     if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
       e.preventDefault();
+      setBlackout(false);
+      setWhiteout(false);
       go(1);
     } else if (e.key === "ArrowUp" || e.key === "ArrowLeft" || e.key === "PageUp") {
       e.preventDefault();
+      setBlackout(false);
+      setWhiteout(false);
       go(-1);
     } else if (e.key === "Home") {
       e.preventDefault();
-      slides[0].scrollIntoView({ behavior: "smooth", block: "center" });
+      jumpTo(0);
     } else if (e.key === "End") {
       e.preventDefault();
-      slides[slides.length - 1].scrollIntoView({ behavior: "smooth", block: "center" });
+      jumpTo(slides.length - 1);
     }
   });
+
+  if (blackoutEl) blackoutEl.addEventListener("click", function () { setBlackout(false); });
+  if (whiteoutEl) whiteoutEl.addEventListener("click", function () { setWhiteout(false); });
+  if (btnNotes) btnNotes.addEventListener("click", function () { setNotes(!showNotes); });
+  if (btnBlackout) btnBlackout.addEventListener("click", function () { setBlackout(blackoutEl.hidden); });
+  if (btnWhiteout) btnWhiteout.addEventListener("click", function () { setWhiteout(whiteoutEl.hidden); });
+  if (btnHelp) btnHelp.addEventListener("click", function () { setHelp(!showHelp); });
+  if (btnHelpClose) btnHelpClose.addEventListener("click", function () { setHelp(false); });
+  if (timerEl) timerEl.addEventListener("dblclick", resetTimer);
+
+  window.addEventListener("scroll", function () { syncUi(); }, { passive: true });
+  setInterval(function () { if (timerRunning) syncUi(); }, 500);
+  syncUi();
 
   /* T2/T3 screenshot harness — #__shot=N scrolls slide N into view and forces reveals */
   var shot = location.hash.match(/__shot=(\d+)/);
   if (shot) {
     var si = +shot[1] - 1;
     slides.forEach(function (s) { s.classList.add("in-view"); });
+    document.documentElement.classList.add("pmd-shot-mode");
     if (slides[si]) {
       document.documentElement.style.scrollSnapType = "none";
       slides[si].scrollIntoView({ behavior: "instant", block: "start" });

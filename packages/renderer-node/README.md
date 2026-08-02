@@ -2,6 +2,8 @@
 
 Turns a [deck JSON spec](../../packages/core/references/deck-schema.md) into a polished,
 self-contained HTML slide deck — no build step, no external assets beyond Google Fonts.
+Exported HTML includes Present chrome (blackout/whiteout, speaker notes from `#pmd-deck`,
+elapsed timer, digit jump) so agents can hand off a presentable file without Studio.
 
 ## Install
 

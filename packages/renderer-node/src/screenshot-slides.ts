@@ -119,7 +119,7 @@ html{scroll-snap-type:none !important;}
 .slide{min-height:100vh !important;height:100vh !important;}
 .reveal{opacity:1 !important;transform:none !important;animation:none !important;}
 .slide .reveal,.slide.in-view .reveal{opacity:1 !important;}
-.nav-hint,.pmd-attribution{display:none !important;}
+.nav-hint,.pmd-attribution,.pmd-present-bar,.pmd-notes-rail,.pmd-curtain,.pmd-present-help{display:none !important;}
 </style>`;
   return `<!doctype html><html>${head}${forceCss}<body>${openDeck}${slideOuterHtml}</main>
 <script>document.querySelectorAll(".slide,.reveal").forEach(function(el){el.classList.add("in-view");});</script>

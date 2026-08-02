@@ -112,7 +112,8 @@ describe("renderDeck", () => {
 
   it("omits the embedded source when embedSource is false", async () => {
     const html = await renderDeck(MINIMAL_DECK, { embedSource: false });
-    expect(html).not.toContain("pmd-deck");
+    // Present chrome JS still references the id; the JSON <script> payload must be absent.
+    expect(html).not.toMatch(/<script[^>]*id=["']pmd-deck["']/i);
   });
 
   it("renders title layout without throwing", async () => {
@@ -470,5 +471,25 @@ describe("renderDeck", () => {
     expect(html).toContain("ArrowRight");
     expect(html).toContain("prefers-reduced-motion");
     expect(html).toContain("pmd-fade-up");
+  });
+
+  it("embeds Present chrome (blackout/whiteout/notes/timer) reading #pmd-deck notes", async () => {
+    const deck = JSON.stringify({
+      type: "deck",
+      meta: { title: "Present chrome", theme: "default-tech" },
+      slides: [
+        { layout: "title", heading: "One", notes: "Hold for the room." },
+        { layout: "closing", heading: "Two", notes: "Ask for the trial." },
+      ],
+    });
+    const html = await renderDeck(deck);
+    expect(html).toContain('id="pmd-blackout"');
+    expect(html).toContain('id="pmd-whiteout"');
+    expect(html).toContain('id="pmd-notes-rail"');
+    expect(html).toContain('id="pmd-present-timer"');
+    expect(html).toContain("Hold for the room.");
+    expect(html).toContain('getElementById("pmd-deck")');
+    expect(html).toContain("pmd-shot-mode");
+    expect(html).toContain("pmd-live-present");
   });
 });
