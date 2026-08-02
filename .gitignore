@@ -16,3 +16,4 @@ web/.vercel/
 packages/mcp-server/mcp-export-test-*/
 packages/mcp-server/import-pptx-test-*/
 packages/mcp-server/pmd-preview-*/
+.vercel
