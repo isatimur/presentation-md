@@ -1,8 +1,9 @@
 import { describe, it, expect, afterEach } from "vitest";
-import { mkdtemp, rm, writeFile, readFile } from "node:fs/promises";
+import { mkdtemp, rm, truncate, writeFile, readFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { loadTheme } from "@presentation-md/core";
 import { deckToPptxBuffer } from "@presentation-md/export";
+import { MAX_COMPRESSED_BYTES } from "@presentation-md/export/import";
 import { importPptxTool } from "../src/tools/import-pptx.js";
 
 describe("import_pptx tool", () => {
@@ -35,6 +36,17 @@ describe("import_pptx tool", () => {
     const txt = join(dir, "notes.txt");
     await writeFile(txt, "hi");
     await expect(importPptxTool.handler({ pptx_path: txt })).rejects.toThrow(/\.pptx/i);
+  });
+
+  it("rejects oversized path input before reading it into memory", async () => {
+    const dir = await tempDir();
+    const pptxPath = join(dir, "oversized.pptx");
+    await writeFile(pptxPath, "PK\x03\x04");
+    await truncate(pptxPath, MAX_COMPRESSED_BYTES + 1);
+
+    await expect(importPptxTool.handler({ pptx_path: pptxPath })).rejects.toThrow(
+      /compressed size exceeds/i
+    );
   });
 
   it("imports a pptx via path and returns a valid deck", async () => {

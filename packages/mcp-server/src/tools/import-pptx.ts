@@ -1,6 +1,6 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import { dirname, extname } from "node:path";
-import { pptxToDeck } from "@presentation-md/export/import";
+import { assertZipArchiveSafe, pptxToDeck } from "@presentation-md/export/import";
 import type { ToolDefinition } from "../server.js";
 import { assertExistingPathInCwd, assertWritablePathInCwd } from "../lib/cwd-path.js";
 
@@ -52,8 +52,13 @@ export const importPptxTool: ToolDefinition = {
     let buffer: Buffer;
     if (pptxPath) {
       const safePath = await assertPptxPathInCwd(pptxPath);
+      const file = await stat(safePath);
+      assertZipArchiveSafe(file.size);
       buffer = await readFile(safePath);
     } else {
+      // Check the decoded upper bound before allocating another large buffer.
+      // Node may overestimate malformed base64, which is safe for this limit.
+      assertZipArchiveSafe(Buffer.byteLength(pptxBase64!, "base64"));
       buffer = Buffer.from(pptxBase64!, "base64");
       if (buffer.length < 4 || buffer[0] !== 0x50 || buffer[1] !== 0x4b) {
         throw new Error("'pptx_base64' does not look like a valid PPTX (ZIP) file.");

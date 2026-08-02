@@ -6,6 +6,21 @@ import { extractPptx } from "../src/import/index.js";
 
 const themesDir = resolve(__dirname, "../../core/themes");
 
+function corruptEntryData(zipBytes: Buffer, entryName: string): Buffer {
+  const bytes = Buffer.from(zipBytes);
+  const name = Buffer.from(entryName);
+  const nameOffset = bytes.indexOf(name);
+  const headerOffset = nameOffset - 30;
+  if (nameOffset < 0 || headerOffset < 0 || bytes.readUInt32LE(headerOffset) !== 0x04034b50) {
+    throw new Error(`Could not find local ZIP entry header for ${entryName}`);
+  }
+  const nameLength = bytes.readUInt16LE(headerOffset + 26);
+  const extraLength = bytes.readUInt16LE(headerOffset + 28);
+  const dataOffset = headerOffset + 30 + nameLength + extraLength;
+  bytes[dataOffset] = (bytes[dataOffset] ?? 0) ^ 0xff;
+  return bytes;
+}
+
 describe("extractPptx", () => {
   it("extracts titles and tables from an exported deck", async () => {
     const theme = await loadTheme("default-tech", { themesDir });
@@ -50,6 +65,22 @@ describe("extractPptx", () => {
     await expect(extractPptx(buf)).rejects.toThrow(/No slides found/i);
   });
 
+  it("verifies CRC while reading a bounded entry", async () => {
+    const JSZip = (await import("jszip")).default;
+    const zip = new JSZip();
+    zip.file(
+      "[Content_Types].xml",
+      `<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"></Types>`
+    );
+    zip.file(
+      "ppt/presentation.xml",
+      `<?xml version="1.0"?><presentation xmlns="http://schemas.openxmlformats.org/presentationml/2006/main"><sldIdLst/></presentation>`
+    );
+    const buf = await zip.generateAsync({ type: "nodebuffer", compression: "STORE" });
+    const corrupted = corruptEntryData(buf, "[Content_Types].xml");
+    await expect(extractPptx(corrupted)).rejects.toThrow(/CRC32 mismatch/i);
+  });
+
   it("rejects oversized media blobs during extract", async () => {
     const JSZip = (await import("jszip")).default;
     const { MAX_MEDIA_BYTES } = await import("../src/import/zip-limits.js");
@@ -89,7 +120,14 @@ describe("extractPptx", () => {
       </Relationships>`
     );
     zip.file("ppt/media/huge.bin", Buffer.alloc(MAX_MEDIA_BYTES + 1, 1));
-    const buf = await zip.generateAsync({ type: "nodebuffer" });
-    await expect(extractPptx(buf)).rejects.toThrow(/Media blob exceeds/i);
+    const buf = await zip.generateAsync({
+      type: "nodebuffer",
+      compression: "DEFLATE",
+      compressionOptions: { level: 9 },
+    });
+    // If JSZip eagerly inflates for CRC before our central-directory preflight,
+    // this corrupted deflate stream fails first. The size gate must win.
+    const corrupted = corruptEntryData(buf, "ppt/media/huge.bin");
+    await expect(extractPptx(corrupted)).rejects.toThrow(/Media blob exceeds/i);
   });
 });

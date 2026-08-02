@@ -1,11 +1,12 @@
 import { describe, it, expect, beforeAll, afterEach } from "vitest";
 import { spawn } from "node:child_process";
-import { access, mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
+import { access, mkdtemp, readFile, readdir, rm, truncate, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadTheme } from "@presentation-md/core";
 import { deckToPptxBuffer } from "@presentation-md/export";
+import { MAX_COMPRESSED_BYTES } from "@presentation-md/export/import";
 import { buildProgram } from "../src/cli.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -364,6 +365,17 @@ describe("presentation-md-render CLI flags", () => {
     const { code, stderr } = await runCli(["--from-pptx", txt], { cwd: dir });
     expect(code).toBe(1);
     expect(stderr).toMatch(/requires a \.pptx file/i);
+  });
+
+  it("--from-pptx rejects oversized input before reading it into memory", async () => {
+    const dir = await tempDir();
+    const pptxPath = join(dir, "oversized.pptx");
+    await writeFile(pptxPath, "PK\x03\x04");
+    await truncate(pptxPath, MAX_COMPRESSED_BYTES + 1);
+
+    const { code, stderr } = await runCli(["--from-pptx", pptxPath], { cwd: dir });
+    expect(code).toBe(1);
+    expect(stderr).toMatch(/compressed size exceeds/i);
   });
 
   it("--from-pptx imports PowerPoint to deck JSON", async () => {

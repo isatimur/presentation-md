@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { realpathSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -7,7 +7,7 @@ import { dirname, extname, join, resolve } from "node:path";
 import { Command } from "commander";
 import { renderDeck, renderDeckPptx, renderDeckPdf, getBundledThemesDir } from "./index.js";
 import { discoverInstalledThemes, markdownToDeck, deckToMarkdown, notesHandoutTxt, notesHandoutVtt, scaffoldDeck, listScaffoldPurposes, resolveScaffoldPurpose, auditCraft, repairCraft, remorphDensity, studioShareLink, isShareDeck, buildGenerateDeckPrompt, judgeDeckJson, validateDeckJson, type ScaffoldPurpose, type DensityMode } from "@presentation-md/core";
-import { pptxToDeck } from "@presentation-md/export/import";
+import { assertZipArchiveSafe, pptxToDeck } from "@presentation-md/export/import";
 import {
   buildLayoutsPreviewDeck,
   buildTitlePreviewDeck,
@@ -386,6 +386,8 @@ export function buildProgram(): Command {
           process.exit(1);
         }
         try {
+          const file = await stat(pptxPath);
+          assertZipArchiveSafe(file.size);
           const buf = await readFile(pptxPath);
           const { deck, warnings } = await pptxToDeck(buf, {
             theme: options.theme,

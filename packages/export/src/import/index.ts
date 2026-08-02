@@ -13,6 +13,7 @@ export type {
 
 export { extractPptx } from "./extract.js";
 export { mapExtractedToDeck } from "./map.js";
+export { MAX_COMPRESSED_BYTES, assertZipArchiveSafe } from "./zip-limits.js";
 
 export async function pptxToDeck(
   input: Uint8Array | Buffer,
