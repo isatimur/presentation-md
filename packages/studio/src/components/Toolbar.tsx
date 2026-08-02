@@ -703,7 +703,6 @@ export function Toolbar({
       },
     ],
     // Handlers close over latest deck/html; rebuild when those change.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [deck, html, onPresent, onGenerate, onUndo, onRedo]
   );
 
