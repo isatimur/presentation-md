@@ -1,5 +1,18 @@
 # @presentation-md/render
 
+## 1.15.1
+
+### Patch Changes
+
+- 8056710: Stronger non-LLM density remorph: bullet-wall two-column → feature-grid + stat-row caps.
+
+  Speaker remorph morphs clear bullet/numbered prose walls into feature-grid cards (then splits by existing caps); adds stat-row speaker caps. CLI/MCP remorph_density pick up the core change.
+
+- Updated dependencies [b17bc3a]
+- Updated dependencies [8056710]
+  - @presentation-md/export@1.23.30
+  - @presentation-md/core@1.30.0
+
 ## 1.15.0
 
 ### Minor Changes

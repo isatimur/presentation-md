@@ -1,5 +1,16 @@
 # @presentation-md/export
 
+## 1.23.30
+
+### Patch Changes
+
+- b17bc3a: Stream PPTX zip inflate with per-chunk bounds + CRC32 (no eager checkCRC32 bomb).
+
+  Reject oversized archives before JSZip parse; verify CRC while streaming so zip-bomb limits stay effective.
+
+- Updated dependencies [8056710]
+  - @presentation-md/core@1.30.0
+
 ## 1.23.29
 
 ### Patch Changes
