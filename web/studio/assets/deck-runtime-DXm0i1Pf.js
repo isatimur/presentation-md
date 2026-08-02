@@ -48,7 +48,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     </div>
   </div>
 </section>
-`,q=`<section class="slide custom-html-slide" data-layout="custom-html">
+`,E=`<section class="slide custom-html-slide" data-layout="custom-html">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -70,7 +70,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     </tbody>
   </table>
 </section>
-`,_=`<section class="slide feature-grid-slide" data-layout="feature-grid">
+`,q=`<section class="slide feature-grid-slide" data-layout="feature-grid">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <div class="grid cols-{{columns}}">
@@ -83,7 +83,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/cards}}
   </div>
 </section>
-`,D=`<section class="slide image-hero-slide" data-layout="image-hero">
+`,_=`<section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
     {{#image}}<img src="{{image}}" alt="{{imageAlt}}" />{{/image}}
     <div class="image-hero-scrim"></div>
@@ -94,7 +94,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
   </div>
 </section>
-`,F=`<section class="slide logo-wall-slide" data-layout="logo-wall">
+`,D=`<section class="slide logo-wall-slide" data-layout="logo-wall">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -113,7 +113,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/cards}}
   </div>
 </section>
-`,E=`<section class="slide metric-ring-slide" data-layout="metric-ring">
+`,S=`<section class="slide metric-ring-slide" data-layout="metric-ring">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <div class="pct-wrap">
@@ -138,7 +138,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     </div>
   </div>
 </section>
-`,C=`<section class="slide quote-slide" data-layout="quote">
+`,B=`<section class="slide quote-slide" data-layout="quote">
   <p class="quote">{{quote}}</p>
   {{#by}}<p class="quote-by">— {{by}}</p>{{/by}}
 </section>
@@ -160,12 +160,12 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/items}}
   </div>
 </section>
-`,j=`<section class="slide section-slide" data-layout="section">
+`,C=`<section class="slide section-slide" data-layout="section">
   {{#number}}<div class="section-number">{{number}}</div>{{/number}}
   <h2>{{heading}}</h2>
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
 </section>
-`,S=`<section class="slide stat-row-slide{{#isHero}} stat-row-hero{{/isHero}}" data-layout="stat-row">
+`,F=`<section class="slide stat-row-slide{{#isHero}} stat-row-hero{{/isHero}}" data-layout="stat-row">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -178,7 +178,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/stats}}
   </div>
 </section>
-`,H=`<section class="slide streak-grid-slide" data-layout="streak-grid">
+`,M=`<section class="slide streak-grid-slide" data-layout="streak-grid">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -189,7 +189,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
   </div>
   {{#body}}<p class="streak-caption">{{body}}</p>{{/body}}
 </section>
-`,P=`<section class="slide timeline-slide" data-layout="timeline">
+`,H=`<section class="slide timeline-slide" data-layout="timeline">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <div class="timeline{{#isVertical}} is-vertical{{/isVertical}}">
@@ -202,12 +202,12 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/steps}}
   </div>
 </section>
-`,L=`<section class="slide title-slide" data-layout="title">
+`,P=`<section class="slide title-slide" data-layout="title">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   <h1>{{heading}}</h1>
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
 </section>
-`,M=`<section class="slide two-column-slide" data-layout="two-column">
+`,j=`<section class="slide two-column-slide" data-layout="two-column">
   <div class="cols{{#ratio}} ratio-{{ratio}}{{/ratio}}{{#reverse}} cols-reverse{{/reverse}}">
     <div class="cols-copy">
       {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
@@ -218,7 +218,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{^image}}{{#aside}}<div class="cols-aside"><p>{{aside}}</p></div>{{/aside}}{{/image}}
   </div>
 </section>
-`,O=`/* presentation-md base stylesheet.
+`,L=`/* presentation-md base stylesheet.
    Theme tokens are injected via the :root block below. Layout fragments in
    ./layouts/*.html consume these CSS variables and class names. */
 
@@ -1116,9 +1116,9 @@ tbody tr:hover td {
 .nav-hint {
   position: fixed;
   right: 20px;
-  bottom: 18px;
+  bottom: 62px;
   z-index: 40;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
@@ -1129,6 +1129,180 @@ tbody tr:hover td {
   backdrop-filter: blur(8px);
   pointer-events: none;
   opacity: 0.85;
+}
+
+/* Exported-HTML Present chrome (parity subset of Studio Present — no laser/ink).
+   Hidden until the inline script marks html.pmd-live-present — keeps Studio's
+   sandboxed (no-scripts) preview free of dead controls. */
+.pmd-curtain,
+.pmd-notes-rail,
+.pmd-present-bar,
+.pmd-present-help {
+  display: none;
+}
+html.pmd-live-present .pmd-curtain,
+html.pmd-live-present .pmd-notes-rail,
+html.pmd-live-present .pmd-present-bar,
+html.pmd-live-present .pmd-present-help {
+  display: flex;
+}
+html.pmd-live-present .pmd-notes-rail { display: block; }
+html.pmd-live-present .pmd-present-bar { display: flex; }
+
+.pmd-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  align-items: flex-end;
+  justify-content: center;
+  cursor: pointer;
+}
+.pmd-curtain[hidden] { display: none !important; }
+.pmd-blackout { background: #000; }
+.pmd-whiteout { background: #fff; }
+.pmd-curtain-hint {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 16px;
+  color: #6b7280;
+}
+.pmd-whiteout .pmd-curtain-hint { color: #9ca3af; }
+
+.pmd-notes-rail {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 48px;
+  width: min(340px, 34vw);
+  z-index: 50;
+  background: #111827;
+  color: #e8eef4;
+  border-left: 1px solid rgba(232, 238, 244, 0.12);
+  padding: 18px 16px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+.pmd-notes-rail[hidden] { display: none !important; }
+.pmd-notes-label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+.pmd-notes-body {
+  font-size: 15px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  margin: 0;
+}
+.pmd-notes-body.is-empty { color: #6b7280; font-size: 13px; }
+html.pmd-notes-open .nav-hint { right: calc(min(340px, 34vw) + 16px); }
+
+.pmd-present-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 8px 14px;
+  background: rgba(11, 18, 32, 0.92);
+  color: #e8eef4;
+  border-top: 1px solid rgba(232, 238, 244, 0.12);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 13px;
+}
+.pmd-present-count { min-width: 64px; font-variant-numeric: tabular-nums; }
+.pmd-present-timer {
+  min-width: 72px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  cursor: default;
+}
+.pmd-present-timer.is-paused { color: #f59e0b; }
+.pmd-present-timer.is-ahead { color: #2dd4bf; }
+.pmd-present-timer.is-behind { color: #fb7185; }
+.pmd-present-timer.is-over { color: #f87171; font-weight: 600; }
+.pmd-present-btn {
+  appearance: none;
+  border: 1px solid rgba(232, 238, 244, 0.18);
+  background: transparent;
+  color: inherit;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font: inherit;
+  cursor: pointer;
+}
+.pmd-present-btn:hover { background: rgba(232, 238, 244, 0.08); }
+
+.pmd-present-help {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgba(11, 18, 32, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.pmd-present-help[hidden] { display: none !important; }
+.pmd-present-help-card {
+  width: min(440px, 100%);
+  background: #111827;
+  color: #e8eef4;
+  border: 1px solid rgba(232, 238, 244, 0.14);
+  border-radius: 12px;
+  padding: 16px 18px 18px;
+}
+.pmd-present-help-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+.pmd-present-help-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.pmd-present-help-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+}
+.pmd-present-help-list kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(232, 238, 244, 0.18);
+  background: rgba(232, 238, 244, 0.06);
+  white-space: nowrap;
+}
+
+html.pmd-shot-mode .nav-hint,
+html.pmd-shot-mode .pmd-present-bar,
+html.pmd-shot-mode .pmd-notes-rail,
+html.pmd-shot-mode .pmd-curtain,
+html.pmd-shot-mode .pmd-present-help {
+  display: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1152,9 +1326,13 @@ tbody tr:hover td {
     width: 100vw;
     animation: none !important;
   }
-  .nav-hint { display: none !important; }
+  .nav-hint,
+  .pmd-present-bar,
+  .pmd-notes-rail,
+  .pmd-curtain,
+  .pmd-present-help { display: none !important; }
 }
-`,B=`/* Per-theme surface profiles — each theme gets a distinct stage, not one shared blob. */
+`,R=`/* Per-theme surface profiles — each theme gets a distinct stage, not one shared blob. */
 
 .deck[data-surface] .slide {
   background: var(--slide-bg, radial-gradient(125% 125% at 0% 0%, var(--bg-2), var(--bg)));
@@ -6230,7 +6408,7 @@ tbody tr:hover td {
   border-top: 1px solid var(--accent);
   padding-top: 16px;
 }
-`,a="warm-paper",n="clean-light",e="soft-bento",r="bauhaus-blocks",t="vapor-horizon",o="hygge-soft",d="blueprint-grid",c="glass-mist",i="newsprint-masthead",s="vellum-colorfield",l="broadside-fire",p="signal-briefing",b="coral-hatch",f="capsule-pills",g="studio-acid",u="grove-monograph",x="scatterbrain-cork",h="mat-woodglow",k="cartesian-draft",m="monochrome-ledger",G={claude:a,"default-tech":"neon-glow",corporate:n,playful:e,"luxury-minimalist":"quiet-luxe","retro-arcade":"scanline-neon","editorial-serif":"editorial-rule","brutalist-mono":"brutalist-grid","pastel-dreamy":"pastel-cloud","aurora-glass":"aurora-glass","ft-editorial":"broadsheet-rule","genz-bento":"hard-bento","crt-terminal":"crt-phosphor","swiss-typographic":"swiss-grid","candy-pop":"candy-blob","aerospace-hud":"hud-grid","brutalist-acid":"acid-block",bauhaus:r,"y2k-aero":"aero-bubble","risograph-zine":"riso-print","neon-noir":"neon-rain",vaporwave:t,"botanical-luxe":"botanical-leaf","heritage-editorial":"heritage-wash","fintech-clean":"fintech-soft","developer-dark":"dev-terminal","data-editorial":"data-rule",scandinavian:o,"art-deco":"deco-fan","kinetic-wrapped":"wrapped-block",blueprint:d,glassmorphism:c,broadsheet:i,"soft-editorial":"soft-editorial-paper","editorial-forest":"editorial-forest-paper","pin-and-paper":"pin-paper-pad",vellum:s,"neo-grid-bold":"neo-grid-panels","editorial-tri-tone":"tri-tone-blocks","creative-mode":"creative-mode-blocks",broadside:l,"bold-signal":"bold-signal-card","notebook-tabs":"notebook-tabs-page","creative-voltage":"creative-voltage-split",signal:p,"electric-studio":"electric-studio-split","dark-botanical":"dark-botanical-bloom","pastel-geometry":"pastel-geometry-pills","split-pastel":"split-pastel-panels","vintage-editorial":"vintage-editorial-geo","paper-ink":"paper-ink-literary","biennale-yellow":"biennale-yellow-sun","bold-poster":"bold-poster-ink",coral:b,"emerald-editorial":"emerald-editorial-masthead","sakura-chroma":"sakura-chroma-cassette","pink-script":"pink-script-afterhours","block-frame":"block-frame-brutal",capsule:f,"cobalt-grid":"cobalt-grid-paper","8-bit-orbit":"bit-orbit-arcade",studio:g,grove:u,scatterbrain:x,"peoples-platform":"peoples-platform-poster","retro-windows":"retro-windows-chrome","raw-grid":"raw-grid-brutal","long-table":"long-table-supper",mat:h,"stencil-tablet":"stencil-tablet-earth",cartesian:k,monochrome:m,"blue-professional":"blue-professional-clean","daisy-days":"daisy-days-pastel","retro-zine":"retro-zine-riso"},Q=`<!doctype html>
+`,n="warm-paper",a="clean-light",e="soft-bento",r="bauhaus-blocks",t="vapor-horizon",o="hygge-soft",d="blueprint-grid",c="glass-mist",i="newsprint-masthead",s="vellum-colorfield",l="broadside-fire",p="signal-briefing",b="coral-hatch",f="capsule-pills",g="studio-acid",u="grove-monograph",x="scatterbrain-cork",h="mat-woodglow",k="cartesian-draft",m="monochrome-ledger",N={claude:n,"default-tech":"neon-glow",corporate:a,playful:e,"luxury-minimalist":"quiet-luxe","retro-arcade":"scanline-neon","editorial-serif":"editorial-rule","brutalist-mono":"brutalist-grid","pastel-dreamy":"pastel-cloud","aurora-glass":"aurora-glass","ft-editorial":"broadsheet-rule","genz-bento":"hard-bento","crt-terminal":"crt-phosphor","swiss-typographic":"swiss-grid","candy-pop":"candy-blob","aerospace-hud":"hud-grid","brutalist-acid":"acid-block",bauhaus:r,"y2k-aero":"aero-bubble","risograph-zine":"riso-print","neon-noir":"neon-rain",vaporwave:t,"botanical-luxe":"botanical-leaf","heritage-editorial":"heritage-wash","fintech-clean":"fintech-soft","developer-dark":"dev-terminal","data-editorial":"data-rule",scandinavian:o,"art-deco":"deco-fan","kinetic-wrapped":"wrapped-block",blueprint:d,glassmorphism:c,broadsheet:i,"soft-editorial":"soft-editorial-paper","editorial-forest":"editorial-forest-paper","pin-and-paper":"pin-paper-pad",vellum:s,"neo-grid-bold":"neo-grid-panels","editorial-tri-tone":"tri-tone-blocks","creative-mode":"creative-mode-blocks",broadside:l,"bold-signal":"bold-signal-card","notebook-tabs":"notebook-tabs-page","creative-voltage":"creative-voltage-split",signal:p,"electric-studio":"electric-studio-split","dark-botanical":"dark-botanical-bloom","pastel-geometry":"pastel-geometry-pills","split-pastel":"split-pastel-panels","vintage-editorial":"vintage-editorial-geo","paper-ink":"paper-ink-literary","biennale-yellow":"biennale-yellow-sun","bold-poster":"bold-poster-ink",coral:b,"emerald-editorial":"emerald-editorial-masthead","sakura-chroma":"sakura-chroma-cassette","pink-script":"pink-script-afterhours","block-frame":"block-frame-brutal",capsule:f,"cobalt-grid":"cobalt-grid-paper","8-bit-orbit":"bit-orbit-arcade",studio:g,grove:u,scatterbrain:x,"peoples-platform":"peoples-platform-poster","retro-windows":"retro-windows-chrome","raw-grid":"raw-grid-brutal","long-table":"long-table-supper",mat:h,"stencil-tablet":"stencil-tablet-earth",cartesian:k,monochrome:m,"blue-professional":"blue-professional-clean","daisy-days":"daisy-days-pastel","retro-zine":"retro-zine-riso"},W=`<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -6246,13 +6424,53 @@ tbody tr:hover td {
 <main class="deck" data-surface="{{surface}}">
 {{{slides}}}
 </main>
-<div class="nav-hint" aria-hidden="true">← → to navigate</div>
+<div class="nav-hint" aria-hidden="true">← → · B/W · S notes · T timer · P pace · ? help</div>
+<div class="pmd-curtain pmd-blackout" id="pmd-blackout" hidden role="status" aria-live="polite" title="Blackout · B or click to restore">
+  <span class="pmd-curtain-hint">Blackout · B or click to restore</span>
+</div>
+<div class="pmd-curtain pmd-whiteout" id="pmd-whiteout" hidden role="status" aria-live="polite" title="Whiteout · W or click to restore">
+  <span class="pmd-curtain-hint">Whiteout · W or click to restore</span>
+</div>
+<aside class="pmd-notes-rail" id="pmd-notes-rail" hidden aria-label="Speaker notes">
+  <div class="pmd-notes-label">Speaker notes · S to hide</div>
+  <p class="pmd-notes-body" id="pmd-notes-body"></p>
+</aside>
+<div class="pmd-present-bar" id="pmd-present-bar" aria-label="Presenter controls">
+  <span class="pmd-present-count" id="pmd-present-count">1 / 1</span>
+  <span class="pmd-present-timer" id="pmd-present-timer" title="Elapsed · P pace · T pause · R reset">0:00</span>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-notes" title="Toggle speaker notes (S)">Notes · S</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-blackout" title="Blackout (B)">Blackout · B</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-whiteout" title="Whiteout (W)">Whiteout · W</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-help" title="Shortcuts (?)">?</button>
+</div>
+<div class="pmd-present-help" id="pmd-present-help" hidden role="dialog" aria-label="Presenter shortcuts">
+  <div class="pmd-present-help-card">
+    <div class="pmd-present-help-head">
+      <span>Shortcuts · ? or Esc</span>
+      <button type="button" class="pmd-present-btn" id="pmd-btn-help-close">Close</button>
+    </div>
+    <ul class="pmd-present-help-list">
+      <li><kbd>← → Space</kbd><span>Previous / next slide</span></li>
+      <li><kbd>1–9</kbd><span>Jump to slide</span></li>
+      <li><kbd>Home / End</kbd><span>First / last slide</span></li>
+      <li><kbd>S</kbd><span>Speaker notes</span></li>
+      <li><kbd>B</kbd><span>Blackout</span></li>
+      <li><kbd>W</kbd><span>Whiteout</span></li>
+      <li><kbd>T</kbd><span>Pause / resume timer</span></li>
+      <li><kbd>R</kbd><span>Reset timer</span></li>
+      <li><kbd>P</kbd><span>Pace target (5–30m countdown)</span></li>
+      <li><kbd>?</kbd><span>Shortcuts</span></li>
+      <li><kbd>Esc</kbd><span>Close overlay</span></li>
+    </ul>
+  </div>
+</div>
 {{{attribution}}}
 {{{deckData}}}
 <script>
 (function () {
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
   if (!slides.length) return;
+  document.documentElement.classList.add("pmd-live-present");
 
   slides.forEach(function (slide) {
     var kids = slide.querySelectorAll("h1, h2, h3, .eyebrow, .lead, .card, .stat, .quote, .btn, table, .timeline .node");
@@ -6274,6 +6492,17 @@ tbody tr:hover td {
     slides.forEach(function (s) { s.classList.add("in-view"); });
   }
 
+  function currentIndex() {
+    var y = window.scrollY || window.pageYOffset;
+    var best = 0;
+    var bestDist = Infinity;
+    for (var i = 0; i < slides.length; i++) {
+      var d = Math.abs(slides[i].offsetTop - y);
+      if (d < bestDist) { bestDist = d; best = i; }
+    }
+    return best;
+  }
+
   function go(delta) {
     var y = window.scrollY || window.pageYOffset;
     var target = null;
@@ -6288,27 +6517,260 @@ tbody tr:hover td {
     }
     if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
   }
+
+  function jumpTo(index) {
+    var i = Math.max(0, Math.min(slides.length - 1, index));
+    setBlackout(false);
+    setWhiteout(false);
+    setHelp(false);
+    slides[i].scrollIntoView({ behavior: "smooth", block: "center" });
+    syncUi();
+  }
+
+  var notesBySlide = [];
+  try {
+    var deckEl = document.getElementById("pmd-deck") || document.getElementById("psp-deck");
+    if (deckEl && deckEl.textContent) {
+      var deck = JSON.parse(deckEl.textContent);
+      if (deck && Array.isArray(deck.slides)) {
+        notesBySlide = deck.slides.map(function (s) {
+          return s && typeof s.notes === "string" ? s.notes.trim() : "";
+        });
+      }
+    }
+  } catch (err) { /* ignore malformed embed */ }
+
+  var blackoutEl = document.getElementById("pmd-blackout");
+  var whiteoutEl = document.getElementById("pmd-whiteout");
+  var notesRail = document.getElementById("pmd-notes-rail");
+  var notesBody = document.getElementById("pmd-notes-body");
+  var helpEl = document.getElementById("pmd-present-help");
+  var countEl = document.getElementById("pmd-present-count");
+  var timerEl = document.getElementById("pmd-present-timer");
+  var btnNotes = document.getElementById("pmd-btn-notes");
+  var btnBlackout = document.getElementById("pmd-btn-blackout");
+  var btnWhiteout = document.getElementById("pmd-btn-whiteout");
+  var btnHelp = document.getElementById("pmd-btn-help");
+  var btnHelpClose = document.getElementById("pmd-btn-help-close");
+
+  var showNotes = false;
+  var showHelp = false;
+  var timerRunning = true;
+  var startedAt = Date.now();
+  var accumulated = 0;
+  var paceMinutes = 0;
+  var PACE_PRESETS = [0, 5, 10, 15, 20, 30];
+
+  function formatElapsed(ms) {
+    var totalSec = Math.floor(Math.abs(ms) / 1000);
+    var m = Math.floor(totalSec / 60);
+    var s = totalSec % 60;
+    return m + ":" + String(s).padStart(2, "0");
+  }
+
+  function elapsedNow() {
+    return accumulated + (timerRunning ? (Date.now() - startedAt) : 0);
+  }
+
+  function paceStatus(elapsedMs, targetMs, slideIndex, slideCount) {
+    if (targetMs <= 0) return "off";
+    if (elapsedMs >= targetMs) return "over";
+    if (slideCount <= 1) return "on-pace";
+    var progress = slideIndex / (slideCount - 1);
+    var expected = Math.min(1, elapsedMs / targetMs);
+    var delta = progress - expected;
+    if (delta > 0.1) return "ahead";
+    if (delta < -0.1) return "behind";
+    return "on-pace";
+  }
+
+  function setBlackout(on) {
+    if (!blackoutEl) return;
+    if (on) setWhiteout(false);
+    blackoutEl.hidden = !on;
+    if (btnBlackout) btnBlackout.textContent = on ? "Restore · B" : "Blackout · B";
+  }
+
+  function setWhiteout(on) {
+    if (!whiteoutEl) return;
+    if (on) setBlackout(false);
+    whiteoutEl.hidden = !on;
+    if (btnWhiteout) btnWhiteout.textContent = on ? "Restore · W" : "Whiteout · W";
+  }
+
+  function setHelp(on) {
+    showHelp = !!on;
+    if (helpEl) helpEl.hidden = !showHelp;
+  }
+
+  function setNotes(on) {
+    showNotes = !!on;
+    if (notesRail) notesRail.hidden = !showNotes;
+    if (btnNotes) btnNotes.textContent = showNotes ? "Hide notes · S" : "Notes · S";
+    document.documentElement.classList.toggle("pmd-notes-open", showNotes);
+    syncNotes();
+  }
+
+  function syncNotes() {
+    if (!notesBody) return;
+    var idx = currentIndex();
+    var text = notesBySlide[idx] || "";
+    if (text) {
+      notesBody.textContent = text;
+      notesBody.classList.remove("is-empty");
+    } else {
+      notesBody.textContent = notesBySlide.some(Boolean)
+        ? "No notes on this slide."
+        : "No speaker notes in this deck.";
+      notesBody.classList.add("is-empty");
+    }
+  }
+
+  function syncUi() {
+    var idx = currentIndex();
+    if (countEl) countEl.textContent = (idx + 1) + " / " + slides.length;
+    if (timerEl) {
+      var elapsed = elapsedNow();
+      var targetMs = paceMinutes > 0 ? paceMinutes * 60 * 1000 : 0;
+      var status = paceStatus(elapsed, targetMs, idx, slides.length);
+      var label = formatElapsed(elapsed);
+      if (targetMs > 0) {
+        if (status === "over") {
+          label += " · OVER";
+        } else {
+          var left = formatElapsed(targetMs - elapsed);
+          var cue = status === "ahead" ? " · ahead" : status === "behind" ? " · behind" : " · on pace";
+          label += " · " + left + " left" + cue;
+        }
+      }
+      if (!timerRunning) label += " · paused";
+      timerEl.textContent = label;
+      timerEl.classList.toggle("is-paused", !timerRunning);
+      timerEl.classList.toggle("is-ahead", status === "ahead");
+      timerEl.classList.toggle("is-behind", status === "behind");
+      timerEl.classList.toggle("is-over", status === "over");
+      timerEl.title = targetMs > 0
+        ? ("Pace " + paceMinutes + "m · P cycle · T pause · R reset")
+        : "Elapsed · P set pace · T pause · R reset";
+    }
+    if (showNotes) syncNotes();
+  }
+
+  function toggleTimer() {
+    if (timerRunning) {
+      accumulated += Date.now() - startedAt;
+      timerRunning = false;
+    } else {
+      startedAt = Date.now();
+      timerRunning = true;
+    }
+    syncUi();
+  }
+
+  function resetTimer() {
+    accumulated = 0;
+    startedAt = Date.now();
+    timerRunning = true;
+    syncUi();
+  }
+
+  function cyclePace() {
+    var idx = PACE_PRESETS.indexOf(paceMinutes);
+    paceMinutes = PACE_PRESETS[(idx < 0 ? 0 : idx + 1) % PACE_PRESETS.length];
+    syncUi();
+  }
+
   window.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      if (showHelp) { setHelp(false); return; }
+      if (!blackoutEl.hidden) { setBlackout(false); return; }
+      if (!whiteoutEl.hidden) { setWhiteout(false); return; }
+      if (showNotes) { setNotes(false); return; }
+      return;
+    }
+    if (e.key === "?" || (e.shiftKey && e.key === "/")) {
+      e.preventDefault();
+      setHelp(!showHelp);
+      return;
+    }
+    if (e.key === "b" || e.key === "B") {
+      e.preventDefault();
+      setHelp(false);
+      setBlackout(blackoutEl.hidden);
+      return;
+    }
+    if (e.key === "w" || e.key === "W") {
+      e.preventDefault();
+      setHelp(false);
+      setWhiteout(whiteoutEl.hidden);
+      return;
+    }
+    if (e.key === "s" || e.key === "S") {
+      e.preventDefault();
+      setNotes(!showNotes);
+      return;
+    }
+    if (e.key === "t" || e.key === "T") {
+      e.preventDefault();
+      toggleTimer();
+      return;
+    }
+    if (e.key === "r" || e.key === "R") {
+      e.preventDefault();
+      resetTimer();
+      return;
+    }
+    if (e.key === "p" || e.key === "P") {
+      e.preventDefault();
+      cyclePace();
+      return;
+    }
+    if (showHelp) return;
+    if (/^[1-9]$/.test(e.key)) {
+      e.preventDefault();
+      var target = Number(e.key) - 1;
+      if (target < slides.length) jumpTo(target);
+      return;
+    }
     if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
       e.preventDefault();
+      setBlackout(false);
+      setWhiteout(false);
       go(1);
     } else if (e.key === "ArrowUp" || e.key === "ArrowLeft" || e.key === "PageUp") {
       e.preventDefault();
+      setBlackout(false);
+      setWhiteout(false);
       go(-1);
     } else if (e.key === "Home") {
       e.preventDefault();
-      slides[0].scrollIntoView({ behavior: "smooth", block: "center" });
+      jumpTo(0);
     } else if (e.key === "End") {
       e.preventDefault();
-      slides[slides.length - 1].scrollIntoView({ behavior: "smooth", block: "center" });
+      jumpTo(slides.length - 1);
     }
   });
+
+  if (blackoutEl) blackoutEl.addEventListener("click", function () { setBlackout(false); });
+  if (whiteoutEl) whiteoutEl.addEventListener("click", function () { setWhiteout(false); });
+  if (btnNotes) btnNotes.addEventListener("click", function () { setNotes(!showNotes); });
+  if (btnBlackout) btnBlackout.addEventListener("click", function () { setBlackout(blackoutEl.hidden); });
+  if (btnWhiteout) btnWhiteout.addEventListener("click", function () { setWhiteout(whiteoutEl.hidden); });
+  if (btnHelp) btnHelp.addEventListener("click", function () { setHelp(!showHelp); });
+  if (btnHelpClose) btnHelpClose.addEventListener("click", function () { setHelp(false); });
+  if (timerEl) timerEl.addEventListener("dblclick", resetTimer);
+
+  window.addEventListener("scroll", function () { syncUi(); }, { passive: true });
+  setInterval(function () { if (timerRunning) syncUi(); }, 500);
+  syncUi();
 
   /* T2/T3 screenshot harness — #__shot=N scrolls slide N into view and forces reveals */
   var shot = location.hash.match(/__shot=(\\d+)/);
   if (shot) {
     var si = +shot[1] - 1;
     slides.forEach(function (s) { s.classList.add("in-view"); });
+    document.documentElement.classList.add("pmd-shot-mode");
     if (slides[si]) {
       document.documentElement.style.scrollSnapType = "none";
       slides[si].scrollIntoView({ behavior: "instant", block: "start" });
@@ -6318,4 +6780,4 @@ tbody tr:hover td {
 <\/script>
 </body>
 </html>
-`;export{M as _,L as a,P as b,H as c,S as d,j as e,T as f,C as g,E as h,F as i,D as j,_ as k,A as l,q as m,z as n,y as o,w as p,v as q,O as r,Q as s,B as t,G as u};
+`;export{j as _,P as a,H as b,M as c,F as d,C as e,T as f,B as g,S as h,D as i,_ as j,q as k,A as l,E as m,z as n,y as o,w as p,v as q,L as r,W as s,R as t,N as u};

@@ -1007,6 +1007,9 @@ html.pmd-notes-open .nav-hint { right: calc(min(340px, 34vw) + 16px); }
   cursor: default;
 }
 .pmd-present-timer.is-paused { color: #f59e0b; }
+.pmd-present-timer.is-ahead { color: #2dd4bf; }
+.pmd-present-timer.is-behind { color: #fb7185; }
+.pmd-present-timer.is-over { color: #f87171; font-weight: 600; }
 .pmd-present-btn {
   appearance: none;
   border: 1px solid rgba(232, 238, 244, 0.18);

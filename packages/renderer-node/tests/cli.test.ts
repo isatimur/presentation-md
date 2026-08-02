@@ -62,6 +62,13 @@ describe("buildProgram", () => {
         "--from-md",
         "--assets-dir",
         "--list-themes",
+        "--browse",
+        "--mood",
+        "--query",
+        "--shortlist",
+        "--list-shortlists",
+        "--list-browse-filters",
+        "--json",
         "--scaffold",
         "--list-scaffold-purposes",
         "--audit",
@@ -112,11 +119,41 @@ describe("presentation-md-render CLI flags", () => {
     return dir;
   }
 
-  it("--list-themes prints bundled themes", async () => {
+  it("--list-themes prints bundled themes with studio/preview links", async () => {
     const { code, stdout } = await runCli(["--list-themes"]);
     expect(code).toBe(0);
     expect(stdout).toMatch(/default-tech@/);
     expect(stdout).toMatch(/\[bundled\]/);
+    expect(stdout).toMatch(/studio: https:\/\/presentation-md\.vercel\.app\/studio\//);
+    expect(stdout).toMatch(/preview: https:\/\/presentation-md\.vercel\.app\/previews\//);
+    expect(stdout).toMatch(/Suggested preview/i);
+  });
+
+  it("--list-themes --browse popular filters + --json emits MCP-shaped payload", async () => {
+    const { code, stdout, stderr } = await runCli([
+      "--list-themes",
+      "--browse",
+      "popular",
+      "--json",
+    ]);
+    expect(stderr).not.toMatch(/^Error:/);
+    expect(code).toBe(0);
+    const payload = JSON.parse(stdout) as {
+      browse?: string;
+      themes: Array<{ name: string; studio_url?: string; preview_url?: string }>;
+      suggested_preview?: { themes: string[] };
+    };
+    expect(payload.browse).toBe("popular");
+    expect(payload.themes.length).toBeGreaterThan(0);
+    expect(payload.themes.every((t) => t.studio_url && t.preview_url)).toBe(true);
+    expect(payload.suggested_preview?.themes.length).toBeGreaterThan(0);
+  });
+
+  it("--list-browse-filters prints mood chips", async () => {
+    const { code, stdout } = await runCli(["--list-browse-filters"]);
+    expect(code).toBe(0);
+    expect(stdout).toMatch(/^popular\t/m);
+    expect(stdout).toMatch(/^editorial\t/m);
   });
 
   it("--preview-compare writes multi-layout craft previews for up to 3 themes", async () => {

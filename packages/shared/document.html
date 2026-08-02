@@ -14,7 +14,7 @@
 <main class="deck" data-surface="{{surface}}">
 {{{slides}}}
 </main>
-<div class="nav-hint" aria-hidden="true">← → · B/W · S notes · T timer · ? help</div>
+<div class="nav-hint" aria-hidden="true">← → · B/W · S notes · T timer · P pace · ? help</div>
 <div class="pmd-curtain pmd-blackout" id="pmd-blackout" hidden role="status" aria-live="polite" title="Blackout · B or click to restore">
   <span class="pmd-curtain-hint">Blackout · B or click to restore</span>
 </div>
@@ -27,7 +27,7 @@
 </aside>
 <div class="pmd-present-bar" id="pmd-present-bar" aria-label="Presenter controls">
   <span class="pmd-present-count" id="pmd-present-count">1 / 1</span>
-  <span class="pmd-present-timer" id="pmd-present-timer" title="Elapsed · T pause · R reset">0:00</span>
+  <span class="pmd-present-timer" id="pmd-present-timer" title="Elapsed · P pace · T pause · R reset">0:00</span>
   <button type="button" class="pmd-present-btn" id="pmd-btn-notes" title="Toggle speaker notes (S)">Notes · S</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-blackout" title="Blackout (B)">Blackout · B</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-whiteout" title="Whiteout (W)">Whiteout · W</button>
@@ -48,6 +48,7 @@
       <li><kbd>W</kbd><span>Whiteout</span></li>
       <li><kbd>T</kbd><span>Pause / resume timer</span></li>
       <li><kbd>R</kbd><span>Reset timer</span></li>
+      <li><kbd>P</kbd><span>Pace target (5–30m countdown)</span></li>
       <li><kbd>?</kbd><span>Shortcuts</span></li>
       <li><kbd>Esc</kbd><span>Close overlay</span></li>
     </ul>
@@ -147,9 +148,11 @@
   var timerRunning = true;
   var startedAt = Date.now();
   var accumulated = 0;
+  var paceMinutes = 0;
+  var PACE_PRESETS = [0, 5, 10, 15, 20, 30];
 
   function formatElapsed(ms) {
-    var totalSec = Math.floor(ms / 1000);
+    var totalSec = Math.floor(Math.abs(ms) / 1000);
     var m = Math.floor(totalSec / 60);
     var s = totalSec % 60;
     return m + ":" + String(s).padStart(2, "0");
@@ -157,6 +160,18 @@
 
   function elapsedNow() {
     return accumulated + (timerRunning ? (Date.now() - startedAt) : 0);
+  }
+
+  function paceStatus(elapsedMs, targetMs, slideIndex, slideCount) {
+    if (targetMs <= 0) return "off";
+    if (elapsedMs >= targetMs) return "over";
+    if (slideCount <= 1) return "on-pace";
+    var progress = slideIndex / (slideCount - 1);
+    var expected = Math.min(1, elapsedMs / targetMs);
+    var delta = progress - expected;
+    if (delta > 0.1) return "ahead";
+    if (delta < -0.1) return "behind";
+    return "on-pace";
   }
 
   function setBlackout(on) {
@@ -205,8 +220,28 @@
     var idx = currentIndex();
     if (countEl) countEl.textContent = (idx + 1) + " / " + slides.length;
     if (timerEl) {
-      timerEl.textContent = formatElapsed(elapsedNow()) + (timerRunning ? "" : " · paused");
+      var elapsed = elapsedNow();
+      var targetMs = paceMinutes > 0 ? paceMinutes * 60 * 1000 : 0;
+      var status = paceStatus(elapsed, targetMs, idx, slides.length);
+      var label = formatElapsed(elapsed);
+      if (targetMs > 0) {
+        if (status === "over") {
+          label += " · OVER";
+        } else {
+          var left = formatElapsed(targetMs - elapsed);
+          var cue = status === "ahead" ? " · ahead" : status === "behind" ? " · behind" : " · on pace";
+          label += " · " + left + " left" + cue;
+        }
+      }
+      if (!timerRunning) label += " · paused";
+      timerEl.textContent = label;
       timerEl.classList.toggle("is-paused", !timerRunning);
+      timerEl.classList.toggle("is-ahead", status === "ahead");
+      timerEl.classList.toggle("is-behind", status === "behind");
+      timerEl.classList.toggle("is-over", status === "over");
+      timerEl.title = targetMs > 0
+        ? ("Pace " + paceMinutes + "m · P cycle · T pause · R reset")
+        : "Elapsed · P set pace · T pause · R reset";
     }
     if (showNotes) syncNotes();
   }
@@ -226,6 +261,12 @@
     accumulated = 0;
     startedAt = Date.now();
     timerRunning = true;
+    syncUi();
+  }
+
+  function cyclePace() {
+    var idx = PACE_PRESETS.indexOf(paceMinutes);
+    paceMinutes = PACE_PRESETS[(idx < 0 ? 0 : idx + 1) % PACE_PRESETS.length];
     syncUi();
   }
 
@@ -268,6 +309,11 @@
     if (e.key === "r" || e.key === "R") {
       e.preventDefault();
       resetTimer();
+      return;
+    }
+    if (e.key === "p" || e.key === "P") {
+      e.preventDefault();
+      cyclePace();
       return;
     }
     if (showHelp) return;

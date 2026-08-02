@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, extname, join, resolve } from "node:path";
 import { Command } from "commander";
 import { renderDeck, renderDeckPptx, renderDeckPdf, getBundledThemesDir } from "./index.js";
-import { discoverInstalledThemes, markdownToDeck, deckToMarkdown, notesHandoutTxt, notesHandoutVtt, scaffoldDeck, listScaffoldPurposes, resolveScaffoldPurpose, auditCraft, repairCraft, remorphDensity, studioShareLink, isShareDeck, buildGenerateDeckPrompt, judgeDeckJson, validateDeckJson, type ScaffoldPurpose, type DensityMode } from "@presentation-md/core";
+import { discoverInstalledThemes, markdownToDeck, deckToMarkdown, notesHandoutTxt, notesHandoutVtt, scaffoldDeck, listScaffoldPurposes, resolveScaffoldPurpose, auditCraft, repairCraft, remorphDensity, studioShareLink, isShareDeck, buildGenerateDeckPrompt, judgeDeckJson, validateDeckJson, buildThemesDiscoveryList, THEME_BROWSE_FILTERS, loadThemeShortlists, sortShortlistsForDiscovery, type ScaffoldPurpose, type DensityMode } from "@presentation-md/core";
 import { assertZipArchiveSafe, pptxToDeck } from "@presentation-md/export/import";
 import {
   buildLayoutsPreviewDeck,
@@ -57,7 +57,35 @@ export function buildProgram(): Command {
     .option("--from-pptx <path>", "import a .pptx file to deck JSON instead of rendering")
     .option("--from-md <path>", "import Marp/md-slides Markdown to deck JSON instead of rendering")
     .option("--assets-dir <dir>", "with --from-pptx, write images to this directory instead of data URIs")
-    .option("--list-themes", "list available themes and exit")
+    .option("--list-themes", "list available themes and exit (MCP list_themes parity)")
+    .option(
+      "--browse <chip>",
+      "with --list-themes, filter by site/Studio mood chip (popular|dark|editorial|neon|…)"
+    )
+    .option(
+      "--mood <keyword>",
+      "with --list-themes, filter by selection-index mood keyword (e.g. editorial)"
+    )
+    .option(
+      "--query <text>",
+      "with --list-themes, free-text filter on name/vibe/description/aliases"
+    )
+    .option(
+      "--shortlist <id>",
+      "with --list-themes, filter to a shortlist id (e.g. core-defaults)"
+    )
+    .option(
+      "--list-shortlists",
+      "print theme shortlist catalog and exit (MCP include_shortlists parity)"
+    )
+    .option(
+      "--list-browse-filters",
+      "print site/Studio mood browse chip ids and exit"
+    )
+    .option(
+      "--json",
+      "with --list-themes / --list-shortlists / --list-browse-filters, emit JSON"
+    )
     .option(
       "--scaffold <purpose>",
       "scaffold Deck JSON from a layout recipe (pitch / launch / wrap / …) and write JSON (MCP scaffold_deck parity)"
@@ -142,6 +170,13 @@ export function buildProgram(): Command {
       fromMd?: string;
       assetsDir?: string;
       listThemes?: boolean;
+      browse?: string;
+      mood?: string;
+      query?: string;
+      shortlist?: string;
+      listShortlists?: boolean;
+      listBrowseFilters?: boolean;
+      json?: boolean;
       scaffold?: string;
       listScaffoldPurposes?: boolean;
       audit?: boolean;
@@ -163,18 +198,100 @@ export function buildProgram(): Command {
       previewShots?: boolean;
       validate?: boolean;
     }) => {
+      if (options.listBrowseFilters) {
+        if (options.json) {
+          process.stdout.write(`${JSON.stringify({ browse_filters: THEME_BROWSE_FILTERS }, null, 2)}\n`);
+        } else {
+          for (const f of THEME_BROWSE_FILTERS) {
+            process.stdout.write(`${f.id}\t${f.label}\n`);
+          }
+        }
+        return;
+      }
+
+      if (options.listShortlists) {
+        const doc = await loadThemeShortlists();
+        const shortlists = sortShortlistsForDiscovery(doc.shortlists);
+        if (options.json) {
+          process.stdout.write(`${JSON.stringify({ shortlists }, null, 2)}\n`);
+        } else {
+          for (const s of shortlists) {
+            const flag = s.popular ? " ★" : "";
+            process.stdout.write(
+              `${s.id}${flag}\t${s.label}\t${s.themes.join(",")}\n`
+            );
+          }
+        }
+        return;
+      }
+
       if (options.listThemes) {
         const themesDir = getBundledThemesDir();
-        const themes = await discoverInstalledThemes({
+        const discovered = await discoverInstalledThemes({
           bundledThemesDir: themesDir,
           nodeModulesRoot: process.cwd(),
         });
-        if (themes.length === 0) {
+        const result = await buildThemesDiscoveryList({
+          discovered: discovered.map((d) => ({
+            name: d.name,
+            version: d.version,
+            source: d.source,
+            description: d.manifest.description,
+            vibe: d.manifest.vibe,
+          })),
+          shortlist: options.shortlist,
+          browse: options.browse,
+          mood: options.mood,
+          query: options.query,
+          includeShortlists: false,
+          includeBrowseFilters: Boolean(options.browse) || options.json === true,
+        });
+
+        if (options.json) {
+          process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+          return;
+        }
+
+        if (result.browse_error) {
+          process.stderr.write(`${result.browse_error}\n`);
+        }
+        if (result.shortlist_error) {
+          process.stderr.write(`${result.shortlist_error}\n`);
+        }
+        if (result.themes.length === 0) {
           process.stdout.write("No themes found.\n");
         } else {
-          for (const t of themes) {
-            process.stdout.write(`${t.name}@${t.version} [${t.source}]\n`);
+          for (const t of result.themes) {
+            const vibe = t.vibe ? ` — ${t.vibe}` : "";
+            process.stdout.write(`${t.name}@${t.version} [${t.source}]${vibe}\n`);
+            process.stdout.write(`  studio: ${t.studio_url}\n`);
+            process.stdout.write(`  preview: ${t.preview_url}\n`);
           }
+        }
+        if (result.suggested_preview) {
+          const sp = result.suggested_preview;
+          const roles = [
+            sp.roles.safe ? `safe=${sp.roles.safe}` : null,
+            sp.roles.bold ? `bold=${sp.roles.bold}` : null,
+            sp.roles.wildcard ? `wildcard=${sp.roles.wildcard}` : null,
+          ]
+            .filter(Boolean)
+            .join(" · ");
+          process.stdout.write(
+            `\nSuggested preview (${sp.themes.join(", ")})${roles ? ` · ${roles}` : ""}\n`
+          );
+          process.stdout.write(`  ${sp.hint}\n`);
+          process.stdout.write(
+            `  Try: presentation-md-render --preview-compare ${sp.themes.join(",")}\n`
+          );
+        }
+        if (result.browse) {
+          process.stdout.write(`\nBrowse filter: ${result.browse}\n`);
+        }
+        if (result.shortlist) {
+          process.stdout.write(
+            `\nShortlist: ${result.shortlist.id} — ${result.shortlist.label}\n`
+          );
         }
         return;
       }

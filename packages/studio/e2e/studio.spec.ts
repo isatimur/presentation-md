@@ -1094,6 +1094,14 @@ test("Present mode shows up-next peek and advances with ArrowRight", async ({ pa
   await expect(page.locator(".present-timer")).toBeVisible();
   await page.keyboard.press("r");
   await expect(page.locator(".present-timer")).toContainText("0:00");
+  await page.keyboard.press("p");
+  await expect(page.locator(".present-timer")).toContainText(/left/);
+  await page.keyboard.press("p"); // 10m
+  await page.keyboard.press("p"); // 15m
+  await page.keyboard.press("p"); // 20m
+  await page.keyboard.press("p"); // 30m
+  await page.keyboard.press("p"); // off
+  await expect(page.locator(".present-timer")).not.toContainText(/left|OVER/);
 
   await page.keyboard.press("g");
   await expect(page.locator(".present-overview")).toBeVisible();

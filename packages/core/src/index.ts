@@ -103,6 +103,13 @@ export type {
   DiscoveryPreviewCandidate,
   DiscoveryPreviewTrio,
 } from "./theme-discovery.js";
+export { buildThemesDiscoveryList } from "./themes-discovery-list.js";
+export type {
+  ThemesDiscoveryThemeProps,
+  ThemesDiscoveryListOptions,
+  ThemesDiscoveryListedTheme,
+  ThemesDiscoveryListResult,
+} from "./themes-discovery-list.js";
 export { relativeLuminance, contrastRatio, hexToRgb, rgbToHex } from "./color.js";
 export {
   MAX_SHARE_TOKEN_CHARS,

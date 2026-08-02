@@ -12,10 +12,32 @@ body { gap: 0 !important; padding: 0 !important; }
 `;
 
 function formatElapsed(ms: number): string {
-  const totalSec = Math.floor(ms / 1000);
+  const totalSec = Math.floor(Math.abs(ms) / 1000);
   const m = Math.floor(totalSec / 60);
   const s = totalSec % 60;
   return `${m}:${s.toString().padStart(2, "0")}`;
+}
+
+/** Minutes presets for Present pace countdown (0 = elapsed-only). */
+const PACE_PRESETS_MIN = [0, 5, 10, 15, 20, 30] as const;
+
+type PaceStatus = "off" | "ahead" | "on-pace" | "behind" | "over";
+
+function paceStatus(
+  elapsedMs: number,
+  targetMs: number,
+  slideIndex: number,
+  slideCount: number
+): PaceStatus {
+  if (targetMs <= 0) return "off";
+  if (elapsedMs >= targetMs) return "over";
+  if (slideCount <= 1) return "on-pace";
+  const progress = slideIndex / (slideCount - 1);
+  const expected = Math.min(1, elapsedMs / targetMs);
+  const delta = progress - expected;
+  if (delta > 0.1) return "ahead";
+  if (delta < -0.1) return "behind";
+  return "on-pace";
 }
 
 const SHORTCUTS: Array<{ keys: string; label: string }> = [
@@ -32,6 +54,7 @@ const SHORTCUTS: Array<{ keys: string; label: string }> = [
   { keys: "W", label: "Whiteout" },
   { keys: "T", label: "Pause / resume timer" },
   { keys: "R", label: "Reset timer" },
+  { keys: "P", label: "Pace target (5–30m countdown)" },
   { keys: "?", label: "Shortcuts" },
   { keys: "Esc", label: "Close overlay / exit" },
 ];
@@ -68,6 +91,7 @@ export function PresentMode({
   const [ink, setInk] = useState(false);
   const [elapsedMs, setElapsedMs] = useState(0);
   const [timerRunning, setTimerRunning] = useState(true);
+  const [paceMinutes, setPaceMinutes] = useState(0);
   const startedAt = useRef(Date.now());
   const accumulated = useRef(0);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -131,6 +155,32 @@ export function PresentMode({
     setElapsedMs(0);
     setTimerRunning(true);
   };
+
+  const cyclePace = () => {
+    setPaceMinutes((prev) => {
+      const idx = PACE_PRESETS_MIN.findIndex((m) => m === prev);
+      const nextIdx = (idx < 0 ? 0 : idx + 1) % PACE_PRESETS_MIN.length;
+      return PACE_PRESETS_MIN[nextIdx] ?? 0;
+    });
+  };
+
+  const targetMs = paceMinutes > 0 ? paceMinutes * 60 * 1000 : 0;
+  const status = paceStatus(elapsedMs, targetMs, i, slideCount);
+  const remainingMs = targetMs > 0 ? targetMs - elapsedMs : 0;
+  const timerLabel = (() => {
+    const elapsed = formatElapsed(elapsedMs);
+    const paused = timerRunning ? "" : " · paused";
+    if (targetMs <= 0) return `${elapsed}${paused}`;
+    if (status === "over") return `${elapsed} · OVER${paused}`;
+    const left = formatElapsed(remainingMs);
+    const cue =
+      status === "ahead" ? " · ahead" : status === "behind" ? " · behind" : " · on pace";
+    return `${elapsed} · ${left} left${cue}${paused}`;
+  })();
+  const timerTitle =
+    targetMs > 0
+      ? `Pace ${paceMinutes}m · P cycle · T pause · R reset · dbl-click reset`
+      : "Elapsed · P set pace · T pause/resume · R reset · dbl-click reset";
 
   const syncInkCanvas = () => {
     const stage = stageRef.current;
@@ -316,6 +366,9 @@ export function PresentMode({
       } else if (e.key === "r" || e.key === "R") {
         e.preventDefault();
         resetTimer();
+      } else if (e.key === "p" || e.key === "P") {
+        e.preventDefault();
+        cyclePace();
       } else if (e.key === "t" || e.key === "T") {
         e.preventDefault();
         if (timerRunning) {
@@ -361,7 +414,7 @@ export function PresentMode({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose, slideCount, blackout, whiteout, laser, ink, timerRunning, showOverview, showHelp]);
+  }, [onClose, slideCount, blackout, whiteout, laser, ink, timerRunning, showOverview, showHelp, paceMinutes]);
 
   useEffect(() => {
     const frame = frameRef.current;
@@ -571,12 +624,19 @@ export function PresentMode({
         <span className="present-count">{i + 1} / {slideCount}</span>
         <button className="btn btn-icon" title="Next (→)" onClick={() => go(1)}>→</button>
         <span
-          className={`present-timer${timerRunning ? "" : " present-timer-paused"}`}
-          title="Elapsed · T pause/resume · R reset"
+          className={`present-timer${timerRunning ? "" : " present-timer-paused"}${
+            status === "ahead"
+              ? " present-timer-ahead"
+              : status === "behind"
+                ? " present-timer-behind"
+                : status === "over"
+                  ? " present-timer-over"
+                  : ""
+          }`}
+          title={timerTitle}
           onDoubleClick={resetTimer}
         >
-          {formatElapsed(elapsedMs)}
-          {timerRunning ? "" : " · paused"}
+          {timerLabel}
         </span>
         <button
           className="btn"

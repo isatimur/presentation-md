@@ -1,18 +1,4 @@
-import {
-  discoverInstalledThemes,
-  loadThemeShortlists,
-  loadThemeSelectionIndex,
-  findShortlist,
-  sortShortlistsForDiscovery,
-  themeMatchesMood,
-  themeMatchesQuery,
-  themeDiscoveryLinks,
-  THEME_BROWSE_FILTERS,
-  isThemeBrowseFilterId,
-  themeMatchesBrowseFilter,
-  pickDiscoveryPreviewTrio,
-  type ThemeBrowseFilterId,
-} from "@presentation-md/core";
+import { buildThemesDiscoveryList, discoverInstalledThemes } from "@presentation-md/core";
 import { getBundledThemesDir } from "@presentation-md/render";
 import type { ToolDefinition } from "../server.js";
 
@@ -56,131 +42,25 @@ export const listThemesTool: ToolDefinition = {
     },
   },
   handler: async (input: Record<string, unknown>) => {
-    const shortlistId =
-      typeof input["shortlist"] === "string" ? input["shortlist"].trim() : "";
-    const browseRaw =
-      typeof input["browse"] === "string" ? input["browse"].trim().toLowerCase() : "";
-    const mood =
-      typeof input["mood"] === "string" ? input["mood"].trim().toLowerCase() : "";
-    const query =
-      typeof input["query"] === "string" ? input["query"].trim().toLowerCase() : "";
-    const includeShortlists = input["include_shortlists"] === true;
-    const includeBrowseFilters = input["include_browse_filters"] === true;
-
-    const browse: ThemeBrowseFilterId | "" =
-      browseRaw && isThemeBrowseFilterId(browseRaw) ? browseRaw : "";
-    const browseInvalid = Boolean(browseRaw) && !browse;
-
-    const [discovered, shortlistsDoc, selectionIndex] = await Promise.all([
-      discoverInstalledThemes({
-        bundledThemesDir: getBundledThemesDir(),
-        nodeModulesRoot: process.cwd(),
-      }),
-      loadThemeShortlists(),
-      loadThemeSelectionIndex(),
-    ]);
-
-    const shortlists = sortShortlistsForDiscovery(shortlistsDoc.shortlists);
-    const selectionByName = new Map(
-      selectionIndex.themes.map((t) => [t.name, t] as const)
-    );
-
-    const matchedShortlist = shortlistId ? findShortlist(shortlistsDoc, shortlistId) : undefined;
-    let allowNames: Set<string> | null = null;
-    if (matchedShortlist) {
-      allowNames = new Set(matchedShortlist.themes);
-    }
-
-    let themes = discovered.map((d) => {
-      const sel = selectionByName.get(d.name);
-      const links = themeDiscoveryLinks(d.name, sel?.gallery);
-      return {
-        name: d.name,
-        version: d.version,
-        description: d.manifest.description,
-        vibe: d.manifest.vibe,
-        source: d.source,
-        mood: sel?.mood,
-        best_for: sel?.best_for,
-        aliases: sel?.aliases,
-        scheme: sel?.scheme,
-        formality: sel?.formality,
-        gallery: sel?.gallery,
-        ...links,
-      };
+    const discovered = await discoverInstalledThemes({
+      bundledThemesDir: getBundledThemesDir(),
+      nodeModulesRoot: process.cwd(),
     });
 
-    if (allowNames) {
-      themes = themes.filter((t) => allowNames!.has(t.name));
-    }
-
-    if (browse && browse !== "all") {
-      themes = themes.filter((t) =>
-        themeMatchesBrowseFilter(
-          {
-            scheme: t.scheme,
-            mood: t.mood,
-            formality: t.formality,
-          },
-          browse,
-          t.name
-        )
-      );
-    }
-
-    if (mood) {
-      themes = themes.filter((t) => themeMatchesMood({ name: t.name, mood: t.mood }, mood));
-    }
-
-    if (query) {
-      themes = themes.filter((t) =>
-        themeMatchesQuery(
-          {
-            name: t.name,
-            vibe: t.vibe,
-            description: t.description,
-            aliases: t.aliases,
-            best_for: t.best_for,
-            mood: t.mood,
-          },
-          query
-        )
-      );
-    }
-
-    const suggested_preview = pickDiscoveryPreviewTrio(
-      themes.map((t) => ({
-        name: t.name,
-        scheme: t.scheme,
-        mood: t.mood,
-        formality: t.formality,
-      }))
-    );
-
-    const result: Record<string, unknown> = {
-      themes,
-      discovery_hint:
-        "Theme Discovery: offer browse chips (list_themes include_browse_filters) or a shortlist (prefer popular:true), use suggested_preview (safe/bold/wildcard) or open studio_url / preview_url, then preview_themes with those 3 names (layouts auto; inline PNGs + studio_share_url for the exact bake — vision show-don't-tell). Lock meta.theme before generating the full deck.",
-    };
-    if (suggested_preview) {
-      result.suggested_preview = suggested_preview;
-    }
-    if (browse) {
-      result.browse = browse;
-    } else if (browseInvalid) {
-      result.browse_error = `Unknown browse chip "${browseRaw}". Call list_themes with include_browse_filters:true for ids (popular/dark/editorial/neon/…).`;
-    }
-    if (matchedShortlist) {
-      result.shortlist = matchedShortlist;
-    } else if (shortlistId) {
-      result.shortlist_error = `Unknown shortlist id "${shortlistId}". Call list_themes with include_shortlists:true to see ids.`;
-    }
-    if (includeShortlists) {
-      result.shortlists = shortlists;
-    }
-    if (includeBrowseFilters || browseInvalid) {
-      result.browse_filters = THEME_BROWSE_FILTERS;
-    }
-    return result;
+    return buildThemesDiscoveryList({
+      discovered: discovered.map((d) => ({
+        name: d.name,
+        version: d.version,
+        source: d.source,
+        description: d.manifest.description,
+        vibe: d.manifest.vibe,
+      })),
+      shortlist: typeof input["shortlist"] === "string" ? input["shortlist"] : undefined,
+      browse: typeof input["browse"] === "string" ? input["browse"] : undefined,
+      mood: typeof input["mood"] === "string" ? input["mood"] : undefined,
+      query: typeof input["query"] === "string" ? input["query"] : undefined,
+      includeShortlists: input["include_shortlists"] === true,
+      includeBrowseFilters: input["include_browse_filters"] === true,
+    });
   },
 };

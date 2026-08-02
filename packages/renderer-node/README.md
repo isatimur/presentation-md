@@ -53,6 +53,10 @@ presentation-md-render --generate-prompt --prompt-intent "Board pack" --prompt-d
 
 # List available themes
 presentation-md-render --list-themes
+presentation-md-render --list-themes --browse popular
+presentation-md-render --list-themes --browse popular --json
+presentation-md-render --list-browse-filters
+presentation-md-render --list-shortlists
 
 # Pick-3 theme compare (multi-layout craft previews — beats title-only skim)
 presentation-md-render --preview-compare aurora-glass,signal,claude

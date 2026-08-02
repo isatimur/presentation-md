@@ -59,7 +59,14 @@ echo '{"type":"deck","meta":{"title":"Test","theme":"retro-arcade"},"slides":[..
 | `--from-pptx <path>` | Import a `.pptx` file to deck JSON instead of rendering |
 | `--from-md <path>` | Import Marp/md-slides Markdown to deck JSON instead of rendering |
 | `--assets-dir <dir>` | With `--from-pptx`, write images to this directory instead of data URIs |
-| `--list-themes` | Print all available themes and exit |
+| `--list-themes` | Print available themes with studio/preview URLs + suggested preview trio (MCP `list_themes` parity) |
+| `--browse <chip>` | With `--list-themes`, filter by mood chip (`popular` / `dark` / `editorial` / …) |
+| `--mood <keyword>` | With `--list-themes`, filter by selection-index mood |
+| `--query <text>` | With `--list-themes`, free-text filter |
+| `--shortlist <id>` | With `--list-themes`, filter to a shortlist |
+| `--list-shortlists` | Print shortlist catalog |
+| `--list-browse-filters` | Print mood browse chip ids |
+| `--json` | With list-* commands, emit JSON |
 | `--preview-compare <themes>` | Write 1–3 multi-layout craft previews + discovery PNGs (comma-separated themes) and exit |
 | `--preview-dir <dir>` | Output dir for `--preview-compare` (default: `.presentation-md/theme-previews`) |
 | `--preview-mode <mode>` | `title` or `layouts` (default) for `--preview-compare` |

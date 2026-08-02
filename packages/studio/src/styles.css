@@ -752,8 +752,12 @@ body {
   text-align: center;
   color: #E8EEF4;
   font-variant-numeric: tabular-nums;
+  cursor: default;
 }
 .present-timer-paused { color: #F59E0B; }
+.present-timer-ahead { color: #2DD4BF; }
+.present-timer-behind { color: #FB7185; }
+.present-timer-over { color: #F87171; font-weight: 600; }
 .present-overview {
   position: absolute;
   inset: 0;
