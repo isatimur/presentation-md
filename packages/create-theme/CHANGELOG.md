@@ -1,5 +1,13 @@
 # @presentation-md/create-theme
 
+## 1.1.29
+
+### Patch Changes
+
+- 69778f3: Dispose Playwright redirect responses in brand-extract route guard.
+
+  Fail-closed redirect hops now dispose intermediate responses before abort/fetch to avoid leaked handles.
+
 ## 1.1.28
 
 ### Patch Changes
