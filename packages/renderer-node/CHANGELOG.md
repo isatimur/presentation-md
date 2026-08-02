@@ -1,5 +1,13 @@
 # @presentation-md/render
 
+## 1.16.0
+
+### Minor Changes
+
+- 1f3547c: Present chrome in exported HTML (B/W, notes, timer, digit jump).
+
+  Agent-delivered decks can present without Studio — blackout/whiteout, speaker notes from `#pmd-deck`, elapsed timer T/R, 1–9 jump, and `?` help. Screenshot/print hide the chrome.
+
 ## 1.15.3
 
 ### Patch Changes
