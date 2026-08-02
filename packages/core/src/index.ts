@@ -104,6 +104,7 @@ export type {
 export { relativeLuminance, contrastRatio, hexToRgb, rgbToHex } from "./color.js";
 export {
   MAX_SHARE_TOKEN_CHARS,
+  MAX_SHARE_JSON_BYTES,
   SHARE_PREFIX,
   DEFAULT_STUDIO_ORIGIN,
   encodeShareDeck,
@@ -113,4 +114,3 @@ export {
   isShareDeck,
 } from "./share-deck.js";
 export type { ShareDeckLike, StudioShareLinkOptions } from "./share-deck.js";
-

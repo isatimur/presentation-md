@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
+import { prepareSandboxedPreviewHtml } from "../render/sandboxPreview.js";
 
 const SLIDE_W = 1280;
 const SLIDE_H = 720;
@@ -57,7 +58,7 @@ export function SlideFilmstrip({
   const srcDoc = useMemo(() => {
     if (!html || count < 1) return null;
     try {
-      return densifyFilmstripHtml(html);
+      return prepareSandboxedPreviewHtml(densifyFilmstripHtml(html));
     } catch {
       return null;
     }
@@ -110,9 +111,26 @@ export function SlideFilmstrip({
             aria-selected={i === selected}
             aria-label={`Slide ${i + 1}`}
             data-filmstrip-i={i}
+            tabIndex={i === selected ? 0 : -1}
             className={`slide-filmstrip-hit${i === selected ? " is-active" : ""}`}
             style={{ left: i * thumbW, width: thumbW, height: FILMSTRIP_THUMB_H }}
             onClick={() => onSelect(i)}
+            onKeyDown={(event) => {
+              let next: number | null = null;
+              if (event.key === "ArrowLeft") next = Math.max(0, i - 1);
+              else if (event.key === "ArrowRight") next = Math.min(count - 1, i + 1);
+              else if (event.key === "Home") next = 0;
+              else if (event.key === "End") next = count - 1;
+              if (next == null) return;
+
+              event.preventDefault();
+              onSelect(next);
+              window.requestAnimationFrame(() => {
+                scrollerRef.current
+                  ?.querySelector<HTMLElement>(`[data-filmstrip-i="${next}"]`)
+                  ?.focus();
+              });
+            }}
           >
             <span className="slide-filmstrip-num">{i + 1}</span>
           </button>

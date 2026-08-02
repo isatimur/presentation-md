@@ -468,6 +468,9 @@ body {
   border-color: color-mix(in srgb, var(--accent) 35%, var(--line-2));
   color: var(--text); font-weight: 600;
 }
+.status-warning { color: var(--danger); font-weight: 650; }
+.recovery-status { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.import-conflict-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
 .text-input {
   background: var(--panel-2); color: var(--text); border: 1px solid var(--line-2);
@@ -484,7 +487,7 @@ body {
   position: relative;
   display: flex; align-items: center; justify-content: space-between;
   padding: 8px 10px 8px 12px; border: 1px solid var(--line); border-radius: 11px;
-  background: var(--panel-2); cursor: pointer; gap: 8px; transition: border-color .12s, background .12s;
+  background: var(--panel-2); gap: 8px; transition: border-color .12s, background .12s;
 }
 .slide-row:hover { border-color: var(--line-2); }
 .slide-row.active { border-color: var(--accent); background: linear-gradient(180deg, #fff, var(--panel)); }
@@ -492,7 +495,13 @@ body {
   content: ""; position: absolute; left: 0; top: 9px; bottom: 9px; width: 2px;
   border-radius: 2px; background: var(--accent);
 }
-.slide-row-main { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1; }
+.slide-row-main {
+  display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1;
+  margin: -8px 0 -8px -12px; padding: 8px 0 8px 12px;
+  border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer;
+  border-radius: 10px 0 0 10px;
+}
+.slide-row-main:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .slide-row-num { color: var(--faint); font-family: var(--mono); font-size: 11px; width: 16px; text-align: right; flex-shrink: 0; }
 .slide-row-text { display: flex; flex-direction: column; min-width: 0; flex: 1; }
 .slide-row-layout { font-size: 10px; color: var(--accent-2); text-transform: uppercase; letter-spacing: 0.09em; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
@@ -505,7 +514,9 @@ body {
 }
 .slide-row-title { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
 .slide-row-actions { display: flex; gap: 3px; opacity: 0; transition: opacity .12s; flex-shrink: 0; }
-.slide-row:hover .slide-row-actions, .slide-row.active .slide-row-actions { opacity: 1; }
+.slide-row:hover .slide-row-actions,
+.slide-row:focus-within .slide-row-actions,
+.slide-row.active .slide-row-actions { opacity: 1; }
 
 /* ── Horizontal densified filmstrip (one iframe) ───────────────────── */
 .slide-filmstrip {
@@ -604,6 +615,10 @@ body {
 .present-overlay {
   position: fixed; inset: 0; z-index: 100; background: #0B1220;
   display: flex; flex-direction: column;
+}
+.present-loading {
+  align-items: center; justify-content: center; color: #E8EEF4;
+  font-family: var(--display); font-size: 18px;
 }
 .present-main { flex: 1; min-height: 0; display: flex; }
 .present-stage { position: relative; flex: 1; min-height: 0; display: flex; min-width: 0; }
@@ -742,7 +757,10 @@ body {
   display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
   padding: 20px 22px 14px; border-bottom: 1px solid var(--line);
 }
-.modal-head strong { font-family: var(--display); font-size: 19px; display: block; letter-spacing: -0.02em; }
+.modal-head h2 {
+  font-family: var(--display); font-size: 19px; font-weight: 700;
+  display: block; margin: 0; letter-spacing: -0.02em;
+}
 .modal-head .small { display: block; margin-top: 3px; }
 .modal-body { padding: 18px 22px 22px; display: flex; flex-direction: column; gap: 14px; }
 .field-label { font-size: 12px; font-weight: 550; color: var(--muted); letter-spacing: 0.02em; }

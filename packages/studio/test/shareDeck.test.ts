@@ -25,6 +25,14 @@ describe("shareDeck", () => {
     expect(await decodeShareDeck("d1.!!!!")).toBeNull();
   });
 
+  it("rejects structurally unsafe decks accepted by the generic core envelope", async () => {
+    const token = await encodeShareDeck({
+      type: "deck",
+      slides: [{ layout: "chart", series: [{ values: "1,2" }] }],
+    } as never);
+    expect(await decodeShareDeck(token)).toBeNull();
+  });
+
   it("reads share tokens from query or hash", () => {
     expect(readShareTokenFromLocation("?d=d1.abc&fresh=1", "")).toBe("d1.abc");
     expect(readShareTokenFromLocation("", "#d=d1.xyz")).toBe("d1.xyz");

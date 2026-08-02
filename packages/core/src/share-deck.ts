@@ -5,6 +5,8 @@
  */
 
 export const MAX_SHARE_TOKEN_CHARS = 28_000;
+/** Bound inflated JSON so a small, highly-compressible token cannot exhaust memory. */
+export const MAX_SHARE_JSON_BYTES = 2 * 1024 * 1024;
 export const SHARE_PREFIX = "d1.";
 export const DEFAULT_STUDIO_ORIGIN = "https://presentation-md.vercel.app";
 
@@ -54,7 +56,31 @@ async function inflateRaw(bytes: Uint8Array): Promise<Uint8Array> {
   }
   const part = new Uint8Array(bytes);
   const stream = new Blob([part]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
-  return new Uint8Array(await new Response(stream).arrayBuffer());
+  const reader = stream.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const chunk = value instanceof Uint8Array ? value : new Uint8Array(value);
+      total += chunk.byteLength;
+      if (total > MAX_SHARE_JSON_BYTES) {
+        await reader.cancel("Inflated share deck exceeds byte limit");
+        throw new Error(`Inflated share deck exceeds ${MAX_SHARE_JSON_BYTES} bytes`);
+      }
+      chunks.push(chunk);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+  const output = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    output.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return output;
 }
 
 function utf8Encode(text: string): Uint8Array {
@@ -75,7 +101,13 @@ export function isShareDeck(value: unknown): value is ShareDeckLike {
 export async function encodeShareDeck(deck: ShareDeckLike): Promise<string> {
   if (!isShareDeck(deck)) throw new Error("Invalid deck — nothing to share");
   const json = JSON.stringify(deck);
-  const compressed = await deflateRaw(utf8Encode(json));
+  const jsonBytes = utf8Encode(json);
+  if (jsonBytes.byteLength > MAX_SHARE_JSON_BYTES) {
+    throw new Error(
+      `Deck too large to share (${jsonBytes.byteLength} bytes; max ${MAX_SHARE_JSON_BYTES})`
+    );
+  }
+  const compressed = await deflateRaw(jsonBytes);
   const token = `${SHARE_PREFIX}${bytesToBase64Url(compressed)}`;
   if (token.length > MAX_SHARE_TOKEN_CHARS) {
     throw new Error(

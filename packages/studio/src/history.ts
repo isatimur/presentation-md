@@ -9,7 +9,44 @@ export type DeckHistory = {
 };
 
 function sameDeck(a: DeckJson, b: DeckJson): boolean {
-  return JSON.stringify(a) === JSON.stringify(b);
+  const pending: Array<[unknown, unknown]> = [[a, b]];
+  const compared = new WeakMap<object, WeakSet<object>>();
+
+  while (pending.length) {
+    const [left, right] = pending.pop()!;
+    if (Object.is(left, right)) continue;
+    if (
+      typeof left !== "object" ||
+      left === null ||
+      typeof right !== "object" ||
+      right === null
+    ) {
+      return false;
+    }
+
+    const leftIsArray = Array.isArray(left);
+    if (leftIsArray !== Array.isArray(right)) return false;
+
+    let seenRight = compared.get(left);
+    if (seenRight?.has(right)) continue;
+    if (!seenRight) {
+      seenRight = new WeakSet<object>();
+      compared.set(left, seenRight);
+    }
+    seenRight.add(right);
+
+    const leftRecord = left as Record<string, unknown>;
+    const rightRecord = right as Record<string, unknown>;
+    const leftKeys = Object.keys(leftRecord);
+    const rightKeys = Object.keys(rightRecord);
+    if (leftKeys.length !== rightKeys.length) return false;
+    for (const key of leftKeys) {
+      if (!Object.prototype.hasOwnProperty.call(rightRecord, key)) return false;
+      pending.push([leftRecord[key], rightRecord[key]]);
+    }
+  }
+
+  return true;
 }
 
 export function createDeckHistory(present: DeckJson): DeckHistory {

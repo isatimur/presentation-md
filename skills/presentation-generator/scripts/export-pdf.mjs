@@ -5,7 +5,9 @@
 // (see SKILL.md "Rendering Guidelines") to paginate one slide per page.
 import { chromium } from "playwright";
 import { readFile } from "node:fs/promises";
+import { dirname } from "node:path";
 import { pathToFileURL } from "node:url";
+import { createPdfRouteGuard } from "./pdf-security.mjs";
 
 const [, , inputPath, outputPath] = process.argv;
 if (!inputPath || !outputPath) {
@@ -23,14 +25,39 @@ const expectedSlides = [...html.matchAll(/class\s*=\s*("[^"]*"|'[^']*')/g)].filt
 
 const browser = await chromium.launch();
 try {
-  const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
-  await page.goto(pathToFileURL(inputPath).href, { waitUntil: "networkidle" });
-  // Force 16:9 print pages so Chromium doesn't fall back to Letter/A4 and
-  // collapse multi-slide decks onto one tall sheet.
-  await page.addStyleTag({
-    content: `@page { size: 1920px 1080px; margin: 0; }`,
+  const context = await browser.newContext({
+    viewport: { width: 1920, height: 1080 },
+    javaScriptEnabled: false,
   });
+  const page = await context.newPage();
+  const guardRoute = createPdfRouteGuard(inputPath);
+  await page.route("**/*", async (route) => {
+    try {
+      await guardRoute(route);
+    } catch {
+      try {
+        await route.abort();
+      } catch {
+        // Request/page may already be gone. Any guard error still fails closed.
+      }
+    }
+  });
+  // With JavaScript disabled, Playwright's DOM-based addStyleTag/evaluate
+  // helpers can stall. Inject the base URL and print CSS into the source
+  // before loading it instead. The base preserves sibling relative assets,
+  // while the route guard confines every resulting file: request.
+  const baseHref = pathToFileURL(`${dirname(inputPath)}/`).href
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;");
+  const printBootstrap = `<base href="${baseHref}"><style>@page { size: 1920px 1080px; margin: 0; }</style>`;
+  const printableHtml = /<head(?:\s[^>]*)?>/i.test(html)
+    ? html.replace(/<head(?:\s[^>]*)?>/i, (head) => `${head}${printBootstrap}`)
+    : `${printBootstrap}${html}`;
+  await page.setContent(printableHtml, { waitUntil: "load", timeout: 60_000 });
   await page.emulateMedia({ media: "print" });
+  // Give decoded images and permitted fonts a short deterministic settle
+  // window without executing page JavaScript.
+  await page.waitForTimeout(500);
   await page.pdf({
     path: outputPath,
     printBackground: true,

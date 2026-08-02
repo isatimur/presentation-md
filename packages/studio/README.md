@@ -6,8 +6,11 @@ schema-driven forms, see a live preview, and export to HTML or **native, editabl
 
 It's a fully **static** Vite + React SPA for hosted builds: rendering and `.pptx` generation happen
 client-side. Local `vite` / `vite preview` also mounts `/api/export-pdf` (headless Chromium) so
-**Download PDF** returns a real `.pdf` blob — same `@page` 16:9 print pipeline as MCP/CLI. On static
-hosts the button falls back to client raster, then the print dialog.
+**Download PDF** returns a real `.pdf` blob — same `@page` 16:9 print pipeline as MCP/CLI, with
+origin checks, HTML size bounds, concurrency limits, and loopback/private-network subresource
+blocking. On static hosts the button falls back to client raster, then the print dialog. Preview
+iframes omit `allow-scripts` (sandboxed HTML strips executable scripts). Autosave is scheduled,
+cross-tab aware, and recovers corrupt storage without silent overwrite.
 
 ## Develop
 

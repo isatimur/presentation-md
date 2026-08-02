@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { restyleSlideHtml } from "./DeckRestylePreview.js";
 import { SlideFilmstrip } from "./SlideFilmstrip.js";
+import { prepareSandboxedPreviewHtml } from "../render/sandboxPreview.js";
 
 // Injected into the deck so each slide fills the viewport and pages cleanly.
 const PRESENT_CSS = `
@@ -41,7 +42,9 @@ export function PresentMode({
   const [timerRunning, setTimerRunning] = useState(true);
   const startedAt = useRef(Date.now());
   const accumulated = useRef(0);
-  const presentHtml = html.replace("</head>", `<style>${PRESENT_CSS}</style></head>`);
+  const presentHtml = prepareSandboxedPreviewHtml(
+    html.replace("</head>", `<style>${PRESENT_CSS}</style></head>`)
+  );
   const currentNotes = (notes[i] ?? "").trim();
   const hasAnyNotes = notes.some((n) => (n ?? "").trim().length > 0);
   const nextIndex = i + 1 < slideCount ? i + 1 : null;
@@ -52,7 +55,7 @@ export function PresentMode({
   const nextPeekHtml = useMemo(() => {
     if (nextIndex == null) return null;
     try {
-      return restyleSlideHtml(html, nextIndex);
+      return prepareSandboxedPreviewHtml(restyleSlideHtml(html, nextIndex));
     } catch {
       return null;
     }
@@ -70,6 +73,7 @@ export function PresentMode({
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (e.defaultPrevented) return;
       if (e.key === "Escape") {
         if (blackout) {
           e.preventDefault();

@@ -8,7 +8,13 @@ const CORE = join(__dirname, "..");
 const SKILL = join(__dirname, "..", "..", "..", "skills", "presentation-generator");
 
 const ROOT_FILES = ["SKILL.md", "deck.schema.json", "theme.schema.json"] as const;
-const SCRIPT_FILES = ["export-pdf.sh", "export-pdf.mjs", "deploy.sh", "package.json"] as const;
+const SCRIPT_FILES = [
+  "export-pdf.sh",
+  "export-pdf.mjs",
+  "pdf-security.mjs",
+  "deploy.sh",
+  "package.json",
+] as const;
 
 function listFiles(dir: string): string[] {
   return readdirSync(dir)

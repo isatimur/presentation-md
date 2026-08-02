@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type { DeckJson } from "@presentation-md/export";
 import {
   canRedo,
@@ -51,6 +51,23 @@ describe("deck history", () => {
     h = pushDeck(h, deck("c"));
     expect(canRedo(h)).toBe(false);
     expect(h.present.meta?.title).toBe("c");
+  });
+
+  it("compares revisions without serializing the entire deck", () => {
+    const initial = deck("large");
+    initial.slides[0]!.body = "x".repeat(2 * 1024 * 1024);
+    const changed = {
+      ...initial,
+      slides: [{ ...initial.slides[0], heading: "Changed" }],
+    };
+    const stringify = vi.spyOn(JSON, "stringify");
+    try {
+      const next = pushDeck(createDeckHistory(initial), changed);
+      expect(next.past).toHaveLength(1);
+      expect(stringify).not.toHaveBeenCalled();
+    } finally {
+      stringify.mockRestore();
+    }
   });
 
   it("replaceDeck resets the stack (hydrate / example load)", () => {

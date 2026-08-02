@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { DeckJson } from "@presentation-md/export";
 import {
   listScaffoldPurposes,
@@ -20,8 +20,10 @@ import { ThemeCraftShotStrip } from "./ThemeCraftShotStrip.js";
 import { DeckRestylePreview } from "./DeckRestylePreview.js";
 import type { LiveCompareMode } from "./ThemeCompareTray.js";
 import { GEN_MODELS, type GenModelId, type DensityMode, buildAgentPrompt, generateDeck } from "../ai/generate.js";
-
-const KEY_STORAGE = "pmd-studio-anthropic-key";
+import {
+  persistApiKeyPreference,
+  readRememberedApiKey,
+} from "../apiKeyStorage.js";
 
 const EXAMPLE_BRIEFS = [
   "Q3 all-hands: momentum, key metrics, roadmap, and what's next.",
@@ -46,6 +48,7 @@ export function GenerateModal({
   onGenerate: (deck: DeckJson) => void;
   onClose: () => void;
 }) {
+  const initialKeyStorage = useMemo(() => readRememberedApiKey(), []);
   const [brief, setBrief] = useState("");
   const [theme, setTheme] = useState(currentTheme);
   const [moodFilter, setMoodFilter] = useState<ThemeBrowseFilterId>("all");
@@ -53,8 +56,11 @@ export function GenerateModal({
   const [density, setDensity] = useState<DensityMode>("speaker");
   const [purpose, setPurpose] = useState<ScaffoldPurpose>("pitch");
   const [model, setModel] = useState<GenModelId>(GEN_MODELS[0].id);
-  const [apiKey, setApiKey] = useState(() => localStorage.getItem(KEY_STORAGE) ?? "");
-  const [remember, setRemember] = useState(() => !!localStorage.getItem(KEY_STORAGE));
+  const [apiKey, setApiKey] = useState(initialKeyStorage.key);
+  const [remember, setRemember] = useState(initialKeyStorage.remembered);
+  const [storageWarning, setStorageWarning] = useState<string | null>(
+    initialKeyStorage.warning
+  );
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState("");
   const [copied, setCopied] = useState(false);
@@ -62,12 +68,65 @@ export function GenerateModal({
   const [liveDiscover, setLiveDiscover] = useState(true);
   /** Match pick-3 tray: content-true My deck first; Craft proofs one toggle away. */
   const [liveMode, setLiveMode] = useState<LiveCompareMode>("deck");
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const generationRef = useRef<AbortController | null>(null);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
   const slideLabel = `Slide ${Math.max(1, slideIndex0 + 1)}`;
+
+  const abortGeneration = () => {
+    const active = generationRef.current;
+    generationRef.current = null;
+    active?.abort();
+  };
+
+  const requestClose = () => {
+    abortGeneration();
+    onCloseRef.current();
+  };
 
   const themeNames = listThemeNames();
   const themes = useMemo(() => listThemeSummaries(), []);
   const shortlists = useMemo(() => listThemeShortlists(), []);
   const activeShortlist = shortlistId ? findThemeShortlist(shortlistId) : undefined;
+
+  useEffect(() => {
+    const handleDialogKeys = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        requestClose();
+        return;
+      }
+      if (event.key !== "Tab") return;
+
+      const dialog = dialogRef.current;
+      if (!dialog) return;
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+      const first = focusable[0];
+      const last = focusable.at(-1);
+      if (!first || !last) return;
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      } else if (!dialog.contains(document.activeElement)) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener("keydown", handleDialogKeys);
+    return () => {
+      window.removeEventListener("keydown", handleDialogKeys);
+      abortGeneration();
+    };
+  }, []);
   const selectableThemes = useMemo(() => {
     const base = activeShortlist
       ? themeNames.filter((t) => activeShortlist.themes.includes(t))
@@ -121,17 +180,29 @@ export function GenerateModal({
   }, [activeShortlist, moodFilter, selectableThemes, themeNames, themes]);
 
   const runGenerate = async () => {
+    generationRef.current?.abort();
+    const controller = new AbortController();
+    generationRef.current = controller;
     setBusy(true);
     setStatus("Generating your deck…");
+    setStorageWarning(persistApiKeyPreference({ remember, key: apiKey }));
     try {
-      if (remember) localStorage.setItem(KEY_STORAGE, apiKey.trim());
-      else localStorage.removeItem(KEY_STORAGE);
-      const deck = await generateDeck({ apiKey, model, brief, theme, density });
+      const deck = await generateDeck({
+        apiKey,
+        model,
+        brief,
+        theme,
+        density,
+        signal: controller.signal,
+      });
+      if (generationRef.current !== controller || controller.signal.aborted) return;
+      generationRef.current = null;
       onGenerate(deck);
-      onClose();
+      onCloseRef.current();
     } catch (err) {
+      if (generationRef.current !== controller || controller.signal.aborted) return;
+      generationRef.current = null;
       setStatus((err as Error).message);
-    } finally {
       setBusy(false);
     }
   };
@@ -146,7 +217,7 @@ export function GenerateModal({
         title,
       });
       onGenerate(result.deck as DeckJson);
-      onClose();
+      requestClose();
     } catch (err) {
       setStatus((err as Error).message);
     }
@@ -163,23 +234,35 @@ export function GenerateModal({
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
+    <div className="modal-overlay" onClick={requestClose}>
+      <div
+        ref={dialogRef}
+        className="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="generate-modal-title"
+        aria-describedby="generate-modal-description"
+        onClick={(e) => e.stopPropagation()}
+      >
         <header className="modal-head">
           <div>
-            <strong>Generate a deck</strong>
-            <span className="muted small">Describe it — get an editable deck in seconds.</span>
+            <h2 id="generate-modal-title">Generate a deck</h2>
+            <span id="generate-modal-description" className="muted small">
+              Describe it — get an editable deck in seconds.
+            </span>
           </div>
-          <button className="btn btn-sm" onClick={onClose} aria-label="Close">✕</button>
+          <button className="btn btn-sm" onClick={requestClose} aria-label="Close">✕</button>
         </header>
 
         <div className="modal-body">
-          <label className="field-label">What's the deck about?</label>
+          <label className="field-label" htmlFor="generate-brief">What's the deck about?</label>
           <textarea
+            id="generate-brief"
             className="text-input brief-input"
             value={brief}
             placeholder="e.g. Q3 all-hands covering revenue, product wins, and the roadmap for next quarter."
             rows={4}
+            autoFocus
             onChange={(e) => setBrief(e.target.value)}
           />
           <div className="chip-row">
@@ -377,6 +460,11 @@ export function GenerateModal({
               <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} />
               <span className="muted small">Remember on this device (stored only in your browser)</span>
             </label>
+            {storageWarning ? (
+              <p className="status muted small gen-storage-warning" role="status" aria-live="polite">
+                {storageWarning}
+              </p>
+            ) : null}
             <p className="muted small privacy-note">
               Your key stays in this browser. Requests go straight to Anthropic — nothing is sent to our servers.
               Get a key at <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noreferrer">console.anthropic.com</a>.

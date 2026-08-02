@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import type { DeckJson } from "@presentation-md/export";
 import { resolveTheme } from "../render/themes.js";
 import { renderDeckHtml } from "../render/renderDeck.js";
+import { prepareSandboxedPreviewHtml } from "../render/sandboxPreview.js";
 
 /**
  * Inject CSS so only one slide fills the restyle card — side-by-side theme
@@ -43,7 +44,7 @@ export function renderRestyleHtml(
     meta: { ...deck.meta, theme: themeName },
   };
   const html = renderDeckHtml(themed, resolveTheme(themeName));
-  return restyleSlideHtml(html, slideIndex0);
+  return prepareSandboxedPreviewHtml(restyleSlideHtml(html, slideIndex0));
 }
 
 /**

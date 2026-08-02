@@ -25,6 +25,7 @@ export function TextInput({
       <input
         className="text-input"
         type="text"
+        aria-label={label}
         value={value ?? ""}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
@@ -48,6 +49,7 @@ export function TextArea({
     <Field label={label}>
       <textarea
         className="text-input"
+        aria-label={label}
         rows={rows}
         value={value ?? ""}
         onChange={(e) => onChange(e.target.value)}
@@ -69,7 +71,12 @@ export function NumberSelect({
 }) {
   return (
     <Field label={label}>
-      <select className="text-input" value={value} onChange={(e) => onChange(Number(e.target.value))}>
+      <select
+        className="text-input"
+        aria-label={label}
+        value={value}
+        onChange={(e) => onChange(Number(e.target.value))}
+      >
         {options.map((o) => (
           <option key={o} value={o}>
             {o}
@@ -93,7 +100,12 @@ export function StringSelect({
 }) {
   return (
     <Field label={label}>
-      <select className="text-input" value={value} onChange={(e) => onChange(e.target.value)}>
+      <select
+        className="text-input"
+        aria-label={label}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      >
         {options.map((o) => (
           <option key={o.value} value={o.value}>
             {o.label}

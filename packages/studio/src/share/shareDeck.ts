@@ -6,6 +6,7 @@ import {
   studioShareLink as coreStudioShareLink,
   MAX_SHARE_TOKEN_CHARS,
 } from "@presentation-md/core";
+import { studioDeckError } from "../deckGuard.js";
 
 export { MAX_SHARE_TOKEN_CHARS, readShareTokenFromLocation };
 
@@ -20,7 +21,7 @@ export async function encodeShareDeck(deck: DeckJson): Promise<string> {
 /** Decode a `d1.` share token back to Deck JSON, or null if invalid. */
 export async function decodeShareDeck(token: string): Promise<DeckJson | null> {
   const deck = await coreDecodeShareDeck(token);
-  return deck as DeckJson | null;
+  return deck && !studioDeckError(deck) ? (deck as DeckJson) : null;
 }
 
 /** Build a Studio path that hydrates `deck` via `?d=` share token (relative; Toolbar adds origin). */

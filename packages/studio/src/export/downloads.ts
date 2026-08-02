@@ -7,6 +7,32 @@ import {
 } from "@presentation-md/core";
 import { resolveTheme } from "../render/themes.js";
 import { renderDeckHtml } from "../render/renderDeck.js";
+import { parseStudioDeckJson } from "../deckGuard.js";
+
+export { MAX_STUDIO_DECK_JSON_BYTES } from "../deckGuard.js";
+
+export const MAX_STUDIO_TEXT_FILE_BYTES = 10 * 1024 * 1024;
+export const MAX_STUDIO_PPTX_FILE_BYTES = 50 * 1024 * 1024;
+
+function textByteLength(text: string): number {
+  return text.length > MAX_STUDIO_TEXT_FILE_BYTES
+    ? text.length
+    : new TextEncoder().encode(text).byteLength;
+}
+
+function assertStudioTextSize(text: string, name: string): void {
+  if (textByteLength(text) > MAX_STUDIO_TEXT_FILE_BYTES) {
+    throw new Error(`${name} is too large (max 10 MiB)`);
+  }
+}
+
+export function assertStudioImportFileSize(file: { name: string; size: number }): void {
+  const isPptx = /\.pptx$/i.test(file.name);
+  const maxBytes = isPptx ? MAX_STUDIO_PPTX_FILE_BYTES : MAX_STUDIO_TEXT_FILE_BYTES;
+  if (file.size > maxBytes) {
+    throw new Error(`${file.name} is too large (max ${maxBytes / (1024 * 1024)} MiB)`);
+  }
+}
 
 function triggerDownload(blob: Blob, filename: string): void {
   const url = URL.createObjectURL(blob);
@@ -295,11 +321,14 @@ export function printDeckPdf(deck: DeckJson, renderedHtml?: string): void {
 }
 
 export function parseDeckJson(text: string): DeckJson {
-  const parsed = JSON.parse(text) as DeckJson;
-  if (parsed?.type !== "deck" || !Array.isArray(parsed.slides)) {
-    throw new Error('Not a valid deck: expected { "type": "deck", "slides": [...] }');
-  }
-  return parsed;
+  return parseStudioDeckJson(text);
+}
+
+export function downloadRecoveryText(text: string): void {
+  triggerDownload(
+    new Blob([text], { type: "text/plain;charset=utf-8" }),
+    "presentation-md-recovery.txt"
+  );
 }
 
 /** Import a PowerPoint file into Deck JSON (best-fit layouts; data-URI images). */
@@ -307,13 +336,15 @@ export async function importPptxFile(
   bytes: ArrayBuffer,
   theme = "default-tech"
 ): Promise<{ deck: DeckJson; warnings: string[] }> {
+  assertStudioImportFileSize({ name: "PowerPoint file.pptx", size: bytes.byteLength });
   const { pptxToDeck } = await import("@presentation-md/export/import");
   const warnings: string[] = [];
   const { deck, warnings: importWarnings } = await pptxToDeck(new Uint8Array(bytes), {
     theme,
     onWarn: (m) => warnings.push(m),
   });
-  return { deck, warnings: [...warnings, ...importWarnings] };
+  const safeDeck = parseStudioDeckJson(JSON.stringify(deck));
+  return { deck: safeDeck, warnings: [...warnings, ...importWarnings] };
 }
 
 /**
@@ -349,12 +380,15 @@ export function extractDeckFromHtml(html: string): DeckJson {
 
 /** Convert Marp / md-slides flavored Markdown into Deck JSON (MCP `import_markdown` parity). */
 export function importMarkdownFile(text: string, theme = "default-tech"): DeckJson {
+  assertStudioTextSize(text, "Markdown input");
   if (!text.trim()) throw new Error("Markdown file is empty");
-  return markdownToDeck(text, { theme }) as DeckJson;
+  const deck = markdownToDeck(text, { theme }) as DeckJson;
+  return parseStudioDeckJson(JSON.stringify(deck));
 }
 
 /** Open `.html` (embedded), `.json`, or `.md` / `.markdown` by filename. */
 export function parseDeckFile(filename: string, text: string, theme = "default-tech"): DeckJson {
+  assertStudioTextSize(text, filename);
   if (/\.html?$/i.test(filename)) return extractDeckFromHtml(text);
   if (/\.(md|markdown)$/i.test(filename)) return importMarkdownFile(text, theme);
   return parseDeckJson(text);

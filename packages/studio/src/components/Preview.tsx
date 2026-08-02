@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { prepareSandboxedPreviewHtml } from "../render/sandboxPreview.js";
 
 /** Selection chrome injected into the sandboxed preview (parent owns the DOM). */
 const SELECT_CSS = `
@@ -43,6 +44,7 @@ export function Preview({
   selectedRef.current = selectedSlide;
   onSelectRef.current = onSelectSlide;
   const [fit, setFit] = useState<PreviewFit>("fit");
+  const srcDoc = useMemo(() => prepareSandboxedPreviewHtml(html), [html]);
 
   const syncSelection = () => {
     const doc = frameRef.current?.contentDocument;
@@ -137,7 +139,7 @@ export function Preview({
             ref={frameRef}
             className="preview-frame"
             title="Deck preview"
-            srcDoc={html}
+            srcDoc={srcDoc}
             sandbox="allow-same-origin"
             referrerPolicy="no-referrer"
           />

@@ -27,6 +27,8 @@ import {
   parseDeckFile,
   importPptxFile,
   importMarkdownFile,
+  downloadRecoveryText,
+  assertStudioImportFileSize,
 } from "../export/downloads.js";
 import { STUDIO_EXAMPLES } from "../examples.js";
 import { auditCraft, repairCraft, repairCraftBeat, remorphDensity } from "../craft/auditCraft.js";
@@ -36,9 +38,17 @@ import { ThemeCraftShotStrip } from "./ThemeCraftShotStrip.js";
 import { studioShareLink } from "../share/shareDeck.js";
 import { themeFromBrandCss } from "../brand/pasteBrandTheme.js";
 import { registerCustomTheme } from "../render/themes.js";
+import { createAsyncOwnership } from "../asyncOwnership.js";
+import { createLatestAsyncWriter } from "../latestAsyncWriter.js";
 
 /** Flagship trio for Example browser show-don't-tell (matches site proof strip). */
 const FEATURED_EXAMPLE_SLUGS = ["novaspark-pitch", "bounce-launch", "forge-api"] as const;
+
+interface PendingImport {
+  deck: DeckJson;
+  fileName: string;
+  successStatus: string;
+}
 
 export function Toolbar({
   deck,
@@ -46,6 +56,9 @@ export function Toolbar({
   exampleSlug,
   selectedSlide = 0,
   statusHint,
+  persistenceWarning,
+  recoveryText,
+  recoveryStored = false,
   canUndo = false,
   canRedo = false,
   onUndo,
@@ -54,6 +67,7 @@ export function Toolbar({
   onLoadExample,
   onPresent,
   onGenerate,
+  onDiscardRecovery,
   onSelectSlide,
 }: {
   deck: DeckJson;
@@ -64,6 +78,12 @@ export function Toolbar({
   selectedSlide?: number;
   /** One-shot status from App (e.g. shared-deck hydrate). */
   statusHint?: string | null;
+  /** Persistent data-safety warning that must not be replaced by transient toolbar status. */
+  persistenceWarning?: string | null;
+  /** Original corrupt saved bytes, downloadable before the fallback deck replaces primary storage. */
+  recoveryText?: string | null;
+  /** Whether recoveryText is persisted in the dedicated recovery key. */
+  recoveryStored?: boolean;
   canUndo?: boolean;
   canRedo?: boolean;
   onUndo?: () => void;
@@ -72,6 +92,7 @@ export function Toolbar({
   onLoadExample: (slug?: string) => void;
   onPresent: () => void;
   onGenerate: () => void;
+  onDiscardRecovery?: () => void;
   /** Jump the Studio selection to a 1-based slide index from an audit issue. */
   onSelectSlide?: (slideIndex1Based: number) => void;
 }) {
@@ -82,6 +103,7 @@ export function Toolbar({
   const craftPanelOpen = useRef(false);
   const [status, setStatus] = useState<string>("");
   const [busy, setBusy] = useState(false);
+  const [pendingImport, setPendingImport] = useState<PendingImport | null>(null);
   const [themeQuery, setThemeQuery] = useState("");
   const [moodFilter, setMoodFilter] = useState<ThemeBrowseFilterId>("all");
   const [shortlistId, setShortlistId] = useState("");
@@ -103,9 +125,42 @@ export function Toolbar({
   const [pasteBrandName, setPasteBrandName] = useState("brand-paste");
   /** Bump when registering Paste Brand themes so the browser list refreshes. */
   const [themeEpoch, setThemeEpoch] = useState(0);
+  const deckRef = useRef(deck);
+  const onChangeRef = useRef(onChange);
+  const pasteMdRef = useRef(pasteMd);
+  const pasteBrandCssRef = useRef(pasteBrandCss);
+  const importOwnership = useMemo(() => createAsyncOwnership<DeckJson>(), []);
+  const exportOwnership = useMemo(() => createAsyncOwnership<DeckJson>(), []);
+  const clipboardOwnership = useMemo(() => createAsyncOwnership<DeckJson>(), []);
+  const markdownReadOwnership = useMemo(() => createAsyncOwnership<string>(), []);
+  const brandCssReadOwnership = useMemo(() => createAsyncOwnership<string>(), []);
+  const clipboardWriter = useMemo(() => createLatestAsyncWriter(), []);
+  deckRef.current = deck;
+  onChangeRef.current = onChange;
+  pasteMdRef.current = pasteMd;
+  pasteBrandCssRef.current = pasteBrandCss;
+
+  useEffect(
+    () => () => {
+      importOwnership.invalidate();
+      exportOwnership.invalidate();
+      clipboardOwnership.invalidate();
+      markdownReadOwnership.invalidate();
+      brandCssReadOwnership.invalidate();
+      clipboardWriter.invalidate();
+    },
+    [
+      brandCssReadOwnership,
+      clipboardOwnership,
+      clipboardWriter,
+      exportOwnership,
+      importOwnership,
+      markdownReadOwnership,
+    ]
+  );
 
   useEffect(() => {
-    if (statusHint) setStatus(statusHint);
+    setStatus(statusHint ?? "");
   }, [statusHint]);
 
   const themes = useMemo(() => listThemeSummaries(), [themeEpoch]);
@@ -120,7 +175,7 @@ export function Toolbar({
   const exampleThemeLooks = useMemo(() => {
     const map = new Map<string, { bg: string; accent: string; theme: string }>();
     for (const ex of STUDIO_EXAMPLES) {
-      const themeName = ex.deck.meta?.theme ?? "default-tech";
+      const themeName = ex.theme;
       const summary = themes.find((t) => t.name === themeName);
       if (summary) {
         map.set(ex.slug, { bg: summary.bg, accent: summary.accent, theme: themeName });
@@ -198,42 +253,68 @@ export function Toolbar({
 
   const onOpen = async (file: File) => {
     try {
-      if (/\.pptx$/i.test(file.name)) {
-        setBusy(true);
-        setStatus("Importing .pptx…");
-        const { deck: opened, warnings } = await importPptxFile(await file.arrayBuffer(), theme);
-        onChange(opened);
-        setStatus(
-          warnings.length
-            ? `Imported ${file.name} (${warnings.length} warning${warnings.length > 1 ? "s" : ""})`
-            : `Imported ${file.name}`
-        );
-        return;
-      }
-      const opened = parseDeckFile(file.name, await file.text(), theme);
-      onChange(opened);
-      setStatus(
-        /\.(md|markdown)$/i.test(file.name)
-          ? `Imported Markdown → ${opened.slides.length} slides (${opened.meta?.theme ?? theme})`
-          : `Opened ${file.name}`
-      );
+      assertStudioImportFileSize(file);
     } catch (err) {
       setStatus(`Open failed: ${(err as Error).message}`);
+      return;
+    }
+
+    const ticket = importOwnership.begin(deckRef.current);
+    setPendingImport(null);
+    setBusy(true);
+    setStatus(/\.pptx$/i.test(file.name) ? "Importing .pptx…" : `Opening ${file.name}…`);
+    try {
+      let opened: DeckJson;
+      let successStatus: string;
+      if (/\.pptx$/i.test(file.name)) {
+        const result = await importPptxFile(await file.arrayBuffer(), theme);
+        opened = result.deck;
+        successStatus = result.warnings.length
+          ? `Imported ${file.name} (${result.warnings.length} warning${result.warnings.length > 1 ? "s" : ""})`
+          : `Imported ${file.name}`;
+      } else {
+        opened = parseDeckFile(file.name, await file.text(), theme);
+        successStatus = /\.(md|markdown)$/i.test(file.name)
+          ? `Imported Markdown → ${opened.slides.length} slides (${opened.meta?.theme ?? theme})`
+          : `Opened ${file.name}`;
+      }
+
+      const decision = importOwnership.classify(ticket, deckRef.current);
+      if (decision === "stale") return;
+      if (decision === "conflict") {
+        setPendingImport({ deck: opened, fileName: file.name, successStatus });
+        setStatus(`Import ready — current deck changed while opening ${file.name}`);
+        return;
+      }
+      onChangeRef.current(opened);
+      setStatus(successStatus);
+    } catch (err) {
+      if (importOwnership.classify(ticket, deckRef.current) === "stale") return;
+      setStatus(`Open failed: ${(err as Error).message}`);
     } finally {
-      setBusy(false);
+      if (importOwnership.classify(ticket, deckRef.current) !== "stale") setBusy(false);
     }
   };
 
   const exportPptx = async () => {
+    const snapshot = deckRef.current;
+    const snapshotCraftIssues = liveCraftIssues;
+    const ticket = exportOwnership.begin(snapshot);
     setBusy(true);
     setStatus("Building .pptx…");
     try {
-      const { warnings } = await downloadPptx(deck);
+      const { warnings } = await downloadPptx(snapshot);
+      const decision = exportOwnership.classify(ticket, deckRef.current);
+      if (decision === "stale") return;
+      if (decision === "conflict") {
+        setStatus("Exported .pptx for an earlier deck revision — current edits were not included");
+        return;
+      }
       const exportIssues = warnings.map((message) => ({
         severity: "warning" as const,
         message: `PPTX: ${message}`,
       }));
-      const merged = [...exportIssues, ...liveCraftIssues];
+      const merged = [...exportIssues, ...snapshotCraftIssues];
       if (merged.length) {
         // Keep craft ownership so deck edits still refresh the panel; export warns lead.
         craftPanelOpen.current = true;
@@ -242,13 +323,19 @@ export function Toolbar({
         setStatus(
           warnings.length
             ? `Exported .pptx (${warnings.length} warning${warnings.length > 1 ? "s" : ""}) — see list`
-            : `Exported .pptx (${liveCraftIssues.length} craft issue${liveCraftIssues.length > 1 ? "s" : ""})`
+            : `Exported .pptx (${snapshotCraftIssues.length} craft issue${snapshotCraftIssues.length > 1 ? "s" : ""})`
         );
       } else {
         setStatus("Exported .pptx");
       }
     } catch (err) {
-      setStatus(`Export failed: ${(err as Error).message}`);
+      const decision = exportOwnership.classify(ticket, deckRef.current);
+      if (decision === "stale") return;
+      setStatus(
+        decision === "conflict"
+          ? `PPTX export of an earlier deck revision failed: ${(err as Error).message}`
+          : `Export failed: ${(err as Error).message}`
+      );
     } finally {
       setBusy(false);
     }
@@ -340,10 +427,19 @@ export function Toolbar({
   };
 
   const exportPdf = async () => {
+    const snapshot = deckRef.current;
+    const snapshotHtml = html;
+    const ticket = exportOwnership.begin(snapshot);
     setBusy(true);
     setStatus("Building PDF…");
     try {
-      const { mode } = await downloadPdf(deck, html);
+      const { mode } = await downloadPdf(snapshot, snapshotHtml);
+      const decision = exportOwnership.classify(ticket, deckRef.current);
+      if (decision === "stale") return;
+      if (decision === "conflict") {
+        setStatus("Downloaded PDF for an earlier deck revision — current edits were not included");
+        return;
+      }
       if (mode === "headless") {
         setStatus("Downloaded PDF (vector · headless Chromium)");
       } else if (mode === "client") {
@@ -353,10 +449,22 @@ export function Toolbar({
       }
     } catch (err) {
       try {
-        printDeckPdf(deck, html);
-        setStatus(`PDF blob failed (${(err as Error).message}) — use Save as PDF in the print dialog`);
+        printDeckPdf(snapshot, snapshotHtml);
+        const decision = exportOwnership.classify(ticket, deckRef.current);
+        if (decision === "stale") return;
+        setStatus(
+          decision === "conflict"
+            ? "Opened the PDF print fallback for an earlier deck revision — current edits were not included"
+            : `PDF blob failed (${(err as Error).message}) — use Save as PDF in the print dialog`
+        );
       } catch (printErr) {
-        setStatus(`Download PDF failed: ${(printErr as Error).message}`);
+        const decision = exportOwnership.classify(ticket, deckRef.current);
+        if (decision === "stale") return;
+        setStatus(
+          decision === "conflict"
+            ? `PDF export of an earlier deck revision failed: ${(printErr as Error).message}`
+            : `Download PDF failed: ${(printErr as Error).message}`
+        );
       }
     } finally {
       setBusy(false);
@@ -364,18 +472,61 @@ export function Toolbar({
   };
 
   const copyLink = async () => {
+    const snapshot = deckRef.current;
+    const ticket = clipboardOwnership.begin(snapshot);
     try {
-      const path = await studioShareLink(deck);
-      const absolute =
-        typeof window !== "undefined"
-          ? `${window.location.origin}${path.startsWith("/") ? path : `/${path}`}`
-          : path;
-      await navigator.clipboard.writeText(absolute);
-      setStatus("Copied shareable deck link");
+      const writeResult = await clipboardWriter.write(
+        async () => {
+          const path = await studioShareLink(snapshot);
+          return typeof window !== "undefined"
+            ? `${window.location.origin}${path.startsWith("/") ? path : `/${path}`}`
+            : path;
+        },
+        (absolute) => navigator.clipboard.writeText(absolute)
+      );
+      if (writeResult === "stale") return;
+      const decision = clipboardOwnership.classify(ticket, deckRef.current);
+      if (decision === "stale") return;
+      setStatus(
+        decision === "conflict"
+          ? "Copied link for an earlier deck revision — current edits were not included"
+          : "Copied shareable deck link"
+      );
     } catch (err) {
+      const decision = clipboardOwnership.classify(ticket, deckRef.current);
+      if (decision === "stale") return;
       // Oversized / compress failure — do NOT copy a curated example (mis-share trap).
       setStatus(
-        `${(err as Error).message} — use Source ▾ → Download JSON instead`
+        decision === "conflict"
+          ? `Copy link for an earlier deck revision failed: ${(err as Error).message}`
+          : `${(err as Error).message} — use Source ▾ → Download JSON instead`
+      );
+    }
+  };
+
+  const copyMarkdown = async () => {
+    const snapshot = deckRef.current;
+    const ticket = clipboardOwnership.begin(snapshot);
+    try {
+      const writeResult = await clipboardWriter.write(
+        () => deckMarkdown(snapshot),
+        (markdown) => navigator.clipboard.writeText(markdown)
+      );
+      if (writeResult === "stale") return;
+      const decision = clipboardOwnership.classify(ticket, deckRef.current);
+      if (decision === "stale") return;
+      setStatus(
+        decision === "conflict"
+          ? "Copied Markdown for an earlier deck revision — current edits were not included"
+          : "Copied Markdown to clipboard"
+      );
+    } catch (err) {
+      const decision = clipboardOwnership.classify(ticket, deckRef.current);
+      if (decision === "stale") return;
+      setStatus(
+        decision === "conflict"
+          ? `Copy Markdown for an earlier deck revision failed: ${(err as Error).message}`
+          : `Copy Markdown failed: ${(err as Error).message}`
       );
     }
   };
@@ -395,8 +546,15 @@ export function Toolbar({
   };
 
   const pasteMdFromClipboard = async () => {
+    const ticket = markdownReadOwnership.begin(pasteMdRef.current);
     try {
       const text = await navigator.clipboard.readText();
+      const decision = markdownReadOwnership.classify(ticket, pasteMdRef.current);
+      if (decision === "stale") return;
+      if (decision === "conflict") {
+        setStatus("Clipboard Markdown not applied — field changed while reading");
+        return;
+      }
       if (!text.trim()) {
         setStatus("Clipboard is empty — paste Marp/md-slides Markdown into the box");
         return;
@@ -405,6 +563,7 @@ export function Toolbar({
       setPasteMdOpen(true);
       setStatus("Clipboard Markdown loaded — Apply to convert");
     } catch (err) {
+      if (markdownReadOwnership.classify(ticket, pasteMdRef.current) === "stale") return;
       setStatus(`Clipboard read failed: ${(err as Error).message}`);
     }
   };
@@ -432,8 +591,15 @@ export function Toolbar({
   };
 
   const pasteBrandFromClipboard = async () => {
+    const ticket = brandCssReadOwnership.begin(pasteBrandCssRef.current);
     try {
       const text = await navigator.clipboard.readText();
+      const decision = brandCssReadOwnership.classify(ticket, pasteBrandCssRef.current);
+      if (decision === "stale") return;
+      if (decision === "conflict") {
+        setStatus("Clipboard CSS not applied — field changed while reading");
+        return;
+      }
       if (!text.trim()) {
         setStatus("Clipboard is empty — paste :root CSS variables into the box");
         return;
@@ -442,6 +608,7 @@ export function Toolbar({
       setPasteBrandOpen(true);
       setStatus("Clipboard CSS loaded — Apply to register theme");
     } catch (err) {
+      if (brandCssReadOwnership.classify(ticket, pasteBrandCssRef.current) === "stale") return;
       setStatus(`Clipboard read failed: ${(err as Error).message}`);
     }
   };
@@ -688,7 +855,7 @@ export function Toolbar({
               title="Fill theme Compare tray with these three flagship themes (live shot strip)"
               onClick={() => {
                 const themes = featuredExamples
-                  .map((ex) => exampleThemeLooks.get(ex.slug)?.theme ?? ex.deck.meta?.theme)
+                  .map((ex) => exampleThemeLooks.get(ex.slug)?.theme ?? ex.theme)
                   .filter((t): t is string => !!t)
                   .slice(0, COMPARE_LIMIT);
                 if (themes.length === 0) return;
@@ -711,7 +878,7 @@ export function Toolbar({
           <div className="example-featured" aria-label="Featured craft examples">
             {featuredExamples.map((ex) => {
               const look = exampleThemeLooks.get(ex.slug);
-              const previewTheme = look?.theme ?? ex.deck.meta?.theme ?? "default-tech";
+              const previewTheme = look?.theme ?? ex.theme;
               return (
                 <button
                   key={ex.slug}
@@ -810,6 +977,7 @@ export function Toolbar({
         </button>
         <button
           className="btn toolbar-desktop-only"
+          disabled={busy}
           onClick={() => fileRef.current?.click()}
           title="Open Deck JSON, rendered HTML, PowerPoint (.pptx), or Marp/md-slides Markdown (.md)"
         >
@@ -924,7 +1092,7 @@ export function Toolbar({
               Redo
             </button>
             <button type="button" className="btn" onClick={() => void copyLink()}>Copy link</button>
-            <button type="button" className="btn" onClick={() => fileRef.current?.click()}>Open file</button>
+            <button type="button" className="btn" disabled={busy} onClick={() => fileRef.current?.click()}>Open file</button>
             <button type="button" className="btn" onClick={onPresent}>Present</button>
           </div>
         </details>
@@ -962,16 +1130,7 @@ export function Toolbar({
             <button
               type="button"
               className="btn"
-              onClick={() => {
-                void (async () => {
-                  try {
-                    await navigator.clipboard.writeText(deckMarkdown(deck));
-                    setStatus("Copied Markdown to clipboard");
-                  } catch (err) {
-                    setStatus(`Copy Markdown failed: ${(err as Error).message}`);
-                  }
-                })();
-              }}
+              onClick={() => void copyMarkdown()}
               title="Copy Marp/md-slides Markdown to the clipboard"
             >
               Copy Markdown
@@ -1020,6 +1179,7 @@ export function Toolbar({
         type="file"
         accept=".html,.htm,.json,.md,.markdown,.pptx,application/json,text/html,text/markdown,application/vnd.openxmlformats-officedocument.presentationml.presentation"
         hidden
+        disabled={busy}
         onChange={(e) => {
           const f = e.target.files?.[0];
           if (f) void onOpen(f);
@@ -1027,7 +1187,70 @@ export function Toolbar({
         }}
       />
 
-      {status && <span className="status muted small">{status}</span>}
+      {persistenceWarning && (
+        <div className="recovery-status">
+          <span
+            className="status muted small status-warning"
+            role="status"
+            aria-live="polite"
+          >
+            {persistenceWarning}
+          </span>
+          {recoveryText ? (
+            <button
+              type="button"
+              className="btn btn-sm"
+              onClick={() => {
+                downloadRecoveryText(recoveryText);
+                setStatus("Downloaded original saved bytes");
+              }}
+            >
+              Download original saved bytes
+            </button>
+          ) : null}
+          {recoveryText && recoveryStored && onDiscardRecovery ? (
+            <button type="button" className="btn btn-sm" onClick={onDiscardRecovery}>
+              Discard recovery
+            </button>
+          ) : null}
+        </div>
+      )}
+      {status && (
+        <span className="status muted small" role="status" aria-live="polite">
+          {status}
+        </span>
+      )}
+      {pendingImport ? (
+        <div
+          className="import-conflict-actions"
+          role="group"
+          aria-label={`Resolve import conflict for ${pendingImport.fileName}`}
+        >
+          <button
+            type="button"
+            className="btn btn-sm btn-primary"
+            onClick={() => {
+              onChangeRef.current(pendingImport.deck);
+              setStatus(pendingImport.successStatus);
+              setPendingImport(null);
+              importOwnership.invalidate();
+            }}
+          >
+            Open imported deck
+          </button>
+          <button
+            type="button"
+            className="btn btn-sm"
+            onClick={() => {
+              setStatus(`Kept current deck — ignored ${pendingImport.fileName}`);
+              setPendingImport(null);
+              importOwnership.invalidate();
+            }}
+          >
+            Keep current
+          </button>
+        </div>
+      ) : null}
       {auditIssues.length > 0 && (
         <details
           className="audit-panel"

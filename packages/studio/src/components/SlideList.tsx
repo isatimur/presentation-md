@@ -41,34 +41,95 @@ export function SlideList({
   return (
     <div className="slide-list">
       <div className="add-row">
-        <select className="text-input" value={addLayout} onChange={(e) => setAddLayout(e.target.value as LayoutType)}>
+        <select
+          className="text-input"
+          aria-label="New slide layout"
+          value={addLayout}
+          onChange={(e) => setAddLayout(e.target.value as LayoutType)}
+        >
           {LAYOUTS.map((l) => (
-            <option key={l} value={l}>{LAYOUT_LABELS[l]}</option>
+            <option key={l} value={l}>
+              {LAYOUT_LABELS[l]}
+            </option>
           ))}
         </select>
-        <button className="btn btn-sm" onClick={add}>+ Add</button>
+        <button type="button" className="btn btn-sm" onClick={add}>
+          + Add slide
+        </button>
       </div>
       <ul className="slides" aria-label="Slide list">
-        {slides.map((slide, i) => (
-          <li key={i} className={`slide-row ${i === selected ? "active" : ""}`} onClick={() => onSelect(i)}>
-            <div className="slide-row-main">
-              <span className="slide-row-num">{i + 1}</span>
-              <div className="slide-row-text">
-                <span className="slide-row-layout">
-                  {LAYOUT_LABELS[slide.layout as LayoutType] ?? slide.layout}
-                  {(slide.notes ?? "").trim() ? <span className="notes-dot" title="Has speaker notes" aria-label="Has speaker notes">N</span> : null}
+        {slides.map((slide, i) => {
+          const title = slide.heading ?? slide.quote ?? slide.eyebrow ?? "Untitled";
+          return (
+            <li key={i} className={`slide-row ${i === selected ? "active" : ""}`}>
+              <button
+                type="button"
+                className="slide-row-main"
+                aria-label={`Select slide ${i + 1}: ${title}`}
+                aria-current={i === selected ? "true" : undefined}
+                onClick={() => onSelect(i)}
+              >
+                <span className="slide-row-num">{i + 1}</span>
+                <span className="slide-row-text">
+                  <span className="slide-row-layout">
+                    {LAYOUT_LABELS[slide.layout as LayoutType] ?? slide.layout}
+                    {(slide.notes ?? "").trim() ? (
+                      <span
+                        className="notes-dot"
+                        title="Has speaker notes"
+                        aria-label="Has speaker notes"
+                      >
+                        N
+                      </span>
+                    ) : null}
+                  </span>
+                  <span className="slide-row-title">{title}</span>
                 </span>
-                <span className="slide-row-title">{slide.heading ?? slide.quote ?? slide.eyebrow ?? "—"}</span>
+              </button>
+              <div className="slide-row-actions">
+                <button
+                  type="button"
+                  className="btn btn-icon"
+                  aria-label={`Move slide ${i + 1} up`}
+                  title="Move up"
+                  disabled={i === 0}
+                  onClick={() => move(i, -1)}
+                >
+                  ↑
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-icon"
+                  aria-label={`Move slide ${i + 1} down`}
+                  title="Move down"
+                  disabled={i === slides.length - 1}
+                  onClick={() => move(i, 1)}
+                >
+                  ↓
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-icon"
+                  aria-label={`Duplicate slide ${i + 1}`}
+                  title="Duplicate"
+                  onClick={() => duplicate(i)}
+                >
+                  ⧉
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-icon btn-danger"
+                  aria-label={`Delete slide ${i + 1}`}
+                  title="Delete"
+                  disabled={slides.length <= 1}
+                  onClick={() => remove(i)}
+                >
+                  ✕
+                </button>
               </div>
-            </div>
-            <div className="slide-row-actions" onClick={(e) => e.stopPropagation()}>
-              <button className="btn btn-icon" title="Move up" onClick={() => move(i, -1)}>↑</button>
-              <button className="btn btn-icon" title="Move down" onClick={() => move(i, 1)}>↓</button>
-              <button className="btn btn-icon" title="Duplicate" onClick={() => duplicate(i)}>⧉</button>
-              <button className="btn btn-icon btn-danger" title="Delete" onClick={() => remove(i)}>✕</button>
-            </div>
-          </li>
-        ))}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
