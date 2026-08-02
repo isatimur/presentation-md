@@ -244,6 +244,8 @@ export default defineConfig({
       { find: /^node:fs$/, replacement: shim("node-fs.ts") },
       { find: /^node:path$/, replacement: shim("node-path.ts") },
       { find: /^node:url$/, replacement: shim("node-url.ts") },
+      { find: /^node:net$/, replacement: shim("node-net.ts") },
+      { find: /^node:dns\/promises$/, replacement: shim("node-dns.ts") },
     ],
   },
   server: { fs: { allow: ["..", "../.."] } },

@@ -227,11 +227,31 @@ function isNodeRuntime(): boolean {
   );
 }
 
-async function isPublicNetworkAddress(rawAddress: string): Promise<boolean> {
-  const { isIP } = await import("node:net");
+function parseIpv4(address: string): number[] | null {
+  const parts = address.split(".");
+  if (parts.length !== 4) return null;
+  const octets = parts.map((p) => {
+    if (!/^\d{1,3}$/.test(p)) return NaN;
+    return Number(p);
+  });
+  if (octets.some((n) => !Number.isInteger(n) || n < 0 || n > 255)) return null;
+  return octets;
+}
+
+function classifyIp(rawAddress: string): 0 | 4 | 6 {
   const address = rawAddress.trim().replace(/^\[|\]$/g, "").toLowerCase();
-  if (isIP(address) === 4) {
-    const [a = 0, b = 0, c = 0] = address.split(".").map(Number);
+  if (parseIpv4(address)) return 4;
+  // Loose IPv6: contains colon and only hex/colon/dot chars.
+  if (address.includes(":") && /^[0-9a-f:.]+$/i.test(address)) return 6;
+  return 0;
+}
+
+/** True only for ordinary globally routable unicast addresses. */
+function isPublicNetworkAddress(rawAddress: string): boolean {
+  const address = rawAddress.trim().replace(/^\[|\]$/g, "").toLowerCase();
+  const family = classifyIp(address);
+  if (family === 4) {
+    const [a = 0, b = 0, c = 0] = parseIpv4(address) ?? [];
     if (a === 0 || a === 10 || a === 127 || a >= 224) return false;
     if (a === 100 && b >= 64 && b <= 127) return false;
     if (a === 169 && b === 254) return false;
@@ -242,10 +262,10 @@ async function isPublicNetworkAddress(rawAddress: string): Promise<boolean> {
     if (a === 203 && b === 0 && c === 113) return false;
     return true;
   }
-  if (isIP(address) !== 6) return false;
+  if (family !== 6) return false;
   if (address.includes(".")) {
     const mapped = address.slice(address.lastIndexOf(":") + 1);
-    return address.startsWith("::ffff:") && (await isPublicNetworkAddress(mapped));
+    return address.startsWith("::ffff:") && isPublicNetworkAddress(mapped);
   }
   const first = Number.parseInt(address.split(":", 1)[0] || "0", 16);
   if (first < 0x2000 || first > 0x3fff) return false;
@@ -254,6 +274,8 @@ async function isPublicNetworkAddress(rawAddress: string): Promise<boolean> {
 }
 
 async function defaultResolveHostname(hostname: string): Promise<string[]> {
+  // Dynamic import keeps browser bundlers from requiring Node built-ins at
+  // evaluate-time; Studio also aliases node:dns/promises to an empty shim.
   const { lookup } = await import("node:dns/promises");
   return (await lookup(hostname, { all: true, verbatim: true })).map(({ address }) => address);
 }
@@ -261,7 +283,9 @@ async function defaultResolveHostname(hostname: string): Promise<string[]> {
 async function isAllowedRemoteUrl(
   rawUrl: string,
   resolver: (hostname: string) => Promise<string[]>,
-  cache: Map<string, Promise<boolean>>
+  cache: Map<string, Promise<boolean>>,
+  /** When true (browser Studio), skip DNS and allow hostnames that passed name filters. */
+  skipDns = !isNodeRuntime()
 ): Promise<boolean> {
   let url: URL;
   try {
@@ -285,8 +309,11 @@ async function isAllowedRemoteUrl(
     return false;
   }
 
-  const { isIP } = await import("node:net");
-  if (isIP(hostname)) return isPublicNetworkAddress(hostname);
+  if (classifyIp(hostname)) return isPublicNetworkAddress(hostname);
+  // Browser / non-Node: hostname already cleared private-name filters; DNS pin
+  // is a Node SSRF control and would blank-screen if forced through Vite externals.
+  if (skipDns) return true;
+
   let decision = cache.get(hostname);
   if (!decision) {
     decision = (async () => {
@@ -302,8 +329,7 @@ async function isAllowedRemoteUrl(
           }),
         ]);
         if (addresses.length === 0) return false;
-        const allowed = await Promise.all(addresses.map(isPublicNetworkAddress));
-        return allowed.every(Boolean);
+        return addresses.every((address) => isPublicNetworkAddress(address));
       } catch {
         return false;
       } finally {
