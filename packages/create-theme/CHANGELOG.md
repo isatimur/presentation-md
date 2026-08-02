@@ -1,5 +1,13 @@
 # @presentation-md/create-theme
 
+## 1.1.30
+
+### Patch Changes
+
+- 51e69e3: Align brand CSS fetch SSRF checks with shared public-address policy.
+
+  Block localhost/internal hostnames and non-global unicast IPs before DNS/fetch, matching Studio/PDF network policy.
+
 ## 1.1.29
 
 ### Patch Changes
