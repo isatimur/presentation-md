@@ -5,6 +5,10 @@ export interface PrefetchImagesOptions {
   fetch?: typeof globalThis.fetch;
   /** Max bytes per image (default 8 MiB). Oversized sources are skipped with a warning. */
   maxBytes?: number;
+  /** Max wall time per remote image, including redirects/body (default 10 seconds). */
+  timeoutMs?: number;
+  /** Override DNS resolution (tests / controlled runtimes). Node defaults to dns.lookup(all). */
+  resolveHostname?: (hostname: string) => Promise<string[]>;
   /**
    * Directories under which local / `file:` paths may be read.
    * Defaults to `[process.cwd()]` when running in Node. Paths (and their
@@ -24,6 +28,9 @@ export interface PrefetchImagesResult {
 }
 
 const DEFAULT_MAX_BYTES = 8 * 1024 * 1024;
+const DEFAULT_REMOTE_TIMEOUT_MS = 10_000;
+const DNS_TIMEOUT_MS = 2_000;
+const MAX_REMOTE_REDIRECTS = 5;
 const IMAGE_EXT = /\.(png|jpe?g|gif|webp|avif|bmp|svg)$/i;
 
 function bytesToBase64(bytes: Uint8Array): string {
@@ -183,7 +190,8 @@ async function resolveLocalPath(src: string, path: NodePath, url: NodeUrl): Prom
 
 async function readLocalBytes(
   src: string,
-  opts: PrefetchImagesOptions
+  opts: PrefetchImagesOptions,
+  maxBytes: number
 ): Promise<{ bytes: Uint8Array; mimeHint: string }> {
   const { path, fs, url } = await loadNodeApis();
   const allowedRoots = opts.allowedRoots ?? defaultAllowedRoots();
@@ -193,6 +201,10 @@ async function readLocalBytes(
   const reader =
     opts.readFile ??
     (async (p: string) => {
+      const info = await fs.stat(p);
+      if (info.size > maxBytes) {
+        throw new Error(`image exceeds ${maxBytes} byte limit (${info.size} bytes)`);
+      }
       const buf = await fs.readFile(p);
       return new Uint8Array(buf);
     });
@@ -205,6 +217,207 @@ function toDataUri(bytes: Uint8Array, mimeHint: string): string {
   if (bytes.byteLength === 0) throw new Error("empty image");
   const mime = sniffMime(bytes, mimeHint || "image/png");
   return `data:${mime};base64,${bytesToBase64(bytes)}`;
+}
+
+function isNodeRuntime(): boolean {
+  return (
+    typeof process !== "undefined" &&
+    typeof process.versions === "object" &&
+    typeof process.versions?.node === "string"
+  );
+}
+
+async function isPublicNetworkAddress(rawAddress: string): Promise<boolean> {
+  const { isIP } = await import("node:net");
+  const address = rawAddress.trim().replace(/^\[|\]$/g, "").toLowerCase();
+  if (isIP(address) === 4) {
+    const [a = 0, b = 0, c = 0] = address.split(".").map(Number);
+    if (a === 0 || a === 10 || a === 127 || a >= 224) return false;
+    if (a === 100 && b >= 64 && b <= 127) return false;
+    if (a === 169 && b === 254) return false;
+    if (a === 172 && b >= 16 && b <= 31) return false;
+    if (a === 192 && (b === 168 || (b === 0 && (c === 0 || c === 2)))) return false;
+    if (a === 192 && b === 88 && c === 99) return false;
+    if (a === 198 && (b === 18 || b === 19 || (b === 51 && c === 100))) return false;
+    if (a === 203 && b === 0 && c === 113) return false;
+    return true;
+  }
+  if (isIP(address) !== 6) return false;
+  if (address.includes(".")) {
+    const mapped = address.slice(address.lastIndexOf(":") + 1);
+    return address.startsWith("::ffff:") && (await isPublicNetworkAddress(mapped));
+  }
+  const first = Number.parseInt(address.split(":", 1)[0] || "0", 16);
+  if (first < 0x2000 || first > 0x3fff) return false;
+  if (address.startsWith("2001:db8:") || address.startsWith("2002:")) return false;
+  return !address.startsWith("3fff:");
+}
+
+async function defaultResolveHostname(hostname: string): Promise<string[]> {
+  const { lookup } = await import("node:dns/promises");
+  return (await lookup(hostname, { all: true, verbatim: true })).map(({ address }) => address);
+}
+
+async function isAllowedRemoteUrl(
+  rawUrl: string,
+  resolver: (hostname: string) => Promise<string[]>,
+  cache: Map<string, Promise<boolean>>
+): Promise<boolean> {
+  let url: URL;
+  try {
+    url = new URL(rawUrl);
+  } catch {
+    return false;
+  }
+  if (url.protocol !== "http:" && url.protocol !== "https:") return false;
+  const hostname = url.hostname
+    .replace(/^\[|\]$/g, "")
+    .replace(/\.$/, "")
+    .toLowerCase();
+  if (
+    !hostname ||
+    hostname === "localhost" ||
+    hostname.endsWith(".localhost") ||
+    hostname.endsWith(".local") ||
+    hostname.endsWith(".internal") ||
+    hostname.endsWith(".home.arpa")
+  ) {
+    return false;
+  }
+
+  const { isIP } = await import("node:net");
+  if (isIP(hostname)) return isPublicNetworkAddress(hostname);
+  let decision = cache.get(hostname);
+  if (!decision) {
+    decision = (async () => {
+      let timer: ReturnType<typeof setTimeout> | undefined;
+      try {
+        const addresses = await Promise.race([
+          resolver(hostname),
+          new Promise<never>((_, reject) => {
+            timer = setTimeout(
+              () => reject(new Error(`DNS lookup timed out for ${hostname}`)),
+              DNS_TIMEOUT_MS
+            );
+          }),
+        ]);
+        if (addresses.length === 0) return false;
+        const allowed = await Promise.all(addresses.map(isPublicNetworkAddress));
+        return allowed.every(Boolean);
+      } catch {
+        return false;
+      } finally {
+        if (timer) clearTimeout(timer);
+      }
+    })();
+    cache.set(hostname, decision);
+  }
+  return decision;
+}
+
+async function cancelResponseBody(response: Response): Promise<void> {
+  try {
+    await response.body?.cancel();
+  } catch {
+    // Already consumed/locked or unsupported; nothing else to release.
+  }
+}
+
+async function readBoundedResponseBytes(response: Response, maxBytes: number): Promise<Uint8Array> {
+  const declaredRaw = response.headers?.get?.("content-length");
+  const declared = declaredRaw && /^\d+$/.test(declaredRaw) ? Number(declaredRaw) : undefined;
+  if (declared !== undefined && declared > maxBytes) {
+    await cancelResponseBody(response);
+    throw new Error(`image exceeds ${maxBytes} byte limit (${declared} declared bytes)`);
+  }
+
+  const reader = response.body?.getReader?.();
+  if (!reader) {
+    const bytes = new Uint8Array(await response.arrayBuffer());
+    if (bytes.byteLength > maxBytes) {
+      throw new Error(`image exceeds ${maxBytes} byte limit (${bytes.byteLength} bytes)`);
+    }
+    return bytes;
+  }
+
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    if (!value) continue;
+    total += value.byteLength;
+    if (total > maxBytes) {
+      try {
+        await reader.cancel();
+      } catch {
+        // The stream may already have closed while crossing the limit.
+      }
+      throw new Error(`image exceeds ${maxBytes} byte limit (stream exceeded limit)`);
+    }
+    chunks.push(value);
+  }
+  const bytes = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return bytes;
+}
+
+async function fetchRemoteImage(
+  src: string,
+  fetchImpl: typeof globalThis.fetch,
+  opts: PrefetchImagesOptions,
+  maxBytes: number,
+  hostnameCache: Map<string, Promise<boolean>>
+): Promise<{ bytes: Uint8Array; mimeHint: string }> {
+  const enforceServerPolicy = isNodeRuntime() || opts.resolveHostname !== undefined;
+  const resolver = opts.resolveHostname ?? defaultResolveHostname;
+  const controller = new AbortController();
+  const timeoutMs = opts.timeoutMs ?? DEFAULT_REMOTE_TIMEOUT_MS;
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  let currentUrl = src;
+  try {
+    for (let hop = 0; ; hop += 1) {
+      if (
+        enforceServerPolicy &&
+        !(await isAllowedRemoteUrl(currentUrl, resolver, hostnameCache))
+      ) {
+        throw new Error(`remote image URL is not public: ${currentUrl}`);
+      }
+      const response = await fetchImpl(currentUrl, {
+        redirect: enforceServerPolicy ? "manual" : "follow",
+        signal: controller.signal,
+      });
+      if (enforceServerPolicy && response.status >= 300 && response.status < 400) {
+        const location = response.headers?.get?.("location");
+        await cancelResponseBody(response);
+        if (!location) throw new Error(`redirect has no Location header: ${currentUrl}`);
+        if (hop >= MAX_REMOTE_REDIRECTS) {
+          throw new Error(`too many redirects fetching remote image: ${src}`);
+        }
+        currentUrl = new URL(location, currentUrl).toString();
+        continue;
+      }
+      if (!response.ok) {
+        await cancelResponseBody(response);
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const bytes = await readBoundedResponseBytes(response, maxBytes);
+      const headerType =
+        (response.headers?.get?.("content-type") ?? "").split(";")[0]?.trim() ?? "";
+      return { bytes, mimeHint: headerType || "image/png" };
+    }
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new Error(`remote image timed out after ${timeoutMs}ms: ${src}`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 /**
@@ -222,6 +435,7 @@ export async function prefetchDeckImages(
   const warnings: string[] = [];
   const fetchImpl = opts.fetch ?? globalThis.fetch;
   const maxBytes = opts.maxBytes ?? DEFAULT_MAX_BYTES;
+  const hostnameCache = new Map<string, Promise<boolean>>();
 
   const slides: Slide[] = [];
   for (const slide of deck.slides ?? []) {
@@ -240,20 +454,20 @@ export async function prefetchDeckImages(
           slides.push(slide);
           continue;
         }
-        const res = await fetchImpl(src);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const buffer = new Uint8Array(await res.arrayBuffer());
-        if (buffer.byteLength > maxBytes) {
-          throw new Error(`image exceeds ${maxBytes} byte limit (${buffer.byteLength} bytes)`);
-        }
-        const headerType = (res.headers?.get?.("content-type") ?? "").split(";")[0]?.trim() ?? "";
-        const dataUri = toDataUri(buffer, headerType || "image/png");
+        const { bytes, mimeHint } = await fetchRemoteImage(
+          src,
+          fetchImpl,
+          opts,
+          maxBytes,
+          hostnameCache
+        );
+        const dataUri = toDataUri(bytes, mimeHint);
         slides.push({ ...slide, image: dataUri });
         continue;
       }
 
       if (isLocalImageSource(src)) {
-        const { bytes, mimeHint } = await readLocalBytes(src, opts);
+        const { bytes, mimeHint } = await readLocalBytes(src, opts, maxBytes);
         if (bytes.byteLength > maxBytes) {
           throw new Error(`image exceeds ${maxBytes} byte limit (${bytes.byteLength} bytes)`);
         }

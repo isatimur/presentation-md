@@ -210,6 +210,7 @@ describe("deckToPptx", () => {
     const result = await buildPptx(deck, theme, {
       prefetchImages: true,
       prefetch: {
+        resolveHostname: async () => ["93.184.216.34"],
         fetch: async () =>
           new Response(png, { status: 200, headers: { "content-type": "image/png" } }),
       },
@@ -300,6 +301,7 @@ describe("deckToPptx", () => {
     const result = await buildPptx(deck, theme, {
       prefetchImages: true,
       prefetch: {
+        resolveHostname: async () => ["93.184.216.34"],
         fetch: async () => new Response(null, { status: 404, statusText: "Not Found" }),
       },
     });
