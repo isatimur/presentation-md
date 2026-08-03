@@ -317,6 +317,7 @@ describe("deckToPptx", () => {
     const result = await buildPptx(deck, theme);
     expect(result.slideCount).toBe(1);
     expect(result.warnings.some((w) => w.includes("Unknown layout"))).toBe(true);
+    expect(result.warnings.some((w) => /^Slide 1:/.test(w))).toBe(true);
   });
 
   it("approximates custom-html bars into PPTX without failing", async () => {

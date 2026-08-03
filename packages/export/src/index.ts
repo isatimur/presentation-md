@@ -65,9 +65,12 @@ export async function buildPptx(
   opts: PptxOptions = {}
 ): Promise<BuildResult> {
   const warnings: string[] = [];
+  let currentSlide = 0;
   const warn = (msg: string): void => {
-    warnings.push(msg);
-    opts.onWarn?.(msg);
+    const prefixed =
+      currentSlide > 0 && !/^Slide\s+\d+/i.test(msg) ? `Slide ${currentSlide}: ${msg}` : msg;
+    warnings.push(prefixed);
+    opts.onWarn?.(prefixed);
   };
 
   let working = deck;
@@ -99,6 +102,7 @@ export async function buildPptx(
 
   const slides = Array.isArray(working.slides) ? working.slides : [];
   slides.forEach((slideData, i) => {
+    currentSlide = i + 1;
     const slide = pptx.addSlide();
     renderSlide(slide, ctx, slideData);
 
@@ -123,6 +127,7 @@ export async function buildPptx(
       });
     }
   });
+  currentSlide = 0;
 
   return { pptx, slideCount: slides.length, warnings };
 }

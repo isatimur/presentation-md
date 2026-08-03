@@ -204,10 +204,16 @@ export function Toolbar({
   const liveCraftErrors = liveCraftIssues.filter((i) => i.severity === "error").length;
   const liveCraftWarns = liveCraftIssues.length - liveCraftErrors;
   const panelIssues = useMemo(() => {
-    const pptx: CraftIssue[] = pptxWarnings.map((message) => ({
-      severity: "warning",
-      message: message.startsWith("PPTX:") ? message : `PPTX: ${message}`,
-    }));
+    const pptx: CraftIssue[] = pptxWarnings.map((message) => {
+      const labeled = message.startsWith("PPTX:") ? message : `PPTX: ${message}`;
+      const m = labeled.match(/Slide\s+(\d+)\s*:/i);
+      const slideNum = m ? Number(m[1]) : undefined;
+      return {
+        severity: "warning" as const,
+        message: labeled,
+        ...(Number.isFinite(slideNum) && (slideNum as number) > 0 ? { slide: slideNum } : {}),
+      };
+    });
     // Drop stale PPTX: rows from craft/judge payloads if any linger.
     const craft = auditIssues.filter((i) => !i.message.startsWith("PPTX:"));
     return [...pptx, ...craft];
