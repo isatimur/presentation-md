@@ -6079,6 +6079,7 @@ One pane for cost, latency, quality.</p>
   if (shot) {
     var si = +shot[1] - 1;
     slides.forEach(function (s) { s.classList.add("in-view"); });
+    document.documentElement.classList.add("pmd-shot-mode");
     if (slides[si]) {
       document.documentElement.style.scrollSnapType = "none";
       slides[si].scrollIntoView({ behavior: "instant", block: "start" });

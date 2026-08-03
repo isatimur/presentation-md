@@ -191,67 +191,121 @@
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* ── header / brand-first hero ───────────────────────── */
+    /* ── header / brand-first full-bleed hero ─────────────── */
     header.site-hero {
+      position: relative;
       min-height: 100svh;
       display: flex;
-      align-items: stretch;
-      border-bottom: 1px solid var(--rule);
+      align-items: center;
       padding: 0;
       overflow: hidden;
+      background: var(--stage);
+      border-bottom: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+      isolation: isolate;
     }
 
-    .header-inner {
-      width: 100%;
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 28px 28px 36px;
-      display: grid;
-      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-      gap: clamp(28px, 4vw, 56px);
-      align-items: center;
+    /* Edge-to-edge craft stage — product as the hero plane */
+    .hero-visual {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background: #0a0c10;
+      display: block;
+      text-decoration: none;
+      animation: pmd-stage-in 1.05s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .hero-visual-img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: max(100%, 177.78vh);
+      height: max(100%, 56.25vw);
+      max-width: none;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      object-position: 78% 42%;
+      pointer-events: none;
+      animation: pmd-stage-drift 22s ease-in-out alternate infinite;
     }
 
-    .hero-copy { max-width: 34rem; }
+    /* Cloth wash — readable copy without a card or caption overlay */
+    .hero-sheen {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        linear-gradient(95deg,
+          rgba(232, 238, 244, 1) 0%,
+          rgba(232, 238, 244, 1) 36%,
+          rgba(232, 238, 244, 0.97) 44%,
+          rgba(232, 238, 244, 0.55) 54%,
+          transparent 66%),
+        radial-gradient(820px 480px at 14% 30%, rgba(255, 255, 255, 0.55), transparent 64%);
+    }
+    .hero-sheen::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.22;
+      background:
+        radial-gradient(520px 240px at 18% 22%, rgba(255, 255, 255, 0.22), transparent 72%);
+      mix-blend-mode: soft-light;
+      animation: pmd-cloth-sheen 11s ease-in-out infinite alternate;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      width: min(34rem, calc(100% - 56px));
+      margin: 0;
+      padding: clamp(40px, 8vh, 72px) clamp(28px, 5vw, 56px);
+      max-width: 34rem;
+    }
 
     .brand-mark {
       font-family: var(--display);
-      font-size: clamp(2.6rem, 7.5vw, 5.4rem);
+      font-size: clamp(2.4rem, 5.6vw, 4.4rem);
       font-weight: 800;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.055em;
       color: var(--ink);
-      margin: 0 0 20px;
-      line-height: 0.92;
-      max-width: 9.2em;
+      margin: 0 0 22px;
+      line-height: 0.95;
+      max-width: none;
+      white-space: nowrap;
       hyphens: none;
-      overflow-x: clip;
       overflow-wrap: normal;
+      word-break: keep-all;
       animation: pmd-brand-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
     .brand-mark::after {
       content: "";
       display: block;
-      width: 72px;
+      width: 76px;
       height: 4px;
       margin-top: 18px;
       background: var(--accent);
       transform-origin: left center;
-      animation: pmd-rule-draw 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+      animation: pmd-rule-draw 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
     }
 
     .site-hero h1 {
-      font-size: clamp(1.55rem, 3.1vw, 2.35rem);
+      font-family: var(--display);
+      font-size: clamp(1.45rem, 2.6vw, 2.05rem);
       font-weight: 700;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.035em;
+      line-height: 1.15;
       margin-bottom: 14px;
-      max-width: 18ch;
+      max-width: 16ch;
+      color: var(--ink);
       animation: pmd-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
     }
 
     .tagline {
       font-size: 1.05rem;
       color: var(--ink-light);
-      max-width: 38ch;
+      max-width: 34ch;
       margin-bottom: 28px;
       line-height: 1.55;
       animation: pmd-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
@@ -304,62 +358,22 @@
       cursor: pointer;
       border: none;
       text-decoration: none;
-      transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+      transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
     }
     .btn:hover { transform: translateY(-2px); text-decoration: none; }
     .btn-primary { background: var(--accent); color: #fff; }
     .btn-primary:hover { background: color-mix(in srgb, var(--accent) 88%, #000); }
-    .btn-secondary { background: transparent; color: var(--ink); border: 1.5px solid color-mix(in srgb, var(--ink) 28%, transparent); }
+    .btn-secondary {
+      background: color-mix(in srgb, var(--paper) 78%, white);
+      color: var(--ink);
+      border: 1.5px solid color-mix(in srgb, var(--ink) 28%, transparent);
+    }
     .btn-secondary:hover { border-color: var(--ink); }
     .btn i { font-size: 14px; }
 
-    /* Dominant full-bleed product stage — not a card cluster */
-    .hero-stage {
-      position: relative;
-      min-height: min(78svh, 720px);
-      border: 1px solid color-mix(in srgb, var(--ink) 18%, transparent);
-      background: var(--stage);
-      overflow: hidden;
-      isolation: isolate;
-      animation: pmd-stage-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
-    }
-    .hero-stage::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      pointer-events: none;
-      background:
-        linear-gradient(90deg, rgba(11,18,32,0.35), transparent 28%),
-        linear-gradient(0deg, rgba(11,18,32,0.5) 0%, transparent 32%);
-    }
-    .hero-stage-frame {
-      position: absolute;
-      inset: -2% -2% auto -2%;
-      width: 104%;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-    }
-    .hero-stage-frame iframe {
-      width: 200%;
-      height: 200%;
-      border: 0;
-      transform: scale(0.5);
-      transform-origin: 0 0;
-      pointer-events: none;
-      animation: pmd-stage-drift 18s ease-in-out alternate infinite;
-    }
-    .hero-stage-caption {
-      position: absolute;
-      left: 18px;
-      bottom: 16px;
-      z-index: 3;
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(232,238,244,0.78);
-    }
+    /* Legacy craft-strip hooks kept for below-fold sections */
+    .hero-stage { display: none; }
+    .hero-stage-frame, .hero-stage-caption { display: none; }
 
     /* Craft strip lives below the fold */
     .hero-craft {
@@ -436,7 +450,7 @@
 
     @keyframes pmd-brand-in {
       from { opacity: 0; transform: translateY(18px); letter-spacing: -0.02em; }
-      to { opacity: 1; transform: translateY(0); letter-spacing: -0.05em; }
+      to { opacity: 1; transform: translateY(0); letter-spacing: -0.055em; }
     }
     @keyframes pmd-rule-draw {
       from { transform: scaleX(0); }
@@ -447,12 +461,16 @@
       to { opacity: 1; transform: translateY(0); }
     }
     @keyframes pmd-stage-in {
-      from { opacity: 0; transform: translateX(24px) scale(0.985); }
-      to { opacity: 1; transform: translateX(0) scale(1); }
+      from { opacity: 0; transform: scale(1.02); }
+      to { opacity: 1; transform: scale(1); }
     }
     @keyframes pmd-stage-drift {
-      from { transform: scale(0.5) translate3d(0, 0, 0); }
-      to { transform: scale(0.52) translate3d(-1.5%, -1%, 0); }
+      from { transform: translate(-50%, -50%) scale(1); }
+      to { transform: translate(-51%, -50.5%) scale(1.03); }
+    }
+    @keyframes pmd-cloth-sheen {
+      from { transform: translateX(-2%); opacity: 0.4; }
+      to { transform: translateX(3%); opacity: 0.7; }
     }
 
     /* Continuous multi-deck showreel — below-fold energy, not hero clutter */
@@ -539,7 +557,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       .brand-mark, .brand-mark::after, .site-hero h1, .tagline, .ctas,
-      .hero-stage, .hero-stage-frame iframe,
+      .hero-visual, .hero-visual-img, .hero-sheen::after,
       .showreel-track { animation: none !important; }
       .theme-card, .gallery-card {
         transition: none !important;
@@ -562,9 +580,44 @@
       }
     }
     @media (max-width: 920px) {
-      .header-inner { grid-template-columns: 1fr; padding-top: 36px; }
-      .hero-stage { min-height: 48svh; }
-      header.site-hero { min-height: auto; }
+      header.site-hero {
+        min-height: auto;
+        flex-direction: column;
+        align-items: stretch;
+        background: var(--paper);
+      }
+      .hero-visual {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        min-height: 0;
+        max-height: 46svh;
+        order: -1;
+      }
+      .hero-visual-img {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        transform: none;
+        animation: none;
+        object-fit: cover;
+        object-position: 18% 35%;
+      }
+      .hero-sheen {
+        display: none;
+      }
+      .hero-copy {
+        width: 100%;
+        max-width: none;
+        padding: 32px 28px 40px;
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.35), transparent 40%),
+          var(--paper);
+      }
+      .hero-copy .ctas { display: grid; grid-template-columns: 1fr; gap: 10px; }
+      .hero-copy .ctas .btn { justify-content: center; width: 100%; }
       .showreel-card { flex-basis: min(72vw, 380px); }
     }
     @media (max-width: 820px) {
@@ -1040,7 +1093,7 @@
       .layout-cell:nth-child(7) { border-radius: 0; }
       h1 { font-size: 2.2rem; }
       .themes-grid { grid-template-columns: 1fr; }
-      .brand-mark { font-size: clamp(2.35rem, 10.5vw, 3.6rem); max-width: 9.2em; hyphens: none; word-break: keep-all; }
+      .brand-mark { font-size: clamp(1.7rem, 7.6vw, 2.6rem); white-space: nowrap; letter-spacing: -0.06em; max-width: 100%; hyphens: none; word-break: keep-all; }
       .ctas .btn { padding: 12px 16px; font-size: 14px; }
       .hero-copy { max-width: 100%; }
       .tagline { max-width: 100%; }
@@ -1048,7 +1101,8 @@
 
     @media (max-width: 500px) {
       header.site-hero { min-height: auto; }
-      .header-inner { padding: 28px 18px 32px; }
+      .hero-copy { padding: 28px 18px 36px; }
+      .hero-visual { min-height: 42svh; }
       section { padding: 56px 0; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
     }
@@ -1121,36 +1175,90 @@
     .badge.blueprint { background:#0a1f3d; color:#00e5ff; border:1px solid #00e5ff44; }
     .card-cta { font-size:0.78rem; color:var(--accent); font-weight:700; letter-spacing:0.02em; }
   </style>
+
+<script>
+(function () {
+  // Below-fold craft iframes use data-src until near viewport so their
+  // boot scrollIntoView cannot yank the marketing page away from the hero.
+  function muteWindow(w) {
+    try {
+      if (!w || !w.HTMLElement) return;
+      w.HTMLElement.prototype.scrollIntoView = function () {};
+    } catch (e) {}
+  }
+  function activate(frame) {
+    var src = frame.getAttribute("data-src");
+    if (!src || frame.dataset.pmdLoaded) return;
+    frame.dataset.pmdLoaded = "1";
+    frame.addEventListener("load", function () {
+      muteWindow(frame.contentWindow);
+      try { frame.contentWindow.scrollTo(0, 0); } catch (e) {}
+    });
+    frame.src = src;
+  }
+  function setup() {
+    var frames = Array.prototype.slice.call(document.querySelectorAll("iframe[data-src]"));
+    if (!("IntersectionObserver" in window)) {
+      // No IO: wait for first user scroll before loading any embeds.
+      var armed = false;
+      function arm() {
+        if (armed) return;
+        armed = true;
+        frames.forEach(activate);
+      }
+      window.addEventListener("scroll", arm, { once: true, passive: true });
+      return;
+    }
+    var allow = false;
+    var io = new IntersectionObserver(function (entries) {
+      if (!allow) return;
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+          activate(entry.target);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "0px", threshold: [0, 0.2, 0.5] });
+    frames.forEach(function (frame) { io.observe(frame); });
+    function enable() {
+      allow = true;
+      // Re-check current viewport after the user starts exploring.
+      frames.forEach(function (frame) { io.observe(frame); });
+    }
+    window.addEventListener("scroll", enable, { once: true, passive: true });
+    window.addEventListener("pointerdown", enable, { once: true });
+    window.addEventListener("keydown", enable, { once: true });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", setup);
+  else setup();
+})();
+</script>
 </head>
 <body>
 
 <!-- ── HEADER ──────────────────────────────────────────────────────────────── -->
 <header class="site-hero">
-  <div class="header-inner">
-    <div class="hero-copy">
-      <p class="brand-mark" aria-label="presentation-md">presentation-<wbr>md</p>
-      <h1>Your AI agent makes the deck. PowerPoint opens it.</h1>
-      <p class="tagline">
-        Notes in → asymmetric schema craft out. Export native PowerPoint, Keynote, or Google Slides — or tune it in Studio.
-      </p>
-      <div class="ctas">
-        <a href="#install" class="btn btn-primary">
-          <i class="fa-solid fa-download"></i> Install
-        </a>
-        <a href="studio/?example=novaspark-pitch&fresh=1" class="btn btn-secondary">
-          <i class="fa-solid fa-pen-ruler"></i> Open Studio
-        </a>
-        <a href="https://github.com/isatimur/presentation-md" class="btn btn-secondary" target="_blank" rel="noopener">
-          <i class="fa-brands fa-github"></i> GitHub
-        </a>
-      </div>
+  <a class="hero-visual" href="examples/structured/gridsystems-studio.html" target="_blank" rel="noopener" aria-label="Open Grid Systems swiss craft deck">
+    <img class="hero-visual-img" src="previews/hero-gridsystems.png" width="1280" height="720" alt="Grid Systems swiss-typographic title slide — Systems before styles." decoding="async" fetchpriority="high" />
+  </a>
+  <div class="hero-sheen" aria-hidden="true"></div>
+  <div class="hero-copy">
+    <p class="brand-mark">presentation-md</p>
+    <h1>Notes in. Editable deck out.</h1>
+    <p class="tagline">
+      One install in the agent you already use — then open Studio or export native PowerPoint.
+    </p>
+    <div class="ctas">
+      <a href="#install" class="btn btn-primary">
+        <i class="fa-solid fa-download"></i> Install
+      </a>
+      <a href="studio/?example=briefing-signal&fresh=1" class="btn btn-secondary">
+        <i class="fa-solid fa-pen-ruler"></i> Open Studio
+      </a>
+      <a href="#themes" class="btn btn-secondary">
+        <i class="fa-solid fa-swatchbook"></i> Pick a vibe
+      </a>
     </div>
-    <a class="hero-stage" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener" aria-label="Open NovaSpark structured craft deck">
-      <div class="hero-stage-frame">
-        <iframe src="examples/structured/novaspark-pitch.html" loading="eager" title="NovaSpark structured deck — image-hero and asymmetric craft" tabindex="-1"></iframe>
-      </div>
-      <span class="hero-stage-caption">Live proof · image-hero · asymmetric schema</span>
-    </a>
   </div>
 </header>
 
@@ -1171,7 +1279,7 @@
     <div class="hero-craft" aria-label="Live craft examples" style="margin-top:36px">
       <a class="hero-craft-card" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener">
         <div class="hero-craft-frame">
-          <iframe src="examples/structured/novaspark-pitch.html" loading="lazy" title="NovaSpark aurora-glass structured deck" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="examples/structured/novaspark-pitch.html" loading="lazy" title="NovaSpark aurora-glass structured deck" tabindex="-1"></iframe>
         </div>
         <div class="hero-craft-meta">
           <strong>NovaSpark</strong>
@@ -1180,7 +1288,7 @@
       </a>
       <a class="hero-craft-card" href="examples/structured/meridian-sales.html" target="_blank" rel="noopener">
         <div class="hero-craft-frame">
-          <iframe src="examples/structured/meridian-sales.html" loading="lazy" title="Meridian ft-editorial structured deck" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="examples/structured/meridian-sales.html" loading="lazy" title="Meridian ft-editorial structured deck" tabindex="-1"></iframe>
         </div>
         <div class="hero-craft-meta">
           <strong>Meridian</strong>
@@ -1189,7 +1297,7 @@
       </a>
       <a class="hero-craft-card" href="examples/structured/bounce-launch.html" target="_blank" rel="noopener">
         <div class="hero-craft-frame">
-          <iframe src="examples/structured/bounce-launch.html" loading="lazy" title="Bounce genz-bento structured deck" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="examples/structured/bounce-launch.html" loading="lazy" title="Bounce genz-bento structured deck" tabindex="-1"></iframe>
         </div>
         <div class="hero-craft-meta">
           <strong>Bounce</strong>
@@ -1207,31 +1315,31 @@
   </div>
   <div class="showreel-viewport">
     <div class="showreel-track">
-      <a class="showreel-card" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener"><iframe src="examples/structured/novaspark-pitch.html" loading="lazy" title="NovaSpark" tabindex="-1"></iframe><span>NovaSpark · aurora-glass</span></a>
-      <a class="showreel-card" href="examples/structured/meridian-sales.html" target="_blank" rel="noopener"><iframe src="examples/structured/meridian-sales.html" loading="lazy" title="Meridian" tabindex="-1"></iframe><span>Meridian · ft-editorial</span></a>
-      <a class="showreel-card" href="examples/structured/bounce-launch.html" target="_blank" rel="noopener"><iframe src="examples/structured/bounce-launch.html" loading="lazy" title="Bounce" tabindex="-1"></iframe><span>Bounce · genz-bento</span></a>
-      <a class="showreel-card" href="examples/structured/solstice-update.html" target="_blank" rel="noopener"><iframe src="examples/structured/solstice-update.html" loading="lazy" title="Solstice" tabindex="-1"></iframe><span>Solstice · luxury-minimalist</span></a>
-      <a class="showreel-card" href="examples/structured/retronet-demo.html" target="_blank" rel="noopener"><iframe src="examples/structured/retronet-demo.html" loading="lazy" title="RetroNet" tabindex="-1"></iframe><span>RetroNet · crt-terminal</span></a>
-      <a class="showreel-card" href="examples/structured/gridsystems-studio.html" target="_blank" rel="noopener"><iframe src="examples/structured/gridsystems-studio.html" loading="lazy" title="Grid Systems" tabindex="-1"></iframe><span>Grid Systems · swiss-typographic</span></a>
-      <a class="showreel-card" href="examples/structured/monolith-seriesa.html" target="_blank" rel="noopener"><iframe src="examples/structured/monolith-seriesa.html" loading="lazy" title="MONOLITH" tabindex="-1"></iframe><span>MONOLITH · brutalist-acid</span></a>
-      <a class="showreel-card" href="examples/structured/jellybean-launch.html" target="_blank" rel="noopener"><iframe src="examples/structured/jellybean-launch.html" loading="lazy" title="Jellybean" tabindex="-1"></iframe><span>Jellybean · candy-pop</span></a>
-      <a class="showreel-card" href="examples/structured/neondistrict-platform.html" target="_blank" rel="noopener"><iframe src="examples/structured/neondistrict-platform.html" loading="lazy" title="Neon District" tabindex="-1"></iframe><span>Neon District · neon-noir</span></a>
-      <a class="showreel-card" href="examples/structured/forge-api.html" target="_blank" rel="noopener"><iframe src="examples/structured/forge-api.html" loading="lazy" title="Forge" tabindex="-1"></iframe><span>Forge · developer-dark</span></a>
-      <a class="showreel-card" href="examples/structured/pulse-wrapped.html" target="_blank" rel="noopener"><iframe src="examples/structured/pulse-wrapped.html" loading="lazy" title="Pulse" tabindex="-1"></iframe><span>Pulse · kinetic-wrapped</span></a>
-      <a class="showreel-card" href="examples/structured/apsis-mission.html" target="_blank" rel="noopener"><iframe src="examples/structured/apsis-mission.html" loading="lazy" title="Apsis" tabindex="-1"></iframe><span>Apsis · blueprint</span></a>
+      <a class="showreel-card" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/novaspark-pitch.html" loading="lazy" title="NovaSpark" tabindex="-1"></iframe><span>NovaSpark · aurora-glass</span></a>
+      <a class="showreel-card" href="examples/structured/meridian-sales.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/meridian-sales.html" loading="lazy" title="Meridian" tabindex="-1"></iframe><span>Meridian · ft-editorial</span></a>
+      <a class="showreel-card" href="examples/structured/bounce-launch.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/bounce-launch.html" loading="lazy" title="Bounce" tabindex="-1"></iframe><span>Bounce · genz-bento</span></a>
+      <a class="showreel-card" href="examples/structured/solstice-update.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/solstice-update.html" loading="lazy" title="Solstice" tabindex="-1"></iframe><span>Solstice · luxury-minimalist</span></a>
+      <a class="showreel-card" href="examples/structured/retronet-demo.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/retronet-demo.html" loading="lazy" title="RetroNet" tabindex="-1"></iframe><span>RetroNet · crt-terminal</span></a>
+      <a class="showreel-card" href="examples/structured/gridsystems-studio.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/gridsystems-studio.html" loading="lazy" title="Grid Systems" tabindex="-1"></iframe><span>Grid Systems · swiss-typographic</span></a>
+      <a class="showreel-card" href="examples/structured/monolith-seriesa.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/monolith-seriesa.html" loading="lazy" title="MONOLITH" tabindex="-1"></iframe><span>MONOLITH · brutalist-acid</span></a>
+      <a class="showreel-card" href="examples/structured/jellybean-launch.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/jellybean-launch.html" loading="lazy" title="Jellybean" tabindex="-1"></iframe><span>Jellybean · candy-pop</span></a>
+      <a class="showreel-card" href="examples/structured/neondistrict-platform.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/neondistrict-platform.html" loading="lazy" title="Neon District" tabindex="-1"></iframe><span>Neon District · neon-noir</span></a>
+      <a class="showreel-card" href="examples/structured/forge-api.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/forge-api.html" loading="lazy" title="Forge" tabindex="-1"></iframe><span>Forge · developer-dark</span></a>
+      <a class="showreel-card" href="examples/structured/pulse-wrapped.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/pulse-wrapped.html" loading="lazy" title="Pulse" tabindex="-1"></iframe><span>Pulse · kinetic-wrapped</span></a>
+      <a class="showreel-card" href="examples/structured/apsis-mission.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/apsis-mission.html" loading="lazy" title="Apsis" tabindex="-1"></iframe><span>Apsis · blueprint</span></a>
       <!-- duplicate for seamless loop -->
-      <a class="showreel-card" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/novaspark-pitch.html" loading="lazy" title="" tabindex="-1"></iframe><span>NovaSpark · aurora-glass</span></a>
-      <a class="showreel-card" href="examples/structured/meridian-sales.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/meridian-sales.html" loading="lazy" title="" tabindex="-1"></iframe><span>Meridian · ft-editorial</span></a>
-      <a class="showreel-card" href="examples/structured/bounce-launch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/bounce-launch.html" loading="lazy" title="" tabindex="-1"></iframe><span>Bounce · genz-bento</span></a>
-      <a class="showreel-card" href="examples/structured/solstice-update.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/solstice-update.html" loading="lazy" title="" tabindex="-1"></iframe><span>Solstice · luxury-minimalist</span></a>
-      <a class="showreel-card" href="examples/structured/retronet-demo.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/retronet-demo.html" loading="lazy" title="" tabindex="-1"></iframe><span>RetroNet · crt-terminal</span></a>
-      <a class="showreel-card" href="examples/structured/gridsystems-studio.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/gridsystems-studio.html" loading="lazy" title="" tabindex="-1"></iframe><span>Grid Systems · swiss-typographic</span></a>
-      <a class="showreel-card" href="examples/structured/monolith-seriesa.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/monolith-seriesa.html" loading="lazy" title="" tabindex="-1"></iframe><span>MONOLITH · brutalist-acid</span></a>
-      <a class="showreel-card" href="examples/structured/jellybean-launch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/jellybean-launch.html" loading="lazy" title="" tabindex="-1"></iframe><span>Jellybean · candy-pop</span></a>
-      <a class="showreel-card" href="examples/structured/neondistrict-platform.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/neondistrict-platform.html" loading="lazy" title="" tabindex="-1"></iframe><span>Neon District · neon-noir</span></a>
-      <a class="showreel-card" href="examples/structured/forge-api.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/forge-api.html" loading="lazy" title="" tabindex="-1"></iframe><span>Forge · developer-dark</span></a>
-      <a class="showreel-card" href="examples/structured/pulse-wrapped.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/pulse-wrapped.html" loading="lazy" title="" tabindex="-1"></iframe><span>Pulse · kinetic-wrapped</span></a>
-      <a class="showreel-card" href="examples/structured/apsis-mission.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="examples/structured/apsis-mission.html" loading="lazy" title="" tabindex="-1"></iframe><span>Apsis · blueprint</span></a>
+      <a class="showreel-card" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/novaspark-pitch.html" loading="lazy" title="" tabindex="-1"></iframe><span>NovaSpark · aurora-glass</span></a>
+      <a class="showreel-card" href="examples/structured/meridian-sales.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/meridian-sales.html" loading="lazy" title="" tabindex="-1"></iframe><span>Meridian · ft-editorial</span></a>
+      <a class="showreel-card" href="examples/structured/bounce-launch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/bounce-launch.html" loading="lazy" title="" tabindex="-1"></iframe><span>Bounce · genz-bento</span></a>
+      <a class="showreel-card" href="examples/structured/solstice-update.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/solstice-update.html" loading="lazy" title="" tabindex="-1"></iframe><span>Solstice · luxury-minimalist</span></a>
+      <a class="showreel-card" href="examples/structured/retronet-demo.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/retronet-demo.html" loading="lazy" title="" tabindex="-1"></iframe><span>RetroNet · crt-terminal</span></a>
+      <a class="showreel-card" href="examples/structured/gridsystems-studio.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/gridsystems-studio.html" loading="lazy" title="" tabindex="-1"></iframe><span>Grid Systems · swiss-typographic</span></a>
+      <a class="showreel-card" href="examples/structured/monolith-seriesa.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/monolith-seriesa.html" loading="lazy" title="" tabindex="-1"></iframe><span>MONOLITH · brutalist-acid</span></a>
+      <a class="showreel-card" href="examples/structured/jellybean-launch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/jellybean-launch.html" loading="lazy" title="" tabindex="-1"></iframe><span>Jellybean · candy-pop</span></a>
+      <a class="showreel-card" href="examples/structured/neondistrict-platform.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/neondistrict-platform.html" loading="lazy" title="" tabindex="-1"></iframe><span>Neon District · neon-noir</span></a>
+      <a class="showreel-card" href="examples/structured/forge-api.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/forge-api.html" loading="lazy" title="" tabindex="-1"></iframe><span>Forge · developer-dark</span></a>
+      <a class="showreel-card" href="examples/structured/pulse-wrapped.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/pulse-wrapped.html" loading="lazy" title="" tabindex="-1"></iframe><span>Pulse · kinetic-wrapped</span></a>
+      <a class="showreel-card" href="examples/structured/apsis-mission.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/apsis-mission.html" loading="lazy" title="" tabindex="-1"></iframe><span>Apsis · blueprint</span></a>
     </div>
   </div>
 </section>
@@ -1308,7 +1416,8 @@
     </div>
     <div style="margin-top:28px;border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--paper2);box-shadow:0 24px 60px -28px rgba(11,18,32,.35);">
       <iframe
-        src="studio/"
+        src="about:blank"
+        data-src="studio/"
         title="presentation-md Studio"
         loading="lazy"
         style="width:100%;height:min(520px,70vh);border:0;background:#E8EEF4;"
@@ -1339,145 +1448,145 @@
     <div class="theme-preview-strip" aria-label="Live theme craft previews">
       <a href="/previews/claude.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/claude.html" title="claude theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/claude.html" title="claude theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">claude <em>· warm paper</em></div>
       </a>
       <a href="/previews/aurora-glass.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/aurora-glass.html" title="aurora-glass theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/aurora-glass.html" title="aurora-glass theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">aurora-glass <em>· aurora glow</em></div>
       </a>
       <a href="/previews/genz-bento.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/genz-bento.html" title="genz-bento theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/genz-bento.html" title="genz-bento theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">genz-bento <em>· hard shadow</em></div>
       </a>
       <a href="/previews/soft-editorial.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/soft-editorial.html" title="soft-editorial theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/soft-editorial.html" title="soft-editorial theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">soft-editorial <em>· cream magazine</em></div>
       </a>
       <a href="/previews/broadsheet.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/broadsheet.html" title="broadsheet theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/broadsheet.html" title="broadsheet theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">broadsheet <em>· newsprint</em></div>
       </a>
       <a href="/previews/signal.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/signal.html" title="signal theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/signal.html" title="signal theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">signal <em>· cream navy gold</em></div>
       </a>
       <a href="/previews/kinetic-wrapped.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/kinetic-wrapped.html" title="kinetic-wrapped theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/kinetic-wrapped.html" title="kinetic-wrapped theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">kinetic-wrapped <em>· acid lime</em></div>
       </a>
       <a href="/previews/blueprint.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/blueprint.html" title="blueprint theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/blueprint.html" title="blueprint theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">blueprint <em>· cyan grid</em></div>
       </a>
       <a href="/previews/neon-noir.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/neon-noir.html" title="neon-noir theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/neon-noir.html" title="neon-noir theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">neon-noir <em>· rain neon</em></div>
       </a>
       <a href="/previews/bauhaus.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/bauhaus.html" title="bauhaus theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/bauhaus.html" title="bauhaus theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">bauhaus <em>· primary blocks</em></div>
       </a>
       <a href="/previews/crt-terminal.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/crt-terminal.html" title="crt-terminal theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/crt-terminal.html" title="crt-terminal theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">crt-terminal <em>· phosphor</em></div>
       </a>
       <a href="/previews/bold-poster.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/bold-poster.html" title="bold-poster theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/bold-poster.html" title="bold-poster theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">bold-poster <em>· tomato shrikhand</em></div>
       </a>
       <a href="/previews/default-tech.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/default-tech.html" title="default-tech theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/default-tech.html" title="default-tech theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">default-tech <em>· neon glow</em></div>
       </a>
       <a href="/previews/editorial-forest.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/editorial-forest.html" title="editorial-forest theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/editorial-forest.html" title="editorial-forest theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">editorial-forest <em>· oat cream</em></div>
       </a>
       <a href="/previews/notebook-tabs.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/notebook-tabs.html" title="notebook-tabs theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/notebook-tabs.html" title="notebook-tabs theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">notebook-tabs <em>· cream paper</em></div>
       </a>
       <a href="/previews/vaporwave.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/vaporwave.html" title="vaporwave theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/vaporwave.html" title="vaporwave theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">vaporwave <em>· horizon grid</em></div>
       </a>
       <a href="/previews/neo-grid-bold.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/neo-grid-bold.html" title="neo-grid-bold theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/neo-grid-bold.html" title="neo-grid-bold theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">neo-grid-bold <em>· lemon panels</em></div>
       </a>
       <a href="/previews/raw-grid.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/raw-grid.html" title="raw-grid theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/raw-grid.html" title="raw-grid theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">raw-grid <em>· neo-brutal</em></div>
       </a>
       <a href="/previews/aerospace-hud.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/aerospace-hud.html" title="aerospace-hud theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/aerospace-hud.html" title="aerospace-hud theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">aerospace-hud <em>· HUD grid</em></div>
       </a>
       <a href="/previews/glassmorphism.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/glassmorphism.html" title="glassmorphism theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/glassmorphism.html" title="glassmorphism theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">glassmorphism <em>· soft glass</em></div>
       </a>
       <a href="/previews/art-deco.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/art-deco.html" title="art-deco theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/art-deco.html" title="art-deco theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">art-deco <em>· gold leaf</em></div>
       </a>
       <a href="/previews/developer-dark.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/developer-dark.html" title="developer-dark theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/developer-dark.html" title="developer-dark theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">developer-dark <em>· forge night</em></div>
       </a>
       <a href="/previews/split-pastel.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/split-pastel.html" title="split-pastel theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/split-pastel.html" title="split-pastel theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">split-pastel <em>· peach lavender</em></div>
       </a>
       <a href="/previews/retro-arcade.html" target="_blank" rel="noopener" class="theme-preview-card">
         <div class="theme-preview-frame" data-crop="title">
-          <iframe src="/previews/retro-arcade.html" title="retro-arcade theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="/previews/retro-arcade.html" title="retro-arcade theme preview" loading="lazy" decoding="async" tabindex="-1"></iframe>
         </div>
         <div class="theme-preview-label">retro-arcade <em>· scanline neon</em></div>
       </a>
@@ -4219,7 +4328,7 @@
     <div class="compare-live" aria-label="Same schema path, three themes">
       <a href="examples/structured/neondistrict-platform.html" target="_blank" rel="noopener">
         <div class="hero-craft-frame">
-          <iframe src="examples/structured/neondistrict-platform.html" loading="lazy" title="Neon Cyber / neon-noir" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="examples/structured/neondistrict-platform.html" loading="lazy" title="Neon Cyber / neon-noir" tabindex="-1"></iframe>
         </div>
         <div class="hero-craft-meta">
           <strong>Neon Cyber</strong>
@@ -4228,7 +4337,7 @@
       </a>
       <a href="examples/structured/retronet-demo.html" target="_blank" rel="noopener">
         <div class="hero-craft-frame">
-          <iframe src="examples/structured/retronet-demo.html" loading="lazy" title="Terminal Green / crt-terminal" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="examples/structured/retronet-demo.html" loading="lazy" title="Terminal Green / crt-terminal" tabindex="-1"></iframe>
         </div>
         <div class="hero-craft-meta">
           <strong>Terminal Green</strong>
@@ -4237,7 +4346,7 @@
       </a>
       <a href="examples/structured/gridsystems-studio.html" target="_blank" rel="noopener">
         <div class="hero-craft-frame">
-          <iframe src="examples/structured/gridsystems-studio.html" loading="lazy" title="Swiss Modern / swiss-typographic" tabindex="-1"></iframe>
+          <iframe src="about:blank" data-src="examples/structured/gridsystems-studio.html" loading="lazy" title="Swiss Modern / swiss-typographic" tabindex="-1"></iframe>
         </div>
         <div class="hero-craft-meta">
           <strong>Swiss Modern</strong>
@@ -4677,6 +4786,7 @@
   }
 })();
 </script>
+
 
 </body>
 </html>
