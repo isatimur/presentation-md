@@ -87,8 +87,9 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   peoples-platform gets a thicker cobalt top bar + amber stub + hard 6pt frame + denser ink speckles + square hard-border cards with red offsets;
   raw-grid gets blush/sage bands + thicker cross rules + ink corner blot + hard 3pt frame + ink offset shadow + square hard-border cards with hard offsets;
   retro-zine gets a hard frame + offset green plate + cream card on every slide + square hard-border cards;
-  sakura-chroma gets a hard frame + accent-tinted offset shadow on every slide + chroma strip/stamp orbs on heroes + hard-border cards;
-  daisy-days gets hard frame + charcoal offset shadow + pastel dots + daisy/pill ornaments on every slide + plump hard-border cards;
+  sakura-chroma gets a denser accent-tinted offset shadow + harder frame on every slide + chroma strip/stamp orbs on heroes + quiet paper tooth on body + hard-border cards with accent offsets;
+  daisy-days gets harder charcoal frame/offset + denser pastel dots + petal daisy + pill hard offset on every slide + plump hard-border cards with charcoal offsets;
+  bauhaus gets a harder frame + red/blue/yellow primary geometry + ink stub on every slide (heroes louder) + square hard-border cards with quiet ink offsets;
   block-frame gets a hard frame + ink offset shadow on every slide + pastel offset blocks on heroes + square hard-border cards with hard offsets;
   editorial-tri-tone gets a butter split + burgundy wash + hard 3pt frame + hero accent blot + square hard-border cards;
   broadside gets a thicker fire-orange rail + larger corner blast + hard ink frame + always-on top stub + square hard-border cards;
