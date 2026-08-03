@@ -229,23 +229,29 @@
       width: max(100%, 177.78vh);
       height: max(100%, 56.25vw);
       max-width: none;
-      transform: translate(-50%, -50%) scale(1);
+      transform: translate(-50%, -50%) scale(1.04);
       object-fit: cover;
-      object-position: 72% 40%;
+      /* Bias right — craft must survive the left paper wash */
+      object-position: 82% 42%;
       pointer-events: none;
       opacity: 0;
-      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+      transition:
+        opacity 1.05s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
       will-change: opacity, transform;
     }
     .hero-visual-img.is-active {
       opacity: 1;
       z-index: 1;
-      animation: pmd-stage-drift 14s ease-in-out alternate infinite;
+      animation: pmd-stage-drift 16s cubic-bezier(0.37, 0, 0.63, 1) alternate infinite;
     }
     .hero-visual-img.is-outgoing {
       opacity: 0;
       z-index: 2;
-      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+      transform: translate(-48%, -50%) scale(1.1);
+      transition:
+        opacity 1.05s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .hero-visual.is-paused .hero-visual-img.is-active {
       animation-play-state: paused;
@@ -275,20 +281,21 @@
       animation-play-state: paused;
     }
 
-    /* Cloth wash — readable copy without a card or caption overlay */
+    /* Cloth wash — readable copy, but leave more craft visible on the right */
     .hero-sheen {
       position: absolute;
       inset: 0;
       z-index: 1;
       pointer-events: none;
       background:
-        linear-gradient(95deg,
+        linear-gradient(98deg,
           rgba(232, 238, 244, 1) 0%,
-          rgba(232, 238, 244, 1) 36%,
-          rgba(232, 238, 244, 0.97) 44%,
-          rgba(232, 238, 244, 0.55) 54%,
-          transparent 66%),
-        radial-gradient(820px 480px at 14% 30%, rgba(255, 255, 255, 0.55), transparent 64%);
+          rgba(232, 238, 244, 1) 30%,
+          rgba(232, 238, 244, 0.94) 38%,
+          rgba(232, 238, 244, 0.42) 48%,
+          rgba(232, 238, 244, 0.12) 56%,
+          transparent 64%),
+        radial-gradient(780px 440px at 12% 28%, rgba(255, 255, 255, 0.5), transparent 66%);
     }
     .hero-sheen::after {
       content: "";
@@ -511,8 +518,8 @@
       to { opacity: 1; transform: scale(1); }
     }
     @keyframes pmd-stage-drift {
-      from { transform: translate(-50%, -50%) scale(1); }
-      to { transform: translate(-51.2%, -50.6%) scale(1.045); }
+      from { transform: translate(-50%, -50%) scale(1.04); }
+      to { transform: translate(-53.5%, -51.2%) scale(1.12); }
     }
     @keyframes pmd-hero-progress {
       from { width: 0%; }
@@ -610,7 +617,7 @@
       .hero-visual, .hero-visual-img, .hero-sheen::after, .hero-progress > span,
       .showreel-track { animation: none !important; }
       .hero-visual-img { transition: none !important; }
-      .hero-visual-img.is-active { opacity: 1; transform: translate(-50%, -50%); }
+      .hero-visual-img.is-active { opacity: 1; transform: translate(-50%, -50%) scale(1.04); }
       .theme-card, .gallery-card {
         transition: none !important;
         transform: none !important;
@@ -654,7 +661,7 @@
         top: 0;
         transform: none;
         object-fit: cover;
-        object-position: 42% 35%;
+        object-position: 55% 40%;
       }
       .hero-visual-img.is-active {
         animation: none;
@@ -1495,9 +1502,9 @@
 
 <!-- ── HEADER ──────────────────────────────────────────────────────────────── -->
 <header class="site-hero">
-  <div class="hero-visual" id="hero-carousel" role="region" aria-roledescription="carousel" aria-label="Stunning twenty-five craft decks" style="--hero-dwell: 4.8s">
-    <a class="hero-visual-link" id="hero-carousel-link" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener" aria-label="Open NovaSpark aurora-glass craft deck">
-      <img class="hero-visual-img is-active" id="hero-img-a" src="previews/hero/novaspark-pitch.png" width="1280" height="720" alt="NovaSpark aurora-glass title slide" decoding="async" fetchpriority="high" />
+  <div class="hero-visual" id="hero-carousel" role="region" aria-roledescription="carousel" aria-label="Stunning twenty-five craft decks" style="--hero-dwell: 5.2s">
+    <a class="hero-visual-link" id="hero-carousel-link" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener" aria-label="Open NovaSpark AI Aurora Glass craft deck">
+      <img class="hero-visual-img is-active" id="hero-img-a" src="previews/hero/novaspark-pitch.png" width="1280" height="720" alt="NovaSpark AI Aurora Glass craft slide" decoding="async" fetchpriority="high" />
       <img class="hero-visual-img" id="hero-img-b" src="previews/hero/meridian-sales.png" width="1280" height="720" alt="" decoding="async" aria-hidden="true" />
     </a>
     <div class="hero-progress" aria-hidden="true"><span id="hero-progress-bar"></span></div>
@@ -1520,7 +1527,7 @@
     <p class="cta-micro">No account · MIT · works offline after install</p>
     <div class="hero-carousel-meta">
       <p class="hero-carousel-caption" id="hero-carousel-caption" aria-live="polite">
-        <strong>NovaSpark</strong> · aurora-glass
+        <strong>NovaSpark AI</strong> · Aurora Glass
       </p>
       <div class="hero-carousel-nav" role="group" aria-label="Carousel controls">
         <button type="button" id="hero-carousel-prev" aria-label="Previous craft deck">
@@ -5185,31 +5192,31 @@
 <script>
 (function () {
   var DECKS = [
-    { slug: 'novaspark-pitch', name: 'NovaSpark', theme: 'aurora-glass' },
-    { slug: 'meridian-sales', name: 'Meridian', theme: 'ft-editorial' },
-    { slug: 'bounce-launch', name: 'Bounce', theme: 'genz-bento' },
-    { slug: 'solstice-update', name: 'Solstice', theme: 'luxury-minimalist' },
-    { slug: 'retronet-demo', name: 'RetroNet', theme: 'crt-terminal' },
-    { slug: 'gridsystems-studio', name: 'Grid Systems', theme: 'swiss-typographic' },
-    { slug: 'monolith-seriesa', name: 'MONOLITH', theme: 'brutalist-acid' },
-    { slug: 'jellybean-launch', name: 'Jellybean', theme: 'candy-pop' },
-    { slug: 'axiom-robotics', name: 'Axiom', theme: 'aerospace-hud' },
-    { slug: 'atelier-brand', name: 'Atelier No. 9', theme: 'heritage-editorial' },
-    { slug: 'ledgerline-payout', name: 'Ledgerline', theme: 'fintech-clean' },
-    { slug: 'forge-api', name: 'Forge', theme: 'developer-dark' },
-    { slug: 'signalbox-report', name: 'Signalbox', theme: 'data-editorial' },
-    { slug: 'primary-keynote', name: 'Primary', theme: 'bauhaus' },
-    { slug: 'bubbleflow-launch', name: 'BubbleFlow', theme: 'y2k-aero' },
-    { slug: 'inkwell-pitch', name: 'Inkwell', theme: 'risograph-zine' },
-    { slug: 'neondistrict-platform', name: 'Neon District', theme: 'neon-noir' },
-    { slug: 'hygge-brand', name: 'Hygge', theme: 'scandinavian' },
-    { slug: 'meridianclub-investor', name: 'Meridian Club', theme: 'art-deco' },
-    { slug: 'mallsoft-launch', name: 'Mallsoft', theme: 'vaporwave' },
-    { slug: 'dailyledger-mediakit', name: 'Daily Ledger', theme: 'broadsheet' },
-    { slug: 'cloudpeak-pricing', name: 'CloudPeak', theme: 'glassmorphism' },
-    { slug: 'pulse-wrapped', name: 'Pulse', theme: 'kinetic-wrapped' },
-    { slug: 'verdant-impact', name: 'Verdant', theme: 'botanical-luxe' },
-    { slug: 'apsis-mission', name: 'Apsis', theme: 'blueprint' }
+    { slug: 'novaspark-pitch', name: 'NovaSpark AI', theme: 'Aurora Glass' },
+    { slug: 'meridian-sales', name: 'Meridian Analytics', theme: 'FT Editorial' },
+    { slug: 'bounce-launch', name: 'Bounce', theme: 'Gen-Z Bento' },
+    { slug: 'solstice-update', name: 'Solstice Capital', theme: 'Ultra-Luxury' },
+    { slug: 'retronet-demo', name: 'RetroNet', theme: 'CRT Terminal' },
+    { slug: 'gridsystems-studio', name: 'Grid Systems', theme: 'Swiss Typographic' },
+    { slug: 'monolith-seriesa', name: 'MONOLITH', theme: 'Brutalist Acid' },
+    { slug: 'jellybean-launch', name: 'Jellybean', theme: 'Candy Pop' },
+    { slug: 'axiom-robotics', name: 'Axiom Robotics', theme: 'Aerospace HUD' },
+    { slug: 'atelier-brand', name: 'Atelier No. 9', theme: 'Heritage Editorial' },
+    { slug: 'ledgerline-payout', name: 'Ledgerline', theme: 'Fintech Clean' },
+    { slug: 'forge-api', name: 'Forge', theme: 'Developer Dark' },
+    { slug: 'signalbox-report', name: 'Signalbox', theme: 'Data Editorial' },
+    { slug: 'primary-keynote', name: 'Primary', theme: 'Bauhaus' },
+    { slug: 'bubbleflow-launch', name: 'BubbleFlow', theme: 'Y2K Aero' },
+    { slug: 'inkwell-pitch', name: 'Inkwell', theme: 'Risograph Zine' },
+    { slug: 'neondistrict-platform', name: 'Neon District', theme: 'Neon Noir' },
+    { slug: 'hygge-brand', name: 'Hygge', theme: 'Scandinavian' },
+    { slug: 'meridianclub-investor', name: 'Meridian Club', theme: 'Art Deco' },
+    { slug: 'mallsoft-launch', name: 'Mallsoft', theme: 'Vaporwave' },
+    { slug: 'dailyledger-mediakit', name: 'The Daily Ledger', theme: 'Broadsheet' },
+    { slug: 'cloudpeak-pricing', name: 'CloudPeak', theme: 'Glassmorphism' },
+    { slug: 'pulse-wrapped', name: 'Pulse', theme: 'Kinetic Wrapped' },
+    { slug: 'verdant-impact', name: 'Verdant', theme: 'Botanical Luxe' },
+    { slug: 'apsis-mission', name: 'Apsis', theme: 'Blueprint' }
   ];
 
   var root = document.getElementById('hero-carousel');
@@ -5230,7 +5237,7 @@
   var timer = null;
   var paused = false;
   var transitioning = false;
-  var DWELL = 4800;
+  var DWELL = 5200;
   var warmed = Object.create(null);
 
   function srcFor(i) {
@@ -5305,7 +5312,7 @@
       link.setAttribute('aria-label', 'Open ' + d.name + ' ' + d.theme + ' craft deck');
     }
     var active = activeIsA ? imgA : imgB;
-    if (active) active.alt = d.name + ' ' + d.theme + ' title slide';
+    if (active) active.alt = d.name + ' · ' + d.theme + ' craft slide';
   }
 
   function go(delta, user) {
@@ -5337,7 +5344,7 @@
         outgoing.removeAttribute('fetchpriority');
         transitioning = false;
         if (!paused && !reduceMq.matches) start();
-      }, reduceMq.matches ? 0 : 900);
+      }, reduceMq.matches ? 0 : 1100);
     }
 
     if (incoming.getAttribute('src') !== url) {
