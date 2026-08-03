@@ -79,10 +79,16 @@ function findSlides(html: string): string[] {
       opens.push({ start: m.index, end: m.index + m[0].length });
     }
   }
+  // Prefer ending the last slide at </main> so Present chrome / help / scripts
+  // after the deck are not counted as wall-of-text on the closing slide.
+  const mainClose = html.lastIndexOf("</main>");
   const slides: string[] = [];
   for (let i = 0; i < opens.length; i++) {
     const start = opens[i]!.end;
-    const end = i + 1 < opens.length ? opens[i + 1]!.start : html.length;
+    let end = i + 1 < opens.length ? opens[i + 1]!.start : html.length;
+    if (i === opens.length - 1 && mainClose > start) {
+      end = mainClose;
+    }
     slides.push(html.slice(start, end));
   }
   return slides;
