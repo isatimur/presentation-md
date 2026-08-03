@@ -121,7 +121,9 @@ export function Toolbar({
   const [auditIssues, setAuditIssues] = useState<
     Array<{ severity: "error" | "warning"; message: string; slide?: number; fixId?: CraftFixId }>
   >([]);
-  const [auditFilter, setAuditFilter] = useState<"all" | "error" | "warning">("all");
+  /** PPTX export warnings — kept separate so live craft refresh doesn't wipe the full list. */
+  const [pptxWarnings, setPptxWarnings] = useState<string[]>([]);
+  const [auditFilter, setAuditFilter] = useState<"all" | "error" | "warning" | "pptx">("all");
   const [auditPanelOpen, setAuditPanelOpen] = useState(true);
   const [commandOpen, setCommandOpen] = useState(false);
   /** Mount featured shot-strip iframes only while Example is open (cut idle loads). */
@@ -201,6 +203,15 @@ export function Toolbar({
   const liveCraftIssues = useMemo(() => auditCraft(deck), [deck]);
   const liveCraftErrors = liveCraftIssues.filter((i) => i.severity === "error").length;
   const liveCraftWarns = liveCraftIssues.length - liveCraftErrors;
+  const panelIssues = useMemo(() => {
+    const pptx: CraftIssue[] = pptxWarnings.map((message) => ({
+      severity: "warning",
+      message: message.startsWith("PPTX:") ? message : `PPTX: ${message}`,
+    }));
+    // Drop stale PPTX: rows from craft/judge payloads if any linger.
+    const craft = auditIssues.filter((i) => !i.message.startsWith("PPTX:"));
+    return [...pptx, ...craft];
+  }, [auditIssues, pptxWarnings]);
   const theme = deck.meta?.theme ?? "default-tech";
   const active = themes.find((t) => t.name === theme) ?? {
     name: theme,
@@ -222,12 +233,15 @@ export function Toolbar({
   });
 
   // Auto-open on live craft issues (errors or warnings) unless the user dismissed while dirty.
+  // PPTX export warnings live in pptxWarnings and survive craft refresh / clean craft.
   useEffect(() => {
     if (liveCraftIssues.length === 0) {
       suppressLivePanel.current = false;
       if (craftPanelOpen.current) {
         setAuditIssues([]);
-        craftPanelOpen.current = false;
+        if (pptxWarnings.length === 0) {
+          craftPanelOpen.current = false;
+        }
       }
       return;
     }
@@ -236,9 +250,9 @@ export function Toolbar({
     setAuditIssues(liveCraftIssues);
     setAuditPanelOpen(true);
     if (liveCraftErrors > 0) {
-      setAuditFilter((f) => (f === "warning" ? "all" : f));
+      setAuditFilter((f) => (f === "warning" || f === "pptx" ? "all" : f));
     }
-  }, [liveCraftIssues, liveCraftErrors]);
+  }, [liveCraftIssues, liveCraftErrors, pptxWarnings.length]);
 
   const setMeta = (patch: Record<string, string>) =>
     onChange({ ...deck, meta: { ...deck.meta, ...patch } });
@@ -318,15 +332,16 @@ export function Toolbar({
         setStatus("Exported .pptx for an earlier deck revision — current edits were not included");
         return;
       }
-      const exportIssues = warnings.map((message) => ({
-        severity: "warning" as const,
-        message: `PPTX: ${message}`,
-      }));
-      const merged = [...exportIssues, ...snapshotCraftIssues];
-      if (merged.length) {
+      const exportIssues = warnings.map((message) =>
+        message.startsWith("PPTX:") ? message : `PPTX: ${message}`
+      );
+      setPptxWarnings(exportIssues);
+      setAuditIssues(snapshotCraftIssues);
+      const mergedCount = exportIssues.length + snapshotCraftIssues.length;
+      if (mergedCount) {
         // Keep craft ownership so deck edits still refresh the panel; export warns lead.
         craftPanelOpen.current = true;
-        setAuditIssues(merged);
+        setAuditFilter(exportIssues.length ? "pptx" : "all");
         setAuditPanelOpen(true);
         setStatus(
           warnings.length
@@ -359,8 +374,13 @@ export function Toolbar({
     const errors = issues.filter((i) => i.severity === "error");
     const warns = issues.filter((i) => i.severity === "warning");
     if (!issues.length) {
-      craftPanelOpen.current = false;
-      setStatus("Craft audit clean");
+      craftPanelOpen.current = pptxWarnings.length > 0;
+      setAuditPanelOpen(pptxWarnings.length > 0);
+      setStatus(
+        pptxWarnings.length
+          ? `Craft audit clean · ${pptxWarnings.length} PPTX warning${pptxWarnings.length > 1 ? "s" : ""} remain`
+          : "Craft audit clean"
+      );
       return;
     }
     setStatus(
@@ -379,11 +399,15 @@ export function Toolbar({
     craftPanelOpen.current = true;
     setAuditIssues(issues);
     setAuditFilter("all");
-    setAuditPanelOpen(issues.length > 0);
+    setAuditPanelOpen(issues.length > 0 || pptxWarnings.length > 0);
     const gates = Number(metrics.gate_hits ?? 0);
     if (!issues.length) {
-      craftPanelOpen.current = false;
-      setStatus("Judge t1 clean — escalate to MCP judge_deck t2 for HTML shots");
+      craftPanelOpen.current = pptxWarnings.length > 0;
+      setStatus(
+        pptxWarnings.length
+          ? `Judge t1 clean · ${pptxWarnings.length} PPTX warning${pptxWarnings.length > 1 ? "s" : ""} remain`
+          : "Judge t1 clean — escalate to MCP judge_deck t2 for HTML shots"
+      );
       return;
     }
     setStatus(
@@ -393,6 +417,7 @@ export function Toolbar({
 
   const dismissAuditPanel = () => {
     setAuditIssues([]);
+    setPptxWarnings([]);
     craftPanelOpen.current = false;
     if (liveCraftIssues.length > 0) suppressLivePanel.current = true;
   };
@@ -407,8 +432,9 @@ export function Toolbar({
     const issues = auditCraft(repaired);
     setAuditIssues(issues);
     setAuditFilter("all");
-    setAuditPanelOpen(issues.length > 0);
-    craftPanelOpen.current = issues.length > 0;
+    const remain = issues.length + pptxWarnings.length;
+    setAuditPanelOpen(remain > 0);
+    craftPanelOpen.current = remain > 0;
     suppressLivePanel.current = false;
     setStatus(
       issues.length
@@ -427,8 +453,9 @@ export function Toolbar({
     const issues = auditCraft(remorphed);
     setAuditIssues(issues);
     setAuditFilter("all");
-    setAuditPanelOpen(issues.length > 0);
-    craftPanelOpen.current = issues.length > 0;
+    const remain = issues.length + pptxWarnings.length;
+    setAuditPanelOpen(remain > 0);
+    craftPanelOpen.current = remain > 0;
     suppressLivePanel.current = false;
     setStatus(
       issues.length
@@ -447,8 +474,9 @@ export function Toolbar({
     const issues = auditCraft(repaired);
     setAuditIssues(issues);
     setAuditFilter("all");
-    setAuditPanelOpen(issues.length > 0);
-    craftPanelOpen.current = issues.length > 0;
+    const remain = issues.length + pptxWarnings.length;
+    setAuditPanelOpen(remain > 0);
+    craftPanelOpen.current = remain > 0;
     suppressLivePanel.current = false;
     setStatus(
       issues.length
@@ -1406,23 +1434,30 @@ export function Toolbar({
           </button>
         </div>
       ) : null}
-      {auditIssues.length > 0 && (
+      {panelIssues.length > 0 && (
         <details
           className="audit-panel"
           open={auditPanelOpen}
           onToggle={(e) => setAuditPanelOpen((e.target as HTMLDetailsElement).open)}
         >
           <summary className="btn btn-sm">
-            Issues ({auditIssues.length}
-            {auditIssues.some((i) => i.severity === "error")
-              ? ` · ${auditIssues.filter((i) => i.severity === "error").length} err`
+            Issues ({panelIssues.length}
+            {panelIssues.some((i) => i.severity === "error")
+              ? ` · ${panelIssues.filter((i) => i.severity === "error").length} err`
+              : ""}
+            {pptxWarnings.length
+              ? ` · ${pptxWarnings.length} pptx`
               : ""}
             )
           </summary>
           <div className="audit-filters">
-            {(["all", "error", "warning"] as const).map((f) => {
+            {(["all", "error", "warning", "pptx"] as const).map((f) => {
               const count =
-                f === "all" ? auditIssues.length : auditIssues.filter((i) => i.severity === f).length;
+                f === "all"
+                  ? panelIssues.length
+                  : f === "pptx"
+                    ? pptxWarnings.length
+                    : panelIssues.filter((i) => i.severity === f).length;
               return (
                 <button
                   key={f}
@@ -1436,15 +1471,20 @@ export function Toolbar({
             })}
           </div>
           <ul className="audit-list">
-            {auditIssues
-              .filter((issue) => auditFilter === "all" || issue.severity === auditFilter)
+            {panelIssues
+              .filter((issue) => {
+                if (auditFilter === "all") return true;
+                if (auditFilter === "pptx") return issue.message.startsWith("PPTX:");
+                return issue.severity === auditFilter;
+              })
               .map((issue, i) => {
                 const jumpable = typeof issue.slide === "number" && onSelectSlide;
                 const canInsert = Boolean(issue.fixId);
+                const isPptx = issue.message.startsWith("PPTX:");
                 return (
-                  <li key={`${issue.severity}-${issue.slide ?? "g"}-${i}`} className={`audit-item audit-${issue.severity}${canInsert ? " audit-item-fixable" : ""}`}>
+                  <li key={`${issue.severity}-${issue.slide ?? "g"}-${i}`} className={`audit-item audit-${issue.severity}${canInsert ? " audit-item-fixable" : ""}${isPptx ? " audit-item-pptx" : ""}`}>
                     <span className="audit-sev">
-                      {issue.severity}
+                      {isPptx ? "pptx" : issue.severity}
                       {typeof issue.slide === "number" ? ` · s${issue.slide}` : ""}
                     </span>
                     <div className="audit-body">

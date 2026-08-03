@@ -1172,6 +1172,7 @@ body {
 }
 .audit-error .audit-sev { color: #c0392b; }
 .audit-warning .audit-sev { color: #b7791f; }
+.audit-item-pptx .audit-sev { color: #2563eb; }
 .audit-jump {
   appearance: none;
   background: transparent;

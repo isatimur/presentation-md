@@ -71,7 +71,26 @@ describe("auditCraft", () => {
       ],
     };
     const issues = auditCraft(deck);
-    expect(issues.some((i) => /single CTA|dual ask/i.test(i.message))).toBe(true);
+    const hit = issues.find((i) => /single CTA|dual ask/i.test(i.message));
+    expect(hit).toBeTruthy();
+    expect(hit?.slide).toBe(6);
+  });
+
+  it("warns when investor/funding closing has a single actions[] pill", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "fintech-clean", title: "Series A pitch" },
+      slides: [
+        { layout: "title", heading: "Seed raise" },
+        {
+          layout: "closing",
+          heading: "Invest",
+          actions: [{ label: "Request deck", href: "#", style: "solid", icon: "fa-solid fa-file" }],
+        },
+      ],
+    };
+    const issues = auditCraft(deck);
+    expect(issues.some((i) => i.slide === 2 && /single CTA|dual ask/i.test(i.message))).toBe(true);
   });
 
   it("warns when long decks lack a data beat", () => {
@@ -1010,6 +1029,34 @@ describe("repairCraft", () => {
     expect(after.some((i) => /ratio/i.test(i.message))).toBe(false);
     expect(after.some((i) => /speaker notes/i.test(i.message))).toBe(false);
     expect(after.some((i) => /single CTA|dual actions/i.test(i.message))).toBe(false);
+  });
+
+  it("expands single launch actions[] into a dual ask on repair", () => {
+    const deck = {
+      type: "deck",
+      meta: { theme: "default-tech", title: "Investor update" },
+      slides: [
+        { layout: "title", heading: "Funding round" },
+        {
+          layout: "closing",
+          heading: "Raise with us",
+          actions: [{ label: "Book a call", href: "#meet", style: "solid" }],
+        },
+      ],
+    };
+    expect(auditCraft(deck).some((i) => /single CTA|dual ask/i.test(i.message))).toBe(true);
+    const { deck: repaired, fixes } = repairCraft(deck);
+    expect(fixes.some((f) => /expanded single actions|dual/i.test(f))).toBe(true);
+    const closing = (repaired.slides as Array<Record<string, unknown>>).find(
+      (s) => s["layout"] === "closing"
+    );
+    const actions = closing?.["actions"] as Array<Record<string, unknown>>;
+    expect(actions).toHaveLength(2);
+    expect(actions[0]?.["label"]).toBe("Book a call");
+    expect(actions[0]?.["href"]).toBe("#meet");
+    expect(typeof actions[0]?.["icon"]).toBe("string");
+    expect(actions[1]?.["style"]).toBe("outline");
+    expect(auditCraft(repaired).some((i) => /single CTA|dual ask/i.test(i.message))).toBe(false);
   });
 
   it("is a no-op on already-clean stunning decks", () => {

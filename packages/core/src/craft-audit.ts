@@ -285,14 +285,11 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
           "Closing mentions share/social — prefer actions[] with solid + outline pills (not a single cta).",
       });
     }
-    const deckBlob = JSON.stringify(deck).toLowerCase();
-    const launchy =
-      /launch|waitlist|download|investor|series [abc]|get the app|join the|pre-order|book a|request (access|membership|rates)/i.test(
-        deckBlob
-      );
+    const launchy = isLaunchyDeckBlob(JSON.stringify(deck).toLowerCase());
     if (launchy && actionCount === 1) {
       issues.push({
         severity: "warning",
+        slide: slides.length,
         message:
           "Launch/investor closing has a single CTA — prefer actions[] with solid + outline pills (stunning-25 dual ask).",
       });
@@ -892,6 +889,13 @@ function cloneDeck(deck: CraftAuditDeck): CraftAuditDeck {
   return JSON.parse(JSON.stringify(deck)) as CraftAuditDeck;
 }
 
+/** Launch / investor / raise language that expects a dual CTA close. */
+function isLaunchyDeckBlob(blob: string): boolean {
+  return /launch|waitlist|download|investor|series [abc]|seed (round|raise)|funding round|demo day|get the app|join the|pre-order|book a|request (access|membership|rates)|term sheet|raise capital|investor (update|deck|pitch)|pitch deck/.test(
+    blob
+  );
+}
+
 function actionIconForLabel(label: string): string {
   const l = label.toLowerCase();
   if (/download|install|get the app/.test(l)) return "fa-solid fa-download";
@@ -905,6 +909,27 @@ function actionIconForLabel(label: string): string {
   if (/join|waitlist|sign|email|newsletter/.test(l)) return "fa-solid fa-envelope";
   if (/rocket|launch|start/.test(l)) return "fa-solid fa-rocket";
   return "fa-solid fa-arrow-right";
+}
+
+function promoteClosingToDualActions(
+  slide: Record<string, unknown>,
+  primary: { label: string; href: string; icon?: string }
+): void {
+  slide["actions"] = [
+    {
+      label: primary.label,
+      href: primary.href,
+      style: "solid",
+      icon: primary.icon?.trim() || actionIconForLabel(primary.label),
+    },
+    {
+      label: "Learn more",
+      href: "#",
+      style: "outline",
+      icon: "fa-solid fa-book-open",
+    },
+  ];
+  delete slide["cta"];
 }
 
 const WRAP_TONES = ["lime", "magenta", "cyan", "orange", "violet"] as const;
@@ -1135,22 +1160,16 @@ export function repairCraft(deck: CraftAuditDeck): CraftRepairResult {
         (Array.isArray(actions) && actions.length > 0) ||
         (cta && typeof cta["label"] === "string" && String(cta["label"]).trim() !== "");
 
+      const deckBlob = JSON.stringify(next).toLowerCase();
+      const launchy = isLaunchyDeckBlob(deckBlob);
+      const wantsDual = STUNNING_25_FOR_REPAIR.has(theme) || launchy;
+
       if (!hasAction) {
-        slide["actions"] = [
-          {
-            label: "Get started",
-            href: "#",
-            style: "solid",
-            icon: "fa-solid fa-arrow-right",
-          },
-          {
-            label: "Learn more",
-            href: "#",
-            style: "outline",
-            icon: "fa-solid fa-book-open",
-          },
-        ];
-        delete slide["cta"];
+        promoteClosingToDualActions(slide, {
+          label: "Get started",
+          href: "#",
+          icon: "fa-solid fa-arrow-right",
+        });
         fixes.push(`Slide ${n} (closing): added dual actions[] CTA`);
       } else if (Array.isArray(actions) && actions.length >= 2) {
         let iconed = 0;
@@ -1164,41 +1183,46 @@ export function repairCraft(deck: CraftAuditDeck): CraftRepairResult {
         if (iconed > 0) {
           fixes.push(`Slide ${n} (closing): added icons on ${iconed} action(s)`);
         }
+      } else if (Array.isArray(actions) && actions.length === 1 && wantsDual) {
+        const primary = actions[0] as Record<string, unknown>;
+        const primaryLabel =
+          typeof primary["label"] === "string" && String(primary["label"]).trim()
+            ? String(primary["label"]).trim()
+            : "Get started";
+        const primaryHref =
+          typeof primary["href"] === "string" && String(primary["href"]).trim()
+            ? String(primary["href"])
+            : "#";
+        const primaryIcon =
+          typeof primary["icon"] === "string" && String(primary["icon"]).trim()
+            ? String(primary["icon"])
+            : undefined;
+        promoteClosingToDualActions(slide, {
+          label: primaryLabel,
+          href: primaryHref,
+          icon: primaryIcon,
+        });
+        fixes.push(`Slide ${n} (closing): expanded single actions[] → dual ask`);
       } else if (
         !Array.isArray(actions) &&
         cta &&
         typeof cta["label"] === "string" &&
         String(cta["label"]).trim() !== ""
       ) {
-        const deckBlob = JSON.stringify(next).toLowerCase();
-        const launchy =
-          /launch|waitlist|download|investor|series [abc]|get the app|join the|pre-order|book a|request (access|membership|rates)/i.test(
-            deckBlob
-          );
-        if (STUNNING_25_FOR_REPAIR.has(theme) || launchy) {
+        if (wantsDual) {
           const primaryLabel = String(cta["label"]).trim();
           const primaryHref =
             typeof cta["href"] === "string" && String(cta["href"]).trim()
               ? String(cta["href"])
               : "#";
-          slide["actions"] = [
-            {
-              label: primaryLabel,
-              href: primaryHref,
-              style: "solid",
-              icon:
-                typeof cta["icon"] === "string" && String(cta["icon"]).trim()
-                  ? String(cta["icon"])
-                  : actionIconForLabel(primaryLabel),
-            },
-            {
-              label: "Learn more",
-              href: "#",
-              style: "outline",
-              icon: "fa-solid fa-book-open",
-            },
-          ];
-          delete slide["cta"];
+          promoteClosingToDualActions(slide, {
+            label: primaryLabel,
+            href: primaryHref,
+            icon:
+              typeof cta["icon"] === "string" && String(cta["icon"]).trim()
+                ? String(cta["icon"])
+                : undefined,
+          });
           fixes.push(`Slide ${n} (closing): promoted cta → dual actions[]`);
         } else if (
           !(typeof cta["icon"] === "string" && String(cta["icon"]).trim() !== "")

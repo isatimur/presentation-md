@@ -16,9 +16,10 @@ describe("candyMarquee", () => {
     expect(text.split("JELLYBEAN").length).toBeGreaterThan(3);
   });
 
-  it("honors custom marquee units", () => {
-    const text = candyMarqueeText({ marquee: "DROP · SHIP · SMILE" });
+  it("honors custom marquee units and still brands", () => {
+    const text = candyMarqueeText({ company: "Sourbean", marquee: "DROP · SHIP · SMILE" });
     expect(text).toContain("DROP · SHIP · SMILE");
+    expect(text).toContain("SOURBEAN");
     expect(text).not.toContain("SAVE TOGETHER");
   });
 });

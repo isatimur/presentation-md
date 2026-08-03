@@ -53,13 +53,14 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   layers, and hero ink speckles; candy-pop gets a hard candy frame, pink/blue
   washes, an outlined blue ornament circle, a butter blot, body pink drop-shadow,
   plus a yellow ticker strip with static marquee text from `meta.company` /
-  `meta.title` / `meta.marquee` (not Jellybean-hardcoded) on title/closing,
+  `meta.title` / `meta.marquee` (custom units still append the brand token; not
+  Jellybean-hardcoded) on title/closing,
   and **card-level hard ink borders** (~2.5–2.75pt) with plump radius on
   feature-grid / bento / comparison / logo-wall / aside cards;
   neon-noir gets magenta/cyan glow ovals + cyan rim + rain scanlines + always-on floor cyan inset + accent2 card rims;
   vaporwave gets horizon wash + pink sun + vertical grid stubs + horizon glow line + accent rim;
   y2k-aero gets glossy bubble ovals + soft accent rim + soft shadow stub + plump card radius;
-  aurora-glass / glassmorphism get dual mist ovals + glass frames; luxury-minimalist gets a gold hairline on heroes and a quiet border on body slides; crt-terminal gets phosphor wash + denser scanlines + bezel;
+  aurora-glass / glassmorphism get dual mist ovals + glass frames + frosted inner plate + specular top hairline + soft floor shadow; luxury-minimalist gets a gold hairline on heroes and a quiet border on body slides; crt-terminal gets phosphor wash + denser scanlines + bezel;
   blueprint gets a light grid + dual reticles + outer frame + square accent card hairlines; brutalist-acid gets a
   hard acid frame + accent offset shadow (heroes also get an offset plate) + square accent card strokes; aerospace-hud gets a denser HUD
   grid + reticle crosshair + orange telemetry stub + square accent card hairlines; swiss-typographic gets a modular grid + red left rail + square card strokes;
@@ -72,7 +73,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   neo-grid-bold gets a modular grid + lemon corner panel + hard frame + accent offset shadow + square hard-border cards;
   bold-poster gets a hard frame + offset shadow + ink top bar (poster block on heroes) + square hard-border cards;
   capsule gets plump frame + hard ink offset shadow + pastel blots + hero-gated coral pill/lime circles + plump card radius;
-  cobalt-grid gets a denser cobalt paper grid + diagonal corner hatch + outer frame + square cobalt card strokes;
+  cobalt-grid gets a denser cobalt paper grid + diagonal corner hatch + L registration marks + outer frame + square cobalt card strokes;
   retro-arcade gets denser scanlines + dual magenta/cyan top rail + neon orbs + cyan rim + floor glow + cyan card rims;
   brutalist-mono gets a dense mono grid + hard frame + ink offset shadow;
   creative-mode gets a hard frame + ink offset shadow on every slide + hero-gated stacked accent blocks + square hard-border cards;
@@ -140,7 +141,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   Quiet HTML paper fiber grain (editorial / parchment themes) is not drawn in PPTX —
   ship HTML when the tooth is the brand. True CSS `mix-blend-mode` / animated marquees
   remain HTML-only.
-- Closing `actions[].icon` maps to a glyph prefix on PPTX pills (FA brands → letter/symbol).
+- Closing `actions[].icon` maps to a left icon-well chip on PPTX pills (FA brands → glyph/letter), not just a text prefix.
 
 - Every non-mappable field emits a warning (via `opts.onWarn` / `result.warnings`) — nothing
   is dropped silently.

@@ -70,10 +70,20 @@
       "eyebrow": "Pilot",
       "heading": "Pin your first matter.",
       "lead": "Pilot seats for boutique firms.",
-      "cta": {
-        "label": "Request a pilot",
-        "href": "#"
-      }
+      "actions": [
+        {
+          "label": "Request a pilot",
+          "href": "#",
+          "style": "solid",
+          "icon": "fa-solid fa-file-signature"
+        },
+        {
+          "label": "View pricing",
+          "href": "#",
+          "style": "outline",
+          "icon": "fa-solid fa-table-list"
+        }
+      ]
     }
   ]
 }

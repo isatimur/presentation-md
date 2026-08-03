@@ -661,44 +661,93 @@ function renderHero(slide: PSlide, ctx: ExportContext, data: Slide): void {
             ? "solid"
             : "outline";
       const glyph = action.icon ? iconMarkerGlyph(action.icon) : "";
-      const label = glyph ? `${glyph}  ${action.label}` : action.label;
-      const btnW = Math.min(3.8, Math.max(2.2, label.length * 0.13 + 1.2));
+      const hasIcon = Boolean(glyph);
+      const btnW = Math.min(
+        3.9,
+        Math.max(2.2, action.label.length * 0.13 + 1.2 + (hasIcon ? 0.45 : 0))
+      );
       if (bx + btnW > x + w && i > 0) {
         bx = x;
         y += btnH + gap;
       }
       const isOutline = style === "outline" || style === "ghost";
-      slide.addText(label, {
-        shape: ctx.shapeRoundRect,
+      const by = y + 0.1;
+      const fillColor = isOutline
+        ? inverted
+          ? "C8FF00"
+          : ctx.colors.bg
+        : inverted
+          ? "0A0A0A"
+          : ctx.colors.accent;
+      const textColor = isOutline
+        ? inverted
+          ? "0A0A0A"
+          : ctx.colors.text
+        : inverted
+          ? "C8FF00"
+          : ctx.colors.bg;
+      // Native pill shell (editable shape) + optional icon well — beats text-only glyph prefix.
+      slide.addShape(ctx.shapeRoundRect, {
         x: bx,
-        y: y + 0.1,
+        y: by,
         w: btnW,
         h: btnH,
-        fill: {
-          color: isOutline
-            ? inverted
-              ? "C8FF00"
-              : ctx.colors.bg
-            : inverted
-              ? "0A0A0A"
-              : ctx.colors.accent,
-        },
-        color: isOutline
+        fill: { color: fillColor },
+        line: isOutline
+          ? { color: inverted ? "0A0A0A" : ctx.colors.text, width: 1.5 }
+          : { color: fillColor, width: 0 },
+        rectRadius: 0.25,
+      });
+      if (hasIcon) {
+        const chip = 0.34;
+        const chipX = bx + 0.1;
+        const chipY = by + (btnH - chip) / 2;
+        const chipFill = isOutline
           ? inverted
             ? "0A0A0A"
-            : ctx.colors.text
+            : ctx.colors.accent
           : inverted
             ? "C8FF00"
-            : ctx.colors.bg,
+            : ctx.colors.bg;
+        const chipInk = isOutline
+          ? inverted
+            ? "C8FF00"
+            : ctx.colors.bg
+          : inverted
+            ? "0A0A0A"
+            : ctx.colors.accent;
+        slide.addShape(ctx.shapeOval, {
+          x: chipX,
+          y: chipY,
+          w: chip,
+          h: chip,
+          fill: { color: chipFill },
+          line: { color: chipFill, width: 0 },
+        });
+        slide.addText(glyph, {
+          x: chipX,
+          y: chipY,
+          w: chip,
+          h: chip,
+          fontFace: ctx.fonts.body,
+          fontSize: 11,
+          bold: true,
+          color: chipInk,
+          align: "center",
+          valign: "middle",
+        });
+      }
+      slide.addText(action.label, {
+        x: bx + (hasIcon ? 0.5 : 0.12),
+        y: by,
+        w: btnW - (hasIcon ? 0.58 : 0.24),
+        h: btnH,
         fontFace: ctx.fonts.body,
         fontSize: 15,
         bold: true,
-        align: "center",
+        color: textColor,
+        align: hasIcon ? "left" : "center",
         valign: "middle",
-        rectRadius: 0.25,
-        line: isOutline
-          ? { color: inverted ? "0A0A0A" : ctx.colors.text, width: 1.5 }
-          : undefined,
         ...(action.href ? { hyperlink: { url: action.href } } : {}),
       });
       bx += btnW + gap;
@@ -895,6 +944,10 @@ function iconMarkerGlyph(icon?: string): string {
     [/linkedin/, "in"],
     [/play|demo/, "▶"],
     [/download|arrow-down/, "↓"],
+    [/calendar|schedule|book/, "▦"],
+    [/envelope|email|mail/, "✉"],
+    [/book-open|book|docs|read/, "☰"],
+    [/print/, "⎙"],
   ];
   for (const [re, glyph] of map) {
     if (re.test(raw)) return glyph;
@@ -2911,6 +2964,16 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         title: ctx.title,
         marquee: ctx.marquee,
       });
+      // Top butter rule (HTML border-top on ::before).
+      slide.addShape(ctx.shapeRoundRect, {
+        x: 0,
+        y: ctx.height - 0.58,
+        w: ctx.width,
+        h: 0.045,
+        fill: { color: ctx.colors.text },
+        line: { color: ctx.colors.text, width: 0 },
+        rectRadius: 0,
+      });
       slide.addShape(ctx.shapeRoundRect, {
         x: 0,
         y: ctx.height - 0.55,
@@ -2926,25 +2989,36 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
         w: ctx.width - 0.3,
         h: 0.45,
         fontFace: ctx.fonts.heading,
-        fontSize: 12,
+        fontSize: 13,
         bold: true,
         color: ctx.colors.text,
         align: "left",
         valign: "middle",
+        charSpacing: 2,
       });
     }
   }
 
   if (theme === "aurora-glass") {
-    // Dual aurora washes + glass frame (aurora-glass).
+    // Dual aurora washes + glass frame + specular rim (aurora-glass).
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.08,
       y: 0.08,
       w: ctx.width - 0.16,
       h: ctx.height - 0.16,
       fill: { color: ctx.colors.bg, transparency: 100 },
-      line: { color: "FFFFFF", width: 0.9 },
+      line: { color: "FFFFFF", width: 1.05 },
       rectRadius: 0.14,
+    });
+    // Inner frosted rim (backdrop-filter stand-in).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.18,
+      y: 0.18,
+      w: ctx.width - 0.36,
+      h: ctx.height - 0.36,
+      fill: { color: "FFFFFF", transparency: 94 },
+      line: { color: "FFFFFF", width: 0.55 },
+      rectRadius: 0.12,
     });
     slide.addShape(ctx.shapeOval, {
       x: ctx.width * 0.55,
@@ -2970,18 +3044,47 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       fill: { color: ctx.colors.accent, transparency: 72 },
       line: { color: ctx.colors.accent, width: 0 },
     });
+    // Specular top hairline + soft floor shadow (inset white / drop shadow).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.22,
+      y: 0.14,
+      w: ctx.width - 0.44,
+      h: 0.025,
+      fill: { color: "FFFFFF", transparency: 62 },
+      line: { color: "FFFFFF", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.4,
+      y: ctx.height - 0.16,
+      w: ctx.width - 0.8,
+      h: 0.07,
+      fill: { color: "000000", transparency: 78 },
+      line: { color: "000000", width: 0 },
+      rectRadius: 0.04,
+    });
   }
 
   if (theme === "glassmorphism") {
-    // Soft mist blob + cyan orb + glass frame (glass-mist).
+    // Soft mist blob + cyan orb + glass frame + specular (glass-mist).
     slide.addShape(ctx.shapeRoundRect, {
       x: 0.1,
       y: 0.1,
       w: ctx.width - 0.2,
       h: ctx.height - 0.2,
       fill: { color: ctx.colors.bg, transparency: 100 },
-      line: { color: ctx.colors.accent, width: 1 },
+      line: { color: ctx.colors.accent, width: 1.1 },
       rectRadius: 0.16,
+    });
+    // Frosted inner plate (card-level glass stand-in on the slide chrome).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.22,
+      y: 0.22,
+      w: ctx.width - 0.44,
+      h: ctx.height - 0.44,
+      fill: { color: "FFFFFF", transparency: 88 },
+      line: { color: "FFFFFF", width: 0.7 },
+      rectRadius: 0.14,
     });
     slide.addShape(ctx.shapeOval, {
       x: -ctx.width * 0.1,
@@ -2998,6 +3101,24 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       h: ctx.height * 0.5,
       fill: { color: ctx.colors.accent2, transparency: 64 },
       line: { color: ctx.colors.accent2, width: 0 },
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.28,
+      y: 0.16,
+      w: ctx.width - 0.56,
+      h: 0.022,
+      fill: { color: "FFFFFF", transparency: 35 },
+      line: { color: "FFFFFF", width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.45,
+      y: ctx.height - 0.18,
+      w: ctx.width - 0.9,
+      h: 0.06,
+      fill: { color: "0F1333", transparency: 88 },
+      line: { color: "0F1333", width: 0 },
+      rectRadius: 0.03,
     });
   }
 
@@ -4284,24 +4405,24 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
 
   if (theme === "cobalt-grid") {
     // Blueprint-ish cobalt grid + outer frame + diagonal corner hatch (cobalt-grid-paper).
-    for (let i = 1; i < 18; i++) {
+    for (let i = 1; i < 22; i++) {
       slide.addShape(ctx.shapeRoundRect, {
-        x: (ctx.width / 18) * i,
+        x: (ctx.width / 22) * i,
         y: 0,
-        w: 0.012,
+        w: 0.011,
         h: ctx.height,
-        fill: { color: ctx.colors.accent, transparency: 78 },
+        fill: { color: ctx.colors.accent, transparency: 76 },
         line: { color: ctx.colors.accent, width: 0 },
         rectRadius: 0,
       });
     }
-    for (let i = 1; i < 11; i++) {
+    for (let i = 1; i < 13; i++) {
       slide.addShape(ctx.shapeRoundRect, {
         x: 0,
-        y: (ctx.height / 11) * i,
+        y: (ctx.height / 13) * i,
         w: ctx.width,
-        h: 0.012,
-        fill: { color: ctx.colors.accent, transparency: 78 },
+        h: 0.011,
+        fill: { color: ctx.colors.accent, transparency: 76 },
         line: { color: ctx.colors.accent, width: 0 },
         rectRadius: 0,
       });
@@ -4316,14 +4437,14 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0,
     });
-    for (let i = 0; i < 7; i++) {
-      const t = i / 6;
+    for (let i = 0; i < 9; i++) {
+      const t = i / 8;
       slide.addShape(ctx.shapeRoundRect, {
-        x: ctx.width * (0.58 + t * 0.38),
-        y: ctx.height * (0.95 - t * 0.42),
-        w: 0.9,
-        h: 0.018,
-        fill: { color: ctx.colors.accent, transparency: 48 },
+        x: ctx.width * (0.56 + t * 0.4),
+        y: ctx.height * (0.96 - t * 0.44),
+        w: 0.95,
+        h: 0.016,
+        fill: { color: ctx.colors.accent, transparency: 44 },
         line: { color: ctx.colors.accent, width: 0 },
         rectRadius: 0,
       });
@@ -4335,7 +4456,26 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
       w: ctx.width - 0.16,
       h: ctx.height - 0.16,
       fill: { color: ctx.colors.bg, transparency: 100 },
-      line: { color: ctx.colors.accent, width: 1.1 },
+      line: { color: ctx.colors.accent, width: 1.25 },
+      rectRadius: 0,
+    });
+    // Top-left L registration marks (paper grid craft).
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.18,
+      y: 0.18,
+      w: 0.55,
+      h: 0.03,
+      fill: { color: ctx.colors.accent, transparency: 35 },
+      line: { color: ctx.colors.accent, width: 0 },
+      rectRadius: 0,
+    });
+    slide.addShape(ctx.shapeRoundRect, {
+      x: 0.18,
+      y: 0.18,
+      w: 0.03,
+      h: 0.55,
+      fill: { color: ctx.colors.accent, transparency: 35 },
+      line: { color: ctx.colors.accent, width: 0 },
       rectRadius: 0,
     });
   }

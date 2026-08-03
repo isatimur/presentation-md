@@ -23,8 +23,9 @@ export function candyMarqueeBrand(meta?: CandyMarqueeMeta): string {
  */
 export function candyMarqueeText(meta?: CandyMarqueeMeta): string {
   const custom = typeof meta?.marquee === "string" ? meta.marquee.trim() : "";
+  const brand = candyMarqueeBrand(meta);
   const unit = custom
-    ? `${custom.replace(/\s+/g, " ")}  ·  `
-    : `★ SAVE TOGETHER  ·  WIN TOGETHER  ·  ${candyMarqueeBrand(meta)}  ·  `;
+    ? `${custom.replace(/\s+/g, " ")}  ·  ${brand}  ·  `
+    : `★ SAVE TOGETHER  ·  WIN TOGETHER  ·  ${brand}  ·  `;
   return unit.repeat(4);
 }
