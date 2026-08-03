@@ -1,5 +1,16 @@
 # @presentation-md/export
 
+## 1.24.0
+
+### Minor Changes
+
+- 677775c: Densify glass/grid PPTX chrome, closing action icon wells, and candy marquee branding; strengthen launch/investor dual-CTA craft + repair; Studio issues panel keeps the full PPTX warning list (pptx filter).
+
+### Patch Changes
+
+- Updated dependencies [677775c]
+  - @presentation-md/core@1.32.0
+
 ## 1.23.33
 
 ### Patch Changes
