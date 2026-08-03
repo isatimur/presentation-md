@@ -81,7 +81,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   creative-voltage gets a hard accent frame + neon offset shadow on every slide (heroes also get the blue/dark split + voltage orb) + square neon card strokes;
   kinetic-wrapped cards get 3pt accent hard borders (square);
   biennale-yellow gets denser sun orbs + quiet indigo frame + top hairline + coral stub + top-rule cards;
-  scatterbrain gets cork wash + ink offset shadow + sticky notes + pin dots (heroes also get a tape strip) + ink sticky-card hairlines;
+  scatterbrain gets denser cork washes + rules + ink offset + sticky notes + pins + always-on tape strip + ink sticky-card offsets;
   split-pastel gets dual pastel corner washes (heroes also get a split field + stacked pastel pills) + soft plump card hairlines;
   coral gets a denser hatch frame + bg2 diagonal split + coral left wash + square hard-border cards;
   peoples-platform gets a thicker cobalt top bar + amber stub + hard 6pt frame + denser ink speckles + square hard-border cards with red offsets;
@@ -93,7 +93,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   editorial-tri-tone gets a butter split + burgundy wash + hard 3pt frame + hero accent blot + square hard-border cards;
   broadside gets a thicker fire-orange rail + larger corner blast + hard ink frame + always-on top stub + square hard-border cards;
   pink-script gets dual inset frames + always-on accent hairline + hero-gated wash;
-  retro-windows gets Win95 beveled chrome (white/black outer bevel + inset hilite/shade) + title bar + window buttons + CRT scanlines;
+  retro-windows gets Win95 beveled chrome (white/black outer bevel + inset hilite/shade) + denser CRT scanlines + navy gradient title bar + larger window buttons;
   pin-and-paper gets legal-pad rules + red margin + pin;
   emerald-editorial gets masthead rules + inset frame;
   notebook-tabs gets a dark mat frame + pastel side tabs + binder holes + left margin rule;
