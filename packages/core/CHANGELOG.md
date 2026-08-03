@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.32.1
+
+### Patch Changes
+
+- 8e16131: Reject single-file deploys that reference local assets through quoted or unquoted attributes, responsive image fields, poster fields, CSS URLs, or quoted CSS imports; bound asset inspection to 64 MiB; validate local input before invoking the Vercel CLI; and reject ambiguous multiple deploy targets.
+
 ## 1.32.0
 
 ### Minor Changes

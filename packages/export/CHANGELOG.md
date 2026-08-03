@@ -1,5 +1,13 @@
 # @presentation-md/export
 
+## 1.24.4
+
+### Patch Changes
+
+- 8e16131: Recheck local image byte limits after reading to prevent stat/read races from bypassing prefetch size guards.
+- Updated dependencies [8e16131]
+  - @presentation-md/core@1.32.1
+
 ## 1.24.3
 
 ### Patch Changes

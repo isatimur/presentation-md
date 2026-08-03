@@ -1,5 +1,13 @@
 # @presentation-md/install
 
+## 1.1.33
+
+### Patch Changes
+
+- 8e16131: Bound adapter installer subprocesses with a five-minute deadline so a stalled shell or network operation cannot hang the CLI indefinitely.
+- Updated dependencies [8e16131]
+  - @presentation-md/core@1.32.1
+
 ## 1.1.32
 
 ### Patch Changes
