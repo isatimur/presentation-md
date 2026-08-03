@@ -1,5 +1,26 @@
 # @presentation-md/mcp-server
 
+## 1.33.0
+
+### Minor Changes
+
+- 61530ed: CLI `--deploy` / MCP `deploy_deck` wrap core deploy.sh (opt-in confirm).
+
+  Dry-run by default — agents must pass `--confirm-deploy` / `confirm:true` after human approval so remote Vercel is never thrashed accidentally; `--deploy-prod` / `prod` needs an extra confirm gate.
+
+- cd16266: Filmstrip peek (F) in exported HTML Present chrome + Studio requestFullscreen.
+
+  Agent-delivered decks gain densified horizontal jump strip (Studio F parity); Studio Present requests browser fullscreen on open.
+
+### Patch Changes
+
+- Updated dependencies [61530ed]
+- Updated dependencies [cd16266]
+  - @presentation-md/render@1.20.0
+  - @presentation-md/core@1.31.1
+  - @presentation-md/create-theme@1.1.34
+  - @presentation-md/export@1.23.33
+
 ## 1.32.11
 
 ### Patch Changes
