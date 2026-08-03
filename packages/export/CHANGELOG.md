@@ -1,5 +1,11 @@
 # @presentation-md/export
 
+## 1.24.3
+
+### Patch Changes
+
+- c0106c6: Densify scatterbrain cork + Win95 PPTX chrome (scanlines, title bar, card cork offsets).
+
 ## 1.24.2
 
 ### Patch Changes
