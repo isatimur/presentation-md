@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.32.0
+
+### Minor Changes
+
+- 677775c: Densify glass/grid PPTX chrome, closing action icon wells, and candy marquee branding; strengthen launch/investor dual-CTA craft + repair; Studio issues panel keeps the full PPTX warning list (pptx filter).
+
 ## 1.31.1
 
 ### Patch Changes
