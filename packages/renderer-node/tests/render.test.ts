@@ -494,6 +494,9 @@ describe("renderDeck", () => {
     expect(html).toContain('id="pmd-slide-dots"');
     expect(html).toContain('id="pmd-progress"');
     expect(html).toContain('id="pmd-next-frame-wrap"');
+    expect(html).toContain('id="pmd-edit-toggle"');
+    expect(html).toContain("setEditMode");
+    expect(html).toContain("saveEditedHtml");
     expect(html).toContain("setLaser");
     expect(html).toContain("setInk");
     expect(html).toContain("setOverview");

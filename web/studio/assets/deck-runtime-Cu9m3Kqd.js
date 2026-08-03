@@ -56,7 +56,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{{html}}}
   </div>
 </section>
-`,C=`<section class="slide data-table-slide" data-layout="data-table">
+`,T=`<section class="slide data-table-slide" data-layout="data-table">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <table>
@@ -94,7 +94,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
   </div>
 </section>
-`,A=`<section class="slide logo-wall-slide" data-layout="logo-wall">
+`,C=`<section class="slide logo-wall-slide" data-layout="logo-wall">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -113,7 +113,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/cards}}
   </div>
 </section>
-`,T=`<section class="slide metric-ring-slide" data-layout="metric-ring">
+`,A=`<section class="slide metric-ring-slide" data-layout="metric-ring">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <div class="pct-wrap">
@@ -138,11 +138,11 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     </div>
   </div>
 </section>
-`,q=`<section class="slide quote-slide" data-layout="quote">
+`,O=`<section class="slide quote-slide" data-layout="quote">
   <p class="quote">{{quote}}</p>
   {{#by}}<p class="quote-by">— {{by}}</p>{{/by}}
 </section>
-`,O=`<section class="slide ranked-list-slide" data-layout="ranked-list">
+`,q=`<section class="slide ranked-list-slide" data-layout="ranked-list">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -178,7 +178,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/stats}}
   </div>
 </section>
-`,_=`<section class="slide streak-grid-slide" data-layout="streak-grid">
+`,H=`<section class="slide streak-grid-slide" data-layout="streak-grid">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -202,7 +202,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/steps}}
   </div>
 </section>
-`,H=`<section class="slide title-slide" data-layout="title">
+`,_=`<section class="slide title-slide" data-layout="title">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   <h1>{{heading}}</h1>
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -218,7 +218,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{^image}}{{#aside}}<div class="cols-aside"><p>{{aside}}</p></div>{{/aside}}{{/image}}
   </div>
 </section>
-`,F=`/* presentation-md base stylesheet.
+`,W=`/* presentation-md base stylesheet.
    Theme tokens are injected via the :root block below. Layout fragments in
    ./layouts/*.html consume these CSS variables and class names. */
 
@@ -1141,7 +1141,9 @@ tbody tr:hover td {
 .pmd-stage-tools,
 .pmd-overview,
 .pmd-slide-dots,
-.pmd-progress {
+.pmd-progress,
+.pmd-edit-hotzone,
+.pmd-edit-toggle {
   display: none;
 }
 html.pmd-live-present .pmd-curtain,
@@ -1151,7 +1153,9 @@ html.pmd-live-present .pmd-present-help,
 html.pmd-live-present .pmd-stage-tools,
 html.pmd-live-present .pmd-overview,
 html.pmd-live-present .pmd-slide-dots,
-html.pmd-live-present .pmd-progress {
+html.pmd-live-present .pmd-progress,
+html.pmd-live-present .pmd-edit-hotzone,
+html.pmd-live-present .pmd-edit-toggle {
   display: flex;
 }
 html.pmd-live-present .pmd-notes-rail { display: flex; }
@@ -1160,6 +1164,49 @@ html.pmd-live-present .pmd-stage-tools { display: block; }
 html.pmd-live-present .pmd-overview { display: flex; }
 html.pmd-live-present .pmd-slide-dots { display: flex; }
 html.pmd-live-present .pmd-progress { display: block; }
+html.pmd-live-present .pmd-edit-hotzone { display: block; }
+html.pmd-live-present .pmd-edit-toggle { display: none; }
+html.pmd-live-present .pmd-edit-toggle.is-visible,
+html.pmd-live-present .pmd-edit-toggle.is-active { display: inline-flex; }
+
+.pmd-edit-hotzone {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 72px;
+  height: 72px;
+  z-index: 57;
+  cursor: pointer;
+}
+.pmd-edit-toggle {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 58;
+  appearance: none;
+  border: 1px solid rgba(232, 238, 244, 0.22);
+  background: rgba(11, 18, 32, 0.92);
+  color: #e8eef4;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font: 600 12px/1.2 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  align-items: center;
+}
+.pmd-edit-toggle.is-active {
+  border-color: #ef4444;
+  color: #fecaca;
+}
+html.pmd-edit-on [contenteditable="true"] {
+  outline: 1px dashed rgba(239, 68, 68, 0.45);
+  outline-offset: 2px;
+  cursor: text;
+}
+html.pmd-edit-on [contenteditable="true"]:focus {
+  outline: 2px solid rgba(239, 68, 68, 0.75);
+}
 
 .pmd-progress {
   position: fixed;
@@ -1582,7 +1629,9 @@ html.pmd-shot-mode .pmd-present-help,
 html.pmd-shot-mode .pmd-stage-tools,
 html.pmd-shot-mode .pmd-overview,
 html.pmd-shot-mode .pmd-slide-dots,
-html.pmd-shot-mode .pmd-progress {
+html.pmd-shot-mode .pmd-progress,
+html.pmd-shot-mode .pmd-edit-hotzone,
+html.pmd-shot-mode .pmd-edit-toggle {
   display: none !important;
 }
 
@@ -1615,9 +1664,11 @@ html.pmd-shot-mode .pmd-progress {
   .pmd-stage-tools,
   .pmd-overview,
   .pmd-slide-dots,
-  .pmd-progress { display: none !important; }
+  .pmd-progress,
+  .pmd-edit-hotzone,
+  .pmd-edit-toggle { display: none !important; }
 }
-`,W=`/* Per-theme surface profiles — each theme gets a distinct stage, not one shared blob. */
+`,F=`/* Per-theme surface profiles — each theme gets a distinct stage, not one shared blob. */
 
 .deck[data-surface] .slide {
   background: var(--slide-bg, radial-gradient(125% 125% at 0% 0%, var(--bg-2), var(--bg)));
@@ -6709,7 +6760,9 @@ html.pmd-shot-mode .pmd-progress {
 <main class="deck" data-surface="{{surface}}">
 {{{slides}}}
 </main>
-<div class="nav-hint" aria-hidden="true">← → · G overview · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help</div>
+<div class="nav-hint" aria-hidden="true">← → · E edit · G overview · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help</div>
+<div class="pmd-edit-hotzone" id="pmd-edit-hotzone" aria-hidden="true"></div>
+<button type="button" class="pmd-edit-toggle" id="pmd-edit-toggle" title="Edit mode (E)">Edit</button>
 <nav class="pmd-slide-dots" id="pmd-slide-dots" aria-label="Slide navigation"></nav>
 <div class="pmd-progress" id="pmd-progress" aria-hidden="true"><i class="pmd-progress-bar" id="pmd-progress-bar"></i></div>
 <div class="pmd-stage-tools" id="pmd-stage-tools" aria-hidden="true">
@@ -6738,6 +6791,8 @@ html.pmd-shot-mode .pmd-progress {
   <button type="button" class="pmd-present-btn" id="pmd-btn-speaker" title="Speaker notes window (O)">Speaker · O</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-notes" title="Toggle speaker notes (S)">Notes · S</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-overview" title="Overview grid (G)">Overview · G</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-edit" title="Edit text (E) · ⌘/Ctrl+S saves">Edit · E</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-save" title="Save HTML (⌘/Ctrl+S)" hidden>Save · ⌘S</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-laser" title="Laser pointer (L)">Laser · L</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-ink" title="Ink / draw (D) · C clears">Ink · D</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-ink-clear" title="Clear ink (C)" hidden>Clear ink · C</button>
@@ -6765,6 +6820,8 @@ html.pmd-shot-mode .pmd-progress {
       <li><kbd>1–9</kbd><span>Jump to slide</span></li>
       <li><kbd>Home / End</kbd><span>First / last slide</span></li>
       <li><kbd>G</kbd><span>Overview grid</span></li>
+      <li><kbd>E</kbd><span>Edit text</span></li>
+      <li><kbd>⌘/Ctrl+S</kbd><span>Save HTML (when editing)</span></li>
       <li><kbd>S</kbd><span>Speaker notes</span></li>
       <li><kbd>L</kbd><span>Laser pointer</span></li>
       <li><kbd>D</kbd><span>Ink / draw</span></li>
@@ -6862,6 +6919,10 @@ html.pmd-shot-mode .pmd-progress {
   var btnInkClear = document.getElementById("pmd-btn-ink-clear");
   var btnOverview = document.getElementById("pmd-btn-overview");
   var btnOverviewClose = document.getElementById("pmd-btn-overview-close");
+  var btnEdit = document.getElementById("pmd-btn-edit");
+  var btnSave = document.getElementById("pmd-btn-save");
+  var editToggle = document.getElementById("pmd-edit-toggle");
+  var editHotzone = document.getElementById("pmd-edit-hotzone");
   var laserOn = false;
   var inkOn = false;
   var laserTrail = [];
@@ -6871,6 +6932,9 @@ html.pmd-shot-mode .pmd-progress {
   var overviewBuilt = false;
   var syncingHash = false;
   var dotButtons = [];
+  var editOn = false;
+  var EDIT_SEL = "h1, h2, h3, h4, p, li, .lead, .eyebrow, .quote, .stat .value, .stat .label, .card h3, .card p, .comparison-label, .btn, td, th, .timeline .node";
+  var editHideTimer = null;
 
   var notesBySlide = [];
   try {
@@ -6958,7 +7022,7 @@ html.pmd-shot-mode .pmd-progress {
   function syncStageTools() {
     if (!stageTools) return;
     var curtainsOff = (!blackoutEl || blackoutEl.hidden) && (!whiteoutEl || whiteoutEl.hidden);
-    var toolsOk = !showHelp && !showOverview && curtainsOff;
+    var toolsOk = !showHelp && !showOverview && !editOn && curtainsOff;
     stageTools.classList.toggle("is-laser", laserOn && toolsOk);
     stageTools.classList.toggle("is-ink", inkOn && toolsOk);
     document.documentElement.classList.toggle("pmd-laser-on", laserOn);
@@ -7031,6 +7095,106 @@ html.pmd-shot-mode .pmd-progress {
         overviewGrid.appendChild(btn);
       })(i);
     }
+  }
+
+  function isTypingTarget(el) {
+    if (!el || !el.getAttribute) return false;
+    if (el.getAttribute("contenteditable") === "true") return true;
+    var tag = (el.tagName || "").toLowerCase();
+    return tag === "input" || tag === "textarea" || tag === "select";
+  }
+
+  function setEditMode(on) {
+    editOn = !!on;
+    if (editOn) {
+      setOverview(false);
+      setHelp(false);
+      setBlackout(false);
+      setWhiteout(false);
+      laserOn = false;
+      inkOn = false;
+      inkDrawing = false;
+      clearLaserTrail();
+      for (var i = 0; i < slides.length; i++) {
+        var nodes = slides[i].querySelectorAll(EDIT_SEL);
+        for (var j = 0; j < nodes.length; j++) {
+          nodes[j].setAttribute("contenteditable", "true");
+          nodes[j].setAttribute("spellcheck", "true");
+        }
+      }
+    } else {
+      var editable = document.querySelectorAll('[contenteditable="true"]');
+      for (var k = 0; k < editable.length; k++) {
+        editable[k].removeAttribute("contenteditable");
+        editable[k].removeAttribute("spellcheck");
+        if (editable[k] === document.activeElement) editable[k].blur();
+      }
+    }
+    document.documentElement.classList.toggle("pmd-edit-on", editOn);
+    if (btnEdit) btnEdit.textContent = editOn ? "Done · E" : "Edit · E";
+    if (btnSave) btnSave.hidden = !editOn;
+    if (editToggle) {
+      editToggle.textContent = editOn ? "Done" : "Edit";
+      editToggle.classList.toggle("is-active", editOn);
+      if (editOn) editToggle.classList.add("is-visible");
+    }
+    syncStageTools();
+  }
+
+  function buildSaveHtml() {
+    var clone = document.documentElement.cloneNode(true);
+    clone.classList.remove("pmd-edit-on", "pmd-laser-on", "pmd-ink-on", "pmd-notes-open");
+    var kill = clone.querySelectorAll(
+      ".pmd-stage-tools.is-laser, .pmd-stage-tools.is-ink, .pmd-ink-canvas.is-active, .pmd-edit-toggle.is-visible, .pmd-edit-toggle.is-active"
+    );
+    for (var i = 0; i < kill.length; i++) {
+      kill[i].classList.remove("is-laser", "is-ink", "is-active", "is-visible");
+    }
+    var editable = clone.querySelectorAll("[contenteditable]");
+    for (var j = 0; j < editable.length; j++) {
+      editable[j].removeAttribute("contenteditable");
+      editable[j].removeAttribute("spellcheck");
+    }
+    var laser = clone.querySelector("#pmd-laser-layer");
+    if (laser) {
+      laser.hidden = true;
+      laser.innerHTML = "";
+    }
+    var ink = clone.querySelector("#pmd-ink-canvas");
+    if (ink) {
+      ink.classList.remove("is-active");
+      ink.removeAttribute("width");
+      ink.removeAttribute("height");
+      ink.style.width = "";
+      ink.style.height = "";
+    }
+    var overview = clone.querySelector("#pmd-overview");
+    if (overview) overview.hidden = true;
+    var help = clone.querySelector("#pmd-present-help");
+    if (help) help.hidden = true;
+    var blackout = clone.querySelector("#pmd-blackout");
+    if (blackout) blackout.hidden = true;
+    var whiteout = clone.querySelector("#pmd-whiteout");
+    if (whiteout) whiteout.hidden = true;
+    return "<!doctype html>\\n" + clone.outerHTML;
+  }
+
+  function saveEditedHtml() {
+    var html = buildSaveHtml();
+    var titleEl = document.querySelector("title");
+    var base = ((titleEl && titleEl.textContent) || "deck").trim().replace(/[^\\w\\-]+/g, "-").replace(/^-|-$/g, "") || "deck";
+    var blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = base + ".html";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+    try {
+      localStorage.setItem("pmd-edit-draft:" + base, html);
+    } catch (err) { /* ignore quota */ }
   }
 
   function setOverview(on) {
@@ -7140,6 +7304,7 @@ html.pmd-shot-mode .pmd-progress {
     if (laserOn) {
       inkOn = false;
       inkDrawing = false;
+      if (editOn) setEditMode(false);
       setOverview(false);
       setBlackout(false);
       setWhiteout(false);
@@ -7155,6 +7320,7 @@ html.pmd-shot-mode .pmd-progress {
     if (inkOn) {
       laserOn = false;
       clearLaserTrail();
+      if (editOn) setEditMode(false);
       setOverview(false);
       setBlackout(false);
       setWhiteout(false);
@@ -7397,8 +7563,23 @@ html.pmd-shot-mode .pmd-progress {
   }
 
   window.addEventListener("keydown", function (e) {
+    if ((e.metaKey || e.ctrlKey) && (e.key === "s" || e.key === "S")) {
+      if (editOn) {
+        e.preventDefault();
+        saveEditedHtml();
+      }
+      return;
+    }
+    if (isTypingTarget(e.target) && e.key !== "Escape") {
+      return;
+    }
     if (e.key === "Escape") {
       e.preventDefault();
+      if (isTypingTarget(e.target)) {
+        e.target.blur();
+        return;
+      }
+      if (editOn) { setEditMode(false); return; }
       if (showHelp) { setHelp(false); return; }
       if (showOverview) { setOverview(false); return; }
       if (blackoutEl && !blackoutEl.hidden) { setBlackout(false); return; }
@@ -7413,8 +7594,14 @@ html.pmd-shot-mode .pmd-progress {
       setHelp(!showHelp);
       return;
     }
+    if (e.key === "e" || e.key === "E") {
+      e.preventDefault();
+      setEditMode(!editOn);
+      return;
+    }
     if (e.key === "g" || e.key === "G") {
       e.preventDefault();
+      if (editOn) setEditMode(false);
       setOverview(!showOverview);
       return;
     }
@@ -7470,7 +7657,7 @@ html.pmd-shot-mode .pmd-progress {
       openSpeakerView();
       return;
     }
-    if (showHelp || showOverview) return;
+    if (showHelp || showOverview || editOn) return;
     if (/^[1-9]$/.test(e.key)) {
       e.preventDefault();
       var target = Number(e.key) - 1;
@@ -7502,6 +7689,31 @@ html.pmd-shot-mode .pmd-progress {
   if (btnSpeaker) btnSpeaker.addEventListener("click", openSpeakerView);
   if (btnOverview) btnOverview.addEventListener("click", function () { setOverview(!showOverview); });
   if (btnOverviewClose) btnOverviewClose.addEventListener("click", function () { setOverview(false); });
+  if (btnEdit) btnEdit.addEventListener("click", function () { setEditMode(!editOn); });
+  if (btnSave) btnSave.addEventListener("click", saveEditedHtml);
+  if (editToggle) editToggle.addEventListener("click", function () { setEditMode(!editOn); });
+  if (editHotzone) {
+    editHotzone.addEventListener("mouseenter", function () {
+      if (editHideTimer) clearTimeout(editHideTimer);
+      if (editToggle) editToggle.classList.add("is-visible");
+    });
+    editHotzone.addEventListener("mouseleave", function () {
+      editHideTimer = setTimeout(function () {
+        if (editToggle && !editOn) editToggle.classList.remove("is-visible");
+      }, 400);
+    });
+    editHotzone.addEventListener("click", function () { setEditMode(!editOn); });
+  }
+  if (editToggle) {
+    editToggle.addEventListener("mouseenter", function () {
+      if (editHideTimer) clearTimeout(editHideTimer);
+    });
+    editToggle.addEventListener("mouseleave", function () {
+      editHideTimer = setTimeout(function () {
+        if (editToggle && !editOn) editToggle.classList.remove("is-visible");
+      }, 400);
+    });
+  }
   if (btnLaser) btnLaser.addEventListener("click", function () { setLaser(!laserOn); });
   if (btnInk) btnInk.addEventListener("click", function () { setInk(!inkOn); });
   if (btnInkClear) btnInkClear.addEventListener("click", clearInk);
@@ -7584,4 +7796,4 @@ html.pmd-shot-mode .pmd-progress {
 <\/script>
 </body>
 </html>
-`;export{M as _,H as a,I as b,_ as c,D as d,B as e,O as f,q as g,T as h,A as i,S as j,L as k,C as l,z as m,E as n,y as o,w as p,v as q,F as r,P as s,W as t,N as u};
+`;export{M as _,_ as a,I as b,H as c,D as d,B as e,q as f,O as g,A as h,C as i,S as j,L as k,T as l,z as m,E as n,y as o,w as p,v as q,W as r,P as s,F as t,N as u};

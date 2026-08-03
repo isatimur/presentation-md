@@ -921,7 +921,9 @@ tbody tr:hover td {
 .pmd-stage-tools,
 .pmd-overview,
 .pmd-slide-dots,
-.pmd-progress {
+.pmd-progress,
+.pmd-edit-hotzone,
+.pmd-edit-toggle {
   display: none;
 }
 html.pmd-live-present .pmd-curtain,
@@ -931,7 +933,9 @@ html.pmd-live-present .pmd-present-help,
 html.pmd-live-present .pmd-stage-tools,
 html.pmd-live-present .pmd-overview,
 html.pmd-live-present .pmd-slide-dots,
-html.pmd-live-present .pmd-progress {
+html.pmd-live-present .pmd-progress,
+html.pmd-live-present .pmd-edit-hotzone,
+html.pmd-live-present .pmd-edit-toggle {
   display: flex;
 }
 html.pmd-live-present .pmd-notes-rail { display: flex; }
@@ -940,6 +944,49 @@ html.pmd-live-present .pmd-stage-tools { display: block; }
 html.pmd-live-present .pmd-overview { display: flex; }
 html.pmd-live-present .pmd-slide-dots { display: flex; }
 html.pmd-live-present .pmd-progress { display: block; }
+html.pmd-live-present .pmd-edit-hotzone { display: block; }
+html.pmd-live-present .pmd-edit-toggle { display: none; }
+html.pmd-live-present .pmd-edit-toggle.is-visible,
+html.pmd-live-present .pmd-edit-toggle.is-active { display: inline-flex; }
+
+.pmd-edit-hotzone {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 72px;
+  height: 72px;
+  z-index: 57;
+  cursor: pointer;
+}
+.pmd-edit-toggle {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 58;
+  appearance: none;
+  border: 1px solid rgba(232, 238, 244, 0.22);
+  background: rgba(11, 18, 32, 0.92);
+  color: #e8eef4;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font: 600 12px/1.2 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  align-items: center;
+}
+.pmd-edit-toggle.is-active {
+  border-color: #ef4444;
+  color: #fecaca;
+}
+html.pmd-edit-on [contenteditable="true"] {
+  outline: 1px dashed rgba(239, 68, 68, 0.45);
+  outline-offset: 2px;
+  cursor: text;
+}
+html.pmd-edit-on [contenteditable="true"]:focus {
+  outline: 2px solid rgba(239, 68, 68, 0.75);
+}
 
 .pmd-progress {
   position: fixed;
@@ -1362,7 +1409,9 @@ html.pmd-shot-mode .pmd-present-help,
 html.pmd-shot-mode .pmd-stage-tools,
 html.pmd-shot-mode .pmd-overview,
 html.pmd-shot-mode .pmd-slide-dots,
-html.pmd-shot-mode .pmd-progress {
+html.pmd-shot-mode .pmd-progress,
+html.pmd-shot-mode .pmd-edit-hotzone,
+html.pmd-shot-mode .pmd-edit-toggle {
   display: none !important;
 }
 
@@ -1395,5 +1444,7 @@ html.pmd-shot-mode .pmd-progress {
   .pmd-stage-tools,
   .pmd-overview,
   .pmd-slide-dots,
-  .pmd-progress { display: none !important; }
+  .pmd-progress,
+  .pmd-edit-hotzone,
+  .pmd-edit-toggle { display: none !important; }
 }

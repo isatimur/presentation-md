@@ -3,8 +3,8 @@
 Turns a [deck JSON spec](../../packages/core/references/deck-schema.md) into a polished,
 self-contained HTML slide deck — no build step, no external assets beyond Google Fonts.
 Exported HTML includes Present chrome (blackout/whiteout, laser/ink, overview grid,
-speaker notes + visual up-next, elapsed timer, pace, nav dots/progress, `#N` deep-links)
-so agents can hand off a presentable file without Studio.
+inline edit **E** + ⌘/Ctrl+S save, speaker notes + visual up-next, elapsed timer, pace,
+nav dots/progress, `#N` deep-links) so agents can hand off a presentable file without Studio.
 
 ## Install
 
