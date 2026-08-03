@@ -920,6 +920,7 @@ tbody tr:hover td {
 .pmd-present-help,
 .pmd-stage-tools,
 .pmd-overview,
+.pmd-filmstrip,
 .pmd-slide-dots,
 .pmd-progress,
 .pmd-edit-hotzone,
@@ -1306,6 +1307,116 @@ html.pmd-notes-open .nav-hint { right: calc(min(340px, 34vw) + 16px); }
   margin-right: 6px;
 }
 
+/* Present filmstrip peek (F) — densified horizontal jump strip above the bar. */
+.pmd-filmstrip {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 48px;
+  z-index: 54;
+  display: none;
+  padding: 8px 12px 4px;
+  background: #0b1220;
+  border-top: 1px solid rgba(232, 238, 244, 0.12);
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+html.pmd-live-present.pmd-strip-open .pmd-filmstrip { display: block; }
+.pmd-filmstrip[hidden] { display: none !important; }
+.pmd-filmstrip-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 8px;
+  width: max-content;
+  min-height: 72px;
+  align-items: flex-start;
+}
+.pmd-filmstrip-hit {
+  appearance: none;
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(64px * 16 / 9);
+  height: 64px;
+  padding: 0;
+  margin: 0;
+  border: 2px solid rgba(232, 238, 244, 0.18);
+  border-radius: 8px;
+  background: #111827;
+  cursor: pointer;
+  overflow: hidden;
+}
+.pmd-filmstrip-hit:hover,
+.pmd-filmstrip-hit:focus-visible {
+  border-color: color-mix(in srgb, var(--accent, #38bdf8) 55%, rgba(232, 238, 244, 0.4));
+  outline: none;
+}
+.pmd-filmstrip-hit.is-active {
+  border-color: var(--accent, #38bdf8);
+  box-shadow: 0 0 0 1px var(--accent, #38bdf8);
+}
+.pmd-filmstrip-frame-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+}
+.pmd-filmstrip-scale {
+  width: 1280px;
+  height: 720px;
+  transform: scale(calc(64 / 720));
+  transform-origin: top left;
+  pointer-events: none;
+}
+@supports (width: 1cqw) {
+  .pmd-filmstrip-scale { transform: scale(calc(100cqh / 720)); }
+}
+.pmd-filmstrip-scale .slide {
+  width: 1280px !important;
+  min-height: 720px !important;
+  height: 720px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.pmd-filmstrip-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #9ca3af;
+  font: 600 18px/1 ui-sans-serif, system-ui, sans-serif;
+}
+.pmd-filmstrip-num {
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+  z-index: 1;
+  font: 600 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: rgba(11, 18, 32, 0.82);
+  color: #e8eef4;
+}
+.pmd-filmstrip-hit.is-active .pmd-filmstrip-num {
+  background: var(--accent, #38bdf8);
+  color: #0b1220;
+}
+html.pmd-strip-open .pmd-notes-rail {
+  bottom: calc(48px + 84px);
+}
+html.pmd-strip-open .pmd-stage-tools {
+  bottom: calc(48px + 84px);
+}
+@media (max-width: 720px) {
+  .pmd-filmstrip { display: none !important; }
+  html.pmd-strip-open .pmd-notes-rail { bottom: 48px; }
+  html.pmd-strip-open .pmd-stage-tools { bottom: 48px; }
+}
+
 .pmd-present-bar {
   position: fixed;
   left: 0;
@@ -1408,6 +1519,7 @@ html.pmd-shot-mode .pmd-curtain,
 html.pmd-shot-mode .pmd-present-help,
 html.pmd-shot-mode .pmd-stage-tools,
 html.pmd-shot-mode .pmd-overview,
+html.pmd-shot-mode .pmd-filmstrip,
 html.pmd-shot-mode .pmd-slide-dots,
 html.pmd-shot-mode .pmd-progress,
 html.pmd-shot-mode .pmd-edit-hotzone,
@@ -1443,6 +1555,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   .pmd-present-help,
   .pmd-stage-tools,
   .pmd-overview,
+  .pmd-filmstrip,
   .pmd-slide-dots,
   .pmd-progress,
   .pmd-edit-hotzone,

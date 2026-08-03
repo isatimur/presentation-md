@@ -495,12 +495,19 @@ export function App() {
 
   const openOverlay = (
     triggerRef: { current: HTMLElement | null },
-    setOpen: (open: boolean) => void
+    setOpen: (open: boolean) => void,
+    opts?: { fullscreen?: boolean }
   ) => {
     triggerRef.current = document.activeElement instanceof HTMLElement
       ? document.activeElement
       : null;
     setOpen(true);
+    // Same user-gesture tick as the Present click — requestFullscreen fails from useEffect.
+    if (opts?.fullscreen && typeof document.documentElement.requestFullscreen === "function") {
+      void document.documentElement.requestFullscreen().catch(() => {
+        /* unsupported / denied — Present still works windowed */
+      });
+    }
   };
 
   const discardRecovery = () => {
@@ -528,8 +535,12 @@ export function App() {
 
   const closeOverlay = (
     triggerRef: { current: HTMLElement | null },
-    setOpen: (open: boolean) => void
+    setOpen: (open: boolean) => void,
+    opts?: { exitFullscreen?: boolean }
   ) => {
+    if (opts?.exitFullscreen && document.fullscreenElement) {
+      void document.exitFullscreen?.().catch(() => {});
+    }
     setOpen(false);
     window.requestAnimationFrame(() => triggerRef.current?.focus());
   };
@@ -557,7 +568,7 @@ export function App() {
           setExampleSlug(null);
         }}
         onLoadExample={loadExample}
-        onPresent={() => openOverlay(presentTriggerRef, setPresenting)}
+        onPresent={() => openOverlay(presentTriggerRef, setPresenting, { fullscreen: true })}
         onGenerate={() => openOverlay(generateTriggerRef, setGenerating)}
         onSelectSlide={(slideIndex1Based) => {
           const idx = Math.max(0, Math.min(deck.slides.length - 1, slideIndex1Based - 1));
@@ -614,7 +625,9 @@ export function App() {
             slideHeadings={deck.slides.map(
               (s) => s.heading ?? s.quote ?? s.eyebrow ?? s.layout
             )}
-            onClose={() => closeOverlay(presentTriggerRef, setPresenting)}
+            onClose={() =>
+              closeOverlay(presentTriggerRef, setPresenting, { exitFullscreen: true })
+            }
           />
         </Suspense>
       )}

@@ -3,7 +3,7 @@
 Turns a [deck JSON spec](../../packages/core/references/deck-schema.md) into a polished,
 self-contained HTML slide deck — no build step, no external assets beyond Google Fonts.
 Exported HTML includes Present chrome (blackout/whiteout, laser/ink, overview grid,
-inline edit **E** + ⌘/Ctrl+S save, speaker notes + visual up-next, elapsed timer, pace,
+filmstrip peek **F**, inline edit **E** + ⌘/Ctrl+S save, speaker notes + visual up-next, elapsed timer, pace,
 nav dots/progress, `#N` deep-links) so agents can hand off a presentable file without Studio.
 
 ## Install
@@ -49,6 +49,11 @@ presentation-md-render deck.json --remorph-density reading -o deck.json
 
 # Studio share link (MCP share_deck_link parity)
 presentation-md-render deck.json --share-link
+
+# Deploy HTML / deck dir (wraps core deploy.sh — dry-run unless --confirm-deploy)
+presentation-md-render deck.html --deploy
+presentation-md-render deck.html --deploy --confirm-deploy
+presentation-md-render ./deck-dir --deploy --confirm-deploy --deploy-prod
 
 # One-shot craft prompt (MCP generate_deck_prompt parity)
 presentation-md-render --generate-prompt --theme aurora-glass --prompt-density speaker -o craft-prompt.json

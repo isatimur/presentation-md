@@ -14,7 +14,7 @@
 <main class="deck" data-surface="{{surface}}">
 {{{slides}}}
 </main>
-<div class="nav-hint" aria-hidden="true">← → · E edit · G overview · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help</div>
+<div class="nav-hint" aria-hidden="true">← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help</div>
 <div class="pmd-edit-hotzone" id="pmd-edit-hotzone" aria-hidden="true"></div>
 <button type="button" class="pmd-edit-toggle" id="pmd-edit-toggle" title="Edit mode (E)">Edit</button>
 <nav class="pmd-slide-dots" id="pmd-slide-dots" aria-label="Slide navigation"></nav>
@@ -39,11 +39,15 @@
     <div class="pmd-next-frame-wrap" id="pmd-next-frame-wrap"></div>
   </div>
 </aside>
+<div class="pmd-filmstrip" id="pmd-filmstrip" hidden aria-label="Slide filmstrip peek">
+  <div class="pmd-filmstrip-track" id="pmd-filmstrip-track" role="listbox" aria-label="Slide filmstrip" aria-orientation="horizontal"></div>
+</div>
 <div class="pmd-present-bar" id="pmd-present-bar" aria-label="Presenter controls">
   <span class="pmd-present-count" id="pmd-present-count">1 / 1</span>
   <span class="pmd-present-timer" id="pmd-present-timer" title="Elapsed · P pace · T pause · R reset">0:00</span>
   <button type="button" class="pmd-present-btn" id="pmd-btn-speaker" title="Speaker notes window (O)">Speaker · O</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-notes" title="Toggle speaker notes (S)">Notes · S</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-strip" title="Toggle filmstrip peek (F)" hidden>Hide strip · F</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-overview" title="Overview grid (G)">Overview · G</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-edit" title="Edit text (E) · ⌘/Ctrl+S saves">Edit · E</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-save" title="Save HTML (⌘/Ctrl+S)" hidden>Save · ⌘S</button>
@@ -74,6 +78,7 @@
       <li><kbd>1–9</kbd><span>Jump to slide</span></li>
       <li><kbd>Home / End</kbd><span>First / last slide</span></li>
       <li><kbd>G</kbd><span>Overview grid</span></li>
+      <li><kbd>F</kbd><span>Filmstrip peek</span></li>
       <li><kbd>E</kbd><span>Edit text</span></li>
       <li><kbd>⌘/Ctrl+S</kbd><span>Save HTML (when editing)</span></li>
       <li><kbd>S</kbd><span>Speaker notes</span></li>
@@ -173,6 +178,9 @@
   var btnInkClear = document.getElementById("pmd-btn-ink-clear");
   var btnOverview = document.getElementById("pmd-btn-overview");
   var btnOverviewClose = document.getElementById("pmd-btn-overview-close");
+  var btnStrip = document.getElementById("pmd-btn-strip");
+  var filmstripEl = document.getElementById("pmd-filmstrip");
+  var filmstripTrack = document.getElementById("pmd-filmstrip-track");
   var btnEdit = document.getElementById("pmd-btn-edit");
   var btnSave = document.getElementById("pmd-btn-save");
   var editToggle = document.getElementById("pmd-edit-toggle");
@@ -184,6 +192,9 @@
   var lastSlideForInk = -1;
   var showOverview = false;
   var overviewBuilt = false;
+  var showStrip = slides.length > 1;
+  var stripBuilt = false;
+  var stripButtons = [];
   var syncingHash = false;
   var dotButtons = [];
   var editOn = false;
@@ -351,6 +362,80 @@
     }
   }
 
+  function ensureFilmstrip() {
+    if (stripBuilt || !filmstripTrack || slides.length < 2) return;
+    stripBuilt = true;
+    filmstripTrack.innerHTML = "";
+    stripButtons = [];
+    for (var i = 0; i < slides.length; i++) {
+      (function (idx) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "pmd-filmstrip-hit";
+        btn.setAttribute("role", "option");
+        btn.setAttribute("aria-label", "Go to slide " + (idx + 1));
+        btn.setAttribute("data-filmstrip-i", String(idx));
+        btn.tabIndex = -1;
+        var wrap = document.createElement("div");
+        wrap.className = "pmd-filmstrip-frame-wrap";
+        var scale = document.createElement("div");
+        scale.className = "pmd-filmstrip-scale";
+        var thumb = cloneSlideThumb(idx);
+        if (thumb) scale.appendChild(thumb);
+        else {
+          var fallback = document.createElement("div");
+          fallback.className = "pmd-filmstrip-fallback";
+          fallback.textContent = String(idx + 1);
+          scale.appendChild(fallback);
+        }
+        wrap.appendChild(scale);
+        var num = document.createElement("span");
+        num.className = "pmd-filmstrip-num";
+        num.textContent = String(idx + 1);
+        btn.appendChild(wrap);
+        btn.appendChild(num);
+        btn.addEventListener("click", function () { jumpTo(idx); });
+        filmstripTrack.appendChild(btn);
+        stripButtons.push(btn);
+      })(i);
+    }
+  }
+
+  function setStrip(on) {
+    if (slides.length < 2) {
+      showStrip = false;
+    } else {
+      showStrip = !!on;
+    }
+    if (showStrip) ensureFilmstrip();
+    if (filmstripEl) filmstripEl.hidden = !showStrip;
+    document.documentElement.classList.toggle("pmd-strip-open", showStrip);
+    if (btnStrip) {
+      btnStrip.hidden = slides.length < 2;
+      btnStrip.textContent = showStrip ? "Hide strip · F" : "Strip · F";
+    }
+    syncFilmstripActive();
+  }
+
+  function syncFilmstripActive() {
+    if (!showStrip || !stripButtons.length) return;
+    var idx = currentIndex();
+    for (var i = 0; i < stripButtons.length; i++) {
+      var active = i === idx;
+      stripButtons[i].classList.toggle("is-active", active);
+      stripButtons[i].setAttribute("aria-selected", active ? "true" : "false");
+      stripButtons[i].tabIndex = active ? 0 : -1;
+      if (active) {
+        stripButtons[i].setAttribute("aria-current", "true");
+        try {
+          stripButtons[i].scrollIntoView({ inline: "nearest", block: "nearest", behavior: "smooth" });
+        } catch (err) { /* ignore */ }
+      } else {
+        stripButtons[i].removeAttribute("aria-current");
+      }
+    }
+  }
+
   function isTypingTarget(el) {
     if (!el || !el.getAttribute) return false;
     if (el.getAttribute("contenteditable") === "true") return true;
@@ -424,6 +509,8 @@
     }
     var overview = clone.querySelector("#pmd-overview");
     if (overview) overview.hidden = true;
+    var filmstrip = clone.querySelector("#pmd-filmstrip");
+    if (filmstrip) filmstrip.hidden = true;
     var help = clone.querySelector("#pmd-present-help");
     if (help) help.hidden = true;
     var blackout = clone.querySelector("#pmd-blackout");
@@ -785,6 +872,7 @@
     syncDotsAndProgress(idx);
     syncHash(idx);
     syncOverviewActive();
+    syncFilmstripActive();
     if (showNotes) {
       syncNotes();
       syncNextPeek(idx);
@@ -857,6 +945,11 @@
       e.preventDefault();
       if (editOn) setEditMode(false);
       setOverview(!showOverview);
+      return;
+    }
+    if (e.key === "f" || e.key === "F") {
+      e.preventDefault();
+      if (slides.length > 1) setStrip(!showStrip);
       return;
     }
     if (e.key === "l" || e.key === "L") {
@@ -941,6 +1034,7 @@
   if (whiteoutEl) whiteoutEl.addEventListener("click", function () { setWhiteout(false); });
   if (btnNotes) btnNotes.addEventListener("click", function () { setNotes(!showNotes); });
   if (btnSpeaker) btnSpeaker.addEventListener("click", openSpeakerView);
+  if (btnStrip) btnStrip.addEventListener("click", function () { setStrip(!showStrip); });
   if (btnOverview) btnOverview.addEventListener("click", function () { setOverview(!showOverview); });
   if (btnOverviewClose) btnOverviewClose.addEventListener("click", function () { setOverview(false); });
   if (btnEdit) btnEdit.addEventListener("click", function () { setEditMode(!editOn); });
@@ -1027,6 +1121,7 @@
   }
 
   buildDots();
+  setStrip(showStrip);
   window.addEventListener("hashchange", applyHashJump);
   window.addEventListener("resize", function () { syncInkCanvas(); }, { passive: true });
   window.addEventListener("scroll", function () { syncUi(); }, { passive: true });

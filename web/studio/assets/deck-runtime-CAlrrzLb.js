@@ -56,7 +56,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{{html}}}
   </div>
 </section>
-`,T=`<section class="slide data-table-slide" data-layout="data-table">
+`,S=`<section class="slide data-table-slide" data-layout="data-table">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <table>
@@ -70,7 +70,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     </tbody>
   </table>
 </section>
-`,L=`<section class="slide feature-grid-slide" data-layout="feature-grid">
+`,T=`<section class="slide feature-grid-slide" data-layout="feature-grid">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <div class="grid cols-{{columns}}">
@@ -83,7 +83,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/cards}}
   </div>
 </section>
-`,S=`<section class="slide image-hero-slide" data-layout="image-hero">
+`,L=`<section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
     {{#image}}<img src="{{image}}" alt="{{imageAlt}}" />{{/image}}
     <div class="image-hero-scrim"></div>
@@ -165,7 +165,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
   <h2>{{heading}}</h2>
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
 </section>
-`,D=`<section class="slide stat-row-slide{{#isHero}} stat-row-hero{{/isHero}}" data-layout="stat-row">
+`,H=`<section class="slide stat-row-slide{{#isHero}} stat-row-hero{{/isHero}}" data-layout="stat-row">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -178,7 +178,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/stats}}
   </div>
 </section>
-`,H=`<section class="slide streak-grid-slide" data-layout="streak-grid">
+`,D=`<section class="slide streak-grid-slide" data-layout="streak-grid">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -218,7 +218,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{^image}}{{#aside}}<div class="cols-aside"><p>{{aside}}</p></div>{{/aside}}{{/image}}
   </div>
 </section>
-`,W=`/* presentation-md base stylesheet.
+`,F=`/* presentation-md base stylesheet.
    Theme tokens are injected via the :root block below. Layout fragments in
    ./layouts/*.html consume these CSS variables and class names. */
 
@@ -1140,6 +1140,7 @@ tbody tr:hover td {
 .pmd-present-help,
 .pmd-stage-tools,
 .pmd-overview,
+.pmd-filmstrip,
 .pmd-slide-dots,
 .pmd-progress,
 .pmd-edit-hotzone,
@@ -1526,6 +1527,116 @@ html.pmd-notes-open .nav-hint { right: calc(min(340px, 34vw) + 16px); }
   margin-right: 6px;
 }
 
+/* Present filmstrip peek (F) — densified horizontal jump strip above the bar. */
+.pmd-filmstrip {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 48px;
+  z-index: 54;
+  display: none;
+  padding: 8px 12px 4px;
+  background: #0b1220;
+  border-top: 1px solid rgba(232, 238, 244, 0.12);
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+html.pmd-live-present.pmd-strip-open .pmd-filmstrip { display: block; }
+.pmd-filmstrip[hidden] { display: none !important; }
+.pmd-filmstrip-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 8px;
+  width: max-content;
+  min-height: 72px;
+  align-items: flex-start;
+}
+.pmd-filmstrip-hit {
+  appearance: none;
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(64px * 16 / 9);
+  height: 64px;
+  padding: 0;
+  margin: 0;
+  border: 2px solid rgba(232, 238, 244, 0.18);
+  border-radius: 8px;
+  background: #111827;
+  cursor: pointer;
+  overflow: hidden;
+}
+.pmd-filmstrip-hit:hover,
+.pmd-filmstrip-hit:focus-visible {
+  border-color: color-mix(in srgb, var(--accent, #38bdf8) 55%, rgba(232, 238, 244, 0.4));
+  outline: none;
+}
+.pmd-filmstrip-hit.is-active {
+  border-color: var(--accent, #38bdf8);
+  box-shadow: 0 0 0 1px var(--accent, #38bdf8);
+}
+.pmd-filmstrip-frame-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+}
+.pmd-filmstrip-scale {
+  width: 1280px;
+  height: 720px;
+  transform: scale(calc(64 / 720));
+  transform-origin: top left;
+  pointer-events: none;
+}
+@supports (width: 1cqw) {
+  .pmd-filmstrip-scale { transform: scale(calc(100cqh / 720)); }
+}
+.pmd-filmstrip-scale .slide {
+  width: 1280px !important;
+  min-height: 720px !important;
+  height: 720px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.pmd-filmstrip-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #9ca3af;
+  font: 600 18px/1 ui-sans-serif, system-ui, sans-serif;
+}
+.pmd-filmstrip-num {
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+  z-index: 1;
+  font: 600 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: rgba(11, 18, 32, 0.82);
+  color: #e8eef4;
+}
+.pmd-filmstrip-hit.is-active .pmd-filmstrip-num {
+  background: var(--accent, #38bdf8);
+  color: #0b1220;
+}
+html.pmd-strip-open .pmd-notes-rail {
+  bottom: calc(48px + 84px);
+}
+html.pmd-strip-open .pmd-stage-tools {
+  bottom: calc(48px + 84px);
+}
+@media (max-width: 720px) {
+  .pmd-filmstrip { display: none !important; }
+  html.pmd-strip-open .pmd-notes-rail { bottom: 48px; }
+  html.pmd-strip-open .pmd-stage-tools { bottom: 48px; }
+}
+
 .pmd-present-bar {
   position: fixed;
   left: 0;
@@ -1628,6 +1739,7 @@ html.pmd-shot-mode .pmd-curtain,
 html.pmd-shot-mode .pmd-present-help,
 html.pmd-shot-mode .pmd-stage-tools,
 html.pmd-shot-mode .pmd-overview,
+html.pmd-shot-mode .pmd-filmstrip,
 html.pmd-shot-mode .pmd-slide-dots,
 html.pmd-shot-mode .pmd-progress,
 html.pmd-shot-mode .pmd-edit-hotzone,
@@ -1663,12 +1775,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
   .pmd-present-help,
   .pmd-stage-tools,
   .pmd-overview,
+  .pmd-filmstrip,
   .pmd-slide-dots,
   .pmd-progress,
   .pmd-edit-hotzone,
   .pmd-edit-toggle { display: none !important; }
 }
-`,F=`/* Per-theme surface profiles — each theme gets a distinct stage, not one shared blob. */
+`,N=`/* Per-theme surface profiles — each theme gets a distinct stage, not one shared blob. */
 
 .deck[data-surface] .slide {
   background: var(--slide-bg, radial-gradient(125% 125% at 0% 0%, var(--bg-2), var(--bg)));
@@ -6744,7 +6857,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-top: 1px solid var(--accent);
   padding-top: 16px;
 }
-`,n="warm-paper",e="clean-light",a="soft-bento",r="bauhaus-blocks",t="vapor-horizon",o="hygge-soft",d="blueprint-grid",i="glass-mist",s="newsprint-masthead",c="vellum-colorfield",l="broadside-fire",p="signal-briefing",b="coral-hatch",f="capsule-pills",g="studio-acid",u="grove-monograph",x="scatterbrain-cork",h="mat-woodglow",m="cartesian-draft",k="monochrome-ledger",N={claude:n,"default-tech":"neon-glow",corporate:e,playful:a,"luxury-minimalist":"quiet-luxe","retro-arcade":"scanline-neon","editorial-serif":"editorial-rule","brutalist-mono":"brutalist-grid","pastel-dreamy":"pastel-cloud","aurora-glass":"aurora-glass","ft-editorial":"broadsheet-rule","genz-bento":"hard-bento","crt-terminal":"crt-phosphor","swiss-typographic":"swiss-grid","candy-pop":"candy-blob","aerospace-hud":"hud-grid","brutalist-acid":"acid-block",bauhaus:r,"y2k-aero":"aero-bubble","risograph-zine":"riso-print","neon-noir":"neon-rain",vaporwave:t,"botanical-luxe":"botanical-leaf","heritage-editorial":"heritage-wash","fintech-clean":"fintech-soft","developer-dark":"dev-terminal","data-editorial":"data-rule",scandinavian:o,"art-deco":"deco-fan","kinetic-wrapped":"wrapped-block",blueprint:d,glassmorphism:i,broadsheet:s,"soft-editorial":"soft-editorial-paper","editorial-forest":"editorial-forest-paper","pin-and-paper":"pin-paper-pad",vellum:c,"neo-grid-bold":"neo-grid-panels","editorial-tri-tone":"tri-tone-blocks","creative-mode":"creative-mode-blocks",broadside:l,"bold-signal":"bold-signal-card","notebook-tabs":"notebook-tabs-page","creative-voltage":"creative-voltage-split",signal:p,"electric-studio":"electric-studio-split","dark-botanical":"dark-botanical-bloom","pastel-geometry":"pastel-geometry-pills","split-pastel":"split-pastel-panels","vintage-editorial":"vintage-editorial-geo","paper-ink":"paper-ink-literary","biennale-yellow":"biennale-yellow-sun","bold-poster":"bold-poster-ink",coral:b,"emerald-editorial":"emerald-editorial-masthead","sakura-chroma":"sakura-chroma-cassette","pink-script":"pink-script-afterhours","block-frame":"block-frame-brutal",capsule:f,"cobalt-grid":"cobalt-grid-paper","8-bit-orbit":"bit-orbit-arcade",studio:g,grove:u,scatterbrain:x,"peoples-platform":"peoples-platform-poster","retro-windows":"retro-windows-chrome","raw-grid":"raw-grid-brutal","long-table":"long-table-supper",mat:h,"stencil-tablet":"stencil-tablet-earth",cartesian:m,monochrome:k,"blue-professional":"blue-professional-clean","daisy-days":"daisy-days-pastel","retro-zine":"retro-zine-riso"},P=`<!doctype html>
+`,n="warm-paper",e="clean-light",a="soft-bento",r="bauhaus-blocks",t="vapor-horizon",o="hygge-soft",i="blueprint-grid",d="glass-mist",s="newsprint-masthead",c="vellum-colorfield",l="broadside-fire",p="signal-briefing",b="coral-hatch",f="capsule-pills",g="studio-acid",u="grove-monograph",x="scatterbrain-cork",m="mat-woodglow",h="cartesian-draft",k="monochrome-ledger",W={claude:n,"default-tech":"neon-glow",corporate:e,playful:a,"luxury-minimalist":"quiet-luxe","retro-arcade":"scanline-neon","editorial-serif":"editorial-rule","brutalist-mono":"brutalist-grid","pastel-dreamy":"pastel-cloud","aurora-glass":"aurora-glass","ft-editorial":"broadsheet-rule","genz-bento":"hard-bento","crt-terminal":"crt-phosphor","swiss-typographic":"swiss-grid","candy-pop":"candy-blob","aerospace-hud":"hud-grid","brutalist-acid":"acid-block",bauhaus:r,"y2k-aero":"aero-bubble","risograph-zine":"riso-print","neon-noir":"neon-rain",vaporwave:t,"botanical-luxe":"botanical-leaf","heritage-editorial":"heritage-wash","fintech-clean":"fintech-soft","developer-dark":"dev-terminal","data-editorial":"data-rule",scandinavian:o,"art-deco":"deco-fan","kinetic-wrapped":"wrapped-block",blueprint:i,glassmorphism:d,broadsheet:s,"soft-editorial":"soft-editorial-paper","editorial-forest":"editorial-forest-paper","pin-and-paper":"pin-paper-pad",vellum:c,"neo-grid-bold":"neo-grid-panels","editorial-tri-tone":"tri-tone-blocks","creative-mode":"creative-mode-blocks",broadside:l,"bold-signal":"bold-signal-card","notebook-tabs":"notebook-tabs-page","creative-voltage":"creative-voltage-split",signal:p,"electric-studio":"electric-studio-split","dark-botanical":"dark-botanical-bloom","pastel-geometry":"pastel-geometry-pills","split-pastel":"split-pastel-panels","vintage-editorial":"vintage-editorial-geo","paper-ink":"paper-ink-literary","biennale-yellow":"biennale-yellow-sun","bold-poster":"bold-poster-ink",coral:b,"emerald-editorial":"emerald-editorial-masthead","sakura-chroma":"sakura-chroma-cassette","pink-script":"pink-script-afterhours","block-frame":"block-frame-brutal",capsule:f,"cobalt-grid":"cobalt-grid-paper","8-bit-orbit":"bit-orbit-arcade",studio:g,grove:u,scatterbrain:x,"peoples-platform":"peoples-platform-poster","retro-windows":"retro-windows-chrome","raw-grid":"raw-grid-brutal","long-table":"long-table-supper",mat:m,"stencil-tablet":"stencil-tablet-earth",cartesian:h,monochrome:k,"blue-professional":"blue-professional-clean","daisy-days":"daisy-days-pastel","retro-zine":"retro-zine-riso"},j=`<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -6760,7 +6873,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <main class="deck" data-surface="{{surface}}">
 {{{slides}}}
 </main>
-<div class="nav-hint" aria-hidden="true">← → · E edit · G overview · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help</div>
+<div class="nav-hint" aria-hidden="true">← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help</div>
 <div class="pmd-edit-hotzone" id="pmd-edit-hotzone" aria-hidden="true"></div>
 <button type="button" class="pmd-edit-toggle" id="pmd-edit-toggle" title="Edit mode (E)">Edit</button>
 <nav class="pmd-slide-dots" id="pmd-slide-dots" aria-label="Slide navigation"></nav>
@@ -6785,11 +6898,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
     <div class="pmd-next-frame-wrap" id="pmd-next-frame-wrap"></div>
   </div>
 </aside>
+<div class="pmd-filmstrip" id="pmd-filmstrip" hidden aria-label="Slide filmstrip peek">
+  <div class="pmd-filmstrip-track" id="pmd-filmstrip-track" role="listbox" aria-label="Slide filmstrip" aria-orientation="horizontal"></div>
+</div>
 <div class="pmd-present-bar" id="pmd-present-bar" aria-label="Presenter controls">
   <span class="pmd-present-count" id="pmd-present-count">1 / 1</span>
   <span class="pmd-present-timer" id="pmd-present-timer" title="Elapsed · P pace · T pause · R reset">0:00</span>
   <button type="button" class="pmd-present-btn" id="pmd-btn-speaker" title="Speaker notes window (O)">Speaker · O</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-notes" title="Toggle speaker notes (S)">Notes · S</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-strip" title="Toggle filmstrip peek (F)" hidden>Hide strip · F</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-overview" title="Overview grid (G)">Overview · G</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-edit" title="Edit text (E) · ⌘/Ctrl+S saves">Edit · E</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-save" title="Save HTML (⌘/Ctrl+S)" hidden>Save · ⌘S</button>
@@ -6820,6 +6937,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
       <li><kbd>1–9</kbd><span>Jump to slide</span></li>
       <li><kbd>Home / End</kbd><span>First / last slide</span></li>
       <li><kbd>G</kbd><span>Overview grid</span></li>
+      <li><kbd>F</kbd><span>Filmstrip peek</span></li>
       <li><kbd>E</kbd><span>Edit text</span></li>
       <li><kbd>⌘/Ctrl+S</kbd><span>Save HTML (when editing)</span></li>
       <li><kbd>S</kbd><span>Speaker notes</span></li>
@@ -6919,6 +7037,9 @@ html.pmd-shot-mode .pmd-edit-toggle {
   var btnInkClear = document.getElementById("pmd-btn-ink-clear");
   var btnOverview = document.getElementById("pmd-btn-overview");
   var btnOverviewClose = document.getElementById("pmd-btn-overview-close");
+  var btnStrip = document.getElementById("pmd-btn-strip");
+  var filmstripEl = document.getElementById("pmd-filmstrip");
+  var filmstripTrack = document.getElementById("pmd-filmstrip-track");
   var btnEdit = document.getElementById("pmd-btn-edit");
   var btnSave = document.getElementById("pmd-btn-save");
   var editToggle = document.getElementById("pmd-edit-toggle");
@@ -6930,6 +7051,9 @@ html.pmd-shot-mode .pmd-edit-toggle {
   var lastSlideForInk = -1;
   var showOverview = false;
   var overviewBuilt = false;
+  var showStrip = slides.length > 1;
+  var stripBuilt = false;
+  var stripButtons = [];
   var syncingHash = false;
   var dotButtons = [];
   var editOn = false;
@@ -7097,6 +7221,80 @@ html.pmd-shot-mode .pmd-edit-toggle {
     }
   }
 
+  function ensureFilmstrip() {
+    if (stripBuilt || !filmstripTrack || slides.length < 2) return;
+    stripBuilt = true;
+    filmstripTrack.innerHTML = "";
+    stripButtons = [];
+    for (var i = 0; i < slides.length; i++) {
+      (function (idx) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "pmd-filmstrip-hit";
+        btn.setAttribute("role", "option");
+        btn.setAttribute("aria-label", "Go to slide " + (idx + 1));
+        btn.setAttribute("data-filmstrip-i", String(idx));
+        btn.tabIndex = -1;
+        var wrap = document.createElement("div");
+        wrap.className = "pmd-filmstrip-frame-wrap";
+        var scale = document.createElement("div");
+        scale.className = "pmd-filmstrip-scale";
+        var thumb = cloneSlideThumb(idx);
+        if (thumb) scale.appendChild(thumb);
+        else {
+          var fallback = document.createElement("div");
+          fallback.className = "pmd-filmstrip-fallback";
+          fallback.textContent = String(idx + 1);
+          scale.appendChild(fallback);
+        }
+        wrap.appendChild(scale);
+        var num = document.createElement("span");
+        num.className = "pmd-filmstrip-num";
+        num.textContent = String(idx + 1);
+        btn.appendChild(wrap);
+        btn.appendChild(num);
+        btn.addEventListener("click", function () { jumpTo(idx); });
+        filmstripTrack.appendChild(btn);
+        stripButtons.push(btn);
+      })(i);
+    }
+  }
+
+  function setStrip(on) {
+    if (slides.length < 2) {
+      showStrip = false;
+    } else {
+      showStrip = !!on;
+    }
+    if (showStrip) ensureFilmstrip();
+    if (filmstripEl) filmstripEl.hidden = !showStrip;
+    document.documentElement.classList.toggle("pmd-strip-open", showStrip);
+    if (btnStrip) {
+      btnStrip.hidden = slides.length < 2;
+      btnStrip.textContent = showStrip ? "Hide strip · F" : "Strip · F";
+    }
+    syncFilmstripActive();
+  }
+
+  function syncFilmstripActive() {
+    if (!showStrip || !stripButtons.length) return;
+    var idx = currentIndex();
+    for (var i = 0; i < stripButtons.length; i++) {
+      var active = i === idx;
+      stripButtons[i].classList.toggle("is-active", active);
+      stripButtons[i].setAttribute("aria-selected", active ? "true" : "false");
+      stripButtons[i].tabIndex = active ? 0 : -1;
+      if (active) {
+        stripButtons[i].setAttribute("aria-current", "true");
+        try {
+          stripButtons[i].scrollIntoView({ inline: "nearest", block: "nearest", behavior: "smooth" });
+        } catch (err) { /* ignore */ }
+      } else {
+        stripButtons[i].removeAttribute("aria-current");
+      }
+    }
+  }
+
   function isTypingTarget(el) {
     if (!el || !el.getAttribute) return false;
     if (el.getAttribute("contenteditable") === "true") return true;
@@ -7170,6 +7368,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
     }
     var overview = clone.querySelector("#pmd-overview");
     if (overview) overview.hidden = true;
+    var filmstrip = clone.querySelector("#pmd-filmstrip");
+    if (filmstrip) filmstrip.hidden = true;
     var help = clone.querySelector("#pmd-present-help");
     if (help) help.hidden = true;
     var blackout = clone.querySelector("#pmd-blackout");
@@ -7531,6 +7731,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
     syncDotsAndProgress(idx);
     syncHash(idx);
     syncOverviewActive();
+    syncFilmstripActive();
     if (showNotes) {
       syncNotes();
       syncNextPeek(idx);
@@ -7603,6 +7804,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
       e.preventDefault();
       if (editOn) setEditMode(false);
       setOverview(!showOverview);
+      return;
+    }
+    if (e.key === "f" || e.key === "F") {
+      e.preventDefault();
+      if (slides.length > 1) setStrip(!showStrip);
       return;
     }
     if (e.key === "l" || e.key === "L") {
@@ -7687,6 +7893,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   if (whiteoutEl) whiteoutEl.addEventListener("click", function () { setWhiteout(false); });
   if (btnNotes) btnNotes.addEventListener("click", function () { setNotes(!showNotes); });
   if (btnSpeaker) btnSpeaker.addEventListener("click", openSpeakerView);
+  if (btnStrip) btnStrip.addEventListener("click", function () { setStrip(!showStrip); });
   if (btnOverview) btnOverview.addEventListener("click", function () { setOverview(!showOverview); });
   if (btnOverviewClose) btnOverviewClose.addEventListener("click", function () { setOverview(false); });
   if (btnEdit) btnEdit.addEventListener("click", function () { setEditMode(!editOn); });
@@ -7773,6 +7980,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   }
 
   buildDots();
+  setStrip(showStrip);
   window.addEventListener("hashchange", applyHashJump);
   window.addEventListener("resize", function () { syncInkCanvas(); }, { passive: true });
   window.addEventListener("scroll", function () { syncUi(); }, { passive: true });
@@ -7796,4 +8004,4 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <\/script>
 </body>
 </html>
-`;export{M as _,_ as a,I as b,H as c,D as d,B as e,q as f,O as g,A as h,C as i,S as j,L as k,T as l,z as m,E as n,y as o,w as p,v as q,W as r,P as s,F as t,N as u};
+`;export{M as _,_ as a,I as b,D as c,H as d,B as e,q as f,O as g,A as h,C as i,L as j,T as k,S as l,z as m,E as n,y as o,w as p,v as q,F as r,j as s,N as t,W as u};
