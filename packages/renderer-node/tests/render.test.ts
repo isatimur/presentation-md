@@ -473,7 +473,7 @@ describe("renderDeck", () => {
     expect(html).toContain("pmd-fade-up");
   });
 
-  it("embeds Present chrome (blackout/whiteout/notes/timer/pace) reading #pmd-deck notes", async () => {
+  it("embeds Present chrome (blackout/whiteout/notes/timer/pace/laser/ink) reading #pmd-deck notes", async () => {
     const deck = JSON.stringify({
       type: "deck",
       meta: { title: "Present chrome", theme: "default-tech" },
@@ -487,6 +487,11 @@ describe("renderDeck", () => {
     expect(html).toContain('id="pmd-whiteout"');
     expect(html).toContain('id="pmd-notes-rail"');
     expect(html).toContain('id="pmd-present-timer"');
+    expect(html).toContain('id="pmd-stage-tools"');
+    expect(html).toContain('id="pmd-ink-canvas"');
+    expect(html).toContain('id="pmd-laser-layer"');
+    expect(html).toContain("setLaser");
+    expect(html).toContain("setInk");
     expect(html).toContain("cyclePace");
     expect(html).toContain("PACE_PRESETS");
     expect(html).toContain("openSpeakerView");

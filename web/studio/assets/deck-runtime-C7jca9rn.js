@@ -33,7 +33,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     <pre class="code-block"><code>{{code}}</code></pre>
   </div>
 </section>
-`,z=`<section class="slide comparison-slide" data-layout="comparison">
+`,E=`<section class="slide comparison-slide" data-layout="comparison">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <div class="comparison-cols{{#emphasis}} emphasis-{{emphasis}}{{/emphasis}}">
@@ -48,7 +48,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     </div>
   </div>
 </section>
-`,E=`<section class="slide custom-html-slide" data-layout="custom-html">
+`,z=`<section class="slide custom-html-slide" data-layout="custom-html">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -56,7 +56,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{{html}}}
   </div>
 </section>
-`,q=`<section class="slide data-table-slide" data-layout="data-table">
+`,C=`<section class="slide data-table-slide" data-layout="data-table">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <table>
@@ -70,7 +70,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     </tbody>
   </table>
 </section>
-`,A=`<section class="slide feature-grid-slide" data-layout="feature-grid">
+`,S=`<section class="slide feature-grid-slide" data-layout="feature-grid">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <div class="grid cols-{{columns}}">
@@ -83,7 +83,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/cards}}
   </div>
 </section>
-`,S=`<section class="slide image-hero-slide" data-layout="image-hero">
+`,L=`<section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
     {{#image}}<img src="{{image}}" alt="{{imageAlt}}" />{{/image}}
     <div class="image-hero-scrim"></div>
@@ -94,7 +94,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
   </div>
 </section>
-`,_=`<section class="slide logo-wall-slide" data-layout="logo-wall">
+`,q=`<section class="slide logo-wall-slide" data-layout="logo-wall">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -113,7 +113,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/cards}}
   </div>
 </section>
-`,B=`<section class="slide metric-ring-slide" data-layout="metric-ring">
+`,A=`<section class="slide metric-ring-slide" data-layout="metric-ring">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <div class="pct-wrap">
@@ -138,11 +138,11 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     </div>
   </div>
 </section>
-`,D=`<section class="slide quote-slide" data-layout="quote">
+`,T=`<section class="slide quote-slide" data-layout="quote">
   <p class="quote">{{quote}}</p>
   {{#by}}<p class="quote-by">— {{by}}</p>{{/by}}
 </section>
-`,C=`<section class="slide ranked-list-slide" data-layout="ranked-list">
+`,_=`<section class="slide ranked-list-slide" data-layout="ranked-list">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -160,12 +160,12 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/items}}
   </div>
 </section>
-`,M=`<section class="slide section-slide" data-layout="section">
+`,D=`<section class="slide section-slide" data-layout="section">
   {{#number}}<div class="section-number">{{number}}</div>{{/number}}
   <h2>{{heading}}</h2>
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
 </section>
-`,T=`<section class="slide stat-row-slide{{#isHero}} stat-row-hero{{/isHero}}" data-layout="stat-row">
+`,B=`<section class="slide stat-row-slide{{#isHero}} stat-row-hero{{/isHero}}" data-layout="stat-row">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -178,7 +178,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/stats}}
   </div>
 </section>
-`,F=`<section class="slide streak-grid-slide" data-layout="streak-grid">
+`,I=`<section class="slide streak-grid-slide" data-layout="streak-grid">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -202,12 +202,12 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/steps}}
   </div>
 </section>
-`,W=`<section class="slide title-slide" data-layout="title">
+`,M=`<section class="slide title-slide" data-layout="title">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   <h1>{{heading}}</h1>
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
 </section>
-`,P=`<section class="slide two-column-slide" data-layout="two-column">
+`,O=`<section class="slide two-column-slide" data-layout="two-column">
   <div class="cols{{#ratio}} ratio-{{ratio}}{{/ratio}}{{#reverse}} cols-reverse{{/reverse}}">
     <div class="cols-copy">
       {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
@@ -218,7 +218,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{^image}}{{#aside}}<div class="cols-aside"><p>{{aside}}</p></div>{{/aside}}{{/image}}
   </div>
 </section>
-`,L=`/* presentation-md base stylesheet.
+`,F=`/* presentation-md base stylesheet.
    Theme tokens are injected via the :root block below. Layout fragments in
    ./layouts/*.html consume these CSS variables and class names. */
 
@@ -1131,23 +1131,79 @@ tbody tr:hover td {
   opacity: 0.85;
 }
 
-/* Exported-HTML Present chrome (parity subset of Studio Present — no laser/ink).
+/* Exported-HTML Present chrome (Studio Present parity: laser/ink + B/W/notes/timer).
    Hidden until the inline script marks html.pmd-live-present — keeps Studio's
    sandboxed (no-scripts) preview free of dead controls. */
 .pmd-curtain,
 .pmd-notes-rail,
 .pmd-present-bar,
-.pmd-present-help {
+.pmd-present-help,
+.pmd-stage-tools {
   display: none;
 }
 html.pmd-live-present .pmd-curtain,
 html.pmd-live-present .pmd-notes-rail,
 html.pmd-live-present .pmd-present-bar,
-html.pmd-live-present .pmd-present-help {
+html.pmd-live-present .pmd-present-help,
+html.pmd-live-present .pmd-stage-tools {
   display: flex;
 }
 html.pmd-live-present .pmd-notes-rail { display: block; }
 html.pmd-live-present .pmd-present-bar { display: flex; }
+html.pmd-live-present .pmd-stage-tools { display: block; }
+
+.pmd-stage-tools {
+  position: fixed;
+  inset: 0;
+  bottom: 48px;
+  z-index: 45;
+  pointer-events: none;
+}
+html.pmd-notes-open .pmd-stage-tools {
+  right: min(340px, 34vw);
+}
+.pmd-stage-tools.is-laser,
+.pmd-stage-tools.is-ink {
+  pointer-events: auto;
+}
+.pmd-stage-tools.is-laser { cursor: none; }
+.pmd-stage-tools.is-ink { cursor: crosshair; }
+.pmd-ink-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  touch-action: none;
+}
+.pmd-ink-canvas.is-active {
+  pointer-events: auto;
+  cursor: crosshair;
+}
+.pmd-laser-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  cursor: none;
+  pointer-events: auto;
+}
+.pmd-laser-layer[hidden] { display: none !important; }
+.pmd-laser-dot {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fecaca 0%, #ef4444 45%, rgba(220, 38, 38, 0.15) 70%, transparent 75%);
+  box-shadow: 0 0 10px 3px rgba(239, 68, 68, 0.55), 0 0 22px 8px rgba(239, 68, 68, 0.25);
+  pointer-events: none;
+  will-change: left, top, opacity, transform;
+}
+.pmd-laser-dot.is-tip {
+  width: 22px;
+  height: 22px;
+  box-shadow: 0 0 12px 4px rgba(239, 68, 68, 0.7), 0 0 28px 10px rgba(239, 68, 68, 0.3);
+}
 
 .pmd-curtain {
   position: fixed;
@@ -1301,7 +1357,8 @@ html.pmd-shot-mode .nav-hint,
 html.pmd-shot-mode .pmd-present-bar,
 html.pmd-shot-mode .pmd-notes-rail,
 html.pmd-shot-mode .pmd-curtain,
-html.pmd-shot-mode .pmd-present-help {
+html.pmd-shot-mode .pmd-present-help,
+html.pmd-shot-mode .pmd-stage-tools {
   display: none !important;
 }
 
@@ -1330,9 +1387,10 @@ html.pmd-shot-mode .pmd-present-help {
   .pmd-present-bar,
   .pmd-notes-rail,
   .pmd-curtain,
-  .pmd-present-help { display: none !important; }
+  .pmd-present-help,
+  .pmd-stage-tools { display: none !important; }
 }
-`,j=`/* Per-theme surface profiles — each theme gets a distinct stage, not one shared blob. */
+`,W=`/* Per-theme surface profiles — each theme gets a distinct stage, not one shared blob. */
 
 .deck[data-surface] .slide {
   background: var(--slide-bg, radial-gradient(125% 125% at 0% 0%, var(--bg-2), var(--bg)));
@@ -6408,7 +6466,7 @@ html.pmd-shot-mode .pmd-present-help {
   border-top: 1px solid var(--accent);
   padding-top: 16px;
 }
-`,n="warm-paper",a="clean-light",e="soft-bento",r="bauhaus-blocks",t="vapor-horizon",o="hygge-soft",d="blueprint-grid",i="glass-mist",c="newsprint-masthead",s="vellum-colorfield",l="broadside-fire",p="signal-briefing",b="coral-hatch",f="capsule-pills",g="studio-acid",u="grove-monograph",x="scatterbrain-cork",h="mat-woodglow",m="cartesian-draft",k="monochrome-ledger",N={claude:n,"default-tech":"neon-glow",corporate:a,playful:e,"luxury-minimalist":"quiet-luxe","retro-arcade":"scanline-neon","editorial-serif":"editorial-rule","brutalist-mono":"brutalist-grid","pastel-dreamy":"pastel-cloud","aurora-glass":"aurora-glass","ft-editorial":"broadsheet-rule","genz-bento":"hard-bento","crt-terminal":"crt-phosphor","swiss-typographic":"swiss-grid","candy-pop":"candy-blob","aerospace-hud":"hud-grid","brutalist-acid":"acid-block",bauhaus:r,"y2k-aero":"aero-bubble","risograph-zine":"riso-print","neon-noir":"neon-rain",vaporwave:t,"botanical-luxe":"botanical-leaf","heritage-editorial":"heritage-wash","fintech-clean":"fintech-soft","developer-dark":"dev-terminal","data-editorial":"data-rule",scandinavian:o,"art-deco":"deco-fan","kinetic-wrapped":"wrapped-block",blueprint:d,glassmorphism:i,broadsheet:c,"soft-editorial":"soft-editorial-paper","editorial-forest":"editorial-forest-paper","pin-and-paper":"pin-paper-pad",vellum:s,"neo-grid-bold":"neo-grid-panels","editorial-tri-tone":"tri-tone-blocks","creative-mode":"creative-mode-blocks",broadside:l,"bold-signal":"bold-signal-card","notebook-tabs":"notebook-tabs-page","creative-voltage":"creative-voltage-split",signal:p,"electric-studio":"electric-studio-split","dark-botanical":"dark-botanical-bloom","pastel-geometry":"pastel-geometry-pills","split-pastel":"split-pastel-panels","vintage-editorial":"vintage-editorial-geo","paper-ink":"paper-ink-literary","biennale-yellow":"biennale-yellow-sun","bold-poster":"bold-poster-ink",coral:b,"emerald-editorial":"emerald-editorial-masthead","sakura-chroma":"sakura-chroma-cassette","pink-script":"pink-script-afterhours","block-frame":"block-frame-brutal",capsule:f,"cobalt-grid":"cobalt-grid-paper","8-bit-orbit":"bit-orbit-arcade",studio:g,grove:u,scatterbrain:x,"peoples-platform":"peoples-platform-poster","retro-windows":"retro-windows-chrome","raw-grid":"raw-grid-brutal","long-table":"long-table-supper",mat:h,"stencil-tablet":"stencil-tablet-earth",cartesian:m,monochrome:k,"blue-professional":"blue-professional-clean","daisy-days":"daisy-days-pastel","retro-zine":"retro-zine-riso"},R=`<!doctype html>
+`,n="warm-paper",a="clean-light",e="soft-bento",r="bauhaus-blocks",t="vapor-horizon",o="hygge-soft",d="blueprint-grid",i="glass-mist",c="newsprint-masthead",s="vellum-colorfield",l="broadside-fire",p="signal-briefing",b="coral-hatch",f="capsule-pills",g="studio-acid",u="grove-monograph",x="scatterbrain-cork",h="mat-woodglow",k="cartesian-draft",m="monochrome-ledger",P={claude:n,"default-tech":"neon-glow",corporate:a,playful:e,"luxury-minimalist":"quiet-luxe","retro-arcade":"scanline-neon","editorial-serif":"editorial-rule","brutalist-mono":"brutalist-grid","pastel-dreamy":"pastel-cloud","aurora-glass":"aurora-glass","ft-editorial":"broadsheet-rule","genz-bento":"hard-bento","crt-terminal":"crt-phosphor","swiss-typographic":"swiss-grid","candy-pop":"candy-blob","aerospace-hud":"hud-grid","brutalist-acid":"acid-block",bauhaus:r,"y2k-aero":"aero-bubble","risograph-zine":"riso-print","neon-noir":"neon-rain",vaporwave:t,"botanical-luxe":"botanical-leaf","heritage-editorial":"heritage-wash","fintech-clean":"fintech-soft","developer-dark":"dev-terminal","data-editorial":"data-rule",scandinavian:o,"art-deco":"deco-fan","kinetic-wrapped":"wrapped-block",blueprint:d,glassmorphism:i,broadsheet:c,"soft-editorial":"soft-editorial-paper","editorial-forest":"editorial-forest-paper","pin-and-paper":"pin-paper-pad",vellum:s,"neo-grid-bold":"neo-grid-panels","editorial-tri-tone":"tri-tone-blocks","creative-mode":"creative-mode-blocks",broadside:l,"bold-signal":"bold-signal-card","notebook-tabs":"notebook-tabs-page","creative-voltage":"creative-voltage-split",signal:p,"electric-studio":"electric-studio-split","dark-botanical":"dark-botanical-bloom","pastel-geometry":"pastel-geometry-pills","split-pastel":"split-pastel-panels","vintage-editorial":"vintage-editorial-geo","paper-ink":"paper-ink-literary","biennale-yellow":"biennale-yellow-sun","bold-poster":"bold-poster-ink",coral:b,"emerald-editorial":"emerald-editorial-masthead","sakura-chroma":"sakura-chroma-cassette","pink-script":"pink-script-afterhours","block-frame":"block-frame-brutal",capsule:f,"cobalt-grid":"cobalt-grid-paper","8-bit-orbit":"bit-orbit-arcade",studio:g,grove:u,scatterbrain:x,"peoples-platform":"peoples-platform-poster","retro-windows":"retro-windows-chrome","raw-grid":"raw-grid-brutal","long-table":"long-table-supper",mat:h,"stencil-tablet":"stencil-tablet-earth",cartesian:k,monochrome:m,"blue-professional":"blue-professional-clean","daisy-days":"daisy-days-pastel","retro-zine":"retro-zine-riso"},R=`<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -6424,7 +6482,11 @@ html.pmd-shot-mode .pmd-present-help {
 <main class="deck" data-surface="{{surface}}">
 {{{slides}}}
 </main>
-<div class="nav-hint" aria-hidden="true">← → · B/W · S notes · T timer · P pace · O speaker · ? help</div>
+<div class="nav-hint" aria-hidden="true">← → · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help</div>
+<div class="pmd-stage-tools" id="pmd-stage-tools" aria-hidden="true">
+  <canvas class="pmd-ink-canvas" id="pmd-ink-canvas"></canvas>
+  <div class="pmd-laser-layer" id="pmd-laser-layer" hidden></div>
+</div>
 <div class="pmd-curtain pmd-blackout" id="pmd-blackout" hidden role="status" aria-live="polite" title="Blackout · B or click to restore">
   <span class="pmd-curtain-hint">Blackout · B or click to restore</span>
 </div>
@@ -6440,6 +6502,9 @@ html.pmd-shot-mode .pmd-present-help {
   <span class="pmd-present-timer" id="pmd-present-timer" title="Elapsed · P pace · T pause · R reset">0:00</span>
   <button type="button" class="pmd-present-btn" id="pmd-btn-speaker" title="Speaker notes window (O)">Speaker · O</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-notes" title="Toggle speaker notes (S)">Notes · S</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-laser" title="Laser pointer (L)">Laser · L</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-ink" title="Ink / draw (D) · C clears">Ink · D</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-ink-clear" title="Clear ink (C)" hidden>Clear ink · C</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-blackout" title="Blackout (B)">Blackout · B</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-whiteout" title="Whiteout (W)">Whiteout · W</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-help" title="Shortcuts (?)">?</button>
@@ -6455,6 +6520,9 @@ html.pmd-shot-mode .pmd-present-help {
       <li><kbd>1–9</kbd><span>Jump to slide</span></li>
       <li><kbd>Home / End</kbd><span>First / last slide</span></li>
       <li><kbd>S</kbd><span>Speaker notes</span></li>
+      <li><kbd>L</kbd><span>Laser pointer</span></li>
+      <li><kbd>D</kbd><span>Ink / draw</span></li>
+      <li><kbd>C</kbd><span>Clear ink (when drawing)</span></li>
       <li><kbd>B</kbd><span>Blackout</span></li>
       <li><kbd>W</kbd><span>Whiteout</span></li>
       <li><kbd>T</kbd><span>Pause / resume timer</span></li>
@@ -6529,6 +6597,21 @@ html.pmd-shot-mode .pmd-present-help {
     syncUi();
   }
 
+  var LASER_TRAIL = 5;
+  var INK_COLOR = "#ef4444";
+  var INK_WIDTH = 3.5;
+  var stageTools = document.getElementById("pmd-stage-tools");
+  var inkCanvas = document.getElementById("pmd-ink-canvas");
+  var laserLayer = document.getElementById("pmd-laser-layer");
+  var btnLaser = document.getElementById("pmd-btn-laser");
+  var btnInk = document.getElementById("pmd-btn-ink");
+  var btnInkClear = document.getElementById("pmd-btn-ink-clear");
+  var laserOn = false;
+  var inkOn = false;
+  var laserTrail = [];
+  var inkDrawing = false;
+  var lastSlideForInk = -1;
+
   var notesBySlide = [];
   try {
     var deckEl = document.getElementById("pmd-deck") || document.getElementById("psp-deck");
@@ -6563,6 +6646,111 @@ html.pmd-shot-mode .pmd-present-help {
   var accumulated = 0;
   var paceMinutes = 0;
   var PACE_PRESETS = [0, 5, 10, 15, 20, 30];
+
+  function clearLaserTrail() {
+    laserTrail = [];
+    if (laserLayer) laserLayer.innerHTML = "";
+  }
+
+  function paintLaserTrail() {
+    if (!laserLayer) return;
+    laserLayer.innerHTML = "";
+    for (var i = 0; i < laserTrail.length; i++) {
+      var p = laserTrail[i];
+      var t = (i + 1) / laserTrail.length;
+      var isTip = i === laserTrail.length - 1;
+      var dot = document.createElement("span");
+      dot.className = "pmd-laser-dot" + (isTip ? " is-tip" : "");
+      dot.style.left = p.x + "px";
+      dot.style.top = p.y + "px";
+      dot.style.opacity = String(0.25 + t * 0.75);
+      dot.style.transform = "translate(-50%, -50%) scale(" + (0.45 + t * 0.55) + ")";
+      laserLayer.appendChild(dot);
+    }
+  }
+
+  function clearInk() {
+    if (!inkCanvas) return;
+    var ctx = inkCanvas.getContext("2d");
+    if (!ctx) return;
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, inkCanvas.width, inkCanvas.height);
+    ctx.restore();
+  }
+
+  function syncInkCanvas() {
+    if (!stageTools || !inkCanvas) return;
+    var rect = stageTools.getBoundingClientRect();
+    var dpr = window.devicePixelRatio || 1;
+    var nextW = Math.max(1, Math.floor(rect.width * dpr));
+    var nextH = Math.max(1, Math.floor(rect.height * dpr));
+    if (inkCanvas.width !== nextW || inkCanvas.height !== nextH) {
+      inkCanvas.width = nextW;
+      inkCanvas.height = nextH;
+    }
+    inkCanvas.style.width = rect.width + "px";
+    inkCanvas.style.height = rect.height + "px";
+    var ctx = inkCanvas.getContext("2d");
+    if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function syncStageTools() {
+    if (!stageTools) return;
+    var curtainsOff = (!blackoutEl || blackoutEl.hidden) && (!whiteoutEl || whiteoutEl.hidden);
+    stageTools.classList.toggle("is-laser", laserOn && !showHelp && curtainsOff);
+    stageTools.classList.toggle("is-ink", inkOn && !showHelp && curtainsOff);
+    document.documentElement.classList.toggle("pmd-laser-on", laserOn);
+    document.documentElement.classList.toggle("pmd-ink-on", inkOn);
+    if (laserLayer) {
+      var showLaser = laserOn && !showHelp && curtainsOff;
+      laserLayer.hidden = !showLaser;
+      if (!showLaser) clearLaserTrail();
+    }
+    if (inkCanvas) {
+      var showInk = inkOn && !showHelp && curtainsOff;
+      inkCanvas.classList.toggle("is-active", showInk);
+      if (!showInk) inkDrawing = false;
+    }
+    if (btnLaser) btnLaser.textContent = laserOn ? "Laser off · L" : "Laser · L";
+    if (btnInk) btnInk.textContent = inkOn ? "Ink off · D" : "Ink · D";
+    if (btnInkClear) btnInkClear.hidden = !inkOn;
+    syncInkCanvas();
+  }
+
+  function setLaser(on) {
+    laserOn = !!on;
+    if (laserOn) {
+      inkOn = false;
+      inkDrawing = false;
+      setBlackout(false);
+      setWhiteout(false);
+      setHelp(false);
+    } else {
+      clearLaserTrail();
+    }
+    syncStageTools();
+  }
+
+  function setInk(on) {
+    inkOn = !!on;
+    if (inkOn) {
+      laserOn = false;
+      clearLaserTrail();
+      setBlackout(false);
+      setWhiteout(false);
+      setHelp(false);
+    } else {
+      inkDrawing = false;
+    }
+    syncStageTools();
+  }
+
+  function inkPointFromEvent(e) {
+    if (!inkCanvas) return null;
+    var rect = inkCanvas.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
 
   function formatElapsed(ms) {
     var totalSec = Math.floor(Math.abs(ms) / 1000);
@@ -6651,21 +6839,42 @@ html.pmd-shot-mode .pmd-present-help {
 
   function setBlackout(on) {
     if (!blackoutEl) return;
-    if (on) setWhiteout(false);
+    if (on) {
+      laserOn = false;
+      inkOn = false;
+      inkDrawing = false;
+      clearLaserTrail();
+      if (whiteoutEl && !whiteoutEl.hidden) {
+        whiteoutEl.hidden = true;
+        if (btnWhiteout) btnWhiteout.textContent = "Whiteout · W";
+      }
+    }
     blackoutEl.hidden = !on;
     if (btnBlackout) btnBlackout.textContent = on ? "Restore · B" : "Blackout · B";
+    syncStageTools();
   }
 
   function setWhiteout(on) {
     if (!whiteoutEl) return;
-    if (on) setBlackout(false);
+    if (on) {
+      laserOn = false;
+      inkOn = false;
+      inkDrawing = false;
+      clearLaserTrail();
+      if (blackoutEl && !blackoutEl.hidden) {
+        blackoutEl.hidden = true;
+        if (btnBlackout) btnBlackout.textContent = "Blackout · B";
+      }
+    }
     whiteoutEl.hidden = !on;
     if (btnWhiteout) btnWhiteout.textContent = on ? "Restore · W" : "Whiteout · W";
+    syncStageTools();
   }
 
   function setHelp(on) {
     showHelp = !!on;
     if (helpEl) helpEl.hidden = !showHelp;
+    syncStageTools();
   }
 
   function setNotes(on) {
@@ -6693,6 +6902,11 @@ html.pmd-shot-mode .pmd-present-help {
 
   function syncUi() {
     var idx = currentIndex();
+    if (idx !== lastSlideForInk) {
+      if (lastSlideForInk >= 0) clearInk();
+      lastSlideForInk = idx;
+      inkDrawing = false;
+    }
     if (countEl) countEl.textContent = (idx + 1) + " / " + slides.length;
     if (timerEl) {
       var elapsed = elapsedNow();
@@ -6750,14 +6964,31 @@ html.pmd-shot-mode .pmd-present-help {
     if (e.key === "Escape") {
       e.preventDefault();
       if (showHelp) { setHelp(false); return; }
-      if (!blackoutEl.hidden) { setBlackout(false); return; }
-      if (!whiteoutEl.hidden) { setWhiteout(false); return; }
+      if (blackoutEl && !blackoutEl.hidden) { setBlackout(false); return; }
+      if (whiteoutEl && !whiteoutEl.hidden) { setWhiteout(false); return; }
+      if (laserOn) { setLaser(false); return; }
+      if (inkOn) { setInk(false); return; }
       if (showNotes) { setNotes(false); return; }
       return;
     }
     if (e.key === "?" || (e.shiftKey && e.key === "/")) {
       e.preventDefault();
       setHelp(!showHelp);
+      return;
+    }
+    if (e.key === "l" || e.key === "L") {
+      e.preventDefault();
+      setLaser(!laserOn);
+      return;
+    }
+    if (e.key === "d" || e.key === "D") {
+      e.preventDefault();
+      setInk(!inkOn);
+      return;
+    }
+    if ((e.key === "c" || e.key === "C") && inkOn) {
+      e.preventDefault();
+      clearInk();
       return;
     }
     if (e.key === "b" || e.key === "B") {
@@ -6827,14 +7058,68 @@ html.pmd-shot-mode .pmd-present-help {
   if (whiteoutEl) whiteoutEl.addEventListener("click", function () { setWhiteout(false); });
   if (btnNotes) btnNotes.addEventListener("click", function () { setNotes(!showNotes); });
   if (btnSpeaker) btnSpeaker.addEventListener("click", openSpeakerView);
+  if (btnLaser) btnLaser.addEventListener("click", function () { setLaser(!laserOn); });
+  if (btnInk) btnInk.addEventListener("click", function () { setInk(!inkOn); });
+  if (btnInkClear) btnInkClear.addEventListener("click", clearInk);
   if (btnBlackout) btnBlackout.addEventListener("click", function () { setBlackout(blackoutEl.hidden); });
   if (btnWhiteout) btnWhiteout.addEventListener("click", function () { setWhiteout(whiteoutEl.hidden); });
   if (btnHelp) btnHelp.addEventListener("click", function () { setHelp(!showHelp); });
   if (btnHelpClose) btnHelpClose.addEventListener("click", function () { setHelp(false); });
   if (timerEl) timerEl.addEventListener("dblclick", resetTimer);
 
+  if (laserLayer) {
+    laserLayer.addEventListener("pointermove", function (e) {
+      if (!laserOn || showHelp || (blackoutEl && !blackoutEl.hidden) || (whiteoutEl && !whiteoutEl.hidden)) return;
+      var rect = laserLayer.getBoundingClientRect();
+      var point = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      laserTrail.push(point);
+      if (laserTrail.length > LASER_TRAIL) laserTrail = laserTrail.slice(laserTrail.length - LASER_TRAIL);
+      paintLaserTrail();
+    });
+    laserLayer.addEventListener("pointerleave", function () {
+      if (laserOn) clearLaserTrail();
+    });
+  }
+
+  if (inkCanvas) {
+    inkCanvas.addEventListener("pointerdown", function (e) {
+      if (!inkOn || showHelp || (blackoutEl && !blackoutEl.hidden) || (whiteoutEl && !whiteoutEl.hidden)) return;
+      e.preventDefault();
+      var ctx = inkCanvas.getContext("2d");
+      var pt = inkPointFromEvent(e);
+      if (!ctx || !pt) return;
+      inkDrawing = true;
+      try { inkCanvas.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+      ctx.strokeStyle = INK_COLOR;
+      ctx.lineWidth = INK_WIDTH;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.beginPath();
+      ctx.moveTo(pt.x, pt.y);
+    });
+    inkCanvas.addEventListener("pointermove", function (e) {
+      if (!inkDrawing) return;
+      var ctx = inkCanvas.getContext("2d");
+      var pt = inkPointFromEvent(e);
+      if (!ctx || !pt) return;
+      ctx.lineTo(pt.x, pt.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(pt.x, pt.y);
+    });
+    function endInkStroke(e) {
+      if (!inkDrawing) return;
+      inkDrawing = false;
+      try { inkCanvas.releasePointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+    }
+    inkCanvas.addEventListener("pointerup", endInkStroke);
+    inkCanvas.addEventListener("pointercancel", endInkStroke);
+  }
+
+  window.addEventListener("resize", function () { syncInkCanvas(); }, { passive: true });
   window.addEventListener("scroll", function () { syncUi(); }, { passive: true });
   setInterval(function () { if (timerRunning) syncUi(); }, 500);
+  syncStageTools();
   syncUi();
 
   /* T2/T3 screenshot harness — #__shot=N scrolls slide N into view and forces reveals */
@@ -6852,4 +7137,4 @@ html.pmd-shot-mode .pmd-present-help {
 <\/script>
 </body>
 </html>
-`;export{P as _,W as a,H as b,F as c,T as d,M as e,C as f,D as g,B as h,_ as i,S as j,A as k,q as l,E as m,z as n,y as o,w as p,v as q,L as r,R as s,j as t,N as u};
+`;export{O as _,M as a,H as b,I as c,B as d,D as e,_ as f,T as g,A as h,q as i,L as j,S as k,C as l,z as m,E as n,y as o,w as p,v as q,F as r,R as s,W as t,P as u};
