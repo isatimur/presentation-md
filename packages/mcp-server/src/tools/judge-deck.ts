@@ -1,15 +1,26 @@
-import { mkdir, writeFile, readFile } from "node:fs/promises";
+import { mkdir, writeFile, readFile, stat } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
 import { tmpdir } from "node:os";
 import { randomBytes } from "node:crypto";
 import { validateDeckJson, judgeDeckJson } from "@presentation-md/core";
-import { renderDeck, analyzeHtmlDeck, type MetricFlag } from "@presentation-md/render";
+import {
+  BoundedProcessOutput,
+  killProcessTree,
+  renderDeck,
+  analyzeHtmlDeck,
+  type MetricFlag,
+} from "@presentation-md/render";
 import type { ToolDefinition } from "../server.js";
 import { screenshotSlides } from "../lib/screenshot-slides.js";
 import { resolveThemesDir } from "../lib/resolve-themes.js";
-import { richToolResult, type McpImagePayload } from "../lib/rich-result.js";
+import {
+  encodeMcpInlineImage,
+  isMcpInlineImageSizeAllowed,
+  richToolResult,
+  type McpImagePayload,
+} from "../lib/rich-result.js";
 
 type Tier = "t0" | "t1" | "t2" | "t3";
 
@@ -48,32 +59,104 @@ function resolveJudgeScriptsDir(): string | undefined {
   }
 }
 
+const DEFAULT_JUDGE_PANEL_TIMEOUT_MS = 180_000;
+export const MAX_JUDGE_PANEL_JSON_BYTES = 1024 * 1024;
+
+export async function readBoundedJudgePanelJson(path: string): Promise<string> {
+  const info = await stat(path);
+  if (info.size > MAX_JUDGE_PANEL_JSON_BYTES) {
+    throw new Error(
+      `Judge panel JSON exceeds ${MAX_JUDGE_PANEL_JSON_BYTES} bytes (received ${info.size} bytes)`
+    );
+  }
+  const text = await readFile(path, "utf-8");
+  const actualBytes = Buffer.byteLength(text, "utf8");
+  if (actualBytes > MAX_JUDGE_PANEL_JSON_BYTES) {
+    throw new Error(
+      `Judge panel JSON exceeds ${MAX_JUDGE_PANEL_JSON_BYTES} bytes (received ${actualBytes} bytes)`
+    );
+  }
+  return text;
+}
+
+function judgePanelTimeoutMs(): number {
+  const raw = process.env.PRESENTATION_MD_JUDGE_TIMEOUT_MS;
+  if (raw == null || raw === "") return DEFAULT_JUDGE_PANEL_TIMEOUT_MS;
+  const timeoutMs = Number(raw);
+  if (!Number.isSafeInteger(timeoutMs) || timeoutMs <= 0) {
+    throw new Error("PRESENTATION_MD_JUDGE_TIMEOUT_MS must be a positive integer");
+  }
+  return timeoutMs;
+}
+
 function runPythonJson(
   script: string,
   args: string[],
-  timeoutMs = 180_000
+  timeoutMs = judgePanelTimeoutMs()
 ): Promise<{ ok: boolean; stdout: string; stderr: string; code: number | null }> {
   return new Promise((resolve) => {
-    const child = spawn("python3", [script, ...args], { stdio: ["ignore", "pipe", "pipe"] });
-    let stdout = "";
-    let stderr = "";
+    const child = spawn("python3", [script, ...args], {
+      stdio: ["ignore", "pipe", "pipe"],
+      detached: process.platform !== "win32",
+    });
+    const output = new BoundedProcessOutput("Judge panel process");
+    let outputError: Error | undefined;
+    let settled = false;
+    let timedOut = false;
     const t = setTimeout(() => {
-      child.kill("SIGKILL");
-      resolve({ ok: false, stdout, stderr: stderr + "\n(timeout)", code: null });
+      if (child.exitCode != null || child.signalCode != null) return;
+      timedOut = true;
+      killProcessTree(child);
     }, timeoutMs);
     child.stdout.on("data", (d: Buffer) => {
-      stdout += d.toString();
+      if (outputError) return;
+      try {
+        output.append("stdout", d);
+      } catch (error) {
+        outputError = error as Error;
+        killProcessTree(child);
+      }
     });
     child.stderr.on("data", (d: Buffer) => {
-      stderr += d.toString();
+      if (outputError) return;
+      try {
+        output.append("stderr", d);
+      } catch (error) {
+        outputError = error as Error;
+        killProcessTree(child);
+      }
     });
     child.on("close", (code) => {
+      if (settled) return;
+      settled = true;
       clearTimeout(t);
+      if (outputError) {
+        resolve({ ok: false, stdout: "", stderr: outputError.message, code });
+        return;
+      }
+      const stdout = output.text("stdout");
+      const stderr = output.text("stderr");
+      if (timedOut) {
+        resolve({
+          ok: false,
+          stdout,
+          stderr: `Judge panel process timed out after ${timeoutMs}ms${stderr ? `:\n${stderr}` : ""}`,
+          code: null,
+        });
+        return;
+      }
       resolve({ ok: code === 0, stdout, stderr, code });
     });
     child.on("error", (err) => {
+      if (settled) return;
+      settled = true;
       clearTimeout(t);
-      resolve({ ok: false, stdout, stderr: String(err), code: null });
+      resolve({
+        ok: false,
+        stdout: output.text("stdout"),
+        stderr: String(err),
+        code: null,
+      });
     });
   });
 }
@@ -376,8 +459,7 @@ export const judgeDeckTool: ToolDefinition = {
         ]);
         if (run.ok) {
           try {
-            const { readFile } = await import("node:fs/promises");
-            panel = JSON.parse(await readFile(outJudge, "utf-8"));
+            panel = JSON.parse(await readBoundedJudgePanelJson(outJudge));
           } catch {
             panel = { status: "panel_wrote_unreadable", stderr: run.stderr };
           }
@@ -417,11 +499,13 @@ export const judgeDeckTool: ToolDefinition = {
     if (includeInline && !skipShots && screenshots.shots?.length) {
       for (const shot of screenshots.shots) {
         if (mcpImages.length >= maxInline) break;
-        if (!shot.path || !(shot.bytes > 0)) continue;
+        if (!shot.path || !isMcpInlineImageSizeAllowed(shot.bytes)) continue;
         try {
           const buf = await readFile(shot.path);
+          const data = encodeMcpInlineImage(buf);
+          if (!data) continue;
           mcpImages.push({
-            data: buf.toString("base64"),
+            data,
             mimeType: "image/png",
             label: `Slide ${shot.slide}${shot.warn ? ` · warn: ${shot.warn}` : ""}`,
           });

@@ -20,17 +20,14 @@ import {
   DISCOVERY_SHOT_W,
   type PreviewMode,
 } from "./theme-preview-deck.js";
+import { readUtf8FileBounded, readUtf8StreamBounded } from "./bounded-input.js";
 
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
 const require = createRequire(import.meta.url);
 
 async function readStdin(): Promise<string> {
-  const chunks: Buffer[] = [];
-  for await (const chunk of process.stdin) {
-    chunks.push(chunk as Buffer);
-  }
-  return Buffer.concat(chunks).toString("utf-8");
+  return readUtf8StreamBounded(process.stdin, { label: "Deck JSON stdin" });
 }
 
 function readVersion(): string {
@@ -429,7 +426,9 @@ export function buildProgram(): Command {
         if (options.previewDeck) {
           const deckPath = resolve(process.cwd(), options.previewDeck);
           try {
-            userDeck = JSON.parse(await readFile(deckPath, "utf-8")) as typeof userDeck;
+            userDeck = JSON.parse(
+              await readUtf8FileBounded(deckPath, { label: "Preview deck JSON" })
+            ) as typeof userDeck;
           } catch (err) {
             process.stderr.write(`Error: cannot read --preview-deck: ${(err as Error).message}\n`);
             process.exit(1);
@@ -581,7 +580,7 @@ export function buildProgram(): Command {
       if (options.fromMd) {
         const mdPath = resolve(process.cwd(), options.fromMd);
         try {
-          const markdown = await readFile(mdPath, "utf-8");
+          const markdown = await readUtf8FileBounded(mdPath, { label: "Markdown input" });
           const deck = markdownToDeck(markdown, { theme: options.theme });
           const outputPath = resolve(process.cwd(), options.output ?? "deck.json");
           await writeFile(outputPath, JSON.stringify(deck, null, 2), "utf-8");
@@ -596,7 +595,7 @@ export function buildProgram(): Command {
       let deckJson: string;
       if (inputPath) {
         const resolved = resolve(process.cwd(), inputPath);
-        deckJson = await readFile(resolved, "utf-8");
+        deckJson = await readUtf8FileBounded(resolved, { label: "Deck JSON input" });
       } else {
         deckJson = await readStdin();
       }

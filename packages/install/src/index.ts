@@ -6,6 +6,9 @@ import { dirname, join } from "node:path";
 import { spawnSync } from "node:child_process";
 import { Command } from "commander";
 
+/** Keep an installer invocation from hanging forever on a broken shell/network. */
+export const INSTALL_TIMEOUT_MS = 300_000;
+
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
 
@@ -153,10 +156,15 @@ export function buildProgram(): Command {
         result = spawnSync(
           "powershell",
           ["-ExecutionPolicy", "Bypass", "-File", script, "-Mode", mode],
-          { stdio: "inherit", env }
+          { stdio: "inherit", env, timeout: INSTALL_TIMEOUT_MS, killSignal: "SIGKILL" }
         );
       } else {
-        result = spawnSync("bash", [script, mode], { stdio: "inherit", env });
+        result = spawnSync("bash", [script, mode], {
+          stdio: "inherit",
+          env,
+          timeout: INSTALL_TIMEOUT_MS,
+          killSignal: "SIGKILL",
+        });
       }
 
       process.exit(result.status ?? 1);

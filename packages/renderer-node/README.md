@@ -54,6 +54,8 @@ presentation-md-render deck.json --share-link
 presentation-md-render deck.html --deploy
 presentation-md-render deck.html --deploy --confirm-deploy
 presentation-md-render ./deck-dir --deploy --confirm-deploy --deploy-prod
+# Confirmed deploys have a 300s process deadline; override for slow providers
+PRESENTATION_MD_DEPLOY_TIMEOUT_MS=600000 presentation-md-render deck.html --deploy --confirm-deploy
 
 # One-shot craft prompt (MCP generate_deck_prompt parity)
 presentation-md-render --generate-prompt --theme aurora-glass --prompt-density speaker -o craft-prompt.json
@@ -86,10 +88,20 @@ presentation-md-render --from-md outline.md -o deck.json --theme signal
 # Export to native, editable PowerPoint
 presentation-md-render deck.json --format pptx -o deck.pptx
 
+# Export to vector PDF (180s process deadline by default)
+presentation-md-render deck.json --format pdf -o deck.pdf
+# Override the deadline when first-run browser installation needs longer
+PRESENTATION_MD_PDF_TIMEOUT_MS=300000 presentation-md-render deck.json --format pdf -o deck.pdf
+
 # Speaker-notes handouts (Studio / MCP notes_txt · notes_vtt parity)
 presentation-md-render deck.json --format notes_txt -o notes.txt
 presentation-md-render deck.json --format notes_vtt -o notes.vtt
 ```
+
+Deck JSON and Markdown text inputs are capped at 10 MiB to keep agent and shell invocations memory-safe.
+PDF export subprocesses are terminated after 180 seconds by default so a stuck browser or installer cannot hang CLI/MCP indefinitely.
+Captured PDF/deploy subprocess output is capped at 1 MiB across stdout and stderr; set `PRESENTATION_MD_CHILD_OUTPUT_MAX_BYTES` to override it.
+Screenshot Chrome subprocesses are terminated as a process tree after 25 seconds by default; set `PRESENTATION_MD_SCREENSHOT_TIMEOUT_MS` for a different deadline or `PRESENTATION_MD_CHROME_PATH` to select a specific executable.
 
 ## Programmatic API
 

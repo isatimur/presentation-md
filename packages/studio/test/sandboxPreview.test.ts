@@ -31,4 +31,16 @@ describe("sandboxed preview HTML", () => {
     expect(preview).toContain('id="pmd-deck"');
     expect(preview).toContain('{"type":"deck"}');
   });
+
+  it("hides exported presenter chrome in inert Studio iframes", () => {
+    const html = `<!doctype html><html><head></head><body>
+      <div class="nav-hint">dead shortcut</div>
+      <div class="pmd-present-bar">1 / 1</div>
+    </body></html>`;
+
+    const preview = prepareSandboxedPreviewHtml(html);
+
+    expect(preview).toContain("data-pmd-sandbox-preview");
+    expect(preview).toMatch(/\.nav-hint[\s\S]*\.pmd-present-bar[\s\S]*display:\s*none\s*!important/);
+  });
 });

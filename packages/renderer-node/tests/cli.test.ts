@@ -1,6 +1,16 @@
 import { describe, it, expect, beforeAll, afterEach } from "vitest";
 import { spawn } from "node:child_process";
-import { access, mkdtemp, readFile, readdir, rm, truncate, writeFile } from "node:fs/promises";
+import {
+  access,
+  chmod,
+  mkdir,
+  mkdtemp,
+  readFile,
+  readdir,
+  rm,
+  truncate,
+  writeFile,
+} from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -8,6 +18,7 @@ import { loadTheme } from "@presentation-md/core";
 import { deckToPptxBuffer } from "@presentation-md/export";
 import { MAX_COMPRESSED_BYTES } from "@presentation-md/export/import";
 import { buildProgram } from "../src/cli.js";
+import { MAX_CLI_TEXT_INPUT_BYTES } from "../src/bounded-input.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const pkgRoot = resolve(__dirname, "..");
@@ -24,12 +35,12 @@ const MINIMAL_DECK = {
 
 async function runCli(
   args: string[],
-  opts: { cwd?: string; stdin?: string } = {}
+  opts: { cwd?: string; stdin?: string; env?: NodeJS.ProcessEnv } = {}
 ): Promise<{ code: number; stdout: string; stderr: string }> {
   return new Promise((resolvePromise) => {
     const child = spawn(process.execPath, [cliPath, ...args], {
       cwd: opts.cwd ?? pkgRoot,
-      env: process.env,
+      env: opts.env ?? process.env,
       stdio: ["pipe", "pipe", "pipe"],
     });
     let stdout = "";
@@ -359,6 +370,70 @@ describe("presentation-md-render CLI flags", () => {
     expect(buf.subarray(0, 4).toString("utf-8")).toBe("%PDF");
   }, 120_000);
 
+  it("--format pdf terminates a hanging export process at the configured deadline", async () => {
+    const dir = await tempDir();
+    const binDir = join(dir, "bin");
+    await mkdir(binDir);
+    const fakeBash = join(binDir, "bash");
+    await writeFile(
+      fakeBash,
+      '#!/bin/sh\n/bin/sleep 0.3\n/usr/bin/touch "$PDF_TIMEOUT_MARKER"\nexit 0\n'
+    );
+    await chmod(fakeBash, 0o755);
+    const deckPath = join(dir, "deck.json");
+    const markerPath = join(dir, "exporter-survived-timeout");
+    await writeFile(deckPath, JSON.stringify(MINIMAL_DECK));
+
+    const startedAt = Date.now();
+    const { code, stderr } = await runCli([deckPath, "--format", "pdf"], {
+      cwd: dir,
+      env: {
+        ...process.env,
+        PATH: `${binDir}:${process.env["PATH"] ?? ""}`,
+        PRESENTATION_MD_PDF_TIMEOUT_MS: "50",
+        PDF_TIMEOUT_MARKER: markerPath,
+      },
+    });
+
+    expect(code).toBe(1);
+    expect(stderr).toMatch(/PDF export timed out after 50ms/i);
+    expect(Date.now() - startedAt).toBeLessThan(1_000);
+    await new Promise((resolveWait) => setTimeout(resolveWait, 350));
+    await expect(access(markerPath)).rejects.toThrow();
+  });
+
+  it("--format pdf terminates an exporter that exceeds the output limit", async () => {
+    const dir = await tempDir();
+    const binDir = join(dir, "bin");
+    await mkdir(binDir);
+    const fakeBash = join(binDir, "bash");
+    await writeFile(
+      fakeBash,
+      '#!/bin/sh\ni=0\nwhile [ "$i" -lt 2048 ]; do printf x; i=$((i + 1)); done\n/bin/sleep 0.3\n/usr/bin/touch "$PDF_OUTPUT_MARKER"\n'
+    );
+    await chmod(fakeBash, 0o755);
+    const deckPath = join(dir, "deck.json");
+    const markerPath = join(dir, "pdf-survived-output-limit");
+    await writeFile(deckPath, JSON.stringify(MINIMAL_DECK));
+
+    const startedAt = Date.now();
+    const { code, stderr } = await runCli([deckPath, "--format", "pdf"], {
+      cwd: dir,
+      env: {
+        ...process.env,
+        PATH: `${binDir}:${process.env["PATH"] ?? ""}`,
+        PRESENTATION_MD_CHILD_OUTPUT_MAX_BYTES: "1024",
+        PDF_OUTPUT_MARKER: markerPath,
+      },
+    });
+
+    expect(code).toBe(1);
+    expect(stderr).toMatch(/PDF export process output exceeds 1024 bytes/i);
+    expect(Date.now() - startedAt).toBeLessThan(1_000);
+    await new Promise((resolveWait) => setTimeout(resolveWait, 350));
+    await expect(access(markerPath)).rejects.toThrow();
+  });
+
   it("--format pptx writes a PowerPoint file", async () => {
     const dir = await tempDir();
     const deckPath = join(dir, "deck.json");
@@ -509,6 +584,17 @@ describe("presentation-md-render CLI flags", () => {
     expect(stdout).toMatch(/Rendered →/);
     const html = await readFile(outPath, "utf-8");
     expect(html).toContain("Hello CLI");
+  });
+
+  it("rejects an oversized deck file before parsing it", async () => {
+    const dir = await tempDir();
+    const deckPath = join(dir, "oversized.json");
+    await writeFile(deckPath, "{}");
+    await truncate(deckPath, MAX_CLI_TEXT_INPUT_BYTES + 1);
+
+    const { code, stderr } = await runCli([deckPath, "--validate"], { cwd: dir });
+    expect(code).toBe(1);
+    expect(stderr).toMatch(/Deck JSON input exceeds 10485760 bytes/);
   });
 
   it("--list-scaffold-purposes prints recipe ids", async () => {
@@ -750,5 +836,123 @@ describe("presentation-md-render CLI flags", () => {
     const parsed = JSON.parse(stdout) as { dry_run: boolean; message: string };
     expect(parsed.dry_run).toBe(true);
     expect(parsed.message).toMatch(/Dry-run/i);
+  });
+
+  it("--confirm-deploy does not mistake an unrelated HTTPS warning for the deploy URL", async () => {
+    const dir = await tempDir();
+    const binDir = join(dir, "bin");
+    await mkdir(binDir);
+    const fakeBash = join(binDir, "bash");
+    await writeFile(
+      fakeBash,
+      '#!/bin/sh\necho "warning: see https://docs.example.invalid/help" >&2\nexit 0\n'
+    );
+    await chmod(fakeBash, 0o755);
+    const htmlPath = join(dir, "deck.html");
+    await writeFile(htmlPath, "<!doctype html><h1>Not deployed</h1>");
+
+    const { code, stdout, stderr } = await runCli(
+      ["--deploy", "--confirm-deploy", "--json", htmlPath],
+      {
+        cwd: dir,
+        env: { ...process.env, PATH: `${binDir}:${process.env["PATH"] ?? ""}` },
+      }
+    );
+
+    expect(code).toBe(1);
+    expect(stderr).toMatch(/no .*deployment URL|no https URL was found/i);
+    expect(stdout).not.toMatch(/Deployed preview|docs\.example/i);
+  });
+
+  it("--confirm-deploy accepts the core script's explicit success marker", async () => {
+    const dir = await tempDir();
+    const binDir = join(dir, "bin");
+    await mkdir(binDir);
+    const fakeBash = join(binDir, "bash");
+    await writeFile(
+      fakeBash,
+      '#!/bin/sh\necho "Deployed -> https://fake.invalid/deploy"\nexit 0\n'
+    );
+    await chmod(fakeBash, 0o755);
+    const htmlPath = join(dir, "deck.html");
+    await writeFile(htmlPath, "<!doctype html><h1>Deployed</h1>");
+
+    const { code, stdout, stderr } = await runCli(
+      ["--deploy", "--confirm-deploy", "--json", htmlPath],
+      {
+        cwd: dir,
+        env: { ...process.env, PATH: `${binDir}:${process.env["PATH"] ?? ""}` },
+      }
+    );
+
+    expect(code).toBe(0);
+    expect(stderr).toBe("");
+    const parsed = JSON.parse(stdout) as { dry_run: boolean; url?: string };
+    expect(parsed.dry_run).toBe(false);
+    expect(parsed.url).toBe("https://fake.invalid/deploy");
+  });
+
+  it("--confirm-deploy terminates a process that exceeds the output limit", async () => {
+    const dir = await tempDir();
+    const binDir = join(dir, "bin");
+    await mkdir(binDir);
+    const fakeBash = join(binDir, "bash");
+    await writeFile(
+      fakeBash,
+      '#!/bin/sh\ni=0\nwhile [ "$i" -lt 2048 ]; do printf x; i=$((i + 1)); done\n/bin/sleep 0.3\n/usr/bin/touch "$DEPLOY_OUTPUT_MARKER"\n'
+    );
+    await chmod(fakeBash, 0o755);
+    const htmlPath = join(dir, "deck.html");
+    const markerPath = join(dir, "deploy-survived-output-limit");
+    await writeFile(htmlPath, "<!doctype html><h1>Deploy output limit</h1>");
+
+    const startedAt = Date.now();
+    const { code, stderr } = await runCli(["--deploy", "--confirm-deploy", htmlPath], {
+      cwd: dir,
+      env: {
+        ...process.env,
+        PATH: `${binDir}:${process.env["PATH"] ?? ""}`,
+        PRESENTATION_MD_CHILD_OUTPUT_MAX_BYTES: "1024",
+        DEPLOY_OUTPUT_MARKER: markerPath,
+      },
+    });
+
+    expect(code).toBe(1);
+    expect(stderr).toMatch(/Deploy process output exceeds 1024 bytes/i);
+    expect(Date.now() - startedAt).toBeLessThan(1_000);
+    await new Promise((resolveWait) => setTimeout(resolveWait, 350));
+    await expect(access(markerPath)).rejects.toThrow();
+  });
+
+  it("--confirm-deploy terminates a hanging deploy process at the configured deadline", async () => {
+    const dir = await tempDir();
+    const binDir = join(dir, "bin");
+    await mkdir(binDir);
+    const fakeBash = join(binDir, "bash");
+    await writeFile(
+      fakeBash,
+      '#!/bin/sh\n/bin/sleep 0.3\n/usr/bin/touch "$DEPLOY_TIMEOUT_MARKER"\nexit 0\n'
+    );
+    await chmod(fakeBash, 0o755);
+    const htmlPath = join(dir, "deck.html");
+    const markerPath = join(dir, "deploy-survived-timeout");
+    await writeFile(htmlPath, "<!doctype html><h1>Deploy timeout</h1>");
+
+    const startedAt = Date.now();
+    const { code, stderr } = await runCli(["--deploy", "--confirm-deploy", htmlPath], {
+      cwd: dir,
+      env: {
+        ...process.env,
+        PATH: `${binDir}:${process.env["PATH"] ?? ""}`,
+        PRESENTATION_MD_DEPLOY_TIMEOUT_MS: "50",
+        DEPLOY_TIMEOUT_MARKER: markerPath,
+      },
+    });
+
+    expect(code).toBe(1);
+    expect(stderr).toMatch(/deploy timed out after 50ms/i);
+    expect(Date.now() - startedAt).toBeLessThan(1_000);
+    await new Promise((resolveWait) => setTimeout(resolveWait, 350));
+    await expect(access(markerPath)).rejects.toThrow();
   });
 });

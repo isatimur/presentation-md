@@ -3,6 +3,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
+  INSTALL_TIMEOUT_MS,
   resolveAdapterScript,
   resolveJudgeSkillDir,
   VALID_ADAPTERS,
@@ -118,5 +119,14 @@ describe("presentation-generator scripts install wiring", () => {
     }
     expect(existsSync(join(ADAPTERS, "_common", "install-skill-scripts.sh"))).toBe(true);
     expect(existsSync(join(ADAPTERS, "_common", "install-skill-scripts.ps1"))).toBe(true);
+  });
+});
+
+describe("installer process safety", () => {
+  it("uses a bounded five-minute deadline for shell installers", () => {
+    expect(INSTALL_TIMEOUT_MS).toBe(300_000);
+    const source = readFileSync(join(__dirname, "..", "src", "index.ts"), "utf-8");
+    expect(source).toContain("timeout: INSTALL_TIMEOUT_MS");
+    expect(source).toContain('killSignal: "SIGKILL"');
   });
 });

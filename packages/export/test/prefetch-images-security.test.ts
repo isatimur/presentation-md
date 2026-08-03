@@ -1,4 +1,7 @@
 import { createServer } from "node:http";
+import { mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import { prefetchDeckImages } from "../src/prefetch-images.js";
 import type { DeckJson } from "../src/deck-types.js";
@@ -181,6 +184,22 @@ describe("remote image prefetch security", () => {
       expect(result.warnings[0]).toContain("timed out after 100ms");
     } finally {
       vi.useRealTimers();
+    }
+  });
+
+  it("rechecks the local image size after reading to close stat/read races", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "pmd-local-image-"));
+    const imagePath = join(dir, "race.png");
+    await writeFile(imagePath, Uint8Array.from([0x89, 0x50, 0x4e, 0x47]));
+    try {
+      const result = await prefetchDeckImages(imageDeck(imagePath), {
+        allowedRoots: [await realpath(dir)],
+        maxBytes: 5,
+        readFile: async () => new Uint8Array(6),
+      });
+      expect(result.warnings[0]).toContain("6 bytes");
+    } finally {
+      await rm(dir, { recursive: true, force: true });
     }
   });
 });

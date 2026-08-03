@@ -14,6 +14,16 @@ const PACKAGE_ROOT = join(__dirname, "..");
 // pipe npm's install chatter straight onto that stream and corrupt it, so both
 // installs capture their output instead and only surface it on failure.
 const CAPTURED_STDIO: ["ignore", "pipe", "pipe"] = ["ignore", "pipe", "pipe"];
+const PLAYWRIGHT_INSTALL_TIMEOUT_MS = 300_000;
+const PLAYWRIGHT_INSTALL_MAX_BUFFER_BYTES = 1024 * 1024;
+
+const INSTALL_OPTIONS = {
+  stdio: CAPTURED_STDIO,
+  encoding: "utf-8" as const,
+  timeout: PLAYWRIGHT_INSTALL_TIMEOUT_MS,
+  maxBuffer: PLAYWRIGHT_INSTALL_MAX_BUFFER_BYTES,
+  killSignal: "SIGKILL" as const,
+};
 
 function describeFailure(
   what: string,
@@ -36,7 +46,7 @@ export function ensurePlaywrightInstalled(): void {
     const install = spawnSync(
       "npm",
       ["install", "--prefix", PACKAGE_ROOT, "--no-save", "playwright@^1.46.0"],
-      { stdio: CAPTURED_STDIO, encoding: "utf-8" }
+      INSTALL_OPTIONS
     );
     if (install.status !== 0) {
       throw new Error(describeFailure("Playwright", install));
@@ -49,7 +59,7 @@ export function ensurePlaywrightInstalled(): void {
   const chromium = spawnSync(
     join(PACKAGE_ROOT, "node_modules", ".bin", "playwright"),
     ["install", "chromium"],
-    { stdio: CAPTURED_STDIO, encoding: "utf-8" }
+    INSTALL_OPTIONS
   );
   if (chromium.status !== 0) {
     throw new Error(describeFailure("Chromium", chromium));

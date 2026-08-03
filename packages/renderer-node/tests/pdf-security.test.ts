@@ -1,6 +1,6 @@
 import { createServer } from "node:http";
 import { afterEach, describe, expect, it } from "vitest";
-import { htmlStringToPdfBuffer } from "../src/pdf.js";
+import { htmlStringToPdfBuffer, MAX_PDF_HTML_BYTES } from "../src/pdf.js";
 
 describe("shared CLI/MCP PDF security", () => {
   const servers: ReturnType<typeof createServer>[] = [];
@@ -44,4 +44,11 @@ describe("shared CLI/MCP PDF security", () => {
     expect(pdf.byteLength).toBeGreaterThan(500);
     expect(requests).toBe(0);
   }, 120_000);
+
+  it("rejects oversized direct HTML before starting Playwright", async () => {
+    const html = "x".repeat(MAX_PDF_HTML_BYTES + 1);
+    await expect(htmlStringToPdfBuffer(html)).rejects.toThrow(
+      `PDF HTML exceeds ${MAX_PDF_HTML_BYTES} bytes`
+    );
+  });
 });

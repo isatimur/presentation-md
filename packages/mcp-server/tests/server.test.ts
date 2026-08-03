@@ -3,9 +3,23 @@ import { auditDeckTool } from "../src/tools/audit-deck.js";
 import { applyThemeTool } from "../src/tools/apply-theme.js";
 import { listThemesTool } from "../src/tools/list-themes.js";
 import { generateDeckPromptTool } from "../src/tools/generate-deck-prompt.js";
-import { judgeDeckTool } from "../src/tools/judge-deck.js";
+import {
+  judgeDeckTool,
+  MAX_JUDGE_PANEL_JSON_BYTES,
+  readBoundedJudgePanelJson,
+} from "../src/tools/judge-deck.js";
 import { importMarkdownTool } from "../src/tools/import-markdown.js";
-import { listToolDefinitions, TOOL_NAMES } from "../src/server.js";
+import {
+  encodeMcpInlineImage,
+  isMcpInlineImageSizeAllowed,
+  MAX_MCP_INLINE_IMAGE_BYTES,
+} from "../src/lib/rich-result.js";
+import {
+  assertMcpToolInputSize,
+  listToolDefinitions,
+  MAX_MCP_TOOL_INPUT_BYTES,
+  TOOL_NAMES,
+} from "../src/server.js";
 
 const MINIMAL_VALID_DECK = {
   type: "deck",
@@ -42,6 +56,47 @@ describe("tool registry", () => {
       expect(t.inputSchema).toBeTruthy();
       expect(typeof t.handler).toBe("function");
     }
+  });
+});
+
+describe("MCP input boundary", () => {
+  it("rejects decoded tool arguments over 10 MiB before dispatch", () => {
+    expect(MAX_MCP_TOOL_INPUT_BYTES).toBe(10 * 1024 * 1024);
+    expect(() => assertMcpToolInputSize({ json: "x".repeat(MAX_MCP_TOOL_INPUT_BYTES + 1) })).toThrow(
+      `MCP tool input exceeds ${MAX_MCP_TOOL_INPUT_BYTES} bytes`
+    );
+    expect(() => assertMcpToolInputSize({ json: "small" })).not.toThrow();
+  });
+});
+
+describe("judge panel artifact boundary", () => {
+  it("rejects an oversized judge.json before reading it", async () => {
+    const { mkdtemp, rm, writeFile } = await import("node:fs/promises");
+    const { tmpdir } = await import("node:os");
+    const { join } = await import("node:path");
+    const root = await mkdtemp(join(tmpdir(), "pmd-panel-json-"));
+    const path = join(root, "judge.json");
+    try {
+      await writeFile(path, "x".repeat(MAX_JUDGE_PANEL_JSON_BYTES + 1), "utf8");
+      await expect(readBoundedJudgePanelJson(path)).rejects.toThrow(
+        `Judge panel JSON exceeds ${MAX_JUDGE_PANEL_JSON_BYTES} bytes`
+      );
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+});
+
+describe("MCP inline image boundary", () => {
+  it("allows normal PNGs but rejects oversized or invalid byte counts", () => {
+    expect(MAX_MCP_INLINE_IMAGE_BYTES).toBe(8 * 1024 * 1024);
+    expect(isMcpInlineImageSizeAllowed(1)).toBe(true);
+    expect(isMcpInlineImageSizeAllowed(MAX_MCP_INLINE_IMAGE_BYTES)).toBe(true);
+    expect(isMcpInlineImageSizeAllowed(MAX_MCP_INLINE_IMAGE_BYTES + 1)).toBe(false);
+    expect(isMcpInlineImageSizeAllowed(0)).toBe(false);
+    expect(isMcpInlineImageSizeAllowed(Number.POSITIVE_INFINITY)).toBe(false);
+    expect(encodeMcpInlineImage(Uint8Array.from([1, 2, 3]))).toBe("AQID");
+    expect(encodeMcpInlineImage({ byteLength: MAX_MCP_INLINE_IMAGE_BYTES + 1 } as Uint8Array)).toBeNull();
   });
 });
 
@@ -722,6 +777,136 @@ describe("judge_deck", () => {
     expect(Object.keys(result.panel.dimensions).length).toBe(10);
     expect(result.panel.rubric.length).toBe(10);
   });
+
+  it("t3 bounds live panel output and terminates its descendants", async () => {
+    const { mkdtemp, mkdir, rm, stat, writeFile } = await import("node:fs/promises");
+    const { tmpdir } = await import("node:os");
+    const { join } = await import("node:path");
+    const root = await mkdtemp(join(tmpdir(), "pmd-judge-output-"));
+    const scriptsDir = join(root, "scripts");
+    const marker = join(root, "descendant-finished");
+    await mkdir(scriptsDir);
+    await writeFile(
+      join(scriptsDir, "judge_panel.py"),
+      [
+        "import os",
+        "import subprocess",
+        "import sys",
+        "import time",
+        "subprocess.Popen([sys.executable, '-c', \"import os,time;from pathlib import Path;time.sleep(0.4);Path(os.environ['PRESENTATION_MD_TEST_JUDGE_MARKER']).touch()\"])",
+        "sys.stdout.write('x' * 2048)",
+        "sys.stdout.flush()",
+        "time.sleep(2)",
+      ].join("\n"),
+      "utf8"
+    );
+
+    const envKeys = [
+      "PRESENTATION_MD_JUDGE_SCRIPTS",
+      "PRESENTATION_MD_CHILD_OUTPUT_MAX_BYTES",
+      "PRESENTATION_MD_TEST_JUDGE_MARKER",
+      "OPENAI_API_KEY",
+    ] as const;
+    const previous = new Map(envKeys.map((key) => [key, process.env[key]]));
+    process.env.PRESENTATION_MD_JUDGE_SCRIPTS = scriptsDir;
+    process.env.PRESENTATION_MD_CHILD_OUTPUT_MAX_BYTES = "1024";
+    process.env.PRESENTATION_MD_TEST_JUDGE_MARKER = marker;
+    process.env.OPENAI_API_KEY = "test-key";
+
+    try {
+      const startedAt = Date.now();
+      const result = (await judgeDeckTool.handler({
+        tier: "t3",
+        skip_screenshots: true,
+        shots_dir: join(root, "work"),
+        json: JSON.stringify(MINIMAL_VALID_DECK),
+      })) as {
+        panel: { status: string; panel_error?: string };
+      };
+      const elapsedMs = Date.now() - startedAt;
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      const descendantFinished = await stat(marker).then(
+        () => true,
+        () => false
+      );
+
+      expect(result.panel.status).toBe("local_draft");
+      expect(result.panel.panel_error).toMatch(/Judge panel process output exceeds 1024 bytes/i);
+      expect(elapsedMs).toBeLessThan(1000);
+      expect(descendantFinished).toBe(false);
+    } finally {
+      for (const key of envKeys) {
+        const value = previous.get(key);
+        if (value === undefined) delete process.env[key];
+        else process.env[key] = value;
+      }
+      await rm(root, { recursive: true, force: true });
+    }
+  }, 10_000);
+
+  it("t3 times out the live panel and terminates its descendants", async () => {
+    const { mkdtemp, mkdir, rm, stat, writeFile } = await import("node:fs/promises");
+    const { tmpdir } = await import("node:os");
+    const { join } = await import("node:path");
+    const root = await mkdtemp(join(tmpdir(), "pmd-judge-timeout-"));
+    const scriptsDir = join(root, "scripts");
+    const marker = join(root, "descendant-finished");
+    await mkdir(scriptsDir);
+    await writeFile(
+      join(scriptsDir, "judge_panel.py"),
+      [
+        "import os",
+        "import subprocess",
+        "import sys",
+        "import time",
+        "subprocess.Popen([sys.executable, '-c', \"import os,time;from pathlib import Path;time.sleep(0.4);Path(os.environ['PRESENTATION_MD_TEST_JUDGE_MARKER']).touch()\"])",
+        "time.sleep(2)",
+      ].join("\n"),
+      "utf8"
+    );
+
+    const envKeys = [
+      "PRESENTATION_MD_JUDGE_SCRIPTS",
+      "PRESENTATION_MD_JUDGE_TIMEOUT_MS",
+      "PRESENTATION_MD_TEST_JUDGE_MARKER",
+      "OPENAI_API_KEY",
+    ] as const;
+    const previous = new Map(envKeys.map((key) => [key, process.env[key]]));
+    process.env.PRESENTATION_MD_JUDGE_SCRIPTS = scriptsDir;
+    process.env.PRESENTATION_MD_JUDGE_TIMEOUT_MS = "100";
+    process.env.PRESENTATION_MD_TEST_JUDGE_MARKER = marker;
+    process.env.OPENAI_API_KEY = "test-key";
+
+    try {
+      const startedAt = Date.now();
+      const result = (await judgeDeckTool.handler({
+        tier: "t3",
+        skip_screenshots: true,
+        shots_dir: join(root, "work"),
+        json: JSON.stringify(MINIMAL_VALID_DECK),
+      })) as {
+        panel: { status: string; panel_error?: string };
+      };
+      const elapsedMs = Date.now() - startedAt;
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      const descendantFinished = await stat(marker).then(
+        () => true,
+        () => false
+      );
+
+      expect(result.panel.status).toBe("local_draft");
+      expect(result.panel.panel_error).toMatch(/Judge panel process timed out after 100ms/i);
+      expect(elapsedMs).toBeLessThan(1000);
+      expect(descendantFinished).toBe(false);
+    } finally {
+      for (const key of envKeys) {
+        const value = previous.get(key);
+        if (value === undefined) delete process.env[key];
+        else process.env[key] = value;
+      }
+      await rm(root, { recursive: true, force: true });
+    }
+  }, 10_000);
 });
 
 describe("import_markdown", () => {

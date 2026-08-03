@@ -10,6 +10,18 @@ export type McpImagePayload = {
   label?: string;
 };
 
+/** Bound each inline image before base64 expansion into an MCP response. */
+export const MAX_MCP_INLINE_IMAGE_BYTES = 8 * 1024 * 1024;
+
+export function isMcpInlineImageSizeAllowed(bytes: number): boolean {
+  return Number.isSafeInteger(bytes) && bytes > 0 && bytes <= MAX_MCP_INLINE_IMAGE_BYTES;
+}
+
+export function encodeMcpInlineImage(bytes: Uint8Array): string | null {
+  if (!isMcpInlineImageSizeAllowed(bytes.byteLength)) return null;
+  return Buffer.from(bytes).toString("base64");
+}
+
 export type RichToolResult = {
   __pmd_rich: true;
   payload: Record<string, unknown>;

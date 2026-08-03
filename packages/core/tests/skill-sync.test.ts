@@ -9,6 +9,7 @@ const SKILL = join(__dirname, "..", "..", "..", "skills", "presentation-generato
 
 const ROOT_FILES = ["SKILL.md", "deck.schema.json", "theme.schema.json"] as const;
 const SCRIPT_FILES = [
+  "check-local-assets.mjs",
   "export-pdf.sh",
   "export-pdf.mjs",
   "pdf-security.mjs",

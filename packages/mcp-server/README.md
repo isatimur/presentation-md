@@ -50,4 +50,4 @@ replace it with the block above (or re-run `npx @presentation-md/install cursor`
 | `import_markdown` | Convert Markdown outline → Deck JSON (`chart` / `html` fences supported). |
 | `import_brand_theme` | Generate a theme from a brand's URL or CSS file, with a contrast-safety pass. |
 
-Note: filesystem inputs/outputs are confined to the MCP server's working directory (`cssPath`, `pptx_path`, `output_path`, `output_dir`, `assets_dir`). For `judge_deck` t3 live panel scoring, set `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` (or `PRESENTATION_MD_JUDGE_SCRIPTS` pointing at `skills/deck-design-judge/scripts`).
+Note: filesystem inputs/outputs are confined to the MCP server's working directory (`cssPath`, `pptx_path`, `output_path`, `output_dir`, `assets_dir`). For `judge_deck` t3 live panel scoring, set `ANTHROPIC_API_KEY` / `OPENAI_API_KEY` (or `PRESENTATION_MD_JUDGE_SCRIPTS` pointing at `skills/deck-design-judge/scripts`). Live panel subprocesses time out after 180 seconds by default; override that with `PRESENTATION_MD_JUDGE_TIMEOUT_MS`. Captured panel output shares the 1 MiB `PRESENTATION_MD_CHILD_OUTPUT_MAX_BYTES` cap with PDF and deploy subprocesses.

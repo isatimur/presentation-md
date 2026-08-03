@@ -9,6 +9,7 @@ import { constants } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { randomBytes } from "node:crypto";
+import { killProcessTree } from "./process-tree.js";
 
 const CHROME_CANDIDATES = [
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
@@ -62,6 +63,8 @@ async function which(cmd: string): Promise<string | undefined> {
 }
 
 export async function findChrome(): Promise<string | undefined> {
+  const preferred = process.env["PRESENTATION_MD_CHROME_PATH"];
+  if (preferred && (await existsExecutable(preferred))) return preferred;
   for (const c of CHROME_CANDIDATES) {
     if (c.includes("/")) {
       if (await existsExecutable(c)) return c;
@@ -73,11 +76,42 @@ export async function findChrome(): Promise<string | undefined> {
   return undefined;
 }
 
+const DEFAULT_SCREENSHOT_TIMEOUT_MS = 25_000;
+
+function screenshotTimeoutMs(): number {
+  const raw = process.env["PRESENTATION_MD_SCREENSHOT_TIMEOUT_MS"];
+  if (raw == null || raw === "") return DEFAULT_SCREENSHOT_TIMEOUT_MS;
+  const timeoutMs = Number(raw);
+  if (!Number.isSafeInteger(timeoutMs) || timeoutMs <= 0) {
+    throw new Error("PRESENTATION_MD_SCREENSHOT_TIMEOUT_MS must be a positive integer");
+  }
+  return timeoutMs;
+}
+
 const OPEN_TAG_RE =
   /<(section|div)\b[^>]*class\s*=\s*("[^"]*"|'[^']*')[^>]*>/gi;
 
 function hasSlideClass(quoted: string): boolean {
   return quoted.slice(1, -1).split(/\s+/).includes("slide");
+}
+
+function findElementEnd(
+  html: string,
+  open: { end: number; tag: string }
+): number {
+  const tagPattern = new RegExp(`<${open.tag}\\b[^>]*>|</${open.tag}\\s*>`, "gi");
+  tagPattern.lastIndex = open.end;
+  let depth = 1;
+  let match: RegExpExecArray | null;
+  while ((match = tagPattern.exec(html))) {
+    if (/^<\//.test(match[0])) {
+      depth -= 1;
+      if (depth === 0) return match.index + match[0].length;
+    } else if (!/\/\s*>$/.test(match[0])) {
+      depth += 1;
+    }
+  }
+  return html.length;
 }
 
 /** Extract outer HTML of each top-level .slide element. */
@@ -91,16 +125,13 @@ export function extractSlideChunks(html: string): string[] {
     }
   }
   const chunks: string[] = [];
-  for (let i = 0; i < opens.length; i++) {
-    const start = opens[i]!.start;
-    const end = i + 1 < opens.length ? opens[i + 1]!.start : html.length;
-    let slice = html.slice(start, end);
-    const close = new RegExp(`</${opens[i]!.tag}\\s*>`, "i");
-    const closeMatch = slice.match(close);
-    if (closeMatch && closeMatch.index != null) {
-      slice = slice.slice(0, closeMatch.index + closeMatch[0].length);
-    }
-    chunks.push(slice);
+  let consumedUntil = 0;
+  for (const open of opens) {
+    if (open.start < consumedUntil) continue;
+    const start = open.start;
+    const end = findElementEnd(html, open);
+    chunks.push(html.slice(start, end));
+    consumedUntil = end;
   }
   return chunks;
 }
@@ -112,6 +143,7 @@ export function isolateSlideHtml(fullHtml: string, slideOuterHtml: string): stri
     fullHtml.match(/<main\b[^>]*class\s*=\s*["'][^"']*deck[^"']*["'][^>]*>/i) ??
     fullHtml.match(/<(?:main|div)\b[^>]*data-surface\s*=\s*["'][^"']+["'][^>]*>/i);
   const openDeck = deckAttr?.[0] ?? `<main class="deck">`;
+  const deckTag = openDeck.match(/^<([a-z][\w:-]*)\b/i)?.[1] ?? "main";
   const head = headMatch?.[0] ?? '<head><meta charset="utf-8"/></head>';
   const forceCss = `<style>
 html,body{margin:0;padding:0;overflow:hidden;height:100%;}
@@ -121,7 +153,7 @@ html{scroll-snap-type:none !important;}
 .slide .reveal,.slide.in-view .reveal{opacity:1 !important;}
 .nav-hint,.pmd-attribution,.pmd-present-bar,.pmd-notes-rail,.pmd-curtain,.pmd-present-help{display:none !important;}
 </style>`;
-  return `<!doctype html><html>${head}${forceCss}<body>${openDeck}${slideOuterHtml}</main>
+  return `<!doctype html><html>${head}${forceCss}<body>${openDeck}${slideOuterHtml}</${deckTag}>
 <script>document.querySelectorAll(".slide,.reveal").forEach(function(el){el.classList.add("in-view");});</script>
 </body></html>`;
 }
@@ -135,25 +167,59 @@ function readPngSize(buf: Buffer): { width: number; height: number } | undefined
   return { width, height };
 }
 
+const PNG_IEND = Buffer.from([
+  0x00, 0x00, 0x00, 0x00, 0x49, 0x45, 0x4e, 0x44, 0xae, 0x42, 0x60, 0x82,
+]);
+
+function isCompletePng(buf: Buffer): boolean {
+  return buf.length >= 24 && buf.subarray(-PNG_IEND.length).equals(PNG_IEND);
+}
+
 function runChrome(
   chrome: string,
   args: string[],
-  timeoutMs = 25000
+  outputPath: string,
+  timeoutMs = screenshotTimeoutMs()
 ): Promise<{ code: number | null }> {
   return new Promise((resolve) => {
-    const child = spawn(chrome, args, { stdio: "ignore" });
-    const t = setTimeout(() => {
-      child.kill("SIGKILL");
-      resolve({ code: null });
-    }, timeoutMs);
-    child.on("close", (code) => {
-      clearTimeout(t);
+    const child = spawn(chrome, args, {
+      stdio: "ignore",
+      detached: process.platform !== "win32",
+    });
+    let settled = false;
+    let pollTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const finish = (code: number | null): void => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timeoutTimer);
+      clearTimeout(pollTimer);
       resolve({ code });
-    });
-    child.on("error", () => {
-      clearTimeout(t);
-      resolve({ code: null });
-    });
+    };
+
+    const stopAfterCapture = (): void => {
+      killProcessTree(child);
+    };
+
+    const pollOutput = async (): Promise<void> => {
+      if (settled) return;
+      try {
+        if (isCompletePng(await readFile(outputPath))) {
+          stopAfterCapture();
+          return;
+        }
+      } catch {
+        // Chrome has not created the screenshot yet.
+      }
+      pollTimer = setTimeout(() => void pollOutput(), 100);
+    };
+
+    const timeoutTimer = setTimeout(() => {
+      killProcessTree(child);
+    }, timeoutMs);
+    pollTimer = setTimeout(() => void pollOutput(), 100);
+    child.on("close", finish);
+    child.on("error", () => finish(null));
   });
 }
 
@@ -212,19 +278,23 @@ export async function screenshotSlides(
       const isoPath = join(shotsDir, `slide-${idx}.html`);
       await writeFile(isoPath, isolated, "utf-8");
 
-      await runChrome(chrome, [
-        "--headless=new",
-        "--disable-gpu",
-        "--hide-scrollbars",
-        "--no-first-run",
-        "--no-default-browser-check",
-        `--user-data-dir=${chromeProfileDir}`,
-        `--window-size=${width},${height}`,
-        "--virtual-time-budget=5000",
-        "--run-all-compositor-stages-before-draw",
-        `--screenshot=${outPath}`,
-        `file://${isoPath}`,
-      ]);
+      await runChrome(
+        chrome,
+        [
+          "--headless=new",
+          "--disable-gpu",
+          "--hide-scrollbars",
+          "--no-first-run",
+          "--no-default-browser-check",
+          `--user-data-dir=${chromeProfileDir}`,
+          `--window-size=${width},${height}`,
+          "--virtual-time-budget=5000",
+          "--run-all-compositor-stages-before-draw",
+          `--screenshot=${outPath}`,
+          `file://${isoPath}`,
+        ],
+        outPath
+      );
 
       try {
         const buf = await readFile(outPath);

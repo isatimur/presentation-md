@@ -26,7 +26,12 @@ import {
 } from "@presentation-md/render";
 import { resolveThemesDir } from "../lib/resolve-themes.js";
 import { assertWritablePathInCwd } from "../lib/cwd-path.js";
-import { richToolResult, type McpImagePayload } from "../lib/rich-result.js";
+import {
+  encodeMcpInlineImage,
+  isMcpInlineImageSizeAllowed,
+  richToolResult,
+  type McpImagePayload,
+} from "../lib/rich-result.js";
 import type { ToolDefinition } from "../server.js";
 
 const DEFAULT_PREVIEW_DIR = ".presentation-md/theme-previews";
@@ -294,10 +299,13 @@ export const previewThemesTool: ToolDefinition = {
               height: shot.height,
               ...(shot.warn ? { warn: shot.warn } : {}),
             });
+            if (!isMcpInlineImageSizeAllowed(shot.bytes)) continue;
             try {
               const buf = await readFile(shot.path);
+              const data = encodeMcpInlineImage(buf);
+              if (!data) continue;
               mcpImages.push({
-                data: buf.toString("base64"),
+                data,
                 mimeType: "image/png",
                 label:
                   mode === "deck"

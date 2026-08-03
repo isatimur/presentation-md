@@ -13,6 +13,9 @@ export { MAX_STUDIO_DECK_JSON_BYTES } from "../deckGuard.js";
 
 export const MAX_STUDIO_TEXT_FILE_BYTES = 10 * 1024 * 1024;
 export const MAX_STUDIO_PPTX_FILE_BYTES = 50 * 1024 * 1024;
+export const MAX_STUDIO_PDF_HTML_BYTES = 64 * 1024 * 1024;
+export const MAX_STUDIO_PDF_RESPONSE_BYTES = 64 * 1024 * 1024;
+export const STUDIO_PDF_TIMEOUT_MS = 45_000;
 
 function textByteLength(text: string): number {
   return text.length > MAX_STUDIO_TEXT_FILE_BYTES
@@ -154,23 +157,30 @@ export function downloadNotesVtt(deck: DeckJson): void {
  * Absent on static Vercel hosts; callers fall through to client raster or print.
  */
 export async function fetchHeadlessPdfBlob(html: string): Promise<Blob | null> {
+  if (new TextEncoder().encode(html).byteLength > MAX_STUDIO_PDF_HTML_BYTES) return null;
+  const controller = new AbortController();
+  const timer = globalThis.setTimeout(() => controller.abort(), STUDIO_PDF_TIMEOUT_MS);
   try {
-    const controller = new AbortController();
-    const timer = globalThis.setTimeout(() => controller.abort(), 45_000);
-    let res: Response;
-    try {
-      res = await fetch("/api/export-pdf", {
-        method: "POST",
-        headers: { "Content-Type": "text/html; charset=utf-8" },
-        body: html,
-        signal: controller.signal,
-      });
-    } finally {
-      globalThis.clearTimeout(timer);
-    }
+    const res = await fetch("/api/export-pdf", {
+      method: "POST",
+      headers: { "Content-Type": "text/html; charset=utf-8" },
+      body: html,
+      signal: controller.signal,
+    });
     if (!res.ok) return null;
+    const declaredRaw = res.headers.get("content-length");
+    const declared = declaredRaw && /^\d+$/.test(declaredRaw) ? Number(declaredRaw) : undefined;
+    if (declared !== undefined && declared > MAX_STUDIO_PDF_RESPONSE_BYTES) {
+      try {
+        await res.body?.cancel();
+      } catch {
+        // The response may already be closed.
+      }
+      return null;
+    }
     const blob = await res.blob();
     if (!blob.size) return null;
+    if (blob.size > MAX_STUDIO_PDF_RESPONSE_BYTES) return null;
     if (/pdf/i.test(blob.type)) return blob;
     // Some servers omit Content-Type — accept bodies that look like PDF.
     const head = new Uint8Array(await blob.slice(0, 5).arrayBuffer());
@@ -179,6 +189,8 @@ export async function fetchHeadlessPdfBlob(html: string): Promise<Blob | null> {
     return new Blob([blob], { type: "application/pdf" });
   } catch {
     return null;
+  } finally {
+    globalThis.clearTimeout(timer);
   }
 }
 

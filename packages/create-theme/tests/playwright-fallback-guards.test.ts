@@ -58,6 +58,24 @@ describe("ensurePlaywrightInstalled", () => {
     }
   });
 
+  it("bounds installer duration and captured output", () => {
+    existsSyncMock.mockReturnValue(false);
+    spawnSyncMock.mockReturnValue({ status: 0, stdout: "", stderr: "" });
+
+    ensurePlaywrightInstalled();
+
+    for (const call of spawnSyncMock.mock.calls) {
+      const options = call[2] as SpawnOptions & {
+        timeout?: number;
+        maxBuffer?: number;
+        killSignal?: string;
+      };
+      expect(options.timeout).toBe(300_000);
+      expect(options.maxBuffer).toBe(1024 * 1024);
+      expect(options.killSignal).toBe("SIGKILL");
+    }
+  });
+
   it("includes the captured output in the error when npm install fails", () => {
     existsSyncMock.mockReturnValue(false);
     spawnSyncMock.mockReturnValue({ status: 1, stdout: "some npm noise", stderr: "E404 not found" });

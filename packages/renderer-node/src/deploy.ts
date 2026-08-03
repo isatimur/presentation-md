@@ -3,8 +3,22 @@ import { access, constants } from "node:fs/promises";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { BoundedProcessOutput } from "./process-output.js";
+import { killProcessTree } from "./process-tree.js";
 
 const require = createRequire(import.meta.url);
+
+export const DEFAULT_DEPLOY_TIMEOUT_MS = 300_000;
+
+function deployTimeoutMs(): number {
+  const raw = process.env["PRESENTATION_MD_DEPLOY_TIMEOUT_MS"];
+  if (raw == null || raw === "") return DEFAULT_DEPLOY_TIMEOUT_MS;
+  const timeoutMs = Number(raw);
+  if (!Number.isSafeInteger(timeoutMs) || timeoutMs <= 0) {
+    throw new Error("PRESENTATION_MD_DEPLOY_TIMEOUT_MS must be a positive integer");
+  }
+  return timeoutMs;
+}
 
 export type DeployDeckOptions = {
   /** Absolute or cwd-relative path to deck.html or a deck directory. */
@@ -89,26 +103,64 @@ export async function deployDeck(opts: DeployDeckOptions): Promise<DeployDeckRes
 }
 
 function runDeployScript(script: string, inputPath: string, prod: boolean): Promise<string> {
+  const timeoutMs = deployTimeoutMs();
   return new Promise((resolve, reject) => {
     const args = [script, inputPath];
     if (prod) args.push("--prod");
     const child = spawn("bash", args, {
       stdio: ["ignore", "pipe", "pipe"],
       env: process.env,
+      detached: process.platform !== "win32",
     });
-    let stdout = "";
-    let stderr = "";
+    const output = new BoundedProcessOutput("Deploy process");
+    let outputError: Error | undefined;
+    let settled = false;
+    let timedOut = false;
+    const timeout = setTimeout(() => {
+      if (child.exitCode != null || child.signalCode != null) return;
+      timedOut = true;
+      killProcessTree(child);
+    }, timeoutMs);
     child.stdout.on("data", (chunk: Buffer | string) => {
-      stdout += String(chunk);
+      if (outputError) return;
+      try {
+        output.append("stdout", chunk);
+      } catch (error) {
+        outputError = error as Error;
+        killProcessTree(child);
+      }
     });
     child.stderr.on("data", (chunk: Buffer | string) => {
-      stderr += String(chunk);
+      if (outputError) return;
+      try {
+        output.append("stderr", chunk);
+      } catch (error) {
+        outputError = error as Error;
+        killProcessTree(child);
+      }
     });
-    child.on("error", reject);
+    child.on("error", (err) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timeout);
+      reject(err);
+    });
     child.on("close", (code) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timeout);
+      if (outputError) {
+        reject(outputError);
+        return;
+      }
+      if (timedOut) {
+        reject(new Error(`Deploy timed out after ${timeoutMs}ms`));
+        return;
+      }
+      const stdout = output.text("stdout");
+      const stderr = output.text("stderr");
       const combined = `${stdout}\n${stderr}`.trim();
-      const urlMatch = combined.match(/https:\/\/[^\s]+/g);
-      const url = urlMatch ? urlMatch[urlMatch.length - 1] : undefined;
+      const url = stdout.match(/^Deployed -> (https:\/\/[^\s]+)\s*$/m)?.[1];
       if (code !== 0) {
         reject(
           new Error(
@@ -120,7 +172,7 @@ function runDeployScript(script: string, inputPath: string, prod: boolean): Prom
       if (!url || !url.startsWith("https://")) {
         reject(
           new Error(
-            `deploy.sh completed but no https URL was found${combined ? `:\n${combined}` : ""}`
+            `deploy.sh completed but no trusted deployment URL marker was found${combined ? `:\n${combined}` : ""}`
           )
         );
         return;

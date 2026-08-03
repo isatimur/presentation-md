@@ -6,6 +6,58 @@ const MAX_REDIRECTS = 5;
 const TIMEOUT_MS = 10_000;
 const DNS_TIMEOUT_MS = 2_000;
 
+async function cancelResponseBody(response: Response): Promise<void> {
+  try {
+    await response.body?.cancel();
+  } catch {
+    // The stream may already be closed or consumed.
+  }
+}
+
+async function readBoundedResponseText(response: Response, url: string): Promise<string> {
+  const declaredRaw = response.headers.get("content-length");
+  const declared = declaredRaw && /^\d+$/.test(declaredRaw) ? Number(declaredRaw) : undefined;
+  if (declared !== undefined && declared > MAX_BYTES) {
+    await cancelResponseBody(response);
+    throw new Error(`Response too large (${declared} bytes) fetching ${url}`);
+  }
+
+  const reader = response.body?.getReader();
+  if (!reader) {
+    const buf = await response.arrayBuffer();
+    if (buf.byteLength > MAX_BYTES) {
+      throw new Error(`Response too large (${buf.byteLength} bytes) fetching ${url}`);
+    }
+    return new TextDecoder("utf-8").decode(buf);
+  }
+
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    if (!value) continue;
+    total += value.byteLength;
+    if (total > MAX_BYTES) {
+      try {
+        await reader.cancel();
+      } catch {
+        // The stream may have closed while crossing the limit.
+      }
+      throw new Error(`Response too large (stream exceeded ${MAX_BYTES} bytes) fetching ${url}`);
+    }
+    chunks.push(value);
+  }
+
+  const bytes = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return new TextDecoder("utf-8").decode(bytes);
+}
+
 function parseIpv4(address: string): number[] | null {
   if (isIP(address) !== 4) return null;
   const octets = address.split(".").map(Number);
@@ -111,16 +163,14 @@ export async function fetchText(url: string, redirectsLeft = MAX_REDIRECTS): Pro
       const location = res.headers.get("location");
       if (!location) throw new Error(`Redirect with no Location header: ${url}`);
       if (redirectsLeft <= 0) throw new Error(`Too many redirects fetching ${url}`);
+      await cancelResponseBody(res);
       return fetchText(new URL(location, url).toString(), redirectsLeft - 1);
     }
     if (!res.ok) {
+      await cancelResponseBody(res);
       throw new Error(`Fetch failed (${res.status}): ${url}`);
     }
-    const buf = await res.arrayBuffer();
-    if (buf.byteLength > MAX_BYTES) {
-      throw new Error(`Response too large (${buf.byteLength} bytes) fetching ${url}`);
-    }
-    return new TextDecoder("utf-8").decode(buf);
+    return await readBoundedResponseText(res, url);
   } catch (err) {
     if (err instanceof Error && err.name === "AbortError") {
       throw new Error(`Timed out fetching ${url} (>${TIMEOUT_MS}ms)`);

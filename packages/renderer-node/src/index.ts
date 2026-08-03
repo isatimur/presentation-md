@@ -46,6 +46,12 @@ export {
   type DeployDeckOptions,
   type DeployDeckResult,
 } from "./deploy.js";
+export {
+  BoundedProcessOutput,
+  childOutputMaxBytes,
+  DEFAULT_CHILD_OUTPUT_MAX_BYTES,
+} from "./process-output.js";
+export { killProcessTree } from "./process-tree.js";
 
 function escapeAttr(value: string): string {
   return value

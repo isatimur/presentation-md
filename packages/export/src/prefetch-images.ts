@@ -210,6 +210,9 @@ async function readLocalBytes(
     });
 
   const bytes = await reader(safePath);
+  if (bytes.byteLength > maxBytes) {
+    throw new Error(`image exceeds ${maxBytes} byte limit (${bytes.byteLength} bytes)`);
+  }
   return { bytes, mimeHint: mimeFromPath(safePath) };
 }
 

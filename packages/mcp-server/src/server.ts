@@ -28,6 +28,18 @@ export interface ToolDefinition {
   handler: (input: Record<string, unknown>) => Promise<unknown>;
 }
 
+/** Bound decoded MCP arguments before any tool can parse/render them. */
+export const MAX_MCP_TOOL_INPUT_BYTES = 10 * 1024 * 1024;
+
+export function assertMcpToolInputSize(input: Record<string, unknown>): void {
+  const bytes = Buffer.byteLength(JSON.stringify(input), "utf8");
+  if (bytes > MAX_MCP_TOOL_INPUT_BYTES) {
+    throw new Error(
+      `MCP tool input exceeds ${MAX_MCP_TOOL_INPUT_BYTES} bytes (received ${bytes} bytes)`
+    );
+  }
+}
+
 /** Canonical tool registry — keep in sync with README + skill MCP tables (14 tools). */
 export const TOOLS: ToolDefinition[] = [
   renderDeckTool,
@@ -75,9 +87,9 @@ export async function main() {
       };
     }
     try {
-      const result = await tool.handler(
-        (request.params.arguments ?? {}) as Record<string, unknown>
-      );
+      const input = (request.params.arguments ?? {}) as Record<string, unknown>;
+      assertMcpToolInputSize(input);
+      const result = await tool.handler(input);
       if (isRichToolResult(result)) {
         const content: Array<
           | { type: "text"; text: string }

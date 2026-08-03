@@ -1,6 +1,11 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { EXAMPLE_DECK } from "../src/deck.js";
-import { fetchHeadlessPdfBlob } from "../src/export/downloads.js";
+import {
+  fetchHeadlessPdfBlob,
+  MAX_STUDIO_PDF_HTML_BYTES,
+  MAX_STUDIO_PDF_RESPONSE_BYTES,
+  STUDIO_PDF_TIMEOUT_MS,
+} from "../src/export/downloads.js";
 
 // Re-test fetchHeadlessPdfBlob in isolation (no Chromium).
 describe("fetchHeadlessPdfBlob", () => {
@@ -51,6 +56,71 @@ describe("fetchHeadlessPdfBlob", () => {
       vi.fn(async () => new Response("not a pdf", { status: 200 }))
     );
     await expect(fetchHeadlessPdfBlob("<html></html>")).resolves.toBeNull();
+  });
+
+  it("rejects an oversized declared PDF before reading the body", async () => {
+    const cancel = vi.fn(async () => undefined);
+    const blob = vi.fn(async () => new Blob(["%PDF-1.4"]));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => ({
+        ok: true,
+        headers: new Headers({ "content-length": String(MAX_STUDIO_PDF_RESPONSE_BYTES + 1) }),
+        body: { cancel },
+        blob,
+      }))
+    );
+    await expect(fetchHeadlessPdfBlob("<html></html>")).resolves.toBeNull();
+    expect(cancel).toHaveBeenCalledOnce();
+    expect(blob).not.toHaveBeenCalled();
+  });
+
+  it("rejects oversized HTML before making the PDF request", async () => {
+    const fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
+    await expect(
+      fetchHeadlessPdfBlob("x".repeat(MAX_STUDIO_PDF_HTML_BYTES + 1))
+    ).resolves.toBeNull();
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it("rejects an oversized PDF after reading when length is not declared", async () => {
+    const blob = vi.fn(async () => ({ size: MAX_STUDIO_PDF_RESPONSE_BYTES + 1 }) as unknown as Blob);
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => ({
+        ok: true,
+        headers: new Headers(),
+        body: null,
+        blob,
+      }))
+    );
+    await expect(fetchHeadlessPdfBlob("<html></html>")).resolves.toBeNull();
+    expect(blob).toHaveBeenCalledOnce();
+  });
+
+  it("keeps the timeout active while reading the response body", async () => {
+    vi.useFakeTimers();
+    try {
+      const fetchMock = vi.fn(async (_url: string, init?: RequestInit) => ({
+        ok: true,
+        headers: new Headers({ "content-type": "application/pdf" }),
+        body: null,
+        blob: () =>
+          new Promise<Blob>((_resolve, reject) => {
+            init?.signal?.addEventListener("abort", () => {
+              reject(new DOMException("aborted", "AbortError"));
+            });
+          }),
+      }));
+      vi.stubGlobal("fetch", fetchMock);
+      const pending = fetchHeadlessPdfBlob("<html></html>");
+      await vi.advanceTimersByTimeAsync(STUDIO_PDF_TIMEOUT_MS);
+      await expect(pending).resolves.toBeNull();
+      expect(fetchMock).toHaveBeenCalledOnce();
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
 

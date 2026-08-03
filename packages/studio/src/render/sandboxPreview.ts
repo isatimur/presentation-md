@@ -42,12 +42,30 @@ function readAttribute(attributes: string, wantedName: string): string | null {
   return null;
 }
 
+const SANDBOX_RUNTIME_CHROME_CSS = `<style data-pmd-sandbox-preview>
+.nav-hint,
+.pmd-edit-hotzone,
+.pmd-edit-toggle,
+.pmd-slide-dots,
+.pmd-progress,
+.pmd-stage-tools,
+.pmd-curtain,
+.pmd-notes-rail,
+.pmd-filmstrip,
+.pmd-present-bar,
+.pmd-overview,
+.pmd-present-help { display: none !important; }
+</style>`;
+
 export function prepareSandboxedPreviewHtml(html: string): string {
-  return html.replace(
+  const inertHtml = html.replace(
     /<script\b([^>]*)>[\s\S]*?<\/script\s*>/gi,
     (script, attributes: string) => {
       const value = (readAttribute(attributes, "type") ?? "").toLowerCase();
       return value === "application/json" ? script : "";
     }
   );
+  return inertHtml.includes("</head>")
+    ? inertHtml.replace("</head>", `${SANDBOX_RUNTIME_CHROME_CSS}</head>`)
+    : `${SANDBOX_RUNTIME_CHROME_CSS}${inertHtml}`;
 }

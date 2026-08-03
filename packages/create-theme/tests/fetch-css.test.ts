@@ -183,6 +183,29 @@ describe("fetchText", () => {
     await expect(fetchText("https://example.com/big.css")).rejects.toThrow(/too large/i);
   });
 
+  it("cancels a streaming response as soon as the byte cap is crossed", async () => {
+    const cancel = vi.fn(async () => undefined);
+    const reader = {
+      read: vi.fn()
+        .mockResolvedValueOnce({ done: false, value: new Uint8Array(4 * 1024 * 1024) })
+        .mockResolvedValueOnce({ done: false, value: new Uint8Array(2 * 1024 * 1024) }),
+      cancel,
+    };
+    const arrayBuffer = vi.fn(async () => new ArrayBuffer(0));
+    (fetch as unknown as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      headers: new Headers(),
+      body: { getReader: () => reader },
+      arrayBuffer,
+    } as unknown as Response);
+
+    await expect(fetchText("https://example.com/stream.css")).rejects.toThrow(/too large/i);
+    expect(arrayBuffer).not.toHaveBeenCalled();
+    expect(reader.read).toHaveBeenCalledTimes(2);
+    expect(cancel).toHaveBeenCalledTimes(1);
+  });
+
   it("times out if the response body never arrives", async () => {
     vi.useFakeTimers();
     try {
