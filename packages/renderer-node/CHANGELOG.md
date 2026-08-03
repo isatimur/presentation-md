@@ -1,5 +1,15 @@
 # @presentation-md/render
 
+## 1.20.7
+
+### Patch Changes
+
+- dcf871c: Bound the system `which` lookup used to discover Chrome so screenshot rendering cannot hang indefinitely.
+- dcf871c: Bound PDF export output size before reading generated files into memory.
+- Updated dependencies [dcf871c]
+  - @presentation-md/core@1.32.2
+  - @presentation-md/export@1.24.6
+
 ## 1.20.6
 
 ### Patch Changes

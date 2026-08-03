@@ -1,5 +1,19 @@
 # @presentation-md/mcp-server
 
+## 1.33.7
+
+### Patch Changes
+
+- Updated dependencies [dcf871c]
+- Updated dependencies [dcf871c]
+- Updated dependencies [dcf871c]
+- Updated dependencies [dcf871c]
+- Updated dependencies [dcf871c]
+  - @presentation-md/create-theme@1.1.37
+  - @presentation-md/render@1.20.7
+  - @presentation-md/core@1.32.2
+  - @presentation-md/export@1.24.6
+
 ## 1.33.6
 
 ### Patch Changes

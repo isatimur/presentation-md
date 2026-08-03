@@ -1,5 +1,12 @@
 # @presentation-md/install
 
+## 1.1.34
+
+### Patch Changes
+
+- Updated dependencies [dcf871c]
+  - @presentation-md/core@1.32.2
+
 ## 1.1.33
 
 ### Patch Changes

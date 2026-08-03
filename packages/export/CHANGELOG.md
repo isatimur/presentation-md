@@ -1,5 +1,12 @@
 # @presentation-md/export
 
+## 1.24.6
+
+### Patch Changes
+
+- Updated dependencies [dcf871c]
+  - @presentation-md/core@1.32.2
+
 ## 1.24.5
 
 ### Patch Changes
