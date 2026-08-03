@@ -1,5 +1,11 @@
 # @presentation-md/export
 
+## 1.24.2
+
+### Patch Changes
+
+- 690930b: Densify coral/peoples/capsule/tri-tone PPTX chrome and add peoples/capsule card hard offsets.
+
 ## 1.24.1
 
 ### Patch Changes
