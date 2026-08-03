@@ -1,5 +1,14 @@
 # @presentation-md/create-theme
 
+## 1.1.37
+
+### Patch Changes
+
+- dcf871c: Bound remote theme CSS extraction by stylesheet fan-out and aggregate retained bytes.
+- dcf871c: Bound local brand CSS extraction before reading oversized files into memory.
+- Updated dependencies [dcf871c]
+  - @presentation-md/core@1.32.2
+
 ## 1.1.36
 
 ### Patch Changes

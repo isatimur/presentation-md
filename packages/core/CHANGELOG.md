@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.32.2
+
+### Patch Changes
+
+- dcf871c: Reject oversized share tokens before base64 decoding or inflation.
+
 ## 1.32.1
 
 ### Patch Changes
