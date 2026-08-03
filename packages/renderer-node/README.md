@@ -35,9 +35,11 @@ presentation-md-render --scaffold pitch -o deck.json --theme default-tech
 presentation-md-render deck.json --audit
 presentation-md-render deck.json --audit --fix -o deck.json
 
-# Structural design judge t0/t1 (MCP judge_deck parity; t2/t3 stay on MCP)
+# Structural design judge t0/t1/t2 (MCP judge_deck parity; t3 panel stays on MCP)
 presentation-md-render deck.json --judge
 presentation-md-render deck.json --judge --judge-tier t0
+presentation-md-render deck.json --judge --judge-tier t2 --judge-skip-screenshots
+presentation-md-render deck.json --judge --judge-tier t2 --judge-shots-dir ./shots
 presentation-md-render deck.json --apply-theme aurora-glass -o deck.json
 presentation-md-render deck.json --apply-theme signal --no-repair -o deck.json
 

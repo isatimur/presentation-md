@@ -5,7 +5,7 @@ import { realpathSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, extname, join, resolve } from "node:path";
 import { Command } from "commander";
-import { renderDeck, renderDeckPptx, renderDeckPdf, getBundledThemesDir } from "./index.js";
+import { renderDeck, renderDeckPptx, renderDeckPdf, getBundledThemesDir, analyzeHtmlDeck, screenshotSlides } from "./index.js";
 import { discoverInstalledThemes, markdownToDeck, deckToMarkdown, notesHandoutTxt, notesHandoutVtt, scaffoldDeck, listScaffoldPurposes, resolveScaffoldPurpose, auditCraft, repairCraft, remorphDensity, studioShareLink, isShareDeck, buildGenerateDeckPrompt, judgeDeckJson, validateDeckJson, buildThemesDiscoveryList, THEME_BROWSE_FILTERS, loadThemeShortlists, sortShortlistsForDiscovery, type ScaffoldPurpose, type DensityMode } from "@presentation-md/core";
 import { assertZipArchiveSafe, pptxToDeck } from "@presentation-md/export/import";
 import {
@@ -19,7 +19,6 @@ import {
   DISCOVERY_SHOT_W,
   type PreviewMode,
 } from "./theme-preview-deck.js";
-import { screenshotSlides } from "./screenshot-slides.js";
 
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
@@ -155,11 +154,19 @@ export function buildProgram(): Command {
     )
     .option(
       "--judge",
-      "structural design judge on deck JSON (MCP judge_deck t0/t1 parity); exit 1 on gate hits / schema errors"
+      "structural design judge on deck JSON (MCP judge_deck t0/t1/t2 parity); exit 1 on gate hits / schema errors"
     )
     .option(
       "--judge-tier <tier>",
-      "with --judge, t0|t1 (default t1). t2/t3 HTML+screenshots stay on MCP judge_deck"
+      "with --judge, t0|t1|t2 (default t1). t2 renders HTML metrics + optional Chrome shots; t3 stays on MCP judge_deck"
+    )
+    .option(
+      "--judge-shots-dir <dir>",
+      "with --judge-tier t2, write deck.html + PNG screenshots here (default: temp dir)"
+    )
+    .option(
+      "--judge-skip-screenshots",
+      "with --judge-tier t2, run HTML metrics only (skip Chrome shots)"
     )
     .option("--validate", "validate only, do not render")
     .action(async (inputPath: string | undefined, options: {
@@ -190,6 +197,8 @@ export function buildProgram(): Command {
       promptDensity?: string;
       judge?: boolean;
       judgeTier?: string;
+      judgeShotsDir?: string;
+      judgeSkipScreenshots?: boolean;
       previewCompare?: string;
       previewDir?: string;
       previewMode?: string;
@@ -678,13 +687,28 @@ export function buildProgram(): Command {
 
       if (options.judge) {
         const tierRaw = (options.judgeTier ?? "t1").toLowerCase().replace(/^tier[-_]?/, "");
-        if (tierRaw !== "t0" && tierRaw !== "0" && tierRaw !== "t1" && tierRaw !== "1") {
+        const tier =
+          tierRaw === "t0" || tierRaw === "0"
+            ? "t0"
+            : tierRaw === "t2" || tierRaw === "2"
+              ? "t2"
+              : tierRaw === "t3" || tierRaw === "3"
+                ? "t3"
+                : tierRaw === "t1" || tierRaw === "1" || !options.judgeTier
+                  ? "t1"
+                  : null;
+        if (!tier) {
           process.stderr.write(
-            `Error: --judge-tier must be t0|t1 (got "${options.judgeTier}"). Use MCP judge_deck for t2/t3 HTML+screenshots.\n`
+            `Error: --judge-tier must be t0|t1|t2 (got "${options.judgeTier}"). Use MCP judge_deck for t3 panel.\n`
           );
           process.exit(1);
         }
-        const tier = tierRaw === "t0" || tierRaw === "0" ? "t0" : "t1";
+        if (tier === "t3") {
+          process.stderr.write(
+            "Error: --judge-tier t3 (multi-model panel) stays on MCP judge_deck. Use t2 for HTML metrics + screenshots.\n"
+          );
+          process.exit(1);
+        }
         const schema = validateDeckJson(deckJson);
         let deck: Record<string, unknown>;
         try {
@@ -694,9 +718,82 @@ export function buildProgram(): Command {
           process.exit(1);
         }
         const structural = judgeDeckJson(deck);
-        const gateHits = structural.flags.filter((f) => f.severity === "gate").length;
+
+        if (tier === "t0" || tier === "t1") {
+          const gateHits = structural.flags.filter((f) => f.severity === "gate").length;
+          const pass = schema.valid && gateHits === 0;
+          for (const flag of structural.flags) {
+            const slide = flag.slide != null ? ` (slide ${flag.slide})` : "";
+            const line = `${flag.severity}${slide}: ${flag.detail}\n`;
+            if (flag.severity === "gate" || flag.severity === "error") process.stderr.write(line);
+            else process.stdout.write(line);
+          }
+          if (!schema.valid) {
+            for (const err of schema.errors) process.stderr.write(`schema: ${err}\n`);
+          }
+          process.stdout.write(
+            `Judge ${tier}: ${pass ? "pass" : "fail"} · ${gateHits} gate(s) · ${structural.flags.filter((f) => f.severity === "warn").length} warn(s) · ${structural.metrics.slide_count ?? 0} slides\n`
+          );
+          process.exit(pass ? 0 : 1);
+        }
+
+        // t2: render + HTML metrics + optional Chrome screenshots (MCP judge_deck parity)
+        const { mkdtemp } = await import("node:fs/promises");
+        const { tmpdir } = await import("node:os");
+        let renderJson = deckJson;
+        if (options.theme) {
+          const meta = { ...((deck["meta"] as Record<string, unknown>) ?? {}), theme: options.theme };
+          renderJson = JSON.stringify({ ...deck, meta });
+        }
+        const html = await renderDeck(renderJson);
+        const work =
+          options.judgeShotsDir != null
+            ? resolve(process.cwd(), options.judgeShotsDir)
+            : await mkdtemp(join(tmpdir(), "pmd-judge-"));
+        await mkdir(work, { recursive: true });
+        const htmlPath = join(work, "deck.html");
+        await writeFile(htmlPath, html, "utf-8");
+
+        const htmlJudged = analyzeHtmlDeck(html);
+        const mergedFlags = [...htmlJudged.flags];
+        for (const f of structural.flags) {
+          if (["cadence", "visual_beat", "asymmetry", "data_viz"].includes(f.id)) {
+            if (!mergedFlags.some((x) => x.id === f.id && x.detail === f.detail)) {
+              mergedFlags.push(f);
+            }
+          }
+        }
+
+        const skipShots = Boolean(options.judgeSkipScreenshots);
+        let shotsOk = true;
+        let chromeMissing = false;
+        let shotCount = 0;
+        if (!skipShots) {
+          const screenshots = await screenshotSlides(html, { shotsDir: work });
+          chromeMissing = Boolean(screenshots.chrome_missing);
+          shotsOk = screenshots.ok !== false || chromeMissing;
+          shotCount = screenshots.shots.length;
+          for (const shot of screenshots.shots) {
+            if (shot.warn) {
+              mergedFlags.push({
+                id: "shot_qa",
+                severity: "warn",
+                slide: shot.slide,
+                detail: `Slide ${shot.slide}: ${shot.warn}`,
+              });
+            }
+            if (shot.path) process.stdout.write(`shot ${shot.slide}: ${shot.path}\n`);
+          }
+          if (chromeMissing) {
+            process.stdout.write("Chrome missing — HTML metrics only; install Chrome for T2 shots.\n");
+          }
+        } else {
+          process.stdout.write("Screenshots skipped (--judge-skip-screenshots).\n");
+        }
+
+        const gateHits = mergedFlags.filter((f) => f.severity === "gate").length;
         const pass = schema.valid && gateHits === 0;
-        for (const flag of structural.flags) {
+        for (const flag of mergedFlags) {
           const slide = flag.slide != null ? ` (slide ${flag.slide})` : "";
           const line = `${flag.severity}${slide}: ${flag.detail}\n`;
           if (flag.severity === "gate" || flag.severity === "error") process.stderr.write(line);
@@ -705,8 +802,9 @@ export function buildProgram(): Command {
         if (!schema.valid) {
           for (const err of schema.errors) process.stderr.write(`schema: ${err}\n`);
         }
+        process.stdout.write(`html: ${htmlPath}\n`);
         process.stdout.write(
-          `Judge ${tier}: ${pass ? "pass" : "fail"} · ${gateHits} gate(s) · ${structural.flags.filter((f) => f.severity === "warn").length} warn(s) · ${structural.metrics.slide_count ?? 0} slides\n`
+          `Judge t2: ${pass ? "pass" : "fail"} · ${gateHits} gate(s) · ${mergedFlags.filter((f) => f.severity === "warn").length} warn(s) · ${htmlJudged.metrics.slide_count ?? 0} slides · shots ${skipShots ? "skipped" : chromeMissing ? "chrome-missing" : `${shotCount} ok=${shotsOk}`}\n`
         );
         process.exit(pass ? 0 : 1);
       }

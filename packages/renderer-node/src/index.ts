@@ -36,6 +36,10 @@ export {
   type ShotMeta,
   type ScreenshotResult,
 } from "./screenshot-slides.js";
+export {
+  analyzeHtmlDeck,
+  type MetricFlag,
+} from "./html-metrics.js";
 
 function escapeAttr(value: string): string {
   return value

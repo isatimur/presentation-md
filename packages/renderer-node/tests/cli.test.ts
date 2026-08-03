@@ -693,4 +693,41 @@ describe("presentation-md-render CLI flags", () => {
     expect(code).toBe(1);
     expect(stderr).toMatch(/gate/);
   });
+
+  it("--judge t2 with --judge-skip-screenshots runs HTML metrics", async () => {
+    const dir = await tempDir();
+    const deckPath = join(dir, "deck.json");
+    const shotsDir = join(dir, "shots");
+    await writeFile(deckPath, JSON.stringify(MINIMAL_DECK));
+    const { code, stdout, stderr } = await runCli(
+      [
+        "--judge",
+        "--judge-tier",
+        "t2",
+        "--judge-skip-screenshots",
+        "--judge-shots-dir",
+        shotsDir,
+        deckPath,
+      ],
+      { cwd: dir }
+    );
+    expect(stderr).not.toMatch(/^Error:/);
+    expect(code).toBe(0);
+    expect(stdout).toMatch(/Judge t2: pass/);
+    expect(stdout).toMatch(/Screenshots skipped/);
+    expect(stdout).toMatch(/html:/);
+  });
+
+  it("--judge-tier t3 is rejected with MCP pointer", async () => {
+    const dir = await tempDir();
+    const deckPath = join(dir, "deck.json");
+    await writeFile(deckPath, JSON.stringify(MINIMAL_DECK));
+    const { code, stderr } = await runCli(
+      ["--judge", "--judge-tier", "t3", deckPath],
+      { cwd: dir }
+    );
+    expect(code).toBe(1);
+    expect(stderr).toMatch(/t3/);
+    expect(stderr).toMatch(/MCP/);
+  });
 });
