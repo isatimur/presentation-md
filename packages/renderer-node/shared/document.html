@@ -14,7 +14,9 @@
 <main class="deck" data-surface="{{surface}}">
 {{{slides}}}
 </main>
-<div class="nav-hint" aria-hidden="true">← → · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help</div>
+<div class="nav-hint" aria-hidden="true">← → · G overview · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help</div>
+<nav class="pmd-slide-dots" id="pmd-slide-dots" aria-label="Slide navigation"></nav>
+<div class="pmd-progress" id="pmd-progress" aria-hidden="true"><i class="pmd-progress-bar" id="pmd-progress-bar"></i></div>
 <div class="pmd-stage-tools" id="pmd-stage-tools" aria-hidden="true">
   <canvas class="pmd-ink-canvas" id="pmd-ink-canvas"></canvas>
   <div class="pmd-laser-layer" id="pmd-laser-layer" hidden></div>
@@ -26,20 +28,36 @@
   <span class="pmd-curtain-hint">Whiteout · W or click to restore</span>
 </div>
 <aside class="pmd-notes-rail" id="pmd-notes-rail" hidden aria-label="Speaker notes">
-  <div class="pmd-notes-label">Speaker notes · S to hide</div>
-  <p class="pmd-notes-body" id="pmd-notes-body"></p>
+  <div class="pmd-notes-section">
+    <div class="pmd-notes-label">Speaker notes · S to hide</div>
+    <p class="pmd-notes-body" id="pmd-notes-body"></p>
+  </div>
+  <div class="pmd-notes-next" id="pmd-notes-next">
+    <div class="pmd-notes-label" id="pmd-notes-next-label">Up next</div>
+    <div class="pmd-next-frame-wrap" id="pmd-next-frame-wrap"></div>
+  </div>
 </aside>
 <div class="pmd-present-bar" id="pmd-present-bar" aria-label="Presenter controls">
   <span class="pmd-present-count" id="pmd-present-count">1 / 1</span>
   <span class="pmd-present-timer" id="pmd-present-timer" title="Elapsed · P pace · T pause · R reset">0:00</span>
   <button type="button" class="pmd-present-btn" id="pmd-btn-speaker" title="Speaker notes window (O)">Speaker · O</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-notes" title="Toggle speaker notes (S)">Notes · S</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-overview" title="Overview grid (G)">Overview · G</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-laser" title="Laser pointer (L)">Laser · L</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-ink" title="Ink / draw (D) · C clears">Ink · D</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-ink-clear" title="Clear ink (C)" hidden>Clear ink · C</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-blackout" title="Blackout (B)">Blackout · B</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-whiteout" title="Whiteout (W)">Whiteout · W</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-help" title="Shortcuts (?)">?</button>
+</div>
+<div class="pmd-overview" id="pmd-overview" hidden role="dialog" aria-label="Slide overview">
+  <div class="pmd-overview-panel">
+    <div class="pmd-overview-head">
+      <span>Overview · G or Esc to close</span>
+      <button type="button" class="pmd-present-btn" id="pmd-btn-overview-close">Close</button>
+    </div>
+    <div class="pmd-overview-grid" id="pmd-overview-grid"></div>
+  </div>
 </div>
 <div class="pmd-present-help" id="pmd-present-help" hidden role="dialog" aria-label="Presenter shortcuts">
   <div class="pmd-present-help-card">
@@ -51,6 +69,7 @@
       <li><kbd>← → Space</kbd><span>Previous / next slide</span></li>
       <li><kbd>1–9</kbd><span>Jump to slide</span></li>
       <li><kbd>Home / End</kbd><span>First / last slide</span></li>
+      <li><kbd>G</kbd><span>Overview grid</span></li>
       <li><kbd>S</kbd><span>Speaker notes</span></li>
       <li><kbd>L</kbd><span>Laser pointer</span></li>
       <li><kbd>D</kbd><span>Ink / draw</span></li>
@@ -125,6 +144,7 @@
     setBlackout(false);
     setWhiteout(false);
     setHelp(false);
+    setOverview(false);
     slides[i].scrollIntoView({ behavior: "smooth", block: "center" });
     syncUi();
   }
@@ -135,14 +155,27 @@
   var stageTools = document.getElementById("pmd-stage-tools");
   var inkCanvas = document.getElementById("pmd-ink-canvas");
   var laserLayer = document.getElementById("pmd-laser-layer");
+  var overviewEl = document.getElementById("pmd-overview");
+  var overviewGrid = document.getElementById("pmd-overview-grid");
+  var dotsEl = document.getElementById("pmd-slide-dots");
+  var progressBar = document.getElementById("pmd-progress-bar");
+  var nextFrameWrap = document.getElementById("pmd-next-frame-wrap");
+  var nextLabel = document.getElementById("pmd-notes-next-label");
+  var notesNext = document.getElementById("pmd-notes-next");
   var btnLaser = document.getElementById("pmd-btn-laser");
   var btnInk = document.getElementById("pmd-btn-ink");
   var btnInkClear = document.getElementById("pmd-btn-ink-clear");
+  var btnOverview = document.getElementById("pmd-btn-overview");
+  var btnOverviewClose = document.getElementById("pmd-btn-overview-close");
   var laserOn = false;
   var inkOn = false;
   var laserTrail = [];
   var inkDrawing = false;
   var lastSlideForInk = -1;
+  var showOverview = false;
+  var overviewBuilt = false;
+  var syncingHash = false;
+  var dotButtons = [];
 
   var notesBySlide = [];
   try {
@@ -230,24 +263,181 @@
   function syncStageTools() {
     if (!stageTools) return;
     var curtainsOff = (!blackoutEl || blackoutEl.hidden) && (!whiteoutEl || whiteoutEl.hidden);
-    stageTools.classList.toggle("is-laser", laserOn && !showHelp && curtainsOff);
-    stageTools.classList.toggle("is-ink", inkOn && !showHelp && curtainsOff);
+    var toolsOk = !showHelp && !showOverview && curtainsOff;
+    stageTools.classList.toggle("is-laser", laserOn && toolsOk);
+    stageTools.classList.toggle("is-ink", inkOn && toolsOk);
     document.documentElement.classList.toggle("pmd-laser-on", laserOn);
     document.documentElement.classList.toggle("pmd-ink-on", inkOn);
     if (laserLayer) {
-      var showLaser = laserOn && !showHelp && curtainsOff;
+      var showLaser = laserOn && toolsOk;
       laserLayer.hidden = !showLaser;
       if (!showLaser) clearLaserTrail();
     }
     if (inkCanvas) {
-      var showInk = inkOn && !showHelp && curtainsOff;
+      var showInk = inkOn && toolsOk;
       inkCanvas.classList.toggle("is-active", showInk);
       if (!showInk) inkDrawing = false;
     }
     if (btnLaser) btnLaser.textContent = laserOn ? "Laser off · L" : "Laser · L";
     if (btnInk) btnInk.textContent = inkOn ? "Ink off · D" : "Ink · D";
     if (btnInkClear) btnInkClear.hidden = !inkOn;
+    if (btnOverview) btnOverview.textContent = showOverview ? "Close grid · G" : "Overview · G";
     syncInkCanvas();
+  }
+
+  function slideHeading(idx) {
+    var el = slides[idx] && slides[idx].querySelector("h1, h2, h3");
+    var text = el ? (el.textContent || "").trim() : "";
+    return text || ("Slide " + (idx + 1));
+  }
+
+  function cloneSlideThumb(idx) {
+    var slide = slides[idx];
+    if (!slide) return null;
+    var clone = slide.cloneNode(true);
+    clone.removeAttribute("id");
+    clone.classList.add("in-view");
+    var ids = clone.querySelectorAll("[id]");
+    for (var i = 0; i < ids.length; i++) ids[i].removeAttribute("id");
+    return clone;
+  }
+
+  function ensureOverview() {
+    if (overviewBuilt || !overviewGrid) return;
+    overviewBuilt = true;
+    overviewGrid.innerHTML = "";
+    for (var i = 0; i < slides.length; i++) {
+      (function (idx) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "pmd-overview-card";
+        btn.setAttribute("aria-label", "Go to slide " + (idx + 1) + ": " + slideHeading(idx));
+        var wrap = document.createElement("div");
+        wrap.className = "pmd-overview-frame-wrap";
+        var scale = document.createElement("div");
+        scale.className = "pmd-overview-scale";
+        var thumb = cloneSlideThumb(idx);
+        if (thumb) scale.appendChild(thumb);
+        else {
+          var fallback = document.createElement("div");
+          fallback.className = "pmd-overview-fallback";
+          fallback.textContent = String(idx + 1);
+          scale.appendChild(fallback);
+        }
+        wrap.appendChild(scale);
+        var label = document.createElement("span");
+        label.className = "pmd-overview-label";
+        label.innerHTML = "<strong></strong> ";
+        label.querySelector("strong").textContent = String(idx + 1);
+        label.appendChild(document.createTextNode(slideHeading(idx)));
+        btn.appendChild(wrap);
+        btn.appendChild(label);
+        btn.addEventListener("click", function () { jumpTo(idx); });
+        overviewGrid.appendChild(btn);
+      })(i);
+    }
+  }
+
+  function setOverview(on) {
+    showOverview = !!on;
+    if (showOverview) {
+      setHelp(false);
+      setBlackout(false);
+      setWhiteout(false);
+      laserOn = false;
+      inkOn = false;
+      inkDrawing = false;
+      clearLaserTrail();
+      ensureOverview();
+    }
+    if (overviewEl) overviewEl.hidden = !showOverview;
+    syncStageTools();
+    syncOverviewActive();
+  }
+
+  function syncOverviewActive() {
+    if (!overviewGrid || !showOverview) return;
+    var idx = currentIndex();
+    var cards = overviewGrid.querySelectorAll(".pmd-overview-card");
+    for (var i = 0; i < cards.length; i++) {
+      cards[i].classList.toggle("is-active", i === idx);
+      if (i === idx) cards[i].setAttribute("aria-current", "true");
+      else cards[i].removeAttribute("aria-current");
+    }
+  }
+
+  function buildDots() {
+    if (!dotsEl || slides.length < 2) {
+      if (dotsEl) dotsEl.hidden = true;
+      return;
+    }
+    dotsEl.innerHTML = "";
+    dotButtons = [];
+    for (var i = 0; i < slides.length; i++) {
+      (function (idx) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "pmd-slide-dot";
+        b.setAttribute("aria-label", "Go to slide " + (idx + 1));
+        b.title = slideHeading(idx);
+        b.addEventListener("click", function () { jumpTo(idx); });
+        dotsEl.appendChild(b);
+        dotButtons.push(b);
+      })(i);
+    }
+  }
+
+  function syncDotsAndProgress(idx) {
+    for (var i = 0; i < dotButtons.length; i++) {
+      dotButtons[i].classList.toggle("is-active", i === idx);
+    }
+    if (progressBar) {
+      var pct = slides.length <= 1 ? 100 : ((idx + 1) / slides.length) * 100;
+      progressBar.style.width = pct + "%";
+    }
+  }
+
+  function syncHash(idx) {
+    if (syncingHash) return;
+    var want = "#" + (idx + 1);
+    if (location.hash === want || location.hash === "#slide-" + (idx + 1)) return;
+    syncingHash = true;
+    try {
+      history.replaceState(null, "", want);
+    } catch (err) { /* ignore */ }
+    syncingHash = false;
+  }
+
+  function applyHashJump() {
+    if (syncingHash) return;
+    var m = location.hash.match(/^#(?:slide[-_])?(\d+)$/i);
+    if (!m) return;
+    var target = Number(m[1]) - 1;
+    if (target >= 0 && target < slides.length && target !== currentIndex()) {
+      jumpTo(target);
+    }
+  }
+
+  function syncNextPeek(idx) {
+    if (!nextFrameWrap || !notesNext) return;
+    if (idx + 1 >= slides.length) {
+      nextFrameWrap.innerHTML = "";
+      if (nextLabel) nextLabel.textContent = "Up next";
+      notesNext.classList.add("is-end");
+      var end = document.createElement("p");
+      end.className = "pmd-notes-body is-empty";
+      end.textContent = "Last slide — wrap or take questions.";
+      nextFrameWrap.appendChild(end);
+      return;
+    }
+    notesNext.classList.remove("is-end");
+    if (nextLabel) nextLabel.textContent = "Up next · " + slideHeading(idx + 1);
+    nextFrameWrap.innerHTML = "";
+    var scale = document.createElement("div");
+    scale.className = "pmd-next-scale";
+    var thumb = cloneSlideThumb(idx + 1);
+    if (thumb) scale.appendChild(thumb);
+    nextFrameWrap.appendChild(scale);
   }
 
   function setLaser(on) {
@@ -255,6 +445,7 @@
     if (laserOn) {
       inkOn = false;
       inkDrawing = false;
+      setOverview(false);
       setBlackout(false);
       setWhiteout(false);
       setHelp(false);
@@ -269,6 +460,7 @@
     if (inkOn) {
       laserOn = false;
       clearLaserTrail();
+      setOverview(false);
       setBlackout(false);
       setWhiteout(false);
       setHelp(false);
@@ -372,6 +564,8 @@
   function setBlackout(on) {
     if (!blackoutEl) return;
     if (on) {
+      showOverview = false;
+      if (overviewEl) overviewEl.hidden = true;
       laserOn = false;
       inkOn = false;
       inkDrawing = false;
@@ -389,6 +583,8 @@
   function setWhiteout(on) {
     if (!whiteoutEl) return;
     if (on) {
+      showOverview = false;
+      if (overviewEl) overviewEl.hidden = true;
       laserOn = false;
       inkOn = false;
       inkDrawing = false;
@@ -405,6 +601,10 @@
 
   function setHelp(on) {
     showHelp = !!on;
+    if (showHelp) {
+      showOverview = false;
+      if (overviewEl) overviewEl.hidden = true;
+    }
     if (helpEl) helpEl.hidden = !showHelp;
     syncStageTools();
   }
@@ -414,7 +614,10 @@
     if (notesRail) notesRail.hidden = !showNotes;
     if (btnNotes) btnNotes.textContent = showNotes ? "Hide notes · S" : "Notes · S";
     document.documentElement.classList.toggle("pmd-notes-open", showNotes);
-    syncNotes();
+    if (showNotes) {
+      syncNotes();
+      syncNextPeek(currentIndex());
+    }
   }
 
   function syncNotes() {
@@ -464,7 +667,13 @@
         ? ("Pace " + paceMinutes + "m · P cycle · T pause · R reset")
         : "Elapsed · P set pace · T pause · R reset";
     }
-    if (showNotes) syncNotes();
+    syncDotsAndProgress(idx);
+    syncHash(idx);
+    syncOverviewActive();
+    if (showNotes) {
+      syncNotes();
+      syncNextPeek(idx);
+    }
     paintSpeakerWindow();
   }
 
@@ -496,6 +705,7 @@
     if (e.key === "Escape") {
       e.preventDefault();
       if (showHelp) { setHelp(false); return; }
+      if (showOverview) { setOverview(false); return; }
       if (blackoutEl && !blackoutEl.hidden) { setBlackout(false); return; }
       if (whiteoutEl && !whiteoutEl.hidden) { setWhiteout(false); return; }
       if (laserOn) { setLaser(false); return; }
@@ -506,6 +716,11 @@
     if (e.key === "?" || (e.shiftKey && e.key === "/")) {
       e.preventDefault();
       setHelp(!showHelp);
+      return;
+    }
+    if (e.key === "g" || e.key === "G") {
+      e.preventDefault();
+      setOverview(!showOverview);
       return;
     }
     if (e.key === "l" || e.key === "L") {
@@ -526,13 +741,13 @@
     if (e.key === "b" || e.key === "B") {
       e.preventDefault();
       setHelp(false);
-      setBlackout(blackoutEl.hidden);
+      setBlackout(blackoutEl ? blackoutEl.hidden : true);
       return;
     }
     if (e.key === "w" || e.key === "W") {
       e.preventDefault();
       setHelp(false);
-      setWhiteout(whiteoutEl.hidden);
+      setWhiteout(whiteoutEl ? whiteoutEl.hidden : true);
       return;
     }
     if (e.key === "s" || e.key === "S") {
@@ -560,7 +775,7 @@
       openSpeakerView();
       return;
     }
-    if (showHelp) return;
+    if (showHelp || showOverview) return;
     if (/^[1-9]$/.test(e.key)) {
       e.preventDefault();
       var target = Number(e.key) - 1;
@@ -590,6 +805,8 @@
   if (whiteoutEl) whiteoutEl.addEventListener("click", function () { setWhiteout(false); });
   if (btnNotes) btnNotes.addEventListener("click", function () { setNotes(!showNotes); });
   if (btnSpeaker) btnSpeaker.addEventListener("click", openSpeakerView);
+  if (btnOverview) btnOverview.addEventListener("click", function () { setOverview(!showOverview); });
+  if (btnOverviewClose) btnOverviewClose.addEventListener("click", function () { setOverview(false); });
   if (btnLaser) btnLaser.addEventListener("click", function () { setLaser(!laserOn); });
   if (btnInk) btnInk.addEventListener("click", function () { setInk(!inkOn); });
   if (btnInkClear) btnInkClear.addEventListener("click", clearInk);
@@ -601,7 +818,7 @@
 
   if (laserLayer) {
     laserLayer.addEventListener("pointermove", function (e) {
-      if (!laserOn || showHelp || (blackoutEl && !blackoutEl.hidden) || (whiteoutEl && !whiteoutEl.hidden)) return;
+      if (!laserOn || showHelp || showOverview || (blackoutEl && !blackoutEl.hidden) || (whiteoutEl && !whiteoutEl.hidden)) return;
       var rect = laserLayer.getBoundingClientRect();
       var point = { x: e.clientX - rect.left, y: e.clientY - rect.top };
       laserTrail.push(point);
@@ -615,7 +832,7 @@
 
   if (inkCanvas) {
     inkCanvas.addEventListener("pointerdown", function (e) {
-      if (!inkOn || showHelp || (blackoutEl && !blackoutEl.hidden) || (whiteoutEl && !whiteoutEl.hidden)) return;
+      if (!inkOn || showHelp || showOverview || (blackoutEl && !blackoutEl.hidden) || (whiteoutEl && !whiteoutEl.hidden)) return;
       e.preventDefault();
       var ctx = inkCanvas.getContext("2d");
       var pt = inkPointFromEvent(e);
@@ -648,11 +865,14 @@
     inkCanvas.addEventListener("pointercancel", endInkStroke);
   }
 
+  buildDots();
+  window.addEventListener("hashchange", applyHashJump);
   window.addEventListener("resize", function () { syncInkCanvas(); }, { passive: true });
   window.addEventListener("scroll", function () { syncUi(); }, { passive: true });
   setInterval(function () { if (timerRunning) syncUi(); }, 500);
   syncStageTools();
   syncUi();
+  applyHashJump();
 
   /* T2/T3 screenshot harness — #__shot=N scrolls slide N into view and forces reveals */
   var shot = location.hash.match(/__shot=(\d+)/);

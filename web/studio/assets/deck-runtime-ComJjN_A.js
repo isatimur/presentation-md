@@ -70,7 +70,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     </tbody>
   </table>
 </section>
-`,S=`<section class="slide feature-grid-slide" data-layout="feature-grid">
+`,L=`<section class="slide feature-grid-slide" data-layout="feature-grid">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <div class="grid cols-{{columns}}">
@@ -83,7 +83,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/cards}}
   </div>
 </section>
-`,L=`<section class="slide image-hero-slide" data-layout="image-hero">
+`,S=`<section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
     {{#image}}<img src="{{image}}" alt="{{imageAlt}}" />{{/image}}
     <div class="image-hero-scrim"></div>
@@ -94,7 +94,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
   </div>
 </section>
-`,q=`<section class="slide logo-wall-slide" data-layout="logo-wall">
+`,A=`<section class="slide logo-wall-slide" data-layout="logo-wall">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -113,7 +113,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/cards}}
   </div>
 </section>
-`,A=`<section class="slide metric-ring-slide" data-layout="metric-ring">
+`,T=`<section class="slide metric-ring-slide" data-layout="metric-ring">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <div class="pct-wrap">
@@ -138,11 +138,11 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     </div>
   </div>
 </section>
-`,T=`<section class="slide quote-slide" data-layout="quote">
+`,q=`<section class="slide quote-slide" data-layout="quote">
   <p class="quote">{{quote}}</p>
   {{#by}}<p class="quote-by">— {{by}}</p>{{/by}}
 </section>
-`,_=`<section class="slide ranked-list-slide" data-layout="ranked-list">
+`,O=`<section class="slide ranked-list-slide" data-layout="ranked-list">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -160,12 +160,12 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/items}}
   </div>
 </section>
-`,D=`<section class="slide section-slide" data-layout="section">
+`,B=`<section class="slide section-slide" data-layout="section">
   {{#number}}<div class="section-number">{{number}}</div>{{/number}}
   <h2>{{heading}}</h2>
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
 </section>
-`,B=`<section class="slide stat-row-slide{{#isHero}} stat-row-hero{{/isHero}}" data-layout="stat-row">
+`,D=`<section class="slide stat-row-slide{{#isHero}} stat-row-hero{{/isHero}}" data-layout="stat-row">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -178,7 +178,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/stats}}
   </div>
 </section>
-`,I=`<section class="slide streak-grid-slide" data-layout="streak-grid">
+`,_=`<section class="slide streak-grid-slide" data-layout="streak-grid">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -189,7 +189,7 @@ const v=`<section class="slide chart-slide" data-layout="chart">
   </div>
   {{#body}}<p class="streak-caption">{{body}}</p>{{/body}}
 </section>
-`,H=`<section class="slide timeline-slide" data-layout="timeline">
+`,I=`<section class="slide timeline-slide" data-layout="timeline">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <div class="timeline{{#isVertical}} is-vertical{{/isVertical}}">
@@ -202,12 +202,12 @@ const v=`<section class="slide chart-slide" data-layout="chart">
     {{/steps}}
   </div>
 </section>
-`,M=`<section class="slide title-slide" data-layout="title">
+`,H=`<section class="slide title-slide" data-layout="title">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   <h1>{{heading}}</h1>
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
 </section>
-`,O=`<section class="slide two-column-slide" data-layout="two-column">
+`,M=`<section class="slide two-column-slide" data-layout="two-column">
   <div class="cols{{#ratio}} ratio-{{ratio}}{{/ratio}}{{#reverse}} cols-reverse{{/reverse}}">
     <div class="cols-copy">
       {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
@@ -1131,26 +1131,87 @@ tbody tr:hover td {
   opacity: 0.85;
 }
 
-/* Exported-HTML Present chrome (Studio Present parity: laser/ink + B/W/notes/timer).
+/* Exported-HTML Present chrome (Studio Present parity: laser/ink/overview + B/W/notes/timer).
    Hidden until the inline script marks html.pmd-live-present — keeps Studio's
    sandboxed (no-scripts) preview free of dead controls. */
 .pmd-curtain,
 .pmd-notes-rail,
 .pmd-present-bar,
 .pmd-present-help,
-.pmd-stage-tools {
+.pmd-stage-tools,
+.pmd-overview,
+.pmd-slide-dots,
+.pmd-progress {
   display: none;
 }
 html.pmd-live-present .pmd-curtain,
 html.pmd-live-present .pmd-notes-rail,
 html.pmd-live-present .pmd-present-bar,
 html.pmd-live-present .pmd-present-help,
-html.pmd-live-present .pmd-stage-tools {
+html.pmd-live-present .pmd-stage-tools,
+html.pmd-live-present .pmd-overview,
+html.pmd-live-present .pmd-slide-dots,
+html.pmd-live-present .pmd-progress {
   display: flex;
 }
-html.pmd-live-present .pmd-notes-rail { display: block; }
+html.pmd-live-present .pmd-notes-rail { display: flex; }
 html.pmd-live-present .pmd-present-bar { display: flex; }
 html.pmd-live-present .pmd-stage-tools { display: block; }
+html.pmd-live-present .pmd-overview { display: flex; }
+html.pmd-live-present .pmd-slide-dots { display: flex; }
+html.pmd-live-present .pmd-progress { display: block; }
+
+.pmd-progress {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  z-index: 56;
+  background: rgba(11, 18, 32, 0.25);
+  pointer-events: none;
+}
+.pmd-progress-bar {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: #ef4444;
+  transition: width 0.2s ease;
+}
+.pmd-slide-dots {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 52;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 6px;
+  border-radius: 999px;
+  background: rgba(11, 18, 32, 0.55);
+  backdrop-filter: blur(8px);
+}
+html.pmd-notes-open .pmd-slide-dots {
+  right: calc(min(340px, 34vw) + 14px);
+}
+.pmd-slide-dots[hidden] { display: none !important; }
+.pmd-slide-dot {
+  appearance: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 238, 244, 0.45);
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+.pmd-slide-dot:hover { background: rgba(232, 238, 244, 0.35); }
+.pmd-slide-dot.is-active {
+  background: #ef4444;
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+}
 
 .pmd-stage-tools {
   position: fixed;
@@ -1236,11 +1297,18 @@ html.pmd-notes-open .pmd-stage-tools {
   background: #111827;
   color: #e8eef4;
   border-left: 1px solid rgba(232, 238, 244, 0.12);
-  padding: 18px 16px;
-  overflow-y: auto;
+  padding: 0;
+  overflow: hidden;
   box-sizing: border-box;
+  flex-direction: column;
 }
 .pmd-notes-rail[hidden] { display: none !important; }
+.pmd-notes-section {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 18px 16px 12px;
+}
 .pmd-notes-label {
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 11px;
@@ -1256,7 +1324,160 @@ html.pmd-notes-open .pmd-stage-tools {
   margin: 0;
 }
 .pmd-notes-body.is-empty { color: #6b7280; font-size: 13px; }
+.pmd-notes-next {
+  flex: 0 0 auto;
+  border-top: 1px solid rgba(232, 238, 244, 0.12);
+  padding: 12px 16px 16px;
+}
+.pmd-next-frame-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0b1220;
+  border: 1px solid rgba(232, 238, 244, 0.14);
+  container-type: inline-size;
+}
+.pmd-notes-next.is-end .pmd-next-frame-wrap {
+  aspect-ratio: auto;
+  min-height: 0;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+.pmd-next-scale {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 1280px;
+  height: 720px;
+  transform-origin: top left;
+  transform: scale(0.25);
+  pointer-events: none;
+}
+@supports (width: 1cqw) {
+  .pmd-next-scale { transform: scale(calc(100cqw / 1280)); }
+}
+.pmd-next-scale .slide {
+  width: 1280px !important;
+  height: 720px !important;
+  min-height: 720px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  scroll-snap-align: none !important;
+}
 html.pmd-notes-open .nav-hint { right: calc(min(340px, 34vw) + 16px); }
+
+.pmd-overview {
+  position: fixed;
+  inset: 0;
+  z-index: 68;
+  background: rgba(11, 18, 32, 0.92);
+  align-items: stretch;
+  justify-content: center;
+  padding: 20px 20px 64px;
+}
+.pmd-overview[hidden] { display: none !important; }
+.pmd-overview-panel {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+}
+.pmd-overview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+.pmd-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+  overflow-y: auto;
+  padding-bottom: 8px;
+}
+.pmd-overview-card {
+  appearance: none;
+  border: 1px solid rgba(232, 238, 244, 0.14);
+  background: #0b1220;
+  color: #e8eef4;
+  border-radius: 10px;
+  padding: 8px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pmd-overview-card:hover,
+.pmd-overview-card:focus-visible {
+  border-color: rgba(239, 68, 68, 0.55);
+  outline: none;
+}
+.pmd-overview-card.is-active {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.35);
+}
+.pmd-overview-frame-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #111827;
+  container-type: inline-size;
+}
+.pmd-overview-scale {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 1280px;
+  height: 720px;
+  transform-origin: top left;
+  transform: scale(0.25);
+  pointer-events: none;
+}
+@supports (width: 1cqw) {
+  .pmd-overview-scale { transform: scale(calc(100cqw / 1280)); }
+}
+.pmd-overview-scale .slide {
+  width: 1280px !important;
+  height: 720px !important;
+  min-height: 720px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  scroll-snap-align: none !important;
+}
+.pmd-overview-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 48px;
+  color: #6b7280;
+}
+.pmd-overview-label {
+  font-size: 12px;
+  line-height: 1.35;
+  color: #9ca3af;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pmd-overview-label strong {
+  color: #e8eef4;
+  margin-right: 6px;
+}
 
 .pmd-present-bar {
   position: fixed;
@@ -1358,7 +1579,10 @@ html.pmd-shot-mode .pmd-present-bar,
 html.pmd-shot-mode .pmd-notes-rail,
 html.pmd-shot-mode .pmd-curtain,
 html.pmd-shot-mode .pmd-present-help,
-html.pmd-shot-mode .pmd-stage-tools {
+html.pmd-shot-mode .pmd-stage-tools,
+html.pmd-shot-mode .pmd-overview,
+html.pmd-shot-mode .pmd-slide-dots,
+html.pmd-shot-mode .pmd-progress {
   display: none !important;
 }
 
@@ -1388,7 +1612,10 @@ html.pmd-shot-mode .pmd-stage-tools {
   .pmd-notes-rail,
   .pmd-curtain,
   .pmd-present-help,
-  .pmd-stage-tools { display: none !important; }
+  .pmd-stage-tools,
+  .pmd-overview,
+  .pmd-slide-dots,
+  .pmd-progress { display: none !important; }
 }
 `,W=`/* Per-theme surface profiles — each theme gets a distinct stage, not one shared blob. */
 
@@ -6466,7 +6693,7 @@ html.pmd-shot-mode .pmd-stage-tools {
   border-top: 1px solid var(--accent);
   padding-top: 16px;
 }
-`,n="warm-paper",a="clean-light",e="soft-bento",r="bauhaus-blocks",t="vapor-horizon",o="hygge-soft",d="blueprint-grid",i="glass-mist",c="newsprint-masthead",s="vellum-colorfield",l="broadside-fire",p="signal-briefing",b="coral-hatch",f="capsule-pills",g="studio-acid",u="grove-monograph",x="scatterbrain-cork",h="mat-woodglow",k="cartesian-draft",m="monochrome-ledger",P={claude:n,"default-tech":"neon-glow",corporate:a,playful:e,"luxury-minimalist":"quiet-luxe","retro-arcade":"scanline-neon","editorial-serif":"editorial-rule","brutalist-mono":"brutalist-grid","pastel-dreamy":"pastel-cloud","aurora-glass":"aurora-glass","ft-editorial":"broadsheet-rule","genz-bento":"hard-bento","crt-terminal":"crt-phosphor","swiss-typographic":"swiss-grid","candy-pop":"candy-blob","aerospace-hud":"hud-grid","brutalist-acid":"acid-block",bauhaus:r,"y2k-aero":"aero-bubble","risograph-zine":"riso-print","neon-noir":"neon-rain",vaporwave:t,"botanical-luxe":"botanical-leaf","heritage-editorial":"heritage-wash","fintech-clean":"fintech-soft","developer-dark":"dev-terminal","data-editorial":"data-rule",scandinavian:o,"art-deco":"deco-fan","kinetic-wrapped":"wrapped-block",blueprint:d,glassmorphism:i,broadsheet:c,"soft-editorial":"soft-editorial-paper","editorial-forest":"editorial-forest-paper","pin-and-paper":"pin-paper-pad",vellum:s,"neo-grid-bold":"neo-grid-panels","editorial-tri-tone":"tri-tone-blocks","creative-mode":"creative-mode-blocks",broadside:l,"bold-signal":"bold-signal-card","notebook-tabs":"notebook-tabs-page","creative-voltage":"creative-voltage-split",signal:p,"electric-studio":"electric-studio-split","dark-botanical":"dark-botanical-bloom","pastel-geometry":"pastel-geometry-pills","split-pastel":"split-pastel-panels","vintage-editorial":"vintage-editorial-geo","paper-ink":"paper-ink-literary","biennale-yellow":"biennale-yellow-sun","bold-poster":"bold-poster-ink",coral:b,"emerald-editorial":"emerald-editorial-masthead","sakura-chroma":"sakura-chroma-cassette","pink-script":"pink-script-afterhours","block-frame":"block-frame-brutal",capsule:f,"cobalt-grid":"cobalt-grid-paper","8-bit-orbit":"bit-orbit-arcade",studio:g,grove:u,scatterbrain:x,"peoples-platform":"peoples-platform-poster","retro-windows":"retro-windows-chrome","raw-grid":"raw-grid-brutal","long-table":"long-table-supper",mat:h,"stencil-tablet":"stencil-tablet-earth",cartesian:k,monochrome:m,"blue-professional":"blue-professional-clean","daisy-days":"daisy-days-pastel","retro-zine":"retro-zine-riso"},R=`<!doctype html>
+`,n="warm-paper",e="clean-light",a="soft-bento",r="bauhaus-blocks",t="vapor-horizon",o="hygge-soft",d="blueprint-grid",i="glass-mist",s="newsprint-masthead",c="vellum-colorfield",l="broadside-fire",p="signal-briefing",b="coral-hatch",f="capsule-pills",g="studio-acid",u="grove-monograph",x="scatterbrain-cork",h="mat-woodglow",m="cartesian-draft",k="monochrome-ledger",N={claude:n,"default-tech":"neon-glow",corporate:e,playful:a,"luxury-minimalist":"quiet-luxe","retro-arcade":"scanline-neon","editorial-serif":"editorial-rule","brutalist-mono":"brutalist-grid","pastel-dreamy":"pastel-cloud","aurora-glass":"aurora-glass","ft-editorial":"broadsheet-rule","genz-bento":"hard-bento","crt-terminal":"crt-phosphor","swiss-typographic":"swiss-grid","candy-pop":"candy-blob","aerospace-hud":"hud-grid","brutalist-acid":"acid-block",bauhaus:r,"y2k-aero":"aero-bubble","risograph-zine":"riso-print","neon-noir":"neon-rain",vaporwave:t,"botanical-luxe":"botanical-leaf","heritage-editorial":"heritage-wash","fintech-clean":"fintech-soft","developer-dark":"dev-terminal","data-editorial":"data-rule",scandinavian:o,"art-deco":"deco-fan","kinetic-wrapped":"wrapped-block",blueprint:d,glassmorphism:i,broadsheet:s,"soft-editorial":"soft-editorial-paper","editorial-forest":"editorial-forest-paper","pin-and-paper":"pin-paper-pad",vellum:c,"neo-grid-bold":"neo-grid-panels","editorial-tri-tone":"tri-tone-blocks","creative-mode":"creative-mode-blocks",broadside:l,"bold-signal":"bold-signal-card","notebook-tabs":"notebook-tabs-page","creative-voltage":"creative-voltage-split",signal:p,"electric-studio":"electric-studio-split","dark-botanical":"dark-botanical-bloom","pastel-geometry":"pastel-geometry-pills","split-pastel":"split-pastel-panels","vintage-editorial":"vintage-editorial-geo","paper-ink":"paper-ink-literary","biennale-yellow":"biennale-yellow-sun","bold-poster":"bold-poster-ink",coral:b,"emerald-editorial":"emerald-editorial-masthead","sakura-chroma":"sakura-chroma-cassette","pink-script":"pink-script-afterhours","block-frame":"block-frame-brutal",capsule:f,"cobalt-grid":"cobalt-grid-paper","8-bit-orbit":"bit-orbit-arcade",studio:g,grove:u,scatterbrain:x,"peoples-platform":"peoples-platform-poster","retro-windows":"retro-windows-chrome","raw-grid":"raw-grid-brutal","long-table":"long-table-supper",mat:h,"stencil-tablet":"stencil-tablet-earth",cartesian:m,monochrome:k,"blue-professional":"blue-professional-clean","daisy-days":"daisy-days-pastel","retro-zine":"retro-zine-riso"},P=`<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -6482,7 +6709,9 @@ html.pmd-shot-mode .pmd-stage-tools {
 <main class="deck" data-surface="{{surface}}">
 {{{slides}}}
 </main>
-<div class="nav-hint" aria-hidden="true">← → · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help</div>
+<div class="nav-hint" aria-hidden="true">← → · G overview · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help</div>
+<nav class="pmd-slide-dots" id="pmd-slide-dots" aria-label="Slide navigation"></nav>
+<div class="pmd-progress" id="pmd-progress" aria-hidden="true"><i class="pmd-progress-bar" id="pmd-progress-bar"></i></div>
 <div class="pmd-stage-tools" id="pmd-stage-tools" aria-hidden="true">
   <canvas class="pmd-ink-canvas" id="pmd-ink-canvas"></canvas>
   <div class="pmd-laser-layer" id="pmd-laser-layer" hidden></div>
@@ -6494,20 +6723,36 @@ html.pmd-shot-mode .pmd-stage-tools {
   <span class="pmd-curtain-hint">Whiteout · W or click to restore</span>
 </div>
 <aside class="pmd-notes-rail" id="pmd-notes-rail" hidden aria-label="Speaker notes">
-  <div class="pmd-notes-label">Speaker notes · S to hide</div>
-  <p class="pmd-notes-body" id="pmd-notes-body"></p>
+  <div class="pmd-notes-section">
+    <div class="pmd-notes-label">Speaker notes · S to hide</div>
+    <p class="pmd-notes-body" id="pmd-notes-body"></p>
+  </div>
+  <div class="pmd-notes-next" id="pmd-notes-next">
+    <div class="pmd-notes-label" id="pmd-notes-next-label">Up next</div>
+    <div class="pmd-next-frame-wrap" id="pmd-next-frame-wrap"></div>
+  </div>
 </aside>
 <div class="pmd-present-bar" id="pmd-present-bar" aria-label="Presenter controls">
   <span class="pmd-present-count" id="pmd-present-count">1 / 1</span>
   <span class="pmd-present-timer" id="pmd-present-timer" title="Elapsed · P pace · T pause · R reset">0:00</span>
   <button type="button" class="pmd-present-btn" id="pmd-btn-speaker" title="Speaker notes window (O)">Speaker · O</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-notes" title="Toggle speaker notes (S)">Notes · S</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-overview" title="Overview grid (G)">Overview · G</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-laser" title="Laser pointer (L)">Laser · L</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-ink" title="Ink / draw (D) · C clears">Ink · D</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-ink-clear" title="Clear ink (C)" hidden>Clear ink · C</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-blackout" title="Blackout (B)">Blackout · B</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-whiteout" title="Whiteout (W)">Whiteout · W</button>
   <button type="button" class="pmd-present-btn" id="pmd-btn-help" title="Shortcuts (?)">?</button>
+</div>
+<div class="pmd-overview" id="pmd-overview" hidden role="dialog" aria-label="Slide overview">
+  <div class="pmd-overview-panel">
+    <div class="pmd-overview-head">
+      <span>Overview · G or Esc to close</span>
+      <button type="button" class="pmd-present-btn" id="pmd-btn-overview-close">Close</button>
+    </div>
+    <div class="pmd-overview-grid" id="pmd-overview-grid"></div>
+  </div>
 </div>
 <div class="pmd-present-help" id="pmd-present-help" hidden role="dialog" aria-label="Presenter shortcuts">
   <div class="pmd-present-help-card">
@@ -6519,6 +6764,7 @@ html.pmd-shot-mode .pmd-stage-tools {
       <li><kbd>← → Space</kbd><span>Previous / next slide</span></li>
       <li><kbd>1–9</kbd><span>Jump to slide</span></li>
       <li><kbd>Home / End</kbd><span>First / last slide</span></li>
+      <li><kbd>G</kbd><span>Overview grid</span></li>
       <li><kbd>S</kbd><span>Speaker notes</span></li>
       <li><kbd>L</kbd><span>Laser pointer</span></li>
       <li><kbd>D</kbd><span>Ink / draw</span></li>
@@ -6593,6 +6839,7 @@ html.pmd-shot-mode .pmd-stage-tools {
     setBlackout(false);
     setWhiteout(false);
     setHelp(false);
+    setOverview(false);
     slides[i].scrollIntoView({ behavior: "smooth", block: "center" });
     syncUi();
   }
@@ -6603,14 +6850,27 @@ html.pmd-shot-mode .pmd-stage-tools {
   var stageTools = document.getElementById("pmd-stage-tools");
   var inkCanvas = document.getElementById("pmd-ink-canvas");
   var laserLayer = document.getElementById("pmd-laser-layer");
+  var overviewEl = document.getElementById("pmd-overview");
+  var overviewGrid = document.getElementById("pmd-overview-grid");
+  var dotsEl = document.getElementById("pmd-slide-dots");
+  var progressBar = document.getElementById("pmd-progress-bar");
+  var nextFrameWrap = document.getElementById("pmd-next-frame-wrap");
+  var nextLabel = document.getElementById("pmd-notes-next-label");
+  var notesNext = document.getElementById("pmd-notes-next");
   var btnLaser = document.getElementById("pmd-btn-laser");
   var btnInk = document.getElementById("pmd-btn-ink");
   var btnInkClear = document.getElementById("pmd-btn-ink-clear");
+  var btnOverview = document.getElementById("pmd-btn-overview");
+  var btnOverviewClose = document.getElementById("pmd-btn-overview-close");
   var laserOn = false;
   var inkOn = false;
   var laserTrail = [];
   var inkDrawing = false;
   var lastSlideForInk = -1;
+  var showOverview = false;
+  var overviewBuilt = false;
+  var syncingHash = false;
+  var dotButtons = [];
 
   var notesBySlide = [];
   try {
@@ -6698,24 +6958,181 @@ html.pmd-shot-mode .pmd-stage-tools {
   function syncStageTools() {
     if (!stageTools) return;
     var curtainsOff = (!blackoutEl || blackoutEl.hidden) && (!whiteoutEl || whiteoutEl.hidden);
-    stageTools.classList.toggle("is-laser", laserOn && !showHelp && curtainsOff);
-    stageTools.classList.toggle("is-ink", inkOn && !showHelp && curtainsOff);
+    var toolsOk = !showHelp && !showOverview && curtainsOff;
+    stageTools.classList.toggle("is-laser", laserOn && toolsOk);
+    stageTools.classList.toggle("is-ink", inkOn && toolsOk);
     document.documentElement.classList.toggle("pmd-laser-on", laserOn);
     document.documentElement.classList.toggle("pmd-ink-on", inkOn);
     if (laserLayer) {
-      var showLaser = laserOn && !showHelp && curtainsOff;
+      var showLaser = laserOn && toolsOk;
       laserLayer.hidden = !showLaser;
       if (!showLaser) clearLaserTrail();
     }
     if (inkCanvas) {
-      var showInk = inkOn && !showHelp && curtainsOff;
+      var showInk = inkOn && toolsOk;
       inkCanvas.classList.toggle("is-active", showInk);
       if (!showInk) inkDrawing = false;
     }
     if (btnLaser) btnLaser.textContent = laserOn ? "Laser off · L" : "Laser · L";
     if (btnInk) btnInk.textContent = inkOn ? "Ink off · D" : "Ink · D";
     if (btnInkClear) btnInkClear.hidden = !inkOn;
+    if (btnOverview) btnOverview.textContent = showOverview ? "Close grid · G" : "Overview · G";
     syncInkCanvas();
+  }
+
+  function slideHeading(idx) {
+    var el = slides[idx] && slides[idx].querySelector("h1, h2, h3");
+    var text = el ? (el.textContent || "").trim() : "";
+    return text || ("Slide " + (idx + 1));
+  }
+
+  function cloneSlideThumb(idx) {
+    var slide = slides[idx];
+    if (!slide) return null;
+    var clone = slide.cloneNode(true);
+    clone.removeAttribute("id");
+    clone.classList.add("in-view");
+    var ids = clone.querySelectorAll("[id]");
+    for (var i = 0; i < ids.length; i++) ids[i].removeAttribute("id");
+    return clone;
+  }
+
+  function ensureOverview() {
+    if (overviewBuilt || !overviewGrid) return;
+    overviewBuilt = true;
+    overviewGrid.innerHTML = "";
+    for (var i = 0; i < slides.length; i++) {
+      (function (idx) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "pmd-overview-card";
+        btn.setAttribute("aria-label", "Go to slide " + (idx + 1) + ": " + slideHeading(idx));
+        var wrap = document.createElement("div");
+        wrap.className = "pmd-overview-frame-wrap";
+        var scale = document.createElement("div");
+        scale.className = "pmd-overview-scale";
+        var thumb = cloneSlideThumb(idx);
+        if (thumb) scale.appendChild(thumb);
+        else {
+          var fallback = document.createElement("div");
+          fallback.className = "pmd-overview-fallback";
+          fallback.textContent = String(idx + 1);
+          scale.appendChild(fallback);
+        }
+        wrap.appendChild(scale);
+        var label = document.createElement("span");
+        label.className = "pmd-overview-label";
+        label.innerHTML = "<strong></strong> ";
+        label.querySelector("strong").textContent = String(idx + 1);
+        label.appendChild(document.createTextNode(slideHeading(idx)));
+        btn.appendChild(wrap);
+        btn.appendChild(label);
+        btn.addEventListener("click", function () { jumpTo(idx); });
+        overviewGrid.appendChild(btn);
+      })(i);
+    }
+  }
+
+  function setOverview(on) {
+    showOverview = !!on;
+    if (showOverview) {
+      setHelp(false);
+      setBlackout(false);
+      setWhiteout(false);
+      laserOn = false;
+      inkOn = false;
+      inkDrawing = false;
+      clearLaserTrail();
+      ensureOverview();
+    }
+    if (overviewEl) overviewEl.hidden = !showOverview;
+    syncStageTools();
+    syncOverviewActive();
+  }
+
+  function syncOverviewActive() {
+    if (!overviewGrid || !showOverview) return;
+    var idx = currentIndex();
+    var cards = overviewGrid.querySelectorAll(".pmd-overview-card");
+    for (var i = 0; i < cards.length; i++) {
+      cards[i].classList.toggle("is-active", i === idx);
+      if (i === idx) cards[i].setAttribute("aria-current", "true");
+      else cards[i].removeAttribute("aria-current");
+    }
+  }
+
+  function buildDots() {
+    if (!dotsEl || slides.length < 2) {
+      if (dotsEl) dotsEl.hidden = true;
+      return;
+    }
+    dotsEl.innerHTML = "";
+    dotButtons = [];
+    for (var i = 0; i < slides.length; i++) {
+      (function (idx) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "pmd-slide-dot";
+        b.setAttribute("aria-label", "Go to slide " + (idx + 1));
+        b.title = slideHeading(idx);
+        b.addEventListener("click", function () { jumpTo(idx); });
+        dotsEl.appendChild(b);
+        dotButtons.push(b);
+      })(i);
+    }
+  }
+
+  function syncDotsAndProgress(idx) {
+    for (var i = 0; i < dotButtons.length; i++) {
+      dotButtons[i].classList.toggle("is-active", i === idx);
+    }
+    if (progressBar) {
+      var pct = slides.length <= 1 ? 100 : ((idx + 1) / slides.length) * 100;
+      progressBar.style.width = pct + "%";
+    }
+  }
+
+  function syncHash(idx) {
+    if (syncingHash) return;
+    var want = "#" + (idx + 1);
+    if (location.hash === want || location.hash === "#slide-" + (idx + 1)) return;
+    syncingHash = true;
+    try {
+      history.replaceState(null, "", want);
+    } catch (err) { /* ignore */ }
+    syncingHash = false;
+  }
+
+  function applyHashJump() {
+    if (syncingHash) return;
+    var m = location.hash.match(/^#(?:slide[-_])?(\\d+)$/i);
+    if (!m) return;
+    var target = Number(m[1]) - 1;
+    if (target >= 0 && target < slides.length && target !== currentIndex()) {
+      jumpTo(target);
+    }
+  }
+
+  function syncNextPeek(idx) {
+    if (!nextFrameWrap || !notesNext) return;
+    if (idx + 1 >= slides.length) {
+      nextFrameWrap.innerHTML = "";
+      if (nextLabel) nextLabel.textContent = "Up next";
+      notesNext.classList.add("is-end");
+      var end = document.createElement("p");
+      end.className = "pmd-notes-body is-empty";
+      end.textContent = "Last slide — wrap or take questions.";
+      nextFrameWrap.appendChild(end);
+      return;
+    }
+    notesNext.classList.remove("is-end");
+    if (nextLabel) nextLabel.textContent = "Up next · " + slideHeading(idx + 1);
+    nextFrameWrap.innerHTML = "";
+    var scale = document.createElement("div");
+    scale.className = "pmd-next-scale";
+    var thumb = cloneSlideThumb(idx + 1);
+    if (thumb) scale.appendChild(thumb);
+    nextFrameWrap.appendChild(scale);
   }
 
   function setLaser(on) {
@@ -6723,6 +7140,7 @@ html.pmd-shot-mode .pmd-stage-tools {
     if (laserOn) {
       inkOn = false;
       inkDrawing = false;
+      setOverview(false);
       setBlackout(false);
       setWhiteout(false);
       setHelp(false);
@@ -6737,6 +7155,7 @@ html.pmd-shot-mode .pmd-stage-tools {
     if (inkOn) {
       laserOn = false;
       clearLaserTrail();
+      setOverview(false);
       setBlackout(false);
       setWhiteout(false);
       setHelp(false);
@@ -6840,6 +7259,8 @@ html.pmd-shot-mode .pmd-stage-tools {
   function setBlackout(on) {
     if (!blackoutEl) return;
     if (on) {
+      showOverview = false;
+      if (overviewEl) overviewEl.hidden = true;
       laserOn = false;
       inkOn = false;
       inkDrawing = false;
@@ -6857,6 +7278,8 @@ html.pmd-shot-mode .pmd-stage-tools {
   function setWhiteout(on) {
     if (!whiteoutEl) return;
     if (on) {
+      showOverview = false;
+      if (overviewEl) overviewEl.hidden = true;
       laserOn = false;
       inkOn = false;
       inkDrawing = false;
@@ -6873,6 +7296,10 @@ html.pmd-shot-mode .pmd-stage-tools {
 
   function setHelp(on) {
     showHelp = !!on;
+    if (showHelp) {
+      showOverview = false;
+      if (overviewEl) overviewEl.hidden = true;
+    }
     if (helpEl) helpEl.hidden = !showHelp;
     syncStageTools();
   }
@@ -6882,7 +7309,10 @@ html.pmd-shot-mode .pmd-stage-tools {
     if (notesRail) notesRail.hidden = !showNotes;
     if (btnNotes) btnNotes.textContent = showNotes ? "Hide notes · S" : "Notes · S";
     document.documentElement.classList.toggle("pmd-notes-open", showNotes);
-    syncNotes();
+    if (showNotes) {
+      syncNotes();
+      syncNextPeek(currentIndex());
+    }
   }
 
   function syncNotes() {
@@ -6932,7 +7362,13 @@ html.pmd-shot-mode .pmd-stage-tools {
         ? ("Pace " + paceMinutes + "m · P cycle · T pause · R reset")
         : "Elapsed · P set pace · T pause · R reset";
     }
-    if (showNotes) syncNotes();
+    syncDotsAndProgress(idx);
+    syncHash(idx);
+    syncOverviewActive();
+    if (showNotes) {
+      syncNotes();
+      syncNextPeek(idx);
+    }
     paintSpeakerWindow();
   }
 
@@ -6964,6 +7400,7 @@ html.pmd-shot-mode .pmd-stage-tools {
     if (e.key === "Escape") {
       e.preventDefault();
       if (showHelp) { setHelp(false); return; }
+      if (showOverview) { setOverview(false); return; }
       if (blackoutEl && !blackoutEl.hidden) { setBlackout(false); return; }
       if (whiteoutEl && !whiteoutEl.hidden) { setWhiteout(false); return; }
       if (laserOn) { setLaser(false); return; }
@@ -6974,6 +7411,11 @@ html.pmd-shot-mode .pmd-stage-tools {
     if (e.key === "?" || (e.shiftKey && e.key === "/")) {
       e.preventDefault();
       setHelp(!showHelp);
+      return;
+    }
+    if (e.key === "g" || e.key === "G") {
+      e.preventDefault();
+      setOverview(!showOverview);
       return;
     }
     if (e.key === "l" || e.key === "L") {
@@ -6994,13 +7436,13 @@ html.pmd-shot-mode .pmd-stage-tools {
     if (e.key === "b" || e.key === "B") {
       e.preventDefault();
       setHelp(false);
-      setBlackout(blackoutEl.hidden);
+      setBlackout(blackoutEl ? blackoutEl.hidden : true);
       return;
     }
     if (e.key === "w" || e.key === "W") {
       e.preventDefault();
       setHelp(false);
-      setWhiteout(whiteoutEl.hidden);
+      setWhiteout(whiteoutEl ? whiteoutEl.hidden : true);
       return;
     }
     if (e.key === "s" || e.key === "S") {
@@ -7028,7 +7470,7 @@ html.pmd-shot-mode .pmd-stage-tools {
       openSpeakerView();
       return;
     }
-    if (showHelp) return;
+    if (showHelp || showOverview) return;
     if (/^[1-9]$/.test(e.key)) {
       e.preventDefault();
       var target = Number(e.key) - 1;
@@ -7058,6 +7500,8 @@ html.pmd-shot-mode .pmd-stage-tools {
   if (whiteoutEl) whiteoutEl.addEventListener("click", function () { setWhiteout(false); });
   if (btnNotes) btnNotes.addEventListener("click", function () { setNotes(!showNotes); });
   if (btnSpeaker) btnSpeaker.addEventListener("click", openSpeakerView);
+  if (btnOverview) btnOverview.addEventListener("click", function () { setOverview(!showOverview); });
+  if (btnOverviewClose) btnOverviewClose.addEventListener("click", function () { setOverview(false); });
   if (btnLaser) btnLaser.addEventListener("click", function () { setLaser(!laserOn); });
   if (btnInk) btnInk.addEventListener("click", function () { setInk(!inkOn); });
   if (btnInkClear) btnInkClear.addEventListener("click", clearInk);
@@ -7069,7 +7513,7 @@ html.pmd-shot-mode .pmd-stage-tools {
 
   if (laserLayer) {
     laserLayer.addEventListener("pointermove", function (e) {
-      if (!laserOn || showHelp || (blackoutEl && !blackoutEl.hidden) || (whiteoutEl && !whiteoutEl.hidden)) return;
+      if (!laserOn || showHelp || showOverview || (blackoutEl && !blackoutEl.hidden) || (whiteoutEl && !whiteoutEl.hidden)) return;
       var rect = laserLayer.getBoundingClientRect();
       var point = { x: e.clientX - rect.left, y: e.clientY - rect.top };
       laserTrail.push(point);
@@ -7083,7 +7527,7 @@ html.pmd-shot-mode .pmd-stage-tools {
 
   if (inkCanvas) {
     inkCanvas.addEventListener("pointerdown", function (e) {
-      if (!inkOn || showHelp || (blackoutEl && !blackoutEl.hidden) || (whiteoutEl && !whiteoutEl.hidden)) return;
+      if (!inkOn || showHelp || showOverview || (blackoutEl && !blackoutEl.hidden) || (whiteoutEl && !whiteoutEl.hidden)) return;
       e.preventDefault();
       var ctx = inkCanvas.getContext("2d");
       var pt = inkPointFromEvent(e);
@@ -7116,11 +7560,14 @@ html.pmd-shot-mode .pmd-stage-tools {
     inkCanvas.addEventListener("pointercancel", endInkStroke);
   }
 
+  buildDots();
+  window.addEventListener("hashchange", applyHashJump);
   window.addEventListener("resize", function () { syncInkCanvas(); }, { passive: true });
   window.addEventListener("scroll", function () { syncUi(); }, { passive: true });
   setInterval(function () { if (timerRunning) syncUi(); }, 500);
   syncStageTools();
   syncUi();
+  applyHashJump();
 
   /* T2/T3 screenshot harness — #__shot=N scrolls slide N into view and forces reveals */
   var shot = location.hash.match(/__shot=(\\d+)/);
@@ -7137,4 +7584,4 @@ html.pmd-shot-mode .pmd-stage-tools {
 <\/script>
 </body>
 </html>
-`;export{O as _,M as a,H as b,I as c,B as d,D as e,_ as f,T as g,A as h,q as i,L as j,S as k,C as l,z as m,E as n,y as o,w as p,v as q,F as r,R as s,W as t,P as u};
+`;export{M as _,H as a,I as b,_ as c,D as d,B as e,O as f,q as g,T as h,A as i,S as j,L as k,C as l,z as m,E as n,y as o,w as p,v as q,F as r,P as s,W as t,N as u};
