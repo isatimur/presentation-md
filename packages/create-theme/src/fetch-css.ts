@@ -2,6 +2,8 @@ import { lookup } from "node:dns/promises";
 import { isIP } from "node:net";
 
 const MAX_BYTES = 5 * 1024 * 1024;
+const MAX_STYLESHEET_LINKS = 32;
+const MAX_COMBINED_CSS_BYTES = 20 * 1024 * 1024;
 const MAX_REDIRECTS = 5;
 const TIMEOUT_MS = 10_000;
 const DNS_TIMEOUT_MS = 2_000;
@@ -227,12 +229,21 @@ export async function fetchStylesheetsFromUrl(url: string): Promise<string> {
   const hrefs = [...html.matchAll(/<link\b[^>]*rel=["']?stylesheet["']?[^>]*>/gi)]
     .map((m) => m[0].match(/href=["']([^"']+)["']/i)?.[1])
     .filter((h): h is string => !!h)
+    .slice(0, MAX_STYLESHEET_LINKS)
     .map((h) => new URL(h, url).toString());
 
   const cssParts: string[] = [];
+  let combinedBytes = 0;
+  const appendCss = (css: string): void => {
+    const bytes = Buffer.byteLength(css, "utf8");
+    const separatorBytes = cssParts.length > 0 ? 1 : 0;
+    if (bytes === 0 || combinedBytes + separatorBytes + bytes > MAX_COMBINED_CSS_BYTES) return;
+    cssParts.push(css);
+    combinedBytes += separatorBytes + bytes;
+  };
   for (const href of hrefs) {
     try {
-      cssParts.push(await fetchText(href));
+      appendCss(await fetchText(href));
     } catch {
       // One bad stylesheet shouldn't abort the whole extraction.
     }
@@ -244,7 +255,7 @@ export async function fetchStylesheetsFromUrl(url: string): Promise<string> {
   // reporting "found nothing" and triggering the Chromium fallback.
   for (const match of html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)) {
     const inline = (match[1] ?? "").trim();
-    if (inline) cssParts.push(inline);
+    if (inline) appendCss(inline);
   }
 
   return cssParts.join("\n");

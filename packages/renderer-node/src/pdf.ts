@@ -17,6 +17,7 @@ export function resolveExportPdfScript(): string {
 
 export const DEFAULT_PDF_EXPORT_TIMEOUT_MS = 180_000;
 export const MAX_PDF_HTML_BYTES = 64 * 1024 * 1024;
+export const MAX_PDF_OUTPUT_BYTES = 128 * 1024 * 1024;
 
 function assertPdfHtmlSize(byteLength: number): void {
   if (byteLength > MAX_PDF_HTML_BYTES) {
@@ -24,6 +25,22 @@ function assertPdfHtmlSize(byteLength: number): void {
       `PDF HTML exceeds ${MAX_PDF_HTML_BYTES} bytes (received ${byteLength} bytes)`
     );
   }
+}
+
+export async function readPdfOutputBounded(pdfPath: string): Promise<Buffer> {
+  const info = await stat(pdfPath);
+  if (info.size > MAX_PDF_OUTPUT_BYTES) {
+    throw new Error(
+      `PDF output exceeds ${MAX_PDF_OUTPUT_BYTES} bytes (received ${info.size} bytes)`
+    );
+  }
+  const output = await readFile(pdfPath);
+  if (output.byteLength > MAX_PDF_OUTPUT_BYTES) {
+    throw new Error(
+      `PDF output exceeds ${MAX_PDF_OUTPUT_BYTES} bytes (received ${output.byteLength} bytes)`
+    );
+  }
+  return output;
 }
 
 function pdfExportTimeoutMs(): number {
@@ -114,7 +131,7 @@ export async function htmlFileToPdfBuffer(htmlPath: string): Promise<Buffer> {
     const input = await stat(htmlPath);
     assertPdfHtmlSize(input.size);
     await runExportPdf(script, htmlPath, pdfPath);
-    return await readFile(pdfPath);
+    return await readPdfOutputBounded(pdfPath);
   } finally {
     await rm(dir, { recursive: true, force: true });
   }
@@ -130,7 +147,7 @@ export async function htmlStringToPdfBuffer(html: string): Promise<Buffer> {
     const script = resolveExportPdfScript();
     const pdfPath = join(dir, "deck.pdf");
     await runExportPdf(script, htmlPath, pdfPath);
-    return await readFile(pdfPath);
+    return await readPdfOutputBounded(pdfPath);
   } finally {
     await rm(dir, { recursive: true, force: true });
   }

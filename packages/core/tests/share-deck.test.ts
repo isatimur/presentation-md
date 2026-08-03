@@ -61,4 +61,10 @@ describe("share-deck", () => {
     expect(token.length).toBeLessThan(MAX_SHARE_TOKEN_CHARS);
     await expect(decodeShareDeck(token)).resolves.toBeNull();
   });
+
+  it("rejects an oversized token before base64 decode or inflation", async () => {
+    const oversized = `d1.${"A".repeat(MAX_SHARE_TOKEN_CHARS)}`;
+    await expect(decodeShareDeck(oversized)).resolves.toBeNull();
+    await expect(decodeShareDeck(undefined as unknown as string)).resolves.toBeNull();
+  });
 });

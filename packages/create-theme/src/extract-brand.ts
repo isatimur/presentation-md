@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import {
   parseCssVariables,
   parseFontDeclarations,
@@ -31,6 +31,24 @@ export interface BrandExtractionResult {
 
 const FALLBACK_HEADING_FONT = "Inter";
 const FALLBACK_BODY_FONT = "Inter";
+export const MAX_LOCAL_CSS_BYTES = 20 * 1024 * 1024;
+
+async function readLocalCssBounded(cssPath: string): Promise<string> {
+  const info = await stat(cssPath);
+  if (info.size > MAX_LOCAL_CSS_BYTES) {
+    throw new Error(
+      `Local CSS exceeds ${MAX_LOCAL_CSS_BYTES} bytes (received ${info.size} bytes)`
+    );
+  }
+  const css = await readFile(cssPath, "utf-8");
+  const actualBytes = Buffer.byteLength(css, "utf8");
+  if (actualBytes > MAX_LOCAL_CSS_BYTES) {
+    throw new Error(
+      `Local CSS exceeds ${MAX_LOCAL_CSS_BYTES} bytes (received ${actualBytes} bytes)`
+    );
+  }
+  return css;
+}
 
 export async function extractBrand(input: BrandExtractionInput): Promise<BrandExtractionResult> {
   const { url, cssPath } = input;
@@ -41,7 +59,9 @@ export async function extractBrand(input: BrandExtractionInput): Promise<BrandEx
     throw new Error("extractBrand accepts only one of 'url' or 'cssPath', not both.");
   }
 
-  const css = cssPath ? await readFile(cssPath, "utf-8") : await fetchStylesheetsFromUrl(url as string);
+  const css = cssPath
+    ? await readLocalCssBounded(cssPath)
+    : await fetchStylesheetsFromUrl(url as string);
 
   let colors = parseCssVariables(css);
   let fonts = parseFontDeclarations(css);

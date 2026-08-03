@@ -1,6 +1,11 @@
 import { createServer } from "node:http";
 import { afterEach, describe, expect, it } from "vitest";
-import { htmlStringToPdfBuffer, MAX_PDF_HTML_BYTES } from "../src/pdf.js";
+import {
+  htmlStringToPdfBuffer,
+  MAX_PDF_HTML_BYTES,
+  MAX_PDF_OUTPUT_BYTES,
+  readPdfOutputBounded,
+} from "../src/pdf.js";
 
 describe("shared CLI/MCP PDF security", () => {
   const servers: ReturnType<typeof createServer>[] = [];
@@ -50,5 +55,22 @@ describe("shared CLI/MCP PDF security", () => {
     await expect(htmlStringToPdfBuffer(html)).rejects.toThrow(
       `PDF HTML exceeds ${MAX_PDF_HTML_BYTES} bytes`
     );
+  });
+
+  it("rejects an oversized generated PDF before reading it into memory", async () => {
+    const { mkdtemp, rm, truncate, writeFile } = await import("node:fs/promises");
+    const { tmpdir } = await import("node:os");
+    const { join } = await import("node:path");
+    const dir = await mkdtemp(join(tmpdir(), "pmd-pdf-output-limit-"));
+    const path = join(dir, "oversized.pdf");
+    try {
+      await writeFile(path, "");
+      await truncate(path, MAX_PDF_OUTPUT_BYTES + 1);
+      await expect(readPdfOutputBounded(path)).rejects.toThrow(
+        `PDF output exceeds ${MAX_PDF_OUTPUT_BYTES} bytes`
+      );
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 });

@@ -350,6 +350,28 @@ describe("fetchStylesheetsFromUrl", () => {
     expect(vars.bg).toBe("#222222");
     expect(vars.accent).toBe("#00ff00");
   });
+
+  it("caps linked stylesheet fan-out", async () => {
+    const html = Array.from({ length: 40 }, (_, i) => `<link rel="stylesheet" href="/${i}.css">`).join("");
+    const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
+    fetchMock.mockResolvedValueOnce(mockResponse({ text: html }));
+    for (let i = 0; i < 32; i++) fetchMock.mockResolvedValueOnce(mockResponse({ text: `/* ${i} */` }));
+
+    const css = await fetchStylesheetsFromUrl("https://example.com/");
+    expect(css).toContain("/* 31 */");
+    expect(css).not.toContain("/* 32 */");
+    expect(fetchMock).toHaveBeenCalledTimes(33); // document + 32 linked stylesheets
+  });
+
+  it("caps aggregate CSS retained from linked and inline sources", async () => {
+    const html = Array.from({ length: 5 }, (_, i) => `<link rel="stylesheet" href="/${i}.css">`).join("");
+    const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
+    fetchMock.mockResolvedValueOnce(mockResponse({ text: html }));
+    for (let i = 0; i < 5; i++) fetchMock.mockResolvedValueOnce(mockResponse({ text: "a".repeat(5 * 1024 * 1024) }));
+
+    const css = await fetchStylesheetsFromUrl("https://example.com/");
+    expect(Buffer.byteLength(css, "utf8")).toBeLessThanOrEqual(20 * 1024 * 1024);
+  });
 });
 
 // Used by the computed-style fallback to pin the browser's navigation to an

@@ -19,6 +19,7 @@ const CHROME_CANDIDATES = [
   "chromium-browser",
   "chrome",
 ];
+const DEFAULT_WHICH_TIMEOUT_MS = 2_000;
 
 export interface ShotMeta {
   slide: number;
@@ -47,18 +48,31 @@ async function existsExecutable(path: string): Promise<boolean> {
   }
 }
 
-async function which(cmd: string): Promise<string | undefined> {
+export async function which(cmd: string, timeoutMs = DEFAULT_WHICH_TIMEOUT_MS): Promise<string | undefined> {
   return new Promise((resolve) => {
-    const child = spawn("which", [cmd]);
+    const child = spawn("which", [cmd], { detached: process.platform !== "win32" });
     let out = "";
+    let settled = false;
+    const timer = setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      killProcessTree(child);
+      resolve(undefined);
+    }, timeoutMs);
+    const finish = (value: string | undefined): void => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      resolve(value);
+    };
     child.stdout.on("data", (d: Buffer) => {
       out += d.toString();
     });
     child.on("close", (code) => {
       const p = out.trim();
-      resolve(code === 0 && p ? p : undefined);
+      finish(code === 0 && p ? p : undefined);
     });
-    child.on("error", () => resolve(undefined));
+    child.on("error", () => finish(undefined));
   });
 }
 

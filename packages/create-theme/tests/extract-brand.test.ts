@@ -1,7 +1,9 @@
 import { describe, it, expect } from "vitest";
 import { fileURLToPath } from "node:url";
 import { join, dirname } from "node:path";
-import { extractBrand } from "../src/extract-brand.js";
+import { mkdtemp, rm, truncate, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { extractBrand, MAX_LOCAL_CSS_BYTES } from "../src/extract-brand.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const CSS_FIXTURE = join(__dirname, "..", "fixtures", "brand.css");
@@ -40,5 +42,17 @@ describe("extractBrand", () => {
 
   it("throws a clear error when a CSS file has no usable colors or fonts", async () => {
     await expect(extractBrand({ cssPath: EMPTY_FIXTURE })).rejects.toThrow(/could not extract/i);
+  });
+
+  it("rejects an oversized local CSS file before reading it", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "pmd-brand-css-limit-"));
+    const path = join(dir, "oversized.css");
+    try {
+      await writeFile(path, "");
+      await truncate(path, MAX_LOCAL_CSS_BYTES + 1);
+      await expect(extractBrand({ cssPath: path })).rejects.toThrow(/local css exceeds/i);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 });

@@ -3,6 +3,7 @@ import {
   extractSlideChunks,
   isolateSlideHtml,
   screenshotSlides,
+  which,
 } from "../src/screenshot-slides.js";
 
 const TWO_SLIDE = `<!doctype html><html><head><meta charset="utf-8"/><title>T</title></head>
@@ -12,6 +13,24 @@ const TWO_SLIDE = `<!doctype html><html><head><meta charset="utf-8"/><title>T</t
 </main></body></html>`;
 
 describe("screenshot isolate helpers", () => {
+  it("times out a hung which lookup", async () => {
+    const { mkdtemp, rm, writeFile } = await import("node:fs/promises");
+    const { tmpdir } = await import("node:os");
+    const { join } = await import("node:path");
+    const root = await mkdtemp(join(tmpdir(), "pmd-which-timeout-"));
+    const fakeWhich = join(root, "which");
+    await writeFile(fakeWhich, "#!/bin/sh\nsleep 2\n", { encoding: "utf8", mode: 0o755 });
+    const previousPath = process.env.PATH;
+    process.env.PATH = `${root}:${previousPath ?? ""}`;
+    try {
+      await expect(which("google-chrome", 50)).resolves.toBeUndefined();
+    } finally {
+      if (previousPath === undefined) delete process.env.PATH;
+      else process.env.PATH = previousPath;
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+
   it("extracts top-level .slide chunks", () => {
     const chunks = extractSlideChunks(TWO_SLIDE);
     expect(chunks).toHaveLength(2);

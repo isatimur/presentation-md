@@ -119,7 +119,9 @@ export async function encodeShareDeck(deck: ShareDeckLike): Promise<string> {
 
 /** Decode a `d1.` share token back to Deck JSON, or null if invalid. */
 export async function decodeShareDeck(token: string): Promise<ShareDeckLike | null> {
+  if (typeof token !== "string") return null;
   const raw = token.trim();
+  if (raw.length > MAX_SHARE_TOKEN_CHARS) return null;
   if (!raw.startsWith(SHARE_PREFIX)) return null;
   try {
     const bytes = base64UrlToBytes(raw.slice(SHARE_PREFIX.length));
