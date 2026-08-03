@@ -73,7 +73,7 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   8-bit-orbit gets scanlines + neon orbs + dual yellow/pink offset-shadow strips + accent frame + always-on pixel HUD chips;
   neo-grid-bold gets a denser modular grid + larger lemon corner panel + L registration marks + hard 3pt frame + accent offset shadow + square hard-border cards;
   bold-poster gets a hard frame + accent-tinted offset shadow + thicker ink top bar (poster block on heroes, quiet stub on body) + square hard-border cards;
-  capsule gets plump frame + hard ink offset shadow + pastel blots + hero-gated coral pill/lime circles + plump card radius;
+  capsule gets plump frame + hard ink offset shadow + denser pastel blots + hero-gated coral pill/lime circles + plump cards with soft ink offsets;
   cobalt-grid gets a denser cobalt paper grid + diagonal corner hatch + L registration marks + outer frame + square cobalt card strokes;
   retro-arcade gets denser scanlines + dual magenta/cyan top rail + neon orbs + cyan rim + floor glow + cyan card rims;
   brutalist-mono gets a denser mono grid + hard 3pt frame + ink offset shadow;
@@ -83,14 +83,14 @@ screenshot of the HTML render — it trades exactness for editability. Known dif
   biennale-yellow gets denser sun orbs + quiet indigo frame + top hairline + coral stub + top-rule cards;
   scatterbrain gets cork wash + ink offset shadow + sticky notes + pin dots (heroes also get a tape strip) + ink sticky-card hairlines;
   split-pastel gets dual pastel corner washes (heroes also get a split field + stacked pastel pills) + soft plump card hairlines;
-  coral gets a hatch frame + coral left wash + square hard-border cards;
-  peoples-platform gets a cobalt top bar + amber stub + hard frame + ink speckles + square hard-border cards;
+  coral gets a denser hatch frame + bg2 diagonal split + coral left wash + square hard-border cards;
+  peoples-platform gets a thicker cobalt top bar + amber stub + hard 6pt frame + denser ink speckles + square hard-border cards with red offsets;
   raw-grid gets blush/sage bands + thicker cross rules + ink corner blot + hard 3pt frame + ink offset shadow + square hard-border cards with hard offsets;
   retro-zine gets a hard frame + offset green plate + cream card on every slide + square hard-border cards;
   sakura-chroma gets a hard frame + accent-tinted offset shadow on every slide + chroma strip/stamp orbs on heroes + hard-border cards;
   daisy-days gets hard frame + charcoal offset shadow + pastel dots + daisy/pill ornaments on every slide + plump hard-border cards;
   block-frame gets a hard frame + ink offset shadow on every slide + pastel offset blocks on heroes + square hard-border cards with hard offsets;
-  editorial-tri-tone gets a butter split + burgundy wash + square hard-border cards;
+  editorial-tri-tone gets a butter split + burgundy wash + hard 3pt frame + hero accent blot + square hard-border cards;
   broadside gets a thicker fire-orange rail + larger corner blast + hard ink frame + always-on top stub + square hard-border cards;
   pink-script gets dual inset frames + always-on accent hairline + hero-gated wash;
   retro-windows gets Win95 beveled chrome (white/black outer bevel + inset hilite/shade) + title bar + window buttons + CRT scanlines;
