@@ -1,5 +1,29 @@
 # @presentation-md/mcp-server
 
+## 1.33.5
+
+### Patch Changes
+
+- 8e16131: Bound captured PDF, deploy, and live judge-panel subprocess output, and terminate process trees that exceed the configured byte limit before they can exhaust CLI or MCP memory. Live judge panels now also support a configurable hard timeout.
+- 8e16131: Bound judge panel JSON artifact reads to 1 MiB before parsing tool results.
+- 8e16131: Bound individual inline MCP screenshot payloads to 8 MiB before base64 encoding.
+- 8e16131: Reject MCP tool argument payloads larger than 10 MiB before dispatching to render, export, or judge handlers.
+- Updated dependencies [8e16131]
+- Updated dependencies [8e16131]
+- Updated dependencies [8e16131]
+- Updated dependencies [8e16131]
+- Updated dependencies [8e16131]
+- Updated dependencies [8e16131]
+- Updated dependencies [8e16131]
+- Updated dependencies [8e16131]
+- Updated dependencies [8e16131]
+- Updated dependencies [8e16131]
+- Updated dependencies [8e16131]
+  - @presentation-md/render@1.20.5
+  - @presentation-md/create-theme@1.1.36
+  - @presentation-md/core@1.32.1
+  - @presentation-md/export@1.24.4
+
 ## 1.33.4
 
 ### Patch Changes

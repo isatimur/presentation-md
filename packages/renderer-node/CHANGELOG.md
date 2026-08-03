@@ -1,5 +1,22 @@
 # @presentation-md/render
 
+## 1.20.5
+
+### Patch Changes
+
+- 8e16131: Preserve complete top-level slide outer HTML when screenshot isolation encounters nested section, div, or `.slide` elements, and emit a matching closing tag for custom deck surfaces.
+- 8e16131: Bound captured PDF, deploy, and live judge-panel subprocess output, and terminate process trees that exceed the configured byte limit before they can exhaust CLI or MCP memory. Live judge panels now also support a configurable hard timeout.
+- 8e16131: Terminate stuck confirmed deploy process trees after a configurable deadline instead of leaving CLI or MCP calls hanging indefinitely.
+- 8e16131: Reject oversized direct HTML inputs before the PDF Playwright process starts.
+- 8e16131: Terminate stuck PDF export process trees after a configurable deadline instead of leaving CLI or MCP calls hanging indefinitely.
+- 8e16131: Bound CLI Deck JSON and Markdown file or stdin inputs to 10 MiB before parsing or rendering.
+- 8e16131: Run slide screenshots in an isolated Chrome profile and terminate the full Chrome process tree as soon as a complete PNG is written or the capture deadline is reached.
+- 8e16131: Accept confirmed deployment URLs only from the core script's explicit success marker instead of treating arbitrary HTTPS warnings as successful deploys.
+- Updated dependencies [8e16131]
+- Updated dependencies [8e16131]
+  - @presentation-md/core@1.32.1
+  - @presentation-md/export@1.24.4
+
 ## 1.20.4
 
 ### Patch Changes

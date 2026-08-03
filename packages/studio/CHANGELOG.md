@@ -1,5 +1,18 @@
 # @presentation-md/studio
 
+## 1.34.4
+
+### Patch Changes
+
+- 8e16131: Reject oversized headless PDF HTML requests in the browser before sending them to the local export endpoint.
+- 8e16131: Bound headless PDF response bodies to 64 MiB before and after browser-side reads.
+- 8e16131: Hide inert exported presenter controls and shortcut hints inside Studio preview iframes.
+- 8e16131: Keep the headless PDF timeout active while consuming the response body, not just while waiting for response headers.
+- Updated dependencies [8e16131]
+- Updated dependencies [8e16131]
+  - @presentation-md/core@1.32.1
+  - @presentation-md/export@1.24.4
+
 ## 1.34.3
 
 ### Patch Changes

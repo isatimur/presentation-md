@@ -1,5 +1,13 @@
 # @presentation-md/create-theme
 
+## 1.1.36
+
+### Patch Changes
+
+- 8e16131: Bound on-demand Playwright and Chromium installer subprocesses with a five-minute deadline and a 1 MiB captured-output limit, and stream/cancel oversized brand-import HTTP bodies before they can accumulate unbounded memory.
+- Updated dependencies [8e16131]
+  - @presentation-md/core@1.32.1
+
 ## 1.1.35
 
 ### Patch Changes
