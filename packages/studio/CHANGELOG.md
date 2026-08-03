@@ -1,5 +1,13 @@
 # @presentation-md/studio
 
+## 1.34.1
+
+### Patch Changes
+
+- e138182: Densify neo-grid/raw-grid/brutalist/swiss/bold-poster/genz PPTX chrome with hard card offsets; prefix export warnings with Slide N so Studio can jump.
+- Updated dependencies [e138182]
+  - @presentation-md/export@1.24.1
+
 ## 1.34.0
 
 ### Minor Changes
