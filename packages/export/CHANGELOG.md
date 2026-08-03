@@ -1,5 +1,11 @@
 # @presentation-md/export
 
+## 1.24.5
+
+### Patch Changes
+
+- 46e7ab1: Densify daisy-days, sakura-chroma, and bauhaus PPTX chrome with harder frames, card hard offsets, denser ornaments, and bauhaus yellow primary geometry.
+
 ## 1.24.4
 
 ### Patch Changes
