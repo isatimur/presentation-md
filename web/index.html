@@ -204,7 +204,7 @@
       isolation: isolate;
     }
 
-    /* Edge-to-edge craft stage — product as the hero plane */
+    /* Edge-to-edge craft stage — stunning-25 carousel as the hero plane */
     .hero-visual {
       position: absolute;
       inset: 0;
@@ -215,6 +215,13 @@
       text-decoration: none;
       animation: pmd-stage-in 1.05s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
+    .hero-visual-link {
+      position: absolute;
+      inset: 0;
+      display: block;
+      text-decoration: none;
+      z-index: 0;
+    }
     .hero-visual-img {
       position: absolute;
       left: 50%;
@@ -222,11 +229,50 @@
       width: max(100%, 177.78vh);
       height: max(100%, 56.25vw);
       max-width: none;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) scale(1);
       object-fit: cover;
-      object-position: 78% 42%;
+      object-position: 72% 40%;
       pointer-events: none;
-      animation: pmd-stage-drift 22s ease-in-out alternate infinite;
+      opacity: 0;
+      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity, transform;
+    }
+    .hero-visual-img.is-active {
+      opacity: 1;
+      z-index: 1;
+      animation: pmd-stage-drift 14s ease-in-out alternate infinite;
+    }
+    .hero-visual-img.is-outgoing {
+      opacity: 0;
+      z-index: 2;
+      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .hero-visual.is-paused .hero-visual-img.is-active {
+      animation-play-state: paused;
+    }
+    .hero-progress {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 3;
+      height: 3px;
+      background: color-mix(in srgb, var(--ink) 14%, transparent);
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hero-progress > span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transform-origin: left center;
+    }
+    .hero-visual:not(.is-paused) .hero-progress > span {
+      animation: pmd-hero-progress var(--hero-dwell, 4.8s) linear forwards;
+    }
+    .hero-visual.is-paused .hero-progress > span {
+      animation-play-state: paused;
     }
 
     /* Cloth wash — readable copy without a card or caption overlay */
@@ -466,7 +512,11 @@
     }
     @keyframes pmd-stage-drift {
       from { transform: translate(-50%, -50%) scale(1); }
-      to { transform: translate(-51%, -50.5%) scale(1.03); }
+      to { transform: translate(-51.2%, -50.6%) scale(1.045); }
+    }
+    @keyframes pmd-hero-progress {
+      from { width: 0%; }
+      to { width: 100%; }
     }
     @keyframes pmd-cloth-sheen {
       from { transform: translateX(-2%); opacity: 0.4; }
@@ -556,9 +606,11 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .brand-mark, .brand-mark::after, .site-hero h1, .tagline, .ctas,
-      .hero-visual, .hero-visual-img, .hero-sheen::after,
+      .brand-mark, .brand-mark::after, .site-hero h1, .tagline, .ctas, .cta-micro, .hero-carousel-meta,
+      .hero-visual, .hero-visual-img, .hero-sheen::after, .hero-progress > span,
       .showreel-track { animation: none !important; }
+      .hero-visual-img { transition: none !important; }
+      .hero-visual-img.is-active { opacity: 1; transform: translate(-50%, -50%); }
       .theme-card, .gallery-card {
         transition: none !important;
         transform: none !important;
@@ -601,9 +653,12 @@
         left: 0;
         top: 0;
         transform: none;
-        animation: none;
         object-fit: cover;
-        object-position: 18% 35%;
+        object-position: 42% 35%;
+      }
+      .hero-visual-img.is-active {
+        animation: none;
+        transform: none;
       }
       .hero-sheen {
         display: none;
@@ -618,6 +673,10 @@
       }
       .hero-copy .ctas { display: grid; grid-template-columns: 1fr; gap: 10px; }
       .hero-copy .ctas .btn { justify-content: center; width: 100%; }
+      .hero-carousel-meta {
+        margin-top: 22px;
+        justify-content: space-between;
+      }
       .showreel-card { flex-basis: min(72vw, 380px); }
     }
     @media (max-width: 820px) {
@@ -1126,6 +1185,72 @@
       color: var(--ink-light);
       animation: pmd-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.34s both;
     }
+
+    /* Quiet deck label + nav — paper wash, not sticker overlays on media */
+    .hero-carousel-meta {
+      margin-top: 28px;
+      padding-top: 16px;
+      border-top: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 18px;
+      animation: pmd-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+      max-width: 34rem;
+    }
+    .hero-carousel-caption {
+      flex: 1 1 auto;
+      min-width: 0;
+      margin: 0;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      line-height: 1.45;
+    }
+    .hero-carousel-caption strong {
+      color: var(--ink);
+      font-weight: 650;
+    }
+    .hero-carousel-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex: 0 0 auto;
+    }
+    .hero-carousel-nav button {
+      appearance: none;
+      border: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+      background: color-mix(in srgb, var(--paper) 70%, white);
+      color: var(--ink);
+      width: 34px;
+      height: 34px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    }
+    .hero-carousel-nav button:hover {
+      border-color: var(--ink);
+      transform: translateY(-1px);
+    }
+    .hero-carousel-nav button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .hero-carousel-count {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--ink-light);
+      min-width: 4.5ch;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
     .proof-facts {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1370,9 +1495,13 @@
 
 <!-- ── HEADER ──────────────────────────────────────────────────────────────── -->
 <header class="site-hero">
-  <a class="hero-visual" href="examples/structured/gridsystems-studio.html" target="_blank" rel="noopener" aria-label="Open Grid Systems swiss craft deck">
-    <img class="hero-visual-img" src="previews/hero-gridsystems.png" width="1280" height="720" alt="Grid Systems swiss-typographic title slide — Systems before styles." decoding="async" fetchpriority="high" />
-  </a>
+  <div class="hero-visual" id="hero-carousel" role="region" aria-roledescription="carousel" aria-label="Stunning twenty-five craft decks" style="--hero-dwell: 4.8s">
+    <a class="hero-visual-link" id="hero-carousel-link" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener" aria-label="Open NovaSpark aurora-glass craft deck">
+      <img class="hero-visual-img is-active" id="hero-img-a" src="previews/hero/novaspark-pitch.png" width="1280" height="720" alt="NovaSpark aurora-glass title slide" decoding="async" fetchpriority="high" />
+      <img class="hero-visual-img" id="hero-img-b" src="previews/hero/meridian-sales.png" width="1280" height="720" alt="" decoding="async" aria-hidden="true" />
+    </a>
+    <div class="hero-progress" aria-hidden="true"><span id="hero-progress-bar"></span></div>
+  </div>
   <div class="hero-sheen" aria-hidden="true"></div>
   <div class="hero-copy">
     <p class="brand-mark">presentation-md</p>
@@ -1389,6 +1518,20 @@
       </a>
     </div>
     <p class="cta-micro">No account · MIT · works offline after install</p>
+    <div class="hero-carousel-meta">
+      <p class="hero-carousel-caption" id="hero-carousel-caption" aria-live="polite">
+        <strong>NovaSpark</strong> · aurora-glass
+      </p>
+      <div class="hero-carousel-nav" role="group" aria-label="Carousel controls">
+        <button type="button" id="hero-carousel-prev" aria-label="Previous craft deck">
+          <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <span class="hero-carousel-count" id="hero-carousel-count">01 / 25</span>
+        <button type="button" id="hero-carousel-next" aria-label="Next craft deck">
+          <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -5036,6 +5179,227 @@
     }, { rootMargin: '120px' });
     document.querySelectorAll('.theme-preview-frame').forEach(function (f) { io.observe(f); });
   }
+})();
+</script>
+
+<script>
+(function () {
+  var DECKS = [
+    { slug: 'novaspark-pitch', name: 'NovaSpark', theme: 'aurora-glass' },
+    { slug: 'meridian-sales', name: 'Meridian', theme: 'ft-editorial' },
+    { slug: 'bounce-launch', name: 'Bounce', theme: 'genz-bento' },
+    { slug: 'solstice-update', name: 'Solstice', theme: 'luxury-minimalist' },
+    { slug: 'retronet-demo', name: 'RetroNet', theme: 'crt-terminal' },
+    { slug: 'gridsystems-studio', name: 'Grid Systems', theme: 'swiss-typographic' },
+    { slug: 'monolith-seriesa', name: 'MONOLITH', theme: 'brutalist-acid' },
+    { slug: 'jellybean-launch', name: 'Jellybean', theme: 'candy-pop' },
+    { slug: 'axiom-robotics', name: 'Axiom', theme: 'aerospace-hud' },
+    { slug: 'atelier-brand', name: 'Atelier No. 9', theme: 'heritage-editorial' },
+    { slug: 'ledgerline-payout', name: 'Ledgerline', theme: 'fintech-clean' },
+    { slug: 'forge-api', name: 'Forge', theme: 'developer-dark' },
+    { slug: 'signalbox-report', name: 'Signalbox', theme: 'data-editorial' },
+    { slug: 'primary-keynote', name: 'Primary', theme: 'bauhaus' },
+    { slug: 'bubbleflow-launch', name: 'BubbleFlow', theme: 'y2k-aero' },
+    { slug: 'inkwell-pitch', name: 'Inkwell', theme: 'risograph-zine' },
+    { slug: 'neondistrict-platform', name: 'Neon District', theme: 'neon-noir' },
+    { slug: 'hygge-brand', name: 'Hygge', theme: 'scandinavian' },
+    { slug: 'meridianclub-investor', name: 'Meridian Club', theme: 'art-deco' },
+    { slug: 'mallsoft-launch', name: 'Mallsoft', theme: 'vaporwave' },
+    { slug: 'dailyledger-mediakit', name: 'Daily Ledger', theme: 'broadsheet' },
+    { slug: 'cloudpeak-pricing', name: 'CloudPeak', theme: 'glassmorphism' },
+    { slug: 'pulse-wrapped', name: 'Pulse', theme: 'kinetic-wrapped' },
+    { slug: 'verdant-impact', name: 'Verdant', theme: 'botanical-luxe' },
+    { slug: 'apsis-mission', name: 'Apsis', theme: 'blueprint' }
+  ];
+
+  var root = document.getElementById('hero-carousel');
+  if (!root) return;
+
+  var link = document.getElementById('hero-carousel-link');
+  var imgA = document.getElementById('hero-img-a');
+  var imgB = document.getElementById('hero-img-b');
+  var caption = document.getElementById('hero-carousel-caption');
+  var countEl = document.getElementById('hero-carousel-count');
+  var progress = document.getElementById('hero-progress-bar');
+  var prevBtn = document.getElementById('hero-carousel-prev');
+  var nextBtn = document.getElementById('hero-carousel-next');
+  var reduceMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  var index = 0;
+  var activeIsA = true;
+  var timer = null;
+  var paused = false;
+  var transitioning = false;
+  var DWELL = 4800;
+  var warmed = Object.create(null);
+
+  function srcFor(i) {
+    return 'previews/hero/' + DECKS[i].slug + '.png';
+  }
+
+  function hrefFor(i) {
+    return 'examples/structured/' + DECKS[i].slug + '.html';
+  }
+
+  function pad(n) {
+    return (n < 10 ? '0' : '') + n;
+  }
+
+  function prefetch(i) {
+    var url = srcFor(((i % DECKS.length) + DECKS.length) % DECKS.length);
+    if (warmed[url]) return;
+    warmed[url] = true;
+    var img = new Image();
+    img.decoding = 'async';
+    img.src = url;
+  }
+
+  function warmAround(i) {
+    prefetch(i);
+    prefetch(i + 1);
+    prefetch(i + 2);
+    prefetch(i - 1);
+  }
+
+  function restartProgress() {
+    if (!progress) return;
+    progress.style.animation = 'none';
+    // force reflow so the progress bar restarts cleanly
+    void progress.offsetWidth;
+    progress.style.animation = '';
+  }
+
+  function setPaused(next) {
+    paused = next;
+    root.classList.toggle('is-paused', paused);
+    if (paused) stop();
+    else if (!reduceMq.matches) start();
+  }
+
+  function stop() {
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+  }
+
+  function start() {
+    stop();
+    if (reduceMq.matches || paused) return;
+    restartProgress();
+    timer = setTimeout(function () { go(1, false); }, DWELL);
+  }
+
+  function applyMeta(i) {
+    var d = DECKS[i];
+    if (caption) {
+      caption.replaceChildren();
+      var strong = document.createElement('strong');
+      strong.textContent = d.name;
+      caption.appendChild(strong);
+      caption.appendChild(document.createTextNode(' · ' + d.theme));
+    }
+    if (countEl) countEl.textContent = pad(i + 1) + ' / ' + pad(DECKS.length);
+    if (link) {
+      link.href = hrefFor(i);
+      link.setAttribute('aria-label', 'Open ' + d.name + ' ' + d.theme + ' craft deck');
+    }
+    var active = activeIsA ? imgA : imgB;
+    if (active) active.alt = d.name + ' ' + d.theme + ' title slide';
+  }
+
+  function go(delta, user) {
+    if (transitioning && !user) return;
+    var next = (index + delta + DECKS.length) % DECKS.length;
+    if (next === index && !user) return;
+    show(next, user);
+  }
+
+  function show(next, user) {
+    stop();
+    transitioning = true;
+    var incoming = activeIsA ? imgB : imgA;
+    var outgoing = activeIsA ? imgA : imgB;
+    var url = srcFor(next);
+
+    function swap() {
+      incoming.classList.remove('is-outgoing');
+      outgoing.classList.add('is-outgoing');
+      incoming.classList.add('is-active');
+      outgoing.classList.remove('is-active');
+      activeIsA = !activeIsA;
+      index = next;
+      applyMeta(index);
+      warmAround(index);
+      restartProgress();
+      window.setTimeout(function () {
+        outgoing.classList.remove('is-outgoing');
+        outgoing.removeAttribute('fetchpriority');
+        transitioning = false;
+        if (!paused && !reduceMq.matches) start();
+      }, reduceMq.matches ? 0 : 900);
+    }
+
+    if (incoming.getAttribute('src') !== url) {
+      incoming.onload = function () {
+        incoming.onload = null;
+        swap();
+      };
+      incoming.src = url;
+      if (incoming.complete) {
+        incoming.onload = null;
+        swap();
+      }
+    } else {
+      swap();
+    }
+
+    if (user) setPaused(false);
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    go(-1, true);
+  });
+  if (nextBtn) nextBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    go(1, true);
+  });
+
+  root.addEventListener('mouseenter', function () { setPaused(true); });
+  root.addEventListener('mouseleave', function () { setPaused(false); });
+  root.addEventListener('focusin', function () { setPaused(true); });
+  root.addEventListener('focusout', function (e) {
+    if (!root.contains(e.relatedTarget)) setPaused(false);
+  });
+
+  // Pause when the copy/nav controls are hovered so reading the label is easy
+  var meta = document.querySelector('.hero-carousel-meta');
+  if (meta) {
+    meta.addEventListener('mouseenter', function () { setPaused(true); });
+    meta.addEventListener('mouseleave', function () { setPaused(false); });
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) stop();
+    else if (!paused && !reduceMq.matches) start();
+  });
+
+  if (typeof reduceMq.addEventListener === 'function') {
+    reduceMq.addEventListener('change', function () {
+      if (reduceMq.matches) {
+        stop();
+        root.classList.add('is-paused');
+      } else if (!paused) start();
+    });
+  }
+
+  warmAround(0);
+  applyMeta(0);
+  if (!reduceMq.matches) start();
+  else root.classList.add('is-paused');
 })();
 </script>
 
