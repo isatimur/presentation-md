@@ -1027,6 +1027,138 @@
 
     .install-note strong { color: var(--ink); }
 
+    /* ── start rail (activation) ─────────────────────────── */
+    .start-rail {
+      margin-top: 36px;
+      padding: 28px 28px 32px;
+      border: 1.5px solid color-mix(in srgb, var(--ink) 14%, transparent);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--accent) 6%, transparent), transparent 42%),
+        color-mix(in srgb, var(--paper2) 55%, white);
+    }
+    .start-rail-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 14px;
+    }
+    .agent-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .agent-chip {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 10px 14px;
+      border-radius: 4px;
+      border: 1.5px solid color-mix(in srgb, var(--ink) 18%, transparent);
+      background: color-mix(in srgb, var(--paper) 70%, white);
+      color: var(--ink);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s, color 0.15s, transform 0.15s;
+    }
+    .agent-chip:hover {
+      border-color: var(--ink);
+      transform: translateY(-1px);
+    }
+    .agent-chip.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
+    .start-cmd {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      gap: 10px;
+    }
+    .start-cmd pre {
+      flex: 1 1 280px;
+      margin: 0;
+      border-radius: 6px;
+      padding: 16px 20px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .start-cmd .btn-copy {
+      flex: 0 0 auto;
+      align-self: stretch;
+      min-width: 110px;
+      justify-content: center;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 650;
+      cursor: pointer;
+      padding: 0 18px;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .start-cmd .btn-copy:hover {
+      background: color-mix(in srgb, var(--accent) 88%, #000);
+      transform: translateY(-1px);
+    }
+    .start-cmd .btn-copy.copied {
+      background: #0D9488;
+    }
+    .start-rail-hint {
+      margin-top: 14px;
+      font-size: 0.92rem;
+      color: var(--ink-light);
+      max-width: 52ch;
+    }
+    .start-rail-hint a { color: var(--accent); font-weight: 600; }
+    .cta-micro {
+      display: block;
+      margin-top: 12px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--ink-light);
+      animation: pmd-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.34s both;
+    }
+    .proof-facts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 28px 0 8px;
+    }
+    .proof-fact {
+      padding: 16px 16px 18px;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      background: color-mix(in srgb, var(--paper2) 70%, white);
+    }
+    .proof-fact strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .proof-fact span {
+      font-size: 0.86rem;
+      color: var(--ink-light);
+      line-height: 1.4;
+    }
+    @media (max-width: 800px) {
+      .proof-facts { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px) {
+      .proof-facts { grid-template-columns: 1fr; }
+      .start-cmd .btn-copy { width: 100%; min-height: 44px; }
+    }
+
     /* ── footer ──────────────────────────────────────────── */
     footer {
       border-top: 1px solid var(--rule);
@@ -1246,35 +1378,42 @@
     <p class="brand-mark">presentation-md</p>
     <h1>Notes in. Editable deck out.</h1>
     <p class="tagline">
-      One install in the agent you already use — then open Studio or export native PowerPoint.
+      One command in the agent you already use. Schema-validated HTML — plus native PowerPoint you can edit.
     </p>
     <div class="ctas">
-      <a href="#install" class="btn btn-primary">
-        <i class="fa-solid fa-download"></i> Install
+      <a href="#start" class="btn btn-primary">
+        <i class="fa-solid fa-terminal"></i> Install for your agent
       </a>
       <a href="studio/?example=briefing-signal&fresh=1" class="btn btn-secondary">
-        <i class="fa-solid fa-pen-ruler"></i> Open Studio
-      </a>
-      <a href="#themes" class="btn btn-secondary">
-        <i class="fa-solid fa-swatchbook"></i> Pick a vibe
+        <i class="fa-solid fa-pen-ruler"></i> Try Studio first
       </a>
     </div>
+    <p class="cta-micro">No account · MIT · works offline after install</p>
   </div>
 </header>
 
 <section id="proof-strip" aria-label="Proof and craft range">
   <div class="container">
     <span class="eyebrow">Proof</span>
-    <h2>The stunning twenty-five. Then the full seventy-five.</h2>
-    <p class="section-lead">Flagship gallery craft first — aurora glass, FT editorial, gen-Z bento, and more. Same Deck JSON path as every other theme.</p>
-    <div class="badges">
-      <span class="badge"><span class="dot"></span>npm render@1.18.0 · core@1.31.0 · mcp@1.32.10</span>
-      <span class="badge"><span class="dot amber"></span>PyPI</span>
-      <span class="badge"><span class="dot amber"></span>MIT license</span>
-      <span class="badge"><span class="dot green"></span>MCP-native</span>
-      <span class="badge"><span class="dot"></span>75 themes · 75 structured proofs</span>
-      <span class="badge"><span class="dot"></span>Exports to PowerPoint · Keynote · Google Slides</span>
-      <span class="badge"><span class="dot"></span>Claude Code · Cursor · Codex · Gemini CLI · Copilot</span>
+    <h2>Start with five proven vibes. Unlock seventy-five later.</h2>
+    <p class="section-lead">Flagship craft first — same Deck JSON for every theme. Browse the wall when you want options; default to the starters if you just need a deck today.</p>
+    <div class="proof-facts" aria-label="Product facts">
+      <div class="proof-fact">
+        <strong>One npx install</strong>
+        <span>Claude Code, Cursor, Codex, Gemini CLI, Copilot</span>
+      </div>
+      <div class="proof-fact">
+        <strong>Editable .pptx</strong>
+        <span>PowerPoint, Keynote, Google Slides — real shapes, not screenshots</span>
+      </div>
+      <div class="proof-fact">
+        <strong>MCP-native</strong>
+        <span>Typed tools: render, audit, export, preview themes</span>
+      </div>
+      <div class="proof-fact">
+        <strong>Free · MIT</strong>
+        <span>npm + PyPI · no account · no usage caps</span>
+      </div>
     </div>
     <div class="hero-craft" aria-label="Live craft examples" style="margin-top:36px">
       <a class="hero-craft-card" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener">
@@ -1365,15 +1504,51 @@
       <div class="step">
         <span class="step-icon"><i class="fa-solid fa-palette"></i></span>
         <span class="step-num">Step 02</span>
-        <h3>Pick a vibe</h3>
-        <p>Choose from <strong>75 themes</strong> — Claude flagship through Bauhaus, vaporwave, art deco, glassmorphism, broadsheet, and more. Same Deck JSON, completely different look. Override anytime without rewriting content.</p>
+        <h3>Keep the default vibe</h3>
+        <p>Ship with a strong starter theme. Swap later with one <span class="inline-code">"theme"</span> field — same Deck JSON, seventy-five looks when you want them. No redesign pass required.</p>
       </div>
       <div class="step">
         <span class="step-icon"><i class="fa-regular fa-circle-check"></i></span>
         <span class="step-num">Step 03</span>
-        <h3>Get a deck</h3>
-        <p>A single, self-contained HTML file lands in your project — or export native, editable PowerPoint for Keynote and Google Slides. Open HTML in any browser with no server or build step. Share either format as an attachment or drop it into Notion.</p>
+        <h3>Get a deck you own</h3>
+        <p>A single self-contained HTML file — or native, editable PowerPoint for Keynote and Google Slides. No server, no build step, no platform lock-in.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── START (activation) ──────────────────────────────────────────────────── -->
+<section id="start">
+  <div class="container">
+    <span class="eyebrow">Start</span>
+    <h2>Pick your agent. Copy one command.</h2>
+    <p class="section-lead">
+      Default path: install the skill where you already work. Prefer zero install?
+      <a href="studio/?example=briefing-signal&fresh=1">Open Studio</a> and generate in the browser.
+    </p>
+
+    <div class="start-rail" data-start-rail>
+      <p class="start-rail-label">Your agent</p>
+      <div class="agent-chip-row" role="tablist" aria-label="Choose agent">
+        <button type="button" class="agent-chip active" data-agent="claude-code" role="tab" aria-selected="true">Claude Code</button>
+        <button type="button" class="agent-chip" data-agent="cursor" role="tab" aria-selected="false">Cursor</button>
+        <button type="button" class="agent-chip" data-agent="copilot" role="tab" aria-selected="false">Copilot</button>
+        <button type="button" class="agent-chip" data-agent="codex" role="tab" aria-selected="false">Codex</button>
+        <button type="button" class="agent-chip" data-agent="gemini-cli" role="tab" aria-selected="false">Gemini CLI</button>
+      </div>
+      <div class="start-cmd">
+        <pre id="start-cmd-line"><span class="cmd">npx @presentation-md/install claude-code</span></pre>
+        <button type="button" class="btn-copy" id="start-copy" data-cmd="npx @presentation-md/install claude-code">Copy</button>
+      </div>
+      <p class="start-rail-hint">
+        Restart the agent, then ask: “Build a 10-slide pitch deck from these notes…”
+        Full vs lite and CLI details live in <a href="#install">Install</a>.
+        Agent guides: <a href="/for/claude-code">Claude Code</a> ·
+        <a href="/for/cursor">Cursor</a> ·
+        <a href="/for/copilot">Copilot</a> ·
+        <a href="/for/codex">Codex</a> ·
+        <a href="/for/gemini-cli">Gemini CLI</a>.
+      </p>
     </div>
   </div>
 </section>
@@ -1430,13 +1605,13 @@
 <section id="themes">
   <div class="container">
     <span class="eyebrow">Themes</span>
-    <h2>Seventy-five vibes. One JSON field.</h2>
+    <h2>Popular starters first. Full library when you need it.</h2>
     <p class="section-lead">
       Swap the entire look of a deck by changing a single <span class="inline-code">"theme"</span> key.
       Each theme ships a distinct <strong>surface profile</strong> — not just colors, but background treatment,
-      decor, and motion. Full frontend-slides bold-template-pack coverage (34 systems) plus STYLE_PRESETS and
-      gallery-craft originals. Install more with <span class="inline-code">npm i @presentation-md/theme-&lt;name&gt;</span>.
-      Agents call <span class="inline-code">preview_themes</span> to render live theme previews before you commit. Live craft cards below — toggle <strong>Title</strong> / <strong>Bento</strong> / <strong>Comparison</strong> to judge cover vs body craft (progressive disclosure that beats title-only galleries). Open any preview for the full surface.
+      decor, and motion. Default filter is <strong>Popular</strong> so you are not choosing among seventy-five at once.
+      Install more with <span class="inline-code">npm i @presentation-md/theme-&lt;name&gt;</span>.
+      Agents call <span class="inline-code">preview_themes</span> before you commit. Toggle <strong>Title</strong> / <strong>Bento</strong> / <strong>Comparison</strong> to judge cover vs body craft.
     </p>
     <div class="theme-preview-crop-bar" role="toolbar" aria-label="Preview crop depth">
       <span class="filter-label">Judge</span>
@@ -1594,8 +1769,8 @@
 
     <div class="theme-filter-bar" id="theme-filters" role="toolbar" aria-label="Filter themes by mood">
       <span class="filter-label">Browse</span>
-      <button type="button" class="theme-filter-chip active" data-filter="all">All 75</button>
-      <button type="button" class="theme-filter-chip" data-filter="popular">Popular</button>
+      <button type="button" class="theme-filter-chip" data-filter="all">All 75</button>
+      <button type="button" class="theme-filter-chip active" data-filter="popular">Popular</button>
       <button type="button" class="theme-filter-chip" data-filter="dark">Dark</button>
       <button type="button" class="theme-filter-chip" data-filter="light">Light</button>
       <button type="button" class="theme-filter-chip" data-filter="editorial">Editorial</button>
@@ -2998,8 +3173,8 @@
 <section id="gallery">
   <div class="container">
     <span class="eyebrow">Gallery</span>
-    <h2>The stunning twenty-five. Plus fifty more proofs.</h2>
-    <p class="section-lead">Handcrafted flagships set the craft ceiling. Schema-rendered siblings lead with the same twenty-five — then the rest of the theme library. Studio-editable, PPTX-exportable, competitive on first glance.</p>
+    <h2>Flagship craft. Then the rest of the library.</h2>
+    <p class="section-lead">Handcrafted flagships set the craft ceiling. Schema-rendered siblings follow — Studio-editable, PPTX-exportable. Start from the proofs below; browse themes when you need a different vibe.</p>
 
     <div class="structured-proof" style="margin:28px 0 8px;padding:22px 22px 8px;border:1.5px solid color-mix(in srgb, var(--ink) 14%, transparent);border-radius:10px;background:color-mix(in srgb, var(--paper2) 55%, white)">
       <span class="eyebrow">Stunning twenty-five · then full coverage</span>
@@ -4313,16 +4488,15 @@
 <section id="compare">
   <div class="container">
     <span class="eyebrow">Why presentation-md</span>
-    <h2>Discovery energy of frontend-slides.<br>Structured power they can't match.</h2>
+    <h2>Coming from frontend-slides?<br>Keep the discovery. Add the product layer.</h2>
     <p class="section-lead">
       <a href="https://github.com/zarazhangrui/frontend-slides" target="_blank" rel="noopener">frontend-slides</a>
-      nailed live style previews and bold design systems.
-      presentation-md matches that show-don't-tell workflow — then wins on what a skill-only repo cannot:
-      <strong>75 schema-validated theme proofs</strong>, Studio Title/Bento/Compare <strong>shared-iframe shot strips</strong> (pick-3 + Generate + Example · scroll-crop densified) with Compare-3 theme bridge,
-      asymmetric layout craft, native PowerPoint round-trip, MCP tools (pick-3 auto-layouts), and a browser Studio.
-      Full write-ups: <a href="/vs/frontend-slides">vs frontend-slides</a>,
-      <a href="/vs/claude-design">vs Claude Design</a>,
-      <a href="/vs/md-slides">vs md-slides</a>.
+      set the bar for live style previews and bold agent aesthetics.
+      You do not have to abandon that show-don’t-tell habit — presentation-md matches the discovery workflow,
+      then adds what a skill-only repo cannot: schema-validated Deck JSON, native PowerPoint round-trip,
+      MCP tools, and a browser Studio. Honest write-up:
+      <a href="/vs/frontend-slides">vs frontend-slides</a>
+      · <a href="/vs/">all comparisons</a>.
     </p>
 
     <div class="compare-live" aria-label="Same schema path, three themes">
@@ -4359,12 +4533,12 @@
       <div class="step">
         <span class="step-icon"><i class="fa-solid fa-eye"></i></span>
         <h3>Same discovery UX</h3>
-        <p><span class="inline-code">preview_themes</span> renders live HTML previews before you lock a vibe — title by default, or <span class="inline-code">mode: "layouts"</span> for a multi-slide craft bake. Mandatory in the skill, not optional.</p>
+        <p><span class="inline-code">preview_themes</span> renders live HTML before you lock a vibe — title by default, or multi-slide craft bake. Mandatory in the skill, not optional.</p>
       </div>
       <div class="step">
         <span class="step-icon"><i class="fa-solid fa-file-code"></i></span>
         <h3>Editable spec, not opaque HTML</h3>
-        <p>Agents diff one slide, swap themes with <span class="inline-code">apply_theme</span>, validate with <span class="inline-code">audit_deck</span>. Re-render anytime.</p>
+        <p>Agents diff one slide, swap themes with <span class="inline-code">apply_theme</span>, validate with <span class="inline-code">audit_deck</span>. Re-render anytime — lower switch regret.</p>
       </div>
       <div class="step">
         <span class="step-icon"><i class="fa-solid fa-file-powerpoint"></i></span>
@@ -4374,7 +4548,7 @@
       <div class="step">
         <span class="step-icon"><i class="fa-solid fa-robot"></i></span>
         <h3>Any agent, not just Claude</h3>
-        <p>One <span class="inline-code">npx @presentation-md/install</span> for Claude Code, Cursor, Codex, Gemini CLI, and Copilot — with 14 MCP tools.</p>
+        <p>One <span class="inline-code">npx @presentation-md/install</span> for Claude Code, Cursor, Codex, Gemini CLI, and Copilot — with typed MCP tools.</p>
       </div>
     </div>
   </div>
@@ -4443,13 +4617,11 @@
     <span class="eyebrow">Install</span>
     <h2>One command per agent.</h2>
     <p class="section-lead">
-      The <span class="inline-code">@presentation-md/install</span> CLI copies the skill files
-      to the right place for each agent. Full mode also registers the MCP server so tools like
+      Already copied a command from <a href="#start">Start</a>? Jump to the matching tab for lite mode and post-install tips.
+      The <span class="inline-code">@presentation-md/install</span> CLI copies skill files to the right place.
+      Full mode also registers the MCP server so tools like
       <span class="inline-code">render_deck</span>, <span class="inline-code">audit_deck</span>,
-      <span class="inline-code">export_deck</span>, <span class="inline-code">list_themes</span>,
-      <span class="inline-code">import_pptx</span>, and <span class="inline-code">import_brand_theme</span>
-      are available in-context. Copilot writes to
-      <span class="inline-code">.github/copilot-instructions.md</span> in your project root.
+      and <span class="inline-code">export_deck</span> are available in-context.
     </p>
 
     <div class="install-tabs">
@@ -4536,11 +4708,10 @@
     </div>
 
     <div class="install-note">
-      <strong>Full vs lite.</strong> Full mode registers the MCP server, which gives the agent eight
-      structured tools for deterministic, re-renderable deck generation (render, export, audit,
-      themes, PPTX import, brand import). Lite mode copies the skill
-      definition only — the agent still works but falls back to the direct-HTML path (hand-written
-      HTML with internal CSS). Both produce the same self-contained output file.
+      <strong>Full vs lite.</strong> Full mode registers the MCP server for deterministic, re-renderable deck generation.
+      Lite mode copies the skill definition only — the agent still works but falls back to the direct-HTML path.
+      Both produce the same self-contained output file. Prefer full unless you have a reason not to.
+      Prefer zero install? <a href="studio/?example=briefing-signal&fresh=1">Try Studio first</a>.
     </div>
   </div>
 </section>
@@ -4588,9 +4759,23 @@
       </div>
 
       <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name" style="font-size:1rem;font-weight:700;margin-bottom:6px">I’m on frontend-slides — why switch?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">You don’t have to abandon discovery. presentation-md keeps live theme previews, then adds schema-validated Deck JSON, native editable PowerPoint, MCP tools, and a browser Studio — so decks survive re-theme, audit, and Office handoff. See the honest comparison: <a href="/vs/frontend-slides">vs frontend-slides</a>. Or try Studio with zero install first.</p>
+        </div>
+      </div>
+
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name" style="font-size:1rem;font-weight:700;margin-bottom:6px">Do I have to pick a theme before I start?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">No. Keep the default vibe, ship the deck, then swap themes later with one JSON field. The Popular filter on this site is the recommended starting set — browse All 75 only when you want options.</p>
+        </div>
+      </div>
+
+      <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
         <h3 itemprop="name" style="font-size:1rem;font-weight:700;margin-bottom:6px">How is this different from Gamma, Pitch, Canva, Tome, or Beautiful.ai?</h3>
         <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-          <p itemprop="text">frontend-slides is a discovery-first HTML prompt pack; Claude Design is Anthropic Labs' subscription canvas; Gamma, Pitch, Canva, Tome, and Beautiful.ai are web apps separate from your coding workflow. presentation-md runs inside the AI agent you already use and produces portable HTML + PPTX you own — with schema validation, 75 theme proofs, MCP tools, and Studio. See: <a href="/vs/frontend-slides">vs frontend-slides</a>, <a href="/vs/claude-design">vs Claude Design</a>, <a href="/vs/md-slides">vs md-slides</a>, <a href="/vs/beautiful-ai">vs Beautiful.ai</a>, <a href="/vs/gamma">vs Gamma</a>, <a href="/vs/pitch">vs Pitch</a>, <a href="/vs/canva">vs Canva</a>, <a href="/vs/tome">vs Tome</a>, or the full <a href="/vs/">vs index</a>.</p>
+          <p itemprop="text">frontend-slides is a discovery-first HTML prompt pack; Claude Design is Anthropic Labs' subscription canvas; Gamma, Pitch, Canva, Tome, and Beautiful.ai are web apps separate from your coding workflow. presentation-md runs inside the AI agent you already use and produces portable HTML + PPTX you own — with schema validation, theme proofs, MCP tools, and Studio. See: <a href="/vs/frontend-slides">vs frontend-slides</a>, <a href="/vs/claude-design">vs Claude Design</a>, <a href="/vs/md-slides">vs md-slides</a>, <a href="/vs/beautiful-ai">vs Beautiful.ai</a>, <a href="/vs/gamma">vs Gamma</a>, <a href="/vs/pitch">vs Pitch</a>, <a href="/vs/canva">vs Canva</a>, <a href="/vs/tome">vs Tome</a>, or the full <a href="/vs/">vs index</a>.</p>
         </div>
       </div>
 
@@ -4607,6 +4792,10 @@
       <span>presentation-md · core@1.31.0</span>
     </div>
     <div class="footer-right">
+      <a href="/#start">Install</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/vs/">Compare</a>
+      <a href="/for/cursor">For Cursor</a>
       <a href="/privacy">Privacy</a>
       <a href="/terms">Terms</a>
       <a href="https://github.com/isatimur/presentation-md" target="_blank" rel="noopener">
@@ -4699,7 +4888,7 @@
     });
   }
 
-  apply('all');
+  apply('popular');
   attachBrush('.themes-grid .theme-card');
   attachBrush('.gallery-card');
 })();
@@ -4711,19 +4900,82 @@
     const tabs = document.querySelectorAll('.tab-btn');
     const panels = document.querySelectorAll('.tab-panel');
 
+    function activateTab(target) {
+      if (!target) return;
+      tabs.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-tab') === target); });
+      panels.forEach(function (p) { p.classList.toggle('active', p.id === 'tab-' + target); });
+    }
+
     tabs.forEach(function (btn) {
       btn.addEventListener('click', function () {
-        const target = btn.getAttribute('data-tab');
-
-        tabs.forEach(function (b) { b.classList.remove('active'); });
-        panels.forEach(function (p) { p.classList.remove('active'); });
-
-        btn.classList.add('active');
-        const panel = document.getElementById('tab-' + target);
-        if (panel) panel.classList.add('active');
+        activateTab(btn.getAttribute('data-tab'));
       });
     });
+
+    window.__pmdActivateInstallTab = activateTab;
   })();
+</script>
+
+<script>
+(function () {
+  var CMDS = {
+    'claude-code': 'npx @presentation-md/install claude-code',
+    'cursor': 'npx @presentation-md/install cursor',
+    'copilot': 'npx @presentation-md/install copilot',
+    'codex': 'npx @presentation-md/install codex',
+    'gemini-cli': 'npx @presentation-md/install gemini-cli'
+  };
+  var rail = document.querySelector('[data-start-rail]');
+  if (!rail) return;
+  var line = document.getElementById('start-cmd-line');
+  var copyBtn = document.getElementById('start-copy');
+  var chips = rail.querySelectorAll('.agent-chip');
+
+  function setAgent(agent) {
+    if (!CMDS[agent]) return;
+    chips.forEach(function (c) {
+      var on = c.getAttribute('data-agent') === agent;
+      c.classList.toggle('active', on);
+      c.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    line.textContent = '';
+    var span = document.createElement('span');
+    span.className = 'cmd';
+    span.textContent = CMDS[agent];
+    line.appendChild(span);
+    copyBtn.setAttribute('data-cmd', CMDS[agent]);
+    copyBtn.textContent = 'Copy';
+    copyBtn.classList.remove('copied');
+    if (typeof window.__pmdActivateInstallTab === 'function') {
+      window.__pmdActivateInstallTab(agent);
+    }
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      setAgent(chip.getAttribute('data-agent'));
+    });
+  });
+
+  copyBtn.addEventListener('click', function () {
+    var cmd = copyBtn.getAttribute('data-cmd') || '';
+    function done() {
+      copyBtn.textContent = 'Copied';
+      copyBtn.classList.add('copied');
+      setTimeout(function () {
+        copyBtn.textContent = 'Copy';
+        copyBtn.classList.remove('copied');
+      }, 1600);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(cmd).then(done).catch(function () {
+        window.prompt('Copy command:', cmd);
+      });
+    } else {
+      window.prompt('Copy command:', cmd);
+    }
+  });
+})();
 </script>
 
 <script>

@@ -163,6 +163,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://presentation-md.vercel.app/pricing</loc>
+    <lastmod>2026-08-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://presentation-md.vercel.app/privacy</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>yearly</changefreq>

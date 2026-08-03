@@ -32,6 +32,12 @@ presentation-md gives AI agents a schema-validated workflow for creating slide d
 ## Pricing
 
 Free. MIT licensed. No paid tier, no account required.
+https://presentation-md.vercel.app/pricing
+
+## Start here
+
+Install rail (pick agent → copy command): https://presentation-md.vercel.app/#start
+Zero-install Studio: https://presentation-md.vercel.app/studio/?example=briefing-signal&fresh=1
 
 ## Gallery
 

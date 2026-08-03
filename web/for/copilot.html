@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>presentation-md for GitHub Copilot — AI slide deck generator</title>
-  <meta name="description" content="Generate polished HTML slide decks from plain notes inside GitHub Copilot — installs per project." />
+  <meta name="description" content="Generate polished HTML slide decks from plain notes inside GitHub Copilot — one install, schema-validated Deck JSON, editable PowerPoint export." />
   <link rel="canonical" href="https://presentation-md.vercel.app/for/copilot" />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#238636" />
+  <meta name="theme-color" content="#0B1220" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="shortcut icon" href="/favicon.ico" />
@@ -16,98 +16,84 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="presentation-md" />
   <meta property="og:url" content="https://presentation-md.vercel.app/for/copilot" />
-  <meta property="og:title" content="presentation-md for GitHub Copilot — AI slide deck generator" />
-  <meta property="og:description" content="Generate polished HTML slide decks from plain notes inside GitHub Copilot — installs per project." />
+  <meta property="og:title" content="presentation-md for GitHub Copilot" />
+  <meta property="og:description" content="Notes in → editable deck out, inside GitHub Copilot. Free MIT skill + MCP." />
   <meta property="og:image" content="https://presentation-md.vercel.app/og-image.png" />
-  <meta property="og:image:alt" content="presentation-md for GitHub Copilot — AI slide deck generator" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@isatimur" />
-  <meta name="twitter:creator" content="@isatimur" />
-  <meta name="twitter:title" content="presentation-md for GitHub Copilot — AI slide deck generator" />
-  <meta name="twitter:description" content="Generate polished HTML slide decks from plain notes inside GitHub Copilot — installs per project." />
+  <meta name="twitter:title" content="presentation-md for GitHub Copilot" />
+  <meta name="twitter:description" content="Notes in → editable deck out, inside GitHub Copilot." />
   <meta name="twitter:image" content="https://presentation-md.vercel.app/og-image.png" />
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "presentation-md",
-    "description": "Generate polished HTML slide decks from plain notes inside GitHub Copilot — installs per project.",
-    "applicationCategory": "DeveloperApplication",
-    "applicationSubCategory": "AI Presentation Generator",
-    "operatingSystem": "Any",
-    "url": "https://presentation-md.vercel.app/for/copilot",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "author": { "@type": "Person", "name": "Timur Isachenko", "url": "https://github.com/isatimur/presentation-md" },
-    "downloadUrl": "https://www.npmjs.com/package/@presentation-md/install",
-    "softwareVersion": "1.28.0"
-  }
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --paper: #F4EDE0; --ink: #2A2622; --ink-light: #6B6259;
-      --rule: rgba(42,38,34,0.12); --accent: #238636;
-      --mono: 'JetBrains Mono', monospace; --sans: 'Inter', system-ui, sans-serif;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --paper:#E8EEF4;--paper2:#DDE5EE;--ink:#0B1220;--ink-light:#4A5568;
+      --rule:rgba(11,18,32,.12);--accent:#FF3B1F;--stage:#0B1220;
+      --display:'Syne','Avenir Next',sans-serif;
+      --sans:'DM Sans','Avenir Next',sans-serif;
+      --mono:'IBM Plex Mono',ui-monospace,monospace;
     }
-    html { scroll-behavior: smooth; }
-    body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.65; }
-    a { color: var(--accent); }
-    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
-    header { background: var(--ink); color: #fff; padding: 64px 0 72px; }
-    header .eyebrow { font-size: 0.72rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.45); display: block; margin-bottom: 14px; }
-    header h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 16px; }
-    header h1 span { color: #238636; }
-    header p { font-size: 1.1rem; color: rgba(255,255,255,.65); max-width: 600px; }
-    nav-back { display: block; margin-bottom: 32px; }
-    .back-link { font-size: 0.82rem; color: rgba(255,255,255,.45); text-decoration: none; }
-    .back-link:hover { color: rgba(255,255,255,.8); }
-    section { padding: 56px 0; border-bottom: 1px solid var(--rule); }
-    section:last-of-type { border-bottom: none; }
-    h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.02em; }
-    h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
-    p { margin-bottom: 14px; color: var(--ink); }
-    pre { background: var(--ink); color: #f4ede0; padding: 20px 24px; border-radius: 10px; font-family: var(--mono); font-size: 0.88rem; overflow-x: auto; margin: 20px 0; }
-    code { font-family: var(--mono); font-size: 0.88em; background: rgba(42,38,34,.07); padding: 2px 6px; border-radius: 4px; }
-    pre code { background: none; padding: 0; font-size: inherit; }
-    .badge { display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 6px; background: rgba(42,38,34,.06); color: var(--ink-light); margin-right: 8px; margin-bottom: 8px; }
-    .badge.accent { background: #23863618; color: #238636; }
-    .steps { counter-reset: step; display: grid; gap: 24px; margin-top: 8px; }
-    .step { display: grid; grid-template-columns: 36px 1fr; gap: 16px; align-items: start; }
-    .step-num { width: 36px; height: 36px; border-radius: 50%; background: #23863618; color: #238636; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
-    .gallery-link { display: inline-block; margin-top: 20px; padding: 12px 24px; background: #238636; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.95rem; }
-    .gallery-link:hover { opacity: .88; }
-    .agent-list { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
-    footer { padding: 32px 0; color: var(--ink-light); font-size: 0.85rem; }
-    footer a { color: var(--ink-light); }
+    body{background:linear-gradient(180deg,#F3F6FA 0%,var(--paper) 40%,#E2E9F1 100%);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65}
+    a{color:var(--accent)}
+    .container{max-width:760px;margin:0 auto;padding:0 24px}
+    header{
+      background:
+        radial-gradient(ellipse 80% 60% at 12% 0%, rgba(255,59,31,.22), transparent 55%),
+        radial-gradient(ellipse 50% 40% at 90% 20%, rgba(13,148,136,.12), transparent 50%),
+        var(--stage);
+      color:#fff;padding:56px 0 64px;
+    }
+    .back-link{font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;color:rgba(255,255,255,.45);text-decoration:none;display:inline-block;margin-bottom:28px}
+    .back-link:hover{color:#fff}
+    .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45);display:block;margin-bottom:14px}
+    header h1{font-family:var(--display);font-size:clamp(1.9rem,4.5vw,2.85rem);font-weight:800;letter-spacing:-.035em;line-height:1.08;margin-bottom:14px}
+    header h1 em{font-style:normal;color:#FF8A75}
+    header p{color:rgba(255,255,255,.65);max-width:38ch;font-size:1.05rem}
+    .facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+    .fact{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;border:1px solid rgba(255,255,255,.18);border-radius:4px;color:rgba(255,255,255,.75)}
+    section{padding:48px 0;border-bottom:1px solid var(--rule)}
+    section:last-of-type{border-bottom:none}
+    h2{font-family:var(--display);font-size:1.4rem;font-weight:700;letter-spacing:-.02em;margin-bottom:14px}
+    h3{font-size:1.02rem;font-weight:650;margin-bottom:6px}
+    p{margin-bottom:12px}
+    pre{background:var(--ink);color:#E8EEF4;padding:18px 22px;border-radius:6px;font-family:var(--mono);font-size:.88rem;overflow-x:auto;margin:14px 0}
+    code{font-family:var(--mono);font-size:.88em;background:rgba(11,18,32,.06);padding:2px 6px;border-radius:4px}
+    pre code{background:none;padding:0}
+    .steps{display:grid;gap:22px;margin-top:8px}
+    .step{display:grid;grid-template-columns:36px 1fr;gap:14px}
+    .step-num{width:36px;height:36px;border-radius:4px;background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);font-family:var(--mono);font-weight:600;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+    .cta{display:inline-block;margin-top:8px;padding:12px 22px;background:var(--accent);color:#fff;text-decoration:none;border-radius:4px;font-weight:650}
+    .cta:hover{background:color-mix(in srgb,var(--accent) 88%,#000)}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .chip{font-family:var(--mono);font-size:12px;padding:8px 12px;border:1px solid var(--rule);border-radius:4px;text-decoration:none;color:var(--ink);background:color-mix(in srgb,var(--paper2) 70%,white)}
+    .chip:hover{border-color:var(--ink)}
+    footer{padding:28px 0 40px;color:var(--ink-light);font-size:.85rem}
+    footer a{color:var(--ink-light)}
   </style>
 </head>
 <body>
-
 <header>
   <div class="container">
     <a href="/" class="back-link">← presentation-md</a>
-    <br><br>
-    <span class="eyebrow">For GitHub Copilot · by GitHub / Microsoft</span>
-    <h1>Generate slide decks<br>inside <span>GitHub Copilot</span>.</h1>
-    <p>Deck generation in Copilot Chat — lives in your project, not in another tab.</p>
+    <span class="eyebrow">For GitHub Copilot · GitHub</span>
+    <h1>Generate slide decks<br>inside <em>Copilot</em>.</h1>
+    <p>One project install. Ask Copilot Chat for a deck from notes.</p>
+    <div class="facts">
+      <span class="fact">Free · MIT</span>
+      <span class="fact">One command</span>
+      <span class="fact">HTML + PPTX</span>
+    </div>
   </div>
 </header>
 
 <section>
   <div class="container">
-    <span class="badge accent">Free · MIT</span>
-    <span class="badge accent">One command</span>
-    <span class="badge accent">Self-contained HTML output</span>
-    <br><br>
     <h2>What it does</h2>
-    <p>presentation-md gives GitHub Copilot a schema-validated workflow for authoring slide decks. You describe what you want in plain language — or paste rough notes — and GitHub Copilot fills a structured Deck JSON spec. A renderer converts that spec into a single, self-contained HTML file: open in any browser, no hosting, no build step.</p>
-    <p>Full mode writes <code>.vscode/mcp.json</code> so Copilot can call MCP tools directly in agent mode.</p>
-    <p>Output is portable. You own the file — email it, drop it on a CDN, or open it locally. It doesn't live on any platform.</p>
+    <p>presentation-md gives GitHub Copilot a schema-validated workflow for authoring slide decks. Paste rough notes — the agent fills a Deck JSON spec. A renderer turns that into a self-contained HTML file you own: no hosting, no build step.</p>
+    <p>Full mode also writes <code>.vscode/mcp.json</code> for Copilot MCP tool calls.</p>
+    <p>Export native, editable PowerPoint for Keynote and Google Slides — or open the browser Studio to tweak without leaving the page.</p>
   </div>
 </section>
 
@@ -115,51 +101,50 @@
   <div class="container">
     <h2>Install</h2>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><div>
-        <h3>Run the installer</h3>
+      <div class="step"><div class="step-num">01</div><div>
+        <h3>Copy one command</h3>
         <pre><code>npx @presentation-md/install copilot</code></pre>
-        <p>Or lite mode (skill only, no MCP server):</p>
+        <p>Lite mode (skill only, no MCP):</p>
         <pre><code>npx @presentation-md/install copilot lite</code></pre>
-        <p>Files land in: <code>.github/copilot-instructions.md (in your project root)</code></p>
+        <p>Lands at: <code>.github/copilot-instructions.md (project root) · optional .vscode/mcp.json</code></p>
+        
       </div></div>
-      <div class="step"><div class="step-num">2</div><div>
+      <div class="step"><div class="step-num">02</div><div>
         <h3>Restart GitHub Copilot</h3>
-        <p>Reload VS Code, open Copilot Chat, and ask: <em>"Build a sales deck from these notes…"</em></p>
+        <p>Reload the agent, then ask for a deck from notes.</p>
       </div></div>
-      <div class="step"><div class="step-num">3</div><div>
+      <div class="step"><div class="step-num">03</div><div>
         <h3>Ask for a deck</h3>
         <pre><code>Build a 10-slide pitch deck from these notes:
 [paste your notes here]</code></pre>
-        <p>The agent writes the Deck JSON spec, renders it, and saves the HTML file to your working directory.</p>
       </div></div>
     </div>
+    <p style="margin-top:20px"><a class="cta" href="/#start">Back to site install →</a></p>
   </div>
 </section>
 
 <section>
   <div class="container">
-    <h2>See it in the gallery</h2>
-    <p>75 structured theme proofs — pitch decks, sales proposals, product launches, investor reports, keynotes — each a different visual identity. All generated with the same skill.</p>
-    <a href="https://presentation-md.vercel.app/#gallery" class="gallery-link">Browse the gallery →</a>
+    <h2>See the craft</h2>
+    <p>Flagship proofs and seventy-five themes — same schema path. Don’t pick among all of them up front; start, then swap.</p>
+    <a class="cta" href="/#gallery">Browse the gallery →</a>
   </div>
 </section>
 
 <section>
   <div class="container">
     <h2>Also works in</h2>
-    <div class="agent-list">
-      <a href="/for/claude-code" class="badge">Claude Code</a><a href="/for/cursor" class="badge">Cursor</a><a href="/for/codex" class="badge">OpenAI Codex</a><a href="/for/gemini-cli" class="badge">Gemini CLI</a>
-    </div>
+    <div class="chips"><a href="/for/claude-code" class="chip">Claude Code</a><a href="/for/cursor" class="chip">Cursor</a><a href="/for/codex" class="chip">OpenAI Codex</a><a href="/for/gemini-cli" class="chip">Gemini CLI</a></div>
   </div>
 </section>
 
 <footer>
   <div class="container">
-    <a href="/">presentation-md</a> · MIT License ·
+    <a href="/">presentation-md</a> · MIT ·
+    <a href="/pricing">Pricing</a> ·
     <a href="https://github.com/isatimur/presentation-md" target="_blank" rel="noopener">GitHub</a> ·
     <a href="https://www.npmjs.com/package/@presentation-md/install" target="_blank" rel="noopener">npm</a>
   </div>
 </footer>
-
 </body>
 </html>
