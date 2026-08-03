@@ -384,7 +384,7 @@ Fill gaps with intelligent defaults (`theme-shortlists.json` / `list_themes` wit
 
 ## MCP Tools
 
-Thirteen tools via `@presentation-md/mcp-server` (not the deprecated `@presentation-skill-pack/mcp-server` stub — it only redirects). Restart the client after switching packages.
+Fourteen tools via `@presentation-md/mcp-server` (not the deprecated `@presentation-skill-pack/mcp-server` stub — it only redirects). Restart the client after switching packages.
 
 | Tool | Use it to |
 |------|-----------|
@@ -396,6 +396,7 @@ Thirteen tools via `@presentation-md/mcp-server` (not the deprecated `@presentat
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
 | `scaffold_deck` | Scaffold a recipe skeleton (pitch / launch / wrap / paper / …) with craft floors pre-wired — fill copy, then audit |
 | `share_deck_link` | Encode Deck JSON → Studio `?d=` URL (Copy link parity) for editable user handoff |
+| `deploy_deck` | Opt-in Vercel preview via `deploy.sh` — **dry-run unless `confirm:true`** after human approval; `prod` needs `confirm_prod` |
 | `preview_themes` | Render 1–3 theme HTML previews; **inline PNG screenshots** on by default; `studio_share_url` for the exact bake; pass `json` for Studio **My deck** restyle (content-true) + optional `slide_index`; `mode: "layouts"` for multi-slide craft bake |
 | CLI `--preview-compare` | Same pick-3 craft bake + discovery PNGs without MCP: `presentation-md-render --preview-compare a,b,c` |
 | `import_pptx` | Import a `.pptx` into deck JSON (see `references/pptx-import.md`) |
@@ -447,7 +448,7 @@ Or call the `import_pptx` MCP tool. Then review layouts, adjust copy, swap theme
 Once a deck is done, it can leave the browser two ways. Both scripts live inside *this skill's own directory*, not the user's project — resolve `<skill-dir>` to wherever this `SKILL.md` is installed (e.g. `~/.claude/skills/presentation-generator/` or the plugin's skill path) and invoke them from there, passing the deck's path as an argument:
 
 - **PDF** — MCP `export_deck` with `format: "pdf"`, CLI `presentation-md-render deck.json --format pdf -o deck.pdf`, Studio **Source ▾ → Download PDF** (local Studio: headless Chromium blob via `/api/export-pdf`, same `@page` 16:9 as MCP/CLI; static hosts: client raster; print dialog last resort), or `bash <skill-dir>/scripts/export-pdf.sh ./deck.html [./output.pdf]`. MCP/CLI render through headless Chromium's print pipeline (not screenshots): vector output, selectable text, one page per slide via the deck's own `@media print` rule. Installs Playwright on first run. Good for email, Slack, Notion, or printing.
-- **Live URL** — `bash <skill-dir>/scripts/deploy.sh ./deck.html` (or a deck directory). Deploys to Vercel and prints a shareable URL that works on any device. Defaults to a **preview** deployment, not production — pass `--prod` only once the human has confirmed it's fine to publish permanently. **Confirm with the human before running this**: it's an externally-visible action, and decks are often confidential drafts. Requires `npx vercel login` once, interactively, beforehand. A single-file deck that references local images/fonts will be refused (they'd 404 once deployed) — inline them as `data:` URLs first, or deploy the deck's whole directory instead.
+- **Live URL** — MCP `deploy_deck` / CLI `presentation-md-render deck.html --deploy` (dry-run by default) or `bash <skill-dir>/scripts/deploy.sh ./deck.html` (or a deck directory). Deploys to Vercel and prints a shareable URL that works on any device. Defaults to a **preview** deployment, not production — pass `--prod` / `prod:true` only once the human has confirmed it's fine to publish permanently. **Confirm with the human before running this**: it's an externally-visible action, and decks are often confidential drafts. MCP/CLI require `confirm:true` / `--confirm-deploy` to actually invoke deploy.sh (otherwise dry-run only). Requires `npx vercel login` once, interactively, beforehand. A single-file deck that references local images/fonts will be refused (they'd 404 once deployed) — inline them as `data:` URLs first, or deploy the deck's whole directory instead.
 
 For native, editable PowerPoint, use the Studio export mentioned above instead — it's a different fidelity trade-off (editable shapes vs. exact CSS rendering).
 

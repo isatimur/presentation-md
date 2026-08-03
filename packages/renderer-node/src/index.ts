@@ -40,6 +40,12 @@ export {
   analyzeHtmlDeck,
   type MetricFlag,
 } from "./html-metrics.js";
+export {
+  deployDeck,
+  resolveDeployScript,
+  type DeployDeckOptions,
+  type DeployDeckResult,
+} from "./deploy.js";
 
 function escapeAttr(value: string): string {
   return value

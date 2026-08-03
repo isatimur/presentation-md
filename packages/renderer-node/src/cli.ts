@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, extname, join, resolve } from "node:path";
 import { Command } from "commander";
 import { renderDeck, renderDeckPptx, renderDeckPdf, getBundledThemesDir, analyzeHtmlDeck, screenshotSlides } from "./index.js";
+import { deployDeck } from "./deploy.js";
 import { discoverInstalledThemes, markdownToDeck, deckToMarkdown, notesHandoutTxt, notesHandoutVtt, scaffoldDeck, listScaffoldPurposes, resolveScaffoldPurpose, auditCraft, repairCraft, remorphDensity, studioShareLink, isShareDeck, buildGenerateDeckPrompt, judgeDeckJson, validateDeckJson, buildThemesDiscoveryList, THEME_BROWSE_FILTERS, loadThemeShortlists, sortShortlistsForDiscovery, type ScaffoldPurpose, type DensityMode } from "@presentation-md/core";
 import { assertZipArchiveSafe, pptxToDeck } from "@presentation-md/export/import";
 import {
@@ -168,6 +169,18 @@ export function buildProgram(): Command {
       "--judge-skip-screenshots",
       "with --judge-tier t2, run HTML metrics only (skip Chrome shots)"
     )
+    .option(
+      "--deploy",
+      "wrap core deploy.sh for <deck.html|deck-dir> (dry-run unless --confirm-deploy; preview by default)"
+    )
+    .option(
+      "--confirm-deploy",
+      "with --deploy, actually invoke deploy.sh after human approval (externally visible)"
+    )
+    .option(
+      "--deploy-prod",
+      "with --deploy --confirm-deploy, pass --prod (permanent publish — requires explicit human OK)"
+    )
     .option("--validate", "validate only, do not render")
     .action(async (inputPath: string | undefined, options: {
       output?: string;
@@ -199,6 +212,9 @@ export function buildProgram(): Command {
       judgeTier?: string;
       judgeShotsDir?: string;
       judgeSkipScreenshots?: boolean;
+      deploy?: boolean;
+      confirmDeploy?: boolean;
+      deployProd?: boolean;
       previewCompare?: string;
       previewDir?: string;
       previewMode?: string;
@@ -207,6 +223,37 @@ export function buildProgram(): Command {
       previewShots?: boolean;
       validate?: boolean;
     }) => {
+      if (options.deploy) {
+        if (!inputPath) {
+          process.stderr.write(
+            "Error: --deploy requires a path to deck.html or a deck directory.\n"
+          );
+          process.exitCode = 1;
+          return;
+        }
+        const target = resolve(inputPath);
+        try {
+          const result = await deployDeck({
+            path: target,
+            prod: options.deployProd === true,
+            confirm: options.confirmDeploy === true,
+            confirmProd: options.deployProd === true && options.confirmDeploy === true,
+          });
+          if (options.json) {
+            process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+          } else {
+            process.stdout.write(`${result.message}\n`);
+            if (result.hint) process.stdout.write(`${result.hint}\n`);
+            if (result.url) process.stdout.write(`${result.url}\n`);
+          }
+          if (result.dry_run) process.exitCode = 0;
+        } catch (err) {
+          process.stderr.write(`Error: ${(err as Error).message}\n`);
+          process.exitCode = 1;
+        }
+        return;
+      }
+
       if (options.listBrowseFilters) {
         if (options.json) {
           process.stdout.write(`${JSON.stringify({ browse_filters: THEME_BROWSE_FILTERS }, null, 2)}\n`);

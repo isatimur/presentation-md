@@ -82,6 +82,9 @@ describe("buildProgram", () => {
         "--prompt-density",
         "--judge",
         "--judge-tier",
+        "--deploy",
+        "--confirm-deploy",
+        "--deploy-prod",
         "--preview-compare",
         "--preview-dir",
         "--preview-mode",
@@ -729,5 +732,23 @@ describe("presentation-md-render CLI flags", () => {
     expect(code).toBe(1);
     expect(stderr).toMatch(/t3/);
     expect(stderr).toMatch(/MCP/);
+  });
+
+  it("--deploy without --confirm-deploy is a dry-run (no remote)", async () => {
+    const dir = await tempDir();
+    const htmlPath = join(dir, "deck.html");
+    await writeFile(
+      htmlPath,
+      "<!doctype html><html><head><title>x</title></head><body><main class=\"deck\"><section class=\"slide\"><h1>Hi</h1></section></main></body></html>"
+    );
+    const { code, stdout, stderr } = await runCli(
+      ["--deploy", "--json", htmlPath],
+      { cwd: dir }
+    );
+    expect(stderr).not.toMatch(/^Error:/);
+    expect(code).toBe(0);
+    const parsed = JSON.parse(stdout) as { dry_run: boolean; message: string };
+    expect(parsed.dry_run).toBe(true);
+    expect(parsed.message).toMatch(/Dry-run/i);
   });
 });

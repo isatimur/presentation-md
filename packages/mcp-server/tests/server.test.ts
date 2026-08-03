@@ -17,9 +17,9 @@ const MINIMAL_VALID_DECK = {
 };
 
 describe("tool registry", () => {
-  it("registers all 13 MCP tools for client discovery", () => {
+  it("registers all 14 MCP tools for client discovery", () => {
     const tools = listToolDefinitions();
-    expect(tools).toHaveLength(13);
+    expect(tools).toHaveLength(14);
     expect(TOOL_NAMES).toEqual([
       "render_deck",
       "export_deck",
@@ -30,6 +30,7 @@ describe("tool registry", () => {
       "generate_deck_prompt",
       "scaffold_deck",
       "share_deck_link",
+      "deploy_deck",
       "import_brand_theme",
       "import_pptx",
       "import_markdown",
