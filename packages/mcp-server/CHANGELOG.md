@@ -1,5 +1,16 @@
 # @presentation-md/mcp-server
 
+## 1.32.10
+
+### Patch Changes
+
+- 8f61f82: Present speaker notes window (O) for dual-display presenting.
+
+  Studio Present and exported HTML chrome open a synced speaker popup (notes, timer/pace, up-next) so presenters can use a second screen without leaving the deck. Judge HTML metrics end the last slide at `</main>` so Present chrome/help is not counted as closing-slide wall-of-text.
+
+- Updated dependencies [8f61f82]
+  - @presentation-md/render@1.18.0
+
 ## 1.32.9
 
 ### Patch Changes
