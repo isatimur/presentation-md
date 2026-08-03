@@ -63,10 +63,11 @@ PowerPoint/Keynote/Google Slides → edit in the studio."**
   FAQ. Sequence the directory blitz (P3) to land with the launch for compounding signal.
 
 ## Execute-now (top items, this pass)
-1. **P0 positioning refresh** — README top + landing hero + meta/OG. *(starting now)*
-2. **P1 schema + meta** — FAQ/SoftwareApplication schema + sitemap `/studio`.
-Then checkpoint before the outward-facing P3/P4 (directory submissions + launch posting are
-publish-once actions that should be owner-approved).
+1. **P0 positioning refresh** — README top + landing hero + meta/OG. *(done in prior passes)*
+2. **P1 schema + meta** — FAQ/SoftwareApplication schema + sitemap `/studio`. *(done)*
+3. **P3/P4 launch + directories** — ship `.agents/launch/` pack, `docs/distribution/`, skills.sh.json, skill install matrix; owner completes ClawHub login + form submits. *(this pass)*
+
+Then checkpoint: post social drafts, run directory tracker week-1 batch, schedule PH after warm-up.
 
 ## Open inputs (from the owner — flagged in the context doc)
 - Monetization (free-only vs paid themes/hosted) → tilts messaging adoption-vs-revenue.

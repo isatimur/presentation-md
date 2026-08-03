@@ -14,8 +14,10 @@ presentation-md gives AI agents a schema-validated workflow for creating slide d
 ## Key facts
 
 - **License:** MIT (free, open source)
-- **Version:** 1.0.0 (npm `@presentation-md/*`; `core` latest is 1.0.1)
+- **Version:** npm `@presentation-md/*` (core latest tracks repo releases)
 - **Install:** `npx @presentation-md/install <agent>` — one command
+- **skills.sh:** `npx skills add isatimur/presentation-md --skill presentation-generator`
+- **Claude plugin:** `/plugin marketplace add isatimur/presentation-md` then `/plugin install presentation-md@presentation-md` → `/slides <brief>`
 - **Agents supported:** Claude Code, Cursor, GitHub Copilot, OpenAI Codex, Gemini CLI
 - **Output format:** Single self-contained HTML file (no external dependencies)
 - **Themes:** 75 vibes (`claude` + `default-tech` bundled; 73 more as `@presentation-md/theme-*`); brand import from URL/CSS
@@ -24,9 +26,10 @@ presentation-md gives AI agents a schema-validated workflow for creating slide d
 - **Import:** PPTX → Deck JSON; Markdown → Deck JSON; brand URL → theme
 - **Export:** HTML, editable `.pptx` (PowerPoint / Keynote / Google Slides)
 - **Studio:** Browser editor at https://presentation-md.vercel.app/studio
-- **npm:** `@presentation-md/install` and 12 other packages — https://www.npmjs.com/search?q=%40presentation-md
+- **npm:** `@presentation-md/install` and sibling packages — https://www.npmjs.com/search?q=%40presentation-md
 - **PyPI:** `presentation-md-render` + theme packages — https://pypi.org/search/?q=presentation-md
 - **GitHub:** https://github.com/isatimur/presentation-md
+- **Distribution:** https://github.com/isatimur/presentation-md/blob/main/docs/distribution/MARKETPLACES.md
 - **Author:** Timur Isachenko
 
 ## Pricing
@@ -47,20 +50,19 @@ https://presentation-md.vercel.app/#gallery
 ## Install commands
 
 ```
-# Claude Code
+# Recommended — skill + MCP for your agent
 npx @presentation-md/install claude-code
-
-# Cursor
 npx @presentation-md/install cursor
-
-# GitHub Copilot
 npx @presentation-md/install copilot
-
-# OpenAI Codex
 npx @presentation-md/install codex
-
-# Gemini CLI
 npx @presentation-md/install gemini-cli
+
+# Universal skills.sh
+npx skills add isatimur/presentation-md --skill presentation-generator
+
+# Claude Code plugin
+# /plugin marketplace add isatimur/presentation-md
+# /plugin install presentation-md@presentation-md
 ```
 
 ## CLI quick reference

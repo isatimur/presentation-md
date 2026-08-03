@@ -4788,6 +4788,10 @@
       Full mode also registers the MCP server so tools like
       <span class="inline-code">render_deck</span>, <span class="inline-code">audit_deck</span>,
       and <span class="inline-code">export_deck</span> are available in-context.
+      Also on <span class="inline-code">npx skills add isatimur/presentation-md</span> (skills.sh) and Claude
+      <span class="inline-code">/plugin marketplace add isatimur/presentation-md</span> — see
+      <a href="/for/claude-code">Claude Code</a> and
+      <a href="https://github.com/isatimur/presentation-md/blob/main/docs/distribution/INSTALL-MATRIX.md">install matrix</a>.
     </p>
 
     <div class="install-tabs">
@@ -4807,7 +4811,12 @@
 <span class="cmd">npx @presentation-md/install claude-code lite</span>
 
 <span class="comment"># after install: restart Claude Code, then ask —</span>
-<span class="comment"># "Build a 10-slide pitch deck from these notes: ..."</span></pre>
+<span class="comment"># "Build a 10-slide pitch deck from these notes: ..."</span>
+
+<span class="comment"># or Claude plugin: /plugin marketplace add isatimur/presentation-md</span>
+<span class="comment"># then /plugin install presentation-md@presentation-md → /slides &lt;brief&gt;</span>
+
+<span class="comment"># or skills.sh: npx skills add isatimur/presentation-md --skill presentation-generator</span></pre>
     </div>
 
     <div id="tab-copilot" class="tab-panel">

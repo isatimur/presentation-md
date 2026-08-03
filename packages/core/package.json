@@ -1,7 +1,7 @@
 {
   "name": "@presentation-md/core",
   "version": "1.32.2",
-  "description": "Core methodology, deck + theme schemas, theme loader, and bundled default theme for presentation-md.",
+  "description": "presentation-md core — Deck JSON schemas, 75-theme loader, craft audit, and the presentation-generator skill for AI agents.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",

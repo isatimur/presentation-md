@@ -10,6 +10,7 @@ build/
 dist/
 node_modules/
 out/
+output/
 packages/mcp-server/import-brand-theme-test-*/
 wave/
 web/.vercel/

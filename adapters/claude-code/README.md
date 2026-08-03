@@ -56,7 +56,20 @@ Restart Claude Code. Then ask:
 
 > "Create a 10-slide pitch deck for Acme using the corporate theme. Here are my notes: ..."
 
-Or, if the Claude Code **plugin marketplace** install is enabled, run `/slides <brief>` — same one-shot path (preview themes → Deck JSON → audit → HTML/PPTX).
+Or, via the Claude Code **plugin marketplace**:
+
+```text
+/plugin marketplace add isatimur/presentation-md
+/plugin install presentation-md@presentation-md
+```
+
+Then run `/slides <brief>` — same one-shot path (preview themes → Deck JSON → audit → HTML/PPTX).
+
+Universal skill shelf:
+
+```bash
+npx skills add isatimur/presentation-md --skill presentation-generator
+```
 
 Claude picks up the skill automatically when the trigger words match ("presentation", "slide deck", "pitch deck", "slides"). Full mode MCP unlocks `preview_themes` pick-3 layouts, `audit_deck` craft gates, and native PPTX export.
 

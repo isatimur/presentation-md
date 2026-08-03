@@ -25,14 +25,25 @@
 ```bash
 npx @presentation-md/install claude-code
 # also: cursor | copilot | codex | gemini-cli | cli
-# Claude Code plugin: /slides <brief> (marketplace) — same skill + MCP
+```
+
+**Other install shelves** (same skill):
+
+```bash
+# Universal skills.sh (Claude / Cursor / Copilot / Gemini / …)
+npx skills add isatimur/presentation-md --skill presentation-generator
+
+# Claude Code plugin marketplace → then /slides <brief>
+# /plugin marketplace add isatimur/presentation-md
+# /plugin install presentation-md@presentation-md
 ```
 
 Restart your agent and ask: *create a presentation about…*  
 You get validated Deck JSON → self-contained HTML → editable **PowerPoint** (opens in Keynote; imports to Google Slides).
 
-Demo without installing: open the [gallery](https://presentation-md.vercel.app/#gallery) or [Studio](https://presentation-md.vercel.app/studio).
-
+Demo without installing: open the [gallery](https://presentation-md.vercel.app/#gallery) or [Studio](https://presentation-md.vercel.app/studio).  
+Per-agent guides: [Claude Code](https://presentation-md.vercel.app/for/claude-code) · [Cursor](https://presentation-md.vercel.app/for/cursor) · [Copilot](https://presentation-md.vercel.app/for/copilot) · [Codex](https://presentation-md.vercel.app/for/codex) · [Gemini CLI](https://presentation-md.vercel.app/for/gemini-cli).  
+Install matrix: [`docs/distribution/INSTALL-MATRIX.md`](docs/distribution/INSTALL-MATRIX.md).
 ---
 
 ## Why presentation-md wins vs frontend-slides

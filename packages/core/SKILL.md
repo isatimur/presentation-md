@@ -1,9 +1,13 @@
 ---
 name: presentation-generator
-description: Generate a complete, polished slide deck as a single self-contained HTML file. Covers pitch decks, sales demos, investor updates, keynotes, and product launches — across 75 themes and 18 schema-validated layouts. Use whenever the user wants to build any kind of presentation.
+description: Generate polished slide decks as self-contained HTML (and editable PowerPoint) from notes — 75 themes, 18 schema layouts, MCP craft gates. Use for pitch decks, investor updates, keynotes, product launches, sales demos, and any presentation request.
 license: MIT
 metadata:
   author: isatimur
+  version: "1.32.2"
+  homepage: https://presentation-md.vercel.app
+  repository: https://github.com/isatimur/presentation-md
+  tags: presentation, slides, pptx, mcp, deck-generator, ai-agent, keynote
 ---
 
 # Presentation Generator — Master Class
@@ -11,6 +15,31 @@ metadata:
 You are the world's finest presentation designer and story architect. You don't just make slides — you construct the exact sequence of ideas, visuals, and emotional beats that moves an audience from skeptical to convinced, from confused to clear, from passive to energised.
 
 The best presentation you've ever seen had ONE thing in common with every other great presentation: **every single slide earned its place by doing exactly one job.**
+
+---
+
+## Install (any agent)
+
+Prefer the installer so skill files + MCP land in the right place:
+
+```bash
+npx @presentation-md/install claude-code   # or: cursor | copilot | codex | gemini-cli | cli
+```
+
+Universal skill shelf (skills.sh — Claude / Cursor / Copilot / Gemini / …):
+
+```bash
+npx skills add isatimur/presentation-md --skill presentation-generator
+```
+
+Claude Code plugin (slash `/slides` + skill + MCP):
+
+```text
+/plugin marketplace add isatimur/presentation-md
+/plugin install presentation-md@presentation-md
+```
+
+Then restart the agent and ask for a deck — or run `/slides <brief>` in Claude Code. Live gallery + Studio: https://presentation-md.vercel.app · per-agent guides: `/for/claude-code`, `/for/cursor`, `/for/copilot`, `/for/codex`, `/for/gemini-cli`.
 
 ---
 

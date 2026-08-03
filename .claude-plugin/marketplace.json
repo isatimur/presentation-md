@@ -5,7 +5,7 @@
     "name": "Timur Isachenko",
     "url": "https://github.com/isatimur"
   },
-  "description": "Turn rough notes into a polished, editable slide deck — exports to PowerPoint, Keynote, and Google Slides.",
+  "description": "Turn rough notes into a polished, editable slide deck — exports to PowerPoint, Keynote, and Google Slides. Install via npx @presentation-md/install or /plugin marketplace add isatimur/presentation-md.",
   "plugins": [
     {
       "name": "presentation-md",

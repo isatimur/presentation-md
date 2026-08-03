@@ -107,7 +107,12 @@
         <p>Lite mode (skill only, no MCP):</p>
         <pre><code>npx @presentation-md/install claude-code lite</code></pre>
         <p>Lands at: <code>~/.claude/skills/ · MCP in ~/.claude/mcp.json</code></p>
-        <p style="margin-top:12px"><strong>Plugin / marketplace:</strong> add this repo as a marketplace plugin (ships <code>/slides</code> slash + skill + MCP). Then run <code>/slides pitch for Acme…</code>.</p>
+        <p style="margin-top:12px"><strong>skills.sh:</strong></p>
+        <pre><code>npx skills add isatimur/presentation-md --skill presentation-generator</code></pre>
+        <p style="margin-top:12px"><strong>Claude Code plugin marketplace:</strong></p>
+        <pre><code>/plugin marketplace add isatimur/presentation-md
+/plugin install presentation-md@presentation-md</code></pre>
+        <p>Then run <code>/slides pitch for Acme…</code> — same skill + MCP path.</p>
       </div></div>
       <div class="step"><div class="step-num">02</div><div>
         <h3>Restart Claude Code</h3>

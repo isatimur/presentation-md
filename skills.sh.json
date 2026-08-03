@@ -1,0 +1,16 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Decks",
+      "description": "Generate schema-crafted slide decks — HTML + editable PowerPoint — inside any AI agent.",
+      "skills": ["presentation-generator"]
+    },
+    {
+      "title": "Quality",
+      "description": "Score decks against craft gates and a design rubric before you ship.",
+      "skills": ["deck-design-judge"]
+    }
+  ]
+}

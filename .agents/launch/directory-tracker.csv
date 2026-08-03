@@ -1,0 +1,34 @@
+directory,url,tier,status,date_submitted,listing_url,notes,copy_variant
+skills.sh,https://skills.sh,1,prepared,,,"npx skills add isatimur/presentation-md — skills.sh.json in repo",dev
+Claude Code plugin,https://code.claude.com/docs/en/plugin-marketplaces,1,prepared,,,/plugin marketplace add isatimur/presentation-md,agent
+ClawHub,https://clawhub.ai,4,needs_login,,,clawhub publish skills/presentation-generator,agent
+npm @presentation-md/install,https://www.npmjs.com/package/@presentation-md/install,1,live,,,Keep description sharp,dev
+Product Hunt,https://www.producthunt.com/posts/new,1,prepared,,,See LAUNCH.md PH outline — Tue/Wed/Thu 12:01 PT,startup
+Show HN,https://news.ycombinator.com/submit,1,prepared,,,Use Show HN draft in LAUNCH.md,dev
+DevHunt,https://devhunt.org,1,todo,,,startup/dev blurb,dev
+Fazier,https://fazier.com,1,todo,,,startup blurb,startup
+Uneed,https://uneed.best,1,todo,,,startup blurb,startup
+BetaList,https://betalist.com/submit,1,todo,,,startup blurb — waitlist angle,startup
+Tiny Launch,https://tinylaunch.com,1,todo,,,startup blurb,startup
+Best of Web,https://bestofweb.site,1,todo,,,startup blurb,startup
+Microlaunch,https://microlaunch.net,1,todo,,,startup blurb,startup
+PeerPush,https://peerpush.net,1,todo,,,startup blurb,startup
+AlternativeTo,https://alternativeto.net,2,todo,,,SaaS/alternatives blurb — vs Gamma Tome frontend-slides,saas
+SaaSHub,https://saashub.com,2,todo,,,SaaS/alternatives blurb,saas
+SourceForge,https://sourceforge.net,2,todo,,,dev blurb,dev
+F6S,https://www.f6s.com,2,todo,,,startup blurb,startup
+There's An AI For That,https://theresanaiforthat.com,3,todo,,,AI directory blurb,ai
+Futurepedia,https://www.futurepedia.io,3,todo,,,AI directory blurb,ai
+Toolify,https://www.toolify.ai,3,todo,,,AI directory blurb,ai
+Future Tools,https://www.futuretools.io,3,todo,,,AI directory blurb,ai
+aitools.inc,https://aitools.inc,3,todo,,,AI directory blurb,ai
+AIStage,https://aistage.net,3,todo,,,AI directory blurb,ai
+Glama MCP,https://glama.ai/mcp,4,todo,,,Agent/MCP blurb — @presentation-md/mcp-server,agent
+APITracker MCP,https://apitoolkit.io,4,todo,,,Agent/MCP blurb,agent
+AI Agents List,https://aiagentslist.com,4,todo,,,Agent/MCP blurb,agent
+awesome-claude-skills PR,https://github.com/search?q=awesome+claude+skills,6,todo,,,PR: add presentation-generator with one-liner,dev
+awesome-mcp-servers PR,https://github.com/punkpeye/awesome-mcp-servers,6,todo,,,PR: add @presentation-md/mcp-server,agent
+awesome-cursor-rules PR,https://github.com/search?q=awesome+cursor+rules,6,todo,,,PR: link cursor adapter,dev
+Indie Hackers,https://www.indiehackers.com,community,todo,,,Cross-post launch announcement,startup
+r/SideProject,https://reddit.com/r/SideProject,community,todo,,,Reddit social post #3,startup
+r/SaaS Share thread,https://reddit.com/r/SaaS,community,todo,,,Only in Share Your SaaS threads,saas
