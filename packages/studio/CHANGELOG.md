@@ -1,5 +1,17 @@
 # @presentation-md/studio
 
+## 1.33.2
+
+### Patch Changes
+
+- cd16266: Filmstrip peek (F) in exported HTML Present chrome + Studio requestFullscreen.
+
+  Agent-delivered decks gain densified horizontal jump strip (Studio F parity); Studio Present requests browser fullscreen on open.
+
+- Updated dependencies [61530ed]
+  - @presentation-md/core@1.31.1
+  - @presentation-md/export@1.23.33
+
 ## 1.33.1
 
 ### Patch Changes
