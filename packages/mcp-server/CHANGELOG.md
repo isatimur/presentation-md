@@ -1,5 +1,31 @@
 # @presentation-md/mcp-server
 
+## 1.32.11
+
+### Patch Changes
+
+- d4a4b0b: CLI `--judge --judge-tier t2` (HTML metrics + screenshots).
+
+  Agents without MCP can gate G1–G5 before ship: render + `analyzeHtmlDeck` + optional Chrome shots (`--judge-shots-dir` / `--judge-skip-screenshots`). HTML metrics live in `@presentation-md/render`; MCP `judge_deck` imports the same source. t3 panel stays MCP-only.
+
+- 10cc31d: Inline edit mode (E) + ⌘/Ctrl+S save on exported HTML.
+
+  Agent-delivered decks close frontend-slides' last-mile typo gap: toggle contenteditable text, download a cleaned HTML (strips edit/laser/ink chrome state), and stash a localStorage draft.
+
+- 94cb321: Present laser/ink in exported HTML chrome (Studio parity).
+
+  Agent-delivered HTML decks gain L laser trail + D freehand ink (C clears), mutually exclusive with blackout/whiteout — same presenter tools as Studio without opening the editor.
+
+- c539a6e: Present overview (G), nav dots/progress, hash deep-links, and visual up-next in exported HTML.
+
+  Agent-delivered decks match more of Studio Present: overview grid with live thumbs, side dots + top progress, `#N` / `#slide-N` jump, and a scaled next-slide peek in the notes rail.
+
+- Updated dependencies [d4a4b0b]
+- Updated dependencies [10cc31d]
+- Updated dependencies [94cb321]
+- Updated dependencies [c539a6e]
+  - @presentation-md/render@1.19.0
+
 ## 1.32.10
 
 ### Patch Changes

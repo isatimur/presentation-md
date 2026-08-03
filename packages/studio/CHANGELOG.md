@@ -1,5 +1,21 @@
 # @presentation-md/studio
 
+## 1.33.1
+
+### Patch Changes
+
+- 10cc31d: Inline edit mode (E) + ⌘/Ctrl+S save on exported HTML.
+
+  Agent-delivered decks close frontend-slides' last-mile typo gap: toggle contenteditable text, download a cleaned HTML (strips edit/laser/ink chrome state), and stash a localStorage draft.
+
+- 94cb321: Present laser/ink in exported HTML chrome (Studio parity).
+
+  Agent-delivered HTML decks gain L laser trail + D freehand ink (C clears), mutually exclusive with blackout/whiteout — same presenter tools as Studio without opening the editor.
+
+- c539a6e: Present overview (G), nav dots/progress, hash deep-links, and visual up-next in exported HTML.
+
+  Agent-delivered decks match more of Studio Present: overview grid with live thumbs, side dots + top progress, `#N` / `#slide-N` jump, and a scaled next-slide peek in the notes rail.
+
 ## 1.33.0
 
 ### Minor Changes
