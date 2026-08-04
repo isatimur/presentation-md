@@ -1,95 +1,123 @@
 ---
 name: presentation-generator
-description: Generate polished slide decks as self-contained HTML (and editable PowerPoint) from notes — 75 themes, 18 schema layouts, MCP craft gates. Use for pitch decks, investor updates, keynotes, product launches, sales demos, and any presentation request.
+description: Create stunning slide decks from notes — vibe → preview → craft. Self-contained HTML plus editable PowerPoint. 75 themes, Studio share links, MCP craft gates. Use for pitch decks, investor updates, keynotes, product launches, sales demos, and any presentation request.
 license: MIT
 metadata:
   author: isatimur
-  version: "1.32.2"
+  version: "1.33.0"
   homepage: https://presentation-md.vercel.app
   repository: https://github.com/isatimur/presentation-md
   tags: presentation, slides, pptx, mcp, deck-generator, ai-agent, keynote
 ---
 
-# Presentation Generator — Master Class
+# Presentation Generator
 
-You are the world's finest presentation designer and story architect. You don't just make slides — you construct the exact sequence of ideas, visuals, and emotional beats that moves an audience from skeptical to convinced, from confused to clear, from passive to energised.
+Create stunning slide decks with an AI coding agent — HTML you own, plus editable PowerPoint when the room needs Office.
 
-The best presentation you've ever seen had ONE thing in common with every other great presentation: **every single slide earned its place by doing exactly one job.**
+**Default first win (no schema lecture):** ask for a deck → show three vibes → scaffold → hand the user a Studio share link.
+
+```text
+User: "Series A pitch for our AI infra startup — bold, not corporate"
+You:  preview_themes (safe + bold + wildcard) → user picks
+      scaffold_deck(purpose, theme) → return studio_share_url (?d=)
+      fill copy → audit_deck → render / export PPTX if asked
+```
+
+Gallery + Studio (zero install): https://presentation-md.vercel.app
+
+---
+
+## Progressive disclosure (load only what you need)
+
+This `SKILL.md` is the workflow map. Open supporting files on demand — do **not** dump schema, all 75 themes, or layout encyclopedias into context before the user has a vibe.
+
+| File | Purpose | Load when |
+| --- | --- | --- |
+| `SKILL.md` (this file) | Workflow + first-win path | Always |
+| `references/theme-shortlists.json` | Use-case vibe shortlists | Phase 1 (vibe) |
+| `references/stunning-25.md` | Flagship craft ceilings | Phase 1 when brief matches |
+| `references/theme-selection-index.json` | Compact theme metadata | Phase 1 shortlist |
+| `references/themes.md` | One-liners for all 75 | Only if shortlists miss |
+| `references/layout-recipes.md` | Pitch / launch / wrap slide maps | Phase 3 (craft) |
+| `references/deck-schema.md` | Layout prop reference | Phase 3 while emitting JSON |
+| `references/anti-slop-bans.md` | Banned AI-slop aesthetics | Before custom styling |
+| `references/custom-html-recipes.md` | Schema-safe art escapes | Only for intentional art beats |
+| `references/animation-patterns.md` | Motion on direct-HTML path | Direct-HTML only |
+| `references/pptx-import.md` / `markdown-import.md` | Import bridges | When converting existing decks |
+
+---
+
+## Phases — vibe → preview → craft → share
+
+### Phase 0 — Mode
+
+- **New deck** → Phase 1
+- **Convert PPTX / Markdown** → `import_pptx` / `import_markdown` (see import refs), then Phase 2
+- **Enhance existing** → open Studio / Deck JSON; remorph or retheme; skip discovery if vibe is locked
+
+### Phase 1 — Vibe (ask once, together)
+
+Collect purpose, length/density, content readiness, and a rough mood. Prefer intelligent defaults over interrogation (≤3 clarifying questions).
+
+Do **not** ask the user to memorize theme names or layout enums.
+
+### Phase 2 — Preview (show, don’t tell)
+
+Shortlist **3** themes: **1 safe · 1 bold · 1 wildcard**. Call `preview_themes` (inline PNGs on by default; ≥2 themes → layouts mode). User picks visually.
+
+If they already named a theme/alias/brand URL, skip to Phase 3 (`import_brand_theme` for brand match).
+
+### Phase 3 — Craft
+
+**Preferred first hop when MCP is available:**
+
+1. `scaffold_deck(purpose, theme)` → craft-floor skeleton + **`studio_share_url`**
+2. Fill real copy (no lorem)
+3. `audit_deck` (`apply_safe_fixes` / `remorph_density` as needed) then `judge_deck` (t1+)
+4. `render_deck` / export PPTX / hand Studio link
+
+Only open `references/deck-schema.md` and layout details when emitting or repairing JSON. Prefer recipe maps in `references/layout-recipes.md` over freehanding 14-slide feature-grid funerals.
+
+**Direct-HTML fallback** (no tooling): single self-contained `.html`, internal CSS only, fixed 16:9 stage — see Rendering Guidelines below.
+
+### Phase 4 — Share
+
+Always surface the editable handoff: `studio_share_url` / `share_deck_link` / Studio **Copy link**. Optional: `export_deck` (PPTX / PDF / MD / notes), `deploy_deck` (confirm-gated).
 
 ---
 
 ## Install (any agent)
 
-Prefer the installer so skill files + MCP land in the right place:
-
 ```bash
 npx @presentation-md/install claude-code   # or: cursor | copilot | codex | gemini-cli | cli
 ```
 
-Universal skill shelf (skills.sh — Claude / Cursor / Copilot / Gemini / …):
-
 ```bash
 npx skills add isatimur/presentation-md --skill presentation-generator
 ```
-
-Claude Code plugin (slash `/slides` + skill + MCP):
 
 ```text
 /plugin marketplace add isatimur/presentation-md
 /plugin install presentation-md@presentation-md
 ```
 
-Then restart the agent and ask for a deck — or run `/slides <brief>` in Claude Code. Live gallery + Studio: https://presentation-md.vercel.app · per-agent guides: `/for/claude-code`, `/for/cursor`, `/for/copilot`, `/for/codex`, `/for/gemini-cli`.
+Then restart and ask for a deck — or `/slides <brief>` in Claude Code.
 
 ---
 
-## Four verbs (deck craft that competes with anti-slop UI skills)
-
-Hallmark ([Nutlope/hallmark](https://github.com/Nutlope/hallmark)) is the viral anti-AI-slop **page/UI** skill — four verbs, 20 themes, 57 slop gates. presentation-md is the anti-slop **deck** stack. Same install shelf energy; different artifact. Use these verbs:
+## Four verbs (after the first win)
 
 | Verb | What it does |
 | --- | --- |
-| **scaffold / build** *(default)* | `scaffold_deck(purpose, theme)` → craft-floor Deck JSON + **`studio_share_url`** (`?d=`). Fill copy, or ask the agent for a full deck. One hop to an editable Studio link. |
-| **audit** | `audit_deck` (+ optional `apply_safe_fixes` / `remorph_density`) then `judge_deck` — schema-valid ≠ shippable. Punch list or auto-repair. |
-| **remorph / retheme** | `apply_theme` (default repairCraft) · `remorph_density` speaker\|reading · Studio **My deck restyle** / MCP `preview_themes` with `json` — keep content, change structure or vibe. |
-| **share** | Hand the user `studio_share_url` from scaffold / `share_deck_link` / Studio **Copy link**. Optional: `export_deck` PPTX/PDF/MD, `deploy_deck` (confirm-gated). |
+| **scaffold / build** *(default)* | `scaffold_deck` → Deck JSON + **`studio_share_url`**. One hop to an editable Studio link. |
+| **audit** | `audit_deck` (+ `apply_safe_fixes` / `remorph_density`) then `judge_deck` — schema-valid ≠ shippable. |
+| **remorph / retheme** | `apply_theme` · `remorph_density` · Studio **My deck restyle** / `preview_themes` with `json`. |
+| **share** | Hand `studio_share_url` / Studio **Copy link**. Optional PPTX/PDF/deploy. |
 
-**Study DNA (Hallmark study analogue for decks):** `import_brand_theme` (URL/CSS → contrast-safe theme) · `import_pptx` / `import_markdown` · Studio **Paste Brand** · `preview_themes` pick-3 with inline PNGs. Never invent a palette — discover it.
+Studio: https://presentation-md.vercel.app/studio — live edit, present, export PPTX. Craft controls (`ratio`, `emphasis`, `bento`, `notes`, …) live in Deck JSON and the Studio form; set them when crafting, not when discovering vibes.
 
-**Why decks win here vs freeform HTML skills:** typed Deck JSON + 75 themes + MCP craft loop + native editable PPTX + Studio — not a one-off landing page dump. Honest compare: https://presentation-md.vercel.app/vs/hallmark
+Honest compares: [vs frontend-slides](https://presentation-md.vercel.app/vs/frontend-slides) · [vs Hallmark](https://presentation-md.vercel.app/vs/hallmark)
 
----
-
-## The Two Paths
-
-**Deck-spec path** (preferred when tooling is available):
-1. Emit a deck JSON conforming to `references/deck-schema.md`
-2. Render: `npx @presentation-md/render deck.json -o deck.html --theme <name>`
-3. MCP: call `render_deck` with deck JSON and theme name
-
-**Direct-HTML path** (when no tooling):
-- Single `.html` file, internal `<style>` only
-- Google Fonts + FontAwesome CDN allowed
-- Snap-scroll between full-viewport slides
-- NO Tailwind, Bootstrap, React, or external CSS frameworks
-
-**What the deck can then do** (deck-spec path only): every rendered deck embeds its
-source spec, so it round-trips. The browser **Studio**
-([presentation-md.vercel.app/studio](https://presentation-md.vercel.app/studio))
-opens a deck for live editing, generates a new one from a prompt (bring your own Claude
-API key, or copy a prompt back to your agent), presents it fullscreen, and exports native,
-editable **PowerPoint** (`.pptx`) that opens in Keynote and imports into Google Slides.
-
-**Studio craft controls** (also valid in Deck JSON — HTML + PPTX both honor them):
-- `two-column`: `ratio` (`"2-1"` / `"1-2"` …) + `reverse` for asymmetric photo/type splits
-- `comparison`: `emphasis: "left"|"right"` to grow the winning column
-- `feature-grid`: `columns: "bento"` for a hero tile + satellites (prefer with 5 cards)
-- `code`: `filename` + `language` for window chrome on SDK/CLI proofs
-- `notes`: speaker notes on any slide — Studio present mode (toggle with **S**) + PPTX notes pane; never baked into the HTML slide face
-
-Prefer setting these in the JSON you emit — Studio exposes the same controls in the slide form. Always set `emphasis` on comparisons; prefer non-1-1 `ratio` on two-column; use `bento` for 5-card grids.
-
-**Why this pack beats one-off HTML slide tools** (frontend-slides / Gamma-style screenshots / paste-only MD slides) **and anti-slop UI skills used as deck generators** (Hallmark): structured Deck JSON + 75 themes + MCP (`scaffold_deck` → `studio_share_url`, `render_deck` / `export_deck` / `audit_deck` / `judge_deck` / `import_pptx`) + Studio live craft panel that auto-opens on errors + **native editable PPTX** with per-theme surface chrome (rails, frames, mastheads, soft washes) — not a flat screenshot or a landing-page dump. Agents stay on schema; art escapes via `custom-html` only when needed.
 ---
 
 ## Narrative Architecture — Before You Write One Slide
