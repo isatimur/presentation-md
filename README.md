@@ -1,6 +1,6 @@
 # presentation-md
 
-**Schema-crafted decks for AI agents — 75 themes, editable PPTX, MCP tools. Built to beat prompt-only slide packs.**
+**Pick a vibe. Preview it. Ship an editable deck — HTML + PowerPoint — from the AI agent you already use.**
 
 [![npm version](https://img.shields.io/npm/v/@presentation-md/core)](https://www.npmjs.com/package/@presentation-md/core)
 [![PyPI](https://img.shields.io/pypi/v/presentation-md-render)](https://pypi.org/project/presentation-md-render/)
@@ -11,10 +11,10 @@
 <p align="center">
   <img src="docs/hero-demo.gif" alt="Six decks the pack rendered — pitch, brand, pricing, keynote — cycling to show the range" width="820" />
   <br/>
-  <em>Same Deck JSON → 75 themes. HTML craft + native PowerPoint. No screenshots, no lock-in.</em>
+  <em>Show, don’t tell: pick a vibe → get craft. Same deck restyles across 75 themes. Native PowerPoint when the room needs Office.</em>
 </p>
 
-🌐 **[Live gallery](https://presentation-md.vercel.app)** · **[Studio](https://presentation-md.vercel.app/studio)** · **[vs Hallmark](https://presentation-md.vercel.app/vs/hallmark)** · **[vs frontend-slides](https://presentation-md.vercel.app/vs/frontend-slides)**
+🌐 **[Live gallery](https://presentation-md.vercel.app)** · **[Studio](https://presentation-md.vercel.app/studio)** · **[vs frontend-slides](https://presentation-md.vercel.app/vs/frontend-slides)** · **[vs Hallmark](https://presentation-md.vercel.app/vs/hallmark)**
 
 > ⭐ If this turned your notes into a deck you'd actually present, star the repo.
 
@@ -38,8 +38,9 @@ npx skills add isatimur/presentation-md --skill presentation-generator
 # /plugin install presentation-md@presentation-md
 ```
 
-Restart your agent and ask: *create a presentation about…*  
-You get validated Deck JSON → self-contained HTML → editable **PowerPoint** (opens in Keynote; imports to Google Slides).
+Restart your agent and ask: *create a presentation about…*
+
+**First win (no schema homework):** the agent should show 3 vibe previews, then `scaffold_deck` → hand you a **Studio share link** (`?d=`). Fill copy, present, export editable **PowerPoint** when you need Keynote / Google Slides.
 
 Demo without installing: open the [gallery](https://presentation-md.vercel.app/#gallery) or [Studio](https://presentation-md.vercel.app/studio).  
 Per-agent guides: [Claude Code](https://presentation-md.vercel.app/for/claude-code) · [Cursor](https://presentation-md.vercel.app/for/cursor) · [Copilot](https://presentation-md.vercel.app/for/copilot) · [Codex](https://presentation-md.vercel.app/for/codex) · [Gemini CLI](https://presentation-md.vercel.app/for/gemini-cli).  
@@ -59,17 +60,18 @@ Install matrix: [`docs/distribution/INSTALL-MATRIX.md`](docs/distribution/INSTAL
 | **Studio** | Hosted editor + Present + Copy link | Showcase site |
 | **Install** | `npx @presentation-md/install` · skills.sh | `npx skills add nutlope/hallmark` |
 
-[frontend-slides](https://github.com/zarazhangrui/frontend-slides) is a strong **discovery / vibe** pack — prompt templates and bold looks. presentation-md keeps that energy and adds the product layer agents need to ship decks for real:
+[frontend-slides](https://github.com/zarazhangrui/frontend-slides) feels better on first glance — simpler story, spectacular HTML demos, viral template wall, zero schema friction. We keep that **vibe → preview → craft** energy and add the product layer agents need to ship decks for real:
 
 | | presentation-md | frontend-slides |
 |---|---|---|
-| **Themes** | **75** published + create-from-brand | Style presets / template pack |
-| **Discovery** | Studio **mood browse chips** + **Compare 3** + **My deck restyle** + **Copy link** (`?d=`) + MCP `list_themes` **browse** + `preview_themes` **json deck restyle** + CLI `--preview-deck` + **inline PNGs** + shot strips | Live style gallery (strong) |
-| **One-shot quality** | Anti-slop + stunning-25-first + density lock + **non-LLM `remorph_density`** + `audit_deck`/`judge_deck` + **`apply_safe_fixes`** | Anti-slop rules; no shared audit product |
-| **Authoring model** | Schema-validated **Deck JSON** agents can diff/edit one slide | Prompt → HTML (harder to surgically edit) |
-| **Layouts** | **18** craft layouts + `custom-html` recipes (`ranked-list`, `logo-wall`, `streak-grid`, `metric-ring`, `chart`, `custom-html`, `image-hero`, bento, comparison, code…) | Template-driven HTML |
-| **MCP** | Typed tools: render, export, audit, judge, preview, import PPTX/Markdown, brand theme | — |
-| **Export** | Native editable **PPTX** ↔ Deck JSON round-trip | HTML-first |
+| **First-win path** | **Vibe → preview → `scaffold_deck` → Studio share (`?d=`)** | Prompt → style previews → freeform HTML |
+| **Themes** | **75** published + create-from-brand | Style presets / bold template pack |
+| **Discovery** | Studio mood browse + Compare 3 + My deck restyle + MCP `preview_themes` + inline PNGs | Live style gallery (strong) |
+| **One-shot quality** | Anti-slop + stunning-25-first + density lock + `audit_deck`/`judge_deck` + `apply_safe_fixes` | Anti-slop rules; no shared audit product |
+| **Authoring model** | Schema-validated **Deck JSON** (under the hood) agents can diff/edit one slide | Prompt → HTML (harder to surgically edit) |
+| **Layouts** | **18** craft layouts + `custom-html` recipes | Template-driven HTML |
+| **MCP** | Typed tools: scaffold, render, export, audit, judge, preview, import | — |
+| **Export** | Native editable **PPTX** ↔ Deck JSON round-trip | HTML-first (+ PDF/deploy scripts) |
 | **Proofs** | **75/75** structured gallery + Studio live preview | Showcase templates |
 | **Install** | `npx @presentation-md/install <agent>` + Claude `/slides` plugin | Clone / copy skill |
 
