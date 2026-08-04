@@ -1,0 +1,101 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "presentation-md — Hallmark experiment pitch",
+    "company": "presentation-md",
+    "description": "Deck JSON sibling of the Hallmark Narrative Workflow pitch PAGE. Same story beats; schema + signal theme. Not produced by Hallmark.",
+    "theme": "signal"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Hallmark experiment · Deck JSON sibling",
+      "heading": "Notes in. Editable deck out.",
+      "lead": "Same pitch story as the Hallmark HTML page — now as typed Deck JSON you can audit, retheme, and export.",
+      "notes": "Open by naming the experiment: page skill vs deck stack."
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "The gap",
+      "lead": "Anti-slop skills for pages. Nothing for decks."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Problem",
+      "heading": "Why freeform HTML slides fail the room",
+      "columns": 3,
+      "cards": [
+        {
+          "title": "Pretty once",
+          "body": "One-shot HTML looks sharp until slide 7 needs a rewrite or a theme swap."
+        },
+        {
+          "title": "No craft loop",
+          "body": "Without audit/judge gates, “looks fine” is the only check that ships."
+        },
+        {
+          "title": "No handoff",
+          "body": "Stakeholders ask for PowerPoint. Screenshot decks die in the room."
+        }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "The product",
+      "lead": "Deck JSON. Seventy-five themes. MCP craft."
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Different jobs",
+      "heading": "Hallmark owns pages. We own decks.",
+      "leftLabel": "Hallmark",
+      "left": "Landing pages & UI\nMacrostructure + theme rotation\n57 slop-test gates\naudit / redesign / study",
+      "rightLabel": "presentation-md",
+      "right": "Slide decks as schema\n75 theme proofs\naudit_deck / judge_deck\nStudio + native PPTX",
+      "emphasis": "right",
+      "notes": "Punch the right column — this deck is the proof."
+    },
+    {
+      "layout": "section",
+      "number": "03",
+      "heading": "The flow",
+      "lead": "Scaffold. Fill. Audit. Share."
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Agent path",
+      "heading": "Four moves from notes to handoff",
+      "steps": [
+        {
+          "title": "Scaffold",
+          "body": "Recipe skeleton with craft floors — Studio share link in one hop."
+        },
+        {
+          "title": "Fill",
+          "body": "Agent writes copy into typed beats; you stay on schema."
+        },
+        {
+          "title": "Audit",
+          "body": "Craft gates catch empty beats, weak hierarchy, theme honesty leftovers."
+        },
+        {
+          "title": "Export",
+          "body": "Self-contained HTML you own — or editable PowerPoint for Keynote / Slides."
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Ask",
+      "heading": "Use Hallmark for the site. Use presentation-md for the deck.",
+      "lead": "Same refusal energy. Different artifact.",
+      "cta": {
+        "label": "Compare honestly",
+        "href": "https://presentation-md.vercel.app/vs/hallmark"
+      },
+      "notes": "Point to the Hallmark HTML experiment for the page-shaped twin."
+    }
+  ]
+}

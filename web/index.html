@@ -103,6 +103,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
+    /* Hallmark · macrostructure: Split Studio · genre: modern-minimal · theme: custom(signal-grid)
+     * design-system: design.md · pre-emit critique: P4 H4 E4 S5 R4 V3
+     */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -118,20 +121,19 @@
       --serif:      'Syne', 'Avenir Next', sans-serif;
       --sans:       'DM Sans', 'Avenir Next', sans-serif;
       --stage:      #0B1220;
+      --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
 
     body {
-      background:
-        radial-gradient(1200px 600px at 88% -10%, rgba(13,148,136,0.14), transparent 55%),
-        radial-gradient(900px 500px at -5% 20%, rgba(255,59,31,0.08), transparent 50%),
-        linear-gradient(180deg, #F3F6FA 0%, var(--paper) 38%, #E2E9F1 100%);
+      background: var(--paper);
       color: var(--ink);
       font-family: var(--sans);
       font-size: 17px;
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
+      overflow-x: clip;
     }
     body::before {
       content: "";
@@ -166,8 +168,12 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--ink-light);
-      display: block;
+      display: none; /* Hallmark: eyebrows default OFF — re-enable only for ordinal sections */
       margin-bottom: 14px;
+    }
+    .eyebrow.is-ordinal {
+      display: block;
+      color: var(--accent);
     }
 
     h1, h2, h3 { font-family: var(--display); font-weight: 700; line-height: 1.12; letter-spacing: -0.03em; }
@@ -199,7 +205,7 @@
     /* ── header / signal-grid craft stage (copy rail + plate) ─ */
     header.site-hero {
       position: relative;
-      min-height: 100svh;
+      min-height: min(92svh, 880px);
       display: grid;
       grid-template-columns: minmax(0, min(46%, 38rem)) minmax(0, 1fr);
       align-items: stretch;
@@ -218,15 +224,13 @@
       z-index: 0;
       min-width: 0;
       overflow: hidden;
-      background:
-        radial-gradient(900px 520px at 70% 40%, rgba(13,148,136,0.12), transparent 60%),
-        #07090d;
+      background: #07090d;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: clamp(28px, 5vh, 56px) clamp(24px, 3.5vw, 48px);
       text-decoration: none;
-      animation: pmd-stage-in 1.05s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation: pmd-stage-in 1.05s var(--ease-out) both;
     }
     .hero-visual-link {
       position: relative;
@@ -322,8 +326,7 @@
       overflow: hidden;
       container-type: inline-size;
       container-name: hero-copy;
-      background:
-        linear-gradient(180deg, #F3F6FA 0%, var(--paper) 55%, var(--paper2) 100%);
+      background: var(--paper);
       border-right: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
     }
 
@@ -444,7 +447,7 @@
     .hero-craft {
       margin-top: 8px;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1.35fr 1fr 0.85fr;
       gap: 14px;
     }
     .hero-craft-card {
@@ -504,7 +507,7 @@
     }
     .compare-live {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1.25fr 1fr 0.9fr;
       gap: 14px;
       margin-top: 36px;
     }
@@ -560,7 +563,7 @@
       justify-content: space-between;
       gap: 16px;
     }
-    .showreel-head .eyebrow { color: rgba(232,238,244,0.82); }
+    .showreel-head .eyebrow { display: none; }
     .showreel-head p {
       font-family: var(--mono);
       font-size: 11px;
@@ -709,48 +712,47 @@
       .hero-craft, .compare-live { grid-template-columns: 1fr; }
     }
 
-    /* ── how it works ───────────────────────────────────── */
+    /* ── how it works — typographic sequence (no icon-tiles) ─ */
     .steps {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
+      grid-template-columns: 1.2fr 1fr 0.95fr;
+      gap: 0;
       margin-top: 48px;
+      border-top: 1px solid var(--rule);
     }
 
     .step {
-      background: var(--paper2);
-      padding: 36px 28px;
+      background: transparent;
+      padding: 32px 28px 36px 0;
       position: relative;
+      border-right: 1px solid var(--rule);
     }
-    .step:first-child { border-radius: 8px 0 0 8px; }
-    .step:last-child  { border-radius: 0 8px 8px 0; }
+    .step:last-child { border-right: none; padding-right: 0; }
+    .step:first-child { padding-left: 0; border-radius: 0; }
+    .step:last-child  { border-radius: 0; }
 
     .step-num {
       font-family: var(--mono);
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.1em;
-      color: var(--ink-light);
+      color: var(--accent);
       display: block;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       text-transform: uppercase;
     }
 
     .step h3 {
       font-family: var(--display);
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       margin-bottom: 10px;
       color: var(--ink);
+      letter-spacing: -0.02em;
     }
 
     .step p { font-size: 0.93rem; }
 
-    .step-icon {
-      font-size: 26px;
-      margin-bottom: 16px;
-      color: var(--accent);
-      display: block;
-    }
+    .step-icon { display: none; }
 
     .section-lead {
       max-width: 600px;
@@ -779,15 +781,13 @@
       text-decoration: none;
       color: inherit;
       border: 1px solid var(--rule);
-      border-radius: 12px;
+      border-radius: 4px;
       overflow: hidden;
       background: var(--paper2);
-      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      transition: border-color 0.15s ease;
     }
     .theme-preview-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(11, 18, 32, 0.12);
-      border-color: color-mix(in srgb, var(--accent) 35%, var(--rule));
+      border-color: color-mix(in srgb, var(--accent) 45%, var(--rule));
       text-decoration: none;
       color: inherit;
     }
@@ -999,11 +999,7 @@
     .layout-cell:nth-child(7) { border-radius: 0 0 0 8px; }
     .layout-cell:last-child   { border-radius: 0 0 8px 0; }
 
-    .layout-icon {
-      font-size: 22px;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
+    .layout-icon { display: none; }
 
     .layout-cell h3 {
       font-family: var(--mono);
@@ -1243,16 +1239,20 @@
     }
     .proof-facts {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      grid-template-columns: 1.35fr 1.1fr 1fr 0.9fr;
+      gap: 0;
       margin: 28px 0 8px;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
     }
     .proof-fact {
-      padding: 16px 16px 18px;
-      border: 1px solid var(--rule);
-      border-radius: 4px;
-      background: color-mix(in srgb, var(--paper2) 70%, white);
+      padding: 20px 20px 22px 0;
+      border-right: 1px solid var(--rule);
+      border-radius: 0;
+      background: transparent;
     }
+    .proof-fact:last-child { border-right: none; padding-right: 0; }
+    .proof-fact:first-child { padding-left: 0; }
     .proof-fact strong {
       display: block;
       font-family: var(--display);
@@ -1332,8 +1332,10 @@
     /* ── responsive ──────────────────────────────────────── */
     @media (max-width: 700px) {
       .steps, .layouts-grid { grid-template-columns: 1fr; }
-      .step:first-child { border-radius: 8px 8px 0 0; }
-      .step:last-child  { border-radius: 0 0 8px 8px; }
+      .step { border-right: none; border-bottom: 1px solid var(--rule); padding: 24px 0; }
+      .step:last-child { border-bottom: none; }
+      .step:first-child { border-radius: 0; }
+      .step:last-child  { border-radius: 0; }
       .layout-cell:first-child  { border-radius: 8px 8px 0 0; }
       .layout-cell:last-child   { border-radius: 0 0 8px 8px; }
       .layout-cell:nth-child(3) { border-radius: 0; }
@@ -1635,7 +1637,7 @@
 <!-- ── START (activation) ──────────────────────────────────────────────────── -->
 <section id="start">
   <div class="container">
-    <span class="eyebrow">Start</span>
+    <span class="eyebrow is-ordinal">01 · Install</span>
     <h2>Pick your agent. Copy one command.</h2>
     <p class="section-lead">
       Default path: install the skill where you already work. Prefer zero install?
@@ -1704,7 +1706,7 @@
         See soft-editorial proof
       </a>
     </div>
-    <div style="margin-top:28px;border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--paper2);box-shadow:0 24px 60px -28px rgba(11,18,32,.35);">
+    <div style="margin-top:28px;border:1px solid var(--rule);border-radius:4px;overflow:hidden;background:var(--paper2);">
       <iframe
         src="about:blank"
         data-src="studio/"

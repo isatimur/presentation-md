@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>presentation-md — Hallmark pitch experiment (not a Deck JSON)</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="Experiment: Hallmark-built multi-section pitch page about presentation-md. Not a slide deck schema." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* Hallmark · macrostructure: Narrative Workflow · genre: modern-minimal · theme: custom(signal-grid)
+     * designed-as: standalone pitch PAGE (not Deck JSON) · design-system: design.md
+     * pre-emit critique: P5 H4 E4 S5 R5 V4
+     */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --color-paper: #E8EEF4;
+      --color-paper-2: #DDE5EE;
+      --color-ink: #0B1220;
+      --color-ink-2: #4A5568;
+      --color-rule: rgba(11,18,32,0.12);
+      --color-accent: #FF3B1F;
+      --color-stage: #0B1220;
+      --color-focus: #FF3B1F;
+      --font-display: 'Syne', 'Avenir Next', sans-serif;
+      --font-body: 'DM Sans', 'Avenir Next', sans-serif;
+      --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --space-sm: 12px;
+      --space-md: 24px;
+      --space-lg: 48px;
+      --space-xl: 80px;
+    }
+    html, body { overflow-x: clip; }
+    html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+    body {
+      background: var(--color-paper);
+      color: var(--color-ink);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    .slide {
+      min-height: 100svh;
+      scroll-snap-align: start;
+      padding: clamp(40px, 8vh, 88px) clamp(24px, 6vw, 72px);
+      display: grid;
+      align-content: center;
+      border-bottom: 1px solid var(--color-rule);
+      position: relative;
+    }
+    .slide--stage {
+      background: var(--color-stage);
+      color: #F3F6FA;
+      border-bottom-color: color-mix(in srgb, #E8EEF4 16%, transparent);
+    }
+    .slide--bias {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: clamp(24px, 5vw, 64px);
+      align-items: end;
+    }
+    @media (max-width: 768px) {
+      .slide--bias { grid-template-columns: 1fr; align-items: start; }
+    }
+    .brand {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      letter-spacing: -0.05em;
+      line-height: 0.95;
+      font-style: normal;
+    }
+    .brand::after {
+      content: "";
+      display: block;
+      width: 64px;
+      height: 4px;
+      margin-top: 18px;
+      background: var(--color-accent);
+    }
+    h1, h2 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-style: normal;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+    }
+    h1 { font-size: clamp(1.6rem, 3.4vw, 2.4rem); max-width: 16ch; margin: 22px 0 14px; }
+    h2 { font-size: clamp(1.7rem, 3.6vw, 2.6rem); max-width: 18ch; margin-bottom: 16px; }
+    .lead { color: var(--color-ink-2); max-width: 38ch; font-size: 1.05rem; }
+    .slide--stage .lead { color: rgba(232,238,244,0.62); }
+    .meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 12px;
+    }
+    .slide--stage .meta { color: #FF8A75; }
+    .rail {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--color-ink-2);
+      border-left: 1px solid var(--color-rule);
+      padding-left: 20px;
+    }
+    .slide--stage .rail {
+      color: rgba(232,238,244,0.55);
+      border-left-color: rgba(232,238,244,0.18);
+    }
+    .seq {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr 0.9fr;
+      gap: 0;
+      margin-top: 36px;
+      border-top: 1px solid var(--color-rule);
+    }
+    @media (max-width: 768px) { .seq { grid-template-columns: 1fr; } }
+    .seq article {
+      padding: 28px 24px 8px 0;
+      border-right: 1px solid var(--color-rule);
+    }
+    .seq article:last-child { border-right: none; padding-right: 0; }
+    @media (max-width: 768px) {
+      .seq article { border-right: none; border-bottom: 1px solid var(--color-rule); padding: 22px 0; }
+      .seq article:last-child { border-bottom: none; }
+    }
+    .seq strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      margin: 8px 0 8px;
+    }
+    .seq span {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+    }
+    .seq p { font-size: 0.95rem; color: var(--color-ink-2); max-width: 28ch; }
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-top: 28px;
+      border: 1px solid var(--color-rule);
+    }
+    @media (max-width: 640px) { .compare { grid-template-columns: 1fr; } }
+    .compare > div { padding: 24px 22px; }
+    .compare > div:first-child { border-right: 1px solid var(--color-rule); background: var(--color-paper-2); }
+    @media (max-width: 640px) {
+      .compare > div:first-child { border-right: none; border-bottom: 1px solid var(--color-rule); }
+    }
+    .compare h3 {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: var(--color-accent);
+    }
+    .compare ul { list-style: none; }
+    .compare li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--color-rule);
+      font-size: 0.95rem;
+      color: var(--color-ink);
+    }
+    .compare li:last-child { border-bottom: none; }
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 28px;
+      padding: 13px 22px;
+      background: var(--color-accent);
+      color: #fff;
+      text-decoration: none;
+      font-family: var(--font-body);
+      font-weight: 650;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+    .cta:hover { background: color-mix(in srgb, var(--color-accent) 88%, #000); }
+    .cta:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+    .cta-ghost {
+      display: inline-flex;
+      margin-top: 28px;
+      margin-left: 12px;
+      padding: 12px 18px;
+      border: 1.5px solid color-mix(in srgb, currentColor 28%, transparent);
+      border-radius: 4px;
+      color: inherit;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .cta-ghost:hover { border-color: var(--color-accent); color: var(--color-accent); }
+    .slide--stage .cta-ghost { color: #E8EEF4; }
+    .note {
+      margin-top: 40px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      color: var(--color-ink-2);
+      max-width: 52ch;
+    }
+    .progress {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: transparent;
+      z-index: 20;
+      pointer-events: none;
+    }
+    .progress > span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--color-accent);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; scroll-snap-type: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span id="bar"></span></div>
+
+  <section class="slide slide--stage slide--bias" aria-label="Open">
+    <div>
+      <p class="brand">presentation-md</p>
+      <h1>Notes in. Editable deck out.</h1>
+      <p class="lead">A Hallmark-built pitch <em>page</em> — scroll sections that feel like slides. Not Deck JSON. Not PowerPoint.</p>
+      <a class="cta" href="/#start">Install for your agent</a>
+      <a class="cta-ghost" href="/studio/?example=briefing-signal&fresh=1">Try Studio</a>
+    </div>
+    <aside class="rail">
+      Experiment artifact<br />
+      Verb: hallmark build<br />
+      Macro: Narrative Workflow<br />
+      Brand: signal-grid (locked)<br />
+      Sibling: examples/decks/hallmark-experiment-pitch.json
+    </aside>
+  </section>
+
+  <section class="slide" aria-label="Problem">
+    <p class="meta">01 — The gap</p>
+    <h2>Anti-slop skills for pages. Nothing for decks.</h2>
+    <p class="lead">Hallmark refuses purple heroes and Inter-everywhere on landing pages. Agents still dump freeform HTML “slides” with no schema, no retheme, no Office handoff.</p>
+    <div class="seq">
+      <article>
+        <span>01</span>
+        <strong>Pretty once</strong>
+        <p>One-shot HTML looks sharp until you need slide 7 rewritten or theme swapped.</p>
+      </article>
+      <article>
+        <span>02</span>
+        <strong>No craft loop</strong>
+        <p>Without audit/judge gates, “looks fine” ships as the only check.</p>
+      </article>
+      <article>
+        <span>03</span>
+        <strong>No handoff</strong>
+        <p>Stakeholders ask for PowerPoint. Screenshot decks die in the room.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="slide slide--stage" aria-label="Product">
+    <p class="meta">02 — The product</p>
+    <h2>Deck JSON. Seventy-five themes. MCP craft.</h2>
+    <p class="lead">presentation-md is the anti-slop stack for slide decks: typed spec, theme proofs, Studio share links, editable PPTX.</p>
+    <div class="compare" style="border-color: rgba(232,238,244,0.16);">
+      <div style="background: rgba(232,238,244,0.06); border-right-color: rgba(232,238,244,0.16);">
+        <h3>Hallmark owns</h3>
+        <ul>
+          <li>Landing pages &amp; UI</li>
+          <li>Macrostructure + theme rotation</li>
+          <li>57 slop-test gates</li>
+          <li>audit / redesign / study</li>
+        </ul>
+      </div>
+      <div>
+        <h3>presentation-md owns</h3>
+        <ul>
+          <li>Slide decks as schema</li>
+          <li>75 theme proofs</li>
+          <li>audit_deck / judge_deck</li>
+          <li>Studio + native PPTX</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" aria-label="Flow">
+    <p class="meta">03 — The flow</p>
+    <h2>Scaffold. Fill. Audit. Share.</h2>
+    <div class="seq">
+      <article>
+        <span>Scaffold</span>
+        <strong>Recipe skeleton</strong>
+        <p>pitch / launch / wrap — craft floors pre-wired, Studio link in one hop.</p>
+      </article>
+      <article>
+        <span>Audit</span>
+        <strong>Schema ≠ shippable</strong>
+        <p>Craft gates catch empty beats, weak hierarchy, theme honesty leftovers.</p>
+      </article>
+      <article>
+        <span>Export</span>
+        <strong>HTML + PPTX</strong>
+        <p>Self-contained file you own — or editable PowerPoint for Keynote / Slides.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="slide slide--stage slide--bias" aria-label="Close">
+    <div>
+      <p class="meta">04 — Ask</p>
+      <h2>Use Hallmark for the site. Use presentation-md for the deck.</h2>
+      <p class="lead">Same refusal energy. Different artifact. This page proves the page skill; the Deck JSON sibling proves the deck stack.</p>
+      <a class="cta" href="/vs/hallmark">Read the honest compare</a>
+      <a class="cta-ghost" href="README.md">Experiment README</a>
+      <p class="note" style="color: rgba(232,238,244,0.45);">
+        Honest limit: Hallmark did not invent a slide renderer. Scroll-snap sections mimic a pitch rhythm; they are not schema-validated slides.
+      </p>
+    </div>
+    <aside class="rail">
+      $0 · MIT · no account<br />
+      npx @presentation-md/install &lt;agent&gt;<br />
+      presentation-md.vercel.app
+    </aside>
+  </section>
+
+  <script>
+    (function () {
+      var bar = document.getElementById('bar');
+      if (!bar) return;
+      function tick() {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        var p = max > 0 ? (window.scrollY / max) * 100 : 0;
+        bar.style.width = p + '%';
+      }
+      window.addEventListener('scroll', tick, { passive: true });
+      tick();
+    })();
+  </script>
+</body>
+</html>

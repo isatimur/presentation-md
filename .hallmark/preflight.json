@@ -1,0 +1,9 @@
+{
+  "lastScan": "2026-08-04",
+  "fontStack": "Syne + DM Sans + IBM Plex Mono",
+  "palette": "signal-grid (#E8EEF4 / #FF3B1F / #0B1220)",
+  "motion": "css keyframes only (no framer-motion)",
+  "framework": "vanilla HTML (web/)",
+  "designMd": "design.md",
+  "preserved": ["signal-grid tokens", "Syne/DM Sans/Plex Mono", "brand-first hero mark"]
+}
