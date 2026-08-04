@@ -1,6 +1,6 @@
 {
   "name": "@presentation-md/install",
-  "version": "1.1.35",
+  "version": "1.1.36",
   "description": "One-command installer — wire the presentation-md skill + MCP into Claude Code, Cursor, Copilot, Codex, or Gemini CLI.",
   "license": "MIT",
   "type": "module",
