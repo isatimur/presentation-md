@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>presentation-md — AI slide decks → PowerPoint, Keynote, Google Slides</title>
-  <meta name="description" content="Your AI agent (Claude Code, Cursor, Codex, Gemini CLI, Copilot) generates slide decks from plain notes — then exports them to native, editable PowerPoint, Keynote, or Google Slides, or edit in the browser studio. Open source, one install." />
+  <meta name="description" content="Pick a vibe. Preview it. Ship an editable deck from Claude Code, Cursor, Codex, Gemini CLI, or Copilot — HTML you own plus native PowerPoint. Open source, one install." />
   <link rel="canonical" href="https://presentation-md.vercel.app/" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#E8EEF4" />
@@ -549,27 +549,35 @@
     .showreel {
       position: relative;
       margin: 0;
-      padding: 22px 0 28px;
+      padding: 28px 0 36px;
       background: var(--stage);
       border-block: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
       overflow: hidden;
     }
     .showreel-head {
       max-width: 1180px;
-      margin: 0 auto 14px;
+      margin: 0 auto 18px;
       padding: 0 28px;
       display: flex;
       align-items: baseline;
       justify-content: space-between;
       gap: 16px;
     }
-    .showreel-head .eyebrow { display: none; }
+    .showreel-head .eyebrow {
+      display: inline;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,59,31,0.9);
+    }
     .showreel-head p {
       font-family: var(--mono);
       font-size: 11px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: rgba(232,238,244,0.58);
+      flex: 1;
     }
     .showreel-viewport {
       position: relative;
@@ -578,21 +586,21 @@
     }
     .showreel-track {
       display: flex;
-      gap: 12px;
+      gap: 14px;
       width: max-content;
       padding: 0 28px;
-      animation: pmd-showreel 88s linear infinite;
+      animation: pmd-showreel 72s linear infinite;
     }
     .showreel-card {
-      flex: 0 0 min(46vw, 480px);
+      flex: 0 0 min(52vw, 560px);
       aspect-ratio: 16 / 9;
-      border: 1.5px solid rgba(232,238,244,0.22);
+      border: 1.5px solid rgba(232,238,244,0.28);
       border-radius: 2px;
       overflow: hidden;
       background: #060a12;
       position: relative;
       text-decoration: none;
-      box-shadow: none;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
     }
     .showreel-card:hover {
       border-color: rgba(232,238,244,0.42);
@@ -1481,17 +1489,17 @@
     <p class="brand-mark">presentation-md</p>
     <h1>Notes in. Editable deck out.</h1>
     <p class="tagline">
-      One command in the agent you already use. Schema-validated HTML — plus native PowerPoint you can edit.
+      Pick a vibe. Preview it. Ship craft you can edit — HTML in the browser, PowerPoint for the room.
     </p>
     <div class="ctas">
       <a href="#start" class="btn btn-primary">
         <i class="fa-solid fa-terminal"></i> Install for your agent
       </a>
-      <a href="studio/?example=briefing-signal&fresh=1" class="btn btn-secondary">
-        <i class="fa-solid fa-pen-ruler"></i> Try Studio first
+      <a href="#showreel" class="btn btn-secondary">
+        <i class="fa-solid fa-play"></i> Watch the showreel
       </a>
     </div>
-    <p class="cta-micro">No account · MIT · works offline after install</p>
+    <p class="cta-micro">Zero schema homework · scaffold → shareable Studio link · MIT</p>
     <div class="hero-carousel-meta">
       <p class="hero-carousel-caption" id="hero-carousel-caption" aria-live="polite">
         <strong>NovaSpark AI</strong> · Aurora Glass
@@ -1509,27 +1517,66 @@
   </div>
 </header>
 
+<section id="showreel" class="showreel" aria-label="Continuous deck showreel">
+  <div class="showreel-head">
+    <span class="eyebrow">Showreel</span>
+    <p>Live craft on loop · stunning twenty-five · hover to pause · click any deck</p>
+    <a href="#gallery" style="font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(232,238,244,0.72);text-decoration:none;white-space:nowrap">Full gallery →</a>
+  </div>
+  <div class="showreel-viewport">
+    <div class="showreel-track">
+      <a class="showreel-card" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/novaspark-pitch.html" loading="lazy" title="NovaSpark" tabindex="-1"></iframe><span>NovaSpark · aurora-glass</span></a>
+      <a class="showreel-card" href="examples/structured/meridian-sales.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/meridian-sales.html" loading="lazy" title="Meridian" tabindex="-1"></iframe><span>Meridian · ft-editorial</span></a>
+      <a class="showreel-card" href="examples/structured/bounce-launch.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/bounce-launch.html" loading="lazy" title="Bounce" tabindex="-1"></iframe><span>Bounce · genz-bento</span></a>
+      <a class="showreel-card" href="examples/structured/solstice-update.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/solstice-update.html" loading="lazy" title="Solstice" tabindex="-1"></iframe><span>Solstice · luxury-minimalist</span></a>
+      <a class="showreel-card" href="examples/structured/retronet-demo.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/retronet-demo.html" loading="lazy" title="RetroNet" tabindex="-1"></iframe><span>RetroNet · crt-terminal</span></a>
+      <a class="showreel-card" href="examples/structured/gridsystems-studio.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/gridsystems-studio.html" loading="lazy" title="Grid Systems" tabindex="-1"></iframe><span>Grid Systems · swiss-typographic</span></a>
+      <a class="showreel-card" href="examples/structured/monolith-seriesa.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/monolith-seriesa.html" loading="lazy" title="MONOLITH" tabindex="-1"></iframe><span>MONOLITH · brutalist-acid</span></a>
+      <a class="showreel-card" href="examples/structured/jellybean-launch.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/jellybean-launch.html" loading="lazy" title="Jellybean" tabindex="-1"></iframe><span>Jellybean · candy-pop</span></a>
+      <a class="showreel-card" href="examples/structured/neondistrict-platform.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/neondistrict-platform.html" loading="lazy" title="Neon District" tabindex="-1"></iframe><span>Neon District · neon-noir</span></a>
+      <a class="showreel-card" href="examples/structured/forge-api.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/forge-api.html" loading="lazy" title="Forge" tabindex="-1"></iframe><span>Forge · developer-dark</span></a>
+      <a class="showreel-card" href="examples/structured/pulse-wrapped.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/pulse-wrapped.html" loading="lazy" title="Pulse" tabindex="-1"></iframe><span>Pulse · kinetic-wrapped</span></a>
+      <a class="showreel-card" href="examples/structured/apsis-mission.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/apsis-mission.html" loading="lazy" title="Apsis" tabindex="-1"></iframe><span>Apsis · blueprint</span></a>
+      <!-- duplicate for seamless loop -->
+      <a class="showreel-card" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/novaspark-pitch.html" loading="lazy" title="" tabindex="-1"></iframe><span>NovaSpark · aurora-glass</span></a>
+      <a class="showreel-card" href="examples/structured/meridian-sales.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/meridian-sales.html" loading="lazy" title="" tabindex="-1"></iframe><span>Meridian · ft-editorial</span></a>
+      <a class="showreel-card" href="examples/structured/bounce-launch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/bounce-launch.html" loading="lazy" title="" tabindex="-1"></iframe><span>Bounce · genz-bento</span></a>
+      <a class="showreel-card" href="examples/structured/solstice-update.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/solstice-update.html" loading="lazy" title="" tabindex="-1"></iframe><span>Solstice · luxury-minimalist</span></a>
+      <a class="showreel-card" href="examples/structured/retronet-demo.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/retronet-demo.html" loading="lazy" title="" tabindex="-1"></iframe><span>RetroNet · crt-terminal</span></a>
+      <a class="showreel-card" href="examples/structured/gridsystems-studio.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/gridsystems-studio.html" loading="lazy" title="" tabindex="-1"></iframe><span>Grid Systems · swiss-typographic</span></a>
+      <a class="showreel-card" href="examples/structured/monolith-seriesa.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/monolith-seriesa.html" loading="lazy" title="" tabindex="-1"></iframe><span>MONOLITH · brutalist-acid</span></a>
+      <a class="showreel-card" href="examples/structured/jellybean-launch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/jellybean-launch.html" loading="lazy" title="" tabindex="-1"></iframe><span>Jellybean · candy-pop</span></a>
+      <a class="showreel-card" href="examples/structured/neondistrict-platform.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/neondistrict-platform.html" loading="lazy" title="" tabindex="-1"></iframe><span>Neon District · neon-noir</span></a>
+      <a class="showreel-card" href="examples/structured/forge-api.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/forge-api.html" loading="lazy" title="" tabindex="-1"></iframe><span>Forge · developer-dark</span></a>
+      <a class="showreel-card" href="examples/structured/pulse-wrapped.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/pulse-wrapped.html" loading="lazy" title="" tabindex="-1"></iframe><span>Pulse · kinetic-wrapped</span></a>
+      <a class="showreel-card" href="examples/structured/apsis-mission.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/apsis-mission.html" loading="lazy" title="" tabindex="-1"></iframe><span>Apsis · blueprint</span></a>
+    </div>
+  </div>
+</section>
+
+
+
 <section id="proof-strip" aria-label="Proof and craft range">
   <div class="container">
     <span class="eyebrow">Proof</span>
     <h2>Start with five proven vibes. Unlock seventy-five later.</h2>
-    <p class="section-lead">Flagship craft first — same Deck JSON for every theme. Browse the wall when you want options; default to the starters if you just need a deck today.</p>
+    <p class="section-lead">Show, don’t tell — pick a look from real craft, then restyle the same deck. Schema and MCP stay under the hood until you need them.</p>
     <div class="proof-facts" aria-label="Product facts">
       <div class="proof-fact">
-        <strong>One npx install</strong>
-        <span>Claude Code, Cursor, Codex, Gemini CLI, Copilot</span>
+        <strong>Vibe → preview → craft</strong>
+        <span>See three looks, pick one, ship the deck</span>
+      </div>
+      <div class="proof-fact">
+        <strong>Scaffold → share</strong>
+        <span>One call → editable Studio link (<code>?d=</code>)</span>
       </div>
       <div class="proof-fact">
         <strong>Editable .pptx</strong>
-        <span>PowerPoint, Keynote, Google Slides — real shapes, not screenshots</span>
-      </div>
-      <div class="proof-fact">
-        <strong>MCP-native</strong>
-        <span>Typed tools: render, audit, export, preview themes</span>
+        <span>PowerPoint, Keynote, Google Slides — real shapes</span>
       </div>
       <div class="proof-fact">
         <strong>Free · MIT</strong>
-        <span>npm + PyPI · no account · no usage caps</span>
+        <span>No account · no usage caps · works offline</span>
       </div>
     </div>
     <div class="hero-craft" aria-label="Live craft examples" style="margin-top:36px">
@@ -1564,71 +1611,34 @@
   </div>
 </section>
 
-<section id="showreel" class="showreel" aria-label="Continuous deck showreel">
-  <div class="showreel-head">
-    <span class="eyebrow">Showreel</span>
-    <p>Stunning twenty-five · schema craft on loop · hover to pause</p>
-  </div>
-  <div class="showreel-viewport">
-    <div class="showreel-track">
-      <a class="showreel-card" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/novaspark-pitch.html" loading="lazy" title="NovaSpark" tabindex="-1"></iframe><span>NovaSpark · aurora-glass</span></a>
-      <a class="showreel-card" href="examples/structured/meridian-sales.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/meridian-sales.html" loading="lazy" title="Meridian" tabindex="-1"></iframe><span>Meridian · ft-editorial</span></a>
-      <a class="showreel-card" href="examples/structured/bounce-launch.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/bounce-launch.html" loading="lazy" title="Bounce" tabindex="-1"></iframe><span>Bounce · genz-bento</span></a>
-      <a class="showreel-card" href="examples/structured/solstice-update.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/solstice-update.html" loading="lazy" title="Solstice" tabindex="-1"></iframe><span>Solstice · luxury-minimalist</span></a>
-      <a class="showreel-card" href="examples/structured/retronet-demo.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/retronet-demo.html" loading="lazy" title="RetroNet" tabindex="-1"></iframe><span>RetroNet · crt-terminal</span></a>
-      <a class="showreel-card" href="examples/structured/gridsystems-studio.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/gridsystems-studio.html" loading="lazy" title="Grid Systems" tabindex="-1"></iframe><span>Grid Systems · swiss-typographic</span></a>
-      <a class="showreel-card" href="examples/structured/monolith-seriesa.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/monolith-seriesa.html" loading="lazy" title="MONOLITH" tabindex="-1"></iframe><span>MONOLITH · brutalist-acid</span></a>
-      <a class="showreel-card" href="examples/structured/jellybean-launch.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/jellybean-launch.html" loading="lazy" title="Jellybean" tabindex="-1"></iframe><span>Jellybean · candy-pop</span></a>
-      <a class="showreel-card" href="examples/structured/neondistrict-platform.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/neondistrict-platform.html" loading="lazy" title="Neon District" tabindex="-1"></iframe><span>Neon District · neon-noir</span></a>
-      <a class="showreel-card" href="examples/structured/forge-api.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/forge-api.html" loading="lazy" title="Forge" tabindex="-1"></iframe><span>Forge · developer-dark</span></a>
-      <a class="showreel-card" href="examples/structured/pulse-wrapped.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/pulse-wrapped.html" loading="lazy" title="Pulse" tabindex="-1"></iframe><span>Pulse · kinetic-wrapped</span></a>
-      <a class="showreel-card" href="examples/structured/apsis-mission.html" target="_blank" rel="noopener"><iframe src="about:blank" data-src="examples/structured/apsis-mission.html" loading="lazy" title="Apsis" tabindex="-1"></iframe><span>Apsis · blueprint</span></a>
-      <!-- duplicate for seamless loop -->
-      <a class="showreel-card" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/novaspark-pitch.html" loading="lazy" title="" tabindex="-1"></iframe><span>NovaSpark · aurora-glass</span></a>
-      <a class="showreel-card" href="examples/structured/meridian-sales.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/meridian-sales.html" loading="lazy" title="" tabindex="-1"></iframe><span>Meridian · ft-editorial</span></a>
-      <a class="showreel-card" href="examples/structured/bounce-launch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/bounce-launch.html" loading="lazy" title="" tabindex="-1"></iframe><span>Bounce · genz-bento</span></a>
-      <a class="showreel-card" href="examples/structured/solstice-update.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/solstice-update.html" loading="lazy" title="" tabindex="-1"></iframe><span>Solstice · luxury-minimalist</span></a>
-      <a class="showreel-card" href="examples/structured/retronet-demo.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/retronet-demo.html" loading="lazy" title="" tabindex="-1"></iframe><span>RetroNet · crt-terminal</span></a>
-      <a class="showreel-card" href="examples/structured/gridsystems-studio.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/gridsystems-studio.html" loading="lazy" title="" tabindex="-1"></iframe><span>Grid Systems · swiss-typographic</span></a>
-      <a class="showreel-card" href="examples/structured/monolith-seriesa.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/monolith-seriesa.html" loading="lazy" title="" tabindex="-1"></iframe><span>MONOLITH · brutalist-acid</span></a>
-      <a class="showreel-card" href="examples/structured/jellybean-launch.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/jellybean-launch.html" loading="lazy" title="" tabindex="-1"></iframe><span>Jellybean · candy-pop</span></a>
-      <a class="showreel-card" href="examples/structured/neondistrict-platform.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/neondistrict-platform.html" loading="lazy" title="" tabindex="-1"></iframe><span>Neon District · neon-noir</span></a>
-      <a class="showreel-card" href="examples/structured/forge-api.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/forge-api.html" loading="lazy" title="" tabindex="-1"></iframe><span>Forge · developer-dark</span></a>
-      <a class="showreel-card" href="examples/structured/pulse-wrapped.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/pulse-wrapped.html" loading="lazy" title="" tabindex="-1"></iframe><span>Pulse · kinetic-wrapped</span></a>
-      <a class="showreel-card" href="examples/structured/apsis-mission.html" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1"><iframe src="about:blank" data-src="examples/structured/apsis-mission.html" loading="lazy" title="" tabindex="-1"></iframe><span>Apsis · blueprint</span></a>
-    </div>
-  </div>
-</section>
-
 <!-- ── HOW IT WORKS ────────────────────────────────────────────────────────── -->
 <section id="how-it-works">
   <div class="container">
     <span class="eyebrow">How it works</span>
-    <h2>Three steps from notes to deck.</h2>
+    <h2>Vibe → preview → craft.</h2>
     <p class="section-lead">
-      Drop any raw content — bullet points, a meeting transcript, a spec doc, a README —
-      and the skill handles the rest. It sequences your material, chooses layouts, and renders
-      a self-contained HTML file ready to open in a browser or share as a single attachment.
+      Same progressive path as the best agent slide packs — react to what you see, then ship.
+      Schema, audit, and PPTX stay available; they are not the homework for your first win.
     </p>
 
     <div class="steps">
       <div class="step">
-        <span class="step-icon"><i class="fa-regular fa-file-lines"></i></span>
-        <span class="step-num">Step 01</span>
-        <h3>Drop your notes</h3>
-        <p>Paste bullet points, a rough outline, a product brief, or anything you have. The agent reads it all and sequences it into a logical slide flow — you don't need to pre-structure anything.</p>
+        <span class="step-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+        <span class="step-num">Step 01 · Vibe</span>
+        <h3>Drop notes. Name a mood.</h3>
+        <p>Paste a brief or rough outline. Ask for a pitch, launch, or wrap. The agent shortlists three looks — safe, bold, wildcard — without making you learn a schema.</p>
       </div>
       <div class="step">
-        <span class="step-icon"><i class="fa-solid fa-palette"></i></span>
-        <span class="step-num">Step 02</span>
-        <h3>Keep the default vibe</h3>
-        <p>Ship with a strong starter theme. Swap later with one <span class="inline-code">"theme"</span> field — same Deck JSON, seventy-five looks when you want them. No redesign pass required.</p>
+        <span class="step-icon"><i class="fa-solid fa-eye"></i></span>
+        <span class="step-num">Step 02 · Preview</span>
+        <h3>Pick what looks right</h3>
+        <p>Open live theme previews (or Studio Compare 3). Show, don’t tell — choose the craft you want to keep, not adjectives on a list.</p>
       </div>
       <div class="step">
-        <span class="step-icon"><i class="fa-regular fa-circle-check"></i></span>
-        <span class="step-num">Step 03</span>
-        <h3>Get a deck you own</h3>
-        <p>A single self-contained HTML file — or native, editable PowerPoint for Keynote and Google Slides. No server, no build step, no platform lock-in.</p>
+        <span class="step-icon"><i class="fa-solid fa-link"></i></span>
+        <span class="step-num">Step 03 · Craft + share</span>
+        <h3>Scaffold → Studio link</h3>
+        <p>One hop: <span class="inline-code">scaffold_deck</span> returns an editable Studio URL. Fill copy, present, export PowerPoint when the room needs it.</p>
       </div>
     </div>
   </div>
@@ -1659,6 +1669,7 @@
       </div>
       <p class="start-rail-hint">
         Restart the agent, then ask: “Build a 10-slide pitch deck from these notes…”
+        First win: the agent should call <code>scaffold_deck</code> and hand you a Studio share link — not a schema lecture.
         Full vs lite and CLI details live in <a href="#install">Install</a>.
         Agent guides: <a href="/for/claude-code">Claude Code</a> ·
         <a href="/for/cursor">Cursor</a> ·
@@ -1666,6 +1677,19 @@
         <a href="/for/codex">Codex</a> ·
         <a href="/for/gemini-cli">Gemini CLI</a>.
       </p>
+    </div>
+
+    <div class="first-win" style="margin-top:36px;padding:22px 24px;border:1.5px solid color-mix(in srgb,var(--accent) 35%,var(--rule));border-radius:4px;background:color-mix(in srgb,var(--accent) 6%,var(--paper))">
+      <span class="eyebrow" style="color:var(--accent)">First win · no schema tax</span>
+      <h3 style="margin:8px 0 10px;font-family:var(--display);font-size:1.2rem;letter-spacing:-0.02em">Ask once. Get a shareable deck.</h3>
+      <p style="color:var(--ink-light);max-width:62ch;margin:0 0 14px;line-height:1.5;font-size:0.95rem">
+        After install, say: <em>“Scaffold a Series A pitch and give me the Studio link.”</em>
+        MCP returns craft-floor Deck JSON plus an editable <code>?d=</code> URL. Open it, tweak, present, export PPTX when you need Office.
+      </p>
+      <div class="ctas" style="display:flex;flex-wrap:wrap;gap:12px">
+        <a href="studio/?example=novaspark-pitch&fresh=1" class="btn btn-primary"><i class="fa-solid fa-pen-ruler"></i> Try that path in Studio</a>
+        <a href="#gallery" class="btn btn-secondary"><i class="fa-solid fa-images"></i> Browse flagship craft</a>
+      </div>
     </div>
   </div>
 </section>
@@ -3291,261 +3315,243 @@
   <div class="container">
     <span class="eyebrow">Gallery</span>
     <h2>Flagship craft. Then the rest of the library.</h2>
-    <p class="section-lead">Handcrafted flagships set the craft ceiling. Schema-rendered siblings follow — Studio-editable, PPTX-exportable. Start from the proofs below; browse themes when you need a different vibe.</p>
+    <p class="section-lead">Real screenshots first — the same energy as a bold template wall. Open any proof in Studio, restyle with one theme swap, export PPTX when the room needs Office.</p>
 
-    <div class="structured-proof" style="margin:28px 0 8px;padding:22px 22px 8px;border:1.5px solid color-mix(in srgb, var(--ink) 14%, transparent);border-radius:10px;background:color-mix(in srgb, var(--paper2) 55%, white)">
+    <div class="structured-proof" style="margin:28px 0 8px;padding:22px 22px 8px;border:1.5px solid color-mix(in srgb, var(--ink) 14%, transparent);border-radius:4px;background:color-mix(in srgb, var(--paper2) 55%, white)">
       <span class="eyebrow">Stunning twenty-five · then full coverage</span>
-      <h3 style="margin:8px 0 8px;font-size:1.28rem;letter-spacing:-0.02em">Canonical showcase first — NovaSpark through Apsis — then the remaining schema proofs across all 75 themes.</h3>
-      <p style="color:var(--ink-light);max-width:62ch;margin:0 0 16px;line-height:1.45;font-size:0.95rem">Valid Deck JSON → theme → HTML. Flagships lead with image-hero, bento, comparison emphasis, and code chrome. Sources live in <code style="font-size:0.85em">examples/decks/</code>.</p>
+      <h3 style="margin:8px 0 8px;font-size:1.28rem;letter-spacing:-0.02em">Canonical showcase first — NovaSpark through Apsis — then the remaining proofs across all 75 themes.</h3>
+      <p style="color:var(--ink-light);max-width:62ch;margin:0 0 16px;line-height:1.45;font-size:0.95rem">Click a plate → live Studio. Same deck JSON under the hood; you never have to touch it for a first win.</p>
       <div class="gallery-grid" style="margin-top:0;margin-bottom:16px">
 
         <a href="studio/?example=novaspark-pitch&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:linear-gradient(135deg,#0e0e12,#1a0533);display:flex;align-items:flex-end;padding:20px">
-            <div style="font-family:system-ui;font-weight:800;font-size:1.2rem;color:#a78bfa;line-height:1.15">NovaSpark<br><span style="color:#67e8f9;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">aurora-glass</span></div>
+          <div class="thumb" style="padding:0;background:#0e0e12">
+            <img src="previews/hero/novaspark-pitch.png" width="640" height="360" alt="NovaSpark aurora-glass title craft" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" />
           </div>
           <div class="card-meta">
-            <div class="card-title">NovaSpark (Deck JSON)</div>
-            <div class="card-badges"><span class="badge dark">Pitch</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">NovaSpark</div>
+            <div class="card-badges"><span class="badge dark">Pitch</span><span class="badge accent">aurora-glass</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=meridian-sales&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#f8fafc;display:flex;align-items:flex-end;padding:20px;border-bottom:1px solid #e2e8f0">
-            <div style="font-family:Georgia,serif;font-weight:700;font-size:1.15rem;color:#1e3a8a;line-height:1.15">Meridian<br><span style="font-family:system-ui;color:#3b82f6;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">ft-editorial</span></div>
+          <div class="thumb" style="padding:0;background:#f8fafc">
+            <img src="previews/hero/meridian-sales.png" width="640" height="360" alt="Meridian ft-editorial title craft" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" />
           </div>
           <div class="card-meta">
-            <div class="card-title">Meridian (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Sales</span><span class="badge blue">Schema-rendered</span></div>
+            <div class="card-title">Meridian</div>
+            <div class="card-badges"><span class="badge light">Sales</span><span class="badge blue">ft-editorial</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=bounce-launch&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#ff4d2e;display:flex;align-items:flex-end;padding:20px">
-            <div style="font-family:system-ui;font-weight:900;font-size:1.3rem;color:#fff;line-height:1.05">Bounce<br><span style="color:#ffe14d;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">genz-bento</span></div>
+          <div class="thumb" style="padding:0;background:#ff4d2e">
+            <img src="previews/hero/bounce-launch.png" width="640" height="360" alt="Bounce genz-bento title craft" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" />
           </div>
           <div class="card-meta">
-            <div class="card-title">Bounce (Deck JSON)</div>
-            <div class="card-badges"><span class="badge coral">Launch</span><span class="badge lime">Schema-rendered</span></div>
+            <div class="card-title">Bounce</div>
+            <div class="card-badges"><span class="badge coral">Launch</span><span class="badge lime">genz-bento</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=solstice-update&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#0a0a0a;display:flex;align-items:flex-end;padding:20px">
-            <div style="font-family:Georgia,serif;font-weight:500;font-size:1.2rem;color:#f5f0e8;line-height:1.15">Solstice<br><span style="font-family:system-ui;color:#c9a86a;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">luxury-minimalist</span></div>
+          <div class="thumb" style="padding:0;background:#0a0a0a">
+            <img src="previews/hero/solstice-update.png" width="640" height="360" alt="Solstice luxury-minimalist title craft" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" />
           </div>
           <div class="card-meta">
-            <div class="card-title">Solstice (Deck JSON)</div>
-            <div class="card-badges"><span class="badge gold">LP Update</span><span class="badge dark">Schema-rendered</span></div>
+            <div class="card-title">Solstice</div>
+            <div class="card-badges"><span class="badge gold">LP Update</span><span class="badge dark">luxury-minimalist</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=retronet-demo&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#0d0015;display:flex;align-items:flex-end;padding:20px">
-            <div style="font-family:monospace;font-weight:700;font-size:1.15rem;color:#00ffff;line-height:1.15;text-shadow:0 0 12px #ff00ff">RetroNet<br><span style="color:#ff00ff;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase">crt-terminal</span></div>
+          <div class="thumb" style="padding:0;background:#0d0015">
+            <img src="previews/hero/retronet-demo.png" width="640" height="360" alt="RetroNet crt-terminal title craft" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" />
           </div>
           <div class="card-meta">
-            <div class="card-title">RetroNet (Deck JSON)</div>
-            <div class="card-badges"><span class="badge neon">Demo</span><span class="badge crt">Schema-rendered</span></div>
+            <div class="card-title">RetroNet</div>
+            <div class="card-badges"><span class="badge neon">Demo</span><span class="badge crt">crt-terminal</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=gridsystems-studio&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#fff;display:flex;align-items:flex-end;padding:20px;border-bottom:3px solid #e2231a">
-            <div style="font-family:system-ui;font-weight:800;font-size:1.2rem;color:#0a0a0a;line-height:1.1">Grid Systems<br><span style="color:#e2231a;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">swiss-typographic</span></div>
+          <div class="thumb" style="padding:0;background:#fff">
+            <img src="previews/hero/gridsystems-studio.png" width="640" height="360" alt="Grid Systems swiss-typographic title craft" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" />
           </div>
           <div class="card-meta">
-            <div class="card-title">Grid Systems (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Swiss Modern</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Grid Systems</div>
+            <div class="card-badges"><span class="badge light">Swiss Modern</span><span class="badge accent">swiss-typographic</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=monolith-seriesa&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#1c1c1c;display:flex;align-items:flex-end;padding:20px;border:3px solid #c8ff00">
-            <div style="font-family:ui-monospace,monospace;font-weight:700;font-size:1.1rem;color:#c8ff00;line-height:1.1">MONOLITH<br><span style="color:#aaa;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase">brutalist-acid</span></div>
+          <div class="thumb" style="padding:0;background:#1c1c1c">
+            <img src="previews/hero/monolith-seriesa.png" width="640" height="360" alt="MONOLITH brutalist-acid title craft" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" />
           </div>
           <div class="card-meta">
-            <div class="card-title">MONOLITH (Deck JSON)</div>
-            <div class="card-badges"><span class="badge dark">Series A + code</span><span class="badge lime">Schema-rendered</span></div>
+            <div class="card-title">MONOLITH</div>
+            <div class="card-badges"><span class="badge dark">Series A</span><span class="badge lime">brutalist-acid</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=jellybean-launch&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#fff5f8;display:flex;align-items:flex-end;padding:20px;border:3px solid #111">
-            <div style="font-family:system-ui;font-weight:900;font-size:1.2rem;color:#ff2d7b;line-height:1.05">Jellybean<br><span style="color:#3b82f6;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">candy-pop</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/jellybean-launch.png" width="640" height="360" alt="jellybean-launch craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Jellybean (Deck JSON)</div>
-            <div class="card-badges"><span class="badge coral">Launch</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Jellybean</div>
+            <div class="card-badges"><span class="badge coral">Launch</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=axiom-robotics&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#0a1628;display:flex;align-items:flex-end;padding:20px;border:1px solid rgba(0,229,255,0.35)">
-            <div style="font-family:system-ui;font-weight:700;font-size:1.15rem;color:#00e5ff;line-height:1.1">Axiom<br><span style="color:#ff8a3d;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">aerospace-hud</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/axiom-robotics.png" width="640" height="360" alt="axiom-robotics craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Axiom (Deck JSON)</div>
-            <div class="card-badges"><span class="badge dark">Mission</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Axiom</div>
+            <div class="card-badges"><span class="badge dark">Mission</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=atelier-brand&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#f4efe9;display:flex;align-items:flex-end;padding:20px;border-bottom:1px solid #c98b7a">
-            <div style="font-family:Georgia,serif;font-weight:600;font-size:1.15rem;color:#3d2f28;line-height:1.15">Atelier No. 9<br><span style="font-family:system-ui;color:#c98b7a;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">heritage-editorial</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/atelier-brand.png" width="640" height="360" alt="atelier-brand craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Atelier No. 9 (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Brand</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Atelier No. 9</div>
+            <div class="card-badges"><span class="badge light">Brand</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=ledgerline-payout&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#f7f8fc;display:flex;align-items:flex-end;padding:20px;border-bottom:1px solid #e2e5ef">
-            <div style="font-family:system-ui;font-weight:700;font-size:1.15rem;color:#1e1b4b;line-height:1.15">LedgerLine<br><span style="color:#6366f1;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">fintech-clean</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/ledgerline-payout.png" width="640" height="360" alt="ledgerline-payout craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">LedgerLine (Deck JSON)</div>
-            <div class="card-badges"><span class="badge blue">Fintech + code</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">LedgerLine</div>
+            <div class="card-badges"><span class="badge blue">Fintech + code</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=forge-api&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#0d1117;display:flex;align-items:flex-end;padding:20px">
-            <div style="font-family:ui-monospace,monospace;font-weight:700;font-size:1.15rem;color:#58a6ff;line-height:1.15">Forge API<br><span style="color:#3fb950;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase">developer-dark</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/forge-api.png" width="640" height="360" alt="forge-api craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Forge (Deck JSON)</div>
-            <div class="card-badges"><span class="badge dark">API + code</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Forge</div>
+            <div class="card-badges"><span class="badge dark">API + code</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=signalbox-report&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#fff;display:flex;align-items:flex-end;padding:20px;border-top:3px solid #2b6cb0">
-            <div style="font-family:system-ui;font-weight:700;font-size:1.15rem;color:#1a1a1a;line-height:1.1">Signalbox<br><span style="color:#e63946;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">data-editorial</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/signalbox-report.png" width="640" height="360" alt="signalbox-report craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Signalbox (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Report</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Signalbox</div>
+            <div class="card-badges"><span class="badge light">Report</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=primary-keynote&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#f4f1ea;display:flex;align-items:flex-end;padding:20px;border-bottom:4px solid #e63946">
-            <div style="font-family:system-ui;font-weight:800;font-size:1.2rem;color:#0d0d0d;line-height:1.05">Primary<br><span style="color:#1f4ae0;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">bauhaus</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/primary-keynote.png" width="640" height="360" alt="primary-keynote craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Primary (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Keynote</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Primary</div>
+            <div class="card-badges"><span class="badge light">Keynote</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=bubbleflow-launch&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:linear-gradient(160deg,#fff,#e0f7ff);display:flex;align-items:flex-end;padding:20px">
-            <div style="font-family:system-ui;font-weight:700;font-size:1.15rem;color:#0284c7;line-height:1.1">BubbleFlow<br><span style="color:#65a30d;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">y2k-aero</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/bubbleflow-launch.png" width="640" height="360" alt="bubbleflow-launch craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">BubbleFlow (Deck JSON)</div>
-            <div class="card-badges"><span class="badge blue">Launch</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">BubbleFlow</div>
+            <div class="card-badges"><span class="badge blue">Launch</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=inkwell-pitch&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#f3ecdd;display:flex;align-items:flex-end;padding:20px;border:2px solid #111">
-            <div style="font-family:system-ui;font-weight:800;font-size:1.15rem;color:#ff4f4f;line-height:1.1">Inkwell<br><span style="color:#2b3aff;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">risograph-zine</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/inkwell-pitch.png" width="640" height="360" alt="inkwell-pitch craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Inkwell (Deck JSON)</div>
-            <div class="card-badges"><span class="badge coral">Zine</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Inkwell</div>
+            <div class="card-badges"><span class="badge coral">Zine</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=neondistrict-platform&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#050510;display:flex;align-items:flex-end;padding:20px">
-            <div style="font-family:system-ui;font-weight:800;font-size:1.2rem;color:#ff2e97;line-height:1.1;text-shadow:0 0 18px rgba(255,46,151,0.45)">Neon District<br><span style="color:#00e5ff;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">neon-noir</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/neondistrict-platform.png" width="640" height="360" alt="neondistrict-platform craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Neon District (Deck JSON)</div>
-            <div class="card-badges"><span class="badge neon">Neon Cyber</span><span class="badge dark">Schema-rendered</span></div>
+            <div class="card-title">Neon District</div>
+            <div class="card-badges"><span class="badge neon">Neon Cyber</span><span class="badge dark">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=hygge-brand&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#efe9df;display:flex;align-items:flex-end;padding:20px">
-            <div style="font-family:system-ui;font-weight:600;font-size:1.15rem;color:#3d3a35;line-height:1.15">Hygge Home<br><span style="color:#9caf88;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">scandinavian</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/hygge-brand.png" width="640" height="360" alt="hygge-brand craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Hygge Home (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Brand</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Hygge Home</div>
+            <div class="card-badges"><span class="badge light">Brand</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=meridianclub-investor&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#0c2a24;display:flex;align-items:flex-end;padding:20px">
-            <div style="font-family:Georgia,serif;font-weight:600;font-size:1.15rem;color:#c8a24a;line-height:1.15;letter-spacing:0.04em">Meridian Club<br><span style="font-family:system-ui;color:#7ec8b0;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">art-deco</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/meridianclub-investor.png" width="640" height="360" alt="meridianclub-investor craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Meridian Club (Deck JSON)</div>
-            <div class="card-badges"><span class="badge gold">Investor</span><span class="badge dark">Schema-rendered</span></div>
+            <div class="card-title">Meridian Club</div>
+            <div class="card-badges"><span class="badge gold">Investor</span><span class="badge dark">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=mallsoft-launch&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:linear-gradient(180deg,#1a0533,#3a1048);display:flex;align-items:flex-end;padding:20px">
-            <div style="font-family:system-ui;font-weight:400;font-size:1.15rem;color:#ff6ad5;line-height:1.1;text-shadow:2px 0 #5ce1ff">Mallsoft<br><span style="color:#5ce1ff;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">vaporwave</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/mallsoft-launch.png" width="640" height="360" alt="mallsoft-launch craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Mallsoft (Deck JSON)</div>
-            <div class="card-badges"><span class="badge neon">Launch</span><span class="badge dark">Schema-rendered</span></div>
+            <div class="card-title">Mallsoft</div>
+            <div class="card-badges"><span class="badge neon">Launch</span><span class="badge dark">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=dailyledger-mediakit&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#f2ece0;display:flex;align-items:flex-end;padding:20px;border-top:36px solid #1a1208">
-            <div style="font-family:Georgia,serif;font-weight:700;font-size:1.15rem;color:#1a1208;line-height:1.1">Daily Ledger<br><span style="font-family:system-ui;color:#666;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">broadsheet</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/dailyledger-mediakit.png" width="640" height="360" alt="dailyledger-mediakit craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Daily Ledger (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Media kit</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Daily Ledger</div>
+            <div class="card-badges"><span class="badge light">Media kit</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=cloudpeak-pricing&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:linear-gradient(135deg,#f8f9ff,#e8ecff);display:flex;align-items:flex-end;padding:20px">
-            <div style="font-family:system-ui;font-weight:700;font-size:1.15rem;color:#5b6af5;line-height:1.1">CloudPeak<br><span style="color:#22d3ee;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">glassmorphism</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/cloudpeak-pricing.png" width="640" height="360" alt="cloudpeak-pricing craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">CloudPeak (Deck JSON)</div>
-            <div class="card-badges"><span class="badge blue">Pricing</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">CloudPeak</div>
+            <div class="card-badges"><span class="badge blue">Pricing</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=pulse-wrapped&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#000;display:flex;align-items:flex-end;padding:20px;border:4px solid #c8ff00">
-            <div style="font-family:system-ui;font-weight:900;font-size:1.2rem;color:#c8ff00;line-height:1;text-transform:uppercase">Pulse<br><span style="color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:0.08em">kinetic-wrapped</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/pulse-wrapped.png" width="640" height="360" alt="pulse-wrapped craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Pulse Wrapped (Deck JSON)</div>
-            <div class="card-badges"><span class="badge lime">Wrapped</span><span class="badge dark">Schema-rendered</span></div>
+            <div class="card-title">Pulse Wrapped</div>
+            <div class="card-badges"><span class="badge lime">Wrapped</span><span class="badge dark">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=verdant-impact&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#1d3a2f;display:flex;align-items:flex-end;padding:20px">
-            <div style="font-family:Georgia,serif;font-style:italic;font-weight:500;font-size:1.15rem;color:#bfa55a;line-height:1.15">Verdant<br><span style="font-family:system-ui;font-style:normal;color:#8fbc8f;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">botanical-luxe</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/verdant-impact.png" width="640" height="360" alt="verdant-impact craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Verdant (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Impact</span><span class="badge dark">Schema-rendered</span></div>
+            <div class="card-title">Verdant</div>
+            <div class="card-badges"><span class="badge light">Impact</span><span class="badge dark">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
         <a href="studio/?example=apsis-mission&fresh=1" target="_blank" rel="noopener" class="gallery-card" style="text-decoration:none;color:inherit">
-          <div class="thumb" style="background:#0a1f3d;display:flex;align-items:flex-end;padding:20px;background-image:linear-gradient(rgba(0,229,255,0.12) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.12) 1px,transparent 1px);background-size:24px 24px">
-            <div style="font-family:ui-monospace,monospace;font-weight:700;font-size:1.15rem;color:#00e5ff;line-height:1.1">Apsis<br><span style="color:#7dd3fc;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase">blueprint</span></div>
+          <div class="thumb" style="padding:0;background:#0B1220"><img src="previews/hero/apsis-mission.png" width="640" height="360" alt="apsis-mission craft proof" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:left center" /></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Apsis (Deck JSON)</div>
-            <div class="card-badges"><span class="badge dark">Mission + code</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Apsis</div>
+            <div class="card-badges"><span class="badge dark">Mission + code</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
@@ -3554,8 +3560,8 @@
             <div style="font-family:system-ui;font-weight:800;font-size:1.2rem;color:#a78bfa;line-height:1.15">NeonForge<br><span style="color:#67e8f9;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">default-tech</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">NeonForge (Deck JSON)</div>
-            <div class="card-badges"><span class="badge dark">Pitch</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">NeonForge</div>
+            <div class="card-badges"><span class="badge dark">Pitch</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3564,8 +3570,8 @@
             <div style="font-family:system-ui;font-weight:700;font-size:1.2rem;color:#141413;line-height:1.15">Clay &amp; Paper<br><span style="color:#d97757;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">claude</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Clay &amp; Paper (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Brief</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Clay &amp; Paper</div>
+            <div class="card-badges"><span class="badge light">Brief</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3574,8 +3580,8 @@
             <div style="font-family:system-ui;font-weight:900;font-size:1.2rem;color:#fff;line-height:1.1">SignalForge<br><span style="color:#FF5722;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">bold-signal</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">SignalForge (Deck JSON)</div>
-            <div class="card-badges"><span class="badge coral">Launch</span><span class="badge dark">Schema-rendered</span></div>
+            <div class="card-title">SignalForge</div>
+            <div class="card-badges"><span class="badge coral">Launch</span><span class="badge dark">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3584,8 +3590,8 @@
             <div style="font-family:system-ui;font-weight:800;font-size:1.2rem;color:#fff;line-height:1.1">Volt Studio<br><span style="color:#ffffff;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;opacity:0.85">electric-studio</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Volt Studio (Deck JSON)</div>
-            <div class="card-badges"><span class="badge blue">Agency</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Volt Studio</div>
+            <div class="card-badges"><span class="badge blue">Agency</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3594,8 +3600,8 @@
             <div style="font-family:Georgia,serif;font-weight:600;font-size:1.2rem;color:#2A241B;line-height:1.15">Quill &amp; Field<br><span style="font-family:system-ui;color:#7a8f6a;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">soft-editorial</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Quill &amp; Field (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Editorial</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Quill &amp; Field</div>
+            <div class="card-badges"><span class="badge light">Editorial</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3604,8 +3610,8 @@
             <div style="font-family:Georgia,serif;font-weight:600;font-size:1.15rem;color:#d4e8c2;line-height:1.15">Nightbloom<br><span style="font-family:system-ui;color:#7cb87a;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">dark-botanical</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Nightbloom (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Impact</span><span class="badge dark">Schema-rendered</span></div>
+            <div class="card-title">Nightbloom</div>
+            <div class="card-badges"><span class="badge light">Impact</span><span class="badge dark">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3614,8 +3620,8 @@
             <div style="font-family:system-ui;font-weight:700;font-size:1.15rem;color:#f3f4f6;line-height:1.15">Northline<br><span style="color:#38bdf8;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">signal</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Northline Briefing (Deck JSON)</div>
-            <div class="card-badges"><span class="badge dark">Strategy</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Northline Briefing</div>
+            <div class="card-badges"><span class="badge dark">Strategy</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
@@ -3624,8 +3630,8 @@
             <div style="font-family:system-ui;font-weight:900;font-size:1.2rem;color:#fff;line-height:1.1">VoltCraft<br><span style="color:#fde047;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">creative-voltage</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">VoltCraft (Deck JSON)</div>
-            <div class="card-badges"><span class="badge accent">Agency</span><span class="badge dark">Schema-rendered</span></div>
+            <div class="card-title">VoltCraft</div>
+            <div class="card-badges"><span class="badge accent">Agency</span><span class="badge dark">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3634,8 +3640,8 @@
             <div style="font-family:system-ui;font-weight:900;font-size:1.2rem;color:#111;line-height:1.05">Framewerk<br><span style="color:#e11d48;font-size:0.75rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase">block-frame</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Framewerk (Deck JSON)</div>
-            <div class="card-badges"><span class="badge coral">Manifesto</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Framewerk</div>
+            <div class="card-badges"><span class="badge coral">Manifesto</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3644,8 +3650,8 @@
             <div style="font-family:system-ui;font-weight:800;font-size:1.15rem;color:#4a044e;line-height:1.1">Sakura Audio<br><span style="color:#831843;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">sakura-chroma</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Sakura Audio (Deck JSON)</div>
-            <div class="card-badges"><span class="badge coral">Launch</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Sakura Audio</div>
+            <div class="card-badges"><span class="badge coral">Launch</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3654,8 +3660,8 @@
             <div style="font-family:ui-monospace,monospace;font-weight:700;font-size:1.1rem;color:#7CFC00;line-height:1.15;text-shadow:2px 2px 0 #111">BitOrbit<br><span style="color:#60a5fa;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase">8-bit-orbit</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">BitOrbit (Deck JSON)</div>
-            <div class="card-badges"><span class="badge neon">Game pitch</span><span class="badge dark">Schema-rendered</span></div>
+            <div class="card-title">BitOrbit</div>
+            <div class="card-badges"><span class="badge neon">Game pitch</span><span class="badge dark">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3664,8 +3670,8 @@
             <div style="font-family:Georgia,serif;font-weight:700;font-size:1.15rem;color:#1a1a1a;line-height:1.1">Fieldnotes<br><span style="font-family:system-ui;color:#7a6aad;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">notebook-tabs</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Fieldnotes (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Pitch</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Fieldnotes</div>
+            <div class="card-badges"><span class="badge light">Pitch</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3674,8 +3680,8 @@
             <div style="font-family:Georgia,serif;font-weight:600;font-size:1.2rem;color:#1a1a1a;line-height:1.15"><span style="color:#c41e3a">I</span>nkpress<br><span style="font-family:system-ui;color:#c41e3a;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">paper-ink</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Inkpress (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Literary</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Inkpress</div>
+            <div class="card-badges"><span class="badge light">Literary</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3684,8 +3690,8 @@
             <div style="font-family:system-ui;font-weight:800;font-size:1.15rem;color:#2a3a4a;line-height:1.1">GeomSoft<br><span style="color:#7c6aad;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">pastel-geometry</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">GeomSoft (Deck JSON)</div>
-            <div class="card-badges"><span class="badge blue">Launch</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">GeomSoft</div>
+            <div class="card-badges"><span class="badge blue">Launch</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3694,8 +3700,8 @@
             <div style="font-family:Georgia,serif;font-weight:900;font-size:1.2rem;color:#1a1a1a;line-height:1.1">Folio<br><span style="font-family:system-ui;color:#666;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">vintage-editorial</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Folio (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Journal</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Folio</div>
+            <div class="card-badges"><span class="badge light">Journal</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3704,8 +3710,8 @@
             <div style="font-family:Georgia,serif;font-weight:400;font-size:1.2rem;color:#D8000F;line-height:1.05">Posterforge<br><span style="font-family:system-ui;color:#1C1410;font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">bold-poster</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Posterforge (Deck JSON)</div>
-            <div class="card-badges"><span class="badge coral">Campaign</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Posterforge</div>
+            <div class="card-badges"><span class="badge coral">Campaign</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Edit in Studio →</div>
           </div>
         </a>
@@ -3714,8 +3720,8 @@
             <div style="font-family:system-ui;font-weight:800;font-size:1.15rem;color:#111;line-height:1;text-transform:uppercase">NeoGrid<br><span style="color:#556;font-size:0.75rem;font-weight:700;letter-spacing:0.08em">neo-grid-bold</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">NeoGrid (Deck JSON)</div>
-            <div class="card-badges"><span class="badge lime">Studio</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">NeoGrid</div>
+            <div class="card-badges"><span class="badge lime">Studio</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3724,8 +3730,8 @@
             <div style="font-family:system-ui;font-weight:400;font-size:1.2rem;color:#E85D5D;line-height:0.95;letter-spacing:0.04em;text-transform:uppercase">Coralwave<br><span style="color:#1A1A1A;font-size:0.75rem;font-weight:700;letter-spacing:0.08em">coral</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Coralwave (Deck JSON)</div>
-            <div class="card-badges"><span class="badge coral">Launch</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Coralwave</div>
+            <div class="card-badges"><span class="badge coral">Launch</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3734,8 +3740,8 @@
             <div style="font-family:Instrument Serif,Georgia,serif;font-weight:700;font-size:1.15rem;color:#1B2566;line-height:1.1;">Soleil<br><span style="font-family:system-ui;color:#F1EE2E;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">biennale-yellow</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Soleil (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Pavilion</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Soleil</div>
+            <div class="card-badges"><span class="badge light">Pavilion</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3744,8 +3750,8 @@
             <div style="font-family:Barlow,system-ui,sans-serif;font-weight:700;font-size:1.15rem;color:#F0ECE5;line-height:1.1;">Fireline<br><span style="font-family:system-ui;color:#E85D26;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">broadside</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Fireline (Deck JSON)</div>
-            <div class="card-badges"><span class="badge dark">Campaign</span><span class="badge lime">Schema-rendered</span></div>
+            <div class="card-title">Fireline</div>
+            <div class="card-badges"><span class="badge dark">Campaign</span><span class="badge lime">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3754,8 +3760,8 @@
             <div style="font-family:Barlow,system-ui,sans-serif;font-weight:700;font-size:1.15rem;color:#F5D200;line-height:1.1;text-transform:uppercase;">Acid Room<br><span style="font-family:system-ui;color:#F5D200;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">studio</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Acid Room (Deck JSON)</div>
-            <div class="card-badges"><span class="badge dark">Studio</span><span class="badge lime">Schema-rendered</span></div>
+            <div class="card-title">Acid Room</div>
+            <div class="card-badges"><span class="badge dark">Studio</span><span class="badge lime">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3764,8 +3770,8 @@
             <div style="font-family:Cormorant Garamond,Georgia,serif;font-weight:700;font-size:1.15rem;color:#E8D85C;line-height:1.1;font-style:italic;">Parchment<br><span style="font-family:system-ui;color:#E8D85C;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">vellum</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Parchment (Deck JSON)</div>
-            <div class="card-badges"><span class="badge dark">Lecture</span><span class="badge lime">Schema-rendered</span></div>
+            <div class="card-title">Parchment</div>
+            <div class="card-badges"><span class="badge dark">Lecture</span><span class="badge lime">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3774,8 +3780,8 @@
             <div style="font-family:Archivo Black,system-ui,sans-serif;font-weight:700;font-size:1.15rem;color:#0F0F0F;line-height:1.1;">Blockparty<br><span style="font-family:system-ui;color:#E85A1F;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">creative-mode</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Blockparty (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Agency</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Blockparty</div>
+            <div class="card-badges"><span class="badge light">Agency</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3784,8 +3790,8 @@
             <div style="font-family:Shrikhand,cursive;font-weight:700;font-size:1.15rem;color:#2D2A26;line-height:1.1;">Stickyroom<br><span style="font-family:system-ui;color:#FFE066;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">scatterbrain</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Stickyroom (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Workshop</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Stickyroom</div>
+            <div class="card-badges"><span class="badge light">Workshop</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3794,8 +3800,8 @@
             <div style="font-family:Orbitron,system-ui,sans-serif;font-weight:700;font-size:1.15rem;color:#ff00ff;line-height:1.1;text-shadow:0 0 12px #00ffff;">PixelQuest<br><span style="font-family:system-ui;color:#00ffff;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">retro-arcade</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">PixelQuest (Deck JSON)</div>
-            <div class="card-badges"><span class="badge dark">Demo</span><span class="badge lime">Schema-rendered</span></div>
+            <div class="card-title">PixelQuest</div>
+            <div class="card-badges"><span class="badge dark">Demo</span><span class="badge lime">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3804,8 +3810,8 @@
             <div style="font-family:IBM Plex Mono,monospace;font-weight:700;font-size:1.15rem;color:#0a0a0a;line-height:1.1;">Concrete<br><span style="font-family:system-ui;color:#ff3600;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">brutalist-mono</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Concrete (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Spec + code</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Concrete</div>
+            <div class="card-badges"><span class="badge light">Spec + code</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3814,8 +3820,8 @@
             <div style="font-family:Bodoni Moda,Georgia,serif;font-weight:700;font-size:1.15rem;color:#1A1A1A;line-height:1.1;">Pillbox<br><span style="font-family:system-ui;color:#E85D4E;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">capsule</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Pillbox (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Launch</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Pillbox</div>
+            <div class="card-badges"><span class="badge light">Launch</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3824,8 +3830,8 @@
             <div style="font-family:Segoe UI,Tahoma,sans-serif;font-weight:700;font-size:1.15rem;color:#000080;line-height:1.1;">DeskPad<br><span style="font-family:system-ui;color:#000080;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">retro-windows</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">DeskPad (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Demo</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">DeskPad</div>
+            <div class="card-badges"><span class="badge light">Demo</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3834,8 +3840,8 @@
             <div style="font-family:Segoe UI,system-ui,sans-serif;font-weight:700;font-size:1.15rem;color:#0A0A0A;line-height:1.1;">Borderlands<br><span style="font-family:system-ui;color:#F2D4CF;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">raw-grid</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Borderlands (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Studio</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Borderlands</div>
+            <div class="card-badges"><span class="badge light">Studio</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3844,8 +3850,8 @@
             <div style="font-family:Alfa Slab One,serif;font-weight:700;font-size:1.15rem;color:#2C2CDC;line-height:1.1;">CivicPulse<br><span style="font-family:system-ui;color:#F2A03A;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">peoples-platform</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">CivicPulse (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Rally</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">CivicPulse</div>
+            <div class="card-badges"><span class="badge light">Rally</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3854,8 +3860,8 @@
             <div style="font-family:Stardos Stencil,serif;font-weight:700;font-size:1.15rem;color:#0A0A0A;line-height:1.1;">Tablet Press<br><span style="font-family:system-ui;color:#A06A3C;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">stencil-tablet</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Tablet Press (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Campaign</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Tablet Press</div>
+            <div class="card-badges"><span class="badge light">Campaign</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3864,8 +3870,8 @@
             <div style="font-family:Bebas Neue,sans-serif;font-weight:700;font-size:1.15rem;color:#1A1A1A;line-height:1.1;">Khaki Press<br><span style="font-family:system-ui;color:#008F4D;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">retro-zine</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Khaki Press (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Zine</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Khaki Press</div>
+            <div class="card-badges"><span class="badge light">Zine</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3874,8 +3880,8 @@
             <div style="font-family:Playfair Display,Georgia,serif;font-weight:700;font-size:1.15rem;color:#D4CFBF;line-height:1.1;font-style:italic;">Canopy<br><span style="font-family:system-ui;color:#C8524A;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">grove</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Canopy (Deck JSON)</div>
-            <div class="card-badges"><span class="badge dark">Impact</span><span class="badge lime">Schema-rendered</span></div>
+            <div class="card-title">Canopy</div>
+            <div class="card-badges"><span class="badge dark">Impact</span><span class="badge lime">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3884,8 +3890,8 @@
             <div style="font-family:Newsreader,Georgia,serif;font-weight:700;font-size:1.15rem;color:#1F2BE0;line-height:1.1;">Graphpaper<br><span style="font-family:system-ui;color:#1F2BE0;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">cobalt-grid</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Graphpaper (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Ops + code</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Graphpaper</div>
+            <div class="card-badges"><span class="badge light">Ops + code</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3894,8 +3900,8 @@
             <div style="font-family:Playfair Display,Georgia,serif;font-weight:700;font-size:1.15rem;color:#1A1A1A;line-height:1.1;font-style:italic;">Draftline<br><span style="font-family:system-ui;color:#8A8178;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">cartesian</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Draftline (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Studio</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Draftline</div>
+            <div class="card-badges"><span class="badge light">Studio</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3904,8 +3910,8 @@
             <div style="font-family:Space Grotesk,system-ui,sans-serif;font-weight:700;font-size:1.15rem;color:#1F3A8A;line-height:1.1;">Legalpad<br><span style="font-family:system-ui;color:#1F3A8A;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">pin-and-paper</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Legalpad (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Pitch + code</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Legalpad</div>
+            <div class="card-badges"><span class="badge light">Pitch + code</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3914,8 +3920,8 @@
             <div style="font-family:DM Serif Display,Georgia,serif;font-weight:700;font-size:1.15rem;color:#ED3D8C;line-height:1.1;">Afterhours<br><span style="font-family:system-ui;color:#ED3D8C;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">pink-script</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Afterhours (Deck JSON)</div>
-            <div class="card-badges"><span class="badge dark">Drop</span><span class="badge lime">Schema-rendered</span></div>
+            <div class="card-title">Afterhours</div>
+            <div class="card-badges"><span class="badge dark">Drop</span><span class="badge lime">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3924,8 +3930,8 @@
             <div style="font-family:Fredoka One,system-ui,sans-serif;font-weight:700;font-size:1.15rem;color:#1A1A1A;line-height:1.1;">Buttercup<br><span style="font-family:system-ui;color:#2EC4B6;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">daisy-days</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Buttercup (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Launch</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Buttercup</div>
+            <div class="card-badges"><span class="badge light">Launch</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3934,8 +3940,8 @@
             <div style="font-family:Outfit,system-ui,sans-serif;font-weight:700;font-size:1.15rem;color:#1a1a1a;line-height:1.1;">Halves<br><span style="font-family:system-ui;color:#c8f0d8;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">split-pastel</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Halves (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Brand</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Halves</div>
+            <div class="card-badges"><span class="badge light">Brand</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3944,8 +3950,8 @@
             <div style="font-family:Source Serif 4,Georgia,serif;font-weight:700;font-size:1.15rem;color:#2e4a2a;line-height:1.1;">Mossprint<br><span style="font-family:system-ui;color:#e89cb1;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">editorial-forest</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Mossprint (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Journal</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Mossprint</div>
+            <div class="card-badges"><span class="badge light">Journal</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3954,8 +3960,8 @@
             <div style="font-family:Georgia,serif;font-weight:700;font-size:1.15rem;color:#1a1a1a;line-height:1.1;">Crimson<br><span style="font-family:system-ui;color:#b91c1c;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">editorial-serif</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Crimson (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Media kit</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Crimson</div>
+            <div class="card-badges"><span class="badge light">Media kit</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3964,8 +3970,8 @@
             <div style="font-family:Bricolage Grotesque,system-ui,sans-serif;font-weight:700;font-size:1.15rem;color:#7A1F35;line-height:1.1;">Triad<br><span style="font-family:system-ui;color:#F2D86A;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">editorial-tri-tone</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Triad (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Brand</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Triad</div>
+            <div class="card-badges"><span class="badge light">Brand</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3974,8 +3980,8 @@
             <div style="font-family:Bodoni Moda,Georgia,serif;font-weight:700;font-size:1.15rem;color:#0F1A5C;line-height:1.1;">Verdure<br><span style="font-family:system-ui;color:#3CD896;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">emerald-editorial</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Verdure (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Report</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Verdure</div>
+            <div class="card-badges"><span class="badge light">Report</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3984,8 +3990,8 @@
             <div style="font-family:Fraunces,Georgia,serif;font-weight:700;font-size:1.15rem;color:#B53D2A;line-height:1.1;font-style:italic;">Supperclub<br><span style="font-family:system-ui;color:#B53D2A;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">long-table</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Supperclub (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Invite</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Supperclub</div>
+            <div class="card-badges"><span class="badge light">Invite</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -3994,8 +4000,8 @@
             <div style="font-family:Bricolage Grotesque,system-ui,sans-serif;font-weight:700;font-size:1.15rem;color:#F0E8D2;line-height:1.1;">Kiln<br><span style="font-family:system-ui;color:#C07030;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">mat</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Kiln (Deck JSON)</div>
-            <div class="card-badges"><span class="badge dark">Studio</span><span class="badge lime">Schema-rendered</span></div>
+            <div class="card-title">Kiln</div>
+            <div class="card-badges"><span class="badge dark">Studio</span><span class="badge lime">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -4004,8 +4010,8 @@
             <div style="font-family:Jost,system-ui,sans-serif;font-weight:700;font-size:1.15rem;color:#1A1A16;line-height:1.1;font-style:italic;">Ivory &amp; Ink<br><span style="font-family:system-ui;color:#1A1A16;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">monochrome</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Ivory &amp; Ink (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Folio</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Ivory &amp; Ink</div>
+            <div class="card-badges"><span class="badge light">Folio</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -4014,8 +4020,8 @@
             <div style="font-family:system-ui,sans-serif;font-weight:700;font-size:1.15rem;color:#4a2a5a;line-height:1.1;">Cloudnine<br><span style="font-family:system-ui;color:#e8a0c0;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">pastel-dreamy</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Cloudnine (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Launch</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Cloudnine</div>
+            <div class="card-badges"><span class="badge light">Launch</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -4024,8 +4030,8 @@
             <div style="font-family:Space Grotesk,system-ui,sans-serif;font-weight:700;font-size:1.15rem;color:#111111;line-height:1.1;">Northbridge<br><span style="font-family:system-ui;color:#1E2BFA;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">blue-professional</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Northbridge (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Board + code</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Northbridge</div>
+            <div class="card-badges"><span class="badge light">Board + code</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -4034,8 +4040,8 @@
             <div style="font-family:Inter,system-ui,sans-serif;font-weight:700;font-size:1.15rem;color:#1a2035;line-height:1.1;">Apex<br><span style="font-family:system-ui;color:#1d4ed8;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">corporate</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Apex (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">QBR</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Apex</div>
+            <div class="card-badges"><span class="badge light">QBR</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
@@ -4044,8 +4050,8 @@
             <div style="font-family:Nunito,system-ui,sans-serif;font-weight:700;font-size:1.15rem;color:#1a1a2e;line-height:1.1;">Stickerlab<br><span style="font-family:system-ui;color:#ff4757;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">playful</span></div>
           </div>
           <div class="card-meta">
-            <div class="card-title">Stickerlab (Deck JSON)</div>
-            <div class="card-badges"><span class="badge light">Agency</span><span class="badge accent">Schema-rendered</span></div>
+            <div class="card-title">Stickerlab</div>
+            <div class="card-badges"><span class="badge light">Agency</span><span class="badge accent">Open proof</span></div>
             <div class="card-cta">Open structured deck →</div>
           </div>
         </a>
