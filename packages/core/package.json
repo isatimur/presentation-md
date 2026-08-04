@@ -1,6 +1,6 @@
 {
   "name": "@presentation-md/core",
-  "version": "1.33.0",
+  "version": "1.34.0",
   "description": "presentation-md core — Deck JSON schemas, 75-theme loader, craft audit, and the presentation-generator skill for AI agents.",
   "license": "MIT",
   "type": "module",

@@ -1,5 +1,13 @@
 # @presentation-md/install
 
+## 1.1.36
+
+### Patch Changes
+
+- 96889d2: Rewrite the presentation-generator skill as a progressive vibe → preview → craft map so installers get frontend-slides-style load-on-demand clarity (scaffold_deck → studio_share_url first hop; schema encyclopedias only when crafting).
+- Updated dependencies [96889d2]
+  - @presentation-md/core@1.34.0
+
 ## 1.1.35
 
 ### Patch Changes
