@@ -41,8 +41,8 @@ function buildCraftMandate(density: DensityMode): string {
       : "DENSITY LOCK: speaker-led — one idea per slide, large type, generous space, 1–3 bullets max. Split into more slides instead of shrinking.";
 
   return [
-    "CRAFT MANDATE (non-negotiable — beat Gamma / Beautiful.ai / md-slides / frontend-slides / Claude Design canvas on first glance):",
-    "- ONE-SHOT BAR: the first deck JSON must already clear anti-slop + craft gates. No 'vibe draft' hoping a second pass fixes it — beat frontend-slides first drafts. Prefer scaffold_deck(purpose) when starting from a brief so layouts/CTA/notes arrive pre-wired.",
+    "CRAFT MANDATE (non-negotiable — beat Gamma / Beautiful.ai / md-slides / frontend-slides / Claude Design canvas / Hallmark-as-deck-generator on first glance):",
+    "- ONE-SHOT BAR: the first deck JSON must already clear anti-slop + craft gates. No 'vibe draft' hoping a second pass fixes it — beat frontend-slides first drafts. Prefer scaffold_deck(purpose) when starting from a brief so layouts/CTA/notes arrive pre-wired and studio_share_url (?d=) lands an editable Studio handoff in one call.",
     `- ${densityLine}`,
     "- Prefer stunning-25 themes when the brief matches (see stunning_25_reference). Open that structured proof and match density — do not invent a watered-down palette.",
     "- Density lock: choose speaker-led vs reading-first once with purpose; keep that density for the whole deck.",

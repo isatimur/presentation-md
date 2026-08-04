@@ -406,6 +406,13 @@ export function buildProgram(): Command {
           process.stdout.write(
             `Scaffolded ${resolved} (${result.deck.slides.length} slides, ${result.recipe_label}) → ${outputPath}\n`
           );
+          // One-prompt → shareable Studio link (MCP scaffold_deck studio_share_url parity).
+          try {
+            const shareUrl = await studioShareLink(result.deck);
+            process.stdout.write(`Studio share: ${shareUrl}\n`);
+          } catch {
+            // Compression / size edge — JSON file is still the primary artifact.
+          }
         } catch (err) {
           process.stderr.write(`Error: ${(err as Error).message}\n`);
           process.exit(1);

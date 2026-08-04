@@ -606,25 +606,31 @@ describe("presentation-md-render CLI flags", () => {
     expect(stdout).toMatch(/^launch\t/m);
   });
 
-  it("--scaffold writes Deck JSON from a recipe", async () => {
-    const dir = await tempDir();
-    const outPath = join(dir, "scaffold.json");
-    const { code, stdout, stderr } = await runCli(
-      ["--scaffold", "pitch", "-o", outPath, "--theme", "default-tech"],
-      { cwd: dir }
-    );
-    expect(stderr).not.toMatch(/^Error:/);
-    expect(code).toBe(0);
-    expect(stdout).toMatch(/Scaffolded pitch/);
-    const deck = JSON.parse(await readFile(outPath, "utf-8")) as {
-      type: string;
-      meta: { theme: string };
-      slides: unknown[];
-    };
-    expect(deck.type).toBe("deck");
-    expect(deck.meta.theme).toBe("default-tech");
-    expect(deck.slides.length).toBeGreaterThan(5);
-  });
+  it(
+    "--scaffold writes Deck JSON from a recipe",
+    async () => {
+      const dir = await tempDir();
+      const outPath = join(dir, "scaffold.json");
+      const { code, stdout, stderr } = await runCli(
+        ["--scaffold", "pitch", "-o", outPath, "--theme", "default-tech"],
+        { cwd: dir }
+      );
+      expect(stderr).not.toMatch(/^Error:/);
+      expect(code).toBe(0);
+      expect(stdout).toMatch(/Scaffolded pitch/);
+      expect(stdout).toMatch(/Studio share: https:\/\/presentation-md\.vercel\.app\/studio\/\?/);
+      expect(stdout).toMatch(/[?&]d=d1\./);
+      const deck = JSON.parse(await readFile(outPath, "utf-8")) as {
+        type: string;
+        meta: { theme: string };
+        slides: unknown[];
+      };
+      expect(deck.type).toBe("deck");
+      expect(deck.meta.theme).toBe("default-tech");
+      expect(deck.slides.length).toBeGreaterThan(5);
+    },
+    30_000
+  );
 
   it("--audit reports craft issues", async () => {
     const dir = await tempDir();

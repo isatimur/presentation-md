@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>presentation-md vs Hallmark — deck craft vs anti-slop UI skill</title>
+  <meta name="description" content="Honest comparison: presentation-md vs Nutlope/Hallmark — schema-validated decks, 75 themes, MCP, Studio share, and PPTX vs a viral anti-AI-slop page/UI design skill." />
+  <link rel="canonical" href="https://presentation-md.vercel.app/vs/hallmark" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0B1220" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="presentation-md" />
+  <meta property="og:url" content="https://presentation-md.vercel.app/vs/hallmark" />
+  <meta property="og:title" content="presentation-md vs Hallmark — deck craft vs anti-slop UI skill" />
+  <meta property="og:description" content="Same anti-slop craft energy. Different artifact: Deck JSON + MCP + Studio + PPTX vs landing-page design skill." />
+  <meta property="og:image" content="https://presentation-md.vercel.app/og-image.png" />
+  <meta property="og:image:alt" content="presentation-md vs Hallmark" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@isatimur" />
+  <meta name="twitter:creator" content="@isatimur" />
+  <meta name="twitter:title" content="presentation-md vs Hallmark" />
+  <meta name="twitter:description" content="Anti-slop deck craft with schema, MCP, Studio share, and PPTX — vs Hallmark’s page/UI skill." />
+  <meta name="twitter:image" content="https://presentation-md.vercel.app/og-image.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "presentation-md vs Hallmark — deck craft vs anti-slop UI skill",
+    "description": "Honest comparison: presentation-md vs Nutlope/Hallmark — schema decks, MCP, Studio, PPTX vs anti-AI-slop page design skill.",
+    "author": {"@type": "Person", "name": "Timur Isachenko", "url": "https://github.com/isatimur/presentation-md"},
+    "datePublished": "2026-08-04",
+    "dateModified": "2026-08-04",
+    "url": "https://presentation-md.vercel.app/vs/hallmark",
+    "publisher": {"@type": "Organization", "name": "presentation-md", "url": "https://presentation-md.vercel.app"}
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --paper:#E8EEF4;--paper2:#DDE5EE;--ink:#0B1220;--ink-light:#4A5568;
+      --rule:rgba(11,18,32,.12);--accent:#FF3B1F;--stage:#0B1220;
+      --display:'Syne','Avenir Next',sans-serif;
+      --sans:'DM Sans','Avenir Next',sans-serif;
+      --mono:'IBM Plex Mono',ui-monospace,monospace;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65}
+    a{color:var(--accent)}
+    .container{max-width:820px;margin:0 auto;padding:0 24px}
+    header{
+      background:
+        radial-gradient(ellipse 80% 60% at 12% 0%, rgba(255,59,31,.22), transparent 55%),
+        radial-gradient(ellipse 50% 40% at 90% 20%, rgba(13,148,136,.14), transparent 50%),
+        var(--stage);
+      color:#fff;padding:64px 0 72px;
+    }
+    header .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45);display:block;margin-bottom:14px}
+    header h1{font-family:var(--display);font-size:clamp(1.85rem,4.2vw,2.75rem);font-weight:800;line-height:1.08;letter-spacing:-.03em;margin-bottom:16px}
+    header h1 em{font-style:normal;color:#FF8A75}
+    header p{font-size:1.05rem;color:rgba(255,255,255,.65);max-width:620px}
+    .back-link{font-size:.82rem;color:rgba(255,255,255,.45);text-decoration:none;display:inline-block;margin-bottom:28px}
+    .back-link:hover{color:#fff}
+    section{padding:52px 0;border-bottom:1px solid var(--rule)}
+    section:last-of-type{border-bottom:none}
+    h2{font-family:var(--display);font-size:1.45rem;font-weight:700;margin-bottom:20px;letter-spacing:-.02em}
+    .compare-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
+    .compare-table th{text-align:left;padding:10px 14px;background:var(--ink);color:#fff;font-weight:600;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;font-family:var(--mono)}
+    .compare-table td{padding:12px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
+    .compare-table tr:last-child td{border-bottom:none}
+    .compare-table .col-us{background:rgba(255,59,31,.05)}
+    .check{color:#0D9488;font-weight:700}
+    .cross{color:#dc2626;font-weight:700}
+    .verdict{background:rgba(255,59,31,.07);border-left:3px solid var(--accent);padding:20px 24px;border-radius:0 8px 8px 0;margin-top:8px;font-size:.97rem}
+    .cta{display:inline-block;margin-top:20px;margin-right:10px;padding:12px 26px;background:var(--accent);color:#fff;text-decoration:none;border-radius:8px;font-weight:600;font-family:var(--display)}
+    .cta:hover{background:color-mix(in srgb,var(--accent) 88%,#000)}
+    .cta.ghost{background:transparent;color:var(--ink);border:1px solid var(--rule)}
+    .cta.ghost:hover{border-color:var(--accent);color:var(--accent)}
+    pre{background:var(--ink);color:#E8EEF4;padding:18px 22px;border-radius:8px;font-family:var(--mono);font-size:.85rem;overflow-x:auto;margin-top:16px}
+    footer{padding:32px 0;color:var(--ink-light);font-size:.85rem}
+    footer a{color:var(--ink-light)}
+    ul{padding-left:20px;margin-top:6px}
+    li{margin-bottom:6px}
+    .also{font-size:.9rem;color:var(--ink-light);margin-top:28px}
+    .also a{margin-right:12px}
+    .brand{font-family:var(--display);font-weight:800;letter-spacing:-.02em}
+    .flow{
+      margin-top:18px;padding:18px 20px;background:var(--paper2);border:1px solid var(--rule);
+      font-family:var(--mono);font-size:.82rem;line-height:1.55;color:var(--ink);
+    }
+    .flow strong{font-weight:600;color:var(--accent)}
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <a href="/" class="back-link">← presentation-md</a>
+    <span class="eyebrow">Comparison · craft rival</span>
+    <h1 class="brand">Coming from<br><em>Hallmark</em>?</h1>
+    <p>Hallmark is the viral anti-AI-slop <strong style="color:#fff;font-weight:600">page/UI</strong> skill (Together AI). presentation-md is the anti-slop <strong style="color:#fff;font-weight:600">deck</strong> stack — same craft refusal energy, schema + MCP + Studio share + PPTX. Honest side-by-side below.</p>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <h2>Different jobs, same shelf</h2>
+    <ul>
+      <li><strong>Hallmark</strong> (<a href="https://github.com/Nutlope/hallmark" target="_blank" rel="noopener">Nutlope/hallmark</a> · <a href="https://www.usehallmark.com" target="_blank" rel="noopener">usehallmark.com</a>): design skill for greenfield pages, audits, redesigns, and DNA study from URL/screenshot. ~20 themes, 21 macrostructures, 57 slop-test gates, four verbs.</li>
+      <li><strong>presentation-md</strong>: agent-native slide decks — typed Deck JSON, 75 themes, craft audit + judge, 14 MCP tools, Studio, editable PPTX.</li>
+      <li><strong>You keep:</strong> anti-slop taste, skills.sh install habit, opinionated craft before emit</li>
+      <li><strong>You gain (for decks):</strong> re-theme without rewrite, audit/repair loop, Office handoff, shareable editable Studio links</li>
+    </ul>
+    <p style="margin-top:18px">Prefer zero commitment? <a href="/studio/?example=novaspark-pitch&fresh=1">Open Studio</a> with no install.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>One-prompt → shareable artifact</h2>
+    <p>Hallmark’s killer flow is brief → working HTML page. We close that gap for decks with the same shelf energy:</p>
+    <div class="flow">
+      <strong>scaffold_deck</strong>(purpose, theme)<br />
+      → craft-floor Deck JSON<br />
+      → <strong>studio_share_url</strong> (<code>?d=</code> compressed token)<br />
+      → user opens editable Studio · agent continues with <strong>audit_deck</strong> / fill copy
+    </div>
+    <pre>npx @presentation-md/install claude-code
+# then ask: scaffold a pitch deck and give me the Studio link</pre>
+    <p style="margin-top:14px;font-size:.95rem;color:var(--ink-light)">CLI parity: <code>presentation-md-render --scaffold pitch -o deck.json</code> prints a Studio share URL. Studio <strong>Land scaffold</strong> + <strong>Copy link</strong> match the same codec.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Side-by-side</h2>
+    <table class="compare-table">
+      <thead><tr><th style="width:34%">Criterion</th><th style="width:33%">presentation-md</th><th style="width:33%">Hallmark</th></tr></thead>
+      <tbody>
+        <tr><td>Primary artifact</td><td class="col-us"><span class="check">✓</span> Slide decks (HTML + editable PPTX + Deck JSON)</td><td>Landing pages / UI (self-contained HTML+CSS)</td></tr>
+        <tr><td>Where it runs</td><td class="col-us">Claude Code, Cursor, Copilot, Codex, Gemini CLI + MCP</td><td>Claude Code, Cursor, Codex (skill)</td></tr>
+        <tr><td>Authoring model</td><td class="col-us"><span class="check">✓</span> Typed Deck JSON — re-theme, audit, diff, export</td><td>Opinionated freeform HTML/CSS from skill rules</td></tr>
+        <tr><td>Themes / variety</td><td class="col-us"><span class="check">✓</span> 75 schema-validated theme packages + brand import</td><td><span class="check">✓</span> ~20 named themes + custom OKLCH branch + 21 macrostructures</td></tr>
+        <tr><td>Anti-slop craft</td><td class="col-us"><span class="check">✓</span> Anti-slop bans + craft audit + judge tiers + apply_safe_fixes + remorph_density</td><td><span class="check">✓</span> 57 slop-test gates + pre-emit 6-axis critique</td></tr>
+        <tr><td>Verbs / workflow</td><td class="col-us">scaffold/build · audit · remorph/retheme · share (+ brand/PPTX/MD study)</td><td>build · audit · redesign · study</td></tr>
+        <tr><td>One-prompt share</td><td class="col-us"><span class="check">✓</span> <code>scaffold_deck</code> returns <code>studio_share_url</code> (<code>?d=</code>); Studio Copy link</td><td><span class="check">✓</span> Emits a working page; host/share is project-local</td></tr>
+        <tr><td>MCP / typed tools</td><td class="col-us"><span class="check">✓</span> 14 tools (render, export, audit, judge, scaffold, share, preview, import…)</td><td><span class="cross">✗</span> Skill references; live preview MCP is on their roadmap</td></tr>
+        <tr><td>Browser Studio</td><td class="col-us"><span class="check">✓</span> Hosted editor — filmstrip, Present, craft panel, Generate, share</td><td><span class="cross">✗</span> Showcase site + examples (not an editor product)</td></tr>
+        <tr><td>PowerPoint</td><td class="col-us"><span class="check">✓</span> Native editable PPTX export + import round-trip</td><td><span class="cross">✗</span> Not a deck/Office product</td></tr>
+        <tr><td>Install</td><td class="col-us"><code>npx @presentation-md/install</code> · <code>npx skills add isatimur/presentation-md</code></td><td><code>npx skills add nutlope/hallmark</code></td></tr>
+        <tr><td>License / price</td><td class="col-us"><span class="check">✓</span> Free, MIT, no account</td><td><span class="check">✓</span> Free, MIT</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Where Hallmark is stronger</h2>
+    <ul>
+      <li>Best-in-class anti-slop <em>page</em> craft — structural variety (macrostructures), nav/footer archetypes, responsive gates, study-from-URL/screenshot DNA</li>
+      <li>Viral gallery energy and Together AI distribution mindshare for UI generation</li>
+      <li>Four crisp verbs with deep reference packs for greenfield sites, audits, and redesigns inside existing codebases</li>
+    </ul>
+    <h2 style="margin-top:36px">Where presentation-md is stronger</h2>
+    <ul>
+      <li>The right product when the ask is a <strong>deck</strong> — pitch, wrap, keynote, investor update — not a landing page</li>
+      <li>Schema-validated Deck JSON you can re-theme, remorph, audit, and round-trip through PPTX</li>
+      <li>75 published themes with structured gallery proofs + Studio pick-3 / My deck restyle</li>
+      <li>MCP craft loop: scaffold (with share URL) → audit/repair → judge → render/export</li>
+      <li>Hosted Studio with Present chrome and shareable <code>?d=</code> editable links</li>
+      <li>Works across five coding agents with one installer — not only the Claude/Cursor/Codex skill shelf</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Verdict</h2>
+    <div class="verdict">Use Hallmark when you need a page that refuses to look AI-generated. Use presentation-md when you need a deck that refuses the same — with schema, themes, MCP, Studio share, and PowerPoint you own. They share craft taste; they do not compete for the same artifact. No fake metrics: Hallmark leads page DNA; we lead agent-native deck shipping.</div>
+    <br>
+    <p>One command when the brief is a deck:</p>
+    <pre>npx @presentation-md/install claude-code</pre>
+    <a href="/#start" class="cta">Install for your agent →</a>
+    <a href="/studio/?example=novaspark-pitch&fresh=1" class="cta ghost">Try Studio first →</a>
+    <p class="also">Also compare:
+      <a href="/vs/">all</a>
+      <a href="/vs/frontend-slides">frontend-slides</a>
+      <a href="/vs/claude-design">Claude Design</a>
+      <a href="/vs/gamma">Gamma</a>
+      <a href="/vs/beautiful-ai">Beautiful.ai</a>
+      <a href="/vs/md-slides">md-slides</a>
+      <a href="/vs/marp">Marp</a>
+      <a href="/vs/slidev">Slidev</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <a href="/">presentation-md</a> · MIT License ·
+    <a href="https://github.com/isatimur/presentation-md" target="_blank" rel="noopener">GitHub</a> ·
+    <a href="https://www.npmjs.com/package/@presentation-md/install" target="_blank" rel="noopener">npm</a>
+  </div>
+</footer>
+</body>
+</html>

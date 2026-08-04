@@ -14,7 +14,7 @@
   <em>Same Deck JSON → 75 themes. HTML craft + native PowerPoint. No screenshots, no lock-in.</em>
 </p>
 
-🌐 **[Live gallery](https://presentation-md.vercel.app)** · **[Studio](https://presentation-md.vercel.app/studio)** · **[vs frontend-slides](https://presentation-md.vercel.app/vs/frontend-slides)**
+🌐 **[Live gallery](https://presentation-md.vercel.app)** · **[Studio](https://presentation-md.vercel.app/studio)** · **[vs Hallmark](https://presentation-md.vercel.app/vs/hallmark)** · **[vs frontend-slides](https://presentation-md.vercel.app/vs/frontend-slides)**
 
 > ⭐ If this turned your notes into a deck you'd actually present, star the repo.
 
@@ -46,7 +46,18 @@ Per-agent guides: [Claude Code](https://presentation-md.vercel.app/for/claude-co
 Install matrix: [`docs/distribution/INSTALL-MATRIX.md`](docs/distribution/INSTALL-MATRIX.md).
 ---
 
-## Why presentation-md wins vs frontend-slides
+## Why presentation-md wins vs Hallmark (and frontend-slides)
+
+[Hallmark](https://github.com/Nutlope/hallmark) is the viral anti-AI-slop **page/UI** skill — four verbs, ~20 themes, 57 slop gates, stunning gallery. presentation-md shares that craft refusal energy for **decks**: typed Deck JSON, 75 themes, MCP audit/judge, Studio `?d=` share, editable PPTX. Honest take: [vs Hallmark](https://presentation-md.vercel.app/vs/hallmark).
+
+| | presentation-md | Hallmark |
+|---|---|---|
+| **Artifact** | Slide decks (HTML + PPTX + Deck JSON) | Landing pages / UI |
+| **Themes** | **75** published + brand import | ~20 named + custom OKLCH |
+| **One-prompt share** | `scaffold_deck` → **`studio_share_url`** (`?d=`) | Working page emit |
+| **MCP** | 14 typed tools (scaffold, audit, judge, share, export…) | Skill refs (preview MCP on their roadmap) |
+| **Studio** | Hosted editor + Present + Copy link | Showcase site |
+| **Install** | `npx @presentation-md/install` · skills.sh | `npx skills add nutlope/hallmark` |
 
 [frontend-slides](https://github.com/zarazhangrui/frontend-slides) is a strong **discovery / vibe** pack — prompt templates and bold looks. presentation-md keeps that energy and adds the product layer agents need to ship decks for real:
 

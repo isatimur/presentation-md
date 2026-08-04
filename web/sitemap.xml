@@ -212,7 +212,13 @@
   </url>
   <url>
     <loc>https://presentation-md.vercel.app/vs/</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://presentation-md.vercel.app/vs/hallmark</loc>
+    <lastmod>2026-08-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

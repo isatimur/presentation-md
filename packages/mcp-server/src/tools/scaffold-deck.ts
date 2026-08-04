@@ -4,17 +4,19 @@ import {
   listScaffoldPurposes,
   resolveScaffoldPurpose,
   scaffoldDeck,
+  studioShareLink,
   type ScaffoldPurpose,
 } from "@presentation-md/core";
 import type { ToolDefinition } from "../server.js";
 import { assertWritablePathInCwd } from "../lib/cwd-path.js";
 
 const PURPOSE_ENUM = listScaffoldPurposes().map((p) => p.id);
+const DEFAULT_ORIGIN = "https://presentation-md.vercel.app";
 
 export const scaffoldDeckTool: ToolDefinition = {
   name: "scaffold_deck",
   description:
-    "Scaffold a schema-native Deck JSON skeleton from a layout recipe (pitch / launch / wrap / paper / hud / …). Pre-wires layouts, asymmetry, image-hero, data beats, dual closing CTAs, and speaker notes — agents fill theme-native copy, then audit_deck. Beats frontend-slides freeform vibe drafts with a craft floor on slide one.",
+    "Scaffold a schema-native Deck JSON skeleton from a layout recipe (pitch / launch / wrap / paper / hud / …). Pre-wires layouts, asymmetry, image-hero, data beats, dual closing CTAs, and speaker notes — agents fill theme-native copy, then audit_deck. Returns studio_share_url (?d=) by default so one call lands an editable Studio link (Hallmark-style one-prompt → shareable artifact, for decks). Beats freeform vibe drafts with a craft floor on slide one.",
   inputSchema: {
     type: "object",
     properties: {
@@ -45,13 +47,22 @@ export const scaffoldDeckTool: ToolDefinition = {
         type: "boolean",
         description: "When true, return the recipe catalog only (no scaffold).",
       },
+      include_share_url: {
+        type: "boolean",
+        description:
+          "When true (default), also return studio_share_url — Studio ?d= link that hydrates the scaffold for editable handoff. Pass false to skip.",
+      },
+      origin: {
+        type: "string",
+        description: `Studio origin for studio_share_url (default ${DEFAULT_ORIGIN}).`,
+      },
     },
   },
   handler: async (input: Record<string, unknown>) => {
     if (input["list_purposes"] === true) {
       return {
         purposes: listScaffoldPurposes(),
-        hint: "Pick a purpose + theme, call scaffold_deck again, rewrite placeholder copy, then audit_deck → judge_deck.",
+        hint: "Pick a purpose + theme, call scaffold_deck again, rewrite placeholder copy, then audit_deck → judge_deck. studio_share_url ships with the scaffold by default.",
       };
     }
 
@@ -84,6 +95,21 @@ export const scaffoldDeckTool: ToolDefinition = {
       await writeFile(outputPath, json, "utf-8");
     }
 
+    const includeShare = input["include_share_url"] !== false;
+    let studio_share_url: string | undefined;
+    if (includeShare) {
+      const origin =
+        typeof input["origin"] === "string" && input["origin"].trim()
+          ? input["origin"].trim()
+          : DEFAULT_ORIGIN;
+      try {
+        studio_share_url = await studioShareLink(result.deck, { origin });
+      } catch {
+        // Oversized / CompressionStream edge — still return the scaffold JSON.
+        studio_share_url = undefined;
+      }
+    }
+
     return {
       purpose: result.purpose,
       recipe_label: result.recipe_label,
@@ -91,7 +117,10 @@ export const scaffoldDeckTool: ToolDefinition = {
       slide_count: result.slide_count,
       json,
       output_path: outputPath,
-      hint: result.hint,
+      ...(studio_share_url ? { studio_share_url } : {}),
+      hint: studio_share_url
+        ? `${result.hint} Open studio_share_url for editable Studio handoff (same ?d= as Copy link).`
+        : result.hint,
     };
   },
 };

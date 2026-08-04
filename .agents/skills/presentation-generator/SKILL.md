@@ -43,6 +43,23 @@ Then restart the agent and ask for a deck — or run `/slides <brief>` in Claude
 
 ---
 
+## Four verbs (deck craft that competes with anti-slop UI skills)
+
+Hallmark ([Nutlope/hallmark](https://github.com/Nutlope/hallmark)) is the viral anti-AI-slop **page/UI** skill — four verbs, 20 themes, 57 slop gates. presentation-md is the anti-slop **deck** stack. Same install shelf energy; different artifact. Use these verbs:
+
+| Verb | What it does |
+| --- | --- |
+| **scaffold / build** *(default)* | `scaffold_deck(purpose, theme)` → craft-floor Deck JSON + **`studio_share_url`** (`?d=`). Fill copy, or ask the agent for a full deck. One hop to an editable Studio link. |
+| **audit** | `audit_deck` (+ optional `apply_safe_fixes` / `remorph_density`) then `judge_deck` — schema-valid ≠ shippable. Punch list or auto-repair. |
+| **remorph / retheme** | `apply_theme` (default repairCraft) · `remorph_density` speaker\|reading · Studio **My deck restyle** / MCP `preview_themes` with `json` — keep content, change structure or vibe. |
+| **share** | Hand the user `studio_share_url` from scaffold / `share_deck_link` / Studio **Copy link**. Optional: `export_deck` PPTX/PDF/MD, `deploy_deck` (confirm-gated). |
+
+**Study DNA (Hallmark study analogue for decks):** `import_brand_theme` (URL/CSS → contrast-safe theme) · `import_pptx` / `import_markdown` · Studio **Paste Brand** · `preview_themes` pick-3 with inline PNGs. Never invent a palette — discover it.
+
+**Why decks win here vs freeform HTML skills:** typed Deck JSON + 75 themes + MCP craft loop + native editable PPTX + Studio — not a one-off landing page dump. Honest compare: https://presentation-md.vercel.app/vs/hallmark
+
+---
+
 ## The Two Paths
 
 **Deck-spec path** (preferred when tooling is available):
@@ -72,7 +89,7 @@ editable **PowerPoint** (`.pptx`) that opens in Keynote and imports into Google 
 
 Prefer setting these in the JSON you emit — Studio exposes the same controls in the slide form. Always set `emphasis` on comparisons; prefer non-1-1 `ratio` on two-column; use `bento` for 5-card grids.
 
-**Why this pack beats one-off HTML slide tools** (frontend-slides / Gamma-style screenshots / paste-only MD slides): structured Deck JSON + 75 themes + MCP (`render_deck` / `export_deck` / `audit_deck` / `judge_deck` / `import_pptx`) + Studio live craft panel that auto-opens on errors + **native editable PPTX** with per-theme surface chrome (rails, frames, mastheads, soft washes) — not a flat screenshot. Agents stay on schema; art escapes via `custom-html` only when needed.
+**Why this pack beats one-off HTML slide tools** (frontend-slides / Gamma-style screenshots / paste-only MD slides) **and anti-slop UI skills used as deck generators** (Hallmark): structured Deck JSON + 75 themes + MCP (`scaffold_deck` → `studio_share_url`, `render_deck` / `export_deck` / `audit_deck` / `judge_deck` / `import_pptx`) + Studio live craft panel that auto-opens on errors + **native editable PPTX** with per-theme surface chrome (rails, frames, mastheads, soft washes) — not a flat screenshot or a landing-page dump. Agents stay on schema; art escapes via `custom-html` only when needed.
 ---
 
 ## Narrative Architecture — Before You Write One Slide
@@ -423,8 +440,8 @@ Fourteen tools via `@presentation-md/mcp-server` (not the deprecated `@presentat
 | `list_themes` | See installed themes with vibe/description + proof deep-links (`preview_url` + always-on `studio_url`); filter with `browse` chips (site/Studio parity), shortlist, mood, or query; use `suggested_preview` (safe/bold/wildcard) for pick-3 |
 | `apply_theme` | Swap `meta.theme` (default also runs `repairCraft` for theme honesty — Studio My deck Use parity; pass `apply_safe_fixes:false` for a pure swap) |
 | `generate_deck_prompt` | Build a generation prompt wired to a theme + schema |
-| `scaffold_deck` | Scaffold a recipe skeleton (pitch / launch / wrap / paper / …) with craft floors pre-wired — fill copy, then audit |
-| `share_deck_link` | Encode Deck JSON → Studio `?d=` URL (Copy link parity) for editable user handoff |
+| `scaffold_deck` | Scaffold a recipe skeleton (pitch / launch / wrap / paper / …) with craft floors pre-wired — returns **`studio_share_url`** (`?d=`) by default for one-call editable Studio handoff; fill copy, then audit |
+| `share_deck_link` | Encode Deck JSON → Studio `?d=` URL (Copy link parity) for editable user handoff after edits |
 | `deploy_deck` | Opt-in Vercel preview via `deploy.sh` — **dry-run unless `confirm:true`** after human approval; `prod` needs `confirm_prod` |
 | `preview_themes` | Render 1–3 theme HTML previews; **inline PNG screenshots** on by default; `studio_share_url` for the exact bake; pass `json` for Studio **My deck** restyle (content-true) + optional `slide_index`; `mode: "layouts"` for multi-slide craft bake |
 | CLI `--preview-compare` | Same pick-3 craft bake + discovery PNGs without MCP: `presentation-md-render --preview-compare a,b,c` |

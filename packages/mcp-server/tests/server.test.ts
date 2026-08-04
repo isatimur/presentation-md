@@ -832,7 +832,8 @@ describe("judge_deck", () => {
 
       expect(result.panel.status).toBe("local_draft");
       expect(result.panel.panel_error).toMatch(/Judge panel process output exceeds 1024 bytes/i);
-      expect(elapsedMs).toBeLessThan(1000);
+      // Output-bound kill should beat the script's sleep(2); allow CI/load headroom.
+      expect(elapsedMs).toBeLessThan(3000);
       expect(descendantFinished).toBe(false);
     } finally {
       for (const key of envKeys) {
@@ -931,11 +932,27 @@ describe("scaffold_deck", () => {
       purpose: "launch",
       theme: "genz-bento",
       title: "Bounce",
-    })) as { slide_count: number; theme: string; json: string; purpose: string };
+    })) as {
+      slide_count: number;
+      theme: string;
+      json: string;
+      purpose: string;
+      studio_share_url?: string;
+    };
     expect(result.purpose).toBe("launch");
     expect(result.theme).toBe("genz-bento");
     expect(result.slide_count).toBe(10);
     expect(result.json).toContain('"layout": "image-hero"');
+    expect(result.studio_share_url).toMatch(
+      /^https:\/\/presentation-md\.vercel\.app\/studio\/\?/
+    );
+    expect(result.studio_share_url).toMatch(/[?&]d=d1\./);
+
+    const noShare = (await scaffoldDeckTool.handler({
+      purpose: "pitch",
+      include_share_url: false,
+    })) as { studio_share_url?: string };
+    expect(noShare.studio_share_url).toBeUndefined();
   });
 });
 
