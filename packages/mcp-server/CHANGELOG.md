@@ -1,5 +1,19 @@
 # @presentation-md/mcp-server
 
+## 1.34.0
+
+### Minor Changes
+
+- 184e42e: Compete with Hallmark on agent-native deck craft: scaffold_deck returns studio_share_url (?d=) by default, skill ships four verbs + honest vs/hallmark positioning, CLI --scaffold prints Studio share.
+
+### Patch Changes
+
+- Updated dependencies [184e42e]
+  - @presentation-md/core@1.33.0
+  - @presentation-md/render@1.20.8
+  - @presentation-md/create-theme@1.1.38
+  - @presentation-md/export@1.24.7
+
 ## 1.33.7
 
 ### Patch Changes
