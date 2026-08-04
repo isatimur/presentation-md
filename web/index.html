@@ -505,6 +505,94 @@
       text-transform: uppercase;
       color: var(--ink-light);
     }
+
+    /* Multi-shot template wall — title + bento + compare per flagship */
+    .template-wall {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .wall-row {
+      display: grid;
+      grid-template-columns: minmax(140px, 0.85fr) 3.2fr;
+      gap: 16px 20px;
+      align-items: stretch;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      color: inherit;
+    }
+    .wall-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .wall-row:hover .wall-name { color: var(--accent); }
+    .wall-meta {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 6px;
+      padding-bottom: 4px;
+    }
+    .wall-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      transition: color 0.15s ease;
+    }
+    .wall-theme {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+    .wall-shots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .wall-shot {
+      margin: 0;
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      overflow: hidden;
+      background: var(--stage);
+    }
+    .wall-shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      object-position: left center;
+    }
+    .wall-shot figcaption {
+      padding: 5px 8px 6px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      background: color-mix(in srgb, var(--paper2) 80%, white);
+      border-top: 1px solid var(--rule);
+    }
+    @media (max-width: 820px) {
+      .wall-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .wall-meta {
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+      }
+    }
+    @media (max-width: 560px) {
+      .wall-shots { gap: 5px; }
+      .wall-shot figcaption { font-size: 9px; padding: 4px 5px; letter-spacing: 0.04em; }
+    }
+
     .compare-live {
       display: grid;
       grid-template-columns: 1.25fr 1fr 0.9fr;
@@ -653,6 +741,7 @@
       }
     }
     @media (max-width: 920px) {
+      /* Brand before preview — logotype + headline own the first viewport */
       header.site-hero {
         min-height: auto;
         display: flex;
@@ -660,24 +749,39 @@
         align-items: stretch;
         background: var(--paper);
       }
+      .hero-copy {
+        order: 1;
+        grid-column: auto;
+        grid-row: auto;
+        width: 100%;
+        max-width: none;
+        padding: 28px 22px 20px;
+        border-right: 0;
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.35), transparent 40%),
+          var(--paper);
+      }
       .hero-visual {
+        order: 2;
         position: relative;
         grid-column: auto;
         grid-row: auto;
         inset: auto;
         width: 100%;
-        aspect-ratio: auto;
+        aspect-ratio: 16 / 9;
         min-height: 0;
         max-height: none;
-        order: -1;
-        padding: 16px 16px 12px;
-        background: #07090d;
+        padding: 0 16px 20px;
+        background: transparent;
         display: block;
       }
       .hero-visual-link {
         max-height: none;
         width: 100%;
         max-width: none;
+        border-radius: 4px;
+        overflow: hidden;
+        border: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
       }
       .hero-visual-img {
         width: 100%;
@@ -689,29 +793,22 @@
         transform-origin: center;
         object-fit: cover;
         object-position: left center;
+        position: relative;
       }
       .hero-visual-img.is-active {
         animation: none;
         transform: none;
       }
+      .hero-progress {
+        border-radius: 0 0 4px 4px;
+      }
       .hero-sheen {
         display: none;
-      }
-      .hero-copy {
-        grid-column: auto;
-        grid-row: auto;
-        width: 100%;
-        max-width: none;
-        padding: 32px 28px 40px;
-        border-right: 0;
-        background:
-          linear-gradient(180deg, rgba(255,255,255,0.35), transparent 40%),
-          var(--paper);
       }
       .hero-copy .ctas { display: grid; grid-template-columns: 1fr; gap: 10px; }
       .hero-copy .ctas .btn { justify-content: center; width: 100%; }
       .hero-carousel-meta {
-        margin-top: 22px;
+        margin-top: 18px;
         justify-content: space-between;
       }
       .showreel-card { flex-basis: min(72vw, 380px); }
@@ -1358,8 +1455,13 @@
 
     @media (max-width: 500px) {
       header.site-hero { min-height: auto; }
-      .hero-copy { padding: 28px 18px 36px; }
-      .hero-visual { min-height: 42svh; }
+      .hero-copy { padding: 22px 16px 14px; }
+      .hero-visual {
+        aspect-ratio: 16 / 9;
+        min-height: 0;
+        padding: 0 12px 18px;
+      }
+      .site-hero h1 { font-size: clamp(1.85rem, 8.5vw, 2.35rem); }
       section { padding: 56px 0; }
       .footer-inner { flex-direction: column; align-items: flex-start; }
     }
@@ -1579,35 +1681,71 @@
         <span>No account · no usage caps · works offline</span>
       </div>
     </div>
-    <div class="hero-craft" aria-label="Live craft examples" style="margin-top:36px">
-      <a class="hero-craft-card" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener">
-        <div class="hero-craft-frame">
-          <img src="previews/hero/novaspark-pitch.png" width="1280" height="720" alt="NovaSpark aurora-glass title craft" loading="lazy" decoding="async" />
+    <div class="template-wall" aria-label="Flagship title bento compare samples" style="margin-top:36px">
+      <a class="wall-row" href="studio/?example=novaspark-pitch&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">NovaSpark</span>
+          <span class="wall-theme">aurora-glass</span>
         </div>
-        <div class="hero-craft-meta">
-          <strong>NovaSpark</strong>
-          <span>aurora-glass · title → bento → compare</span>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/novaspark-pitch-title.png" width="640" height="360" alt="NovaSpark title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/novaspark-pitch-bento.png" width="640" height="360" alt="NovaSpark bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/novaspark-pitch-compare.png" width="640" height="360" alt="NovaSpark compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
         </div>
       </a>
-      <a class="hero-craft-card" href="examples/structured/meridian-sales.html" target="_blank" rel="noopener">
-        <div class="hero-craft-frame">
-          <img src="previews/hero/meridian-sales.png" width="1280" height="720" alt="Meridian ft-editorial title craft" loading="lazy" decoding="async" />
+      <a class="wall-row" href="studio/?example=meridian-sales&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Meridian</span>
+          <span class="wall-theme">ft-editorial</span>
         </div>
-        <div class="hero-craft-meta">
-          <strong>Meridian</strong>
-          <span>ft-editorial · broadsheet craft</span>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/meridian-sales-title.png" width="640" height="360" alt="Meridian title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/meridian-sales-bento.png" width="640" height="360" alt="Meridian bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/meridian-sales-compare.png" width="640" height="360" alt="Meridian compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
         </div>
       </a>
-      <a class="hero-craft-card" href="examples/structured/bounce-launch.html" target="_blank" rel="noopener">
-        <div class="hero-craft-frame">
-          <img src="previews/hero/bounce-launch.png" width="1280" height="720" alt="Bounce genz-bento title craft" loading="lazy" decoding="async" />
+      <a class="wall-row" href="studio/?example=bounce-launch&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Bounce</span>
+          <span class="wall-theme">genz-bento</span>
         </div>
-        <div class="hero-craft-meta">
-          <strong>Bounce</strong>
-          <span>genz-bento · proof-trio schema craft</span>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/bounce-launch-title.png" width="640" height="360" alt="Bounce title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/bounce-launch-bento.png" width="640" height="360" alt="Bounce bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/bounce-launch-compare.png" width="640" height="360" alt="Bounce compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
         </div>
       </a>
     </div>
+    <p style="margin-top:18px;font-family:var(--mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase">
+      <a href="#template-wall" style="color:var(--ink-light);text-decoration:none">All 25 flagships · title + bento + compare →</a>
+    </p>
   </div>
 </section>
 
@@ -3306,6 +3444,518 @@
         <p>Sanitized one-off art when schema layouts aren’t enough — still round-trips in Deck JSON + Studio.</p>
       </div>
 
+    </div>
+  </div>
+</section>
+
+
+<!-- ── TEMPLATE WALL ───────────────────────────────────────────────────────── -->
+<section id="template-wall">
+  <div class="container">
+    <span class="eyebrow">Template wall</span>
+    <h2>Title. Bento. Compare. Twenty-five times.</h2>
+    <p class="section-lead">Same energy as a bold template gallery — three craft layouts per flagship so you judge the vibe beyond the cover.</p>
+    <div class="template-wall">
+      <a class="wall-row" href="studio/?example=novaspark-pitch&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">NovaSpark AI</span>
+          <span class="wall-theme">aurora-glass</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/novaspark-pitch-title.png" width="640" height="360" alt="NovaSpark AI title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/novaspark-pitch-bento.png" width="640" height="360" alt="NovaSpark AI bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/novaspark-pitch-compare.png" width="640" height="360" alt="NovaSpark AI compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=meridian-sales&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Meridian Analytics</span>
+          <span class="wall-theme">ft-editorial</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/meridian-sales-title.png" width="640" height="360" alt="Meridian Analytics title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/meridian-sales-bento.png" width="640" height="360" alt="Meridian Analytics bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/meridian-sales-compare.png" width="640" height="360" alt="Meridian Analytics compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=bounce-launch&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Bounce</span>
+          <span class="wall-theme">genz-bento</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/bounce-launch-title.png" width="640" height="360" alt="Bounce title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/bounce-launch-bento.png" width="640" height="360" alt="Bounce bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/bounce-launch-compare.png" width="640" height="360" alt="Bounce compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=solstice-update&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Solstice Capital</span>
+          <span class="wall-theme">luxury-minimalist</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/solstice-update-title.png" width="640" height="360" alt="Solstice Capital title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/solstice-update-bento.png" width="640" height="360" alt="Solstice Capital bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/solstice-update-compare.png" width="640" height="360" alt="Solstice Capital compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=retronet-demo&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">RetroNet</span>
+          <span class="wall-theme">crt-terminal</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/retronet-demo-title.png" width="640" height="360" alt="RetroNet title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/retronet-demo-bento.png" width="640" height="360" alt="RetroNet bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/retronet-demo-compare.png" width="640" height="360" alt="RetroNet compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=gridsystems-studio&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Grid Systems</span>
+          <span class="wall-theme">swiss-typographic</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/gridsystems-studio-title.png" width="640" height="360" alt="Grid Systems title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/gridsystems-studio-bento.png" width="640" height="360" alt="Grid Systems bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/gridsystems-studio-compare.png" width="640" height="360" alt="Grid Systems compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=monolith-seriesa&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">MONOLITH</span>
+          <span class="wall-theme">brutalist-acid</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/monolith-seriesa-title.png" width="640" height="360" alt="MONOLITH title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/monolith-seriesa-bento.png" width="640" height="360" alt="MONOLITH bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/monolith-seriesa-compare.png" width="640" height="360" alt="MONOLITH compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=jellybean-launch&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Jellybean</span>
+          <span class="wall-theme">candy-pop</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/jellybean-launch-title.png" width="640" height="360" alt="Jellybean title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/jellybean-launch-bento.png" width="640" height="360" alt="Jellybean bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/jellybean-launch-compare.png" width="640" height="360" alt="Jellybean compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=axiom-robotics&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Axiom Robotics</span>
+          <span class="wall-theme">aerospace-hud</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/axiom-robotics-title.png" width="640" height="360" alt="Axiom Robotics title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/axiom-robotics-bento.png" width="640" height="360" alt="Axiom Robotics bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/axiom-robotics-compare.png" width="640" height="360" alt="Axiom Robotics compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=atelier-brand&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Atelier No. 9</span>
+          <span class="wall-theme">heritage-editorial</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/atelier-brand-title.png" width="640" height="360" alt="Atelier No. 9 title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/atelier-brand-bento.png" width="640" height="360" alt="Atelier No. 9 bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/atelier-brand-compare.png" width="640" height="360" alt="Atelier No. 9 compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=ledgerline-payout&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Ledgerline</span>
+          <span class="wall-theme">fintech-clean</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/ledgerline-payout-title.png" width="640" height="360" alt="Ledgerline title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/ledgerline-payout-bento.png" width="640" height="360" alt="Ledgerline bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/ledgerline-payout-compare.png" width="640" height="360" alt="Ledgerline compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=forge-api&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Forge</span>
+          <span class="wall-theme">developer-dark</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/forge-api-title.png" width="640" height="360" alt="Forge title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/forge-api-bento.png" width="640" height="360" alt="Forge bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/forge-api-compare.png" width="640" height="360" alt="Forge compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=signalbox-report&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Signalbox</span>
+          <span class="wall-theme">data-editorial</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/signalbox-report-title.png" width="640" height="360" alt="Signalbox title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/signalbox-report-bento.png" width="640" height="360" alt="Signalbox bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/signalbox-report-compare.png" width="640" height="360" alt="Signalbox compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=primary-keynote&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Primary</span>
+          <span class="wall-theme">bauhaus</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/primary-keynote-title.png" width="640" height="360" alt="Primary title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/primary-keynote-bento.png" width="640" height="360" alt="Primary bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/primary-keynote-compare.png" width="640" height="360" alt="Primary compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=bubbleflow-launch&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">BubbleFlow</span>
+          <span class="wall-theme">y2k-aero</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/bubbleflow-launch-title.png" width="640" height="360" alt="BubbleFlow title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/bubbleflow-launch-bento.png" width="640" height="360" alt="BubbleFlow bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/bubbleflow-launch-compare.png" width="640" height="360" alt="BubbleFlow compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=inkwell-pitch&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Inkwell</span>
+          <span class="wall-theme">risograph-zine</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/inkwell-pitch-title.png" width="640" height="360" alt="Inkwell title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/inkwell-pitch-bento.png" width="640" height="360" alt="Inkwell bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/inkwell-pitch-compare.png" width="640" height="360" alt="Inkwell compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=neondistrict-platform&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Neon District</span>
+          <span class="wall-theme">neon-noir</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/neondistrict-platform-title.png" width="640" height="360" alt="Neon District title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/neondistrict-platform-bento.png" width="640" height="360" alt="Neon District bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/neondistrict-platform-compare.png" width="640" height="360" alt="Neon District compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=hygge-brand&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Hygge</span>
+          <span class="wall-theme">scandinavian</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/hygge-brand-title.png" width="640" height="360" alt="Hygge title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/hygge-brand-bento.png" width="640" height="360" alt="Hygge bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/hygge-brand-compare.png" width="640" height="360" alt="Hygge compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=meridianclub-investor&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Meridian Club</span>
+          <span class="wall-theme">art-deco</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/meridianclub-investor-title.png" width="640" height="360" alt="Meridian Club title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/meridianclub-investor-bento.png" width="640" height="360" alt="Meridian Club bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/meridianclub-investor-compare.png" width="640" height="360" alt="Meridian Club compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=mallsoft-launch&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Mallsoft</span>
+          <span class="wall-theme">vaporwave</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/mallsoft-launch-title.png" width="640" height="360" alt="Mallsoft title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/mallsoft-launch-bento.png" width="640" height="360" alt="Mallsoft bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/mallsoft-launch-compare.png" width="640" height="360" alt="Mallsoft compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=dailyledger-mediakit&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">The Daily Ledger</span>
+          <span class="wall-theme">broadsheet</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/dailyledger-mediakit-title.png" width="640" height="360" alt="The Daily Ledger title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/dailyledger-mediakit-bento.png" width="640" height="360" alt="The Daily Ledger bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/dailyledger-mediakit-compare.png" width="640" height="360" alt="The Daily Ledger compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=cloudpeak-pricing&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">CloudPeak</span>
+          <span class="wall-theme">glassmorphism</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/cloudpeak-pricing-title.png" width="640" height="360" alt="CloudPeak title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/cloudpeak-pricing-bento.png" width="640" height="360" alt="CloudPeak bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/cloudpeak-pricing-compare.png" width="640" height="360" alt="CloudPeak compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=pulse-wrapped&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Pulse</span>
+          <span class="wall-theme">kinetic-wrapped</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/pulse-wrapped-title.png" width="640" height="360" alt="Pulse title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/pulse-wrapped-bento.png" width="640" height="360" alt="Pulse bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/pulse-wrapped-compare.png" width="640" height="360" alt="Pulse compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=verdant-impact&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Verdant</span>
+          <span class="wall-theme">botanical-luxe</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/verdant-impact-title.png" width="640" height="360" alt="Verdant title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/verdant-impact-bento.png" width="640" height="360" alt="Verdant bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/verdant-impact-compare.png" width="640" height="360" alt="Verdant compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
+      <a class="wall-row" href="studio/?example=apsis-mission&fresh=1" target="_blank" rel="noopener">
+        <div class="wall-meta">
+          <span class="wall-name">Apsis</span>
+          <span class="wall-theme">blueprint</span>
+        </div>
+        <div class="wall-shots">
+          <figure class="wall-shot">
+            <img src="previews/wall/apsis-mission-title.png" width="640" height="360" alt="Apsis title layout" loading="lazy" decoding="async" />
+            <figcaption>Title</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/apsis-mission-bento.png" width="640" height="360" alt="Apsis bento layout" loading="lazy" decoding="async" />
+            <figcaption>Bento</figcaption>
+          </figure>
+          <figure class="wall-shot">
+            <img src="previews/wall/apsis-mission-compare.png" width="640" height="360" alt="Apsis compare layout" loading="lazy" decoding="async" />
+            <figcaption>Compare</figcaption>
+          </figure>
+        </div>
+      </a>
     </div>
   </div>
 </section>

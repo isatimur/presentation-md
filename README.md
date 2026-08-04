@@ -79,6 +79,41 @@ Also beats Gamma / Slidev / Marp on the agent path: structured JSON (not opaque 
 
 ---
 
+## Stunning-25 template wall
+
+Three layouts per flagship — **Title · Bento · Compare** — the same show-don’t-tell energy as a bold template gallery. Full wall: [presentation-md.vercel.app/#template-wall](https://presentation-md.vercel.app/#template-wall).
+
+<p align="center">
+  <img src="web/previews/wall/novaspark-pitch-title.png" alt="NovaSpark title" width="260" />
+  <img src="web/previews/wall/novaspark-pitch-bento.png" alt="NovaSpark bento" width="260" />
+  <img src="web/previews/wall/novaspark-pitch-compare.png" alt="NovaSpark compare" width="260" />
+  <br/>
+  <em>NovaSpark · aurora-glass — Title · Bento · Compare</em>
+</p>
+<p align="center">
+  <img src="web/previews/wall/bounce-launch-title.png" alt="Bounce title" width="260" />
+  <img src="web/previews/wall/bounce-launch-bento.png" alt="Bounce bento" width="260" />
+  <img src="web/previews/wall/bounce-launch-compare.png" alt="Bounce compare" width="260" />
+  <br/>
+  <em>Bounce · genz-bento — Title · Bento · Compare</em>
+</p>
+<p align="center">
+  <img src="web/previews/wall/solstice-update-title.png" alt="Solstice title" width="260" />
+  <img src="web/previews/wall/solstice-update-bento.png" alt="Solstice bento" width="260" />
+  <img src="web/previews/wall/solstice-update-compare.png" alt="Solstice compare" width="260" />
+  <br/>
+  <em>Solstice · luxury-minimalist — Title · Bento · Compare</em>
+</p>
+<p align="center">
+  <img src="web/previews/wall/retronet-demo-title.png" alt="RetroNet title" width="260" />
+  <img src="web/previews/wall/retronet-demo-bento.png" alt="RetroNet bento" width="260" />
+  <img src="web/previews/wall/retronet-demo-compare.png" alt="RetroNet compare" width="260" />
+  <br/>
+  <em>RetroNet · crt-terminal — Title · Bento · Compare</em>
+</p>
+
+---
+
 ## What it is
 
 A universal skill layer for Claude Code, Cursor, Codex, Gemini CLI, Copilot, and plain CLI. The agent writes Deck JSON; `@presentation-md/render` emits self-contained HTML; `@presentation-md/export` maps every layout to native PowerPoint shapes; Studio edits with live preview. Themes are swappable npm packages.
