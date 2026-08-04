@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "presentation-generator": {
+      "source": "isatimur/presentation-md",
+      "sourceType": "github",
+      "skillPath": "skills/presentation-generator/SKILL.md",
+      "computedHash": "de2df0ba5c16a6e176e793c6d14916d5b5ecd27d64fb5ee0e790bcbc29210944"
+    }
+  }
+}

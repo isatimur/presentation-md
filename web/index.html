@@ -191,12 +191,13 @@
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* ── header / brand-first full-bleed hero ─────────────── */
+    /* ── header / signal-grid craft stage (copy rail + plate) ─ */
     header.site-hero {
       position: relative;
       min-height: 100svh;
-      display: flex;
-      align-items: center;
+      display: grid;
+      grid-template-columns: minmax(0, min(46%, 38rem)) minmax(0, 1fr);
+      align-items: stretch;
       padding: 0;
       overflow: hidden;
       background: var(--stage);
@@ -204,23 +205,40 @@
       isolation: isolate;
     }
 
-    /* Edge-to-edge craft stage — stunning-25 carousel as the hero plane */
+    /* Craft plate — full 16:9 stunning-25 frame, never wallpaper-crop */
     .hero-visual {
-      position: absolute;
-      inset: 0;
+      position: relative;
+      grid-column: 2;
+      grid-row: 1;
       z-index: 0;
+      min-width: 0;
       overflow: hidden;
-      background: #0a0c10;
-      display: block;
+      background:
+        radial-gradient(900px 520px at 70% 40%, rgba(13,148,136,0.12), transparent 60%),
+        #07090d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(28px, 5vh, 56px) clamp(24px, 3.5vw, 48px);
       text-decoration: none;
       animation: pmd-stage-in 1.05s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
     .hero-visual-link {
-      position: absolute;
-      inset: 0;
+      position: relative;
+      inset: auto;
       display: block;
+      width: 100%;
+      max-width: 1180px;
+      aspect-ratio: 16 / 9;
+      max-height: min(78svh, 100%);
+      margin: 0 auto;
       text-decoration: none;
       z-index: 0;
+      overflow: hidden;
+      border: 1.5px solid rgba(232, 238, 244, 0.22);
+      border-radius: 2px;
+      background: #05070c;
+      box-shadow: none;
     }
     .hero-visual-img {
       position: absolute;
@@ -229,31 +247,26 @@
       height: 100%;
       max-width: none;
       object-fit: cover;
-      /* Full 16:9 craft frame — slight right bias for sheen, not a crop into glyphs */
-      object-position: 52% 48%;
-      transform: scale(1.015);
-      transform-origin: 52% 48%;
+      /* Title slides bleed right by craft — pin left so glyphs stay legible */
+      object-position: left center;
+      transform: none;
+      transform-origin: center center;
       pointer-events: none;
       opacity: 0;
       image-rendering: auto;
-      transition:
-        opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-      will-change: opacity, transform;
+      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity;
     }
     .hero-visual-img.is-active {
       opacity: 1;
       z-index: 1;
-      animation: pmd-stage-drift 22s cubic-bezier(0.37, 0, 0.63, 1) alternate infinite;
+      animation: none;
     }
     .hero-visual-img.is-outgoing {
       opacity: 0;
       z-index: 2;
-      transform: scale(1.04);
-      transform-origin: 52% 48%;
-      transition:
-        opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
-        transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+      transform: none;
+      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .hero-visual.is-paused .hero-visual-img.is-active {
       animation-play-state: paused;
@@ -265,7 +278,7 @@
       bottom: 0;
       z-index: 3;
       height: 3px;
-      background: color-mix(in srgb, var(--ink) 14%, transparent);
+      background: rgba(232, 238, 244, 0.14);
       pointer-events: none;
       overflow: hidden;
     }
@@ -283,63 +296,45 @@
       animation-play-state: paused;
     }
 
-    /* Cloth wash — readable CTAs; craft composition stays visible as the stage */
+    /* Hard paper rail — no fog sheen over craft */
     .hero-sheen {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background:
-        linear-gradient(105deg,
-          rgba(232, 238, 244, 0.97) 0%,
-          rgba(232, 238, 244, 0.94) 22%,
-          rgba(232, 238, 244, 0.72) 32%,
-          rgba(232, 238, 244, 0.22) 42%,
-          rgba(232, 238, 244, 0.04) 50%,
-          transparent 58%),
-        radial-gradient(680px 380px at 8% 24%, rgba(255, 255, 255, 0.4), transparent 70%);
-    }
-    .hero-sheen::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: 0.22;
-      background:
-        radial-gradient(520px 240px at 18% 22%, rgba(255, 255, 255, 0.22), transparent 72%);
-      mix-blend-mode: soft-light;
-      animation: pmd-cloth-sheen 11s ease-in-out infinite alternate;
+      display: none;
     }
 
     .hero-copy {
       position: relative;
       z-index: 2;
-      width: min(34rem, calc(100% - 56px));
+      grid-column: 1;
+      grid-row: 1;
+      width: auto;
+      max-width: none;
+      min-width: 0;
       margin: 0;
-      padding: clamp(40px, 8vh, 72px) clamp(28px, 5vw, 56px);
-      max-width: 34rem;
-    }
-    .hero-copy .brand-mark,
-    .hero-copy h1,
-    .hero-copy .tagline,
-    .hero-copy .cta-micro,
-    .hero-copy .hero-carousel-caption {
-      text-shadow:
-        0 1px 0 rgba(232, 238, 244, 0.92),
-        0 0 18px rgba(232, 238, 244, 0.75),
-        0 0 36px rgba(232, 238, 244, 0.45);
+      padding: clamp(40px, 8vh, 72px) clamp(28px, 4vw, 48px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      container-type: inline-size;
+      container-name: hero-copy;
+      background:
+        linear-gradient(180deg, #F3F6FA 0%, var(--paper) 55%, var(--paper2) 100%);
+      border-right: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
     }
 
     .brand-mark {
       font-family: var(--display);
-      font-size: clamp(2.4rem, 5.6vw, 4.4rem);
+      /* Brand-first: clearly larger than h1, fully inside the paper rail */
+      font-size: clamp(1.85rem, 6.9cqi, 2.55rem);
       font-weight: 800;
       letter-spacing: -0.055em;
       color: var(--ink);
       margin: 0 0 22px;
       line-height: 0.95;
-      max-width: none;
+      max-width: 100%;
       white-space: nowrap;
       hyphens: none;
+      overflow: visible;
       overflow-wrap: normal;
       word-break: keep-all;
       animation: pmd-brand-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -357,12 +352,12 @@
 
     .site-hero h1 {
       font-family: var(--display);
-      font-size: clamp(1.45rem, 2.6vw, 2.05rem);
+      font-size: clamp(1.25rem, 2.05vw, 1.72rem);
       font-weight: 700;
       letter-spacing: -0.035em;
       line-height: 1.15;
       margin-bottom: 14px;
-      max-width: 16ch;
+      max-width: 18ch;
       color: var(--ink);
       animation: pmd-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
     }
@@ -464,9 +459,17 @@
     }
     .hero-craft-frame {
       position: relative;
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 16 / 9;
       overflow: hidden;
       background: var(--stage);
+    }
+    .hero-craft-frame img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: left center;
+      border: 0;
     }
     .hero-craft-frame iframe {
       width: 200%;
@@ -529,17 +532,9 @@
       from { opacity: 0; transform: scale(1.02); }
       to { opacity: 1; transform: scale(1); }
     }
-    @keyframes pmd-stage-drift {
-      from { transform: scale(1.015); }
-      to { transform: scale(1.04) translate(-0.55%, -0.25%); }
-    }
     @keyframes pmd-hero-progress {
       from { width: 0%; }
       to { width: 100%; }
-    }
-    @keyframes pmd-cloth-sheen {
-      from { transform: translateX(-2%); opacity: 0.4; }
-      to { transform: translateX(3%); opacity: 0.7; }
     }
 
     /* Continuous multi-deck showreel — below-fold energy, not hero clutter */
@@ -583,16 +578,16 @@
     .showreel-card {
       flex: 0 0 min(46vw, 480px);
       aspect-ratio: 16 / 9;
-      border: 1.5px solid rgba(232,238,244,0.28);
-      border-radius: 3px;
+      border: 1.5px solid rgba(232,238,244,0.22);
+      border-radius: 2px;
       overflow: hidden;
       background: #060a12;
       position: relative;
       text-decoration: none;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+      box-shadow: none;
     }
     .showreel-card:hover {
-      border-color: rgba(232,238,244,0.48);
+      border-color: rgba(232,238,244,0.42);
     }
     .showreel-card iframe {
       width: 200%;
@@ -602,21 +597,23 @@
       transform-origin: 0 0;
       pointer-events: none;
     }
+    /* Filmstrip foot chrome — not floating sticker overlays */
     .showreel-card span {
       position: absolute;
-      left: 10px;
-      right: 10px;
-      bottom: 8px;
+      left: 0;
+      right: 0;
+      bottom: 0;
       z-index: 2;
-      padding: 6px 10px;
-      border-radius: 2px;
-      background: rgba(6,10,18,0.72);
+      padding: 8px 12px;
+      border-radius: 0;
+      border-top: 1px solid rgba(232,238,244,0.16);
+      background: rgba(6,10,18,0.9);
       font-family: var(--mono);
       font-size: 10px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: rgba(232,238,244,0.92);
-      text-shadow: 0 1px 6px rgba(0,0,0,0.45);
+      text-shadow: none;
     }
     .showreel:hover .showreel-track { animation-play-state: paused; }
     @keyframes pmd-showreel {
@@ -626,10 +623,10 @@
 
     @media (prefers-reduced-motion: reduce) {
       .brand-mark, .brand-mark::after, .site-hero h1, .tagline, .ctas, .cta-micro, .hero-carousel-meta,
-      .hero-visual, .hero-visual-img, .hero-sheen::after, .hero-progress > span,
+      .hero-visual, .hero-visual-img, .hero-progress > span,
       .showreel-track { animation: none !important; }
       .hero-visual-img { transition: none !important; }
-      .hero-visual-img.is-active { opacity: 1; transform: scale(1.015); }
+      .hero-visual-img.is-active { opacity: 1; transform: none; }
       .theme-card, .gallery-card {
         transition: none !important;
         transform: none !important;
@@ -638,34 +635,33 @@
       .theme-card:hover, .gallery-card:hover {
         transform: none !important;
       }
-      .theme-card::before, .gallery-card::before {
-        opacity: 0.4;
-        transform: none !important;
-        filter: blur(5px);
-      }
-      .theme-card::after, .gallery-card::after {
-        /* Static sheen — no pointer-driven brush */
-        background:
-          radial-gradient(circle at 30% 18%, rgba(255,255,255,0.28), transparent 42%),
-          linear-gradient(125deg, rgba(255,255,255,0.22) 0%, transparent 36%, transparent 62%, rgba(11,18,32,0.06) 100%);
-      }
     }
     @media (max-width: 920px) {
       header.site-hero {
         min-height: auto;
+        display: flex;
         flex-direction: column;
         align-items: stretch;
         background: var(--paper);
       }
       .hero-visual {
         position: relative;
+        grid-column: auto;
+        grid-row: auto;
         inset: auto;
         width: 100%;
-        aspect-ratio: 16 / 9;
+        aspect-ratio: auto;
         min-height: 0;
-        max-height: 46svh;
+        max-height: none;
         order: -1;
+        padding: 16px 16px 12px;
         background: #07090d;
+        display: block;
+      }
+      .hero-visual-link {
+        max-height: none;
+        width: 100%;
+        max-width: none;
       }
       .hero-visual-img {
         width: 100%;
@@ -675,9 +671,8 @@
         top: auto;
         transform: none;
         transform-origin: center;
-        /* Full craft plate on mobile — no random title crop */
-        object-fit: contain;
-        object-position: center center;
+        object-fit: cover;
+        object-position: left center;
       }
       .hero-visual-img.is-active {
         animation: none;
@@ -687,9 +682,12 @@
         display: none;
       }
       .hero-copy {
+        grid-column: auto;
+        grid-row: auto;
         width: 100%;
         max-width: none;
         padding: 32px 28px 40px;
+        border-right: 0;
         background:
           linear-gradient(180deg, rgba(255,255,255,0.35), transparent 40%),
           var(--paper);
@@ -829,68 +827,32 @@
       opacity: 0.7;
     }
 
-    /* ── themes gallery ─────────────────────────────────── */
+    /* ── themes gallery — flat signal-grid, no soft-card slop ─ */
     .themes-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
+      gap: 14px;
       margin-top: 48px;
-      perspective: 1200px;
+      perspective: none;
     }
 
     .theme-card {
-      --sheen-x: 30%;
-      --sheen-y: 18%;
       border: 1px solid var(--rule);
-      border-radius: 12px;
+      border-radius: 4px;
       overflow: hidden;
-      background:
-        linear-gradient(165deg, rgba(255,255,255,0.55) 0%, transparent 42%),
-        var(--paper2);
-      transition: box-shadow 0.22s ease, transform 0.18s ease, border-color 0.18s ease;
-      transform-style: preserve-3d;
-      will-change: transform;
+      background: color-mix(in srgb, var(--paper2) 72%, white);
+      transition: border-color 0.15s ease, transform 0.15s ease;
       position: relative;
-      box-shadow:
-        0 1px 0 rgba(255,255,255,0.65) inset,
-        0 10px 28px -18px rgba(11,18,32,0.28),
-        0 22px 36px -24px rgba(11,18,32,0.32);
+      box-shadow: none;
     }
-    .theme-card::before {
-      content: "";
-      pointer-events: none;
-      position: absolute;
-      left: 12%; right: 12%; bottom: -14px;
-      height: 22px;
-      border-radius: 50%;
-      background: radial-gradient(ellipse at center, rgba(11,18,32,0.28), transparent 70%);
-      filter: blur(7px);
-      opacity: 0.55;
-      z-index: -1;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-    .theme-card::after {
-      content: "";
-      pointer-events: none;
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background:
-        radial-gradient(circle at var(--sheen-x) var(--sheen-y), rgba(255,255,255,0.42), transparent 42%),
-        linear-gradient(125deg, rgba(255,255,255,0.28) 0%, transparent 36%, transparent 62%, rgba(11,18,32,0.06) 100%);
-      opacity: 0.62;
-      mix-blend-mode: soft-light;
-    }
+    .theme-card::before,
+    .theme-card::after { display: none; }
     .theme-card:hover {
-      box-shadow:
-        0 1px 0 rgba(255,255,255,0.85) inset,
-        0 18px 40px -16px rgba(11,18,32,0.34),
-        0 28px 48px -22px rgba(11,18,32,0.28),
-        0 0 0 1px color-mix(in srgb, var(--accent) 28%, transparent);
-      transform: translateY(-4px);
-      border-color: color-mix(in srgb, var(--ink) 22%, transparent);
+      box-shadow: none;
+      transform: translateY(-2px);
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--rule));
     }
-    .theme-card:hover::before { opacity: 0.75; transform: scaleX(1.06); }
+    .theme-card:hover::before { opacity: 0; }
     .theme-card.is-hidden { display: none; }
     .theme-card.is-featured .theme-name::after {
       content: " · popular";
@@ -1373,7 +1335,7 @@
       .layout-cell:nth-child(7) { border-radius: 0; }
       h1 { font-size: 2.2rem; }
       .themes-grid { grid-template-columns: 1fr; }
-      .brand-mark { font-size: clamp(1.7rem, 7.6vw, 2.6rem); white-space: nowrap; letter-spacing: -0.06em; max-width: 100%; hyphens: none; word-break: keep-all; }
+      .brand-mark { font-size: clamp(1.55rem, 7.2vw, 2.1rem); white-space: nowrap; letter-spacing: -0.06em; max-width: 100%; hyphens: none; word-break: keep-all; }
       .ctas .btn { padding: 12px 16px; font-size: 14px; }
       .hero-copy { max-width: 100%; }
       .tagline { max-width: 100%; }
@@ -1387,38 +1349,20 @@
       .footer-inner { flex-direction: column; align-items: flex-start; }
     }
 
-    /* ── gallery ─────────────────────────────────────────── */
-    .gallery-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; margin-top:32px; perspective:1200px; }
+    /* ── gallery — flat signal-grid plates ───────────────── */
+    .gallery-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; margin-top:32px; perspective:none; }
     .gallery-card {
-      --sheen-x: 28%; --sheen-y: 16%;
-      border-radius:12px; overflow:hidden; background:
-      linear-gradient(165deg, rgba(255,255,255,0.5) 0%, transparent 40%),
-      color-mix(in srgb, var(--paper2) 55%, white);
-      border:1.5px solid color-mix(in srgb, var(--ink) 16%, transparent);
-      transition:transform 0.2s ease,box-shadow 0.2s ease,border-color 0.2s ease;
-      box-shadow:
-        0 1px 0 rgba(255,255,255,0.55) inset,
-        0 12px 28px -18px rgba(11,18,32,0.22),
-        0 24px 40px -26px rgba(11,18,32,0.3);
+      border-radius:4px; overflow:hidden; background: color-mix(in srgb, var(--paper2) 72%, white);
+      border:1px solid var(--rule);
+      transition:transform 0.15s ease,border-color 0.15s ease;
+      box-shadow: none;
       position: relative;
-      transform-style: preserve-3d;
     }
-    .gallery-card::before {
-      content:""; pointer-events:none; position:absolute;
-      left:12%; right:12%; bottom:-14px; height:22px; border-radius:50%;
-      background: radial-gradient(ellipse at center, rgba(11,18,32,0.26), transparent 70%);
-      filter: blur(7px); opacity:0.5; z-index:-1;
-    }
-    .gallery-card::after {
-      content:""; pointer-events:none; position:absolute; inset:0; border-radius:inherit;
-      background:
-        radial-gradient(circle at var(--sheen-x) var(--sheen-y), rgba(255,255,255,0.38), transparent 42%),
-        linear-gradient(125deg, rgba(255,255,255,0.22) 0%, transparent 38%, transparent 70%, rgba(11,18,32,0.05) 100%);
-      opacity:0.58; mix-blend-mode: soft-light;
-    }
-    .gallery-card:hover { transform:translateY(-5px) rotateX(2deg);
-      box-shadow:0 18px 40px -16px rgba(11,18,32,0.3), 0 28px 48px -22px rgba(11,18,32,0.26), 0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent);
-      border-color:color-mix(in srgb, var(--ink) 28%, transparent);
+    .gallery-card::before,
+    .gallery-card::after { display: none; }
+    .gallery-card:hover { transform:translateY(-2px);
+      box-shadow: none;
+      border-color:color-mix(in srgb, var(--accent) 40%, var(--rule));
     }
     .thumb { height:156px; }
     .card-meta { padding:14px 16px 16px; }
@@ -1522,8 +1466,8 @@
     <a class="hero-visual-link" id="hero-carousel-link" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener" aria-label="Open NovaSpark AI Aurora Glass craft deck">
       <img class="hero-visual-img is-active" id="hero-img-a" src="previews/hero/novaspark-pitch.png" width="1280" height="720" alt="NovaSpark AI · Aurora Glass craft title" decoding="async" fetchpriority="high" />
       <img class="hero-visual-img" id="hero-img-b" src="previews/hero/meridian-sales.png" width="1280" height="720" alt="" decoding="async" aria-hidden="true" />
+      <div class="hero-progress" aria-hidden="true"><span id="hero-progress-bar"></span></div>
     </a>
-    <div class="hero-progress" aria-hidden="true"><span id="hero-progress-bar"></span></div>
   </div>
   <div class="hero-sheen" aria-hidden="true"></div>
   <div class="hero-copy">
@@ -1584,7 +1528,7 @@
     <div class="hero-craft" aria-label="Live craft examples" style="margin-top:36px">
       <a class="hero-craft-card" href="examples/structured/novaspark-pitch.html" target="_blank" rel="noopener">
         <div class="hero-craft-frame">
-          <iframe src="about:blank" data-src="examples/structured/novaspark-pitch.html" loading="lazy" title="NovaSpark aurora-glass structured deck" tabindex="-1"></iframe>
+          <img src="previews/hero/novaspark-pitch.png" width="1280" height="720" alt="NovaSpark aurora-glass title craft" loading="lazy" decoding="async" />
         </div>
         <div class="hero-craft-meta">
           <strong>NovaSpark</strong>
@@ -1593,7 +1537,7 @@
       </a>
       <a class="hero-craft-card" href="examples/structured/meridian-sales.html" target="_blank" rel="noopener">
         <div class="hero-craft-frame">
-          <iframe src="about:blank" data-src="examples/structured/meridian-sales.html" loading="lazy" title="Meridian ft-editorial structured deck" tabindex="-1"></iframe>
+          <img src="previews/hero/meridian-sales.png" width="1280" height="720" alt="Meridian ft-editorial title craft" loading="lazy" decoding="async" />
         </div>
         <div class="hero-craft-meta">
           <strong>Meridian</strong>
@@ -1602,7 +1546,7 @@
       </a>
       <a class="hero-craft-card" href="examples/structured/bounce-launch.html" target="_blank" rel="noopener">
         <div class="hero-craft-frame">
-          <iframe src="about:blank" data-src="examples/structured/bounce-launch.html" loading="lazy" title="Bounce genz-bento structured deck" tabindex="-1"></iframe>
+          <img src="previews/hero/bounce-launch.png" width="1280" height="720" alt="Bounce genz-bento title craft" loading="lazy" decoding="async" />
         </div>
         <div class="hero-craft-meta">
           <strong>Bounce</strong>
