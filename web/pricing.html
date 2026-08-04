@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pricing — presentation-md is free</title>
-  <meta name="description" content="presentation-md is free and MIT licensed. No paid tier, no account, no usage limits — install for Claude Code, Cursor, Codex, Gemini CLI, or Copilot." />
+  <meta name="description" content="presentation-md is free and MIT licensed. No paid tier today — free forever core, honest later options if we ever charge. No account, no usage limits." />
   <link rel="canonical" href="https://presentation-md.vercel.app/pricing" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0B1220" />
@@ -17,11 +17,11 @@
   <meta property="og:site_name" content="presentation-md" />
   <meta property="og:url" content="https://presentation-md.vercel.app/pricing" />
   <meta property="og:title" content="Pricing — presentation-md is free" />
-  <meta property="og:description" content="Free forever. MIT. No account. No usage limits." />
+  <meta property="og:description" content="Free forever core. MIT. No account. Honest later options — no fake paid tiers." />
   <meta property="og:image" content="https://presentation-md.vercel.app/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Pricing — presentation-md is free" />
-  <meta name="twitter:description" content="Free forever. MIT. No account. No usage limits." />
+  <meta name="twitter:description" content="Free forever core. MIT. No account. Honest later options — no fake paid tiers." />
   <meta name="twitter:image" content="https://presentation-md.vercel.app/og-image.png" />
   <script type="application/ld+json">
   {
@@ -50,7 +50,7 @@
       color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;min-height:100vh;
     }
     a{color:var(--accent)}
-    .container{max-width:720px;margin:0 auto;padding:0 24px}
+    .container{max-width:820px;margin:0 auto;padding:0 24px}
     header{
       background:var(--stage);
       color:#fff;padding:56px 0 64px;
@@ -58,27 +58,42 @@
     }
     .back-link{font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;color:rgba(255,255,255,.45);text-decoration:none;display:inline-block;margin-bottom:28px}
     .back-link:hover{color:#fff}
-    .eyebrow{display:none}
     header h1{font-family:var(--display);font-size:clamp(2rem,4.5vw,3rem);font-weight:800;letter-spacing:-.035em;line-height:1.05;margin-bottom:14px;font-style:normal}
-    header p{color:rgba(255,255,255,.65);max-width:36ch;font-size:1.05rem}
+    header p{color:rgba(255,255,255,.65);max-width:40ch;font-size:1.05rem}
     section{padding:48px 0 64px}
+    .ladder{
+      display:grid;grid-template-columns:1.15fr .85fr;gap:12px;align-items:stretch;
+    }
     .price-block{
       border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);
       border-radius:4px;padding:28px 28px 32px;
       background:color-mix(in srgb,var(--paper2) 55%,white);
     }
-    .price-block .amount{font-family:var(--display);font-size:clamp(2.4rem,6vw,3.4rem);font-weight:800;letter-spacing:-.04em;line-height:1}
+    .price-block.later{
+      background:transparent;
+      border-style:dashed;
+    }
+    .tier-tag{
+      font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--ink-light);margin-bottom:10px;display:block;
+    }
+    .price-block .amount{font-family:var(--display);font-size:clamp(2.2rem,5.5vw,3.2rem);font-weight:800;letter-spacing:-.04em;line-height:1}
     .price-block .amount span{font-size:1rem;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-light);margin-left:10px;font-weight:500}
-    .price-block h2{font-family:var(--display);font-size:1.35rem;margin:18px 0 10px;letter-spacing:-.02em}
-    .price-block ul{margin:16px 0 0;padding-left:1.15rem}
+    .price-block h2{font-family:var(--display);font-size:1.25rem;margin:16px 0 10px;letter-spacing:-.02em}
+    .price-block ul{margin:14px 0 0;padding-left:1.15rem}
     .price-block li{margin-bottom:8px;color:var(--ink)}
-    .cta{display:inline-flex;align-items:center;gap:8px;margin-top:28px;padding:13px 22px;background:var(--accent);color:#fff;text-decoration:none;border-radius:4px;font-weight:650;font-family:var(--sans)}
+    .price-block.later p{color:var(--ink-light);font-size:.95rem;margin-top:6px}
+    .price-block.later li{color:var(--ink-light)}
+    .cta{display:inline-flex;align-items:center;gap:8px;margin-top:24px;padding:13px 22px;background:var(--accent);color:#fff;text-decoration:none;border-radius:4px;font-weight:650;font-family:var(--sans)}
     .cta:hover{background:color-mix(in srgb,var(--accent) 88%,#000)}
     .secondary{display:inline-block;margin-top:16px;margin-left:14px;font-size:.95rem}
-    .note{margin-top:28px;font-size:.92rem;color:var(--ink-light);max-width:48ch}
+    .note{margin-top:28px;font-size:.92rem;color:var(--ink-light);max-width:52ch}
     footer{padding:28px 0 40px;color:var(--ink-light);font-size:.85rem;border-top:1px solid var(--rule)}
     footer a{color:var(--ink-light)}
     code{font-family:var(--mono);font-size:.88em;background:rgba(11,18,32,.06);padding:2px 6px;border-radius:4px}
+    @media (max-width:720px){
+      .ladder{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
@@ -86,24 +101,39 @@
   <div class="container">
     <a href="/" class="back-link">← presentation-md</a>
     <h1>$0. Forever.</h1>
-    <p>One free tier. MIT license. No account, no seat fee, no usage meter.</p>
+    <p>Free core forever. MIT. No account. If we ever charge, it will be optional extras — not a paywall on decks.</p>
   </div>
 </header>
 
 <section>
   <div class="container">
-    <div class="price-block">
-      <div class="amount">$0<span>/month</span></div>
-      <h2>Everything included</h2>
-      <ul>
-        <li>Skill install for Claude Code, Cursor, Codex, Gemini CLI, and Copilot</li>
-        <li>MCP server with typed tools (render, audit, export, theme preview, and more)</li>
-        <li>Node + Python renderers · 75 themes · self-contained HTML</li>
-        <li>Native editable PowerPoint export · browser Studio</li>
-        <li>Commercial use allowed under MIT</li>
-      </ul>
-      <a class="cta" href="/#start">Install for your agent →</a>
-      <a class="secondary" href="/studio/?example=briefing-signal&fresh=1">Try Studio first</a>
+    <div class="ladder">
+      <div class="price-block">
+        <span class="tier-tag">Now · the only tier</span>
+        <div class="amount">$0<span>/month</span></div>
+        <h2>Everything included</h2>
+        <ul>
+          <li>Skill install for Claude Code, Cursor, Codex, Gemini CLI, and Copilot</li>
+          <li>MCP server with typed tools (render, audit, export, theme preview, and more)</li>
+          <li>Node + Python renderers · 75 themes · self-contained HTML</li>
+          <li>Native editable PowerPoint export · browser Studio</li>
+          <li>Commercial use allowed under MIT</li>
+        </ul>
+        <a class="cta" href="/#start">Install for your agent →</a>
+        <a class="secondary" href="/studio/?example=briefing-signal&fresh=1">Try Studio first</a>
+      </div>
+      <div class="price-block later">
+        <span class="tier-tag">Later · not for sale</span>
+        <div class="amount" style="font-size:clamp(1.6rem,4vw,2.1rem)">Optional</div>
+        <h2>If we ever charge</h2>
+        <p>No fake Pro tier. Possible extras only — still free to run locally:</p>
+        <ul>
+          <li>Hosted deploy / team share (beyond <code>?d=</code>)</li>
+          <li>Managed brand packs for orgs</li>
+          <li>Priority Studio hosting</li>
+        </ul>
+        <p style="margin-top:16px;font-size:.88rem">Core skill, MCP, themes, PPTX, and local Studio stay free.</p>
+      </div>
     </div>
     <p class="note">
       Your agent’s API costs (if any) are yours — presentation-md never bills you.

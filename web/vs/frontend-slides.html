@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>presentation-md vs frontend-slides — structured proofs vs prompt packs</title>
-  <meta name="description" content="Honest comparison: presentation-md vs zarazhangrui/frontend-slides — schema-validated Deck JSON, PPTX, MCP, and Studio vs discovery-first HTML prompt packs." />
+  <meta name="description" content="Honest craft duel: presentation-md vs zarazhangrui/frontend-slides — Title·Bento·Compare proofs, Deck JSON, PPTX, MCP, Studio vs discovery-first HTML prompt packs." />
   <link rel="canonical" href="https://presentation-md.vercel.app/vs/frontend-slides" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0B1220" />
@@ -16,8 +16,8 @@
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="presentation-md" />
   <meta property="og:url" content="https://presentation-md.vercel.app/vs/frontend-slides" />
-  <meta property="og:title" content="presentation-md vs frontend-slides — structured proofs vs prompt packs" />
-  <meta property="og:description" content="Schema-validated Deck JSON, PPTX round-trip, MCP, and Studio vs discovery-first HTML prompt packs." />
+  <meta property="og:title" content="presentation-md vs frontend-slides — craft duel" />
+  <meta property="og:description" content="Title·Bento·Compare proofs vs discovery-first HTML prompt packs — same vibe path, product layer after the first win." />
   <meta property="og:image" content="https://presentation-md.vercel.app/og-image.png" />
   <meta property="og:image:alt" content="presentation-md vs frontend-slides" />
   <meta property="og:image:width" content="1200" />
@@ -26,14 +26,14 @@
   <meta name="twitter:site" content="@isatimur" />
   <meta name="twitter:creator" content="@isatimur" />
   <meta name="twitter:title" content="presentation-md vs frontend-slides" />
-  <meta name="twitter:description" content="Structured proofs, PPTX, MCP, and Studio vs discovery-first HTML prompt packs." />
+  <meta name="twitter:description" content="Craft duel: Title·Bento·Compare proofs vs discovery-first HTML prompt packs." />
   <meta name="twitter:image" content="https://presentation-md.vercel.app/og-image.png" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "presentation-md vs frontend-slides — structured proofs vs prompt packs",
-    "description": "Honest comparison: presentation-md vs zarazhangrui/frontend-slides — schema-validated Deck JSON, PPTX, MCP, and Studio vs discovery-first HTML prompt packs.",
+    "description": "Honest craft duel: presentation-md vs zarazhangrui/frontend-slides — Title·Bento·Compare proofs, Deck JSON, PPTX, MCP, Studio vs discovery-first HTML prompt packs.",
     "author": {"@type": "Person", "name": "Timur Isachenko", "url": "https://github.com/isatimur/presentation-md"},
     "datePublished": "2026-07-31",
     "dateModified": "2026-08-05",
@@ -54,148 +54,239 @@
       --mono:'IBM Plex Mono',ui-monospace,monospace;
     }
     html{scroll-behavior:smooth}
-    body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65}
+    body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
     a{color:var(--accent)}
-    .container{max-width:820px;margin:0 auto;padding:0 24px}
+    .container{max-width:1080px;margin:0 auto;padding:0 24px}
+    .container-narrow{max-width:720px;margin:0 auto;padding:0 24px}
     header{
-      background:
-        radial-gradient(ellipse 80% 60% at 12% 0%, rgba(255,59,31,.22), transparent 55%),
-        radial-gradient(ellipse 50% 40% at 90% 20%, rgba(13,148,136,.14), transparent 50%),
-        var(--stage);
-      color:#fff;padding:64px 0 72px;
+      background:var(--stage);color:#fff;padding:52px 0 40px;
+      border-bottom:1px solid color-mix(in srgb,#E8EEF4 18%,transparent);
     }
-    header .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45);display:block;margin-bottom:14px}
-    header h1{font-family:var(--display);font-size:clamp(1.85rem,4.2vw,2.75rem);font-weight:800;line-height:1.08;letter-spacing:-.03em;margin-bottom:16px}
-    header h1 em{font-style:normal;color:#FF8A75}
-    header p{font-size:1.05rem;color:rgba(255,255,255,.65);max-width:620px}
-    .back-link{font-size:.82rem;color:rgba(255,255,255,.45);text-decoration:none;display:inline-block;margin-bottom:28px}
+    .back-link{font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;color:rgba(255,255,255,.45);text-decoration:none;display:inline-block;margin-bottom:24px}
     .back-link:hover{color:#fff}
-    section{padding:52px 0;border-bottom:1px solid var(--rule)}
-    section:last-of-type{border-bottom:none}
-    h2{font-family:var(--display);font-size:1.45rem;font-weight:700;margin-bottom:20px;letter-spacing:-.02em}
-    .compare-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
-    .compare-table th{text-align:left;padding:10px 14px;background:var(--ink);color:#fff;font-weight:600;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;font-family:var(--mono)}
-    .compare-table td{padding:12px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
-    .compare-table tr:last-child td{border-bottom:none}
-    .compare-table .col-us{background:rgba(255,59,31,.05)}
-    .check{color:#0D9488;font-weight:700}
-    .cross{color:#dc2626;font-weight:700}
-    .verdict{background:rgba(255,59,31,.07);border-left:3px solid var(--accent);padding:20px 24px;border-radius:0 8px 8px 0;margin-top:8px;font-size:.97rem}
-    .cta{display:inline-block;margin-top:20px;padding:12px 26px;background:var(--accent);color:#fff;text-decoration:none;border-radius:8px;font-weight:600;font-family:var(--display)}
-    .cta:hover{background:color-mix(in srgb,var(--accent) 88%,#000)}
-    pre{background:var(--ink);color:#E8EEF4;padding:18px 22px;border-radius:8px;font-family:var(--mono);font-size:.85rem;overflow-x:auto;margin-top:16px}
-    footer{padding:32px 0;color:var(--ink-light);font-size:.85rem}
-    footer a{color:var(--ink-light)}
-    ul{padding-left:20px;margin-top:6px}
-    li{margin-bottom:6px}
-    .also{font-size:.9rem;color:var(--ink-light);margin-top:28px}
-    .also a{margin-right:12px}
+    header h1{font-family:var(--display);font-size:clamp(1.85rem,4.2vw,2.75rem);font-weight:800;line-height:1.08;letter-spacing:-.03em;margin-bottom:14px}
+    header h1 em{font-style:normal;color:#FF8A75}
+    header p{font-size:1.02rem;color:rgba(255,255,255,.62);max-width:54ch}
     .brand{font-family:var(--display);font-weight:800;letter-spacing:-.02em}
+
+    /* Signal-grid craft stage */
+    .duel-stage{
+      background:var(--stage);padding:28px 0 48px;
+      border-bottom:1px solid color-mix(in srgb,#E8EEF4 14%,transparent);
+    }
+    .duel-label{
+      font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+      color:rgba(232,238,244,.42);margin-bottom:16px;
+    }
+    .wall-shots{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+    }
+    .wall-shot{
+      margin:0;border:1.5px solid rgba(232,238,244,.2);border-radius:2px;overflow:hidden;background:#05070c;
+    }
+    .wall-shot img{
+      display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:left center;
+    }
+    .wall-shot figcaption{
+      padding:6px 8px 7px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+      color:rgba(232,238,244,.48);border-top:1px solid rgba(232,238,244,.12);
+      background:rgba(232,238,244,.04);
+    }
+    .duel-caption{
+      margin-top:14px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;
+      color:rgba(232,238,244,.5);display:flex;flex-wrap:wrap;gap:8px 18px;
+    }
+    .duel-caption strong{color:rgba(232,238,244,.85);font-weight:600}
+
+    section{padding:44px 0;border-bottom:1px solid var(--rule)}
+    section:last-of-type{border-bottom:none}
+    h2{font-family:var(--display);font-size:1.35rem;font-weight:700;margin-bottom:18px;letter-spacing:-.02em}
+
+    /* Compact signal grid — not prose walls */
+    .signal-grid{
+      display:grid;grid-template-columns:1.1fr 1fr 1fr;border:1px solid var(--rule);border-radius:2px;overflow:hidden;
+    }
+    .signal-grid > *{
+      padding:14px 16px;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);
+      font-size:.92rem;line-height:1.45;
+    }
+    .signal-grid > *:nth-child(3n){border-right:none}
+    .signal-grid > *:nth-last-child(-n+3){border-bottom:none}
+    .sg-head{
+      font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+      background:var(--ink);color:#fff;font-weight:600;
+    }
+    .sg-crit{font-weight:600;color:var(--ink);background:color-mix(in srgb,var(--paper2) 55%,white)}
+    .sg-us{background:rgba(255,59,31,.05)}
+    .sg-win{color:#0D9488;font-weight:700}
+    .sg-miss{color:#dc2626;font-weight:700}
+
+    .honest{
+      display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;
+    }
+    .honest article{
+      border:1px solid var(--rule);border-radius:2px;padding:18px 18px 20px;
+      background:color-mix(in srgb,var(--paper2) 40%,white);
+    }
+    .honest h3{
+      font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--ink-light);margin-bottom:10px;font-weight:600;
+    }
+    .honest ul{padding-left:1.05rem;margin:0}
+    .honest li{margin-bottom:6px;font-size:.95rem}
+    .honest li:last-child{margin-bottom:0}
+
+    .verdict{
+      border:1px solid var(--rule);border-radius:2px;padding:20px 22px;
+      background:color-mix(in srgb,var(--paper2) 55%,white);font-size:.97rem;max-width:62ch;
+    }
+    .cta{
+      display:inline-block;margin-top:18px;margin-right:10px;padding:12px 22px;
+      background:var(--accent);color:#fff;text-decoration:none;border-radius:4px;
+      font-weight:650;font-family:var(--display);
+    }
+    .cta:hover{background:color-mix(in srgb,var(--accent) 88%,#000)}
+    .cta.ghost{background:transparent;color:var(--ink);border:1px solid var(--rule)}
+    .cta.ghost:hover{border-color:var(--accent);color:var(--accent)}
+    pre{
+      background:var(--ink);color:#E8EEF4;padding:16px 20px;border-radius:4px;
+      font-family:var(--mono);font-size:.85rem;overflow-x:auto;margin-top:14px;max-width:42rem;
+    }
+    footer{padding:28px 0 40px;color:var(--ink-light);font-size:.85rem}
+    footer a{color:var(--ink-light)}
+    .also{font-size:.9rem;color:var(--ink-light);margin-top:26px}
+    .also a{margin-right:12px}
+
+    @media (max-width:820px){
+      .wall-shots{gap:5px}
+      .wall-shot figcaption{font-size:9px;padding:4px 5px;letter-spacing:.04em}
+      .signal-grid{grid-template-columns:1fr}
+      .signal-grid > *{border-right:none}
+      .signal-grid > *:nth-last-child(-n+3){border-bottom:1px solid var(--rule)}
+      .signal-grid > *:last-child{border-bottom:none}
+      .sg-head:nth-child(2),.sg-head:nth-child(3){display:none}
+      .sg-us::before{content:"Us · ";font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+      .sg-them::before{content:"Them · ";font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-light)}
+      .honest{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
 <header>
   <div class="container">
     <a href="/" class="back-link">← presentation-md</a>
-    <span class="eyebrow">Comparison · direct rival</span>
     <h1 class="brand">Coming from<br><em>frontend-slides</em>?</h1>
-    <p>They feel better on first glance — simpler story, spectacular demos, zero schema friction. Keep that vibe → preview → craft habit. We hide the product layer until after your first win.</p>
+    <p>They win the first five seconds. We close with craft proofs you can re-theme, audit, and hand off — same vibe → preview → craft path, product layer after the win.</p>
   </div>
 </header>
 
+<div class="duel-stage" aria-label="Craft duel">
+  <div class="container">
+    <p class="duel-label">Craft proof · Title · Bento · Compare</p>
+    <div class="wall-shots" role="group" aria-label="NovaSpark Title Bento Compare">
+      <figure class="wall-shot">
+        <img src="/previews/wall/novaspark-pitch-title.png" width="1280" height="720" alt="NovaSpark title craft plate" loading="eager" decoding="async" />
+        <figcaption>Title</figcaption>
+      </figure>
+      <figure class="wall-shot">
+        <img src="/previews/wall/novaspark-pitch-bento.png" width="1280" height="720" alt="NovaSpark bento craft plate" loading="eager" decoding="async" />
+        <figcaption>Bento</figcaption>
+      </figure>
+      <figure class="wall-shot">
+        <img src="/previews/wall/novaspark-pitch-compare.png" width="1280" height="720" alt="NovaSpark compare craft plate" loading="eager" decoding="async" />
+        <figcaption>Compare</figcaption>
+      </figure>
+    </div>
+    <p class="duel-caption">
+      <span><strong>presentation-md</strong> · NovaSpark · aurora-glass</span>
+      <span>Same energy as a bold template wall — then Deck JSON underneath</span>
+    </p>
+  </div>
+</div>
+
 <section>
   <div class="container">
-    <h2>Why frontend-slides feels better (honest)</h2>
-    <ul>
-      <li><strong>Simpler story</strong> — “create stunning HTML slides with your coding agent.” No MCP, schema, or PPTX in the first breath.</li>
-      <li><strong>Spectacular demos</strong> — README template wall with real screenshots; you feel craft before you install.</li>
-      <li><strong>Progressive disclosure</strong> — SKILL.md is a phase map; style files load only when needed.</li>
-      <li><strong>Zero schema tax</strong> — freeform HTML. First win is a file you open in a browser.</li>
-      <li><strong>Community proof</strong> — tens of thousands of stars signal “this is the pack people use.”</li>
-    </ul>
-    <p style="margin-top:18px">Those are real advantages. Below is how presentation-md closes the gap without leading with complexity.</p>
+    <h2>Signal grid</h2>
+    <div class="signal-grid" role="table" aria-label="presentation-md versus frontend-slides">
+      <div class="sg-head" role="columnheader">Signal</div>
+      <div class="sg-head" role="columnheader">presentation-md</div>
+      <div class="sg-head" role="columnheader">frontend-slides</div>
+
+      <div class="sg-crit" role="rowheader">First glance</div>
+      <div class="sg-us">Stunning-25 Title·Bento·Compare wall + hero carousel</div>
+      <div class="sg-them">README template screenshots + star gravity</div>
+
+      <div class="sg-crit" role="rowheader">Discovery</div>
+      <div class="sg-us"><span class="sg-win">✓</span> Vibe → 3 previews → pick</div>
+      <div class="sg-them"><span class="sg-win">✓</span> Show-don’t-tell style gallery</div>
+
+      <div class="sg-crit" role="rowheader">Authoring</div>
+      <div class="sg-us"><span class="sg-win">✓</span> Typed Deck JSON · re-theme · audit</div>
+      <div class="sg-them">Freeform HTML from prompts</div>
+
+      <div class="sg-crit" role="rowheader">First useful deck</div>
+      <div class="sg-us"><span class="sg-win">✓</span> <code>scaffold_deck</code> → Studio <code>?d=</code></div>
+      <div class="sg-them">HTML file you open in a browser</div>
+
+      <div class="sg-crit" role="rowheader">PowerPoint</div>
+      <div class="sg-us"><span class="sg-win">✓</span> Native editable PPTX round-trip</div>
+      <div class="sg-them"><span class="sg-miss">✗</span> HTML-first · no PPTX pipeline</div>
+
+      <div class="sg-crit" role="rowheader">Craft gates</div>
+      <div class="sg-us"><span class="sg-win">✓</span> audit / judge / apply_safe_fixes</div>
+      <div class="sg-them">Anti-slop rules · no shared product audit</div>
+
+      <div class="sg-crit" role="rowheader">Studio</div>
+      <div class="sg-us"><span class="sg-win">✓</span> Hosted editor + Present chrome</div>
+      <div class="sg-them"><span class="sg-miss">✗</span> No editor product</div>
+
+      <div class="sg-crit" role="rowheader">Price</div>
+      <div class="sg-us"><span class="sg-win">✓</span> Free · MIT · no account</div>
+      <div class="sg-them"><span class="sg-win">✓</span> Open-source skill / templates</div>
+    </div>
   </div>
 </section>
 
 <section>
   <div class="container">
-    <h2>Switching cost, in plain terms</h2>
-    <ul>
-      <li><strong>You keep:</strong> show-don’t-tell vibe browsing and bold craft expectations</li>
-      <li><strong>First win:</strong> ask → 3 previews → <code>scaffold_deck</code> → Studio share link (<code>?d=</code>) — still no schema homework</li>
-      <li><strong>You gain when you need it:</strong> re-theme without rewrite, craft audit, native editable PowerPoint, MCP tools, browser Studio</li>
-      <li><strong>You do not need:</strong> a paid account or a platform lock-in — MIT, one <code>npx</code> install</li>
-    </ul>
-    <p style="margin-top:18px">Prefer zero commitment first? <a href="/studio/?example=novaspark-pitch&fresh=1">Open Studio</a> with no install — or <a href="/#showreel">watch the showreel</a>.</p>
+    <h2>Honest split</h2>
+    <div class="honest">
+      <article>
+        <h3>They still win</h3>
+        <ul>
+          <li>First five seconds — stars + README wall feel obvious</li>
+          <li>Zero schema tax on day one</li>
+          <li>Fully freeform multi-page HTML when you abandon structure on purpose</li>
+        </ul>
+      </article>
+      <article>
+        <h3>We win next</h3>
+        <ul>
+          <li>Same vibe → preview → craft path, then a shareable Studio link</li>
+          <li>Re-theme / audit / remorph without rewriting HTML</li>
+          <li>Editable PPTX · 75 theme proofs · 14 MCP tools</li>
+        </ul>
+      </article>
+    </div>
   </div>
 </section>
 
 <section>
-  <div class="container">
-    <h2>Side-by-side</h2>
-    <table class="compare-table">
-      <thead><tr><th style="width:34%">Criterion</th><th style="width:33%">presentation-md</th><th style="width:33%">frontend-slides</th></tr></thead>
-      <tbody>
-        <tr><td>Where it runs</td><td class="col-us">Claude Code, Cursor, Copilot, Codex, Gemini CLI + MCP</td><td>Agent prompt packs + HTML template gallery</td></tr>
-        <tr><td>Authoring model</td><td class="col-us"><span class="check">✓</span> Typed Deck JSON schema (18 layouts incl. <code>ranked-list</code>, <code>streak-grid</code>, <code>metric-ring</code>, <code>chart</code>, <code>custom-html</code>)</td><td>Freeform / template-guided HTML from prompts</td></tr>
-        <tr><td>Theme proofs</td><td class="col-us"><span class="check">✓</span> 75 schema-validated structured proofs + mood/popular browse (site + Studio + MCP <code>list_themes browse</code>) + universal <code>studio_url</code> deep-links on every theme</td><td>Showcase HTML templates (discovery-first)</td></tr>
-        <tr><td>Live theme preview</td><td class="col-us"><span class="check">✓</span> Studio pick-3 <strong>My deck restyle</strong> (selected slide live in each theme) + Generate discover My deck parity + Craft proofs Title/Bento/Compare shared-iframe strips + Example shot strips + <strong>Compare 3</strong> safe/bold/wildcard + MCP <code>preview_themes</code> <strong>json</strong> deck restyle + <code>studio_share_url</code> (?d= bake) + CLI <code>--preview-deck</code> / <code>--preview-slide</code> + <code>suggested_preview</code> + inline PNGs</td><td><span class="check">✓</span> Strong live style gallery UX (fixed templates)</td></tr>
-        <tr><td>One-shot agent quality</td><td class="col-us"><span class="check">✓</span> Anti-slop + stunning-25-first + density lock + <strong>non-LLM <code>remorph_density</code></strong> + <code>audit_deck</code>/<code>judge_deck</code> craft gates + <code>apply_safe_fixes</code> one-hop repair</td><td>Anti-slop rules; no shared craft audit product</td></tr>
-        <tr><td>Design craft</td><td class="col-us">Asymmetric ratios, emphasis, bento, image-heroes, surfaces, craft gates</td><td>Bold visual systems; agent writes full HTML</td></tr>
-        <tr><td>PowerPoint / PDF</td><td class="col-us"><span class="check">✓</span> Native PPTX export + import round-trip + speaker notes + theme-native card/frame chrome + MCP/CLI <strong>vector PDF</strong> + MCP <code>export_deck</code> <strong>notes_txt / notes_vtt</strong> handouts + Studio <strong>Download PDF</strong> blob (local headless Chromium; static hosts raster; print fallback) + exported HTML <strong>Present chrome</strong> (edit · overview · filmstrip F · laser · ink · B/W · notes+up-next · timer · pace · speaker · dots/progress · <code>#N</code> deep-link)</td><td><span class="cross">✗</span> HTML-first; no first-class PPTX/PDF pipeline</td></tr>
-        <tr><td>Browser Studio</td><td class="col-us"><span class="check">✓</span> Hosted Studio — <strong>horizontal densified filmstrip</strong> (edit + Present peek, toggle F), Present <strong>requestFullscreen</strong> + <strong>laser (L)</strong> / <strong>ink (D)</strong> / <strong>blackout (B)</strong> / <strong>whiteout (W)</strong> + overview (G) + elapsed <strong>timer (T/R)</strong> + <strong>pace countdown (P, 5–30m)</strong> + <strong>speaker window (O)</strong>, preview Fit/zoom, notes TXT/VTT handouts, <strong>shareable ?d= deck links</strong>, Open/Paste/Download <strong>.md</strong> (Marp round-trip) + Paste Brand CSS + PPTX/HTML/JSON, pick-3 <strong>My deck restyle</strong>, densified Craft proof strips, Compare-3 bridge, density modes + <strong>Speaker/Reading remorph</strong> (bullet-wall → feature-grid), craft audit + <strong>Judge t1</strong> + <strong>Apply safe fixes</strong> / Insert beat, Land scaffold, Download PDF · CLI <code>--judge</code> t0/t1/t2 · <code>--deploy</code> (opt-in) · <code>--list-themes --browse</code> discovery · Studio <strong>⌘K</strong> command palette</td><td><span class="cross">✗</span> No equivalent editor product</td></tr>
-        <tr><td>MCP / CLI craft</td><td class="col-us"><span class="check">✓</span> 14 MCP tools (incl. <code>deploy_deck</code>) + CLI <code>--scaffold</code> / <code>--audit [--fix]</code> / <code>--apply-theme</code> / <code>--judge t0|t1|t2</code> (HTML metrics + shots) / <code>--deploy</code> (dry-run unless <code>--confirm-deploy</code>) + <code>--format notes_txt|notes_vtt</code> handouts (repairCraft parity without MCP)</td><td>Skill / prompt workflow, not a typed product</td></tr>
-        <tr><td>Brand import</td><td class="col-us"><span class="check">✓</span> CSS / URL → contrast-safe theme package + Studio <strong>Paste Brand</strong> ephemeral theme</td><td>Manual template restyle</td></tr>
-        <tr><td>Output ownership</td><td class="col-us">Self-contained HTML you own + optional PPTX</td><td>Self-contained HTML you own</td></tr>
-        <tr><td>License / price</td><td class="col-us"><span class="check">✓</span> Free, MIT, no account</td><td><span class="check">✓</span> Open-source skill / templates</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <h2>Where frontend-slides is stronger</h2>
-    <ul>
-      <li><strong>First five seconds</strong> — README + stars + template screenshots read as “this is obviously better” before any product comparison</li>
-      <li>Community momentum and gallery energy as the reference for bold agent slide aesthetics</li>
-      <li>Fully freeform multi-page HTML when you abandon schema on purpose (we keep <code>custom-html</code> + craft recipes for one-off art inside Deck JSON; Studio also <strong>Open</strong>s Marp/md-slides <code>.md</code> into Deck JSON)</li>
-      <li>Familiar clone/copy skill flow — we ship <code>/slides</code> + plugin MCP too, but their install story still feels lighter</li>
-    </ul>
-    <h2 style="margin-top:36px">Where presentation-md is stronger</h2>
-    <ul>
-      <li><strong>Same vibe → preview → craft path</strong> — then <code>scaffold_deck</code> → Studio share so the first editable handoff is one call, not a schema tutorial</li>
-      <li>Discovery parity — Studio Compare 3 / My deck restyle + MCP <code>preview_themes</code> with inline PNGs</li>
-      <li>One-shot craft bar — stunning-25-first, anti-slop, density lock, then <code>audit_deck</code>/<code>judge_deck</code> before ship</li>
-      <li>Deck JSON under the hood — re-theme, audit, and surgically edit without rewriting HTML</li>
-      <li>75 structured theme proofs + native PPTX round-trip + browser Studio + 14 MCP tools</li>
-      <li>Claude Code <code>/slides</code> slash + <code>npx @presentation-md/install</code> across agents</li>
-    </ul>
-  </div>
-</section>
-
-<section>
-  <div class="container">
+  <div class="container-narrow">
     <h2>Verdict</h2>
-    <div class="verdict">frontend-slides wins the first five seconds. presentation-md should win the first useful deck: same vibe → preview → craft path, then a shareable Studio link, craft gates, and editable PowerPoint when you need the product layer. Try the showreel / Studio first if install feels like a commitment.</div>
-    <br>
-    <p>One command when you are ready:</p>
+    <div class="verdict">frontend-slides wins the glance. presentation-md should win the first useful deck — craft proofs you can ship, then schema + PPTX when you need the product layer. Try the showreel or Studio before you install.</div>
     <pre>npx @presentation-md/install claude-code</pre>
     <a href="/#start" class="cta">Install for your agent →</a>
-    <a href="/studio/?example=novaspark-pitch&fresh=1" class="cta">Try Studio first →</a>
+    <a href="/#template-wall" class="cta ghost">See the template wall →</a>
+    <a href="/studio/?example=novaspark-pitch&fresh=1" class="cta ghost">Try Studio →</a>
     <p class="also">Also compare:
       <a href="/vs/">all</a>
       <a href="/vs/hallmark">Hallmark</a>
-      <a href="/vs/frontend-slides">frontend-slides</a>
-      <a href="/vs/beautiful-ai">Beautiful.ai</a>
-      <a href="/vs/gamma">Gamma</a>
-      <a href="/vs/pitch">Pitch</a>
-      <a href="/vs/canva">Canva</a>
-      <a href="/vs/tome">Tome</a>
-      <a href="/vs/slidev">Slidev</a>
-      <a href="/vs/marp">Marp</a>
       <a href="/vs/claude-design">Claude Design</a>
-      <a href="/vs/md-slides">md-slides</a></p>
+      <a href="/vs/gamma">Gamma</a>
+      <a href="/vs/beautiful-ai">Beautiful.ai</a>
+      <a href="/vs/md-slides">md-slides</a>
+    </p>
   </div>
 </section>
 

@@ -30,7 +30,7 @@
 | Gap | Closing move |
 | --- | --- |
 | First-five-seconds craft | Site showreel after hero + real PNG gallery thumbs |
-| Multi-layout demos | Stunning-25 **Title · Bento · Compare** template wall (README + `#template-wall`) |
+| Multi-layout demos | Stunning-25 **Title · Bento · Compare** template wall (README + `#template-wall`) + `/vs/frontend-slides` craft duel |
 | Story complexity | Lead with vibe → preview → craft; schema under the hood |
 | Progressive disclosure | Skill phase map + load-on-demand table |
 | Schema tax | Surface `scaffold_deck` → `studio_share_url` as first win |

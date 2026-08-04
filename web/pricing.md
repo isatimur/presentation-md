@@ -2,12 +2,13 @@
 
 **Canonical page:** [https://presentation-md.vercel.app/pricing](https://presentation-md.vercel.app/pricing)
 
-## Free (the only tier)
+## Free forever (the only tier today)
 
-- **Price:** $0/month — forever free
+- **Price:** $0/month — forever free core
 - **License:** MIT open source
 - **No account required**
 - **No usage limits**
+- **Later (honest):** if we ever charge, it will be optional extras (hosted deploy / org brand packs / priority Studio hosting) — not a paywall on the skill, MCP, themes, PPTX, or local Studio. No fake Pro tier.
 
 ### What's included
 
