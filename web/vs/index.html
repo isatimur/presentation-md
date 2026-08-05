@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>presentation-md comparisons — Hallmark, Gamma, Pitch, Canva, more</title>
-  <meta name="description" content="Honest comparisons: presentation-md vs Hallmark, frontend-slides, Gamma, Pitch, Canva, Beautiful.ai, Tome, Slidev, and Marp — agent-native decks vs SaaS and prompt packs." />
+  <meta name="description" content="Craft duels: presentation-md vs Hallmark, frontend-slides, Gamma, Pitch, Canva, Beautiful.ai, Claude Design, md-slides — Title·Bento·Compare proofs vs SaaS and prompt packs." />
   <link rel="canonical" href="https://presentation-md.vercel.app/vs/" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0B1220" />
@@ -16,12 +16,12 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="presentation-md" />
   <meta property="og:url" content="https://presentation-md.vercel.app/vs/" />
-  <meta property="og:title" content="presentation-md comparisons — Gamma, Pitch, Canva, more" />
-  <meta property="og:description" content="Honest comparisons: presentation-md vs Gamma, Pitch, Canva, Beautiful.ai, frontend-slides, and more." />
+  <meta property="og:title" content="presentation-md comparisons — craft duels" />
+  <meta property="og:description" content="Title·Bento·Compare craft duels vs Hallmark, frontend-slides, Gamma, Pitch, Canva, and more." />
   <meta property="og:image" content="https://presentation-md.vercel.app/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="presentation-md comparisons" />
-  <meta name="twitter:description" content="Honest comparisons vs Gamma, Pitch, Canva, Beautiful.ai, and more." />
+  <meta name="twitter:description" content="Craft duels vs Hallmark, frontend-slides, Gamma, Pitch, Canva, and more." />
   <meta name="twitter:image" content="https://presentation-md.vercel.app/og-image.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -36,29 +36,15 @@
       --mono:'IBM Plex Mono',ui-monospace,monospace;
     }
     body{
-      background:
-        linear-gradient(180deg, #F3F6FA 0%, var(--paper) 40%, #E2E9F1 100%);
-      color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;
-      min-height:100vh;
+      background:var(--paper);
+      color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;
+      min-height:100vh;-webkit-font-smoothing:antialiased;
     }
     a{color:var(--accent)}
-    .container{max-width:880px;margin:0 auto;padding:0 24px}
+    .container{max-width:1080px;margin:0 auto;padding:0 24px}
     header{
-      position:relative;
-      background:
-        radial-gradient(ellipse 80% 60% at 12% 0%, rgba(255,59,31,.24), transparent 55%),
-        radial-gradient(ellipse 45% 40% at 92% 18%, rgba(13,148,136,.12), transparent 50%),
-        var(--stage);
-      color:#fff;padding:56px 0 64px;overflow:hidden;
-    }
-    header::after{
-      content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
-      background:linear-gradient(90deg, transparent, var(--accent) 18%, var(--accent) 82%, transparent);
-      opacity:.9;
-    }
-    header .eyebrow{
-      font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
-      color:rgba(255,255,255,.45);display:block;margin-bottom:14px;
+      background:var(--stage);color:#fff;padding:52px 0 40px;
+      border-bottom:1px solid color-mix(in srgb,#E8EEF4 18%,transparent);
     }
     .brand-line{
       font-family:var(--display);font-weight:800;font-size:clamp(1.05rem,2.4vw,1.35rem);
@@ -67,22 +53,50 @@
     .brand-line span{color:var(--accent)}
     header h1{
       font-family:var(--display);font-size:clamp(1.85rem,4.4vw,2.85rem);font-weight:800;
-      line-height:1.06;letter-spacing:-.035em;margin-bottom:16px;max-width:16ch;
+      line-height:1.06;letter-spacing:-.035em;margin-bottom:14px;max-width:16ch;
     }
-    header p{font-size:1.05rem;color:rgba(255,255,255,.65);max-width:38ch}
+    header p{font-size:1.02rem;color:rgba(255,255,255,.62);max-width:48ch}
     .back-link{
       font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;
-      color:rgba(255,255,255,.45);text-decoration:none;display:inline-block;margin-bottom:28px;
+      color:rgba(255,255,255,.45);text-decoration:none;display:inline-block;margin-bottom:24px;
     }
     .back-link:hover{color:#fff}
-    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
     .chip{
       font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
-      padding:6px 10px;border:1px solid rgba(255,255,255,.18);border-radius:4px;
+      padding:6px 10px;border:1px solid rgba(255,255,255,.18);border-radius:2px;
       color:rgba(255,255,255,.7);background:rgba(255,255,255,.04);
     }
     .chip strong{color:#fff;font-weight:600}
-    section{padding:48px 0 64px}
+
+    .duel-stage{
+      background:var(--stage);padding:28px 0 48px;
+      border-bottom:1px solid color-mix(in srgb,#E8EEF4 14%,transparent);
+    }
+    .duel-label{
+      font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+      color:rgba(232,238,244,.42);margin-bottom:16px;
+    }
+    .wall-shots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .wall-shot{
+      margin:0;border:1.5px solid rgba(232,238,244,.2);border-radius:2px;overflow:hidden;background:#05070c;
+    }
+    .wall-shot img{
+      display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:left center;
+    }
+    .wall-shot figcaption{
+      padding:6px 8px 7px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+      color:rgba(232,238,244,.48);border-top:1px solid rgba(232,238,244,.12);
+      background:rgba(232,238,244,.04);
+    }
+    .duel-caption{
+      margin-top:14px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;
+      color:rgba(232,238,244,.5);display:flex;flex-wrap:wrap;gap:8px 18px;
+    }
+    .duel-caption strong{color:rgba(232,238,244,.85);font-weight:600}
+    .duel-caption a{color:#FF8A75}
+
+    section{padding:44px 0 56px}
     .section-kicker{
       font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
       color:var(--ink-light);margin-bottom:18px;display:block;
@@ -91,7 +105,7 @@
     .list li{border-bottom:1px solid var(--rule)}
     .list a{
       display:grid;grid-template-columns:auto 1fr auto;gap:16px 20px;align-items:center;
-      padding:22px 8px;text-decoration:none;color:var(--ink);
+      padding:20px 8px;text-decoration:none;color:var(--ink);
       transition:background .12s ease, color .12s ease;
     }
     .list a:hover{background:color-mix(in srgb, var(--paper2) 70%, white);color:var(--ink)}
@@ -99,7 +113,7 @@
     .tag{
       font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
       color:var(--accent);border:1px solid color-mix(in srgb, var(--accent) 35%, var(--rule));
-      padding:5px 8px;border-radius:4px;background:color-mix(in srgb, var(--accent) 8%, transparent);
+      padding:5px 8px;border-radius:2px;background:color-mix(in srgb, var(--accent) 8%, transparent);
       white-space:nowrap;
     }
     .list strong{
@@ -112,6 +126,10 @@
       transition:color .12s ease, transform .12s ease;
     }
     .list a:hover .go{transform:translateX(3px)}
+    @media (max-width:820px){
+      .wall-shots{gap:5px}
+      .wall-shot figcaption{font-size:9px;padding:4px 5px;letter-spacing:.04em}
+    }
     @media (max-width:640px){
       .list a{grid-template-columns:1fr auto;gap:10px 14px}
       .tag{grid-column:1 / -1}
@@ -126,10 +144,9 @@
 <header>
   <div class="container">
     <a href="/" class="back-link">← presentation-md</a>
-    <span class="eyebrow">Comparisons</span>
     <p class="brand-line">presentation-<span>md</span></p>
     <h1>How we stack up.</h1>
-    <p>Honest takes on prompt packs, smart SaaS, Markdown slide engines, and agent-native decks — schema craft vs screenshots.</p>
+    <p>Craft duels first — Title·Bento·Compare proofs — then an honest signal grid on each rival.</p>
     <div class="chips" aria-label="What we beat them on">
       <span class="chip"><strong>75</strong> theme proofs</span>
       <span class="chip"><strong>MCP</strong> + Studio</span>
@@ -138,6 +155,31 @@
     </div>
   </div>
 </header>
+
+<div class="duel-stage" aria-label="Craft proof strip">
+  <div class="container">
+    <p class="duel-label">Shared craft floor · Title · Bento · Compare</p>
+    <div class="wall-shots" role="group" aria-label="NovaSpark Title Bento Compare">
+      <figure class="wall-shot">
+        <img src="/previews/wall/novaspark-pitch-title.png" width="1280" height="720" alt="NovaSpark title craft plate" loading="eager" decoding="async" />
+        <figcaption>Title</figcaption>
+      </figure>
+      <figure class="wall-shot">
+        <img src="/previews/wall/novaspark-pitch-bento.png" width="1280" height="720" alt="NovaSpark bento craft plate" loading="eager" decoding="async" />
+        <figcaption>Bento</figcaption>
+      </figure>
+      <figure class="wall-shot">
+        <img src="/previews/wall/novaspark-pitch-compare.png" width="1280" height="720" alt="NovaSpark compare craft plate" loading="eager" decoding="async" />
+        <figcaption>Compare</figcaption>
+      </figure>
+    </div>
+    <p class="duel-caption">
+      <span><strong>presentation-md</strong> · NovaSpark · aurora-glass</span>
+      <span>Same proofs on every duel page — <a href="/#template-wall">full wall</a></span>
+    </p>
+  </div>
+</div>
+
 <section>
   <div class="container">
     <span class="section-kicker">Pick a rival</span>
@@ -147,7 +189,7 @@
           <span class="tag">Craft rival</span>
           <span>
             <strong>vs Hallmark</strong>
-            <span>Anti-slop deck craft + MCP + Studio share + PPTX vs Nutlope’s viral page/UI skill</span>
+            <span>Page DNA vs deck craft plate — same anti-slop energy, different artifact</span>
           </span>
           <span class="go" aria-hidden="true">→</span>
         </a>
@@ -157,7 +199,7 @@
           <span class="tag">Direct rival</span>
           <span>
             <strong>vs frontend-slides</strong>
-            <span>Structured proofs, PPTX, MCP &amp; Studio vs discovery-first HTML prompt packs</span>
+            <span>Title·Bento·Compare proofs + PPTX/MCP/Studio vs discovery-first HTML packs</span>
           </span>
           <span class="go" aria-hidden="true">→</span>
         </a>
@@ -167,7 +209,7 @@
           <span class="tag">Labs canvas</span>
           <span>
             <strong>vs Claude Design</strong>
-            <span>Open agent Deck JSON + MCP vs Anthropic’s subscription design canvas</span>
+            <span>Open agent Deck JSON + Solstice craft proofs vs Anthropic’s subscription canvas</span>
           </span>
           <span class="go" aria-hidden="true">→</span>
         </a>
@@ -177,7 +219,7 @@
           <span class="tag">Markdown</span>
           <span>
             <strong>vs md-slides</strong>
-            <span>Schema craft + 75 themes vs Markdown-first slide pipelines</span>
+            <span>Schema craft wall vs Markdown-first slide pipelines</span>
           </span>
           <span class="go" aria-hidden="true">→</span>
         </a>
@@ -187,7 +229,7 @@
           <span class="tag">Smart SaaS</span>
           <span>
             <strong>vs Beautiful.ai</strong>
-            <span>Smart SaaS templates vs agent-native portable HTML + PPTX</span>
+            <span>Agent craft proofs vs smart SaaS templates and brand kits</span>
           </span>
           <span class="go" aria-hidden="true">→</span>
         </a>
@@ -207,7 +249,7 @@
           <span class="tag">Sales SaaS</span>
           <span>
             <strong>vs Pitch</strong>
-            <span>Hosted sales-deck SaaS vs agent-native HTML + PPTX</span>
+            <span>Inkwell craft proofs vs hosted sales-deck SaaS</span>
           </span>
           <span class="go" aria-hidden="true">→</span>
         </a>
@@ -217,7 +259,7 @@
           <span class="tag">Design SaaS</span>
           <span>
             <strong>vs Canva</strong>
-            <span>Template design SaaS vs schema-validated agent decks</span>
+            <span>Atelier craft proofs vs template-first design SaaS</span>
           </span>
           <span class="go" aria-hidden="true">→</span>
         </a>

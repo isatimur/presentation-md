@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>presentation-md vs Beautiful.ai — smart templates vs agent-native decks</title>
-  <meta name="description" content="How presentation-md compares to Beautiful.ai — agent workflow and portable HTML vs smart SaaS templates and brand kits." />
+  <title>presentation-md vs Beautiful.ai — smart templates vs agent craft</title>
+  <meta name="description" content="Honest craft duel: presentation-md vs Beautiful.ai — Title·Bento·Compare proofs, Deck JSON, PPTX, MCP vs smart SaaS templates and brand kits." />
   <link rel="canonical" href="https://presentation-md.vercel.app/vs/beautiful-ai" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#0B1220" />
@@ -16,27 +16,27 @@
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="presentation-md" />
   <meta property="og:url" content="https://presentation-md.vercel.app/vs/beautiful-ai" />
-  <meta property="og:title" content="presentation-md vs Beautiful.ai — smart templates vs agent-native decks" />
-  <meta property="og:description" content="How presentation-md compares to Beautiful.ai — agent workflow and portable HTML vs smart SaaS templates and brand kits." />
+  <meta property="og:title" content="presentation-md vs Beautiful.ai — craft duel" />
+  <meta property="og:description" content="Title·Bento·Compare proofs vs smart SaaS templates — agent-native decks you own." />
   <meta property="og:image" content="https://presentation-md.vercel.app/og-image.png" />
-  <meta property="og:image:alt" content="presentation-md vs Beautiful.ai — smart templates vs agent-native decks" />
+  <meta property="og:image:alt" content="presentation-md vs Beautiful.ai" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@isatimur" />
   <meta name="twitter:creator" content="@isatimur" />
-  <meta name="twitter:title" content="presentation-md vs Beautiful.ai — smart templates vs agent-native decks" />
-  <meta name="twitter:description" content="How presentation-md compares to Beautiful.ai — agent workflow and portable HTML vs smart SaaS templates and brand kits." />
+  <meta name="twitter:title" content="presentation-md vs Beautiful.ai" />
+  <meta name="twitter:description" content="Craft duel: Title·Bento·Compare proofs vs smart SaaS templates." />
   <meta name="twitter:image" content="https://presentation-md.vercel.app/og-image.png" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "presentation-md vs Beautiful.ai — smart templates vs agent-native decks",
-    "description": "How presentation-md compares to Beautiful.ai — agent workflow and portable HTML vs smart SaaS templates and brand kits.",
+    "headline": "presentation-md vs Beautiful.ai — smart templates vs agent craft",
+    "description": "Honest craft duel: presentation-md vs Beautiful.ai — Title·Bento·Compare proofs, Deck JSON, PPTX, MCP vs smart SaaS templates.",
     "author": {"@type": "Person", "name": "Timur Isachenko", "url": "https://github.com/isatimur/presentation-md"},
     "datePublished": "2026-07-31",
-    "dateModified": "2026-07-31",
+    "dateModified": "2026-08-05",
     "url": "https://presentation-md.vercel.app/vs/beautiful-ai",
     "publisher": {"@type": "Organization", "name": "presentation-md", "url": "https://presentation-md.vercel.app"}
   }
@@ -47,115 +47,244 @@
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --paper:#E8EEF4;--ink:#0B1220;--ink-light:#4A5568;--rule:rgba(11,18,32,.12);
-      --accent:#FF3B1F;--stage:#0B1220;
+      --paper:#E8EEF4;--paper2:#DDE5EE;--ink:#0B1220;--ink-light:#4A5568;
+      --rule:rgba(11,18,32,.12);--accent:#FF3B1F;--stage:#0B1220;
       --display:'Syne','Avenir Next',sans-serif;
       --sans:'DM Sans','Avenir Next',sans-serif;
       --mono:'IBM Plex Mono',ui-monospace,monospace;
     }
     html{scroll-behavior:smooth}
-    body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65}
+    body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
     a{color:var(--accent)}
-    .container{max-width:820px;margin:0 auto;padding:0 24px}
+    .container{max-width:1080px;margin:0 auto;padding:0 24px}
+    .container-narrow{max-width:720px;margin:0 auto;padding:0 24px}
     header{
-      background:
-        radial-gradient(ellipse 80% 60% at 12% 0%, rgba(255,59,31,.22), transparent 55%),
-        var(--stage);
-      color:#fff;padding:64px 0 72px;
+      background:var(--stage);color:#fff;padding:52px 0 40px;
+      border-bottom:1px solid color-mix(in srgb,#E8EEF4 18%,transparent);
     }
-    header .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45);display:block;margin-bottom:14px}
-    header h1{font-family:var(--display);font-size:clamp(1.7rem,4vw,2.6rem);font-weight:800;line-height:1.1;letter-spacing:-.03em;margin-bottom:16px}
+    .back-link{font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;color:rgba(255,255,255,.45);text-decoration:none;display:inline-block;margin-bottom:24px}
+    .back-link:hover{color:#fff}
+    header h1{font-family:var(--display);font-size:clamp(1.85rem,4.2vw,2.75rem);font-weight:800;line-height:1.08;letter-spacing:-.03em;margin-bottom:14px}
     header h1 em{font-style:normal;color:#FF8A75}
-    header p{font-size:1.05rem;color:rgba(255,255,255,.65);max-width:600px}
-    .back-link{font-size:.82rem;color:rgba(255,255,255,.45);text-decoration:none;display:inline-block;margin-bottom:28px}
-    section{padding:52px 0;border-bottom:1px solid var(--rule)}
+    header p{font-size:1.02rem;color:rgba(255,255,255,.62);max-width:54ch}
+    .brand{font-family:var(--display);font-weight:800;letter-spacing:-.02em}
+
+    .duel-stage{
+      background:var(--stage);padding:28px 0 48px;
+      border-bottom:1px solid color-mix(in srgb,#E8EEF4 14%,transparent);
+    }
+    .duel-label{
+      font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+      color:rgba(232,238,244,.42);margin-bottom:16px;
+    }
+    .wall-shots{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+    }
+    .wall-shot{
+      margin:0;border:1.5px solid rgba(232,238,244,.2);border-radius:2px;overflow:hidden;background:#05070c;
+    }
+    .wall-shot img{
+      display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:left center;
+    }
+    .wall-shot figcaption{
+      padding:6px 8px 7px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+      color:rgba(232,238,244,.48);border-top:1px solid rgba(232,238,244,.12);
+      background:rgba(232,238,244,.04);
+    }
+    .duel-caption{
+      margin-top:14px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;
+      color:rgba(232,238,244,.5);display:flex;flex-wrap:wrap;gap:8px 18px;
+    }
+    .duel-caption strong{color:rgba(232,238,244,.85);font-weight:600}
+
+    section{padding:44px 0;border-bottom:1px solid var(--rule)}
     section:last-of-type{border-bottom:none}
-    h2{font-family:var(--display);font-size:1.4rem;font-weight:700;margin-bottom:20px;letter-spacing:-.02em}
-    .compare-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:.95rem}
-    .compare-table th{text-align:left;padding:10px 14px;background:var(--ink);color:#fff;font-weight:600;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;font-family:var(--mono)}
-    .compare-table td{padding:10px 14px;border-bottom:1px solid var(--rule);vertical-align:top}
-    .compare-table tr:last-child td{border-bottom:none}
-    .compare-table .col-us{background:rgba(255,59,31,.04)}
-    .check{color:#0D9488;font-weight:700}
-    .cross{color:#dc2626;font-weight:700}
-    .verdict{background:rgba(255,59,31,.07);border-left:3px solid var(--accent);padding:20px 24px;border-radius:0 8px 8px 0;margin-top:8px;font-size:.97rem}
-    .cta{display:inline-block;margin-top:20px;padding:12px 26px;background:var(--accent);color:#fff;text-decoration:none;border-radius:8px;font-weight:600;font-family:var(--display)}
-    pre{background:var(--ink);color:#E8EEF4;padding:18px 22px;border-radius:8px;font-family:var(--mono);font-size:.85rem;overflow-x:auto;margin-top:16px}
-    footer{padding:32px 0;color:var(--ink-light);font-size:.85rem}
+    h2{font-family:var(--display);font-size:1.35rem;font-weight:700;margin-bottom:18px;letter-spacing:-.02em}
+
+    .signal-grid{
+      display:grid;grid-template-columns:1.1fr 1fr 1fr;border:1px solid var(--rule);border-radius:2px;overflow:hidden;
+    }
+    .signal-grid > *{
+      padding:14px 16px;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);
+      font-size:.92rem;line-height:1.45;
+    }
+    .signal-grid > *:nth-child(3n){border-right:none}
+    .signal-grid > *:nth-last-child(-n+3){border-bottom:none}
+    .sg-head{
+      font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+      background:var(--ink);color:#fff;font-weight:600;
+    }
+    .sg-crit{font-weight:600;color:var(--ink);background:color-mix(in srgb,var(--paper2) 55%,white)}
+    .sg-us{background:rgba(255,59,31,.05)}
+    .sg-win{color:#0D9488;font-weight:700}
+    .sg-miss{color:#dc2626;font-weight:700}
+
+    .honest{
+      display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;
+    }
+    .honest article{
+      border:1px solid var(--rule);border-radius:2px;padding:18px 18px 20px;
+      background:color-mix(in srgb,var(--paper2) 40%,white);
+    }
+    .honest h3{
+      font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--ink-light);margin-bottom:10px;font-weight:600;
+    }
+    .honest ul{padding-left:1.05rem;margin:0}
+    .honest li{margin-bottom:6px;font-size:.95rem}
+    .honest li:last-child{margin-bottom:0}
+
+    .verdict{
+      border:1px solid var(--rule);border-radius:2px;padding:20px 22px;
+      background:color-mix(in srgb,var(--paper2) 55%,white);font-size:.97rem;max-width:62ch;
+    }
+    .cta{
+      display:inline-block;margin-top:18px;margin-right:10px;padding:12px 22px;
+      background:var(--accent);color:#fff;text-decoration:none;border-radius:4px;
+      font-weight:650;font-family:var(--display);
+    }
+    .cta:hover{background:color-mix(in srgb,var(--accent) 88%,#000)}
+    .cta.ghost{background:transparent;color:var(--ink);border:1px solid var(--rule)}
+    .cta.ghost:hover{border-color:var(--accent);color:var(--accent)}
+    pre{
+      background:var(--ink);color:#E8EEF4;padding:16px 20px;border-radius:4px;
+      font-family:var(--mono);font-size:.85rem;overflow-x:auto;margin-top:14px;max-width:42rem;
+    }
+    footer{padding:28px 0 40px;color:var(--ink-light);font-size:.85rem}
     footer a{color:var(--ink-light)}
-    ul{padding-left:20px;margin-top:6px}
-    li{margin-bottom:5px}
-    .also{font-size:.9rem;color:var(--ink-light);margin-top:28px}
+    .also{font-size:.9rem;color:var(--ink-light);margin-top:26px}
     .also a{margin-right:12px}
+
+    @media (max-width:820px){
+      .wall-shots{gap:5px}
+      .wall-shot figcaption{font-size:9px;padding:4px 5px;letter-spacing:.04em}
+      .signal-grid{grid-template-columns:1fr}
+      .signal-grid > *{border-right:none}
+      .signal-grid > *:nth-last-child(-n+3){border-bottom:1px solid var(--rule)}
+      .signal-grid > *:last-child{border-bottom:none}
+      .sg-head:nth-child(2),.sg-head:nth-child(3){display:none}
+      .sg-us::before{content:"Us · ";font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+      .sg-them::before{content:"Them · ";font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-light)}
+      .honest{grid-template-columns:1fr}
+    }
   </style>
 </head>
 <body>
 <header>
   <div class="container">
     <a href="/" class="back-link">← presentation-md</a>
-    <span class="eyebrow">Comparison</span>
-    <h1>presentation-md<br>vs <em>Beautiful.ai</em></h1>
-    <p>Beautiful.ai guards design in a SaaS editor. presentation-md generates decks inside the agent you already use.</p>
+    <h1 class="brand">Coming from<br><em>Beautiful.ai</em>?</h1>
+    <p>They guard layout in a SaaS editor. We ship craft proofs from your agent — Title·Bento·Compare plates you re-theme, audit, and own.</p>
   </div>
 </header>
 
+<div class="duel-stage" aria-label="Craft duel">
+  <div class="container">
+    <p class="duel-label">Craft proof · Title · Bento · Compare</p>
+    <div class="wall-shots" role="group" aria-label="Meridian Sales Title Bento Compare">
+      <figure class="wall-shot">
+        <img src="/previews/wall/meridian-sales-title.png" width="1280" height="720" alt="Meridian Sales title craft plate" loading="eager" decoding="async" />
+        <figcaption>Title</figcaption>
+      </figure>
+      <figure class="wall-shot">
+        <img src="/previews/wall/meridian-sales-bento.png" width="1280" height="720" alt="Meridian Sales bento craft plate" loading="eager" decoding="async" />
+        <figcaption>Bento</figcaption>
+      </figure>
+      <figure class="wall-shot">
+        <img src="/previews/wall/meridian-sales-compare.png" width="1280" height="720" alt="Meridian Sales compare craft plate" loading="eager" decoding="async" />
+        <figcaption>Compare</figcaption>
+      </figure>
+    </div>
+    <p class="duel-caption">
+      <span><strong>presentation-md</strong> · Meridian Sales · stunning-25 wall</span>
+      <span>Smart-template energy — without the seat tax</span>
+    </p>
+  </div>
+</div>
+
 <section>
   <div class="container">
-    <h2>Side-by-side</h2>
-    <table class="compare-table">
-      <thead><tr><th style="width:34%">Criterion</th><th style="width:33%">presentation-md</th><th style="width:33%">Beautiful.ai</th></tr></thead>
-      <tbody>
-        <tr><td>Where it runs</td><td class="col-us">Inside your AI agent (Claude Code, Cursor, Copilot, Codex, Gemini CLI)</td><td>Browser SaaS — smart templates and design guardrails</td></tr>
-        <tr><td>Output format</td><td class="col-us">Single self-contained HTML file — you own it (plus optional PPTX)</td><td>Platform-hosted decks; export available on paid plans</td></tr>
-        <tr><td>PPTX craft</td><td class="col-us"><span class="check">✓</span> Editable theme chrome in PowerPoint — not a flattened screenshot</td><td>Export when available — design system often stays in the SaaS</td></tr>
-        <tr><td>Price</td><td class="col-us"><span class="check">✓</span> Free, MIT licensed, no account</td><td>Subscription (team brand kits behind paid tiers)</td></tr>
-        <tr><td>LLM schema</td><td class="col-us"><span class="check">✓</span> Typed Deck JSON spec — consistent, validatable</td><td><span class="cross">✗</span> Freeform / template-driven generation</td></tr>
-        <tr><td>MCP support</td><td class="col-us"><span class="check">✓</span> Typed MCP tools for agents</td><td><span class="cross">✗</span> No MCP integration</td></tr>
-        <tr><td>Offline / no login</td><td class="col-us"><span class="check">✓</span> Works fully offline after install</td><td><span class="cross">✗</span> Requires internet + account</td></tr>
-        <tr><td>Design system</td><td class="col-us">75 swappable npm theme packages + brand import</td><td>Smart slides + company brand kits in-app</td></tr>
-      </tbody>
-    </table>
+    <h2>Signal grid</h2>
+    <div class="signal-grid" role="table" aria-label="presentation-md versus Beautiful.ai">
+      <div class="sg-head" role="columnheader">Signal</div>
+      <div class="sg-head" role="columnheader">presentation-md</div>
+      <div class="sg-head" role="columnheader">Beautiful.ai</div>
+
+      <div class="sg-crit" role="rowheader">First glance</div>
+      <div class="sg-us">Title·Bento·Compare wall + hero carousel</div>
+      <div class="sg-them">Smart-template gallery in SaaS</div>
+
+      <div class="sg-crit" role="rowheader">Where it runs</div>
+      <div class="sg-us"><span class="sg-win">✓</span> Agent + MCP + Studio</div>
+      <div class="sg-them">Browser SaaS editor</div>
+
+      <div class="sg-crit" role="rowheader">Authoring</div>
+      <div class="sg-us"><span class="sg-win">✓</span> Typed Deck JSON · re-theme · audit</div>
+      <div class="sg-them">Smart slides + design guardrails</div>
+
+      <div class="sg-crit" role="rowheader">Output you own</div>
+      <div class="sg-us"><span class="sg-win">✓</span> HTML + Deck JSON on disk</div>
+      <div class="sg-them">Platform-hosted · export on paid</div>
+
+      <div class="sg-crit" role="rowheader">PowerPoint</div>
+      <div class="sg-us"><span class="sg-win">✓</span> Native editable PPTX round-trip</div>
+      <div class="sg-them">Export when available</div>
+
+      <div class="sg-crit" role="rowheader">Brand kits</div>
+      <div class="sg-us">75 themes + brand import</div>
+      <div class="sg-them"><span class="sg-win">✓</span> Team brand kits in-app</div>
+
+      <div class="sg-crit" role="rowheader">Offline</div>
+      <div class="sg-us"><span class="sg-win">✓</span> Works after install</div>
+      <div class="sg-them"><span class="sg-miss">✗</span> Account + cloud</div>
+
+      <div class="sg-crit" role="rowheader">Price</div>
+      <div class="sg-us"><span class="sg-win">✓</span> Free · MIT · no account</div>
+      <div class="sg-them">Subscription</div>
+    </div>
   </div>
 </section>
 
 <section>
   <div class="container">
-    <h2>Where Beautiful.ai is stronger</h2>
-    <ul>
-      <li>Smart templates that resist layout collapse while you edit</li>
-      <li>Team brand kits and designer-led polish in a guided UI</li>
-      <li>Collaboration and sharing inside a familiar SaaS product</li>
-    </ul>
-    <h2 style="margin-top:36px">Where presentation-md is stronger</h2>
-    <ul>
-      <li>Runs inside Claude Code, Cursor, Copilot, Codex, Gemini CLI — no tab switch</li>
-      <li>Portable HTML + native PPTX with speaker notes — PowerPoint, Keynote, Google Slides</li>
-      <li>Theme-native PPTX craft (hard cards, frames, audits) — agents ship editable decks, not flat exports</li>
-      <li>75 schema-validated themes, asymmetric craft, MCP tools, brand import</li>
-      <li>Free, MIT licensed, no account or subscription</li>
-    </ul>
+    <h2>Honest split</h2>
+    <div class="honest">
+      <article>
+        <h3>They still win</h3>
+        <ul>
+          <li>Smart templates that resist layout collapse while you edit</li>
+          <li>Team brand kits inside a guided SaaS UI</li>
+          <li>Collab + sharing for non-technical teammates</li>
+        </ul>
+      </article>
+      <article>
+        <h3>We win next</h3>
+        <ul>
+          <li>Decks from the agent already in your IDE</li>
+          <li>Craft proofs you re-theme · audit · remorph</li>
+          <li>Editable PPTX · 75 themes · MCP · no seat tax</li>
+        </ul>
+      </article>
+    </div>
   </div>
 </section>
 
 <section>
-  <div class="container">
+  <div class="container-narrow">
     <h2>Verdict</h2>
-    <div class="verdict">If you want a polished SaaS editor with smart templates and brand kits, Beautiful.ai is a strong product. If your decks should come from the AI agent already in your terminal or IDE — with a file you own and no platform lock-in — presentation-md is the shorter path.</div>
-    <br>
-    <p>Try presentation-md in one command:</p>
+    <div class="verdict">Beautiful.ai is a strong product when you want a polished SaaS editor. presentation-md is the shorter path when craft should come from your agent — with files you own and proofs that clear the glance test.</div>
     <pre>npx @presentation-md/install claude-code</pre>
-    <a href="/studio/?example=novaspark-pitch&fresh=1" class="cta">Open Studio →</a>
-    <a href="/" class="cta">See the gallery →</a>
+    <a href="/#start" class="cta">Install for your agent →</a>
+    <a href="/#template-wall" class="cta ghost">See the template wall →</a>
+    <a href="/studio/?example=meridian-sales&fresh=1" class="cta ghost">Try Studio →</a>
     <p class="also">Also compare:
       <a href="/vs/">all</a>
-      <a href="/vs/frontend-slides">frontend-slides</a>
-      <a href="/vs/beautiful-ai">Beautiful.ai</a>
-      <a href="/vs/gamma">Gamma</a>
       <a href="/vs/pitch">Pitch</a>
+      <a href="/vs/gamma">Gamma</a>
       <a href="/vs/canva">Canva</a>
-      <a href="/vs/tome">Tome</a>
-      <a href="/vs/slidev">Slidev</a>
-      <a href="/vs/marp">Marp</a></p>
+      <a href="/vs/frontend-slides">frontend-slides</a>
+      <a href="/vs/hallmark">Hallmark</a>
+    </p>
   </div>
 </section>
 
