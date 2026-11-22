@@ -7,8 +7,6 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from jinja2 import Environment, FileSystemLoader
-
 _HERE = Path(__file__).parent
 _SHARED = _HERE.parent.parent.parent / "shared"  # monorepo layout (packages/shared)
 _BUNDLED_THEMES = _HERE.parent.parent.parent / "core" / "themes"  # monorepo layout
@@ -145,8 +143,6 @@ def render_deck(deck_json: str | dict[str, Any], opts: RenderOptions | None = No
     fonts_url = _google_fonts_url(theme["typography"].get("googleFonts", []))
     shared_dir = _get_shared_dir()
 
-    env = Environment(loader=FileSystemLoader(str(shared_dir / "layouts")), autoescape=False)
-
     token_map = {
         "bg": theme["palette"]["bg"],
         "bg2": theme["palette"]["bg2"],
@@ -163,12 +159,9 @@ def render_deck(deck_json: str | dict[str, Any], opts: RenderOptions | None = No
         "headingWeight": str(theme["typography"]["headingWeight"]),
     }
 
-    from jinja2 import Template  # noqa: PLC0415
-    base_css_raw = (shared_dir / "base.css").read_text()
-    # base.css uses {{token}} mustache — replace with Jinja2 then render
-    base_css_j2 = base_css_raw.replace("{{", "{{ ").replace("}}", " }}")
-    # Simple string replacement is safer here since tokens are simple identifiers
-    base_css = base_css_raw
+    # base.css uses {{token}} placeholders; tokens are simple identifiers,
+    # so plain string replacement is enough.
+    base_css = (shared_dir / "base.css").read_text()
     for k, v in token_map.items():
         base_css = base_css.replace("{{" + k + "}}", v)
 

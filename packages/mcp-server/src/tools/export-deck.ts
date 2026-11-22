@@ -67,7 +67,7 @@ export const exportDeckTool: ToolDefinition = {
       format !== "vtt"
     ) {
       throw new Error(
-        `Unknown format "${format}" (expected pptx | html | pdf | md | notes_txt | notes_vtt)`
+        `Unknown format "${format}" (expected pptx | html | pdf | md | notes_txt | notes_vtt; aliases: markdown, txt, vtt)`
       );
     }
 

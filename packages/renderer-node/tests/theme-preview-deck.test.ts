@@ -44,6 +44,7 @@ describe("theme-preview-deck", () => {
     expect(layoutsPreviewLayoutNames("default-tech")[4]).toBe("comparison");
     const wrapLayouts = layoutsPreviewLayoutNames("kinetic-wrapped");
     expect(wrapLayouts).toHaveLength(13);
+    expect(layoutsPreviewSlideCount("kinetic-wrapped")).toBe(wrapLayouts.length);
     expect(wrapLayouts.indexOf("streak-grid")).toBe(wrapLayouts.indexOf("stat-row") + 1);
     expect(wrapLayouts.indexOf("metric-ring")).toBe(wrapLayouts.indexOf("stat-row") + 2);
   });

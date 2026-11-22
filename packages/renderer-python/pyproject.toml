@@ -7,7 +7,7 @@ license = "MIT"
 requires-python = ">=3.11"
 authors = [{ name = "Timur Isachenko" }]
 keywords = ["presentation-md", "slides", "ai-agent", "html", "deck"]
-dependencies = ["jinja2>=3.1.0", "requests>=2.31.0"]
+dependencies = ["chevron>=0.14.0"]
 
 [project.scripts]
 presentation-md-render = "presentation_md_render.cli:main"
@@ -15,6 +15,14 @@ presentation-md-render = "presentation_md_render.cli:main"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[tool.hatch.build]
+# templates/ and themes/ are gitignored copies made by tools/sync-python-shared.mjs.
+# Hatch skips gitignored files unless they are listed as artifacts.
+artifacts = [
+  "src/presentation_md_render/templates/**",
+  "src/presentation_md_render/themes/**",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/presentation_md_render"]

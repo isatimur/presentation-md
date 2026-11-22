@@ -7,23 +7,18 @@
  * - Strip gallery chrome (scroll hints, dots, counters)
  * - Exact 16:9 viewport framing
  */
-import { createRequire } from 'node:module';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import http from 'node:http';
 import { createReadStream, existsSync, statSync } from 'node:fs';
+import { loadPlaywright } from './load-playwright.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const webRoot = path.join(root, 'web');
 const outDir = path.join(webRoot, 'previews', 'hero');
-const require = createRequire(import.meta.url);
-const playwrightPath = path.join(
-  process.env.HOME,
-  '.nvm/versions/node/v22.22.0/lib/node_modules/@playwright/cli/node_modules/playwright'
-);
-const { chromium } = require(playwrightPath);
+const { chromium } = loadPlaywright(root);
 
 /** Title/cover selectors — premium atmosphere + typography, not mid-deck body */
 const DECKS = [

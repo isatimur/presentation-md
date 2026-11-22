@@ -242,7 +242,7 @@ export function layoutsPreviewLayoutNames(theme: string, mode: PreviewMode = "la
 
 /** Count slides in a layouts bake (kinetic-wrapped adds streak + ring). */
 export function layoutsPreviewSlideCount(theme: string): number {
-  return theme === "kinetic-wrapped" ? 13 : 11;
+  return layoutsPreviewLayoutNames(theme).length;
 }
 
 /**

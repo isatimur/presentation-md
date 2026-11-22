@@ -1,5 +1,15 @@
 import { describe, it, expect } from "vitest";
-import { readFileSync, existsSync } from "node:fs";
+import {
+  readFileSync,
+  existsSync,
+  mkdtempSync,
+  mkdirSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
+import { execFileSync } from "node:child_process";
+import { tmpdir } from "node:os";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -119,6 +129,53 @@ describe("presentation-generator scripts install wiring", () => {
     }
     expect(existsSync(join(ADAPTERS, "_common", "install-skill-scripts.sh"))).toBe(true);
     expect(existsSync(join(ADAPTERS, "_common", "install-skill-scripts.ps1"))).toBe(true);
+  });
+
+  it("install-skill-scripts.sh copies every helper the PDF and deploy scripts load", () => {
+    const coreDir = join(REPO_ROOT, "packages", "core");
+    const target = mkdtempSync(join(tmpdir(), "pmd-skill-scripts-"));
+    try {
+      execFileSync("bash", [join(ADAPTERS, "_common", "install-skill-scripts.sh"), target], {
+        env: { ...process.env, PMD_CORE_DIR: coreDir },
+        stdio: "ignore",
+      });
+      const shipped = readdirSync(join(coreDir, "scripts")).filter(
+        (f) => /\.(sh|mjs)$/.test(f) || f === "package.json"
+      );
+      expect(shipped).toEqual(expect.arrayContaining(["pdf-security.mjs", "check-local-assets.mjs"]));
+      for (const f of shipped) {
+        expect(existsSync(join(target, "scripts", f)), f).toBe(true);
+      }
+    } finally {
+      rmSync(target, { recursive: true, force: true });
+    }
+  });
+});
+
+describe("copilot adapter section splice", () => {
+  function runCopilot(projectDir: string): void {
+    execFileSync("bash", [join(ADAPTERS, "copilot", "install.sh"), "lite"], {
+      cwd: projectDir,
+      env: { ...process.env, PMD_CORE_DIR: join(REPO_ROOT, "packages", "core") },
+      stdio: "ignore",
+    });
+  }
+
+  it("replaces a section whose END marker is missing without duplicating the file head", () => {
+    const dir = mkdtempSync(join(tmpdir(), "pmd-copilot-"));
+    try {
+      mkdirSync(join(dir, ".github"));
+      const file = join(dir, ".github", "copilot-instructions.md");
+      writeFileSync(file, "# Team rules\n\nKeep this.\n\n<!-- BEGIN presentation-md -->\nold broken section\n");
+      runCopilot(dir);
+      const out = readFileSync(file, "utf-8");
+      expect(out.match(/# Team rules/g)?.length).toBe(1);
+      expect(out.match(/<!-- BEGIN presentation-md -->/g)?.length).toBe(1);
+      expect(out.match(/<!-- END presentation-md -->/g)?.length).toBe(1);
+      expect(out).not.toContain("old broken section");
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 });
 

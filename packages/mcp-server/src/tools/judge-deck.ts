@@ -49,7 +49,7 @@ function resolveJudgeScriptsDir(): string | undefined {
   if (process.env.PRESENTATION_MD_JUDGE_SCRIPTS) {
     return process.env.PRESENTATION_MD_JUDGE_SCRIPTS;
   }
-  // monorepo: packages/mcp-server/dist/tools → ../../../skills/deck-design-judge/scripts
+  // monorepo: packages/mcp-server/dist/tools → ../../../../skills/deck-design-judge/scripts
   try {
     const here = dirname(fileURLToPath(import.meta.url));
     const candidate = join(here, "..", "..", "..", "..", "skills", "deck-design-judge", "scripts");
