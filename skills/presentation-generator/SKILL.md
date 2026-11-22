@@ -451,6 +451,7 @@ Before generating, confirm (ask together when possible — purpose, length/densi
 | **Vibe** | Theme discovery above, or describe the soul in 3 adjectives |
 | **Content** | Raw notes, data, existing copy — the messier the better |
 | **Constraints** | Time, slide count, branding rules |
+| **Language** | Write the copy in the user's language (the language of their brief unless they ask for another) and set `meta.lang` (BCP 47: `ja`, `pt-BR`, `ar`, …). Arabic, Hebrew, Persian, and Urdu render right to left. |
 
 Fill gaps with intelligent defaults (`theme-shortlists.json` / `list_themes` with `include_shortlists` — prefer `core-defaults` when vibe is vague). Never ask more than 3 clarifying questions.
 

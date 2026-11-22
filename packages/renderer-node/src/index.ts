@@ -11,6 +11,10 @@ import {
   renderChartSvg,
   sanitizeCustomHtml,
   candyMarqueeText,
+  deckLangDir,
+  normalizeDeckLang,
+  scriptFallbackFonts,
+  withFontFallback,
 } from "@presentation-md/core";
 import type { ValidationResult, ChartSeries } from "@presentation-md/core";
 import { deckToPptxBuffer, type DeckJson as ExportDeckJson } from "@presentation-md/export";
@@ -254,6 +258,8 @@ interface DeckJson {
     company?: string;
     description?: string;
     theme?: string;
+    /** BCP 47 language of the deck copy (default "en"). */
+    lang?: string;
     /** candy-pop: optional custom ticker unit (else company/title). */
     marquee?: string;
   };
@@ -516,7 +522,13 @@ export async function renderDeck(deckJson: string, opts?: RenderOptions): Promis
     fallbackThemesDirs: themesDir !== bundled ? [bundled] : undefined,
   });
 
-  const googleFontsUrl = buildGoogleFontsUrl(theme.typography.googleFonts);
+  const lang = normalizeDeckLang(deck.meta?.lang);
+  const dir = deckLangDir(lang);
+  const scriptFonts = scriptFallbackFonts(lang);
+  const googleFontsUrl = buildGoogleFontsUrl([
+    ...theme.typography.googleFonts,
+    ...scriptFonts.googleFonts,
+  ]);
 
   const sharedDir = getSharedDir();
   const baseCssTemplate = await readFile(join(sharedDir, "base.css"), "utf-8");
@@ -534,8 +546,8 @@ export async function renderDeck(deckJson: string, opts?: RenderOptions): Promis
     border: theme.palette.border,
     radius: theme.geometry.radius,
     slideW: theme.geometry.slideWidth,
-    headingFont: theme.typography.headingFont,
-    bodyFont: theme.typography.bodyFont,
+    headingFont: withFontFallback(theme.typography.headingFont, scriptFonts.families),
+    bodyFont: withFontFallback(theme.typography.bodyFont, scriptFonts.families),
     headingWeight: String(theme.typography.headingWeight),
   };
 
@@ -568,6 +580,8 @@ export async function renderDeck(deckJson: string, opts?: RenderOptions): Promis
   const deckData = opts?.embedSource === false ? "" : embedDeckScript(deck);
 
   const html = Mustache.render(documentTemplate, {
+    lang,
+    dir,
     title,
     description,
     styles: fullCss,

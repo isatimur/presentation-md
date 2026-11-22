@@ -137,6 +137,8 @@ export interface DeckMeta {
   company?: string;
   description?: string;
   theme?: string;
+  /** BCP 47 language of the deck copy (default "en"). Sets run lang and RTL. */
+  lang?: string;
   /** candy-pop: optional custom ticker unit (else company/title brand). */
   marquee?: string;
 }

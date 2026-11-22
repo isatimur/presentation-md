@@ -47,9 +47,19 @@ import { themeFromBrandCss } from "../brand/pasteBrandTheme.js";
 import { registerCustomTheme } from "../render/themes.js";
 import { createAsyncOwnership } from "../asyncOwnership.js";
 import { createLatestAsyncWriter } from "../latestAsyncWriter.js";
+import { useI18n, type MessageKey } from "../i18n/index.js";
+import { NODE_SLOT, withNode, withNodes } from "../i18n/richText.js";
+import { LanguageSelect } from "./LanguageSelect.js";
 
 /** Flagship trio for Example browser show-don't-tell (matches site proof strip). */
 const FEATURED_EXAMPLE_SLUGS = ["novaspark-pitch", "bounce-launch", "forge-api"] as const;
+
+const AUDIT_FILTER_KEYS: Record<"all" | "error" | "warning" | "pptx", MessageKey> = {
+  all: "toolbar.filterAll",
+  error: "toolbar.filterError",
+  warning: "toolbar.filterWarning",
+  pptx: "toolbar.filterPptx",
+};
 
 interface PendingImport {
   deck: DeckJson;
@@ -103,6 +113,7 @@ export function Toolbar({
   /** Jump the Studio selection to a 1-based slide index from an audit issue. */
   onSelectSlide?: (slideIndex1Based: number) => void;
 }) {
+  const { t, locale } = useI18n();
   const fileRef = useRef<HTMLInputElement>(null);
   /** Suppress auto-open until craft errors clear (user dismissed while dirty). */
   const suppressLivePanel = useRef(false);
@@ -273,24 +284,28 @@ export function Toolbar({
     onChange(repaired as DeckJson);
     setStatus(
       fixes.length
-        ? `Theme → ${name} · ${fixes.length} craft fix${fixes.length === 1 ? "" : "es"}`
-        : `Theme → ${name}`
+        ? t("toolbar.themeAppliedFixes", { name, count: fixes.length })
+        : t("toolbar.themeApplied", { name })
     );
   };
-  const setTitle = (t: string) => setMeta({ title: t });
+  const setTitle = (value: string) => setMeta({ title: value });
 
   const onOpen = async (file: File) => {
     try {
       assertStudioImportFileSize(file);
     } catch (err) {
-      setStatus(`Open failed: ${(err as Error).message}`);
+      setStatus(t("toolbar.openFailed", { message: (err as Error).message }));
       return;
     }
 
     const ticket = importOwnership.begin(deckRef.current);
     setPendingImport(null);
     setBusy(true);
-    setStatus(/\.pptx$/i.test(file.name) ? "Importing .pptx…" : `Opening ${file.name}…`);
+    setStatus(
+      /\.pptx$/i.test(file.name)
+        ? t("toolbar.importingPptx")
+        : t("toolbar.opening", { name: file.name })
+    );
     try {
       let opened: DeckJson;
       let successStatus: string;
@@ -298,27 +313,30 @@ export function Toolbar({
         const result = await importPptxFile(await file.arrayBuffer(), theme);
         opened = result.deck;
         successStatus = result.warnings.length
-          ? `Imported ${file.name} (${result.warnings.length} warning${result.warnings.length > 1 ? "s" : ""})`
-          : `Imported ${file.name}`;
+          ? t("toolbar.importedWithWarnings", { name: file.name, count: result.warnings.length })
+          : t("toolbar.imported", { name: file.name });
       } else {
         opened = parseDeckFile(file.name, await file.text(), theme);
         successStatus = /\.(md|markdown)$/i.test(file.name)
-          ? `Imported Markdown → ${opened.slides.length} slides (${opened.meta?.theme ?? theme})`
-          : `Opened ${file.name}`;
+          ? t("toolbar.importedMarkdown", {
+              n: opened.slides.length,
+              theme: opened.meta?.theme ?? theme,
+            })
+          : t("toolbar.opened", { name: file.name });
       }
 
       const decision = importOwnership.classify(ticket, deckRef.current);
       if (decision === "stale") return;
       if (decision === "conflict") {
         setPendingImport({ deck: opened, fileName: file.name, successStatus });
-        setStatus(`Import ready — current deck changed while opening ${file.name}`);
+        setStatus(t("toolbar.importReadyConflict", { name: file.name }));
         return;
       }
       onChangeRef.current(opened);
       setStatus(successStatus);
     } catch (err) {
       if (importOwnership.classify(ticket, deckRef.current) === "stale") return;
-      setStatus(`Open failed: ${(err as Error).message}`);
+      setStatus(t("toolbar.openFailed", { message: (err as Error).message }));
     } finally {
       if (importOwnership.classify(ticket, deckRef.current) !== "stale") setBusy(false);
     }
@@ -329,13 +347,13 @@ export function Toolbar({
     const snapshotCraftIssues = liveCraftIssues;
     const ticket = exportOwnership.begin(snapshot);
     setBusy(true);
-    setStatus("Building .pptx…");
+    setStatus(t("toolbar.buildingPptx"));
     try {
       const { warnings } = await downloadPptx(snapshot);
       const decision = exportOwnership.classify(ticket, deckRef.current);
       if (decision === "stale") return;
       if (decision === "conflict") {
-        setStatus("Exported .pptx for an earlier deck revision — current edits were not included");
+        setStatus(t("toolbar.exportedStale"));
         return;
       }
       const exportIssues = warnings.map((message) =>
@@ -351,19 +369,19 @@ export function Toolbar({
         setAuditPanelOpen(true);
         setStatus(
           warnings.length
-            ? `Exported .pptx (${warnings.length} warning${warnings.length > 1 ? "s" : ""}) — see list`
-            : `Exported .pptx (${snapshotCraftIssues.length} craft issue${snapshotCraftIssues.length > 1 ? "s" : ""})`
+            ? t("toolbar.exportedWarnings", { count: warnings.length })
+            : t("toolbar.exportedCraftIssues", { count: snapshotCraftIssues.length })
         );
       } else {
-        setStatus("Exported .pptx");
+        setStatus(t("toolbar.exportedPptx"));
       }
     } catch (err) {
       const decision = exportOwnership.classify(ticket, deckRef.current);
       if (decision === "stale") return;
       setStatus(
         decision === "conflict"
-          ? `PPTX export of an earlier deck revision failed: ${(err as Error).message}`
-          : `Export failed: ${(err as Error).message}`
+          ? t("toolbar.pptxStaleFailed", { message: (err as Error).message })
+          : t("toolbar.exportFailed", { message: (err as Error).message })
       );
     } finally {
       setBusy(false);
@@ -384,13 +402,16 @@ export function Toolbar({
       setAuditPanelOpen(pptxWarnings.length > 0);
       setStatus(
         pptxWarnings.length
-          ? `Craft audit clean · ${pptxWarnings.length} PPTX warning${pptxWarnings.length > 1 ? "s" : ""} remain`
-          : "Craft audit clean"
+          ? t("toolbar.auditCleanWarnings", { count: pptxWarnings.length })
+          : t("toolbar.auditClean")
       );
       return;
     }
     setStatus(
-      `Craft audit: ${errors.length} error${errors.length === 1 ? "" : "s"}, ${warns.length} warning${warns.length === 1 ? "" : "s"}`
+      t("toolbar.auditSummary", {
+        errors: t("toolbar.errorCount", { count: errors.length }),
+        warnings: t("toolbar.warningCount", { count: warns.length }),
+      })
     );
   };
 
@@ -411,13 +432,16 @@ export function Toolbar({
       craftPanelOpen.current = pptxWarnings.length > 0;
       setStatus(
         pptxWarnings.length
-          ? `Judge t1 clean · ${pptxWarnings.length} PPTX warning${pptxWarnings.length > 1 ? "s" : ""} remain`
-          : "Judge t1 clean — escalate to MCP judge_deck t2 for HTML shots"
+          ? t("toolbar.judgeCleanWarnings", { count: pptxWarnings.length })
+          : t("toolbar.judgeClean")
       );
       return;
     }
     setStatus(
-      `Judge t1: ${gates} gate${gates === 1 ? "" : "s"} · ${issues.length} flag${issues.length === 1 ? "" : "s"} (CLI --judge / MCP judge_deck parity)`
+      t("toolbar.judgeSummary", {
+        gates: t("toolbar.gateCount", { count: gates }),
+        flags: t("toolbar.flagCount", { count: issues.length }),
+      })
     );
   };
 
@@ -431,7 +455,7 @@ export function Toolbar({
   const applySafeCraftFixes = () => {
     const { deck: repaired, fixes } = repairCraft(deck);
     if (!fixes.length) {
-      setStatus("No safe craft fixes needed");
+      setStatus(t("toolbar.noSafeFixes"));
       return;
     }
     onChange(repaired as DeckJson);
@@ -444,15 +468,21 @@ export function Toolbar({
     suppressLivePanel.current = false;
     setStatus(
       issues.length
-        ? `Applied ${fixes.length} craft fix${fixes.length === 1 ? "" : "es"} · ${issues.length} issue${issues.length === 1 ? "" : "s"} remain`
-        : `Applied ${fixes.length} craft fix${fixes.length === 1 ? "" : "es"} · craft clean`
+        ? t("toolbar.appliedFixesRemain", {
+            fixes: t("toolbar.craftFixCount", { count: fixes.length }),
+            issues: t("toolbar.issueCount", { count: issues.length }),
+          })
+        : t("toolbar.appliedFixesClean", {
+            fixes: t("toolbar.craftFixCount", { count: fixes.length }),
+          })
     );
   };
 
   const applyDensityRemorph = (mode: "speaker" | "reading") => {
     const { deck: remorphed, changes } = remorphDensity(deck as unknown as Record<string, unknown>, mode);
+    const modeLabel = t(mode === "speaker" ? "toolbar.modeSpeaker" : "toolbar.modeReading");
     if (!changes.length) {
-      setStatus(`Density already ${mode}`);
+      setStatus(t("toolbar.densityAlready", { mode: modeLabel }));
       return;
     }
     onChange(remorphed as DeckJson);
@@ -465,15 +495,22 @@ export function Toolbar({
     suppressLivePanel.current = false;
     setStatus(
       issues.length
-        ? `Remorphed ${mode} · ${changes.length} change${changes.length === 1 ? "" : "s"} · ${issues.length} issue${issues.length === 1 ? "" : "s"} remain`
-        : `Remorphed ${mode} · ${changes.length} change${changes.length === 1 ? "" : "s"} · craft clean`
+        ? t("toolbar.remorphedRemain", {
+            mode: modeLabel,
+            changes: t("toolbar.changeCount", { count: changes.length }),
+            issues: t("toolbar.issueCount", { count: issues.length }),
+          })
+        : t("toolbar.remorphedClean", {
+            mode: modeLabel,
+            changes: t("toolbar.changeCount", { count: changes.length }),
+          })
     );
   };
 
   const applyIssueBeat = (fixId: CraftFixId) => {
     const { deck: repaired, fixes } = repairCraftBeat(deck, fixId);
     if (!fixes.length) {
-      setStatus("Beat already present — nothing to insert");
+      setStatus(t("toolbar.beatPresent"));
       return;
     }
     onChange(repaired as DeckJson);
@@ -486,8 +523,10 @@ export function Toolbar({
     suppressLivePanel.current = false;
     setStatus(
       issues.length
-        ? `Inserted beat · ${issues.length} issue${issues.length === 1 ? "" : "s"} remain`
-        : `Inserted beat · craft clean`
+        ? t("toolbar.beatInsertedRemain", {
+            issues: t("toolbar.issueCount", { count: issues.length }),
+          })
+        : t("toolbar.beatInsertedClean")
     );
   };
 
@@ -496,21 +535,21 @@ export function Toolbar({
     const snapshotHtml = html;
     const ticket = exportOwnership.begin(snapshot);
     setBusy(true);
-    setStatus("Building PDF…");
+    setStatus(t("toolbar.buildingPdf"));
     try {
       const { mode } = await downloadPdf(snapshot, snapshotHtml);
       const decision = exportOwnership.classify(ticket, deckRef.current);
       if (decision === "stale") return;
       if (decision === "conflict") {
-        setStatus("Downloaded PDF for an earlier deck revision — current edits were not included");
+        setStatus(t("toolbar.pdfStale"));
         return;
       }
       if (mode === "headless") {
-        setStatus("Downloaded PDF (vector · headless Chromium)");
+        setStatus(t("toolbar.pdfHeadless"));
       } else if (mode === "client") {
-        setStatus("Downloaded PDF (client raster · 16:9 pages)");
+        setStatus(t("toolbar.pdfClient"));
       } else {
-        setStatus("Print dialog — Save as PDF (16:9 print CSS fallback)");
+        setStatus(t("toolbar.pdfPrint"));
       }
     } catch (err) {
       try {
@@ -519,16 +558,16 @@ export function Toolbar({
         if (decision === "stale") return;
         setStatus(
           decision === "conflict"
-            ? "Opened the PDF print fallback for an earlier deck revision — current edits were not included"
-            : `PDF blob failed (${(err as Error).message}) — use Save as PDF in the print dialog`
+            ? t("toolbar.pdfPrintStale")
+            : t("toolbar.pdfBlobFailed", { message: (err as Error).message })
         );
       } catch (printErr) {
         const decision = exportOwnership.classify(ticket, deckRef.current);
         if (decision === "stale") return;
         setStatus(
           decision === "conflict"
-            ? `PDF export of an earlier deck revision failed: ${(printErr as Error).message}`
-            : `Download PDF failed: ${(printErr as Error).message}`
+            ? t("toolbar.pdfStaleFailed", { message: (printErr as Error).message })
+            : t("toolbar.pdfFailed", { message: (printErr as Error).message })
         );
       }
     } finally {
@@ -554,8 +593,8 @@ export function Toolbar({
       if (decision === "stale") return;
       setStatus(
         decision === "conflict"
-          ? "Copied link for an earlier deck revision — current edits were not included"
-          : "Copied shareable deck link"
+          ? t("toolbar.linkStale")
+          : t("toolbar.linkCopied")
       );
     } catch (err) {
       const decision = clipboardOwnership.classify(ticket, deckRef.current);
@@ -563,8 +602,8 @@ export function Toolbar({
       // Oversized / compress failure — do NOT copy a curated example (mis-share trap).
       setStatus(
         decision === "conflict"
-          ? `Copy link for an earlier deck revision failed: ${(err as Error).message}`
-          : `${(err as Error).message} — use Source ▾ → Download JSON instead`
+          ? t("toolbar.linkStaleFailed", { message: (err as Error).message })
+          : t("toolbar.linkFailed", { message: (err as Error).message })
       );
     }
   };
@@ -582,16 +621,16 @@ export function Toolbar({
       if (decision === "stale") return;
       setStatus(
         decision === "conflict"
-          ? "Copied Markdown for an earlier deck revision — current edits were not included"
-          : "Copied Markdown to clipboard"
+          ? t("toolbar.mdStale")
+          : t("toolbar.mdCopied")
       );
     } catch (err) {
       const decision = clipboardOwnership.classify(ticket, deckRef.current);
       if (decision === "stale") return;
       setStatus(
         decision === "conflict"
-          ? `Copy Markdown for an earlier deck revision failed: ${(err as Error).message}`
-          : `Copy Markdown failed: ${(err as Error).message}`
+          ? t("toolbar.mdStaleFailed", { message: (err as Error).message })
+          : t("toolbar.mdFailed", { message: (err as Error).message })
       );
     }
   };
@@ -603,10 +642,13 @@ export function Toolbar({
       setPasteMd("");
       setPasteMdOpen(false);
       setStatus(
-        `Pasted Markdown → ${opened.slides.length} slides (${opened.meta?.theme ?? theme})`
+        t("toolbar.pastedMarkdown", {
+          n: opened.slides.length,
+          theme: opened.meta?.theme ?? theme,
+        })
       );
     } catch (err) {
-      setStatus(`Paste Markdown failed: ${(err as Error).message}`);
+      setStatus(t("toolbar.pasteMarkdownFailed", { message: (err as Error).message }));
     }
   };
 
@@ -617,19 +659,19 @@ export function Toolbar({
       const decision = markdownReadOwnership.classify(ticket, pasteMdRef.current);
       if (decision === "stale") return;
       if (decision === "conflict") {
-        setStatus("Clipboard Markdown not applied — field changed while reading");
+        setStatus(t("toolbar.clipMdNotApplied"));
         return;
       }
       if (!text.trim()) {
-        setStatus("Clipboard is empty — paste Marp/md-slides Markdown into the box");
+        setStatus(t("toolbar.clipMdEmpty"));
         return;
       }
       setPasteMd(text);
       setPasteMdOpen(true);
-      setStatus("Clipboard Markdown loaded — Apply to convert");
+      setStatus(t("toolbar.clipMdLoaded"));
     } catch (err) {
       if (markdownReadOwnership.classify(ticket, pasteMdRef.current) === "stale") return;
-      setStatus(`Clipboard read failed: ${(err as Error).message}`);
+      setStatus(t("toolbar.clipReadFailed", { message: (err as Error).message }));
     }
   };
 
@@ -644,14 +686,14 @@ export function Toolbar({
       applyThemeWithRepair(name);
       setPasteBrandOpen(false);
       const adj =
-        adjustments.length > 0
-          ? ` · ${adjustments.length} contrast tweak${adjustments.length === 1 ? "" : "s"}`
-          : "";
+        adjustments.length > 0 ? t("toolbar.brandTweaks", { count: adjustments.length }) : "";
       const fail =
-        stillFailing.length > 0 ? ` · still weak: ${stillFailing.slice(0, 2).join(", ")}` : "";
-      setStatus(`Brand CSS → theme "${name}"${adj}${fail}`);
+        stillFailing.length > 0
+          ? t("toolbar.brandStillWeak", { names: stillFailing.slice(0, 2).join(", ") })
+          : "";
+      setStatus(t("toolbar.brandApplied", { name, adj, fail }));
     } catch (err) {
-      setStatus(`Brand CSS failed: ${(err as Error).message}`);
+      setStatus(t("toolbar.brandFailed", { message: (err as Error).message }));
     }
   };
 
@@ -662,117 +704,117 @@ export function Toolbar({
       const decision = brandCssReadOwnership.classify(ticket, pasteBrandCssRef.current);
       if (decision === "stale") return;
       if (decision === "conflict") {
-        setStatus("Clipboard CSS not applied — field changed while reading");
+        setStatus(t("toolbar.clipCssNotApplied"));
         return;
       }
       if (!text.trim()) {
-        setStatus("Clipboard is empty — paste :root CSS variables into the box");
+        setStatus(t("toolbar.clipCssEmpty"));
         return;
       }
       setPasteBrandCss(text);
       setPasteBrandOpen(true);
-      setStatus("Clipboard CSS loaded — Apply to register theme");
+      setStatus(t("toolbar.clipCssLoaded"));
     } catch (err) {
       if (brandCssReadOwnership.classify(ticket, pasteBrandCssRef.current) === "stale") return;
-      setStatus(`Clipboard read failed: ${(err as Error).message}`);
+      setStatus(t("toolbar.clipReadFailed", { message: (err as Error).message }));
     }
   };
 
   const studioCommands = useMemo<StudioCommand[]>(
     () => [
-      { id: "present", label: "Present", hint: "Fullscreen", keywords: "slideshow play", run: onPresent },
-      { id: "generate", label: "Generate deck", hint: "Prompt", keywords: "ai craft", run: onGenerate },
-      { id: "audit", label: "Audit craft", keywords: "gates craft", run: runCraftAudit },
+      { id: "present", label: t("command.present"), hint: t("command.presentHint"), keywords: "slideshow play", run: onPresent },
+      { id: "generate", label: t("command.generate"), hint: t("command.generateHint"), keywords: "ai craft", run: onGenerate },
+      { id: "audit", label: t("command.audit"), keywords: "gates craft", run: runCraftAudit },
       {
         id: "judge",
-        label: "Judge structure (t1)",
+        label: t("command.judge"),
         keywords: "gates judge density words",
         run: runStructuralJudge,
       },
       {
         id: "fix",
-        label: "Apply safe craft fixes",
+        label: t("command.fix"),
         keywords: "repair beats",
         run: applySafeCraftFixes,
       },
       {
         id: "density-speaker",
-        label: "Speaker density remorph",
+        label: t("command.densitySpeaker"),
         keywords: "remorph split notes",
         run: () => applyDensityRemorph("speaker"),
       },
       {
         id: "density-reading",
-        label: "Reading density remorph",
+        label: t("command.densityReading"),
         keywords: "remorph merge notes",
         run: () => applyDensityRemorph("reading"),
       },
-      { id: "copy-link", label: "Copy share link", keywords: "url share ?d=", run: () => void copyLink() },
+      { id: "copy-link", label: t("command.copyLink"), keywords: "url share ?d=", run: () => void copyLink() },
       {
         id: "copy-md",
-        label: "Copy Markdown",
+        label: t("command.copyMd"),
         keywords: "marp md",
         run: () => void copyMarkdown(),
       },
       {
         id: "dl-html",
-        label: "Download HTML",
+        label: t("command.dlHtml"),
         keywords: "export",
         run: () => downloadHtml(deck, html),
       },
       {
         id: "dl-md",
-        label: "Download Markdown",
+        label: t("command.dlMd"),
         keywords: "export marp",
         run: () => downloadMarkdown(deck),
       },
       {
         id: "dl-pdf",
-        label: "Download PDF",
+        label: t("command.dlPdf"),
         keywords: "export print",
         run: () => void exportPdf(),
       },
       {
         id: "dl-pptx",
-        label: "Download PowerPoint",
+        label: t("command.dlPptx"),
         keywords: "export pptx",
         run: () => void exportPptx(),
       },
       {
         id: "dl-json",
-        label: "Download Deck JSON",
+        label: t("command.dlJson"),
         keywords: "export source",
         run: () => downloadJson(deck),
       },
       {
         id: "dl-notes-txt",
-        label: "Download notes TXT",
+        label: t("command.dlNotesTxt"),
         keywords: "handout speaker",
         run: () => downloadNotesTxt(deck),
       },
       {
         id: "dl-notes-vtt",
-        label: "Download notes VTT",
+        label: t("command.dlNotesVtt"),
         keywords: "handout captions",
         run: () => downloadNotesVtt(deck),
       },
       {
         id: "undo",
-        label: "Undo",
+        label: t("command.undo"),
         hint: "⌘Z",
         keywords: "history",
         run: () => onUndo?.(),
       },
       {
         id: "redo",
-        label: "Redo",
+        label: t("command.redo"),
         hint: "⇧⌘Z",
         keywords: "history",
         run: () => onRedo?.(),
       },
     ],
-    // Handlers close over latest deck/html; rebuild when those change.
-    [deck, html, onPresent, onGenerate, onUndo, onRedo]
+    // Handlers close over latest deck/html; rebuild when those (or the locale) change.
+    [deck, html, onPresent, onGenerate, onUndo, onRedo, locale]
   );
 
   useEffect(() => {
@@ -793,13 +835,13 @@ export function Toolbar({
         <a className="brand-link" href="https://presentation-md.vercel.app/" target="_blank" rel="noopener noreferrer">
           <strong>presentation-md</strong>
         </a>
-        <span className="muted small">Studio · live craft</span>
+        <span className="muted small">{t("toolbar.tagline")}</span>
       </div>
 
       <input
         className="text-input title-input"
         value={deck.meta?.title ?? ""}
-        placeholder="Deck title"
+        placeholder={t("toolbar.deckTitle")}
         onChange={(e) => setTitle(e.target.value)}
       />
 
@@ -812,7 +854,7 @@ export function Toolbar({
           setLiveCompare(false);
         }
       }}>
-        <summary className="btn btn-sm theme-trigger" title="Browse themes (mood + shortlists + pick-3 compare)">
+        <summary className="btn btn-sm theme-trigger" title={t("toolbar.themeBrowseTitle")}>
           <span
             className="theme-swatch"
             style={{ ["--swatch-bg" as string]: active.bg, ["--swatch-accent" as string]: active.accent }}
@@ -825,12 +867,12 @@ export function Toolbar({
           <input
             className="text-input theme-search"
             value={themeQuery}
-            placeholder="Search themes…"
+            placeholder={t("toolbar.searchThemes")}
             autoFocus
             onChange={(e) => setThemeQuery(e.target.value)}
           />
-          <div className="theme-mood-row" role="toolbar" aria-label="Filter themes by mood">
-            <span className="theme-filter-label">Browse</span>
+          <div className="theme-mood-row" role="toolbar" aria-label={t("toolbar.moodLabel")}>
+            <span className="theme-filter-label">{t("toolbar.browse")}</span>
             {THEME_BROWSE_FILTERS.map((f) => (
               <button
                 key={f.id}
@@ -840,24 +882,24 @@ export function Toolbar({
                 onClick={() => setMoodFilter(f.id)}
                 title={
                   f.id === "all"
-                    ? "Show all themes"
+                    ? t("toolbar.showAllThemes")
                     : f.id === "popular"
-                      ? "Flagship / discovery-popular themes"
-                      : `Filter by ${f.label.toLowerCase()} mood`
+                      ? t("toolbar.popularThemes")
+                      : t("toolbar.filterByMood", { label: f.label.toLowerCase() })
                 }
               >
-                {f.id === "all" ? `All ${themes.length}` : f.label}
+                {f.id === "all" ? t("toolbar.allCount", { n: themes.length }) : f.label}
               </button>
             ))}
           </div>
-          <div className="theme-shortlist-row" role="listbox" aria-label="Theme shortlists">
+          <div className="theme-shortlist-row" role="listbox" aria-label={t("toolbar.shortlistsLabel")}>
             <button
               type="button"
               className={`chip${shortlistId === "" ? " active" : ""}`}
               onClick={() => setShortlistId("")}
-              title="Show all themes"
+              title={t("toolbar.showAllThemes")}
             >
-              Shortlists
+              {t("toolbar.shortlists")}
             </button>
             {shortlists.map((s) => (
               <button
@@ -889,16 +931,18 @@ export function Toolbar({
           </div>
           <div className="theme-count">
             <span>
-              {filtered.length} / {themes.length} themes
+              {t("toolbar.themeCount", { shown: filtered.length, total: themes.length })}
               {moodFilter !== "all" ? ` · ${moodFilter}` : ""}
               {activeShortlist ? ` · ${activeShortlist.id}` : ""}
-              {compare.length ? ` · compare ${compare.length}/${COMPARE_LIMIT}` : " · ⊕ to compare"}
+              {compare.length
+                ? t("toolbar.compareCount", { n: compare.length, max: COMPARE_LIMIT })
+                : t("toolbar.compareHint")}
             </span>
             <button
               type="button"
               className="chip"
               disabled={filtered.length === 0}
-              title="Fill pick-3 with a safe + bold + wildcard mix from the current browse filter"
+              title={t("toolbar.compare3Title")}
               onClick={() => {
                 const trio = pickDiscoveryPreviewTrio(
                   filtered.map((t) => ({
@@ -914,32 +958,32 @@ export function Toolbar({
                 setLiveCompare(slots.length >= COMPARE_LIMIT);
               }}
             >
-              Compare 3
+              {t("toolbar.compare3")}
             </button>
           </div>
           <ul className="theme-list">
-            {filtered.map((t) => {
-              const inCompare = compare.includes(t.name);
+            {filtered.map((th) => {
+              const inCompare = compare.includes(th.name);
               return (
-                <li key={t.name}>
-                  <div className={`theme-option-row${t.name === theme ? " active" : ""}${inCompare ? " in-compare" : ""}`}>
+                <li key={th.name}>
+                  <div className={`theme-option-row${th.name === theme ? " active" : ""}${inCompare ? " in-compare" : ""}`}>
                     <button
                       type="button"
-                      className={`theme-option${t.name === theme ? " active" : ""}`}
+                      className={`theme-option${th.name === theme ? " active" : ""}`}
                       onClick={(e) => {
-                        applyThemeWithRepair(t.name);
+                        applyThemeWithRepair(th.name);
                         const details = (e.currentTarget as HTMLElement).closest("details");
                         if (details) details.open = false;
                       }}
                     >
                       <span
                         className="theme-swatch"
-                        style={{ ["--swatch-bg" as string]: t.bg, ["--swatch-accent" as string]: t.accent }}
+                        style={{ ["--swatch-bg" as string]: th.bg, ["--swatch-accent" as string]: th.accent }}
                         aria-hidden
                       />
                       <span className="theme-option-meta">
-                        <span className="theme-option-name">{t.name}</span>
-                        <span className="theme-option-vibe">{t.vibe}</span>
+                        <span className="theme-option-name">{th.name}</span>
+                        <span className="theme-option-vibe">{th.vibe}</span>
                       </span>
                     </button>
                     <button
@@ -947,13 +991,13 @@ export function Toolbar({
                       className={`theme-compare-toggle${inCompare ? " active" : ""}`}
                       title={
                         inCompare
-                          ? `Remove ${t.name} from compare`
-                          : `Add ${t.name} to pick-${COMPARE_LIMIT} compare`
+                          ? t("toolbar.compareRemoveTitle", { name: th.name })
+                          : t("toolbar.compareAddTitle", { name: th.name, max: COMPARE_LIMIT })
                       }
                       aria-pressed={inCompare}
                       onClick={() =>
                         setCompare((prev) => {
-                          const next = toggleCompareSlot(prev, t.name);
+                          const next = toggleCompareSlot(prev, th.name);
                           // Flip live on when the tray hits pick-3; leave user toggle otherwise.
                           if (next.length >= COMPARE_LIMIT) setLiveCompare(true);
                           else if (next.length === 0) setLiveCompare(false);
@@ -995,18 +1039,18 @@ export function Toolbar({
       </details>
 
       <details className="deck-details">
-        <summary className="btn btn-sm">Details</summary>
+        <summary className="btn btn-sm">{t("toolbar.details")}</summary>
         <div className="deck-details-body">
           <input
             className="text-input"
             value={deck.meta?.company ?? ""}
-            placeholder="Company"
+            placeholder={t("toolbar.company")}
             onChange={(e) => setMeta({ company: e.target.value })}
           />
           <input
             className="text-input"
             value={deck.meta?.description ?? ""}
-            placeholder="Description"
+            placeholder={t("toolbar.description")}
             onChange={(e) => setMeta({ description: e.target.value })}
           />
         </div>
@@ -1017,24 +1061,25 @@ export function Toolbar({
       <button
         type="button"
         className="btn toolbar-desktop-only"
-        title="Command palette (⌘K / Ctrl+K)"
+        title={t("toolbar.commandPaletteTitle")}
         onClick={() => setCommandOpen(true)}
       >
         ⌘K
       </button>
-      <button className="btn btn-generate" onClick={onGenerate} title="Generate a deck from a prompt">Generate</button>
+      <LanguageSelect />
+      <button className="btn btn-generate" onClick={onGenerate} title={t("toolbar.generateTitle")}>{t("toolbar.generate")}</button>
       <details
         className="example-browser"
         onToggle={(e) => setExampleOpen((e.currentTarget as HTMLDetailsElement).open)}
       >
-        <summary className="btn" title="Load a curated example deck">Example ▾</summary>
+        <summary className="btn" title={t("toolbar.exampleTitle")}>{t("toolbar.example")}</summary>
         <div className="example-browser-panel">
           <div className="example-featured-head">
-            <span className="example-featured-label">Featured craft · Title / Bento / Compare</span>
+            <span className="example-featured-label">{t("toolbar.featuredCraft")}</span>
             <button
               type="button"
               className="chip"
-              title="Fill theme Compare tray with these three flagship themes (live shot strip)"
+              title={t("toolbar.featuredCompareTitle")}
               onClick={() => {
                 const themes = featuredExamples
                   .map((ex) => exampleThemeLooks.get(ex.slug)?.theme ?? ex.theme)
@@ -1054,10 +1099,10 @@ export function Toolbar({
                 if (themeDetails) themeDetails.open = true;
               }}
             >
-              Compare 3 themes
+              {t("toolbar.compare3Themes")}
             </button>
           </div>
-          <div className="example-featured" aria-label="Featured craft examples">
+          <div className="example-featured" aria-label={t("toolbar.featuredLabel")}>
             {featuredExamples.map((ex) => {
               const look = exampleThemeLooks.get(ex.slug);
               const previewTheme = look?.theme ?? ex.theme;
@@ -1077,7 +1122,7 @@ export function Toolbar({
                   {exampleOpen ? (
                     <ThemeCraftShotStrip
                       theme={previewTheme}
-                      title={`${ex.label} craft preview`}
+                      title={t("toolbar.exampleFrameTitle", { label: ex.label })}
                       className="example-featured-shot-strip"
                       compact
                     />
@@ -1093,10 +1138,9 @@ export function Toolbar({
             })}
           </div>
           <p className="example-featured-hint muted small">
-            Shared iframe shot strip (Title / Bento / Compare scroll-crop) · click a card to load ·
-            Compare 3 themes jumps to live theme tray
+            {t("toolbar.featuredHint")}
           </p>
-          <p className="example-list-label">All examples</p>
+          <p className="example-list-label">{t("toolbar.allExamples")}</p>
           <ul className="example-list">
             {STUDIO_EXAMPLES.map((ex) => {
               const look = exampleThemeLooks.get(ex.slug);
@@ -1129,14 +1173,14 @@ export function Toolbar({
           </ul>
         </div>
       </details>
-      <div className="toolbar-secondary" role="group" aria-label="Deck actions">
+      <div className="toolbar-secondary" role="group" aria-label={t("toolbar.deckActions")}>
         <button
           type="button"
           className="btn btn-icon toolbar-desktop-only"
           disabled={!canUndo || !onUndo}
           onClick={() => onUndo?.()}
-          title="Undo (⌘Z / Ctrl+Z)"
-          aria-label="Undo"
+          title={t("toolbar.undoTitle")}
+          aria-label={t("toolbar.undo")}
         >
           ↶
         </button>
@@ -1145,25 +1189,25 @@ export function Toolbar({
           className="btn btn-icon toolbar-desktop-only"
           disabled={!canRedo || !onRedo}
           onClick={() => onRedo?.()}
-          title="Redo (⇧⌘Z / Ctrl+Y)"
-          aria-label="Redo"
+          title={t("toolbar.redoTitle")}
+          aria-label={t("toolbar.redo")}
         >
           ↷
         </button>
         <button
           className="btn toolbar-desktop-only"
           onClick={() => void copyLink()}
-          title="Copy a shareable Studio link that restores this editable deck (?d= compressed JSON)"
+          title={t("toolbar.copyLinkTitle")}
         >
-          Copy link
+          {t("toolbar.copyLink")}
         </button>
         <button
           className="btn toolbar-desktop-only"
           disabled={busy}
           onClick={() => fileRef.current?.click()}
-          title="Open Deck JSON, rendered HTML, PowerPoint (.pptx), or Marp/md-slides Markdown (.md)"
+          title={t("toolbar.openTitle")}
         >
-          Open
+          {t("toolbar.open")}
         </button>
         <details
           className="paste-md"
@@ -1172,31 +1216,30 @@ export function Toolbar({
         >
           <summary
             className="btn"
-            title="Paste Marp / md-slides Markdown → Deck JSON (no file picker)"
+            title={t("toolbar.pasteMdTitle")}
           >
-            Paste MD
+            {t("toolbar.pasteMd")}
           </summary>
-          <div className="paste-md-panel" role="dialog" aria-label="Paste Markdown">
+          <div className="paste-md-panel" role="dialog" aria-label={t("toolbar.pasteMdLabel")}>
             <p className="muted small" style={{ margin: 0 }}>
-              Marp / md-slides outline → structured Deck JSON. Same path as Open .md and MCP{" "}
-              <code>import_markdown</code>.
+              {withNode(t("toolbar.pasteMdIntro", { code: NODE_SLOT }), <code>import_markdown</code>)}
             </p>
             <textarea
               className="text-input paste-md-input"
               rows={10}
               value={pasteMd}
-              placeholder={"---\ntitle: My deck\ntheme: neon-noir\n---\n\n# Title\n\nLead…\n\n---\n\n## Next slide\n\n- Point one\n- Point two"}
+              placeholder={t("toolbar.pasteMdPlaceholder")}
               onChange={(e) => setPasteMd(e.target.value)}
-              aria-label="Markdown outline"
+              aria-label={t("toolbar.markdownOutlineLabel")}
             />
             <div className="paste-md-actions">
               <button
                 type="button"
                 className="btn"
                 onClick={() => void pasteMdFromClipboard()}
-                title="Load Markdown from the system clipboard"
+                title={t("toolbar.fromClipboardMdTitle")}
               >
-                From clipboard
+                {t("toolbar.fromClipboard")}
               </button>
               <button
                 type="button"
@@ -1204,7 +1247,7 @@ export function Toolbar({
                 disabled={!pasteMd.trim()}
                 onClick={() => applyPastedMarkdown(pasteMd)}
               >
-                Apply
+                {t("toolbar.apply")}
               </button>
             </div>
           </div>
@@ -1216,22 +1259,25 @@ export function Toolbar({
         >
           <summary
             className="btn"
-            title="Paste brand CSS (:root vars) → ephemeral Studio theme (import_brand_theme parity)"
+            title={t("toolbar.pasteBrandTitle")}
           >
-            Paste Brand
+            {t("toolbar.pasteBrand")}
           </summary>
-          <div className="paste-md-panel paste-brand-panel" role="dialog" aria-label="Paste brand theme">
+          <div className="paste-md-panel paste-brand-panel" role="dialog" aria-label={t("toolbar.pasteBrandLabel")}>
             <p className="muted small" style={{ margin: 0 }}>
-              Extract colors/fonts from <code>:root</code> CSS → session theme. Same extraction as MCP{" "}
-              <code>import_brand_theme</code> / <code>--from-css</code>, without scaffolding a package.
+              {withNodes(t("toolbar.pasteBrandIntro"), {
+                root: <code>:root</code>,
+                tool: <code>import_brand_theme</code>,
+                flag: <code>--from-css</code>,
+              })}
             </p>
             <label className="inline-field">
-              <span className="muted small">Theme name</span>
+              <span className="muted small">{t("toolbar.themeName")}</span>
               <input
                 className="text-input"
                 value={pasteBrandName}
                 onChange={(e) => setPasteBrandName(e.target.value)}
-                aria-label="Brand theme name"
+                aria-label={t("toolbar.brandThemeNameLabel")}
                 placeholder="brand-paste"
               />
             </label>
@@ -1241,16 +1287,16 @@ export function Toolbar({
               value={pasteBrandCss}
               placeholder={":root {\n  --bg: #0a0a0a;\n  --text: #fafafa;\n  --accent: #22c55e;\n}\nbody { font-family: Inter, sans-serif; }\nh1 { font-family: \"Space Grotesk\", sans-serif; }"}
               onChange={(e) => setPasteBrandCss(e.target.value)}
-              aria-label="Brand stylesheet"
+              aria-label={t("toolbar.brandStylesheetLabel")}
             />
             <div className="paste-md-actions">
               <button
                 type="button"
                 className="btn"
                 onClick={() => void pasteBrandFromClipboard()}
-                title="Load CSS from the system clipboard"
+                title={t("toolbar.fromClipboardCssTitle")}
               >
-                From clipboard
+                {t("toolbar.fromClipboard")}
               </button>
               <button
                 type="button"
@@ -1258,108 +1304,108 @@ export function Toolbar({
                 disabled={!pasteBrandCss.trim()}
                 onClick={applyPastedBrandCss}
               >
-                Apply theme
+                {t("toolbar.applyTheme")}
               </button>
             </div>
           </div>
         </details>
-        <button className="btn toolbar-desktop-only" onClick={onPresent} title="Present fullscreen">Present</button>
+        <button className="btn toolbar-desktop-only" onClick={onPresent} title={t("toolbar.presentTitle")}>{t("toolbar.present")}</button>
         <details className="toolbar-more toolbar-mobile-only">
-          <summary className="btn btn-sm" title="More deck actions">More ▾</summary>
+          <summary className="btn btn-sm" title={t("toolbar.moreTitle")}>{t("toolbar.more")}</summary>
           <div className="toolbar-more-panel">
             <button type="button" className="btn" disabled={!canUndo || !onUndo} onClick={() => onUndo?.()}>
-              Undo
+              {t("toolbar.undo")}
             </button>
             <button type="button" className="btn" disabled={!canRedo || !onRedo} onClick={() => onRedo?.()}>
-              Redo
+              {t("toolbar.redo")}
             </button>
-            <button type="button" className="btn" onClick={() => void copyLink()}>Copy link</button>
-            <button type="button" className="btn" disabled={busy} onClick={() => fileRef.current?.click()}>Open file</button>
-            <button type="button" className="btn" onClick={onPresent}>Present</button>
+            <button type="button" className="btn" onClick={() => void copyLink()}>{t("toolbar.copyLink")}</button>
+            <button type="button" className="btn" disabled={busy} onClick={() => fileRef.current?.click()}>{t("toolbar.openFile")}</button>
+            <button type="button" className="btn" onClick={onPresent}>{t("toolbar.present")}</button>
           </div>
         </details>
       </div>
       <button
         className={`btn btn-audit${liveCraftIssues.length ? " audit-live-dirty" : ""}`}
         onClick={runCraftAudit}
-        title="Run craft gates. Panel auto-opens on live errors and refreshes as you edit."
+        title={t("toolbar.auditTitle")}
       >
-        Audit craft
+        {t("toolbar.audit")}
         {liveCraftIssues.length > 0 && (
           <span className={`audit-live-badge${liveCraftErrors ? " has-errors" : ""}`}>
-            {liveCraftErrors > 0 ? `${liveCraftErrors}E` : ""}
+            {liveCraftErrors > 0 ? t("toolbar.badgeErrors", { n: liveCraftErrors }) : ""}
             {liveCraftErrors > 0 && liveCraftWarns > 0 ? "·" : ""}
-            {liveCraftWarns > 0 ? `${liveCraftWarns}W` : liveCraftErrors > 0 ? "" : liveCraftIssues.length}
+            {liveCraftWarns > 0 ? t("toolbar.badgeWarnings", { n: liveCraftWarns }) : liveCraftErrors > 0 ? "" : liveCraftIssues.length}
           </span>
         )}
       </button>
       <button
         className="btn btn-sm"
         onClick={runStructuralJudge}
-        title="Structural design judge t1 (same judgeDeckJson as CLI --judge / MCP judge_deck t0/t1)"
+        title={t("toolbar.judgeTitle")}
       >
-        Judge
+        {t("toolbar.judge")}
       </button>
-      <div className="toolbar-cluster" role="group" aria-label="Export">
+      <div className="toolbar-cluster" role="group" aria-label={t("toolbar.exportLabel")}>
         <details className="export-more">
-          <summary className="btn btn-sm" title="Download Deck JSON, HTML, or PDF">Source ▾</summary>
+          <summary className="btn btn-sm" title={t("toolbar.sourceTitle")}>{t("toolbar.source")}</summary>
           <div className="export-more-panel">
-            <button type="button" className="btn" onClick={() => downloadJson(deck)}>Download JSON</button>
+            <button type="button" className="btn" onClick={() => downloadJson(deck)}>{t("toolbar.downloadJson")}</button>
             <button
               type="button"
               className="btn"
               onClick={() => {
                 downloadMarkdown(deck);
-                setStatus("Downloaded Markdown (Marp / md-slides round-trip)");
+                setStatus(t("toolbar.markdownDownloaded"));
               }}
-              title="Export Marp/md-slides Markdown — re-open via Open .md or Paste MD"
+              title={t("toolbar.downloadMdTitle")}
             >
-              Download Markdown
+              {t("toolbar.downloadMd")}
             </button>
             <button
               type="button"
               className="btn"
               onClick={() => void copyMarkdown()}
-              title="Copy Marp/md-slides Markdown to the clipboard"
+              title={t("toolbar.copyMdTitle")}
             >
-              Copy Markdown
+              {t("toolbar.copyMd")}
             </button>
             <button
               type="button"
               className="btn"
               onClick={() => {
                 downloadNotesTxt(deck);
-                setStatus("Downloaded speaker-notes handout (.txt)");
+                setStatus(t("toolbar.notesTxtDownloaded"));
               }}
-              title="Plain-text speaker notes handout — one block per slide"
+              title={t("toolbar.notesTxtTitle")}
             >
-              Download notes TXT
+              {t("toolbar.notesTxt")}
             </button>
             <button
               type="button"
               className="btn"
               onClick={() => {
                 downloadNotesVtt(deck);
-                setStatus("Downloaded speaker-notes handout (.vtt)");
+                setStatus(t("toolbar.notesVttDownloaded"));
               }}
-              title="WebVTT cues from speaker notes — chapter-style handout"
+              title={t("toolbar.notesVttTitle")}
             >
-              Download notes VTT
+              {t("toolbar.notesVtt")}
             </button>
-            <button type="button" className="btn" onClick={() => downloadHtml(deck, html)}>Download HTML</button>
+            <button type="button" className="btn" onClick={() => downloadHtml(deck, html)}>{t("toolbar.downloadHtml")}</button>
             <button
               type="button"
               className="btn"
               disabled={busy}
               onClick={() => void exportPdf()}
-              title="Downloads a .pdf blob — local Studio uses headless Chromium (MCP/CLI parity); static hosts use client raster; print dialog is last-resort fallback"
+              title={t("toolbar.downloadPdfTitle")}
             >
-              {busy ? "…" : "Download PDF"}
+              {busy ? "…" : t("toolbar.downloadPdf")}
             </button>
           </div>
         </details>
         <button className="btn btn-primary" disabled={busy} onClick={exportPptx}>
-          {busy ? "…" : "Download .pptx"}
+          {busy ? "…" : t("toolbar.downloadPptx")}
         </button>
       </div>
 
@@ -1391,15 +1437,15 @@ export function Toolbar({
               className="btn btn-sm"
               onClick={() => {
                 downloadRecoveryText(recoveryText);
-                setStatus("Downloaded original saved bytes");
+                setStatus(t("toolbar.originalDownloaded"));
               }}
             >
-              Download original saved bytes
+              {t("toolbar.downloadOriginal")}
             </button>
           ) : null}
           {recoveryText && recoveryStored && onDiscardRecovery ? (
             <button type="button" className="btn btn-sm" onClick={onDiscardRecovery}>
-              Discard recovery
+              {t("toolbar.discardRecovery")}
             </button>
           ) : null}
         </div>
@@ -1413,7 +1459,7 @@ export function Toolbar({
         <div
           className="import-conflict-actions"
           role="group"
-          aria-label={`Resolve import conflict for ${pendingImport.fileName}`}
+          aria-label={t("toolbar.resolveConflict", { name: pendingImport.fileName })}
         >
           <button
             type="button"
@@ -1425,18 +1471,18 @@ export function Toolbar({
               importOwnership.invalidate();
             }}
           >
-            Open imported deck
+            {t("toolbar.openImported")}
           </button>
           <button
             type="button"
             className="btn btn-sm"
             onClick={() => {
-              setStatus(`Kept current deck — ignored ${pendingImport.fileName}`);
+              setStatus(t("toolbar.keptCurrent", { name: pendingImport.fileName }));
               setPendingImport(null);
               importOwnership.invalidate();
             }}
           >
-            Keep current
+            {t("toolbar.keepCurrent")}
           </button>
         </div>
       ) : null}
@@ -1447,14 +1493,17 @@ export function Toolbar({
           onToggle={(e) => setAuditPanelOpen((e.target as HTMLDetailsElement).open)}
         >
           <summary className="btn btn-sm">
-            Issues ({panelIssues.length}
-            {panelIssues.some((i) => i.severity === "error")
-              ? ` · ${panelIssues.filter((i) => i.severity === "error").length} err`
-              : ""}
-            {pptxWarnings.length
-              ? ` · ${pptxWarnings.length} pptx`
-              : ""}
-            )
+            {t("toolbar.issuesHead", {
+              n: panelIssues.length,
+              err: panelIssues.some((i) => i.severity === "error")
+                ? t("toolbar.issuesErr", {
+                    n: panelIssues.filter((i) => i.severity === "error").length,
+                  })
+                : "",
+              pptx: pptxWarnings.length
+                ? t("toolbar.issuesPptx", { n: pptxWarnings.length })
+                : "",
+            })}
           </summary>
           <div className="audit-filters">
             {(["all", "error", "warning", "pptx"] as const).map((f) => {
@@ -1471,7 +1520,7 @@ export function Toolbar({
                   className={`btn btn-sm${auditFilter === f ? " audit-filter-active" : ""}`}
                   onClick={() => setAuditFilter(f)}
                 >
-                  {f} ({count})
+                  {t(AUDIT_FILTER_KEYS[f], { n: count })}
                 </button>
               );
             })}
@@ -1490,15 +1539,21 @@ export function Toolbar({
                 return (
                   <li key={`${issue.severity}-${issue.slide ?? "g"}-${i}`} className={`audit-item audit-${issue.severity}${canInsert ? " audit-item-fixable" : ""}${isPptx ? " audit-item-pptx" : ""}`}>
                     <span className="audit-sev">
-                      {isPptx ? "pptx" : issue.severity}
-                      {typeof issue.slide === "number" ? ` · s${issue.slide}` : ""}
+                      {isPptx
+                        ? t("toolbar.sevPptx")
+                        : issue.severity === "error"
+                          ? t("toolbar.sevError")
+                          : t("toolbar.sevWarning")}
+                      {typeof issue.slide === "number"
+                        ? t("toolbar.slideShort", { n: issue.slide })
+                        : ""}
                     </span>
                     <div className="audit-body">
                       {jumpable ? (
                         <button
                           type="button"
                           className="audit-jump"
-                          title={`Jump to slide ${issue.slide}`}
+                          title={t("toolbar.jumpToSlide", { n: issue.slide ?? 0 })}
                           onClick={() => onSelectSlide(issue.slide!)}
                         >
                           {issue.message}
@@ -1510,12 +1565,12 @@ export function Toolbar({
                         <button
                           type="button"
                           className="btn btn-sm audit-insert"
-                          title={`Insert beat for: ${issue.fixId}`}
+                          title={t("toolbar.insertBeatFor", { fix: issue.fixId })}
                           onClick={() => applyIssueBeat(issue.fixId!)}
                         >
                           {issue.fixId === "safe_fields" || issue.fixId === "wrap_tones"
-                            ? "Apply fix"
-                            : "Insert beat"}
+                            ? t("toolbar.applyFix")
+                            : t("toolbar.insertBeat")}
                         </button>
                       ) : null}
                     </div>
@@ -1528,28 +1583,28 @@ export function Toolbar({
               type="button"
               className="btn btn-sm btn-primary"
               onClick={applySafeCraftFixes}
-              title="Apply safe craft fixes (fields + beat inserts: image-hero, comparison, data, logo-wall, wrap tones) — same as MCP audit_deck apply_safe_fixes"
+              title={t("toolbar.applySafeFixesTitle")}
             >
-              Apply safe fixes
+              {t("toolbar.applySafeFixes")}
             </button>
             <button
               type="button"
               className="btn btn-sm"
               onClick={() => applyDensityRemorph("speaker")}
-              title="Non-LLM speaker density: split crowded grids/lists and move overflow body into notes (MCP remorph_density)"
+              title={t("toolbar.speakerDensityTitle")}
             >
-              Speaker density
+              {t("toolbar.speakerDensity")}
             </button>
             <button
               type="button"
               className="btn btn-sm"
               onClick={() => applyDensityRemorph("reading")}
-              title="Non-LLM reading density: merge thin continuation lists and promote notes onto thin bodies (MCP remorph_density)"
+              title={t("toolbar.readingDensityTitle")}
             >
-              Reading density
+              {t("toolbar.readingDensity")}
             </button>
             <button type="button" className="btn btn-sm" onClick={dismissAuditPanel}>
-              Dismiss
+              {t("toolbar.dismiss")}
             </button>
           </div>
         </details>

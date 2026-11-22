@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -186,7 +187,10 @@ def render_deck(deck_json: str | dict[str, Any], opts: RenderOptions | None = No
     slides_html = "\n".join(slides_html_parts)
     doc_template = (shared_dir / "document.html").read_text()
     meta = deck.get("meta") or {}
+    lang = _normalize_lang(meta.get("lang"))
     html = _render_mustache(doc_template, {
+        "lang": lang,
+        "dir": "rtl" if lang.split("-")[0].lower() in _RTL_LANGS else "ltr",
         "title": meta.get("title") or meta.get("company") or "Presentation",
         "description": meta.get("description") or "",
         "styles": full_css,
@@ -194,6 +198,22 @@ def render_deck(deck_json: str | dict[str, Any], opts: RenderOptions | None = No
         "attribution": _ATTRIBUTION_HTML if opts.attribution else "",
     })
     return html
+
+
+# Mirrors packages/core/src/deck-lang.ts (normalizeDeckLang / deckLangDir).
+_RTL_LANGS = {"ar", "he", "fa", "ur", "ps", "sd", "ug", "yi", "dv", "ckb"}
+_LANG_TAG = re.compile(r"^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$")
+
+
+def _normalize_lang(raw: Any) -> str:
+    """Return a safe BCP 47 tag for meta.lang, or "en" when missing or malformed."""
+    if not isinstance(raw, str) or not _LANG_TAG.match(raw.strip()):
+        return "en"
+    parts = raw.strip().split("-")
+    out = [parts[0].lower()]
+    for p in parts[1:]:
+        out.append(p.upper() if len(p) == 2 else p.title() if len(p) == 4 else p.lower())
+    return "-".join(out)
 
 
 def _render_mustache(template: str, data: dict[str, Any]) -> str:

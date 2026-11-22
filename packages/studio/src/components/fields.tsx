@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useI18n } from "../i18n/index.js";
 
 export function Field({ label, children }: { label: string; children: ReactNode }) {
   return (
@@ -130,6 +131,7 @@ export function ListEditor<T>({
   blank: () => T;
   renderItem: (item: T, setItem: (next: T) => void, index: number) => ReactNode;
 }) {
+  const { t } = useI18n();
   const replace = (i: number, item: T) => onChange(items.map((it, idx) => (idx === i ? item : it)));
   const move = (i: number, dir: -1 | 1) => {
     const j = i + dir;
@@ -144,7 +146,7 @@ export function ListEditor<T>({
       <div className="list-editor-head">
         <span className="field-label">{label}</span>
         <button className="btn btn-sm" onClick={() => onChange([...items, blank()])}>
-          + Add
+          {t("fields.add")}
         </button>
       </div>
       {items.map((item, i) => (
@@ -152,11 +154,11 @@ export function ListEditor<T>({
           <div className="list-item-controls">
             <span className="list-item-index">{i + 1}</span>
             <div className="spacer" />
-            <button className="btn btn-icon" title="Move up" onClick={() => move(i, -1)}>↑</button>
-            <button className="btn btn-icon" title="Move down" onClick={() => move(i, 1)}>↓</button>
+            <button className="btn btn-icon" title={t("fields.moveUp")} onClick={() => move(i, -1)}>↑</button>
+            <button className="btn btn-icon" title={t("fields.moveDown")} onClick={() => move(i, 1)}>↓</button>
             <button
               className="btn btn-icon btn-danger"
-              title="Remove"
+              title={t("fields.remove")}
               onClick={() => onChange(items.filter((_, idx) => idx !== i))}
             >
               ✕
@@ -165,7 +167,7 @@ export function ListEditor<T>({
           {renderItem(item, (next) => replace(i, next), i)}
         </div>
       ))}
-      {items.length === 0 && <p className="muted small">No items yet.</p>}
+      {items.length === 0 && <p className="muted small">{t("fields.empty")}</p>}
     </div>
   );
 }

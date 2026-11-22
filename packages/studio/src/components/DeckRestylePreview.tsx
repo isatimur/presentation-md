@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useI18n } from "../i18n/index.js";
 import type { DeckJson } from "@presentation-md/export";
 import { resolveTheme } from "../render/themes.js";
 import { renderDeckHtml } from "../render/renderDeck.js";
@@ -64,6 +65,7 @@ export function DeckRestylePreview({
   title?: string;
   className?: string;
 }) {
+  const { t } = useI18n();
   const srcDoc = useMemo(() => {
     try {
       return renderRestyleHtml(deck, theme, slideIndex0);
@@ -75,10 +77,10 @@ export function DeckRestylePreview({
   const classes = ["theme-compare-restyle", className ?? ""].filter(Boolean).join(" ");
 
   return (
-    <div className={classes} aria-label={`${theme} restyle of slide ${slideIndex0 + 1}`}>
+    <div className={classes} aria-label={t("restyle.label", { theme, n: slideIndex0 + 1 })}>
       <iframe
         className="theme-compare-restyle-frame"
-        title={title ?? `${theme} · your slide ${slideIndex0 + 1}`}
+        title={title ?? t("restyle.frameTitle", { theme, n: slideIndex0 + 1 })}
         srcDoc={srcDoc}
         sandbox="allow-same-origin"
         referrerPolicy="no-referrer"

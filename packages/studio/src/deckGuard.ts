@@ -1,5 +1,6 @@
 import type { DeckJson } from "@presentation-md/export";
 import { LAYOUTS } from "./deck.js";
+import { t } from "./i18n/index.js";
 
 const LAYOUT_NAMES = new Set<string>(LAYOUTS);
 export const MAX_STUDIO_DECK_JSON_BYTES = 8 * 1024 * 1024;
@@ -66,29 +67,29 @@ export function studioDeckError(value: unknown): string | null {
     return 'expected an object with type: "deck"';
   }
   if (!Array.isArray(value.slides) || value.slides.length === 0) {
-    return "expected at least one slide";
+    return t("deckGuard.needSlide");
   }
   if (value.slides.length > MAX_STUDIO_DECK_SLIDES) {
-    return `too many slides (max ${MAX_STUDIO_DECK_SLIDES})`;
+    return t("deckGuard.tooManySlides", { max: MAX_STUDIO_DECK_SLIDES });
   }
   if (value.meta !== undefined && !isRecord(value.meta)) {
-    return "meta must be an object";
+    return t("deckGuard.metaObject");
   }
 
   let nestedItems = 0;
   const addNestedItems = (count: number): string | null => {
     nestedItems += count;
     return nestedItems > MAX_STUDIO_DECK_COLLECTION_ITEMS
-      ? `too many nested items (max ${MAX_STUDIO_DECK_COLLECTION_ITEMS})`
+      ? t("deckGuard.tooManyNested", { max: MAX_STUDIO_DECK_COLLECTION_ITEMS })
       : null;
   };
 
   for (let index = 0; index < value.slides.length; index += 1) {
     const slide = value.slides[index];
     const label = `slide ${index + 1}`;
-    if (!isRecord(slide)) return `${label} must be an object`;
+    if (!isRecord(slide)) return t("deckGuard.slideObject", { label });
     if (typeof slide.layout !== "string" || !LAYOUT_NAMES.has(slide.layout)) {
-      return `${label} has an unsupported layout`;
+      return t("deckGuard.slideLayout", { label });
     }
     for (const field of COMMON_TEXT_FIELDS) {
       if (slide[field] !== undefined && typeof slide[field] !== "string") {
@@ -208,16 +209,16 @@ export function parseStudioDeckJson(text: string): DeckJson {
       : new TextEncoder().encode(text).byteLength;
   if (byteLength > MAX_STUDIO_DECK_JSON_BYTES) {
     throw new Error(
-      `Deck JSON is too large (max ${MAX_STUDIO_DECK_JSON_BYTES / (1024 * 1024)} MiB)`
+      t("deckGuard.tooLarge", { max: MAX_STUDIO_DECK_JSON_BYTES / (1024 * 1024) })
     );
   }
   let parsed: unknown;
   try {
     parsed = JSON.parse(text);
   } catch (error) {
-    throw new Error(`Invalid JSON: ${(error as Error).message}`);
+    throw new Error(t("deckGuard.invalidJson", { message: (error as Error).message }));
   }
   const error = studioDeckError(parsed);
-  if (error) throw new Error(`Not a Studio-safe deck: ${error}`);
+  if (error) throw new Error(t("deckGuard.notSafe", { error }));
   return parsed as DeckJson;
 }

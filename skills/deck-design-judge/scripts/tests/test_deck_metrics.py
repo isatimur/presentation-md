@@ -308,3 +308,23 @@ class TestVarFallbackResolution:
                 "<p>Body copy.</p></section></body></html>")
         result = dm.analyze(html)
         assert result["metrics"]["contrast_ratios"]["--text"] > 10
+
+
+class TestWordCountAcrossScripts:
+    """CJK has no spaces, so whitespace splitting saw a whole paragraph as one word
+    and a wall of Chinese or Japanese text passed G1."""
+
+    def test_latin_and_cyrillic_counts_unchanged(self):
+        assert dm.count_words("Ship the deck today") == 4
+        assert dm.count_words("Мы выросли на сорок процентов") == 5
+
+    def test_cjk_counts_more_than_one_word(self):
+        assert dm.count_words("我们的收入在本季度增长了百分之四十") > 5
+
+    def test_long_chinese_block_trips_wall_of_text_gate(self):
+        zh = "我们的团队在过去一年里完成了产品的全面重构，并且在多个市场取得了显著增长。" * 4
+        html = ('<html lang="zh"><body>'
+                '<section class="slide"><h1>标题</h1></section>'
+                f'<section class="slide"><h2>增长</h2><p>{zh}</p></section>'
+                "</body></html>")
+        assert "G1" in _gate_ids(dm.analyze(html))

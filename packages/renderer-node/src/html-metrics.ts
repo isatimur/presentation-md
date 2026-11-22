@@ -3,6 +3,8 @@
  * scripts/deck_metrics.py analyze(). Used by judge_deck T2/T3 after render.
  */
 
+import { countWords, normalizeDeckLang } from "@presentation-md/core";
+
 export interface MetricFlag {
   id: string;
   severity: "gate" | "warn" | "error";
@@ -47,19 +49,21 @@ function visibleText(chunk: string): string {
   return c.replace(/\s+/g, " ").trim();
 }
 
-function countWords(text: string): number {
-  return text.split(/\s+/).filter((w) => /[A-Za-z0-9]/.test(w)).length;
-}
-
 const BLOCK_SPLIT = /<\/(?:p|li|h[1-6]|div|section|a|blockquote|figcaption|td|th)>|<br\s*\/?>/i;
 
-function maxBlockWords(chunk: string): number {
+function maxBlockWords(chunk: string, lang: string): number {
   const parts = chunk.split(BLOCK_SPLIT);
   let max = 0;
   for (const p of parts) {
-    max = Math.max(max, countWords(visibleText(p)));
+    max = Math.max(max, countWords(visibleText(p), lang));
   }
   return max;
+}
+
+/** `<html lang>` of the rendered deck, so CJK and other scripts count words correctly. */
+function documentLang(html: string): string {
+  const m = /<html\b[^>]*\blang="([^"]*)"/i.exec(html);
+  return normalizeDeckLang(m?.[1]);
 }
 
 const OPEN_TAG_RE =
@@ -203,12 +207,13 @@ export function analyzeHtmlDeck(
 
   const measureUnits = slides.length ? slides : [html];
   const unitLabel = slides.length ? "Slide" : "Document (no .slide containers found)";
+  const lang = documentLang(html);
   const wps: number[] = [];
   const mbs: number[] = [];
   for (let i = 0; i < measureUnits.length; i++) {
     const s = measureUnits[i]!;
-    const total = countWords(visibleText(s));
-    const mb = maxBlockWords(s);
+    const total = countWords(visibleText(s), lang);
+    const mb = maxBlockWords(s, lang);
     wps.push(total);
     mbs.push(mb);
     if (mb > WORD_GATE) {

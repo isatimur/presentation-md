@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointer
 import { restyleSlideHtml } from "./DeckRestylePreview.js";
 import { SlideFilmstrip } from "./SlideFilmstrip.js";
 import { prepareSandboxedPreviewHtml } from "../render/sandboxPreview.js";
+import { useI18n, type MessageKey } from "../i18n/index.js";
 
 // Injected into the deck so each slide fills the viewport and pages cleanly.
 const PRESENT_CSS = `
@@ -40,24 +41,24 @@ function paceStatus(
   return "on-pace";
 }
 
-const SHORTCUTS: Array<{ keys: string; label: string }> = [
-  { keys: "← → Space", label: "Previous / next slide" },
-  { keys: "1–9", label: "Jump to slide" },
-  { keys: "Home / End", label: "First / last slide" },
-  { keys: "G", label: "Overview grid" },
-  { keys: "F", label: "Filmstrip peek" },
-  { keys: "S", label: "Speaker notes" },
-  { keys: "L", label: "Laser pointer" },
-  { keys: "D", label: "Ink / draw" },
-  { keys: "C", label: "Clear ink (when drawing)" },
-  { keys: "B", label: "Blackout" },
-  { keys: "W", label: "Whiteout" },
-  { keys: "T", label: "Pause / resume timer" },
-  { keys: "R", label: "Reset timer" },
-  { keys: "P", label: "Pace target (5–30m countdown)" },
-  { keys: "O", label: "Speaker notes window" },
-  { keys: "?", label: "Shortcuts" },
-  { keys: "Esc", label: "Close overlay / exit" },
+const SHORTCUTS: Array<{ keys: string; labelKey: MessageKey }> = [
+  { keys: "← → Space", labelKey: "present.scPrevNext" },
+  { keys: "1–9", labelKey: "present.scJump" },
+  { keys: "Home / End", labelKey: "present.scFirstLast" },
+  { keys: "G", labelKey: "present.scOverview" },
+  { keys: "F", labelKey: "present.scFilmstrip" },
+  { keys: "S", labelKey: "present.scNotes" },
+  { keys: "L", labelKey: "present.scLaser" },
+  { keys: "D", labelKey: "present.scInk" },
+  { keys: "C", labelKey: "present.scClearInk" },
+  { keys: "B", labelKey: "present.scBlackout" },
+  { keys: "W", labelKey: "present.scWhiteout" },
+  { keys: "T", labelKey: "present.scTimer" },
+  { keys: "R", labelKey: "present.scResetTimer" },
+  { keys: "P", labelKey: "present.scPace" },
+  { keys: "O", labelKey: "present.scSpeakerWindow" },
+  { keys: "?", labelKey: "present.scHelp" },
+  { keys: "Esc", labelKey: "present.scClose" },
 ];
 
 const LASER_TRAIL = 5;
@@ -79,6 +80,7 @@ export function PresentMode({
   slideHeadings?: Array<string | undefined>;
   onClose: () => void;
 }) {
+  const { t } = useI18n();
   const frameRef = useRef<HTMLIFrameElement>(null);
   const [i, setI] = useState(0);
   const [showNotes, setShowNotes] = useState(true);
@@ -107,7 +109,7 @@ export function PresentMode({
   const nextIndex = i + 1 < slideCount ? i + 1 : null;
   const nextHeading =
     nextIndex != null
-      ? (slideHeadings[nextIndex] ?? "").trim() || `Slide ${nextIndex + 1}`
+      ? (slideHeadings[nextIndex] ?? "").trim() || t("present.slideN", { n: nextIndex + 1 })
       : null;
   const nextPeekHtml = useMemo(() => {
     if (nextIndex == null) return null;
@@ -171,32 +173,36 @@ export function PresentMode({
   const remainingMs = targetMs > 0 ? targetMs - elapsedMs : 0;
   const timerLabel = (() => {
     const elapsed = formatElapsed(elapsedMs);
-    const paused = timerRunning ? "" : " · paused";
+    const paused = timerRunning ? "" : t("present.pausedSuffix");
     if (targetMs <= 0) return `${elapsed}${paused}`;
-    if (status === "over") return `${elapsed} · OVER${paused}`;
+    if (status === "over") return t("present.timerOver", { elapsed, paused });
     const left = formatElapsed(remainingMs);
-    const cue =
-      status === "ahead" ? " · ahead" : status === "behind" ? " · behind" : " · on pace";
-    return `${elapsed} · ${left} left${cue}${paused}`;
+    const key: MessageKey =
+      status === "ahead"
+        ? "present.timerAhead"
+        : status === "behind"
+          ? "present.timerBehind"
+          : "present.timerOnPace";
+    return t(key, { elapsed, left, paused });
   })();
   const timerTitle =
     targetMs > 0
-      ? `Pace ${paceMinutes}m · P cycle · T pause · R reset · dbl-click reset`
-      : "Elapsed · P set pace · T pause/resume · R reset · dbl-click reset";
+      ? t("present.timerTitlePace", { minutes: paceMinutes })
+      : t("present.timerTitleElapsed");
 
   const paintSpeakerWindow = () => {
     const w = speakerWin.current;
     if (!w || w.closed) return;
-    const heading = (slideHeadings[i] ?? "").trim() || `Slide ${i + 1}`;
+    const heading = (slideHeadings[i] ?? "").trim() || t("present.slideN", { n: i + 1 });
     const next =
       nextIndex != null
-        ? (slideHeadings[nextIndex] ?? "").trim() || `Slide ${nextIndex + 1}`
-        : "— end —";
+        ? (slideHeadings[nextIndex] ?? "").trim() || t("present.slideN", { n: nextIndex + 1 })
+        : t("present.speakerEnd");
     const notesText =
       currentNotes ||
-      (hasAnyNotes ? "No notes on this slide." : "No speaker notes in this deck.");
+      (hasAnyNotes ? t("present.noNotesSlide") : t("present.noNotesDeck"));
     const doc = w.document;
-    doc.title = `Speaker · ${i + 1}/${slideCount}`;
+    doc.title = t("present.speakerTitle", { n: i + 1, total: slideCount });
     if (!doc.getElementById("pmd-speaker-root")) {
       doc.head.innerHTML = `<style>
         :root { color-scheme: dark; }
@@ -229,10 +235,10 @@ export function PresentMode({
       doc.body.innerHTML = `<div id="pmd-speaker-root">
         <div class="meta"><span data-count></span><span class="timer" data-timer></span></div>
         <h1 data-heading></h1>
-        <div class="label">Speaker notes</div>
+        <div class="label" data-label-notes></div>
         <p class="notes" data-notes></p>
-        <div class="next"><div class="label">Up next</div><p data-next></p></div>
-        <p class="hint">Follows the Present window · O focuses · Esc closes Present</p>
+        <div class="next"><div class="label" data-label-next></div><p data-next></p></div>
+        <p class="hint" data-hint></p>
       </div>`;
     }
     const root = doc.getElementById("pmd-speaker-root");
@@ -241,6 +247,9 @@ export function PresentMode({
       const el = root.querySelector(sel);
       if (el) el.textContent = text;
     };
+    setText("[data-label-notes]", t("present.speakerNotes"));
+    setText("[data-label-next]", t("present.upNext"));
+    setText("[data-hint]", t("present.speakerHint"));
     setText("[data-count]", `${i + 1} / ${slideCount}`);
     const timerEl = root.querySelector("[data-timer]");
     if (timerEl) {
@@ -567,7 +576,7 @@ export function PresentMode({
           <iframe
             ref={frameRef}
             className="present-frame"
-            title="Present deck"
+            title={t("present.frameTitle")}
             srcDoc={presentHtml}
             sandbox="allow-same-origin"
           />
@@ -611,9 +620,9 @@ export function PresentMode({
               role="status"
               aria-live="polite"
               onClick={() => setBlackout(false)}
-              title="Click or press B to restore"
+              title={t("present.blackoutTitle")}
             >
-              <span className="present-blackout-hint">Blackout · B or click to restore</span>
+              <span className="present-blackout-hint">{t("present.blackoutHint")}</span>
             </div>
           ) : null}
           {whiteout ? (
@@ -622,37 +631,37 @@ export function PresentMode({
               role="status"
               aria-live="polite"
               onClick={() => setWhiteout(false)}
-              title="Click or press W to restore"
+              title={t("present.whiteoutTitle")}
             >
-              <span className="present-whiteout-hint">Whiteout · W or click to restore</span>
+              <span className="present-whiteout-hint">{t("present.whiteoutHint")}</span>
             </div>
           ) : null}
           {showOverview ? (
-            <div className="present-overview" role="dialog" aria-label="Slide overview">
+            <div className="present-overview" role="dialog" aria-label={t("present.overviewLabel")}>
               <div className="present-overview-head">
-                <span>Overview · G or Esc to close</span>
+                <span>{t("present.overviewHead")}</span>
                 <button type="button" className="btn btn-sm" onClick={() => setShowOverview(false)}>
-                  Close
+                  {t("present.close")}
                 </button>
               </div>
               <div className="present-overview-grid">
                 {overviewThumbs.map((srcDoc, idx) => {
                   const heading =
-                    (slideHeadings[idx] ?? "").trim() || `Slide ${idx + 1}`;
+                    (slideHeadings[idx] ?? "").trim() || t("present.slideN", { n: idx + 1 });
                   return (
                     <button
                       key={idx}
                       type="button"
                       className={`present-overview-card${idx === i ? " is-active" : ""}`}
                       onClick={() => jumpTo(idx)}
-                      aria-label={`Go to slide ${idx + 1}: ${heading}`}
+                      aria-label={t("present.goToSlide", { n: idx + 1, heading })}
                       aria-current={idx === i ? "true" : undefined}
                     >
                       <div className="present-overview-frame-wrap">
                         {srcDoc ? (
                           <iframe
                             className="present-overview-frame"
-                            title={`Overview slide ${idx + 1}`}
+                            title={t("present.overviewSlide", { n: idx + 1 })}
                             srcDoc={srcDoc}
                             sandbox="allow-same-origin"
                             tabIndex={-1}
@@ -672,19 +681,19 @@ export function PresentMode({
             </div>
           ) : null}
           {showHelp ? (
-            <div className="present-help" role="dialog" aria-label="Presenter shortcuts">
+            <div className="present-help" role="dialog" aria-label={t("present.helpLabel")}>
               <div className="present-help-card">
                 <div className="present-overview-head">
-                  <span>Shortcuts · ? or Esc</span>
+                  <span>{t("present.helpTitle")}</span>
                   <button type="button" className="btn btn-sm" onClick={() => setShowHelp(false)}>
-                    Close
+                    {t("present.close")}
                   </button>
                 </div>
                 <ul className="present-help-list">
                   {SHORTCUTS.map((row) => (
                     <li key={row.keys}>
                       <kbd>{row.keys}</kbd>
-                      <span>{row.label}</span>
+                      <span>{t(row.labelKey)}</span>
                     </li>
                   ))}
                 </ul>
@@ -693,26 +702,26 @@ export function PresentMode({
           ) : null}
         </div>
         {showNotes && (
-          <aside className="present-rail" aria-label="Presenter notes and next slide">
+          <aside className="present-rail" aria-label={t("present.railLabel")}>
             <div className="present-notes">
-              <div className="present-notes-label">Speaker notes · S to hide</div>
+              <div className="present-notes-label">{t("present.notesLabel")}</div>
               {currentNotes ? (
                 <p className="present-notes-body">{currentNotes}</p>
               ) : (
                 <p className="present-notes-empty">
                   {hasAnyNotes
-                    ? "No notes on this slide."
-                    : "No speaker notes yet — add them in the slide form (exports to PPTX)."}
+                    ? t("present.noNotesSlide")
+                    : t("present.noNotesYet")}
                 </p>
               )}
             </div>
             {nextIndex != null && nextPeekHtml ? (
-              <div className="present-next" aria-label={`Up next: ${nextHeading}`}>
-                <div className="present-notes-label">Up next · {nextHeading}</div>
+              <div className="present-next" aria-label={t("present.upNextAria", { heading: nextHeading ?? "" })}>
+                <div className="present-notes-label">{t("present.upNextHead", { heading: nextHeading ?? "" })}</div>
                 <div className="present-next-frame-wrap">
                   <iframe
                     className="present-next-frame"
-                    title={`Next slide ${nextIndex + 1}`}
+                    title={t("present.nextSlide", { n: nextIndex + 1 })}
                     srcDoc={nextPeekHtml}
                     sandbox="allow-same-origin"
                     tabIndex={-1}
@@ -721,22 +730,22 @@ export function PresentMode({
               </div>
             ) : (
               <div className="present-next present-next-end">
-                <div className="present-notes-label">Up next</div>
-                <p className="present-notes-empty">Last slide — wrap or take questions.</p>
+                <div className="present-notes-label">{t("present.upNext")}</div>
+                <p className="present-notes-empty">{t("present.lastSlide")}</p>
               </div>
             )}
           </aside>
         )}
       </div>
       {showStrip && slideCount > 1 ? (
-        <div className="present-filmstrip" aria-label="Slide filmstrip peek">
+        <div className="present-filmstrip" aria-label={t("present.filmstripPeek")}>
           <SlideFilmstrip html={html} count={slideCount} selected={i} onSelect={setI} />
         </div>
       ) : null}
       <div className="present-bar">
-        <button className="btn btn-icon" title="Previous (←)" onClick={() => go(-1)}>←</button>
+        <button className="btn btn-icon" title={t("present.prev")} onClick={() => go(-1)}>←</button>
         <span className="present-count">{i + 1} / {slideCount}</span>
-        <button className="btn btn-icon" title="Next (→)" onClick={() => go(1)}>→</button>
+        <button className="btn btn-icon" title={t("present.next")} onClick={() => go(1)}>→</button>
         <span
           className={`present-timer${timerRunning ? "" : " present-timer-paused"}${
             status === "ahead"
@@ -754,31 +763,31 @@ export function PresentMode({
         </span>
         <button
           className="btn"
-          title="Speaker notes window (O)"
+          title={t("present.speakerWindowTitle")}
           onClick={openSpeakerView}
         >
-          Speaker · O
+          {t("present.speakerButton")}
         </button>
         <button
           className="btn"
-          title="Toggle speaker notes (S)"
+          title={t("present.toggleNotesTitle")}
           onClick={() => setShowNotes((v) => !v)}
         >
-          {showNotes ? "Hide notes · S" : "Notes · S"}
+          {showNotes ? t("present.hideNotes") : t("present.showNotes")}
         </button>
         {slideCount > 1 ? (
           <button
             className="btn"
-            title="Toggle filmstrip peek (F)"
+            title={t("present.toggleStripTitle")}
             onClick={() => setShowStrip((v) => !v)}
           >
-            {showStrip ? "Hide strip · F" : "Strip · F"}
+            {showStrip ? t("present.hideStrip") : t("present.showStrip")}
           </button>
         ) : null}
         {slideCount > 1 ? (
           <button
             className="btn"
-            title="Overview grid (G)"
+            title={t("present.overviewTitle")}
             onClick={() => {
               setBlackout(false);
               setWhiteout(false);
@@ -790,12 +799,12 @@ export function PresentMode({
               setShowOverview((v) => !v);
             }}
           >
-            {showOverview ? "Close grid · G" : "Overview · G"}
+            {showOverview ? t("present.closeGrid") : t("present.overview")}
           </button>
         ) : null}
         <button
           className="btn"
-          title="Laser pointer (L)"
+          title={t("present.laserTitle")}
           onClick={() => {
             setShowOverview(false);
             setShowHelp(false);
@@ -809,11 +818,11 @@ export function PresentMode({
             });
           }}
         >
-          {laser ? "Laser off · L" : "Laser · L"}
+          {laser ? t("present.laserOff") : t("present.laser")}
         </button>
         <button
           className="btn"
-          title="Ink / draw (D) · C clears"
+          title={t("present.inkTitle")}
           onClick={() => {
             setShowOverview(false);
             setShowHelp(false);
@@ -827,16 +836,16 @@ export function PresentMode({
             });
           }}
         >
-          {ink ? "Ink off · D" : "Ink · D"}
+          {ink ? t("present.inkOff") : t("present.ink")}
         </button>
         {ink ? (
-          <button className="btn" title="Clear ink (C)" onClick={clearInk}>
-            Clear ink · C
+          <button className="btn" title={t("present.clearInkTitle")} onClick={clearInk}>
+            {t("present.clearInk")}
           </button>
         ) : null}
         <button
           className="btn"
-          title="Blackout screen (B)"
+          title={t("present.blackoutButtonTitle")}
           onClick={() => {
             setWhiteout(false);
             setLaser(false);
@@ -846,11 +855,11 @@ export function PresentMode({
             setBlackout((v) => !v);
           }}
         >
-          {blackout ? "Restore · B" : "Blackout · B"}
+          {blackout ? t("present.restoreB") : t("present.blackout")}
         </button>
         <button
           className="btn"
-          title="Whiteout screen (W)"
+          title={t("present.whiteoutButtonTitle")}
           onClick={() => {
             setBlackout(false);
             setLaser(false);
@@ -860,16 +869,16 @@ export function PresentMode({
             setWhiteout((v) => !v);
           }}
         >
-          {whiteout ? "Restore · W" : "Whiteout · W"}
+          {whiteout ? t("present.restoreW") : t("present.whiteout")}
         </button>
         <button
           className="btn"
-          title="Shortcuts (?)"
+          title={t("present.shortcutsTitle")}
           onClick={() => setShowHelp((v) => !v)}
         >
-          ? · Help
+          {t("present.help")}
         </button>
-        <button className="btn" onClick={onClose}>Exit · Esc</button>
+        <button className="btn" onClick={onClose}>{t("present.exit")}</button>
       </div>
     </div>
   );

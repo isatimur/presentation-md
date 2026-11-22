@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import { prepareSandboxedPreviewHtml } from "../render/sandboxPreview.js";
+import { useI18n } from "../i18n/index.js";
 
 const SLIDE_W = 1280;
 const SLIDE_H = 720;
@@ -54,6 +55,7 @@ export function SlideFilmstrip({
   selected: number;
   onSelect: (index: number) => void;
 }) {
+  const { t } = useI18n();
   const scrollerRef = useRef<HTMLDivElement>(null);
   const srcDoc = useMemo(() => {
     if (!html || count < 1) return null;
@@ -82,7 +84,7 @@ export function SlideFilmstrip({
       ref={scrollerRef}
       className="slide-filmstrip"
       role="listbox"
-      aria-label="Slide filmstrip"
+      aria-label={t("filmstrip.label")}
       aria-orientation="horizontal"
     >
       <div
@@ -96,7 +98,7 @@ export function SlideFilmstrip({
       >
         <iframe
           className="slide-filmstrip-frame"
-          title="Deck filmstrip"
+          title={t("filmstrip.frameTitle")}
           srcDoc={srcDoc}
           sandbox="allow-same-origin"
           referrerPolicy="no-referrer"
@@ -109,7 +111,7 @@ export function SlideFilmstrip({
             type="button"
             role="option"
             aria-selected={i === selected}
-            aria-label={`Slide ${i + 1}`}
+            aria-label={t("filmstrip.slide", { n: i + 1 })}
             data-filmstrip-i={i}
             tabIndex={i === selected ? 0 : -1}
             className={`slide-filmstrip-hit${i === selected ? " is-active" : ""}`}

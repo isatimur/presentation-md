@@ -44,6 +44,7 @@ function buildCraftMandate(density: DensityMode): string {
     "CRAFT MANDATE (non-negotiable — beat Gamma / Beautiful.ai / md-slides / frontend-slides / Claude Design canvas / Hallmark-as-deck-generator on first glance):",
     "- ONE-SHOT BAR: the first deck JSON must already clear anti-slop + craft gates. No 'vibe draft' hoping a second pass fixes it — beat frontend-slides first drafts. Prefer scaffold_deck(purpose) when starting from a brief so layouts/CTA/notes arrive pre-wired and studio_share_url (?d=) lands an editable Studio handoff in one call.",
     `- ${densityLine}`,
+    "- LANGUAGE: write every slide's copy in the language of the user's brief (or the language they ask for) and set meta.lang to its BCP 47 tag (en, zh, es, ar, pt-BR, id, fr, ja, ru, de, …). Renderers use it for <html lang>, right-to-left layout (ar/he/fa/ur), script font fallbacks, and PPTX text language. Keep theme and layout names in English.",
     "- Prefer stunning-25 themes when the brief matches (see stunning_25_reference). Open that structured proof and match density — do not invent a watered-down palette.",
     "- Density lock: choose speaker-led vs reading-first once with purpose; keep that density for the whole deck.",
     "- If density drifts after drafting, call audit_deck with remorph_density speaker|reading (CLI --remorph-density / Studio Speaker·Reading density) before rewriting copy — structural remorph is non-LLM.",

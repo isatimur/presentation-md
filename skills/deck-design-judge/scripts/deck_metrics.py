@@ -32,8 +32,17 @@ def visible_text(chunk):
     chunk = re.sub(r"&[a-z]+;|&#\d+;", " ", chunk)
     return re.sub(r"\s+", " ", chunk).strip()
 
+# Han, Hiragana, Katakana, Hangul: written without spaces between words.
+_CJK = re.compile(r"[぀-ヿ㐀-䶿一-鿿가-힯豈-﫿]")
+
+
 def count_words(text):
-    return len([w for w in text.split() if any(c.isalnum() for c in w)])
+    """Words in any script. CJK runs count one word per two characters, close to the
+    TypeScript Intl.Segmenter count, so a wall of CJK text still trips G1."""
+    cjk_chars = len(_CJK.findall(text))
+    spaced = _CJK.sub(" ", text)
+    words = len([w for w in spaced.split() if any(c.isalnum() for c in w)])
+    return words + (cjk_chars + 1) // 2
 
 # block boundaries — used to measure the LARGEST single text block, the real "wall of text"
 # signal (total words overcounts legitimately structured multi-column / multi-step slides).

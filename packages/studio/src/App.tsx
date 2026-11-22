@@ -24,6 +24,7 @@ import {
 } from "./history.js";
 import { createAutosaveScheduler, type AutosaveScheduler } from "./autosave.js";
 import { createAsyncOwnership } from "./asyncOwnership.js";
+import { t, useI18n } from "./i18n/index.js";
 
 const STORAGE_KEY = "pmd-studio-deck-v1";
 const RECOVERY_STORAGE_KEY = "pmd-studio-deck-v1-recovery";
@@ -85,7 +86,7 @@ function loadSavedDeck(): {
   const availableRecovery = existingRecovery
     ? {
         recoveryText: existingRecovery,
-        recoveryWarning: "A saved-deck recovery is available",
+        recoveryWarning: t("app.recoveryAvailable"),
         recoveryStored: true,
       }
     : { recoveryText: null, recoveryWarning: null, recoveryStored: false };
@@ -111,8 +112,8 @@ function loadSavedDeck(): {
       deck: null,
       recoveryText: saved,
       recoveryWarning: backedUp
-        ? "Saved deck was invalid — loaded defaults and preserved the original"
-        : "Saved deck was invalid — autosave paused so the original remains recoverable",
+        ? t("app.savedInvalidPreserved")
+        : t("app.savedInvalidPaused"),
       recoveryStored: backedUp,
       autosaveBlocked: !backedUp,
     };
@@ -227,6 +228,7 @@ function clampSelected(index: number, slideCount: number): number {
 }
 
 export function App() {
+  const { t } = useI18n();
   const initial = useMemo(() => loadInitialDeck(), []);
   const [history, setHistory] = useState<DeckHistory>(() => createDeckHistory(initial.deck));
   const [exampleSlug, setExampleSlug] = useState<string | null>(initial.exampleSlug);
@@ -304,7 +306,7 @@ export function App() {
       setSelected((s) => clampSelected(s, next.present.slides.length));
       return next;
     });
-    setShareStatus("Undo");
+    setShareStatus(t("app.undo"));
   };
 
   const redo = () => {
@@ -314,7 +316,7 @@ export function App() {
       setSelected((s) => clampSelected(s, next.present.slides.length));
       return next;
     });
-    setShareStatus("Redo");
+    setShareStatus(t("app.redo"));
   };
 
   const loadExample = async (
@@ -323,22 +325,20 @@ export function App() {
   ): Promise<void> => {
     const resolved = resolveExampleSlug(slug) ?? "acme";
     const ticket = exampleOwnership.begin(latestDeckRef.current);
-    setShareStatus(`Loading example: ${resolved}…`);
+    setShareStatus(t("app.loadingExample", { name: resolved }));
     try {
       const loaded = await loadExampleDeck(resolved);
       const decision = exampleOwnership.classify(ticket, latestDeckRef.current);
       if (decision === "stale") return;
-      if (!loaded) throw new Error(`Unknown example: ${resolved}`);
+      if (!loaded) throw new Error(t("app.unknownExample", { name: resolved }));
       if (decision === "conflict") {
-        setShareStatus(
-          `Example ready: ${resolved} — current deck changed while loading; choose it again to replace`
-        );
+        setShareStatus(t("app.exampleReadyConflict", { name: resolved }));
         return;
       }
       commitDeck(applyTheme(loaded, options?.theme ?? null), "replace");
       setExampleSlug(resolved);
       setSelected(0);
-      setShareStatus(`Loaded example: ${resolved}`);
+      setShareStatus(t("app.loadedExample", { name: resolved }));
       try {
         const url = new URL(window.location.href);
         url.searchParams.set("example", resolved);
@@ -351,7 +351,7 @@ export function App() {
     } catch (error) {
       if (exampleOwnership.classify(ticket, latestDeckRef.current) === "stale") return;
       const reason = error instanceof Error ? error.message : String(error);
-      setShareStatus(`Could not load example: ${reason}`);
+      setShareStatus(t("app.couldNotLoadExample", { reason }));
     }
   };
 
@@ -368,17 +368,15 @@ export function App() {
       if (cancelled) return;
       if (shared) {
         if (latestDeckRef.current !== baseline) {
-          setShareStatus(
-            "Shared deck ready — current deck changed while opening; reload this link to replace it"
-          );
+          setShareStatus(t("app.sharedDeckConflict"));
           return;
         }
         commitDeck(shared, "replace");
         setExampleSlug(null);
         setSelected(0);
-        setShareStatus("Opened shared deck");
+        setShareStatus(t("app.sharedDeckOpened"));
       } else {
-        setShareStatus("Shared deck link was invalid — loaded defaults");
+        setShareStatus(t("app.sharedDeckInvalid"));
       }
       stripConsumedQuery();
     })();
@@ -406,7 +404,7 @@ export function App() {
       },
       onSuccess: () => setPersistenceWarning(null),
       onError: () =>
-        setPersistenceWarning("Autosave unavailable — download a copy to avoid losing changes"),
+        setPersistenceWarning(t("app.autosaveUnavailable")),
     });
     autosaveRef.current = scheduler;
 
@@ -442,9 +440,7 @@ export function App() {
 
       autosaveRef.current?.cancel();
       storageConflictRef.current = true;
-      setStorageConflict(
-        "Autosave paused — this deck changed in another tab. Download this copy or reload before continuing"
-      );
+      setStorageConflict(t("app.autosavePausedOtherTab"));
     };
     window.addEventListener("storage", detectExternalDeckChange);
     return () => window.removeEventListener("storage", detectExternalDeckChange);
@@ -513,9 +509,7 @@ export function App() {
   const discardRecovery = () => {
     if (!recoveryStored) return;
     if (
-      !window.confirm(
-        "Permanently delete the saved-deck recovery? This cannot be undone."
-      )
+      !window.confirm(t("app.confirmDiscardRecovery"))
     ) {
       return;
     }
@@ -527,9 +521,9 @@ export function App() {
       setRecoveryText(null);
       setRecoveryWarning(null);
       setRecoveryStored(false);
-      setShareStatus("Discarded saved-deck recovery");
+      setShareStatus(t("app.recoveryDiscarded"));
     } catch {
-      setRecoveryWarning("Could not discard recovery — browser storage is unavailable");
+      setRecoveryWarning(t("app.recoveryDiscardFailed"));
     }
   };
 
@@ -576,12 +570,9 @@ export function App() {
         }}
       />
       <div className="studio-strip" role="note">
-        <span>
-          Live preview · Horizontal filmstrip · Click a slide to edit · Undo/Redo · Paste MD · Share
-          link · Present with notes · Export editable PPTX
-        </span>
+        <span>{t("app.strip")}</span>
         <a href="https://presentation-md.vercel.app/" target="_blank" rel="noopener noreferrer">
-          Docs &amp; gallery
+          {t("app.docsGallery")}
         </a>
       </div>
       <div className="workspace">
@@ -606,7 +597,7 @@ export function App() {
           {current ? (
             <SlideForm slide={current} onChange={updateSlide} />
           ) : (
-            <p className="muted">No slide selected.</p>
+            <p className="muted">{t("app.noSlideSelected")}</p>
           )}
         </aside>
       </div>
@@ -614,7 +605,7 @@ export function App() {
         <Suspense
           fallback={
             <div className="present-overlay present-loading" role="status" aria-live="polite">
-              Loading presenter…
+              {t("app.loadingPresenter")}
             </div>
           }
         >
@@ -636,7 +627,7 @@ export function App() {
           fallback={
             <div className="modal-overlay" role="status" aria-live="polite">
               <div className="modal">
-                <div className="modal-body">Loading generator…</div>
+                <div className="modal-body">{t("app.loadingGenerator")}</div>
               </div>
             </div>
           }

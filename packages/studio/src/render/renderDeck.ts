@@ -3,6 +3,12 @@ import type { ResolvedTheme } from "@presentation-md/core/theme-types";
 import { renderChartSvg } from "@presentation-md/core/chart-svg";
 import { sanitizeCustomHtml } from "@presentation-md/core/sanitize-html";
 import { candyMarqueeText } from "@presentation-md/core/candy-marquee";
+import {
+  deckLangDir,
+  normalizeDeckLang,
+  scriptFallbackFonts,
+  withFontFallback,
+} from "@presentation-md/core/deck-lang";
 import type { DeckJson, Slide, ChartSeries } from "@presentation-md/export";
 import baseCssTemplate from "../../../shared/base.css?raw";
 import surfacesCss from "../../../shared/surfaces.css?raw";
@@ -277,6 +283,8 @@ function embedDeckScript(deck: DeckJson): string {
 }
 
 export function renderDeckHtml(deck: DeckJson, theme: ResolvedTheme): string {
+  const lang = normalizeDeckLang(deck.meta?.lang);
+  const scriptFonts = scriptFallbackFonts(lang);
   const tokenView: Record<string, string> = {
     bg: theme.palette.bg,
     bg2: theme.palette.bg2,
@@ -288,13 +296,16 @@ export function renderDeckHtml(deck: DeckJson, theme: ResolvedTheme): string {
     border: theme.palette.border,
     radius: theme.geometry.radius,
     slideW: theme.geometry.slideWidth,
-    headingFont: theme.typography.headingFont,
-    bodyFont: theme.typography.bodyFont,
+    headingFont: withFontFallback(theme.typography.headingFont, scriptFonts.families),
+    bodyFont: withFontFallback(theme.typography.bodyFont, scriptFonts.families),
     headingWeight: String(theme.typography.headingWeight),
   };
 
   const renderedCss = Mustache.render(baseCssTemplate, tokenView);
-  const googleFontsUrl = buildGoogleFontsUrl(theme.typography.googleFonts);
+  const googleFontsUrl = buildGoogleFontsUrl([
+    ...theme.typography.googleFonts,
+    ...scriptFonts.googleFonts,
+  ]);
   const surface = surfaceForTheme(theme.name);
   let fullCss = googleFontsUrl
     ? `@import url('${googleFontsUrl}');\n\n${renderedCss}\n\n${surfacesCss}`
@@ -325,6 +336,8 @@ export function renderDeckHtml(deck: DeckJson, theme: ResolvedTheme): string {
 
   const title = deck.meta?.title ?? deck.meta?.company ?? "Presentation";
   return Mustache.render(documentTemplate, {
+    lang,
+    dir: deckLangDir(lang),
     title,
     description: deck.meta?.description ?? "",
     styles: fullCss,

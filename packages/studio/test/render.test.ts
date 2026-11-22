@@ -136,3 +136,24 @@ describe("browser renderDeckHtml", () => {
     expect(html).toContain("Unknown layout");
   });
 });
+
+describe("deck language (browser renderer parity)", () => {
+  const withLang = (lang?: string): DeckJson =>
+    ({ ...EXAMPLE_DECK, meta: { ...EXAMPLE_DECK.meta, ...(lang ? { lang } : {}) } }) as DeckJson;
+
+  it("defaults to lang=en dir=ltr", () => {
+    const html = renderDeckHtml(withLang(), resolveTheme("claude"));
+    expect(html).toMatch(/<html lang="en" dir="ltr">/);
+  });
+
+  it("sets rtl and the Arabic font fallback for ar", () => {
+    const html = renderDeckHtml(withLang("ar"), resolveTheme("claude"));
+    expect(html).toMatch(/<html lang="ar" dir="rtl">/);
+    expect(html).toContain("Noto+Sans+Arabic");
+  });
+
+  it("falls back to en for a malformed tag instead of emitting it", () => {
+    const html = renderDeckHtml(withLang('x" onload="y'), resolveTheme("claude"));
+    expect(html).toMatch(/<html lang="en" dir="ltr">/);
+  });
+});

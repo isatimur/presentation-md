@@ -1494,3 +1494,27 @@ test("a newer Copy Markdown request wins over an in-flight Copy link write", asy
   expect(clipboard).toContain("Latest clipboard request");
   expect(clipboard).not.toMatch(/[?&]d=d1\./);
 });
+
+test("?lang=ar renders the UI right to left in Arabic, and the picker switches and persists", async ({
+  page,
+}) => {
+  await page.goto("/?lang=ar&fresh=1");
+  await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
+  await expect(page.locator("html")).toHaveAttribute("lang", "ar");
+  await expect(page.locator(".btn-generate")).toHaveText("إنشاء");
+
+  await page.locator(".language-select select").selectOption("ja");
+  await expect(page.locator("html")).toHaveAttribute("dir", "ltr");
+  await expect(page.locator(".btn-generate")).toHaveText("生成");
+
+  // The saved choice wins over the browser language on the next visit.
+  await page.goto("/?fresh=1");
+  await expect(page.locator("html")).toHaveAttribute("lang", "ja");
+  await expect(page.locator(".btn-generate")).toHaveText("生成");
+});
+
+test("Generate modal defaults the deck language to the UI language", async ({ page }) => {
+  await page.goto("/?lang=ru&fresh=1");
+  await page.locator(".btn-generate").click();
+  await expect(page.locator("#generate-deck-lang")).toHaveValue("ru");
+});
