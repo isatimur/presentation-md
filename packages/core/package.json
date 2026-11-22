@@ -14,6 +14,7 @@
     "./sanitize-html": "./dist/sanitize-html.js",
     "./candy-marquee": "./dist/candy-marquee.js",
     "./deck-lang": "./dist/deck-lang.js",
+    "./deck-chrome": "./dist/deck-chrome.js",
     "./craft-audit": "./dist/craft-audit.js",
     "./validate-deck": "./dist/validate-deck.js",
     "./theme-surface": "./dist/theme-surface.js",

@@ -12,6 +12,21 @@ function deck(lang?: string): string {
   });
 }
 
+describe("presenter chrome strings", () => {
+  it("fills every chrome placeholder and embeds a parsable pmd-chrome block", async () => {
+    const html = await renderDeck(deck());
+    expect(html).not.toContain("{{chrome.");
+    expect(html).not.toContain("{{{chromeJson}}}");
+    const m = html.match(/<script type="application\/json" id="pmd-chrome">([\s\S]*?)<\/script>/);
+    expect(m).not.toBeNull();
+    const strings = JSON.parse(m![1]!) as Record<string, string>;
+    expect(strings["editButtonTitle"]).toBe("Edit mode (E)");
+    expect(html).toContain('title="Edit mode (E)"');
+    expect(html).toContain("Speaker · O");
+    expect(html).toContain("Last slide — wrap or take questions.");
+  });
+});
+
 describe("deck language in HTML", () => {
   it("defaults to lang=en dir=ltr", async () => {
     const html = await renderDeck(deck());

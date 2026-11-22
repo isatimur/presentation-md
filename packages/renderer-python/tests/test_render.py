@@ -27,6 +27,21 @@ def test_renders_a_self_contained_document() -> None:
     assert "{{accent}}" not in html
 
 
+def test_presenter_chrome_is_filled_and_embedded() -> None:
+    import json
+    import re
+
+    html = render_deck(DECK)
+    assert "{{chrome." not in html
+    assert "{{{chromeJson}}}" not in html
+    m = re.search(r'<script type="application/json" id="pmd-chrome">(.*?)</script>', html, re.S)
+    assert m is not None
+    strings = json.loads(m.group(1))
+    assert strings["editButtonTitle"] == "Edit mode (E)"
+    assert 'title="Edit mode (E)"' in html
+    assert "Speaker · O" in html
+
+
 def test_escapes_heading_text() -> None:
     html = render_deck(DECK)
     assert "Hello &lt;world&gt;" in html

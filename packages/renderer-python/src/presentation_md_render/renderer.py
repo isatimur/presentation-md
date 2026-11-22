@@ -189,6 +189,8 @@ def render_deck(deck_json: str | dict[str, Any], opts: RenderOptions | None = No
 
     slides_html = "\n".join(slides_html_parts)
     doc_template = (shared_dir / "document.html").read_text()
+    chrome_catalog = json.loads((shared_dir / "deck-chrome.json").read_text(encoding="utf-8"))
+    chrome = _resolve_deck_chrome(chrome_catalog, lang)
     html = _render_mustache(doc_template, {
         "lang": lang,
         "dir": "rtl" if lang.split("-")[0].lower() in _RTL_LANGS else "ltr",
@@ -197,8 +199,22 @@ def render_deck(deck_json: str | dict[str, Any], opts: RenderOptions | None = No
         "styles": full_css,
         "slides": slides_html,
         "attribution": _ATTRIBUTION_HTML if opts.attribution else "",
+        "chrome": chrome,
+        "chromeJson": json.dumps(chrome, ensure_ascii=False).replace("<", "\\u003c"),
     })
     return html
+
+
+def _resolve_deck_chrome(catalog: dict[str, dict[str, str]], lang: str) -> dict[str, str]:
+    """Mirror resolveDeckChrome in packages/core/src/deck-chrome.ts."""
+    en = catalog.get("en", {})
+    primary = lang.split("-")[0].lower()
+    local = {} if primary == "en" else catalog.get(primary, {})
+    out = dict(en)
+    for key, value in local.items():
+        if key in en and isinstance(value, str) and value.strip():
+            out[key] = value
+    return out
 
 
 # Mirrors packages/core/src/deck-lang.ts (normalizeDeckLang / deckLangDir).
@@ -296,11 +312,19 @@ def _render_mustache(template: str, data: dict[str, Any]) -> str:
             key, body = m.group(1), m.group(2)
             return body if not ctx.get(key) else ""
         tmpl = re.sub(r"\{\{\^(\w+)\}\}(.*?)\{\{/\1\}\}", inv_repl, tmpl, flags=re.DOTALL)
+        def lookup(name: str) -> Any:
+            val: Any = ctx
+            for part in name.split("."):
+                if not isinstance(val, dict):
+                    return ""
+                val = val.get(part, "")
+            return val
+
         # Triple mustache (unescaped)
-        tmpl = re.sub(r"\{\{\{(\w+)\}\}\}", lambda m: str(ctx.get(m.group(1), "")), tmpl)
+        tmpl = re.sub(r"\{\{\{([\w.]+)\}\}\}", lambda m: str(lookup(m.group(1))), tmpl)
         # Double mustache (escaped)
         import html as html_mod
-        tmpl = re.sub(r"\{\{(\w+)\}\}", lambda m: html_mod.escape(str(ctx.get(m.group(1), ""))), tmpl)
+        tmpl = re.sub(r"\{\{([\w.]+)\}\}", lambda m: html_mod.escape(str(lookup(m.group(1)))), tmpl)
         return tmpl
 
     return replace_sections(template, data)

@@ -14,92 +14,111 @@
 <main class="deck" data-surface="{{surface}}">
 {{{slides}}}
 </main>
-<div class="nav-hint" aria-hidden="true">← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help</div>
+<div class="nav-hint" aria-hidden="true">{{chrome.navHint}}</div>
 <div class="pmd-edit-hotzone" id="pmd-edit-hotzone" aria-hidden="true"></div>
-<button type="button" class="pmd-edit-toggle" id="pmd-edit-toggle" title="Edit mode (E)">Edit</button>
-<nav class="pmd-slide-dots" id="pmd-slide-dots" aria-label="Slide navigation"></nav>
+<button type="button" class="pmd-edit-toggle" id="pmd-edit-toggle" title="{{chrome.editButtonTitle}}">{{chrome.editButton}}</button>
+<nav class="pmd-slide-dots" id="pmd-slide-dots" aria-label="{{chrome.slideNavLabel}}"></nav>
 <div class="pmd-progress" id="pmd-progress" aria-hidden="true"><i class="pmd-progress-bar" id="pmd-progress-bar"></i></div>
 <div class="pmd-stage-tools" id="pmd-stage-tools" aria-hidden="true">
   <canvas class="pmd-ink-canvas" id="pmd-ink-canvas"></canvas>
   <div class="pmd-laser-layer" id="pmd-laser-layer" hidden></div>
 </div>
-<div class="pmd-curtain pmd-blackout" id="pmd-blackout" hidden role="status" aria-live="polite" title="Blackout · B or click to restore">
-  <span class="pmd-curtain-hint">Blackout · B or click to restore</span>
+<div class="pmd-curtain pmd-blackout" id="pmd-blackout" hidden role="status" aria-live="polite" title="{{chrome.blackoutHint}}">
+  <span class="pmd-curtain-hint">{{chrome.blackoutHint}}</span>
 </div>
-<div class="pmd-curtain pmd-whiteout" id="pmd-whiteout" hidden role="status" aria-live="polite" title="Whiteout · W or click to restore">
-  <span class="pmd-curtain-hint">Whiteout · W or click to restore</span>
+<div class="pmd-curtain pmd-whiteout" id="pmd-whiteout" hidden role="status" aria-live="polite" title="{{chrome.whiteoutHint}}">
+  <span class="pmd-curtain-hint">{{chrome.whiteoutHint}}</span>
 </div>
-<aside class="pmd-notes-rail" id="pmd-notes-rail" hidden aria-label="Speaker notes">
+<aside class="pmd-notes-rail" id="pmd-notes-rail" hidden aria-label="{{chrome.notesRailLabel}}">
   <div class="pmd-notes-section">
-    <div class="pmd-notes-label">Speaker notes · S to hide</div>
+    <div class="pmd-notes-label">{{chrome.notesRailHint}}</div>
     <p class="pmd-notes-body" id="pmd-notes-body"></p>
   </div>
   <div class="pmd-notes-next" id="pmd-notes-next">
-    <div class="pmd-notes-label" id="pmd-notes-next-label">Up next</div>
+    <div class="pmd-notes-label" id="pmd-notes-next-label">{{chrome.upNext}}</div>
     <div class="pmd-next-frame-wrap" id="pmd-next-frame-wrap"></div>
   </div>
 </aside>
-<div class="pmd-filmstrip" id="pmd-filmstrip" hidden aria-label="Slide filmstrip peek">
-  <div class="pmd-filmstrip-track" id="pmd-filmstrip-track" role="listbox" aria-label="Slide filmstrip" aria-orientation="horizontal"></div>
+<div class="pmd-filmstrip" id="pmd-filmstrip" hidden aria-label="{{chrome.filmstripPeekLabel}}">
+  <div class="pmd-filmstrip-track" id="pmd-filmstrip-track" role="listbox" aria-label="{{chrome.filmstripLabel}}" aria-orientation="horizontal"></div>
 </div>
-<div class="pmd-present-bar" id="pmd-present-bar" aria-label="Presenter controls">
+<div class="pmd-present-bar" id="pmd-present-bar" aria-label="{{chrome.presenterControlsLabel}}">
   <span class="pmd-present-count" id="pmd-present-count">1 / 1</span>
-  <span class="pmd-present-timer" id="pmd-present-timer" title="Elapsed · P pace · T pause · R reset">0:00</span>
-  <button type="button" class="pmd-present-btn" id="pmd-btn-speaker" title="Speaker notes window (O)">Speaker · O</button>
-  <button type="button" class="pmd-present-btn" id="pmd-btn-notes" title="Toggle speaker notes (S)">Notes · S</button>
-  <button type="button" class="pmd-present-btn" id="pmd-btn-strip" title="Toggle filmstrip peek (F)" hidden>Hide strip · F</button>
-  <button type="button" class="pmd-present-btn" id="pmd-btn-overview" title="Overview grid (G)">Overview · G</button>
-  <button type="button" class="pmd-present-btn" id="pmd-btn-edit" title="Edit text (E) · ⌘/Ctrl+S saves">Edit · E</button>
-  <button type="button" class="pmd-present-btn" id="pmd-btn-save" title="Save HTML (⌘/Ctrl+S)" hidden>Save · ⌘S</button>
-  <button type="button" class="pmd-present-btn" id="pmd-btn-laser" title="Laser pointer (L)">Laser · L</button>
-  <button type="button" class="pmd-present-btn" id="pmd-btn-ink" title="Ink / draw (D) · C clears">Ink · D</button>
-  <button type="button" class="pmd-present-btn" id="pmd-btn-ink-clear" title="Clear ink (C)" hidden>Clear ink · C</button>
-  <button type="button" class="pmd-present-btn" id="pmd-btn-blackout" title="Blackout (B)">Blackout · B</button>
-  <button type="button" class="pmd-present-btn" id="pmd-btn-whiteout" title="Whiteout (W)">Whiteout · W</button>
-  <button type="button" class="pmd-present-btn" id="pmd-btn-help" title="Shortcuts (?)">?</button>
+  <span class="pmd-present-timer" id="pmd-present-timer" title="{{chrome.timerTitleInitial}}">0:00</span>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-speaker" title="{{chrome.btnSpeakerTitle}}">{{chrome.btnSpeaker}}</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-notes" title="{{chrome.btnNotesTitle}}">{{chrome.btnNotes}}</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-strip" title="{{chrome.btnStripTitle}}" hidden>{{chrome.btnStripHide}}</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-overview" title="{{chrome.btnOverviewTitle}}">{{chrome.btnOverview}}</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-edit" title="{{chrome.btnEditTitle}}">{{chrome.btnEdit}}</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-save" title="{{chrome.btnSaveTitle}}" hidden>{{chrome.btnSave}}</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-laser" title="{{chrome.btnLaserTitle}}">{{chrome.btnLaser}}</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-ink" title="{{chrome.btnInkTitle}}">{{chrome.btnInk}}</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-ink-clear" title="{{chrome.btnInkClearTitle}}" hidden>{{chrome.btnInkClear}}</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-blackout" title="{{chrome.btnBlackoutTitle}}">{{chrome.btnBlackout}}</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-whiteout" title="{{chrome.btnWhiteoutTitle}}">{{chrome.btnWhiteout}}</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-help" title="{{chrome.btnHelpTitle}}">?</button>
 </div>
-<div class="pmd-overview" id="pmd-overview" hidden role="dialog" aria-label="Slide overview">
+<div class="pmd-overview" id="pmd-overview" hidden role="dialog" aria-label="{{chrome.overviewLabel}}">
   <div class="pmd-overview-panel">
     <div class="pmd-overview-head">
-      <span>Overview · G or Esc to close</span>
-      <button type="button" class="pmd-present-btn" id="pmd-btn-overview-close">Close</button>
+      <span>{{chrome.overviewHead}}</span>
+      <button type="button" class="pmd-present-btn" id="pmd-btn-overview-close">{{chrome.close}}</button>
     </div>
     <div class="pmd-overview-grid" id="pmd-overview-grid"></div>
   </div>
 </div>
-<div class="pmd-present-help" id="pmd-present-help" hidden role="dialog" aria-label="Presenter shortcuts">
+<div class="pmd-present-help" id="pmd-present-help" hidden role="dialog" aria-label="{{chrome.helpLabel}}">
   <div class="pmd-present-help-card">
     <div class="pmd-present-help-head">
-      <span>Shortcuts · ? or Esc</span>
-      <button type="button" class="pmd-present-btn" id="pmd-btn-help-close">Close</button>
+      <span>{{chrome.helpHead}}</span>
+      <button type="button" class="pmd-present-btn" id="pmd-btn-help-close">{{chrome.close}}</button>
     </div>
     <ul class="pmd-present-help-list">
-      <li><kbd>← → Space</kbd><span>Previous / next slide</span></li>
-      <li><kbd>1–9</kbd><span>Jump to slide</span></li>
-      <li><kbd>Home / End</kbd><span>First / last slide</span></li>
-      <li><kbd>G</kbd><span>Overview grid</span></li>
-      <li><kbd>F</kbd><span>Filmstrip peek</span></li>
-      <li><kbd>E</kbd><span>Edit text</span></li>
-      <li><kbd>⌘/Ctrl+S</kbd><span>Save HTML (when editing)</span></li>
-      <li><kbd>S</kbd><span>Speaker notes</span></li>
-      <li><kbd>L</kbd><span>Laser pointer</span></li>
-      <li><kbd>D</kbd><span>Ink / draw</span></li>
-      <li><kbd>C</kbd><span>Clear ink (when drawing)</span></li>
-      <li><kbd>B</kbd><span>Blackout</span></li>
-      <li><kbd>W</kbd><span>Whiteout</span></li>
-      <li><kbd>T</kbd><span>Pause / resume timer</span></li>
-      <li><kbd>R</kbd><span>Reset timer</span></li>
-      <li><kbd>P</kbd><span>Pace target (5–30m countdown)</span></li>
-      <li><kbd>O</kbd><span>Speaker notes window</span></li>
-      <li><kbd>?</kbd><span>Shortcuts</span></li>
-      <li><kbd>Esc</kbd><span>Close overlay</span></li>
+      <li><kbd>← → Space</kbd><span>{{chrome.helpPrevNext}}</span></li>
+      <li><kbd>1–9</kbd><span>{{chrome.helpJump}}</span></li>
+      <li><kbd>Home / End</kbd><span>{{chrome.helpFirstLast}}</span></li>
+      <li><kbd>G</kbd><span>{{chrome.helpOverview}}</span></li>
+      <li><kbd>F</kbd><span>{{chrome.helpFilmstrip}}</span></li>
+      <li><kbd>E</kbd><span>{{chrome.helpEdit}}</span></li>
+      <li><kbd>⌘/Ctrl+S</kbd><span>{{chrome.helpSave}}</span></li>
+      <li><kbd>S</kbd><span>{{chrome.helpNotes}}</span></li>
+      <li><kbd>L</kbd><span>{{chrome.helpLaser}}</span></li>
+      <li><kbd>D</kbd><span>{{chrome.helpInk}}</span></li>
+      <li><kbd>C</kbd><span>{{chrome.helpClearInk}}</span></li>
+      <li><kbd>B</kbd><span>{{chrome.helpBlackout}}</span></li>
+      <li><kbd>W</kbd><span>{{chrome.helpWhiteout}}</span></li>
+      <li><kbd>T</kbd><span>{{chrome.helpTimer}}</span></li>
+      <li><kbd>R</kbd><span>{{chrome.helpReset}}</span></li>
+      <li><kbd>P</kbd><span>{{chrome.helpPace}}</span></li>
+      <li><kbd>O</kbd><span>{{chrome.helpSpeaker}}</span></li>
+      <li><kbd>?</kbd><span>{{chrome.helpShortcuts}}</span></li>
+      <li><kbd>Esc</kbd><span>{{chrome.helpClose}}</span></li>
     </ul>
   </div>
 </div>
 {{{attribution}}}
 {{{deckData}}}
+<script type="application/json" id="pmd-chrome">{{{chromeJson}}}</script>
 <script>
 (function () {
+  var PMD_T = {};
+  // Read only the template's own JSON <script> blocks: custom-html slides cannot
+  // add scripts (sanitizer), and the template's blocks come after every slide,
+  // so take the last match. Slide content cannot clobber them.
+  function pmdJsonBlock(id) {
+    var all = document.querySelectorAll('script#' + id + '[type="application/json"]');
+    return all.length ? all[all.length - 1] : null;
+  }
+  try { PMD_T = JSON.parse(pmdJsonBlock("pmd-chrome").textContent || "{}"); } catch (e) {}
+  function pmdT(key, vars) {
+    var s = PMD_T[key] || key;
+    if (vars) for (var k in vars) s = s.split("{" + k + "}").join(String(vars[k]));
+    return s;
+  }
+  /** pmdT for innerHTML contexts: HTML-escaped. */
+  function pmdH(key, vars) {
+    return pmdT(key, vars).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
   if (!slides.length) return;
   document.documentElement.classList.add("pmd-live-present");
@@ -203,7 +222,7 @@
 
   var notesBySlide = [];
   try {
-    var deckEl = document.getElementById("pmd-deck") || document.getElementById("psp-deck");
+    var deckEl = pmdJsonBlock("pmd-deck") || pmdJsonBlock("psp-deck");
     if (deckEl && deckEl.textContent) {
       var deck = JSON.parse(deckEl.textContent);
       if (deck && Array.isArray(deck.slides)) {
@@ -302,17 +321,17 @@
       inkCanvas.classList.toggle("is-active", showInk);
       if (!showInk) inkDrawing = false;
     }
-    if (btnLaser) btnLaser.textContent = laserOn ? "Laser off · L" : "Laser · L";
-    if (btnInk) btnInk.textContent = inkOn ? "Ink off · D" : "Ink · D";
+    if (btnLaser) btnLaser.textContent = laserOn ? pmdT("btnLaserOff") : pmdT("btnLaser");
+    if (btnInk) btnInk.textContent = inkOn ? pmdT("btnInkOff") : pmdT("btnInk");
     if (btnInkClear) btnInkClear.hidden = !inkOn;
-    if (btnOverview) btnOverview.textContent = showOverview ? "Close grid · G" : "Overview · G";
+    if (btnOverview) btnOverview.textContent = showOverview ? pmdT("btnOverviewClose") : pmdT("btnOverview");
     syncInkCanvas();
   }
 
   function slideHeading(idx) {
     var el = slides[idx] && slides[idx].querySelector("h1, h2, h3");
     var text = el ? (el.textContent || "").trim() : "";
-    return text || ("Slide " + (idx + 1));
+    return text || pmdT("slideFallback", { n: idx + 1 });
   }
 
   function cloneSlideThumb(idx) {
@@ -335,7 +354,7 @@
         var btn = document.createElement("button");
         btn.type = "button";
         btn.className = "pmd-overview-card";
-        btn.setAttribute("aria-label", "Go to slide " + (idx + 1) + ": " + slideHeading(idx));
+        btn.setAttribute("aria-label", pmdT("goToSlideTitled", { n: idx + 1, title: slideHeading(idx) }));
         var wrap = document.createElement("div");
         wrap.className = "pmd-overview-frame-wrap";
         var scale = document.createElement("div");
@@ -373,7 +392,7 @@
         btn.type = "button";
         btn.className = "pmd-filmstrip-hit";
         btn.setAttribute("role", "option");
-        btn.setAttribute("aria-label", "Go to slide " + (idx + 1));
+        btn.setAttribute("aria-label", pmdT("goToSlide", { n: idx + 1 }));
         btn.setAttribute("data-filmstrip-i", String(idx));
         btn.tabIndex = -1;
         var wrap = document.createElement("div");
@@ -412,7 +431,7 @@
     document.documentElement.classList.toggle("pmd-strip-open", showStrip);
     if (btnStrip) {
       btnStrip.hidden = slides.length < 2;
-      btnStrip.textContent = showStrip ? "Hide strip · F" : "Strip · F";
+      btnStrip.textContent = showStrip ? pmdT("btnStripHide") : pmdT("btnStripShow");
     }
     syncFilmstripActive();
   }
@@ -470,10 +489,10 @@
       }
     }
     document.documentElement.classList.toggle("pmd-edit-on", editOn);
-    if (btnEdit) btnEdit.textContent = editOn ? "Done · E" : "Edit · E";
+    if (btnEdit) btnEdit.textContent = editOn ? pmdT("btnEditDone") : pmdT("btnEdit");
     if (btnSave) btnSave.hidden = !editOn;
     if (editToggle) {
-      editToggle.textContent = editOn ? "Done" : "Edit";
+      editToggle.textContent = editOn ? pmdT("editButtonDone") : pmdT("editButton");
       editToggle.classList.toggle("is-active", editOn);
       if (editOn) editToggle.classList.add("is-visible");
     }
@@ -578,7 +597,7 @@
         var b = document.createElement("button");
         b.type = "button";
         b.className = "pmd-slide-dot";
-        b.setAttribute("aria-label", "Go to slide " + (idx + 1));
+        b.setAttribute("aria-label", pmdT("goToSlide", { n: idx + 1 }));
         b.title = slideHeading(idx);
         b.addEventListener("click", function () { jumpTo(idx); });
         dotsEl.appendChild(b);
@@ -622,16 +641,16 @@
     if (!nextFrameWrap || !notesNext) return;
     if (idx + 1 >= slides.length) {
       nextFrameWrap.innerHTML = "";
-      if (nextLabel) nextLabel.textContent = "Up next";
+      if (nextLabel) nextLabel.textContent = pmdT("upNext");
       notesNext.classList.add("is-end");
       var end = document.createElement("p");
       end.className = "pmd-notes-body is-empty";
-      end.textContent = "Last slide — wrap or take questions.";
+      end.textContent = pmdT("lastSlideNote");
       nextFrameWrap.appendChild(end);
       return;
     }
     notesNext.classList.remove("is-end");
-    if (nextLabel) nextLabel.textContent = "Up next · " + slideHeading(idx + 1);
+    if (nextLabel) nextLabel.textContent = pmdT("upNextTitled", { title: slideHeading(idx + 1) });
     nextFrameWrap.innerHTML = "";
     var scale = document.createElement("div");
     scale.className = "pmd-next-scale";
@@ -711,27 +730,27 @@
     var status = paceStatus(elapsed, targetMs, idx, slides.length);
     var label = formatElapsed(elapsed);
     if (targetMs > 0) {
-      if (status === "over") label += " · OVER";
+      if (status === "over") label += " · " + pmdT("timerOver");
       else {
         var left = formatElapsed(targetMs - elapsed);
-        var cue = status === "ahead" ? " · ahead" : status === "behind" ? " · behind" : " · on pace";
-        label += " · " + left + " left" + cue;
+        var cue = " · " + (status === "ahead" ? pmdT("cueAhead") : status === "behind" ? pmdT("cueBehind") : pmdT("cueOnPace"));
+        label += " · " + pmdT("timerLeft", { time: left }) + cue;
       }
     }
-    if (!timerRunning) label += " · paused";
+    if (!timerRunning) label += " · " + pmdT("timerPaused");
     var headingEl = slides[idx] && slides[idx].querySelector("h1, h2, h3");
-    var heading = headingEl ? (headingEl.textContent || "").trim() : ("Slide " + (idx + 1));
-    var notesText = notesBySlide[idx] || (notesBySlide.some(Boolean) ? "No notes on this slide." : "No speaker notes in this deck.");
-    var nextHeading = "— end —";
+    var heading = headingEl ? (headingEl.textContent || "").trim() : pmdT("slideFallback", { n: idx + 1 });
+    var notesText = notesBySlide[idx] || (notesBySlide.some(Boolean) ? pmdT("noNotesSlide") : pmdT("noNotesDeck"));
+    var nextHeading = pmdT("speakerWinEnd");
     if (idx + 1 < slides.length) {
       var nh = slides[idx + 1].querySelector("h1, h2, h3");
-      nextHeading = nh ? (nh.textContent || "").trim() : ("Slide " + (idx + 2));
+      nextHeading = nh ? (nh.textContent || "").trim() : pmdT("slideFallback", { n: idx + 2 });
     }
     var doc = speakerWin.document;
-    doc.title = "Speaker · " + (idx + 1) + "/" + slides.length;
+    doc.title = pmdT("speakerWinTitle", { n: idx + 1, total: slides.length });
     if (!doc.getElementById("pmd-speaker-root")) {
       doc.head.innerHTML = "<style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;padding:20px 22px 28px;font:15px/1.45 system-ui,sans-serif;background:#0b1220;color:#e8eef4;min-height:100vh}.meta{display:flex;gap:12px;flex-wrap:wrap;font:600 12px/1.2 ui-monospace,Menlo,monospace;color:#9ca3af;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}.timer{color:#e8eef4;font-variant-numeric:tabular-nums}.timer.is-paused{color:#f59e0b}.timer.is-ahead{color:#2dd4bf}.timer.is-behind{color:#fb7185}.timer.is-over{color:#f87171}h1{margin:0 0 18px;font:800 28px/1.15 system-ui,sans-serif;letter-spacing:-.03em}.label{font:600 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:#6b7280;margin:0 0 8px}.notes{white-space:pre-wrap;font-size:18px;line-height:1.5;margin:0 0 28px;min-height:4.5em}.notes.is-empty{color:#6b7280;font-style:italic}.next{padding-top:16px;border-top:1px solid rgba(232,238,244,.12)}.next p{margin:0;font-size:15px;color:#9ca3af}.hint{margin-top:28px;font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#5b6575}</style>";
-      doc.body.innerHTML = '<div id="pmd-speaker-root"><div class="meta"><span data-count></span><span class="timer" data-timer></span></div><h1 data-heading></h1><div class="label">Speaker notes</div><p class="notes" data-notes></p><div class="next"><div class="label">Up next</div><p data-next></p></div><p class="hint">Follows the deck window · O focuses</p></div>';
+      doc.body.innerHTML = '<div id="pmd-speaker-root"><div class="meta"><span data-count></span><span class="timer" data-timer></span></div><h1 data-heading></h1><div class="label">' + pmdH("speakerWinNotesLabel") + '</div><p class="notes" data-notes></p><div class="next"><div class="label">' + pmdH("upNext") + '</div><p data-next></p></div><p class="hint">' + pmdH("speakerWinHint") + '</p></div>';
     }
     var root = doc.getElementById("pmd-speaker-root");
     if (!root) return;
@@ -774,11 +793,11 @@
       clearLaserTrail();
       if (whiteoutEl && !whiteoutEl.hidden) {
         whiteoutEl.hidden = true;
-        if (btnWhiteout) btnWhiteout.textContent = "Whiteout · W";
+        if (btnWhiteout) btnWhiteout.textContent = pmdT("btnWhiteout");
       }
     }
     blackoutEl.hidden = !on;
-    if (btnBlackout) btnBlackout.textContent = on ? "Restore · B" : "Blackout · B";
+    if (btnBlackout) btnBlackout.textContent = on ? pmdT("btnBlackoutRestore") : pmdT("btnBlackout");
     syncStageTools();
   }
 
@@ -793,11 +812,11 @@
       clearLaserTrail();
       if (blackoutEl && !blackoutEl.hidden) {
         blackoutEl.hidden = true;
-        if (btnBlackout) btnBlackout.textContent = "Blackout · B";
+        if (btnBlackout) btnBlackout.textContent = pmdT("btnBlackout");
       }
     }
     whiteoutEl.hidden = !on;
-    if (btnWhiteout) btnWhiteout.textContent = on ? "Restore · W" : "Whiteout · W";
+    if (btnWhiteout) btnWhiteout.textContent = on ? pmdT("btnWhiteoutRestore") : pmdT("btnWhiteout");
     syncStageTools();
   }
 
@@ -814,7 +833,7 @@
   function setNotes(on) {
     showNotes = !!on;
     if (notesRail) notesRail.hidden = !showNotes;
-    if (btnNotes) btnNotes.textContent = showNotes ? "Hide notes · S" : "Notes · S";
+    if (btnNotes) btnNotes.textContent = showNotes ? pmdT("btnNotesHide") : pmdT("btnNotes");
     document.documentElement.classList.toggle("pmd-notes-open", showNotes);
     if (showNotes) {
       syncNotes();
@@ -831,8 +850,8 @@
       notesBody.classList.remove("is-empty");
     } else {
       notesBody.textContent = notesBySlide.some(Boolean)
-        ? "No notes on this slide."
-        : "No speaker notes in this deck.";
+        ? pmdT("noNotesSlide")
+        : pmdT("noNotesDeck");
       notesBody.classList.add("is-empty");
     }
   }
@@ -852,22 +871,22 @@
       var label = formatElapsed(elapsed);
       if (targetMs > 0) {
         if (status === "over") {
-          label += " · OVER";
+          label += " · " + pmdT("timerOver");
         } else {
           var left = formatElapsed(targetMs - elapsed);
-          var cue = status === "ahead" ? " · ahead" : status === "behind" ? " · behind" : " · on pace";
-          label += " · " + left + " left" + cue;
+          var cue = " · " + (status === "ahead" ? pmdT("cueAhead") : status === "behind" ? pmdT("cueBehind") : pmdT("cueOnPace"));
+          label += " · " + pmdT("timerLeft", { time: left }) + cue;
         }
       }
-      if (!timerRunning) label += " · paused";
+      if (!timerRunning) label += " · " + pmdT("timerPaused");
       timerEl.textContent = label;
       timerEl.classList.toggle("is-paused", !timerRunning);
       timerEl.classList.toggle("is-ahead", status === "ahead");
       timerEl.classList.toggle("is-behind", status === "behind");
       timerEl.classList.toggle("is-over", status === "over");
       timerEl.title = targetMs > 0
-        ? ("Pace " + paceMinutes + "m · P cycle · T pause · R reset")
-        : "Elapsed · P set pace · T pause · R reset";
+        ? pmdT("timerTitlePace", { minutes: paceMinutes })
+        : pmdT("timerTitleNoPace");
     }
     syncDotsAndProgress(idx);
     syncHash(idx);

@@ -152,6 +152,18 @@ describe("deck language (browser renderer parity)", () => {
     expect(html).toContain("Noto+Sans+Arabic");
   });
 
+  it("fills every chrome placeholder and embeds a parsable pmd-chrome block", () => {
+    const html = renderDeckHtml(EXAMPLE_DECK, resolveTheme("default-tech"));
+    expect(html).not.toContain("{{chrome.");
+    expect(html).not.toContain("{{{chromeJson}}}");
+    const m = html.match(/<script type="application\/json" id="pmd-chrome">([\s\S]*?)<\/script>/);
+    expect(m).not.toBeNull();
+    const strings = JSON.parse(m![1]!) as Record<string, string>;
+    expect(strings["editButtonTitle"]).toBe("Edit mode (E)");
+    expect(html).toContain('title="Edit mode (E)"');
+    expect(html).toContain("Speaker · O");
+  });
+
   it("falls back to en for a malformed tag instead of emitting it", () => {
     const html = renderDeckHtml(withLang('x" onload="y'), resolveTheme("claude"));
     expect(html).toMatch(/<html lang="en" dir="ltr">/);
