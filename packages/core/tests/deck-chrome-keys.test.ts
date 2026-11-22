@@ -40,8 +40,12 @@ describe("deck chrome catalog vs document.html", () => {
 describe("document.html reads its JSON blocks safely", () => {
   it("reads pmd-chrome and pmd-deck only from JSON <script> elements, not getElementById", () => {
     expect(template).not.toMatch(/getElementById\(["'](pmd-chrome|pmd-deck|psp-deck)["']\)/);
-    expect(template).toContain(`script#pmd-chrome[type="application/json"]`);
-    expect(template).toContain(`script#pmd-deck[type="application/json"]`);
+    // pmdJsonBlock reads the LAST script#<id>[type=application/json]: the template's
+    // own blocks follow every slide, so injected earlier matches never win.
+    expect(template).toContain(`'script#' + id + '[type="application/json"]'`);
+    expect(template).toMatch(/all\[all\.length - 1\]/);
+    expect(template).toContain(`pmdJsonBlock("pmd-chrome")`);
+    expect(template).toContain(`pmdJsonBlock("pmd-deck")`);
   });
 
   it("escapes translated strings that go into innerHTML", () => {

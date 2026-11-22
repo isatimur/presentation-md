@@ -47,8 +47,8 @@ function sanitizeUrl(url: string, allowDataImage = false): string {
   return "#";
 }
 
-/** Return sanitized HTML safe to inject via Mustache {{{html}}}. */
-export function sanitizeCustomHtml(input: unknown): string {
+/** One sanitizer pass. Use sanitizeCustomHtml, which repeats until stable. */
+function sanitizeOnce(input: unknown): string {
   if (typeof input !== "string" || !input.trim()) return "";
 
   // Drop script blocks wholesale (including nested content).
@@ -85,7 +85,40 @@ export function sanitizeCustomHtml(input: unknown): string {
 
   // Drop ids in the renderer's reserved namespaces (pmd-*, psp-*), so slide
   // content cannot clobber pmd-deck / pmd-chrome or other chrome elements.
-  html = html.replace(/\s+id\s*=\s*(["']?)\s*(?:pmd|psp)-[^"'\s>]*\1/gi, "");
+  // Values are entity-decoded first: the browser decodes &#112;md-x to pmd-x.
+  html = html.replace(
+    /\s+id\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/gi,
+    (whole, dq?: string, sq?: string, bare?: string) =>
+      RESERVED_ID.test(decodeEntities(dq ?? sq ?? bare ?? "").trim()) ? "" : whole
+  );
 
   return html.trim();
+}
+
+const RESERVED_ID = /^(?:pmd|psp)-/i;
+
+function decodeEntities(value: string): string {
+  return value
+    .replace(/&#x([0-9a-f]+);?/gi, (_m, hex: string) => String.fromCodePoint(parseInt(hex, 16)))
+    .replace(/&#(\d+);?/g, (_m, dec: string) => String.fromCodePoint(parseInt(dec, 10)))
+    .replace(/&(amp|lt|gt|quot|apos|hyphen|dash);?/gi, (_m, name: string) =>
+      ({ amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", hyphen: "-", dash: "-" })[
+        name.toLowerCase() as "amp"
+      ] ?? "")
+    .replace(/&#?[a-z0-9]+;/gi, "");
+}
+
+/**
+ * Return sanitized HTML safe to inject via Mustache {{{html}}}. Repeats the
+ * pass until the output stops changing, so overlapping patterns (e.g. tags
+ * split by a stripped tag) cannot reassemble.
+ */
+export function sanitizeCustomHtml(input: unknown): string {
+  let prev = sanitizeOnce(input);
+  for (let i = 0; i < 5; i++) {
+    const next = sanitizeOnce(prev);
+    if (next === prev) return next;
+    prev = next;
+  }
+  return prev;
 }

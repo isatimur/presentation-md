@@ -102,9 +102,14 @@
 <script>
 (function () {
   var PMD_T = {};
-  // Read only a JSON <script>: custom-html slides cannot add scripts (sanitizer),
-  // so an element with id="pmd-chrome" inside a slide cannot clobber the catalog.
-  try { PMD_T = JSON.parse(document.querySelector('script#pmd-chrome[type="application/json"]').textContent || "{}"); } catch (e) {}
+  // Read only the template's own JSON <script> blocks: custom-html slides cannot
+  // add scripts (sanitizer), and the template's blocks come after every slide,
+  // so take the last match. Slide content cannot clobber them.
+  function pmdJsonBlock(id) {
+    var all = document.querySelectorAll('script#' + id + '[type="application/json"]');
+    return all.length ? all[all.length - 1] : null;
+  }
+  try { PMD_T = JSON.parse(pmdJsonBlock("pmd-chrome").textContent || "{}"); } catch (e) {}
   function pmdT(key, vars) {
     var s = PMD_T[key] || key;
     if (vars) for (var k in vars) s = s.split("{" + k + "}").join(String(vars[k]));
@@ -217,9 +222,7 @@
 
   var notesBySlide = [];
   try {
-    var deckEl =
-      document.querySelector('script#pmd-deck[type="application/json"]') ||
-      document.querySelector('script#psp-deck[type="application/json"]');
+    var deckEl = pmdJsonBlock("pmd-deck") || pmdJsonBlock("psp-deck");
     if (deckEl && deckEl.textContent) {
       var deck = JSON.parse(deckEl.textContent);
       if (deck && Array.isArray(deck.slides)) {

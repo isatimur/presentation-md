@@ -53,6 +53,24 @@ describe("sanitizeCustomHtml reserved ids (DOM clobbering)", () => {
     expect(out).not.toMatch(/id\s*=\s*["']?(pmd|psp)-/i);
     expect(out).toContain('id="ok"');
   });
+
+  it("drops entity-encoded reserved ids too", () => {
+    for (const html of [
+      `<div id="&#112;md-chrome">x</div>`,
+      `<div id="&#x70;md-deck">x</div>`,
+      `<div id='p&#109;d-blackout'>x</div>`,
+      `<div ID = "PMD-chrome">x</div>`,
+    ]) {
+      expect(sanitizeCustomHtml(html), html).not.toMatch(/\sid\s*=/i);
+    }
+  });
+
+  it("is stable: running it again changes nothing", () => {
+    const tricky = `<scr<script>ipt>alert(1)</scr</script>ipt><div id="pmd-x" onclick="x()">ok</div>`;
+    const once = sanitizeCustomHtml(tricky);
+    expect(sanitizeCustomHtml(once)).toBe(once);
+    expect(once).not.toMatch(/<\s*script/i);
+  });
 });
 
 describe("sanitizeCustomHtml", () => {
