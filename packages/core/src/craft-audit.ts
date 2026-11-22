@@ -17,13 +17,141 @@ export type CraftFixId =
   | "wrap_tones"
   | "safe_fields";
 
+/**
+ * English template for each craft issue, keyed by a stable code. `{name}` is
+ * filled from `CraftIssue.params`. Studio translates by code (`audit.<code>`);
+ * agents and the CLI read the filled English `message`.
+ */
+export const CRAFT_ISSUE_MESSAGES = {
+  noSlides: "Deck has no slides.",
+  fewSlides: "Deck has fewer than 2 slides — consider adding more content",
+  candyBrand:
+    'candy-pop marquee brands from meta.company (or meta.marquee) — set company so the ticker isn\'t a generic "CANDY POP" fallback.',
+  noImageHero:
+    "No image-hero slide — investor/launch/brand decks need a cinematic visual beat (see references/stunning-25.md).",
+  weakAsymmetry:
+    "Weak asymmetry — add comparison+emphasis, two-column (non-1-1 ratio), code, bento, ranked-list, streak-grid, metric-ring, or logo-wall.",
+  layoutRepeat: "Slides {from}-{to}: '{layout}' repeats {run}x in a row — vary the layout cadence.",
+  unknownLayout: 'Slide {n}: unknown layout "{layout}"',
+  missingHeading: 'Slide {n} (layout "{layout}") is missing a "heading" field',
+  comparisonEmphasis:
+    'Slide {n} (comparison): set "emphasis" to "left" or "right" — equal columns read as filler.',
+  twoColumnRatio: "Slide {n} (two-column): prefer a non-1-1 ratio unless weight is truly equal.",
+  featureGridBento: 'Slide {n} (feature-grid): 5 cards should use columns: "bento" for asymmetric craft.',
+  featureGridColumns:
+    'Slide {n} (feature-grid): "cards" count ({cards}) is not a multiple of "columns" ({columns})',
+  featureGridIcons:
+    "Slide {n} (feature-grid): fewer than half the cards have icons — add FA icons for scannability.",
+  closingNoCta: "Slide {n} (closing): missing CTA — set actions[] (or cta) so the ask is unmissable.",
+  closingSocialNoIcons:
+    "Slide {n} (closing): social/share actions without icons — add FA brands so pills stay scannable in HTML + PPTX.",
+  closingActionsNoIcons:
+    "Slide {n} (closing): dual actions without icons — add FA icons (rocket/download/calendar/share brands) so pills stay scannable in HTML + PPTX.",
+  closingPartialIcons:
+    "Slide {n} (closing): only {withIcon}/{total} actions have icons — icon every pill for stunning-25 parity.",
+  closingShareSingleCta:
+    "Closing mentions share/social — prefer actions[] with solid + outline pills (not a single cta).",
+  closingLaunchSingleCta:
+    "Launch/investor closing has a single CTA — prefer actions[] with solid + outline pills (stunning-25 dual ask).",
+  closingStunningSingleCta:
+    "Stunning-25 theme closing has a single CTA — prefer actions[] with solid + outline pills (and icons).",
+  noSpeakerNotes: "No speaker notes — add brief notes on 2–4 key slides for present mode / PPTX.",
+  noDataBeat:
+    "Long deck with no chart/stat-row/data-table/ranked-list/metric-ring/timeline — consider a data beat.",
+  logoWall: 'Social-proof / customer marks copy without logo-wall — prefer layout "logo-wall".',
+  wrapTones:
+    "kinetic-wrapped deck has fewer than 3 toned slides — set tone (lime/magenta/cyan/orange/violet) for wrap hue beats.",
+  wrapVisual:
+    'kinetic-wrapped wrap needs a visual beat — use ranked-list, streak-grid, metric-ring, stat-row variant:"hero", or image-hero.',
+  wrapStreak: 'kinetic-wrapped mentions streak without streak-grid — prefer layout "streak-grid".',
+  risographBeat:
+    "risograph-zine deck lacks a print beat — add comparison+emphasis, quote, or image-hero for zine energy.",
+  paperBeat:
+    "Paper/editorial theme lacks a magazine beat — add quote or comparison+emphasis (not only soft cards).",
+  atmosphereBeat:
+    "Atmosphere theme (neon-noir / vaporwave / y2k-aero / retro-arcade) needs a cinematic beat — add image-hero, quote, or a composed custom-html moment.",
+  posterBeat:
+    "Poster theme lacks a bold beat — add image-hero, comparison+emphasis, punchy quote, or stat-row (not only soft grids).",
+  matBeat:
+    "mat woodglow theme needs a mid-century beat — add quote, image-hero, comparison, or punchy stat-row (not only soft grids).",
+  cobaltGridBeat:
+    "cobalt-grid paper needs a drafted data beat — add chart, data-table, stat-row, ranked-list, or timeline.",
+  hudBeat:
+    "HUD/tech theme (aerospace-hud / crt-terminal / blueprint) needs an instrument beat — add chart, data-table, stat-row, ranked-list, timeline, or metric-ring.",
+  bauhausBeat:
+    "bauhaus Primary needs a modernist beat — add quote, image-hero, comparison+emphasis, or icon feature-grid (not only soft SaaS stacks).",
+  genzBentoBeat:
+    'genz-bento Bounce needs a hard-bento beat — add image-hero, comparison+emphasis, punchy stats, or feature-grid columns:"bento".',
+  glassBeat:
+    "Glass theme (aurora-glass / glassmorphism) needs a frosted product beat — add image-hero, quote, punchy stats, or a composed custom-html moment.",
+  electricBeat:
+    "electric-studio / studio needs a loud brand beat — add image-hero, comparison+emphasis, punchy stats, or quote (not only soft grids).",
+  brutalistMonoBeat:
+    "brutalist-mono Concrete needs a hard mono beat — add comparison+emphasis, quote, image-hero, or punchy stats.",
+  cartesianBeat:
+    "cartesian draft needs a plotted data beat — add chart, data-table, timeline, ranked-list, or stat-row.",
+  modernistBeat:
+    "swiss-typographic / art-deco needs a modernist beat — add quote, image-hero, comparison+emphasis, or icon feature-grid.",
+  signalBeat:
+    "signal briefing needs an editorial beat — add quote, image-hero, comparison+emphasis, or punchy stats (not only soft grids).",
+  luxuryBeat:
+    "luxury-minimalist (quiet-luxe) needs a restrained luxury beat — add quote, image-hero, or comparison+emphasis (top-rule cards, not soft SaaS stacks).",
+  productBeat:
+    "corporate / fintech-clean needs a clean product beat — add stat-row, comparison+emphasis, feature-grid, or chart (not only soft sections).",
+  playfulBeat:
+    "playful / split-pastel needs a soft-bento beat — add feature-grid, image-hero, punchy stats, or quote (not only soft sections).",
+  techBeat:
+    "default-tech / developer-dark needs a tech product beat — add code, feature-grid, chart, comparison, or punchy stats.",
+  scatterbrainBeat:
+    "scatterbrain cork board needs a workshop beat — add feature-grid, image-hero, punchy quote, or stats (sticky energy, not soft SaaS).",
+  dataEditorialBeat:
+    "data-editorial needs a reported data beat — add chart, data-table, stat-row, ranked-list, or timeline.",
+  loudBeat:
+    'Loud/hard-card theme needs a punchy beat — add image-hero, comparison+emphasis, punchy stats, quote, or feature-grid columns:"bento" (not only soft sections).',
+  pastelGeometryBeat:
+    "pastel-geometry needs a soft-geometry beat — add feature-grid, image-hero, punchy stats, or quote (not only soft sections).",
+  botanicalBeat:
+    "grove / dark-botanical needs a botanical monograph beat — add quote, image-hero, comparison+emphasis, or punchy stats.",
+} as const satisfies Record<string, string>;
+
+/** Stable id for one kind of craft issue. Never rename a code: Studio catalogs key on it. */
+export type CraftIssueCode = keyof typeof CRAFT_ISSUE_MESSAGES;
+
+export const CRAFT_ISSUE_CODES = Object.keys(CRAFT_ISSUE_MESSAGES) as CraftIssueCode[];
+
+export type CraftIssueParams = Record<string, string | number>;
+
 export interface CraftIssue {
   severity: "error" | "warning";
+  /** English text, filled from the template for `code`. */
   message: string;
+  /** Stable issue id. Absent only on issues built outside auditCraft (e.g. PPTX warnings). */
+  code?: CraftIssueCode;
+  /** Values for the `{name}` placeholders in the template for `code`. */
+  params?: CraftIssueParams;
   /** 1-based slide index when the issue is slide-local. */
   slide?: number;
   /** When set, Studio can offer a per-issue Insert beat / Apply fix button. */
   fixId?: CraftFixId;
+}
+
+/** Fill `{name}` placeholders. Unknown names stay as written. */
+export function fillCraftTemplate(template: string, params?: CraftIssueParams): string {
+  if (!params) return template;
+  return template.replace(/\{(\w+)\}/g, (whole, name: string) =>
+    name in params ? String(params[name]) : whole
+  );
+}
+
+function craftMessage(
+  code: CraftIssueCode,
+  params?: CraftIssueParams
+): Pick<CraftIssue, "code" | "params" | "message"> {
+  return {
+    code,
+    ...(params ? { params } : {}),
+    message: fillCraftTemplate(CRAFT_ISSUE_MESSAGES[code], params),
+  };
 }
 
 /** Minimal deck shape — avoids coupling core to export DeckJson. */
@@ -70,14 +198,14 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
   const slides = asSlides(deck);
 
   if (!slides.length) {
-    issues.push({ severity: "error", message: "Deck has no slides." });
+    issues.push({ severity: "error", ...craftMessage("noSlides") });
     return issues;
   }
 
   if (slides.length < 2) {
     issues.push({
       severity: "warning",
-      message: "Deck has fewer than 2 slides — consider adding more content",
+      ...craftMessage("fewSlides"),
     });
   }
 
@@ -104,8 +232,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (!hasBrand) {
       issues.push({
         severity: "warning",
-        message:
-          'candy-pop marquee brands from meta.company (or meta.marquee) — set company so the ticker isn\'t a generic "CANDY POP" fallback.',
+        ...craftMessage("candyBrand"),
       });
     }
   }
@@ -115,8 +242,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     issues.push({
       severity: "warning",
       fixId: "image_hero",
-      message:
-        "No image-hero slide — investor/launch/brand decks need a cinematic visual beat (see references/stunning-25.md).",
+      ...craftMessage("noImageHero"),
     });
   }
 
@@ -124,8 +250,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     issues.push({
       severity: "warning",
       fixId: "comparison",
-      message:
-        "Weak asymmetry — add comparison+emphasis, two-column (non-1-1 ratio), code, bento, ranked-list, streak-grid, metric-ring, or logo-wall.",
+      ...craftMessage("weakAsymmetry"),
     });
   }
 
@@ -139,7 +264,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       if (run >= 3) {
         issues.push({
           severity: "warning",
-          message: `Slides ${runStart + 1}-${j}: '${layouts[runStart]}' repeats ${run}x in a row — vary the layout cadence.`,
+          ...craftMessage("layoutRepeat", { from: runStart + 1, to: j, layout: String(layouts[runStart]), run }),
         });
       }
       run = 1;
@@ -156,7 +281,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "error",
         slide: n,
-        message: `Slide ${n}: unknown layout "${layout}"`,
+        ...craftMessage("unknownLayout", { n, layout }),
       });
     }
 
@@ -164,7 +289,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         slide: n,
-        message: `Slide ${n} (layout "${layout}") is missing a "heading" field`,
+        ...craftMessage("missingHeading", { n, layout }),
       });
     }
 
@@ -172,7 +297,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         slide: n,
-        message: `Slide ${n} (comparison): set "emphasis" to "left" or "right" — equal columns read as filler.`,
+        ...craftMessage("comparisonEmphasis", { n }),
       });
     }
 
@@ -182,7 +307,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
         issues.push({
           severity: "warning",
           slide: n,
-          message: `Slide ${n} (two-column): prefer a non-1-1 ratio unless weight is truly equal.`,
+          ...craftMessage("twoColumnRatio", { n }),
         });
       }
     }
@@ -194,7 +319,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
         issues.push({
           severity: "warning",
           slide: n,
-          message: `Slide ${n} (feature-grid): 5 cards should use columns: "bento" for asymmetric craft.`,
+          ...craftMessage("featureGridBento", { n }),
         });
       }
       if (typeof columns === "number" && Array.isArray(cards)) {
@@ -202,7 +327,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
           issues.push({
             severity: "warning",
             slide: n,
-            message: `Slide ${n} (feature-grid): "cards" count (${cards.length}) is not a multiple of "columns" (${columns})`,
+            ...craftMessage("featureGridColumns", { n, cards: cards.length, columns }),
           });
         }
       }
@@ -223,7 +348,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
             issues.push({
               severity: "warning",
               slide: n,
-              message: `Slide ${n} (feature-grid): fewer than half the cards have icons — add FA icons for scannability.`,
+              ...craftMessage("featureGridIcons", { n }),
             });
           }
         }
@@ -240,7 +365,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
         issues.push({
           severity: "warning",
           slide: n,
-          message: `Slide ${n} (closing): missing CTA — set actions[] (or cta) so the ask is unmissable.`,
+          ...craftMessage("closingNoCta", { n }),
         });
       }
       if (Array.isArray(actions) && actions.length >= 2) {
@@ -254,15 +379,13 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
           issues.push({
             severity: "warning",
             slide: n,
-            message: social
-              ? `Slide ${n} (closing): social/share actions without icons — add FA brands so pills stay scannable in HTML + PPTX.`
-              : `Slide ${n} (closing): dual actions without icons — add FA icons (rocket/download/calendar/share brands) so pills stay scannable in HTML + PPTX.`,
+            ...craftMessage(social ? "closingSocialNoIcons" : "closingActionsNoIcons", { n }),
           });
         } else if (withIcon < actions.length) {
           issues.push({
             severity: "warning",
             slide: n,
-            message: `Slide ${n} (closing): only ${withIcon}/${actions.length} actions have icons — icon every pill for stunning-25 parity.`,
+            ...craftMessage("closingPartialIcons", { n, withIcon, total: actions.length }),
           });
         }
       }
@@ -281,8 +404,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     if (/share|instagram|tiktok|wrapped/.test(blob) && !Array.isArray(actions)) {
       issues.push({
         severity: "warning",
-        message:
-          "Closing mentions share/social — prefer actions[] with solid + outline pills (not a single cta).",
+        ...craftMessage("closingShareSingleCta"),
       });
     }
     const launchy = isLaunchyDeckBlob(JSON.stringify(deck).toLowerCase());
@@ -290,8 +412,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         slide: slides.length,
-        message:
-          "Launch/investor closing has a single CTA — prefer actions[] with solid + outline pills (stunning-25 dual ask).",
+        ...craftMessage("closingLaunchSingleCta"),
       });
     }
     // Stunning-25 themes: dual ask is the floor when the deck already uses actions[].
@@ -326,8 +447,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         slide: slides.length,
-        message:
-          "Stunning-25 theme closing has a single CTA — prefer actions[] with solid + outline pills (and icons).",
+        ...craftMessage("closingStunningSingleCta"),
       });
     }
   }
@@ -337,7 +457,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     issues.push({
       severity: "warning",
       fixId: "safe_fields",
-      message: "No speaker notes — add brief notes on 2–4 key slides for present mode / PPTX.",
+      ...craftMessage("noSpeakerNotes"),
     });
   }
 
@@ -353,8 +473,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     issues.push({
       severity: "warning",
       fixId: "stat_row",
-        message:
-        "Long deck with no chart/stat-row/data-table/ranked-list/metric-ring/timeline — consider a data beat.",
+        ...craftMessage("noDataBeat"),
     });
   }
 
@@ -366,7 +485,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
     issues.push({
       severity: "warning",
       fixId: "logo_wall",
-      message: 'Social-proof / customer marks copy without logo-wall — prefer layout "logo-wall".',
+      ...craftMessage("logoWall"),
     });
   }
 
@@ -379,8 +498,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "wrap_tones",
-      message:
-        "kinetic-wrapped deck has fewer than 3 toned slides — set tone (lime/magenta/cyan/orange/violet) for wrap hue beats.",
+      ...craftMessage("wrapTones"),
       });
     }
     const hasVisual =
@@ -394,15 +512,14 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "ranked_list",
-      message:
-        'kinetic-wrapped wrap needs a visual beat — use ranked-list, streak-grid, metric-ring, stat-row variant:"hero", or image-hero.',
+      ...craftMessage("wrapVisual"),
       });
     }
     if (/streak/.test(copyBlob) && !layouts.includes("streak-grid")) {
       issues.push({
         severity: "warning",
         fixId: "streak_grid",
-      message: 'kinetic-wrapped mentions streak without streak-grid — prefer layout "streak-grid".',
+      ...craftMessage("wrapStreak"),
       });
     }
   }
@@ -416,8 +533,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "quote",
-      message:
-        "risograph-zine deck lacks a print beat — add comparison+emphasis, quote, or image-hero for zine energy.",
+      ...craftMessage("risographBeat"),
       });
     }
   }
@@ -455,8 +571,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "quote",
-      message:
-        "Paper/editorial theme lacks a magazine beat — add quote or comparison+emphasis (not only soft cards).",
+      ...craftMessage("paperBeat"),
       });
     }
   }
@@ -471,8 +586,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "image_hero",
-      message:
-        "Atmosphere theme (neon-noir / vaporwave / y2k-aero / retro-arcade) needs a cinematic beat — add image-hero, quote, or a composed custom-html moment.",
+      ...craftMessage("atmosphereBeat"),
       });
     }
   }
@@ -488,8 +602,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "comparison",
-      message:
-        "Poster theme lacks a bold beat — add image-hero, comparison+emphasis, punchy quote, or stat-row (not only soft grids).",
+      ...craftMessage("posterBeat"),
       });
     }
   }
@@ -504,8 +617,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "quote",
-      message:
-        "mat woodglow theme needs a mid-century beat — add quote, image-hero, comparison, or punchy stat-row (not only soft grids).",
+      ...craftMessage("matBeat"),
       });
     }
   }
@@ -521,8 +633,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "stat_row",
-      message:
-        "cobalt-grid paper needs a drafted data beat — add chart, data-table, stat-row, ranked-list, or timeline.",
+      ...craftMessage("cobaltGridBeat"),
       });
     }
   }
@@ -540,8 +651,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "stat_row",
-      message:
-        "HUD/tech theme (aerospace-hud / crt-terminal / blueprint) needs an instrument beat — add chart, data-table, stat-row, ranked-list, timeline, or metric-ring.",
+      ...craftMessage("hudBeat"),
       });
     }
   }
@@ -556,8 +666,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "quote",
-      message:
-        "bauhaus Primary needs a modernist beat — add quote, image-hero, comparison+emphasis, or icon feature-grid (not only soft SaaS stacks).",
+      ...craftMessage("bauhausBeat"),
       });
     }
   }
@@ -573,8 +682,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "feature_grid",
-      message:
-        "genz-bento Bounce needs a hard-bento beat — add image-hero, comparison+emphasis, punchy stats, or feature-grid columns:\"bento\".",
+      ...craftMessage("genzBentoBeat"),
       });
     }
   }
@@ -590,8 +698,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "image_hero",
-      message:
-        "Glass theme (aurora-glass / glassmorphism) needs a frosted product beat — add image-hero, quote, punchy stats, or a composed custom-html moment.",
+      ...craftMessage("glassBeat"),
       });
     }
   }
@@ -607,8 +714,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "comparison",
-      message:
-        "electric-studio / studio needs a loud brand beat — add image-hero, comparison+emphasis, punchy stats, or quote (not only soft grids).",
+      ...craftMessage("electricBeat"),
       });
     }
   }
@@ -623,8 +729,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "comparison",
-      message:
-        "brutalist-mono Concrete needs a hard mono beat — add comparison+emphasis, quote, image-hero, or punchy stats.",
+      ...craftMessage("brutalistMonoBeat"),
       });
     }
   }
@@ -640,8 +745,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "stat_row",
-      message:
-        "cartesian draft needs a plotted data beat — add chart, data-table, timeline, ranked-list, or stat-row.",
+      ...craftMessage("cartesianBeat"),
       });
     }
   }
@@ -657,8 +761,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "quote",
-      message:
-        "swiss-typographic / art-deco needs a modernist beat — add quote, image-hero, comparison+emphasis, or icon feature-grid.",
+      ...craftMessage("modernistBeat"),
       });
     }
   }
@@ -673,8 +776,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "quote",
-      message:
-        "signal briefing needs an editorial beat — add quote, image-hero, comparison+emphasis, or punchy stats (not only soft grids).",
+      ...craftMessage("signalBeat"),
       });
     }
   }
@@ -688,8 +790,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "quote",
-      message:
-        "luxury-minimalist (quiet-luxe) needs a restrained luxury beat — add quote, image-hero, or comparison+emphasis (top-rule cards, not soft SaaS stacks).",
+      ...craftMessage("luxuryBeat"),
       });
     }
   }
@@ -705,8 +806,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "stat_row",
-      message:
-        "corporate / fintech-clean needs a clean product beat — add stat-row, comparison+emphasis, feature-grid, or chart (not only soft sections).",
+      ...craftMessage("productBeat"),
       });
     }
   }
@@ -722,8 +822,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "feature_grid",
-      message:
-        "playful / split-pastel needs a soft-bento beat — add feature-grid, image-hero, punchy stats, or quote (not only soft sections).",
+      ...craftMessage("playfulBeat"),
       });
     }
   }
@@ -740,8 +839,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "code",
-      message:
-        "default-tech / developer-dark needs a tech product beat — add code, feature-grid, chart, comparison, or punchy stats.",
+      ...craftMessage("techBeat"),
       });
     }
   }
@@ -756,8 +854,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "feature_grid",
-      message:
-        "scatterbrain cork board needs a workshop beat — add feature-grid, image-hero, punchy quote, or stats (sticky energy, not soft SaaS).",
+      ...craftMessage("scatterbrainBeat"),
       });
     }
   }
@@ -773,8 +870,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "stat_row",
-      message:
-        "data-editorial needs a reported data beat — add chart, data-table, stat-row, ranked-list, or timeline.",
+      ...craftMessage("dataEditorialBeat"),
       });
     }
   }
@@ -808,8 +904,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "comparison",
-      message:
-        "Loud/hard-card theme needs a punchy beat — add image-hero, comparison+emphasis, punchy stats, quote, or feature-grid columns:\"bento\" (not only soft sections).",
+      ...craftMessage("loudBeat"),
       });
     }
   }
@@ -824,8 +919,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "feature_grid",
-      message:
-        "pastel-geometry needs a soft-geometry beat — add feature-grid, image-hero, punchy stats, or quote (not only soft sections).",
+      ...craftMessage("pastelGeometryBeat"),
       });
     }
   }
@@ -841,8 +935,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
       issues.push({
         severity: "warning",
         fixId: "quote",
-      message:
-        "grove / dark-botanical needs a botanical monograph beat — add quote, image-hero, comparison+emphasis, or punchy stats.",
+      ...craftMessage("botanicalBeat"),
       });
     }
   }
