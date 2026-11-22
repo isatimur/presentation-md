@@ -1,5 +1,14 @@
 # @presentation-md/export
 
+## 1.25.1
+
+### Patch Changes
+
+- 993adb2: - PPTX tables and charts carry the deck language (`meta.lang`) like text boxes already did; table cells mirror left/right alignment in right-to-left decks.
+  - The MCP server reports its package version in the handshake instead of a hard-coded `1.0.0`.
+- Updated dependencies [629f438]
+  - @presentation-md/core@1.36.0
+
 ## 1.25.0
 
 ### Minor Changes

@@ -1,5 +1,20 @@
 # @presentation-md/render
 
+## 1.22.0
+
+### Minor Changes
+
+- 629f438: Rendered decks show their presenter controls (nav hint, Edit, toolbar buttons, blackout/whiteout, help overlay, speaker window, timer cues) in the deck's language. Strings come from `shared/deck-chrome.json` (en, zh, es, ar, pt, id, fr, ja, ru, de; machine translations pending native review), picked by `meta.lang` with English fallback per key. New `@presentation-md/core/deck-chrome` subpath: `resolveDeckChrome`, `deckChromeJson`.
+
+### Patch Changes
+
+- 993adb2: - PPTX tables and charts carry the deck language (`meta.lang`) like text boxes already did; table cells mirror left/right alignment in right-to-left decks.
+  - The MCP server reports its package version in the handshake instead of a hard-coded `1.0.0`.
+- Updated dependencies [629f438]
+- Updated dependencies [993adb2]
+  - @presentation-md/core@1.36.0
+  - @presentation-md/export@1.25.1
+
 ## 1.21.0
 
 ### Minor Changes
