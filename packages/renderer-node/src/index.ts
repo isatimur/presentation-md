@@ -15,7 +15,10 @@ import {
   normalizeDeckLang,
   scriptFallbackFonts,
   withFontFallback,
+  resolveDeckChrome,
+  deckChromeJson,
 } from "@presentation-md/core";
+import type { DeckChromeCatalog } from "@presentation-md/core";
 import type { ValidationResult, ChartSeries } from "@presentation-md/core";
 import { deckToPptxBuffer, type DeckJson as ExportDeckJson } from "@presentation-md/export";
 
@@ -573,6 +576,10 @@ export async function renderDeck(deckJson: string, opts?: RenderOptions): Promis
   const slidesHtml = slideParts.join("\n");
 
   const documentTemplate = await readFile(join(sharedDir, "document.html"), "utf-8");
+  const chromeCatalog = JSON.parse(
+    await readFile(join(sharedDir, "deck-chrome.json"), "utf-8")
+  ) as DeckChromeCatalog;
+  const chrome = resolveDeckChrome(chromeCatalog, lang);
 
   const title = deck.meta?.title ?? deck.meta?.company ?? "Presentation";
   const description = deck.meta?.description ?? "";
@@ -589,6 +596,8 @@ export async function renderDeck(deckJson: string, opts?: RenderOptions): Promis
     surface,
     attribution: attributionEnabled ? ATTRIBUTION_HTML : "",
     deckData,
+    chrome,
+    chromeJson: deckChromeJson(chrome),
   });
 
   return html;

@@ -61,6 +61,8 @@ export {
   withFontFallback,
 } from "./deck-lang.js";
 export type { TextDir } from "./deck-lang.js";
+export { resolveDeckChrome, deckChromeJson } from "./deck-chrome.js";
+export type { DeckChromeCatalog } from "./deck-chrome.js";
 export type { JudgeFlag, JudgeDeckJsonResult } from "./judge-deck-json.js";
 export {
   scaffoldDeck,

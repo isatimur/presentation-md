@@ -9,11 +9,14 @@ import {
   scriptFallbackFonts,
   withFontFallback,
 } from "@presentation-md/core/deck-lang";
+import { resolveDeckChrome, deckChromeJson } from "@presentation-md/core/deck-chrome";
+import type { DeckChromeCatalog } from "@presentation-md/core/deck-chrome";
 import type { DeckJson, Slide, ChartSeries } from "@presentation-md/export";
 import baseCssTemplate from "../../../shared/base.css?raw";
 import surfacesCss from "../../../shared/surfaces.css?raw";
 import themeSurfaces from "../../../shared/theme-surfaces.json";
 import documentTemplate from "../../../shared/document.html?raw";
+import deckChrome from "../../../shared/deck-chrome.json";
 
 function surfaceForTheme(name: string): string {
   return (themeSurfaces as Record<string, string>)[name] ?? "gradient";
@@ -335,6 +338,7 @@ export function renderDeckHtml(deck: DeckJson, theme: ResolvedTheme): string {
   }
 
   const title = deck.meta?.title ?? deck.meta?.company ?? "Presentation";
+  const chrome = resolveDeckChrome(deckChrome as DeckChromeCatalog, lang);
   return Mustache.render(documentTemplate, {
     lang,
     dir: deckLangDir(lang),
@@ -345,5 +349,7 @@ export function renderDeckHtml(deck: DeckJson, theme: ResolvedTheme): string {
     surface,
     attribution: ATTRIBUTION_HTML,
     deckData: embedDeckScript(deck),
+    chrome,
+    chromeJson: deckChromeJson(chrome),
   });
 }
