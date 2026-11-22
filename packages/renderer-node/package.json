@@ -1,6 +1,6 @@
 {
   "name": "@presentation-md/render",
-  "version": "1.20.9",
+  "version": "1.21.0",
   "description": "Render a deck JSON spec to a self-contained HTML slide deck.",
   "license": "MIT",
   "type": "module",
