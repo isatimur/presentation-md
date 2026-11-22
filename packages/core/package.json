@@ -26,6 +26,7 @@
   },
   "files": [
     "dist",
+    "shared",
     "SKILL.md",
     "references",
     "scripts",
@@ -38,7 +39,7 @@
     "validate-theme": "./dist/validate-theme-cli.js"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "node ../../tools/sync-core-shared.mjs && tsc -p tsconfig.json",
     "test": "vitest run",
     "lint": "eslint src",
     "typecheck": "tsc -p tsconfig.json --noEmit"
