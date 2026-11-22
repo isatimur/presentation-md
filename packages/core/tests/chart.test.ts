@@ -45,6 +45,16 @@ describe("renderChartSvg", () => {
   });
 });
 
+describe("sanitizeCustomHtml reserved ids (DOM clobbering)", () => {
+  it("drops pmd-*/psp-* ids so slides cannot shadow pmd-chrome or pmd-deck", () => {
+    const out = sanitizeCustomHtml(
+      `<div id="pmd-chrome">{"upNext":"<img src=x>"}</div><p id='psp-deck'>x</p><span id=pmd-dots>y</span><b id="ok">z</b>`
+    );
+    expect(out).not.toMatch(/id\s*=\s*["']?(pmd|psp)-/i);
+    expect(out).toContain('id="ok"');
+  });
+});
+
 describe("sanitizeCustomHtml", () => {
   it("strips script tags and event handlers", () => {
     const dirty =

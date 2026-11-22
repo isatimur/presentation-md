@@ -508,7 +508,8 @@ describe("renderDeck", () => {
     expect(html).toContain("PACE_PRESETS");
     expect(html).toContain("openSpeakerView");
     expect(html).toContain("Hold for the room.");
-    expect(html).toContain('getElementById("pmd-deck")');
+    // Read from the JSON <script> only, so slide content cannot clobber it.
+    expect(html).toContain(`script#pmd-deck[type="application/json"]`);
     expect(html).toContain("pmd-shot-mode");
     expect(html).toContain("pmd-live-present");
   });

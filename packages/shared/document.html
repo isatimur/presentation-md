@@ -102,11 +102,17 @@
 <script>
 (function () {
   var PMD_T = {};
-  try { PMD_T = JSON.parse(document.getElementById("pmd-chrome").textContent || "{}"); } catch (e) {}
+  // Read only a JSON <script>: custom-html slides cannot add scripts (sanitizer),
+  // so an element with id="pmd-chrome" inside a slide cannot clobber the catalog.
+  try { PMD_T = JSON.parse(document.querySelector('script#pmd-chrome[type="application/json"]').textContent || "{}"); } catch (e) {}
   function pmdT(key, vars) {
     var s = PMD_T[key] || key;
     if (vars) for (var k in vars) s = s.split("{" + k + "}").join(String(vars[k]));
     return s;
+  }
+  /** pmdT for innerHTML contexts: HTML-escaped. */
+  function pmdH(key, vars) {
+    return pmdT(key, vars).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
   if (!slides.length) return;
@@ -211,7 +217,9 @@
 
   var notesBySlide = [];
   try {
-    var deckEl = document.getElementById("pmd-deck") || document.getElementById("psp-deck");
+    var deckEl =
+      document.querySelector('script#pmd-deck[type="application/json"]') ||
+      document.querySelector('script#psp-deck[type="application/json"]');
     if (deckEl && deckEl.textContent) {
       var deck = JSON.parse(deckEl.textContent);
       if (deck && Array.isArray(deck.slides)) {
@@ -739,7 +747,7 @@
     doc.title = pmdT("speakerWinTitle", { n: idx + 1, total: slides.length });
     if (!doc.getElementById("pmd-speaker-root")) {
       doc.head.innerHTML = "<style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;padding:20px 22px 28px;font:15px/1.45 system-ui,sans-serif;background:#0b1220;color:#e8eef4;min-height:100vh}.meta{display:flex;gap:12px;flex-wrap:wrap;font:600 12px/1.2 ui-monospace,Menlo,monospace;color:#9ca3af;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}.timer{color:#e8eef4;font-variant-numeric:tabular-nums}.timer.is-paused{color:#f59e0b}.timer.is-ahead{color:#2dd4bf}.timer.is-behind{color:#fb7185}.timer.is-over{color:#f87171}h1{margin:0 0 18px;font:800 28px/1.15 system-ui,sans-serif;letter-spacing:-.03em}.label{font:600 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:#6b7280;margin:0 0 8px}.notes{white-space:pre-wrap;font-size:18px;line-height:1.5;margin:0 0 28px;min-height:4.5em}.notes.is-empty{color:#6b7280;font-style:italic}.next{padding-top:16px;border-top:1px solid rgba(232,238,244,.12)}.next p{margin:0;font-size:15px;color:#9ca3af}.hint{margin-top:28px;font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#5b6575}</style>";
-      doc.body.innerHTML = '<div id="pmd-speaker-root"><div class="meta"><span data-count></span><span class="timer" data-timer></span></div><h1 data-heading></h1><div class="label">' + pmdT("speakerWinNotesLabel") + '</div><p class="notes" data-notes></p><div class="next"><div class="label">' + pmdT("upNext") + '</div><p data-next></p></div><p class="hint">' + pmdT("speakerWinHint") + '</p></div>';
+      doc.body.innerHTML = '<div id="pmd-speaker-root"><div class="meta"><span data-count></span><span class="timer" data-timer></span></div><h1 data-heading></h1><div class="label">' + pmdH("speakerWinNotesLabel") + '</div><p class="notes" data-notes></p><div class="next"><div class="label">' + pmdH("upNext") + '</div><p data-next></p></div><p class="hint">' + pmdH("speakerWinHint") + '</p></div>';
     }
     var root = doc.getElementById("pmd-speaker-root");
     if (!root) return;

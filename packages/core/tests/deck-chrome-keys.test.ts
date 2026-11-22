@@ -23,7 +23,7 @@ describe("deck chrome catalog vs document.html", () => {
   });
 
   it('defines every pmdT("X") used in the script', () => {
-    const keys = matches(/pmdT\("([A-Za-z0-9]+)"/g);
+    const keys = matches(/pmd[TH]\("([A-Za-z0-9]+)"/g);
     expect(keys.length).toBeGreaterThan(0);
     for (const key of keys) expect(en, key).toHaveProperty(key);
   });
@@ -31,9 +31,23 @@ describe("deck chrome catalog vs document.html", () => {
   it("has no unused English keys", () => {
     const used = new Set([
       ...matches(/\{\{\{?chrome\.([A-Za-z0-9]+)\}?\}\}/g),
-      ...matches(/pmdT\("([A-Za-z0-9]+)"/g),
+      ...matches(/pmd[TH]\("([A-Za-z0-9]+)"/g),
     ]);
     for (const key of Object.keys(en)) expect(used.has(key), key).toBe(true);
+  });
+});
+
+describe("document.html reads its JSON blocks safely", () => {
+  it("reads pmd-chrome and pmd-deck only from JSON <script> elements, not getElementById", () => {
+    expect(template).not.toMatch(/getElementById\(["'](pmd-chrome|pmd-deck|psp-deck)["']\)/);
+    expect(template).toContain(`script#pmd-chrome[type="application/json"]`);
+    expect(template).toContain(`script#pmd-deck[type="application/json"]`);
+  });
+
+  it("escapes translated strings that go into innerHTML", () => {
+    for (const line of template.split("\n").filter((l) => l.includes("innerHTML"))) {
+      expect(line, line.trim().slice(0, 80)).not.toMatch(/pmdT\(/);
+    }
   });
 });
 

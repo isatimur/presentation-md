@@ -83,5 +83,9 @@ export function sanitizeCustomHtml(input: unknown): string {
   // Neutralize javascript: / vbscript: / data:text in remaining attributes.
   html = html.replace(/(javascript|vbscript|data\s*:\s*text)\s*:/gi, "blocked:");
 
+  // Drop ids in the renderer's reserved namespaces (pmd-*, psp-*), so slide
+  // content cannot clobber pmd-deck / pmd-chrome or other chrome elements.
+  html = html.replace(/\s+id\s*=\s*(["']?)\s*(?:pmd|psp)-[^"'\s>]*\1/gi, "");
+
   return html.trim();
 }
