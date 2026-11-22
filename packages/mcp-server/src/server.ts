@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { createRequire } from "node:module";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import {
@@ -60,13 +61,18 @@ export const TOOLS: ToolDefinition[] = [
 
 export const TOOL_NAMES = TOOLS.map((t) => t.name);
 
+/** Package version, reported in the MCP handshake (serverInfo.version). */
+export const SERVER_VERSION: string = (
+  createRequire(import.meta.url)("../package.json") as { version: string }
+).version;
+
 export function listToolDefinitions(): ToolDefinition[] {
   return TOOLS;
 }
 
 export async function main() {
   const server = new Server(
-    { name: "presentation-md", version: "1.0.0" },
+    { name: "presentation-md", version: SERVER_VERSION },
     { capabilities: { tools: {} } }
   );
 

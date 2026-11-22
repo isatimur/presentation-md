@@ -18,8 +18,17 @@ import {
   assertMcpToolInputSize,
   listToolDefinitions,
   MAX_MCP_TOOL_INPUT_BYTES,
+  SERVER_VERSION,
   TOOL_NAMES,
 } from "../src/server.js";
+import { readFileSync } from "node:fs";
+
+describe("server identity", () => {
+  it("reports the package version in the MCP handshake, not a hard-coded 1.0.0", () => {
+    const pkg = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
+    expect(SERVER_VERSION).toBe(pkg.version);
+  });
+});
 
 const MINIMAL_VALID_DECK = {
   type: "deck",

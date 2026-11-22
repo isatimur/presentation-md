@@ -577,9 +577,9 @@ export const en = {
   "download.markdownEmpty": "Markdown file is empty",
 
   // Generate modal ({slide}/{code}/{link} in rich messages are replaced by elements)
-  "generate.modelOpus": "Opus 4.8 — most capable",
-  "generate.modelSonnet": "Sonnet 4.6 — faster, cheaper",
-  "generate.modelHaiku": "Haiku 4.5 — fastest",
+  "generate.modelOpus": "{model} — most capable",
+  "generate.modelSonnet": "{model} — faster, cheaper",
+  "generate.modelHaiku": "{model} — fastest",
   "generate.errNoBrief": "Describe your deck first.",
   "generate.errNoKey": "Enter your Anthropic API key.",
   "generate.errEmpty": "The model returned an empty response. Try again.",

@@ -575,9 +575,9 @@ export const fr : Catalog = {
   "download.markdownEmpty": "Le fichier Markdown est vide",
 
   // Generate modal ({slide}/{code}/{link} in rich messages are replaced by elements)
-  "generate.modelOpus": "Opus 4.8 — le plus performant",
-  "generate.modelSonnet": "Sonnet 4.6 — plus rapide, moins cher",
-  "generate.modelHaiku": "Haiku 4.5 — le plus rapide",
+  "generate.modelOpus": "{model} — le plus performant",
+  "generate.modelSonnet": "{model} — plus rapide, moins cher",
+  "generate.modelHaiku": "{model} — le plus rapide",
   "generate.errNoBrief": "Décrivez d’abord votre présentation.",
   "generate.errNoKey": "Saisissez votre clé API Anthropic.",
   "generate.errEmpty": "Le modèle a renvoyé une réponse vide. Réessayez.",

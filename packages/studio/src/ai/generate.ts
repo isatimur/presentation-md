@@ -12,9 +12,10 @@ import { t } from "../i18n/index.js";
  */
 
 export const GEN_MODELS = [
-  { id: "claude-opus-4-8", labelKey: "generate.modelOpus" },
-  { id: "claude-sonnet-4-6", labelKey: "generate.modelSonnet" },
-  { id: "claude-haiku-4-5", labelKey: "generate.modelHaiku" },
+  // `name` fills {model} in the translated label, so a model bump never touches the catalogs.
+  { id: "claude-opus-5-5", name: "Opus 5.5", labelKey: "generate.modelOpus" },
+  { id: "claude-sonnet-5-5", name: "Sonnet 5.5", labelKey: "generate.modelSonnet" },
+  { id: "claude-haiku-5-5", name: "Haiku 5.5", labelKey: "generate.modelHaiku" },
 ] as const;
 
 export type GenModelId = (typeof GEN_MODELS)[number]["id"];

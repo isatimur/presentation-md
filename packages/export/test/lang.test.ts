@@ -56,6 +56,41 @@ describe("PPTX deck language", () => {
     expect(xml).not.toMatch(/rtl="1"/);
   });
 
+  it("tags data-table cells and chart XML with the deck language", async () => {
+    const d = {
+      type: "deck",
+      meta: { title: "Lang", theme: "test", lang: "ar" },
+      slides: [
+        {
+          layout: "data-table",
+          heading: "جدول",
+          columns: ["الربع", "الإيرادات"],
+          rows: [["الأول", "١٠"], ["الثاني", "١٢"]],
+        },
+        {
+          layout: "chart",
+          heading: "نمو",
+          chartType: "bar",
+          categories: ["أ", "ب"],
+          series: [{ name: "الإيرادات", values: [10, 12] }],
+        },
+      ],
+    } as DeckJson;
+    const JSZip = (await import("jszip")).default;
+    const buf = await deckToPptxBuffer(d, theme, { attribution: false });
+    const zip = await JSZip.loadAsync(buf);
+    const table = (await zip.file("ppt/slides/slide1.xml")?.async("string")) ?? "";
+    expect(table).toContain("<a:tbl>");
+    expect(table).not.toMatch(/<a:tbl>[\s\S]*lang="en-US"[\s\S]*<\/a:tbl>/);
+    expect(table).toMatch(/<a:tbl>[\s\S]*lang="ar"[\s\S]*<\/a:tbl>/);
+    const chartFile = Object.keys(zip.files).find((f) => /^ppt\/charts\/chart\d+\.xml$/.test(f));
+    expect(chartFile).toBeTruthy();
+    const chart = (await zip.file(chartFile!)?.async("string")) ?? "";
+    // pptxgenjs writes the chart language as lang="…" on the chart's text properties.
+    expect(chart).toMatch(/lang="ar"/);
+    expect(chart).not.toMatch(/lang="en-US"/);
+  });
+
   it("keeps the en-US default when no lang is set", async () => {
     const xml = await slideXml(deck());
     expect(xml).toMatch(/lang="en-US"/);

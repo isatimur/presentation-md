@@ -561,9 +561,9 @@ export const zh: Catalog = {
   "download.markdownEmpty": "Markdown 文件为空",
 
   // Generate modal ({slide}/{code}/{link} in rich messages are replaced by elements)
-  "generate.modelOpus": "Opus 4.8，能力最强",
-  "generate.modelSonnet": "Sonnet 4.6，更快更省",
-  "generate.modelHaiku": "Haiku 4.5，最快",
+  "generate.modelOpus": "{model}，能力最强",
+  "generate.modelSonnet": "{model}，更快更省",
+  "generate.modelHaiku": "{model}，最快",
   "generate.errNoBrief": "请先描述你的演示文稿。",
   "generate.errNoKey": "请输入你的 Anthropic API 密钥。",
   "generate.errEmpty": "模型返回了空响应，请重试。",

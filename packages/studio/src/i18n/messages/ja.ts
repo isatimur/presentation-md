@@ -561,9 +561,9 @@ export const ja: Catalog = {
   "download.markdownEmpty": "Markdown ファイルが空です",
 
   // Generate modal ({slide}/{code}/{link} in rich messages are replaced by elements)
-  "generate.modelOpus": "Opus 4.8 — 最高性能",
-  "generate.modelSonnet": "Sonnet 4.6 — 高速で低コスト",
-  "generate.modelHaiku": "Haiku 4.5 — 最速",
+  "generate.modelOpus": "{model} — 最高性能",
+  "generate.modelSonnet": "{model} — 高速で低コスト",
+  "generate.modelHaiku": "{model} — 最速",
   "generate.errNoBrief": "先にプレゼンテーションの内容を入力してください。",
   "generate.errNoKey": "Anthropic API キーを入力してください。",
   "generate.errEmpty": "モデルが空の応答を返しました。もう一度お試しください。",
