@@ -8,6 +8,7 @@ import {
 import { resolveTheme } from "../render/themes.js";
 import { renderDeckHtml } from "../render/renderDeck.js";
 import { parseStudioDeckJson } from "../deckGuard.js";
+import { t } from "../i18n/index.js";
 
 export { MAX_STUDIO_DECK_JSON_BYTES } from "../deckGuard.js";
 
@@ -25,7 +26,7 @@ function textByteLength(text: string): number {
 
 function assertStudioTextSize(text: string, name: string): void {
   if (textByteLength(text) > MAX_STUDIO_TEXT_FILE_BYTES) {
-    throw new Error(`${name} is too large (max 10 MiB)`);
+    throw new Error(t("download.tooLarge", { name, max: MAX_STUDIO_TEXT_FILE_BYTES / (1024 * 1024) }));
   }
 }
 
@@ -33,7 +34,7 @@ export function assertStudioImportFileSize(file: { name: string; size: number })
   const isPptx = /\.pptx$/i.test(file.name);
   const maxBytes = isPptx ? MAX_STUDIO_PPTX_FILE_BYTES : MAX_STUDIO_TEXT_FILE_BYTES;
   if (file.size > maxBytes) {
-    throw new Error(`${file.name} is too large (max ${maxBytes / (1024 * 1024)} MiB)`);
+    throw new Error(t("download.tooLarge", { name: file.name, max: maxBytes / (1024 * 1024) }));
   }
 }
 
@@ -216,7 +217,7 @@ export async function downloadPdfClientRaster(
 
   try {
     const doc = iframe.contentDocument;
-    if (!doc) throw new Error("Could not open PDF render frame");
+    if (!doc) throw new Error(t("download.pdfFrame"));
     doc.open();
     doc.write(html);
     doc.close();
@@ -235,7 +236,7 @@ export async function downloadPdfClientRaster(
 
     const slides = [...doc.querySelectorAll(".slide")] as HTMLElement[];
     if (!slides.length) {
-      throw new Error("No .slide elements found to rasterize");
+      throw new Error(t("download.noSlides"));
     }
 
     const pdf = await PDFDocument.create();
@@ -308,9 +309,7 @@ export function printDeckPdf(deck: DeckJson, renderedHtml?: string): void {
   const html = deckHtml(deck, renderedHtml);
   const w = window.open("", "_blank", "noopener,noreferrer");
   if (!w) {
-    throw new Error(
-      "Pop-up blocked — allow pop-ups for Studio, then try Download PDF again (or use MCP/CLI `format: pdf`)."
-    );
+    throw new Error(t("download.popupBlocked"));
   }
   w.document.open();
   w.document.write(html);
@@ -383,17 +382,15 @@ function extractDeckJsonString(html: string): string | undefined {
 export function extractDeckFromHtml(html: string): DeckJson {
   const json = extractDeckJsonString(html);
   if (!json) {
-    throw new Error(
-      "No editable deck found in this HTML. Only presentations created by presentation-md (with an embedded source) can be opened."
-    );
+    throw new Error(t("download.noEmbeddedDeck"));
   }
   return parseDeckJson(json);
 }
 
 /** Convert Marp / md-slides flavored Markdown into Deck JSON (MCP `import_markdown` parity). */
 export function importMarkdownFile(text: string, theme = "default-tech"): DeckJson {
-  assertStudioTextSize(text, "Markdown input");
-  if (!text.trim()) throw new Error("Markdown file is empty");
+  assertStudioTextSize(text, t("download.markdownInput"));
+  if (!text.trim()) throw new Error(t("download.markdownEmpty"));
   const deck = markdownToDeck(text, { theme }) as DeckJson;
   return parseStudioDeckJson(JSON.stringify(deck));
 }

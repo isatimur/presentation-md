@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { prepareSandboxedPreviewHtml } from "../render/sandboxPreview.js";
+import { useI18n } from "../i18n/index.js";
 
 /** Selection chrome injected into the sandboxed preview (parent owns the DOM). */
 const SELECT_CSS = `
@@ -12,8 +13,8 @@ section.slide.pmd-studio-selected {
 
 export type PreviewFit = "fit" | 50 | 75 | 100 | 125;
 
-const FIT_OPTIONS: { value: PreviewFit; label: string }[] = [
-  { value: "fit", label: "Fit" },
+const FIT_OPTIONS: { value: PreviewFit; label: string | null }[] = [
+  { value: "fit", label: null },
   { value: 50, label: "50%" },
   { value: 75, label: "75%" },
   { value: 100, label: "100%" },
@@ -38,6 +39,7 @@ export function Preview({
   selectedSlide?: number;
   onSelectSlide?: (index: number) => void;
 }) {
+  const { t } = useI18n();
   const frameRef = useRef<HTMLIFrameElement>(null);
   const selectedRef = useRef(selectedSlide);
   const onSelectRef = useRef(onSelectSlide);
@@ -108,7 +110,7 @@ export function Preview({
 
   return (
     <div className={`preview${fit === "fit" ? " is-fit" : " is-zoom"}`}>
-      <div className="preview-toolbar" role="toolbar" aria-label="Preview zoom">
+      <div className="preview-toolbar" role="toolbar" aria-label={t("preview.zoom")}>
         {FIT_OPTIONS.map((opt) => (
           <button
             key={String(opt.value)}
@@ -117,7 +119,7 @@ export function Preview({
             aria-pressed={fit === opt.value}
             onClick={() => setFit(opt.value)}
           >
-            {opt.label}
+            {opt.label ?? t("preview.fit")}
           </button>
         ))}
       </div>
@@ -138,7 +140,7 @@ export function Preview({
           <iframe
             ref={frameRef}
             className="preview-frame"
-            title="Deck preview"
+            title={t("preview.frameTitle")}
             srcDoc={srcDoc}
             sandbox="allow-same-origin"
             referrerPolicy="no-referrer"

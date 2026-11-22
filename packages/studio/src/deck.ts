@@ -1,5 +1,7 @@
 import type { DeckJson, Slide, LayoutType } from "@presentation-md/export";
 
+import { t, type MessageKey } from "./i18n/index.js";
+
 export type { DeckJson, Slide, LayoutType };
 
 export const LAYOUTS: LayoutType[] = [
@@ -23,26 +25,33 @@ export const LAYOUTS: LayoutType[] = [
   "metric-ring",
 ];
 
-export const LAYOUT_LABELS: Record<LayoutType, string> = {
-  title: "Title",
-  section: "Section divider",
-  "two-column": "Two column · ratio",
-  "feature-grid": "Feature grid · bento",
-  "data-table": "Data table",
-  "stat-row": "Stat row · hero KPI",
-  chart: "Chart",
-  timeline: "Timeline",
-  quote: "Quote",
-  closing: "Closing · actions",
-  "image-hero": "Image hero",
-  comparison: "Comparison · emphasis",
-  code: "Code",
-  "custom-html": "Custom HTML",
-  "ranked-list": "Ranked list · bars",
-  "logo-wall": "Logo wall · marks",
-  "streak-grid": "Streak grid · days",
-  "metric-ring": "Metric ring · KPI arc",
+/** Layout id -> message key. Resolve at render time with layoutLabel(). */
+export const LAYOUT_LABEL_KEYS: Record<LayoutType, MessageKey> = {
+  title: "layout.title",
+  section: "layout.section",
+  "two-column": "layout.twoColumn",
+  "feature-grid": "layout.featureGrid",
+  "data-table": "layout.dataTable",
+  "stat-row": "layout.statRow",
+  chart: "layout.chart",
+  timeline: "layout.timeline",
+  quote: "layout.quote",
+  closing: "layout.closing",
+  "image-hero": "layout.imageHero",
+  comparison: "layout.comparison",
+  code: "layout.code",
+  "custom-html": "layout.customHtml",
+  "ranked-list": "layout.rankedList",
+  "logo-wall": "layout.logoWall",
+  "streak-grid": "layout.streakGrid",
+  "metric-ring": "layout.metricRing",
 };
+
+/** Localized layout name; falls back to the raw id for unknown layouts. */
+export function layoutLabel(layout: string): string {
+  const key = (LAYOUT_LABEL_KEYS as Record<string, MessageKey | undefined>)[layout];
+  return key ? t(key) : layout;
+}
 
 /** A reasonable starter slide for each layout, so new slides aren't blank. */
 export function blankSlide(layout: LayoutType): Slide {

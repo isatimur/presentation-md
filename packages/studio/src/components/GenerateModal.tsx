@@ -24,11 +24,13 @@ import {
   persistApiKeyPreference,
   readRememberedApiKey,
 } from "../apiKeyStorage.js";
+import { LOCALES, localeInfo, useI18n, type MessageKey } from "../i18n/index.js";
+import { NODE_SLOT, withNode } from "../i18n/richText.js";
 
-const EXAMPLE_BRIEFS = [
-  "Q3 all-hands: momentum, key metrics, roadmap, and what's next.",
-  "Seed pitch for an AI-native analytics tool — problem, product, traction, ask.",
-  "Launch deck for a developer CLI: what it is, how it works, why it's fast.",
+const EXAMPLE_BRIEFS: { briefKey: MessageKey; labelKey: MessageKey }[] = [
+  { briefKey: "generate.example1", labelKey: "generate.example1Label" },
+  { briefKey: "generate.example2", labelKey: "generate.example2Label" },
+  { briefKey: "generate.example3", labelKey: "generate.example3Label" },
 ];
 
 /** Same recipe catalog as MCP `scaffold_deck` — craft floor without an API key. */
@@ -48,6 +50,9 @@ export function GenerateModal({
   onGenerate: (deck: DeckJson) => void;
   onClose: () => void;
 }) {
+  const { t, locale } = useI18n();
+  // Deck copy language: defaults to the UI language, independent of it after a pick.
+  const [deckLang, setDeckLang] = useState<string>(localeInfo(locale).deckLang);
   const initialKeyStorage = useMemo(() => readRememberedApiKey(), []);
   const [brief, setBrief] = useState("");
   const [theme, setTheme] = useState(currentTheme);
@@ -72,7 +77,7 @@ export function GenerateModal({
   const generationRef = useRef<AbortController | null>(null);
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
-  const slideLabel = `Slide ${Math.max(1, slideIndex0 + 1)}`;
+  const slideLabel = t("compare.slideLabel", { n: Math.max(1, slideIndex0 + 1) });
 
   const abortGeneration = () => {
     const active = generationRef.current;
@@ -184,7 +189,7 @@ export function GenerateModal({
     const controller = new AbortController();
     generationRef.current = controller;
     setBusy(true);
-    setStatus("Generating your deck…");
+    setStatus(t("generate.statusGenerating"));
     setStorageWarning(persistApiKeyPreference({ remember, key: apiKey }));
     try {
       const deck = await generateDeck({
@@ -193,6 +198,7 @@ export function GenerateModal({
         brief,
         theme,
         density,
+        lang: deckLang,
         signal: controller.signal,
       });
       if (generationRef.current !== controller || controller.signal.aborted) return;
@@ -210,13 +216,15 @@ export function GenerateModal({
   const landScaffold = () => {
     try {
       const title =
-        brief.trim().split(/[.!?\n]/)[0]?.trim().slice(0, 80) || "Untitled deck";
+        brief.trim().split(/[.!?\n]/)[0]?.trim().slice(0, 80) || t("generate.untitledDeck");
       const result = scaffoldDeck({
         purpose,
         theme,
         title,
       });
-      onGenerate(result.deck as DeckJson);
+      const deck = result.deck as DeckJson;
+      deck.meta = { ...deck.meta, lang: deckLang };
+      onGenerate(deck);
       requestClose();
     } catch (err) {
       setStatus((err as Error).message);
@@ -225,11 +233,11 @@ export function GenerateModal({
 
   const copyAgentPrompt = async () => {
     try {
-      await navigator.clipboard.writeText(buildAgentPrompt(brief, theme, density));
+      await navigator.clipboard.writeText(buildAgentPrompt(brief, theme, density, deckLang));
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      setStatus("Couldn't copy — select the prompt manually.");
+      setStatus(t("generate.copyFailed"));
     }
   };
 
@@ -246,55 +254,77 @@ export function GenerateModal({
       >
         <header className="modal-head">
           <div>
-            <h2 id="generate-modal-title">Generate a deck</h2>
+            <h2 id="generate-modal-title">{t("generate.title")}</h2>
             <span id="generate-modal-description" className="muted small">
-              Describe it — get an editable deck in seconds.
+              {t("generate.description")}
             </span>
           </div>
-          <button className="btn btn-sm" onClick={requestClose} aria-label="Close">✕</button>
+          <button className="btn btn-sm" onClick={requestClose} aria-label={t("generate.close")}>✕</button>
         </header>
 
         <div className="modal-body">
-          <label className="field-label" htmlFor="generate-brief">What's the deck about?</label>
+          <label className="field-label" htmlFor="generate-brief">{t("generate.briefLabel")}</label>
           <textarea
             id="generate-brief"
             className="text-input brief-input"
             value={brief}
-            placeholder="e.g. Q3 all-hands covering revenue, product wins, and the roadmap for next quarter."
+            placeholder={t("generate.briefPlaceholder")}
             rows={4}
             autoFocus
             onChange={(e) => setBrief(e.target.value)}
           />
           <div className="chip-row">
             {EXAMPLE_BRIEFS.map((ex) => (
-              <button key={ex} className="chip" onClick={() => setBrief(ex)} title="Use this brief">
-                {ex.split(/[:—]/)[0]!.trim()}
+              <button
+                key={ex.briefKey}
+                className="chip"
+                onClick={() => setBrief(t(ex.briefKey))}
+                title={t("generate.useBrief")}
+              >
+                {t(ex.labelKey)}
               </button>
             ))}
           </div>
 
-          <label className="field-label">Density</label>
-          <div className="theme-shortlist-row" role="listbox" aria-label="Deck density">
+          <label className="field-label">{t("generate.density")}</label>
+          <div className="theme-shortlist-row" role="listbox" aria-label={t("generate.densityLabel")}>
             <button
               type="button"
               className={`chip${density === "speaker" ? " active" : ""}`}
               onClick={() => setDensity("speaker")}
-              title="One idea per slide, large type, live talks"
+              title={t("generate.densitySpeakerTitle")}
             >
-              Speaker-led
+              {t("generate.densitySpeaker")}
             </button>
             <button
               type="button"
               className={`chip${density === "reading" ? " active" : ""}`}
               onClick={() => setDensity("reading")}
-              title="Self-contained slides for async / board packs"
+              title={t("generate.densityReadingTitle")}
             >
-              Reading-first
+              {t("generate.densityReading")}
             </button>
           </div>
 
-          <label className="field-label">Browse by mood</label>
-          <div className="theme-mood-row" role="toolbar" aria-label="Filter themes by mood">
+          <label className="field-label" htmlFor="generate-deck-lang">
+            {t("language.deckLanguage")}
+          </label>
+          <select
+            id="generate-deck-lang"
+            className="language-select-deck"
+            value={deckLang}
+            onChange={(e) => setDeckLang(e.target.value)}
+            title={t("language.deckLanguageHint")}
+          >
+            {LOCALES.map((l) => (
+              <option key={l.code} value={l.deckLang} lang={l.code} dir={l.dir}>
+                {l.endonym}
+              </option>
+            ))}
+          </select>
+
+          <label className="field-label">{t("generate.browseMood")}</label>
+          <div className="theme-mood-row" role="toolbar" aria-label={t("generate.moodLabel")}>
             {THEME_BROWSE_FILTERS.map((f) => (
               <button
                 key={f.id}
@@ -302,21 +332,25 @@ export function GenerateModal({
                 className={`chip${moodFilter === f.id ? " active" : ""}`}
                 aria-pressed={moodFilter === f.id}
                 onClick={() => setMoodFilter(f.id)}
-                title={f.id === "all" ? "Show all themes" : `Filter by ${f.label.toLowerCase()}`}
+                title={
+                  f.id === "all"
+                    ? t("generate.showAllThemes")
+                    : t("generate.filterBy", { label: f.label.toLowerCase() })
+                }
               >
-                {f.id === "all" ? `All ${themes.length}` : f.label}
+                {f.id === "all" ? t("generate.allCount", { n: themes.length }) : f.label}
               </button>
             ))}
           </div>
 
-          <label className="field-label">Theme shortlist</label>
-          <div className="theme-shortlist-row" role="listbox" aria-label="Theme shortlists">
+          <label className="field-label">{t("generate.shortlist")}</label>
+          <div className="theme-shortlist-row" role="listbox" aria-label={t("generate.shortlistsLabel")}>
             <button
               type="button"
               className={`chip${shortlistId === "" ? " active" : ""}`}
               onClick={() => setShortlistId("")}
             >
-              All themes
+              {t("generate.allThemes")}
             </button>
             {shortlists.map((s) => (
               <button
@@ -342,65 +376,65 @@ export function GenerateModal({
           </div>
 
           <div className="gen-discover-head">
-            <label className="field-label">Pick visually (show, don’t tell)</label>
+            <label className="field-label">{t("generate.pickVisually")}</label>
             <button
               type="button"
               className={`chip${liveDiscover ? " active" : ""}`}
               onClick={() => setLiveDiscover((v) => !v)}
-              title="Toggle live discover (My deck restyle or craft proof shot strip)"
+              title={t("generate.toggleLiveTitle")}
             >
-              {liveDiscover ? "Hide live" : "Show live"}
+              {liveDiscover ? t("compare.hideLive") : t("compare.showLive")}
             </button>
           </div>
           {liveDiscover ? (
-            <div className="gen-discover-crop-bar" role="group" aria-label="Live discover mode">
-              <span className="gen-discover-crop-label">Live</span>
+            <div className="gen-discover-crop-bar" role="group" aria-label={t("generate.liveModeLabel")}>
+              <span className="gen-discover-crop-label">{t("compare.live")}</span>
               <button
                 type="button"
                 className={`chip${liveMode === "deck" ? " active" : ""}`}
                 onClick={() => setLiveMode("deck")}
-                title="Re-theme your selected Studio slide in each slot — content-true restyle"
+                title={t("generate.deckModeTitle")}
               >
-                My deck · {slideLabel}
+                {t("compare.deckMode", { slide: slideLabel })}
               </button>
               <button
                 type="button"
                 className={`chip${liveMode === "proofs" ? " active" : ""}`}
                 onClick={() => setLiveMode("proofs")}
-                title="Shared-iframe Title / Bento / Compare craft proofs"
+                title={t("compare.proofsModeTitle")}
               >
-                Craft proofs
+                {t("compare.proofsMode")}
               </button>
             </div>
           ) : null}
           <div
             className={`gen-discover-grid${liveDiscover ? " is-live" : ""}`}
             role="listbox"
-            aria-label="Pick 3 theme compare"
+            aria-label={t("generate.pick3Label")}
           >
-            {discoverThree.map((t) => (
+            {discoverThree.map((item) => (
               <button
-                key={t.name}
+                key={item.name}
                 type="button"
                 role="option"
-                aria-selected={t.name === theme}
-                className={`gen-discover-card${t.name === theme ? " active" : ""}`}
-                onClick={() => setTheme(t.name)}
-                title={t.vibe}
+                aria-selected={item.name === theme}
+                className={`gen-discover-card${item.name === theme ? " active" : ""}`}
+                onClick={() => setTheme(item.name)}
+                title={item.vibe}
               >
                 {liveDiscover ? (
                   liveMode === "deck" ? (
                     <DeckRestylePreview
                       deck={deck}
-                      theme={t.name}
+                      theme={item.name}
                       slideIndex0={slideIndex0}
-                      title={`${t.name} · your ${slideLabel}`}
+                      title={t("compare.deckFrameTitle", { theme: item.name, slide: slideLabel })}
                       className="gen-discover-restyle"
                     />
                   ) : (
                     <ThemeCraftShotStrip
-                      theme={t.name}
-                      title={`${t.name} craft preview`}
+                      theme={item.name}
+                      title={t("compare.proofFrameTitle", { theme: item.name })}
                       className="gen-discover-shot-strip"
                       compact
                     />
@@ -409,45 +443,47 @@ export function GenerateModal({
                   <span
                     className="gen-discover-swatch"
                     style={{
-                      ["--swatch-bg" as string]: t.bg,
-                      ["--swatch-accent" as string]: t.accent,
+                      ["--swatch-bg" as string]: item.bg,
+                      ["--swatch-accent" as string]: item.accent,
                     }}
                     aria-hidden
                   />
                 )}
-                <span className="gen-discover-name">{t.name}</span>
-                <span className="gen-discover-vibe muted small">{t.vibe}</span>
+                <span className="gen-discover-name">{item.name}</span>
+                <span className="gen-discover-vibe muted small">{item.vibe}</span>
               </button>
             ))}
           </div>
           {liveDiscover && liveMode === "deck" ? (
             <p className="muted small" style={{ margin: 0 }}>
-              My deck restyles <strong>{slideLabel}</strong> live — judge your content across themes
-              before generating (pick-3 tray parity).
+              {withNode(
+                t("generate.hintDeck", { slide: NODE_SLOT }),
+                <strong>{slideLabel}</strong>
+              )}
             </p>
           ) : null}
 
           <div className="field-grid">
             <label className="inline-field">
-              <span className="muted small">Theme</span>
+              <span className="muted small">{t("generate.theme")}</span>
               <select className="text-input" value={theme} onChange={(e) => setTheme(e.target.value)}>
-                {selectableThemes.map((t) => (
-                  <option key={t} value={t}>{t}</option>
+                {selectableThemes.map((name) => (
+                  <option key={name} value={name}>{name}</option>
                 ))}
               </select>
             </label>
             <label className="inline-field">
-              <span className="muted small">Model</span>
+              <span className="muted small">{t("generate.model")}</span>
               <select className="text-input" value={model} onChange={(e) => setModel(e.target.value as GenModelId)}>
                 {GEN_MODELS.map((m) => (
-                  <option key={m.id} value={m.id}>{m.label}</option>
+                  <option key={m.id} value={m.id}>{t(m.labelKey)}</option>
                 ))}
               </select>
             </label>
           </div>
 
           <div className="gen-panel">
-            <label className="field-label">Your Anthropic API key</label>
+            <label className="field-label">{t("generate.apiKeyLabel")}</label>
             <input
               className="text-input"
               type="password"
@@ -458,7 +494,7 @@ export function GenerateModal({
             />
             <label className="checkbox-field">
               <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} />
-              <span className="muted small">Remember on this device (stored only in your browser)</span>
+              <span className="muted small">{t("generate.remember")}</span>
             </label>
             {storageWarning ? (
               <p className="status muted small gen-storage-warning" role="status" aria-live="polite">
@@ -466,29 +502,34 @@ export function GenerateModal({
               </p>
             ) : null}
             <p className="muted small privacy-note">
-              Your key stays in this browser. Requests go straight to Anthropic — nothing is sent to our servers.
-              Get a key at <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noreferrer">console.anthropic.com</a>.
+              {withNode(
+                t("generate.privacyNote", { link: NODE_SLOT }),
+                <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noreferrer">console.anthropic.com</a>
+              )}
             </p>
             <button className="btn btn-primary btn-block" disabled={busy} onClick={runGenerate}>
-              {busy ? "Generating…" : "Generate deck"}
+              {busy ? t("generate.generating") : t("generate.submit")}
             </button>
           </div>
 
-          <div className="gen-divider"><span>or land a craft scaffold (no key)</span></div>
+          <div className="gen-divider"><span>{t("generate.dividerScaffold")}</span></div>
 
           <div className="gen-panel">
             <p className="muted small">
-              Same recipes as MCP <code>scaffold_deck</code> — layouts, asymmetry, dual CTAs, and notes
-              pre-wired. Beats freeform vibe drafts; rewrite placeholder copy, then Audit craft.
+              {withNode(t("generate.scaffoldIntro", { code: NODE_SLOT }), <code>scaffold_deck</code>)}
             </p>
-            <label className="field-label">Recipe</label>
-            <div className="theme-shortlist-row" role="listbox" aria-label="Scaffold recipe">
+            <label className="field-label">{t("generate.recipe")}</label>
+            <div className="theme-shortlist-row" role="listbox" aria-label={t("generate.recipeLabel")}>
               {SCAFFOLD_PURPOSE_CHIPS.map((p) => (
                 <button
                   key={p.id}
                   type="button"
                   className={`chip${purpose === p.id ? " active" : ""}`}
-                  title={`${p.label} · ${p.slide_count} slides · default ${p.defaultTheme}`}
+                  title={t("generate.scaffoldChipTitle", {
+                    label: p.label,
+                    n: p.slide_count,
+                    theme: p.defaultTheme,
+                  })}
                   onClick={() => setPurpose(p.id)}
                 >
                   {p.id}
@@ -500,21 +541,20 @@ export function GenerateModal({
               type="button"
               disabled={busy}
               onClick={landScaffold}
-              title="Land schema-native Deck JSON skeleton — no Anthropic key"
+              title={t("generate.landTitle")}
             >
-              Land {purpose} scaffold
+              {t("generate.landScaffold", { purpose })}
             </button>
           </div>
 
-          <div className="gen-divider"><span>or hand it to your agent</span></div>
+          <div className="gen-divider"><span>{t("generate.dividerAgent")}</span></div>
 
           <div className="gen-panel">
             <p className="muted small">
-              No key? Copy a ready-made prompt and paste it into Claude Code, Cursor, or any agent with the
-              presentation skill installed — then open the resulting deck here.
+              {t("generate.agentIntro")}
             </p>
             <button className="btn btn-block" onClick={copyAgentPrompt} disabled={!brief.trim()}>
-              {copied ? "Copied ✓" : "Copy prompt for your agent"}
+              {copied ? t("generate.copied") : t("generate.copyPrompt")}
             </button>
           </div>
 

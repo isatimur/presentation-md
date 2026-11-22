@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useI18n } from "../i18n/index.js";
 
 export interface StudioCommand {
   id: string;
@@ -17,6 +18,7 @@ export function CommandPalette({
   onOpenChange: (open: boolean) => void;
   commands: StudioCommand[];
 }) {
+  const { t } = useI18n();
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -83,14 +85,14 @@ export function CommandPalette({
       <div
         className="command-palette"
         role="dialog"
-        aria-label="Command palette"
+        aria-label={t("palette.label")}
         aria-modal="true"
       >
         <input
           ref={inputRef}
           className="command-palette-input"
           type="search"
-          placeholder="Jump to an action…"
+          placeholder={t("palette.placeholder")}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           aria-autocomplete="list"
@@ -98,7 +100,7 @@ export function CommandPalette({
         />
         <ul id="studio-command-list" className="command-palette-list" role="listbox">
           {filtered.length === 0 ? (
-            <li className="command-palette-empty">No matching actions</li>
+            <li className="command-palette-empty">{t("palette.empty")}</li>
           ) : (
             filtered.map((cmd, idx) => (
               <li key={cmd.id} role="option" aria-selected={idx === active}>
@@ -119,9 +121,9 @@ export function CommandPalette({
           )}
         </ul>
         <div className="command-palette-foot">
-          <span>↑↓ navigate</span>
-          <span>↵ run</span>
-          <span>esc close</span>
+          <span>{t("palette.navigate")}</span>
+          <span>{t("palette.run")}</span>
+          <span>{t("palette.close")}</span>
         </div>
       </div>
     </div>

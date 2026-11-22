@@ -22,6 +22,7 @@ A deck is `{ "type": "deck", "meta": {...}, "slides": [...] }`. Full JSON Schema
 | `company` | brand/project name |
 | `description` | meta description |
 | `theme` | theme name (default: `default-tech`) |
+| `lang` | BCP 47 language of the copy, e.g. `en`, `ja`, `pt-BR`, `ar` (default: `en`). Sets `<html lang>`, right-to-left layout for `ar`/`he`/`fa`/`ur`, Noto font fallbacks for non-Latin scripts, and PPTX text language. |
 
 ## slide layouts
 

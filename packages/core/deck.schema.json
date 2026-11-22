@@ -15,6 +15,11 @@
         "company": { "type": "string" },
         "description": { "type": "string" },
         "theme": { "type": "string", "description": "Theme name (default: default-tech)" },
+        "lang": {
+          "type": "string",
+          "pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$",
+          "description": "BCP 47 language of the deck copy, e.g. en, ja, pt-BR, ar (default: en). Sets <html lang>, right-to-left layout for ar/he/fa/ur, script font fallbacks, and PPTX text language."
+        },
         "marquee": {
           "type": "string",
           "description": "candy-pop: custom ticker unit for title/closing marquee (else company/title)"

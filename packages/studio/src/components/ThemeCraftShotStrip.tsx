@@ -1,10 +1,17 @@
+import { useI18n, type MessageKey } from "../i18n/index.js";
 import {
-  PREVIEW_CROP_LABEL,
   PREVIEW_CROPS,
   PREVIEW_STRIP_HEIGHT_PX,
   PREVIEW_STRIP_START_PX,
   themePreviewUrl,
+  type PreviewCrop,
 } from "../render/themePreview.js";
+
+const CROP_LABEL_KEYS: Record<PreviewCrop, MessageKey> = {
+  title: "craftStrip.cropTitle",
+  bento: "craftStrip.cropBento",
+  comparison: "craftStrip.cropCompare",
+};
 
 /**
  * One shared iframe per theme, scroll-cropped to the Title → Bento → Compare
@@ -23,6 +30,7 @@ export function ThemeCraftShotStrip({
   className?: string;
   compact?: boolean;
 }) {
+  const { t } = useI18n();
   const classes = [
     "craft-shot-strip",
     compact ? "is-compact" : "",
@@ -32,7 +40,7 @@ export function ThemeCraftShotStrip({
     .join(" ");
 
   return (
-    <div className={classes} aria-label={`${theme} craft shot strip`}>
+    <div className={classes} aria-label={t("craftStrip.label", { theme })}>
       <div
         className="craft-shot-strip-viewport"
         style={{
@@ -43,13 +51,13 @@ export function ThemeCraftShotStrip({
         <div className="craft-shot-strip-labels" aria-hidden>
           {PREVIEW_CROPS.map((crop) => (
             <span key={crop} className="craft-shot-strip-label" data-crop={crop}>
-              {PREVIEW_CROP_LABEL[crop]}
+              {t(CROP_LABEL_KEYS[crop])}
             </span>
           ))}
         </div>
         <iframe
           src={themePreviewUrl(theme)}
-          title={title ?? `${theme} craft preview (Title / Bento / Compare)`}
+          title={title ?? t("craftStrip.previewTitle", { theme })}
           loading="lazy"
           tabIndex={-1}
         />

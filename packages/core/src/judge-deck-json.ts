@@ -3,6 +3,8 @@
  * Shared by MCP `judge_deck` and CLI `--judge` (no Chrome / no HTML metrics).
  */
 
+import { countWords, normalizeDeckLang } from "./deck-lang.js";
+
 export interface JudgeFlag {
   id: string;
   severity: "gate" | "warn" | "error";
@@ -17,6 +19,7 @@ export interface JudgeDeckJsonResult {
 
 const WORD_GATE = 40;
 const IGNORE_KEYS = new Set([
+  "lang",
   "layout",
   "icon",
   "href",
@@ -44,10 +47,6 @@ const IGNORE_KEYS = new Set([
   "tone",
 ]);
 
-function countWords(text: string): number {
-  return text.split(/\s+/).filter((w) => /[A-Za-z0-9]/.test(w)).length;
-}
-
 function iterTextBlocks(obj: unknown): string[] {
   const out: string[] = [];
   if (obj && typeof obj === "object") {
@@ -69,6 +68,8 @@ function iterTextBlocks(obj: unknown): string[] {
 export function judgeDeckJson(deck: Record<string, unknown>): JudgeDeckJsonResult {
   const flags: JudgeFlag[] = [];
   const slides = Array.isArray(deck["slides"]) ? (deck["slides"] as Record<string, unknown>[]) : [];
+  const meta = deck["meta"] as Record<string, unknown> | undefined;
+  const lang = normalizeDeckLang(meta?.["lang"]);
   const layouts: string[] = [];
   const wps: number[] = [];
   const mbs: number[] = [];
@@ -86,8 +87,8 @@ export function judgeDeckJson(deck: Record<string, unknown>): JudgeDeckJsonResul
     const layout = typeof s["layout"] === "string" ? s["layout"] : "?";
     layouts.push(layout);
     const blocks = iterTextBlocks(s);
-    const total = blocks.reduce((a, b) => a + countWords(b), 0);
-    const mb = blocks.reduce((a, b) => Math.max(a, countWords(b)), 0);
+    const total = blocks.reduce((a, b) => a + countWords(b, lang), 0);
+    const mb = blocks.reduce((a, b) => Math.max(a, countWords(b, lang)), 0);
     wps.push(total);
     mbs.push(mb);
     if (mb > WORD_GATE) {

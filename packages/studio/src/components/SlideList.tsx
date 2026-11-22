@@ -1,7 +1,8 @@
 import { useState } from "react";
 import type { Slide } from "@presentation-md/export";
-import { LAYOUTS, LAYOUT_LABELS, blankSlide } from "../deck.js";
+import { LAYOUTS, layoutLabel, blankSlide } from "../deck.js";
 import type { LayoutType } from "../deck.js";
+import { useI18n } from "../i18n/index.js";
 
 export function SlideList({
   slides,
@@ -14,6 +15,7 @@ export function SlideList({
   onSelect: (i: number) => void;
   onChange: (next: Slide[], select?: number) => void;
 }) {
+  const { t } = useI18n();
   const [addLayout, setAddLayout] = useState<LayoutType>("title");
 
   const add = () => {
@@ -43,41 +45,41 @@ export function SlideList({
       <div className="add-row">
         <select
           className="text-input"
-          aria-label="New slide layout"
+          aria-label={t("slideList.newLayout")}
           value={addLayout}
           onChange={(e) => setAddLayout(e.target.value as LayoutType)}
         >
           {LAYOUTS.map((l) => (
             <option key={l} value={l}>
-              {LAYOUT_LABELS[l]}
+              {layoutLabel(l)}
             </option>
           ))}
         </select>
         <button type="button" className="btn btn-sm" onClick={add}>
-          + Add slide
+          {t("slideList.addSlide")}
         </button>
       </div>
-      <ul className="slides" aria-label="Slide list">
+      <ul className="slides" aria-label={t("slideList.label")}>
         {slides.map((slide, i) => {
-          const title = slide.heading ?? slide.quote ?? slide.eyebrow ?? "Untitled";
+          const title = slide.heading ?? slide.quote ?? slide.eyebrow ?? t("slideList.untitled");
           return (
             <li key={i} className={`slide-row ${i === selected ? "active" : ""}`}>
               <button
                 type="button"
                 className="slide-row-main"
-                aria-label={`Select slide ${i + 1}: ${title}`}
+                aria-label={t("slideList.select", { n: i + 1, title })}
                 aria-current={i === selected ? "true" : undefined}
                 onClick={() => onSelect(i)}
               >
                 <span className="slide-row-num">{i + 1}</span>
                 <span className="slide-row-text">
                   <span className="slide-row-layout">
-                    {LAYOUT_LABELS[slide.layout as LayoutType] ?? slide.layout}
+                    {layoutLabel(slide.layout)}
                     {(slide.notes ?? "").trim() ? (
                       <span
                         className="notes-dot"
-                        title="Has speaker notes"
-                        aria-label="Has speaker notes"
+                        title={t("slideList.hasNotes")}
+                        aria-label={t("slideList.hasNotes")}
                       >
                         N
                       </span>
@@ -90,8 +92,8 @@ export function SlideList({
                 <button
                   type="button"
                   className="btn btn-icon"
-                  aria-label={`Move slide ${i + 1} up`}
-                  title="Move up"
+                  aria-label={t("slideList.moveUpAria", { n: i + 1 })}
+                  title={t("slideList.moveUp")}
                   disabled={i === 0}
                   onClick={() => move(i, -1)}
                 >
@@ -100,8 +102,8 @@ export function SlideList({
                 <button
                   type="button"
                   className="btn btn-icon"
-                  aria-label={`Move slide ${i + 1} down`}
-                  title="Move down"
+                  aria-label={t("slideList.moveDownAria", { n: i + 1 })}
+                  title={t("slideList.moveDown")}
                   disabled={i === slides.length - 1}
                   onClick={() => move(i, 1)}
                 >
@@ -110,8 +112,8 @@ export function SlideList({
                 <button
                   type="button"
                   className="btn btn-icon"
-                  aria-label={`Duplicate slide ${i + 1}`}
-                  title="Duplicate"
+                  aria-label={t("slideList.duplicateAria", { n: i + 1 })}
+                  title={t("slideList.duplicate")}
                   onClick={() => duplicate(i)}
                 >
                   ⧉
@@ -119,8 +121,8 @@ export function SlideList({
                 <button
                   type="button"
                   className="btn btn-icon btn-danger"
-                  aria-label={`Delete slide ${i + 1}`}
-                  title="Delete"
+                  aria-label={t("slideList.deleteAria", { n: i + 1 })}
+                  title={t("slideList.delete")}
                   disabled={slides.length <= 1}
                   onClick={() => remove(i)}
                 >

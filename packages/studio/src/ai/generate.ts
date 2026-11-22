@@ -1,5 +1,6 @@
 import type { DeckJson } from "@presentation-md/export";
 import { parseDeckJson } from "../export/downloads.js";
+import { t } from "../i18n/index.js";
 
 /**
  * In-browser deck generation. Two paths, both from a single source of truth
@@ -11,9 +12,9 @@ import { parseDeckJson } from "../export/downloads.js";
  */
 
 export const GEN_MODELS = [
-  { id: "claude-opus-4-8", label: "Opus 4.8 — most capable" },
-  { id: "claude-sonnet-4-6", label: "Sonnet 4.6 — faster, cheaper" },
-  { id: "claude-haiku-4-5", label: "Haiku 4.5 — fastest" },
+  { id: "claude-opus-4-8", labelKey: "generate.modelOpus" },
+  { id: "claude-sonnet-4-6", labelKey: "generate.modelSonnet" },
+  { id: "claude-haiku-4-5", labelKey: "generate.modelHaiku" },
 ] as const;
 
 export type GenModelId = (typeof GEN_MODELS)[number]["id"];
@@ -93,17 +94,29 @@ Authoring rules:
   - Add brief "notes" on 2–4 key slides (talking points for the presenter).
 - Only emit fields defined above. Do not invent new layouts or fields.`;
 
+/** English name of a BCP 47 tag for the model prompt, e.g. "pt-BR" → "Brazilian Portuguese". */
+function languageName(lang: string): string {
+  try {
+    return new Intl.DisplayNames(["en"], { type: "language" }).of(lang) ?? lang;
+  } catch {
+    return lang;
+  }
+}
+
 function buildUserBrief(
   brief: string,
   theme: string,
-  density: DensityMode = "speaker"
+  density: DensityMode = "speaker",
+  lang = "en"
 ): string {
   const densityLine =
     density === "reading"
       ? "Density: reading-first (self-contained slides, structured grids/tables, still no overflow)."
       : "Density: speaker-led (one idea per slide, large type, generous space, 1–3 bullets max).";
+  const langLine = `Language: write all slide copy in ${languageName(lang)} and set meta.lang to "${lang}". Keep layout and field names in English.`;
   return `Create a deck for the following brief. Set meta.theme to "${theme}".
 ${densityLine}
+${langLine}
 
 Brief:
 ${brief.trim()}`;
@@ -113,11 +126,12 @@ ${brief.trim()}`;
 export function buildAgentPrompt(
   brief: string,
   theme: string,
-  density: DensityMode = "speaker"
+  density: DensityMode = "speaker",
+  lang = "en"
 ): string {
   return `${SCHEMA_PROMPT}
 
-${buildUserBrief(brief, theme, density)}
+${buildUserBrief(brief, theme, density, lang)}
 
 Respond with ONLY the JSON object — no prose, no markdown fences.`;
 }
@@ -138,6 +152,8 @@ export interface GenerateArgs {
   brief: string;
   theme: string;
   density?: DensityMode;
+  /** BCP 47 language for the deck copy; written to meta.lang. */
+  lang?: string;
   signal?: AbortSignal;
 }
 
@@ -148,9 +164,9 @@ export interface GenerateArgs {
  * SPA where the user supplies their own key.
  */
 export async function generateDeck(args: GenerateArgs): Promise<DeckJson> {
-  const { apiKey, model, brief, theme, density = "speaker", signal } = args;
-  if (!brief.trim()) throw new Error("Describe your deck first.");
-  if (!apiKey.trim()) throw new Error("Enter your Anthropic API key.");
+  const { apiKey, model, brief, theme, density = "speaker", lang = "en", signal } = args;
+  if (!brief.trim()) throw new Error(t("generate.errNoBrief"));
+  if (!apiKey.trim()) throw new Error(t("generate.errNoKey"));
 
   const { default: Anthropic } = await import("@anthropic-ai/sdk");
   const client = new Anthropic({ apiKey: apiKey.trim(), dangerouslyAllowBrowser: true });
@@ -163,7 +179,7 @@ export async function generateDeck(args: GenerateArgs): Promise<DeckJson> {
       messages: [
         {
           role: "user",
-          content: `${buildUserBrief(brief, theme, density)}\n\nRespond with ONLY the JSON object — no prose, no markdown fences.`,
+          content: `${buildUserBrief(brief, theme, density, lang)}\n\nRespond with ONLY the JSON object — no prose, no markdown fences.`,
         },
       ],
     },
@@ -172,16 +188,16 @@ export async function generateDeck(args: GenerateArgs): Promise<DeckJson> {
 
   const text = message.content.map((b) => (b.type === "text" ? b.text : "")).join("");
 
-  if (!text.trim()) throw new Error("The model returned an empty response. Try again.");
+  if (!text.trim()) throw new Error(t("generate.errEmpty"));
 
   let deck: DeckJson;
   try {
     deck = parseDeckJson(extractJson(text));
   } catch (err) {
-    throw new Error(`Couldn't parse the generated deck: ${(err as Error).message}`);
+    throw new Error(t("generate.errParse", { message: (err as Error).message }));
   }
 
-  // Force the chosen theme even if the model set something else.
-  deck.meta = { ...deck.meta, theme };
+  // Force the chosen theme and language even if the model set something else.
+  deck.meta = { ...deck.meta, theme, lang };
   return deck;
 }

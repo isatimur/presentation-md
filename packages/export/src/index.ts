@@ -2,6 +2,8 @@ import type { ResolvedTheme } from "@presentation-md/core/theme-types";
 import { PptxGenJS, type Pptx } from "./pptx.js";
 import { buildContext } from "./context.js";
 import { renderSlide } from "./layouts.js";
+import { withDeckLanguage } from "./lang.js";
+import { deckLangDir, normalizeDeckLang } from "@presentation-md/core/deck-lang";
 import type { DeckJson } from "./deck-types.js";
 import {
   prefetchDeckImages,
@@ -100,10 +102,14 @@ export async function buildPptx(
   if (working.meta?.description) pptx.subject = working.meta.description;
   pptx.author = "presentation-md";
 
+  const lang = normalizeDeckLang(working.meta?.lang);
+  const rtl = deckLangDir(lang) === "rtl";
+  if (rtl) pptx.rtlMode = true;
+
   const slides = Array.isArray(working.slides) ? working.slides : [];
   slides.forEach((slideData, i) => {
     currentSlide = i + 1;
-    const slide = pptx.addSlide();
+    const slide = withDeckLanguage(pptx.addSlide(), lang, rtl);
     renderSlide(slide, ctx, slideData);
 
     const notes = typeof slideData.notes === "string" ? slideData.notes.trim() : "";

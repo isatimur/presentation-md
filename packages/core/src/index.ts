@@ -53,6 +53,14 @@ export type {
   GenerateDeckPromptResult,
 } from "./generate-deck-prompt.js";
 export { judgeDeckJson } from "./judge-deck-json.js";
+export {
+  countWords,
+  deckLangDir,
+  normalizeDeckLang,
+  scriptFallbackFonts,
+  withFontFallback,
+} from "./deck-lang.js";
+export type { TextDir } from "./deck-lang.js";
 export type { JudgeFlag, JudgeDeckJsonResult } from "./judge-deck-json.js";
 export {
   scaffoldDeck,
