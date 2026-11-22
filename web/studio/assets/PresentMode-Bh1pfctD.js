@@ -1,4 +1,4 @@
-import{r as a,j as r}from"./react-vendor-cbNa8wih.js";import{u as Re,p as ee,r as be,S as Ie}from"./index-B4ian0Pg.js";import"./theme-catalog-Bd4IR2v-.js";import"./presentation-core-CmPnZAI4.js";import"./deck-runtime-CDw5Eiaz.js";const Le=`
+import{r as a,j as r}from"./react-vendor-cbNa8wih.js";import{u as Re,p as ee,r as be,S as Ie}from"./index-DR7L4d2s.js";import"./theme-catalog-Bd4IR2v-.js";import"./presentation-core-lrtYn2DD.js";import"./deck-runtime-CDw5Eiaz.js";const Le=`
 html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
 body { gap: 0 !important; padding: 0 !important; }
 .slide { min-height: 100vh !important; margin: 0 !important; border-radius: 0 !important; scroll-snap-align: start !important; scroll-snap-stop: always !important; }
