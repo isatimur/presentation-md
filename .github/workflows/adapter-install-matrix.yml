@@ -6,23 +6,45 @@ on:
     paths:
       - "adapters/**"
       - "packages/install/**"
+  pull_request:
+    paths:
+      - "adapters/**"
+      - "packages/install/**"
 
 jobs:
   syntax-check:
-    name: Syntax-check install scripts (bash)
+    name: Syntax-check install scripts (bash + PowerShell)
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v5
 
+      # Glob every script so a new helper is checked without editing this file.
       - name: Check bash syntax
         run: |
-          bash -n adapters/claude-code/install.sh
-          bash -n adapters/cursor/install.sh
-          bash -n adapters/codex/install.sh
-          bash -n adapters/gemini-cli/install.sh
-          bash -n adapters/copilot/install.sh
-          bash -n adapters/cli/install.sh
-          bash -n adapters/_common/install-judge-skill.sh
-          echo "All install scripts are syntactically valid."
+          shopt -s nullglob
+          files=(adapters/*/*.sh)
+          for f in "${files[@]}"; do
+            bash -n "$f"
+            echo "ok  $f"
+          done
+          echo "${#files[@]} bash scripts are syntactically valid."
+
+      - name: Check PowerShell syntax
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem -Path adapters -Filter *.ps1 -Recurse
+          $failed = $false
+          foreach ($f in $files) {
+            $errors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($f.FullName, [ref]$null, [ref]$errors) | Out-Null
+            if ($errors.Count -gt 0) {
+              $failed = $true
+              $errors | ForEach-Object { Write-Host "::error file=$($f.FullName)::$($_.Message)" }
+            } else {
+              Write-Host "ok  $($f.FullName)"
+            }
+          }
+          if ($failed) { exit 1 }
+          Write-Host "$($files.Count) PowerShell scripts are syntactically valid."

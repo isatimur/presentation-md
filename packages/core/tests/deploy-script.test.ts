@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { chmod, mkdir, mkdtemp, rm, truncate, writeFile } from "node:fs/promises";
+import { chmod, mkdir, mkdtemp, readFile, rm, truncate, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -60,6 +60,26 @@ describe("deploy.sh single-file asset guard", () => {
 
     expect(result.code).not.toBe(0);
     expect(result.stderr).toMatch(/references local files/i);
+    expect(result.stdout).not.toContain("fake.invalid");
+  });
+
+  it("fails closed when check-local-assets.mjs is missing next to deploy.sh", async () => {
+    const { htmlPath, env } = await fixture("<!doctype html><img src='./local.png'>");
+    const isolated = join(dirname(htmlPath), "scripts-copy");
+    await mkdir(isolated);
+    const lonelyDeploy = join(isolated, "deploy.sh");
+    await writeFile(lonelyDeploy, await readFile(deployScript));
+    const result = await new Promise<{ code: number; stdout: string; stderr: string }>((done) => {
+      const child = spawn("bash", [lonelyDeploy, htmlPath], { env, stdio: ["ignore", "pipe", "pipe"] });
+      let stdout = "";
+      let stderr = "";
+      child.stdout.on("data", (c: Buffer) => (stdout += c.toString("utf8")));
+      child.stderr.on("data", (c: Buffer) => (stderr += c.toString("utf8")));
+      child.on("close", (code) => done({ code: code ?? 1, stdout, stderr }));
+    });
+
+    expect(result.code).not.toBe(0);
+    expect(result.stderr).toMatch(/check-local-assets\.mjs/);
     expect(result.stdout).not.toContain("fake.invalid");
   });
 

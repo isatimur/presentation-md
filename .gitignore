@@ -18,3 +18,6 @@ packages/mcp-server/mcp-export-test-*/
 packages/mcp-server/import-pptx-test-*/
 packages/mcp-server/pmd-preview-*/
 .vercel
+# Build-time copies for the Python wheel (tools/sync-python-shared.mjs)
+packages/renderer-python/src/presentation_md_render/templates/
+packages/renderer-python/src/presentation_md_render/themes/

@@ -13,11 +13,14 @@ if [ ! -d "$SCRIPTS_SRC" ]; then
 fi
 
 mkdir -p "$TARGET/scripts"
-# Copy source helpers only (Playwright installs on first export-pdf run).
-for f in export-pdf.sh export-pdf.mjs deploy.sh package.json; do
-  if [ -f "$SCRIPTS_SRC/$f" ]; then
-    cp "$SCRIPTS_SRC/$f" "$TARGET/scripts/$f"
-  fi
+# Copy every source helper (*.sh, *.mjs, package.json), not a fixed list:
+# export-pdf.mjs imports pdf-security.mjs and deploy.sh runs
+# check-local-assets.mjs, so a partial copy breaks PDF export and the deploy
+# guard. Playwright installs on first export-pdf run.
+shopt -s nullglob
+for src in "$SCRIPTS_SRC"/*.sh "$SCRIPTS_SRC"/*.mjs "$SCRIPTS_SRC"/package.json; do
+  cp "$src" "$TARGET/scripts/$(basename "$src")"
 done
+shopt -u nullglob
 chmod +x "$TARGET/scripts/"*.sh 2>/dev/null || true
 echo "  ✓  scripts/ copied (export-pdf + deploy)"

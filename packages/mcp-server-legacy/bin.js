@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Deprecated redirect: @presentation-skill-pack/mcp-server → @presentation-md/mcp-server.
- * Keeps old npx / MCP configs alive while agents migrate to the 11-tool package.
+ * Keeps old npx / MCP configs alive while agents migrate to the new package.
  */
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
@@ -10,7 +10,7 @@ import { spawn } from "node:child_process";
 const require = createRequire(import.meta.url);
 
 process.stderr.write(
-  "[deprecated] @presentation-skill-pack/mcp-server → use @presentation-md/mcp-server (13 tools). Restart your MCP client after switching.\n"
+  "[deprecated] @presentation-skill-pack/mcp-server → use @presentation-md/mcp-server. Restart your MCP client after switching.\n"
 );
 
 let pkgJsonPath;

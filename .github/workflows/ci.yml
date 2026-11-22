@@ -73,3 +73,21 @@ jobs:
 
       - name: Typecheck
         run: pnpm typecheck
+
+  python:
+    name: Python tests (renderer + judge)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v9
+
+      - name: Renderer tests (source checkout)
+        working-directory: packages/renderer-python
+        run: uv run --python 3.11 --with pytest pytest -q
+
+      - name: Judge script tests
+        run: uv run --no-project --python 3.11 --with pytest pytest -q skills/deck-design-judge/scripts/tests

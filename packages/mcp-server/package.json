@@ -23,8 +23,7 @@
     "@presentation-md/core": "workspace:*",
     "@presentation-md/create-theme": "workspace:*",
     "@presentation-md/export": "workspace:^",
-    "@presentation-md/render": "workspace:*",
-    "zod": "^3.23.0"
+    "@presentation-md/render": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

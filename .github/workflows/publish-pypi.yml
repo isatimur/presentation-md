@@ -46,9 +46,27 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v9
 
+      # The renderer wheel must carry packages/shared templates and the bundled
+      # themes; without them every installed render fails.
+      - name: Sync shared templates into the renderer package
+        if: steps.resolve.outputs.pkg_dir == 'packages/renderer-python'
+        run: node tools/sync-python-shared.mjs
+
       - name: Build
         run: uv build
         working-directory: ${{ steps.resolve.outputs.pkg_dir }}
+
+      - name: Smoke-test the built wheel outside the repo
+        if: steps.resolve.outputs.pkg_dir == 'packages/renderer-python'
+        working-directory: ${{ runner.temp }}
+        env:
+          PKG_DIR: ${{ github.workspace }}/${{ steps.resolve.outputs.pkg_dir }}
+        run: |
+          uv venv smoke-venv
+          uv pip install --python smoke-venv/bin/python "$PKG_DIR"/dist/*.whl
+          printf '{"type":"deck","meta":{"theme":"claude","title":"Smoke"},"slides":[{"layout":"title","heading":"Hello"}]}' > smoke.json
+          smoke-venv/bin/presentation-md-render smoke.json -o smoke.html
+          test -s smoke.html
 
       - name: Publish
         run: uv publish

@@ -60,6 +60,13 @@ elif [[ -f "$INPUT" ]]; then
   # A single-file deck can only bring the one file. If it references local
   # assets (not http(s):, data:, or #fragment), they'd 404 once deployed —
   # refuse rather than ship a broken deck.
+  # node exits 1 for a missing script too, which reads as "no local assets".
+  # Fail closed instead of deploying an unchecked deck.
+  if [[ ! -f "$SCRIPT_DIR/check-local-assets.mjs" ]]; then
+    echo "error: $SCRIPT_DIR/check-local-assets.mjs is missing; cannot check $INPUT for local assets." >&2
+    echo "reinstall the presentation-generator scripts, or deploy the deck's whole directory: deploy.sh <deck-dir>/" >&2
+    exit 1
+  fi
   if node "$SCRIPT_DIR/check-local-assets.mjs" "$INPUT"; then
     echo "error: $INPUT references local files that a single-file deploy won't include." >&2
     echo "either inline them as data: URLs, or deploy the deck's whole directory: deploy.sh <deck-dir>/" >&2

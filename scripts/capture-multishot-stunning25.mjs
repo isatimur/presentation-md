@@ -9,39 +9,20 @@
  * Run: node scripts/capture-multishot-stunning25.mjs
  * Optional: ONLY=novaspark-pitch,bounce-launch node scripts/capture-multishot-stunning25.mjs
  */
-import { createRequire } from 'node:module';
 import { mkdir, copyFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import http from 'node:http';
 import { createReadStream, existsSync, statSync } from 'node:fs';
+import { loadPlaywright } from './load-playwright.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const webRoot = path.join(root, 'web');
 const heroDir = path.join(webRoot, 'previews', 'hero');
 const outDir = path.join(webRoot, 'previews', 'wall');
-const require = createRequire(import.meta.url);
 
-function loadPlaywright() {
-  const candidates = [
-    path.join(root, 'packages/core/scripts/node_modules/playwright'),
-    path.join(
-      process.env.HOME || '',
-      '.nvm/versions/node/v22.22.0/lib/node_modules/@playwright/cli/node_modules/playwright'
-    ),
-  ];
-  for (const p of candidates) {
-    try {
-      return require(p);
-    } catch {
-      /* try next */
-    }
-  }
-  throw new Error('playwright not found — install via packages/core/scripts or @playwright/cli');
-}
-
-const { chromium } = loadPlaywright();
+const { chromium } = loadPlaywright(root);
 
 /** Stunning-25 flagships — layout trio from structured proofs */
 const DECKS = [

@@ -49,7 +49,9 @@ node -e "
     if (startIdx === -1) {
       content = content.trimEnd() + '\n\n' + section + '\n';
     } else {
-      const endIdx = content.indexOf(end, startIdx) + end.length;
+      // A missing END marker means the old section runs to the end of the file.
+      const endPos = content.indexOf(end, startIdx);
+      const endIdx = endPos === -1 ? content.length : endPos + end.length;
       content = content.slice(0, startIdx).trimEnd() + '\n\n' + section + '\n' + content.slice(endIdx).trimStart();
       if (!content.endsWith('\n')) content += '\n';
     }
