@@ -34,9 +34,19 @@ export { deckToMarkdown } from "./deck-to-md.js";
 export type { DeckToMarkdownOptions } from "./deck-to-md.js";
 export { notesHandoutTxt, notesHandoutVtt, formatVttTime } from "./notes-handout.js";
 export type { NotesHandoutDeck, NotesHandoutSlide } from "./notes-handout.js";
-export { auditCraft, repairCraft, repairCraftBeat, CRAFT_VALID_LAYOUTS } from "./craft-audit.js";
+export {
+  auditCraft,
+  repairCraft,
+  repairCraftBeat,
+  CRAFT_VALID_LAYOUTS,
+  CRAFT_ISSUE_MESSAGES,
+  CRAFT_ISSUE_CODES,
+  fillCraftTemplate,
+} from "./craft-audit.js";
 export type {
   CraftIssue,
+  CraftIssueCode,
+  CraftIssueParams,
   CraftAuditDeck,
   CraftRepairResult,
   CraftFixId,

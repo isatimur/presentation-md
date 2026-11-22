@@ -39,6 +39,7 @@ import {
   remorphDensity,
 } from "../craft/auditCraft.js";
 import type { CraftFixId, CraftIssue } from "../craft/auditCraft.js";
+import { auditText } from "../craft/auditText.js";
 import { ThemeCompareTray, type LiveCompareMode } from "./ThemeCompareTray.js";
 import { ThemeCraftShotStrip } from "./ThemeCraftShotStrip.js";
 import { CommandPalette, type StudioCommand } from "./CommandPalette.js";
@@ -129,9 +130,7 @@ export function Toolbar({
   const [liveCompare, setLiveCompare] = useState(false);
   /** Default My deck — content-true restyle beats canned craft proofs for pick-3. */
   const [liveCompareMode, setLiveCompareMode] = useState<LiveCompareMode>("deck");
-  const [auditIssues, setAuditIssues] = useState<
-    Array<{ severity: "error" | "warning"; message: string; slide?: number; fixId?: CraftFixId }>
-  >([]);
+  const [auditIssues, setAuditIssues] = useState<CraftIssue[]>([]);
   /** PPTX export warnings — kept separate so live craft refresh doesn't wipe the full list. */
   const [pptxWarnings, setPptxWarnings] = useState<string[]>([]);
   const [auditFilter, setAuditFilter] = useState<"all" | "error" | "warning" | "pptx">("all");
@@ -1556,10 +1555,10 @@ export function Toolbar({
                           title={t("toolbar.jumpToSlide", { n: issue.slide ?? 0 })}
                           onClick={() => onSelectSlide(issue.slide!)}
                         >
-                          {issue.message}
+                          {auditText(issue, t)}
                         </button>
                       ) : (
-                        <span>{issue.message}</span>
+                        <span>{auditText(issue, t)}</span>
                       )}
                       {canInsert && issue.fixId ? (
                         <button
