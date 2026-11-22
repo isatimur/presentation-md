@@ -115,10 +115,11 @@ function decodeEntities(value: string): string {
  */
 export function sanitizeCustomHtml(input: unknown): string {
   let prev = sanitizeOnce(input);
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 8; i++) {
     const next = sanitizeOnce(prev);
     if (next === prev) return next;
     prev = next;
   }
-  return prev;
+  // Still changing after the cap: the input is adversarial. Fail closed.
+  return "";
 }

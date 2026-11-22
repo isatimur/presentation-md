@@ -65,6 +65,17 @@ describe("sanitizeCustomHtml reserved ids (DOM clobbering)", () => {
     }
   });
 
+  it("fails closed when deep nesting never stabilizes", () => {
+    let payload = "alert(1)";
+    for (let i = 0; i < 12; i++) payload = `<scr${payload.startsWith("<") ? "" : ""}<script>ipt>${payload}</scr</script>ipt>`;
+    const nested = "<scr".repeat(12) + "<script>" + "ipt>".repeat(12) + "x";
+    for (const input of [payload, nested]) {
+      const out = sanitizeCustomHtml(input);
+      expect(out).not.toMatch(/<\s*script/i);
+      expect(sanitizeCustomHtml(out)).toBe(out);
+    }
+  });
+
   it("is stable: running it again changes nothing", () => {
     const tricky = `<scr<script>ipt>alert(1)</scr</script>ipt><div id="pmd-x" onclick="x()">ok</div>`;
     const once = sanitizeCustomHtml(tricky);
