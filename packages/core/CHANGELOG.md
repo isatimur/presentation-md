@@ -1,5 +1,11 @@
 # @presentation-md/core
 
+## 1.37.0
+
+### Minor Changes
+
+- 996a146: Craft audit issues now carry a stable `code` and `params`. `CRAFT_ISSUE_MESSAGES` holds the English template for each code, and `fillCraftTemplate` fills it. The English `message` is unchanged, so agents and the CLI see the same text. Studio uses the code to show audit messages in all 10 languages.
+
 ## 1.36.0
 
 ### Minor Changes
