@@ -561,9 +561,9 @@ export const id: Catalog = {
   "download.markdownEmpty": "File Markdown kosong",
 
   // Generate modal ({slide}/{code}/{link} in rich messages are replaced by elements)
-  "generate.modelOpus": "Opus 4.8 — paling mampu",
-  "generate.modelSonnet": "Sonnet 4.6 — lebih cepat, lebih hemat",
-  "generate.modelHaiku": "Haiku 4.5 — tercepat",
+  "generate.modelOpus": "{model} — paling mampu",
+  "generate.modelSonnet": "{model} — lebih cepat, lebih hemat",
+  "generate.modelHaiku": "{model} — tercepat",
   "generate.errNoBrief": "Jelaskan presentasi Anda dulu.",
   "generate.errNoKey": "Masukkan kunci API Anthropic Anda.",
   "generate.errEmpty": "Model mengembalikan respons kosong. Coba lagi.",

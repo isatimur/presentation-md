@@ -645,9 +645,9 @@ export const ar: Catalog = {
   "download.markdownEmpty": "ملف Markdown فارغ",
 
   // Generate modal ({slide}/{code}/{link} in rich messages are replaced by elements)
-  "generate.modelOpus": "Opus 4.8 — الأكثر قدرة",
-  "generate.modelSonnet": "Sonnet 4.6 — أسرع وأرخص",
-  "generate.modelHaiku": "Haiku 4.5 — الأسرع",
+  "generate.modelOpus": "{model} — الأكثر قدرة",
+  "generate.modelSonnet": "{model} — أسرع وأرخص",
+  "generate.modelHaiku": "{model} — الأسرع",
   "generate.errNoBrief": "صف عرضك التقديمي أولًا.",
   "generate.errNoKey": "أدخل مفتاح Anthropic API الخاص بك.",
   "generate.errEmpty": "أعاد النموذج ردًا فارغًا. حاول مرة أخرى.",

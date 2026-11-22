@@ -476,7 +476,7 @@ export function GenerateModal({
               <span className="muted small">{t("generate.model")}</span>
               <select className="text-input" value={model} onChange={(e) => setModel(e.target.value as GenModelId)}>
                 {GEN_MODELS.map((m) => (
-                  <option key={m.id} value={m.id}>{t(m.labelKey)}</option>
+                  <option key={m.id} value={m.id}>{t(m.labelKey, { model: m.name })}</option>
                 ))}
               </select>
             </label>

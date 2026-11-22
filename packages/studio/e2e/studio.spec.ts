@@ -647,7 +647,7 @@ test("closing Generate modal prevents a late API result from replacing the deck"
           id: "msg_late",
           type: "message",
           role: "assistant",
-          model: "claude-haiku-4-5",
+          model: "claude-haiku-5-5",
           content: [
             {
               type: "text",

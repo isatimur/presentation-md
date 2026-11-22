@@ -141,7 +141,10 @@ def render_deck(deck_json: str | dict[str, Any], opts: RenderOptions | None = No
     themes_dir = opts.themes_dir or get_bundled_themes_dir()
     theme = _load_theme(theme_name, themes_dir)
 
-    fonts_url = _google_fonts_url(theme["typography"].get("googleFonts", []))
+    meta = deck.get("meta") or {}
+    lang = _normalize_lang(meta.get("lang"))
+    script_families, script_specs = _script_fonts(lang)
+    fonts_url = _google_fonts_url(theme["typography"].get("googleFonts", []) + script_specs)
     shared_dir = _get_shared_dir()
 
     token_map = {
@@ -155,8 +158,8 @@ def render_deck(deck_json: str | dict[str, Any], opts: RenderOptions | None = No
         "border": theme["palette"]["border"],
         "radius": theme["geometry"]["radius"],
         "slideW": theme["geometry"]["slideWidth"],
-        "headingFont": theme["typography"]["headingFont"],
-        "bodyFont": theme["typography"]["bodyFont"],
+        "headingFont": _with_font_fallback(theme["typography"]["headingFont"], script_families),
+        "bodyFont": _with_font_fallback(theme["typography"]["bodyFont"], script_families),
         "headingWeight": str(theme["typography"]["headingWeight"]),
     }
 
@@ -186,8 +189,6 @@ def render_deck(deck_json: str | dict[str, Any], opts: RenderOptions | None = No
 
     slides_html = "\n".join(slides_html_parts)
     doc_template = (shared_dir / "document.html").read_text()
-    meta = deck.get("meta") or {}
-    lang = _normalize_lang(meta.get("lang"))
     html = _render_mustache(doc_template, {
         "lang": lang,
         "dir": "rtl" if lang.split("-")[0].lower() in _RTL_LANGS else "ltr",
@@ -214,6 +215,58 @@ def _normalize_lang(raw: Any) -> str:
     for p in parts[1:]:
         out.append(p.upper() if len(p) == 2 else p.title() if len(p) == 4 else p.lower())
     return "-".join(out)
+
+
+# Mirrors scriptFallbackFonts / withFontFallback in packages/core/src/deck-lang.ts.
+_NOTO = {
+    "sc": "Noto Sans SC",
+    "tc": "Noto Sans TC",
+    "jp": "Noto Sans JP",
+    "kr": "Noto Sans KR",
+    "arabic": "Noto Sans Arabic",
+    "hebrew": "Noto Sans Hebrew",
+    "devanagari": "Noto Sans Devanagari",
+    "bengali": "Noto Sans Bengali",
+    "thai": "Noto Sans Thai",
+    "sans": "Noto Sans",
+}
+_NOTO_BY_LANG = {
+    "ja": "jp", "ko": "kr",
+    "ar": "arabic", "fa": "arabic", "ur": "arabic",
+    "he": "hebrew", "yi": "hebrew",
+    "hi": "devanagari", "mr": "devanagari", "ne": "devanagari",
+    "bn": "bengali", "th": "thai",
+    **{p: "sans" for p in ("ru", "uk", "bg", "sr", "mk", "be", "kk", "el", "vi")},
+}
+_GENERIC_FAMILIES = {
+    "serif", "sans-serif", "monospace", "cursive", "fantasy", "system-ui",
+    "ui-serif", "ui-sans-serif", "ui-monospace", "ui-rounded", "math", "emoji", "fangsong",
+}
+
+
+def _script_fonts(lang: str) -> tuple[list[str], list[str]]:
+    """Noto fallback families and Google Fonts specs for scripts theme fonts rarely cover."""
+    primary = lang.split("-")[0].lower()
+    if primary == "zh":
+        key = "tc" if re.search(r"-(hant|tw|hk|mo)\b", lang.lower()) else "sc"
+    else:
+        key = _NOTO_BY_LANG.get(primary)
+    if not key:
+        return [], []
+    family = _NOTO[key]
+    return [family], [family.replace(" ", "+") + ":wght@400;700"]
+
+
+def _with_font_fallback(stack: str, families: list[str]) -> str:
+    """Insert fallback families just before the first generic family in a CSS font stack."""
+    if not families:
+        return stack
+    parts = [p.strip() for p in stack.split(",") if p.strip()]
+    at = next(
+        (i for i, p in enumerate(parts) if p.strip("'\"").lower() in _GENERIC_FAMILIES),
+        len(parts),
+    )
+    return ", ".join(parts[:at] + [f"'{f}'" for f in families] + parts[at:])
 
 
 def _render_mustache(template: str, data: dict[str, Any]) -> str:

@@ -41,3 +41,27 @@ def test_rejects_unknown_layout() -> None:
 def test_rejects_empty_slides() -> None:
     with pytest.raises(ValueError):
         render_deck({**DECK, "slides": []})
+
+
+def _with_lang(lang: str) -> dict:
+    return {**DECK, "meta": {**DECK["meta"], "lang": lang}}
+
+
+def test_arabic_deck_is_rtl_with_arabic_font_fallback() -> None:
+    html = render_deck(_with_lang("ar"))
+    assert '<html lang="ar" dir="rtl">' in html
+    assert "Noto+Sans+Arabic" in html
+    assert "'Noto Sans Arabic'" in html
+
+
+def test_japanese_deck_gets_cjk_fallback_before_generic_family() -> None:
+    html = render_deck(_with_lang("ja"))
+    assert '<html lang="ja" dir="ltr">' in html
+    assert "Noto+Sans+JP" in html
+    # Fallback sits before the generic family, so theme fonts keep priority.
+    assert "'Noto Sans JP', serif" in html or "'Noto Sans JP', sans-serif" in html or "'Noto Sans JP', system-ui" in html
+
+
+def test_english_deck_has_no_noto_fallback() -> None:
+    html = render_deck(DECK)
+    assert "Noto" not in html

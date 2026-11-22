@@ -617,9 +617,9 @@ export const ru: Catalog = {
   "download.markdownEmpty": "Файл Markdown пуст",
 
   // Generate modal ({slide}/{code}/{link} in rich messages are replaced by elements)
-  "generate.modelOpus": "Opus 4.8 — самая мощная",
-  "generate.modelSonnet": "Sonnet 4.6 — быстрее и дешевле",
-  "generate.modelHaiku": "Haiku 4.5 — самая быстрая",
+  "generate.modelOpus": "{model} — самая мощная",
+  "generate.modelSonnet": "{model} — быстрее и дешевле",
+  "generate.modelHaiku": "{model} — самая быстрая",
   "generate.errNoBrief": "Сначала опишите презентацию.",
   "generate.errNoKey": "Введите ваш ключ Anthropic API.",
   "generate.errEmpty": "Модель вернула пустой ответ. Попробуйте ещё раз.",

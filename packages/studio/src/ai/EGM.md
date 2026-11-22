@@ -6,10 +6,10 @@ In-browser deck generation. There are two paths from one schema prompt. `generat
 
 ## Interface
 
-- `GEN_MODELS`: model ids and labels (`claude-opus-4-8`, `claude-sonnet-4-6`, `claude-haiku-4-5`). Type `GenModelId`. [generate.ts:GEN_MODELS]
+- `GEN_MODELS`: model ids, display names, and label keys (`claude-opus-5-5`, `claude-sonnet-5-5`, `claude-haiku-5-5`). The display name fills `{model}` in the translated label. Type `GenModelId`. [generate.ts:GEN_MODELS]
 - `DensityMode`: `"speaker" | "reading"`. A local type, separate from the core type re-exported by `../craft/auditCraft.ts`. [generate.ts:DensityMode]
-- `buildAgentPrompt(brief, theme, density = "speaker")`. [generate.ts:buildAgentPrompt]
-- `GenerateArgs`: `{ apiKey, model, brief, theme, density?, signal? }`. [generate.ts:GenerateArgs]
+- `buildAgentPrompt(brief, theme, density = "speaker", lang = "en")`. [generate.ts:buildAgentPrompt]
+- `GenerateArgs`: `{ apiKey, model, brief, theme, density?, lang?, signal? }`. `lang` is the BCP 47 deck language; it goes into the prompt and is forced onto `meta.lang`. [generate.ts:GenerateArgs]
 - `generateDeck(args)` returns `Promise<DeckJson>`. [generate.ts:generateDeck]
 
 ## Invariants
