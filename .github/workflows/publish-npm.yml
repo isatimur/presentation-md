@@ -43,6 +43,10 @@ jobs:
       - name: Create release PR or publish packages
         uses: changesets/action@v1
         with:
+          # `pnpm run version` also refreshes pnpm-lock.yaml. Without it, a bumped
+          # workspace dependency range (e.g. mcp-server-legacy → mcp-server) leaves
+          # the lockfile stale and the post-merge `--frozen-lockfile` install fails.
+          version: pnpm run version
           publish: pnpm release
           title: "chore: version packages"
           commit: "chore: version packages"
