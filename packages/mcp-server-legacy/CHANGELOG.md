@@ -1,5 +1,16 @@
 # @presentation-skill-pack/mcp-server
 
+## 0.2.2
+
+### Patch Changes
+
+- e36c0c4: - `deploy.sh` fails closed when `check-local-assets.mjs` is missing. Before, node's exit 1 for a missing script read as "no local assets" and single-file decks with broken local references deployed.
+  - `layoutsPreviewSlideCount` derives from the layout list instead of hard-coded 11/13.
+  - MCP `export_deck` lists the format aliases in its error; drop the unused `zod` dependency.
+  - Legacy MCP stub no longer prints a stale tool count.
+- Updated dependencies [e36c0c4]
+  - @presentation-md/mcp-server@1.34.2
+
 ## 0.2.1
 
 ### Patch Changes

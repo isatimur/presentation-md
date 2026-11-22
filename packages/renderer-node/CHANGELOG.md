@@ -1,5 +1,30 @@
 # @presentation-md/render
 
+## 1.21.0
+
+### Minor Changes
+
+- 633450b: Decks in any language. New optional `meta.lang` (BCP 47, default `en`):
+
+  - HTML sets `<html lang dir>`; Arabic, Hebrew, Persian, and Urdu render right to left.
+  - Non-Latin scripts get Noto font fallbacks (CJK, Arabic, Hebrew, Devanagari, Bengali, Thai, Cyrillic/Greek/Vietnamese) added to the theme font stack and the Google Fonts URL.
+  - PPTX text runs carry the deck language; right-to-left decks get paragraph RTL and mirrored left/right alignment.
+  - Word-count gates (`judgeDeckJson`, HTML metrics) now count Cyrillic, Arabic, and other non-Latin words (previously zero) and CJK text without spaces (previously one word per paragraph). English counts are unchanged.
+  - New `@presentation-md/core/deck-lang` subpath: `normalizeDeckLang`, `deckLangDir`, `scriptFallbackFonts`, `withFontFallback`, `countWords`.
+  - The skill and `generate_deck_prompt` tell agents to write copy in the user's language and set `meta.lang`.
+
+### Patch Changes
+
+- e36c0c4: - `deploy.sh` fails closed when `check-local-assets.mjs` is missing. Before, node's exit 1 for a missing script read as "no local assets" and single-file decks with broken local references deployed.
+  - `layoutsPreviewSlideCount` derives from the layout list instead of hard-coded 11/13.
+  - MCP `export_deck` lists the format aliases in its error; drop the unused `zod` dependency.
+  - Legacy MCP stub no longer prints a stale tool count.
+- Updated dependencies [93767ae]
+- Updated dependencies [633450b]
+- Updated dependencies [e36c0c4]
+  - @presentation-md/core@1.35.0
+  - @presentation-md/export@1.25.0
+
 ## 1.20.9
 
 ### Patch Changes

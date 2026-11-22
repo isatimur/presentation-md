@@ -1,5 +1,31 @@
 # @presentation-md/core
 
+## 1.35.0
+
+### Minor Changes
+
+- 633450b: Decks in any language. New optional `meta.lang` (BCP 47, default `en`):
+
+  - HTML sets `<html lang dir>`; Arabic, Hebrew, Persian, and Urdu render right to left.
+  - Non-Latin scripts get Noto font fallbacks (CJK, Arabic, Hebrew, Devanagari, Bengali, Thai, Cyrillic/Greek/Vietnamese) added to the theme font stack and the Google Fonts URL.
+  - PPTX text runs carry the deck language; right-to-left decks get paragraph RTL and mirrored left/right alignment.
+  - Word-count gates (`judgeDeckJson`, HTML metrics) now count Cyrillic, Arabic, and other non-Latin words (previously zero) and CJK text without spaces (previously one word per paragraph). English counts are unchanged.
+  - New `@presentation-md/core/deck-lang` subpath: `normalizeDeckLang`, `deckLangDir`, `scriptFallbackFonts`, `withFontFallback`, `countWords`.
+  - The skill and `generate_deck_prompt` tell agents to write copy in the user's language and set `meta.lang`.
+
+### Patch Changes
+
+- 93767ae: Ship theme-surfaces.json inside the core package. The compiled theme-surface.js
+  imported ../../shared/theme-surfaces.json, which resolves to the monorepo's
+  packages/shared in-repo but escapes the package root when installed from npm,
+  crashing every consumer (including npx @presentation-md/render) with
+  ERR_MODULE_NOT_FOUND. The build now syncs the file into packages/core/shared
+  (same pattern as renderer-node) and the import stays within the package.
+- e36c0c4: - `deploy.sh` fails closed when `check-local-assets.mjs` is missing. Before, node's exit 1 for a missing script read as "no local assets" and single-file decks with broken local references deployed.
+  - `layoutsPreviewSlideCount` derives from the layout list instead of hard-coded 11/13.
+  - MCP `export_deck` lists the format aliases in its error; drop the unused `zod` dependency.
+  - Legacy MCP stub no longer prints a stale tool count.
+
 ## 1.34.0
 
 ### Minor Changes
