@@ -23,6 +23,7 @@ import type { ValidationResult, ChartSeries } from "@presentation-md/core";
 import { rasterizeSvgImages } from "./svg-raster.js";
 import {
   deckToPptxBuffer,
+  prefetchDeckImages,
   type DeckJson as ExportDeckJson,
   type FidelityItem,
 } from "@presentation-md/export";
@@ -644,9 +645,17 @@ export async function renderDeckPptx(
     fallbackThemesDirs: themesDir !== bundled ? [bundled] : undefined,
   });
 
+  // Prefetch remote http(s) and local images first (sandboxed to the allowed
+  // roots), so SVGs fetched here are rasterized below like inline ones.
+  const prefetched = await prefetchDeckImages(deck as unknown as ExportDeckJson);
+  for (const msg of prefetched.warnings) {
+    opts?.onWarn?.(msg);
+    opts?.onFidelity?.({ kind: "image", message: msg });
+  }
+
   // Node has no canvas, so pptxgenjs would give SVG images a broken-icon PNG
   // fallback. Embed PNG copies instead; report any SVG we could not convert.
-  const raster = await rasterizeSvgImages(deck);
+  const raster = await rasterizeSvgImages(prefetched.deck);
   if (raster.leftAsSvg > 0) {
     opts?.onFidelity?.({
       kind: "image",
@@ -658,8 +667,8 @@ export async function renderDeckPptx(
     attribution: opts?.attribution,
     onWarn: opts?.onWarn,
     onFidelity: opts?.onFidelity,
-    // Prefetch remote http(s) images so PPTX embeds match Studio outside the browser.
-    prefetchImages: true,
+    // Already prefetched above.
+    prefetchImages: false,
   });
 }
 

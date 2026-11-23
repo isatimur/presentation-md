@@ -28,11 +28,13 @@ export function toBase64DataUri(uri: string): string | null {
   const payload = m[3] ?? "";
   if (!payload) return null;
   if (/;base64/i.test(params)) return `data:${mime};base64,${payload.replace(/\s+/g, "")}`;
-  let text: string;
-  try {
-    text = decodeURIComponent(payload);
-  } catch {
-    return null;
-  }
+  // Decode %XX runs only: hand-written URIs keep bare "%" (e.g. width="100%").
+  const text = payload.replace(/(?:%[0-9a-f]{2})+/gi, (run) => {
+    try {
+      return decodeURIComponent(run);
+    } catch {
+      return run;
+    }
+  });
   return `data:${mime};base64,${bytesToBase64(new TextEncoder().encode(text))}`;
 }

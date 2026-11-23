@@ -32,9 +32,16 @@ describe("toBase64DataUri", () => {
     expect(new TextDecoder().decode(bytes)).toBe(SVG);
   });
 
+  it("keeps bare % in hand-written URIs instead of failing", () => {
+    const raw = `data:image/svg+xml;utf8,<svg width="100%"><rect fill="%23f00"/></svg>`;
+    const out = toBase64DataUri(raw)!;
+    const bytes = Uint8Array.from(atob(out.split(",")[1]!), (c) => c.charCodeAt(0));
+    expect(new TextDecoder().decode(bytes)).toBe(`<svg width="100%"><rect fill="#f00"/></svg>`);
+  });
+
   it("passes base64 URIs through and rejects malformed ones", () => {
     expect(toBase64DataUri("data:image/png;base64,iVBORw0KGgo=")).toBe("data:image/png;base64,iVBORw0KGgo=");
-    expect(toBase64DataUri("data:image/svg+xml,%E0%A4%A")).toBeNull();
+    expect(toBase64DataUri("data:image/svg+xml,")).toBeNull();
     expect(toBase64DataUri("data:image/png;base64,")).toBeNull();
     expect(toBase64DataUri("not-a-data-uri")).toBeNull();
   });
@@ -69,7 +76,7 @@ describe("PPTX embeds URL-encoded SVG images", () => {
     const deck: DeckJson = {
       type: "deck",
       meta: { title: "Bad", theme: "test" },
-      slides: [{ layout: "image-hero", heading: "Hero", image: "data:image/svg+xml,%E0%A4%A" }],
+      slides: [{ layout: "image-hero", heading: "Hero", image: "data:image/png;base64," }],
     } as DeckJson;
     const { fidelity } = await buildPptx(deck, theme);
     expect(fidelity).toContainEqual(expect.objectContaining({ kind: "image", slide: 1 }));

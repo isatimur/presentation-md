@@ -28,6 +28,37 @@ function loadResvg(): Promise<Resvg | null> {
   return resvgPromise;
 }
 
+/**
+ * Decode %XX runs and keep anything else as written. Hand-written data URIs such
+ * as `data:image/svg+xml;utf8,<svg width="100%">` contain bare "%" that would
+ * make decodeURIComponent throw on the whole payload.
+ */
+export function decodePercentRuns(payload: string): string {
+  return payload.replace(/(?:%[0-9a-f]{2})+/gi, (run) => {
+    try {
+      return decodeURIComponent(run);
+    } catch {
+      return run;
+    }
+  });
+}
+
+/**
+ * resvg loads `<image href>` targets from the local filesystem (absolute or
+ * cwd-relative paths). A deck from an untrusted agent could point one at any
+ * image file on the machine and get it back inside the PPTX, bypassing the
+ * prefetch sandbox. Only rasterize SVGs whose every href is a fragment (#id) or
+ * an inline data: URI.
+ */
+const HREF_ATTR = /\bhref\s*=\s*(["'])([\s\S]*?)\1/gi;
+export function hasExternalRefs(svg: string): boolean {
+  for (const m of svg.matchAll(HREF_ATTR)) {
+    const value = (m[2] ?? "").trim();
+    if (!value.startsWith("#") && !/^data:/i.test(value)) return true;
+  }
+  return false;
+}
+
 function svgText(uri: string): string | null {
   const m = SVG_DATA_URI.exec(uri.trim());
   if (!m) return null;
@@ -36,7 +67,7 @@ function svgText(uri: string): string | null {
   try {
     return /;base64/i.test(params)
       ? Buffer.from(payload, "base64").toString("utf-8")
-      : decodeURIComponent(payload);
+      : decodePercentRuns(payload);
   } catch {
     return null;
   }
@@ -80,7 +111,7 @@ export async function rasterizeSvgImages<T>(deck: T): Promise<SvgRasterResult<T>
 
   const Resvg = await loadResvg();
   for (const { holder, svg } of pending) {
-    if (!Resvg) {
+    if (!Resvg || hasExternalRefs(svg)) {
       leftAsSvg++;
       continue;
     }
