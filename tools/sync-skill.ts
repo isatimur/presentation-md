@@ -40,7 +40,8 @@ function syncDir(name: string, opts?: { exclude?: string[] }): void {
   const to = join(skill, name);
   assertExists(from, name);
   mkdirSync(to, { recursive: true });
-  const exclude = new Set(opts?.exclude ?? []);
+  // EGM.md describes its own folder (core vs skill), so it is never mirrored.
+  const exclude = new Set([...(opts?.exclude ?? []), "EGM.md"]);
   for (const entry of readdirSync(from)) {
     if (exclude.has(entry)) continue;
     const src = join(from, entry);
