@@ -493,6 +493,8 @@ body {
 /* ── Slide list ────────────────────────────────────────────────────── */
 .slide-list { padding: 14px; }
 .add-row { display: flex; gap: 6px; margin-bottom: 14px; }
+.add-row .text-input { flex: 1; min-width: 0; }
+.add-row .btn { flex-shrink: 0; white-space: nowrap; }
 .slides { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
 .slide-row {
   position: relative;
@@ -515,7 +517,9 @@ body {
 .slide-row-main:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .slide-row-num { color: var(--faint); font-family: var(--mono); font-size: 11px; width: 16px; text-align: right; flex-shrink: 0; }
 .slide-row-text { display: flex; flex-direction: column; min-width: 0; flex: 1; }
-.slide-row-layout { font-size: 10px; color: var(--accent-2); text-transform: uppercase; letter-spacing: 0.09em; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+.slide-row-layout { font-size: 10px; color: var(--accent-2); text-transform: uppercase; letter-spacing: 0.09em; font-weight: 600; display: flex; align-items: center; gap: 6px; min-width: 0; }
+.slide-row-layout-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.notes-dot { flex-shrink: 0; }
 .notes-dot {
   display: inline-flex; align-items: center; justify-content: center;
   width: 14px; height: 14px; border-radius: 3px;
@@ -523,11 +527,17 @@ body {
   color: var(--accent); font-size: 9px; letter-spacing: 0; font-weight: 700;
   text-transform: none;
 }
-.slide-row-title { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
-.slide-row-actions { display: flex; gap: 3px; opacity: 0; transition: opacity .12s; flex-shrink: 0; }
-.slide-row:hover .slide-row-actions,
-.slide-row:focus-within .slide-row-actions,
-.slide-row.active .slide-row-actions { opacity: 1; }
+.slide-row-title { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Actions take no width until shown, so the label and title get the whole
+   220px sidebar. The active or keyboard-focused row shows them on their own
+   line; nothing floats over the row, so a click anywhere on it selects. */
+.slide-row-actions { display: none; gap: 3px; padding-left: 24px; }
+.slide-row.active,
+.slide-row:focus-within { flex-wrap: wrap; }
+.slide-row.active .slide-row-main,
+.slide-row:focus-within .slide-row-main { flex-basis: 100%; }
+.slide-row.active .slide-row-actions,
+.slide-row:focus-within .slide-row-actions { display: flex; }
 
 /* ── Horizontal densified filmstrip (one iframe) ───────────────────── */
 .slide-filmstrip {
