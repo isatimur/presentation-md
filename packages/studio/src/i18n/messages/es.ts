@@ -691,4 +691,14 @@ export const es: Catalog = {
   "audit.loudBeat": "El tema llamativo de tarjetas duras necesita un momento contundente: añade image-hero, comparison+emphasis, cifras directas, quote o feature-grid columns:\"bento\" (no solo secciones suaves).",
   "audit.pastelGeometryBeat": "pastel-geometry necesita un momento de geometría suave: añade feature-grid, image-hero, cifras directas o quote (no solo secciones suaves).",
   "audit.botanicalBeat": "grove / dark-botanical necesita un momento de monografía botánica: añade quote, image-hero, comparison+emphasis o cifras directas.",
+
+  // Structural judge flags (keys match JudgeFlagId in core)
+  "judge.slides": "La presentación tiene menos de 2 diapositivas: revísala manualmente.",
+  "judge.G1": "Diapositiva {n}: un bloque tiene {words} palabras (>{limit}): muro de texto.",
+  "judge.words": "Diapositiva {n}: {words} palabras en total (densa): comprueba que no esté sobrecargada.",
+  "judge.cadence": "Diapositivas {from}-{to}: '{layout}' se repite {run}x seguidas: varía el ritmo de los layouts.",
+  "judge.visual_beat": "No hay image-hero: las presentaciones para inversores, lanzamientos y marca necesitan un momento visual cinematográfico.",
+  "judge.asymmetry": "Asimetría débil: añade comparison+emphasis, two-column, code, bento, ranked-list, streak-grid, metric-ring o logo-wall.",
+  "judge.data_viz": "Presentación larga sin chart/stat-row/data-table/ranked-list/metric-ring: considera un momento de datos.",
+  "judge.close": "La diapositiva de cierre no tiene actions[]/cta: falta la petición.",
 };

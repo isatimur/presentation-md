@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { judgeDeckJson } from "../src/judge-deck-json.js";
+import { judgeDeckJson, JUDGE_FLAG_IDS, JUDGE_FLAG_MESSAGES } from "../src/judge-deck-json.js";
+import { fillCraftTemplate } from "../src/craft-audit.js";
 
 describe("judgeDeckJson", () => {
   it("flags wall-of-text gates", () => {
@@ -48,5 +49,33 @@ describe("judgeDeckJson", () => {
     });
     expect(result.flags.filter((f) => f.severity === "gate")).toHaveLength(0);
     expect(result.metrics.slide_count).toBe(4);
+  });
+});
+
+describe("judge flag templates", () => {
+  it("fills every flag detail from the template for its id", () => {
+    const long = "word ".repeat(60);
+    const decks = [
+      { slides: [] },
+      {
+        slides: [
+          { layout: "a", body: long },
+          { layout: "a", body: "x ".repeat(38), lead: "y ".repeat(38) },
+          { layout: "a" },
+          { layout: "a" },
+          { layout: "a" },
+          { layout: "closing" },
+        ],
+      },
+    ];
+    const flags = decks.flatMap((d) => judgeDeckJson(d).flags);
+    const seen = new Set(flags.map((f) => f.id));
+    for (const id of ["slides", "G1", "words", "cadence", "visual_beat", "asymmetry", "data_viz", "close"]) {
+      expect(seen.has(id as never), id).toBe(true);
+    }
+    for (const flag of flags) {
+      expect(JUDGE_FLAG_IDS).toContain(flag.id);
+      expect(fillCraftTemplate(JUDGE_FLAG_MESSAGES[flag.id], flag.params)).toBe(flag.detail);
+    }
   });
 });

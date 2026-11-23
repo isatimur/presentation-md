@@ -4,12 +4,45 @@
  */
 
 import { countWords, normalizeDeckLang } from "./deck-lang.js";
+import { fillCraftTemplate } from "./craft-audit.js";
+
+/**
+ * English template for each judge flag, keyed by flag id. `{name}` is filled
+ * from `JudgeFlag.params`. Studio translates by id (`judge.<id>`); agents and
+ * the CLI read the filled English `detail`.
+ */
+export const JUDGE_FLAG_MESSAGES = {
+  slides: "Deck has <2 slides — inspect manually.",
+  G1: "Slide {n}: one block has {words} words (>{limit}) — wall of text.",
+  words: "Slide {n}: {words} words total (dense) — verify it isn't over-stuffed.",
+  cadence: "Slides {from}-{to}: '{layout}' repeats {run}x in a row — vary the layout cadence.",
+  visual_beat: "No image-hero — investor/launch/brand decks need a cinematic visual beat.",
+  asymmetry:
+    "Weak asymmetry — add comparison+emphasis, two-column, code, bento, ranked-list, streak-grid, metric-ring, or logo-wall.",
+  data_viz: "Long deck with no chart/stat-row/data-table/ranked-list/metric-ring — consider a data beat.",
+  close: "Closing slide has no actions[]/cta — the ask is missing.",
+} as const satisfies Record<string, string>;
+
+/** Stable judge flag id. Never rename one: Studio catalogs key on it. */
+export type JudgeFlagId = keyof typeof JUDGE_FLAG_MESSAGES;
+
+export const JUDGE_FLAG_IDS = Object.keys(JUDGE_FLAG_MESSAGES) as JudgeFlagId[];
 
 export interface JudgeFlag {
-  id: string;
+  id: JudgeFlagId;
   severity: "gate" | "warn" | "error";
+  /** English text, filled from the template for `id`. */
   detail: string;
+  /** Values for the `{name}` placeholders in the template for `id`. */
+  params?: Record<string, string | number>;
   slide?: number;
+}
+
+function judgeDetail(
+  id: JudgeFlagId,
+  params?: Record<string, string | number>
+): Pick<JudgeFlag, "id" | "detail" | "params"> {
+  return { id, ...(params ? { params } : {}), detail: fillCraftTemplate(JUDGE_FLAG_MESSAGES[id], params) };
 }
 
 export interface JudgeDeckJsonResult {
@@ -76,9 +109,8 @@ export function judgeDeckJson(deck: Record<string, unknown>): JudgeDeckJsonResul
 
   if (slides.length < 2) {
     flags.push({
-      id: "slides",
       severity: "warn",
-      detail: "Deck has <2 slides — inspect manually.",
+      ...judgeDetail("slides"),
     });
   }
 
@@ -93,17 +125,15 @@ export function judgeDeckJson(deck: Record<string, unknown>): JudgeDeckJsonResul
     mbs.push(mb);
     if (mb > WORD_GATE) {
       flags.push({
-        id: "G1",
         severity: "gate",
         slide: i,
-        detail: `Slide ${i}: one block has ${mb} words (>${WORD_GATE}) — wall of text.`,
+        ...judgeDetail("G1", { n: i, words: mb, limit: WORD_GATE }),
       });
     } else if (total > 70) {
       flags.push({
-        id: "words",
         severity: "warn",
         slide: i,
-        detail: `Slide ${i}: ${total} words total (dense) — verify it isn't over-stuffed.`,
+        ...judgeDetail("words", { n: i, words: total }),
       });
     }
   });
@@ -116,9 +146,8 @@ export function judgeDeckJson(deck: Record<string, unknown>): JudgeDeckJsonResul
     } else {
       if (run >= 3) {
         flags.push({
-          id: "cadence",
           severity: "warn",
-          detail: `Slides ${runStart + 1}-${j}: '${layouts[runStart]}' repeats ${run}x in a row — vary the layout cadence.`,
+          ...judgeDetail("cadence", { from: runStart + 1, to: j, layout: String(layouts[runStart]), run }),
         });
       }
       run = 1;
@@ -146,17 +175,14 @@ export function judgeDeckJson(deck: Record<string, unknown>): JudgeDeckJsonResul
 
   if (slides.length >= 5 && !hasImageHero && !isWrap) {
     flags.push({
-      id: "visual_beat",
       severity: "warn",
-      detail: "No image-hero — investor/launch/brand decks need a cinematic visual beat.",
+      ...judgeDetail("visual_beat"),
     });
   }
   if (slides.length >= 5 && !hasAsymmetry) {
     flags.push({
-      id: "asymmetry",
       severity: "warn",
-      detail:
-        "Weak asymmetry — add comparison+emphasis, two-column, code, bento, ranked-list, streak-grid, metric-ring, or logo-wall.",
+      ...judgeDetail("asymmetry"),
     });
   }
   if (
@@ -168,10 +194,8 @@ export function judgeDeckJson(deck: Record<string, unknown>): JudgeDeckJsonResul
     !layouts.includes("metric-ring")
   ) {
     flags.push({
-      id: "data_viz",
       severity: "warn",
-      detail:
-        "Long deck with no chart/stat-row/data-table/ranked-list/metric-ring — consider a data beat.",
+      ...judgeDetail("data_viz"),
     });
   }
 
@@ -184,9 +208,8 @@ export function judgeDeckJson(deck: Record<string, unknown>): JudgeDeckJsonResul
       (cta && typeof cta["label"] === "string" && String(cta["label"]).trim() !== "");
     if (!hasAction) {
       flags.push({
-        id: "close",
         severity: "warn",
-        detail: "Closing slide has no actions[]/cta — the ask is missing.",
+        ...judgeDetail("close"),
       });
     }
   }

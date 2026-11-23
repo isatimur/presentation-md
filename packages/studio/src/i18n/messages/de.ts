@@ -684,4 +684,14 @@ export const de: Catalog = {
   "audit.loudBeat": "Lautes Theme mit harten Karten braucht einen prägnanten Beat – ergänze image-hero, comparison+emphasis, prägnante Kennzahlen, quote oder feature-grid columns:\"bento\" (nicht nur weiche Abschnitte).",
   "audit.pastelGeometryBeat": "pastel-geometry braucht einen weichen Geometrie-Beat – ergänze feature-grid, image-hero, prägnante Kennzahlen oder quote (nicht nur weiche Abschnitte).",
   "audit.botanicalBeat": "grove / dark-botanical braucht einen botanischen Monografie-Beat – ergänze quote, image-hero, comparison+emphasis oder prägnante Kennzahlen.",
+
+  // Structural judge flags (keys match JudgeFlagId in core)
+  "judge.slides": "Präsentation hat weniger als 2 Folien — bitte manuell prüfen.",
+  "judge.G1": "Folie {n}: Ein Block hat {words} Wörter (>{limit}) — Textwand.",
+  "judge.words": "Folie {n}: insgesamt {words} Wörter (dicht) — prüfen, ob sie überladen ist.",
+  "judge.cadence": "Folien {from}-{to}: '{layout}' wiederholt sich {run}x hintereinander – variiere den Layout-Rhythmus.",
+  "judge.visual_beat": "Kein image-hero — Investoren-, Launch- und Markenpräsentationen brauchen einen filmischen visuellen Beat.",
+  "judge.asymmetry": "Schwache Asymmetrie — comparison+emphasis, two-column, code, bento, ranked-list, streak-grid, metric-ring oder logo-wall hinzufügen.",
+  "judge.data_viz": "Lange Präsentation ohne chart/stat-row/data-table/ranked-list/metric-ring — einen Daten-Beat erwägen.",
+  "judge.close": "Die Abschlussfolie hat kein actions[]/cta — die Bitte fehlt.",
 };

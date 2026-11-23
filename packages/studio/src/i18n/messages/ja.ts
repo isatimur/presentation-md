@@ -677,4 +677,14 @@ export const ja: Catalog = {
   "audit.loudBeat": "ラウド/ハードカード系テーマにはパンチのあるビートが必要です — image-hero、comparison+emphasis、インパクトのある数字、quote、または feature-grid columns:\"bento\" を追加してください（やわらかいセクションだけにしない）。",
   "audit.pastelGeometryBeat": "pastel-geometry にはやわらかい幾何学のビートが必要です — feature-grid、image-hero、インパクトのある数字、quote のいずれかを追加してください（やわらかいセクションだけにしない）。",
   "audit.botanicalBeat": "grove / dark-botanical にはボタニカルな図鑑風のビートが必要です — quote、image-hero、comparison+emphasis、またはインパクトのある数字を追加してください。",
+
+  // Structural judge flags (keys match JudgeFlagId in core)
+  "judge.slides": "スライドが 2 枚未満です — 手動で確認してください。",
+  "judge.G1": "スライド {n}：1 つのブロックが {words} 語あります（>{limit}）— 文字の壁です。",
+  "judge.words": "スライド {n}：合計 {words} 語（高密度）— 詰め込みすぎていないか確認してください。",
+  "judge.cadence": "スライド {from}-{to}: '{layout}' が {run} 回連続しています — レイアウトのリズムに変化をつけてください。",
+  "judge.visual_beat": "image-hero がありません — 投資家向け・ローンチ・ブランドのデッキには映画のようなビジュアルのビートが必要です。",
+  "judge.asymmetry": "非対称性が弱いです — comparison+emphasis、two-column、code、bento、ranked-list、streak-grid、metric-ring、logo-wall のいずれかを追加してください。",
+  "judge.data_viz": "長いデッキに chart/stat-row/data-table/ranked-list/metric-ring がありません — データのビートを検討してください。",
+  "judge.close": "クロージングスライドに actions[]/cta がありません — 依頼が抜けています。",
 };

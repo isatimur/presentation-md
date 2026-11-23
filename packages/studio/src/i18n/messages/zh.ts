@@ -677,4 +677,14 @@ export const zh: Catalog = {
   "audit.loudBeat": "醒目/硬朗卡片主题需要一个有冲击力的节拍 — 请添加 image-hero、comparison+emphasis、有力的数据、quote，或 feature-grid columns:\"bento\"（不要只用柔和的版块）。",
   "audit.pastelGeometryBeat": "pastel-geometry 需要一个柔和几何节拍 — 请添加 feature-grid、image-hero、有力的数据或 quote（不要只用柔和的版块）。",
   "audit.botanicalBeat": "grove / dark-botanical 需要一个植物图鉴式节拍 — 请添加 quote、image-hero、comparison+emphasis 或有力的数据。",
+
+  // Structural judge flags (keys match JudgeFlagId in core)
+  "judge.slides": "演示文稿少于 2 张幻灯片——请手动检查。",
+  "judge.G1": "幻灯片 {n}：有一个文本块含 {words} 个词（>{limit}）——文字墙。",
+  "judge.words": "幻灯片 {n}：共 {words} 个词（过密）——请确认没有塞得太满。",
+  "judge.cadence": "第 {from}-{to} 张幻灯片：'{layout}' 连续重复 {run} 次 — 请变换布局节奏。",
+  "judge.visual_beat": "没有 image-hero——投资人、发布和品牌演示需要一个电影感的视觉节拍。",
+  "judge.asymmetry": "不对称性弱——添加 comparison+emphasis、two-column、code、bento、ranked-list、streak-grid、metric-ring 或 logo-wall。",
+  "judge.data_viz": "演示较长但没有 chart/stat-row/data-table/ranked-list/metric-ring——考虑加入一个数据节拍。",
+  "judge.close": "结尾幻灯片没有 actions[]/cta——缺少号召行动。",
 };

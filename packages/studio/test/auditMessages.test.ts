@@ -1,6 +1,13 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { auditCraft, CRAFT_ISSUE_CODES, CRAFT_ISSUE_MESSAGES } from "../src/craft/auditCraft.js";
-import { auditKey, auditText } from "../src/craft/auditText.js";
+import {
+  auditCraft,
+  CRAFT_ISSUE_CODES,
+  CRAFT_ISSUE_MESSAGES,
+  JUDGE_FLAG_IDS,
+  JUDGE_FLAG_MESSAGES,
+  judgeDeckJson,
+} from "../src/craft/auditCraft.js";
+import { auditKey, auditText, judgeKey } from "../src/craft/auditText.js";
 import { formatMessage, setLocale, t } from "../src/i18n/index.js";
 import { en } from "../src/i18n/messages/en.js";
 
@@ -48,5 +55,20 @@ describe("audit messages", () => {
     expect(text).not.toBe(issue!.message);
     expect(text).toContain('"nope"');
     expect(auditText({ message: "PPTX: chart lost its legend" }, t)).toBe("PPTX: chart lost its legend");
+  });
+
+  it("keeps judge flags equal to core in English and translates them by id", async () => {
+    for (const id of JUDGE_FLAG_IDS) expect(en[judgeKey(id)], id).toBe(JUDGE_FLAG_MESSAGES[id]);
+    const [flag] = judgeDeckJson({ slides: [{ layout: "title", body: "word ".repeat(60) }] }).flags.filter(
+      (f) => f.id === "G1"
+    );
+    expect(flag).toBeDefined();
+    const row = { message: `[judge · ${flag!.id}] ${flag!.detail}`, severity: "error" as const, judgeId: flag!.id, params: flag!.params };
+    expect(auditText(row, t)).toBe(row.message);
+    await setLocale("ja", { persist: false });
+    const ja = auditText(row, t);
+    expect(ja.startsWith("[judge · G1] ")).toBe(true);
+    expect(ja).not.toBe(row.message);
+    expect(ja).toContain("60");
   });
 });
