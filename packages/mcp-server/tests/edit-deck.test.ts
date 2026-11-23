@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
-import { join, relative } from "node:path";
+import { mkdir, mkdtemp, readdir, readFile, rm, writeFile } from "node:fs/promises";
+import { execFileSync } from "node:child_process";
+import { dirname, join, relative } from "node:path";
 import { editDeckTool } from "../src/tools/edit-deck.js";
 import { outlineDeckTool } from "../src/tools/outline-deck.js";
 
@@ -89,5 +90,46 @@ describe("outline_deck / edit_deck tools", () => {
     await expect(
       outlineDeckTool.handler({ json: JSON.stringify(DECK), deck_path: "x.json" })
     ).rejects.toThrow(/exactly one/);
+  });
+
+  it("refuses a directory (including cwd itself) as output_path and leaves no temp files", async () => {
+    const parent = dirname(process.cwd());
+    const before = await readdir(parent);
+    for (const target of [".", "./"]) {
+      await expect(
+        editDeckTool.handler({ json: JSON.stringify(DECK), output_path: target, operations: [{ op: "delete_slide", slide: 2 }] })
+      ).rejects.toThrow(/directory/);
+    }
+    const path = await deckFile();
+    const dir = dirname(path);
+    await expect(
+      editDeckTool.handler({ json: JSON.stringify(DECK), output_path: dir, operations: [{ op: "delete_slide", slide: 2 }] })
+    ).rejects.toThrow(/directory/);
+    expect(await readdir(parent)).toEqual(before);
+    expect((await readdir(dir)).filter((n) => n.endsWith(".tmp"))).toEqual([]);
+  });
+
+  it("will not overwrite an existing file that is not a deck", async () => {
+    const path = await deckFile();
+    const other = join(dirname(path), "package.json");
+    await writeFile(other, '{"name":"victim"}');
+    await expect(
+      editDeckTool.handler({ json: JSON.stringify(DECK), output_path: other, operations: [{ op: "delete_slide", slide: 2 }] })
+    ).rejects.toThrow(/not a deck/);
+    expect(await readFile(other, "utf-8")).toBe('{"name":"victim"}');
+    await expect(
+      editDeckTool.handler({ json: JSON.stringify(DECK), output_path: join(dirname(path), "notes.txt"), operations: [{ op: "delete_slide", slide: 2 }] })
+    ).rejects.toThrow(/\.json/);
+  });
+
+  it("refuses a deck_path that is not a regular file (no hang on a FIFO)", async () => {
+    const path = await deckFile();
+    const dir = dirname(path);
+    await mkdir(join(dir, "sub"));
+    await expect(outlineDeckTool.handler({ deck_path: join(dir, "sub") })).rejects.toThrow(/regular file/);
+    if (process.platform !== "win32") {
+      execFileSync("mkfifo", [join(dir, "pipe.json")]);
+      await expect(outlineDeckTool.handler({ deck_path: join(dir, "pipe.json") })).rejects.toThrow(/regular file/);
+    }
   });
 });

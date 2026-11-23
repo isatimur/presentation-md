@@ -53,7 +53,7 @@ export const editDeckTool: ToolDefinition = {
     const outputPath = input["output_path"] as string | undefined;
     let written: string | undefined;
     if (outputPath) written = await writeDeckFile(outputPath, deck);
-    else if (source.path) written = await writeDeckFile(source.path, deck);
+    else if (source.path) written = await writeDeckFile(source.path, deck, { inPlace: true });
 
     const outline = deckOutline(deck);
     return {
