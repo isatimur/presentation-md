@@ -1,5 +1,23 @@
 # @presentation-md/mcp-server
 
+## 1.37.0
+
+### Minor Changes
+
+- 144bd0a: Slide-level reading and editing for agents.
+
+  - MCP `outline_deck`: per-slide layout, title, word count, notes flag and craft-audit issues, plus full JSON of chosen slides (`include`).
+  - MCP `edit_deck`: a batch of `update_slide` / `replace_slide` / `insert_slide` / `delete_slide` / `move_slide` / `update_meta` operations. Validates the result against the deck schema and saves nothing on failure. With `deck_path` it edits the file in place (atomic write, cwd only), so the agent never resends the whole deck. Returns the touched slides and their audit issues.
+  - Core: `deckOutline`, `applyDeckEdits`, `DeckEditError`.
+
+### Patch Changes
+
+- Updated dependencies [144bd0a]
+  - @presentation-md/core@1.39.0
+  - @presentation-md/create-theme@1.1.44
+  - @presentation-md/export@1.27.1
+  - @presentation-md/render@1.24.1
+
 ## 1.36.0
 
 ### Minor Changes
