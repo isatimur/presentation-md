@@ -87,14 +87,14 @@
       ]
     },
     {
-      "layout": "two-column",
+      "layout": "comparison",
       "eyebrow": "Mission",
       "heading": "Autonomy with a HUD",
-      "leftTitle": "Fleet",
+      "leftLabel": "Fleet",
       "left": "3.4M picks/day.\nNamed cells.\nHuman override always lit.",
-      "rightTitle": "Cost",
+      "rightLabel": "Cost",
       "right": "−61% cost per pick.\nTelemetry that boards can read.\nNo black-box autonomy theater.",
-      "ratio": "2-1"
+      "emphasis": "left"
     },
     {
       "layout": "quote",

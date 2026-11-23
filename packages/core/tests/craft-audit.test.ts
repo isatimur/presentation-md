@@ -969,6 +969,36 @@ describe("auditCraft", () => {
   });
 });
 
+describe("gallery decks use only fields their layout renders", () => {
+  it("has no slide fields outside the layout's schema (they would render nowhere)", () => {
+    const schema = JSON.parse(readFileSync(resolve(process.cwd(), "deck.schema.json"), "utf-8"));
+    const known = new Map<string, Set<string>>();
+    const walk = (o: unknown): void => {
+      if (!o || typeof o !== "object") return;
+      const node = o as Record<string, unknown>;
+      const props = node["properties"] as Record<string, Record<string, unknown>> | undefined;
+      const layout = props?.["layout"];
+      const names = layout ? ((layout["const"] ? [layout["const"]] : layout["enum"]) as string[] | undefined) : undefined;
+      if (props && names) for (const l of names) known.set(l, new Set([...(known.get(l) ?? []), ...Object.keys(props)]));
+      for (const v of Object.values(node)) walk(v);
+    };
+    walk(schema);
+    expect(known.size).toBeGreaterThanOrEqual(18);
+    const dir = resolve(process.cwd(), "../../examples/decks");
+    const problems: string[] = [];
+    for (const file of readdirSync(dir).filter((f) => f.endsWith(".json"))) {
+      const deck = JSON.parse(readFileSync(join(dir, file), "utf-8"));
+      (deck.slides as Array<Record<string, unknown>>).forEach((slide, i) => {
+        const fields = known.get(String(slide["layout"]));
+        if (!fields) return;
+        const extra = Object.keys(slide).filter((k) => !fields.has(k));
+        if (extra.length) problems.push(`${file}#${i + 1} (${slide["layout"]}): ${extra.join(", ")}`);
+      });
+    }
+    expect(problems).toEqual([]);
+  });
+});
+
 describe("repairCraft", () => {
   it("fills safe structural craft fields and clears those warnings", () => {
     const deck = {

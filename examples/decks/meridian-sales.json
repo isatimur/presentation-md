@@ -200,14 +200,14 @@
       "lead": "Platform + three modules · annual commit · success criteria written into the SOW."
     },
     {
-      "layout": "two-column",
+      "layout": "comparison",
       "eyebrow": "Implementation",
       "heading": "Ninety days to first pack",
-      "leftTitle": "Weeks 1–6",
+      "leftLabel": "Weeks 1–6",
       "left": "Data map + security review.\nPilot on two practice groups.\nAnalyst training live.",
-      "rightTitle": "Weeks 7–12",
+      "rightLabel": "Weeks 7–12",
       "right": "Client packs on a schedule.\nForecast dashboard live.\nROI readout for partners.",
-      "ratio": "2-1"
+      "emphasis": "left"
     },
     {
       "layout": "closing",

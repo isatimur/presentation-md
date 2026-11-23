@@ -1,0 +1,171 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "Northwind — Q3 review",
+    "company": "Northwind",
+    "description": "PPTX scorecard fixture: one slide per layout with realistic copy.",
+    "theme": "claude"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "Q3 review",
+      "heading": "Northwind ships faster than it hires.",
+      "lead": "Revenue up, burn flat, two launches landed.",
+      "notes": "Open with the claim, then prove it."
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "Where we are",
+      "lead": "Three numbers, one risk, one ask."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "The product",
+      "heading": "One dashboard for every warehouse.",
+      "lead": "Stock, orders and drivers in a single view.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22450%22%3E%3Crect%20width%3D%22800%22%20height%3D%22450%22%20fill%3D%22%231f2937%22%2F%3E%3Ccircle%20cx%3D%22600%22%20cy%3D%22160%22%20r%3D%22110%22%20fill%3D%22%23f59e0b%22%2F%3E%3C%2Fsvg%3E",
+      "imageAlt": "Abstract dashboard art"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Focus",
+      "heading": "Two bets for Q4",
+      "body": "Self-serve onboarding cuts setup from five days to one.",
+      "aside": "Enterprise pilots convert at 62%.",
+      "ratio": "2-1"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "What shipped",
+      "heading": "Four releases this quarter",
+      "columns": 2,
+      "cards": [
+        { "icon": "fa-solid fa-bolt", "title": "Live routing", "body": "Drivers reroute around traffic in real time." },
+        { "icon": "fa-solid fa-box", "title": "Stock alerts", "body": "Low-stock warnings two days earlier." },
+        { "icon": "fa-solid fa-chart-line", "title": "Margin view", "body": "Profit per order, per warehouse." },
+        { "icon": "fa-solid fa-lock", "title": "SSO", "body": "Okta and Entra sign-in for every plan." }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Before and after",
+      "heading": "What customers stopped doing",
+      "leftLabel": "Before",
+      "left": "Three spreadsheets.\nDaily phone calls.\nGuessing stock.",
+      "rightLabel": "After",
+      "right": "One dashboard.\nAlerts instead of calls.\nStock you can trust.",
+      "emphasis": "right"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Scorecard",
+      "heading": "Q3 in three numbers",
+      "stats": [
+        { "value": "$4.1M", "label": "New ARR" },
+        { "value": "118%", "label": "Net retention" },
+        { "value": "9 days", "label": "Median onboarding" }
+      ]
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Spend",
+      "heading": "Where the money went",
+      "columns": ["Team", "Budget", "Actual", "Variance"],
+      "rows": [
+        ["Engineering", "$1.8M", "$1.7M", "-6%"],
+        ["Sales", "$1.2M", "$1.3M", "+8%"],
+        ["Support", "$0.4M", "$0.4M", "0%"]
+      ]
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Growth",
+      "heading": "ARR by quarter",
+      "chartType": "bar",
+      "categories": ["Q4", "Q1", "Q2", "Q3"],
+      "series": [{ "name": "ARR ($M)", "values": [9.2, 10.4, 12.1, 16.2] }],
+      "showValues": true
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Roadmap",
+      "heading": "The next three moves",
+      "steps": [
+        { "title": "October", "body": "Self-serve onboarding beta." },
+        { "title": "November", "body": "Driver app in Spanish and Portuguese." },
+        { "title": "December", "body": "EU data residency." }
+      ]
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Top regions",
+      "heading": "Where growth came from",
+      "items": [
+        { "rank": "01", "label": "Iberia", "value": "+41%", "widthPct": 90 },
+        { "rank": "02", "label": "Benelux", "value": "+27%", "widthPct": 62 },
+        { "rank": "03", "label": "Nordics", "value": "+15%", "widthPct": 35 }
+      ]
+    },
+    {
+      "layout": "logo-wall",
+      "eyebrow": "Customers",
+      "heading": "Trusted by operators",
+      "columns": 4,
+      "cards": [
+        { "title": "Harbor Foods" },
+        { "title": "Lisbon Freight" },
+        { "title": "Kettle & Co" },
+        { "title": "Polar Parts" }
+      ]
+    },
+    {
+      "layout": "streak-grid",
+      "eyebrow": "Uptime",
+      "heading": "61 days without an incident",
+      "lead": "The longest run since launch.",
+      "filled": 61,
+      "total": 70,
+      "cols": 10
+    },
+    {
+      "layout": "metric-ring",
+      "eyebrow": "Customer health",
+      "heading": "Nine in ten accounts are green.",
+      "value": "91%",
+      "label": "healthy accounts",
+      "pct": 91,
+      "lead": "Up from 84% last quarter."
+    },
+    {
+      "layout": "quote",
+      "quote": "We closed two warehouses' worth of spreadsheets in a week.",
+      "by": "Ops lead, Harbor Foods"
+    },
+    {
+      "layout": "code",
+      "eyebrow": "API",
+      "heading": "Stock in one call",
+      "language": "bash",
+      "filename": "stock.sh",
+      "code": "curl https://api.northwind.dev/v1/stock?warehouse=lis-01"
+    },
+    {
+      "layout": "custom-html",
+      "eyebrow": "Pipeline",
+      "heading": "Deals by stage",
+      "html": "<div style=\"display:flex;gap:12px\"><div><h3>Discovery</h3><p>24 deals</p></div><div><h3>Pilot</h3><p>9 deals</p></div><div><h3>Signed</h3><p>6 deals</p></div></div>"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "The ask",
+      "heading": "Approve the Q4 hiring plan.",
+      "lead": "Twelve roles, all in engineering and support.",
+      "actions": [
+        { "label": "Approve plan", "style": "solid", "icon": "fa-solid fa-check" },
+        { "label": "Read the memo", "style": "outline", "icon": "fa-solid fa-file" }
+      ]
+    }
+  ]
+}

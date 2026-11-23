@@ -45,6 +45,9 @@ jobs:
       - name: Run tests
         run: pnpm test
 
+      - name: PPTX scorecard (all text editable in PowerPoint)
+        run: pnpm scorecard --check
+
       - name: Lint
         run: pnpm lint
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -907,9 +907,9 @@ tbody tr:hover td {
 .nav-hint {
   position: fixed;
   right: 20px;
-  bottom: 18px;
+  bottom: 62px;
   z-index: 40;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
@@ -922,6 +922,622 @@ tbody tr:hover td {
   opacity: 0.85;
 }
 
+/* Exported-HTML Present chrome (Studio Present parity: laser/ink/overview + B/W/notes/timer).
+   Hidden until the inline script marks html.pmd-live-present — keeps Studio's
+   sandboxed (no-scripts) preview free of dead controls. */
+.pmd-curtain,
+.pmd-notes-rail,
+.pmd-present-bar,
+.pmd-present-help,
+.pmd-stage-tools,
+.pmd-overview,
+.pmd-filmstrip,
+.pmd-slide-dots,
+.pmd-progress,
+.pmd-edit-hotzone,
+.pmd-edit-toggle {
+  display: none;
+}
+html.pmd-live-present .pmd-curtain,
+html.pmd-live-present .pmd-notes-rail,
+html.pmd-live-present .pmd-present-bar,
+html.pmd-live-present .pmd-present-help,
+html.pmd-live-present .pmd-stage-tools,
+html.pmd-live-present .pmd-overview,
+html.pmd-live-present .pmd-slide-dots,
+html.pmd-live-present .pmd-progress,
+html.pmd-live-present .pmd-edit-hotzone,
+html.pmd-live-present .pmd-edit-toggle {
+  display: flex;
+}
+html.pmd-live-present .pmd-notes-rail { display: flex; }
+html.pmd-live-present .pmd-present-bar { display: flex; }
+html.pmd-live-present .pmd-stage-tools { display: block; }
+html.pmd-live-present .pmd-overview { display: flex; }
+html.pmd-live-present .pmd-slide-dots { display: flex; }
+html.pmd-live-present .pmd-progress { display: block; }
+html.pmd-live-present .pmd-edit-hotzone { display: block; }
+html.pmd-live-present .pmd-edit-toggle { display: none; }
+html.pmd-live-present .pmd-edit-toggle.is-visible,
+html.pmd-live-present .pmd-edit-toggle.is-active { display: inline-flex; }
+
+.pmd-edit-hotzone {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 72px;
+  height: 72px;
+  z-index: 57;
+  cursor: pointer;
+}
+.pmd-edit-toggle {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 58;
+  appearance: none;
+  border: 1px solid rgba(232, 238, 244, 0.22);
+  background: rgba(11, 18, 32, 0.92);
+  color: #e8eef4;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font: 600 12px/1.2 ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  align-items: center;
+}
+.pmd-edit-toggle.is-active {
+  border-color: #ef4444;
+  color: #fecaca;
+}
+html.pmd-edit-on [contenteditable="true"] {
+  outline: 1px dashed rgba(239, 68, 68, 0.45);
+  outline-offset: 2px;
+  cursor: text;
+}
+html.pmd-edit-on [contenteditable="true"]:focus {
+  outline: 2px solid rgba(239, 68, 68, 0.75);
+}
+
+.pmd-progress {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  z-index: 56;
+  background: rgba(11, 18, 32, 0.25);
+  pointer-events: none;
+}
+.pmd-progress-bar {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: #ef4444;
+  transition: width 0.2s ease;
+}
+.pmd-slide-dots {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 52;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 6px;
+  border-radius: 999px;
+  background: rgba(11, 18, 32, 0.55);
+  backdrop-filter: blur(8px);
+}
+html.pmd-notes-open .pmd-slide-dots {
+  right: calc(min(340px, 34vw) + 14px);
+}
+.pmd-slide-dots[hidden] { display: none !important; }
+.pmd-slide-dot {
+  appearance: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 238, 244, 0.45);
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+.pmd-slide-dot:hover { background: rgba(232, 238, 244, 0.35); }
+.pmd-slide-dot.is-active {
+  background: #ef4444;
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+}
+
+.pmd-stage-tools {
+  position: fixed;
+  inset: 0;
+  bottom: 48px;
+  z-index: 45;
+  pointer-events: none;
+}
+html.pmd-notes-open .pmd-stage-tools {
+  right: min(340px, 34vw);
+}
+.pmd-stage-tools.is-laser,
+.pmd-stage-tools.is-ink {
+  pointer-events: auto;
+}
+.pmd-stage-tools.is-laser { cursor: none; }
+.pmd-stage-tools.is-ink { cursor: crosshair; }
+.pmd-ink-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  touch-action: none;
+}
+.pmd-ink-canvas.is-active {
+  pointer-events: auto;
+  cursor: crosshair;
+}
+.pmd-laser-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  cursor: none;
+  pointer-events: auto;
+}
+.pmd-laser-layer[hidden] { display: none !important; }
+.pmd-laser-dot {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fecaca 0%, #ef4444 45%, rgba(220, 38, 38, 0.15) 70%, transparent 75%);
+  box-shadow: 0 0 10px 3px rgba(239, 68, 68, 0.55), 0 0 22px 8px rgba(239, 68, 68, 0.25);
+  pointer-events: none;
+  will-change: left, top, opacity, transform;
+}
+.pmd-laser-dot.is-tip {
+  width: 22px;
+  height: 22px;
+  box-shadow: 0 0 12px 4px rgba(239, 68, 68, 0.7), 0 0 28px 10px rgba(239, 68, 68, 0.3);
+}
+
+.pmd-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  align-items: flex-end;
+  justify-content: center;
+  cursor: pointer;
+}
+.pmd-curtain[hidden] { display: none !important; }
+.pmd-blackout { background: #000; }
+.pmd-whiteout { background: #fff; }
+.pmd-curtain-hint {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 16px;
+  color: #6b7280;
+}
+.pmd-whiteout .pmd-curtain-hint { color: #9ca3af; }
+
+.pmd-notes-rail {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 48px;
+  width: min(340px, 34vw);
+  z-index: 50;
+  background: #111827;
+  color: #e8eef4;
+  border-left: 1px solid rgba(232, 238, 244, 0.12);
+  padding: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  flex-direction: column;
+}
+.pmd-notes-rail[hidden] { display: none !important; }
+.pmd-notes-section {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 18px 16px 12px;
+}
+.pmd-notes-label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+.pmd-notes-body {
+  font-size: 15px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  margin: 0;
+}
+.pmd-notes-body.is-empty { color: #6b7280; font-size: 13px; }
+.pmd-notes-next {
+  flex: 0 0 auto;
+  border-top: 1px solid rgba(232, 238, 244, 0.12);
+  padding: 12px 16px 16px;
+}
+.pmd-next-frame-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #0b1220;
+  border: 1px solid rgba(232, 238, 244, 0.14);
+  container-type: inline-size;
+}
+.pmd-notes-next.is-end .pmd-next-frame-wrap {
+  aspect-ratio: auto;
+  min-height: 0;
+  border: 0;
+  background: transparent;
+  padding: 0;
+}
+.pmd-next-scale {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 1280px;
+  height: 720px;
+  transform-origin: top left;
+  transform: scale(0.25);
+  pointer-events: none;
+}
+@supports (width: 1cqw) {
+  .pmd-next-scale { transform: scale(calc(100cqw / 1280)); }
+}
+.pmd-next-scale .slide {
+  width: 1280px !important;
+  height: 720px !important;
+  min-height: 720px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  scroll-snap-align: none !important;
+}
+html.pmd-notes-open .nav-hint { right: calc(min(340px, 34vw) + 16px); }
+
+.pmd-overview {
+  position: fixed;
+  inset: 0;
+  z-index: 68;
+  background: rgba(11, 18, 32, 0.92);
+  align-items: stretch;
+  justify-content: center;
+  padding: 20px 20px 64px;
+}
+.pmd-overview[hidden] { display: none !important; }
+.pmd-overview-panel {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+}
+.pmd-overview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+.pmd-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+  overflow-y: auto;
+  padding-bottom: 8px;
+}
+.pmd-overview-card {
+  appearance: none;
+  border: 1px solid rgba(232, 238, 244, 0.14);
+  background: #0b1220;
+  color: #e8eef4;
+  border-radius: 10px;
+  padding: 8px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pmd-overview-card:hover,
+.pmd-overview-card:focus-visible {
+  border-color: rgba(239, 68, 68, 0.55);
+  outline: none;
+}
+.pmd-overview-card.is-active {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.35);
+}
+.pmd-overview-frame-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #111827;
+  container-type: inline-size;
+}
+.pmd-overview-scale {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 1280px;
+  height: 720px;
+  transform-origin: top left;
+  transform: scale(0.25);
+  pointer-events: none;
+}
+@supports (width: 1cqw) {
+  .pmd-overview-scale { transform: scale(calc(100cqw / 1280)); }
+}
+.pmd-overview-scale .slide {
+  width: 1280px !important;
+  height: 720px !important;
+  min-height: 720px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  scroll-snap-align: none !important;
+}
+.pmd-overview-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 48px;
+  color: #6b7280;
+}
+.pmd-overview-label {
+  font-size: 12px;
+  line-height: 1.35;
+  color: #9ca3af;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pmd-overview-label strong {
+  color: #e8eef4;
+  margin-right: 6px;
+}
+
+/* Present filmstrip peek (F) — densified horizontal jump strip above the bar. */
+.pmd-filmstrip {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 48px;
+  z-index: 54;
+  display: none;
+  padding: 8px 12px 4px;
+  background: #0b1220;
+  border-top: 1px solid rgba(232, 238, 244, 0.12);
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+html.pmd-live-present.pmd-strip-open .pmd-filmstrip { display: block; }
+.pmd-filmstrip[hidden] { display: none !important; }
+.pmd-filmstrip-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 8px;
+  width: max-content;
+  min-height: 72px;
+  align-items: flex-start;
+}
+.pmd-filmstrip-hit {
+  appearance: none;
+  position: relative;
+  flex: 0 0 auto;
+  width: calc(64px * 16 / 9);
+  height: 64px;
+  padding: 0;
+  margin: 0;
+  border: 2px solid rgba(232, 238, 244, 0.18);
+  border-radius: 8px;
+  background: #111827;
+  cursor: pointer;
+  overflow: hidden;
+}
+.pmd-filmstrip-hit:hover,
+.pmd-filmstrip-hit:focus-visible {
+  border-color: color-mix(in srgb, var(--accent, #38bdf8) 55%, rgba(232, 238, 244, 0.4));
+  outline: none;
+}
+.pmd-filmstrip-hit.is-active {
+  border-color: var(--accent, #38bdf8);
+  box-shadow: 0 0 0 1px var(--accent, #38bdf8);
+}
+.pmd-filmstrip-frame-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+}
+.pmd-filmstrip-scale {
+  width: 1280px;
+  height: 720px;
+  transform: scale(calc(64 / 720));
+  transform-origin: top left;
+  pointer-events: none;
+}
+@supports (width: 1cqw) {
+  .pmd-filmstrip-scale { transform: scale(calc(100cqh / 720)); }
+}
+.pmd-filmstrip-scale .slide {
+  width: 1280px !important;
+  min-height: 720px !important;
+  height: 720px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.pmd-filmstrip-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #9ca3af;
+  font: 600 18px/1 ui-sans-serif, system-ui, sans-serif;
+}
+.pmd-filmstrip-num {
+  position: absolute;
+  left: 4px;
+  bottom: 4px;
+  z-index: 1;
+  font: 600 10px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: rgba(11, 18, 32, 0.82);
+  color: #e8eef4;
+}
+.pmd-filmstrip-hit.is-active .pmd-filmstrip-num {
+  background: var(--accent, #38bdf8);
+  color: #0b1220;
+}
+html.pmd-strip-open .pmd-notes-rail {
+  bottom: calc(48px + 84px);
+}
+html.pmd-strip-open .pmd-stage-tools {
+  bottom: calc(48px + 84px);
+}
+@media (max-width: 720px) {
+  .pmd-filmstrip { display: none !important; }
+  html.pmd-strip-open .pmd-notes-rail { bottom: 48px; }
+  html.pmd-strip-open .pmd-stage-tools { bottom: 48px; }
+}
+
+.pmd-present-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 8px 14px;
+  background: rgba(11, 18, 32, 0.92);
+  color: #e8eef4;
+  border-top: 1px solid rgba(232, 238, 244, 0.12);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 13px;
+}
+.pmd-present-count { min-width: 64px; font-variant-numeric: tabular-nums; }
+.pmd-present-timer {
+  min-width: 72px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  cursor: default;
+}
+.pmd-present-timer.is-paused { color: #f59e0b; }
+.pmd-present-timer.is-ahead { color: #2dd4bf; }
+.pmd-present-timer.is-behind { color: #fb7185; }
+.pmd-present-timer.is-over { color: #f87171; font-weight: 600; }
+.pmd-present-btn {
+  appearance: none;
+  border: 1px solid rgba(232, 238, 244, 0.18);
+  background: transparent;
+  color: inherit;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font: inherit;
+  cursor: pointer;
+}
+.pmd-present-btn:hover { background: rgba(232, 238, 244, 0.08); }
+
+.pmd-present-help {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgba(11, 18, 32, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.pmd-present-help[hidden] { display: none !important; }
+.pmd-present-help-card {
+  width: min(440px, 100%);
+  background: #111827;
+  color: #e8eef4;
+  border: 1px solid rgba(232, 238, 244, 0.14);
+  border-radius: 12px;
+  padding: 16px 18px 18px;
+}
+.pmd-present-help-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+.pmd-present-help-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.pmd-present-help-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+}
+.pmd-present-help-list kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(232, 238, 244, 0.18);
+  background: rgba(232, 238, 244, 0.06);
+  white-space: nowrap;
+}
+
+html.pmd-shot-mode .nav-hint,
+html.pmd-shot-mode .pmd-present-bar,
+html.pmd-shot-mode .pmd-notes-rail,
+html.pmd-shot-mode .pmd-curtain,
+html.pmd-shot-mode .pmd-present-help,
+html.pmd-shot-mode .pmd-stage-tools,
+html.pmd-shot-mode .pmd-overview,
+html.pmd-shot-mode .pmd-filmstrip,
+html.pmd-shot-mode .pmd-slide-dots,
+html.pmd-shot-mode .pmd-progress,
+html.pmd-shot-mode .pmd-edit-hotzone,
+html.pmd-shot-mode .pmd-edit-toggle {
+  display: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .slide,
@@ -931,6 +1547,10 @@ tbody tr:hover td {
 }
 
 @media print {
+  @page {
+    size: 1920px 1080px;
+    margin: 0;
+  }
   body { padding: 0; gap: 0; }
   .slide {
     box-shadow: none;
@@ -939,7 +1559,18 @@ tbody tr:hover td {
     width: 100vw;
     animation: none !important;
   }
-  .nav-hint { display: none !important; }
+  .nav-hint,
+  .pmd-present-bar,
+  .pmd-notes-rail,
+  .pmd-curtain,
+  .pmd-present-help,
+  .pmd-stage-tools,
+  .pmd-overview,
+  .pmd-filmstrip,
+  .pmd-slide-dots,
+  .pmd-progress,
+  .pmd-edit-hotzone,
+  .pmd-edit-toggle { display: none !important; }
 }
 
 
@@ -1059,6 +1690,18 @@ tbody tr:hover td {
   box-shadow: 0 20px 50px rgba(20, 20, 19, 0.08);
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
 }
+/* Soft fiber grain — quiet paper, not noise wallpaper */
+.deck[data-surface="warm-paper"] .slide::before {
+  inset: 0;
+  opacity: 0.18;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(20, 20, 19, 0.06) 0.5px, transparent 1px),
+    radial-gradient(circle at 70% 60%, rgba(20, 20, 19, 0.045) 0.45px, transparent 0.95px),
+    radial-gradient(circle at 40% 85%, rgba(20, 20, 19, 0.05) 0.5px, transparent 1px);
+  background-size: 8px 8px, 10px 10px, 7px 7px;
+  background-position: 0 0, 4px 3px, 2px 5px;
+  mix-blend-mode: multiply;
+}
 .deck[data-surface="warm-paper"] .slide::after {
   width: 280px;
   height: 280px;
@@ -1154,6 +1797,17 @@ tbody tr:hover td {
 .deck[data-surface="editorial-rule"] .slide {
   --slide-bg: var(--bg);
 }
+
+/* Quiet paper grain — soft fiber tooth (HTML-only) */
+.deck[data-surface="editorial-rule"] .slide {
+  background-image:
+    radial-gradient(circle at 25% 20%, rgba(28, 26, 23, 0.035) 0.4px, transparent 0.9px),
+    radial-gradient(circle at 75% 55%, rgba(28, 26, 23, 0.03) 0.35px, transparent 0.85px),
+    radial-gradient(circle at 50% 90%, rgba(28, 26, 23, 0.028) 0.4px, transparent 0.9px),
+    var(--slide-bg, var(--bg));
+  background-size: 5px 5px, 7px 7px, 6px 6px, auto;
+  background-position: 0 0, 2px 3px, 1px 4px, 0 0;
+}
 .deck[data-surface="editorial-rule"] .slide::before {
   left: 64px;
   right: 64px;
@@ -1232,6 +1886,17 @@ tbody tr:hover td {
   --slide-bg: var(--bg);
   border-radius: 0;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Quiet paper grain — soft fiber tooth (HTML-only) */
+.deck[data-surface="broadsheet-rule"] .slide {
+  background-image:
+    radial-gradient(circle at 25% 20%, rgba(26, 18, 8, 0.032) 0.4px, transparent 0.9px),
+    radial-gradient(circle at 75% 55%, rgba(26, 18, 8, 0.028) 0.35px, transparent 0.85px),
+    radial-gradient(circle at 50% 90%, rgba(26, 18, 8, 0.026) 0.4px, transparent 0.9px),
+    var(--slide-bg, var(--bg));
+  background-size: 5px 5px, 7px 7px, 6px 6px, auto;
+  background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
 .deck[data-surface="broadsheet-rule"] .slide::before {
   left: 0;
@@ -1334,6 +1999,7 @@ tbody tr:hover td {
               radial-gradient(circle at 88% 78%, color-mix(in srgb, var(--accent2) 35%, var(--bg)), var(--bg) 48%);
   border: 3px solid var(--text);
   box-shadow: 0 18px 0 color-mix(in srgb, var(--accent) 35%, transparent);
+  overflow: hidden;
 }
 .deck[data-surface="candy-blob"] .slide::after {
   width: 180px;
@@ -1345,6 +2011,48 @@ tbody tr:hover td {
   opacity: 0.55;
   filter: none;
   border: 3px solid var(--text);
+}
+/* Gallery marquee ticker — yellow strip on cover/closing (brand from data-marquee) */
+@keyframes candy-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.deck[data-surface="candy-blob"] .title-slide,
+.deck[data-surface="candy-blob"] .closing-slide {
+  padding-bottom: 56px;
+}
+.deck[data-surface="candy-blob"] .title-slide::before,
+.deck[data-surface="candy-blob"] .closing-slide::before {
+  /* Injected by renderer via data-marquee from meta.company / meta.title */
+  content: attr(data-marquee);
+  position: absolute;
+  left: 0;
+  right: auto;
+  bottom: 0;
+  top: auto;
+  width: max-content;
+  min-width: 200%;
+  height: auto;
+  padding: 10px 0;
+  background: #ffe566;
+  border-top: 3px solid var(--text);
+  border-bottom: 3px solid var(--text);
+  color: var(--text);
+  font-family: var(--heading-font);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 1;
+  filter: none;
+  border-radius: 0;
+  animation: candy-marquee 22s linear infinite;
+}
+.deck[data-surface="candy-blob"] .title-slide:not([data-marquee])::before,
+.deck[data-surface="candy-blob"] .closing-slide:not([data-marquee])::before {
+  content: "★ SAVE TOGETHER  ·  WIN TOGETHER  ·  CANDY POP  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  CANDY POP  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  CANDY POP  ·  ★ SAVE TOGETHER  ·  WIN TOGETHER  ·  CANDY POP  ·  ";
 }
 .deck[data-surface="candy-blob"] .card {
   border: 2.5px solid var(--text);
@@ -1466,26 +2174,46 @@ tbody tr:hover td {
   --slide-bg: var(--bg);
   border: 2px solid var(--text);
   box-shadow: 6px 6px 0 color-mix(in srgb, var(--accent) 55%, transparent);
+  overflow: hidden;
 }
 .deck[data-surface="riso-print"] .slide::before {
   width: 55%;
   height: 55%;
   right: -4%;
   top: -6%;
-  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  border-radius: 40% 55% 45% 50%;
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
   mix-blend-mode: multiply;
   filter: none;
+  opacity: 1;
 }
 .deck[data-surface="riso-print"] .slide::after {
-  width: 40%;
-  height: 45%;
-  left: -2%;
-  bottom: -4%;
+  width: 42%;
+  height: 48%;
+  left: -3%;
+  bottom: -5%;
   top: auto;
   right: auto;
-  background: color-mix(in srgb, var(--accent2) 20%, transparent);
+  border-radius: 50% 40% 55% 45%;
+  background: color-mix(in srgb, var(--accent2) 24%, transparent);
   mix-blend-mode: multiply;
   filter: none;
+  opacity: 1;
+}
+/* Hero/closing: stronger overprint + slight misregistration */
+.deck[data-surface="riso-print"] .title-slide::before,
+.deck[data-surface="riso-print"] .closing-slide::before {
+  width: 62%;
+  height: 62%;
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+  transform: translate(6px, 4px);
+}
+.deck[data-surface="riso-print"] .title-slide::after,
+.deck[data-surface="riso-print"] .closing-slide::after {
+  width: 48%;
+  height: 52%;
+  background: color-mix(in srgb, var(--accent2) 30%, transparent);
+  transform: translate(-4px, -3px);
 }
 
 /* ── neon-rain (neon-noir) ── */
@@ -1586,6 +2314,17 @@ tbody tr:hover td {
 .deck[data-surface="heritage-wash"] .slide {
   --slide-bg: linear-gradient(165deg, var(--bg) 0%, var(--bg-2) 100%);
   box-shadow: 0 18px 50px rgba(22, 19, 15, 0.08);
+}
+
+/* Quiet paper grain — soft fiber tooth (HTML-only) */
+.deck[data-surface="heritage-wash"] .slide {
+  background-image:
+    radial-gradient(circle at 25% 20%, rgba(22, 19, 15, 0.038) 0.4px, transparent 0.9px),
+    radial-gradient(circle at 75% 55%, rgba(22, 19, 15, 0.032) 0.35px, transparent 0.85px),
+    radial-gradient(circle at 50% 90%, rgba(22, 19, 15, 0.03) 0.4px, transparent 0.9px),
+    var(--slide-bg, var(--bg));
+  background-size: 5px 5px, 7px 7px, 6px 6px, auto;
+  background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
 .deck[data-surface="heritage-wash"] .slide::before {
   left: 64px;
@@ -1820,6 +2559,16 @@ tbody tr:hover td {
   border: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
   box-shadow: 0 12px 36px rgba(26, 18, 8, 0.1);
 }
+/* Newsprint tooth — very quiet fiber, keeps ink readable */
+.deck[data-surface="newsprint-masthead"] .slide {
+  background-image:
+    radial-gradient(circle at 25% 20%, rgba(26, 18, 8, 0.035) 0.4px, transparent 0.9px),
+    radial-gradient(circle at 75% 55%, rgba(26, 18, 8, 0.03) 0.35px, transparent 0.85px),
+    radial-gradient(circle at 50% 90%, rgba(26, 18, 8, 0.028) 0.4px, transparent 0.9px),
+    var(--slide-bg, var(--bg));
+  background-size: 5px 5px, 7px 7px, 6px 6px, auto;
+  background-position: 0 0, 2px 3px, 1px 4px, 0 0;
+}
 .deck[data-surface="newsprint-masthead"] .slide::before {
   left: 0;
   right: 0;
@@ -1849,6 +2598,26 @@ tbody tr:hover td {
   --slide-bg: radial-gradient(ellipse 80% 60% at 100% 0%, color-mix(in srgb, var(--accent) 18%, var(--bg)), var(--bg));
   border-radius: 28px;
   box-shadow: 0 18px 48px rgba(42, 36, 27, 0.1);
+  position: relative;
+  isolation: isolate;
+}
+/* Quiet paper grain — soft fiber texture, not loud noise */
+.deck[data-surface="soft-editorial-paper"] .slide::before {
+  content: "";
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(42, 36, 27, 0.07) 0.6px, transparent 1.1px),
+    radial-gradient(circle at 72% 38%, rgba(42, 36, 27, 0.05) 0.5px, transparent 1px),
+    radial-gradient(circle at 44% 78%, rgba(42, 36, 27, 0.06) 0.55px, transparent 1.05px),
+    radial-gradient(circle at 88% 64%, rgba(183, 199, 168, 0.12) 0.7px, transparent 1.2px),
+    radial-gradient(circle at 12% 88%, rgba(225, 164, 194, 0.1) 0.55px, transparent 1.05px);
+  background-size: 7px 7px, 9px 9px, 6px 6px, 11px 11px, 8px 8px;
+  background-position: 0 0, 3px 5px, 1px 2px, 4px 1px, 2px 6px;
+  mix-blend-mode: multiply;
 }
 .deck[data-surface="soft-editorial-paper"] .slide::after {
   width: 160px;
@@ -1859,6 +2628,7 @@ tbody tr:hover td {
   background: color-mix(in srgb, var(--accent2) 55%, transparent);
   filter: none;
   opacity: 0.75;
+  z-index: 0;
 }
 .deck[data-surface="soft-editorial-paper"] .card {
   background: rgba(255,255,255,0.82);
@@ -1881,6 +2651,17 @@ tbody tr:hover td {
   --slide-bg: var(--bg);
   border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
   box-shadow: 0 16px 40px rgba(26, 26, 23, 0.08);
+}
+
+/* Quiet paper grain — soft fiber tooth (HTML-only) */
+.deck[data-surface="editorial-forest-paper"] .slide {
+  background-image:
+    radial-gradient(circle at 25% 20%, rgba(26, 26, 23, 0.036) 0.4px, transparent 0.9px),
+    radial-gradient(circle at 75% 55%, rgba(26, 26, 23, 0.03) 0.35px, transparent 0.85px),
+    radial-gradient(circle at 50% 90%, rgba(26, 26, 23, 0.028) 0.4px, transparent 0.9px),
+    var(--slide-bg, var(--bg));
+  background-size: 5px 5px, 7px 7px, 6px 6px, auto;
+  background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
 .deck[data-surface="editorial-forest-paper"] .slide::before {
   left: 64px;
@@ -1913,6 +2694,17 @@ tbody tr:hover td {
   border: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
   box-shadow: 0 14px 36px rgba(14, 20, 48, 0.12);
 }
+
+/* Quiet paper grain — soft fiber tooth (HTML-only) */
+.deck[data-surface="pin-paper-pad"] .slide {
+  background-image:
+    radial-gradient(circle at 25% 20%, rgba(14, 20, 48, 0.028) 0.4px, transparent 0.9px),
+    radial-gradient(circle at 75% 55%, rgba(14, 20, 48, 0.024) 0.35px, transparent 0.85px),
+    radial-gradient(circle at 50% 90%, rgba(14, 20, 48, 0.022) 0.4px, transparent 0.9px),
+    var(--slide-bg, var(--bg));
+  background-size: 5px 5px, 7px 7px, 6px 6px, auto;
+  background-position: 0 0, 2px 3px, 1px 4px, 0 0;
+}
 .deck[data-surface="pin-paper-pad"] .slide::before {
   left: 72px;
   top: 0;
@@ -1941,6 +2733,19 @@ tbody tr:hover td {
   --slide-bg: radial-gradient(ellipse 90% 70% at 50% 40%, var(--bg-2), var(--bg));
   border-radius: 0;
   box-shadow: none;
+}
+
+/* Quiet vellum tooth — soft fiber on the colorfield (HTML-only) */
+.deck[data-surface="vellum-colorfield"] .slide::before {
+  inset: 0;
+  opacity: 0.2;
+  background-image:
+    radial-gradient(circle at 22% 28%, rgba(42, 56, 112, 0.07) 0.5px, transparent 1px),
+    radial-gradient(circle at 68% 52%, rgba(42, 56, 112, 0.05) 0.45px, transparent 0.95px),
+    radial-gradient(circle at 48% 82%, rgba(232, 216, 92, 0.08) 0.55px, transparent 1.05px);
+  background-size: 8px 8px, 10px 10px, 7px 7px;
+  background-position: 0 0, 4px 3px, 2px 5px;
+  mix-blend-mode: multiply;
 }
 .deck[data-surface="vellum-colorfield"] .slide::after {
   display: none;
@@ -2142,6 +2947,17 @@ tbody tr:hover td {
   border-radius: 12px;
   box-shadow: 0 20px 50px rgba(0,0,0,0.28), 0 0 0 18px #2d2d2d;
   border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+}
+
+/* Quiet paper grain — soft fiber tooth (HTML-only) */
+.deck[data-surface="notebook-tabs-page"] .slide {
+  background-image:
+    radial-gradient(circle at 25% 20%, rgba(45, 42, 38, 0.032) 0.4px, transparent 0.9px),
+    radial-gradient(circle at 75% 55%, rgba(45, 42, 38, 0.028) 0.35px, transparent 0.85px),
+    radial-gradient(circle at 50% 90%, rgba(45, 42, 38, 0.024) 0.4px, transparent 0.9px),
+    var(--slide-bg, var(--bg));
+  background-size: 5px 5px, 7px 7px, 6px 6px, auto;
+  background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
 .deck[data-surface="notebook-tabs-page"] .slide::before {
   width: 14px;
@@ -2440,6 +3256,17 @@ tbody tr:hover td {
   border: 1.5px solid color-mix(in srgb, var(--text) 28%, transparent);
   box-shadow: 0 14px 36px rgba(26, 26, 26, 0.08);
 }
+
+/* Quiet paper grain — soft fiber tooth (HTML-only) */
+.deck[data-surface="vintage-editorial-geo"] .slide {
+  background-image:
+    radial-gradient(circle at 25% 20%, rgba(26, 26, 26, 0.034) 0.4px, transparent 0.9px),
+    radial-gradient(circle at 75% 55%, rgba(26, 26, 26, 0.028) 0.35px, transparent 0.85px),
+    radial-gradient(circle at 50% 90%, rgba(26, 26, 26, 0.026) 0.4px, transparent 0.9px),
+    var(--slide-bg, var(--bg));
+  background-size: 5px 5px, 7px 7px, 6px 6px, auto;
+  background-position: 0 0, 2px 3px, 1px 4px, 0 0;
+}
 .deck[data-surface="vintage-editorial-geo"] .slide::before {
   width: 120px;
   height: 120px;
@@ -2466,8 +3293,9 @@ tbody tr:hover td {
 }
 .deck[data-surface="vintage-editorial-geo"] .card {
   background: #fff;
-  border: 2px solid var(--text);
-  border-radius: 4px;
+  border: none;
+  border-left: 3px solid var(--text);
+  border-radius: 0;
 }
 
 /* ── paper-ink-literary (paper-ink) ── */
@@ -2476,6 +3304,17 @@ tbody tr:hover td {
   border-radius: 0;
   border: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
   box-shadow: 0 12px 32px rgba(26, 18, 12, 0.08);
+}
+
+/* Quiet paper grain — soft fiber tooth (HTML-only) */
+.deck[data-surface="paper-ink-literary"] .slide {
+  background-image:
+    radial-gradient(circle at 25% 20%, rgba(26, 18, 12, 0.038) 0.4px, transparent 0.9px),
+    radial-gradient(circle at 75% 55%, rgba(26, 18, 12, 0.032) 0.35px, transparent 0.85px),
+    radial-gradient(circle at 50% 90%, rgba(26, 18, 12, 0.03) 0.4px, transparent 0.9px),
+    var(--slide-bg, var(--bg));
+  background-size: 5px 5px, 7px 7px, 6px 6px, auto;
+  background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
 .deck[data-surface="paper-ink-literary"] .slide::before {
   left: 64px;
@@ -2617,6 +3456,17 @@ tbody tr:hover td {
   border-radius: 0;
   border: none;
   box-shadow: inset 0 0 0 18px var(--bg), inset 0 0 0 20px color-mix(in srgb, var(--text) 75%, transparent);
+}
+
+/* Quiet paper grain — soft fiber tooth (HTML-only) */
+.deck[data-surface="emerald-editorial-masthead"] .slide {
+  background-image:
+    radial-gradient(circle at 25% 20%, rgba(15, 26, 92, 0.03) 0.4px, transparent 0.9px),
+    radial-gradient(circle at 75% 55%, rgba(15, 26, 92, 0.026) 0.35px, transparent 0.85px),
+    radial-gradient(circle at 50% 90%, rgba(15, 26, 92, 0.024) 0.4px, transparent 0.9px),
+    var(--slide-bg, var(--bg));
+  background-size: 5px 5px, 7px 7px, 6px 6px, auto;
+  background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
@@ -3410,6 +4260,17 @@ tbody tr:hover td {
   border: 1px solid rgba(26, 26, 22, 0.12);
   box-shadow: none;
 }
+
+/* Quiet paper grain — soft fiber tooth (HTML-only) */
+.deck[data-surface="monochrome-ledger"] .slide {
+  background-image:
+    radial-gradient(circle at 25% 20%, rgba(26, 26, 22, 0.03) 0.4px, transparent 0.9px),
+    radial-gradient(circle at 75% 55%, rgba(26, 26, 22, 0.026) 0.35px, transparent 0.85px),
+    radial-gradient(circle at 50% 90%, rgba(26, 26, 22, 0.022) 0.4px, transparent 0.9px),
+    var(--slide-bg, var(--bg));
+  background-size: 5px 5px, 7px 7px, 6px 6px, auto;
+  background-position: 0 0, 2px 3px, 1px 4px, 0 0;
+}
 .deck[data-surface="monochrome-ledger"] .slide::before {
   left: 6%;
   right: 6%;
@@ -3457,8 +4318,20 @@ tbody tr:hover td {
   filter: none;
   border-radius: 2px;
 }
+/* Quiet cream paper grain (HTML-only) */
 .deck[data-surface="blue-professional-clean"] .slide::after {
-  display: none;
+  inset: 0;
+  width: auto;
+  height: auto;
+  opacity: 0.18;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(15, 20, 48, 0.05) 0.45px, transparent 0.95px),
+    radial-gradient(circle at 70% 60%, rgba(15, 20, 48, 0.04) 0.4px, transparent 0.9px),
+    radial-gradient(circle at 40% 85%, rgba(30, 43, 250, 0.045) 0.45px, transparent 0.95px);
+  background-size: 8px 8px, 10px 10px, 7px 7px;
+  background-position: 0 0, 4px 3px, 2px 5px;
+  mix-blend-mode: multiply;
+  filter: none;
 }
 .deck[data-surface="blue-professional-clean"] .slide h1 {
   font-weight: 700;
@@ -5534,7 +6407,8 @@ tbody tr:hover td {
 .deck[data-surface="editorial-rule"] .card {
   border-radius: 0;
   background: transparent;
-  border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+  border: none;
+  border-left: 3px solid var(--accent);
 }
 
 /* Scroll-triggered reveals (populated by document.html script) */
@@ -5881,18 +6755,120 @@ Decisions with a timestamp.</p>
   <h1>Turn the volume down. Turn the signal up.</h1>
   <p class="lead">Start free. Invite your launch team. Feel the difference in one sprint.</p>
   <div class="cta-row">
-    <a class="btn" href="#">Start shipping</a>
+    <a class="btn" href="#"><i class="fa-solid fa-rocket"></i> Start shipping</a>
+    <a class="btn btn-outline" href="#"><i class="fa-solid fa-play"></i> Watch the demo</a>
   </div>
 </section>
 
 </main>
-<div class="nav-hint" aria-hidden="true">← → to navigate</div>
+<div class="nav-hint" aria-hidden="true">← → · E edit · G overview · F strip · L laser · D ink · B&#x2F;W · S notes · T timer · P pace · O speaker · ? help</div>
+<div class="pmd-edit-hotzone" id="pmd-edit-hotzone" aria-hidden="true"></div>
+<button type="button" class="pmd-edit-toggle" id="pmd-edit-toggle" title="Edit mode (E)">Edit</button>
+<nav class="pmd-slide-dots" id="pmd-slide-dots" aria-label="Slide navigation"></nav>
+<div class="pmd-progress" id="pmd-progress" aria-hidden="true"><i class="pmd-progress-bar" id="pmd-progress-bar"></i></div>
+<div class="pmd-stage-tools" id="pmd-stage-tools" aria-hidden="true">
+  <canvas class="pmd-ink-canvas" id="pmd-ink-canvas"></canvas>
+  <div class="pmd-laser-layer" id="pmd-laser-layer" hidden></div>
+</div>
+<div class="pmd-curtain pmd-blackout" id="pmd-blackout" hidden role="status" aria-live="polite" title="Blackout · B or click to restore">
+  <span class="pmd-curtain-hint">Blackout · B or click to restore</span>
+</div>
+<div class="pmd-curtain pmd-whiteout" id="pmd-whiteout" hidden role="status" aria-live="polite" title="Whiteout · W or click to restore">
+  <span class="pmd-curtain-hint">Whiteout · W or click to restore</span>
+</div>
+<aside class="pmd-notes-rail" id="pmd-notes-rail" hidden aria-label="Speaker notes">
+  <div class="pmd-notes-section">
+    <div class="pmd-notes-label">Speaker notes · S to hide</div>
+    <p class="pmd-notes-body" id="pmd-notes-body"></p>
+  </div>
+  <div class="pmd-notes-next" id="pmd-notes-next">
+    <div class="pmd-notes-label" id="pmd-notes-next-label">Up next</div>
+    <div class="pmd-next-frame-wrap" id="pmd-next-frame-wrap"></div>
+  </div>
+</aside>
+<div class="pmd-filmstrip" id="pmd-filmstrip" hidden aria-label="Slide filmstrip peek">
+  <div class="pmd-filmstrip-track" id="pmd-filmstrip-track" role="listbox" aria-label="Slide filmstrip" aria-orientation="horizontal"></div>
+</div>
+<div class="pmd-present-bar" id="pmd-present-bar" aria-label="Presenter controls">
+  <span class="pmd-present-count" id="pmd-present-count">1 / 1</span>
+  <span class="pmd-present-timer" id="pmd-present-timer" title="Elapsed · P pace · T pause · R reset">0:00</span>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-speaker" title="Speaker notes window (O)">Speaker · O</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-notes" title="Toggle speaker notes (S)">Notes · S</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-strip" title="Toggle filmstrip peek (F)" hidden>Hide strip · F</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-overview" title="Overview grid (G)">Overview · G</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-edit" title="Edit text (E) · ⌘&#x2F;Ctrl+S saves">Edit · E</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-save" title="Save HTML (⌘&#x2F;Ctrl+S)" hidden>Save · ⌘S</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-laser" title="Laser pointer (L)">Laser · L</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-ink" title="Ink &#x2F; draw (D) · C clears">Ink · D</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-ink-clear" title="Clear ink (C)" hidden>Clear ink · C</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-blackout" title="Blackout (B)">Blackout · B</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-whiteout" title="Whiteout (W)">Whiteout · W</button>
+  <button type="button" class="pmd-present-btn" id="pmd-btn-help" title="Shortcuts (?)">?</button>
+</div>
+<div class="pmd-overview" id="pmd-overview" hidden role="dialog" aria-label="Slide overview">
+  <div class="pmd-overview-panel">
+    <div class="pmd-overview-head">
+      <span>Overview · G or Esc to close</span>
+      <button type="button" class="pmd-present-btn" id="pmd-btn-overview-close">Close</button>
+    </div>
+    <div class="pmd-overview-grid" id="pmd-overview-grid"></div>
+  </div>
+</div>
+<div class="pmd-present-help" id="pmd-present-help" hidden role="dialog" aria-label="Presenter shortcuts">
+  <div class="pmd-present-help-card">
+    <div class="pmd-present-help-head">
+      <span>Shortcuts · ? or Esc</span>
+      <button type="button" class="pmd-present-btn" id="pmd-btn-help-close">Close</button>
+    </div>
+    <ul class="pmd-present-help-list">
+      <li><kbd>← → Space</kbd><span>Previous &#x2F; next slide</span></li>
+      <li><kbd>1–9</kbd><span>Jump to slide</span></li>
+      <li><kbd>Home / End</kbd><span>First &#x2F; last slide</span></li>
+      <li><kbd>G</kbd><span>Overview grid</span></li>
+      <li><kbd>F</kbd><span>Filmstrip peek</span></li>
+      <li><kbd>E</kbd><span>Edit text</span></li>
+      <li><kbd>⌘/Ctrl+S</kbd><span>Save HTML (when editing)</span></li>
+      <li><kbd>S</kbd><span>Speaker notes</span></li>
+      <li><kbd>L</kbd><span>Laser pointer</span></li>
+      <li><kbd>D</kbd><span>Ink &#x2F; draw</span></li>
+      <li><kbd>C</kbd><span>Clear ink (when drawing)</span></li>
+      <li><kbd>B</kbd><span>Blackout</span></li>
+      <li><kbd>W</kbd><span>Whiteout</span></li>
+      <li><kbd>T</kbd><span>Pause &#x2F; resume timer</span></li>
+      <li><kbd>R</kbd><span>Reset timer</span></li>
+      <li><kbd>P</kbd><span>Pace target (5–30m countdown)</span></li>
+      <li><kbd>O</kbd><span>Speaker notes window</span></li>
+      <li><kbd>?</kbd><span>Shortcuts</span></li>
+      <li><kbd>Esc</kbd><span>Close overlay</span></li>
+    </ul>
+  </div>
+</div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"SignalForge — Launch Keynote","company":"SignalForge","description":"Product launch keynote — Bold Signal theme multi-slide proof.","theme":"bold-signal"},"slides":[{"layout":"title","eyebrow":"Launch · 2026","heading":"Ship the signal. Skip the noise.","lead":"One orange card. One clear ask. Zero soft-pedal."},{"layout":"image-hero","eyebrow":"Launch · 2026","heading":"Ship the signal. Skip the noise.","lead":"One orange card. One clear ask. Zero soft-pedal.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232d2d2d%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%231a1a1a%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C87%2C34%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C87%2C34%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C138%2C101%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28255%2C87%2C34%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2845%2C45%2C45%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C87%2C34%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28255%2C87%2C34%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C87%2C34%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C138%2C101%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28255%2C138%2C101%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C138%2C101%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%231a1a1a%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22300%22%20cy%3D%22700%22%20rx%3D%22520%22%20ry%3D%22360%22%20fill%3D%22rgba%28255%2C87%2C34%2C0.220%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221300%22%20cy%3D%22160%22%20rx%3D%22420%22%20ry%3D%22300%22%20fill%3D%22rgba%28255%2C138%2C101%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M180%20780%20C260%20520%20420%20420%20520%20280%20C560%20360%20620%20460%20640%20620%20C480%20640%20300%20700%20180%20780%20Z%22%20fill%3D%22rgba%28255%2C87%2C34%2C0.450%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M1180%20120%20C1280%20180%201380%20260%201460%20380%20C1340%20360%201240%20300%201180%20120%20Z%22%20fill%3D%22rgba%28255%2C138%2C101%2C0.400%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M980%20700%20C1080%20560%201220%20500%201360%20420%20C1380%20540%201320%20660%201220%20760%20Z%22%20fill%3D%22rgba%28255%2C87%2C34%2C0.250%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%22860%22%20cy%3D%22240%22%20r%3D%2290%22%20fill%3D%22rgba%28255%2C138%2C101%2C0.200%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22640%22%20y%3D%22360%22%20width%3D%22360%22%20height%3D%22220%22%20rx%3D%2218%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%20stroke%3D%22rgba%28255%2C87%2C34%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22420%22%20width%3D%22200%22%20height%3D%2214%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C87%2C34%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22455%22%20width%3D%22260%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"SignalForge craft visual"},{"layout":"stat-row","eyebrow":"Traction","heading":"Twelve months. One product.","stats":[{"value":"48k","label":"Weekly active builders"},{"value":"3.2×","label":"Faster ship cycles"},{"value":"$0","label":"Paid acquisition"}]},{"layout":"two-column","eyebrow":"Product","heading":"One board. One pulse. One owner.","body":"SignalForge collapses status theater into a single launch board — blockers, decisions, and the next ask in one glance. Stakeholders get one weekly broadcast, not seventeen Slack pings.","aside":"Route every ask to the person who can ship it — not the loudest thread.","ratio":"2-1"},{"layout":"comparison","eyebrow":"Before / After","heading":"From status theater to signal.","leftLabel":"Before","left":"Standups that restate Slack.\nRoadmaps nobody opens.\nDecisions buried in docs.","rightLabel":"With SignalForge","right":"One pulse per launch.\nOwners, not observers.\nDecisions with a timestamp.","emphasis":"right"},{"layout":"quote","quote":"We stopped performing status and started shipping.","by":"Maya Chen · VP Product · Northline"},{"layout":"closing","eyebrow":"The ask","heading":"Turn the volume down. Turn the signal up.","lead":"Start free. Invite your launch team. Feel the difference in one sprint.","cta":{"label":"Start shipping","href":"#"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"SignalForge — Launch Keynote","company":"SignalForge","description":"Product launch keynote — Bold Signal theme multi-slide proof.","theme":"bold-signal"},"slides":[{"layout":"title","eyebrow":"Launch · 2026","heading":"Ship the signal. Skip the noise.","lead":"One orange card. One clear ask. Zero soft-pedal.","notes":"Cold open — land the one-line claim before logos."},{"layout":"image-hero","eyebrow":"Launch · 2026","heading":"Ship the signal. Skip the noise.","lead":"One orange card. One clear ask. Zero soft-pedal.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232d2d2d%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%231a1a1a%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C87%2C34%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C87%2C34%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C138%2C101%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28255%2C87%2C34%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2845%2C45%2C45%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C87%2C34%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28255%2C87%2C34%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C87%2C34%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C138%2C101%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28255%2C138%2C101%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C138%2C101%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%231a1a1a%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22300%22%20cy%3D%22700%22%20rx%3D%22520%22%20ry%3D%22360%22%20fill%3D%22rgba%28255%2C87%2C34%2C0.220%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221300%22%20cy%3D%22160%22%20rx%3D%22420%22%20ry%3D%22300%22%20fill%3D%22rgba%28255%2C138%2C101%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M180%20780%20C260%20520%20420%20420%20520%20280%20C560%20360%20620%20460%20640%20620%20C480%20640%20300%20700%20180%20780%20Z%22%20fill%3D%22rgba%28255%2C87%2C34%2C0.450%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M1180%20120%20C1280%20180%201380%20260%201460%20380%20C1340%20360%201240%20300%201180%20120%20Z%22%20fill%3D%22rgba%28255%2C138%2C101%2C0.400%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M980%20700%20C1080%20560%201220%20500%201360%20420%20C1380%20540%201320%20660%201220%20760%20Z%22%20fill%3D%22rgba%28255%2C87%2C34%2C0.250%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%22860%22%20cy%3D%22240%22%20r%3D%2290%22%20fill%3D%22rgba%28255%2C138%2C101%2C0.200%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22640%22%20y%3D%22360%22%20width%3D%22360%22%20height%3D%22220%22%20rx%3D%2218%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%20stroke%3D%22rgba%28255%2C87%2C34%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22420%22%20width%3D%22200%22%20height%3D%2214%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C87%2C34%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22455%22%20width%3D%22260%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"SignalForge craft visual","notes":"Hold the visual beat — let the room feel the product."},{"layout":"stat-row","eyebrow":"Traction","heading":"Twelve months. One product.","stats":[{"value":"48k","label":"Weekly active builders"},{"value":"3.2×","label":"Faster ship cycles"},{"value":"$0","label":"Paid acquisition"}]},{"layout":"two-column","eyebrow":"Product","heading":"One board. One pulse. One owner.","body":"SignalForge collapses status theater into a single launch board — blockers, decisions, and the next ask in one glance. Stakeholders get one weekly broadcast, not seventeen Slack pings.","aside":"Route every ask to the person who can ship it — not the loudest thread.","ratio":"2-1"},{"layout":"comparison","eyebrow":"Before / After","heading":"From status theater to signal.","leftLabel":"Before","left":"Standups that restate Slack.\nRoadmaps nobody opens.\nDecisions buried in docs.","rightLabel":"With SignalForge","right":"One pulse per launch.\nOwners, not observers.\nDecisions with a timestamp.","emphasis":"right","notes":"Name the loser column first, then punch the winner."},{"layout":"quote","quote":"We stopped performing status and started shipping.","by":"Maya Chen · VP Product · Northline"},{"layout":"closing","eyebrow":"The ask","heading":"Turn the volume down. Turn the signal up.","lead":"Start free. Invite your launch team. Feel the difference in one sprint.","actions":[{"label":"Start shipping","href":"#","style":"solid","icon":"fa-solid fa-rocket"},{"label":"Watch the demo","href":"#","style":"outline","icon":"fa-solid fa-play"}]}]}</script>
+<script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {
+  var PMD_T = {};
+  // Read only the template's own JSON <script> blocks: custom-html slides cannot
+  // add scripts (sanitizer), and the template's blocks come after every slide,
+  // so take the last match. Slide content cannot clobber them.
+  function pmdJsonBlock(id) {
+    var all = document.querySelectorAll('script#' + id + '[type="application/json"]');
+    return all.length ? all[all.length - 1] : null;
+  }
+  try { PMD_T = JSON.parse(pmdJsonBlock("pmd-chrome").textContent || "{}"); } catch (e) {}
+  function pmdT(key, vars) {
+    var s = PMD_T[key] || key;
+    if (vars) for (var k in vars) s = s.split("{" + k + "}").join(String(vars[k]));
+    return s;
+  }
+  /** pmdT for innerHTML contexts: HTML-escaped. */
+  function pmdH(key, vars) {
+    return pmdT(key, vars).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
   if (!slides.length) return;
+  document.documentElement.classList.add("pmd-live-present");
 
   slides.forEach(function (slide) {
     var kids = slide.querySelectorAll("h1, h2, h3, .eyebrow, .lead, .card, .stat, .quote, .btn, table, .timeline .node");
@@ -5914,6 +6890,17 @@ Decisions with a timestamp.</p>
     slides.forEach(function (s) { s.classList.add("in-view"); });
   }
 
+  function currentIndex() {
+    var y = window.scrollY || window.pageYOffset;
+    var best = 0;
+    var bestDist = Infinity;
+    for (var i = 0; i < slides.length; i++) {
+      var d = Math.abs(slides[i].offsetTop - y);
+      if (d < bestDist) { bestDist = d; best = i; }
+    }
+    return best;
+  }
+
   function go(delta) {
     var y = window.scrollY || window.pageYOffset;
     var target = null;
@@ -5928,21 +6915,986 @@ Decisions with a timestamp.</p>
     }
     if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
   }
+
+  function jumpTo(index) {
+    var i = Math.max(0, Math.min(slides.length - 1, index));
+    setBlackout(false);
+    setWhiteout(false);
+    setHelp(false);
+    setOverview(false);
+    slides[i].scrollIntoView({ behavior: "smooth", block: "center" });
+    syncUi();
+  }
+
+  var LASER_TRAIL = 5;
+  var INK_COLOR = "#ef4444";
+  var INK_WIDTH = 3.5;
+  var stageTools = document.getElementById("pmd-stage-tools");
+  var inkCanvas = document.getElementById("pmd-ink-canvas");
+  var laserLayer = document.getElementById("pmd-laser-layer");
+  var overviewEl = document.getElementById("pmd-overview");
+  var overviewGrid = document.getElementById("pmd-overview-grid");
+  var dotsEl = document.getElementById("pmd-slide-dots");
+  var progressBar = document.getElementById("pmd-progress-bar");
+  var nextFrameWrap = document.getElementById("pmd-next-frame-wrap");
+  var nextLabel = document.getElementById("pmd-notes-next-label");
+  var notesNext = document.getElementById("pmd-notes-next");
+  var btnLaser = document.getElementById("pmd-btn-laser");
+  var btnInk = document.getElementById("pmd-btn-ink");
+  var btnInkClear = document.getElementById("pmd-btn-ink-clear");
+  var btnOverview = document.getElementById("pmd-btn-overview");
+  var btnOverviewClose = document.getElementById("pmd-btn-overview-close");
+  var btnStrip = document.getElementById("pmd-btn-strip");
+  var filmstripEl = document.getElementById("pmd-filmstrip");
+  var filmstripTrack = document.getElementById("pmd-filmstrip-track");
+  var btnEdit = document.getElementById("pmd-btn-edit");
+  var btnSave = document.getElementById("pmd-btn-save");
+  var editToggle = document.getElementById("pmd-edit-toggle");
+  var editHotzone = document.getElementById("pmd-edit-hotzone");
+  var laserOn = false;
+  var inkOn = false;
+  var laserTrail = [];
+  var inkDrawing = false;
+  var lastSlideForInk = -1;
+  var showOverview = false;
+  var overviewBuilt = false;
+  var showStrip = slides.length > 1;
+  var stripBuilt = false;
+  var stripButtons = [];
+  var syncingHash = false;
+  var dotButtons = [];
+  var editOn = false;
+  var EDIT_SEL = "h1, h2, h3, h4, p, li, .lead, .eyebrow, .quote, .stat .value, .stat .label, .card h3, .card p, .comparison-label, .btn, td, th, .timeline .node";
+  var editHideTimer = null;
+
+  var notesBySlide = [];
+  try {
+    var deckEl = pmdJsonBlock("pmd-deck") || pmdJsonBlock("psp-deck");
+    if (deckEl && deckEl.textContent) {
+      var deck = JSON.parse(deckEl.textContent);
+      if (deck && Array.isArray(deck.slides)) {
+        notesBySlide = deck.slides.map(function (s) {
+          return s && typeof s.notes === "string" ? s.notes.trim() : "";
+        });
+      }
+    }
+  } catch (err) { /* ignore malformed embed */ }
+
+  var blackoutEl = document.getElementById("pmd-blackout");
+  var whiteoutEl = document.getElementById("pmd-whiteout");
+  var notesRail = document.getElementById("pmd-notes-rail");
+  var notesBody = document.getElementById("pmd-notes-body");
+  var helpEl = document.getElementById("pmd-present-help");
+  var countEl = document.getElementById("pmd-present-count");
+  var timerEl = document.getElementById("pmd-present-timer");
+  var btnNotes = document.getElementById("pmd-btn-notes");
+  var btnSpeaker = document.getElementById("pmd-btn-speaker");
+  var btnBlackout = document.getElementById("pmd-btn-blackout");
+  var btnWhiteout = document.getElementById("pmd-btn-whiteout");
+  var btnHelp = document.getElementById("pmd-btn-help");
+  var btnHelpClose = document.getElementById("pmd-btn-help-close");
+
+  var showNotes = false;
+  var showHelp = false;
+  var timerRunning = true;
+  var startedAt = Date.now();
+  var accumulated = 0;
+  var paceMinutes = 0;
+  var PACE_PRESETS = [0, 5, 10, 15, 20, 30];
+
+  function clearLaserTrail() {
+    laserTrail = [];
+    if (laserLayer) laserLayer.innerHTML = "";
+  }
+
+  function paintLaserTrail() {
+    if (!laserLayer) return;
+    laserLayer.innerHTML = "";
+    for (var i = 0; i < laserTrail.length; i++) {
+      var p = laserTrail[i];
+      var t = (i + 1) / laserTrail.length;
+      var isTip = i === laserTrail.length - 1;
+      var dot = document.createElement("span");
+      dot.className = "pmd-laser-dot" + (isTip ? " is-tip" : "");
+      dot.style.left = p.x + "px";
+      dot.style.top = p.y + "px";
+      dot.style.opacity = String(0.25 + t * 0.75);
+      dot.style.transform = "translate(-50%, -50%) scale(" + (0.45 + t * 0.55) + ")";
+      laserLayer.appendChild(dot);
+    }
+  }
+
+  function clearInk() {
+    if (!inkCanvas) return;
+    var ctx = inkCanvas.getContext("2d");
+    if (!ctx) return;
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, inkCanvas.width, inkCanvas.height);
+    ctx.restore();
+  }
+
+  function syncInkCanvas() {
+    if (!stageTools || !inkCanvas) return;
+    var rect = stageTools.getBoundingClientRect();
+    var dpr = window.devicePixelRatio || 1;
+    var nextW = Math.max(1, Math.floor(rect.width * dpr));
+    var nextH = Math.max(1, Math.floor(rect.height * dpr));
+    if (inkCanvas.width !== nextW || inkCanvas.height !== nextH) {
+      inkCanvas.width = nextW;
+      inkCanvas.height = nextH;
+    }
+    inkCanvas.style.width = rect.width + "px";
+    inkCanvas.style.height = rect.height + "px";
+    var ctx = inkCanvas.getContext("2d");
+    if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function syncStageTools() {
+    if (!stageTools) return;
+    var curtainsOff = (!blackoutEl || blackoutEl.hidden) && (!whiteoutEl || whiteoutEl.hidden);
+    var toolsOk = !showHelp && !showOverview && !editOn && curtainsOff;
+    stageTools.classList.toggle("is-laser", laserOn && toolsOk);
+    stageTools.classList.toggle("is-ink", inkOn && toolsOk);
+    document.documentElement.classList.toggle("pmd-laser-on", laserOn);
+    document.documentElement.classList.toggle("pmd-ink-on", inkOn);
+    if (laserLayer) {
+      var showLaser = laserOn && toolsOk;
+      laserLayer.hidden = !showLaser;
+      if (!showLaser) clearLaserTrail();
+    }
+    if (inkCanvas) {
+      var showInk = inkOn && toolsOk;
+      inkCanvas.classList.toggle("is-active", showInk);
+      if (!showInk) inkDrawing = false;
+    }
+    if (btnLaser) btnLaser.textContent = laserOn ? pmdT("btnLaserOff") : pmdT("btnLaser");
+    if (btnInk) btnInk.textContent = inkOn ? pmdT("btnInkOff") : pmdT("btnInk");
+    if (btnInkClear) btnInkClear.hidden = !inkOn;
+    if (btnOverview) btnOverview.textContent = showOverview ? pmdT("btnOverviewClose") : pmdT("btnOverview");
+    syncInkCanvas();
+  }
+
+  function slideHeading(idx) {
+    var el = slides[idx] && slides[idx].querySelector("h1, h2, h3");
+    var text = el ? (el.textContent || "").trim() : "";
+    return text || pmdT("slideFallback", { n: idx + 1 });
+  }
+
+  function cloneSlideThumb(idx) {
+    var slide = slides[idx];
+    if (!slide) return null;
+    var clone = slide.cloneNode(true);
+    clone.removeAttribute("id");
+    clone.classList.add("in-view");
+    var ids = clone.querySelectorAll("[id]");
+    for (var i = 0; i < ids.length; i++) ids[i].removeAttribute("id");
+    return clone;
+  }
+
+  function ensureOverview() {
+    if (overviewBuilt || !overviewGrid) return;
+    overviewBuilt = true;
+    overviewGrid.innerHTML = "";
+    for (var i = 0; i < slides.length; i++) {
+      (function (idx) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "pmd-overview-card";
+        btn.setAttribute("aria-label", pmdT("goToSlideTitled", { n: idx + 1, title: slideHeading(idx) }));
+        var wrap = document.createElement("div");
+        wrap.className = "pmd-overview-frame-wrap";
+        var scale = document.createElement("div");
+        scale.className = "pmd-overview-scale";
+        var thumb = cloneSlideThumb(idx);
+        if (thumb) scale.appendChild(thumb);
+        else {
+          var fallback = document.createElement("div");
+          fallback.className = "pmd-overview-fallback";
+          fallback.textContent = String(idx + 1);
+          scale.appendChild(fallback);
+        }
+        wrap.appendChild(scale);
+        var label = document.createElement("span");
+        label.className = "pmd-overview-label";
+        label.innerHTML = "<strong></strong> ";
+        label.querySelector("strong").textContent = String(idx + 1);
+        label.appendChild(document.createTextNode(slideHeading(idx)));
+        btn.appendChild(wrap);
+        btn.appendChild(label);
+        btn.addEventListener("click", function () { jumpTo(idx); });
+        overviewGrid.appendChild(btn);
+      })(i);
+    }
+  }
+
+  function ensureFilmstrip() {
+    if (stripBuilt || !filmstripTrack || slides.length < 2) return;
+    stripBuilt = true;
+    filmstripTrack.innerHTML = "";
+    stripButtons = [];
+    for (var i = 0; i < slides.length; i++) {
+      (function (idx) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "pmd-filmstrip-hit";
+        btn.setAttribute("role", "option");
+        btn.setAttribute("aria-label", pmdT("goToSlide", { n: idx + 1 }));
+        btn.setAttribute("data-filmstrip-i", String(idx));
+        btn.tabIndex = -1;
+        var wrap = document.createElement("div");
+        wrap.className = "pmd-filmstrip-frame-wrap";
+        var scale = document.createElement("div");
+        scale.className = "pmd-filmstrip-scale";
+        var thumb = cloneSlideThumb(idx);
+        if (thumb) scale.appendChild(thumb);
+        else {
+          var fallback = document.createElement("div");
+          fallback.className = "pmd-filmstrip-fallback";
+          fallback.textContent = String(idx + 1);
+          scale.appendChild(fallback);
+        }
+        wrap.appendChild(scale);
+        var num = document.createElement("span");
+        num.className = "pmd-filmstrip-num";
+        num.textContent = String(idx + 1);
+        btn.appendChild(wrap);
+        btn.appendChild(num);
+        btn.addEventListener("click", function () { jumpTo(idx); });
+        filmstripTrack.appendChild(btn);
+        stripButtons.push(btn);
+      })(i);
+    }
+  }
+
+  function setStrip(on) {
+    if (slides.length < 2) {
+      showStrip = false;
+    } else {
+      showStrip = !!on;
+    }
+    if (showStrip) ensureFilmstrip();
+    if (filmstripEl) filmstripEl.hidden = !showStrip;
+    document.documentElement.classList.toggle("pmd-strip-open", showStrip);
+    if (btnStrip) {
+      btnStrip.hidden = slides.length < 2;
+      btnStrip.textContent = showStrip ? pmdT("btnStripHide") : pmdT("btnStripShow");
+    }
+    syncFilmstripActive();
+  }
+
+  function syncFilmstripActive() {
+    if (!showStrip || !stripButtons.length) return;
+    var idx = currentIndex();
+    for (var i = 0; i < stripButtons.length; i++) {
+      var active = i === idx;
+      stripButtons[i].classList.toggle("is-active", active);
+      stripButtons[i].setAttribute("aria-selected", active ? "true" : "false");
+      stripButtons[i].tabIndex = active ? 0 : -1;
+      if (active) {
+        stripButtons[i].setAttribute("aria-current", "true");
+        try {
+          stripButtons[i].scrollIntoView({ inline: "nearest", block: "nearest", behavior: "smooth" });
+        } catch (err) { /* ignore */ }
+      } else {
+        stripButtons[i].removeAttribute("aria-current");
+      }
+    }
+  }
+
+  function isTypingTarget(el) {
+    if (!el || !el.getAttribute) return false;
+    if (el.getAttribute("contenteditable") === "true") return true;
+    var tag = (el.tagName || "").toLowerCase();
+    return tag === "input" || tag === "textarea" || tag === "select";
+  }
+
+  function setEditMode(on) {
+    editOn = !!on;
+    if (editOn) {
+      setOverview(false);
+      setHelp(false);
+      setBlackout(false);
+      setWhiteout(false);
+      laserOn = false;
+      inkOn = false;
+      inkDrawing = false;
+      clearLaserTrail();
+      for (var i = 0; i < slides.length; i++) {
+        var nodes = slides[i].querySelectorAll(EDIT_SEL);
+        for (var j = 0; j < nodes.length; j++) {
+          nodes[j].setAttribute("contenteditable", "true");
+          nodes[j].setAttribute("spellcheck", "true");
+        }
+      }
+    } else {
+      var editable = document.querySelectorAll('[contenteditable="true"]');
+      for (var k = 0; k < editable.length; k++) {
+        editable[k].removeAttribute("contenteditable");
+        editable[k].removeAttribute("spellcheck");
+        if (editable[k] === document.activeElement) editable[k].blur();
+      }
+    }
+    document.documentElement.classList.toggle("pmd-edit-on", editOn);
+    if (btnEdit) btnEdit.textContent = editOn ? pmdT("btnEditDone") : pmdT("btnEdit");
+    if (btnSave) btnSave.hidden = !editOn;
+    if (editToggle) {
+      editToggle.textContent = editOn ? pmdT("editButtonDone") : pmdT("editButton");
+      editToggle.classList.toggle("is-active", editOn);
+      if (editOn) editToggle.classList.add("is-visible");
+    }
+    syncStageTools();
+  }
+
+  function buildSaveHtml() {
+    var clone = document.documentElement.cloneNode(true);
+    clone.classList.remove("pmd-edit-on", "pmd-laser-on", "pmd-ink-on", "pmd-notes-open");
+    var kill = clone.querySelectorAll(
+      ".pmd-stage-tools.is-laser, .pmd-stage-tools.is-ink, .pmd-ink-canvas.is-active, .pmd-edit-toggle.is-visible, .pmd-edit-toggle.is-active"
+    );
+    for (var i = 0; i < kill.length; i++) {
+      kill[i].classList.remove("is-laser", "is-ink", "is-active", "is-visible");
+    }
+    var editable = clone.querySelectorAll("[contenteditable]");
+    for (var j = 0; j < editable.length; j++) {
+      editable[j].removeAttribute("contenteditable");
+      editable[j].removeAttribute("spellcheck");
+    }
+    var laser = clone.querySelector("#pmd-laser-layer");
+    if (laser) {
+      laser.hidden = true;
+      laser.innerHTML = "";
+    }
+    var ink = clone.querySelector("#pmd-ink-canvas");
+    if (ink) {
+      ink.classList.remove("is-active");
+      ink.removeAttribute("width");
+      ink.removeAttribute("height");
+      ink.style.width = "";
+      ink.style.height = "";
+    }
+    var overview = clone.querySelector("#pmd-overview");
+    if (overview) overview.hidden = true;
+    var filmstrip = clone.querySelector("#pmd-filmstrip");
+    if (filmstrip) filmstrip.hidden = true;
+    var help = clone.querySelector("#pmd-present-help");
+    if (help) help.hidden = true;
+    var blackout = clone.querySelector("#pmd-blackout");
+    if (blackout) blackout.hidden = true;
+    var whiteout = clone.querySelector("#pmd-whiteout");
+    if (whiteout) whiteout.hidden = true;
+    return "<!doctype html>\n" + clone.outerHTML;
+  }
+
+  function saveEditedHtml() {
+    var html = buildSaveHtml();
+    var titleEl = document.querySelector("title");
+    var base = ((titleEl && titleEl.textContent) || "deck").trim().replace(/[^\w\-]+/g, "-").replace(/^-|-$/g, "") || "deck";
+    var blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = base + ".html";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+    try {
+      localStorage.setItem("pmd-edit-draft:" + base, html);
+    } catch (err) { /* ignore quota */ }
+  }
+
+  function setOverview(on) {
+    showOverview = !!on;
+    if (showOverview) {
+      setHelp(false);
+      setBlackout(false);
+      setWhiteout(false);
+      laserOn = false;
+      inkOn = false;
+      inkDrawing = false;
+      clearLaserTrail();
+      ensureOverview();
+    }
+    if (overviewEl) overviewEl.hidden = !showOverview;
+    syncStageTools();
+    syncOverviewActive();
+  }
+
+  function syncOverviewActive() {
+    if (!overviewGrid || !showOverview) return;
+    var idx = currentIndex();
+    var cards = overviewGrid.querySelectorAll(".pmd-overview-card");
+    for (var i = 0; i < cards.length; i++) {
+      cards[i].classList.toggle("is-active", i === idx);
+      if (i === idx) cards[i].setAttribute("aria-current", "true");
+      else cards[i].removeAttribute("aria-current");
+    }
+  }
+
+  function buildDots() {
+    if (!dotsEl || slides.length < 2) {
+      if (dotsEl) dotsEl.hidden = true;
+      return;
+    }
+    dotsEl.innerHTML = "";
+    dotButtons = [];
+    for (var i = 0; i < slides.length; i++) {
+      (function (idx) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "pmd-slide-dot";
+        b.setAttribute("aria-label", pmdT("goToSlide", { n: idx + 1 }));
+        b.title = slideHeading(idx);
+        b.addEventListener("click", function () { jumpTo(idx); });
+        dotsEl.appendChild(b);
+        dotButtons.push(b);
+      })(i);
+    }
+  }
+
+  function syncDotsAndProgress(idx) {
+    for (var i = 0; i < dotButtons.length; i++) {
+      dotButtons[i].classList.toggle("is-active", i === idx);
+    }
+    if (progressBar) {
+      var pct = slides.length <= 1 ? 100 : ((idx + 1) / slides.length) * 100;
+      progressBar.style.width = pct + "%";
+    }
+  }
+
+  function syncHash(idx) {
+    if (syncingHash) return;
+    var want = "#" + (idx + 1);
+    if (location.hash === want || location.hash === "#slide-" + (idx + 1)) return;
+    syncingHash = true;
+    try {
+      history.replaceState(null, "", want);
+    } catch (err) { /* ignore */ }
+    syncingHash = false;
+  }
+
+  function applyHashJump() {
+    if (syncingHash) return;
+    var m = location.hash.match(/^#(?:slide[-_])?(\d+)$/i);
+    if (!m) return;
+    var target = Number(m[1]) - 1;
+    if (target >= 0 && target < slides.length && target !== currentIndex()) {
+      jumpTo(target);
+    }
+  }
+
+  function syncNextPeek(idx) {
+    if (!nextFrameWrap || !notesNext) return;
+    if (idx + 1 >= slides.length) {
+      nextFrameWrap.innerHTML = "";
+      if (nextLabel) nextLabel.textContent = pmdT("upNext");
+      notesNext.classList.add("is-end");
+      var end = document.createElement("p");
+      end.className = "pmd-notes-body is-empty";
+      end.textContent = pmdT("lastSlideNote");
+      nextFrameWrap.appendChild(end);
+      return;
+    }
+    notesNext.classList.remove("is-end");
+    if (nextLabel) nextLabel.textContent = pmdT("upNextTitled", { title: slideHeading(idx + 1) });
+    nextFrameWrap.innerHTML = "";
+    var scale = document.createElement("div");
+    scale.className = "pmd-next-scale";
+    var thumb = cloneSlideThumb(idx + 1);
+    if (thumb) scale.appendChild(thumb);
+    nextFrameWrap.appendChild(scale);
+  }
+
+  function setLaser(on) {
+    laserOn = !!on;
+    if (laserOn) {
+      inkOn = false;
+      inkDrawing = false;
+      if (editOn) setEditMode(false);
+      setOverview(false);
+      setBlackout(false);
+      setWhiteout(false);
+      setHelp(false);
+    } else {
+      clearLaserTrail();
+    }
+    syncStageTools();
+  }
+
+  function setInk(on) {
+    inkOn = !!on;
+    if (inkOn) {
+      laserOn = false;
+      clearLaserTrail();
+      if (editOn) setEditMode(false);
+      setOverview(false);
+      setBlackout(false);
+      setWhiteout(false);
+      setHelp(false);
+    } else {
+      inkDrawing = false;
+    }
+    syncStageTools();
+  }
+
+  function inkPointFromEvent(e) {
+    if (!inkCanvas) return null;
+    var rect = inkCanvas.getBoundingClientRect();
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function formatElapsed(ms) {
+    var totalSec = Math.floor(Math.abs(ms) / 1000);
+    var m = Math.floor(totalSec / 60);
+    var s = totalSec % 60;
+    return m + ":" + String(s).padStart(2, "0");
+  }
+
+  function elapsedNow() {
+    return accumulated + (timerRunning ? (Date.now() - startedAt) : 0);
+  }
+
+  function paceStatus(elapsedMs, targetMs, slideIndex, slideCount) {
+    if (targetMs <= 0) return "off";
+    if (elapsedMs >= targetMs) return "over";
+    if (slideCount <= 1) return "on-pace";
+    var progress = slideIndex / (slideCount - 1);
+    var expected = Math.min(1, elapsedMs / targetMs);
+    var delta = progress - expected;
+    if (delta > 0.1) return "ahead";
+    if (delta < -0.1) return "behind";
+    return "on-pace";
+  }
+
+  var speakerWin = null;
+
+  function paintSpeakerWindow() {
+    if (!speakerWin || speakerWin.closed) return;
+    var idx = currentIndex();
+    var elapsed = elapsedNow();
+    var targetMs = paceMinutes > 0 ? paceMinutes * 60 * 1000 : 0;
+    var status = paceStatus(elapsed, targetMs, idx, slides.length);
+    var label = formatElapsed(elapsed);
+    if (targetMs > 0) {
+      if (status === "over") label += " · " + pmdT("timerOver");
+      else {
+        var left = formatElapsed(targetMs - elapsed);
+        var cue = " · " + (status === "ahead" ? pmdT("cueAhead") : status === "behind" ? pmdT("cueBehind") : pmdT("cueOnPace"));
+        label += " · " + pmdT("timerLeft", { time: left }) + cue;
+      }
+    }
+    if (!timerRunning) label += " · " + pmdT("timerPaused");
+    var headingEl = slides[idx] && slides[idx].querySelector("h1, h2, h3");
+    var heading = headingEl ? (headingEl.textContent || "").trim() : pmdT("slideFallback", { n: idx + 1 });
+    var notesText = notesBySlide[idx] || (notesBySlide.some(Boolean) ? pmdT("noNotesSlide") : pmdT("noNotesDeck"));
+    var nextHeading = pmdT("speakerWinEnd");
+    if (idx + 1 < slides.length) {
+      var nh = slides[idx + 1].querySelector("h1, h2, h3");
+      nextHeading = nh ? (nh.textContent || "").trim() : pmdT("slideFallback", { n: idx + 2 });
+    }
+    var doc = speakerWin.document;
+    doc.title = pmdT("speakerWinTitle", { n: idx + 1, total: slides.length });
+    if (!doc.getElementById("pmd-speaker-root")) {
+      doc.head.innerHTML = "<style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;padding:20px 22px 28px;font:15px/1.45 system-ui,sans-serif;background:#0b1220;color:#e8eef4;min-height:100vh}.meta{display:flex;gap:12px;flex-wrap:wrap;font:600 12px/1.2 ui-monospace,Menlo,monospace;color:#9ca3af;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px}.timer{color:#e8eef4;font-variant-numeric:tabular-nums}.timer.is-paused{color:#f59e0b}.timer.is-ahead{color:#2dd4bf}.timer.is-behind{color:#fb7185}.timer.is-over{color:#f87171}h1{margin:0 0 18px;font:800 28px/1.15 system-ui,sans-serif;letter-spacing:-.03em}.label{font:600 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:#6b7280;margin:0 0 8px}.notes{white-space:pre-wrap;font-size:18px;line-height:1.5;margin:0 0 28px;min-height:4.5em}.notes.is-empty{color:#6b7280;font-style:italic}.next{padding-top:16px;border-top:1px solid rgba(232,238,244,.12)}.next p{margin:0;font-size:15px;color:#9ca3af}.hint{margin-top:28px;font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#5b6575}</style>";
+      doc.body.innerHTML = '<div id="pmd-speaker-root"><div class="meta"><span data-count></span><span class="timer" data-timer></span></div><h1 data-heading></h1><div class="label">' + pmdH("speakerWinNotesLabel") + '</div><p class="notes" data-notes></p><div class="next"><div class="label">' + pmdH("upNext") + '</div><p data-next></p></div><p class="hint">' + pmdH("speakerWinHint") + '</p></div>';
+    }
+    var root = doc.getElementById("pmd-speaker-root");
+    if (!root) return;
+    var count = root.querySelector("[data-count]");
+    if (count) count.textContent = (idx + 1) + " / " + slides.length;
+    var tEl = root.querySelector("[data-timer]");
+    if (tEl) {
+      tEl.textContent = label;
+      tEl.className = "timer" + (timerRunning ? "" : " is-paused") + (status === "ahead" ? " is-ahead" : status === "behind" ? " is-behind" : status === "over" ? " is-over" : "");
+    }
+    var hEl = root.querySelector("[data-heading]");
+    if (hEl) hEl.textContent = heading;
+    var nEl = root.querySelector("[data-notes]");
+    if (nEl) {
+      nEl.textContent = notesText;
+      nEl.classList.toggle("is-empty", !notesBySlide[idx]);
+    }
+    var nx = root.querySelector("[data-next]");
+    if (nx) nx.textContent = nextHeading;
+  }
+
+  function openSpeakerView() {
+    if (speakerWin && !speakerWin.closed) {
+      speakerWin.focus();
+      paintSpeakerWindow();
+      return;
+    }
+    speakerWin = window.open("", "pmd-speaker-view", "popup=yes,width=520,height=760");
+    if (speakerWin) paintSpeakerWindow();
+  }
+
+  function setBlackout(on) {
+    if (!blackoutEl) return;
+    if (on) {
+      showOverview = false;
+      if (overviewEl) overviewEl.hidden = true;
+      laserOn = false;
+      inkOn = false;
+      inkDrawing = false;
+      clearLaserTrail();
+      if (whiteoutEl && !whiteoutEl.hidden) {
+        whiteoutEl.hidden = true;
+        if (btnWhiteout) btnWhiteout.textContent = pmdT("btnWhiteout");
+      }
+    }
+    blackoutEl.hidden = !on;
+    if (btnBlackout) btnBlackout.textContent = on ? pmdT("btnBlackoutRestore") : pmdT("btnBlackout");
+    syncStageTools();
+  }
+
+  function setWhiteout(on) {
+    if (!whiteoutEl) return;
+    if (on) {
+      showOverview = false;
+      if (overviewEl) overviewEl.hidden = true;
+      laserOn = false;
+      inkOn = false;
+      inkDrawing = false;
+      clearLaserTrail();
+      if (blackoutEl && !blackoutEl.hidden) {
+        blackoutEl.hidden = true;
+        if (btnBlackout) btnBlackout.textContent = pmdT("btnBlackout");
+      }
+    }
+    whiteoutEl.hidden = !on;
+    if (btnWhiteout) btnWhiteout.textContent = on ? pmdT("btnWhiteoutRestore") : pmdT("btnWhiteout");
+    syncStageTools();
+  }
+
+  function setHelp(on) {
+    showHelp = !!on;
+    if (showHelp) {
+      showOverview = false;
+      if (overviewEl) overviewEl.hidden = true;
+    }
+    if (helpEl) helpEl.hidden = !showHelp;
+    syncStageTools();
+  }
+
+  function setNotes(on) {
+    showNotes = !!on;
+    if (notesRail) notesRail.hidden = !showNotes;
+    if (btnNotes) btnNotes.textContent = showNotes ? pmdT("btnNotesHide") : pmdT("btnNotes");
+    document.documentElement.classList.toggle("pmd-notes-open", showNotes);
+    if (showNotes) {
+      syncNotes();
+      syncNextPeek(currentIndex());
+    }
+  }
+
+  function syncNotes() {
+    if (!notesBody) return;
+    var idx = currentIndex();
+    var text = notesBySlide[idx] || "";
+    if (text) {
+      notesBody.textContent = text;
+      notesBody.classList.remove("is-empty");
+    } else {
+      notesBody.textContent = notesBySlide.some(Boolean)
+        ? pmdT("noNotesSlide")
+        : pmdT("noNotesDeck");
+      notesBody.classList.add("is-empty");
+    }
+  }
+
+  function syncUi() {
+    var idx = currentIndex();
+    if (idx !== lastSlideForInk) {
+      if (lastSlideForInk >= 0) clearInk();
+      lastSlideForInk = idx;
+      inkDrawing = false;
+    }
+    if (countEl) countEl.textContent = (idx + 1) + " / " + slides.length;
+    if (timerEl) {
+      var elapsed = elapsedNow();
+      var targetMs = paceMinutes > 0 ? paceMinutes * 60 * 1000 : 0;
+      var status = paceStatus(elapsed, targetMs, idx, slides.length);
+      var label = formatElapsed(elapsed);
+      if (targetMs > 0) {
+        if (status === "over") {
+          label += " · " + pmdT("timerOver");
+        } else {
+          var left = formatElapsed(targetMs - elapsed);
+          var cue = " · " + (status === "ahead" ? pmdT("cueAhead") : status === "behind" ? pmdT("cueBehind") : pmdT("cueOnPace"));
+          label += " · " + pmdT("timerLeft", { time: left }) + cue;
+        }
+      }
+      if (!timerRunning) label += " · " + pmdT("timerPaused");
+      timerEl.textContent = label;
+      timerEl.classList.toggle("is-paused", !timerRunning);
+      timerEl.classList.toggle("is-ahead", status === "ahead");
+      timerEl.classList.toggle("is-behind", status === "behind");
+      timerEl.classList.toggle("is-over", status === "over");
+      timerEl.title = targetMs > 0
+        ? pmdT("timerTitlePace", { minutes: paceMinutes })
+        : pmdT("timerTitleNoPace");
+    }
+    syncDotsAndProgress(idx);
+    syncHash(idx);
+    syncOverviewActive();
+    syncFilmstripActive();
+    if (showNotes) {
+      syncNotes();
+      syncNextPeek(idx);
+    }
+    paintSpeakerWindow();
+  }
+
+  function toggleTimer() {
+    if (timerRunning) {
+      accumulated += Date.now() - startedAt;
+      timerRunning = false;
+    } else {
+      startedAt = Date.now();
+      timerRunning = true;
+    }
+    syncUi();
+  }
+
+  function resetTimer() {
+    accumulated = 0;
+    startedAt = Date.now();
+    timerRunning = true;
+    syncUi();
+  }
+
+  function cyclePace() {
+    var idx = PACE_PRESETS.indexOf(paceMinutes);
+    paceMinutes = PACE_PRESETS[(idx < 0 ? 0 : idx + 1) % PACE_PRESETS.length];
+    syncUi();
+  }
+
   window.addEventListener("keydown", function (e) {
+    if ((e.metaKey || e.ctrlKey) && (e.key === "s" || e.key === "S")) {
+      if (editOn) {
+        e.preventDefault();
+        saveEditedHtml();
+      }
+      return;
+    }
+    if (isTypingTarget(e.target) && e.key !== "Escape") {
+      return;
+    }
+    if (e.key === "Escape") {
+      e.preventDefault();
+      if (isTypingTarget(e.target)) {
+        e.target.blur();
+        return;
+      }
+      if (editOn) { setEditMode(false); return; }
+      if (showHelp) { setHelp(false); return; }
+      if (showOverview) { setOverview(false); return; }
+      if (blackoutEl && !blackoutEl.hidden) { setBlackout(false); return; }
+      if (whiteoutEl && !whiteoutEl.hidden) { setWhiteout(false); return; }
+      if (laserOn) { setLaser(false); return; }
+      if (inkOn) { setInk(false); return; }
+      if (showNotes) { setNotes(false); return; }
+      return;
+    }
+    if (e.key === "?" || (e.shiftKey && e.key === "/")) {
+      e.preventDefault();
+      setHelp(!showHelp);
+      return;
+    }
+    if (e.key === "e" || e.key === "E") {
+      e.preventDefault();
+      setEditMode(!editOn);
+      return;
+    }
+    if (e.key === "g" || e.key === "G") {
+      e.preventDefault();
+      if (editOn) setEditMode(false);
+      setOverview(!showOverview);
+      return;
+    }
+    if (e.key === "f" || e.key === "F") {
+      e.preventDefault();
+      if (slides.length > 1) setStrip(!showStrip);
+      return;
+    }
+    if (e.key === "l" || e.key === "L") {
+      e.preventDefault();
+      setLaser(!laserOn);
+      return;
+    }
+    if (e.key === "d" || e.key === "D") {
+      e.preventDefault();
+      setInk(!inkOn);
+      return;
+    }
+    if ((e.key === "c" || e.key === "C") && inkOn) {
+      e.preventDefault();
+      clearInk();
+      return;
+    }
+    if (e.key === "b" || e.key === "B") {
+      e.preventDefault();
+      setHelp(false);
+      setBlackout(blackoutEl ? blackoutEl.hidden : true);
+      return;
+    }
+    if (e.key === "w" || e.key === "W") {
+      e.preventDefault();
+      setHelp(false);
+      setWhiteout(whiteoutEl ? whiteoutEl.hidden : true);
+      return;
+    }
+    if (e.key === "s" || e.key === "S") {
+      e.preventDefault();
+      setNotes(!showNotes);
+      return;
+    }
+    if (e.key === "t" || e.key === "T") {
+      e.preventDefault();
+      toggleTimer();
+      return;
+    }
+    if (e.key === "r" || e.key === "R") {
+      e.preventDefault();
+      resetTimer();
+      return;
+    }
+    if (e.key === "p" || e.key === "P") {
+      e.preventDefault();
+      cyclePace();
+      return;
+    }
+    if (e.key === "o" || e.key === "O") {
+      e.preventDefault();
+      openSpeakerView();
+      return;
+    }
+    if (showHelp || showOverview || editOn) return;
+    if (/^[1-9]$/.test(e.key)) {
+      e.preventDefault();
+      var target = Number(e.key) - 1;
+      if (target < slides.length) jumpTo(target);
+      return;
+    }
     if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
       e.preventDefault();
+      setBlackout(false);
+      setWhiteout(false);
       go(1);
     } else if (e.key === "ArrowUp" || e.key === "ArrowLeft" || e.key === "PageUp") {
       e.preventDefault();
+      setBlackout(false);
+      setWhiteout(false);
       go(-1);
     } else if (e.key === "Home") {
       e.preventDefault();
-      slides[0].scrollIntoView({ behavior: "smooth", block: "center" });
+      jumpTo(0);
     } else if (e.key === "End") {
       e.preventDefault();
-      slides[slides.length - 1].scrollIntoView({ behavior: "smooth", block: "center" });
+      jumpTo(slides.length - 1);
     }
   });
+
+  if (blackoutEl) blackoutEl.addEventListener("click", function () { setBlackout(false); });
+  if (whiteoutEl) whiteoutEl.addEventListener("click", function () { setWhiteout(false); });
+  if (btnNotes) btnNotes.addEventListener("click", function () { setNotes(!showNotes); });
+  if (btnSpeaker) btnSpeaker.addEventListener("click", openSpeakerView);
+  if (btnStrip) btnStrip.addEventListener("click", function () { setStrip(!showStrip); });
+  if (btnOverview) btnOverview.addEventListener("click", function () { setOverview(!showOverview); });
+  if (btnOverviewClose) btnOverviewClose.addEventListener("click", function () { setOverview(false); });
+  if (btnEdit) btnEdit.addEventListener("click", function () { setEditMode(!editOn); });
+  if (btnSave) btnSave.addEventListener("click", saveEditedHtml);
+  if (editToggle) editToggle.addEventListener("click", function () { setEditMode(!editOn); });
+  if (editHotzone) {
+    editHotzone.addEventListener("mouseenter", function () {
+      if (editHideTimer) clearTimeout(editHideTimer);
+      if (editToggle) editToggle.classList.add("is-visible");
+    });
+    editHotzone.addEventListener("mouseleave", function () {
+      editHideTimer = setTimeout(function () {
+        if (editToggle && !editOn) editToggle.classList.remove("is-visible");
+      }, 400);
+    });
+    editHotzone.addEventListener("click", function () { setEditMode(!editOn); });
+  }
+  if (editToggle) {
+    editToggle.addEventListener("mouseenter", function () {
+      if (editHideTimer) clearTimeout(editHideTimer);
+    });
+    editToggle.addEventListener("mouseleave", function () {
+      editHideTimer = setTimeout(function () {
+        if (editToggle && !editOn) editToggle.classList.remove("is-visible");
+      }, 400);
+    });
+  }
+  if (btnLaser) btnLaser.addEventListener("click", function () { setLaser(!laserOn); });
+  if (btnInk) btnInk.addEventListener("click", function () { setInk(!inkOn); });
+  if (btnInkClear) btnInkClear.addEventListener("click", clearInk);
+  if (btnBlackout) btnBlackout.addEventListener("click", function () { setBlackout(blackoutEl.hidden); });
+  if (btnWhiteout) btnWhiteout.addEventListener("click", function () { setWhiteout(whiteoutEl.hidden); });
+  if (btnHelp) btnHelp.addEventListener("click", function () { setHelp(!showHelp); });
+  if (btnHelpClose) btnHelpClose.addEventListener("click", function () { setHelp(false); });
+  if (timerEl) timerEl.addEventListener("dblclick", resetTimer);
+
+  if (laserLayer) {
+    laserLayer.addEventListener("pointermove", function (e) {
+      if (!laserOn || showHelp || showOverview || (blackoutEl && !blackoutEl.hidden) || (whiteoutEl && !whiteoutEl.hidden)) return;
+      var rect = laserLayer.getBoundingClientRect();
+      var point = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+      laserTrail.push(point);
+      if (laserTrail.length > LASER_TRAIL) laserTrail = laserTrail.slice(laserTrail.length - LASER_TRAIL);
+      paintLaserTrail();
+    });
+    laserLayer.addEventListener("pointerleave", function () {
+      if (laserOn) clearLaserTrail();
+    });
+  }
+
+  if (inkCanvas) {
+    inkCanvas.addEventListener("pointerdown", function (e) {
+      if (!inkOn || showHelp || showOverview || (blackoutEl && !blackoutEl.hidden) || (whiteoutEl && !whiteoutEl.hidden)) return;
+      e.preventDefault();
+      var ctx = inkCanvas.getContext("2d");
+      var pt = inkPointFromEvent(e);
+      if (!ctx || !pt) return;
+      inkDrawing = true;
+      try { inkCanvas.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+      ctx.strokeStyle = INK_COLOR;
+      ctx.lineWidth = INK_WIDTH;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.beginPath();
+      ctx.moveTo(pt.x, pt.y);
+    });
+    inkCanvas.addEventListener("pointermove", function (e) {
+      if (!inkDrawing) return;
+      var ctx = inkCanvas.getContext("2d");
+      var pt = inkPointFromEvent(e);
+      if (!ctx || !pt) return;
+      ctx.lineTo(pt.x, pt.y);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(pt.x, pt.y);
+    });
+    function endInkStroke(e) {
+      if (!inkDrawing) return;
+      inkDrawing = false;
+      try { inkCanvas.releasePointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+    }
+    inkCanvas.addEventListener("pointerup", endInkStroke);
+    inkCanvas.addEventListener("pointercancel", endInkStroke);
+  }
+
+  buildDots();
+  setStrip(showStrip);
+  window.addEventListener("hashchange", applyHashJump);
+  window.addEventListener("resize", function () { syncInkCanvas(); }, { passive: true });
+  window.addEventListener("scroll", function () { syncUi(); }, { passive: true });
+  setInterval(function () { if (timerRunning) syncUi(); }, 500);
+  syncStageTools();
+  syncUi();
+  applyHashJump();
 
   /* T2/T3 screenshot harness — #__shot=N scrolls slide N into view and forces reveals */
   var shot = location.hash.match(/__shot=(\d+)/);

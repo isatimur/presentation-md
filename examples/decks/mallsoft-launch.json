@@ -92,14 +92,14 @@
       "by": "Mallsoft · Founders"
     },
     {
-      "layout": "two-column",
+      "layout": "comparison",
       "eyebrow": "Drop",
       "heading": "Vapor without vaporware",
-      "leftTitle": "Aesthetic",
+      "leftLabel": "Aesthetic",
       "left": "Pink/cyan grid.\nPalm silhouettes.\nSlow scroll, high fidelity.",
-      "rightTitle": "Ship",
+      "rightLabel": "Ship",
       "right": "Real SKUs.\nReal drop dates.\nNo infinite waitlist theater.",
-      "ratio": "2-1"
+      "emphasis": "left"
     },
     {
       "layout": "closing",

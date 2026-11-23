@@ -85,27 +85,27 @@
       "layout": "logo-wall",
       "eyebrow": "Trusted by",
       "heading": "Teams building with Soleil.",
-      "notes": "Glance the marks — social proof, not a reading list.",
-      "logos": [
+      "cards": [
         {
-          "name": "Northstar"
+          "title": "Northstar"
         },
         {
-          "name": "Harbor"
+          "title": "Harbor"
         },
         {
-          "name": "Fieldkit"
+          "title": "Fieldkit"
         },
         {
-          "name": "Lumen"
+          "title": "Lumen"
         },
         {
-          "name": "Cascade"
+          "title": "Cascade"
         },
         {
-          "name": "Orbit"
+          "title": "Orbit"
         }
-      ]
+      ],
+      "notes": "Glance the marks — social proof, not a reading list."
     },
     {
       "layout": "closing",

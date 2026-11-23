@@ -823,7 +823,16 @@ function renderSection(slide: PSlide, ctx: ExportContext, data: Slide): void {
   }
 }
 
-function renderHeaderBlock(slide: PSlide, ctx: ExportContext, data: Slide): number {
+/**
+ * Eyebrow, heading and lead at the top of a content slide. Returns the y where
+ * the layout body starts. Pass `lead: false` when the layout places the lead itself.
+ */
+function renderHeaderBlock(
+  slide: PSlide,
+  ctx: ExportContext,
+  data: Slide,
+  opts: { lead?: boolean } = {}
+): number {
   const x = ctx.margin;
   const w = ctx.width - ctx.margin * 2;
   let y = ctx.margin;
@@ -836,6 +845,10 @@ function renderHeaderBlock(slide: PSlide, ctx: ExportContext, data: Slide): numb
   if (data.heading) {
     heading(slide, ctx, data.heading, { x, y, w, h: 1.0, fontSize: 30 });
     y += 1.1;
+  }
+  if (opts.lead !== false && typeof data.lead === "string" && data.lead.trim()) {
+    body(slide, ctx, data.lead, { x, y, w, h: 0.6, fontSize: 15 });
+    y += 0.65;
   }
   return y;
 }
@@ -1958,7 +1971,7 @@ function renderCustomHtml(slide: PSlide, ctx: ExportContext, data: Slide): void 
   if (!blocks.length) {
     const note =
       "This slide used custom-html in the HTML deck. Re-create the art in PowerPoint or keep the HTML export for fidelity.";
-    slide.addText(data.body || data.lead || note, {
+    slide.addText(data.body || note, {
       x: ctx.margin,
       y,
       w: contentW,
@@ -2207,7 +2220,7 @@ function renderStreakGrid(slide: PSlide, ctx: ExportContext, data: Slide): void 
 }
 
 function renderMetricRing(slide: PSlide, ctx: ExportContext, data: Slide): void {
-  const top = renderHeaderBlock(slide, ctx, data);
+  const top = renderHeaderBlock(slide, ctx, data, { lead: false });
   const pctRaw = typeof data.pct === "number" ? data.pct : 100;
   const pct = Math.max(0, Math.min(100, pctRaw));
   const value = typeof data.value === "string" ? data.value : `${Math.round(pct)}%`;

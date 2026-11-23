@@ -82,14 +82,14 @@
       ]
     },
     {
-      "layout": "two-column",
+      "layout": "comparison",
       "eyebrow": "Field",
       "heading": "Where the gold lands",
-      "leftTitle": "Farms",
+      "leftLabel": "Farms",
       "left": "Twelve partner plots.\nSeasonal soil reports.\nNamed growers, not abstractions.",
-      "rightTitle": "Bottles",
+      "rightLabel": "Bottles",
       "right": "−28% water per bottle.\n61% refill share.\nAbsolute traces to a plot ID.",
-      "ratio": "2-1"
+      "emphasis": "left"
     },
     {
       "layout": "logo-wall",

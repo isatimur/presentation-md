@@ -1,0 +1,170 @@
+{
+  "generated": "2026-11-23",
+  "decks": 153,
+  "slides": 1928,
+  "themes": 75,
+  "editableText": {
+    "found": 11472,
+    "total": 11472,
+    "pct": "100.0%"
+  },
+  "speakerNotes": {
+    "ok": 348,
+    "total": 348
+  },
+  "nativeCharts": {
+    "ok": 76,
+    "total": 76
+  },
+  "nativeTables": {
+    "ok": 81,
+    "total": 81
+  },
+  "layouts": [
+    {
+      "layout": "chart",
+      "slides": 76,
+      "text": "100.0%",
+      "found": 151,
+      "total": 151,
+      "flags": "none"
+    },
+    {
+      "layout": "closing",
+      "slides": 153,
+      "text": "100.0%",
+      "found": 727,
+      "total": 727,
+      "flags": "none"
+    },
+    {
+      "layout": "code",
+      "slides": 87,
+      "text": "100.0%",
+      "found": 423,
+      "total": 423,
+      "flags": "none"
+    },
+    {
+      "layout": "comparison",
+      "slides": 136,
+      "text": "100.0%",
+      "found": 1344,
+      "total": 1344,
+      "flags": "none"
+    },
+    {
+      "layout": "custom-html",
+      "slides": 75,
+      "text": "100.0%",
+      "found": 592,
+      "total": 592,
+      "flags": "approximated ×75"
+    },
+    {
+      "layout": "data-table",
+      "slides": 81,
+      "text": "100.0%",
+      "found": 1106,
+      "total": 1106,
+      "flags": "none"
+    },
+    {
+      "layout": "feature-grid",
+      "slides": 136,
+      "text": "100.0%",
+      "found": 1411,
+      "total": 1411,
+      "flags": "none"
+    },
+    {
+      "layout": "image-hero",
+      "slides": 152,
+      "text": "100.0%",
+      "found": 450,
+      "total": 450,
+      "flags": "none"
+    },
+    {
+      "layout": "logo-wall",
+      "slides": 94,
+      "text": "100.0%",
+      "found": 611,
+      "total": 611,
+      "flags": "none"
+    },
+    {
+      "layout": "metric-ring",
+      "slides": 76,
+      "text": "100.0%",
+      "found": 370,
+      "total": 370,
+      "flags": "none"
+    },
+    {
+      "layout": "quote",
+      "slides": 124,
+      "text": "100.0%",
+      "found": 244,
+      "total": 244,
+      "flags": "none"
+    },
+    {
+      "layout": "ranked-list",
+      "slides": 76,
+      "text": "100.0%",
+      "found": 814,
+      "total": 814,
+      "flags": "none"
+    },
+    {
+      "layout": "section",
+      "slides": 82,
+      "text": "100.0%",
+      "found": 243,
+      "total": 243,
+      "flags": "none"
+    },
+    {
+      "layout": "stat-row",
+      "slides": 153,
+      "text": "100.0%",
+      "found": 1184,
+      "total": 1184,
+      "flags": "none"
+    },
+    {
+      "layout": "streak-grid",
+      "slides": 76,
+      "text": "100.0%",
+      "found": 222,
+      "total": 222,
+      "flags": "none"
+    },
+    {
+      "layout": "timeline",
+      "slides": 85,
+      "text": "100.0%",
+      "found": 682,
+      "total": 682,
+      "flags": "none"
+    },
+    {
+      "layout": "title",
+      "slides": 153,
+      "text": "100.0%",
+      "found": 450,
+      "total": 450,
+      "flags": "none"
+    },
+    {
+      "layout": "two-column",
+      "slides": 113,
+      "text": "100.0%",
+      "found": 448,
+      "total": 448,
+      "flags": "none"
+    }
+  ],
+  "missing": []
+}

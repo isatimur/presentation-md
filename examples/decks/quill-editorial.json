@@ -115,24 +115,24 @@
       "layout": "logo-wall",
       "eyebrow": "Partners",
       "heading": "Bookstores that reorder.",
-      "logos": [
+      "cards": [
         {
-          "name": "Harbor Books"
+          "title": "Harbor Books"
         },
         {
-          "name": "Field & Spine"
+          "title": "Field & Spine"
         },
         {
-          "name": "Maple Leaf"
+          "title": "Maple Leaf"
         },
         {
-          "name": "North Desk"
+          "title": "North Desk"
         },
         {
-          "name": "Quiet Shelf"
+          "title": "Quiet Shelf"
         },
         {
-          "name": "Letterpress Co."
+          "title": "Letterpress Co."
         }
       ]
     },
