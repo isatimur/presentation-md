@@ -95,14 +95,14 @@
       ]
     },
     {
-      "layout": "two-column",
+      "layout": "comparison",
       "eyebrow": "Gates",
       "heading": "From brief to burn",
-      "leftTitle": "Design",
+      "leftLabel": "Design",
       "left": "Trajectory locked.\nMass budget signed.\nInterface reviewed.",
-      "rightTitle": "Flight",
+      "rightLabel": "Flight",
       "right": "Telemetry live.\nAbort criteria green.\nPost-burn report auto-filed.",
-      "ratio": "2-1"
+      "emphasis": "left"
     },
     {
       "layout": "logo-wall",

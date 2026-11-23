@@ -92,14 +92,14 @@
       "by": "Harper Lin · Food editor"
     },
     {
-      "layout": "two-column",
+      "layout": "comparison",
       "eyebrow": "Go-to-market",
       "heading": "Retail + DTC, same smile",
-      "leftTitle": "Retail",
+      "leftLabel": "Retail",
       "left": "Endcaps that stop the cart.\nWeekend pop-ups that train the eye.\nGift tins for the photo, not the landfill.",
-      "rightTitle": "DTC",
+      "rightLabel": "DTC",
       "right": "Refill app without dark patterns.\nDrop calendars, not endless SKUs.\nCommunity that tastes like a decision.",
-      "ratio": "2-1"
+      "emphasis": "left"
     },
     {
       "layout": "logo-wall",

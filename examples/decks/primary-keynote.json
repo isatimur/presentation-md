@@ -92,14 +92,14 @@
       "by": "Primary · Keynote"
     },
     {
-      "layout": "two-column",
+      "layout": "comparison",
       "eyebrow": "System",
       "heading": "Form follows decision",
-      "leftTitle": "Type",
+      "leftLabel": "Type",
       "left": "Primary shapes carry meaning.\nRed is a signal, not a brand wash.\nWhitespace is load-bearing.",
-      "rightTitle": "Layout",
+      "rightLabel": "Layout",
       "right": "Asymmetry over symmetry theater.\nOne idea per plane.\nRules you can teach in a lunch.",
-      "ratio": "2-1"
+      "emphasis": "left"
     },
     {
       "layout": "closing",

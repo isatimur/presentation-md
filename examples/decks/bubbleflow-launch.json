@@ -92,14 +92,14 @@
       "by": "BubbleFlow · Brand note"
     },
     {
-      "layout": "two-column",
+      "layout": "comparison",
       "eyebrow": "Product",
       "heading": "Soft UI. Hard retention.",
-      "leftTitle": "Feel",
+      "leftLabel": "Feel",
       "left": "Aqua gradients.\nBubble chrome.\nMotion that bounces, not scrolls forever.",
-      "rightTitle": "Function",
+      "rightLabel": "Function",
       "right": "Flows that finish.\nNo dark patterns.\nShareable moments built in.",
-      "ratio": "1-2"
+      "emphasis": "right"
     },
     {
       "layout": "closing",

@@ -167,14 +167,14 @@
       "notes": "Board: enterprise is still ~60% of ARR — protect win rate before chasing self-serve vanity growth."
     },
     {
-      "layout": "two-column",
+      "layout": "comparison",
       "eyebrow": "Risk flag",
       "heading": "Enterprise win rate cooled",
-      "leftTitle": "What happened",
+      "leftLabel": "What happened",
       "left": "Cycle length stretched 19 days.\nTwo logo losses to price-led competitors.\nPilot-to-close conversion at 41% (was 55%).",
-      "rightTitle": "What we do",
+      "rightLabel": "What we do",
       "right": "Tighten discovery scripts.\nShip ROI calculator in Q3.\nProtect margin — no across-the-board discount.",
-      "ratio": "2-1"
+      "emphasis": "left"
     },
     {
       "layout": "timeline",
