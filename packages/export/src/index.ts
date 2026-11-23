@@ -4,6 +4,7 @@ import { buildContext } from "./context.js";
 import { renderSlide } from "./layouts.js";
 import { withDeckLanguage } from "./lang.js";
 import { deckLangDir, normalizeDeckLang } from "@presentation-md/core/deck-lang";
+import { fontFidelity, type FidelityItem, type FidelityKind } from "./fidelity.js";
 import type { DeckJson } from "./deck-types.js";
 import {
   prefetchDeckImages,
@@ -24,7 +25,8 @@ export type {
   ChartSeries,
 } from "./deck-types.js";
 
-export { prefetchDeckImages };
+export { prefetchDeckImages, fontFidelity };
+export type { FidelityItem, FidelityKind };
 export type { PrefetchImagesOptions, PrefetchImagesResult };
 
 const ATTRIBUTION_TEXT = "Made with presentation-md";
@@ -33,6 +35,11 @@ const ATTRIBUTION_URL = "https://presentation-md.vercel.app/?ref=pptx";
 export interface PptxOptions {
   /** Called for any content that couldn't be mapped exactly (e.g. remote images). */
   onWarn?: (msg: string) => void;
+  /**
+   * Called once per fidelity item: every warning (with its kind) plus theme fonts
+   * that PowerPoint or Google Slides will probably replace.
+   */
+  onFidelity?: (item: FidelityItem) => void;
   /** Append a small attribution note to the final slide. Defaults to `true`. */
   attribution?: boolean;
   /**
@@ -49,6 +56,8 @@ export interface BuildResult {
   pptx: Pptx;
   slideCount: number;
   warnings: string[];
+  /** Structured report of what differs from the HTML deck. See {@link FidelityItem}. */
+  fidelity: FidelityItem[];
 }
 
 const LAYOUT_NAME = "PMD_16x9";
@@ -67,19 +76,26 @@ export async function buildPptx(
   opts: PptxOptions = {}
 ): Promise<BuildResult> {
   const warnings: string[] = [];
+  const fidelity: FidelityItem[] = [];
+  const report = (item: FidelityItem): void => {
+    fidelity.push(item);
+    opts.onFidelity?.(item);
+  };
   let currentSlide = 0;
-  const warn = (msg: string): void => {
+  const warn = (msg: string, kind: FidelityKind = "other"): void => {
     const prefixed =
       currentSlide > 0 && !/^Slide\s+\d+/i.test(msg) ? `Slide ${currentSlide}: ${msg}` : msg;
     warnings.push(prefixed);
     opts.onWarn?.(prefixed);
+    report(currentSlide > 0 ? { kind, slide: currentSlide, message: prefixed } : { kind, message: prefixed });
   };
+  for (const item of fontFidelity(theme)) report(item);
 
   let working = deck;
   if (opts.prefetchImages) {
     const prepared = await prefetchDeckImages(deck, opts.prefetch);
     working = prepared.deck;
-    for (const msg of prepared.warnings) warn(msg);
+    for (const msg of prepared.warnings) warn(msg, "image");
   }
 
   const pptx = new PptxGenJS();
@@ -135,7 +151,7 @@ export async function buildPptx(
   });
   currentSlide = 0;
 
-  return { pptx, slideCount: slides.length, warnings };
+  return { pptx, slideCount: slides.length, warnings, fidelity };
 }
 
 /** Serialize the deck to a PPTX ArrayBuffer (works in Node and the browser). */

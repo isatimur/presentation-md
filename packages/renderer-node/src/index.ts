@@ -20,7 +20,12 @@ import {
 } from "@presentation-md/core";
 import type { DeckChromeCatalog } from "@presentation-md/core";
 import type { ValidationResult, ChartSeries } from "@presentation-md/core";
-import { deckToPptxBuffer, type DeckJson as ExportDeckJson } from "@presentation-md/export";
+import { rasterizeSvgImages } from "./svg-raster.js";
+import {
+  deckToPptxBuffer,
+  type DeckJson as ExportDeckJson,
+  type FidelityItem,
+} from "@presentation-md/export";
 
 export { validateDeckJson } from "@presentation-md/core";
 export {
@@ -609,6 +614,8 @@ export interface PptxRenderOptions {
   attribution?: boolean;
   /** Called for content that couldn't be mapped exactly (e.g. remote images). */
   onWarn?: (msg: string) => void;
+  /** Called per fidelity item (warnings with a kind, plus theme fonts likely substituted). */
+  onFidelity?: (item: FidelityItem) => void;
 }
 
 /**
@@ -637,9 +644,20 @@ export async function renderDeckPptx(
     fallbackThemesDirs: themesDir !== bundled ? [bundled] : undefined,
   });
 
-  return deckToPptxBuffer(deck as unknown as ExportDeckJson, theme, {
+  // Node has no canvas, so pptxgenjs would give SVG images a broken-icon PNG
+  // fallback. Embed PNG copies instead; report any SVG we could not convert.
+  const raster = await rasterizeSvgImages(deck);
+  if (raster.leftAsSvg > 0) {
+    opts?.onFidelity?.({
+      kind: "image",
+      message: `${raster.leftAsSvg} SVG image(s) embedded as SVG only: PowerPoint 365 shows them; Google Slides, Keynote and older PowerPoint show a placeholder. Install @resvg/resvg-js to embed PNG copies.`,
+    });
+  }
+
+  return deckToPptxBuffer(raster.deck as unknown as ExportDeckJson, theme, {
     attribution: opts?.attribution,
     onWarn: opts?.onWarn,
+    onFidelity: opts?.onFidelity,
     // Prefetch remote http(s) images so PPTX embeds match Studio outside the browser.
     prefetchImages: true,
   });

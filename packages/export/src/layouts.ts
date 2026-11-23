@@ -1,5 +1,6 @@
 import { candyMarqueeText } from "@presentation-md/core/candy-marquee";
 import type { ExportContext } from "./context.js";
+import { toBase64DataUri } from "./data-uri.js";
 import type { Slide } from "./deck-types.js";
 import type { PptxSlide, PptxTextOpts, PptxTableRow } from "./pptx.js";
 
@@ -903,16 +904,21 @@ function addImageOrPlaceholder(
 ): void {
   const src = data.image;
   if (src && src.startsWith("data:")) {
-    try {
-      slide.addImage({ data: src, x, y, w, h, sizing: { type: "contain", w, h } });
-      return;
-    } catch {
-      ctx.warn(`Failed to embed inline image; showed placeholder instead.`);
+    const embeddable = toBase64DataUri(src);
+    if (embeddable) {
+      try {
+        slide.addImage({ data: embeddable, x, y, w, h, sizing: { type: "contain", w, h } });
+        return;
+      } catch {
+        // fall through to the placeholder + warning below
+      }
     }
+    ctx.warn(`Failed to embed inline image; showed placeholder instead.`, "image");
   } else if (src) {
     // Remote/local URLs that weren't prefetched — placeholder + warning.
     ctx.warn(
-      `Image not embedded (prefetch http(s) or local file paths before export): ${src}`
+      `Image not embedded (prefetch http(s) or local file paths before export): ${src}`,
+      "image"
     );
   }
   slide.addShape(ctx.shapeRoundRect, {
@@ -1316,7 +1322,7 @@ function renderRankedList(slide: PSlide, ctx: ExportContext, data: Slide): void 
   const top = renderHeaderBlock(slide, ctx, data);
   const items = data.items ?? [];
   if (!items.length) {
-    ctx.warn("ranked-list layout has no items.");
+    ctx.warn("ranked-list layout has no items.", "skipped");
     return;
   }
 
@@ -1771,7 +1777,7 @@ function renderChart(slide: PSlide, ctx: ExportContext, data: Slide): void {
   const top = renderHeaderBlock(slide, ctx, data);
   const series = data.series ?? [];
   if (series.length === 0) {
-    ctx.warn("chart slide has no series — skipped chart.");
+    ctx.warn("chart slide has no series — skipped chart.", "skipped");
     return;
   }
 
@@ -1819,7 +1825,7 @@ function renderChart(slide: PSlide, ctx: ExportContext, data: Slide): void {
   try {
     slide.addChart(type, chartData, opts);
   } catch (err) {
-    ctx.warn(`chart export failed (${(err as Error).message}) — falling back to table.`);
+    ctx.warn(`chart export failed (${(err as Error).message}) — falling back to table.`, "fallback");
     // Fallback: dump as a simple table so data is not lost.
     const headers = ["Category", ...series.map((s) => s.name || "Series")];
     const rows = categories.map((cat, i) => [
@@ -1963,7 +1969,7 @@ function renderCustomHtml(slide: PSlide, ctx: ExportContext, data: Slide): void 
       valign: "top",
       fit: "shrink",
     });
-    ctx.warn("custom-html layout had no parseable content — text fallback.");
+    ctx.warn("custom-html layout had no parseable content — text fallback.", "fallback");
     return;
   }
 
@@ -2063,7 +2069,8 @@ function renderCustomHtml(slide: PSlide, ctx: ExportContext, data: Slide): void 
   }
 
   ctx.warn(
-    "custom-html layout approximates structure (bars/panels/text) in PPTX — HTML export keeps full craft."
+    "custom-html layout approximates structure (bars/panels/text) in PPTX — HTML export keeps full craft.",
+    "approximated"
   );
 }
 
@@ -2071,7 +2078,7 @@ function renderLogoWall(slide: PSlide, ctx: ExportContext, data: Slide): void {
   const top = renderHeaderBlock(slide, ctx, data);
   const cards = data.cards ?? [];
   if (!cards.length) {
-    ctx.warn("logo-wall layout has no cards.");
+    ctx.warn("logo-wall layout has no cards.", "skipped");
     return;
   }
   const cols =
@@ -2094,8 +2101,10 @@ function renderLogoWall(slide: PSlide, ctx: ExportContext, data: Slide): void {
     const img = typeof card.image === "string" ? card.image.trim() : "";
     if (img && (/^data:image\//i.test(img) || /^https?:\/\//i.test(img))) {
       try {
+        const embeddable = img.startsWith("data:") ? toBase64DataUri(img) : img;
+        if (!embeddable) throw new Error("unreadable data URI");
         slide.addImage({
-          data: img,
+          data: embeddable,
           x: x + 0.15,
           y: y + 0.2,
           w: cellW - 0.3,
@@ -2103,6 +2112,7 @@ function renderLogoWall(slide: PSlide, ctx: ExportContext, data: Slide): void {
           sizing: { type: "contain", w: cellW - 0.3, h: cellH - (card.body ? 0.55 : 0.4) },
         });
       } catch {
+        ctx.warn(`logo-wall image for "${card.title}" could not be embedded; showed its name instead.`, "image");
         slide.addText(card.title, {
           x: x + 0.1,
           y: y + cellH * 0.28,
@@ -6676,7 +6686,7 @@ export function renderSlide(slide: PSlide, ctx: ExportContext, data: Slide): voi
   paintSlideChrome(slide, ctx, data);
   const renderer = RENDERERS[data.layout];
   if (!renderer) {
-    ctx.warn(`Unknown layout "${data.layout}" — rendered heading/lead only.`);
+    ctx.warn(`Unknown layout "${data.layout}" — rendered heading/lead only.`, "fallback");
     renderHero(slide, ctx, data);
     return;
   }
