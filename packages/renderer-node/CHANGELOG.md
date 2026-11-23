@@ -1,5 +1,12 @@
 # @presentation-md/render
 
+## 1.24.3
+
+### Patch Changes
+
+- Updated dependencies [42eb883]
+  - @presentation-md/export@1.28.1
+
 ## 1.24.2
 
 ### Patch Changes
