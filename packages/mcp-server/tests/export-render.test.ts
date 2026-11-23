@@ -65,6 +65,16 @@ describe("export_deck / render_deck tools", () => {
     expect(perSlide.map((i) => i.message)).toEqual(result.warnings);
   });
 
+  it("export_deck font_mode office-safe reports swaps and rejects unknown modes", async () => {
+    const result = (await exportDeckTool.handler({ json: MINI_DECK, font_mode: "office-safe" })) as {
+      fidelity: Array<{ kind: string; message: string }>;
+    };
+    const fonts = result.fidelity.filter((i) => i.kind === "font");
+    expect(fonts.length).toBeGreaterThan(0);
+    for (const f of fonts) expect(f.message).toMatch(/replaced by "(Arial|Georgia|Consolas)"/);
+    await expect(exportDeckTool.handler({ json: MINI_DECK, font_mode: "comic" })).rejects.toThrow(/font_mode/);
+  });
+
   it("export_deck writes within cwd and rejects escapes", async () => {
     const dir = await tempDir();
     const rel = join(dir.replace(process.cwd() + "/", ""), "out.pptx");

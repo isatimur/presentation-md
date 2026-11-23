@@ -26,6 +26,7 @@ import {
   prefetchDeckImages,
   type DeckJson as ExportDeckJson,
   type FidelityItem,
+  type FontMode,
 } from "@presentation-md/export";
 
 export { validateDeckJson } from "@presentation-md/core";
@@ -617,6 +618,8 @@ export interface PptxRenderOptions {
   onWarn?: (msg: string) => void;
   /** Called per fidelity item (warnings with a kind, plus theme fonts likely substituted). */
   onFidelity?: (item: FidelityItem) => void;
+  /** PPTX fonts: theme (default) or office-safe. See `PptxOptions.fontMode`. */
+  fontMode?: FontMode;
 }
 
 /**
@@ -667,6 +670,7 @@ export async function renderDeckPptx(
     attribution: opts?.attribution,
     onWarn: opts?.onWarn,
     onFidelity: opts?.onFidelity,
+    fontMode: opts?.fontMode,
     // Already prefetched above.
     prefetchImages: false,
   });

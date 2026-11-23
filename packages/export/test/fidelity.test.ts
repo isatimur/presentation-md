@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest";
 import type { ResolvedTheme } from "@presentation-md/core";
-import { buildPptx, fontFidelity, type DeckJson, type FidelityItem } from "../src/index.js";
+import {
+  buildPptx,
+  deckToPptxBuffer,
+  fontFidelity,
+  officeSafeFamily,
+  type DeckJson,
+  type FidelityItem,
+} from "../src/index.js";
 
 function themeWith(headingFont: string, bodyFont: string, googleFonts: string[] = []): ResolvedTheme {
   return {
@@ -71,5 +78,51 @@ describe("buildPptx fidelity report", () => {
     expect(perSlide).toContainEqual(expect.objectContaining({ kind: "approximated", slide: 3 }));
     expect(perSlide).toContainEqual(expect.objectContaining({ kind: "image", slide: 4 }));
     for (const item of perSlide) expect(item.message.startsWith(`Slide ${item.slide}:`)).toBe(true);
+  });
+});
+
+describe("office-safe font mode", () => {
+  it("maps each stack to an Office font of the same style", () => {
+    expect(officeSafeFamily("'Syne', system-ui, sans-serif")).toBe("Arial");
+    expect(officeSafeFamily("'Playfair Display', Georgia, serif")).toBe("Georgia");
+    expect(officeSafeFamily("'Fraunces'")).toBe("Georgia");
+    expect(officeSafeFamily("'JetBrains Mono', monospace")).toBe("Consolas");
+    expect(officeSafeFamily("'IBM Plex Sans', sans-serif")).toBe("Arial");
+    expect(officeSafeFamily("'Source Serif 4', serif")).toBe("Georgia");
+    expect(officeSafeFamily("Georgia, serif")).toBe("Georgia");
+    expect(officeSafeFamily("'Segoe UI', sans-serif")).toBe("Segoe UI");
+    // The theme's own Office fallback wins; "Monoton" is a display face, not monospace.
+    expect(officeSafeFamily("'Big Shoulders Display', Impact, sans-serif")).toBe("Impact");
+    expect(officeSafeFamily("'IBM Plex Mono', 'Courier New', monospace")).toBe("Courier New");
+    expect(officeSafeFamily("'Monoton', display, cursive")).toBe("Arial");
+  });
+
+  it("writes Office fonts into the PPTX and reports each swap instead of substitution warnings", async () => {
+    const deck: DeckJson = {
+      type: "deck",
+      meta: { title: "Fonts", theme: "test" },
+      slides: [{ layout: "title", heading: "Hello", lead: "World" }],
+    } as DeckJson;
+    const theme = themeWith("'Syne', sans-serif", "'Lora', serif", ["Syne:wght@700", "Lora:wght@400"]);
+    const { fidelity } = await buildPptx(deck, theme, { fontMode: "office-safe" });
+    expect(fidelity.map((i) => i.message)).toEqual([
+      'Heading font "Syne" replaced by "Arial" (office-safe font mode).',
+      'Body font "Lora" replaced by "Georgia" (office-safe font mode).',
+    ]);
+
+    const JSZip = (await import("jszip")).default;
+    const xml = await (await JSZip.loadAsync(await deckToPptxBuffer(deck, theme, { fontMode: "office-safe" })))
+      .file("ppt/slides/slide1.xml")!
+      .async("string");
+    expect(xml).toContain('typeface="Arial"');
+    expect(xml).toContain('typeface="Georgia"');
+    expect(xml).not.toContain("Syne");
+    expect(xml).not.toContain("Lora");
+  });
+
+  it("keeps theme fonts by default", async () => {
+    const deck = { type: "deck", meta: { title: "F", theme: "test" }, slides: [{ layout: "title", heading: "Hi" }] } as DeckJson;
+    const { fidelity } = await buildPptx(deck, themeWith("'Syne', sans-serif", "Arial"));
+    expect(fidelity[0]!.message).toContain("is not installed with Office");
   });
 });
