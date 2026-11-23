@@ -74,7 +74,7 @@ export function SlideList({
                 <span className="slide-row-num">{i + 1}</span>
                 <span className="slide-row-text">
                   <span className="slide-row-layout">
-                    {layoutLabel(slide.layout)}
+                    <span className="slide-row-layout-name">{layoutLabel(slide.layout)}</span>
                     {(slide.notes ?? "").trim() ? (
                       <span
                         className="notes-dot"
