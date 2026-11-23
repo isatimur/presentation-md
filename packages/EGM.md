@@ -23,7 +23,7 @@ MCP server, the theme scaffolder, the installer, and Studio all depend on
 - install: [./install/EGM.md](./install/EGM.md) - `presentation-md-install`
   CLI. Runs the matching `adapters/<host>/install.{sh,ps1}`.
 - mcp-server: [./mcp-server/EGM.md](./mcp-server/EGM.md) -
-  `@presentation-md/mcp-server`. 14 MCP tools over stdio. Every file write is
+  `@presentation-md/mcp-server`. 16 MCP tools over stdio. Every file write is
   checked against the working directory.
 - mcp-server-legacy: [./mcp-server-legacy/EGM.md](./mcp-server-legacy/EGM.md) -
   deprecated `@presentation-skill-pack/mcp-server` stub that warns and spawns

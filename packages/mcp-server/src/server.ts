@@ -11,6 +11,8 @@ import { exportDeckTool } from "./tools/export-deck.js";
 import { listThemesTool } from "./tools/list-themes.js";
 import { applyThemeTool } from "./tools/apply-theme.js";
 import { auditDeckTool } from "./tools/audit-deck.js";
+import { outlineDeckTool } from "./tools/outline-deck.js";
+import { editDeckTool } from "./tools/edit-deck.js";
 import { generateDeckPromptTool } from "./tools/generate-deck-prompt.js";
 import { importBrandThemeTool } from "./tools/import-brand-theme.js";
 import { importPptxTool } from "./tools/import-pptx.js";
@@ -48,6 +50,8 @@ export const TOOLS: ToolDefinition[] = [
   listThemesTool,
   applyThemeTool,
   auditDeckTool,
+  outlineDeckTool,
+  editDeckTool,
   judgeDeckTool,
   generateDeckPromptTool,
   scaffoldDeckTool,
