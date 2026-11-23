@@ -1,5 +1,15 @@
 # @presentation-md/core
 
+## 1.38.0
+
+### Minor Changes
+
+- a337a54: Judge flags now carry `params`, and `JUDGE_FLAG_MESSAGES` holds the English template for each flag id (`JudgeFlagId`). The English `detail` is unchanged. Studio uses the id to show judge flags in all 10 languages.
+
+### Patch Changes
+
+- c7357ed: `scripts/export-pdf.sh`: two PDF exports starting at once on a fresh install no longer crash with "Cannot find module …/playwright-core". The first-run Playwright install now writes a marker when it finishes, and an atomic lock makes other runs wait instead of using a half-installed `node_modules`.
+
 ## 1.37.0
 
 ### Minor Changes
