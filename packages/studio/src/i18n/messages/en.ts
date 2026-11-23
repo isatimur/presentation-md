@@ -693,6 +693,16 @@ export const en = {
   "audit.loudBeat": "Loud/hard-card theme needs a punchy beat — add image-hero, comparison+emphasis, punchy stats, quote, or feature-grid columns:\"bento\" (not only soft sections).",
   "audit.pastelGeometryBeat": "pastel-geometry needs a soft-geometry beat — add feature-grid, image-hero, punchy stats, or quote (not only soft sections).",
   "audit.botanicalBeat": "grove / dark-botanical needs a botanical monograph beat — add quote, image-hero, comparison+emphasis, or punchy stats.",
+
+  // Structural judge flags. Keys match JudgeFlagId in core. Same rules as audit.* above.
+  "judge.slides": "Deck has <2 slides — inspect manually.",
+  "judge.G1": "Slide {n}: one block has {words} words (>{limit}) — wall of text.",
+  "judge.words": "Slide {n}: {words} words total (dense) — verify it isn't over-stuffed.",
+  "judge.cadence": "Slides {from}-{to}: '{layout}' repeats {run}x in a row — vary the layout cadence.",
+  "judge.visual_beat": "No image-hero — investor/launch/brand decks need a cinematic visual beat.",
+  "judge.asymmetry": "Weak asymmetry — add comparison+emphasis, two-column, code, bento, ranked-list, streak-grid, metric-ring, or logo-wall.",
+  "judge.data_viz": "Long deck with no chart/stat-row/data-table/ranked-list/metric-ring — consider a data beat.",
+  "judge.close": "Closing slide has no actions[]/cta — the ask is missing.",
 } as const;
 
 export type MessageKey = keyof typeof en;

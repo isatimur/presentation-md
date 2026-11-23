@@ -62,7 +62,7 @@ export type {
   BuildGenerateDeckPromptOptions,
   GenerateDeckPromptResult,
 } from "./generate-deck-prompt.js";
-export { judgeDeckJson } from "./judge-deck-json.js";
+export { judgeDeckJson, JUDGE_FLAG_MESSAGES, JUDGE_FLAG_IDS } from "./judge-deck-json.js";
 export {
   countWords,
   deckLangDir,
@@ -73,7 +73,7 @@ export {
 export type { TextDir } from "./deck-lang.js";
 export { resolveDeckChrome, deckChromeJson } from "./deck-chrome.js";
 export type { DeckChromeCatalog } from "./deck-chrome.js";
-export type { JudgeFlag, JudgeDeckJsonResult } from "./judge-deck-json.js";
+export type { JudgeFlag, JudgeFlagId, JudgeDeckJsonResult } from "./judge-deck-json.js";
 export {
   scaffoldDeck,
   listScaffoldPurposes,

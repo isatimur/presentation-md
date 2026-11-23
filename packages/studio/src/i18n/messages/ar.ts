@@ -761,4 +761,14 @@ export const ar: Catalog = {
   "audit.loudBeat": "سمة البطاقات الصاخبة/الصلبة تحتاج إلى مقطع قوي — أضف image-hero أو comparison+emphasis أو أرقامًا قوية أو quote أو feature-grid مع columns:\"bento\" (لا أقسامًا ناعمة فقط).",
   "audit.pastelGeometryBeat": "pastel-geometry يحتاج إلى مقطع هندسي ناعم — أضف feature-grid أو image-hero أو أرقامًا قوية أو quote (لا أقسامًا ناعمة فقط).",
   "audit.botanicalBeat": "grove / dark-botanical يحتاج إلى مقطع بروح الموسوعة النباتية — أضف quote أو image-hero أو comparison+emphasis أو أرقامًا قوية.",
+
+  // Structural judge flags (keys match JudgeFlagId in core)
+  "judge.slides": "يحتوي العرض على أقل من شريحتين — افحصه يدويًا.",
+  "judge.G1": "الشريحة {n}: كتلة واحدة فيها {words} كلمة (>{limit}) — جدار من النص.",
+  "judge.words": "الشريحة {n}: {words} كلمة إجمالًا (كثيفة) — تحقّق من أنها ليست مكتظة.",
+  "judge.cadence": "الشرائح {from}-{to}: التخطيط '{layout}' يتكرر {run} مرات متتالية — نوّع إيقاع التخطيطات.",
+  "judge.visual_beat": "لا يوجد image-hero — عروض المستثمرين والإطلاق والعلامة التجارية تحتاج إلى مقطع بصري سينمائي.",
+  "judge.asymmetry": "عدم التماثل ضعيف — أضف comparison+emphasis أو two-column أو code أو bento أو ranked-list أو streak-grid أو metric-ring أو logo-wall.",
+  "judge.data_viz": "عرض طويل بلا chart/stat-row/data-table/ranked-list/metric-ring — فكّر في إضافة مقطع للبيانات.",
+  "judge.close": "شريحة الختام بلا actions[]/cta — الطلب مفقود.",
 };

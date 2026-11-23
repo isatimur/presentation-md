@@ -691,4 +691,14 @@ export const fr : Catalog = {
   "audit.loudBeat": "Le thème fort à cartes dures a besoin d'un temps fort percutant — ajoutez image-hero, comparison+emphasis, des chiffres percutants, quote ou feature-grid columns:\"bento\" (pas seulement des sections douces).",
   "audit.pastelGeometryBeat": "pastel-geometry a besoin d'un temps fort de géométrie douce — ajoutez feature-grid, image-hero, des chiffres percutants ou quote (pas seulement des sections douces).",
   "audit.botanicalBeat": "grove / dark-botanical a besoin d'un temps fort de monographie botanique — ajoutez quote, image-hero, comparison+emphasis ou des chiffres percutants.",
+
+  // Structural judge flags (keys match JudgeFlagId in core)
+  "judge.slides": "La présentation a moins de 2 diapositives — à vérifier manuellement.",
+  "judge.G1": "Diapositive {n} : un bloc contient {words} mots (>{limit}) — mur de texte.",
+  "judge.words": "Diapositive {n} : {words} mots au total (dense) — vérifiez qu’elle n’est pas surchargée.",
+  "judge.cadence": "Diapositives {from}-{to} : '{layout}' se répète {run}x d'affilée — variez le rythme des layouts.",
+  "judge.visual_beat": "Aucun image-hero — les présentations investisseurs, lancement et marque ont besoin d’un temps fort visuel cinématographique.",
+  "judge.asymmetry": "Asymétrie faible — ajoutez comparison+emphasis, two-column, code, bento, ranked-list, streak-grid, metric-ring ou logo-wall.",
+  "judge.data_viz": "Longue présentation sans chart/stat-row/data-table/ranked-list/metric-ring — envisagez un temps fort de données.",
+  "judge.close": "La diapositive de clôture n’a pas d’actions[]/cta — la demande manque.",
 } ;

@@ -677,4 +677,14 @@ export const id: Catalog = {
   "audit.loudBeat": "Tema lantang/kartu keras butuh bagian yang tegas — tambahkan image-hero, comparison+emphasis, angka yang tajam, quote, atau feature-grid columns:\"bento\" (jangan hanya bagian yang lembut).",
   "audit.pastelGeometryBeat": "pastel-geometry butuh bagian geometri lembut — tambahkan feature-grid, image-hero, angka yang tajam, atau quote (jangan hanya bagian yang lembut).",
   "audit.botanicalBeat": "grove / dark-botanical butuh bagian monograf botani — tambahkan quote, image-hero, comparison+emphasis, atau angka yang tajam.",
+
+  // Structural judge flags (keys match JudgeFlagId in core)
+  "judge.slides": "Presentasi memiliki kurang dari 2 slide — periksa secara manual.",
+  "judge.G1": "Slide {n}: satu blok berisi {words} kata (>{limit}) — dinding teks.",
+  "judge.words": "Slide {n}: total {words} kata (padat) — pastikan tidak terlalu penuh.",
+  "judge.cadence": "Slide {from}-{to}: '{layout}' berulang {run}x berturut-turut — variasikan irama layout.",
+  "judge.visual_beat": "Tidak ada image-hero — presentasi investor, peluncuran, dan merek butuh bagian visual yang sinematik.",
+  "judge.asymmetry": "Asimetri lemah — tambahkan comparison+emphasis, two-column, code, bento, ranked-list, streak-grid, metric-ring, atau logo-wall.",
+  "judge.data_viz": "Presentasi panjang tanpa chart/stat-row/data-table/ranked-list/metric-ring — pertimbangkan bagian data.",
+  "judge.close": "Slide penutup tidak memiliki actions[]/cta — ajakannya tidak ada.",
 };

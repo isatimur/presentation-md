@@ -349,7 +349,9 @@ export const judgeDeckTool: ToolDefinition = {
       }
     }
 
-    const structural = deck ? judgeDeckJson(deck) : { metrics: { mode: "none" }, flags: [] as MetricFlag[] };
+    const structural = deck
+      ? judgeDeckJson(deck)
+      : { metrics: { mode: "none" } as Record<string, unknown>, flags: [] as MetricFlag[] };
 
     // T0 = metrics-only JSON (no visual-beat craft heuristics beyond density) — keep same structural for simplicity
     if (tier === "t0" || tier === "t1") {

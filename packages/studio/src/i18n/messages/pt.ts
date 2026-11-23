@@ -691,4 +691,14 @@ export const pt: Catalog = {
   "audit.loudBeat": "O tema ousado/de cards duros precisa de um trecho marcante — adicione image-hero, comparison+emphasis, números de impacto, quote ou feature-grid columns:\"bento\" (não só seções suaves).",
   "audit.pastelGeometryBeat": "pastel-geometry precisa de um trecho de geometria suave — adicione feature-grid, image-hero, números de impacto ou quote (não só seções suaves).",
   "audit.botanicalBeat": "grove / dark-botanical precisa de um trecho de monografia botânica — adicione quote, image-hero, comparison+emphasis ou números de impacto.",
+
+  // Structural judge flags (keys match JudgeFlagId in core)
+  "judge.slides": "A apresentação tem menos de 2 slides — revise manualmente.",
+  "judge.G1": "Slide {n}: um bloco tem {words} palavras (>{limit}) — parede de texto.",
+  "judge.words": "Slide {n}: {words} palavras no total (denso) — verifique se não está sobrecarregado.",
+  "judge.cadence": "Slides {from}-{to}: '{layout}' se repete {run}x seguidas — varie o ritmo dos layouts.",
+  "judge.visual_beat": "Nenhum image-hero — apresentações para investidores, lançamentos e marca precisam de um trecho visual cinematográfico.",
+  "judge.asymmetry": "Assimetria fraca — adicione comparison+emphasis, two-column, code, bento, ranked-list, streak-grid, metric-ring ou logo-wall.",
+  "judge.data_viz": "Apresentação longa sem chart/stat-row/data-table/ranked-list/metric-ring — considere um trecho de dados.",
+  "judge.close": "O slide de encerramento não tem actions[]/cta — falta o pedido.",
 };

@@ -733,4 +733,14 @@ export const ru: Catalog = {
   "audit.loudBeat": "Громкой теме с жёсткими карточками нужен хлёсткий ход — добавьте image-hero, comparison+emphasis, хлёсткие цифры, quote или feature-grid columns:\"bento\" (не только мягкие секции).",
   "audit.pastelGeometryBeat": "pastel-geometry нужен ход с мягкой геометрией — добавьте feature-grid, image-hero, хлёсткие цифры или quote (не только мягкие секции).",
   "audit.botanicalBeat": "grove / dark-botanical нужен ход в духе ботанической монографии — добавьте quote, image-hero, comparison+emphasis или хлёсткие цифры.",
+
+  // Structural judge flags (keys match JudgeFlagId in core)
+  "judge.slides": "В презентации меньше 2 слайдов — проверьте вручную.",
+  "judge.G1": "Слайд {n}: в одном блоке {words} слов (>{limit}) — стена текста.",
+  "judge.words": "Слайд {n}: всего {words} слов (плотно) — проверьте, не перегружен ли он.",
+  "judge.cadence": "Слайды {from}-{to}: '{layout}' повторяется {run}x подряд — меняйте ритм макетов.",
+  "judge.visual_beat": "Нет image-hero — презентациям для инвесторов, запусков и бренда нужен кинематографичный визуальный ход.",
+  "judge.asymmetry": "Слабая асимметрия — добавьте comparison+emphasis, two-column, code, bento, ranked-list, streak-grid, metric-ring или logo-wall.",
+  "judge.data_viz": "Длинная презентация без chart/stat-row/data-table/ranked-list/metric-ring — подумайте о ходе с данными.",
+  "judge.close": "На финальном слайде нет actions[]/cta — нет призыва к действию.",
 };

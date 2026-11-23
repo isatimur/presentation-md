@@ -6,9 +6,9 @@ export {
   CRAFT_ISSUE_CODES,
   CRAFT_ISSUE_MESSAGES,
 } from "@presentation-md/core/craft-audit";
-export { remorphDensity, judgeDeckJson } from "@presentation-md/core";
+export { remorphDensity, judgeDeckJson, JUDGE_FLAG_IDS, JUDGE_FLAG_MESSAGES } from "@presentation-md/core";
 export type { DensityMode } from "@presentation-md/core";
-export type { JudgeDeckJsonResult, JudgeFlag } from "@presentation-md/core";
+export type { JudgeDeckJsonResult, JudgeFlag, JudgeFlagId } from "@presentation-md/core";
 export type {
   CraftIssue,
   CraftIssueCode,
