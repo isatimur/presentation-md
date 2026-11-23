@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { ResolvedTheme } from "@presentation-md/core";
-import { deckToPptxBuffer, type DeckJson } from "../src/index.js";
+import { deckToPptxArrayBuffer, deckToPptxBuffer, type DeckJson } from "../src/index.js";
+import { applyScriptFontsToXml, scriptFontSlots } from "../src/script-fonts.js";
 
 const theme: ResolvedTheme = {
   name: "test",
@@ -116,5 +117,53 @@ describe("PPTX deck language", () => {
     const xml = await slideXml(deck());
     expect(xml).toMatch(/lang="en-US"/);
     expect(xml).not.toMatch(/rtl="1"/);
+  });
+});
+
+describe("PPTX script fonts", () => {
+  const typefaces = (xml: string, slot: "latin" | "ea" | "cs") =>
+    [...new Set([...xml.matchAll(new RegExp(`<a:${slot} typeface="([^"]*)"`, "g"))].map((m) => m[1]))];
+
+  it("picks Office default fonts per script and leaves Latin decks alone", () => {
+    expect(scriptFontSlots("ar")).toEqual({ cs: "Arial" });
+    expect(scriptFontSlots("fa-IR")).toEqual({ cs: "Arial" });
+    expect(scriptFontSlots("he")).toEqual({ cs: "Arial" });
+    expect(scriptFontSlots("th")).toEqual({ cs: "Tahoma" });
+    expect(scriptFontSlots("ja")).toEqual({ ea: "Yu Gothic" });
+    expect(scriptFontSlots("ko")).toEqual({ ea: "Malgun Gothic" });
+    expect(scriptFontSlots("zh")).toEqual({ ea: "DengXian" });
+    expect(scriptFontSlots("zh-Hant")).toEqual({ ea: "Microsoft JhengHei" });
+    expect(scriptFontSlots("zh-TW")).toEqual({ ea: "Microsoft JhengHei" });
+    for (const lang of ["en", "de", "ru", "pt-BR"]) expect(scriptFontSlots(lang), lang).toBeNull();
+  });
+
+  it("rewrites concrete cs/ea typefaces only, never theme references", () => {
+    const xml = '<a:latin typeface="Inter"/><a:ea typeface="Inter"/><a:cs typeface="Inter"/><a:cs typeface="+mn-cs"/>';
+    expect(applyScriptFontsToXml(xml, { cs: "Arial" })).toBe(
+      '<a:latin typeface="Inter"/><a:ea typeface="Inter"/><a:cs typeface="Arial"/><a:cs typeface="+mn-cs"/>'
+    );
+  });
+
+  it("Hebrew deck: cs is Arial on every run, Latin keeps the theme font", async () => {
+    const d = { type: "deck", meta: { title: "L", theme: "test", lang: "he" }, slides: [{ layout: "title", heading: "כותרת", lead: "שורה" }] } as DeckJson;
+    const xml = await slideXml(d);
+    expect(typefaces(xml, "cs")).toEqual(["Arial"]);
+    expect(typefaces(xml, "latin")).toContain("Montserrat");
+    expect(typefaces(xml, "ea")).not.toContain("Arial");
+  });
+
+  it("Japanese deck via the ArrayBuffer path: ea is Yu Gothic", async () => {
+    const JSZip = (await import("jszip")).default;
+    const d = { type: "deck", meta: { title: "L", theme: "test", lang: "ja" }, slides: [{ layout: "title", heading: "見出し" }] } as DeckJson;
+    const zip = await JSZip.loadAsync(await deckToPptxArrayBuffer(d, theme, { attribution: false }));
+    const xml = await zip.file("ppt/slides/slide1.xml")!.async("string");
+    expect(typefaces(xml, "ea")).toEqual(["Yu Gothic"]);
+    expect(typefaces(xml, "cs")).toContain("Montserrat");
+  });
+
+  it("English deck bytes are untouched by the script-font step", async () => {
+    const d = { type: "deck", meta: { title: "L", theme: "test" }, slides: [{ layout: "title", heading: "Hello" }] } as DeckJson;
+    const xml = await slideXml(d);
+    expect(typefaces(xml, "cs")).toEqual(["Montserrat"]);
   });
 });

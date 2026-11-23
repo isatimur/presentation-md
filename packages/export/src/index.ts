@@ -3,6 +3,7 @@ import { PptxGenJS, type Pptx } from "./pptx.js";
 import { buildContext } from "./context.js";
 import { renderSlide } from "./layouts.js";
 import { withDeckLanguage } from "./lang.js";
+import { applyScriptFonts, scriptFontSlots } from "./script-fonts.js";
 import { deckLangDir, normalizeDeckLang } from "@presentation-md/core/deck-lang";
 import {
   fontFidelity,
@@ -32,6 +33,7 @@ export type {
   ChartSeries,
 } from "./deck-types.js";
 
+export { scriptFontSlots };
 export { prefetchDeckImages, fontFidelity, officeSafeFamily, officeSafeTheme };
 export type { FontMode };
 export type { FidelityItem, FidelityKind };
@@ -180,7 +182,8 @@ export async function deckToPptxArrayBuffer(
   opts?: PptxOptions
 ): Promise<ArrayBuffer> {
   const { pptx } = await buildPptx(deck, theme, opts);
-  return (await pptx.write({ outputType: "arraybuffer" })) as ArrayBuffer;
+  const buf = (await pptx.write({ outputType: "arraybuffer" })) as ArrayBuffer;
+  return applyScriptFonts(buf, normalizeDeckLang(deck.meta?.lang), "arraybuffer");
 }
 
 /** Serialize to a Node Buffer (server/CLI). */
@@ -190,7 +193,8 @@ export async function deckToPptxBuffer(
   opts?: PptxOptions
 ): Promise<Buffer> {
   const { pptx } = await buildPptx(deck, theme, opts);
-  return (await pptx.write({ outputType: "nodebuffer" })) as Buffer;
+  const buf = (await pptx.write({ outputType: "nodebuffer" })) as Buffer;
+  return applyScriptFonts(buf, normalizeDeckLang(deck.meta?.lang), "nodebuffer");
 }
 
 /** Serialize to a Blob (browser/studio download). */
@@ -200,5 +204,6 @@ export async function deckToPptxBlob(
   opts?: PptxOptions
 ): Promise<Blob> {
   const { pptx } = await buildPptx(deck, theme, opts);
-  return (await pptx.write({ outputType: "blob" })) as Blob;
+  const blob = (await pptx.write({ outputType: "blob" })) as Blob;
+  return applyScriptFonts(blob, normalizeDeckLang(deck.meta?.lang), "blob");
 }
