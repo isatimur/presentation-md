@@ -47,6 +47,24 @@ describe("export_deck / render_deck tools", () => {
     expect(buf[1]).toBe(0x4b);
   });
 
+  it("export_deck pptx returns a fidelity report with slide-level kinds", async () => {
+    const deck = JSON.stringify({
+      type: "deck",
+      meta: { title: "Fidelity", theme: "default-tech" },
+      slides: [
+        { layout: "title", heading: "Hi" },
+        { layout: "custom-html", heading: "Art", html: "<div><p>Hello</p></div>" },
+      ],
+    });
+    const result = (await exportDeckTool.handler({ json: deck })) as {
+      warnings: string[];
+      fidelity: Array<{ kind: string; slide?: number; message: string }>;
+    };
+    expect(result.fidelity).toContainEqual(expect.objectContaining({ kind: "approximated", slide: 2 }));
+    const perSlide = result.fidelity.filter((i) => i.kind !== "font");
+    expect(perSlide.map((i) => i.message)).toEqual(result.warnings);
+  });
+
   it("export_deck writes within cwd and rejects escapes", async () => {
     const dir = await tempDir();
     const rel = join(dir.replace(process.cwd() + "/", ""), "out.pptx");

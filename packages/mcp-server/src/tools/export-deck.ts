@@ -1,5 +1,6 @@
 import { writeFile } from "node:fs/promises";
 import { renderDeck, renderDeckPptx, renderDeckPdf } from "@presentation-md/render";
+import type { FidelityItem } from "@presentation-md/export";
 import type { ToolDefinition } from "../server.js";
 import { resolveThemesDir } from "../lib/resolve-themes.js";
 import { assertWritablePathInCwd } from "../lib/cwd-path.js";
@@ -30,7 +31,7 @@ function slideCountOf(json: string): number {
 export const exportDeckTool: ToolDefinition = {
   name: "export_deck",
   description:
-    "Export a presentation-md deck JSON spec to native PowerPoint (.pptx), vector PDF (Chromium print — one page per slide, selectable text), HTML, Marp/md-slides Markdown (round-trip with import_markdown), or speaker-notes handouts (notes_txt / notes_vtt). Writes to output_path when given, otherwise returns base64 bytes (pptx/pdf), html/markdown/text string.",
+    "Export a presentation-md deck JSON spec to native PowerPoint (.pptx), vector PDF (Chromium print — one page per slide, selectable text), HTML, Marp/md-slides Markdown (round-trip with import_markdown), or speaker-notes handouts (notes_txt / notes_vtt). Writes to output_path when given, otherwise returns base64 bytes (pptx/pdf), html/markdown/text string. PPTX results include `fidelity`: per-slide items (kind image | approximated | skipped | fallback | other) plus deck-wide theme fonts PowerPoint or Google Slides will substitute (kind font) — fix the listed slides or tell the user before they open the file.",
   inputSchema: {
     type: "object",
     properties: {
@@ -174,9 +175,11 @@ export const exportDeckTool: ToolDefinition = {
       return result;
     }
 
+    const fidelity: FidelityItem[] = [];
     const buffer = await renderDeckPptx(deckJson, {
       ...resolveThemesDir(),
       onWarn: (msg) => warnings.push(msg),
+      onFidelity: (item) => fidelity.push(item),
     });
 
     const result: {
@@ -184,6 +187,7 @@ export const exportDeckTool: ToolDefinition = {
       slide_count: number;
       byte_length: number;
       warnings: string[];
+      fidelity: FidelityItem[];
       path?: string;
       bytes_base64?: string;
     } = {
@@ -191,6 +195,7 @@ export const exportDeckTool: ToolDefinition = {
       slide_count,
       byte_length: buffer.byteLength,
       warnings,
+      fidelity,
     };
 
     if (outputPath) {

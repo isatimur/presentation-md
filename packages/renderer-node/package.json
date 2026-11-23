@@ -42,5 +42,8 @@
     "url": "https://github.com/isatimur/presentation-md.git"
   },
   "homepage": "https://presentation-md.vercel.app",
-  "bugs": "https://github.com/isatimur/presentation-md/issues"
+  "bugs": "https://github.com/isatimur/presentation-md/issues",
+  "optionalDependencies": {
+    "@resvg/resvg-js": "^2.6.2"
+  }
 }

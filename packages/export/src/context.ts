@@ -1,3 +1,4 @@
+import type { FidelityKind } from "./fidelity.js";
 import type { ResolvedTheme } from "@presentation-md/core/theme-types";
 import type { PptxShapeArg } from "./pptx.js";
 import { resolveColor } from "./color.js";
@@ -49,7 +50,8 @@ export interface ExportContext {
   shapeRoundRect: PptxShapeArg;
   shapeOval: PptxShapeArg;
   shapeBlockArc: PptxShapeArg;
-  warn: (msg: string) => void;
+  /** Report content that could not be mapped exactly; `kind` feeds the fidelity report. */
+  warn: (msg: string, kind?: FidelityKind) => void;
 }
 
 /**
@@ -145,7 +147,7 @@ export interface BuildContextMeta {
 export function buildContext(
   theme: ResolvedTheme,
   shapes: ContextShapes,
-  warn: (msg: string) => void,
+  warn: (msg: string, kind?: FidelityKind) => void,
   meta: BuildContextMeta = {}
 ): ExportContext {
   const width = parsePxToInches(theme.geometry.slideWidth, 13.333);

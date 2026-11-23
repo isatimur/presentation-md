@@ -42,9 +42,31 @@ command -v npm >/dev/null 2>&1 || {
   exit 1
 }
 
-if [[ ! -d "$SCRIPT_DIR/node_modules/playwright" ]]; then
-  echo "installing playwright (first run only)..." >&2
-  npm install --prefix "$SCRIPT_DIR" --silent >&2
+# First-run install. npm creates node_modules/playwright before the install
+# finishes, so a parallel run must not take that folder as "installed". Only a
+# marker written after a successful install counts, and an atomic mkdir lock
+# lets one process install while the others wait.
+INSTALLED="$SCRIPT_DIR/node_modules/.pmd-playwright-installed"
+LOCK="$SCRIPT_DIR/.pmd-install.lock"
+if [[ ! -f "$INSTALLED" ]]; then
+  waited=0
+  until mkdir "$LOCK" 2>/dev/null; do
+    [[ -f "$INSTALLED" ]] && break
+    # A lock older than the wait limit belongs to a killed run: take it over.
+    if (( waited >= 300 )); then
+      rm -rf "$LOCK"
+      continue
+    fi
+    sleep 1
+    waited=$((waited + 1))
+  done
+  if [[ ! -f "$INSTALLED" ]]; then
+    trap 'rm -rf "$LOCK"' EXIT
+    echo "installing playwright (first run only)..." >&2
+    npm install --prefix "$SCRIPT_DIR" --silent >&2
+    touch "$INSTALLED"
+  fi
+  rm -rf "$LOCK"
 fi
 "$SCRIPT_DIR/node_modules/.bin/playwright" install chromium >&2
 
