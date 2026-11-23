@@ -50,6 +50,27 @@ describe("PPTX deck language", () => {
     expect(xml).toMatch(/rtl="1"/);
   });
 
+  for (const [lang, heading, lead] of [
+    ["he", "כותרת המצגת", "שורת משנה קצרה"],
+    ["fa", "عنوان ارائه", "یک زیرعنوان کوتاه"],
+    ["fa-IR", "عنوان ارائه", "یک زیرعنوان کوتاه"],
+  ] as const) {
+    it(`tags ${lang} runs with their language, right-to-left paragraphs and mirrored alignment`, async () => {
+      const d = {
+        type: "deck",
+        meta: { title: "Lang", theme: "test", lang },
+        slides: [{ layout: "title", heading, lead }],
+      } as DeckJson;
+      const xml = await slideXml(d);
+      expect(xml).toMatch(new RegExp(`lang="${lang}"`));
+      expect(xml).toMatch(/rtl="1"/);
+      expect(xml).toContain(heading);
+      // Left-aligned theme text is mirrored to the right in RTL decks.
+      expect(xml).not.toMatch(/algn="l"/);
+      expect(xml).toMatch(/algn="r"/);
+    });
+  }
+
   it("tags Japanese runs with lang=ja and keeps left-to-right", async () => {
     const xml = await slideXml(deck("ja"));
     expect(xml).toMatch(/lang="ja"/);

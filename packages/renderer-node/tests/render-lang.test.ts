@@ -40,6 +40,19 @@ describe("deck language in HTML", () => {
     expect(html).toContain("'Noto Sans Arabic'");
   });
 
+  it("sets lang and rtl for Hebrew with a Hebrew font fallback", async () => {
+    const html = await renderDeck(deck("he"));
+    expect(html).toMatch(/<html lang="he" dir="rtl">/);
+    expect(html).toContain("Noto+Sans+Hebrew");
+    expect(html).toContain("'Noto Sans Hebrew'");
+  });
+
+  it("sets lang and rtl for Persian (with region) using the Arabic-script fallback", async () => {
+    const html = await renderDeck(deck("fa-IR"));
+    expect(html).toMatch(/<html lang="fa-IR" dir="rtl">/);
+    expect(html).toContain("Noto+Sans+Arabic");
+  });
+
   it("adds a CJK fallback for Japanese and keeps ltr", async () => {
     const html = await renderDeck(deck("ja"));
     expect(html).toMatch(/<html lang="ja" dir="ltr">/);

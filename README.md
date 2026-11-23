@@ -72,6 +72,7 @@ Install matrix: [`docs/distribution/INSTALL-MATRIX.md`](docs/distribution/INSTAL
 | **Layouts** | **18** craft layouts + `custom-html` recipes | Template-driven HTML |
 | **MCP** | Typed tools: scaffold, render, export, audit, judge, preview, import | — |
 | **Export** | Native editable **PPTX** ↔ Deck JSON round-trip | HTML-first (+ PDF/deploy scripts) |
+| **Languages** | `meta.lang` sets HTML `lang`/`dir` and PPTX run language; **right-to-left** Arabic, Hebrew and Persian (mirrored PPTX paragraphs, Noto fallbacks) — proofs in `examples/decks/rtl-*.json` | Author-side |
 | **Proofs** | **75/75** structured gallery + Studio live preview | Showcase templates |
 | **Install** | `npx @presentation-md/install <agent>` + Claude `/slides` plugin | Clone / copy skill |
 
