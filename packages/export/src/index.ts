@@ -4,7 +4,14 @@ import { buildContext } from "./context.js";
 import { renderSlide } from "./layouts.js";
 import { withDeckLanguage } from "./lang.js";
 import { deckLangDir, normalizeDeckLang } from "@presentation-md/core/deck-lang";
-import { fontFidelity, type FidelityItem, type FidelityKind } from "./fidelity.js";
+import {
+  fontFidelity,
+  officeSafeFamily,
+  officeSafeTheme,
+  type FidelityItem,
+  type FidelityKind,
+  type FontMode,
+} from "./fidelity.js";
 import type { DeckJson } from "./deck-types.js";
 import {
   prefetchDeckImages,
@@ -25,7 +32,8 @@ export type {
   ChartSeries,
 } from "./deck-types.js";
 
-export { prefetchDeckImages, fontFidelity };
+export { prefetchDeckImages, fontFidelity, officeSafeFamily, officeSafeTheme };
+export type { FontMode };
 export type { FidelityItem, FidelityKind };
 export type { PrefetchImagesOptions, PrefetchImagesResult };
 
@@ -50,6 +58,12 @@ export interface PptxOptions {
   prefetchImages?: boolean;
   /** Options forwarded to {@link prefetchDeckImages} when prefetch is enabled. */
   prefetch?: PrefetchImagesOptions;
+  /**
+   * `"theme"` (default) keeps the theme's fonts; PowerPoint substitutes any the
+   * viewer lacks. `"office-safe"` swaps them for Office fonts of the same style
+   * (Arial, Georgia, Consolas) so the deck looks the same on every machine.
+   */
+  fontMode?: FontMode;
 }
 
 export interface BuildResult {
@@ -89,6 +103,11 @@ export async function buildPptx(
     opts.onWarn?.(prefixed);
     report(currentSlide > 0 ? { kind, slide: currentSlide, message: prefixed } : { kind, message: prefixed });
   };
+  if (opts.fontMode === "office-safe") {
+    const safe = officeSafeTheme(theme);
+    theme = safe.theme;
+    for (const item of safe.items) report(item);
+  }
   for (const item of fontFidelity(theme)) report(item);
 
   let working = deck;

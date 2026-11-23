@@ -51,6 +51,10 @@ export function buildProgram(): Command {
     .option("-o, --output <path>", "output file (default: deck.html, deck.pptx, or deck.json)")
     .option("-f, --format <fmt>", "output format: html | pptx | pdf | md | notes_txt | notes_vtt", "html")
     .option("-t, --theme <name>", "theme name (overrides deck meta.theme)")
+    .option(
+      "--font-mode <mode>",
+      "pptx fonts: theme (default) | office-safe (Arial/Georgia/Consolas, same look on every Office install)"
+    )
     .option("--from-pptx <path>", "import a .pptx file to deck JSON instead of rendering")
     .option("--from-md <path>", "import Marp/md-slides Markdown to deck JSON instead of rendering")
     .option("--assets-dir <dir>", "with --from-pptx, write images to this directory instead of data URIs")
@@ -183,6 +187,7 @@ export function buildProgram(): Command {
       output?: string;
       format: string;
       theme?: string;
+      fontMode?: string;
       fromPptx?: string;
       fromMd?: string;
       assetsDir?: string;
@@ -902,8 +907,12 @@ export function buildProgram(): Command {
 
       try {
         if (format === "pptx") {
+          if (options.fontMode && options.fontMode !== "theme" && options.fontMode !== "office-safe") {
+            throw new Error(`Unknown --font-mode "${options.fontMode}" (expected theme | office-safe)`);
+          }
           const buffer = await renderDeckPptx(deckJson, {
             onWarn: (msg) => process.stderr.write(`  warning: ${msg}\n`),
+            fontMode: options.fontMode as "theme" | "office-safe" | undefined,
           });
           await writeFile(outputPath, buffer);
         } else if (format === "pdf") {

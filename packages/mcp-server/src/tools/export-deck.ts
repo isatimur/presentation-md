@@ -43,6 +43,12 @@ export const exportDeckTool: ToolDefinition = {
           "Output format (default: pptx). pdf uses headless Chromium print (vector, not screenshots). md/markdown emits Marp-style Markdown. notes_txt/txt and notes_vtt/vtt emit speaker-notes handouts (Studio Source ▾ parity).",
       },
       theme: { type: "string", description: "Theme name to apply (overrides meta.theme in the deck)" },
+      font_mode: {
+        type: "string",
+        enum: ["theme", "office-safe"],
+        description:
+          "PPTX only. theme (default) keeps the theme fonts; PowerPoint substitutes any the viewer lacks (see fidelity font items). office-safe swaps them for Office fonts of the same style (Arial, Georgia, Consolas) so the deck looks the same on every Office install.",
+      },
       output_path: {
         type: "string",
         description: "Path within the current working directory to write the exported file",
@@ -54,6 +60,10 @@ export const exportDeckTool: ToolDefinition = {
     const rawJson = input["json"] as string;
     const format = ((input["format"] as string | undefined) ?? "pptx").toLowerCase();
     const theme = input["theme"] as string | undefined;
+    const fontMode = input["font_mode"] as string | undefined;
+    if (fontMode !== undefined && fontMode !== "theme" && fontMode !== "office-safe") {
+      throw new Error(`Unknown font_mode "${fontMode}" (expected theme | office-safe)`);
+    }
     const outputPathInput = input["output_path"] as string | undefined;
 
     if (
@@ -180,6 +190,7 @@ export const exportDeckTool: ToolDefinition = {
       ...resolveThemesDir(),
       onWarn: (msg) => warnings.push(msg),
       onFidelity: (item) => fidelity.push(item),
+      fontMode: fontMode as "theme" | "office-safe" | undefined,
     });
 
     const result: {

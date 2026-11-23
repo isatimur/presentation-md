@@ -62,6 +62,56 @@ const OFFICE_FONTS = new Set(
   ].map((f) => f.toLowerCase())
 );
 
+/** How PPTX export picks fonts: the theme's own, or Office fonts of the same style. */
+export type FontMode = "theme" | "office-safe";
+
+/**
+ * Office font for a CSS font stack. The first family in the stack that ships
+ * with Office wins (so a theme's own fallback such as Impact or Georgia is
+ * kept). Otherwise pick by style: monospace → Consolas, serif → Georgia,
+ * anything else → Arial, judged from the stack's generic, then the name.
+ */
+export function officeSafeFamily(cssStack: string): string {
+  const family = parseFontFamily(cssStack);
+  const parts = cssStack.split(",").map((p) => p.trim().replace(/^['"]|['"]$/g, ""));
+  const office = parts.find((p) => OFFICE_FONTS.has(p.toLowerCase()));
+  if (office) return office;
+  const generics = parts.map((p) => p.toLowerCase());
+  const name = family.toLowerCase();
+  if (generics.includes("monospace") || generics.includes("ui-monospace") || /\bmono\b|\bcode\b|courier/.test(name)) {
+    return "Consolas";
+  }
+  if (
+    (generics.includes("serif") || generics.includes("ui-serif")) ||
+    (/serif|garamond|playfair|times|baskerville|caslon|didot|bodoni|fraunces|lora|merriweather/.test(name) &&
+      !/sans/.test(name))
+  ) {
+    return "Georgia";
+  }
+  return "Arial";
+}
+
+/**
+ * Theme copy whose heading and body fonts are Office fonts of the same style,
+ * plus one `font` item per family that changed, so the report says what moved.
+ */
+export function officeSafeTheme(theme: ResolvedTheme): { theme: ResolvedTheme; items: FidelityItem[] } {
+  const items: FidelityItem[] = [];
+  const reported = new Set<string>();
+  const swap = (role: string, stack: string): string => {
+    const from = parseFontFamily(stack);
+    const to = officeSafeFamily(stack);
+    if (to !== from && !reported.has(from)) {
+      reported.add(from);
+      items.push({ kind: "font", message: `${role} font "${from}" replaced by "${to}" (office-safe font mode).` });
+    }
+    return to;
+  };
+  const headingFont = swap("Heading", theme.typography.headingFont);
+  const bodyFont = swap("Body", theme.typography.bodyFont);
+  return { theme: { ...theme, typography: { ...theme.typography, headingFont, bodyFont } }, items };
+}
+
 /** Family names from theme `googleFonts` specs such as "Inter:wght@400;600". */
 function googleFamilies(theme: ResolvedTheme): Set<string> {
   const specs = theme.typography.googleFonts ?? [];
