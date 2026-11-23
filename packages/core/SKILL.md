@@ -76,6 +76,8 @@ If they already named a theme/alias/brand URL, skip to Phase 3 (`import_brand_th
 3. `audit_deck` (`apply_safe_fixes` / `remorph_density` as needed) then `judge_deck` (t1+)
 4. `render_deck` / export PPTX / hand Studio link
 
+**Revisions** ("make slide 3 punchier", "move the ask earlier", "fix the audit issue on slide 5"): save the deck as a JSON file, then `outline_deck(deck_path)` → `edit_deck(deck_path, operations)` on the slides that change. Do not regenerate or resend the whole deck for a slide-level change; `edit_deck` returns the touched slides' audit issues to fix next.
+
 Only open `references/deck-schema.md` and layout details when emitting or repairing JSON. Prefer recipe maps in `references/layout-recipes.md` over freehanding 14-slide feature-grid funerals.
 
 **Direct-HTML fallback** (no tooling): single self-contained `.html`, internal CSS only, fixed 16:9 stage — see Rendering Guidelines below.
@@ -465,6 +467,8 @@ Fourteen tools via `@presentation-md/mcp-server` (not the deprecated `@presentat
 |------|-----------|
 | `render_deck` | Convert deck JSON → polished HTML |
 | `export_deck` | Export deck JSON → `.pptx`, vector PDF, html, **Markdown** (`format: "md"` — Marp round-trip), or **speaker-notes** handouts (`format: "notes_txt"` / `"notes_vtt"`) |
+| `outline_deck` | Read a deck slide by slide: layout, title, words, notes and audit issues per slide; `include: [n]` returns those slides in full. Use before revising instead of re-reading the whole deck |
+| `edit_deck` | Revise single slides: batch of `update_slide` (merge fields, `null` removes) / `replace_slide` / `insert_slide` / `delete_slide` / `move_slide` / `update_meta`. Validates; saves nothing on failure. Pass `deck_path` to edit the file in place — never rewrite the whole deck for a one-slide change |
 | `audit_deck` | Schema-validate + craft gates; optional `apply_safe_fixes` returns repaired JSON (fields + beat inserts: image-hero / comparison / data / logo-wall / wrap tones + theme-honesty leftovers); optional `remorph_density` (`speaker`/`reading`) for non-LLM structural density remorph |
 | `list_themes` | See installed themes with vibe/description + proof deep-links (`preview_url` + always-on `studio_url`); filter with `browse` chips (site/Studio parity), shortlist, mood, or query; use `suggested_preview` (safe/bold/wildcard) for pick-3 |
 | `apply_theme` | Swap `meta.theme` (default also runs `repairCraft` for theme honesty — Studio My deck Use parity; pass `apply_safe_fixes:false` for a pure swap) |

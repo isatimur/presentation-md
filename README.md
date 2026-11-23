@@ -392,6 +392,8 @@ pnpm --filter @presentation-md/studio build:web   # static build → web/studio/
 | `render_deck` | Render a Deck JSON string to a self-contained HTML file |
 | `export_deck` | Export a Deck JSON to native PowerPoint (`.pptx`), vector PDF, or html |
 | `audit_deck` | Schema-validate + craft gates; optional `apply_safe_fixes` returns repaired JSON |
+| `outline_deck` | Per-slide outline (layout, title, words, notes, audit issues); `include` returns chosen slides in full |
+| `edit_deck` | Edit single slides in a batch (update / replace / insert / delete / move / meta); validates and saves nothing on failure; works on a `deck_path` file in place |
 | `judge_deck` | Design judge — t0/t1 JSON gates; **t2** HTML metrics + Chrome shots; **t3** panel/agent rubric |
 | `list_themes` | Enumerate available themes (bundled + installed) with name, version, and vibe |
 | `apply_theme` | Swap `meta.theme` (default also runs `repairCraft` — Studio My deck Use parity; pass `apply_safe_fixes:false` for a pure swap) |

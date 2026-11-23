@@ -40,15 +40,17 @@ const MINIMAL_VALID_DECK = {
 };
 
 describe("tool registry", () => {
-  it("registers all 14 MCP tools for client discovery", () => {
+  it("registers all 16 MCP tools for client discovery", () => {
     const tools = listToolDefinitions();
-    expect(tools).toHaveLength(14);
+    expect(tools).toHaveLength(16);
     expect(TOOL_NAMES).toEqual([
       "render_deck",
       "export_deck",
       "list_themes",
       "apply_theme",
       "audit_deck",
+      "outline_deck",
+      "edit_deck",
       "judge_deck",
       "generate_deck_prompt",
       "scaffold_deck",
