@@ -1,4 +1,11 @@
-import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { restyleSlideHtml } from "./DeckRestylePreview.js";
 import { SlideFilmstrip } from "./SlideFilmstrip.js";
 import { prepareSandboxedPreviewHtml } from "../render/sandboxPreview.js";
@@ -376,7 +383,10 @@ export function PresentMode({
     return () => window.clearInterval(id);
   }, [timerRunning]);
 
-  useEffect(() => {
+  // Layout effect, not a passive effect: the key listener must be attached
+  // before the overlay paints, or an Esc pressed the moment "Exit · Esc" shows
+  // can arrive before the listener exists and leave Present stuck open.
+  useLayoutEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       // Escape must win even if a closing command-palette capture handler marked
       // the event defaultPrevented — otherwise Present can get stuck open.
