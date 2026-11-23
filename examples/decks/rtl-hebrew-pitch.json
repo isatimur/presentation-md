@@ -1,0 +1,55 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "נווה — מצגת משקיעים",
+    "company": "נווה",
+    "description": "Hebrew right-to-left proof: native PPTX paragraphs, mirrored layouts, Noto Sans Hebrew fallback.",
+    "theme": "fintech-clean",
+    "lang": "he"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "סבב A · 2026",
+      "heading": "תשלומים לעסקים קטנים, בלי ניירת.",
+      "lead": "נווה סוגרת חשבוניות תוך יום אחד במקום שלושים.",
+      "notes": "פתיחה: הבעיה במשפט אחד, לפני המספרים."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "תנועה",
+      "heading": "המספרים מאז ההשקה",
+      "stats": [
+        { "value": "4,200", "label": "עסקים פעילים" },
+        { "value": "₪38M", "label": "נפח חודשי" },
+        { "value": "97%", "label": "שימור לקוחות" }
+      ],
+      "notes": "לעצור על השימור — זה הסיפור."
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "למה עכשיו",
+      "heading": "לפני ואחרי נווה",
+      "leftLabel": "היום",
+      "left": "חשבונית בדואר.\nתשלום אחרי 30 יום.\nמעקב בגיליון.",
+      "rightLabel": "עם נווה",
+      "right": "קישור לתשלום בוואטסאפ.\nכסף בחשבון תוך יום.\nהתאמה אוטומטית להנהלת חשבונות.",
+      "emphasis": "right"
+    },
+    {
+      "layout": "quote",
+      "quote": "פעם ראשונה שאני לא רודף אחרי לקוחות בסוף החודש.",
+      "attribution": "דנה, בעלת סטודיו לעיצוב בחיפה"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "השלב הבא",
+      "heading": "מגייסים ₪12M להתרחבות לאירופה.",
+      "lead": "נשמח לשיחת המשך השבוע.",
+      "actions": [
+        { "label": "קביעת פגישה", "style": "solid", "icon": "fa-solid fa-calendar" },
+        { "label": "הורדת המצגת", "style": "outline", "icon": "fa-solid fa-download" }
+      ]
+    }
+  ]
+}

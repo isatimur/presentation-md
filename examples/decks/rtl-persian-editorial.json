@@ -1,0 +1,54 @@
+{
+  "type": "deck",
+  "meta": {
+    "title": "خانهٔ کتاب — گزارش سالانه",
+    "company": "خانهٔ کتاب",
+    "description": "Persian right-to-left proof: native PPTX paragraphs, mirrored layouts, Arabic-script font fallback.",
+    "theme": "heritage-editorial",
+    "lang": "fa"
+  },
+  "slides": [
+    {
+      "layout": "title",
+      "eyebrow": "گزارش سالانه · ۱۴۰۵",
+      "heading": "کتاب‌خانه‌ای که به خانه‌ها رفت.",
+      "lead": "سالی که امانت کتاب از قفسه به پیک رسید.",
+      "notes": "با یک جمله شروع کن؛ عددها بعد."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "سال در یک نگاه",
+      "heading": "آنچه امسال اتفاق افتاد",
+      "stats": [
+        { "value": "۱۸٬۰۰۰", "label": "عضو تازه" },
+        { "value": "۶۴٪", "label": "امانت آنلاین" },
+        { "value": "۱۲", "label": "شهر" }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "تغییر",
+      "heading": "از قفسه تا در خانه",
+      "leftLabel": "پیش‌تر",
+      "left": "صف امانت.\nساعت کاری محدود.\nفهرست کاغذی.",
+      "rightLabel": "اکنون",
+      "right": "رزرو در تلفن همراه.\nتحویل در همان روز.\nپیشنهاد کتاب برای هر خواننده.",
+      "emphasis": "right"
+    },
+    {
+      "layout": "quote",
+      "quote": "دخترم حالا هر هفته منتظر کتاب تازه است.",
+      "attribution": "مریم، عضو شعبهٔ شیراز"
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "سال آینده",
+      "heading": "بیست شهر، یک کارت عضویت.",
+      "lead": "به ما در گسترش شبکه بپیوندید.",
+      "actions": [
+        { "label": "حمایت از طرح", "style": "solid", "icon": "fa-solid fa-heart" },
+        { "label": "دریافت گزارش", "style": "outline", "icon": "fa-solid fa-download" }
+      ]
+    }
+  ]
+}
