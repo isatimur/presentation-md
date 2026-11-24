@@ -795,8 +795,8 @@ function defaultFieldsForLayout(
     case "two-column":
       return {
         heading: "How it works",
-        left: "Replace with the primary column.",
-        right: "Replace with supporting detail or visual cue.",
+        body: "Replace with the primary column.",
+        aside: "Replace with supporting detail or visual cue.",
         ratio: "2-1",
       };
     case "feature-grid":
@@ -825,7 +825,7 @@ function defaultFieldsForLayout(
     case "data-table":
       return {
         heading: "Evidence table",
-        headers: ["Metric", "Before", "After"],
+        columns: ["Metric", "Before", "After"],
         rows: [
           ["Cycle time", "Days", "Hours"],
           ["Rewrites", "Many", "One schema"],
@@ -835,7 +835,7 @@ function defaultFieldsForLayout(
     case "timeline":
       return {
         heading: "Roadmap",
-        items: [
+        steps: [
           { title: "Now", body: "Replace." },
           { title: "Next", body: "Replace." },
           { title: "Later", body: "Replace." },
@@ -845,11 +845,9 @@ function defaultFieldsForLayout(
     case "chart":
       return {
         heading: "Primary finding",
-        chart: {
-          type: "bar",
-          labels: ["A", "B", "C"],
-          series: [{ name: "Signal", values: [42, 68, 91] }],
-        },
+        chartType: "bar",
+        categories: ["A", "B", "C"],
+        series: [{ name: "Signal", values: [42, 68, 91] }],
       };
     case "code":
       return {
