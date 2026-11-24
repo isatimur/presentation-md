@@ -108,6 +108,27 @@ export function readableOn(fill: string, candidates: string[]): string {
   return pool.reduce((best, c) => (contrastRatio(fill, c) > contrastRatio(fill, best) ? c : best));
 }
 
+/**
+ * The accent as an ink for figures (stat numbers, chart bars, streak cells) on `bg`.
+ * Keeps the accent when it already reaches `min` contrast; otherwise moves its
+ * lightness away from the background, keeping hue and saturation, until it does.
+ * Pastel accents stay pastel as fills; figures drawn in them stay visible.
+ */
+export function accentInk(accent: string, bg: string, min = 3): string {
+  const hex = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i;
+  if (!hex.test(accent.trim()) || !hex.test(bg.trim())) return accent;
+  if (contrastRatio(accent, bg) >= min) return accent;
+  const darken = relativeLuminance(bg) > 0.18;
+  const [, , l0] = rgbToHsl(hexToRgb(accent));
+  for (let step = 2; step <= 100; step += 2) {
+    const l = darken ? l0 - step : l0 + step;
+    if (l < 0 || l > 100) break;
+    const candidate = withLightness(accent, l);
+    if (contrastRatio(candidate, bg) >= min) return candidate;
+  }
+  return darken ? "#111111" : "#ffffff";
+}
+
 export function withLightness(hex: string, lightness: number): string {
   const [h, s] = rgbToHsl(hexToRgb(hex));
   const clamped = Math.max(0, Math.min(100, lightness));

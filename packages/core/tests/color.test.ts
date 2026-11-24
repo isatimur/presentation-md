@@ -8,7 +8,34 @@ import {
   contrastRatio,
   withLightness,
   readableOn,
+  accentInk,
 } from "../src/color.js";
+
+describe("accentInk", () => {
+  // [accent, bg, expected] from split-pastel, vintage-editorial, raw-grid,
+  // soft-editorial, neo-grid-bold, scatterbrain; the Python port pins the same values.
+  const cases: Array<[string, string, string]> = [
+    ["#c8f0d8", "#f5e6dc", "#289152"],
+    ["#e8d4c0", "#f5f3ee", "#b87d43"],
+    ["#F2D4CF", "#FFFFFF", "#d67767"],
+    ["#B7C7A8", "#F2EEDF", "#748f5c"],
+    ["#E6FF3D", "#ECECE8", "#7c8f00"],
+    ["#FFE066", "#FAF8F3", "#ad8a00"],
+  ];
+  it.each(cases)("darkens pastel %s on %s to reach 3:1", (accent, bg, expected) => {
+    const ink = accentInk(accent, bg);
+    expect(ink).toBe(expected);
+    expect(contrastRatio(ink, bg)).toBeGreaterThanOrEqual(3);
+  });
+
+  it("keeps an accent that already reads", () => {
+    expect(accentInk("#00e5ff", "#0a1f3d")).toBe("#00e5ff");
+  });
+
+  it("passes through non-hex colours", () => {
+    expect(accentInk("var(--x)", "#fff")).toBe("var(--x)");
+  });
+});
 
 describe("readableOn", () => {
   it("keeps the theme colour when it reads well", () => {

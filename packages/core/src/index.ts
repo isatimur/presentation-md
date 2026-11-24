@@ -132,7 +132,7 @@ export type {
   ThemesDiscoveryListedTheme,
   ThemesDiscoveryListResult,
 } from "./themes-discovery-list.js";
-export { relativeLuminance, contrastRatio, hexToRgb, rgbToHex, readableOn } from "./color.js";
+export { relativeLuminance, contrastRatio, hexToRgb, rgbToHex, readableOn, accentInk } from "./color.js";
 export {
   MAX_SHARE_TOKEN_CHARS,
   MAX_SHARE_JSON_BYTES,
