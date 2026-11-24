@@ -1,7 +1,7 @@
 import Mustache from "mustache";
 import type { ResolvedTheme } from "@presentation-md/core/theme-types";
 import { renderChartSvg } from "@presentation-md/core/chart-svg";
-import { readableOn } from "@presentation-md/core/color";
+import { readableOn, accentInk } from "@presentation-md/core/color";
 import { sanitizeCustomHtml } from "@presentation-md/core/sanitize-html";
 import { candyMarqueeText } from "@presentation-md/core/candy-marquee";
 import {
@@ -297,6 +297,8 @@ export function renderDeckHtml(deck: DeckJson, theme: ResolvedTheme): string {
     accent: theme.palette.accent,
     accent2: theme.palette.accent2,
     onAccent: readableOn(theme.palette.accent, [theme.palette.bg, theme.palette.text]),
+    accentInk: accentInk(theme.palette.accent, theme.palette.bg),
+    accent2Ink: accentInk(theme.palette.accent2, theme.palette.bg, 4.5),
     cardBg: theme.palette.cardBg,
     border: theme.palette.border,
     radius: theme.geometry.radius,

@@ -38,7 +38,8 @@ export interface ChartColors {
 }
 
 const DEFAULT_COLORS: Required<Omit<ChartColors, "extras">> & { extras: string[] } = {
-  accent: "var(--accent)",
+  // --accent-ink reaches 3:1 on bg; pastel accents vanish as bars otherwise.
+  accent: "var(--accent-ink, var(--accent))",
   // base.css defines --accent-2 (with a hyphen). An undefined var() makes SVG fill black.
   accent2: "var(--accent-2)",
   text: "var(--text)",
