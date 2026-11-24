@@ -312,6 +312,22 @@ describe("presentation-md-render CLI flags", () => {
     expect(html).toContain('"theme":"claude"');
   });
 
+  it("renders a theme installed with npm in the current project", async () => {
+    const dir = await tempDir();
+    // `npm i @presentation-md/theme-coral` layout: node_modules/<scope>/theme-<name>.
+    const pkg = join(dir, "node_modules", "@presentation-md", "theme-coral");
+    await mkdir(pkg, { recursive: true });
+    const manifest = await readFile(resolve(pkgRoot, "..", "themes", "coral", "theme.json"), "utf-8");
+    await writeFile(join(pkg, "theme.json"), manifest);
+    const deckPath = join(dir, "deck.json");
+    const outPath = join(dir, "out.html");
+    await writeFile(deckPath, JSON.stringify({ ...MINIMAL_DECK, meta: { title: "npm", theme: "coral" } }));
+    const { code, stderr } = await runCli([deckPath, "-o", outPath], { cwd: dir });
+    expect(stderr).toBe("");
+    expect(code).toBe(0);
+    expect(await readFile(outPath, "utf-8")).toContain('class="deck" data-surface="coral-hatch"');
+  });
+
   it("rejects unknown --format", async () => {
     const dir = await tempDir();
     const deckPath = join(dir, "deck.json");

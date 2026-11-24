@@ -3,7 +3,7 @@ export { deckOutline, applyDeckEdits, DeckEditError } from "./deck-edit.js";
 export type { DeckOutline, DeckOutlineSlide, DeckEditOp } from "./deck-edit.js";
 export { validateThemeJson } from "./validate-theme.js";
 export type { ValidationResult } from "./validate-deck.js";
-export { loadTheme, discoverInstalledThemes } from "./theme-loader.js";
+export { loadTheme, discoverInstalledThemes, npmThemeDirs } from "./theme-loader.js";
 export { surfaceForTheme, THEME_SURFACE } from "./theme-surface.js";
 export type {
   ThemeManifest,

@@ -47,14 +47,25 @@ const DEFAULT_GEOMETRY: Geometry = {
 
 async function readManifest(name: string, searchDirs: string[]): Promise<ThemeManifest> {
   for (const dir of searchDirs) {
-    try {
-      const raw = await readFile(join(dir, name, "theme.json"), "utf-8");
-      return JSON.parse(raw) as ThemeManifest;
-    } catch {
-      /* try next directory */
+    // `<dir>/<name>` is the monorepo layout; `<dir>/theme-<name>` is an npm
+    // package under node_modules/@presentation-md.
+    for (const folder of [name, `theme-${name}`]) {
+      try {
+        const raw = await readFile(join(dir, folder, "theme.json"), "utf-8");
+        return JSON.parse(raw) as ThemeManifest;
+      } catch {
+        /* try next location */
+      }
     }
   }
   throw new Error(`Theme not found: ${name}`);
+}
+
+/** Scope folders where `npm i @presentation-md/theme-<name>` puts themes. */
+export function npmThemeDirs(projectRoot: string): string[] {
+  return ["@presentation-md", "@presentation-skill-pack"].map((scope) =>
+    join(projectRoot, "node_modules", scope)
+  );
 }
 
 export async function loadTheme(name: string, opts: LoadOptions): Promise<ResolvedTheme> {
