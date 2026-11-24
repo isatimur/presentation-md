@@ -92,3 +92,22 @@ def test_on_accent_token_is_filled_and_matches_core() -> None:
     assert _readable_on("#00e5ff", ["#0a1f3d", "#e8f4ff"]) == "#0a1f3d"
     assert _readable_on("#b8f0d8", ["#fdfcf8", "#f4f4f4"]) == "#111111"
     assert _readable_on("rgba(0,0,0,0.5)", ["#fff"]) == "#fff"
+
+
+@pytest.mark.parametrize(
+    ("accent", "bg", "expected"),
+    [
+        # Same cases as core tests/color.test.ts accentInk.
+        ("#c8f0d8", "#f5e6dc", "#289152"),
+        ("#e8d4c0", "#f5f3ee", "#b87d43"),
+        ("#F2D4CF", "#FFFFFF", "#d67767"),
+        ("#B7C7A8", "#F2EEDF", "#748f5c"),
+        ("#E6FF3D", "#ECECE8", "#7c8f00"),
+        ("#FFE066", "#FAF8F3", "#ad8a00"),
+        ("#00e5ff", "#0a1f3d", "#00e5ff"),
+    ],
+)
+def test_accent_ink_matches_core(accent: str, bg: str, expected: str) -> None:
+    from presentation_md_render.renderer import _accent_ink
+
+    assert _accent_ink(accent, bg) == expected

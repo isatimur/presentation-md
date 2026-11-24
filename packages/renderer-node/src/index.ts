@@ -18,6 +18,7 @@ import {
   resolveDeckChrome,
   deckChromeJson,
   readableOn,
+  accentInk,
 } from "@presentation-md/core";
 import type { DeckChromeCatalog } from "@presentation-md/core";
 import type { ValidationResult, ChartSeries } from "@presentation-md/core";
@@ -554,6 +555,7 @@ export async function renderDeck(deckJson: string, opts?: RenderOptions): Promis
     accent: theme.palette.accent,
     accent2: theme.palette.accent2,
     onAccent: readableOn(theme.palette.accent, [theme.palette.bg, theme.palette.text]),
+    accentInk: accentInk(theme.palette.accent, theme.palette.bg),
     cardBg: theme.palette.cardBg,
     border: theme.palette.border,
     radius: theme.geometry.radius,

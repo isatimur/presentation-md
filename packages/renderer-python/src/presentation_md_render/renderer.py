@@ -138,6 +138,49 @@ def _readable_on(fill: str, candidates: list[str]) -> str:
     return best
 
 
+def _js_round(x: float) -> int:
+    # Math.round semantics (half up), not Python's banker's rounding.
+    return int(x + 0.5)
+
+
+def _hex_full(hex_color: str) -> str:
+    h = hex_color.strip().lstrip("#")
+    return "".join(c * 2 for c in h) if len(h) == 3 else h
+
+
+def _with_lightness(hex_color: str, lightness: float) -> str:
+    """Port of core withLightness (HSL, lightness 0-100)."""
+    import colorsys
+
+    h = _hex_full(hex_color)
+    r, g, b = (int(h[i : i + 2], 16) / 255 for i in (0, 2, 4))
+    hue, _, sat = colorsys.rgb_to_hls(r, g, b)
+    light = max(0.0, min(100.0, lightness)) / 100
+    rr, gg, bb = colorsys.hls_to_rgb(hue, light, sat)
+    return "#" + "".join(f"{max(0, min(255, _js_round(c * 255))):02x}" for c in (rr, gg, bb))
+
+
+def _accent_ink(accent: str, bg: str, minimum: float = 3) -> str:
+    """Port of core accentInk: the accent moved away from bg until it reaches `minimum`."""
+    import colorsys
+
+    if not _HEX.match(accent.strip()) or not _HEX.match(bg.strip()):
+        return accent
+    if _contrast(accent, bg) >= minimum:
+        return accent
+    darken = _luminance(bg) > 0.18
+    h = _hex_full(accent)
+    l0 = colorsys.rgb_to_hls(*(int(h[i : i + 2], 16) / 255 for i in (0, 2, 4)))[1] * 100
+    for step in range(2, 101, 2):
+        light = l0 - step if darken else l0 + step
+        if light < 0 or light > 100:
+            break
+        candidate = _with_lightness(accent, light)
+        if _contrast(candidate, bg) >= minimum:
+            return candidate
+    return "#111111" if darken else "#ffffff"
+
+
 def _google_fonts_url(families: list[str]) -> str:
     if not families:
         return ""
@@ -189,6 +232,7 @@ def render_deck(deck_json: str | dict[str, Any], opts: RenderOptions | None = No
         "onAccent": _readable_on(
             theme["palette"]["accent"], [theme["palette"]["bg"], theme["palette"]["text"]]
         ),
+        "accentInk": _accent_ink(theme["palette"]["accent"], theme["palette"]["bg"]),
         "cardBg": theme["palette"]["cardBg"],
         "border": theme["palette"]["border"],
         "radius": theme["geometry"]["radius"],
