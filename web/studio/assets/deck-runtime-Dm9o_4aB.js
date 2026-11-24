@@ -1,4 +1,4 @@
-const H=`<section class="slide chart-slide" data-layout="chart">
+const z=`<section class="slide chart-slide" data-layout="chart">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -6,7 +6,7 @@ const H=`<section class="slide chart-slide" data-layout="chart">
     {{{chartSvg}}}
   </div>
 </section>
-`,z=`<section class="slide title-slide closing-slide" data-layout="closing">
+`,H=`<section class="slide title-slide closing-slide" data-layout="closing">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   <h1>{{heading}}</h1>
   {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
@@ -59,6 +59,7 @@ const H=`<section class="slide chart-slide" data-layout="chart">
 `,W=`<section class="slide data-table-slide" data-layout="data-table">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
+  {{#lead}}<p class="lead">{{lead}}</p>{{/lead}}
   <table>
     <thead>
       <tr>{{#columns}}<th>{{.}}</th>{{/columns}}</tr>
@@ -70,7 +71,7 @@ const H=`<section class="slide chart-slide" data-layout="chart">
     </tbody>
   </table>
 </section>
-`,D=`<section class="slide feature-grid-slide" data-layout="feature-grid">
+`,A=`<section class="slide feature-grid-slide" data-layout="feature-grid">
   {{#eyebrow}}<span class="eyebrow">{{eyebrow}}</span>{{/eyebrow}}
   {{#heading}}<h2>{{heading}}</h2>{{/heading}}
   <div class="grid cols-{{columns}}">
@@ -83,7 +84,7 @@ const H=`<section class="slide chart-slide" data-layout="chart">
     {{/cards}}
   </div>
 </section>
-`,A=`<section class="slide image-hero-slide" data-layout="image-hero">
+`,D=`<section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
     {{#image}}<img src="{{image}}" alt="{{imageAlt}}" />{{/image}}
     <div class="image-hero-scrim"></div>
@@ -218,7 +219,7 @@ const H=`<section class="slide chart-slide" data-layout="chart">
     {{^image}}{{#aside}}<div class="cols-aside"><p>{{aside}}</p></div>{{/aside}}{{/image}}
   </div>
 </section>
-`,U=`/* presentation-md base stylesheet.
+`,K=`/* presentation-md base stylesheet.
    Theme tokens are injected via the :root block below. Layout fragments in
    ./layouts/*.html consume these CSS variables and class names. */
 
@@ -229,6 +230,12 @@ const H=`<section class="slide chart-slide" data-layout="chart">
   --muted: {{muted}};
   --accent: {{accent}};
   --accent-2: {{accent2}};
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: {{onAccent}};
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: {{accentInk}};
+  --accent-2-ink: {{accent2Ink}};
   --card-bg: {{cardBg}};
   --border: {{border}};
   --radius: {{radius}};
@@ -236,6 +243,10 @@ const H=`<section class="slide chart-slide" data-layout="chart">
   --heading-font: {{{headingFont}}};
   --body-font: {{{bodyFont}}};
   --heading-weight: {{headingWeight}};
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -290,7 +301,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -339,7 +351,7 @@ h1, h2, h3 {
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -349,7 +361,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -403,13 +415,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -427,17 +440,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -473,8 +490,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -564,8 +581,11 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Cards stretch to fill the grid. Pin the icon to the top and the copy to the
+   bottom so a tall card is composed, not a box with text stuck to its top. */
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -594,12 +614,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -611,34 +632,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -696,9 +725,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -728,8 +759,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -737,13 +768,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -759,7 +791,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -774,8 +808,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -796,7 +830,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -824,7 +858,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -849,6 +884,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -864,13 +902,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -902,25 +940,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -945,7 +989,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -986,7 +1030,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -1013,10 +1057,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -1035,15 +1084,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -1071,17 +1122,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -1781,7 +1837,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   .pmd-edit-hotzone,
   .pmd-edit-toggle { display: none !important; }
 }
-`,K=`/* Per-theme surface profiles — each theme gets a distinct stage, not one shared blob. */
+`,U=`/* Per-theme surface profiles — each theme gets a distinct stage, not one shared blob. */
 
 .deck[data-surface] .slide {
   background: var(--slide-bg, radial-gradient(125% 125% at 0% 0%, var(--bg-2), var(--bg)));
@@ -2407,6 +2463,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2454,6 +2515,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2481,6 +2558,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3236,6 +3318,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3310,6 +3403,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3597,14 +3712,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3675,10 +3793,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3690,7 +3810,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3842,9 +3962,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3938,6 +4060,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -4090,7 +4217,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -4099,6 +4226,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4259,6 +4395,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4368,9 +4513,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4430,10 +4594,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4441,13 +4607,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4554,10 +4724,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5403,6 +5574,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5602,6 +5800,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5924,7 +6129,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6230,11 +6436,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6300,7 +6505,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6667,6 +6875,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
+}
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
 }
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
@@ -8023,4 +8237,4 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <\/script>
 </body>
 </html>
-`,v={navHint:"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help",editButtonTitle:"Edit mode (E)",editButton:"Edit",slideNavLabel:"Slide navigation",blackoutHint:"Blackout · B or click to restore",whiteoutHint:"Whiteout · W or click to restore",notesRailLabel:"Speaker notes",notesRailHint:"Speaker notes · S to hide",upNext:"Up next",filmstripPeekLabel:"Slide filmstrip peek",filmstripLabel:"Slide filmstrip",presenterControlsLabel:"Presenter controls",timerTitleInitial:"Elapsed · P pace · T pause · R reset",btnSpeakerTitle:"Speaker notes window (O)",btnSpeaker:"Speaker · O",btnNotesTitle:"Toggle speaker notes (S)",btnNotes:"Notes · S",btnStripTitle:"Toggle filmstrip peek (F)",btnStripHide:"Hide strip · F",btnOverviewTitle:"Overview grid (G)",btnOverview:"Overview · G",btnEditTitle:"Edit text (E) · ⌘/Ctrl+S saves",btnEdit:"Edit · E",btnSaveTitle:"Save HTML (⌘/Ctrl+S)",btnSave:"Save · ⌘S",btnLaserTitle:"Laser pointer (L)",btnLaser:"Laser · L",btnInkTitle:"Ink / draw (D) · C clears",btnInk:"Ink · D",btnInkClearTitle:"Clear ink (C)",btnInkClear:"Clear ink · C",btnBlackoutTitle:"Blackout (B)",btnBlackout:"Blackout · B",btnWhiteoutTitle:"Whiteout (W)",btnWhiteout:"Whiteout · W",btnHelpTitle:"Shortcuts (?)",overviewLabel:"Slide overview",overviewHead:"Overview · G or Esc to close",close:"Close",helpLabel:"Presenter shortcuts",helpHead:"Shortcuts · ? or Esc",helpPrevNext:"Previous / next slide",helpJump:"Jump to slide",helpFirstLast:"First / last slide",helpOverview:"Overview grid",helpFilmstrip:"Filmstrip peek",helpEdit:"Edit text",helpSave:"Save HTML (when editing)",helpNotes:"Speaker notes",helpLaser:"Laser pointer",helpInk:"Ink / draw",helpClearInk:"Clear ink (when drawing)",helpBlackout:"Blackout",helpWhiteout:"Whiteout",helpTimer:"Pause / resume timer",helpReset:"Reset timer",helpPace:"Pace target (5–30m countdown)",helpSpeaker:"Speaker notes window",helpShortcuts:"Shortcuts",helpClose:"Close overlay",btnLaserOff:"Laser off · L",btnInkOff:"Ink off · D",btnOverviewClose:"Close grid · G",slideFallback:"Slide {n}",goToSlideTitled:"Go to slide {n}: {title}",goToSlide:"Go to slide {n}",btnStripShow:"Strip · F",btnEditDone:"Done · E",editButtonDone:"Done",lastSlideNote:"Last slide — wrap or take questions.",upNextTitled:"Up next · {title}",timerOver:"OVER",cueAhead:"ahead",cueBehind:"behind",cueOnPace:"on pace",timerLeft:"{time} left",timerPaused:"paused",noNotesSlide:"No notes on this slide.",noNotesDeck:"No speaker notes in this deck.",speakerWinEnd:"— end —",speakerWinTitle:"Speaker · {n}/{total}",speakerWinNotesLabel:"Speaker notes",speakerWinHint:"Follows the deck window · O focuses",btnBlackoutRestore:"Restore · B",btnWhiteoutRestore:"Restore · W",btnNotesHide:"Hide notes · S",timerTitlePace:"Pace {minutes}m · P cycle · T pause · R reset",timerTitleNoPace:"Elapsed · P set pace · T pause · R reset"},w={navHint:"← → · E 编辑 · G 概览 · F 缩略图条 · L 激光笔 · D 墨迹 · B/W 黑屏/白屏 · S 备注 · T 计时器 · P 节奏 · O 演讲者 · ? 帮助",editButtonTitle:"编辑模式（E）",editButton:"编辑",slideNavLabel:"幻灯片导航",blackoutHint:"黑屏 · 按 B 或点击恢复",whiteoutHint:"白屏 · 按 W 或点击恢复",notesRailLabel:"演讲者备注",notesRailHint:"演讲者备注 · 按 S 隐藏",upNext:"下一张",filmstripPeekLabel:"幻灯片缩略图条预览",filmstripLabel:"幻灯片缩略图条",presenterControlsLabel:"演讲者控制",timerTitleInitial:"已用时 · P 节奏 · T 暂停 · R 重置",btnSpeakerTitle:"演讲者备注窗口（O）",btnSpeaker:"演讲者 · O",btnNotesTitle:"切换演讲者备注（S）",btnNotes:"备注 · S",btnStripTitle:"切换缩略图条预览（F）",btnStripHide:"隐藏缩略图条 · F",btnOverviewTitle:"概览网格（G）",btnOverview:"概览 · G",btnEditTitle:"编辑文字（E）· ⌘/Ctrl+S 保存",btnEdit:"编辑 · E",btnSaveTitle:"保存 HTML（⌘/Ctrl+S）",btnSave:"保存 · ⌘S",btnLaserTitle:"激光笔（L）",btnLaser:"激光笔 · L",btnInkTitle:"墨迹 / 绘图（D）· C 清除",btnInk:"墨迹 · D",btnInkClearTitle:"清除墨迹（C）",btnInkClear:"清除墨迹 · C",btnBlackoutTitle:"黑屏（B）",btnBlackout:"黑屏 · B",btnWhiteoutTitle:"白屏（W）",btnWhiteout:"白屏 · W",btnHelpTitle:"快捷键（?）",overviewLabel:"幻灯片概览",overviewHead:"概览 · 按 G 或 Esc 关闭",close:"关闭",helpLabel:"演讲者快捷键",helpHead:"快捷键 · ? 或 Esc",helpPrevNext:"上一张 / 下一张幻灯片",helpJump:"跳转到幻灯片",helpFirstLast:"第一张 / 最后一张幻灯片",helpOverview:"概览网格",helpFilmstrip:"缩略图条预览",helpEdit:"编辑文字",helpSave:"保存 HTML（编辑时）",helpNotes:"演讲者备注",helpLaser:"激光笔",helpInk:"墨迹 / 绘图",helpClearInk:"清除墨迹（绘图时）",helpBlackout:"黑屏",helpWhiteout:"白屏",helpTimer:"暂停 / 继续计时器",helpReset:"重置计时器",helpPace:"节奏目标（5–30 分钟倒计时）",helpSpeaker:"演讲者备注窗口",helpShortcuts:"快捷键",helpClose:"关闭浮层",btnLaserOff:"关闭激光笔 · L",btnInkOff:"关闭墨迹 · D",btnOverviewClose:"关闭网格 · G",slideFallback:"幻灯片 {n}",goToSlideTitled:"转到幻灯片 {n}：{title}",goToSlide:"转到幻灯片 {n}",btnStripShow:"缩略图条 · F",btnEditDone:"完成 · E",editButtonDone:"完成",lastSlideNote:"最后一张幻灯片——收尾或接受提问。",upNextTitled:"下一张 · {title}",timerOver:"超时",cueAhead:"提前",cueBehind:"落后",cueOnPace:"节奏正常",timerLeft:"剩余 {time}",timerPaused:"已暂停",noNotesSlide:"这张幻灯片没有备注。",noNotesDeck:"这份演示文稿没有演讲者备注。",speakerWinEnd:"— 结束 —",speakerWinTitle:"演讲者 · {n}/{total}",speakerWinNotesLabel:"演讲者备注",speakerWinHint:"跟随演示窗口 · 按 O 聚焦",btnBlackoutRestore:"恢复 · B",btnWhiteoutRestore:"恢复 · W",btnNotesHide:"隐藏备注 · S",timerTitlePace:"节奏 {minutes} 分钟 · P 切换 · T 暂停 · R 重置",timerTitleNoPace:"已用时 · P 设置节奏 · T 暂停 · R 重置"},y={navHint:"← → · E editar · G vista general · F tira · L láser · D tinta · B/W · S notas · T temporizador · P ritmo · O orador · ? ayuda",editButtonTitle:"Modo de edición (E)",editButton:"Editar",slideNavLabel:"Navegación de diapositivas",blackoutHint:"Pantalla negra · B o clic para restaurar",whiteoutHint:"Pantalla blanca · W o clic para restaurar",notesRailLabel:"Notas del orador",notesRailHint:"Notas del orador · S para ocultar",upNext:"A continuación",filmstripPeekLabel:"Vista rápida de la tira de miniaturas",filmstripLabel:"Tira de miniaturas",presenterControlsLabel:"Controles del presentador",timerTitleInitial:"Transcurrido · P ritmo · T pausa · R reiniciar",btnSpeakerTitle:"Ventana de notas del orador (O)",btnSpeaker:"Orador · O",btnNotesTitle:"Mostrar u ocultar notas del orador (S)",btnNotes:"Notas · S",btnStripTitle:"Mostrar u ocultar la tira de miniaturas (F)",btnStripHide:"Ocultar tira · F",btnOverviewTitle:"Cuadrícula de vista general (G)",btnOverview:"Vista general · G",btnEditTitle:"Editar texto (E) · ⌘/Ctrl+S guarda",btnEdit:"Editar · E",btnSaveTitle:"Guardar HTML (⌘/Ctrl+S)",btnSave:"Guardar · ⌘S",btnLaserTitle:"Puntero láser (L)",btnLaser:"Láser · L",btnInkTitle:"Tinta / dibujar (D) · C borra",btnInk:"Tinta · D",btnInkClearTitle:"Borrar tinta (C)",btnInkClear:"Borrar tinta · C",btnBlackoutTitle:"Pantalla negra (B)",btnBlackout:"Pantalla negra · B",btnWhiteoutTitle:"Pantalla blanca (W)",btnWhiteout:"Pantalla blanca · W",btnHelpTitle:"Atajos (?)",overviewLabel:"Vista general de diapositivas",overviewHead:"Vista general · G o Esc para cerrar",close:"Cerrar",helpLabel:"Atajos del presentador",helpHead:"Atajos · ? o Esc",helpPrevNext:"Diapositiva anterior / siguiente",helpJump:"Ir a una diapositiva",helpFirstLast:"Primera / última diapositiva",helpOverview:"Cuadrícula de vista general",helpFilmstrip:"Vista rápida de la tira de miniaturas",helpEdit:"Editar texto",helpSave:"Guardar HTML (al editar)",helpNotes:"Notas del orador",helpLaser:"Puntero láser",helpInk:"Tinta / dibujar",helpClearInk:"Borrar tinta (al dibujar)",helpBlackout:"Pantalla negra",helpWhiteout:"Pantalla blanca",helpTimer:"Pausar / reanudar temporizador",helpReset:"Reiniciar temporizador",helpPace:"Objetivo de ritmo (cuenta atrás de 5–30 min)",helpSpeaker:"Ventana de notas del orador",helpShortcuts:"Atajos",helpClose:"Cerrar superposición",btnLaserOff:"Láser desactivado · L",btnInkOff:"Tinta desactivada · D",btnOverviewClose:"Cerrar cuadrícula · G",slideFallback:"Diapositiva {n}",goToSlideTitled:"Ir a la diapositiva {n}: {title}",goToSlide:"Ir a la diapositiva {n}",btnStripShow:"Tira · F",btnEditDone:"Listo · E",editButtonDone:"Listo",lastSlideNote:"Última diapositiva — cierra o abre el turno de preguntas.",upNextTitled:"A continuación · {title}",timerOver:"EXCEDIDO",cueAhead:"adelantado",cueBehind:"atrasado",cueOnPace:"a buen ritmo",timerLeft:"quedan {time}",timerPaused:"en pausa",noNotesSlide:"Esta diapositiva no tiene notas.",noNotesDeck:"Esta presentación no tiene notas del orador.",speakerWinEnd:"— fin —",speakerWinTitle:"Orador · {n}/{total}",speakerWinNotesLabel:"Notas del orador",speakerWinHint:"Sigue la ventana de la presentación · O la enfoca",btnBlackoutRestore:"Restaurar · B",btnWhiteoutRestore:"Restaurar · W",btnNotesHide:"Ocultar notas · S",timerTitlePace:"Ritmo {minutes} min · P cambia · T pausa · R reiniciar",timerTitleNoPace:"Transcurrido · P fijar ritmo · T pausa · R reiniciar"},T={navHint:"← → · E تحرير · G نظرة عامة · F الشريط · L ليزر · D حبر · B/W شاشة · S ملاحظات · T المؤقت · P الإيقاع · O المتحدث · ? مساعدة",editButtonTitle:"وضع التحرير (E)",editButton:"تحرير",slideNavLabel:"التنقل بين الشرائح",blackoutHint:"شاشة سوداء · اضغط B أو انقر للعودة",whiteoutHint:"شاشة بيضاء · اضغط W أو انقر للعودة",notesRailLabel:"ملاحظات المتحدث",notesRailHint:"ملاحظات المتحدث · S للإخفاء",upNext:"التالي",filmstripPeekLabel:"معاينة شريط المصغرات",filmstripLabel:"شريط مصغرات الشرائح",presenterControlsLabel:"أدوات المتحدث",timerTitleInitial:"الوقت المنقضي · P الإيقاع · T إيقاف مؤقت · R إعادة ضبط",btnSpeakerTitle:"نافذة ملاحظات المتحدث (O)",btnSpeaker:"المتحدث · O",btnNotesTitle:"إظهار ملاحظات المتحدث أو إخفاؤها (S)",btnNotes:"ملاحظات · S",btnStripTitle:"إظهار معاينة شريط المصغرات أو إخفاؤها (F)",btnStripHide:"إخفاء الشريط · F",btnOverviewTitle:"شبكة النظرة العامة (G)",btnOverview:"نظرة عامة · G",btnEditTitle:"تحرير النص (E) · ⌘/Ctrl+S للحفظ",btnEdit:"تحرير · E",btnSaveTitle:"حفظ HTML (⌘/Ctrl+S)",btnSave:"حفظ · ⌘S",btnLaserTitle:"مؤشر ليزر (L)",btnLaser:"ليزر · L",btnInkTitle:"حبر / رسم (D) · C للمسح",btnInk:"حبر · D",btnInkClearTitle:"مسح الحبر (C)",btnInkClear:"مسح الحبر · C",btnBlackoutTitle:"شاشة سوداء (B)",btnBlackout:"شاشة سوداء · B",btnWhiteoutTitle:"شاشة بيضاء (W)",btnWhiteout:"شاشة بيضاء · W",btnHelpTitle:"الاختصارات (?)",overviewLabel:"نظرة عامة على الشرائح",overviewHead:"نظرة عامة · G أو Esc للإغلاق",close:"إغلاق",helpLabel:"اختصارات المتحدث",helpHead:"الاختصارات · ? أو Esc",helpPrevNext:"الشريحة السابقة / التالية",helpJump:"الانتقال إلى شريحة",helpFirstLast:"الشريحة الأولى / الأخيرة",helpOverview:"شبكة النظرة العامة",helpFilmstrip:"معاينة شريط المصغرات",helpEdit:"تحرير النص",helpSave:"حفظ HTML (أثناء التحرير)",helpNotes:"ملاحظات المتحدث",helpLaser:"مؤشر ليزر",helpInk:"حبر / رسم",helpClearInk:"مسح الحبر (أثناء الرسم)",helpBlackout:"شاشة سوداء",helpWhiteout:"شاشة بيضاء",helpTimer:"إيقاف المؤقت أو استئنافه",helpReset:"إعادة ضبط المؤقت",helpPace:"هدف الإيقاع (عد تنازلي من 5 إلى 30 دقيقة)",helpSpeaker:"نافذة ملاحظات المتحدث",helpShortcuts:"الاختصارات",helpClose:"إغلاق النافذة",btnLaserOff:"إيقاف الليزر · L",btnInkOff:"إيقاف الحبر · D",btnOverviewClose:"إغلاق الشبكة · G",slideFallback:"شريحة {n}",goToSlideTitled:"الانتقال إلى الشريحة {n}: {title}",goToSlide:"الانتقال إلى الشريحة {n}",btnStripShow:"الشريط · F",btnEditDone:"تم · E",editButtonDone:"تم",lastSlideNote:"هذه آخر شريحة — اختم العرض أو افتح باب الأسئلة.",upNextTitled:"التالي · {title}",timerOver:"تجاوز",cueAhead:"متقدم",cueBehind:"متأخر",cueOnPace:"على الإيقاع",timerLeft:"متبقي {time}",timerPaused:"متوقف مؤقتًا",noNotesSlide:"لا توجد ملاحظات على هذه الشريحة.",noNotesDeck:"لا توجد ملاحظات متحدث في هذا العرض.",speakerWinEnd:"— النهاية —",speakerWinTitle:"المتحدث · {n}/{total}",speakerWinNotesLabel:"ملاحظات المتحدث",speakerWinHint:"يتبع نافذة العرض · O للتركيز عليها",btnBlackoutRestore:"استعادة · B",btnWhiteoutRestore:"استعادة · W",btnNotesHide:"إخفاء الملاحظات · S",timerTitlePace:"الإيقاع {minutes} د · P للتبديل · T إيقاف مؤقت · R إعادة ضبط",timerTitleNoPace:"الوقت المنقضي · P لضبط الإيقاع · T إيقاف مؤقت · R إعادة ضبط"},S={navHint:"← → · E editar · G visão geral · F miniaturas · L laser · D tinta · B/W · S notas · T cronômetro · P ritmo · O apresentador · ? ajuda",editButtonTitle:"Modo de edição (E)",editButton:"Editar",slideNavLabel:"Navegação de slides",blackoutHint:"Tela preta · B ou clique para voltar",whiteoutHint:"Tela branca · W ou clique para voltar",notesRailLabel:"Notas do apresentador",notesRailHint:"Notas do apresentador · S para ocultar",upNext:"A seguir",filmstripPeekLabel:"Prévia da faixa de miniaturas",filmstripLabel:"Faixa de miniaturas",presenterControlsLabel:"Controles do apresentador",timerTitleInitial:"Decorrido · P ritmo · T pausar · R zerar",btnSpeakerTitle:"Janela de notas do apresentador (O)",btnSpeaker:"Apresentador · O",btnNotesTitle:"Alternar notas do apresentador (S)",btnNotes:"Notas · S",btnStripTitle:"Alternar prévia da faixa de miniaturas (F)",btnStripHide:"Ocultar faixa · F",btnOverviewTitle:"Grade de visão geral (G)",btnOverview:"Visão geral · G",btnEditTitle:"Editar texto (E) · ⌘/Ctrl+S salva",btnEdit:"Editar · E",btnSaveTitle:"Salvar HTML (⌘/Ctrl+S)",btnSave:"Salvar · ⌘S",btnLaserTitle:"Ponteiro laser (L)",btnLaser:"Laser · L",btnInkTitle:"Tinta / desenhar (D) · C limpa",btnInk:"Tinta · D",btnInkClearTitle:"Limpar tinta (C)",btnInkClear:"Limpar tinta · C",btnBlackoutTitle:"Tela preta (B)",btnBlackout:"Tela preta · B",btnWhiteoutTitle:"Tela branca (W)",btnWhiteout:"Tela branca · W",btnHelpTitle:"Atalhos (?)",overviewLabel:"Visão geral dos slides",overviewHead:"Visão geral · G ou Esc para fechar",close:"Fechar",helpLabel:"Atalhos do apresentador",helpHead:"Atalhos · ? ou Esc",helpPrevNext:"Slide anterior / seguinte",helpJump:"Ir para o slide",helpFirstLast:"Primeiro / último slide",helpOverview:"Grade de visão geral",helpFilmstrip:"Prévia da faixa de miniaturas",helpEdit:"Editar texto",helpSave:"Salvar HTML (ao editar)",helpNotes:"Notas do apresentador",helpLaser:"Ponteiro laser",helpInk:"Tinta / desenhar",helpClearInk:"Limpar tinta (ao desenhar)",helpBlackout:"Tela preta",helpWhiteout:"Tela branca",helpTimer:"Pausar / retomar cronômetro",helpReset:"Zerar cronômetro",helpPace:"Meta de ritmo (contagem de 5–30m)",helpSpeaker:"Janela de notas do apresentador",helpShortcuts:"Atalhos",helpClose:"Fechar sobreposição",btnLaserOff:"Laser desligado · L",btnInkOff:"Tinta desligada · D",btnOverviewClose:"Fechar grade · G",slideFallback:"Slide {n}",goToSlideTitled:"Ir para o slide {n}: {title}",goToSlide:"Ir para o slide {n}",btnStripShow:"Miniaturas · F",btnEditDone:"Concluir · E",editButtonDone:"Concluir",lastSlideNote:"Último slide — encerre ou abra para perguntas.",upNextTitled:"A seguir · {title}",timerOver:"ESGOTADO",cueAhead:"adiantado",cueBehind:"atrasado",cueOnPace:"no ritmo",timerLeft:"faltam {time}",timerPaused:"pausado",noNotesSlide:"Sem notas neste slide.",noNotesDeck:"Nenhuma nota do apresentador nesta apresentação.",speakerWinEnd:"— fim —",speakerWinTitle:"Apresentador · {n}/{total}",speakerWinNotesLabel:"Notas do apresentador",speakerWinHint:"Acompanha a janela da apresentação · O foca",btnBlackoutRestore:"Voltar · B",btnWhiteoutRestore:"Voltar · W",btnNotesHide:"Ocultar notas · S",timerTitlePace:"Ritmo {minutes}m · P alterna · T pausar · R zerar",timerTitleNoPace:"Decorrido · P definir ritmo · T pausar · R zerar"},E={navHint:"← → · E edit · G ikhtisar · F strip · L laser · D tinta · B/W · S catatan · T pengatur waktu · P tempo · O pembicara · ? bantuan",editButtonTitle:"Mode edit (E)",editButton:"Edit",slideNavLabel:"Navigasi slide",blackoutHint:"Layar hitam · B atau klik untuk kembali",whiteoutHint:"Layar putih · W atau klik untuk kembali",notesRailLabel:"Catatan pembicara",notesRailHint:"Catatan pembicara · S untuk menyembunyikan",upNext:"Berikutnya",filmstripPeekLabel:"Intip strip gambar mini slide",filmstripLabel:"Strip gambar mini slide",presenterControlsLabel:"Kontrol presenter",timerTitleInitial:"Berlalu · P tempo · T jeda · R reset",btnSpeakerTitle:"Jendela catatan pembicara (O)",btnSpeaker:"Pembicara · O",btnNotesTitle:"Tampilkan/sembunyikan catatan pembicara (S)",btnNotes:"Catatan · S",btnStripTitle:"Tampilkan/sembunyikan intipan strip gambar mini (F)",btnStripHide:"Sembunyikan strip · F",btnOverviewTitle:"Kisi ikhtisar (G)",btnOverview:"Ikhtisar · G",btnEditTitle:"Edit teks (E) · ⌘/Ctrl+S menyimpan",btnEdit:"Edit · E",btnSaveTitle:"Simpan HTML (⌘/Ctrl+S)",btnSave:"Simpan · ⌘S",btnLaserTitle:"Penunjuk laser (L)",btnLaser:"Laser · L",btnInkTitle:"Tinta / menggambar (D) · C menghapus",btnInk:"Tinta · D",btnInkClearTitle:"Hapus tinta (C)",btnInkClear:"Hapus tinta · C",btnBlackoutTitle:"Layar hitam (B)",btnBlackout:"Layar hitam · B",btnWhiteoutTitle:"Layar putih (W)",btnWhiteout:"Layar putih · W",btnHelpTitle:"Pintasan (?)",overviewLabel:"Ikhtisar slide",overviewHead:"Ikhtisar · G atau Esc untuk menutup",close:"Tutup",helpLabel:"Pintasan presenter",helpHead:"Pintasan · ? atau Esc",helpPrevNext:"Slide sebelumnya / berikutnya",helpJump:"Lompat ke slide",helpFirstLast:"Slide pertama / terakhir",helpOverview:"Kisi ikhtisar",helpFilmstrip:"Intipan strip gambar mini",helpEdit:"Edit teks",helpSave:"Simpan HTML (saat mengedit)",helpNotes:"Catatan pembicara",helpLaser:"Penunjuk laser",helpInk:"Tinta / menggambar",helpClearInk:"Hapus tinta (saat menggambar)",helpBlackout:"Layar hitam",helpWhiteout:"Layar putih",helpTimer:"Jeda / lanjutkan pengatur waktu",helpReset:"Reset pengatur waktu",helpPace:"Target tempo (hitung mundur 5–30m)",helpSpeaker:"Jendela catatan pembicara",helpShortcuts:"Pintasan",helpClose:"Tutup lapisan",btnLaserOff:"Laser mati · L",btnInkOff:"Tinta mati · D",btnOverviewClose:"Tutup kisi · G",slideFallback:"Slide {n}",goToSlideTitled:"Buka slide {n}: {title}",goToSlide:"Buka slide {n}",btnStripShow:"Strip · F",btnEditDone:"Selesai · E",editButtonDone:"Selesai",lastSlideNote:"Slide terakhir — akhiri atau terima pertanyaan.",upNextTitled:"Berikutnya · {title}",timerOver:"LEWAT",cueAhead:"lebih cepat",cueBehind:"terlambat",cueOnPace:"sesuai tempo",timerLeft:"sisa {time}",timerPaused:"dijeda",noNotesSlide:"Tidak ada catatan pada slide ini.",noNotesDeck:"Tidak ada catatan pembicara di deck ini.",speakerWinEnd:"— selesai —",speakerWinTitle:"Pembicara · {n}/{total}",speakerWinNotesLabel:"Catatan pembicara",speakerWinHint:"Mengikuti jendela deck · O untuk fokus",btnBlackoutRestore:"Pulihkan · B",btnWhiteoutRestore:"Pulihkan · W",btnNotesHide:"Sembunyikan catatan · S",timerTitlePace:"Tempo {minutes}m · P ganti · T jeda · R reset",timerTitleNoPace:"Berlalu · P atur tempo · T jeda · R reset"},L={navHint:"← → · E modifier · G vue d'ensemble · F miniatures · L laser · D encre · B/W · S notes · T minuteur · P rythme · O orateur · ? aide",editButtonTitle:"Mode édition (E)",editButton:"Modifier",slideNavLabel:"Navigation des diapositives",blackoutHint:"Écran noir · B ou clic pour revenir",whiteoutHint:"Écran blanc · W ou clic pour revenir",notesRailLabel:"Notes de l'orateur",notesRailHint:"Notes de l'orateur · S pour masquer",upNext:"À suivre",filmstripPeekLabel:"Aperçu de la bande de miniatures",filmstripLabel:"Bande de miniatures",presenterControlsLabel:"Commandes du présentateur",timerTitleInitial:"Temps écoulé · P rythme · T pause · R réinitialiser",btnSpeakerTitle:"Fenêtre des notes de l'orateur (O)",btnSpeaker:"Orateur · O",btnNotesTitle:"Afficher/masquer les notes de l'orateur (S)",btnNotes:"Notes · S",btnStripTitle:"Afficher/masquer l'aperçu de la bande de miniatures (F)",btnStripHide:"Masquer la bande · F",btnOverviewTitle:"Grille de vue d'ensemble (G)",btnOverview:"Vue d'ensemble · G",btnEditTitle:"Modifier le texte (E) · ⌘/Ctrl+S enregistre",btnEdit:"Modifier · E",btnSaveTitle:"Enregistrer le HTML (⌘/Ctrl+S)",btnSave:"Enregistrer · ⌘S",btnLaserTitle:"Pointeur laser (L)",btnLaser:"Laser · L",btnInkTitle:"Encre / dessin (D) · C efface",btnInk:"Encre · D",btnInkClearTitle:"Effacer l'encre (C)",btnInkClear:"Effacer l'encre · C",btnBlackoutTitle:"Écran noir (B)",btnBlackout:"Écran noir · B",btnWhiteoutTitle:"Écran blanc (W)",btnWhiteout:"Écran blanc · W",btnHelpTitle:"Raccourcis (?)",overviewLabel:"Vue d'ensemble des diapositives",overviewHead:"Vue d'ensemble · G ou Esc pour fermer",close:"Fermer",helpLabel:"Raccourcis du présentateur",helpHead:"Raccourcis · ? ou Esc",helpPrevNext:"Diapositive précédente / suivante",helpJump:"Aller à la diapositive",helpFirstLast:"Première / dernière diapositive",helpOverview:"Grille de vue d'ensemble",helpFilmstrip:"Aperçu de la bande de miniatures",helpEdit:"Modifier le texte",helpSave:"Enregistrer le HTML (en mode édition)",helpNotes:"Notes de l'orateur",helpLaser:"Pointeur laser",helpInk:"Encre / dessin",helpClearInk:"Effacer l'encre (pendant le dessin)",helpBlackout:"Écran noir",helpWhiteout:"Écran blanc",helpTimer:"Mettre en pause / reprendre le minuteur",helpReset:"Réinitialiser le minuteur",helpPace:"Objectif de rythme (compte à rebours de 5–30 min)",helpSpeaker:"Fenêtre des notes de l'orateur",helpShortcuts:"Raccourcis",helpClose:"Fermer la fenêtre",btnLaserOff:"Laser désactivé · L",btnInkOff:"Encre désactivée · D",btnOverviewClose:"Fermer la grille · G",slideFallback:"Diapositive {n}",goToSlideTitled:"Aller à la diapositive {n} : {title}",goToSlide:"Aller à la diapositive {n}",btnStripShow:"Miniatures · F",btnEditDone:"Terminé · E",editButtonDone:"Terminé",lastSlideNote:"Dernière diapositive — concluez ou ouvrez les questions.",upNextTitled:"À suivre · {title}",timerOver:"DÉPASSÉ",cueAhead:"en avance",cueBehind:"en retard",cueOnPace:"dans les temps",timerLeft:"{time} restant",timerPaused:"en pause",noNotesSlide:"Aucune note sur cette diapositive.",noNotesDeck:"Aucune note de l'orateur dans cette présentation.",speakerWinEnd:"— fin —",speakerWinTitle:"Orateur · {n}/{total}",speakerWinNotesLabel:"Notes de l'orateur",speakerWinHint:"Suit la fenêtre de la présentation · O pour la mettre au premier plan",btnBlackoutRestore:"Rétablir · B",btnWhiteoutRestore:"Rétablir · W",btnNotesHide:"Masquer les notes · S",timerTitlePace:"Rythme {minutes} min · P changer · T pause · R réinitialiser",timerTitleNoPace:"Temps écoulé · P définir le rythme · T pause · R réinitialiser"},C={navHint:"← → · E 編集 · G 一覧 · F サムネイル · L レーザー · D ペン · B/W 黒/白画面 · S ノート · T タイマー · P ペース · O 発表者 · ? ヘルプ",editButtonTitle:"編集モード (E)",editButton:"編集",slideNavLabel:"スライドナビゲーション",blackoutHint:"黒画面 · B またはクリックで戻る",whiteoutHint:"白画面 · W またはクリックで戻る",notesRailLabel:"スピーカーノート",notesRailHint:"スピーカーノート · S で非表示",upNext:"次",filmstripPeekLabel:"スライドのサムネイル帯（プレビュー）",filmstripLabel:"スライドのサムネイル帯",presenterControlsLabel:"発表者コントロール",timerTitleInitial:"経過時間 · P ペース · T 一時停止 · R リセット",btnSpeakerTitle:"スピーカーノートウィンドウ (O)",btnSpeaker:"発表者 · O",btnNotesTitle:"スピーカーノートの表示切替 (S)",btnNotes:"ノート · S",btnStripTitle:"サムネイル帯の表示切替 (F)",btnStripHide:"帯を隠す · F",btnOverviewTitle:"スライド一覧 (G)",btnOverview:"一覧 · G",btnEditTitle:"テキストを編集 (E) · ⌘/Ctrl+S で保存",btnEdit:"編集 · E",btnSaveTitle:"HTMLを保存 (⌘/Ctrl+S)",btnSave:"保存 · ⌘S",btnLaserTitle:"レーザーポインター (L)",btnLaser:"レーザー · L",btnInkTitle:"ペン / 描画 (D) · C で消去",btnInk:"ペン · D",btnInkClearTitle:"ペンを消去 (C)",btnInkClear:"ペン消去 · C",btnBlackoutTitle:"黒画面 (B)",btnBlackout:"黒画面 · B",btnWhiteoutTitle:"白画面 (W)",btnWhiteout:"白画面 · W",btnHelpTitle:"ショートカット (?)",overviewLabel:"スライド一覧",overviewHead:"一覧 · G または Esc で閉じる",close:"閉じる",helpLabel:"発表者ショートカット",helpHead:"ショートカット · ? または Esc",helpPrevNext:"前 / 次のスライド",helpJump:"スライドへ移動",helpFirstLast:"最初 / 最後のスライド",helpOverview:"スライド一覧",helpFilmstrip:"サムネイル帯のプレビュー",helpEdit:"テキストを編集",helpSave:"HTMLを保存（編集中）",helpNotes:"スピーカーノート",helpLaser:"レーザーポインター",helpInk:"ペン / 描画",helpClearInk:"ペンを消去（描画中）",helpBlackout:"黒画面",helpWhiteout:"白画面",helpTimer:"タイマーの一時停止 / 再開",helpReset:"タイマーのリセット",helpPace:"ペース目標（5–30分のカウントダウン）",helpSpeaker:"スピーカーノートウィンドウ",helpShortcuts:"ショートカット",helpClose:"オーバーレイを閉じる",btnLaserOff:"レーザー オフ · L",btnInkOff:"ペン オフ · D",btnOverviewClose:"一覧を閉じる · G",slideFallback:"スライド {n}",goToSlideTitled:"スライド {n} へ移動: {title}",goToSlide:"スライド {n} へ移動",btnStripShow:"帯 · F",btnEditDone:"完了 · E",editButtonDone:"完了",lastSlideNote:"最後のスライドです。まとめるか、質疑に移りましょう。",upNextTitled:"次 · {title}",timerOver:"超過",cueAhead:"早め",cueBehind:"遅れ",cueOnPace:"予定通り",timerLeft:"残り {time}",timerPaused:"一時停止中",noNotesSlide:"このスライドにノートはありません。",noNotesDeck:"このデッキにスピーカーノートはありません。",speakerWinEnd:"— 終了 —",speakerWinTitle:"発表者 · {n}/{total}",speakerWinNotesLabel:"スピーカーノート",speakerWinHint:"デッキのウィンドウに連動 · O でフォーカス",btnBlackoutRestore:"戻す · B",btnWhiteoutRestore:"戻す · W",btnNotesHide:"ノートを隠す · S",timerTitlePace:"ペース {minutes}分 · P 切替 · T 一時停止 · R リセット",timerTitleNoPace:"経過時間 · P ペース設定 · T 一時停止 · R リセット"},B={navHint:"← → · E редактировать · G обзор · F лента · L указка · D перо · B/W · S заметки · T таймер · P темп · O докладчик · ? справка",editButtonTitle:"Режим редактирования (E)",editButton:"Править",slideNavLabel:"Навигация по слайдам",blackoutHint:"Чёрный экран · B или клик, чтобы вернуть",whiteoutHint:"Белый экран · W или клик, чтобы вернуть",notesRailLabel:"Заметки докладчика",notesRailHint:"Заметки докладчика · S, чтобы скрыть",upNext:"Далее",filmstripPeekLabel:"Лента миниатюр слайдов",filmstripLabel:"Лента миниатюр слайдов",presenterControlsLabel:"Управление докладчика",timerTitleInitial:"Прошло · P темп · T пауза · R сброс",btnSpeakerTitle:"Окно заметок докладчика (O)",btnSpeaker:"Докладчик · O",btnNotesTitle:"Показать или скрыть заметки докладчика (S)",btnNotes:"Заметки · S",btnStripTitle:"Показать или скрыть ленту миниатюр (F)",btnStripHide:"Скрыть ленту · F",btnOverviewTitle:"Обзор слайдов (G)",btnOverview:"Обзор · G",btnEditTitle:"Редактировать текст (E) · ⌘/Ctrl+S сохраняет",btnEdit:"Правка · E",btnSaveTitle:"Сохранить HTML (⌘/Ctrl+S)",btnSave:"Сохранить · ⌘S",btnLaserTitle:"Лазерная указка (L)",btnLaser:"Указка · L",btnInkTitle:"Перо / рисование (D) · C стирает",btnInk:"Перо · D",btnInkClearTitle:"Стереть рисунок (C)",btnInkClear:"Стереть · C",btnBlackoutTitle:"Чёрный экран (B)",btnBlackout:"Чёрный экран · B",btnWhiteoutTitle:"Белый экран (W)",btnWhiteout:"Белый экран · W",btnHelpTitle:"Горячие клавиши (?)",overviewLabel:"Обзор слайдов",overviewHead:"Обзор · G или Esc, чтобы закрыть",close:"Закрыть",helpLabel:"Горячие клавиши докладчика",helpHead:"Горячие клавиши · ? или Esc",helpPrevNext:"Предыдущий / следующий слайд",helpJump:"Перейти к слайду",helpFirstLast:"Первый / последний слайд",helpOverview:"Обзор слайдов",helpFilmstrip:"Лента миниатюр",helpEdit:"Редактировать текст",helpSave:"Сохранить HTML (при редактировании)",helpNotes:"Заметки докладчика",helpLaser:"Лазерная указка",helpInk:"Перо / рисование",helpClearInk:"Стереть рисунок (при рисовании)",helpBlackout:"Чёрный экран",helpWhiteout:"Белый экран",helpTimer:"Пауза / продолжить таймер",helpReset:"Сбросить таймер",helpPace:"Целевой темп (обратный отсчёт 5–30 мин)",helpSpeaker:"Окно заметок докладчика",helpShortcuts:"Горячие клавиши",helpClose:"Закрыть окно",btnLaserOff:"Указка выкл. · L",btnInkOff:"Перо выкл. · D",btnOverviewClose:"Закрыть обзор · G",slideFallback:"Слайд {n}",goToSlideTitled:"Перейти к слайду {n}: {title}",goToSlide:"Перейти к слайду {n}",btnStripShow:"Лента · F",btnEditDone:"Готово · E",editButtonDone:"Готово",lastSlideNote:"Последний слайд — подведите итог или ответьте на вопросы.",upNextTitled:"Далее · {title}",timerOver:"ПРЕВЫШЕНО",cueAhead:"опережаете",cueBehind:"отстаёте",cueOnPace:"в темпе",timerLeft:"осталось {time}",timerPaused:"пауза",noNotesSlide:"У этого слайда нет заметок.",noNotesDeck:"В этой презентации нет заметок докладчика.",speakerWinEnd:"— конец —",speakerWinTitle:"Докладчик · {n}/{total}",speakerWinNotesLabel:"Заметки докладчика",speakerWinHint:"Следует за окном презентации · O переключает на него",btnBlackoutRestore:"Вернуть · B",btnWhiteoutRestore:"Вернуть · W",btnNotesHide:"Скрыть заметки · S",timerTitlePace:"Темп {minutes} мин · P сменить · T пауза · R сброс",timerTitleNoPace:"Прошло · P задать темп · T пауза · R сброс"},O={navHint:"← → · E bearbeiten · G Übersicht · F Leiste · L Laserpointer · D Stift · B/W · S Notizen · T Timer · P Tempo · O Sprecher · ? Hilfe",editButtonTitle:"Bearbeitungsmodus (E)",editButton:"Bearbeiten",slideNavLabel:"Foliennavigation",blackoutHint:"Schwarzbild · B oder Klick zum Beenden",whiteoutHint:"Weißbild · W oder Klick zum Beenden",notesRailLabel:"Sprechernotizen",notesRailHint:"Sprechernotizen · S zum Ausblenden",upNext:"Als Nächstes",filmstripPeekLabel:"Miniaturleiste (Vorschau)",filmstripLabel:"Miniaturleiste",presenterControlsLabel:"Vortragssteuerung",timerTitleInitial:"Laufzeit · P Tempo · T Pause · R Zurücksetzen",btnSpeakerTitle:"Sprechernotizen-Fenster (O)",btnSpeaker:"Sprecher · O",btnNotesTitle:"Sprechernotizen ein/aus (S)",btnNotes:"Notizen · S",btnStripTitle:"Miniaturleiste ein/aus (F)",btnStripHide:"Leiste ausblenden · F",btnOverviewTitle:"Übersicht (G)",btnOverview:"Übersicht · G",btnEditTitle:"Text bearbeiten (E) · ⌘/Ctrl+S speichert",btnEdit:"Bearbeiten · E",btnSaveTitle:"HTML speichern (⌘/Ctrl+S)",btnSave:"Speichern · ⌘S",btnLaserTitle:"Laserpointer (L)",btnLaser:"Laser · L",btnInkTitle:"Stift / Zeichnen (D) · C löscht",btnInk:"Stift · D",btnInkClearTitle:"Stiftzeichnung löschen (C)",btnInkClear:"Stift löschen · C",btnBlackoutTitle:"Schwarzbild (B)",btnBlackout:"Schwarzbild · B",btnWhiteoutTitle:"Weißbild (W)",btnWhiteout:"Weißbild · W",btnHelpTitle:"Tastenkürzel (?)",overviewLabel:"Folienübersicht",overviewHead:"Übersicht · G oder Esc zum Schließen",close:"Schließen",helpLabel:"Tastenkürzel für den Vortrag",helpHead:"Tastenkürzel · ? oder Esc",helpPrevNext:"Vorherige / nächste Folie",helpJump:"Zu Folie springen",helpFirstLast:"Erste / letzte Folie",helpOverview:"Übersicht",helpFilmstrip:"Miniaturleiste (Vorschau)",helpEdit:"Text bearbeiten",helpSave:"HTML speichern (beim Bearbeiten)",helpNotes:"Sprechernotizen",helpLaser:"Laserpointer",helpInk:"Stift / Zeichnen",helpClearInk:"Stiftzeichnung löschen (beim Zeichnen)",helpBlackout:"Schwarzbild",helpWhiteout:"Weißbild",helpTimer:"Timer pausieren / fortsetzen",helpReset:"Timer zurücksetzen",helpPace:"Tempo-Ziel (Countdown 5–30 Min.)",helpSpeaker:"Sprechernotizen-Fenster",helpShortcuts:"Tastenkürzel",helpClose:"Overlay schließen",btnLaserOff:"Laser aus · L",btnInkOff:"Stift aus · D",btnOverviewClose:"Übersicht schließen · G",slideFallback:"Folie {n}",goToSlideTitled:"Zu Folie {n}: {title}",goToSlide:"Zu Folie {n}",btnStripShow:"Leiste · F",btnEditDone:"Fertig · E",editButtonDone:"Fertig",lastSlideNote:"Letzte Folie — abschließen oder Fragen aufnehmen.",upNextTitled:"Als Nächstes · {title}",timerOver:"ÜBER",cueAhead:"voraus",cueBehind:"im Rückstand",cueOnPace:"im Plan",timerLeft:"noch {time}",timerPaused:"pausiert",noNotesSlide:"Keine Notizen zu dieser Folie.",noNotesDeck:"Keine Sprechernotizen in dieser Präsentation.",speakerWinEnd:"— Ende —",speakerWinTitle:"Sprecher · {n}/{total}",speakerWinNotesLabel:"Sprechernotizen",speakerWinHint:"Folgt dem Präsentationsfenster · O fokussiert",btnBlackoutRestore:"Zurück · B",btnWhiteoutRestore:"Zurück · W",btnNotesHide:"Notizen ausblenden · S",timerTitlePace:"Tempo {minutes} Min. · P wechseln · T Pause · R Zurücksetzen",timerTitleNoPace:"Laufzeit · P Tempo setzen · T Pause · R Zurücksetzen"},X={en:v,zh:w,es:y,ar:T,pt:S,id:E,fr:L,ja:C,ru:B,de:O};export{Y as _,J as a,V as b,G as c,j as d,_ as e,M as f,q as g,R as h,F as i,A as j,D as k,W as l,I as m,P as n,N as o,z as p,H as q,U as r,Z as s,K as t,X as u,Q as v};
+`,v={navHint:"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help",editButtonTitle:"Edit mode (E)",editButton:"Edit",slideNavLabel:"Slide navigation",blackoutHint:"Blackout · B or click to restore",whiteoutHint:"Whiteout · W or click to restore",notesRailLabel:"Speaker notes",notesRailHint:"Speaker notes · S to hide",upNext:"Up next",filmstripPeekLabel:"Slide filmstrip peek",filmstripLabel:"Slide filmstrip",presenterControlsLabel:"Presenter controls",timerTitleInitial:"Elapsed · P pace · T pause · R reset",btnSpeakerTitle:"Speaker notes window (O)",btnSpeaker:"Speaker · O",btnNotesTitle:"Toggle speaker notes (S)",btnNotes:"Notes · S",btnStripTitle:"Toggle filmstrip peek (F)",btnStripHide:"Hide strip · F",btnOverviewTitle:"Overview grid (G)",btnOverview:"Overview · G",btnEditTitle:"Edit text (E) · ⌘/Ctrl+S saves",btnEdit:"Edit · E",btnSaveTitle:"Save HTML (⌘/Ctrl+S)",btnSave:"Save · ⌘S",btnLaserTitle:"Laser pointer (L)",btnLaser:"Laser · L",btnInkTitle:"Ink / draw (D) · C clears",btnInk:"Ink · D",btnInkClearTitle:"Clear ink (C)",btnInkClear:"Clear ink · C",btnBlackoutTitle:"Blackout (B)",btnBlackout:"Blackout · B",btnWhiteoutTitle:"Whiteout (W)",btnWhiteout:"Whiteout · W",btnHelpTitle:"Shortcuts (?)",overviewLabel:"Slide overview",overviewHead:"Overview · G or Esc to close",close:"Close",helpLabel:"Presenter shortcuts",helpHead:"Shortcuts · ? or Esc",helpPrevNext:"Previous / next slide",helpJump:"Jump to slide",helpFirstLast:"First / last slide",helpOverview:"Overview grid",helpFilmstrip:"Filmstrip peek",helpEdit:"Edit text",helpSave:"Save HTML (when editing)",helpNotes:"Speaker notes",helpLaser:"Laser pointer",helpInk:"Ink / draw",helpClearInk:"Clear ink (when drawing)",helpBlackout:"Blackout",helpWhiteout:"Whiteout",helpTimer:"Pause / resume timer",helpReset:"Reset timer",helpPace:"Pace target (5–30m countdown)",helpSpeaker:"Speaker notes window",helpShortcuts:"Shortcuts",helpClose:"Close overlay",btnLaserOff:"Laser off · L",btnInkOff:"Ink off · D",btnOverviewClose:"Close grid · G",slideFallback:"Slide {n}",goToSlideTitled:"Go to slide {n}: {title}",goToSlide:"Go to slide {n}",btnStripShow:"Strip · F",btnEditDone:"Done · E",editButtonDone:"Done",lastSlideNote:"Last slide — wrap or take questions.",upNextTitled:"Up next · {title}",timerOver:"OVER",cueAhead:"ahead",cueBehind:"behind",cueOnPace:"on pace",timerLeft:"{time} left",timerPaused:"paused",noNotesSlide:"No notes on this slide.",noNotesDeck:"No speaker notes in this deck.",speakerWinEnd:"— end —",speakerWinTitle:"Speaker · {n}/{total}",speakerWinNotesLabel:"Speaker notes",speakerWinHint:"Follows the deck window · O focuses",btnBlackoutRestore:"Restore · B",btnWhiteoutRestore:"Restore · W",btnNotesHide:"Hide notes · S",timerTitlePace:"Pace {minutes}m · P cycle · T pause · R reset",timerTitleNoPace:"Elapsed · P set pace · T pause · R reset"},w={navHint:"← → · E 编辑 · G 概览 · F 缩略图条 · L 激光笔 · D 墨迹 · B/W 黑屏/白屏 · S 备注 · T 计时器 · P 节奏 · O 演讲者 · ? 帮助",editButtonTitle:"编辑模式（E）",editButton:"编辑",slideNavLabel:"幻灯片导航",blackoutHint:"黑屏 · 按 B 或点击恢复",whiteoutHint:"白屏 · 按 W 或点击恢复",notesRailLabel:"演讲者备注",notesRailHint:"演讲者备注 · 按 S 隐藏",upNext:"下一张",filmstripPeekLabel:"幻灯片缩略图条预览",filmstripLabel:"幻灯片缩略图条",presenterControlsLabel:"演讲者控制",timerTitleInitial:"已用时 · P 节奏 · T 暂停 · R 重置",btnSpeakerTitle:"演讲者备注窗口（O）",btnSpeaker:"演讲者 · O",btnNotesTitle:"切换演讲者备注（S）",btnNotes:"备注 · S",btnStripTitle:"切换缩略图条预览（F）",btnStripHide:"隐藏缩略图条 · F",btnOverviewTitle:"概览网格（G）",btnOverview:"概览 · G",btnEditTitle:"编辑文字（E）· ⌘/Ctrl+S 保存",btnEdit:"编辑 · E",btnSaveTitle:"保存 HTML（⌘/Ctrl+S）",btnSave:"保存 · ⌘S",btnLaserTitle:"激光笔（L）",btnLaser:"激光笔 · L",btnInkTitle:"墨迹 / 绘图（D）· C 清除",btnInk:"墨迹 · D",btnInkClearTitle:"清除墨迹（C）",btnInkClear:"清除墨迹 · C",btnBlackoutTitle:"黑屏（B）",btnBlackout:"黑屏 · B",btnWhiteoutTitle:"白屏（W）",btnWhiteout:"白屏 · W",btnHelpTitle:"快捷键（?）",overviewLabel:"幻灯片概览",overviewHead:"概览 · 按 G 或 Esc 关闭",close:"关闭",helpLabel:"演讲者快捷键",helpHead:"快捷键 · ? 或 Esc",helpPrevNext:"上一张 / 下一张幻灯片",helpJump:"跳转到幻灯片",helpFirstLast:"第一张 / 最后一张幻灯片",helpOverview:"概览网格",helpFilmstrip:"缩略图条预览",helpEdit:"编辑文字",helpSave:"保存 HTML（编辑时）",helpNotes:"演讲者备注",helpLaser:"激光笔",helpInk:"墨迹 / 绘图",helpClearInk:"清除墨迹（绘图时）",helpBlackout:"黑屏",helpWhiteout:"白屏",helpTimer:"暂停 / 继续计时器",helpReset:"重置计时器",helpPace:"节奏目标（5–30 分钟倒计时）",helpSpeaker:"演讲者备注窗口",helpShortcuts:"快捷键",helpClose:"关闭浮层",btnLaserOff:"关闭激光笔 · L",btnInkOff:"关闭墨迹 · D",btnOverviewClose:"关闭网格 · G",slideFallback:"幻灯片 {n}",goToSlideTitled:"转到幻灯片 {n}：{title}",goToSlide:"转到幻灯片 {n}",btnStripShow:"缩略图条 · F",btnEditDone:"完成 · E",editButtonDone:"完成",lastSlideNote:"最后一张幻灯片——收尾或接受提问。",upNextTitled:"下一张 · {title}",timerOver:"超时",cueAhead:"提前",cueBehind:"落后",cueOnPace:"节奏正常",timerLeft:"剩余 {time}",timerPaused:"已暂停",noNotesSlide:"这张幻灯片没有备注。",noNotesDeck:"这份演示文稿没有演讲者备注。",speakerWinEnd:"— 结束 —",speakerWinTitle:"演讲者 · {n}/{total}",speakerWinNotesLabel:"演讲者备注",speakerWinHint:"跟随演示窗口 · 按 O 聚焦",btnBlackoutRestore:"恢复 · B",btnWhiteoutRestore:"恢复 · W",btnNotesHide:"隐藏备注 · S",timerTitlePace:"节奏 {minutes} 分钟 · P 切换 · T 暂停 · R 重置",timerTitleNoPace:"已用时 · P 设置节奏 · T 暂停 · R 重置"},y={navHint:"← → · E editar · G vista general · F tira · L láser · D tinta · B/W · S notas · T temporizador · P ritmo · O orador · ? ayuda",editButtonTitle:"Modo de edición (E)",editButton:"Editar",slideNavLabel:"Navegación de diapositivas",blackoutHint:"Pantalla negra · B o clic para restaurar",whiteoutHint:"Pantalla blanca · W o clic para restaurar",notesRailLabel:"Notas del orador",notesRailHint:"Notas del orador · S para ocultar",upNext:"A continuación",filmstripPeekLabel:"Vista rápida de la tira de miniaturas",filmstripLabel:"Tira de miniaturas",presenterControlsLabel:"Controles del presentador",timerTitleInitial:"Transcurrido · P ritmo · T pausa · R reiniciar",btnSpeakerTitle:"Ventana de notas del orador (O)",btnSpeaker:"Orador · O",btnNotesTitle:"Mostrar u ocultar notas del orador (S)",btnNotes:"Notas · S",btnStripTitle:"Mostrar u ocultar la tira de miniaturas (F)",btnStripHide:"Ocultar tira · F",btnOverviewTitle:"Cuadrícula de vista general (G)",btnOverview:"Vista general · G",btnEditTitle:"Editar texto (E) · ⌘/Ctrl+S guarda",btnEdit:"Editar · E",btnSaveTitle:"Guardar HTML (⌘/Ctrl+S)",btnSave:"Guardar · ⌘S",btnLaserTitle:"Puntero láser (L)",btnLaser:"Láser · L",btnInkTitle:"Tinta / dibujar (D) · C borra",btnInk:"Tinta · D",btnInkClearTitle:"Borrar tinta (C)",btnInkClear:"Borrar tinta · C",btnBlackoutTitle:"Pantalla negra (B)",btnBlackout:"Pantalla negra · B",btnWhiteoutTitle:"Pantalla blanca (W)",btnWhiteout:"Pantalla blanca · W",btnHelpTitle:"Atajos (?)",overviewLabel:"Vista general de diapositivas",overviewHead:"Vista general · G o Esc para cerrar",close:"Cerrar",helpLabel:"Atajos del presentador",helpHead:"Atajos · ? o Esc",helpPrevNext:"Diapositiva anterior / siguiente",helpJump:"Ir a una diapositiva",helpFirstLast:"Primera / última diapositiva",helpOverview:"Cuadrícula de vista general",helpFilmstrip:"Vista rápida de la tira de miniaturas",helpEdit:"Editar texto",helpSave:"Guardar HTML (al editar)",helpNotes:"Notas del orador",helpLaser:"Puntero láser",helpInk:"Tinta / dibujar",helpClearInk:"Borrar tinta (al dibujar)",helpBlackout:"Pantalla negra",helpWhiteout:"Pantalla blanca",helpTimer:"Pausar / reanudar temporizador",helpReset:"Reiniciar temporizador",helpPace:"Objetivo de ritmo (cuenta atrás de 5–30 min)",helpSpeaker:"Ventana de notas del orador",helpShortcuts:"Atajos",helpClose:"Cerrar superposición",btnLaserOff:"Láser desactivado · L",btnInkOff:"Tinta desactivada · D",btnOverviewClose:"Cerrar cuadrícula · G",slideFallback:"Diapositiva {n}",goToSlideTitled:"Ir a la diapositiva {n}: {title}",goToSlide:"Ir a la diapositiva {n}",btnStripShow:"Tira · F",btnEditDone:"Listo · E",editButtonDone:"Listo",lastSlideNote:"Última diapositiva — cierra o abre el turno de preguntas.",upNextTitled:"A continuación · {title}",timerOver:"EXCEDIDO",cueAhead:"adelantado",cueBehind:"atrasado",cueOnPace:"a buen ritmo",timerLeft:"quedan {time}",timerPaused:"en pausa",noNotesSlide:"Esta diapositiva no tiene notas.",noNotesDeck:"Esta presentación no tiene notas del orador.",speakerWinEnd:"— fin —",speakerWinTitle:"Orador · {n}/{total}",speakerWinNotesLabel:"Notas del orador",speakerWinHint:"Sigue la ventana de la presentación · O la enfoca",btnBlackoutRestore:"Restaurar · B",btnWhiteoutRestore:"Restaurar · W",btnNotesHide:"Ocultar notas · S",timerTitlePace:"Ritmo {minutes} min · P cambia · T pausa · R reiniciar",timerTitleNoPace:"Transcurrido · P fijar ritmo · T pausa · R reiniciar"},T={navHint:"← → · E تحرير · G نظرة عامة · F الشريط · L ليزر · D حبر · B/W شاشة · S ملاحظات · T المؤقت · P الإيقاع · O المتحدث · ? مساعدة",editButtonTitle:"وضع التحرير (E)",editButton:"تحرير",slideNavLabel:"التنقل بين الشرائح",blackoutHint:"شاشة سوداء · اضغط B أو انقر للعودة",whiteoutHint:"شاشة بيضاء · اضغط W أو انقر للعودة",notesRailLabel:"ملاحظات المتحدث",notesRailHint:"ملاحظات المتحدث · S للإخفاء",upNext:"التالي",filmstripPeekLabel:"معاينة شريط المصغرات",filmstripLabel:"شريط مصغرات الشرائح",presenterControlsLabel:"أدوات المتحدث",timerTitleInitial:"الوقت المنقضي · P الإيقاع · T إيقاف مؤقت · R إعادة ضبط",btnSpeakerTitle:"نافذة ملاحظات المتحدث (O)",btnSpeaker:"المتحدث · O",btnNotesTitle:"إظهار ملاحظات المتحدث أو إخفاؤها (S)",btnNotes:"ملاحظات · S",btnStripTitle:"إظهار معاينة شريط المصغرات أو إخفاؤها (F)",btnStripHide:"إخفاء الشريط · F",btnOverviewTitle:"شبكة النظرة العامة (G)",btnOverview:"نظرة عامة · G",btnEditTitle:"تحرير النص (E) · ⌘/Ctrl+S للحفظ",btnEdit:"تحرير · E",btnSaveTitle:"حفظ HTML (⌘/Ctrl+S)",btnSave:"حفظ · ⌘S",btnLaserTitle:"مؤشر ليزر (L)",btnLaser:"ليزر · L",btnInkTitle:"حبر / رسم (D) · C للمسح",btnInk:"حبر · D",btnInkClearTitle:"مسح الحبر (C)",btnInkClear:"مسح الحبر · C",btnBlackoutTitle:"شاشة سوداء (B)",btnBlackout:"شاشة سوداء · B",btnWhiteoutTitle:"شاشة بيضاء (W)",btnWhiteout:"شاشة بيضاء · W",btnHelpTitle:"الاختصارات (?)",overviewLabel:"نظرة عامة على الشرائح",overviewHead:"نظرة عامة · G أو Esc للإغلاق",close:"إغلاق",helpLabel:"اختصارات المتحدث",helpHead:"الاختصارات · ? أو Esc",helpPrevNext:"الشريحة السابقة / التالية",helpJump:"الانتقال إلى شريحة",helpFirstLast:"الشريحة الأولى / الأخيرة",helpOverview:"شبكة النظرة العامة",helpFilmstrip:"معاينة شريط المصغرات",helpEdit:"تحرير النص",helpSave:"حفظ HTML (أثناء التحرير)",helpNotes:"ملاحظات المتحدث",helpLaser:"مؤشر ليزر",helpInk:"حبر / رسم",helpClearInk:"مسح الحبر (أثناء الرسم)",helpBlackout:"شاشة سوداء",helpWhiteout:"شاشة بيضاء",helpTimer:"إيقاف المؤقت أو استئنافه",helpReset:"إعادة ضبط المؤقت",helpPace:"هدف الإيقاع (عد تنازلي من 5 إلى 30 دقيقة)",helpSpeaker:"نافذة ملاحظات المتحدث",helpShortcuts:"الاختصارات",helpClose:"إغلاق النافذة",btnLaserOff:"إيقاف الليزر · L",btnInkOff:"إيقاف الحبر · D",btnOverviewClose:"إغلاق الشبكة · G",slideFallback:"شريحة {n}",goToSlideTitled:"الانتقال إلى الشريحة {n}: {title}",goToSlide:"الانتقال إلى الشريحة {n}",btnStripShow:"الشريط · F",btnEditDone:"تم · E",editButtonDone:"تم",lastSlideNote:"هذه آخر شريحة — اختم العرض أو افتح باب الأسئلة.",upNextTitled:"التالي · {title}",timerOver:"تجاوز",cueAhead:"متقدم",cueBehind:"متأخر",cueOnPace:"على الإيقاع",timerLeft:"متبقي {time}",timerPaused:"متوقف مؤقتًا",noNotesSlide:"لا توجد ملاحظات على هذه الشريحة.",noNotesDeck:"لا توجد ملاحظات متحدث في هذا العرض.",speakerWinEnd:"— النهاية —",speakerWinTitle:"المتحدث · {n}/{total}",speakerWinNotesLabel:"ملاحظات المتحدث",speakerWinHint:"يتبع نافذة العرض · O للتركيز عليها",btnBlackoutRestore:"استعادة · B",btnWhiteoutRestore:"استعادة · W",btnNotesHide:"إخفاء الملاحظات · S",timerTitlePace:"الإيقاع {minutes} د · P للتبديل · T إيقاف مؤقت · R إعادة ضبط",timerTitleNoPace:"الوقت المنقضي · P لضبط الإيقاع · T إيقاف مؤقت · R إعادة ضبط"},S={navHint:"← → · E editar · G visão geral · F miniaturas · L laser · D tinta · B/W · S notas · T cronômetro · P ritmo · O apresentador · ? ajuda",editButtonTitle:"Modo de edição (E)",editButton:"Editar",slideNavLabel:"Navegação de slides",blackoutHint:"Tela preta · B ou clique para voltar",whiteoutHint:"Tela branca · W ou clique para voltar",notesRailLabel:"Notas do apresentador",notesRailHint:"Notas do apresentador · S para ocultar",upNext:"A seguir",filmstripPeekLabel:"Prévia da faixa de miniaturas",filmstripLabel:"Faixa de miniaturas",presenterControlsLabel:"Controles do apresentador",timerTitleInitial:"Decorrido · P ritmo · T pausar · R zerar",btnSpeakerTitle:"Janela de notas do apresentador (O)",btnSpeaker:"Apresentador · O",btnNotesTitle:"Alternar notas do apresentador (S)",btnNotes:"Notas · S",btnStripTitle:"Alternar prévia da faixa de miniaturas (F)",btnStripHide:"Ocultar faixa · F",btnOverviewTitle:"Grade de visão geral (G)",btnOverview:"Visão geral · G",btnEditTitle:"Editar texto (E) · ⌘/Ctrl+S salva",btnEdit:"Editar · E",btnSaveTitle:"Salvar HTML (⌘/Ctrl+S)",btnSave:"Salvar · ⌘S",btnLaserTitle:"Ponteiro laser (L)",btnLaser:"Laser · L",btnInkTitle:"Tinta / desenhar (D) · C limpa",btnInk:"Tinta · D",btnInkClearTitle:"Limpar tinta (C)",btnInkClear:"Limpar tinta · C",btnBlackoutTitle:"Tela preta (B)",btnBlackout:"Tela preta · B",btnWhiteoutTitle:"Tela branca (W)",btnWhiteout:"Tela branca · W",btnHelpTitle:"Atalhos (?)",overviewLabel:"Visão geral dos slides",overviewHead:"Visão geral · G ou Esc para fechar",close:"Fechar",helpLabel:"Atalhos do apresentador",helpHead:"Atalhos · ? ou Esc",helpPrevNext:"Slide anterior / seguinte",helpJump:"Ir para o slide",helpFirstLast:"Primeiro / último slide",helpOverview:"Grade de visão geral",helpFilmstrip:"Prévia da faixa de miniaturas",helpEdit:"Editar texto",helpSave:"Salvar HTML (ao editar)",helpNotes:"Notas do apresentador",helpLaser:"Ponteiro laser",helpInk:"Tinta / desenhar",helpClearInk:"Limpar tinta (ao desenhar)",helpBlackout:"Tela preta",helpWhiteout:"Tela branca",helpTimer:"Pausar / retomar cronômetro",helpReset:"Zerar cronômetro",helpPace:"Meta de ritmo (contagem de 5–30m)",helpSpeaker:"Janela de notas do apresentador",helpShortcuts:"Atalhos",helpClose:"Fechar sobreposição",btnLaserOff:"Laser desligado · L",btnInkOff:"Tinta desligada · D",btnOverviewClose:"Fechar grade · G",slideFallback:"Slide {n}",goToSlideTitled:"Ir para o slide {n}: {title}",goToSlide:"Ir para o slide {n}",btnStripShow:"Miniaturas · F",btnEditDone:"Concluir · E",editButtonDone:"Concluir",lastSlideNote:"Último slide — encerre ou abra para perguntas.",upNextTitled:"A seguir · {title}",timerOver:"ESGOTADO",cueAhead:"adiantado",cueBehind:"atrasado",cueOnPace:"no ritmo",timerLeft:"faltam {time}",timerPaused:"pausado",noNotesSlide:"Sem notas neste slide.",noNotesDeck:"Nenhuma nota do apresentador nesta apresentação.",speakerWinEnd:"— fim —",speakerWinTitle:"Apresentador · {n}/{total}",speakerWinNotesLabel:"Notas do apresentador",speakerWinHint:"Acompanha a janela da apresentação · O foca",btnBlackoutRestore:"Voltar · B",btnWhiteoutRestore:"Voltar · W",btnNotesHide:"Ocultar notas · S",timerTitlePace:"Ritmo {minutes}m · P alterna · T pausar · R zerar",timerTitleNoPace:"Decorrido · P definir ritmo · T pausar · R zerar"},E={navHint:"← → · E edit · G ikhtisar · F strip · L laser · D tinta · B/W · S catatan · T pengatur waktu · P tempo · O pembicara · ? bantuan",editButtonTitle:"Mode edit (E)",editButton:"Edit",slideNavLabel:"Navigasi slide",blackoutHint:"Layar hitam · B atau klik untuk kembali",whiteoutHint:"Layar putih · W atau klik untuk kembali",notesRailLabel:"Catatan pembicara",notesRailHint:"Catatan pembicara · S untuk menyembunyikan",upNext:"Berikutnya",filmstripPeekLabel:"Intip strip gambar mini slide",filmstripLabel:"Strip gambar mini slide",presenterControlsLabel:"Kontrol presenter",timerTitleInitial:"Berlalu · P tempo · T jeda · R reset",btnSpeakerTitle:"Jendela catatan pembicara (O)",btnSpeaker:"Pembicara · O",btnNotesTitle:"Tampilkan/sembunyikan catatan pembicara (S)",btnNotes:"Catatan · S",btnStripTitle:"Tampilkan/sembunyikan intipan strip gambar mini (F)",btnStripHide:"Sembunyikan strip · F",btnOverviewTitle:"Kisi ikhtisar (G)",btnOverview:"Ikhtisar · G",btnEditTitle:"Edit teks (E) · ⌘/Ctrl+S menyimpan",btnEdit:"Edit · E",btnSaveTitle:"Simpan HTML (⌘/Ctrl+S)",btnSave:"Simpan · ⌘S",btnLaserTitle:"Penunjuk laser (L)",btnLaser:"Laser · L",btnInkTitle:"Tinta / menggambar (D) · C menghapus",btnInk:"Tinta · D",btnInkClearTitle:"Hapus tinta (C)",btnInkClear:"Hapus tinta · C",btnBlackoutTitle:"Layar hitam (B)",btnBlackout:"Layar hitam · B",btnWhiteoutTitle:"Layar putih (W)",btnWhiteout:"Layar putih · W",btnHelpTitle:"Pintasan (?)",overviewLabel:"Ikhtisar slide",overviewHead:"Ikhtisar · G atau Esc untuk menutup",close:"Tutup",helpLabel:"Pintasan presenter",helpHead:"Pintasan · ? atau Esc",helpPrevNext:"Slide sebelumnya / berikutnya",helpJump:"Lompat ke slide",helpFirstLast:"Slide pertama / terakhir",helpOverview:"Kisi ikhtisar",helpFilmstrip:"Intipan strip gambar mini",helpEdit:"Edit teks",helpSave:"Simpan HTML (saat mengedit)",helpNotes:"Catatan pembicara",helpLaser:"Penunjuk laser",helpInk:"Tinta / menggambar",helpClearInk:"Hapus tinta (saat menggambar)",helpBlackout:"Layar hitam",helpWhiteout:"Layar putih",helpTimer:"Jeda / lanjutkan pengatur waktu",helpReset:"Reset pengatur waktu",helpPace:"Target tempo (hitung mundur 5–30m)",helpSpeaker:"Jendela catatan pembicara",helpShortcuts:"Pintasan",helpClose:"Tutup lapisan",btnLaserOff:"Laser mati · L",btnInkOff:"Tinta mati · D",btnOverviewClose:"Tutup kisi · G",slideFallback:"Slide {n}",goToSlideTitled:"Buka slide {n}: {title}",goToSlide:"Buka slide {n}",btnStripShow:"Strip · F",btnEditDone:"Selesai · E",editButtonDone:"Selesai",lastSlideNote:"Slide terakhir — akhiri atau terima pertanyaan.",upNextTitled:"Berikutnya · {title}",timerOver:"LEWAT",cueAhead:"lebih cepat",cueBehind:"terlambat",cueOnPace:"sesuai tempo",timerLeft:"sisa {time}",timerPaused:"dijeda",noNotesSlide:"Tidak ada catatan pada slide ini.",noNotesDeck:"Tidak ada catatan pembicara di deck ini.",speakerWinEnd:"— selesai —",speakerWinTitle:"Pembicara · {n}/{total}",speakerWinNotesLabel:"Catatan pembicara",speakerWinHint:"Mengikuti jendela deck · O untuk fokus",btnBlackoutRestore:"Pulihkan · B",btnWhiteoutRestore:"Pulihkan · W",btnNotesHide:"Sembunyikan catatan · S",timerTitlePace:"Tempo {minutes}m · P ganti · T jeda · R reset",timerTitleNoPace:"Berlalu · P atur tempo · T jeda · R reset"},L={navHint:"← → · E modifier · G vue d'ensemble · F miniatures · L laser · D encre · B/W · S notes · T minuteur · P rythme · O orateur · ? aide",editButtonTitle:"Mode édition (E)",editButton:"Modifier",slideNavLabel:"Navigation des diapositives",blackoutHint:"Écran noir · B ou clic pour revenir",whiteoutHint:"Écran blanc · W ou clic pour revenir",notesRailLabel:"Notes de l'orateur",notesRailHint:"Notes de l'orateur · S pour masquer",upNext:"À suivre",filmstripPeekLabel:"Aperçu de la bande de miniatures",filmstripLabel:"Bande de miniatures",presenterControlsLabel:"Commandes du présentateur",timerTitleInitial:"Temps écoulé · P rythme · T pause · R réinitialiser",btnSpeakerTitle:"Fenêtre des notes de l'orateur (O)",btnSpeaker:"Orateur · O",btnNotesTitle:"Afficher/masquer les notes de l'orateur (S)",btnNotes:"Notes · S",btnStripTitle:"Afficher/masquer l'aperçu de la bande de miniatures (F)",btnStripHide:"Masquer la bande · F",btnOverviewTitle:"Grille de vue d'ensemble (G)",btnOverview:"Vue d'ensemble · G",btnEditTitle:"Modifier le texte (E) · ⌘/Ctrl+S enregistre",btnEdit:"Modifier · E",btnSaveTitle:"Enregistrer le HTML (⌘/Ctrl+S)",btnSave:"Enregistrer · ⌘S",btnLaserTitle:"Pointeur laser (L)",btnLaser:"Laser · L",btnInkTitle:"Encre / dessin (D) · C efface",btnInk:"Encre · D",btnInkClearTitle:"Effacer l'encre (C)",btnInkClear:"Effacer l'encre · C",btnBlackoutTitle:"Écran noir (B)",btnBlackout:"Écran noir · B",btnWhiteoutTitle:"Écran blanc (W)",btnWhiteout:"Écran blanc · W",btnHelpTitle:"Raccourcis (?)",overviewLabel:"Vue d'ensemble des diapositives",overviewHead:"Vue d'ensemble · G ou Esc pour fermer",close:"Fermer",helpLabel:"Raccourcis du présentateur",helpHead:"Raccourcis · ? ou Esc",helpPrevNext:"Diapositive précédente / suivante",helpJump:"Aller à la diapositive",helpFirstLast:"Première / dernière diapositive",helpOverview:"Grille de vue d'ensemble",helpFilmstrip:"Aperçu de la bande de miniatures",helpEdit:"Modifier le texte",helpSave:"Enregistrer le HTML (en mode édition)",helpNotes:"Notes de l'orateur",helpLaser:"Pointeur laser",helpInk:"Encre / dessin",helpClearInk:"Effacer l'encre (pendant le dessin)",helpBlackout:"Écran noir",helpWhiteout:"Écran blanc",helpTimer:"Mettre en pause / reprendre le minuteur",helpReset:"Réinitialiser le minuteur",helpPace:"Objectif de rythme (compte à rebours de 5–30 min)",helpSpeaker:"Fenêtre des notes de l'orateur",helpShortcuts:"Raccourcis",helpClose:"Fermer la fenêtre",btnLaserOff:"Laser désactivé · L",btnInkOff:"Encre désactivée · D",btnOverviewClose:"Fermer la grille · G",slideFallback:"Diapositive {n}",goToSlideTitled:"Aller à la diapositive {n} : {title}",goToSlide:"Aller à la diapositive {n}",btnStripShow:"Miniatures · F",btnEditDone:"Terminé · E",editButtonDone:"Terminé",lastSlideNote:"Dernière diapositive — concluez ou ouvrez les questions.",upNextTitled:"À suivre · {title}",timerOver:"DÉPASSÉ",cueAhead:"en avance",cueBehind:"en retard",cueOnPace:"dans les temps",timerLeft:"{time} restant",timerPaused:"en pause",noNotesSlide:"Aucune note sur cette diapositive.",noNotesDeck:"Aucune note de l'orateur dans cette présentation.",speakerWinEnd:"— fin —",speakerWinTitle:"Orateur · {n}/{total}",speakerWinNotesLabel:"Notes de l'orateur",speakerWinHint:"Suit la fenêtre de la présentation · O pour la mettre au premier plan",btnBlackoutRestore:"Rétablir · B",btnWhiteoutRestore:"Rétablir · W",btnNotesHide:"Masquer les notes · S",timerTitlePace:"Rythme {minutes} min · P changer · T pause · R réinitialiser",timerTitleNoPace:"Temps écoulé · P définir le rythme · T pause · R réinitialiser"},C={navHint:"← → · E 編集 · G 一覧 · F サムネイル · L レーザー · D ペン · B/W 黒/白画面 · S ノート · T タイマー · P ペース · O 発表者 · ? ヘルプ",editButtonTitle:"編集モード (E)",editButton:"編集",slideNavLabel:"スライドナビゲーション",blackoutHint:"黒画面 · B またはクリックで戻る",whiteoutHint:"白画面 · W またはクリックで戻る",notesRailLabel:"スピーカーノート",notesRailHint:"スピーカーノート · S で非表示",upNext:"次",filmstripPeekLabel:"スライドのサムネイル帯（プレビュー）",filmstripLabel:"スライドのサムネイル帯",presenterControlsLabel:"発表者コントロール",timerTitleInitial:"経過時間 · P ペース · T 一時停止 · R リセット",btnSpeakerTitle:"スピーカーノートウィンドウ (O)",btnSpeaker:"発表者 · O",btnNotesTitle:"スピーカーノートの表示切替 (S)",btnNotes:"ノート · S",btnStripTitle:"サムネイル帯の表示切替 (F)",btnStripHide:"帯を隠す · F",btnOverviewTitle:"スライド一覧 (G)",btnOverview:"一覧 · G",btnEditTitle:"テキストを編集 (E) · ⌘/Ctrl+S で保存",btnEdit:"編集 · E",btnSaveTitle:"HTMLを保存 (⌘/Ctrl+S)",btnSave:"保存 · ⌘S",btnLaserTitle:"レーザーポインター (L)",btnLaser:"レーザー · L",btnInkTitle:"ペン / 描画 (D) · C で消去",btnInk:"ペン · D",btnInkClearTitle:"ペンを消去 (C)",btnInkClear:"ペン消去 · C",btnBlackoutTitle:"黒画面 (B)",btnBlackout:"黒画面 · B",btnWhiteoutTitle:"白画面 (W)",btnWhiteout:"白画面 · W",btnHelpTitle:"ショートカット (?)",overviewLabel:"スライド一覧",overviewHead:"一覧 · G または Esc で閉じる",close:"閉じる",helpLabel:"発表者ショートカット",helpHead:"ショートカット · ? または Esc",helpPrevNext:"前 / 次のスライド",helpJump:"スライドへ移動",helpFirstLast:"最初 / 最後のスライド",helpOverview:"スライド一覧",helpFilmstrip:"サムネイル帯のプレビュー",helpEdit:"テキストを編集",helpSave:"HTMLを保存（編集中）",helpNotes:"スピーカーノート",helpLaser:"レーザーポインター",helpInk:"ペン / 描画",helpClearInk:"ペンを消去（描画中）",helpBlackout:"黒画面",helpWhiteout:"白画面",helpTimer:"タイマーの一時停止 / 再開",helpReset:"タイマーのリセット",helpPace:"ペース目標（5–30分のカウントダウン）",helpSpeaker:"スピーカーノートウィンドウ",helpShortcuts:"ショートカット",helpClose:"オーバーレイを閉じる",btnLaserOff:"レーザー オフ · L",btnInkOff:"ペン オフ · D",btnOverviewClose:"一覧を閉じる · G",slideFallback:"スライド {n}",goToSlideTitled:"スライド {n} へ移動: {title}",goToSlide:"スライド {n} へ移動",btnStripShow:"帯 · F",btnEditDone:"完了 · E",editButtonDone:"完了",lastSlideNote:"最後のスライドです。まとめるか、質疑に移りましょう。",upNextTitled:"次 · {title}",timerOver:"超過",cueAhead:"早め",cueBehind:"遅れ",cueOnPace:"予定通り",timerLeft:"残り {time}",timerPaused:"一時停止中",noNotesSlide:"このスライドにノートはありません。",noNotesDeck:"このデッキにスピーカーノートはありません。",speakerWinEnd:"— 終了 —",speakerWinTitle:"発表者 · {n}/{total}",speakerWinNotesLabel:"スピーカーノート",speakerWinHint:"デッキのウィンドウに連動 · O でフォーカス",btnBlackoutRestore:"戻す · B",btnWhiteoutRestore:"戻す · W",btnNotesHide:"ノートを隠す · S",timerTitlePace:"ペース {minutes}分 · P 切替 · T 一時停止 · R リセット",timerTitleNoPace:"経過時間 · P ペース設定 · T 一時停止 · R リセット"},B={navHint:"← → · E редактировать · G обзор · F лента · L указка · D перо · B/W · S заметки · T таймер · P темп · O докладчик · ? справка",editButtonTitle:"Режим редактирования (E)",editButton:"Править",slideNavLabel:"Навигация по слайдам",blackoutHint:"Чёрный экран · B или клик, чтобы вернуть",whiteoutHint:"Белый экран · W или клик, чтобы вернуть",notesRailLabel:"Заметки докладчика",notesRailHint:"Заметки докладчика · S, чтобы скрыть",upNext:"Далее",filmstripPeekLabel:"Лента миниатюр слайдов",filmstripLabel:"Лента миниатюр слайдов",presenterControlsLabel:"Управление докладчика",timerTitleInitial:"Прошло · P темп · T пауза · R сброс",btnSpeakerTitle:"Окно заметок докладчика (O)",btnSpeaker:"Докладчик · O",btnNotesTitle:"Показать или скрыть заметки докладчика (S)",btnNotes:"Заметки · S",btnStripTitle:"Показать или скрыть ленту миниатюр (F)",btnStripHide:"Скрыть ленту · F",btnOverviewTitle:"Обзор слайдов (G)",btnOverview:"Обзор · G",btnEditTitle:"Редактировать текст (E) · ⌘/Ctrl+S сохраняет",btnEdit:"Правка · E",btnSaveTitle:"Сохранить HTML (⌘/Ctrl+S)",btnSave:"Сохранить · ⌘S",btnLaserTitle:"Лазерная указка (L)",btnLaser:"Указка · L",btnInkTitle:"Перо / рисование (D) · C стирает",btnInk:"Перо · D",btnInkClearTitle:"Стереть рисунок (C)",btnInkClear:"Стереть · C",btnBlackoutTitle:"Чёрный экран (B)",btnBlackout:"Чёрный экран · B",btnWhiteoutTitle:"Белый экран (W)",btnWhiteout:"Белый экран · W",btnHelpTitle:"Горячие клавиши (?)",overviewLabel:"Обзор слайдов",overviewHead:"Обзор · G или Esc, чтобы закрыть",close:"Закрыть",helpLabel:"Горячие клавиши докладчика",helpHead:"Горячие клавиши · ? или Esc",helpPrevNext:"Предыдущий / следующий слайд",helpJump:"Перейти к слайду",helpFirstLast:"Первый / последний слайд",helpOverview:"Обзор слайдов",helpFilmstrip:"Лента миниатюр",helpEdit:"Редактировать текст",helpSave:"Сохранить HTML (при редактировании)",helpNotes:"Заметки докладчика",helpLaser:"Лазерная указка",helpInk:"Перо / рисование",helpClearInk:"Стереть рисунок (при рисовании)",helpBlackout:"Чёрный экран",helpWhiteout:"Белый экран",helpTimer:"Пауза / продолжить таймер",helpReset:"Сбросить таймер",helpPace:"Целевой темп (обратный отсчёт 5–30 мин)",helpSpeaker:"Окно заметок докладчика",helpShortcuts:"Горячие клавиши",helpClose:"Закрыть окно",btnLaserOff:"Указка выкл. · L",btnInkOff:"Перо выкл. · D",btnOverviewClose:"Закрыть обзор · G",slideFallback:"Слайд {n}",goToSlideTitled:"Перейти к слайду {n}: {title}",goToSlide:"Перейти к слайду {n}",btnStripShow:"Лента · F",btnEditDone:"Готово · E",editButtonDone:"Готово",lastSlideNote:"Последний слайд — подведите итог или ответьте на вопросы.",upNextTitled:"Далее · {title}",timerOver:"ПРЕВЫШЕНО",cueAhead:"опережаете",cueBehind:"отстаёте",cueOnPace:"в темпе",timerLeft:"осталось {time}",timerPaused:"пауза",noNotesSlide:"У этого слайда нет заметок.",noNotesDeck:"В этой презентации нет заметок докладчика.",speakerWinEnd:"— конец —",speakerWinTitle:"Докладчик · {n}/{total}",speakerWinNotesLabel:"Заметки докладчика",speakerWinHint:"Следует за окном презентации · O переключает на него",btnBlackoutRestore:"Вернуть · B",btnWhiteoutRestore:"Вернуть · W",btnNotesHide:"Скрыть заметки · S",timerTitlePace:"Темп {minutes} мин · P сменить · T пауза · R сброс",timerTitleNoPace:"Прошло · P задать темп · T пауза · R сброс"},O={navHint:"← → · E bearbeiten · G Übersicht · F Leiste · L Laserpointer · D Stift · B/W · S Notizen · T Timer · P Tempo · O Sprecher · ? Hilfe",editButtonTitle:"Bearbeitungsmodus (E)",editButton:"Bearbeiten",slideNavLabel:"Foliennavigation",blackoutHint:"Schwarzbild · B oder Klick zum Beenden",whiteoutHint:"Weißbild · W oder Klick zum Beenden",notesRailLabel:"Sprechernotizen",notesRailHint:"Sprechernotizen · S zum Ausblenden",upNext:"Als Nächstes",filmstripPeekLabel:"Miniaturleiste (Vorschau)",filmstripLabel:"Miniaturleiste",presenterControlsLabel:"Vortragssteuerung",timerTitleInitial:"Laufzeit · P Tempo · T Pause · R Zurücksetzen",btnSpeakerTitle:"Sprechernotizen-Fenster (O)",btnSpeaker:"Sprecher · O",btnNotesTitle:"Sprechernotizen ein/aus (S)",btnNotes:"Notizen · S",btnStripTitle:"Miniaturleiste ein/aus (F)",btnStripHide:"Leiste ausblenden · F",btnOverviewTitle:"Übersicht (G)",btnOverview:"Übersicht · G",btnEditTitle:"Text bearbeiten (E) · ⌘/Ctrl+S speichert",btnEdit:"Bearbeiten · E",btnSaveTitle:"HTML speichern (⌘/Ctrl+S)",btnSave:"Speichern · ⌘S",btnLaserTitle:"Laserpointer (L)",btnLaser:"Laser · L",btnInkTitle:"Stift / Zeichnen (D) · C löscht",btnInk:"Stift · D",btnInkClearTitle:"Stiftzeichnung löschen (C)",btnInkClear:"Stift löschen · C",btnBlackoutTitle:"Schwarzbild (B)",btnBlackout:"Schwarzbild · B",btnWhiteoutTitle:"Weißbild (W)",btnWhiteout:"Weißbild · W",btnHelpTitle:"Tastenkürzel (?)",overviewLabel:"Folienübersicht",overviewHead:"Übersicht · G oder Esc zum Schließen",close:"Schließen",helpLabel:"Tastenkürzel für den Vortrag",helpHead:"Tastenkürzel · ? oder Esc",helpPrevNext:"Vorherige / nächste Folie",helpJump:"Zu Folie springen",helpFirstLast:"Erste / letzte Folie",helpOverview:"Übersicht",helpFilmstrip:"Miniaturleiste (Vorschau)",helpEdit:"Text bearbeiten",helpSave:"HTML speichern (beim Bearbeiten)",helpNotes:"Sprechernotizen",helpLaser:"Laserpointer",helpInk:"Stift / Zeichnen",helpClearInk:"Stiftzeichnung löschen (beim Zeichnen)",helpBlackout:"Schwarzbild",helpWhiteout:"Weißbild",helpTimer:"Timer pausieren / fortsetzen",helpReset:"Timer zurücksetzen",helpPace:"Tempo-Ziel (Countdown 5–30 Min.)",helpSpeaker:"Sprechernotizen-Fenster",helpShortcuts:"Tastenkürzel",helpClose:"Overlay schließen",btnLaserOff:"Laser aus · L",btnInkOff:"Stift aus · D",btnOverviewClose:"Übersicht schließen · G",slideFallback:"Folie {n}",goToSlideTitled:"Zu Folie {n}: {title}",goToSlide:"Zu Folie {n}",btnStripShow:"Leiste · F",btnEditDone:"Fertig · E",editButtonDone:"Fertig",lastSlideNote:"Letzte Folie — abschließen oder Fragen aufnehmen.",upNextTitled:"Als Nächstes · {title}",timerOver:"ÜBER",cueAhead:"voraus",cueBehind:"im Rückstand",cueOnPace:"im Plan",timerLeft:"noch {time}",timerPaused:"pausiert",noNotesSlide:"Keine Notizen zu dieser Folie.",noNotesDeck:"Keine Sprechernotizen in dieser Präsentation.",speakerWinEnd:"— Ende —",speakerWinTitle:"Sprecher · {n}/{total}",speakerWinNotesLabel:"Sprechernotizen",speakerWinHint:"Folgt dem Präsentationsfenster · O fokussiert",btnBlackoutRestore:"Zurück · B",btnWhiteoutRestore:"Zurück · W",btnNotesHide:"Notizen ausblenden · S",timerTitlePace:"Tempo {minutes} Min. · P wechseln · T Pause · R Zurücksetzen",timerTitleNoPace:"Laufzeit · P Tempo setzen · T Pause · R Zurücksetzen"},X={en:v,zh:w,es:y,ar:T,pt:S,id:E,fr:L,ja:C,ru:B,de:O};export{Y as _,J as a,V as b,G as c,j as d,_ as e,M as f,q as g,R as h,F as i,D as j,A as k,W as l,I as m,P as n,N as o,H as p,z as q,K as r,Z as s,U as t,Q as u,X as v};
