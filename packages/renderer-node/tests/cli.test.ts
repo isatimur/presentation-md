@@ -642,6 +642,24 @@ describe("presentation-md-render CLI flags", () => {
     expect([0, 1]).toContain(code);
   });
 
+  it("--audit fails on schema errors that craft gates miss", async () => {
+    const dir = await tempDir();
+    const deckPath = join(dir, "bad.json");
+    // comparison.left must be a string; craft audit alone passed this deck.
+    const bad = {
+      ...MINIMAL_DECK,
+      slides: [
+        ...(MINIMAL_DECK as { slides: unknown[] }).slides,
+        { layout: "comparison", heading: "A vs B", left: ["one", "two"], right: "three" },
+      ],
+    };
+    await writeFile(deckPath, JSON.stringify(bad));
+    const { code, stdout, stderr } = await runCli(["--audit", deckPath], { cwd: dir });
+    expect(stderr).toMatch(/error \(schema\):/);
+    expect(stdout).toMatch(/Craft audit: [1-9]\d* schema error/);
+    expect(code).toBe(1);
+  });
+
   it("--apply-theme swaps theme and repairs by default", async () => {
     const dir = await tempDir();
     const deckPath = join(dir, "deck.json");
