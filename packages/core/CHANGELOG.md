@@ -1,5 +1,47 @@
 # @presentation-md/core
 
+## 1.40.0
+
+### Minor Changes
+
+- c37aa82: Fix layouts that left most of the slide empty, and a set of rendering bugs found by reviewing all 75 themes.
+
+  - Comparison, timeline, code, stat-row, ranked-list, logo-wall, streak-grid and metric-ring content now centres in the space under the heading instead of hugging the top. Feature-grid cards pin the icon to the top and the copy to the bottom. Body type is larger.
+  - `--accent2` and `--bg2` were used 88 times but never defined. An undefined `var()` voids the whole declaration, so theme effects in about 37 surfaces never rendered, and ranked-list bars 2 and 3 had no fill. Both names are now aliases of `--accent-2` and `--bg-2`, and a test fails on any undefined variable.
+  - New `--on-accent` colour, picked by contrast from the theme (`readableOn` in core, exported from `@presentation-md/core/color`). Buttons and the primary ranked bar use it, so text on light accents stays readable.
+  - Metric-ring numbers scale to the ring and stay inside the stroke. Short ranked bars grow to fit their label and value.
+  - The image-hero headline column was about 330px wide and set one word per line. It is now up to 920px.
+  - Data-table slides show `lead`. Code windows are always a dark panel. Chart series 2 no longer paints black, and series 3+ no longer repeat series 1.
+
+- e7a970e: Themes installed with `npm i @presentation-md/theme-<name>` now render. The renderer (CLI, `renderDeck`, `renderDeckPptx`, and the MCP tools that call them) looked only in core's two bundled themes and failed with `Theme not found`, although `--list-themes` listed the installed theme.
+
+  - `loadTheme` also looks for `<dir>/theme-<name>/theme.json`, the npm package folder name.
+  - New `npmThemeDirs(projectRoot)` in core returns the `node_modules/@presentation-md` and `@presentation-skill-pack` scope folders.
+  - The renderer searches those folders in the current project after `themesDir` and the bundled themes.
+
+- 9474709: Keep figures and eyebrows readable in themes with pastel accents.
+
+  - New `accentInk` in core: the accent with its lightness moved away from the background until it reaches a contrast floor, hue kept. Renderers expose `--accent-ink` (3:1, for stat numbers, chart bars, streak cells and timeline dots) and `--accent-2-ink` (4.5:1, for eyebrows). Pastel accents stay pastel as fills.
+  - vaporwave: the horizon line shows on title, section and closing slides only, so it no longer cuts through centred content.
+  - risograph-zine: the blobs fade to 40% on content slides.
+  - capsule: stat pills inset their text past the curved edge.
+
+### Patch Changes
+
+- de7d3cb: Scaffolded decks now validate and render every slide.
+
+  - 8 of 21 recipes (pitch, sales, investor, launch, poster, hud, modernist, electric) failed schema validation: the timeline skeleton used `items` instead of `steps`.
+  - Three skeletons passed validation but rendered empty: data-table used `headers` (now `columns`), chart nested a `chart` object (now flat `chartType`, `categories`, `series`), and two-column used `left`/`right` (now `body` and `aside`).
+  - A test scaffolds every recipe, validates it, and fails on any slide field its layout does not render.
+
+- d59d8fd: Fix theme decoration that covered slide content, and panels that pill themes clipped.
+
+  - Decoration over content: coral's diagonal is a tint on content slides; cobalt-grid's corner triangle, cartesian's compass circles and scatterbrain's stickers stay off content slides; cartesian's axes and emerald-editorial's masthead rules sit in the slide padding; daisy-days' dots sit at the edges; block-frame's and bold-poster's title marks no longer touch copy.
+  - Split covers: electric-studio, creative-voltage and split-pastel keep title and closing copy inside one panel. electric-studio's closing button has a pill.
+  - Code windows, chart frames and two-column asides cap their corner radius, so pill themes (capsule, long-table) no longer clip axis labels and code.
+  - Contrast: mat's logo tiles, aside, stat labels and chart; kinetic-wrapped's closing buttons, quote attribution and ring on toned slides; glassmorphism's bento hero; raw-grid's eyebrows; editorial-tri-tone's stat rules; vaporwave's ranked-bar labels.
+  - neon-noir, vaporwave and kinetic-wrapped draw the metric ring in the accent.
+
 ## 1.39.0
 
 ### Minor Changes
