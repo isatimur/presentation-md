@@ -7,7 +7,26 @@ import {
   relativeLuminance,
   contrastRatio,
   withLightness,
+  readableOn,
 } from "../src/color.js";
+
+describe("readableOn", () => {
+  it("keeps the theme colour when it reads well", () => {
+    // Dark navy bg on cyan accent (blueprint): bg already reads.
+    expect(readableOn("#00e5ff", ["#0a1f3d", "#e8f4ff"])).toBe("#0a1f3d");
+  });
+
+  it("avoids light text on a light accent", () => {
+    // Pale mint accent, light bg, light text: falls back to near-black.
+    const on = readableOn("#b8f0d8", ["#fdfcf8", "#f4f4f4"]);
+    expect(on).toBe("#111111");
+    expect(contrastRatio("#b8f0d8", on)).toBeGreaterThan(4.5);
+  });
+
+  it("returns the first candidate when the fill is not hex", () => {
+    expect(readableOn("rgba(0,0,0,0.5)", ["#fff"])).toBe("#fff");
+  });
+});
 
 describe("hexToRgb / rgbToHex", () => {
   it("parses 6-digit hex", () => {
