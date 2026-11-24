@@ -10,8 +10,8 @@ bus = Bus.connect('ap3://ops')
 for frame in bus.subscribe('nav.pose'):
     if frame.flag == 'WARN':
         bus.alert(frame)
-    print(frame.t, frame.xyz)`},{layout:"stat-row",eyebrow:"Proof",heading:"Missions completed.",stats:[{value:"17",label:"Flights"},{value:"0",label:"Unexplained losses"},{value:"4",label:"Partner agencies"}]},{layout:"two-column",eyebrow:"Gates",heading:"From brief to burn",leftTitle:"Design",left:`Trajectory locked.
+    print(frame.t, frame.xyz)`},{layout:"stat-row",eyebrow:"Proof",heading:"Missions completed.",stats:[{value:"17",label:"Flights"},{value:"0",label:"Unexplained losses"},{value:"4",label:"Partner agencies"}]},{layout:"comparison",eyebrow:"Gates",heading:"From brief to burn",leftLabel:"Design",left:`Trajectory locked.
 Mass budget signed.
-Interface reviewed.`,rightTitle:"Flight",right:`Telemetry live.
+Interface reviewed.`,rightLabel:"Flight",right:`Telemetry live.
 Abort criteria green.
-Post-burn report auto-filed.`,ratio:"2-1"},{layout:"logo-wall",eyebrow:"Mission partners",heading:"Crews that ship under pressure.",columns:4,cards:[{title:"Orbital",body:"Flight"},{title:"Vector",body:"Avionics"},{title:"Forge",body:"Ground"},{title:"Helix",body:"Research"}],notes:"Glance the marks — social proof, not a reading list."},{layout:"closing",eyebrow:"Partner",heading:"Bring your mission. Keep the grid.",lead:"Integration slots open for AP-4.",actions:[{label:"Request ICD",href:"#",style:"solid",icon:"fa-solid fa-file-lines"},{label:"Book a tech sync",href:"#",style:"outline",icon:"fa-solid fa-calendar"}]}],o={type:e,meta:t,slides:i};export{o as default,t as meta,i as slides,e as type};
+Post-burn report auto-filed.`,emphasis:"left"},{layout:"logo-wall",eyebrow:"Mission partners",heading:"Crews that ship under pressure.",columns:4,cards:[{title:"Orbital",body:"Flight"},{title:"Vector",body:"Avionics"},{title:"Forge",body:"Ground"},{title:"Helix",body:"Research"}],notes:"Glance the marks — social proof, not a reading list."},{layout:"closing",eyebrow:"Partner",heading:"Bring your mission. Keep the grid.",lead:"Integration slots open for AP-4.",actions:[{label:"Request ICD",href:"#",style:"solid",icon:"fa-solid fa-file-lines"},{label:"Book a tech sync",href:"#",style:"outline",icon:"fa-solid fa-calendar"}]}],o={type:e,meta:t,slides:i};export{o as default,t as meta,i as slides,e as type};
