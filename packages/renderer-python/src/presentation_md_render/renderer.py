@@ -233,6 +233,7 @@ def render_deck(deck_json: str | dict[str, Any], opts: RenderOptions | None = No
             theme["palette"]["accent"], [theme["palette"]["bg"], theme["palette"]["text"]]
         ),
         "accentInk": _accent_ink(theme["palette"]["accent"], theme["palette"]["bg"]),
+        "accent2Ink": _accent_ink(theme["palette"]["accent2"], theme["palette"]["bg"], 4.5),
         "cardBg": theme["palette"]["cardBg"],
         "border": theme["palette"]["border"],
         "radius": theme["geometry"]["radius"],

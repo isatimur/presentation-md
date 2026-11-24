@@ -14,6 +14,7 @@
   /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
      Pastel accents stay pastel as fills. */
   --accent-ink: {{accentInk}};
+  --accent-2-ink: {{accent2Ink}};
   --card-bg: {{cardBg}};
   --border: {{border}};
   --radius: {{radius}};
@@ -79,7 +80,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;

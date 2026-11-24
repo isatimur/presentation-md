@@ -298,6 +298,7 @@ export function renderDeckHtml(deck: DeckJson, theme: ResolvedTheme): string {
     accent2: theme.palette.accent2,
     onAccent: readableOn(theme.palette.accent, [theme.palette.bg, theme.palette.text]),
     accentInk: accentInk(theme.palette.accent, theme.palette.bg),
+    accent2Ink: accentInk(theme.palette.accent2, theme.palette.bg, 4.5),
     cardBg: theme.palette.cardBg,
     border: theme.palette.border,
     radius: theme.geometry.radius,
