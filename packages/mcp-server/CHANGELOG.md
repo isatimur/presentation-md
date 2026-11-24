@@ -1,5 +1,26 @@
 # @presentation-md/mcp-server
 
+## 1.37.3
+
+### Patch Changes
+
+- de7d3cb: Scaffolded decks now validate and render every slide.
+
+  - 8 of 21 recipes (pitch, sales, investor, launch, poster, hud, modernist, electric) failed schema validation: the timeline skeleton used `items` instead of `steps`.
+  - Three skeletons passed validation but rendered empty: data-table used `headers` (now `columns`), chart nested a `chart` object (now flat `chartType`, `categories`, `series`), and two-column used `left`/`right` (now `body` and `aside`).
+  - A test scaffolds every recipe, validates it, and fails on any slide field its layout does not render.
+
+- Updated dependencies [4cad2a2]
+- Updated dependencies [c37aa82]
+- Updated dependencies [e7a970e]
+- Updated dependencies [de7d3cb]
+- Updated dependencies [9474709]
+- Updated dependencies [d59d8fd]
+  - @presentation-md/render@1.24.4
+  - @presentation-md/core@1.40.0
+  - @presentation-md/create-theme@1.1.45
+  - @presentation-md/export@1.28.2
+
 ## 1.37.2
 
 ### Patch Changes
