@@ -91,6 +91,23 @@ export function contrastRatio(hexA: string, hexB: string): number {
   return Math.round(((hi + 0.05) / (lo + 0.05)) * 100) / 100;
 }
 
+/**
+ * Text colour for content drawn on a `fill` (for example a button on the accent).
+ * Returns the first theme candidate that reaches WCAG AA (4.5:1), so the theme
+ * keeps its look; otherwise the colour with the best contrast, white and
+ * near-black included. Non-hex fills (rgba, var) return the first candidate,
+ * because their contrast can't be measured here.
+ */
+export function readableOn(fill: string, candidates: string[]): string {
+  const hex = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i;
+  if (!hex.test(fill.trim())) return candidates[0] ?? "#ffffff";
+  const themed = candidates.filter((c) => hex.test(c.trim()));
+  const passing = themed.find((c) => contrastRatio(fill, c) >= 4.5);
+  if (passing) return passing;
+  const pool = [...themed, "#ffffff", "#111111"];
+  return pool.reduce((best, c) => (contrastRatio(fill, c) > contrastRatio(fill, best) ? c : best));
+}
+
 export function withLightness(hex: string, lightness: number): string {
   const [h, s] = rgbToHsl(hexToRgb(hex));
   const clamped = Math.max(0, Math.min(100, lightness));

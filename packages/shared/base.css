@@ -9,6 +9,8 @@
   --muted: {{muted}};
   --accent: {{accent}};
   --accent-2: {{accent2}};
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: {{onAccent}};
   --card-bg: {{cardBg}};
   --border: {{border}};
   --radius: {{radius}};
@@ -16,6 +18,10 @@
   --heading-font: {{{headingFont}}};
   --body-font: {{{bodyFont}}};
   --heading-weight: {{headingWeight}};
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -183,13 +189,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -492,9 +499,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -524,8 +533,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -533,13 +542,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -555,7 +565,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -570,8 +582,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -592,7 +604,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -789,7 +801,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -816,10 +828,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
   color: var(--accent);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -838,15 +855,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -874,17 +893,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
