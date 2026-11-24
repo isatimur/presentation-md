@@ -728,6 +728,10 @@ export function buildProgram(): Command {
             `Applied ${fixes.length} craft fix(es) → ${outputPath}\n`
           );
         }
+        // Schema first, like MCP audit_deck: a deck that fails validation is not
+        // shippable even when every craft gate passes.
+        const schema = validateDeckJson(JSON.stringify(deck));
+        for (const message of schema.errors) process.stderr.write(`error (schema): ${message}\n`);
         const issues = auditCraft(deck);
         const errors = issues.filter((i) => i.severity === "error");
         const warns = issues.filter((i) => i.severity !== "error");
@@ -738,9 +742,9 @@ export function buildProgram(): Command {
           else process.stdout.write(line);
         }
         process.stdout.write(
-          `Craft audit: ${errors.length} error(s), ${warns.length} warning(s)${fixes.length ? `, ${fixes.length} fix(es) applied` : ""}\n`
+          `Craft audit: ${schema.errors.length} schema error(s), ${errors.length} error(s), ${warns.length} warning(s)${fixes.length ? `, ${fixes.length} fix(es) applied` : ""}\n`
         );
-        process.exit(errors.length > 0 ? 1 : 0);
+        process.exit(errors.length > 0 || !schema.valid ? 1 : 0);
       }
 
       if (options.judge) {
