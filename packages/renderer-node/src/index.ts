@@ -7,6 +7,7 @@ import Mustache from "mustache";
 import {
   validateDeckJson as coreValidateDeckJson,
   loadTheme,
+  npmThemeDirs,
   surfaceForTheme,
   renderChartSvg,
   sanitizeCustomHtml,
@@ -212,6 +213,14 @@ const require = createRequire(import.meta.url);
 export function getBundledThemesDir(): string {
   const coreMain = require.resolve("@presentation-md/core");
   return join(dirname(coreMain), "..", "themes");
+}
+
+/**
+ * Where to look after `themesDir`: core's bundled themes (for `extends`), then
+ * theme packages the user installed with npm in the current project.
+ */
+function themeFallbackDirs(themesDir: string, bundled: string): string[] {
+  return [...(themesDir !== bundled ? [bundled] : []), ...npmThemeDirs(process.cwd())];
 }
 
 function getSharedDir(): string {
@@ -531,7 +540,7 @@ export async function renderDeck(deckJson: string, opts?: RenderOptions): Promis
   const bundled = getBundledThemesDir();
   const theme = await loadTheme(themeName, {
     themesDir,
-    fallbackThemesDirs: themesDir !== bundled ? [bundled] : undefined,
+    fallbackThemesDirs: themeFallbackDirs(themesDir, bundled),
   });
 
   const lang = normalizeDeckLang(deck.meta?.lang);
@@ -650,7 +659,7 @@ export async function renderDeckPptx(
   const bundled = getBundledThemesDir();
   const theme = await loadTheme(themeName, {
     themesDir,
-    fallbackThemesDirs: themesDir !== bundled ? [bundled] : undefined,
+    fallbackThemesDirs: themeFallbackDirs(themesDir, bundled),
   });
 
   // Prefetch remote http(s) and local images first (sandboxed to the allowed
