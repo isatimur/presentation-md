@@ -106,6 +106,38 @@ def _load_theme(name: str, themes_dir: Path) -> dict[str, Any]:
     return {"palette": palette, "typography": typography, "geometry": geometry}
 
 
+_HEX = re.compile(r"^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$")
+
+
+def _luminance(hex_color: str) -> float:
+    h = hex_color.strip().lstrip("#")
+    if len(h) == 3:
+        h = "".join(c * 2 for c in h)
+    rgb = [int(h[i : i + 2], 16) / 255 for i in (0, 2, 4)]
+    lin = [c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4 for c in rgb]
+    return 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2]
+
+
+def _contrast(a: str, b: str) -> float:
+    hi, lo = sorted((_luminance(a), _luminance(b)), reverse=True)
+    return round((hi + 0.05) / (lo + 0.05), 2)
+
+
+def _readable_on(fill: str, candidates: list[str]) -> str:
+    """Port of core readableOn: first theme colour at 4.5:1, else the best contrast."""
+    if not _HEX.match(fill.strip()):
+        return candidates[0] if candidates else "#ffffff"
+    themed = [c for c in candidates if _HEX.match(c.strip())]
+    for c in themed:
+        if _contrast(fill, c) >= 4.5:
+            return c
+    best = None
+    for c in [*themed, "#ffffff", "#111111"]:
+        if best is None or _contrast(fill, c) > _contrast(fill, best):
+            best = c
+    return best
+
+
 def _google_fonts_url(families: list[str]) -> str:
     if not families:
         return ""
@@ -154,6 +186,9 @@ def render_deck(deck_json: str | dict[str, Any], opts: RenderOptions | None = No
         "muted": theme["palette"]["muted"],
         "accent": theme["palette"]["accent"],
         "accent2": theme["palette"]["accent2"],
+        "onAccent": _readable_on(
+            theme["palette"]["accent"], [theme["palette"]["bg"], theme["palette"]["text"]]
+        ),
         "cardBg": theme["palette"]["cardBg"],
         "border": theme["palette"]["border"],
         "radius": theme["geometry"]["radius"],

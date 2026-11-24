@@ -80,3 +80,15 @@ def test_japanese_deck_gets_cjk_fallback_before_generic_family() -> None:
 def test_english_deck_has_no_noto_fallback() -> None:
     html = render_deck(DECK)
     assert "Noto" not in html
+
+
+def test_on_accent_token_is_filled_and_matches_core() -> None:
+    from presentation_md_render.renderer import _readable_on
+
+    html = render_deck(DECK)
+    assert "--on-accent: #" in html
+    assert "{{onAccent}}" not in html
+    # Same cases as core tests/color.test.ts readableOn.
+    assert _readable_on("#00e5ff", ["#0a1f3d", "#e8f4ff"]) == "#0a1f3d"
+    assert _readable_on("#b8f0d8", ["#fdfcf8", "#f4f4f4"]) == "#111111"
+    assert _readable_on("rgba(0,0,0,0.5)", ["#fff"]) == "#fff"

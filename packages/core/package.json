@@ -11,6 +11,7 @@
     ".": "./dist/index.js",
     "./theme-types": "./dist/theme-types.js",
     "./chart-svg": "./dist/chart-svg.js",
+    "./color": "./dist/color.js",
     "./sanitize-html": "./dist/sanitize-html.js",
     "./candy-marquee": "./dist/candy-marquee.js",
     "./deck-lang": "./dist/deck-lang.js",
