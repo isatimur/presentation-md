@@ -207,17 +207,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -253,8 +257,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -344,8 +348,11 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Cards stretch to fill the grid. Pin the icon to the top and the copy to the
+   bottom so a tall card is composed, not a box with text stuck to its top. */
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -374,12 +381,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -391,34 +399,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
+  font-size: clamp(52px, 7vw, 104px);
   color: var(--accent);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -629,6 +645,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -649,8 +668,8 @@ tbody tr:hover td {
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -682,25 +701,29 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.9);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -725,7 +748,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;

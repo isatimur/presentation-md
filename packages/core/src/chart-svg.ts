@@ -39,12 +39,19 @@ export interface ChartColors {
 
 const DEFAULT_COLORS: Required<Omit<ChartColors, "extras">> & { extras: string[] } = {
   accent: "var(--accent)",
-  accent2: "var(--accent2)",
+  // base.css defines --accent-2 (with a hyphen). An undefined var() makes SVG fill black.
+  accent2: "var(--accent-2)",
   text: "var(--text)",
   muted: "var(--muted)",
   border: "var(--border)",
   cardBg: "var(--card-bg)",
-  extras: ["var(--accent)", "var(--accent2)", "var(--muted)", "var(--text)"],
+  // Series 3+ must differ from series 1–2, so no plain accent repeats here.
+  extras: [
+    "var(--muted)",
+    "color-mix(in srgb, var(--accent) 45%, var(--bg))",
+    "color-mix(in srgb, var(--accent-2) 45%, var(--bg))",
+    "var(--text)",
+  ],
 };
 
 function esc(s: string): string {

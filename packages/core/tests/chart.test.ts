@@ -15,6 +15,20 @@ describe("renderChartSvg", () => {
     expect(svg).toContain("<rect");
   });
 
+  it("gives each donut slice its own defined theme colour", () => {
+    const svg = renderChartSvg({
+      chartType: "donut",
+      categories: ["A", "B", "C", "D"],
+      series: [{ name: "Files", values: [26, 12, 11, 5] }],
+    });
+    const fills = [...svg.matchAll(/<path d="[^"]*" fill="([^"]+)"/g)].map((m) => m[1]);
+    expect(fills).toHaveLength(4);
+    expect(new Set(fills).size).toBe(4);
+    // base.css defines --accent-2; --accent2 is undefined and paints black.
+    expect(svg).not.toContain("var(--accent2)");
+    expect(fills[1]).toBe("var(--accent-2)");
+  });
+
   it("renders multi-series line charts", () => {
     const svg = renderChartSvg({
       chartType: "line",
