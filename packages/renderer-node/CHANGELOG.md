@@ -1,5 +1,14 @@
 # @presentation-md/render
 
+## 1.24.5
+
+### Patch Changes
+
+- 4ad5486: Capsule theme: on content slides the three background dots now sit in the slide padding. Before, they showed through chart frames and next to axis labels. Title, section and closing slides keep the larger dots.
+- Updated dependencies [3c94c72]
+  - @presentation-md/core@1.41.0
+  - @presentation-md/export@1.29.0
+
 ## 1.24.4
 
 ### Patch Changes
