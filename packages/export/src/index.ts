@@ -3,6 +3,7 @@ import { PptxGenJS, type Pptx } from "./pptx.js";
 import { buildContext } from "./context.js";
 import { renderSlide } from "./layouts.js";
 import { withDeckLanguage } from "./lang.js";
+import { withShapeDefaults } from "./shape-defaults.js";
 import { applyScriptFonts, scriptFontSlots } from "./script-fonts.js";
 import { deckLangDir, normalizeDeckLang } from "@presentation-md/core/deck-lang";
 import {
@@ -146,7 +147,11 @@ export async function buildPptx(
   const slides = Array.isArray(working.slides) ? working.slides : [];
   slides.forEach((slideData, i) => {
     currentSlide = i + 1;
-    const slide = withDeckLanguage(pptx.addSlide(), lang, rtl);
+    const slide = withDeckLanguage(
+      withShapeDefaults(pptx.addSlide(), { roundRect: pptx.ShapeType.roundRect, rect: pptx.ShapeType.rect }),
+      lang,
+      rtl
+    );
     renderSlide(slide, ctx, slideData);
 
     const notes = typeof slideData.notes === "string" ? slideData.notes.trim() : "";
