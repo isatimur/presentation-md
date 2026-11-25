@@ -81,6 +81,29 @@ describe("mapPaletteToRoles", () => {
     expect(palette.cardBg).toMatch(/^#[0-9a-f]{6}$/);
     expect(palette.border).toMatch(/^#[0-9a-f]{6}$/);
   });
+
+  it("uses bg2 and accent2 when given, normalized", () => {
+    const palette = mapPaletteToRoles({
+      bg: "#ffffff",
+      text: "#1a1a1a",
+      accent: "#e4572e",
+      bg2: "#EEF2F7",
+      accent2: "#17BEBB",
+    });
+    expect(palette.bg2).toBe("#eef2f7");
+    expect(palette.accent2).toBe("#17bebb");
+  });
+
+  it("keeps the derived output unchanged when bg2 and accent2 are absent", () => {
+    const base = { bg: "#ffffff", text: "#1a1a1a", accent: "#e4572e" };
+    const derived = mapPaletteToRoles(base);
+    expect(mapPaletteToRoles({ ...base, bg2: undefined, accent2: undefined })).toEqual(derived);
+    expect(derived.accent2).toBe("#e4572e");
+    expect(derived.bg2).not.toBe("#ffffff");
+    // Only bg2 and accent2 change; every other role stays derived the same way.
+    const withBoth = mapPaletteToRoles({ ...base, bg2: "#eef2f7", accent2: "#17bebb" });
+    expect({ ...withBoth, bg2: derived.bg2, accent2: derived.accent2 }).toEqual(derived);
+  });
 });
 
 describe("ensureContrastSafe", () => {

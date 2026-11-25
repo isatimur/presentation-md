@@ -3,7 +3,12 @@ import { readFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import Mustache from "mustache";
-import { validateThemeName, toUnderscored, renderTemplate } from "../src/index.js";
+import {
+  validateThemeName,
+  toUnderscored,
+  renderTemplate,
+  buildThemeManifestJson,
+} from "../src/index.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -31,8 +36,29 @@ const SAMPLE_VIEW = {
   headingWeight: 700,
   headingFontSpec: "Montserrat:wght@700",
   bodyFontSpec: "Source+Sans+Pro:wght@400;500",
+  headingStack: "'Montserrat', system-ui, sans-serif",
+  bodyStack: "'Source Sans Pro', 'Open Sans', system-ui, sans-serif",
+  googleFonts: ["Montserrat:wght@700", "Open+Sans:wght@400;600"],
   radius: "12px",
 };
+
+describe("buildThemeManifestJson", () => {
+  it("sets the font stacks and googleFonts from the view as JSON values", () => {
+    const view = {
+      ...SAMPLE_VIEW,
+      extends: "default-tech" as const,
+      headingStack: `'Acme "Sans', system-ui, sans-serif`,
+    };
+    const json = buildThemeManifestJson(view);
+    const parsed = JSON.parse(json) as {
+      typography: { headingFont: string; bodyFont: string; googleFonts: string[] };
+    };
+    expect(parsed.typography.headingFont).toBe(`'Acme "Sans', system-ui, sans-serif`);
+    expect(parsed.typography.bodyFont).toBe(SAMPLE_VIEW.bodyStack);
+    expect(parsed.typography.googleFonts).toEqual(SAMPLE_VIEW.googleFonts);
+    expect(json).toContain('\n  "name": "ocean-dark"');
+  });
+});
 
 describe("renderTemplate — theme.json.mustache", () => {
   it("produces valid JSON containing the correct name and accent color", () => {

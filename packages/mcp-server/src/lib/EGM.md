@@ -8,6 +8,7 @@ Shared helpers for the MCP tools: path checks against the working directory, the
 
 - [cwd-path.ts:assertWritablePathInCwd] `(relPath, label)` returns the real path of a write target inside `process.cwd()`.
 - [cwd-path.ts:assertExistingPathInCwd] `(relPath, label)` returns the real path of an existing path inside `process.cwd()`.
+- [cwd-path.ts:assertOoxmlPathInCwd] `(path, label, exts)` throws `'<label>' must point to a <exts joined by " or "> file.` for another extension, then calls `assertExistingPathInCwd`.
 - [resolve-themes.ts:resolveThemesDir] returns `{ themesDir, fallbackThemesDirs? }`.
 - [rich-result.ts:McpImagePayload], [rich-result.ts:RichToolResult], [rich-result.ts:richToolResult], [rich-result.ts:isRichToolResult].
 - [rich-result.ts:MAX_MCP_INLINE_IMAGE_BYTES] is 8 MiB. [rich-result.ts:isMcpInlineImageSizeAllowed] and [rich-result.ts:encodeMcpInlineImage] enforce it.

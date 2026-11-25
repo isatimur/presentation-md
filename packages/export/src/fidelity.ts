@@ -5,6 +5,7 @@
  */
 import type { ResolvedTheme } from "@presentation-md/core/theme-types";
 import { parseFontFamily } from "./font.js";
+import { OFFICE_FONTS } from "./office-fonts.js";
 
 /**
  * - image: an image became a placeholder.
@@ -23,44 +24,6 @@ export interface FidelityItem {
   message: string;
 }
 
-/**
- * Fonts installed with Microsoft 365 / Office on Windows and macOS. PowerPoint
- * shows any other family with a substitute unless the viewer installed it.
- */
-const OFFICE_FONTS = new Set(
-  [
-    "Aptos",
-    "Arial",
-    "Arial Black",
-    "Arial Narrow",
-    "Book Antiqua",
-    "Bookman Old Style",
-    "Calibri",
-    "Calibri Light",
-    "Cambria",
-    "Candara",
-    "Century Gothic",
-    "Comic Sans MS",
-    "Consolas",
-    "Constantia",
-    "Corbel",
-    "Courier New",
-    "Franklin Gothic Medium",
-    "Garamond",
-    "Georgia",
-    "Gill Sans MT",
-    "Impact",
-    "Lucida Console",
-    "Lucida Sans Unicode",
-    "Palatino Linotype",
-    "Rockwell",
-    "Segoe UI",
-    "Tahoma",
-    "Times New Roman",
-    "Trebuchet MS",
-    "Verdana",
-  ].map((f) => f.toLowerCase())
-);
 
 /** How PPTX export picks fonts: the theme's own, or Office fonts of the same style. */
 export type FontMode = "theme" | "office-safe";

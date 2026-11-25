@@ -1,6 +1,6 @@
 ---
 name: presentation-generator
-description: Create stunning slide decks from notes — vibe → preview → craft. Self-contained HTML plus editable PowerPoint. 75 themes, Studio share links, MCP craft gates. Use for pitch decks, investor updates, keynotes, product launches, sales demos, and any presentation request.
+description: Create stunning slide decks from notes — vibe → preview → craft. Self-contained HTML plus editable PowerPoint. 75 themes, Studio share links, MCP craft gates. Use for pitch decks, investor updates, keynotes, product launches, sales demos, and any presentation request. Also use when the user has a company template, a .pptx or .potx template, or our brand slides to match.
 license: MIT
 metadata:
   author: isatimur
@@ -66,6 +66,8 @@ Do **not** ask the user to memorize theme names or layout enums.
 Shortlist **3** themes: **1 safe · 1 bold · 1 wildcard**. Call `preview_themes` (inline PNGs on by default; ≥2 themes → layouts mode). User picks visually.
 
 If they already named a theme/alias/brand URL, skip to Phase 3 (`import_brand_theme` for brand match).
+
+**Company template rule.** When the user has a PowerPoint template ("use our template", "match our PowerPoint", a `.pptx` or `.potx` file), call `import_brand_theme` with `pptxPath` before you choose a theme. If the call fails with `office-default:`, the template keeps Office's colours: ask for the brand colours, or try the company website with `url`. After the import, tell the user three things, one sentence each: the `source`; which `fonts` are `office` or `unavailable` (they show only where installed); and which colours the contrast pass changed (`contrastAdjustments`).
 
 ### Phase 3 — Craft
 
@@ -259,7 +261,7 @@ Each theme is a complete design language: colors, typography, geometry, motion, 
 6. **Visual pick** — MCP `preview_themes` / `list_themes` (never ask the user to choose from bare names)
 
 Install: `npm i @presentation-md/theme-<name>`. Scaffold: `npx @presentation-md/create-theme`.
-Brand match: `import_brand_theme` MCP or `npx @presentation-md/create-theme --from-url …`.
+Brand match: `import_brand_theme` MCP or `npx @presentation-md/create-theme --from-url …` (`--from-pptx <file>` for a company PowerPoint template).
 
 When a brief matches a stunning-25 vibe, open that structured proof and match its craft ceiling —
 do not invent a watered-down palette.
@@ -481,7 +483,7 @@ Fourteen tools via `@presentation-md/mcp-server` (not the deprecated `@presentat
 | `import_pptx` | Import a `.pptx` into deck JSON (see `references/pptx-import.md`) |
 | `import_markdown` | Import Marp/md-slides Markdown → Deck JSON (`---` splits, ` ```chart ` / ` ```html `) |
 | `judge_deck` | Design judge — `tier` t0/t1 JSON gates; **t2** HTML metrics + Chrome shots (**inline PNGs** by default); **t3** panel or agent rubric |
-| `import_brand_theme` | Generate a theme from a brand URL or CSS file |
+| `import_brand_theme` | Generate a theme from a brand URL, a CSS file, or a company PowerPoint template (`pptxPath`, `.pptx`/`.potx`) |
 
 ---
 

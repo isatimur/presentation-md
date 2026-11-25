@@ -1,4 +1,4 @@
-import { basename, dirname, join, resolve, sep } from "node:path";
+import { basename, dirname, extname, join, resolve, sep } from "node:path";
 import { realpath } from "node:fs/promises";
 
 /**
@@ -45,4 +45,15 @@ export async function assertExistingPathInCwd(relPath: string, label: string): P
     throw new Error(`'${label}' must be within the current working directory (${root}).`);
   }
   return resolvedPath;
+}
+
+/**
+ * Check an Office Open XML path: the extension must be one of `exts`
+ * (lower-case, with the dot), and the file must exist inside cwd.
+ */
+export async function assertOoxmlPathInCwd(path: string, label: string, exts: string[]): Promise<string> {
+  if (!exts.includes(extname(path).toLowerCase())) {
+    throw new Error(`'${label}' must point to a ${exts.join(" or ")} file.`);
+  }
+  return assertExistingPathInCwd(path, label);
 }

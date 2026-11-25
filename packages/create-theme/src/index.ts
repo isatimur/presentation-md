@@ -2,17 +2,29 @@
 import { createInterface } from "node:readline";
 import { readFileSync, mkdirSync, writeFileSync, existsSync, realpathSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { dirname, join, resolve } from "node:path";
+import { dirname, extname, join, resolve } from "node:path";
 import { Command } from "commander";
 import Mustache from "mustache";
-import { extractBrand } from "./extract-brand.js";
+import { extractBrand, type BrandExtractionResult } from "./extract-brand.js";
 import { buildThemeViewFromBrand } from "./theme-view.js";
-import { deriveNameFromUrl } from "./name-from-url.js";
+import { deriveNameFromPath, deriveNameFromUrl } from "./name-from-url.js";
+import { pickExtendsFromBg } from "./pick-extends.js";
+import { assertNotOfficeDefault } from "./office-default.js";
 
 export { extractBrand } from "./extract-brand.js";
-export type { BrandExtractionInput, BrandExtractionResult } from "./extract-brand.js";
+export type {
+  BrandExtractionInput,
+  BrandExtractionResult,
+  BrandSource,
+  TemplateSchemeReport,
+} from "./extract-brand.js";
 export { buildThemeViewFromBrand } from "./theme-view.js";
-export { deriveNameFromUrl } from "./name-from-url.js";
+export { deriveNameFromUrl, deriveNameFromPath } from "./name-from-url.js";
+export { pickExtendsFromBg } from "./pick-extends.js";
+export { assertNotOfficeDefault } from "./office-default.js";
+export { buildFontPlan, classifyFont, sanitizeFamily } from "./fonts.js";
+export type { FontRow, FontPlan, FontStatus } from "./fonts.js";
+export { templateToCandidates } from "./template-candidates.js";
 
 export const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
@@ -30,30 +42,6 @@ export function validateThemeName(name: string): void {
 
 export function toUnderscored(name: string): string {
   return name.replace(/-/g, "_");
-}
-
-/**
- * Pick a quiet base theme for brand imports / scaffolds.
- * Light paper → claude (warm-paper surface); dark → default-tech (neon-glow).
- * Avoids light brand themes inheriting neon SaaS chrome by accident.
- */
-export function pickExtendsFromBg(bg: string): "claude" | "default-tech" {
-  const hex = bg.trim().replace(/^#/, "");
-  const full =
-    hex.length === 3
-      ? hex
-          .split("")
-          .map((c) => c + c)
-          .join("")
-      : hex;
-  if (!/^[0-9a-f]{6}$/i.test(full)) return "default-tech";
-  const num = parseInt(full, 16);
-  const channels = [(num >> 16) & 255, (num >> 8) & 255, num & 255].map((c) => {
-    const cn = c / 255;
-    return cn <= 0.03928 ? cn / 12.92 : Math.pow((cn + 0.055) / 1.055, 2.4);
-  });
-  const luminance = 0.2126 * channels[0]! + 0.7152 * channels[1]! + 0.0722 * channels[2]!;
-  return luminance >= 0.45 ? "claude" : "default-tech";
 }
 
 /** Locate the template directory — works in both dist/ and src/ layouts. */
@@ -87,15 +75,31 @@ export async function scaffoldTheme(view: ThemeView, outputDir: string): Promise
   mkdirSync(outputDir, { recursive: true });
   const created: string[] = [];
   for (const { template, output } of THEME_TEMPLATE_FILES) {
-    const rendered = renderTemplate(templateDir, template, view as unknown as Record<string, unknown>);
+    const rendered =
+      output === "theme.json"
+        ? buildThemeManifestJson(view)
+        : renderTemplate(templateDir, template, view as unknown as Record<string, unknown>);
     writeFileSync(join(outputDir, output), rendered, "utf-8");
     created.push(output);
   }
   return created;
 }
 
+/**
+ * Render theme.json. The font stacks and Google Fonts specs are set as JSON
+ * values after rendering, so a family name can never break the JSON.
+ */
 export function buildThemeManifestJson(view: ThemeView): string {
-  return renderTemplate(getTemplateDir(), "theme.json.mustache", view as unknown as Record<string, unknown>);
+  const rendered = renderTemplate(
+    getTemplateDir(),
+    "theme.json.mustache",
+    view as unknown as Record<string, unknown>
+  );
+  const manifest = JSON.parse(rendered) as { typography: Record<string, unknown> };
+  manifest.typography.headingFont = view.headingStack;
+  manifest.typography.bodyFont = view.bodyStack;
+  manifest.typography.googleFonts = [...view.googleFonts];
+  return `${JSON.stringify(manifest, null, 2)}\n`;
 }
 
 export interface ThemeView {
@@ -120,6 +124,12 @@ export interface ThemeView {
   headingWeight: number | string;
   headingFontSpec: string;
   bodyFontSpec: string;
+  /** CSS font stack written to typography.headingFont. */
+  headingStack: string;
+  /** CSS font stack written to typography.bodyFont. */
+  bodyStack: string;
+  /** Specs written to typography.googleFonts. */
+  googleFonts: string[];
   radius: string;
 }
 
@@ -201,8 +211,40 @@ async function collectView(rl: ReturnType<typeof createInterface>, name: string)
     headingWeight,
     headingFontSpec,
     bodyFontSpec,
+    headingStack: `'${headingFont}', system-ui, sans-serif`,
+    bodyStack: `'${bodyFont}', system-ui, sans-serif`,
+    googleFonts: [headingFontSpec, bodyFontSpec],
     radius,
   };
+}
+
+function printExtraction(extraction: BrandExtractionResult): void {
+  process.stdout.write(`  source: ${extraction.source}\n`);
+  for (const row of extraction.fontPlan.rows) {
+    const note = row.status === "google" ? "" : `; browsers without it use ${row.fallback}`;
+    process.stdout.write(`  font: ${row.role} ${row.family} (${row.status}${note})\n`);
+  }
+  for (const adj of extraction.adjustments) {
+    process.stdout.write(
+      `  contrast: ${adj.pair} adjusted from ${adj.from} to ${adj.to} (ratio ${adj.ratio})\n`
+    );
+  }
+  if (extraction.stillFailing.length > 0) {
+    process.stdout.write(
+      `  warning: still below WCAG AA (4.5:1) after adjustment: ${extraction.stillFailing.join(", ")}\n`
+    );
+  }
+  if (extraction.logo) {
+    const logo = extraction.logo;
+    process.stdout.write(
+      logo.found
+        ? `  logo: found (${logo.mime ?? "unknown type"}${logo.hasSvg ? " + SVG" : ""}, ${logo.corner}, ${logo.widthPct}% wide, ${logo.sizeBytes ?? "?"} bytes); not drawn on slides\n`
+        : "  logo: none found on the slide master\n"
+    );
+  }
+  for (const warning of extraction.warnings) {
+    process.stdout.write(`  warning: ${warning}\n`);
+  }
 }
 
 export function buildProgram(): Command {
@@ -213,18 +255,38 @@ export function buildProgram(): Command {
     .description("Scaffold a new presentation-md theme package.")
     .argument(
       "[name]",
-      "Theme name in kebab-case (e.g. my-brand-dark). Optional with --from-url (derived from the hostname)."
+      "Theme name in kebab-case (e.g. my-brand-dark). Optional with --from-url (derived from the hostname) and --from-pptx (derived from the file name)."
     )
     .option("--output-dir <path>", "Output directory for the scaffolded theme package")
     .option("--from-url <url>", "Generate the theme from a brand's live URL instead of interactive prompts")
     .option("--from-css <path>", "Generate the theme from a local CSS file instead of interactive prompts")
+    .option(
+      "--from-pptx <file>",
+      "Generate the theme from a PowerPoint template (.pptx or .potx): its colour scheme and fonts"
+    )
+    .option(
+      "--allow-office-default",
+      "Write the theme even when the template keeps an Office default colour scheme"
+    )
     .action(
       async (
         nameArg: string | undefined,
-        options: { outputDir?: string; fromUrl?: string; fromCss?: string }
+        options: {
+          outputDir?: string;
+          fromUrl?: string;
+          fromCss?: string;
+          fromPptx?: string;
+          allowOfficeDefault?: boolean;
+        }
       ) => {
-        if (options.fromUrl && options.fromCss) {
-          process.stderr.write("Error: pass only one of --from-url or --from-css, not both.\n");
+        const sources = [options.fromUrl, options.fromCss, options.fromPptx].filter(Boolean);
+        if (sources.length > 1) {
+          process.stderr.write("Error: pass only one of --from-url, --from-css or --from-pptx.\n");
+          process.exit(1);
+          return;
+        }
+        if (options.fromPptx && ![".pptx", ".potx"].includes(extname(options.fromPptx).toLowerCase())) {
+          process.stderr.write("Error: --from-pptx must point to a .pptx or .potx file.\n");
           process.exit(1);
           return;
         }
@@ -232,11 +294,13 @@ export function buildProgram(): Command {
         let name = nameArg;
         let view: ThemeView;
 
-        if (options.fromUrl || options.fromCss) {
+        if (options.fromUrl || options.fromCss || options.fromPptx) {
           if (!name) {
-            if (options.fromUrl) {
+            if (options.fromUrl || options.fromPptx) {
               try {
-                name = deriveNameFromUrl(options.fromUrl);
+                name = options.fromUrl
+                  ? deriveNameFromUrl(options.fromUrl)
+                  : deriveNameFromPath(options.fromPptx!);
               } catch (err) {
                 process.stderr.write(`Error: ${(err as Error).message}\n`);
                 process.exit(1);
@@ -256,25 +320,29 @@ export function buildProgram(): Command {
             return;
           }
 
-          process.stdout.write(`\nExtracting brand from ${options.fromUrl ?? options.fromCss}...\n`);
+          process.stdout.write(
+            `\nExtracting brand from ${options.fromUrl ?? options.fromCss ?? options.fromPptx}...\n`
+          );
           let extraction;
           try {
-            extraction = await extractBrand({ url: options.fromUrl, cssPath: options.fromCss });
+            extraction = await extractBrand({
+              url: options.fromUrl,
+              cssPath: options.fromCss,
+              pptxPath: options.fromPptx,
+            });
           } catch (err) {
             process.stderr.write(`Error: ${(err as Error).message}\n`);
             process.exit(1);
             return;
           }
-          process.stdout.write(`  source: ${extraction.source}\n`);
-          for (const adj of extraction.adjustments) {
-            process.stdout.write(
-              `  contrast: ${adj.pair} adjusted from ${adj.from} to ${adj.to} (ratio ${adj.ratio})\n`
-            );
-          }
-          if (extraction.stillFailing.length > 0) {
-            process.stdout.write(
-              `  warning: still below WCAG AA (4.5:1) after adjustment: ${extraction.stillFailing.join(", ")}\n`
-            );
+          printExtraction(extraction);
+          try {
+            // The CLI always writes, so it always checks.
+            assertNotOfficeDefault(extraction, options.allowOfficeDefault === true);
+          } catch (err) {
+            process.stderr.write(`${(err as Error).message}\n`);
+            process.exit(1);
+            return;
           }
           view = buildThemeViewFromBrand(name, extraction);
         } else {

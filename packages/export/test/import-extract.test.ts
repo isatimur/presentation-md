@@ -3,6 +3,8 @@ import { resolve } from "node:path";
 import { loadTheme } from "@presentation-md/core";
 import { deckToPptxBuffer, type DeckJson } from "../src/index.js";
 import { extractPptx } from "../src/import/index.js";
+import { MAX_ZIP_ENTRIES } from "../src/import/zip-limits.js";
+import { buildTemplate, entryCount } from "./fixtures/build-template.js";
 
 const themesDir = resolve(__dirname, "../../core/themes");
 
@@ -79,6 +81,28 @@ describe("extractPptx", () => {
     const buf = await zip.generateAsync({ type: "nodebuffer", compression: "STORE" });
     const corrupted = corruptEntryData(buf, "[Content_Types].xml");
     await expect(extractPptx(corrupted)).rejects.toThrow(/CRC32 mismatch/i);
+  });
+
+  it("refuses a slide part that contains a DOCTYPE", async () => {
+    const buf = await buildTemplate({ kind: "pptx", slides: 1 });
+    const JSZip = (await import("jszip")).default;
+    const zip = await JSZip.loadAsync(buf);
+    const slide = await zip.file("ppt/slides/slide1.xml")!.async("string");
+    zip.file(
+      "ppt/slides/slide1.xml",
+      slide.replace("?>", `?><!DOCTYPE sld [<!ENTITY big "xxxxxxxxxx">]>`)
+    );
+    const hostile = await zip.generateAsync({ type: "nodebuffer" });
+    await expect(extractPptx(hostile)).rejects.toThrow(
+      "ppt/slides/slide1.xml contains a DOCTYPE; PowerPoint files never need one."
+    );
+  });
+
+  it("still refuses 201 entries in slide import", async () => {
+    const base = await entryCount(await buildTemplate({ kind: "pptx", slides: 1 }));
+    const buf = await buildTemplate({ kind: "pptx", slides: 1, extraEntries: MAX_ZIP_ENTRIES + 1 - base });
+    expect(await entryCount(buf)).toBe(MAX_ZIP_ENTRIES + 1);
+    await expect(extractPptx(buf)).rejects.toThrow(`PPTX has too many entries (>${MAX_ZIP_ENTRIES})`);
   });
 
   it("rejects oversized media blobs during extract", async () => {

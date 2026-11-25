@@ -133,7 +133,7 @@ Also ships **[deck-design-judge](skills/deck-design-judge)** (contrast / overflo
 | [`@presentation-md/studio`](packages/studio) | Browser editor — hosted at [presentation-md.vercel.app/studio](https://presentation-md.vercel.app/studio) (in-repo; not published to npm) |
 | [`@presentation-md/mcp-server`](packages/mcp-server) | MCP server exposing all tools to any MCP-compatible agent (`presentation-md-mcp`) |
 | [`@presentation-md/install`](packages/install) | One-command installer that wires the skill + MCP server into your agent (`presentation-md-install`) |
-| [`@presentation-md/create-theme`](packages/create-theme) | Scaffold a new publishable theme package (`create-presentation-md-theme`), interactively or from a brand's URL/CSS (`--from-url`/`--from-css`) |
+| [`@presentation-md/create-theme`](packages/create-theme) | Scaffold a new publishable theme package (`create-presentation-md-theme`), interactively or from a brand's URL, CSS or PowerPoint template (`--from-url`/`--from-css`/`--from-pptx`) |
 | [`@presentation-md/theme-corporate`](packages/themes/corporate) | Formal corporate theme |
 | [`@presentation-md/theme-playful`](packages/themes/playful) | Playful creative-agency theme |
 | [`@presentation-md/theme-luxury-minimalist`](packages/themes/luxury-minimalist) | Luxury minimalist theme |
@@ -217,8 +217,8 @@ Also ships **[deck-design-judge](skills/deck-design-judge)** (contrast / overflo
 
 Browse live proofs: [gallery](https://presentation-md.vercel.app/#gallery) · theme catalog in [`packages/core/references/themes.md`](packages/core/references/themes.md).
 
-Need a theme that isn't here? `create-presentation-md-theme --from-url <site>` or `--from-css <file>`
-generates one from any brand's live site or CSS in seconds — see
+Need a theme that isn't here? `create-presentation-md-theme --from-url <site>`, `--from-css <file>`
+or `--from-pptx <template>` generates one from any brand's live site, CSS or PowerPoint template — see
 [`@presentation-md/create-theme`](packages/create-theme).
 
 ---
@@ -348,6 +348,32 @@ presentation-md-render --from-pptx board-deck.pptx -o deck.json --theme corporat
 Agents can call the `import_pptx` MCP tool. Fidelity notes (layouts, images, speaker notes) live in
 [`packages/core/references/pptx-import.md`](packages/core/references/pptx-import.md).
 
+## Theme from your PowerPoint template
+
+Your company template (`.pptx` or `.potx`) holds the brand colours and fonts. Turn it into a theme:
+
+```bash
+# CLI: the theme name comes from the file name (Acme Brand.potx → acme-brand)
+npx @presentation-md/create-theme --from-pptx "brand/Acme Brand.potx"
+
+# Write the theme even when the template keeps Office's default colours
+npx @presentation-md/create-theme --from-pptx office-blank.potx --allow-office-default
+```
+
+Agents call `import_brand_theme` with `pptxPath` (a path inside the working directory). Set
+`write: true` to write the theme package, and `allowOfficeDefault: true` to accept Office colours.
+
+- The theme takes `bg`, `text`, `accent` and, when distinct, `bg2` and `accent2` from the template's
+  colour scheme. The contrast pass can change a colour; the response lists each change.
+- A template that keeps an Office default scheme (Office 2007–2010, 2013–2022 or 2023+) is not
+  written. The error starts with `office-default:`. Give the brand colours, try the company URL,
+  or pass the allow flag.
+- The heading and body fonts come first in the font stacks. Fonts that Google Fonts does not have
+  show only where they are installed. The response marks each font `google`, `office` or
+  `unavailable`.
+- The response reports whether the slide master has a logo (type, corner, width). The logo is not
+  drawn on slides.
+
 ## Export to PowerPoint, Keynote & Google Slides
 
 Because a deck is *structured* data (not free-form HTML), every slide maps cleanly to native
@@ -402,7 +428,7 @@ pnpm --filter @presentation-md/studio build:web   # static build → web/studio/
 | `import_pptx` | Import a `.pptx` into Deck JSON |
 | `import_markdown` | Convert Markdown (+ optional front matter) into Deck JSON |
 | `preview_themes` | Render 1–3 theme previews; pass `json` for My deck restyle; optional `mode: "layouts"` for multi-slide craft bake |
-| `import_brand_theme` | Generate a theme from a brand URL or CSS file |
+| `import_brand_theme` | Generate a theme from a brand URL, a CSS file, or a PowerPoint template (`pptxPath`) |
 
 ---
 

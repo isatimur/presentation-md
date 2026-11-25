@@ -9,11 +9,22 @@ export type {
   ExtractOptions,
   MapOptions,
   ImportOptions,
+  TemplateBrand,
+  SchemeColorKey,
+  ClrMapTarget,
+  OfficeDefaultLabel,
+  LogoCorner,
 } from "./types.js";
 
 export { extractPptx } from "./extract.js";
 export { mapExtractedToDeck } from "./map.js";
-export { MAX_COMPRESSED_BYTES, assertZipArchiveSafe } from "./zip-limits.js";
+export { extractTemplateBrand } from "./template-brand.js";
+export { isOfficeFont } from "../office-fonts.js";
+export {
+  MAX_COMPRESSED_BYTES,
+  MAX_TEMPLATE_ZIP_ENTRIES,
+  assertZipArchiveSafe,
+} from "./zip-limits.js";
 
 export async function pptxToDeck(
   input: Uint8Array | Buffer,

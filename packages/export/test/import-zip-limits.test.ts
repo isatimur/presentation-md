@@ -4,6 +4,7 @@ import {
   assertZipEntrySafe,
   MAX_COMPRESSED_BYTES,
   MAX_ZIP_ENTRIES,
+  MAX_TEMPLATE_ZIP_ENTRIES,
   MAX_UNCOMPRESSED_BYTES,
   MAX_MEDIA_BYTES,
 } from "../src/import/zip-limits.js";
@@ -30,7 +31,22 @@ describe("assertZipEntrySafe", () => {
         uncompressedSize: 1,
         totalUncompressed: 1,
       })
-    ).toThrow(/too many entries/i);
+    ).toThrow(`PPTX has too many entries (>${MAX_ZIP_ENTRIES})`);
+  });
+
+  it("uses MAX_ZIP_ENTRIES when maxEntries is absent", () => {
+    expect(() =>
+      assertZipEntrySafe({ entryCount: MAX_ZIP_ENTRIES, uncompressedSize: 1, totalUncompressed: 1 })
+    ).not.toThrow();
+  });
+
+  it("applies a caller's maxEntries and names it in the message", () => {
+    const opts = { uncompressedSize: 1, totalUncompressed: 1, maxEntries: MAX_TEMPLATE_ZIP_ENTRIES };
+    expect(() => assertZipEntrySafe({ ...opts, entryCount: MAX_ZIP_ENTRIES + 1 })).not.toThrow();
+    expect(() => assertZipEntrySafe({ ...opts, entryCount: MAX_TEMPLATE_ZIP_ENTRIES })).not.toThrow();
+    expect(() => assertZipEntrySafe({ ...opts, entryCount: MAX_TEMPLATE_ZIP_ENTRIES + 1 })).toThrow(
+      "PPTX has too many entries (>2000)"
+    );
   });
 
   it("rejects oversized uncompressed total", () => {
