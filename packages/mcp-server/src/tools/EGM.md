@@ -18,7 +18,7 @@ Each file defines one MCP tool as a `ToolDefinition` (`name`, `description`, `in
 | `scaffold_deck` | [scaffold-deck.ts:scaffoldDeckTool] | `purpose`, `theme`, `title`, `company`, `output_path`, `list_purposes`, `include_share_url`, `origin` |
 | `share_deck_link` | [share-deck-link.ts:shareDeckLinkTool] | `json` (required), `origin`, `pathname`, `relative`, `include_token` |
 | `deploy_deck` | [deploy-deck.ts:deployDeckTool] | `path` (required), `confirm`, `prod`, `confirm_prod` |
-| `import_brand_theme` | [import-brand-theme.ts:importBrandThemeTool] | `url` or `cssPath`, `name`, `write`, `output_dir` |
+| `import_brand_theme` | [import-brand-theme.ts:importBrandThemeTool] | `url`, `cssPath` or `pptxPath`, `allowOfficeDefault`, `name`, `write`, `output_dir` |
 | `import_pptx` | [import-pptx.ts:importPptxTool] | `pptx_path` or `pptx_base64`, `theme`, `output_path`, `assets_dir` |
 | `import_markdown` | [import-markdown.ts:importMarkdownTool] | `markdown` (required), `theme`, `title`, `output_path` |
 | `preview_themes` | [preview-themes.ts:previewThemesTool] | `themes` (1-3), `shortlist`, `title`, `company`, `mode` (`title`, `layouts`, `deck`), `json`, `slide_index`, `include_screenshots`, `output_dir` |
@@ -28,11 +28,11 @@ Each file defines one MCP tool as a `ToolDefinition` (`name`, `description`, `in
 ## Invariants
 
 - Every `output_path`, `output_dir`, and `assets_dir` passes [../lib/cwd-path.ts:assertWritablePathInCwd] before a write ([render-deck.ts:renderDeckTool], [export-deck.ts:exportDeckTool], [preview-themes.ts:previewThemesTool], [import-pptx.ts:importPptxTool], [import-brand-theme.ts:importBrandThemeTool]).
-- Input paths pass [../lib/cwd-path.ts:assertExistingPathInCwd] ([deploy-deck.ts:deployDeckTool] `path`, [import-brand-theme.ts:importBrandThemeTool] `cssPath`).
+- Input paths pass [../lib/cwd-path.ts:assertExistingPathInCwd] ([deploy-deck.ts:deployDeckTool] `path`, [import-brand-theme.ts:importBrandThemeTool] `cssPath`). OOXML paths pass [../lib/cwd-path.ts:assertOoxmlPathInCwd], which checks the extension first ([import-pptx.ts:importPptxTool] `pptx_path` `.pptx`; [import-brand-theme.ts:importBrandThemeTool] `pptxPath` `.pptx`/`.potx`).
 - [export-deck.ts:exportDeckTool] lowercases `format` and throws `Unknown format` for any value outside the nine allowed.
 - [deploy-deck.ts:deployDeckTool] passes `confirm`, `prod`, and `confirm_prod` as `true` only when the input is the boolean `true`.
 - [import-pptx.ts:importPptxTool] takes exactly one of `pptx_path` or `pptx_base64`. A path must end in `.pptx`. Sizes pass `assertZipArchiveSafe`. Decoded base64 must start with `PK`.
-- [import-brand-theme.ts:importBrandThemeTool] takes exactly one of `url` or `cssPath`. `cssPath` must end in `.css` and needs `name`. `name` passes `validateThemeName`.
+- [import-brand-theme.ts:importBrandThemeTool] takes exactly one of `url`, `cssPath` or `pptxPath` (`Provide one of …` / `Provide only one of …`). `cssPath` must end in `.css` and needs `name`. Without `name`, a `pptxPath` name comes from the file name (`deriveNameFromPath`). `name` passes `validateThemeName`. With `write: true`, an `office-default` result throws `office-default: …` unless `allowOfficeDefault` is `true`. The response always has `fonts` and `warnings`; `logo` and `scheme` are `null` except for templates, and `logo` never holds image bytes.
 - [audit-deck.ts:auditDeckTool] returns `{valid:false, issues}` on bad JSON and does not throw.
 - [share-deck-link.ts:shareDeckLinkTool] throws unless `isShareDeck` accepts `json`.
 - [scaffold-deck.ts:scaffoldDeckTool] throws `Unknown purpose` for a purpose that does not resolve.
@@ -48,7 +48,7 @@ Each file defines one MCP tool as a `ToolDefinition` (`name`, `description`, `in
 - [judge-deck.ts:judgeDeckTool] writes `deck.html` to `shots_dir` or a `pmd-judge-<hex>` temp dir, calls `screenshotSlides`, and for `t3` spawns `python3` with `judge_panel.py` ([judge-deck.ts:runPythonJson]). The child inherits the parent environment.
 - [judge-deck.ts:resolveJudgeScriptsDir] reads `PRESENTATION_MD_JUDGE_SCRIPTS`.
 - [deploy-deck.ts:deployDeckTool] calls `deployDeck` from `@presentation-md/render`, which spawns `deploy.sh`.
-- [import-brand-theme.ts:importBrandThemeTool] calls `extractBrand` (`@presentation-md/create-theme`) on a URL or CSS file, and `scaffoldTheme` writes a theme when `write` is true.
+- [import-brand-theme.ts:importBrandThemeTool] calls `extractBrand` (`@presentation-md/create-theme`) on a URL, CSS file or PowerPoint template, and `scaffoldTheme` writes a theme when `write` is true.
 - [list-themes.ts:listThemesTool] reads theme metadata from the bundled themes dir and `process.cwd()`.
 
 ## Verification

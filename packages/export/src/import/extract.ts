@@ -1,62 +1,26 @@
-import { assertZipArchiveSafe, assertZipEntrySafe } from "./zip-limits.js";
-import { bytesToUtf8 } from "./bytes.js";
+import { MAX_ZIP_ENTRIES } from "./zip-limits.js";
+import { asArray, openOoxmlPackage, relIdFromSldId, resolveRelTarget } from "./package-reader.js";
 import type {
   ExtractedImage,
   ExtractedPresentation,
   ExtractedSlide,
   ExtractOptions,
 } from "./types.js";
-import JSZip from "jszip";
-import { XMLParser } from "fast-xml-parser";
 
-const parser = new XMLParser({
-  ignoreAttributes: false,
-  attributeNamePrefix: "@_",
-  removeNSPrefix: true,
-  isArray: (name) =>
-    [
-      "sldId",
-      "Relationship",
-      "sp",
-      "graphicFrame",
-      "pic",
-      "tr",
-      "tc",
-      "p",
-      "r",
-      "Override",
-      "Default",
-    ].includes(name),
-});
-
-const CRC32_TABLE = Uint32Array.from({ length: 256 }, (_, index) => {
-  let value = index;
-  for (let bit = 0; bit < 8; bit += 1) {
-    value = value & 1 ? 0xedb88320 ^ (value >>> 1) : value >>> 1;
-  }
-  return value >>> 0;
-});
-
-function updateCrc32(crc: number, bytes: Uint8Array): number {
-  let next = crc;
-  for (const byte of bytes) {
-    next = (next >>> 8) ^ CRC32_TABLE[(next ^ byte) & 0xff]!;
-  }
-  return next >>> 0;
-}
-
-interface ZipEntryStream {
-  on(event: "data", callback: (chunk: Uint8Array) => void): ZipEntryStream;
-  on(event: "end", callback: () => void): ZipEntryStream;
-  on(event: "error", callback: (error: Error) => void): ZipEntryStream;
-  pause(): ZipEntryStream;
-  resume(): ZipEntryStream;
-}
-
-function asArray<T>(v: T | T[] | undefined | null): T[] {
-  if (v == null) return [];
-  return Array.isArray(v) ? v : [v];
-}
+/** Elements slide import always reads as arrays. Passed on every readXml call. */
+const SLIDE_IS_ARRAY = [
+  "sldId",
+  "Relationship",
+  "sp",
+  "graphicFrame",
+  "pic",
+  "tr",
+  "tc",
+  "p",
+  "r",
+  "Override",
+  "Default",
+];
 
 function textOfNode(node: unknown): string {
   if (node == null) return "";
@@ -112,17 +76,6 @@ function parseTable(tbl: Record<string, unknown>): string[][] {
   return rows;
 }
 
-function contentTypeForPath(
-  path: string,
-  defaults: Map<string, string>,
-  overrides: Map<string, string>
-): string {
-  const normalized = path.startsWith("/") ? path : `/${path}`;
-  if (overrides.has(normalized)) return overrides.get(normalized)!;
-  const ext = path.includes(".") ? path.slice(path.lastIndexOf(".") + 1).toLowerCase() : "";
-  return defaults.get(ext) ?? "application/octet-stream";
-}
-
 function extForContentType(ct: string): string {
   if (ct.includes("png")) return "png";
   if (ct.includes("jpeg") || ct.includes("jpg")) return "jpg";
@@ -131,37 +84,6 @@ function extForContentType(ct: string): string {
   if (ct.includes("emf")) return "emf";
   if (ct.includes("wmf")) return "wmf";
   return "bin";
-}
-
-function declaredUncompressedSize(entry: JSZip.JSZipObject): number {
-  const data = (entry as unknown as { _data?: { uncompressedSize?: number } })._data;
-  const n = data?.uncompressedSize;
-  return typeof n === "number" && n > 0 ? n : 0;
-}
-
-function declaredCrc32(entry: JSZip.JSZipObject): number | undefined {
-  const data = (entry as unknown as { _data?: { crc32?: number } })._data;
-  return typeof data?.crc32 === "number" ? data.crc32 >>> 0 : undefined;
-}
-
-function resolveRelTarget(baseDir: string, target: string): string {
-  const joined = `${baseDir}/${target}`.replace(/\\/g, "/");
-  const parts: string[] = [];
-  for (const seg of joined.split("/")) {
-    if (!seg || seg === ".") continue;
-    if (seg === "..") parts.pop();
-    else parts.push(seg);
-  }
-  return parts.join("/");
-}
-
-function relIdFromSldId(sldId: Record<string, unknown>): string {
-  for (const [k, v] of Object.entries(sldId)) {
-    if (!k.startsWith("@_")) continue;
-    const val = String(v);
-    if (/^rId\d+$/i.test(val)) return val;
-  }
-  return "";
 }
 
 function embedIdsFromXml(xml: string): string[] {
@@ -184,129 +106,11 @@ export async function extractPptx(
     opts.onWarn?.(msg);
   };
 
-  assertZipArchiveSafe(input.byteLength);
-  // JSZip's checkCRC32 option eagerly inflates every entry before returning,
-  // which defeats all central-directory and streaming zip-bomb limits below.
-  // CRC is instead verified per entry while bounded chunks are consumed.
-  const zip = await JSZip.loadAsync(input, { checkCRC32: false });
-  const entries = Object.values(zip.files).filter((f) => !f.dir);
-  let entryCount = 0;
-  let declaredTotal = 0;
-  for (const entry of entries) {
-    entryCount += 1;
-    const declared = declaredUncompressedSize(entry);
-    declaredTotal += declared;
-    assertZipEntrySafe({
-      entryCount,
-      uncompressedSize: declared,
-      totalUncompressed: declaredTotal,
-      isMedia: /^ppt\/media\//i.test(entry.name),
-    });
-  }
-
-  /** Actual decompressed bytes read so far (authoritative vs declared sizes). */
-  let bytesRead = 0;
-  const textCache = new Map<string, string>();
-
-  async function readBytes(
-    path: string,
-    file: JSZip.JSZipObject,
-    options: { isMedia?: boolean } = {}
-  ): Promise<Uint8Array> {
-    const stream = (
-      file as unknown as { internalStream(type: "uint8array"): ZipEntryStream }
-    ).internalStream("uint8array");
-    const chunks: Uint8Array[] = [];
-    let entryBytes = 0;
-    let crc = 0xffffffff;
-
-    return new Promise<Uint8Array>((resolve, reject) => {
-      let settled = false;
-      const fail = (error: unknown): void => {
-        if (settled) return;
-        settled = true;
-        try {
-          stream.pause();
-        } catch {
-          // The worker may already have stopped after a decompression error.
-        }
-        reject(error instanceof Error ? error : new Error(String(error)));
-      };
-
-      stream
-        .on("data", (chunk) => {
-          if (settled) return;
-          try {
-            const nextEntryBytes = entryBytes + chunk.byteLength;
-            assertZipEntrySafe({
-              entryCount,
-              uncompressedSize: nextEntryBytes,
-              totalUncompressed: bytesRead + nextEntryBytes,
-              isMedia: options.isMedia,
-            });
-            entryBytes = nextEntryBytes;
-            crc = updateCrc32(crc, chunk);
-            chunks.push(chunk);
-          } catch (error) {
-            fail(error);
-          }
-        })
-        .on("error", fail)
-        .on("end", () => {
-          if (settled) return;
-          const expectedCrc = declaredCrc32(file);
-          const actualCrc = (crc ^ 0xffffffff) >>> 0;
-          if (expectedCrc !== undefined && actualCrc !== expectedCrc) {
-            fail(new Error(`Corrupted zip entry '${path}': CRC32 mismatch`));
-            return;
-          }
-          settled = true;
-          bytesRead += entryBytes;
-          const bytes = new Uint8Array(entryBytes);
-          let offset = 0;
-          for (const chunk of chunks) {
-            bytes.set(chunk, offset);
-            offset += chunk.byteLength;
-          }
-          resolve(bytes);
-        })
-        .resume();
-    });
-  }
-
-  async function readText(path: string): Promise<string | null> {
-    const cached = textCache.get(path);
-    if (cached !== undefined) return cached;
-    const file = zip.file(path);
-    if (!file) return null;
-    const bytes = await readBytes(path, file);
-    const text = bytesToUtf8(bytes);
-    textCache.set(path, text);
-    return text;
-  }
-
-  async function readXml(path: string): Promise<Record<string, unknown> | null> {
-    const text = await readText(path);
-    if (text == null) return null;
-    return parser.parse(text) as Record<string, unknown>;
-  }
-
-  const defaults = new Map<string, string>();
-  const overrides = new Map<string, string>();
-  const ctDoc = await readXml("[Content_Types].xml");
-  if (!ctDoc) {
-    warn("Missing [Content_Types].xml — continuing with filename heuristics.");
-  } else {
-    const types = ctDoc["Types"] as Record<string, unknown> | undefined;
-    for (const d of asArray(types?.["Default"])) {
-      const o = d as Record<string, unknown>;
-      defaults.set(String(o["@_Extension"] ?? "").toLowerCase(), String(o["@_ContentType"] ?? ""));
-    }
-    for (const o of asArray(types?.["Override"])) {
-      const ov = o as Record<string, unknown>;
-      overrides.set(String(ov["@_PartName"] ?? ""), String(ov["@_ContentType"] ?? ""));
-    }
-  }
+  const pkg = await openOoxmlPackage(input, { maxEntries: MAX_ZIP_ENTRIES });
+  for (const msg of pkg.warnings) warn(msg);
+  const readXml = (path: string): Promise<Record<string, unknown> | null> =>
+    pkg.readXml(path, { isArray: SLIDE_IS_ARRAY });
+  const readText = (path: string): Promise<string | null> => pkg.readText(path);
 
   const pres = await readXml("ppt/presentation.xml");
   if (!pres) {
@@ -343,8 +147,8 @@ export async function extractPptx(
   }
 
   if (slidePaths.length === 0) {
-    const numbered = entries
-      .map((e) => e.name)
+    const numbered = pkg
+      .partNames()
       .filter((n) => /^ppt\/slides\/slide\d+\.xml$/i.test(n))
       .sort((a, b) => {
         const na = Number(a.match(/slide(\d+)/i)?.[1] ?? 0);
@@ -442,14 +246,13 @@ export async function extractPptx(
         continue;
       }
       const mediaPath = resolveRelTarget(slideDir, rel.target);
-      const mediaFile = zip.file(mediaPath);
-      if (!mediaFile) {
+      const bytes = await pkg.readBytes(mediaPath, { isMedia: true });
+      if (!bytes) {
         warn(`Missing media part: ${mediaPath}`);
         continue;
       }
-      const bytes = await readBytes(mediaPath, mediaFile, { isMedia: true });
       imgIndex += 1;
-      const ct = contentTypeForPath(mediaPath, defaults, overrides);
+      const ct = pkg.contentType(mediaPath) ?? "application/octet-stream";
       images.push({
         name: `slide${i + 1}_img${imgIndex}.${extForContentType(ct)}`,
         contentType: ct,

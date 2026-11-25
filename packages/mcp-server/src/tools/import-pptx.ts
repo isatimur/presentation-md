@@ -1,15 +1,8 @@
 import { mkdir, readFile, stat, writeFile } from "node:fs/promises";
-import { dirname, extname } from "node:path";
+import { dirname } from "node:path";
 import { assertZipArchiveSafe, pptxToDeck } from "@presentation-md/export/import";
 import type { ToolDefinition } from "../server.js";
-import { assertExistingPathInCwd, assertWritablePathInCwd } from "../lib/cwd-path.js";
-
-async function assertPptxPathInCwd(pptxPath: string): Promise<string> {
-  if (extname(pptxPath).toLowerCase() !== ".pptx") {
-    throw new Error("'pptx_path' must point to a .pptx file.");
-  }
-  return assertExistingPathInCwd(pptxPath, "pptx_path");
-}
+import { assertOoxmlPathInCwd, assertWritablePathInCwd } from "../lib/cwd-path.js";
 
 export const importPptxTool: ToolDefinition = {
   name: "import_pptx",
@@ -51,7 +44,7 @@ export const importPptxTool: ToolDefinition = {
 
     let buffer: Buffer;
     if (pptxPath) {
-      const safePath = await assertPptxPathInCwd(pptxPath);
+      const safePath = await assertOoxmlPathInCwd(pptxPath, "pptx_path", [".pptx"]);
       const file = await stat(safePath);
       assertZipArchiveSafe(file.size);
       buffer = await readFile(safePath);

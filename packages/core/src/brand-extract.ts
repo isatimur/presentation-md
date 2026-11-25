@@ -5,6 +5,10 @@ export interface BrandColorCandidates {
   bg?: string;
   text?: string;
   accent?: string;
+  /** Secondary surface. Derived from `bg` when absent (URL and CSS sources). */
+  bg2?: string;
+  /** Second accent. Falls back to `accent` when absent (URL and CSS sources). */
+  accent2?: string;
 }
 
 export interface BrandFontCandidates {
@@ -121,12 +125,13 @@ export function mapPaletteToRoles(colors: BrandColorCandidates): Palette {
 
   return {
     bg,
-    bg2: withLightness(bg, clampDelta(bgL, isDarkBg ? 6 : -4)),
+    bg2: colors.bg2 ? normalizeHex(colors.bg2) : withLightness(bg, clampDelta(bgL, isDarkBg ? 6 : -4)),
     text,
     muted: withLightness(text, clampDelta(textL, isDarkBg ? -25 : 25)),
     accent,
-    // No independent second-accent signal from CSS variables alone — reuse accent.
-    accent2: accent,
+    // CSS variables give no independent second-accent signal, so reuse accent
+    // unless the source (a template colour scheme) supplies one.
+    accent2: colors.accent2 ? normalizeHex(colors.accent2) : accent,
     cardBg: withLightness(bg, clampDelta(bgL, isDarkBg ? 8 : -3)),
     border: withLightness(bg, clampDelta(bgL, isDarkBg ? 16 : -10)),
   };

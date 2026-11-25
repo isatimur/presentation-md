@@ -17,7 +17,8 @@
     "sync:skill": "tsx tools/sync-skill.ts",
     "generate:previews": "tsx tools/generate-web-previews.ts",
     "generate:structured": "tsx tools/generate-gallery-structured.ts",
-    "scorecard": "tsx tools/scorecard/pptx-scorecard.ts"
+    "scorecard": "tsx tools/scorecard/pptx-scorecard.ts",
+    "fonts:update": "tsx tools/update-google-fonts.ts"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.0",

@@ -15,8 +15,9 @@ The Deck JSON to `.pptx` exporter. `buildPptx` builds a PptxGenJS presentation f
   - `renderSlide` and the `RENDERERS` map for 18 layouts [layouts.ts:renderSlide, RENDERERS].
   - `buildContext`, `ExportContext`, `ContextShapes`, `BuildContextMeta` [context.ts].
   - `resolveColor` [color.ts:resolveColor]; `parseFontFamily`, `isBoldWeight` [font.ts].
+  - `OFFICE_FONTS`, `isOfficeFont` [office-fonts.ts] - the one list of fonts that ship with Office. The fidelity report uses it; `isOfficeFont` is re-exported from the `./import` subpath for create-theme.
   - `PptxGenJS` constructor shim and `Pptx*` types [pptx.ts].
-- Child: [import](./import/EGM.md) - `.pptx` to Deck JSON (`pptxToDeck`, `extractPptx`, `mapExtractedToDeck`), served as the `./import` subpath.
+- Child: [import](./import/EGM.md) - `.pptx` to Deck JSON (`pptxToDeck`, `extractPptx`, `mapExtractedToDeck`) and template brand reading (`extractTemplateBrand`), served as the `./import` subpath. That entry does not load pptxgenjs.
 - Human docs: [package README](../README.md).
 
 ## Invariants

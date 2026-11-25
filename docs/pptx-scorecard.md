@@ -1,6 +1,6 @@
 # PowerPoint export scorecard
 
-Generated 2026-11-23 by `pnpm scorecard` (`tools/scorecard/pptx-scorecard.ts`). It exports 153 decks — a fixture with all 18 layouts in each of the 75 themes, plus every gallery example — and opens the PPTX files to check what a person gets.
+Generated 2026-11-25 by `pnpm scorecard` (`tools/scorecard/pptx-scorecard.ts`). It exports 153 decks — a fixture with all 18 layouts in each of the 75 themes, plus every gallery example — and opens the PPTX files to check what a person gets.
 
 | Check | Result |
 |---|---|

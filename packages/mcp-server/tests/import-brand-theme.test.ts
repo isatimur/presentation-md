@@ -9,6 +9,7 @@ vi.mock("node:dns/promises", () => ({
 }));
 
 const { importBrandThemeTool } = await import("../src/tools/import-brand-theme.js");
+const { buildTemplate } = await import("../../export/test/fixtures/build-template.js");
 
 function mockResponse(text: string): Response {
   return {
@@ -29,14 +30,130 @@ describe("import_brand_theme tool", () => {
     vi.unstubAllGlobals();
   });
 
-  it("rejects when neither url nor cssPath is given", async () => {
-    await expect(importBrandThemeTool.handler({})).rejects.toThrow(/provide either/i);
+  it("rejects when no source is given", async () => {
+    await expect(importBrandThemeTool.handler({})).rejects.toThrow(
+      "Provide one of 'url', 'cssPath' or 'pptxPath'."
+    );
   });
 
-  it("rejects when both url and cssPath are given", async () => {
+  it("rejects when two sources are given", async () => {
     await expect(
       importBrandThemeTool.handler({ url: "https://acme.com", cssPath: "/tmp/brand.css" })
-    ).rejects.toThrow(/only one of/i);
+    ).rejects.toThrow("Provide only one of 'url', 'cssPath' or 'pptxPath'.");
+    await expect(
+      importBrandThemeTool.handler({ cssPath: "brand.css", pptxPath: "brand.potx" })
+    ).rejects.toThrow("Provide only one of 'url', 'cssPath' or 'pptxPath'.");
+  });
+
+  it("returns fonts and warnings, with null logo and scheme, for a URL", async () => {
+    const fetchMock = fetch as unknown as ReturnType<typeof vi.fn>;
+    fetchMock
+      .mockResolvedValueOnce(mockResponse(`<link rel="stylesheet" href="/s.css">`))
+      .mockResolvedValueOnce(
+        mockResponse(":root { --bg: #010101; --text: #fefefe; --accent: #00aaff; } body { font-family: Inter; }")
+      );
+    const result = (await importBrandThemeTool.handler({ url: "https://acme.com" })) as Record<string, unknown>;
+    expect(result.fonts).toEqual([
+      { role: "heading", family: "Inter", status: "google", fallback: "Montserrat" },
+      { role: "body", family: "Inter", status: "google", fallback: "Open Sans" },
+    ]);
+    expect(result.warnings).toEqual([]);
+    expect(result.logo).toBeNull();
+    expect(result.scheme).toBeNull();
+  });
+
+  describe("pptxPath", () => {
+    let dir: string;
+    beforeEach(async () => {
+      dir = await mkdtemp(join(process.cwd(), "import-brand-theme-pptx-"));
+    });
+    afterEach(async () => {
+      await rm(dir, { recursive: true, force: true });
+    });
+
+    async function writeTemplate(fileName: string, opts: Parameters<typeof buildTemplate>[0] = {}): Promise<string> {
+      const file = join(dir, fileName);
+      await writeFile(file, await buildTemplate(opts));
+      return relative(process.cwd(), file);
+    }
+
+    it("rejects a pptxPath outside the current working directory", async () => {
+      const outsideDir = await mkdtemp(join(tmpdir(), "import-brand-theme-outside-"));
+      const outsideFile = join(outsideDir, "brand.potx");
+      await writeFile(outsideFile, await buildTemplate());
+      try {
+        await expect(importBrandThemeTool.handler({ pptxPath: outsideFile })).rejects.toThrow(
+          /'pptxPath' must be within the current working directory/
+        );
+      } finally {
+        await rm(outsideDir, { recursive: true, force: true });
+      }
+    });
+
+    it("rejects a .docx", async () => {
+      await expect(importBrandThemeTool.handler({ pptxPath: "brand.docx" })).rejects.toThrow(
+        "'pptxPath' must point to a .pptx or .potx file."
+      );
+    });
+
+    it("reads a template, names the theme from the file, and reports fonts, logo and scheme", async () => {
+      const pptxPath = await writeTemplate("Acme Brand.potx", {
+        pictures: [{ mime: "image/png", x: 10_500_000, y: 150_000, cx: 1_200_000, cy: 400_000, bytes: 2048 }],
+      });
+      const result = (await importBrandThemeTool.handler({ pptxPath })) as {
+        theme: { name: string; roles: Record<string, string> };
+        source: string;
+        fonts: Array<{ role: string; family: string; status: string }>;
+        warnings: string[];
+        logo: Record<string, unknown>;
+        scheme: { colors: Record<string, string>; clrMap: Record<string, string> };
+        writtenTo?: string;
+      };
+      expect(result.theme.name).toBe("acme-brand");
+      expect(result.source).toBe("template-scheme");
+      expect(result.theme.roles.accent).toBe("#e4572e");
+      expect(result.fonts.map((f) => `${f.family}:${f.status}`)).toEqual([
+        "Source Sans 3:google",
+        "Calibri:office",
+      ]);
+      expect(result.warnings).toEqual([]);
+      expect(result.logo).toEqual({
+        found: true,
+        mime: "image/png",
+        hasSvg: false,
+        corner: "top-right",
+        widthPct: 9.8,
+        sizeBytes: 2048,
+      });
+      // Metadata only: no image data of any kind in the logo.
+      expect(JSON.stringify(result.logo)).not.toMatch(/base64|data:|bytes"/);
+      expect(Object.keys(result.scheme.colors)).toHaveLength(12);
+      expect(result.scheme.clrMap).toEqual({ bg1: "lt1", tx1: "dk1", bg2: "lt2", tx2: "dk2" });
+      expect(result.writtenTo).toBeUndefined();
+    });
+
+    it("refuses to write an Office default and writes it with allowOfficeDefault", async () => {
+      const pptxPath = await writeTemplate("office.pptx", {
+        kind: "pptx",
+        scheme: { accent1: "4472C4", accent2: "ED7D31", accent3: "A5A5A5", accent4: "FFC000", accent5: "5B9BD5", accent6: "70AD47" },
+      });
+      const outputDir = relative(process.cwd(), join(dir, "theme-out"));
+
+      const preview = (await importBrandThemeTool.handler({ pptxPath })) as { source: string };
+      expect(preview.source).toBe("office-default");
+
+      await expect(
+        importBrandThemeTool.handler({ pptxPath, write: true, output_dir: outputDir })
+      ).rejects.toThrow(/^office-default: The template uses Office 2013–2022 colours, not brand colours\./);
+
+      const written = (await importBrandThemeTool.handler({
+        pptxPath,
+        write: true,
+        output_dir: outputDir,
+        allowOfficeDefault: true,
+      })) as { writtenTo?: string };
+      expect(written.writtenTo).toBeDefined();
+    });
   });
 
   it("returns a valid theme manifest without writing to disk by default", async () => {

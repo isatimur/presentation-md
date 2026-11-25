@@ -6,14 +6,20 @@ import {
   scaffoldTheme,
   validateThemeName,
   deriveNameFromUrl,
+  deriveNameFromPath,
+  assertNotOfficeDefault,
 } from "@presentation-md/create-theme";
 import type { ToolDefinition } from "../server.js";
-import { assertExistingPathInCwd, assertWritablePathInCwd } from "../lib/cwd-path.js";
+import {
+  assertExistingPathInCwd,
+  assertOoxmlPathInCwd,
+  assertWritablePathInCwd,
+} from "../lib/cwd-path.js";
 
 export const importBrandThemeTool: ToolDefinition = {
   name: "import_brand_theme",
   description:
-    "Generate a presentation-md theme from a brand's website URL or a local CSS file. Extracts colors and fonts, maps them to the theme's 8 semantic roles, and applies a WCAG contrast-safety pass so the result stays legible. Use whenever the user wants a deck theme that matches an existing brand or product.",
+    "Generate a presentation-md theme from a brand's website URL, a local CSS file, or a company PowerPoint template (.pptx or .potx). Extracts colors and fonts, maps them to the theme's 8 semantic roles, and applies a WCAG contrast-safety pass so the result stays legible. Use whenever the user wants a deck theme that matches an existing brand or product. Prefer pptxPath when the user has a company PowerPoint template; it reads the template's colours and fonts and reports whether it has a logo.",
   inputSchema: {
     type: "object",
     properties: {
@@ -22,10 +28,20 @@ export const importBrandThemeTool: ToolDefinition = {
         type: "string",
         description: "Local path to a CSS file to extract from, as an alternative to url",
       },
+      pptxPath: {
+        type: "string",
+        description:
+          "Path to a PowerPoint template (.pptx or .potx) within the current working directory. Reads its colour scheme and fonts.",
+      },
+      allowOfficeDefault: {
+        type: "boolean",
+        description:
+          "With pptxPath and write=true: write the theme even when the template keeps an Office default colour scheme. Defaults to false.",
+      },
       name: {
         type: "string",
         description:
-          "Theme name in kebab-case; derived from the URL's hostname if omitted (required when using cssPath)",
+          "Theme name in kebab-case; derived from the URL's hostname or the template's file name if omitted (required when using cssPath)",
       },
       write: {
         type: "boolean",
@@ -42,29 +58,38 @@ export const importBrandThemeTool: ToolDefinition = {
   handler: async (input: Record<string, unknown>) => {
     const url = input.url as string | undefined;
     const cssPath = input.cssPath as string | undefined;
-    if (!url && !cssPath) throw new Error("Provide either 'url' or 'cssPath'.");
-    if (url && cssPath) throw new Error("Provide only one of 'url' or 'cssPath', not both.");
+    const pptxPath = input.pptxPath as string | undefined;
+    const given = [url, cssPath, pptxPath].filter(Boolean).length;
+    if (given === 0) throw new Error("Provide one of 'url', 'cssPath' or 'pptxPath'.");
+    if (given > 1) throw new Error("Provide only one of 'url', 'cssPath' or 'pptxPath'.");
 
+    let resolvedPptx: string | undefined;
     if (cssPath) {
       if (extname(cssPath).toLowerCase() !== ".css") {
         throw new Error("'cssPath' must point to a .css file.");
       }
       await assertExistingPathInCwd(cssPath, "cssPath");
     }
+    if (pptxPath) {
+      // extractBrand owns the size check.
+      resolvedPptx = await assertOoxmlPathInCwd(pptxPath, "pptxPath", [".pptx", ".potx"]);
+    }
 
     let name = input.name as string | undefined;
     if (!name) {
-      if (!url) throw new Error("'name' is required when using 'cssPath'.");
-      name = deriveNameFromUrl(url);
+      if (url) name = deriveNameFromUrl(url);
+      else if (pptxPath) name = deriveNameFromPath(pptxPath);
+      else throw new Error("'name' is required when using 'cssPath'.");
     }
     validateThemeName(name);
 
-    const extraction = await extractBrand({ url, cssPath });
+    const extraction = await extractBrand({ url, cssPath, pptxPath: resolvedPptx });
     const view = buildThemeViewFromBrand(name, extraction);
     const theme = JSON.parse(buildThemeManifestJson(view)) as Record<string, unknown>;
 
     let writtenTo: string | undefined;
     if (input.write === true) {
+      assertNotOfficeDefault(extraction, input.allowOfficeDefault === true);
       const outputDirInput =
         typeof input.output_dir === "string" && input.output_dir.trim()
           ? input.output_dir
@@ -82,6 +107,11 @@ export const importBrandThemeTool: ToolDefinition = {
       // Always present so the response shape is stable; empty means fully safe.
       contrastStillFailing: extraction.stillFailing,
       writtenTo,
+      fonts: extraction.fontPlan.rows,
+      warnings: extraction.warnings,
+      // Template only (null for url and cssPath). Metadata, never image bytes.
+      logo: extraction.logo,
+      scheme: extraction.scheme,
     };
   },
 };

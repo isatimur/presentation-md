@@ -1,9 +1,15 @@
 import { describe, it, expect } from "vitest";
 import { pickExtendsFromBg } from "../src/index.js";
 import { buildThemeViewFromBrand } from "../src/theme-view.js";
+import { buildFontPlan } from "../src/fonts.js";
 import type { BrandExtractionResult } from "../src/extract-brand.js";
 
 const EXTRACTION: BrandExtractionResult = {
+  extends: "default-tech",
+  fontPlan: buildFontPlan("Poppins", "Inter", "default-tech"),
+  warnings: [],
+  logo: null,
+  scheme: null,
   palette: {
     bg: "#0a0a0a",
     bg2: "#111111",
@@ -45,9 +51,22 @@ describe("buildThemeViewFromBrand", () => {
     expect(typeof view.headingWeight).toBe("number");
   });
 
+  it("copies the font plan into the view without recomputing it", () => {
+    const view = buildThemeViewFromBrand("acme-com", EXTRACTION);
+    expect(view.headingStack).toBe("'Poppins', 'Montserrat', system-ui, sans-serif");
+    expect(view.bodyStack).toBe("'Inter', 'Open Sans', system-ui, sans-serif");
+    expect(view.googleFonts).toEqual(["Poppins:wght@400;700", "Inter:wght@400;500"]);
+  });
+
+  it("describes template sources", () => {
+    const view = buildThemeViewFromBrand("acme", { ...EXTRACTION, source: "template-scheme" });
+    expect(view.description).toBe("A theme generated from a PowerPoint template.");
+  });
+
   it("extends claude for light brand imports", () => {
     const view = buildThemeViewFromBrand("paper-brand", {
       ...EXTRACTION,
+      extends: "claude",
       palette: {
         ...EXTRACTION.palette,
         bg: "#f7f2ea",
