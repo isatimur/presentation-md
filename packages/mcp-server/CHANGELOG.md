@@ -1,5 +1,26 @@
 # @presentation-md/mcp-server
 
+## 1.38.0
+
+### Minor Changes
+
+- 3c94c72: Theme from a PowerPoint template.
+
+  - `import_brand_theme` takes a new source, `pptxPath` (`.pptx` or `.potx`), and `allowOfficeDefault`. The CLI gains `create-presentation-md-theme --from-pptx <file>` and `--allow-office-default`. The theme takes its colours from the template's colour scheme (through the master's colour map) and its fonts from the font scheme. A template that keeps an Office default scheme is not written unless allowed. The response adds `fonts`, `warnings`, `logo` (metadata only) and `scheme`.
+  - create-theme no longer writes a font that Google Fonts does not have into `googleFonts`, for every source. The brand family stays first in the font stack, followed by the base theme's family. Google Fonts specs use `+` for spaces.
+  - Slide import (`import_pptx`) refuses any XML part that contains a DOCTYPE.
+  - `@presentation-md/export/import` exports `extractTemplateBrand`, `TemplateBrand`, `isOfficeFont` and `MAX_TEMPLATE_ZIP_ENTRIES`. `@presentation-md/core` exports `rgbToHsl` and the `RGB` and `HSL` types, and `mapPaletteToRoles` accepts optional `bg2` and `accent2`.
+  - `@presentation-md/create-theme` now depends on `@presentation-md/export`.
+
+### Patch Changes
+
+- Updated dependencies [4ad5486]
+- Updated dependencies [3c94c72]
+  - @presentation-md/render@1.24.5
+  - @presentation-md/core@1.41.0
+  - @presentation-md/export@1.29.0
+  - @presentation-md/create-theme@1.2.0
+
 ## 1.37.3
 
 ### Patch Changes
