@@ -42,6 +42,25 @@ describe("extractTemplateBrand — colours", () => {
     expect(brand.clrMap).toEqual({ bg1: "dk1", tx1: "lt1", bg2: "dk2", tx2: "lt2" });
   });
 
+  it("keeps a clrMap role that points at an accent slot", async () => {
+    const brand = await extractTemplateBrand(
+      await buildTemplate({ clrMap: { bg1: "accent1", bg2: "hlink" } })
+    );
+    expect(brand.clrMap).toEqual({ bg1: "accent1", tx1: "dk1", bg2: "hlink", tx2: "dk2" });
+  });
+
+  it("falls back to the default for an unknown clrMap target", async () => {
+    const brand = await extractTemplateBrand(await buildTemplate({ clrMap: { bg1: "bogus" } }));
+    expect(brand.clrMap.bg1).toBe("lt1");
+  });
+
+  it("follows a master relationship ID that is not rId<n>", async () => {
+    const brand = await extractTemplateBrand(
+      await buildTemplate({ masterRelId: "masterRel", scheme: { accent1: "112233" } })
+    );
+    expect(brand.scheme.accent1).toBe("#112233");
+  });
+
   it("uses the first of two masters", async () => {
     const brand = await extractTemplateBrand(
       await buildTemplate({
@@ -113,6 +132,19 @@ describe("extractTemplateBrand — fonts", () => {
     expect(brand.warnings).toContain(
       "The template sets its own East Asian or complex-script font (Yu Gothic). PPTX export uses Office's default for the deck language."
     );
+  });
+
+  it("strips control characters from template strings and caps their length", async () => {
+    const brand = await extractTemplateBrand(
+      await buildTemplate({
+        fonts: { ea: "Yu\u001b[2J Gothic‮" },
+        schemeName: `Acme\u0007 ${"x".repeat(300)}`,
+      })
+    );
+    expect(brand.fonts.ea).toBe("Yu[2J Gothic");
+    expect(brand.warnings.join(" ")).not.toMatch(/[\u0000-\u001f‮]/);
+    expect(brand.schemeName.startsWith("Acme ")).toBe(true);
+    expect(brand.schemeName.length).toBeLessThanOrEqual(100);
   });
 });
 

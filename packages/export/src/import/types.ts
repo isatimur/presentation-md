@@ -53,8 +53,8 @@ export type SchemeColorKey =
   | "hlink"
   | "folHlink";
 
-/** A scheme slot a master's `p:clrMap` can point a role at. */
-export type ClrMapTarget = "lt1" | "dk1" | "lt2" | "dk2";
+/** A scheme slot a master's `p:clrMap` can point a role at (any of the 12). */
+export type ClrMapTarget = SchemeColorKey;
 
 export type OfficeDefaultLabel = "Office 2007–2010" | "Office 2013–2022" | "Office 2023+";
 
