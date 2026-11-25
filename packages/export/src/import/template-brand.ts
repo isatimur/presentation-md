@@ -96,7 +96,8 @@ export const SCRIPT_FONT_WARNING = (name: string): string =>
 export const GROUPED_PICTURE_WARNING = "The master has a grouped picture; logo detection skips groups.";
 
 const DEFAULT_CLR_MAP: TemplateBrand["clrMap"] = { bg1: "lt1", tx1: "dk1", bg2: "lt2", tx2: "dk2" };
-const CLR_MAP_TARGETS = new Set<string>(["lt1", "dk1", "lt2", "dk2"]);
+/** ST_ColorSchemeIndex: a clrMap role may point at any of the 12 scheme slots. */
+const CLR_MAP_TARGETS = new Set<string>(SCHEME_KEYS);
 /** 13.333 in × 7.5 in, PowerPoint's 16:9 default, used when `p:sldSz` is absent. */
 const DEFAULT_SLIDE_SIZE = { cx: 12192000, cy: 6858000 };
 
@@ -129,9 +130,18 @@ function schemeHex(entry: Node | undefined): string | undefined {
   return `#${raw.trim().toLowerCase()}`;
 }
 
+/**
+ * Template strings reach warnings, the CLI's stdout and the MCP response, so
+ * drop control and format characters (terminal escapes, bidi overrides) and
+ * cap the length.
+ */
+function plainText(value: string | null | undefined, max = 100): string | undefined {
+  const clean = value?.replace(/[\p{Cc}\p{Cf}]/gu, "").trim().slice(0, max);
+  return clean ? clean : undefined;
+}
+
 function typeface(node: Node | undefined): string | undefined {
-  const tf = attr(node, "typeface")?.trim();
-  return tf ? tf : undefined;
+  return plainText(attr(node, "typeface"));
 }
 
 function officeDefaultFor(scheme: Record<SchemeColorKey, string>): OfficeDefaultLabel | null {
@@ -217,7 +227,7 @@ async function readLogo(
     widthPct: Math.round((best.cx / slide.cx) * 1000) / 10,
   };
   if (imagePath) {
-    const mime = pkg.contentType(imagePath);
+    const mime = plainText(pkg.contentType(imagePath));
     if (mime) logo.mime = mime;
     const size = pkg.partSize(imagePath);
     if (size != null) logo.sizeBytes = size;
@@ -264,7 +274,7 @@ export async function extractTemplateBrand(
     if (!hex) throw new Error(`The colour scheme in ${label} has no usable '${key}' colour.`);
     scheme[key] = hex;
   }
-  const schemeName = attr(clrScheme, "name") ?? "";
+  const schemeName = plainText(attr(clrScheme, "name")) ?? "";
 
   const clrMapNode = child(master, "clrMap");
   const clrMap = { ...DEFAULT_CLR_MAP };

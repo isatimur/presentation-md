@@ -74,12 +74,18 @@ export function resolveRelTarget(baseDir: string, target: string): string {
   return parts.join("/");
 }
 
-/** The `r:id` attribute of a `p:sldId` / `p:sldMasterId` element. */
+/**
+ * The `r:id` attribute of a `p:sldId` / `p:sldMasterId` element. The parser
+ * strips namespace prefixes, so `r:id` and the numeric `id` can share a key;
+ * a relationship ID is an XML ID (NCName), which never starts with a digit,
+ * so it is told apart by its value. PowerPoint writes `rId<n>`, other tools
+ * may not.
+ */
 export function relIdFromSldId(sldId: Record<string, unknown>): string {
   for (const [k, v] of Object.entries(sldId)) {
     if (!k.startsWith("@_")) continue;
     const val = String(v);
-    if (/^rId\d+$/i.test(val)) return val;
+    if (/^[A-Za-z_][\w.-]*$/.test(val)) return val;
   }
   return "";
 }

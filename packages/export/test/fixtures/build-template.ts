@@ -63,6 +63,8 @@ export interface TemplateOptions extends TemplateMasterOptions {
   doctypeIn?: "theme" | "master" | "presentation";
   omitMaster?: boolean;
   omitTheme?: boolean;
+  /** Relationship ID of the first master in presentation.xml. Default `rId<n>`. */
+  masterRelId?: string;
 }
 
 export const BRAND_SCHEME: Record<SchemeKey, string> = {
@@ -235,7 +237,7 @@ export async function buildTemplate(opts: TemplateOptions = {}): Promise<Buffer>
       defaults.set(ext, part.mime);
       zip.file(part.path, Buffer.alloc(part.bytes, 7));
     }
-    const masterRid = `rId${rid++}`;
+    const masterRid = i === 0 && opts.masterRelId ? opts.masterRelId : `rId${rid++}`;
     presRels.push(
       `<Relationship Id="${masterRid}" Type="${REL}/slideMaster" Target="slideMasters/slideMaster${index}.xml"/>`
     );
