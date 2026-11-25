@@ -1,6 +1,7 @@
 import { candyMarqueeText } from "@presentation-md/core/candy-marquee";
 import type { ExportContext } from "./context.js";
 import { toBase64DataUri } from "./data-uri.js";
+import { hasFlatField } from "./flat-surfaces.js";
 import type { Slide } from "./deck-types.js";
 import type { PptxSlide, PptxTextOpts, PptxTableRow } from "./pptx.js";
 
@@ -1824,6 +1825,8 @@ function renderChart(slide: PSlide, ctx: ExportContext, data: Slide): void {
     showTitle: false,
     showLegend: data.showLegend !== false && (series.length > 1 || type === "pie" || type === "doughnut"),
     showValue: data.showValues === true,
+    // pptxgenjs defaults labels to "#,##0", which shows 1.8 as 2; the HTML chart prints the value as given.
+    ...(type === "pie" || type === "doughnut" ? {} : { dataLabelFormatCode: "General" }),
     chartColors: colors,
     chartColorsOpacity: 100,
     border: { pt: 0, color: ctx.colors.bg },
@@ -2375,6 +2378,8 @@ function paintSlideChrome(slide: PSlide, ctx: ExportContext, data: Slide): void 
   if (ctx.colors.bg2.toLowerCase() !== ctx.colors.bg.toLowerCase()) {
     if (theme === "creative-voltage") {
       // Split field + frame + offset shadow live in the dedicated block below.
+    } else if (hasFlatField(theme)) {
+      // The HTML slide is a flat `var(--bg)` field; a wash would add a panel it does not have.
     } else {
       // Bottom-right wash of bg2 over flat bg (≈ diagonal gradient).
       slide.addShape(ctx.shapeRoundRect, {
