@@ -141,6 +141,8 @@ export interface DeckMeta {
   lang?: string;
   /** candy-pop: optional custom ticker unit (else company/title brand). */
   marquee?: string;
+  /** What kind of deck this is (pitch, board, …). Read by craft checks; not rendered. */
+  genre?: string;
 }
 
 export interface DeckJson {

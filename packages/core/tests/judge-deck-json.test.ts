@@ -27,6 +27,18 @@ describe("judgeDeckJson", () => {
     expect(result.flags.some((f) => f.id === "asymmetry")).toBe(true);
   });
 
+  it("does not ask a board update for an image-hero", () => {
+    const slides = Array.from({ length: 5 }, (_, i) => ({
+      layout: "section",
+      heading: `Slide ${i + 1}`,
+      body: "Short.",
+    }));
+    const board = judgeDeckJson({ meta: { theme: "default-tech", genre: "board" }, slides });
+    const pitch = judgeDeckJson({ meta: { theme: "default-tech", genre: "pitch" }, slides });
+    expect(board.flags.some((f) => f.id === "visual_beat")).toBe(false);
+    expect(pitch.flags.some((f) => f.id === "visual_beat")).toBe(true);
+  });
+
   it("passes a tight speaker-friendly deck", () => {
     const result = judgeDeckJson({
       meta: { theme: "aurora-glass" },

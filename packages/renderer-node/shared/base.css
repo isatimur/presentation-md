@@ -124,6 +124,8 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
@@ -362,8 +364,16 @@ h1, h2, h3 {
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
 .card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
 .card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
-/* Cards stretch to fill the grid. Pin the icon to the top and the copy to the
-   bottom so a tall card is composed, not a box with text stuck to its top. */
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
 .grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */

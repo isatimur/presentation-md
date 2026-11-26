@@ -4,7 +4,7 @@
  */
 
 import { countWords, normalizeDeckLang } from "./deck-lang.js";
-import { fillCraftTemplate } from "./craft-audit.js";
+import { fillCraftTemplate, imageHeroOptional } from "./craft-audit.js";
 
 /**
  * English template for each judge flag, keyed by flag id. `{name}` is filled
@@ -173,7 +173,7 @@ export function judgeDeckJson(deck: Record<string, unknown>): JudgeDeckJsonResul
     layouts.includes("logo-wall") ||
     slides.some((s) => s["layout"] === "feature-grid" && s["columns"] === "bento");
 
-  if (slides.length >= 5 && !hasImageHero && !isWrap) {
+  if (slides.length >= 5 && !hasImageHero && !isWrap && !imageHeroOptional(deck["meta"])) {
     flags.push({
       severity: "warn",
       ...judgeDetail("visual_beat"),
