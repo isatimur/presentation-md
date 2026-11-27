@@ -23,6 +23,11 @@
         "marquee": {
           "type": "string",
           "description": "candy-pop: custom ticker unit for title/closing marquee (else company/title)"
+        },
+        "genre": {
+          "type": "string",
+          "enum": ["pitch", "launch", "board", "sales", "talk", "research", "workshop", "brand", "campaign", "wrap"],
+          "description": "What kind of deck this is. Craft checks use it: a board update needs no image-hero. Not rendered."
         }
       }
     },

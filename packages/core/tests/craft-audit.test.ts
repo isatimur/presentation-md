@@ -1207,6 +1207,45 @@ describe("repairCraft", () => {
     expect(after.some((i) => /logo-wall/i.test(i.message))).toBe(false);
   });
 
+  it("skips the image-hero beat for a board update, in audit and repair", () => {
+    const slides = [
+      { layout: "title", heading: "Q3 board update" },
+      { layout: "data-table", heading: "Five of six KPIs beat plan", columns: ["KPI", "Actual"], rows: [["ARR", "$48M"]] },
+      { layout: "comparison", heading: "Europe ran late", left: "Plan", right: "Actual", emphasis: "right" },
+      { layout: "stat-row", heading: "Runway reaches 2029", stats: [{ value: "32 mo", label: "Runway" }] },
+      { layout: "section", heading: "Next quarter", notes: "Pause." },
+      {
+        layout: "closing",
+        heading: "Approve both votes",
+        notes: "Ask.",
+        actions: [
+          { label: "Approve", href: "#", style: "solid", icon: "fa-solid fa-check" },
+          { label: "Read", href: "#", style: "outline", icon: "fa-solid fa-book" },
+        ],
+      },
+    ];
+    const board = { type: "deck", meta: { theme: "corporate", genre: "board" }, slides };
+    const untyped = { type: "deck", meta: { theme: "corporate" }, slides };
+    const isImageHero = (i: { message: string }) => /image-hero/i.test(i.message);
+    expect(auditCraft(board).some(isImageHero)).toBe(false);
+    expect(auditCraft(untyped).some(isImageHero)).toBe(true);
+    expect(repairCraft(board).fixes.some((f) => /image-hero/i.test(f))).toBe(false);
+  });
+
+  it("asks for a logo-wall only when copy lists customers or partners", () => {
+    const deck = (lead: string) => ({
+      type: "deck",
+      meta: { theme: "corporate" },
+      slides: [
+        { layout: "title", heading: "Q3", lead },
+        { layout: "closing", heading: "Go" },
+      ],
+    });
+    const isLogoWall = (i: { message: string }) => /logo-wall/i.test(i.message);
+    expect(auditCraft(deck("Customer churn fell and a partner motion starts in November.")).some(isLogoWall)).toBe(false);
+    expect(auditCraft(deck("Our customers include Maersk and DHL.")).some(isLogoWall)).toBe(true);
+  });
+
   it("breaks identical layout cadence with a lossless swap", () => {
     const deck = {
       type: "deck",

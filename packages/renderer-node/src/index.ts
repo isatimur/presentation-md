@@ -283,6 +283,8 @@ interface DeckJson {
     lang?: string;
     /** candy-pop: optional custom ticker unit (else company/title). */
     marquee?: string;
+    /** What kind of deck this is (pitch, board, …). Read by craft checks; not rendered. */
+    genre?: string;
   };
   slides: SlideData[];
 }

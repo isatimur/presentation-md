@@ -156,9 +156,29 @@ function craftMessage(
 
 /** Minimal deck shape — avoids coupling core to export DeckJson. */
 export interface CraftAuditDeck {
-  meta?: { theme?: string; company?: string; title?: string; marquee?: string };
+  meta?: { theme?: string; company?: string; title?: string; marquee?: string; genre?: string };
   slides?: unknown;
 }
+
+/**
+ * Genres whose spine has no cinematic image beat. A board update shows a
+ * scorecard and a trend; a full-bleed photo there is decoration.
+ */
+const IMAGE_OPTIONAL_GENRES = new Set(["board"]);
+
+/** True when the deck's genre (meta.genre) does not call for an image-hero. */
+export function imageHeroOptional(meta: unknown): boolean {
+  const genre = meta && typeof meta === "object" ? (meta as Record<string, unknown>)["genre"] : undefined;
+  return typeof genre === "string" && IMAGE_OPTIONAL_GENRES.has(genre);
+}
+
+/**
+ * Copy that names a list of customers, partners or backers, which a logo-wall
+ * shows better. A deck that only mentions "customer" or "partner" in passing
+ * (every sales and board deck does) is not a social-proof beat.
+ */
+const SOCIAL_PROOF_COPY =
+  /trusted by|logo wall|backers|backed by|used by|customers include|partners include|our customers|our partners/;
 
 const HEADING_LAYOUTS = new Set(["title", "section", "closing"]);
 
@@ -238,7 +258,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
   }
 
   // Wrap decks use hue/ranked/streak/ring beats — image-hero is optional.
-  if (slides.length >= 5 && !hasImageHero && !isWrap) {
+  if (slides.length >= 5 && !hasImageHero && !isWrap && !imageHeroOptional(deck.meta)) {
     issues.push({
       severity: "warning",
       fixId: "image_hero",
@@ -479,7 +499,7 @@ export function auditCraft(deck: CraftAuditDeck): CraftIssue[] {
 
   const copyBlob = JSON.stringify(slides).toLowerCase();
   if (
-    /partner|customer|trusted by|logo wall|backers/.test(copyBlob) &&
+    SOCIAL_PROOF_COPY.test(copyBlob) &&
     !layouts.includes("logo-wall")
   ) {
     issues.push({
@@ -1331,12 +1351,12 @@ export function repairCraft(deck: CraftAuditDeck): CraftRepairResult {
   const originalCount = slides.length;
   const originalLayouts = layoutList(slides);
   const needImageHero =
-    originalCount >= 5 && !originalLayouts.includes("image-hero") && !isWrap;
+    originalCount >= 5 && !originalLayouts.includes("image-hero") && !isWrap && !imageHeroOptional(meta);
   const needAsymmetry = originalCount >= 5 && !hasAsymmetryLayouts(slides);
   const needDataBeat = originalCount >= 6 && !hasDataBeat(slides);
   const originalCopy = JSON.stringify(slides).toLowerCase();
   const needLogoWall =
-    /partner|customer|trusted by|logo wall|backers/.test(originalCopy) &&
+    SOCIAL_PROOF_COPY.test(originalCopy) &&
     !originalLayouts.includes("logo-wall");
   const needWrapTones =
     isWrap &&
