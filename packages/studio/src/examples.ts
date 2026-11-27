@@ -63,7 +63,7 @@ const FLAGSHIP_EXAMPLES: StudioExample[] = [
 export const STUDIO_EXAMPLES: StudioExample[] = [
   { slug: "acme", label: "Acme Q3 (signal)", theme: "signal", load: async () => EXAMPLE_DECK },
   ...FLAGSHIP_EXAMPLES,
-  lazyExample("briefing-signal", "Northline briefing", "signal", () => import("../../../examples/decks/briefing-signal.json")),
+  lazyExample("briefing-signal", "Calderport briefing", "signal", () => import("../../../examples/decks/briefing-signal.json")),
   lazyExample("posterforge-campaign", "Posterforge", "bold-poster", () => import("../../../examples/decks/posterforge-campaign.json")),
 ];
 

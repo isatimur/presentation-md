@@ -1,148 +1,182 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Neon District — Platform Launch",
+    "title": "Neon District for Lumen Hospitality — December 2026",
     "company": "Neon District",
-    "description": "Neon Cyber / neon-noir structured proof.",
-    "theme": "neon-noir"
+    "description": "Sales deck from Neon District, a live venue-operations platform, to Lumen Hospitality Group's 14 clubs: the shift to last-minute nights, who wins it, two obstacles and their fixes, proof from Club Meridian, rollout and price.",
+    "theme": "neon-noir",
+    "genre": "sales"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Platform · Night drop",
-      "heading": "The city never sleeps. Neither should your stack.",
-      "lead": "Realtime nightlife infrastructure — pink signal, cyan telemetry.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Prepared for Lumen Hospitality Group · 9 December 2026",
+      "heading": "How Lumen can run 14 clubs from one live board",
+      "lead": "A plan to fill every room on a Friday, without one radio call.",
+      "notes": "Open on Lumen, not on us. Our name does not appear until slide 5."
     },
     {
-      "layout": "feature-grid",
-      "eyebrow": "Layers",
-      "heading": "Three rails under the neon",
-      "columns": "bento",
-      "cards": [
+      "layout": "chart",
+      "eyebrow": "What changed",
+      "heading": "Guests now pick a club 38 minutes before arrival, not two days",
+      "chartType": "bar",
+      "categories": [
+        "2019",
+        "2021",
+        "2023",
+        "2025",
+        "2026"
+      ],
+      "series": [
         {
-          "icon": "fa-solid fa-location-dot",
-          "title": "Venue mesh",
-          "body": "Live capacity, door status, and VIP flow across every partner club."
-        },
-        {
-          "icon": "fa-solid fa-ticket",
-          "title": "Ticket pulse",
-          "body": "Fraud-resistant tickets with instant secondary market controls."
-        },
-        {
-          "icon": "fa-solid fa-wave-square",
-          "title": "Night ops",
-          "body": "Security, bar, and talent in one ops board — latency under 80ms."
-        },
-        {
-          "icon": "fa-solid fa-layer-group",
-          "title": "Stack for scan",
-          "body": "Hierarchy first. Decoration second. Decoration never."
-        },
-        {
-          "icon": "fa-solid fa-bolt",
-          "title": "Ship the punchline",
-          "body": "Lead with the claim that survives the hallway test."
+          "name": "Median booking lead time (hours)",
+          "values": [
+            52,
+            30,
+            9,
+            1.4,
+            0.6
+          ]
         }
-      ]
+      ],
+      "showValues": true,
+      "lead": "Source: 2.4M ticket and table bookings across 120 partner venues, Jan 2019 – Oct 2026.",
+      "notes": "The point is not the chart, it is the consequence: the night is now decided at the door, live."
     },
     {
       "layout": "comparison",
-      "eyebrow": "Migration",
-      "heading": "From radio to realtime.",
-      "leftLabel": "Legacy night",
-      "left": "Walkie-talkies.\nSpreadsheets at the door.\nNo shared inventory.",
-      "rightLabel": "Neon District",
-      "right": "One mesh.\nOne inventory.\nOne pulse for the whole district.",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
+      "eyebrow": "Who wins",
+      "heading": "Venues that see the night live win the last-minute guest",
+      "leftLabel": "Radio-run venues",
+      "left": "Queue size unknown until 200 deep.\nVIP tables sold twice.\nTurned-away guests leave.",
+      "rightLabel": "Live-board venues",
+      "right": "Queue visible on every phone.\nOne table list, no doubles.\nGuests sent to open rooms.",
+      "emphasis": "right"
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Platform · Night drop",
-      "heading": "The city never sleeps. Neither should your stack.",
-      "lead": "Realtime nightlife infrastructure — pink signal, cyan telemetry.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230a0a1e%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23050510%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2810%2C10%2C30%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23050510%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22820%22%20rx%3D%22700%22%20ry%3D%22120%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23floor%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22520%22%20cy%3D%22260%22%20rx%3D%22360%22%20ry%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22220%22%20rx%3D%22300%22%20ry%3D%22220%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20desk%20product%20frame%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28430%2C170%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%22720%22%20height%3D%22460%22%20rx%3D%2228%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22450%22%20rx%3D%2226%22%20fill%3D%22%230a0a1e%22%20stroke%3D%22rgba%28255%2C46%2C151%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22%23050510%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%2290%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%226%22%20fill%3D%22rgba%28255%2C46%2C151%2C0.850%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22130%22%20width%3D%22380%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22158%22%20width%3D%22320%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%280%2C229%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22290%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C46%2C151%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22510%22%20y%3D%22210%22%20width%3D%22140%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22280%22%20y%3D%22400%22%20width%3D%22160%22%20height%3D%2210%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Neon District craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Friday, 1:04 a.m.",
+      "heading": "Every Lumen door, bar and table on one map",
+      "lead": "Lumen South is full, so its queue walks to Vault 9 next door.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23050510%22%2F%3E%20%3Cg%20stroke%3D%22%2300e5ff%22%20stroke-opacity%3D%220.18%22%20stroke-width%3D%223%22%20fill%3D%22none%22%3E%20%3Cpath%20d%3D%22M0%20360%20H1600%20M0%20470%20H1600%20M0%20560%20H1600%20M200%200%20V900%20M520%200%20V900%20M860%200%20V900%20M1180%200%20V900%20M1450%200%20V900%22%2F%3E%20%3Cpath%20d%3D%22M0%20620%20L1600%20250%22%20stroke-opacity%3D%220.28%22%20stroke-width%3D%226%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20font-family%3D%22Share%20Tech%20Mono%2C%20monospace%22%20font-size%3D%2220%22%3E%20%3Cg%20transform%3D%22translate(330%20400)%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22%2300e5ff%22%2F%3E%3Ccircle%20r%3D%2234%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-opacity%3D%220.5%22%2F%3E%3Ctext%20x%3D%2244%22%20y%3D%22-6%22%20fill%3D%22%23e8e4f0%22%3EMERIDIAN%3C%2Ftext%3E%3Ctext%20x%3D%2244%22%20y%3D%2218%22%20fill%3D%22%2300e5ff%22%3E82%25%20%C2%B7%20queue%209%20min%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(700%20330)%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22%23ff2e97%22%2F%3E%3Ccircle%20r%3D%2234%22%20fill%3D%22none%22%20stroke%3D%22%23ff2e97%22%20stroke-opacity%3D%220.6%22%2F%3E%3Ctext%20x%3D%2244%22%20y%3D%22-6%22%20fill%3D%22%23e8e4f0%22%3ELUMEN%20SOUTH%3C%2Ftext%3E%3Ctext%20x%3D%2244%22%20y%3D%2218%22%20fill%3D%22%23ff2e97%22%3E100%25%20%C2%B7%20redirect%20on%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(1000%20500)%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22%2300e5ff%22%2F%3E%3Ctext%20x%3D%2230%22%20y%3D%22-6%22%20fill%3D%22%23e8e4f0%22%3EVAULT%209%3C%2Ftext%3E%3Ctext%20x%3D%2230%22%20y%3D%2218%22%20fill%3D%22%2300e5ff%22%3E64%25%20%C2%B7%20walk%20in%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(1260%20390)%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22%2300e5ff%22%2F%3E%3Ctext%20x%3D%2230%22%20y%3D%22-6%22%20fill%3D%22%23e8e4f0%22%3EATRIUM%3C%2Ftext%3E%3Ctext%20x%3D%2230%22%20y%3D%2218%22%20fill%3D%22%2300e5ff%22%3E71%25%20%C2%B7%203%20tables%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(560%20530)%22%3E%3Ccircle%20r%3D%2212%22%20fill%3D%22%238884a8%22%2F%3E%3Ctext%20x%3D%2226%22%20y%3D%226%22%20fill%3D%22%238884a8%22%3EKILN%20%C2%B7%20opens%2023%3A00%3C%2Ftext%3E%3C%2Fg%3E%20%3C%2Fg%3E%20%3Cpath%20d%3D%22M716%20346%20Q860%20440%20984%20494%22%20stroke%3D%22%23ff2e97%22%20stroke-width%3D%224%22%20stroke-dasharray%3D%2210%208%22%20fill%3D%22none%22%2F%3E%20%3Ctext%20x%3D%22120%22%20y%3D%22320%22%20font-family%3D%22Orbitron%2C%20sans-serif%22%20font-size%3D%2222%22%20fill%3D%22%238884a8%22%3EFRI%2001%3A04%20%C2%B7%20DISTRICT%20BOARD%3C%2Ftext%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Night map of the district with live capacity and queue time for five venues and a redirect from Lumen South to Vault 9"
     },
     {
       "layout": "two-column",
-      "eyebrow": "Ops",
-      "heading": "One pulse for the whole district.",
-      "body": "Security, bar, and talent share the same board. Capacity and VIP flow update under 80ms — so door decisions aren't radio folklore.",
-      "aside": "Pink signal for alerts. Cyan for telemetry. Hierarchy that holds under neon.",
+      "eyebrow": "Obstacle 1 · Blind doors",
+      "heading": "Neon District streams every door count to the board in 47 ms",
+      "body": "Today: door counts reach the GM by radio, five minutes late.\nWith us: clickers and scanners update one board live.",
+      "aside": "47 ms p95, scan to board",
       "ratio": "2-1"
     },
     {
+      "layout": "two-column",
+      "eyebrow": "Obstacle 2 · Double-sold tables",
+      "heading": "One table list across 14 venues blocks every double sale",
+      "body": "Door app, promoters and website book from the same list.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%201050%22%3E%20%3Crect%20width%3D%221200%22%20height%3D%221050%22%20fill%3D%22%230a0a1e%22%2F%3E%20%3Crect%20x%3D%2290%22%20y%3D%22150%22%20width%3D%221020%22%20height%3D%22750%22%20rx%3D%2218%22%20fill%3D%22%23050510%22%20stroke%3D%22%2300e5ff%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%222%22%2F%3E%20%3Ctext%20x%3D%22130%22%20y%3D%22210%22%20font-family%3D%22Orbitron%2C%20sans-serif%22%20font-size%3D%2226%22%20fill%3D%22%23e8e4f0%22%3EVIP%20TABLES%20%C2%B7%2014%20VENUES%20%C2%B7%20ONE%20LIST%3C%2Ftext%3E%20%3Cg%20font-family%3D%22Share%20Tech%20Mono%2C%20monospace%22%20font-size%3D%2224%22%20text-anchor%3D%22middle%22%3E%20%3Cg%20transform%3D%22translate(130%20260)%22%3E%20%3Crect%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22%23ff2e97%22%20fill-opacity%3D%220.85%22%2F%3E%3Ctext%20x%3D%22100%22%20y%3D%2258%22%20fill%3D%22%23050510%22%3ET1%20SOLD%3C%2Ftext%3E%3Ctext%20x%3D%22100%22%20y%3D%2294%22%20fill%3D%22%23050510%22%3EMeridian%3C%2Ftext%3E%20%3Crect%20x%3D%22240%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%22340%22%20y%3D%2258%22%20fill%3D%22%2300e5ff%22%3ET2%20OPEN%3C%2Ftext%3E%3Ctext%20x%3D%22340%22%20y%3D%2294%22%20fill%3D%22%2300e5ff%22%3E%24900%20min%3C%2Ftext%3E%20%3Crect%20x%3D%22480%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22%23ff2e97%22%20fill-opacity%3D%220.85%22%2F%3E%3Ctext%20x%3D%22580%22%20y%3D%2258%22%20fill%3D%22%23050510%22%3ET3%20SOLD%3C%2Ftext%3E%3Ctext%20x%3D%22580%22%20y%3D%2294%22%20fill%3D%22%23050510%22%3ELumen%20S.%3C%2Ftext%3E%20%3Crect%20x%3D%22720%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%22820%22%20y%3D%2258%22%20fill%3D%22%2300e5ff%22%3ET4%20OPEN%3C%2Ftext%3E%3Ctext%20x%3D%22820%22%20y%3D%2294%22%20fill%3D%22%2300e5ff%22%3E%241%2C200%20min%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(130%20420)%22%3E%20%3Crect%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%22100%22%20y%3D%2258%22%20fill%3D%22%2300e5ff%22%3ET5%20OPEN%3C%2Ftext%3E%3Ctext%20x%3D%22100%22%20y%3D%2294%22%20fill%3D%22%2300e5ff%22%3E%24600%20min%3C%2Ftext%3E%20%3Crect%20x%3D%22240%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22%23e8e4f0%22%20fill-opacity%3D%220.15%22%20stroke%3D%22%23e8e4f0%22%20stroke-dasharray%3D%228%206%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%22340%22%20y%3D%2258%22%20fill%3D%22%23e8e4f0%22%3ET6%20HELD%3C%2Ftext%3E%3Ctext%20x%3D%22340%22%20y%3D%2294%22%20fill%3D%22%23e8e4f0%22%3E2%3A00%20left%3C%2Ftext%3E%20%3Crect%20x%3D%22480%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22%23ff2e97%22%20fill-opacity%3D%220.85%22%2F%3E%3Ctext%20x%3D%22580%22%20y%3D%2258%22%20fill%3D%22%23050510%22%3ET7%20SOLD%3C%2Ftext%3E%3Ctext%20x%3D%22580%22%20y%3D%2294%22%20fill%3D%22%23050510%22%3EVault%209%3C%2Ftext%3E%20%3Crect%20x%3D%22720%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%22820%22%20y%3D%2258%22%20fill%3D%22%2300e5ff%22%3ET8%20OPEN%3C%2Ftext%3E%3Ctext%20x%3D%22820%22%20y%3D%2294%22%20fill%3D%22%2300e5ff%22%3E%24750%20min%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fg%3E%20%3Cg%20font-family%3D%22Share%20Tech%20Mono%2C%20monospace%22%20font-size%3D%2226%22%3E%20%3Crect%20x%3D%22130%22%20y%3D%22610%22%20width%3D%22920%22%20height%3D%222%22%20fill%3D%22%2300e5ff%22%20fill-opacity%3D%220.3%22%2F%3E%20%3Ctext%20x%3D%22130%22%20y%3D%22680%22%20fill%3D%22%238884a8%22%3ESecond%20booking%20for%20T3%20at%20Lumen%20South%3C%2Ftext%3E%20%3Ctext%20x%3D%22130%22%20y%3D%22730%22%20fill%3D%22%23ff2e97%22%3E%E2%9C%95%20Blocked%20%C2%B7%20already%20sold%2000%3A41%20by%20door%20app%3C%2Ftext%3E%20%3Ctext%20x%3D%22130%22%20y%3D%22800%22%20fill%3D%22%238884a8%22%3EDouble-sold%20tables%20since%20go-live%3C%2Ftext%3E%20%3Ctext%20x%3D%221050%22%20y%3D%22800%22%20text-anchor%3D%22end%22%20fill%3D%22%2300e5ff%22%20font-size%3D%2240%22%3E0%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "VIP table board for 14 venues showing sold, open and held tables, with a second booking for table T3 blocked",
+      "ratio": "1-2",
+      "reverse": true
+    },
+    {
       "layout": "stat-row",
-      "eyebrow": "Network",
-      "heading": "Live across three cities.",
+      "eyebrow": "Club Meridian, Miami · 8 weeks after go-live",
+      "heading": "Club Meridian cut its door wait from 34 to 9 minutes",
       "stats": [
         {
-          "value": "120+",
-          "label": "Partner venues"
+          "value": "9 min",
+          "label": "Median door wait in Nov, down from 34 in Sep"
         },
         {
-          "value": "2.4M",
-          "label": "Tickets / quarter"
+          "value": "0",
+          "label": "Double-sold tables, down from 41 a quarter"
         },
         {
-          "value": "47ms",
-          "label": "p95 ops latency"
+          "value": "+18%",
+          "label": "Bar revenue per guest, same 8 weeks"
         }
-      ]
+      ],
+      "notes": "Meridian is the closest match to Lumen: same city, 1,100 capacity, three rooms."
     },
     {
       "layout": "quote",
-      "quote": "Opening night felt like a control tower — in a good way.",
-      "by": "Rico Alvarez · GM · Club Meridian"
+      "quote": "Opening night felt like a control tower, in a good way.",
+      "by": "Rico Alvarez · GM, Club Meridian"
     },
     {
       "layout": "logo-wall",
-      "eyebrow": "Builders",
-      "heading": "Platforms shipping in the district.",
-      "columns": 4,
+      "eyebrow": "Already on the board",
+      "heading": "120 venues in three cities run their nights on Neon District",
+      "columns": 3,
       "cards": [
         {
-          "title": "Neon",
-          "body": "Infra"
+          "title": "Club Meridian",
+          "body": "Miami · 1,100 cap"
         },
         {
-          "title": "Cipher",
-          "body": "Security"
+          "title": "Vault 9",
+          "body": "Miami · 600 cap"
         },
         {
-          "title": "Volt",
-          "body": "Devtools"
+          "title": "Atrium",
+          "body": "Austin · 900 cap"
         },
         {
-          "title": "Signal",
-          "body": "Data"
+          "title": "Kiln",
+          "body": "Austin · 450 cap"
+        },
+        {
+          "title": "Low Tide",
+          "body": "Brooklyn · 700 cap"
+        },
+        {
+          "title": "Static",
+          "body": "Brooklyn · 500 cap"
         }
-      ],
-      "notes": "Glance the marks — social proof, not a reading list."
+      ]
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Plan",
+      "heading": "Lumen goes live in four weeks, two venues first",
+      "steps": [
+        {
+          "title": "Week 1 · Map",
+          "body": "Floor plans and door kit, 14 venues"
+        },
+        {
+          "title": "Week 2 · Pilot",
+          "body": "Lumen South and Lumen Bay go live"
+        },
+        {
+          "title": "Week 3 · Train",
+          "body": "Door, bar and VIP staff, 2 hours"
+        },
+        {
+          "title": "Week 4 · Roll out",
+          "body": "Remaining 12 venues switch on"
+        }
+      ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Drop",
-      "heading": "Plug into the district.",
-      "lead": "Venue onboarding in under a week. Operators and promoters welcome.",
+      "eyebrow": "Next step · 6 January 2027",
+      "heading": "Start the free two-venue pilot and run 14 clubs from one board",
+      "lead": "Pilot free for 30 days. Then $1,900 per venue a month.",
       "actions": [
         {
-          "label": "Request access",
-          "href": "#",
+          "label": "Book the 6 January kickoff",
           "style": "solid",
-          "icon": "fa-solid fa-key"
+          "icon": "fa-solid fa-calendar-check"
         },
         {
-          "label": "Book a venue",
-          "href": "#",
+          "label": "Get the venue map pack",
           "style": "outline",
-          "icon": "fa-solid fa-calendar"
+          "icon": "fa-solid fa-map"
         }
-      ]
+      ],
+      "notes": "Ask for the date, not for a decision on all 14. The pilot sells the rest."
     }
   ]
 }

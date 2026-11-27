@@ -1,84 +1,172 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Concrete — Spec Deck",
-    "company": "Concrete",
-    "description": "Technical specification deck — brutalist-mono multi-slide proof.",
-    "theme": "brutalist-mono"
+    "title": "Slab — From 41 minutes to 9: fixing our CI",
+    "company": "Slab",
+    "description": "Engineering talk from Slab, a construction-scheduling platform: CI took 41 minutes because every pull request rebuilt and retested all 140 packages. A remote build cache and eight-way test sharding cut the median to 9 minutes. Evidence, mechanism, config, trade-offs and one takeaway.",
+    "theme": "brutalist-mono",
+    "genre": "talk"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "SPEC · 01",
-      "heading": "CONCRETE. MONO. HAZARD.",
-      "lead": "IBM Plex Mono only. Orange for danger. Zero radius.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Slab Engineering · Platform talk · November 2026",
+      "heading": "Our CI took 41 minutes. Cache and shards made it 9.",
+      "notes": "Twenty-minute slot. About one slide a minute; give the config slide three."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "SPEC · 01",
-      "heading": "CONCRETE. MONO. HAZARD.",
-      "lead": "IBM Plex Mono only. Orange for danger. Zero radius.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23e3e1d8%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f0efe9%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C54%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C54%2C0%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2810%2C10%2C10%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28255%2C54%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28227%2C225%2C216%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C54%2C0%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28255%2C54%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C54%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2810%2C10%2C10%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2810%2C10%2C10%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2810%2C10%2C10%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f0efe9%22%2F%3E%0A%20%20%3Cpolygon%20points%3D%220%2C0%20980%2C0%20640%2C900%200%2C900%22%20fill%3D%22rgba%28255%2C54%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Cpolygon%20points%3D%22980%2C0%201600%2C0%201600%2C900%20640%2C900%22%20fill%3D%22rgba%2810%2C10%2C10%2C0.180%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22280%22%20rx%3D%22260%22%20ry%3D%22200%22%20fill%3D%22rgba%28255%2C54%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22220%22%20width%3D%22620%22%20height%3D%2272%22%20fill%3D%22%23ff3600%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22320%22%20width%3D%22460%22%20height%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.550%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22370%22%20width%3D%22380%22%20height%3D%2222%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22980%22%20y%3D%22520%22%20width%3D%22420%22%20height%3D%22220%22%20fill%3D%22rgba%280%2C0%2C0%2C0.220%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221000%22%20y%3D%22540%22%20width%3D%22380%22%20height%3D%22180%22%20fill%3D%22rgba%2810%2C10%2C10%2C0.450%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22630%22%20r%3D%2254%22%20fill%3D%22rgba%28240%2C239%2C233%2C0.550%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.7%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Concrete cinematic surface",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "The failure",
+      "heading": "Build and tests ate 31 of every 41 CI minutes",
+      "lead": "Every pull request rebuilt 140 packages and ran 1,840 test files on one runner.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201600%20360'%20font-family%3D'IBM%20Plex%20Mono%2Cmonospace'%3E%3Crect%20width%3D'1600'%20height%3D'360'%20fill%3D'%23e3e1d8'%2F%3E%3Ctext%20x%3D'100'%20y%3D'40'%20font-size%3D'26'%20font-weight%3D'700'%20fill%3D'%230a0a0a'%3EMEDIAN%20PULL%20REQUEST%20%C2%B7%2041%20MIN%3C%2Ftext%3E%3Cg%20stroke%3D'%230a0a0a'%20stroke-width%3D'3'%3E%3Crect%20x%3D'100'%20y%3D'55'%20width%3D'68'%20height%3D'105'%20fill%3D'%23fff'%2F%3E%3Crect%20x%3D'168'%20y%3D'55'%20width%3D'205'%20height%3D'105'%20fill%3D'%23fff'%2F%3E%3Crect%20x%3D'373'%20y%3D'55'%20width%3D'478'%20height%3D'105'%20fill%3D'%23ff3600'%2F%3E%3Crect%20x%3D'851'%20y%3D'55'%20width%3D'580'%20height%3D'105'%20fill%3D'%23ff3600'%2F%3E%3Crect%20x%3D'1431'%20y%3D'55'%20width%3D'68'%20height%3D'105'%20fill%3D'%23fff'%2F%3E%3C%2Fg%3E%3Cg%20font-size%3D'24'%20font-weight%3D'700'%3E%3Ctext%20x%3D'190'%20y%3D'100'%20fill%3D'%230a0a0a'%3EINSTALL%3C%2Ftext%3E%3Ctext%20x%3D'190'%20y%3D'132'%20font-size%3D'22'%20font-weight%3D'400'%20fill%3D'%230a0a0a'%3E6%20min%3C%2Ftext%3E%3Ctext%20x%3D'395'%20y%3D'100'%20fill%3D'%23fff'%3EBUILD%20140%20PACKAGES%3C%2Ftext%3E%3Ctext%20x%3D'395'%20y%3D'132'%20font-size%3D'22'%20font-weight%3D'400'%20fill%3D'%23fff'%3E14%20min%3C%2Ftext%3E%3Ctext%20x%3D'873'%20y%3D'100'%20fill%3D'%23fff'%3ETEST%201%2C840%20FILES%20%C2%B7%201%20RUNNER%3C%2Ftext%3E%3Ctext%20x%3D'873'%20y%3D'132'%20font-size%3D'22'%20font-weight%3D'400'%20fill%3D'%23fff'%3E17%20min%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20font-size%3D'20'%20fill%3D'%230a0a0a'%3E%3Ctext%20x%3D'100'%20y%3D'185'%3Echeckout%202%3C%2Ftext%3E%3Ctext%20x%3D'1499'%20y%3D'185'%20text-anchor%3D'end'%3Elint%20%2B%20upload%202%3C%2Ftext%3E%3C%2Fg%3E%3Cpath%20d%3D'M373%20200H1431M373%20190V210M1431%20190V210'%20stroke%3D'%230a0a0a'%20stroke-width%3D'3'%2F%3E%3Ctext%20x%3D'902'%20y%3D'235'%20font-size%3D'26'%20font-weight%3D'700'%20text-anchor%3D'middle'%20fill%3D'%230a0a0a'%3E31%20OF%2041%20MINUTES%20%C2%B7%20BUILD%20%2B%20TEST%3C%2Ftext%3E%3C%2Fsvg%3E",
+      "imageAlt": "Pipeline bar for a median pull request: checkout 2 minutes, install 6, build 14, test 17, lint and upload 2, with build and test highlighted as 31 of 41 minutes"
     },
     {
-      "layout": "code",
-      "eyebrow": "Contract",
-      "heading": "The only API that matters.",
-      "filename": "concrete.ts",
-      "language": "ts",
-      "code": "type Spec = {\n  id: string;\n  hazard: boolean;\n  owner: string;\n};\n\nexport function assertSpec(s: Spec) {\n  if (!s.id) throw new Error('NO_ID');\n  if (s.hazard) console.warn('HAZARD');\n  return s;\n}"
-    },
-    {
-      "layout": "two-column",
-      "eyebrow": "Laws",
-      "heading": "Non-negotiables",
-      "body": "Hairlines: 2px black or it doesn't exist. Mono everywhere — Even the marketing.",
-      "aside": "Reserved for real risk.",
-      "ratio": "3-2"
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Accept",
-      "heading": "We ship if…",
-      "leftLabel": "Yes",
-      "left": "Explicit invariants.\nNamed owners.\nNo soft shadows.",
-      "rightLabel": "No",
-      "right": "Vague vibe decks.\nRounded pills.\nMystery owners.",
-      "emphasis": "left",
-      "notes": "Name the loser column first, then punch the winner."
-    },
-    {
-      "layout": "stat-row",
-      "eyebrow": "Signal",
-      "heading": "Concrete in numbers.",
-      "notes": "One breath on the numbers — then move on.",
-      "stats": [
+      "layout": "timeline",
+      "eyebrow": "Three questions",
+      "heading": "Agenda",
+      "steps": [
         {
-          "value": "3×",
-          "label": "Faster cycles"
+          "title": "01",
+          "body": "Why was CI doing so much work?"
         },
         {
-          "value": "92%",
-          "label": "Retention"
+          "title": "02",
+          "body": "How do cache and shards remove it?"
         },
         {
-          "value": "18",
-          "label": "Shipped pilots"
+          "title": "03",
+          "body": "What did the speed cost?"
         }
       ]
     },
     {
+      "layout": "section",
+      "number": "01",
+      "heading": "Why was CI doing so much work?"
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Evidence",
+      "heading": "CI time grew 2.6× in a year as the repo doubled",
+      "chartType": "line",
+      "categories": [
+        "Nov 25",
+        "Jan 26",
+        "Mar 26",
+        "May 26",
+        "Jul 26",
+        "Sep 26"
+      ],
+      "series": [
+        {
+          "name": "Median CI time (min)",
+          "values": [
+            16,
+            21,
+            26,
+            31,
+            37,
+            41
+          ]
+        }
+      ],
+      "showValues": true,
+      "lead": "Source: GitHub Actions run history, 61,000 pull-request runs. Packages grew from 70 to 140."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Mechanism",
+      "heading": "A typical pull request changed 3 packages and rebuilt all 140",
+      "ratio": "2-3",
+      "reverse": true,
+      "body": "CI had no memory between runs.\nUnchanged code was built and tested again from scratch.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201000%20860'%20font-family%3D'IBM%20Plex%20Mono%2Cmonospace'%3E%3Cdefs%3E%3Cpattern%20id%3D'p'%20width%3D'64'%20height%3D'64'%20patternUnits%3D'userSpaceOnUse'%3E%3Crect%20x%3D'4'%20y%3D'4'%20width%3D'52'%20height%3D'52'%20fill%3D'%23fff'%20stroke%3D'%230a0a0a'%20stroke-width%3D'3'%2F%3E%3C%2Fpattern%3E%3C%2Fdefs%3E%3Crect%20width%3D'1000'%20height%3D'860'%20fill%3D'%23e3e1d8'%2F%3E%3Ctext%20x%3D'52'%20y%3D'80'%20font-size%3D'30'%20font-weight%3D'700'%20fill%3D'%230a0a0a'%3E140%20PACKAGES%20%C2%B7%20ONE%20PR%3C%2Ftext%3E%3Crect%20x%3D'52'%20y%3D'120'%20width%3D'896'%20height%3D'640'%20fill%3D'url(%23p)'%2F%3E%3Cg%20fill%3D'%23ff3600'%20stroke%3D'%23ff3600'%20stroke-width%3D'3'%3E%3Crect%20x%3D'252'%20y%3D'252'%20width%3D'52'%20height%3D'52'%2F%3E%3Crect%20x%3D'636'%20y%3D'380'%20width%3D'52'%20height%3D'52'%2F%3E%3Crect%20x%3D'444'%20y%3D'636'%20width%3D'52'%20height%3D'52'%2F%3E%3C%2Fg%3E%3Cg%20font-size%3D'26'%20font-weight%3D'700'%20fill%3D'%230a0a0a'%3E%3Crect%20x%3D'52'%20y%3D'786'%20width%3D'26'%20height%3D'26'%20fill%3D'%23ff3600'%2F%3E%3Ctext%20x%3D'92'%20y%3D'809'%3E3%20CHANGED%3C%2Ftext%3E%3Crect%20x%3D'400'%20y%3D'786'%20width%3D'26'%20height%3D'26'%20fill%3D'%23fff'%20stroke%3D'%230a0a0a'%20stroke-width%3D'3'%2F%3E%3Ctext%20x%3D'440'%20y%3D'809'%3E137%20REBUILT%20ANYWAY%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "Grid of 140 package squares with 3 highlighted as changed and 137 labelled rebuilt anyway"
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "How do cache and shards remove it?"
+    },
+    {
+      "layout": "code",
+      "eyebrow": "The fix",
+      "heading": "Eleven lines: reuse unchanged builds, split tests across eight runners",
+      "filename": ".github/workflows/ci.yml",
+      "language": "yaml",
+      "code": "test:\n  strategy:\n    matrix: { shard: [1, 2, 3, 4, 5, 6, 7, 8] }\n  env:\n    TURBO_API: https://cache.slab.internal\n    TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}\n  steps:\n    - uses: actions/checkout@v4\n    - run: pnpm install --frozen-lockfile\n    - run: pnpm turbo run build --filter=...[origin/main]\n    - run: pnpm vitest run --shard=${{ matrix.shard }}/8",
+      "notes": "Two ideas. TURBO_API points every runner at one shared cache, so a package built once is downloaded, not rebuilt. The shard flag splits 1,840 test files into eight equal slices by past timing."
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Before and after",
+      "heading": "Median CI fell from 41 minutes to 9, and p95 from 63 to 14",
+      "leftLabel": "August, one runner",
+      "left": "Build 14 min\nTests 17 min\nMedian 41 · p95 63 min",
+      "rightLabel": "October, cache + 8 shards",
+      "right": "Build 2 min · 94% cache hits\nTests 4 min\nMedian 9 · p95 14 min",
+      "emphasis": "right"
+    },
+    {
+      "layout": "section",
+      "number": "03",
+      "heading": "What did the speed cost?"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Trade-offs",
+      "heading": "Speed cost 59% more runner minutes and one new way to fail",
+      "columns": [
+        "Cost",
+        "Size",
+        "Why"
+      ],
+      "rows": [
+        [
+          "Runner minutes per run",
+          "41 → 65",
+          "8 shards repeat setup"
+        ],
+        [
+          "Cache storage",
+          "1.2 TB · $310/mo",
+          "Every build output kept 14 days"
+        ],
+        [
+          "Stale cache hits",
+          "2 in 6 months",
+          "Key missed a Node upgrade"
+        ]
+      ]
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Hindsight",
+      "heading": "We would put the toolchain version in the cache key on day one",
+      "ratio": "2-1",
+      "body": "Both stale hits came from a Node upgrade the key ignored.\nBoth shipped an old build to staging.",
+      "aside": "Fix: hash the Node, pnpm and OS versions into every key."
+    },
+    {
       "layout": "closing",
-      "eyebrow": "Access",
-      "heading": "READ THE SPEC.",
-      "lead": "Public RFC opens Monday.",
-      "cta": {
-        "label": "Open the RFC",
-        "href": "#"
-      }
+      "eyebrow": "One takeaway",
+      "heading": "Stop rebuilding what has not changed. Split what has.",
+      "lead": "41 minutes became 9. The workflow and shard timings are open source.",
+      "actions": [
+        {
+          "label": "Get the workflow on GitHub",
+          "style": "solid",
+          "icon": "fa-brands fa-github"
+        },
+        {
+          "label": "Read the write-up",
+          "style": "outline",
+          "icon": "fa-solid fa-file-lines"
+        }
+      ],
+      "notes": "Close on the sentence, then give the repo URL from the notes: github.com/slab-eng/ci-cache."
     }
   ]
 }

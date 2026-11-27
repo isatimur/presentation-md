@@ -1,55 +1,178 @@
 {
   "type": "deck",
   "meta": {
-    "title": "VoltCraft — Creative Credentials",
+    "title": "VoltCraft — launch studio credentials 2027",
     "company": "VoltCraft",
-    "description": "Creative agency credentials — creative-voltage multi-slide proof.",
-    "theme": "creative-voltage"
+    "description": "Credentials for VoltCraft, a launch-campaign studio in Lisbon and Brooklyn: one loud idea per launch, three cases with sales and recall results, clients, process and booking.",
+    "theme": "creative-voltage",
+    "genre": "brand"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Creative studio",
-      "heading": "Voltage over volume.",
-      "lead": "Campaigns with one idea, loud type, and zero sticker soup.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "VoltCraft · Launch studio · Lisbon and Brooklyn",
+      "heading": "We launch products with one loud idea.",
+      "lead": "38 launches in 2026.",
+      "notes": "Say the line slowly. Every case after this is one idea, not a campaign of ten."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Creative studio",
-      "heading": "Voltage over volume.",
-      "lead": "Campaigns with one idea, loud type, and zero sticker soup.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%231a1a2e%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%230066ff%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28212%2C255%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28212%2C255%2C0%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28212%2C255%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C26%2C46%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28212%2C255%2C0%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28212%2C255%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28212%2C255%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230066ff%22%2F%3E%0A%20%20%3Cpolygon%20points%3D%220%2C0%20980%2C0%20640%2C900%200%2C900%22%20fill%3D%22rgba%28212%2C255%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Cpolygon%20points%3D%22980%2C0%201600%2C0%201600%2C900%20640%2C900%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22280%22%20rx%3D%22260%22%20ry%3D%22200%22%20fill%3D%22rgba%28212%2C255%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22220%22%20width%3D%22620%22%20height%3D%2272%22%20fill%3D%22%23d4ff00%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22320%22%20width%3D%22460%22%20height%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.550%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22370%22%20width%3D%22380%22%20height%3D%2222%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22980%22%20y%3D%22520%22%20width%3D%22420%22%20height%3D%22220%22%20fill%3D%22rgba%280%2C0%2C0%2C0.220%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221000%22%20y%3D%22540%22%20width%3D%22380%22%20height%3D%22180%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.450%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22630%22%20r%3D%2254%22%20fill%3D%22rgba%280%2C102%2C255%2C0.550%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.7%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "VoltCraft cinematic surface",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Our point of view",
+      "heading": "Loud beats polite, 61% to 9%",
+      "lead": "Recall panel, 2,400 commuters, 2026.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20490%22%20width%3D%221600%22%20height%3D%22490%22%3E%3Crect%20width%3D%221600%22%20height%3D%22490%22%20fill%3D%22%231a1a2e%22%2F%3E%3Cg%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%3E%3Crect%20x%3D%22120%22%20y%3D%2230%22%20width%3D%22560%22%20height%3D%22270%22%20fill%3D%22%232a2a44%22%2F%3E%3Cg%20fill%3D%22%238a8aa6%22%20font-size%3D%2220%22%3E%3Ctext%20x%3D%22150%22%20y%3D%2272%22%3ENEW!%20Now%20with%20more%20features%3C%2Ftext%3E%3Ctext%20x%3D%22150%22%20y%3D%22106%22%3EFree%20shipping*%20%C2%B7%20Limited%20offer%3C%2Ftext%3E%3Ctext%20x%3D%22150%22%20y%3D%22140%22%3ERated%20%231%20by%20experts%20%C2%B7%20Eco%3C%2Ftext%3E%3Ctext%20x%3D%22150%22%20y%3D%22174%22%3EDownload%20the%20app%20%C2%B7%20Visit%20us%3C%2Ftext%3E%3Ctext%20x%3D%22150%22%20y%3D%22208%22%3ESmart.%20Fast.%20Better.%20Yours.%3C%2Ftext%3E%3Ctext%20x%3D%22150%22%20y%3D%22242%22%3ETerms%20apply%20%C2%B7%20while%20stocks%20last%3C%2Ftext%3E%3Ctext%20x%3D%22150%22%20y%3D%22276%22%3EFollow%20%40brand%20%C2%B7%20QR%20inside%3C%2Ftext%3E%3C%2Fg%3E%3Ctext%20x%3D%22400%22%20y%3D%22350%22%20text-anchor%3D%22middle%22%20font-size%3D%2226%22%20fill%3D%22%238a8aa6%22%3E10%20messages%20%C2%B7%209%25%20recall%3C%2Ftext%3E%3Crect%20x%3D%22860%22%20y%3D%2230%22%20width%3D%22620%22%20height%3D%22270%22%20fill%3D%22%230066ff%22%2F%3E%3Ctext%20x%3D%221170%22%20y%3D%22220%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%20Black%2CArial%2Csans-serif%22%20font-size%3D%22150%22%20font-weight%3D%22900%22%20fill%3D%22%23d4ff00%22%3EONE.%3C%2Ftext%3E%3Ctext%20x%3D%221170%22%20y%3D%22350%22%20text-anchor%3D%22middle%22%20font-size%3D%2226%22%20fill%3D%22%23d4ff00%22%20font-weight%3D%22700%22%3E1%20message%20%C2%B7%2061%25%20recall%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "Two billboards: a cluttered one with ten small messages and 9% recall, and a blue one reading ONE with 61% recall"
     },
     {
-      "layout": "two-column",
-      "eyebrow": "What we ship",
-      "heading": "Four surfaces. One voltage.",
-      "body": "Launch systems: Identity + site + motion that share a single rule set. Motion packs — 2–3 intentional beats — presence, not particles.",
-      "aside": "Installations that photograph as well as they convert.",
-      "ratio": "2-1"
+      "layout": "feature-grid",
+      "eyebrow": "What we believe",
+      "heading": "We kill safe ideas before clients see them",
+      "columns": "bento",
+      "cards": [
+        {
+          "icon": "fa-solid fa-skull",
+          "title": "Kill three to keep one",
+          "body": "Four routes in, one route out."
+        },
+        {
+          "icon": "fa-solid fa-quote-left",
+          "title": "One line, one image"
+        },
+        {
+          "icon": "fa-solid fa-font",
+          "title": "Type does the shouting"
+        },
+        {
+          "icon": "fa-solid fa-film",
+          "title": "Motion with a job"
+        },
+        {
+          "icon": "fa-solid fa-brain",
+          "title": "Measure recall, not reach"
+        }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "Three launches, three results",
+      "lead": "Orbit Apparel, Nimbus Coffee, Lumen Bikes."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 1 · Orbit Apparel",
+      "heading": "Orbit launched on one line",
+      "lead": "“Built for Tuesday.” March 2026.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20490%22%20width%3D%221600%22%20height%3D%22490%22%3E%3Cdefs%3E%3Cg%20id%3D%22j%22%3E%3Cpath%20d%3D%22M-70%20-90%20L-25%20-110%20L0%20-90%20L25%20-110%20L70%20-90%20L95%2060%20L60%2066%20L55%20-20%20L50%20110%20L-50%20110%20L-55%20-20%20L-60%2066%20L-95%2060%20Z%22%20fill%3D%22%23d4ff00%22%2F%3E%3Cline%20x1%3D%220%22%20y1%3D%22-90%22%20x2%3D%220%22%20y2%3D%22110%22%20stroke%3D%22%231a1a2e%22%20stroke-width%3D%225%22%2F%3E%3C%2Fg%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22490%22%20fill%3D%22%230066ff%22%2F%3E%3Cg%20font-family%3D%22Arial%20Black%2CArial%2Csans-serif%22%20font-weight%3D%22900%22%20fill%3D%22%23fff%22%3E%3Crect%20x%3D%22130%22%20y%3D%2230%22%20width%3D%22400%22%20height%3D%22340%22%20fill%3D%22%231a1a2e%22%2F%3E%3Cuse%20href%3D%22%23j%22%20transform%3D%22translate(330%20170)%20scale(.9)%22%2F%3E%3Ctext%20x%3D%22330%22%20y%3D%22345%22%20text-anchor%3D%22middle%22%20font-size%3D%2234%22%3EBUILT%20FOR%20TUESDAY.%3C%2Ftext%3E%3Crect%20x%3D%22600%22%20y%3D%2230%22%20width%3D%22400%22%20height%3D%22340%22%20fill%3D%22%231a1a2e%22%2F%3E%3Ctext%20x%3D%22800%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20font-size%3D%2252%22%20fill%3D%22%23d4ff00%22%3ERAIN%20AT%208.%3C%2Ftext%3E%3Ctext%20x%3D%22800%22%20y%3D%22215%22%20text-anchor%3D%22middle%22%20font-size%3D%2252%22%20fill%3D%22%23d4ff00%22%3EMEETING%20AT%209.%3C%2Ftext%3E%3Ctext%20x%3D%22800%22%20y%3D%22345%22%20text-anchor%3D%22middle%22%20font-size%3D%2234%22%3EBUILT%20FOR%20TUESDAY.%3C%2Ftext%3E%3Crect%20x%3D%221070%22%20y%3D%2230%22%20width%3D%22400%22%20height%3D%22340%22%20fill%3D%22%231a1a2e%22%2F%3E%3Cuse%20href%3D%22%23j%22%20transform%3D%22translate(1270%20170)%20scale(.9)%20rotate(-8)%22%2F%3E%3Ctext%20x%3D%221270%22%20y%3D%22345%22%20text-anchor%3D%22middle%22%20font-size%3D%2234%22%3EORBIT%20%C2%B7%20%E2%82%AC149%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "Three dark posters for the Orbit commuter jacket, each ending with the line Built for Tuesday"
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Proof",
-      "heading": "Last twelve months",
+      "eyebrow": "Case 1 · Result",
+      "heading": "Orbit sold 2.4× its launch plan in 30 days",
       "stats": [
         {
-          "value": "38",
-          "label": "Launches shipped"
-        },
-        {
-          "value": "4.9",
-          "label": "Client NPS"
+          "value": "2.4×",
+          "label": "Units sold vs. plan, first 30 days"
         },
         {
           "value": "11",
-          "label": "Awards shortlists"
+          "label": "Days to sell out the first 8,000 jackets"
+        },
+        {
+          "value": "61%",
+          "label": "Unaided recall in Lisbon, n = 800"
         }
       ],
-      "notes": "One breath on the numbers — then move on."
+      "notes": "Orbit's CMO is the quote on slide 11. Link the two out loud."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Case 2 · Nimbus Coffee",
+      "heading": "Nimbus hit 400,000 downloads in a month",
+      "ratio": "1-2",
+      "reverse": true,
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201270%201000%22%20width%3D%221270%22%20height%3D%221000%22%3E%3Crect%20width%3D%221270%22%20height%3D%221000%22%20fill%3D%22%231a1a2e%22%2F%3E%3Cg%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%3E%3Crect%20x%3D%2280%22%20y%3D%2290%22%20width%3D%22560%22%20height%3D%22820%22%20fill%3D%22%23d4ff00%22%2F%3E%3Ctext%20x%3D%22120%22%20y%3D%22280%22%20font-family%3D%22Arial%20Black%2CArial%2Csans-serif%22%20font-size%3D%2292%22%20font-weight%3D%22900%22%20fill%3D%22%231a1a2e%22%3ESKIP%3C%2Ftext%3E%3Ctext%20x%3D%22120%22%20y%3D%22380%22%20font-family%3D%22Arial%20Black%2CArial%2Csans-serif%22%20font-size%3D%2292%22%20font-weight%3D%22900%22%20fill%3D%22%231a1a2e%22%3ETHE%3C%2Ftext%3E%3Ctext%20x%3D%22120%22%20y%3D%22480%22%20font-family%3D%22Arial%20Black%2CArial%2Csans-serif%22%20font-size%3D%2292%22%20font-weight%3D%22900%22%20fill%3D%22%231a1a2e%22%3EQUEUE.%3C%2Ftext%3E%3Ctext%20x%3D%22120%22%20y%3D%22840%22%20font-size%3D%2230%22%20font-weight%3D%22700%22%20fill%3D%22%231a1a2e%22%3ENimbus%20Coffee%20%C2%B7%20order%20ahead%3C%2Ftext%3E%3Crect%20x%3D%22760%22%20y%3D%22140%22%20width%3D%22380%22%20height%3D%22740%22%20rx%3D%2250%22%20fill%3D%22%230b0b18%22%20stroke%3D%22%23fff%22%20stroke-width%3D%224%22%2F%3E%3Crect%20x%3D%22785%22%20y%3D%22190%22%20width%3D%22330%22%20height%3D%22640%22%20rx%3D%2220%22%20fill%3D%22%230066ff%22%2F%3E%3Ctext%20x%3D%22810%22%20y%3D%22250%22%20font-size%3D%2226%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3ENimbus%3C%2Ftext%3E%3Crect%20x%3D%22810%22%20y%3D%22290%22%20width%3D%22280%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22%231a1a2e%22%2F%3E%3Ctext%20x%3D%22830%22%20y%3D%22335%22%20font-size%3D%2224%22%20fill%3D%22%23fff%22%3EFlat%20white%3C%2Ftext%3E%3Ctext%20x%3D%22830%22%20y%3D%22375%22%20font-size%3D%2222%22%20fill%3D%22%23d4ff00%22%3EReady%20in%204%20min%3C%2Ftext%3E%3Crect%20x%3D%22810%22%20y%3D%22420%22%20width%3D%22280%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22%231a1a2e%22%2F%3E%3Ctext%20x%3D%22830%22%20y%3D%22465%22%20font-size%3D%2224%22%20fill%3D%22%23fff%22%3EOat%20cortado%3C%2Ftext%3E%3Ctext%20x%3D%22830%22%20y%3D%22505%22%20font-size%3D%2222%22%20fill%3D%22%239db8ff%22%3ERua%20do%20Ouro%3C%2Ftext%3E%3Crect%20x%3D%22810%22%20y%3D%22740%22%20width%3D%22280%22%20height%3D%2264%22%20rx%3D%2232%22%20fill%3D%22%23d4ff00%22%2F%3E%3Ctext%20x%3D%22950%22%20y%3D%22782%22%20text-anchor%3D%22middle%22%20font-size%3D%2226%22%20font-weight%3D%22700%22%20fill%3D%22%231a1a2e%22%3EOrder%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "A yellow poster reading Skip the queue next to the Nimbus order-ahead app showing a flat white ready in 4 minutes",
+      "body": "Three words on every cup sleeve: “Skip the queue.” Plan was 150,000."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 3 · Lumen Bikes",
+      "heading": "Test rides fell to $14 each",
+      "lead": "L train takeover, Sept 2026. Was $41.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20490%22%20width%3D%221600%22%20height%3D%22490%22%3E%3Crect%20width%3D%221600%22%20height%3D%22490%22%20fill%3D%22%231a1a2e%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%2240%22%20width%3D%221600%22%20height%3D%22120%22%20fill%3D%22%232a2a44%22%2F%3E%3Cg%20font-family%3D%22Arial%20Black%2CArial%2Csans-serif%22%20font-weight%3D%22900%22%3E%3Crect%20x%3D%2260%22%20y%3D%2255%22%20width%3D%22460%22%20height%3D%2290%22%20fill%3D%22%23d4ff00%22%2F%3E%3Ctext%20x%3D%22290%22%20y%3D%22117%22%20text-anchor%3D%22middle%22%20font-size%3D%2250%22%20fill%3D%22%231a1a2e%22%3ESKIP%20THE%20L.%3C%2Ftext%3E%3Crect%20x%3D%22570%22%20y%3D%2255%22%20width%3D%22460%22%20height%3D%2290%22%20fill%3D%22%230066ff%22%2F%3E%3Ctext%20x%3D%22800%22%20y%3D%22117%22%20text-anchor%3D%22middle%22%20font-size%3D%2240%22%20fill%3D%22%23fff%22%3E22%20MIN%20BY%20E-BIKE%3C%2Ftext%3E%3Crect%20x%3D%221080%22%20y%3D%2255%22%20width%3D%22460%22%20height%3D%2290%22%20fill%3D%22%23d4ff00%22%2F%3E%3Ctext%20x%3D%221310%22%20y%3D%22117%22%20text-anchor%3D%22middle%22%20font-size%3D%2250%22%20fill%3D%22%231a1a2e%22%3ESKIP%20THE%20L.%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%238a8aa6%22%20stroke-width%3D%2210%22%3E%3Cline%20x1%3D%22200%22%20y1%3D%22160%22%20x2%3D%22200%22%20y2%3D%22420%22%2F%3E%3Cline%20x1%3D%22800%22%20y1%3D%22160%22%20x2%3D%22800%22%20y2%3D%22420%22%2F%3E%3Cline%20x1%3D%221400%22%20y1%3D%22160%22%20x2%3D%221400%22%20y2%3D%22420%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(800%20330)%22%20fill%3D%22none%22%20stroke%3D%22%23d4ff00%22%20stroke-width%3D%2212%22%3E%3Ccircle%20cx%3D%22-110%22%20cy%3D%2240%22%20r%3D%2260%22%2F%3E%3Ccircle%20cx%3D%22110%22%20cy%3D%2240%22%20r%3D%2260%22%2F%3E%3Cpath%20d%3D%22M-110%2040%20L-30%20-40%20L60%20-40%20L110%2040%20M-30%20-40%20L10%2040%20L60%20-40%20M50%20-70%20L80%20-70%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%221020%22%20y%3D%22300%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2230%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3ELumen%20e-bike%3C%2Ftext%3E%3Ctext%20x%3D%221020%22%20y%3D%22340%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2226%22%20fill%3D%22%23d4ff00%22%3E%2414%20per%20test%20ride%3C%2Ftext%3E%3C%2Fsvg%3E",
+      "imageAlt": "A subway car with overhead panels reading Skip the L and an outline of a Lumen e-bike"
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Recall",
+      "heading": "Our 2026 launches averaged 50% unaided recall",
+      "lead": "Week 4 recall. VoltCraft panels, n = 800 per city.",
+      "items": [
+        {
+          "rank": "1",
+          "label": "Orbit Apparel · Lisbon",
+          "value": "61%",
+          "widthPct": 100
+        },
+        {
+          "rank": "2",
+          "label": "Lumen Bikes · Brooklyn",
+          "value": "54%",
+          "widthPct": 89
+        },
+        {
+          "rank": "3",
+          "label": "Nimbus Coffee · Lisbon",
+          "value": "47%",
+          "widthPct": 77
+        },
+        {
+          "rank": "4",
+          "label": "Fado Hotels · Porto",
+          "value": "38%",
+          "widthPct": 62
+        },
+        {
+          "rank": "—",
+          "label": "Category benchmark",
+          "value": "22%",
+          "widthPct": 36
+        }
+      ]
+    },
+    {
+      "layout": "logo-wall",
+      "eyebrow": "Clients",
+      "heading": "Brands we launched in 2026",
+      "columns": 3,
+      "cards": [
+        {
+          "title": "Orbit Apparel",
+          "body": "Lisbon"
+        },
+        {
+          "title": "Nimbus Coffee",
+          "body": "Lisbon"
+        },
+        {
+          "title": "Lumen Bikes",
+          "body": "Brooklyn"
+        },
+        {
+          "title": "Fado Hotels",
+          "body": "Porto"
+        },
+        {
+          "title": "Kettle & Co",
+          "body": "Brooklyn"
+        },
+        {
+          "title": "Sal Skincare",
+          "body": "Lisbon"
+        }
+      ]
     },
     {
       "layout": "quote",
@@ -57,22 +180,45 @@
       "by": "Priya Nair · CMO · Orbit Apparel"
     },
     {
-      "layout": "closing",
-      "eyebrow": "Start",
-      "heading": "Bring the brief. Leave the moodboard theater.",
-      "lead": "Studios in Lisbon and Brooklyn.",
-      "actions": [
+      "layout": "timeline",
+      "eyebrow": "How we work",
+      "heading": "A launch goes live twelve weeks after the brief",
+      "steps": [
         {
-          "label": "Start a project",
-          "href": "#",
-          "style": "solid",
-          "icon": "fa-solid fa-rocket"
+          "title": "Weeks 1–2 · Four routes",
+          "body": "Tested on 200 buyers"
         },
         {
-          "label": "Watch the demo",
+          "title": "Week 3 · Kill three",
+          "body": "One route survives"
+        },
+        {
+          "title": "Weeks 4–10 · Make",
+          "body": "Film, posters, site, sleeves"
+        },
+        {
+          "title": "Weeks 11–12 · Launch",
+          "body": "Recall measured at week 4"
+        }
+      ]
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Start a launch",
+      "heading": "Bring one product. Leave with one loud idea.",
+      "lead": "Booking Q2 2027 launches now.",
+      "actions": [
+        {
+          "label": "Book a brief call",
+          "href": "#",
+          "style": "solid",
+          "icon": "fa-solid fa-bolt"
+        },
+        {
+          "label": "Download the 2026 reel",
           "href": "#",
           "style": "outline",
-          "icon": "fa-solid fa-play"
+          "icon": "fa-solid fa-film"
         }
       ]
     }

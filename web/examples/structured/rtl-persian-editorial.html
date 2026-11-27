@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>خانهٔ کتاب — گزارش سالانه</title>
-<meta name="description" content="Persian right-to-left proof: native PPTX paragraphs, mirrored layouts, Arabic-script font fallback." />
+<title>خانهٔ کتاب — مطالعهٔ امانت در خانه، ۱۴۰۵</title>
+<meta name="description" content="گزارش پژوهشی خانهٔ کتاب دربارهٔ تحویل کتاب در خانه: سوابق امانت ۴۱٬۰۰۰ عضو در ۱۲ شهر، سه یافته، محدودیت‌ها، پیشنهادها و یک تصمیم." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;600&family=Noto+Sans+Arabic:wght@400;700&display=swap');
@@ -20,6 +20,12 @@
   --muted: #6b5d53;
   --accent: #c98b7a;
   --accent-2: #a07854;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #16130f;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #c07864;
+  --accent-2-ink: #856446;
   --card-bg: rgba(22,19,15,0.04);
   --border: rgba(22,19,15,0.12);
   --radius: 6px;
@@ -27,6 +33,10 @@
   --heading-font: 'Playfair Display', Georgia, 'Noto Sans Arabic', serif;
   --body-font: 'DM Sans', 'Noto Sans Arabic', system-ui, sans-serif;
   --heading-weight: 700;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,75 +6908,243 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="heritage-wash">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">گزارش سالانه · ۱۴۰۵</span>
-  <h1>کتاب‌خانه‌ای که به خانه‌ها رفت.</h1>
-  <p class="lead">سالی که امانت کتاب از قفسه به پیک رسید.</p>
+  <span class="eyebrow">خانهٔ کتاب · گزارش پژوهشی · پاییز ۱۴۰۵</span>
+  <h1>اعضایی که کتاب را در خانه می‌گیرند، دو برابر می‌خوانند.</h1>
+  <p class="lead">مطالعه‌ای دوازده‌ماهه بر سوابق امانت ۴۱٬۰۰۰ عضو در ۱۲ شهر.</p>
+</section>
+
+<section class="slide feature-grid-slide" data-layout="feature-grid">
+  <span class="eyebrow">خلاصه</span>
+  <h2>تحویل در خانه امانت را بیشتر کرد و خانواده‌ها بیشترین سود را بردند</h2>
+  <div class="grid cols-3">
+    <div class="card">
+      <i class="fa-solid fa-book"></i>
+      <h3>امانت دو برابر شد</h3>
+      <p>عضوهای تحویل در خانه سالی ۱۹ کتاب امانت گرفتند؛ عضوهای حضوری ۹ کتاب.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-children"></i>
+      <h3>خانواده‌ها پیشتازند</h3>
+      <p>۴۱٪ سفارش‌ها از خانواده‌های دارای کودک زیر ۱۲ سال بود.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-motorcycle"></i>
+      <h3>هزینهٔ پیک مانع اصلی است</h3>
+      <p>۳۸٪ کسانی که تحویل را امتحان نکردند، هزینهٔ پیک را دلیل گفتند.</p>
+    </div>
+  </div>
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221600%22%20height%3D%22900%22%20viewBox%3D%220%200%201600%20900%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230B1220%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23FF3B1F%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url(%23g)%22%2F%3E%3Ccircle%20cx%3D%221180%22%20cy%3D%22280%22%20r%3D%22180%22%20fill%3D%22%230D9488%22%20opacity%3D%22.35%22%2F%3E%3Ctext%20x%3D%2296%22%20y%3D%22780%22%20fill%3D%22%23F8FAFC%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3E%D8%AE%D8%A7%D9%86%D9%87%D9%94%20%DA%A9%D8%AA%D8%A7%D8%A8%20%E2%80%94%20%DA%AF%D8%B2%D8%A7%D8%B1%D8%B4%20%D8%B3%D8%A7%D9%84%D8%A7%D9%86%D9%87%3C%2Ftext%3E%3C%2Fsvg%3E" alt="تصویر انتزاعی قفسه‌های کتاب" />
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20490%22%20width%3D%221600%22%20height%3D%22490%22%3E%3Crect%20width%3D%221600%22%20height%3D%22490%22%20fill%3D%22%23ede6dd%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23a07854%22%20stroke-width%3D%225%22%20stroke-dasharray%3D%2214%2012%22%3E%3Cpath%20d%3D%22M1270%20190%20L1080%20190%22%2F%3E%3Cpath%20d%3D%22M880%20190%20L700%20190%22%2F%3E%3Cpath%20d%3D%22M500%20190%20L330%20190%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23a07854%22%3E%3Cpath%20d%3D%22M1085%20174%20L1060%20190%20L1085%20206%20Z%22%2F%3E%3Cpath%20d%3D%22M705%20174%20L680%20190%20L705%20206%20Z%22%2F%3E%3Cpath%20d%3D%22M335%20174%20L310%20190%20L335%20206%20Z%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(1380%20190)%22%3E%3Crect%20x%3D%22-110%22%20y%3D%22-130%22%20width%3D%22220%22%20height%3D%22250%22%20fill%3D%22%23f4efe9%22%20stroke%3D%22%2316130f%22%20stroke-width%3D%225%22%2F%3E%3Cline%20x1%3D%22-110%22%20y1%3D%22-45%22%20x2%3D%22110%22%20y2%3D%22-45%22%20stroke%3D%22%2316130f%22%20stroke-width%3D%225%22%2F%3E%3Cline%20x1%3D%22-110%22%20y1%3D%2235%22%20x2%3D%22110%22%20y2%3D%2235%22%20stroke%3D%22%2316130f%22%20stroke-width%3D%225%22%2F%3E%3Cg%20fill%3D%22%23c98b7a%22%3E%3Crect%20x%3D%22-90%22%20y%3D%22-115%22%20width%3D%2222%22%20height%3D%2270%22%2F%3E%3Crect%20x%3D%22-62%22%20y%3D%22-105%22%20width%3D%2222%22%20height%3D%2260%22%2F%3E%3Crect%20x%3D%22-34%22%20y%3D%22-115%22%20width%3D%2222%22%20height%3D%2270%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%22-100%22%20width%3D%2222%22%20height%3D%2255%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%22-112%22%20width%3D%2222%22%20height%3D%2267%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23a07854%22%3E%3Crect%20x%3D%22-90%22%20y%3D%22-30%22%20width%3D%2222%22%20height%3D%2265%22%2F%3E%3Crect%20x%3D%22-62%22%20y%3D%22-22%22%20width%3D%2222%22%20height%3D%2257%22%2F%3E%3Crect%20x%3D%22-20%22%20y%3D%22-30%22%20width%3D%2222%22%20height%3D%2265%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%22-25%22%20width%3D%2222%22%20height%3D%2260%22%2F%3E%3Crect%20x%3D%2260%22%20y%3D%22-30%22%20width%3D%2222%22%20height%3D%2265%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(980%20190)%22%3E%3Crect%20x%3D%22-70%22%20y%3D%22-130%22%20width%3D%22140%22%20height%3D%22250%22%20rx%3D%2222%22%20fill%3D%22%2316130f%22%2F%3E%3Crect%20x%3D%22-56%22%20y%3D%22-108%22%20width%3D%22112%22%20height%3D%22196%22%20rx%3D%228%22%20fill%3D%22%23f4efe9%22%2F%3E%3Crect%20x%3D%22-40%22%20y%3D%22-88%22%20width%3D%2280%22%20height%3D%22100%22%20fill%3D%22%23c98b7a%22%2F%3E%3Crect%20x%3D%22-40%22%20y%3D%2228%22%20width%3D%2280%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%23a07854%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(600%20190)%22%20fill%3D%22none%22%20stroke%3D%22%2316130f%22%20stroke-width%3D%2210%22%3E%3Ccircle%20cx%3D%22-70%22%20cy%3D%2260%22%20r%3D%2242%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2260%22%20r%3D%2242%22%2F%3E%3Cpath%20d%3D%22M-70%2060%20L-20%20-10%20L50%20-10%20L70%2060%20M-20%20-10%20L-40%20-50%20L-70%20-50%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%22-80%22%20width%3D%2270%22%20height%3D%2260%22%20fill%3D%22%23c98b7a%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(220%20190)%22%3E%3Cpath%20d%3D%22M-110%20-10%20L0%20-110%20L110%20-10%20Z%22%20fill%3D%22%23c98b7a%22%20stroke%3D%22%2316130f%22%20stroke-width%3D%225%22%2F%3E%3Crect%20x%3D%22-85%22%20y%3D%22-10%22%20width%3D%22170%22%20height%3D%22130%22%20fill%3D%22%23f4efe9%22%20stroke%3D%22%2316130f%22%20stroke-width%3D%225%22%2F%3E%3Crect%20x%3D%22-25%22%20y%3D%2240%22%20width%3D%2250%22%20height%3D%2280%22%20fill%3D%22%23a07854%22%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D%22Vazirmatn%2CTahoma%2CArial%2Csans-serif%22%20font-size%3D%2230%22%20fill%3D%22%2316130f%22%20text-anchor%3D%22middle%22%3E%3Ctext%20x%3D%221380%22%20y%3D%22355%22%3E%D9%82%D9%81%D8%B3%D9%87%D9%94%20%D8%B4%D8%B9%D8%A8%D9%87%3C%2Ftext%3E%3Ctext%20x%3D%22980%22%20y%3D%22355%22%3E%D8%B1%D8%B2%D8%B1%D9%88%20%D8%AF%D8%B1%20%D8%AA%D9%84%D9%81%D9%86%3C%2Ftext%3E%3Ctext%20x%3D%22600%22%20y%3D%22355%22%3E%D9%BE%DB%8C%DA%A9%20%D9%87%D9%85%D8%A7%D9%86%20%D8%B1%D9%88%D8%B2%3C%2Ftext%3E%3Ctext%20x%3D%22220%22%20y%3D%22355%22%3E%D8%AF%D8%B1%20%D8%AE%D8%A7%D9%86%D9%87%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="مسیر کتاب از قفسهٔ شعبه، به رزرو در تلفن، به پیک همان روز و سرانجام به در خانه" />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">تجربهٔ تازه</span>
-    <h2>قفسه‌ای که در جیب جا می‌شود.</h2>
-    <p class="lead">عضو کتاب را در تلفن رزرو می‌کند و پیک همان روز آن را می‌آورد.</p>
+    <span class="eyebrow">چرا پرسیدیم</span>
+    <h2>امانت آنلاین به ۶۴٪ رسید، اما دلیلش را نمی‌دانستیم</h2>
+    <p class="lead">پیش از رفتن به شهرهای تازه، باید بدانیم چه کسی سود می‌برد.</p>
   </div>
 </section>
 
 <section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">سال در یک نگاه</span>
-  <h2>آنچه امسال اتفاق افتاد</h2>
+  <span class="eyebrow">روش</span>
+  <h2>سوابق ۴۱٬۰۰۰ عضو را خواندیم و با ۲٬۴۰۰ نفر گفت‌وگو کردیم</h2>
   
   <div class="stats">
     <div class="stat">
-      <div class="value">۱۸٬۰۰۰</div>
-      <div class="label">عضو تازه</div>
+      <div class="value">۴۱٬۰۰۰</div>
+      <div class="label">عضو؛ سوابق امانت از مهر ۱۴۰۴ تا شهریور ۱۴۰۵</div>
     </div>
     <div class="stat">
-      <div class="value">۶۴٪</div>
-      <div class="label">امانت آنلاین</div>
+      <div class="value">۲٬۴۰۰</div>
+      <div class="label">پاسخ‌دهندهٔ پرسش‌نامهٔ تلفنی، شهریور ۱۴۰۵</div>
     </div>
     <div class="stat">
       <div class="value">۱۲</div>
-      <div class="label">شهر</div>
+      <div class="label">شهر با خدمت تحویل، از تبریز تا زاهدان</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">۰۱</div>
+  <h2>آنچه یافتیم</h2>
+  <p class="lead">سه یافته، هر کدام با شواهدش.</p>
+</section>
+
+<section class="slide chart-slide" data-layout="chart">
+  <span class="eyebrow">یافتهٔ ۱</span>
+  <h2>عضوهای تحویل در خانه ۲٫۱ برابر عضوهای حضوری امانت گرفتند</h2>
+  <p class="lead">منبع: سوابق امانت خانهٔ کتاب، مهر ۱۴۰۴ تا شهریور ۱۴۰۵، ۴۱٬۰۰۰ عضو.</p>
+  <div class="chart-frame">
+    <svg class="pmd-chart" viewBox="0 0 920 420" width="100%" height="100%" role="img" aria-label="Chart" xmlns="http://www.w3.org/2000/svg">
+  
+  <g class="chart-grid"><line x1="52" y1="16" x2="896" y2="16" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="20" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">20</text><line x1="52" y1="106" x2="896" y2="106" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="110" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">15</text><line x1="52" y1="196" x2="896" y2="196" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="200" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">10</text><line x1="52" y1="286" x2="896" y2="286" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="290" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">5</text><line x1="52" y1="376" x2="896" y2="376" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="380" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">0</text></g>
+  <g class="chart-marks"><rect x="60" y="214" width="263.3333333333333" height="162" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="192.66666666666666" y="208" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">9</text><rect x="341.3333333333333" y="124.00000000000003" width="263.3333333333333" height="251.99999999999997" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="474" y="118.00000000000003" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">14</text><rect x="622.6666666666666" y="34" width="263.3333333333333" height="342" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="755.3333333333333" y="28" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">19</text></g>
+  <g class="chart-cats"><text x="192.66666666666666" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">فقط حضوری</text><text x="474" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">حضوری و آنلاین</text><text x="755.3333333333333" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">تحویل در خانه</text></g>
+</svg>
+  </div>
+</section>
+
+<section class="slide quote-slide" data-layout="quote">
+  <p class="quote">دخترم حالا هر هفته منتظر کتاب تازه است. پیک که زنگ می‌زند، اول او به در می‌رسد.</p>
+  <p class="quote-by">— مریم، عضو شعبهٔ شیراز</p>
+</section>
+
+<section class="slide data-table-slide" data-layout="data-table">
+  <span class="eyebrow">یافتهٔ ۲</span>
+  <h2>خانواده‌های دارای کودک ۴۱٪ سفارش‌ها را دادند</h2>
+  
+  <table>
+    <thead>
+      <tr><th>گروه عضو</th><th>سهم از سفارش‌ها</th><th>کتاب در سال</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>پدر و مادر با کودک زیر ۱۲ سال</td><td>۴۱٪</td><td>۲۳</td></tr>
+      <tr><td>دانشجو</td><td>۲۲٪</td><td>۱۷</td></tr>
+      <tr><td>سالمند بالای ۶۵ سال</td><td>۱۴٪</td><td>۲۱</td></tr>
+      <tr><td>دیگر اعضا</td><td>۲۳٪</td><td>۱۵</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide ranked-list-slide" data-layout="ranked-list">
+  <span class="eyebrow">یافتهٔ ۳</span>
+  <h2>هزینهٔ پیک بزرگ‌ترین مانع عضوهای حضوری است</h2>
+  <p class="lead">دلیل امتحان نکردن تحویل در خانه؛ ۱٬۳۱۰ پاسخ‌دهنده، هر نفر یک دلیل.</p>
+  <div class="ranked-list-stack">
+    <div class="ranked-list-item is-primary">
+      <span class="ranked-list-rank">۱</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:100%">
+          <span class="ranked-list-label">هزینهٔ پیک</span>
+          <span class="ranked-list-value">۳۸٪</span>
+        </div>
+      </div>
+    </div>
+    <div class="ranked-list-item">
+      <span class="ranked-list-rank">۲</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:71%">
+          <span class="ranked-list-label">محله زیر پوشش نیست</span>
+          <span class="ranked-list-value">۲۷٪</span>
+        </div>
+      </div>
+    </div>
+    <div class="ranked-list-item">
+      <span class="ranked-list-rank">۳</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:55%">
+          <span class="ranked-list-label">دوست دارم کتاب را در قفسه ببینم</span>
+          <span class="ranked-list-value">۲۱٪</span>
+        </div>
+      </div>
+    </div>
+    <div class="ranked-list-item">
+      <span class="ranked-list-rank">۴</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:37%">
+          <span class="ranked-list-label">نگرانی از جریمهٔ دیرکرد</span>
+          <span class="ranked-list-value">۱۴٪</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">تغییر</span>
-  <h2>از قفسه تا در خانه</h2>
+  <span class="eyebrow">آنچه غافلگیرمان کرد</span>
+  <h2>تحویل در خانه شعبه‌ها را خالی نکرد؛ رفت‌وآمد ۲۰٪ بیشتر شد</h2>
   <div class="comparison-cols emphasis-right">
     <div class="comparison-col">
-      <span class="comparison-label">پیش‌تر</span>
-      <p>صف امانت.
-ساعت کاری محدود.
-فهرست کاغذی.</p>
+      <span class="comparison-label">انتظار ما</span>
+      <p>اعضا دیگر به شعبه نمی‌آیند.
+ساعت قصه‌گویی کودکان خلوت می‌شود.</p>
     </div>
     <div class="comparison-vs" aria-hidden="true">vs</div>
     <div class="comparison-col">
-      <span class="comparison-label">اکنون</span>
-      <p>رزرو در تلفن همراه.
-تحویل در همان روز.
-پیشنهاد کتاب برای هر خواننده.</p>
+      <span class="comparison-label">آنچه دیدیم</span>
+      <p>عضوهای تحویل ۲۰٪ بیشتر به شعبه آمدند.
+حضور در ساعت قصه‌گویی ۳۱٪ بیشتر شد.</p>
     </div>
   </div>
 </section>
 
-<section class="slide quote-slide" data-layout="quote">
-  <p class="quote">دخترم حالا هر هفته منتظر کتاب تازه است.</p>
-  <p class="quote-by">— مریم، عضو شعبهٔ شیراز</p>
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">۰۲</div>
+  <h2>معنای این یافته‌ها برای سال آینده</h2>
+  <p class="lead">تا کجا می‌توان به آن‌ها اعتماد کرد و چه باید کرد.</p>
+</section>
+
+<section class="slide data-table-slide" data-layout="data-table">
+  <span class="eyebrow">محدودیت‌ها</span>
+  <h2>نتیجه برای شهرهای کوچک هنوز قطعی نیست</h2>
+  
+  <table>
+    <thead>
+      <tr><th>محدودیت</th><th>اثر احتمالی</th><th>اطمینان</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>خدمت فقط در ۱۲ شهر بزرگ</td><td>شاید در شهرهای کوچک تکرار نشود</td><td>کم</td></tr>
+      <tr><td>عضوها خودشان تحویل را برگزیدند</td><td>کتاب‌خوان‌ترها بیشتر سفارش می‌دهند</td><td>متوسط</td></tr>
+      <tr><td>پرسش‌نامه فقط تلفنی بود</td><td>سهم سالمندان بیش از واقع است</td><td>متوسط</td></tr>
+      <tr><td>داده فقط یک سال است</td><td>اثر تازگی سنجیده نشده</td><td>متوسط</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide ranked-list-slide" data-layout="ranked-list">
+  <span class="eyebrow">پیشنهادها</span>
+  <h2>پیک رایگان برای خانواده‌ها بیشترین عضو تازه را می‌آورد</h2>
+  <p class="lead">عضو تازهٔ پیش‌بینی‌شده در سال ۱۴۰۶، بر پایهٔ مدل این مطالعه.</p>
+  <div class="ranked-list-stack">
+    <div class="ranked-list-item is-primary">
+      <span class="ranked-list-rank">۱</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:100%">
+          <span class="ranked-list-label">پیک رایگان برای خانواده‌های دارای کودک</span>
+          <span class="ranked-list-value">۶٬۰۰۰</span>
+        </div>
+      </div>
+    </div>
+    <div class="ranked-list-item">
+      <span class="ranked-list-rank">۲</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:75%">
+          <span class="ranked-list-label">گسترش تحویل به ۸ شهر تازه</span>
+          <span class="ranked-list-value">۴٬۵۰۰</span>
+        </div>
+      </div>
+    </div>
+    <div class="ranked-list-item">
+      <span class="ranked-list-rank">۳</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:47%">
+          <span class="ranked-list-label">تحویل گروهی کتاب به مدرسه‌ها</span>
+          <span class="ranked-list-value">۲٬۸۰۰</span>
+        </div>
+      </div>
+    </div>
+    <div class="ranked-list-item">
+      <span class="ranked-list-rank">۴</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:15%">
+          <span class="ranked-list-label">پیامک یادآوری پیش از دیرکرد</span>
+          <span class="ranked-list-value">۹۰۰</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">سال آینده</span>
-  <h1>بیست شهر، یک کارت عضویت.</h1>
-  <p class="lead">به ما در گسترش شبکه بپیوندید.</p>
+  <span class="eyebrow">تصمیم لازم · جلسهٔ هیئت‌امنا، ۱۵ دی ۱۴۰۵</span>
+  <h1>گسترش تحویل در خانه به بیست شهر را تصویب کنید.</h1>
+  <p class="lead">بیست شهر، یک کارت عضویت، و کتابی که به در خانه می‌رسد.</p>
   <div class="cta-row">
-    <a class="btn" href="#"><i class="fa-solid fa-heart"></i> حمایت از طرح</a>
-    <a class="btn btn-outline" href="#"><i class="fa-solid fa-download"></i> دریافت گزارش</a>
+    <a class="btn" href="#"><i class="fa-solid fa-check"></i> تصویب طرح</a>
+    <a class="btn btn-outline" href="#"><i class="fa-solid fa-download"></i> دریافت گزارش کامل</a>
   </div>
 </section>
 
@@ -6832,7 +7232,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"خانهٔ کتاب — گزارش سالانه","company":"خانهٔ کتاب","description":"Persian right-to-left proof: native PPTX paragraphs, mirrored layouts, Arabic-script font fallback.","theme":"heritage-editorial","lang":"fa"},"slides":[{"layout":"title","eyebrow":"گزارش سالانه · ۱۴۰۵","heading":"کتاب‌خانه‌ای که به خانه‌ها رفت.","lead":"سالی که امانت کتاب از قفسه به پیک رسید.","notes":"با یک جمله شروع کن؛ عددها بعد."},{"layout":"image-hero","eyebrow":"تجربهٔ تازه","heading":"قفسه‌ای که در جیب جا می‌شود.","lead":"عضو کتاب را در تلفن رزرو می‌کند و پیک همان روز آن را می‌آورد.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221600%22%20height%3D%22900%22%20viewBox%3D%220%200%201600%20900%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230B1220%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23FF3B1F%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url(%23g)%22%2F%3E%3Ccircle%20cx%3D%221180%22%20cy%3D%22280%22%20r%3D%22180%22%20fill%3D%22%230D9488%22%20opacity%3D%22.35%22%2F%3E%3Ctext%20x%3D%2296%22%20y%3D%22780%22%20fill%3D%22%23F8FAFC%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3E%D8%AE%D8%A7%D9%86%D9%87%D9%94%20%DA%A9%D8%AA%D8%A7%D8%A8%20%E2%80%94%20%DA%AF%D8%B2%D8%A7%D8%B1%D8%B4%20%D8%B3%D8%A7%D9%84%D8%A7%D9%86%D9%87%3C%2Ftext%3E%3C%2Fsvg%3E","imageAlt":"تصویر انتزاعی قفسه‌های کتاب","notes":"لحظه‌ای مکث؛ بعد عددها."},{"layout":"stat-row","eyebrow":"سال در یک نگاه","heading":"آنچه امسال اتفاق افتاد","stats":[{"value":"۱۸٬۰۰۰","label":"عضو تازه"},{"value":"۶۴٪","label":"امانت آنلاین"},{"value":"۱۲","label":"شهر"}]},{"layout":"comparison","eyebrow":"تغییر","heading":"از قفسه تا در خانه","leftLabel":"پیش‌تر","left":"صف امانت.\nساعت کاری محدود.\nفهرست کاغذی.","rightLabel":"اکنون","right":"رزرو در تلفن همراه.\nتحویل در همان روز.\nپیشنهاد کتاب برای هر خواننده.","emphasis":"right"},{"layout":"quote","quote":"دخترم حالا هر هفته منتظر کتاب تازه است.","by":"مریم، عضو شعبهٔ شیراز"},{"layout":"closing","eyebrow":"سال آینده","heading":"بیست شهر، یک کارت عضویت.","lead":"به ما در گسترش شبکه بپیوندید.","actions":[{"label":"حمایت از طرح","style":"solid","icon":"fa-solid fa-heart"},{"label":"دریافت گزارش","style":"outline","icon":"fa-solid fa-download"}]}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"خانهٔ کتاب — مطالعهٔ امانت در خانه، ۱۴۰۵","company":"خانهٔ کتاب","description":"گزارش پژوهشی خانهٔ کتاب دربارهٔ تحویل کتاب در خانه: سوابق امانت ۴۱٬۰۰۰ عضو در ۱۲ شهر، سه یافته، محدودیت‌ها، پیشنهادها و یک تصمیم.","theme":"heritage-editorial","lang":"fa","genre":"research"},"slides":[{"layout":"title","eyebrow":"خانهٔ کتاب · گزارش پژوهشی · پاییز ۱۴۰۵","heading":"اعضایی که کتاب را در خانه می‌گیرند، دو برابر می‌خوانند.","lead":"مطالعه‌ای دوازده‌ماهه بر سوابق امانت ۴۱٬۰۰۰ عضو در ۱۲ شهر.","notes":"این گزارش برای هیئت‌امناست. تصمیم در اسلاید آخر است."},{"layout":"feature-grid","eyebrow":"خلاصه","heading":"تحویل در خانه امانت را بیشتر کرد و خانواده‌ها بیشترین سود را بردند","columns":3,"cards":[{"icon":"fa-solid fa-book","title":"امانت دو برابر شد","body":"عضوهای تحویل در خانه سالی ۱۹ کتاب امانت گرفتند؛ عضوهای حضوری ۹ کتاب."},{"icon":"fa-solid fa-children","title":"خانواده‌ها پیشتازند","body":"۴۱٪ سفارش‌ها از خانواده‌های دارای کودک زیر ۱۲ سال بود."},{"icon":"fa-solid fa-motorcycle","title":"هزینهٔ پیک مانع اصلی است","body":"۳۸٪ کسانی که تحویل را امتحان نکردند، هزینهٔ پیک را دلیل گفتند."}],"notes":"اگر هیئت‌امنا فقط یک اسلاید بخواند، همین است."},{"layout":"image-hero","eyebrow":"چرا پرسیدیم","heading":"امانت آنلاین به ۶۴٪ رسید، اما دلیلش را نمی‌دانستیم","lead":"پیش از رفتن به شهرهای تازه، باید بدانیم چه کسی سود می‌برد.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20490%22%20width%3D%221600%22%20height%3D%22490%22%3E%3Crect%20width%3D%221600%22%20height%3D%22490%22%20fill%3D%22%23ede6dd%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23a07854%22%20stroke-width%3D%225%22%20stroke-dasharray%3D%2214%2012%22%3E%3Cpath%20d%3D%22M1270%20190%20L1080%20190%22%2F%3E%3Cpath%20d%3D%22M880%20190%20L700%20190%22%2F%3E%3Cpath%20d%3D%22M500%20190%20L330%20190%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23a07854%22%3E%3Cpath%20d%3D%22M1085%20174%20L1060%20190%20L1085%20206%20Z%22%2F%3E%3Cpath%20d%3D%22M705%20174%20L680%20190%20L705%20206%20Z%22%2F%3E%3Cpath%20d%3D%22M335%20174%20L310%20190%20L335%20206%20Z%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(1380%20190)%22%3E%3Crect%20x%3D%22-110%22%20y%3D%22-130%22%20width%3D%22220%22%20height%3D%22250%22%20fill%3D%22%23f4efe9%22%20stroke%3D%22%2316130f%22%20stroke-width%3D%225%22%2F%3E%3Cline%20x1%3D%22-110%22%20y1%3D%22-45%22%20x2%3D%22110%22%20y2%3D%22-45%22%20stroke%3D%22%2316130f%22%20stroke-width%3D%225%22%2F%3E%3Cline%20x1%3D%22-110%22%20y1%3D%2235%22%20x2%3D%22110%22%20y2%3D%2235%22%20stroke%3D%22%2316130f%22%20stroke-width%3D%225%22%2F%3E%3Cg%20fill%3D%22%23c98b7a%22%3E%3Crect%20x%3D%22-90%22%20y%3D%22-115%22%20width%3D%2222%22%20height%3D%2270%22%2F%3E%3Crect%20x%3D%22-62%22%20y%3D%22-105%22%20width%3D%2222%22%20height%3D%2260%22%2F%3E%3Crect%20x%3D%22-34%22%20y%3D%22-115%22%20width%3D%2222%22%20height%3D%2270%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%22-100%22%20width%3D%2222%22%20height%3D%2255%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%22-112%22%20width%3D%2222%22%20height%3D%2267%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23a07854%22%3E%3Crect%20x%3D%22-90%22%20y%3D%22-30%22%20width%3D%2222%22%20height%3D%2265%22%2F%3E%3Crect%20x%3D%22-62%22%20y%3D%22-22%22%20width%3D%2222%22%20height%3D%2257%22%2F%3E%3Crect%20x%3D%22-20%22%20y%3D%22-30%22%20width%3D%2222%22%20height%3D%2265%22%2F%3E%3Crect%20x%3D%2220%22%20y%3D%22-25%22%20width%3D%2222%22%20height%3D%2260%22%2F%3E%3Crect%20x%3D%2260%22%20y%3D%22-30%22%20width%3D%2222%22%20height%3D%2265%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(980%20190)%22%3E%3Crect%20x%3D%22-70%22%20y%3D%22-130%22%20width%3D%22140%22%20height%3D%22250%22%20rx%3D%2222%22%20fill%3D%22%2316130f%22%2F%3E%3Crect%20x%3D%22-56%22%20y%3D%22-108%22%20width%3D%22112%22%20height%3D%22196%22%20rx%3D%228%22%20fill%3D%22%23f4efe9%22%2F%3E%3Crect%20x%3D%22-40%22%20y%3D%22-88%22%20width%3D%2280%22%20height%3D%22100%22%20fill%3D%22%23c98b7a%22%2F%3E%3Crect%20x%3D%22-40%22%20y%3D%2228%22%20width%3D%2280%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%23a07854%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(600%20190)%22%20fill%3D%22none%22%20stroke%3D%22%2316130f%22%20stroke-width%3D%2210%22%3E%3Ccircle%20cx%3D%22-70%22%20cy%3D%2260%22%20r%3D%2242%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2260%22%20r%3D%2242%22%2F%3E%3Cpath%20d%3D%22M-70%2060%20L-20%20-10%20L50%20-10%20L70%2060%20M-20%20-10%20L-40%20-50%20L-70%20-50%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%22-80%22%20width%3D%2270%22%20height%3D%2260%22%20fill%3D%22%23c98b7a%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(220%20190)%22%3E%3Cpath%20d%3D%22M-110%20-10%20L0%20-110%20L110%20-10%20Z%22%20fill%3D%22%23c98b7a%22%20stroke%3D%22%2316130f%22%20stroke-width%3D%225%22%2F%3E%3Crect%20x%3D%22-85%22%20y%3D%22-10%22%20width%3D%22170%22%20height%3D%22130%22%20fill%3D%22%23f4efe9%22%20stroke%3D%22%2316130f%22%20stroke-width%3D%225%22%2F%3E%3Crect%20x%3D%22-25%22%20y%3D%2240%22%20width%3D%2250%22%20height%3D%2280%22%20fill%3D%22%23a07854%22%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D%22Vazirmatn%2CTahoma%2CArial%2Csans-serif%22%20font-size%3D%2230%22%20fill%3D%22%2316130f%22%20text-anchor%3D%22middle%22%3E%3Ctext%20x%3D%221380%22%20y%3D%22355%22%3E%D9%82%D9%81%D8%B3%D9%87%D9%94%20%D8%B4%D8%B9%D8%A8%D9%87%3C%2Ftext%3E%3Ctext%20x%3D%22980%22%20y%3D%22355%22%3E%D8%B1%D8%B2%D8%B1%D9%88%20%D8%AF%D8%B1%20%D8%AA%D9%84%D9%81%D9%86%3C%2Ftext%3E%3Ctext%20x%3D%22600%22%20y%3D%22355%22%3E%D9%BE%DB%8C%DA%A9%20%D9%87%D9%85%D8%A7%D9%86%20%D8%B1%D9%88%D8%B2%3C%2Ftext%3E%3Ctext%20x%3D%22220%22%20y%3D%22355%22%3E%D8%AF%D8%B1%20%D8%AE%D8%A7%D9%86%D9%87%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E","imageAlt":"مسیر کتاب از قفسهٔ شعبه، به رزرو در تلفن، به پیک همان روز و سرانجام به در خانه"},{"layout":"stat-row","eyebrow":"روش","heading":"سوابق ۴۱٬۰۰۰ عضو را خواندیم و با ۲٬۴۰۰ نفر گفت‌وگو کردیم","stats":[{"value":"۴۱٬۰۰۰","label":"عضو؛ سوابق امانت از مهر ۱۴۰۴ تا شهریور ۱۴۰۵"},{"value":"۲٬۴۰۰","label":"پاسخ‌دهندهٔ پرسش‌نامهٔ تلفنی، شهریور ۱۴۰۵"},{"value":"۱۲","label":"شهر با خدمت تحویل، از تبریز تا زاهدان"}]},{"layout":"section","number":"۰۱","heading":"آنچه یافتیم","lead":"سه یافته، هر کدام با شواهدش."},{"layout":"chart","eyebrow":"یافتهٔ ۱","heading":"عضوهای تحویل در خانه ۲٫۱ برابر عضوهای حضوری امانت گرفتند","chartType":"bar","categories":["فقط حضوری","حضوری و آنلاین","تحویل در خانه"],"series":[{"name":"کتاب امانتی برای هر عضو در سال","values":[9,14,19]}],"showValues":true,"lead":"منبع: سوابق امانت خانهٔ کتاب، مهر ۱۴۰۴ تا شهریور ۱۴۰۵، ۴۱٬۰۰۰ عضو."},{"layout":"quote","quote":"دخترم حالا هر هفته منتظر کتاب تازه است. پیک که زنگ می‌زند، اول او به در می‌رسد.","by":"مریم، عضو شعبهٔ شیراز"},{"layout":"data-table","eyebrow":"یافتهٔ ۲","heading":"خانواده‌های دارای کودک ۴۱٪ سفارش‌ها را دادند","columns":["گروه عضو","سهم از سفارش‌ها","کتاب در سال"],"rows":[["پدر و مادر با کودک زیر ۱۲ سال","۴۱٪","۲۳"],["دانشجو","۲۲٪","۱۷"],["سالمند بالای ۶۵ سال","۱۴٪","۲۱"],["دیگر اعضا","۲۳٪","۱۵"]]},{"layout":"ranked-list","eyebrow":"یافتهٔ ۳","heading":"هزینهٔ پیک بزرگ‌ترین مانع عضوهای حضوری است","lead":"دلیل امتحان نکردن تحویل در خانه؛ ۱٬۳۱۰ پاسخ‌دهنده، هر نفر یک دلیل.","items":[{"rank":"۱","label":"هزینهٔ پیک","value":"۳۸٪","widthPct":100},{"rank":"۲","label":"محله زیر پوشش نیست","value":"۲۷٪","widthPct":71},{"rank":"۳","label":"دوست دارم کتاب را در قفسه ببینم","value":"۲۱٪","widthPct":55},{"rank":"۴","label":"نگرانی از جریمهٔ دیرکرد","value":"۱۴٪","widthPct":37}]},{"layout":"comparison","eyebrow":"آنچه غافلگیرمان کرد","heading":"تحویل در خانه شعبه‌ها را خالی نکرد؛ رفت‌وآمد ۲۰٪ بیشتر شد","leftLabel":"انتظار ما","left":"اعضا دیگر به شعبه نمی‌آیند.\nساعت قصه‌گویی کودکان خلوت می‌شود.","rightLabel":"آنچه دیدیم","right":"عضوهای تحویل ۲۰٪ بیشتر به شعبه آمدند.\nحضور در ساعت قصه‌گویی ۳۱٪ بیشتر شد.","emphasis":"right","notes":"تحویل جای شعبه را نگرفت؛ خانواده‌ها را به شعبه برگرداند. این را آرام و روشن بگو."},{"layout":"section","number":"۰۲","heading":"معنای این یافته‌ها برای سال آینده","lead":"تا کجا می‌توان به آن‌ها اعتماد کرد و چه باید کرد."},{"layout":"data-table","eyebrow":"محدودیت‌ها","heading":"نتیجه برای شهرهای کوچک هنوز قطعی نیست","columns":["محدودیت","اثر احتمالی","اطمینان"],"rows":[["خدمت فقط در ۱۲ شهر بزرگ","شاید در شهرهای کوچک تکرار نشود","کم"],["عضوها خودشان تحویل را برگزیدند","کتاب‌خوان‌ترها بیشتر سفارش می‌دهند","متوسط"],["پرسش‌نامه فقط تلفنی بود","سهم سالمندان بیش از واقع است","متوسط"],["داده فقط یک سال است","اثر تازگی سنجیده نشده","متوسط"]]},{"layout":"ranked-list","eyebrow":"پیشنهادها","heading":"پیک رایگان برای خانواده‌ها بیشترین عضو تازه را می‌آورد","lead":"عضو تازهٔ پیش‌بینی‌شده در سال ۱۴۰۶، بر پایهٔ مدل این مطالعه.","items":[{"rank":"۱","label":"پیک رایگان برای خانواده‌های دارای کودک","value":"۶٬۰۰۰","widthPct":100},{"rank":"۲","label":"گسترش تحویل به ۸ شهر تازه","value":"۴٬۵۰۰","widthPct":75},{"rank":"۳","label":"تحویل گروهی کتاب به مدرسه‌ها","value":"۲٬۸۰۰","widthPct":47},{"rank":"۴","label":"پیامک یادآوری پیش از دیرکرد","value":"۹۰۰","widthPct":15}]},{"layout":"closing","eyebrow":"تصمیم لازم · جلسهٔ هیئت‌امنا، ۱۵ دی ۱۴۰۵","heading":"گسترش تحویل در خانه به بیست شهر را تصویب کنید.","lead":"بیست شهر، یک کارت عضویت، و کتابی که به در خانه می‌رسد.","actions":[{"label":"تصویب طرح","href":"#","style":"solid","icon":"fa-solid fa-check"},{"label":"دریافت گزارش کامل","href":"#","style":"outline","icon":"fa-solid fa-download"}]}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {

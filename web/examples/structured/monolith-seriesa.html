@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>MONOLITH — Series A</title>
-<meta name="description" content="Infrastructure Series A pitch — brutalist-acid multi-slide proof." />
+<title>MONOLITH — Series A, November 2026</title>
+<meta name="description" content="Series A pitch for MONOLITH, a CLI that turns one seven-line file into a live production stack in under a minute. Raising $14M on $3.8M ARR." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Barlow+Condensed:wght@500;700&display=swap');
@@ -20,6 +20,12 @@
   --muted: #b1b1b1;
   --accent: #d6ff00;
   --accent-2: #ffffff;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #1c1c1c;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #d6ff00;
+  --accent-2-ink: #ffffff;
   --card-bg: rgba(214,255,0,0.06);
   --border: rgba(214,255,0,0.35);
   --radius: 0px;
@@ -27,6 +33,10 @@
   --heading-font: 'Space Mono', monospace;
   --body-font: 'Barlow Condensed', system-ui, sans-serif;
   --heading-weight: 700;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,133 +6908,229 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="acid-block">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Series A</span>
-  <h1>INFRA WITHOUT APOLOGY.</h1>
-  <p class="lead">Electric lime on charcoal. Space Mono receipts. Barlow condensed truth.</p>
+  <span class="eyebrow">MONOLITH · Series A · November 2026</span>
+  <h1>Production infrastructure from one file in 60 seconds.</h1>
+  
 </section>
 
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Why</span>
-  <h2>Three hard edges</h2>
-  <div class="grid cols-bento">
-    <div class="card">
-      <i class="fa-solid fa-cube"></i>
-      <h3>Immutable by default</h3>
-      <p>Mutations are explicit events — not SSH folklore.</p>
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-2-1">
+    <div class="cols-copy">
+      <span class="eyebrow">Problem</span>
+      <h2>A new service takes 9 days to reach production today</h2>
+      <p class="lead">Platform teams hand-write Terraform, click through consoles, then wait on review.</p>
     </div>
-    <div class="card">
-      <i class="fa-solid fa-terminal"></i>
-      <h3>CLI as UI</h3>
-      <p>If it isn&#39;t scriptable, it isn&#39;t a feature.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-bomb"></i>
-      <h3>Blast radius</h3>
-      <p>Kill switches documented before the launch.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-layer-group"></i>
-      <h3>Stack for scan</h3>
-      <p>Hierarchy first. Decoration second. Decoration never.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-bolt"></i>
-      <h3>Ship the punchline</h3>
-      <p>Lead with the claim that survives the hallway test.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Category</span>
-  <h2>Console folklore vs. CLI truth</h2>
-  <div class="comparison-cols emphasis-right">
-    <div class="comparison-col">
-      <span class="comparison-label">Legacy infra</span>
-      <p>Click-ops as culture.
-SSH as documentation.
-Mutable snowflakes.
-Marketing sites first.</p>
-    </div>
-    <div class="comparison-vs" aria-hidden="true">vs</div>
-    <div class="comparison-col">
-      <span class="comparison-label">MONOLITH</span>
-      <p>Scriptable by default.
-Immutable clusters.
-Kill switches before launch.
-Builders, not browsers.</p>
-    </div>
+    
+    <div class="cols-aside"><p>31% of sprint time goes to infra config. Survey of 220 engineering leads, 2025.</p></div>
   </div>
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232a2a2a%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%231c1c1c%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28214%2C255%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28214%2C255%2C0%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28214%2C255%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2842%2C42%2C42%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28214%2C255%2C0%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28214%2C255%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28214%2C255%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%231c1c1c%22%2F%3E%0A%20%20%3Cpolygon%20points%3D%220%2C0%20980%2C0%20640%2C900%200%2C900%22%20fill%3D%22rgba%28214%2C255%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Cpolygon%20points%3D%22980%2C0%201600%2C0%201600%2C900%20640%2C900%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22280%22%20rx%3D%22260%22%20ry%3D%22200%22%20fill%3D%22rgba%28214%2C255%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22220%22%20width%3D%22620%22%20height%3D%2272%22%20fill%3D%22%23d6ff00%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22320%22%20width%3D%22460%22%20height%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.550%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22370%22%20width%3D%22380%22%20height%3D%2222%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22980%22%20y%3D%22520%22%20width%3D%22420%22%20height%3D%22220%22%20fill%3D%22rgba%280%2C0%2C0%2C0.220%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221000%22%20y%3D%22540%22%20width%3D%22380%22%20height%3D%22180%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.450%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22630%22%20r%3D%2254%22%20fill%3D%22rgba%2828%2C28%2C28%2C0.550%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.7%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="MONOLITH craft visual" />
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D&#39;http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg&#39;%20viewBox%3D&#39;0%200%201600%20900&#39;%20font-family%3D&#39;Space%20Mono%2Cmonospace&#39;%3E%20%3Crect%20width%3D&#39;1600&#39;%20height%3D&#39;900&#39;%20fill%3D&#39;%23141414&#39;%2F%3E%20%3Cg%20transform%3D&#39;translate(0%20225)&#39;%3E%20%3Crect%20x%3D&#39;80&#39;%20y%3D&#39;50&#39;%20width%3D&#39;560&#39;%20height%3D&#39;330&#39;%20fill%3D&#39;%231c1c1c&#39;%20stroke%3D&#39;%23d6ff00&#39;%20stroke-width%3D&#39;3&#39;%2F%3E%20%3Crect%20x%3D&#39;80&#39;%20y%3D&#39;50&#39;%20width%3D&#39;560&#39;%20height%3D&#39;44&#39;%20fill%3D&#39;%23d6ff00&#39;%2F%3E%20%3Ctext%20x%3D&#39;100&#39;%20y%3D&#39;80&#39;%20font-size%3D&#39;20&#39;%20font-weight%3D&#39;700&#39;%20fill%3D&#39;%23141414&#39;%3Emonolith.yaml%3C%2Ftext%3E%20%3Cg%20font-size%3D&#39;21&#39;%20fill%3D&#39;%23e8e6e1&#39;%3E%20%3Ctext%20x%3D&#39;104&#39;%20y%3D&#39;130&#39;%3E%3Ctspan%20fill%3D&#39;%23d6ff00&#39;%3Eservice%3C%2Ftspan%3E%3A%20checkout-api%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;104&#39;%20y%3D&#39;166&#39;%3E%3Ctspan%20fill%3D&#39;%23d6ff00&#39;%3Eruntime%3C%2Ftspan%3E%3A%20node22%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;104&#39;%20y%3D&#39;202&#39;%3E%3Ctspan%20fill%3D&#39;%23d6ff00&#39;%3Eregions%3C%2Ftspan%3E%3A%20%5Bfra%2C%20iad%5D%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;104&#39;%20y%3D&#39;238&#39;%3E%3Ctspan%20fill%3D&#39;%23d6ff00&#39;%3Epostgres%3C%2Ftspan%3E%3A%2016%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;104&#39;%20y%3D&#39;274&#39;%3E%3Ctspan%20fill%3D&#39;%23d6ff00&#39;%3Equeue%3C%2Ftspan%3E%3A%20orders%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;104&#39;%20y%3D&#39;310&#39;%3E%3Ctspan%20fill%3D&#39;%23d6ff00&#39;%3Escale%3C%2Ftspan%3E%3A%202..40%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;104&#39;%20y%3D&#39;346&#39;%3E%3Ctspan%20fill%3D&#39;%23d6ff00&#39;%3Esecrets%3C%2Ftspan%3E%3A%20vault%3A%2F%2Fprod%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Cpath%20d%3D&#39;M660%20215h70&#39;%20stroke%3D&#39;%23d6ff00&#39;%20stroke-width%3D&#39;4&#39;%2F%3E%3Cpath%20d%3D&#39;M722%20203l14%2012-14%2012&#39;%20fill%3D&#39;none&#39;%20stroke%3D&#39;%23d6ff00&#39;%20stroke-width%3D&#39;4&#39;%2F%3E%20%3Crect%20x%3D&#39;760&#39;%20y%3D&#39;50&#39;%20width%3D&#39;760&#39;%20height%3D&#39;330&#39;%20fill%3D&#39;%230d0d0d&#39;%20stroke%3D&#39;%23e8e6e1&#39;%20stroke-width%3D&#39;2&#39;%2F%3E%20%3Ccircle%20cx%3D&#39;788&#39;%20cy%3D&#39;74&#39;%20r%3D&#39;7&#39;%20fill%3D&#39;%23555&#39;%2F%3E%3Ccircle%20cx%3D&#39;812&#39;%20cy%3D&#39;74&#39;%20r%3D&#39;7&#39;%20fill%3D&#39;%23555&#39;%2F%3E%3Ccircle%20cx%3D&#39;836&#39;%20cy%3D&#39;74&#39;%20r%3D&#39;7&#39;%20fill%3D&#39;%23555&#39;%2F%3E%20%3Cg%20font-size%3D&#39;21&#39;%20fill%3D&#39;%23b1b1b1&#39;%3E%20%3Ctext%20x%3D&#39;788&#39;%20y%3D&#39;130&#39;%20fill%3D&#39;%23e8e6e1&#39;%3E%3Ctspan%20fill%3D&#39;%23d6ff00&#39;%3E%24%3C%2Ftspan%3E%20monolith%20up%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;788&#39;%20y%3D&#39;166&#39;%3E%20%20network%20.........%204s%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;788&#39;%20y%3D&#39;200&#39;%3E%20%20postgres%2016%20....%2019s%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;788&#39;%20y%3D&#39;234&#39;%3E%20%20queue%20orders%20....%206s%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;1150&#39;%20y%3D&#39;166&#39;%3Ebuild%20%2B%20deploy%20.%2022s%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;1150&#39;%20y%3D&#39;200&#39;%3Etls%20%2B%20dns%20.......%207s%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Crect%20x%3D&#39;788&#39;%20y%3D&#39;262&#39;%20width%3D&#39;704&#39;%20height%3D&#39;92&#39;%20fill%3D&#39;%23d6ff00&#39;%2F%3E%20%3Ctext%20x%3D&#39;812&#39;%20y%3D&#39;308&#39;%20font-size%3D&#39;30&#39;%20font-weight%3D&#39;700&#39;%20fill%3D&#39;%23141414&#39;%3ELIVE%20IN%2058s%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;812&#39;%20y%3D&#39;338&#39;%20font-size%3D&#39;18&#39;%20fill%3D&#39;%23141414&#39;%3Echeckout-api.fra.prod%20%C2%B7%202%20regions%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E" alt="A monolith.yaml file of seven lines next to a terminal that shows the stack live in 58 seconds" />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">Series A</span>
-    <h2>INFRA WITHOUT APOLOGY.</h2>
-    <p class="lead">Electric lime on charcoal. Space Mono receipts. Barlow condensed truth.</p>
+    <span class="eyebrow">Solution</span>
+    <h2>Seven lines of YAML, one command, a live stack</h2>
+    <p class="lead">monolith up provisions network, database, queue, deploy and TLS.</p>
   </div>
 </section>
 
+<section class="slide timeline-slide" data-layout="timeline">
+  <span class="eyebrow">Why now</span>
+  <h2>Services multiply while platform headcount stays flat</h2>
+  <div class="timeline">
+    <div class="node">
+      <div class="dot"></div>
+      <h3>2019</h3>
+      <p>Terraform becomes the default</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>2022</h3>
+      <p>Kubernetes sprawl peaks</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>2024</h3>
+      <p>AI writes 40% of app code</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>2026</h3>
+      <p>Services per engineer up 3×</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide chart-slide" data-layout="chart">
+  <span class="eyebrow">Traction</span>
+  <h2>ARR grew six times in twelve months to $3.8M</h2>
+  <p class="lead">Source: Stripe billing, 31 October 2026.</p>
+  <div class="chart-frame">
+    <svg class="pmd-chart" viewBox="0 0 920 420" width="100%" height="100%" role="img" aria-label="Chart" xmlns="http://www.w3.org/2000/svg">
+  
+  <g class="chart-grid"><line x1="52" y1="16" x2="896" y2="16" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="20" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">5</text><line x1="52" y1="106" x2="896" y2="106" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="110" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">3.75</text><line x1="52" y1="196" x2="896" y2="196" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="200" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2.5</text><line x1="52" y1="286" x2="896" y2="286" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="290" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">1.25</text><line x1="52" y1="376" x2="896" y2="376" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="380" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">0</text></g>
+  <g class="chart-marks"><polyline fill="none" stroke="var(--accent-ink, var(--accent))" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="52,332.8 263,296.79999999999995 474,239.2 685,152.8 896,102.39999999999998"/><circle cx="52" cy="332.8" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="52" y="322.8" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">0.6</text><circle cx="263" cy="296.79999999999995" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="263" y="286.79999999999995" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">1.1</text><circle cx="474" cy="239.2" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="474" y="229.2" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">1.9</text><circle cx="685" cy="152.8" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="685" y="142.8" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">3.1</text><circle cx="896" cy="102.39999999999998" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="896" y="92.39999999999998" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">3.8</text></g>
+  <g class="chart-cats"><text x="52" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Q4 25</text><text x="263" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Q1 26</text><text x="474" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Q2 26</text><text x="685" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Q3 26</text><text x="896" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Oct 26</text></g>
+</svg>
+  </div>
+</section>
+
+<section class="slide stat-row-slide" data-layout="stat-row">
+  <span class="eyebrow">Retention</span>
+  <h2>Teams that adopt MONOLITH expand their spend within a year</h2>
+  
+  <div class="stats">
+    <div class="stat">
+      <div class="value">412</div>
+      <div class="label">Paying teams, up from 61 a year ago</div>
+    </div>
+    <div class="stat">
+      <div class="value">148%</div>
+      <div class="label">Net revenue retention, trailing 12 months</div>
+    </div>
+    <div class="stat">
+      <div class="value">81%</div>
+      <div class="label">Gross margin, Q3 2026</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">02</div>
+  <h2>Why we win</h2>
+  <p class="lead">One file, one engine, every cloud.</p>
+</section>
+
 <section class="slide code-slide" data-layout="code">
-  <span class="eyebrow">60s start</span>
-  <h2>Provision. Don&#39;t configure.</h2>
+  <span class="eyebrow">How it works</span>
+  <h2>One planner compiles intent into every cloud&#39;s native API</h2>
   
   <div class="code-window">
     <div class="code-chrome" aria-hidden="true">
       <span class="code-dot code-dot-red"></span>
       <span class="code-dot code-dot-amber"></span>
       <span class="code-dot code-dot-green"></span>
-      <span class="code-filename">monolith.ts</span>
+      <span class="code-filename">terminal</span>
       
     </div>
-    <pre class="code-block"><code>import { Monolith } from &#39;@monolith&#x2F;sdk&#39;;
+    <pre class="code-block"><code>$ monolith plan --diff
+~ postgres 16   resize 2 → 4 vCPU
++ queue orders  fra, iad
+&#x3D; 14 resources unchanged
 
-const m &#x3D; new Monolith({ region: &#39;us-east-1&#39; });
-const cluster &#x3D; await m.clusters.create({
-  name: &#39;prod-core&#39;,
-  size: &#39;m.large&#39;,
-  policy: &#39;immutable&#39;,
-});
-console.log(cluster.endpoint);</code></pre>
+$ monolith up
+✓ live in 58s   rollback: monolith undo</code></pre>
   </div>
 </section>
 
-<section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Traction</span>
-  <h2>Builders, not browsers.</h2>
-  
-  <div class="stats">
-    <div class="stat">
-      <div class="value">$4.2M</div>
-      <div class="label">ARR</div>
+<section class="slide ranked-list-slide" data-layout="ranked-list">
+  <span class="eyebrow">Market</span>
+  <h2>180,000 mid-size engineering teams make a $1.7B first market</h2>
+  <p class="lead">Bottom-up: teams of 20–500 engineers × today&#39;s $9.2k ACV.</p>
+  <div class="ranked-list-stack">
+    <div class="ranked-list-item is-primary">
+      <span class="ranked-list-rank">1</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:100%">
+          <span class="ranked-list-label">Cloud infra tooling spend, 2026</span>
+          <span class="ranked-list-value">$38B</span>
+        </div>
+      </div>
     </div>
-    <div class="stat">
-      <div class="value">210</div>
-      <div class="label">Prod clusters</div>
+    <div class="ranked-list-item">
+      <span class="ranked-list-rank">2</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:45%">
+          <span class="ranked-list-label">180k mid-size teams × $9.2k</span>
+          <span class="ranked-list-value">$1.7B</span>
+        </div>
+      </div>
     </div>
-    <div class="stat">
-      <div class="value">0</div>
-      <div class="label">Marketing sites</div>
+    <div class="ranked-list-item">
+      <span class="ranked-list-rank">3</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:15%">
+          <span class="ranked-list-label">6,000 teams by 2029</span>
+          <span class="ranked-list-value">$55M ARR</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide comparison-slide" data-layout="comparison">
+  <span class="eyebrow">Alternatives</span>
+  <h2>Terraform needs a specialist; MONOLITH needs one developer</h2>
+  <div class="comparison-cols emphasis-right">
+    <div class="comparison-col">
+      <span class="comparison-label">Terraform + consoles</span>
+      <p>1,900 lines per service
+9 days to production
+State drift by hand</p>
+    </div>
+    <div class="comparison-vs" aria-hidden="true">vs</div>
+    <div class="comparison-col">
+      <span class="comparison-label">MONOLITH</span>
+      <p>7 lines per service
+58 seconds to production
+Drift fixed on every run</p>
     </div>
   </div>
 </section>
 
 <section class="slide quote-slide" data-layout="quote">
-  <p class="quote">If it isn&#39;t scriptable, it isn&#39;t a feature.</p>
-  <p class="quote-by">— MONOLITH · Engineering doctrine</p>
+  <p class="quote">We deleted 40,000 lines of HCL in a quarter. Nobody misses them.</p>
+  <p class="quote-by">— Dana Reyes, Head of Platform, Lumen Pay</p>
+</section>
+
+<section class="slide data-table-slide" data-layout="data-table">
+  <span class="eyebrow">Business model</span>
+  <h2>Three tiers price per service and land at $9.2k a year</h2>
+  
+  <table>
+    <thead>
+      <tr><th>Tier</th><th>Price</th><th>Services</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Team</td><td>$490 &#x2F; mo</td><td>up to 10</td></tr>
+      <tr><td>Scale</td><td>$2,000 &#x2F; mo</td><td>up to 100</td></tr>
+      <tr><td>Enterprise</td><td>from $60k &#x2F; yr</td><td>unlimited</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide feature-grid-slide" data-layout="feature-grid">
+  <span class="eyebrow">Team</span>
+  <h2>The founders built the infra tools this market runs on</h2>
+  <div class="grid cols-3">
+    <div class="card">
+      <i class="fa-solid fa-terminal"></i>
+      <h3>Ines Okafor, CEO</h3>
+      <p>Led Terraform Cloud runs at HashiCorp.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-server"></i>
+      <h3>Tomas Lindqvist, CTO</h3>
+      <p>Built the edge scheduler at Fly.io.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-shield-halved"></i>
+      <h3>Priya Raman, VP Eng</h3>
+      <p>Ran payments infrastructure at a global card processor.</p>
+    </div>
+  </div>
 </section>
 
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">The raise</span>
-  <h1>Fund the lime.</h1>
-  <p class="lead">Series A to own the infra CLI category.</p>
+  <span class="eyebrow">The ask · $14M Series A</span>
+  <h1>Fund $14M and every service ships from one file.</h1>
+  <p class="lead">24 months of runway to reach $15M ARR and 1,500 teams by Q4 2028.</p>
   <div class="cta-row">
-    <a class="btn" href="#"><i class="fa-solid fa-file-lines"></i> Read the memo</a>
-    <a class="btn btn-outline" href="#"><i class="fa-solid fa-calendar"></i> Book a meeting</a>
+    <a class="btn" href="#"><i class="fa-solid fa-calendar-check"></i> Book the partner meeting</a>
+    <a class="btn btn-outline" href="#"><i class="fa-solid fa-folder-open"></i> Open the data room</a>
   </div>
 </section>
 
@@ -6890,7 +7218,7 @@ console.log(cluster.endpoint);</code></pre>
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"MONOLITH — Series A","company":"MONOLITH","description":"Infrastructure Series A pitch — brutalist-acid multi-slide proof.","theme":"brutalist-acid"},"slides":[{"layout":"title","eyebrow":"Series A","heading":"INFRA WITHOUT APOLOGY.","lead":"Electric lime on charcoal. Space Mono receipts. Barlow condensed truth.","notes":"Cold open — land the one-line claim before logos."},{"layout":"feature-grid","eyebrow":"Why","heading":"Three hard edges","columns":"bento","cards":[{"icon":"fa-solid fa-cube","title":"Immutable by default","body":"Mutations are explicit events — not SSH folklore."},{"icon":"fa-solid fa-terminal","title":"CLI as UI","body":"If it isn't scriptable, it isn't a feature."},{"icon":"fa-solid fa-bomb","title":"Blast radius","body":"Kill switches documented before the launch."},{"icon":"fa-solid fa-layer-group","title":"Stack for scan","body":"Hierarchy first. Decoration second. Decoration never."},{"icon":"fa-solid fa-bolt","title":"Ship the punchline","body":"Lead with the claim that survives the hallway test."}]},{"layout":"comparison","eyebrow":"Category","heading":"Console folklore vs. CLI truth","leftLabel":"Legacy infra","left":"Click-ops as culture.\nSSH as documentation.\nMutable snowflakes.\nMarketing sites first.","rightLabel":"MONOLITH","right":"Scriptable by default.\nImmutable clusters.\nKill switches before launch.\nBuilders, not browsers.","emphasis":"right","notes":"Name the loser column first, then punch the winner."},{"layout":"image-hero","eyebrow":"Series A","heading":"INFRA WITHOUT APOLOGY.","lead":"Electric lime on charcoal. Space Mono receipts. Barlow condensed truth.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232a2a2a%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%231c1c1c%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28214%2C255%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28214%2C255%2C0%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28214%2C255%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2842%2C42%2C42%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28214%2C255%2C0%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28214%2C255%2C0%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28214%2C255%2C0%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%231c1c1c%22%2F%3E%0A%20%20%3Cpolygon%20points%3D%220%2C0%20980%2C0%20640%2C900%200%2C900%22%20fill%3D%22rgba%28214%2C255%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Cpolygon%20points%3D%22980%2C0%201600%2C0%201600%2C900%20640%2C900%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22280%22%20rx%3D%22260%22%20ry%3D%22200%22%20fill%3D%22rgba%28214%2C255%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22220%22%20width%3D%22620%22%20height%3D%2272%22%20fill%3D%22%23d6ff00%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22320%22%20width%3D%22460%22%20height%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.550%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22370%22%20width%3D%22380%22%20height%3D%2222%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22980%22%20y%3D%22520%22%20width%3D%22420%22%20height%3D%22220%22%20fill%3D%22rgba%280%2C0%2C0%2C0.220%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221000%22%20y%3D%22540%22%20width%3D%22380%22%20height%3D%22180%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.450%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22630%22%20r%3D%2254%22%20fill%3D%22rgba%2828%2C28%2C28%2C0.550%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.7%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"MONOLITH craft visual","notes":"Hold the visual beat — let the room feel the product."},{"layout":"code","eyebrow":"60s start","heading":"Provision. Don't configure.","filename":"monolith.ts","language":"ts","code":"import { Monolith } from '@monolith/sdk';\n\nconst m = new Monolith({ region: 'us-east-1' });\nconst cluster = await m.clusters.create({\n  name: 'prod-core',\n  size: 'm.large',\n  policy: 'immutable',\n});\nconsole.log(cluster.endpoint);"},{"layout":"stat-row","eyebrow":"Traction","heading":"Builders, not browsers.","stats":[{"value":"$4.2M","label":"ARR"},{"value":"210","label":"Prod clusters"},{"value":"0","label":"Marketing sites"}]},{"layout":"quote","quote":"If it isn't scriptable, it isn't a feature.","by":"MONOLITH · Engineering doctrine"},{"layout":"closing","eyebrow":"The raise","heading":"Fund the lime.","lead":"Series A to own the infra CLI category.","actions":[{"label":"Read the memo","href":"#","style":"solid","icon":"fa-solid fa-file-lines"},{"label":"Book a meeting","href":"#","style":"outline","icon":"fa-solid fa-calendar"}]}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"MONOLITH — Series A, November 2026","company":"MONOLITH","description":"Series A pitch for MONOLITH, a CLI that turns one seven-line file into a live production stack in under a minute. Raising $14M on $3.8M ARR.","theme":"brutalist-acid","genre":"pitch"},"slides":[{"layout":"title","eyebrow":"MONOLITH · Series A · November 2026","heading":"Production infrastructure from one file in 60 seconds.","notes":"Say the sentence, pause, then go straight to the pain. No company history here."},{"layout":"two-column","eyebrow":"Problem","heading":"A new service takes 9 days to reach production today","ratio":"2-1","body":"Platform teams hand-write Terraform, click through consoles, then wait on review.","aside":"31% of sprint time goes to infra config. Survey of 220 engineering leads, 2025."},{"layout":"image-hero","eyebrow":"Solution","heading":"Seven lines of YAML, one command, a live stack","lead":"monolith up provisions network, database, queue, deploy and TLS.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201600%20900'%20font-family%3D'Space%20Mono%2Cmonospace'%3E%20%3Crect%20width%3D'1600'%20height%3D'900'%20fill%3D'%23141414'%2F%3E%20%3Cg%20transform%3D'translate(0%20225)'%3E%20%3Crect%20x%3D'80'%20y%3D'50'%20width%3D'560'%20height%3D'330'%20fill%3D'%231c1c1c'%20stroke%3D'%23d6ff00'%20stroke-width%3D'3'%2F%3E%20%3Crect%20x%3D'80'%20y%3D'50'%20width%3D'560'%20height%3D'44'%20fill%3D'%23d6ff00'%2F%3E%20%3Ctext%20x%3D'100'%20y%3D'80'%20font-size%3D'20'%20font-weight%3D'700'%20fill%3D'%23141414'%3Emonolith.yaml%3C%2Ftext%3E%20%3Cg%20font-size%3D'21'%20fill%3D'%23e8e6e1'%3E%20%3Ctext%20x%3D'104'%20y%3D'130'%3E%3Ctspan%20fill%3D'%23d6ff00'%3Eservice%3C%2Ftspan%3E%3A%20checkout-api%3C%2Ftext%3E%20%3Ctext%20x%3D'104'%20y%3D'166'%3E%3Ctspan%20fill%3D'%23d6ff00'%3Eruntime%3C%2Ftspan%3E%3A%20node22%3C%2Ftext%3E%20%3Ctext%20x%3D'104'%20y%3D'202'%3E%3Ctspan%20fill%3D'%23d6ff00'%3Eregions%3C%2Ftspan%3E%3A%20%5Bfra%2C%20iad%5D%3C%2Ftext%3E%20%3Ctext%20x%3D'104'%20y%3D'238'%3E%3Ctspan%20fill%3D'%23d6ff00'%3Epostgres%3C%2Ftspan%3E%3A%2016%3C%2Ftext%3E%20%3Ctext%20x%3D'104'%20y%3D'274'%3E%3Ctspan%20fill%3D'%23d6ff00'%3Equeue%3C%2Ftspan%3E%3A%20orders%3C%2Ftext%3E%20%3Ctext%20x%3D'104'%20y%3D'310'%3E%3Ctspan%20fill%3D'%23d6ff00'%3Escale%3C%2Ftspan%3E%3A%202..40%3C%2Ftext%3E%20%3Ctext%20x%3D'104'%20y%3D'346'%3E%3Ctspan%20fill%3D'%23d6ff00'%3Esecrets%3C%2Ftspan%3E%3A%20vault%3A%2F%2Fprod%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Cpath%20d%3D'M660%20215h70'%20stroke%3D'%23d6ff00'%20stroke-width%3D'4'%2F%3E%3Cpath%20d%3D'M722%20203l14%2012-14%2012'%20fill%3D'none'%20stroke%3D'%23d6ff00'%20stroke-width%3D'4'%2F%3E%20%3Crect%20x%3D'760'%20y%3D'50'%20width%3D'760'%20height%3D'330'%20fill%3D'%230d0d0d'%20stroke%3D'%23e8e6e1'%20stroke-width%3D'2'%2F%3E%20%3Ccircle%20cx%3D'788'%20cy%3D'74'%20r%3D'7'%20fill%3D'%23555'%2F%3E%3Ccircle%20cx%3D'812'%20cy%3D'74'%20r%3D'7'%20fill%3D'%23555'%2F%3E%3Ccircle%20cx%3D'836'%20cy%3D'74'%20r%3D'7'%20fill%3D'%23555'%2F%3E%20%3Cg%20font-size%3D'21'%20fill%3D'%23b1b1b1'%3E%20%3Ctext%20x%3D'788'%20y%3D'130'%20fill%3D'%23e8e6e1'%3E%3Ctspan%20fill%3D'%23d6ff00'%3E%24%3C%2Ftspan%3E%20monolith%20up%3C%2Ftext%3E%20%3Ctext%20x%3D'788'%20y%3D'166'%3E%20%20network%20.........%204s%3C%2Ftext%3E%20%3Ctext%20x%3D'788'%20y%3D'200'%3E%20%20postgres%2016%20....%2019s%3C%2Ftext%3E%20%3Ctext%20x%3D'788'%20y%3D'234'%3E%20%20queue%20orders%20....%206s%3C%2Ftext%3E%20%3Ctext%20x%3D'1150'%20y%3D'166'%3Ebuild%20%2B%20deploy%20.%2022s%3C%2Ftext%3E%20%3Ctext%20x%3D'1150'%20y%3D'200'%3Etls%20%2B%20dns%20.......%207s%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Crect%20x%3D'788'%20y%3D'262'%20width%3D'704'%20height%3D'92'%20fill%3D'%23d6ff00'%2F%3E%20%3Ctext%20x%3D'812'%20y%3D'308'%20font-size%3D'30'%20font-weight%3D'700'%20fill%3D'%23141414'%3ELIVE%20IN%2058s%3C%2Ftext%3E%20%3Ctext%20x%3D'812'%20y%3D'338'%20font-size%3D'18'%20fill%3D'%23141414'%3Echeckout-api.fra.prod%20%C2%B7%202%20regions%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E","imageAlt":"A monolith.yaml file of seven lines next to a terminal that shows the stack live in 58 seconds"},{"layout":"timeline","eyebrow":"Why now","heading":"Services multiply while platform headcount stays flat","steps":[{"title":"2019","body":"Terraform becomes the default"},{"title":"2022","body":"Kubernetes sprawl peaks"},{"title":"2024","body":"AI writes 40% of app code"},{"title":"2026","body":"Services per engineer up 3×"}]},{"layout":"chart","eyebrow":"Traction","heading":"ARR grew six times in twelve months to $3.8M","chartType":"line","categories":["Q4 25","Q1 26","Q2 26","Q3 26","Oct 26"],"series":[{"name":"ARR ($M)","values":[0.6,1.1,1.9,3.1,3.8]}],"showValues":true,"lead":"Source: Stripe billing, 31 October 2026.","notes":"This is the slide investors read longest. Point at Oct 26 and say the number."},{"layout":"stat-row","eyebrow":"Retention","heading":"Teams that adopt MONOLITH expand their spend within a year","stats":[{"value":"412","label":"Paying teams, up from 61 a year ago"},{"value":"148%","label":"Net revenue retention, trailing 12 months"},{"value":"81%","label":"Gross margin, Q3 2026"}]},{"layout":"section","number":"02","heading":"Why we win","lead":"One file, one engine, every cloud."},{"layout":"code","eyebrow":"How it works","heading":"One planner compiles intent into every cloud's native API","filename":"terminal","language":"bash","code":"$ monolith plan --diff\n~ postgres 16   resize 2 → 4 vCPU\n+ queue orders  fra, iad\n= 14 resources unchanged\n\n$ monolith up\n✓ live in 58s   rollback: monolith undo"},{"layout":"ranked-list","eyebrow":"Market","heading":"180,000 mid-size engineering teams make a $1.7B first market","lead":"Bottom-up: teams of 20–500 engineers × today's $9.2k ACV.","items":[{"rank":"1","label":"Cloud infra tooling spend, 2026","value":"$38B","widthPct":100},{"rank":"2","label":"180k mid-size teams × $9.2k","value":"$1.7B","widthPct":45},{"rank":"3","label":"6,000 teams by 2029","value":"$55M ARR","widthPct":15}]},{"layout":"comparison","eyebrow":"Alternatives","heading":"Terraform needs a specialist; MONOLITH needs one developer","leftLabel":"Terraform + consoles","left":"1,900 lines per service\n9 days to production\nState drift by hand","rightLabel":"MONOLITH","right":"7 lines per service\n58 seconds to production\nDrift fixed on every run","emphasis":"right"},{"layout":"quote","quote":"We deleted 40,000 lines of HCL in a quarter. Nobody misses them.","by":"Dana Reyes, Head of Platform, Lumen Pay"},{"layout":"data-table","eyebrow":"Business model","heading":"Three tiers price per service and land at $9.2k a year","columns":["Tier","Price","Services"],"rows":[["Team","$490 / mo","up to 10"],["Scale","$2,000 / mo","up to 100"],["Enterprise","from $60k / yr","unlimited"]]},{"layout":"feature-grid","eyebrow":"Team","heading":"The founders built the infra tools this market runs on","columns":3,"cards":[{"icon":"fa-solid fa-terminal","title":"Ines Okafor, CEO","body":"Led Terraform Cloud runs at HashiCorp."},{"icon":"fa-solid fa-server","title":"Tomas Lindqvist, CTO","body":"Built the edge scheduler at Fly.io."},{"icon":"fa-solid fa-shield-halved","title":"Priya Raman, VP Eng","body":"Ran payments infrastructure at a global card processor."}]},{"layout":"closing","eyebrow":"The ask · $14M Series A","heading":"Fund $14M and every service ships from one file.","lead":"24 months of runway to reach $15M ARR and 1,500 teams by Q4 2028.","actions":[{"label":"Book the partner meeting","style":"solid","icon":"fa-solid fa-calendar-check"},{"label":"Open the data room","style":"outline","icon":"fa-solid fa-folder-open"}],"notes":"End on the amount and the milestone. Take questions after the ask, not before."}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {

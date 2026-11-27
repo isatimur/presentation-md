@@ -1,92 +1,144 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Fireline — Campaign Deck",
+    "title": "Fireline — a crew in every village by 1 May 2027",
     "company": "Fireline",
-    "description": "Dark editorial campaign — broadside multi-slide proof.",
-    "theme": "broadside"
+    "description": "Campaign deck for Fireline, a citizen campaign to fund and train 400 volunteer fire crews in Portugal's interior villages before the 2027 fire season. €24,000 funds one crew.",
+    "theme": "broadside",
+    "genre": "campaign"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Campaign",
-      "heading": "INK. FIRE. BARLOW.",
-      "lead": "Massive type. Zero beige. Orange that means business.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Fireline · Citizen campaign · Portugal 2027",
+      "heading": "Every village deserves a fire crew within 15 minutes.",
+      "notes": "Say it slowly. Then show the hillside and let the silence work."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Campaign",
-      "heading": "INK. FIRE. BARLOW.",
-      "lead": "Massive type. Zero beige. Orange that means business.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%231A1A18%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23111111%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28240%2C236%2C229%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C26%2C24%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28240%2C236%2C229%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28240%2C236%2C229%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28240%2C236%2C229%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23111111%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.9%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22880%22%20cy%3D%22220%22%20rx%3D%22220%22%20ry%3D%22140%22%20fill%3D%22rgba%28240%2C236%2C229%2C0.220%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M0%20640%20C320%20520%20640%20780%20960%20600%20S1400%20480%201600%20560%20L1600%20900%20L0%20900%20Z%22%20fill%3D%22rgba%28232%2C93%2C38%2C0.120%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.55%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22260%22%20cy%3D%22180%22%20r%3D%2218%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22520%22%20cy%3D%22140%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22980%22%20cy%3D%22210%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22320%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221100%22%20cy%3D%22120%22%20r%3D%228%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Fireline craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
-    },
-    {
-      "layout": "two-column",
-      "eyebrow": "Belief",
-      "heading": "If it whispers, it dies.",
-      "body": "Fireline builds posters, keynotes, and launch films that read from the back of the room.",
-      "aside": "Barlow 900. Cream on black. One orange strike.",
-      "ratio": "3-2"
-    },
-    {
-      "layout": "two-column",
-      "eyebrow": "Work",
-      "heading": "What we ship",
-      "body": "Launch films: Cuts that start loud and stay loud. Editorial kits — Mastheads with teeth.",
-      "aside": "Type that survives LED walls.",
-      "ratio": "1-2"
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Filter",
-      "heading": "We take the brief if…",
-      "leftLabel": "Yes",
-      "left": "One idea.\nPermission to burn.\nTaste over trends.",
-      "rightLabel": "No",
-      "right": "Safe navy.\nCommittee beige.\nLogo salad.",
-      "emphasis": "left",
-      "notes": "Name the loser column first, then punch the winner."
+      "eyebrow": "Summer 2025",
+      "heading": "Last summer, fire burned 214,000 hectares of the interior",
+      "lead": "Most of it in villages the nearest crew could not reach in time.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201600%20900'%3E%20%3Cdefs%3E%3ClinearGradient%20id%3D's'%20x1%3D'0'%20y1%3D'0'%20x2%3D'0'%20y2%3D'1'%3E%3Cstop%20offset%3D'0'%20stop-color%3D'%233a1408'%2F%3E%3Cstop%20offset%3D'.6'%20stop-color%3D'%238a2a0c'%2F%3E%3Cstop%20offset%3D'1'%20stop-color%3D'%23111'%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%20%3Crect%20width%3D'1600'%20height%3D'900'%20fill%3D'url(%23s)'%2F%3E%20%3Cpath%20d%3D'M0%20520L220%20400%20420%20470%20640%20360%20900%20450%201120%20340%201380%20430%201600%20380V900H0z'%20fill%3D'%231a1a18'%2F%3E%20%3Cpath%20d%3D'M0%20600L300%20520%20560%20580%20860%20500%201160%20570%201600%20510V900H0z'%20fill%3D'%23111'%2F%3E%20%3Cg%20stroke%3D'%230a0a0a'%20stroke-width%3D'8'%20stroke-linecap%3D'round'%3E%20%3Cpath%20d%3D'M180%20430v-80M160%20380l20-14M200%20370l-20-12M500%20470v-70M520%20420l-20-10M760%20400v-90M740%20340l20-12M780%20360l-20-10M1020%20420v-70M1260%20390v-80M1240%20340l20-12M1460%20410v-70'%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D'%23E85D26'%3E%3Cpath%20d%3D'M600%20380c20-60%2060-40%2040-110%2050%2040%2070%2090%2040%20110z'%2F%3E%3Cpath%20d%3D'M1100%20350c16-50%2050-30%2034-90%2040%2034%2056%2076%2032%2090z'%2F%3E%3Cpath%20d%3D'M300%20430c14-40%2040-26%2028-70%2030%2026%2044%2058%2024%2070z'%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D'%23f6a04d'%3E%3Cpath%20d%3D'M620%20380c8-26%2024-18%2018-48%2022%2020%2028%2040%2016%2048z'%2F%3E%3Cpath%20d%3D'M1116%20350c6-22%2020-14%2014-38%2018%2014%2024%2032%2014%2038z'%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D'%232a2a28'%20stroke%3D'%23E85D26'%20stroke-width%3D'2'%3E%20%3Cpath%20d%3D'M760%20520h80v-50l-40-30-40%2030z'%2F%3E%3Cpath%20d%3D'M860%20520h70v-44l-35-26-35%2026z'%2F%3E%3Cpath%20d%3D'M950%20520h80v-50l-40-30-40%2030z'%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D'%23f6a04d'%20opacity%3D'.9'%3E%3Ccircle%20cx%3D'400'%20cy%3D'300'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'700'%20cy%3D'260'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'980'%20cy%3D'290'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'1200'%20cy%3D'250'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'560'%20cy%3D'240'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'1340'%20cy%3D'300'%20r%3D'3'%2F%3E%3C%2Fg%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "A burnt hillside at dusk with black tree trunks, small flames and three village houses at the foot of the slope"
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Signal",
-      "heading": "Fireline in numbers.",
-      "notes": "One breath on the numbers — then move on.",
+      "eyebrow": "The gap",
+      "heading": "Help takes 47 minutes to reach an interior village",
+      "variant": "hero",
+      "lead": "Source: Fireline analysis of 2025 civil protection response logs, 3,912 rural fires.",
       "stats": [
         {
-          "value": "3×",
-          "label": "Faster cycles"
+          "value": "47 min",
+          "label": "First crew on scene, interior villages"
         },
         {
-          "value": "92%",
-          "label": "Retention"
-        },
-        {
-          "value": "18",
-          "label": "Shipped pilots"
+          "value": "11 min",
+          "label": "First crew on scene, coastal towns"
         }
       ]
     },
     {
-      "layout": "closing",
-      "eyebrow": "Contact",
-      "heading": "Light the orange.",
-      "lead": "hello@fireline.studio",
-      "actions": [
+      "layout": "image-hero",
+      "eyebrow": "What could be",
+      "heading": "Six trained neighbours with a pickup reach a fire in 15 minutes",
+      "lead": "The crew lives where the fire starts.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201600%20900'%20font-family%3D'Barlow%2CArial%2Csans-serif'%3E%20%3Cdefs%3E%3ClinearGradient%20id%3D's'%20x1%3D'0'%20y1%3D'0'%20x2%3D'0'%20y2%3D'1'%3E%3Cstop%20offset%3D'0'%20stop-color%3D'%231A1A18'%2F%3E%3Cstop%20offset%3D'.55'%20stop-color%3D'%234a3a2e'%2F%3E%3Cstop%20offset%3D'1'%20stop-color%3D'%23111'%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%20%3Crect%20width%3D'1600'%20height%3D'900'%20fill%3D'url(%23s)'%2F%3E%20%3Ccircle%20cx%3D'1300'%20cy%3D'330'%20r%3D'70'%20fill%3D'%23f6c38a'%20opacity%3D'.8'%2F%3E%20%3Cpath%20d%3D'M0%20470L260%20400%20520%20450%20820%20380%201100%20440%201600%20390V900H0z'%20fill%3D'%232b3a2a'%2F%3E%20%3Cg%20fill%3D'%2334502f'%3E%3Ccircle%20cx%3D'200'%20cy%3D'420'%20r%3D'30'%2F%3E%3Ccircle%20cx%3D'260'%20cy%3D'410'%20r%3D'24'%2F%3E%3Ccircle%20cx%3D'1180'%20cy%3D'420'%20r%3D'28'%2F%3E%3Ccircle%20cx%3D'1460'%20cy%3D'400'%20r%3D'30'%2F%3E%3Ccircle%20cx%3D'1520'%20cy%3D'410'%20r%3D'22'%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D'%23F0ECE5'%3E%20%3Cpath%20d%3D'M360%20540h110v-70l-55-40-55%2040z'%2F%3E%3Cpath%20d%3D'M490%20540h90v-60l-45-34-45%2034z'%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D'%23E85D26'%3E%3Crect%20x%3D'402'%20y%3D'500'%20width%3D'26'%20height%3D'40'%2F%3E%3Crect%20x%3D'522'%20y%3D'506'%20width%3D'20'%20height%3D'34'%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D'700'%20y%3D'450'%20width%3D'330'%20height%3D'80'%20rx%3D'10'%20fill%3D'%23E85D26'%2F%3E%20%3Cpath%20d%3D'M1030%20470h70l40%2040v20h-110z'%20fill%3D'%23E85D26'%2F%3E%20%3Crect%20x%3D'1050'%20y%3D'478'%20width%3D'50'%20height%3D'26'%20fill%3D'%231A1A18'%2F%3E%20%3Crect%20x%3D'730'%20y%3D'420'%20width%3D'200'%20height%3D'40'%20rx%3D'20'%20fill%3D'%23F0ECE5'%2F%3E%20%3Ctext%20x%3D'830'%20y%3D'448'%20text-anchor%3D'middle'%20font-size%3D'22'%20font-weight%3D'900'%20fill%3D'%23111'%3E600%20L%3C%2Ftext%3E%20%3Cg%20fill%3D'%23111'%20stroke%3D'%23F0ECE5'%20stroke-width%3D'5'%3E%3Ccircle%20cx%3D'780'%20cy%3D'540'%20r%3D'32'%2F%3E%3Ccircle%20cx%3D'1060'%20cy%3D'540'%20r%3D'32'%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D'%23F0ECE5'%3E%3Ccircle%20cx%3D'1180'%20cy%3D'470'%20r%3D'12'%2F%3E%3Crect%20x%3D'1170'%20y%3D'484'%20width%3D'20'%20height%3D'50'%2F%3E%3Ccircle%20cx%3D'1220'%20cy%3D'470'%20r%3D'12'%2F%3E%3Crect%20x%3D'1210'%20y%3D'484'%20width%3D'20'%20height%3D'50'%2F%3E%3Ccircle%20cx%3D'1260'%20cy%3D'470'%20r%3D'12'%2F%3E%3Crect%20x%3D'1250'%20y%3D'484'%20width%3D'20'%20height%3D'50'%2F%3E%3C%2Fg%3E%20%3Ctext%20x%3D'1225'%20y%3D'440'%20text-anchor%3D'middle'%20font-size%3D'26'%20font-weight%3D'700'%20fill%3D'%23F0ECE5'%3ECREW%20117%20%C2%B7%20READY%3C%2Ftext%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "A village at dawn with an orange pickup carrying a 600 litre water tank and three volunteers standing beside it, labelled Crew 117 ready"
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "The obstacle",
+      "heading": "Crews sit in district towns, far from the villages that burn",
+      "leftLabel": "Today",
+      "left": "Crews based in district towns\nOne truck per 60 km²\nVolunteers' average age: 58",
+      "rightLabel": "Fireline",
+      "right": "A crew in every village\nOne pickup per village\nSix neighbours, trained in 40 hours",
+      "emphasis": "right"
+    },
+    {
+      "layout": "quote",
+      "quote": "The fire reached our olive grove forty minutes before the first truck did.",
+      "by": "Rosa Antunes, farmer, Vila Moinhos, Castelo Branco district"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Where",
+      "heading": "The first 400 crews go to villages over 30 minutes from help",
+      "ratio": "1-2",
+      "body": "We picked them from the 2025 response logs, slowest first.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201200%20900'%20font-family%3D'Barlow%2CArial%2Csans-serif'%3E%20%3Crect%20width%3D'1200'%20height%3D'900'%20fill%3D'%231A1A18'%2F%3E%20%3Cpath%20d%3D'M470%2060l120%2010%2070%2050%2040%2090-20%2070%2030%2080-10%20100%2020%2090-40%2090%2010%2080-60%2060-140%2010-30-60%2020-90-30-70%2020-110-30-90%2020-110-20-90%2030-60z'%20fill%3D'%23282826'%20stroke%3D'%238d8d85'%20stroke-width%3D'3'%2F%3E%20%3Cpath%20d%3D'M560%20160l60%2080-10%20110%2030%20120-20%20120%2010%20110'%20fill%3D'none'%20stroke%3D'%238d8d85'%20stroke-width%3D'2'%20stroke-dasharray%3D'8%208'%2F%3E%20%3Cg%20fill%3D'%23E85D26'%3E%20%3Ccircle%20cx%3D'600'%20cy%3D'170'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'640'%20cy%3D'210'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'610'%20cy%3D'250'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'660'%20cy%3D'280'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'630'%20cy%3D'320'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'670'%20cy%3D'360'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'620'%20cy%3D'380'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'650'%20cy%3D'420'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'680'%20cy%3D'450'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'630'%20cy%3D'470'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'660'%20cy%3D'510'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'610'%20cy%3D'540'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'650'%20cy%3D'570'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'620'%20cy%3D'610'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'660'%20cy%3D'640'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'600'%20cy%3D'680'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'640'%20cy%3D'700'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'590'%20cy%3D'300'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'700'%20cy%3D'310'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'690'%20cy%3D'400'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'600'%20cy%3D'440'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'700'%20cy%3D'540'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'580'%20cy%3D'580'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'690'%20cy%3D'600'%20r%3D'8'%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D'%23F0ECE5'%3E%3Ccircle%20cx%3D'470'%20cy%3D'300'%20r%3D'6'%2F%3E%3Ccircle%20cx%3D'450'%20cy%3D'420'%20r%3D'6'%2F%3E%3Ccircle%20cx%3D'480'%20cy%3D'560'%20r%3D'6'%2F%3E%3Ccircle%20cx%3D'520'%20cy%3D'740'%20r%3D'6'%2F%3E%3C%2Fg%3E%20%3Cg%20font-size%3D'24'%20fill%3D'%23F0ECE5'%3E%20%3Ccircle%20cx%3D'820'%20cy%3D'700'%20r%3D'10'%20fill%3D'%23E85D26'%2F%3E%3Ctext%20x%3D'842'%20y%3D'708'%3Efirst%20400%20crews%3C%2Ftext%3E%20%3Ccircle%20cx%3D'820'%20cy%3D'750'%20r%3D'7'%20fill%3D'%23F0ECE5'%2F%3E%3Ctext%20x%3D'842'%20y%3D'758'%3Etoday's%20crew%20bases%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Ctext%20x%3D'800'%20y%3D'200'%20font-size%3D'30'%20font-weight%3D'900'%20fill%3D'%23E85D26'%3EINTERIOR%3C%2Ftext%3E%20%3Ctext%20x%3D'800'%20y%3D'236'%20font-size%3D'22'%20fill%3D'%238d8d85'%3E30%2B%20min%20from%20a%20crew%3C%2Ftext%3E%20%3Ctext%20x%3D'260'%20y%3D'620'%20font-size%3D'22'%20fill%3D'%238d8d85'%3EAtlantic%3C%2Ftext%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Map of mainland Portugal with orange dots for the first 400 village crews along the interior and a few white dots for today's crew bases near the coast"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "The plan",
+      "heading": "Three moves put 400 crews in place before the fire season",
+      "steps": [
         {
-          "label": "Send the brief",
-          "href": "#",
-          "style": "solid",
-          "icon": "fa-solid fa-arrow-right"
+          "title": "Jan–Mar · Train",
+          "body": "2,400 volunteers, 40 hours each"
         },
         {
-          "label": "See the calendar",
-          "href": "#",
+          "title": "Mar–Apr · Equip",
+          "body": "400 pickups with 600 L tanks"
+        },
+        {
+          "title": "April · Connect",
+          "body": "Every crew on national dispatch"
+        }
+      ]
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "The kit",
+      "heading": "€18,000 of kit turns six neighbours into a crew",
+      "lead": "Training adds €6,000. One crew costs €24,000 in total.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201600%20900'%20font-family%3D'Barlow%2CArial%2Csans-serif'%3E%20%3Crect%20width%3D'1600'%20height%3D'900'%20fill%3D'%231A1A18'%2F%3E%20%3Cg%20stroke%3D'%23282826'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20300h1600M0%20450h1600M0%20600h1600M400%200v900M800%200v900M1200%200v900'%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D'260'%20y%3D'380'%20width%3D'560'%20height%3D'130'%20rx%3D'14'%20fill%3D'%23E85D26'%2F%3E%20%3Cpath%20d%3D'M820%20410h150l70%2070v30H820z'%20fill%3D'%23E85D26'%2F%3E%20%3Crect%20x%3D'850'%20y%3D'425'%20width%3D'90'%20height%3D'45'%20fill%3D'%23111'%2F%3E%20%3Crect%20x%3D'300'%20y%3D'320'%20width%3D'360'%20height%3D'70'%20rx%3D'35'%20fill%3D'%23F0ECE5'%2F%3E%20%3Ctext%20x%3D'480'%20y%3D'367'%20text-anchor%3D'middle'%20font-size%3D'34'%20font-weight%3D'900'%20fill%3D'%23111'%3E600%20L%20TANK%3C%2Ftext%3E%20%3Cg%20fill%3D'%23111'%20stroke%3D'%23F0ECE5'%20stroke-width%3D'6'%3E%3Ccircle%20cx%3D'360'%20cy%3D'520'%20r%3D'48'%2F%3E%3Ccircle%20cx%3D'900'%20cy%3D'520'%20r%3D'48'%2F%3E%3C%2Fg%3E%20%3Cpath%20d%3D'M660%20350c80-40%20120%2010%20160%2060'%20fill%3D'none'%20stroke%3D'%23F0ECE5'%20stroke-width%3D'6'%2F%3E%20%3Cg%20font-size%3D'26'%20font-weight%3D'700'%20fill%3D'%23F0ECE5'%3E%20%3Cpath%20d%3D'M1120%20330h40M1120%20420h40M1120%20510h40'%20stroke%3D'%23E85D26'%20stroke-width%3D'6'%2F%3E%20%3Ctext%20x%3D'1180'%20y%3D'340'%3E40%20m%20hose%2C%202%20pumps%3C%2Ftext%3E%20%3Ctext%20x%3D'1180'%20y%3D'430'%3ERadio%20on%20national%20dispatch%3C%2Ftext%3E%20%3Ctext%20x%3D'1180'%20y%3D'520'%3E6%20kits%20of%20protective%20gear%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Side view of an orange pickup with a 600 litre tank, labelled with hose, pumps, dispatch radio and six sets of protective gear"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Momentum",
+      "heading": "112 villages have signed up and €2.9M is already raised",
+      "stats": [
+        {
+          "value": "112",
+          "label": "Village councils signed, of 400"
+        },
+        {
+          "value": "1,350",
+          "label": "Volunteers registered, of 2,400"
+        },
+        {
+          "value": "€2.9M",
+          "label": "Raised, of €9.6M needed"
+        }
+      ],
+      "notes": "Read the denominators aloud. The gap is the ask."
+    },
+    {
+      "layout": "section",
+      "eyebrow": "The deadline",
+      "heading": "1 May 2027: 400 crews stand ready.",
+      "lead": "The fire season starts in June. Kit takes eight weeks to build."
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "€24,000 funds one village crew",
+      "heading": "Fund a crew, and put one more village 15 minutes from help.",
+      "lead": "Every crew funded by 31 January trains this winter.",
+      "actions": [
+        {
+          "label": "Fund a village crew",
+          "style": "solid",
+          "icon": "fa-solid fa-fire-extinguisher"
+        },
+        {
+          "label": "Volunteer to train",
           "style": "outline",
-          "icon": "fa-solid fa-calendar"
+          "icon": "fa-solid fa-hand-holding-heart"
         }
       ]
     }

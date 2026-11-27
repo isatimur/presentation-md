@@ -1,70 +1,129 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Supperclub — Invite Deck",
+    "title": "Supperclub — The Long Table, 21 March 2027",
     "company": "Supperclub",
-    "description": "Private dining invite — long-table multi-slide proof.",
-    "theme": "long-table"
+    "description": "Campaign deck for Supperclub's Long Table night: a third of adults eat every dinner alone, so 1,000 volunteer hosts each set one table for 20 strangers on Saturday 21 March 2027.",
+    "theme": "long-table",
+    "genre": "campaign"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Invite",
-      "heading": "One long table. Rust linen.",
-      "lead": "Bricolage for the host. Fraunces for the menu.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Supperclub · The Long Table campaign · Spring 2027",
+      "heading": "Set one long table. Feed twenty strangers.",
+      "lead": "1,000 tables across the UK, all on one night.",
+      "notes": "Read the line slowly. The whole campaign is in those six words."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Invite",
-      "heading": "One long table. Rust linen.",
-      "lead": "Bricolage for the host. Fraunces for the menu.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23F2E5CF%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23FAF1E2%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28181%2C61%2C42%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28181%2C61%2C42%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28142%2C45%2C31%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28181%2C61%2C42%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28242%2C229%2C207%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28181%2C61%2C42%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28181%2C61%2C42%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28181%2C61%2C42%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28142%2C45%2C31%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28142%2C45%2C31%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28142%2C45%2C31%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23FAF1E2%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.65%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22420%22%20rx%3D%22640%22%20ry%3D%22220%22%20fill%3D%22rgba%28181%2C61%2C42%2C0.180%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20neon%20tunnel%20rings%20--%3E%0A%20%20%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22520%22%20ry%3D%22210%22%20stroke%3D%22rgba%28181%2C61%2C42%2C0.350%29%22%20stroke-width%3D%223%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22400%22%20ry%3D%22160%22%20stroke%3D%22rgba%28142%2C45%2C31%2C0.450%29%22%20stroke-width%3D%222.5%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22280%22%20ry%3D%22110%22%20stroke%3D%22rgba%28181%2C61%2C42%2C0.550%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22160%22%20ry%3D%2262%22%20stroke%3D%22rgba%28142%2C45%2C31%2C0.700%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20x%3D%22470%22%20y%3D%22300%22%20width%3D%22660%22%20height%3D%22300%22%20rx%3D%2222%22%20fill%3D%22rgba%28242%2C229%2C207%2C0.720%29%22%20stroke%3D%22rgba%28181%2C61%2C42%2C0.400%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22350%22%20width%3D%22240%22%20height%3D%2216%22%20rx%3D%226%22%20fill%3D%22rgba%28181%2C61%2C42%2C0.900%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22390%22%20width%3D%22420%22%20height%3D%2211%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.320%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22420%22%20width%3D%22360%22%20height%3D%2211%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28142%2C45%2C31%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22670%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28181%2C61%2C42%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22830%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.5%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22240%22%20cy%3D%22180%22%20r%3D%2216%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221360%22%20cy%3D%22220%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221480%22%20cy%3D%22680%22%20r%3D%2212%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Supperclub craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
-    },
-    {
-      "layout": "two-column",
-      "eyebrow": "Evening",
-      "heading": "What we serve",
-      "body": "Courses: Five plates, no rush. Pairings — Rust-label bottles only.",
-      "aside": "Seats assigned to mix strangers.",
-      "ratio": "3-2"
+      "eyebrow": "What is",
+      "heading": "Most of us now eat dinner alone, with a phone for company",
+      "lead": "The table is still there. The chairs are empty.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F2E5CF%22%2F%3E%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23B53D2A%22%20stroke-width%3D%225%22%3E%20%3Crect%20x%3D%22520%22%20y%3D%22330%22%20width%3D%22560%22%20height%3D%22220%22%20rx%3D%2210%22%2F%3E%20%3Ccircle%20cx%3D%22800%22%20cy%3D%22440%22%20r%3D%2270%22%2F%3E%3Ccircle%20cx%3D%22800%22%20cy%3D%22440%22%20r%3D%2244%22%2F%3E%20%3Cpath%20d%3D%22M700%20390%20V490%20M690%20390%20V420%20M710%20390%20V420%22%2F%3E%20%3Cpath%20d%3D%22M900%20390%20V490%22%2F%3E%20%3Crect%20x%3D%22360%22%20y%3D%22370%22%20width%3D%22110%22%20height%3D%22140%22%20rx%3D%2210%22%20stroke-dasharray%3D%2210%208%22%20opacity%3D%220.5%22%2F%3E%20%3Crect%20x%3D%221130%22%20y%3D%22370%22%20width%3D%22110%22%20height%3D%22140%22%20rx%3D%2210%22%20stroke-dasharray%3D%2210%208%22%20opacity%3D%220.5%22%2F%3E%20%3Crect%20x%3D%22630%22%20y%3D%22230%22%20width%3D%22110%22%20height%3D%2280%22%20rx%3D%2210%22%20stroke-dasharray%3D%2210%208%22%20opacity%3D%220.5%22%2F%3E%20%3Crect%20x%3D%22860%22%20y%3D%22230%22%20width%3D%22110%22%20height%3D%2280%22%20rx%3D%2210%22%20stroke-dasharray%3D%2210%208%22%20opacity%3D%220.5%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(950%20410)%20rotate(-8)%22%3E%3Crect%20width%3D%2270%22%20height%3D%22120%22%20rx%3D%2212%22%20fill%3D%22%23B53D2A%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%2212%22%20width%3D%2256%22%20height%3D%2292%22%20rx%3D%226%22%20fill%3D%22%23FAF1E2%22%2F%3E%3Crect%20x%3D%2215%22%20y%3D%2230%22%20width%3D%2240%22%20height%3D%228%22%20fill%3D%22%23B53D2A%22%20opacity%3D%220.6%22%2F%3E%3Crect%20x%3D%2215%22%20y%3D%2246%22%20width%3D%2230%22%20height%3D%228%22%20fill%3D%22%23B53D2A%22%20opacity%3D%220.6%22%2F%3E%3C%2Fg%3E%20%3Ctext%20x%3D%22800%22%20y%3D%22585%22%20text-anchor%3D%22middle%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-style%3D%22italic%22%20font-size%3D%2228%22%20fill%3D%22%23934232%22%3ETable%20for%20one.%20Four%20empty%20chairs.%207%3A42%20p.m.%3C%2Ftext%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Line drawing of a table for one: a single plate, a phone, and four empty chairs drawn in dashed lines"
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Nights",
-      "heading": "Tables that fill.",
+      "variant": "hero",
+      "eyebrow": "The number",
+      "heading": "One in three UK adults ate every dinner alone last week",
       "stats": [
         {
-          "value": "24",
-          "label": "Seats"
+          "value": "34%",
+          "label": "Ate all 7 dinners alone (survey, n = 3,000, Oct 2026)"
         },
         {
-          "value": "18",
-          "label": "Cities"
-        },
-        {
-          "value": "0",
-          "label": "Phones on table"
+          "value": "+9 pts",
+          "label": "Since our 2019 survey"
         }
       ],
-      "notes": "One breath on the numbers — then move on."
+      "notes": "Source is our own YouGov-run panel. Say the n out loud; people will ask."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "What could be",
+      "heading": "Twenty strangers at one table, on first names by dessert",
+      "lead": "Seats are assigned, so nobody sits with who they came with.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F2E5CF%22%2F%3E%20%3Crect%20x%3D%22180%22%20y%3D%22390%22%20width%3D%221240%22%20height%3D%22110%22%20rx%3D%2210%22%20fill%3D%22%23B53D2A%22%2F%3E%20%3Cpath%20d%3D%22M180%20445%20H1420%22%20stroke%3D%22%23FAF1E2%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%224%2010%22%2F%3E%20%3Cdefs%3E%3Cg%20id%3D%22s%22%3E%3Ccircle%20r%3D%2226%22%20fill%3D%22%23FAF1E2%22%20stroke%3D%22%238E2D1F%22%20stroke-width%3D%223%22%2F%3E%3Ccircle%20r%3D%2214%22%20fill%3D%22none%22%20stroke%3D%22%238E2D1F%22%20stroke-width%3D%222%22%2F%3E%3C%2Fg%3E%20%3Cg%20id%3D%22c%22%3E%3Crect%20x%3D%22-28%22%20y%3D%22-22%22%20width%3D%2256%22%20height%3D%2244%22%20rx%3D%2212%22%20fill%3D%22none%22%20stroke%3D%22%23B53D2A%22%20stroke-width%3D%224%22%2F%3E%3C%2Fg%3E%3C%2Fdefs%3E%20%3Cg%3E%20%3Cuse%20href%3D%22%23s%22%20x%3D%22240%22%20y%3D%22420%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%22360%22%20y%3D%22420%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%22480%22%20y%3D%22420%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%22600%22%20y%3D%22420%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%22720%22%20y%3D%22420%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%22880%22%20y%3D%22420%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%221000%22%20y%3D%22420%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%221120%22%20y%3D%22420%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%221240%22%20y%3D%22420%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%221360%22%20y%3D%22420%22%2F%3E%20%3Cuse%20href%3D%22%23s%22%20x%3D%22240%22%20y%3D%22470%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%22360%22%20y%3D%22470%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%22480%22%20y%3D%22470%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%22600%22%20y%3D%22470%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%22720%22%20y%3D%22470%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%22880%22%20y%3D%22470%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%221000%22%20y%3D%22470%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%221120%22%20y%3D%22470%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%221240%22%20y%3D%22470%22%2F%3E%3Cuse%20href%3D%22%23s%22%20x%3D%221360%22%20y%3D%22470%22%2F%3E%20%3Cuse%20href%3D%22%23c%22%20x%3D%22240%22%20y%3D%22355%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%22360%22%20y%3D%22355%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%22480%22%20y%3D%22355%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%22600%22%20y%3D%22355%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%22720%22%20y%3D%22355%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%22880%22%20y%3D%22355%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%221000%22%20y%3D%22355%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%221120%22%20y%3D%22355%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%221240%22%20y%3D%22355%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%221360%22%20y%3D%22355%22%2F%3E%20%3Cuse%20href%3D%22%23c%22%20x%3D%22240%22%20y%3D%22535%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%22360%22%20y%3D%22535%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%22480%22%20y%3D%22535%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%22600%22%20y%3D%22535%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%22720%22%20y%3D%22535%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%22880%22%20y%3D%22535%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%221000%22%20y%3D%22535%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%221120%22%20y%3D%22535%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%221240%22%20y%3D%22535%22%2F%3E%3Cuse%20href%3D%22%23c%22%20x%3D%221360%22%20y%3D%22535%22%2F%3E%20%3C%2Fg%3E%20%3Ctext%20x%3D%22800%22%20y%3D%22320%22%20text-anchor%3D%22middle%22%20font-family%3D%22Bricolage%20Grotesque%2C%20Arial%2C%20sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2226%22%20fill%3D%22%23B53D2A%22%20letter-spacing%3D%224%22%3EONE%20TABLE%20%C2%B7%20TWENTY%20STRANGERS%20%C2%B7%20SEATS%20MIXED%3C%2Ftext%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Top view of one long rust table with 20 plates and 20 chairs"
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "What stands in the way",
+      "heading": "Restaurants seat us apart; a long table seats strangers together",
+      "leftLabel": "A night out",
+      "left": "Tables for two.\nYou meet nobody new.\n£60 a head.",
+      "rightLabel": "A long table",
+      "right": "One table of twenty.\nSeats mixed on purpose.\n£25 a head, host cooks.",
+      "emphasis": "right"
     },
     {
       "layout": "quote",
-      "quote": "A long table is a promise to stay.",
-      "by": "Supperclub"
+      "quote": "I moved here in June. By the cheese course I had four phone numbers.",
+      "by": "Tomás, 29 · guest at a Leeds table, October 2026"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "The plan",
+      "heading": "Three moves get 1,000 tables laid by 21 March",
+      "steps": [
+        {
+          "title": "January · Recruit",
+          "body": "Sign 1,000 volunteer hosts"
+        },
+        {
+          "title": "February · Fill",
+          "body": "Guests book 20,000 seats"
+        },
+        {
+          "title": "21 March · Eat",
+          "body": "Every table sits at 7 p.m."
+        }
+      ]
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "For hosts",
+      "heading": "Every host gets a free box with linen, cards and a menu",
+      "body": "Three courses for twenty, costed at £180.\nGuests pay £25; the surplus funds free seats.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%201050%22%3E%20%3Crect%20width%3D%221200%22%20height%3D%221050%22%20fill%3D%22%23F2E5CF%22%2F%3E%20%3Cg%20fill%3D%22none%22%20stroke%3D%22%23B53D2A%22%20stroke-width%3D%225%22%3E%20%3Cpath%20d%3D%22M200%20420%20L600%20300%20L1000%20420%20L600%20540%20Z%22%20fill%3D%22%23FAF1E2%22%2F%3E%20%3Cpath%20d%3D%22M200%20420%20V700%20L600%20820%20V540%20M1000%20420%20V700%20L600%20820%22%2F%3E%20%3C%2Fg%3E%20%3Cpath%20d%3D%22M200%20420%20L600%20540%20L1000%20420%20V700%20L600%20820%20L200%20700%20Z%22%20fill%3D%22%23B53D2A%22%20opacity%3D%220.12%22%2F%3E%20%3Cg%20font-family%3D%22Bricolage%20Grotesque%2C%20Arial%2C%20sans-serif%22%20font-weight%3D%22800%22%20fill%3D%22%23B53D2A%22%3E%20%3Cg%20transform%3D%22translate(330%20240)%20rotate(-6)%22%3E%3Crect%20width%3D%22250%22%20height%3D%22110%22%20rx%3D%2255%22%20fill%3D%22%23B53D2A%22%2F%3E%3Ctext%20x%3D%22125%22%20y%3D%2268%22%20text-anchor%3D%22middle%22%20font-size%3D%2230%22%20fill%3D%22%23FAF1E2%22%3ERUST%20LINEN%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(640%20200)%20rotate(5)%22%3E%3Crect%20width%3D%22230%22%20height%3D%22150%22%20rx%3D%2210%22%20fill%3D%22%23FAF1E2%22%20stroke%3D%22%23B53D2A%22%20stroke-width%3D%224%22%2F%3E%3Ctext%20x%3D%22115%22%20y%3D%2260%22%20text-anchor%3D%22middle%22%20font-size%3D%2226%22%3E20%20NAME%3C%2Ftext%3E%3Ctext%20x%3D%22115%22%20y%3D%22100%22%20text-anchor%3D%22middle%22%20font-size%3D%2226%22%3ECARDS%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(470%20590)%22%3E%3Crect%20width%3D%22260%22%20height%3D%22150%22%20rx%3D%2210%22%20fill%3D%22%23FAF1E2%22%20stroke%3D%22%23B53D2A%22%20stroke-width%3D%224%22%2F%3E%3Ctext%20x%3D%22130%22%20y%3D%2255%22%20text-anchor%3D%22middle%22%20font-size%3D%2224%22%3EMENU%20%C2%B7%203%20COURSES%3C%2Ftext%3E%3Ctext%20x%3D%22130%22%20y%3D%22100%22%20text-anchor%3D%22middle%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-weight%3D%22400%22%20font-style%3D%22italic%22%20font-size%3D%2222%22%3Efeeds%2020%20for%20%C2%A3180%3C%2Ftext%3E%3C%2Fg%3E%20%3C%2Fg%3E%20%3Ctext%20x%3D%22600%22%20y%3D%22920%22%20text-anchor%3D%22middle%22%20font-family%3D%22Fraunces%2C%20Georgia%2C%20serif%22%20font-style%3D%22italic%22%20font-size%3D%2234%22%20fill%3D%22%23934232%22%3EThe%20host%20box%2C%20free%20to%20the%20first%201%2C000%20hosts%3C%2Ftext%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Open host box with rust linen, 20 name cards and a three-course menu card",
+      "ratio": "2-3"
+    },
+    {
+      "layout": "metric-ring",
+      "eyebrow": "Momentum",
+      "heading": "412 hosts in 18 cities have already signed up",
+      "value": "41%",
+      "pct": 41,
+      "label": "of 1,000 hosts",
+      "lead": "As of 24 November 2026. 6,100 seats already booked."
+    },
+    {
+      "layout": "section",
+      "number": "21.03",
+      "heading": "Saturday, 21 March 2027, at 7 p.m.",
+      "lead": "One night. 1,000 tables. 20,000 strangers."
     },
     {
       "layout": "closing",
-      "eyebrow": "RSVP",
-      "heading": "Take a seat.",
-      "lead": "Next seating in two weeks.",
-      "cta": {
-        "label": "Request an invite",
-        "href": "#"
-      }
+      "eyebrow": "Your move",
+      "heading": "Host one long table of twenty on 21 March",
+      "lead": "We send the box. You set the table.",
+      "actions": [
+        {
+          "label": "Sign up to host",
+          "style": "solid",
+          "icon": "fa-solid fa-utensils"
+        },
+        {
+          "label": "Book a seat",
+          "style": "outline",
+          "icon": "fa-solid fa-chair"
+        }
+      ],
+      "notes": "Hosts first. Seats sell themselves once tables exist."
     }
   ]
 }

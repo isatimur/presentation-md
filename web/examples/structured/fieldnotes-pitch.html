@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Fieldnotes — Product Pitch</title>
-<meta name="description" content="Notebook SaaS pitch — notebook-tabs multi-slide proof." />
+<title>Fieldnotes — Series A pitch, November 2026</title>
+<meta name="description" content="Series A pitch for Fieldnotes, a tabbed team notebook: wiki problem, product, why now, traction, market, competition, model, team and a $14M ask." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,700&family=DM+Sans:wght@400;500&display=swap');
@@ -20,6 +20,12 @@
   --muted: #5c574c;
   --accent: #98d4bb;
   --accent-2: #c7b8ea;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #1a1a1a;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #419c76;
+  --accent-2-ink: #7c5ace;
   --card-bg: #ffffff;
   --border: rgba(26,26,26,0.12);
   --radius: 12px;
@@ -27,6 +33,10 @@
   --heading-font: 'Bodoni Moda', Georgia, serif;
   --body-font: 'DM Sans', system-ui, sans-serif;
   --heading-weight: 700;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,102 +6908,214 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="notebook-tabs-page">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Pitch · Series A</span>
-  <h1>Tabs for the way you think.</h1>
-  <p class="lead">Cream paper on dark. Pastel tabs. Bodoni for the title that matters.</p>
+  <span class="eyebrow">Fieldnotes · Series A · November 2026</span>
+  <h1>Team notes that stay findable, with no wiki to maintain.</h1>
+  <p class="lead">Raising $14M to take the tabbed notebook to teams.</p>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-2-1">
+    <div class="cols-copy">
+      <span class="eyebrow">Problem</span>
+      <h2>Teams lose five hours a week hunting for their own notes</h2>
+      <p class="lead">Wikis die within a quarter. Notes scatter across docs and chats. Source: 2026 survey, 1,840 workers.</p>
+    </div>
+    
+    <div class="cols-aside"><p>5.2 hours a week, per person, spent searching.</p></div>
+  </div>
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23efece4%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f8f6f1%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28199%2C184%2C234%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28239%2C236%2C228%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28199%2C184%2C234%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28199%2C184%2C234%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28199%2C184%2C234%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f8f6f1%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.5%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22200%22%20cy%3D%22100%22%20rx%3D%22420%22%20ry%3D%22280%22%20fill%3D%22rgba%28152%2C212%2C187%2C0.350%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221400%22%20cy%3D%22780%22%20rx%3D%22500%22%20ry%3D%22320%22%20fill%3D%22rgba%28199%2C184%2C234%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.9%22%3E%0A%20%20%20%20%3Crect%20x%3D%22180%22%20y%3D%22160%22%20width%3D%22520%22%20height%3D%22340%22%20rx%3D%228%22%20fill%3D%22%23efece4%22%20stroke%3D%22rgba%28152%2C212%2C187%2C0.400%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22%23f8f6f1%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.7%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22240%22%20y%3D%22470%22%20width%3D%22180%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22780%22%20y%3D%22220%22%20width%3D%22420%22%20height%3D%22280%22%20rx%3D%228%22%20fill%3D%22%23efece4%22%20stroke%3D%22rgba%28199%2C184%2C234%2C0.350%29%22%20stroke-width%3D%222%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22800%22%20y%3D%22240%22%20width%3D%22380%22%20height%3D%22220%22%20fill%3D%22rgba%28199%2C184%2C234%2C0.200%29%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Cg%20opacity%3D%220.4%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221260%22%20cy%3D%22180%22%20r%3D%2226%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221360%22%20cy%3D%22260%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221180%22%20cy%3D%22300%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="Fieldnotes cinematic surface" />
+    <img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 1600 440&#39;&gt;&lt;rect width&#x3D;&#39;1600&#39; height&#x3D;&#39;440&#39; fill&#x3D;&#39;%232d2d2d&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;120&#39; y&#x3D;&#39;30&#39; width&#x3D;&#39;1240&#39; height&#x3D;&#39;400&#39; rx&#x3D;&#39;14&#39; fill&#x3D;&#39;%23f8f6f1&#39;&#x2F;&gt;&lt;line x1&#x3D;&#39;740&#39; y1&#x3D;&#39;30&#39; x2&#x3D;&#39;740&#39; y2&#x3D;&#39;430&#39; stroke&#x3D;&#39;%23d9d4c7&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1360&#39; y&#x3D;&#39;50&#39; width&#x3D;&#39;64&#39; height&#x3D;&#39;86&#39; rx&#x3D;&#39;8&#39; fill&#x3D;&#39;%2398d4bb&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1360&#39; y&#x3D;&#39;146&#39; width&#x3D;&#39;64&#39; height&#x3D;&#39;86&#39; rx&#x3D;&#39;8&#39; fill&#x3D;&#39;%23c7b8ea&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1360&#39; y&#x3D;&#39;242&#39; width&#x3D;&#39;64&#39; height&#x3D;&#39;86&#39; rx&#x3D;&#39;8&#39; fill&#x3D;&#39;%23f4b6c2&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;sans-serif&#39; font-size&#x3D;&#39;17&#39; fill&#x3D;&#39;%231a1a1a&#39;&gt;&lt;text x&#x3D;&#39;1371&#39; y&#x3D;&#39;99&#39;&gt;Field&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1366&#39; y&#x3D;&#39;195&#39;&gt;Client&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1371&#39; y&#x3D;&#39;291&#39;&gt;Ideas&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;line x1&#x3D;&#39;190&#39; y1&#x3D;&#39;30&#39; x2&#x3D;&#39;190&#39; y2&#x3D;&#39;430&#39; stroke&#x3D;&#39;%23e8a0a0&#39; stroke-width&#x3D;&#39;2&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;220&#39; y&#x3D;&#39;100&#39; font-family&#x3D;&#39;serif&#39; font-size&#x3D;&#39;44&#39; fill&#x3D;&#39;%231a1a1a&#39;&gt;Site visit, Harbour Rd&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;220&#39; y&#x3D;&#39;136&#39; font-family&#x3D;&#39;sans-serif&#39; font-size&#x3D;&#39;18&#39; fill&#x3D;&#39;%235c574c&#39;&gt;Tue 14 Oct · tab: Field · 3 photos&lt;&#x2F;text&gt;&lt;g stroke&#x3D;&#39;%23d9d4c7&#39; stroke-width&#x3D;&#39;2&#39;&gt;&lt;line x1&#x3D;&#39;220&#39; y1&#x3D;&#39;190&#39; x2&#x3D;&#39;700&#39; y2&#x3D;&#39;190&#39;&#x2F;&gt;&lt;line x1&#x3D;&#39;220&#39; y1&#x3D;&#39;240&#39; x2&#x3D;&#39;700&#39; y2&#x3D;&#39;240&#39;&#x2F;&gt;&lt;line x1&#x3D;&#39;220&#39; y1&#x3D;&#39;290&#39; x2&#x3D;&#39;700&#39; y2&#x3D;&#39;290&#39;&#x2F;&gt;&lt;line x1&#x3D;&#39;220&#39; y1&#x3D;&#39;340&#39; x2&#x3D;&#39;700&#39; y2&#x3D;&#39;340&#39;&#x2F;&gt;&lt;&#x2F;g&gt;&lt;g fill&#x3D;&#39;%235c574c&#39; font-family&#x3D;&#39;sans-serif&#39; font-size&#x3D;&#39;20&#39;&gt;&lt;text x&#x3D;&#39;220&#39; y&#x3D;&#39;182&#39;&gt;Pump room needs a second inspection.&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;220&#39; y&#x3D;&#39;232&#39;&gt;Drainage plan due Friday.&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;220&#39; y&#x3D;&#39;282&#39;&gt;Ask Priya for the permit number.&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;rect x&#x3D;&#39;790&#39; y&#x3D;&#39;70&#39; width&#x3D;&#39;250&#39; height&#x3D;&#39;170&#39; rx&#x3D;&#39;8&#39; fill&#x3D;&#39;%2398d4bb&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1065&#39; y&#x3D;&#39;70&#39; width&#x3D;&#39;250&#39; height&#x3D;&#39;170&#39; rx&#x3D;&#39;8&#39; fill&#x3D;&#39;%23c7b8ea&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M810 220 L880 150 L930 195 L970 165 L1020 220 Z&#39; fill&#x3D;&#39;%23f8f6f1&#39; opacity&#x3D;&#39;0.7&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;1190&#39; cy&#x3D;&#39;140&#39; r&#x3D;&#39;38&#39; fill&#x3D;&#39;%23f8f6f1&#39; opacity&#x3D;&#39;0.7&#39;&#x2F;&gt;&lt;g fill&#x3D;&#39;%235c574c&#39; font-family&#x3D;&#39;sans-serif&#39; font-size&#x3D;&#39;18&#39;&gt;&lt;text x&#x3D;&#39;790&#39; y&#x3D;&#39;272&#39;&gt;Pump room, north wall&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1065&#39; y&#x3D;&#39;272&#39;&gt;Permit board&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;rect x&#x3D;&#39;790&#39; y&#x3D;&#39;300&#39; width&#x3D;&#39;525&#39; height&#x3D;&#39;56&#39; rx&#x3D;&#39;28&#39; fill&#x3D;&#39;%23efece4&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;820&#39; y&#x3D;&#39;336&#39; font-family&#x3D;&#39;sans-serif&#39; font-size&#x3D;&#39;20&#39; fill&#x3D;&#39;%235c574c&#39;&gt;Search: permit · Field tab · 1 page&lt;&#x2F;text&gt;&lt;&#x2F;svg&gt;" alt="Fieldnotes app: an open notebook page titled Site visit, Harbour Rd, with photos, a tab search bar and Field, Client and Ideas tabs on the edge." />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">Pitch · Series A</span>
-    <h2>Tabs for the way you think.</h2>
-    <p class="lead">Cream paper on dark. Pastel tabs. Bodoni for the title that matters.</p>
+    <span class="eyebrow">The product</span>
+    <h2>Fieldnotes files every page under a tab you already remember</h2>
+    <p class="lead">Write first. Tab later. Find it in two taps.</p>
+  </div>
+</section>
+
+<section class="slide timeline-slide" data-layout="timeline">
+  <span class="eyebrow">Why now</span>
+  <h2>Three shifts since 2023 turned a personal notebook into a team tool</h2>
+  <div class="timeline">
+    <div class="node">
+      <div class="dot"></div>
+      <h3>2023</h3>
+      <p>Offline search on every phone</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>2024</h3>
+      <p>Serverless sync merges edits</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>2025</h3>
+      <p>61% of wikis go stale</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>2026</h3>
+      <p>AI recall needs tidy pages</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide chart-slide" data-layout="chart">
+  <span class="eyebrow">Traction</span>
+  <h2>Weekly writers grew from 21k to 92k in five quarters</h2>
+  <p class="lead">Source: Fieldnotes product analytics, weekly actives at quarter end.</p>
+  <div class="chart-frame">
+    <svg class="pmd-chart" viewBox="0 0 920 420" width="100%" height="100%" role="img" aria-label="Chart" xmlns="http://www.w3.org/2000/svg">
+  
+  <g class="chart-grid"><line x1="52" y1="16" x2="896" y2="16" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="20" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">100</text><line x1="52" y1="106" x2="896" y2="106" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="110" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">75</text><line x1="52" y1="196" x2="896" y2="196" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="200" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">50</text><line x1="52" y1="286" x2="896" y2="286" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="290" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">25</text><line x1="52" y1="376" x2="896" y2="376" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="380" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">0</text></g>
+  <g class="chart-marks"><polyline fill="none" stroke="var(--accent-ink, var(--accent))" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="52,300.4 263,253.6 474,199.6 685,124.00000000000003 896,44.80000000000001"/><circle cx="52" cy="300.4" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="52" y="290.4" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">21</text><circle cx="263" cy="253.6" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="263" y="243.6" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">34</text><circle cx="474" cy="199.6" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="474" y="189.6" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">49</text><circle cx="685" cy="124.00000000000003" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="685" y="114.00000000000003" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">70</text><circle cx="896" cy="44.80000000000001" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="896" y="34.80000000000001" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">92</text></g>
+  <g class="chart-cats"><text x="52" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Q3 25</text><text x="263" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Q4 25</text><text x="474" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Q1 26</text><text x="685" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Q2 26</text><text x="896" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Q3 26</text></g>
+</svg>
+  </div>
+</section>
+
+<section class="slide stat-row-slide stat-row-hero" data-layout="stat-row">
+  <span class="eyebrow">Retention</span>
+  <h2>Six in ten writers still use Fieldnotes a year later</h2>
+  
+  <div class="stats">
+    <div class="stat is-mega">
+      <div class="value">61%</div>
+      <div class="label">12-month retention, Q3 2025 cohort</div>
+    </div>
+    <div class="stat">
+      <div class="value">18 min</div>
+      <div class="label">Median session, category median 7 min</div>
+    </div>
+    <div class="stat">
+      <div class="value">4.8★</div>
+      <div class="label">App Store, 11,400 ratings</div>
+    </div>
   </div>
 </section>
 
 <section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Product</span>
-  <h2>Four tabs. Zero chaos.</h2>
-  <div class="grid cols-bento">
-    <div class="card">
-      <i class="fa-solid fa-book"></i>
-      <h3>Daily pages</h3>
-      <p>Lined for notes that don&#39;t need a database.</p>
-    </div>
+  <span class="eyebrow">How it works</span>
+  <h2>Three design choices make a notebook work for a whole team</h2>
+  <div class="grid cols-3">
     <div class="card">
       <i class="fa-solid fa-tags"></i>
-      <h3>Color tabs</h3>
-      <p>Mint, lavender, pink — projects you can feel.</p>
+      <h3>Tabs, not folders</h3>
+      <p>One tap files a page.</p>
     </div>
     <div class="card">
-      <i class="fa-solid fa-link"></i>
-      <h3>Backlinks</h3>
-      <p>Ideas connect without becoming a wiki cult.</p>
+      <i class="fa-solid fa-plane-slash"></i>
+      <h3>Local first</h3>
+      <p>Works offline, syncs later.</p>
     </div>
     <div class="card">
-      <i class="fa-solid fa-mobile"></i>
-      <h3>Pocket mode</h3>
-      <p>Capture on phone; review on paper density.</p>
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <h3>Recall by tab</h3>
+      <p>Search knows the context.</p>
     </div>
-    <div class="card">
-      <i class="fa-solid fa-compass"></i>
-      <h3>Clear north star</h3>
-      <p>One decisive story beat — not a wall of equal tiles.</p>
+  </div>
+</section>
+
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">02</div>
+  <h2>The business</h2>
+  <p class="lead">Who pays, how many of them, and why we win.</p>
+</section>
+
+<section class="slide stat-row-slide" data-layout="stat-row">
+  <span class="eyebrow">Market</span>
+  <h2>4.1 million small teams make a $2.9B yearly market</h2>
+  
+  <div class="stats">
+    <div class="stat">
+      <div class="value">4.1M</div>
+      <div class="label">Teams of 5–50 in US and EU</div>
+    </div>
+    <div class="stat">
+      <div class="value">$59</div>
+      <div class="label">Average team spend per month</div>
+    </div>
+    <div class="stat">
+      <div class="value">$2.9B</div>
+      <div class="label">Bottom-up yearly market</div>
     </div>
   </div>
 </section>
 
 <section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Why us</span>
-  <h2>Wiki sprawl vs. a notebook.</h2>
+  <span class="eyebrow">Competition</span>
+  <h2>Wikis demand structure up front; Fieldnotes adds it later</h2>
   <div class="comparison-cols emphasis-right">
     <div class="comparison-col">
       <span class="comparison-label">Wikis</span>
-      <p>Empty templates.
-Search that fails.
-Guilt about structure.</p>
+      <p>Templates first.
+One owner keeps it alive.
+40 near-matches per search.</p>
     </div>
     <div class="comparison-vs" aria-hidden="true">vs</div>
     <div class="comparison-col">
       <span class="comparison-label">Fieldnotes</span>
-      <p>Pages that feel finished.
-Tabs you remember.
-Structure optional.</p>
+      <p>Write now, tab later.
+Everyone files.
+Search knows the tab.</p>
     </div>
   </div>
 </section>
 
-<section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Traction</span>
-  <h2>Writers, not hoarders.</h2>
+<section class="slide quote-slide" data-layout="quote">
+  <p class="quote">We tried two wikis in a year. Fieldnotes is the first place my crew actually writes.</p>
+  <p class="quote-by">— Priya Raman · Site lead, Halden Civil Engineering</p>
+</section>
+
+<section class="slide data-table-slide" data-layout="data-table">
+  <span class="eyebrow">Business model</span>
+  <h2>Team seats bring 78% of our $6.4M ARR</h2>
   
-  <div class="stats">
-    <div class="stat">
-      <div class="value">92k</div>
-      <div class="label">Weekly actives</div>
+  <table>
+    <thead>
+      <tr><th>Plan</th><th>Price</th><th>Share of ARR</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Pro</td><td>$6 &#x2F; month</td><td>22%</td></tr>
+      <tr><td>Team</td><td>$8 &#x2F; seat &#x2F; month</td><td>61%</td></tr>
+      <tr><td>Business</td><td>$14 &#x2F; seat &#x2F; month</td><td>17%</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide feature-grid-slide" data-layout="feature-grid">
+  <span class="eyebrow">Team</span>
+  <h2>The founders have shipped note apps to 30 million people</h2>
+  <div class="grid cols-3">
+    <div class="card">
+      <i class="fa-solid fa-user"></i>
+      <h3>Mara Lindqvist, CEO</h3>
+      <p>Led mobile notes, 20M users.</p>
     </div>
-    <div class="stat">
-      <div class="value">18min</div>
-      <div class="label">Avg session</div>
+    <div class="card">
+      <i class="fa-solid fa-user"></i>
+      <h3>Jonas Okafor, CTO</h3>
+      <p>Built a CRDT sync engine.</p>
     </div>
-    <div class="stat">
-      <div class="value">4.8★</div>
-      <div class="label">App Store</div>
+    <div class="card">
+      <i class="fa-solid fa-user"></i>
+      <h3>Elif Demir, Design</h3>
+      <p>Designed paper planners, 10M sold.</p>
     </div>
   </div>
 </section>
 
 <section class="slide title-slide closing-slide" data-layout="closing">
   <span class="eyebrow">The ask</span>
-  <h1>Fund the paper that scales.</h1>
-  <p class="lead">Raising to ship teams + offline sync.</p>
+  <h1>$14M takes findable team notes from 92k to 400k writers</h1>
+  <p class="lead">Funds team sync, an EU data region and sales through 2028.</p>
   <div class="cta-row">
-    <a class="btn" href="#"><i class="fa-solid fa-arrow-right"></i> Read the memo</a>
-    <a class="btn btn-outline" href="#"><i class="fa-solid fa-arrow-right"></i> Explore Fieldnotes</a>
+    <a class="btn" href="#"><i class="fa-solid fa-folder-open"></i> Read the data room</a>
+    <a class="btn btn-outline" href="#"><i class="fa-solid fa-calendar"></i> Book a product demo</a>
   </div>
 </section>
 
@@ -6859,7 +7203,7 @@ Structure optional.</p>
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Fieldnotes — Product Pitch","company":"Fieldnotes","description":"Notebook SaaS pitch — notebook-tabs multi-slide proof.","theme":"notebook-tabs"},"slides":[{"layout":"title","eyebrow":"Pitch · Series A","heading":"Tabs for the way you think.","lead":"Cream paper on dark. Pastel tabs. Bodoni for the title that matters.","notes":"Cold open — land the one-line claim before logos."},{"layout":"image-hero","eyebrow":"Pitch · Series A","heading":"Tabs for the way you think.","lead":"Cream paper on dark. Pastel tabs. Bodoni for the title that matters.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23efece4%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f8f6f1%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28199%2C184%2C234%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28239%2C236%2C228%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28199%2C184%2C234%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28199%2C184%2C234%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28199%2C184%2C234%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f8f6f1%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.5%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22200%22%20cy%3D%22100%22%20rx%3D%22420%22%20ry%3D%22280%22%20fill%3D%22rgba%28152%2C212%2C187%2C0.350%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221400%22%20cy%3D%22780%22%20rx%3D%22500%22%20ry%3D%22320%22%20fill%3D%22rgba%28199%2C184%2C234%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.9%22%3E%0A%20%20%20%20%3Crect%20x%3D%22180%22%20y%3D%22160%22%20width%3D%22520%22%20height%3D%22340%22%20rx%3D%228%22%20fill%3D%22%23efece4%22%20stroke%3D%22rgba%28152%2C212%2C187%2C0.400%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22%23f8f6f1%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.7%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22240%22%20y%3D%22470%22%20width%3D%22180%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22780%22%20y%3D%22220%22%20width%3D%22420%22%20height%3D%22280%22%20rx%3D%228%22%20fill%3D%22%23efece4%22%20stroke%3D%22rgba%28199%2C184%2C234%2C0.350%29%22%20stroke-width%3D%222%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22800%22%20y%3D%22240%22%20width%3D%22380%22%20height%3D%22220%22%20fill%3D%22rgba%28199%2C184%2C234%2C0.200%29%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Cg%20opacity%3D%220.4%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221260%22%20cy%3D%22180%22%20r%3D%2226%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221360%22%20cy%3D%22260%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221180%22%20cy%3D%22300%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Fieldnotes cinematic surface","notes":"Hold the visual beat — let the room feel the product."},{"layout":"feature-grid","eyebrow":"Product","heading":"Four tabs. Zero chaos.","columns":"bento","cards":[{"icon":"fa-solid fa-book","title":"Daily pages","body":"Lined for notes that don't need a database."},{"icon":"fa-solid fa-tags","title":"Color tabs","body":"Mint, lavender, pink — projects you can feel."},{"icon":"fa-solid fa-link","title":"Backlinks","body":"Ideas connect without becoming a wiki cult."},{"icon":"fa-solid fa-mobile","title":"Pocket mode","body":"Capture on phone; review on paper density."},{"icon":"fa-solid fa-compass","title":"Clear north star","body":"One decisive story beat — not a wall of equal tiles."}]},{"layout":"comparison","eyebrow":"Why us","heading":"Wiki sprawl vs. a notebook.","leftLabel":"Wikis","left":"Empty templates.\nSearch that fails.\nGuilt about structure.","rightLabel":"Fieldnotes","right":"Pages that feel finished.\nTabs you remember.\nStructure optional.","emphasis":"right","notes":"Name the loser column first, then punch the winner."},{"layout":"stat-row","eyebrow":"Traction","heading":"Writers, not hoarders.","stats":[{"value":"92k","label":"Weekly actives"},{"value":"18min","label":"Avg session"},{"value":"4.8★","label":"App Store"}]},{"layout":"closing","eyebrow":"The ask","heading":"Fund the paper that scales.","lead":"Raising to ship teams + offline sync.","actions":[{"label":"Read the memo","href":"#","style":"solid","icon":"fa-solid fa-arrow-right"},{"label":"Explore Fieldnotes","href":"#","style":"outline","icon":"fa-solid fa-arrow-right"}]}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Fieldnotes — Series A pitch, November 2026","company":"Fieldnotes","description":"Series A pitch for Fieldnotes, a tabbed team notebook: wiki problem, product, why now, traction, market, competition, model, team and a $14M ask.","theme":"notebook-tabs","genre":"pitch"},"slides":[{"layout":"title","eyebrow":"Fieldnotes · Series A · November 2026","heading":"Team notes that stay findable, with no wiki to maintain.","lead":"Raising $14M to take the tabbed notebook to teams.","notes":"Say the sentence, then stop. Mara presents; Jonas takes product questions."},{"layout":"two-column","eyebrow":"Problem","heading":"Teams lose five hours a week hunting for their own notes","ratio":"2-1","body":"Wikis die within a quarter. Notes scatter across docs and chats. Source: 2026 survey, 1,840 workers.","aside":"5.2 hours a week, per person, spent searching."},{"layout":"image-hero","eyebrow":"The product","heading":"Fieldnotes files every page under a tab you already remember","lead":"Write first. Tab later. Find it in two taps.","image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 440'>\u003crect width='1600' height='440' fill='%232d2d2d'/>\u003crect x='120' y='30' width='1240' height='400' rx='14' fill='%23f8f6f1'/>\u003cline x1='740' y1='30' x2='740' y2='430' stroke='%23d9d4c7' stroke-width='3'/>\u003crect x='1360' y='50' width='64' height='86' rx='8' fill='%2398d4bb'/>\u003crect x='1360' y='146' width='64' height='86' rx='8' fill='%23c7b8ea'/>\u003crect x='1360' y='242' width='64' height='86' rx='8' fill='%23f4b6c2'/>\u003cg font-family='sans-serif' font-size='17' fill='%231a1a1a'>\u003ctext x='1371' y='99'>Field\u003c/text>\u003ctext x='1366' y='195'>Client\u003c/text>\u003ctext x='1371' y='291'>Ideas\u003c/text>\u003c/g>\u003cline x1='190' y1='30' x2='190' y2='430' stroke='%23e8a0a0' stroke-width='2'/>\u003ctext x='220' y='100' font-family='serif' font-size='44' fill='%231a1a1a'>Site visit, Harbour Rd\u003c/text>\u003ctext x='220' y='136' font-family='sans-serif' font-size='18' fill='%235c574c'>Tue 14 Oct · tab: Field · 3 photos\u003c/text>\u003cg stroke='%23d9d4c7' stroke-width='2'>\u003cline x1='220' y1='190' x2='700' y2='190'/>\u003cline x1='220' y1='240' x2='700' y2='240'/>\u003cline x1='220' y1='290' x2='700' y2='290'/>\u003cline x1='220' y1='340' x2='700' y2='340'/>\u003c/g>\u003cg fill='%235c574c' font-family='sans-serif' font-size='20'>\u003ctext x='220' y='182'>Pump room needs a second inspection.\u003c/text>\u003ctext x='220' y='232'>Drainage plan due Friday.\u003c/text>\u003ctext x='220' y='282'>Ask Priya for the permit number.\u003c/text>\u003c/g>\u003crect x='790' y='70' width='250' height='170' rx='8' fill='%2398d4bb'/>\u003crect x='1065' y='70' width='250' height='170' rx='8' fill='%23c7b8ea'/>\u003cpath d='M810 220 L880 150 L930 195 L970 165 L1020 220 Z' fill='%23f8f6f1' opacity='0.7'/>\u003ccircle cx='1190' cy='140' r='38' fill='%23f8f6f1' opacity='0.7'/>\u003cg fill='%235c574c' font-family='sans-serif' font-size='18'>\u003ctext x='790' y='272'>Pump room, north wall\u003c/text>\u003ctext x='1065' y='272'>Permit board\u003c/text>\u003c/g>\u003crect x='790' y='300' width='525' height='56' rx='28' fill='%23efece4'/>\u003ctext x='820' y='336' font-family='sans-serif' font-size='20' fill='%235c574c'>Search: permit · Field tab · 1 page\u003c/text>\u003c/svg>","imageAlt":"Fieldnotes app: an open notebook page titled Site visit, Harbour Rd, with photos, a tab search bar and Field, Client and Ideas tabs on the edge."},{"layout":"timeline","eyebrow":"Why now","heading":"Three shifts since 2023 turned a personal notebook into a team tool","steps":[{"title":"2023","body":"Offline search on every phone"},{"title":"2024","body":"Serverless sync merges edits"},{"title":"2025","body":"61% of wikis go stale"},{"title":"2026","body":"AI recall needs tidy pages"}]},{"layout":"chart","eyebrow":"Traction","heading":"Weekly writers grew from 21k to 92k in five quarters","chartType":"line","categories":["Q3 25","Q4 25","Q1 26","Q2 26","Q3 26"],"series":[{"name":"Weekly active writers (k)","values":[21,34,49,70,92]}],"showValues":true,"lead":"Source: Fieldnotes product analytics, weekly actives at quarter end.","notes":"No paid acquisition. 74% of sign-ups come from a shared page."},{"layout":"stat-row","variant":"hero","eyebrow":"Retention","heading":"Six in ten writers still use Fieldnotes a year later","stats":[{"value":"61%","label":"12-month retention, Q3 2025 cohort"},{"value":"18 min","label":"Median session, category median 7 min"},{"value":"4.8★","label":"App Store, 11,400 ratings"}]},{"layout":"feature-grid","eyebrow":"How it works","heading":"Three design choices make a notebook work for a whole team","columns":3,"cards":[{"icon":"fa-solid fa-tags","title":"Tabs, not folders","body":"One tap files a page."},{"icon":"fa-solid fa-plane-slash","title":"Local first","body":"Works offline, syncs later."},{"icon":"fa-solid fa-magnifying-glass","title":"Recall by tab","body":"Search knows the context."}]},{"layout":"section","number":"02","heading":"The business","lead":"Who pays, how many of them, and why we win."},{"layout":"stat-row","eyebrow":"Market","heading":"4.1 million small teams make a $2.9B yearly market","stats":[{"value":"4.1M","label":"Teams of 5–50 in US and EU"},{"value":"$59","label":"Average team spend per month"},{"value":"$2.9B","label":"Bottom-up yearly market"}]},{"layout":"comparison","eyebrow":"Competition","heading":"Wikis demand structure up front; Fieldnotes adds it later","leftLabel":"Wikis","left":"Templates first.\nOne owner keeps it alive.\n40 near-matches per search.","rightLabel":"Fieldnotes","right":"Write now, tab later.\nEveryone files.\nSearch knows the tab.","emphasis":"right","notes":"Name the wikis by category, not brand. The point is the order of work."},{"layout":"quote","quote":"We tried two wikis in a year. Fieldnotes is the first place my crew actually writes.","by":"Priya Raman · Site lead, Halden Civil Engineering"},{"layout":"data-table","eyebrow":"Business model","heading":"Team seats bring 78% of our $6.4M ARR","columns":["Plan","Price","Share of ARR"],"rows":[["Pro","$6 / month","22%"],["Team","$8 / seat / month","61%"],["Business","$14 / seat / month","17%"]]},{"layout":"feature-grid","eyebrow":"Team","heading":"The founders have shipped note apps to 30 million people","columns":3,"cards":[{"icon":"fa-solid fa-user","title":"Mara Lindqvist, CEO","body":"Led mobile notes, 20M users."},{"icon":"fa-solid fa-user","title":"Jonas Okafor, CTO","body":"Built a CRDT sync engine."},{"icon":"fa-solid fa-user","title":"Elif Demir, Design","body":"Designed paper planners, 10M sold."}]},{"layout":"closing","eyebrow":"The ask","heading":"$14M takes findable team notes from 92k to 400k writers","lead":"Funds team sync, an EU data region and sales through 2028.","actions":[{"label":"Read the data room","href":"#","style":"solid","icon":"fa-solid fa-folder-open"},{"label":"Book a product demo","href":"#","style":"outline","icon":"fa-solid fa-calendar"}]}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Inkpress — Literary Launch</title>
-<meta name="description" content="Literary imprint launch — paper-ink multi-slide proof." />
+<title>Inkpress — 2026 reader study</title>
+<meta name="description" content="Research readout for the editorial board of Inkpress, a literary imprint: nine months of e-reader and interview data from 1,840 subscribers on why readers finish or abandon books, with limits and one decision." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap');
@@ -20,6 +20,12 @@
   --muted: #5c574c;
   --accent: #c41e3a;
   --accent-2: #1a1a1a;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #faf9f7;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #c41e3a;
+  --accent-2-ink: #1a1a1a;
   --card-bg: #ffffff;
   --border: rgba(26,26,26,0.15);
   --radius: 0px;
@@ -27,6 +33,10 @@
   --heading-font: 'Cormorant Garamond', Garamond, Georgia, serif;
   --body-font: 'Source Serif 4', Georgia, serif;
   --heading-weight: 600;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,119 +6908,225 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="paper-ink-literary">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Imprint · Autumn</span>
-  <h1>Paper that remembers ink.</h1>
-  <p class="lead">Cormorant headings. Crimson first letters. No pastel pretending to be literature.</p>
+  <span class="eyebrow">Inkpress · Reader study 2026 · For the editorial board</span>
+  <h1>Readers finish short books twice as often as long ones.</h1>
+  <p class="lead">Nine months of reading data from 1,840 subscribers.</p>
+</section>
+
+<section class="slide feature-grid-slide" data-layout="feature-grid">
+  <span class="eyebrow">Answer first</span>
+  <h2>Length and a monthly letter decide whether a reader finishes</h2>
+  <div class="grid cols-3">
+    <div class="card">
+      <i class="fa-solid fa-book"></i>
+      <h3>Short books get finished</h3>
+      <p>Under 200 pages: 71% finish. Over 400: 31%.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-envelope-open-text"></i>
+      <h3>Letters bring readers back</h3>
+      <p>A chapter letter lifts completion by 18 points.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-bookmark"></i>
+      <h3>Most stops are not verdicts</h3>
+      <p>Only 9% of readers who stopped disliked the book.</p>
+    </div>
+  </div>
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f0eeea%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23faf9f7%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28240%2C238%2C234%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23faf9f7%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%28196%2C30%2C58%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23f0eeea%22%20stroke%3D%22rgba%28196%2C30%2C58%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%2826%2C26%2C26%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%23c41e3a%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%28196%2C30%2C58%2C0.150%29%22%20stroke%3D%22rgba%2826%2C26%2C26%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%2826%2C26%2C26%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%2826%2C26%2C26%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="Inkpress craft visual" />
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f0eeea%22%2F%3E%20%3Cg%20transform%3D%22translate(800%20440)%20scale(0.82)%20translate(-800%20-420)%22%3E%20%3Crect%20x%3D%22200%22%20y%3D%22560%22%20width%3D%221200%22%20height%3D%2216%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Cg%20stroke%3D%22%231a1a1a%22%20stroke-width%3D%223%22%3E%20%3Crect%20x%3D%22300%22%20y%3D%22340%22%20width%3D%2256%22%20height%3D%22220%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%22356%22%20y%3D%22320%22%20width%3D%2270%22%20height%3D%22240%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Crect%20x%3D%22426%22%20y%3D%22360%22%20width%3D%2248%22%20height%3D%22200%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%22474%22%20y%3D%22300%22%20width%3D%2284%22%20height%3D%22260%22%20fill%3D%22%235c574c%22%2F%3E%20%3Crect%20x%3D%22558%22%20y%3D%22350%22%20width%3D%2252%22%20height%3D%22210%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%22610%22%20y%3D%22330%22%20width%3D%2264%22%20height%3D%22230%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Crect%20x%3D%22674%22%20y%3D%22310%22%20width%3D%2290%22%20height%3D%22250%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%22764%22%20y%3D%22355%22%20width%3D%2246%22%20height%3D%22205%22%20fill%3D%22%235c574c%22%2F%3E%20%3Crect%20x%3D%22810%22%20y%3D%22325%22%20width%3D%2272%22%20height%3D%22235%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%22882%22%20y%3D%22345%22%20width%3D%2258%22%20height%3D%22215%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Crect%20x%3D%22940%22%20y%3D%22305%22%20width%3D%2288%22%20height%3D%22255%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%221028%22%20y%3D%22340%22%20width%3D%2254%22%20height%3D%22220%22%20fill%3D%22%235c574c%22%2F%3E%20%3Crect%20x%3D%221082%22%20y%3D%22320%22%20width%3D%2266%22%20height%3D%22240%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%221148%22%20y%3D%22360%22%20width%3D%2248%22%20height%3D%22200%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Crect%20x%3D%221196%22%20y%3D%22315%22%20width%3D%2280%22%20height%3D%22245%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D%22%23c41e3a%22%3E%20%3Cpath%20d%3D%22M370%20300%20h16%20v40%20l-8%20-8%20l-8%208%20z%22%2F%3E%20%3Cpath%20d%3D%22M500%20280%20h16%20v40%20l-8%20-8%20l-8%208%20z%22%2F%3E%20%3Cpath%20d%3D%22M700%20290%20h16%20v40%20l-8%20-8%20l-8%208%20z%22%2F%3E%20%3Cpath%20d%3D%22M960%20285%20h16%20v40%20l-8%20-8%20l-8%208%20z%22%2F%3E%20%3Cpath%20d%3D%22M1215%20295%20h16%20v40%20l-8%20-8%20l-8%208%20z%22%2F%3E%20%3C%2Fg%3E%20%3Ctext%20x%3D%22800%22%20y%3D%22610%22%20text-anchor%3D%22middle%22%20font-family%3D%22Cormorant%20Garamond%2C%20Georgia%2C%20serif%22%20font-style%3D%22italic%22%20font-size%3D%2230%22%20fill%3D%22%235c574c%22%3ECrimson%20ribbons%3A%20books%20left%20half-read%2C%20all%20of%20them%20over%20300%20pages%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E" alt="Bookshelf of fifteen spines; five long books carry crimson ribbons marking where readers stopped" />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">Imprint · Autumn</span>
-    <h2>Paper that remembers ink.</h2>
-    <p class="lead">Cormorant headings. Crimson first letters. No pastel pretending to be literature.</p>
-  </div>
-</section>
-
-<section class="slide quote-slide" data-layout="quote">
-  <p class="quote">A book is a room you can carry.</p>
-  <p class="quote-by">— House motto · 2011</p>
-</section>
-
-<section class="slide two-column-slide" data-layout="two-column">
-  <div class="cols ratio-1-2 cols-reverse">
-    <div class="cols-copy">
-      <span class="eyebrow">List</span>
-      <h2>This season&#39;s three rooms</h2>
-      <p class="lead">Essays: Long arguments with short titles. Fiction — Novels that earn their page count.</p>
-    </div>
-    
-    <div class="cols-aside"><p>Urgent ideas under 80 pages.</p></div>
-  </div>
-</section>
-
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Craft</span>
-  <h2>How the imprint holds.</h2>
-  <div class="grid cols-bento">
-    <div class="card">
-      <i class="fa-solid fa-font"></i>
-      <h3>Type first</h3>
-      <p>Every cover starts with the word, not a stock mood.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-camera"></i>
-      <h3>Evidence photos</h3>
-      <p>Photography proves the room — it does not decorate it.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-droplet"></i>
-      <h3>Crimson mark</h3>
-      <p>One accent for emphasis. Never a rainbow of alerts.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-book"></i>
-      <h3>Three a year</h3>
-      <p>Scarce lists beat endless catalogs.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-feather"></i>
-      <h3>Authors as rooms</h3>
-      <p>Each title gets space to breathe on the page.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Position</span>
-  <h2>Literature, not lifestyle.</h2>
-  <div class="comparison-cols emphasis-right">
-    <div class="comparison-col">
-      <span class="comparison-label">Trend presses</span>
-      <p>Pastel covers.
-Seasonal filler.
-Authors as inventory.</p>
-    </div>
-    <div class="comparison-vs" aria-hidden="true">vs</div>
-    <div class="comparison-col">
-      <span class="comparison-label">Inkpress</span>
-      <p>Cream + charcoal.
-Three titles a year.
-Authors as rooms.</p>
-    </div>
+    <span class="eyebrow">The question</span>
+    <h2>We asked why a third of our books sit half-read</h2>
+    <p class="lead">We publish three titles a year. Each one should be finished, not only bought.</p>
   </div>
 </section>
 
 <section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Proof</span>
-  <h2>Scarce lists, durable readers.</h2>
+  <span class="eyebrow">Method</span>
+  <h2>How we studied 1,840 readers</h2>
   
   <div class="stats">
     <div class="stat">
-      <div class="value">3</div>
-      <div class="label">Titles a year</div>
+      <div class="value">1,840</div>
+      <div class="label">Subscribers who opted in, of 12,000</div>
     </div>
     <div class="stat">
-      <div class="value">12k</div>
-      <div class="label">Letter subscribers</div>
+      <div class="value">9 months</div>
+      <div class="label">E-reader page data, Feb – Oct 2026</div>
     </div>
     <div class="stat">
-      <div class="value">4.9</div>
-      <div class="label">Reader rating</div>
+      <div class="value">64</div>
+      <div class="label">Reader interviews, 45 minutes each</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide chart-slide" data-layout="chart">
+  <span class="eyebrow">Finding 1</span>
+  <h2>Completion falls from 71% to 31% once a book passes 400 pages</h2>
+  <p class="lead">Source: e-reader page data, 1,840 readers, 23 titles, Feb – Oct 2026.</p>
+  <div class="chart-frame">
+    <svg class="pmd-chart" viewBox="0 0 920 420" width="100%" height="100%" role="img" aria-label="Chart" xmlns="http://www.w3.org/2000/svg">
+  
+  <g class="chart-grid"><line x1="52" y1="16" x2="896" y2="16" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="20" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">100</text><line x1="52" y1="106" x2="896" y2="106" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="110" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">75</text><line x1="52" y1="196" x2="896" y2="196" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="200" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">50</text><line x1="52" y1="286" x2="896" y2="286" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="290" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">25</text><line x1="52" y1="376" x2="896" y2="376" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="380" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">0</text></g>
+  <g class="chart-marks"><rect x="60" y="120.4" width="193" height="255.6" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="157.5" y="114.4" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">71</text><rect x="271" y="167.20000000000002" width="193" height="208.79999999999998" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="368.5" y="161.20000000000002" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">58</text><rect x="482" y="217.6" width="193" height="158.4" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="579.5" y="211.6" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">44</text><rect x="693" y="264.4" width="193" height="111.6" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="790.5" y="258.4" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">31</text></g>
+  <g class="chart-cats"><text x="157.5" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Under 200 pp</text><text x="368.5" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">200–300 pp</text><text x="579.5" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">300–400 pp</text><text x="790.5" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Over 400 pp</text></g>
+</svg>
+  </div>
+</section>
+
+<section class="slide quote-slide" data-layout="quote">
+  <p class="quote">I don&#39;t abandon long books. I stop at page 180 and mean to go back.</p>
+  <p class="quote-by">— Reader interview #22, Edinburgh</p>
+</section>
+
+<section class="slide data-table-slide" data-layout="data-table">
+  <span class="eyebrow">Finding 2</span>
+  <h2>A monthly chapter letter lifts completion by 18 points</h2>
+  
+  <table>
+    <thead>
+      <tr><th>Group (random split)</th><th>Readers</th><th>Finished</th><th>Median days to finish</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Got the chapter letter</td><td>920</td><td>67%</td><td>24</td></tr>
+      <tr><td>No letter</td><td>920</td><td>49%</td><td>41</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide ranked-list-slide" data-layout="ranked-list">
+  <span class="eyebrow">Finding 3</span>
+  <h2>Only 9% of readers who stopped did so because they disliked the book</h2>
+  <p class="lead">Main reason for stopping, the 613 readers (one in three) who did not finish.</p>
+  <div class="ranked-list-stack">
+    <div class="ranked-list-item is-primary">
+      <span class="ranked-list-rank">1</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:38%">
+          <span class="ranked-list-label">Lost the thread after a break</span>
+          <span class="ranked-list-value">38%</span>
+        </div>
+      </div>
+    </div>
+    <div class="ranked-list-item">
+      <span class="ranked-list-rank">2</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:27%">
+          <span class="ranked-list-label">Too long for the season</span>
+          <span class="ranked-list-value">27%</span>
+        </div>
+      </div>
+    </div>
+    <div class="ranked-list-item">
+      <span class="ranked-list-rank">3</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:26%">
+          <span class="ranked-list-label">Started another book</span>
+          <span class="ranked-list-value">26%</span>
+        </div>
+      </div>
+    </div>
+    <div class="ranked-list-item">
+      <span class="ranked-list-rank">4</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:9%">
+          <span class="ranked-list-label">Disliked the book</span>
+          <span class="ranked-list-value">9%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">02</div>
+  <h2>What surprised us</h2>
+  <p class="lead">And how far to trust each result.</p>
+</section>
+
+<section class="slide comparison-slide" data-layout="comparison">
+  <span class="eyebrow">Expected vs found</span>
+  <h2>We blamed price for unfinished books; the gap was 2 points</h2>
+  <div class="comparison-cols emphasis-right">
+    <div class="comparison-col">
+      <span class="comparison-label">What we expected</span>
+      <p>Cheaper editions get finished.
+Readers quit in the first chapters.</p>
+    </div>
+    <div class="comparison-vs" aria-hidden="true">vs</div>
+    <div class="comparison-col">
+      <span class="comparison-label">What we found</span>
+      <p>£12 vs £18 editions: 2-point gap.
+Readers stop at pages 150–200.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide data-table-slide" data-layout="data-table">
+  <span class="eyebrow">Limits</span>
+  <h2>The letter result is firm; the length result needs care</h2>
+  
+  <table>
+    <thead>
+      <tr><th>Claim</th><th>Confidence</th><th>Why</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Letters lift completion 18 pts</td><td>High</td><td>Random split, same titles</td></tr>
+      <tr><td>Long books finish less</td><td>Medium</td><td>Our long titles are also denser essays</td></tr>
+      <tr><td>Reasons for stopping</td><td>Medium</td><td>Self-reported in interviews</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide ranked-list-slide" data-layout="ranked-list">
+  <span class="eyebrow">Recommendations</span>
+  <h2>A chapter letter for every 2027 title would lift completion most</h2>
+  <p class="lead">Estimated effect on completion, in points.</p>
+  <div class="ranked-list-stack">
+    <div class="ranked-list-item is-primary">
+      <span class="ranked-list-rank">1</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:100%">
+          <span class="ranked-list-label">Chapter letter for every title</span>
+          <span class="ranked-list-value">+18 pts</span>
+        </div>
+      </div>
+    </div>
+    <div class="ranked-list-item">
+      <span class="ranked-list-rank">2</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:61%">
+          <span class="ranked-list-label">Split books over 400 pages into two volumes</span>
+          <span class="ranked-list-value">+11 pts</span>
+        </div>
+      </div>
+    </div>
+    <div class="ranked-list-item">
+      <span class="ranked-list-rank">3</span>
+      <div class="ranked-list-track">
+        <div class="ranked-list-fill" style="width:22%">
+          <span class="ranked-list-label">Pause-point bookmark at page 150</span>
+          <span class="ranked-list-value">+4 pts</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">Subscribe</span>
-  <h1>Join the imprint list.</h1>
-  <p class="lead">Three titles a year. One letter a month.</p>
+  <span class="eyebrow">Decision for the board</span>
+  <h1>Shorter books and chapter letters will get our books finished</h1>
+  <p class="lead">Approve chapter letters for all three 2027 titles: £14k a year.</p>
   <div class="cta-row">
-    <a class="btn" href="#"><i class="fa-solid fa-envelope"></i> Join the list</a>
-    <a class="btn btn-outline" href="#"><i class="fa-solid fa-book-open"></i> Request a sample</a>
+    <a class="btn" href="#"><i class="fa-solid fa-check"></i> Approve chapter letters</a>
+    <a class="btn btn-outline" href="#"><i class="fa-solid fa-book-open"></i> Read the full study</a>
   </div>
 </section>
 
@@ -6876,7 +7214,7 @@ Authors as rooms.</p>
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Inkpress — Literary Launch","company":"Inkpress","description":"Literary imprint launch — paper-ink multi-slide proof.","theme":"paper-ink"},"slides":[{"layout":"title","eyebrow":"Imprint · Autumn","heading":"Paper that remembers ink.","lead":"Cormorant headings. Crimson first letters. No pastel pretending to be literature.","notes":"Crimson is emphasis — never decoration. Say it once."},{"layout":"image-hero","eyebrow":"Imprint · Autumn","heading":"Paper that remembers ink.","lead":"Cormorant headings. Crimson first letters. No pastel pretending to be literature.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f0eeea%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23faf9f7%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28240%2C238%2C234%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23faf9f7%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%28196%2C30%2C58%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23f0eeea%22%20stroke%3D%22rgba%28196%2C30%2C58%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%2826%2C26%2C26%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%23c41e3a%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%28196%2C30%2C58%2C0.150%29%22%20stroke%3D%22rgba%2826%2C26%2C26%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%2826%2C26%2C26%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%2826%2C26%2C26%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Inkpress craft visual"},{"layout":"quote","quote":"A book is a room you can carry.","by":"House motto · 2011"},{"layout":"two-column","eyebrow":"List","heading":"This season's three rooms","body":"Essays: Long arguments with short titles. Fiction — Novels that earn their page count.","aside":"Urgent ideas under 80 pages.","ratio":"1-2","reverse":true},{"layout":"feature-grid","eyebrow":"Craft","heading":"How the imprint holds.","columns":"bento","cards":[{"icon":"fa-solid fa-font","title":"Type first","body":"Every cover starts with the word, not a stock mood."},{"icon":"fa-solid fa-camera","title":"Evidence photos","body":"Photography proves the room — it does not decorate it."},{"icon":"fa-solid fa-droplet","title":"Crimson mark","body":"One accent for emphasis. Never a rainbow of alerts."},{"icon":"fa-solid fa-book","title":"Three a year","body":"Scarce lists beat endless catalogs."},{"icon":"fa-solid fa-feather","title":"Authors as rooms","body":"Each title gets space to breathe on the page."}],"notes":"Bento hero card carries type-first — the imprint spine."},{"layout":"comparison","eyebrow":"Position","heading":"Literature, not lifestyle.","leftLabel":"Trend presses","left":"Pastel covers.\nSeasonal filler.\nAuthors as inventory.","rightLabel":"Inkpress","right":"Cream + charcoal.\nThree titles a year.\nAuthors as rooms.","emphasis":"right"},{"layout":"stat-row","eyebrow":"Proof","heading":"Scarce lists, durable readers.","stats":[{"value":"3","label":"Titles a year"},{"value":"12k","label":"Letter subscribers"},{"value":"4.9","label":"Reader rating"}]},{"layout":"closing","eyebrow":"Subscribe","heading":"Join the imprint list.","lead":"Three titles a year. One letter a month.","actions":[{"label":"Join the list","href":"#","style":"solid","icon":"fa-solid fa-envelope"},{"label":"Request a sample","href":"#","style":"outline","icon":"fa-solid fa-book-open"}],"notes":"Sample PDF for agents; list for readers."}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Inkpress — 2026 reader study","company":"Inkpress","description":"Research readout for the editorial board of Inkpress, a literary imprint: nine months of e-reader and interview data from 1,840 subscribers on why readers finish or abandon books, with limits and one decision.","theme":"paper-ink","genre":"research"},"slides":[{"layout":"title","eyebrow":"Inkpress · Reader study 2026 · For the editorial board","heading":"Readers finish short books twice as often as long ones.","lead":"Nine months of reading data from 1,840 subscribers.","notes":"The board asked why sales are healthy but reviews are thin. This is the answer: people buy our books and do not finish them."},{"layout":"feature-grid","eyebrow":"Answer first","heading":"Length and a monthly letter decide whether a reader finishes","columns":3,"cards":[{"icon":"fa-solid fa-book","title":"Short books get finished","body":"Under 200 pages: 71% finish. Over 400: 31%."},{"icon":"fa-solid fa-envelope-open-text","title":"Letters bring readers back","body":"A chapter letter lifts completion by 18 points."},{"icon":"fa-solid fa-bookmark","title":"Most stops are not verdicts","body":"Only 9% of readers who stopped disliked the book."}]},{"layout":"image-hero","eyebrow":"The question","heading":"We asked why a third of our books sit half-read","lead":"We publish three titles a year. Each one should be finished, not only bought.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f0eeea%22%2F%3E%20%3Cg%20transform%3D%22translate(800%20440)%20scale(0.82)%20translate(-800%20-420)%22%3E%20%3Crect%20x%3D%22200%22%20y%3D%22560%22%20width%3D%221200%22%20height%3D%2216%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Cg%20stroke%3D%22%231a1a1a%22%20stroke-width%3D%223%22%3E%20%3Crect%20x%3D%22300%22%20y%3D%22340%22%20width%3D%2256%22%20height%3D%22220%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%22356%22%20y%3D%22320%22%20width%3D%2270%22%20height%3D%22240%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Crect%20x%3D%22426%22%20y%3D%22360%22%20width%3D%2248%22%20height%3D%22200%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%22474%22%20y%3D%22300%22%20width%3D%2284%22%20height%3D%22260%22%20fill%3D%22%235c574c%22%2F%3E%20%3Crect%20x%3D%22558%22%20y%3D%22350%22%20width%3D%2252%22%20height%3D%22210%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%22610%22%20y%3D%22330%22%20width%3D%2264%22%20height%3D%22230%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Crect%20x%3D%22674%22%20y%3D%22310%22%20width%3D%2290%22%20height%3D%22250%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%22764%22%20y%3D%22355%22%20width%3D%2246%22%20height%3D%22205%22%20fill%3D%22%235c574c%22%2F%3E%20%3Crect%20x%3D%22810%22%20y%3D%22325%22%20width%3D%2272%22%20height%3D%22235%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%22882%22%20y%3D%22345%22%20width%3D%2258%22%20height%3D%22215%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Crect%20x%3D%22940%22%20y%3D%22305%22%20width%3D%2288%22%20height%3D%22255%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%221028%22%20y%3D%22340%22%20width%3D%2254%22%20height%3D%22220%22%20fill%3D%22%235c574c%22%2F%3E%20%3Crect%20x%3D%221082%22%20y%3D%22320%22%20width%3D%2266%22%20height%3D%22240%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%221148%22%20y%3D%22360%22%20width%3D%2248%22%20height%3D%22200%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Crect%20x%3D%221196%22%20y%3D%22315%22%20width%3D%2280%22%20height%3D%22245%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D%22%23c41e3a%22%3E%20%3Cpath%20d%3D%22M370%20300%20h16%20v40%20l-8%20-8%20l-8%208%20z%22%2F%3E%20%3Cpath%20d%3D%22M500%20280%20h16%20v40%20l-8%20-8%20l-8%208%20z%22%2F%3E%20%3Cpath%20d%3D%22M700%20290%20h16%20v40%20l-8%20-8%20l-8%208%20z%22%2F%3E%20%3Cpath%20d%3D%22M960%20285%20h16%20v40%20l-8%20-8%20l-8%208%20z%22%2F%3E%20%3Cpath%20d%3D%22M1215%20295%20h16%20v40%20l-8%20-8%20l-8%208%20z%22%2F%3E%20%3C%2Fg%3E%20%3Ctext%20x%3D%22800%22%20y%3D%22610%22%20text-anchor%3D%22middle%22%20font-family%3D%22Cormorant%20Garamond%2C%20Georgia%2C%20serif%22%20font-style%3D%22italic%22%20font-size%3D%2230%22%20fill%3D%22%235c574c%22%3ECrimson%20ribbons%3A%20books%20left%20half-read%2C%20all%20of%20them%20over%20300%20pages%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E","imageAlt":"Bookshelf of fifteen spines; five long books carry crimson ribbons marking where readers stopped"},{"layout":"stat-row","eyebrow":"Method","heading":"How we studied 1,840 readers","stats":[{"value":"1,840","label":"Subscribers who opted in, of 12,000"},{"value":"9 months","label":"E-reader page data, Feb – Oct 2026"},{"value":"64","label":"Reader interviews, 45 minutes each"}]},{"layout":"chart","eyebrow":"Finding 1","heading":"Completion falls from 71% to 31% once a book passes 400 pages","chartType":"bar","categories":["Under 200 pp","200–300 pp","300–400 pp","Over 400 pp"],"series":[{"name":"Readers who finished (%)","values":[71,58,44,31]}],"showValues":true,"lead":"Source: e-reader page data, 1,840 readers, 23 titles, Feb – Oct 2026."},{"layout":"quote","quote":"I don't abandon long books. I stop at page 180 and mean to go back.","by":"Reader interview #22, Edinburgh"},{"layout":"data-table","eyebrow":"Finding 2","heading":"A monthly chapter letter lifts completion by 18 points","columns":["Group (random split)","Readers","Finished","Median days to finish"],"rows":[["Got the chapter letter","920","67%","24"],["No letter","920","49%","41"]],"notes":"This is our strongest result: a random split, same books, same months. Lean on it."},{"layout":"ranked-list","eyebrow":"Finding 3","heading":"Only 9% of readers who stopped did so because they disliked the book","lead":"Main reason for stopping, the 613 readers (one in three) who did not finish.","items":[{"rank":"1","label":"Lost the thread after a break","value":"38%","widthPct":38},{"rank":"2","label":"Too long for the season","value":"27%","widthPct":27},{"rank":"3","label":"Started another book","value":"26%","widthPct":26},{"rank":"4","label":"Disliked the book","value":"9%","widthPct":9}]},{"layout":"section","number":"02","heading":"What surprised us","lead":"And how far to trust each result."},{"layout":"comparison","eyebrow":"Expected vs found","heading":"We blamed price for unfinished books; the gap was 2 points","leftLabel":"What we expected","left":"Cheaper editions get finished.\nReaders quit in the first chapters.","rightLabel":"What we found","right":"£12 vs £18 editions: 2-point gap.\nReaders stop at pages 150–200.","emphasis":"right"},{"layout":"data-table","eyebrow":"Limits","heading":"The letter result is firm; the length result needs care","columns":["Claim","Confidence","Why"],"rows":[["Letters lift completion 18 pts","High","Random split, same titles"],["Long books finish less","Medium","Our long titles are also denser essays"],["Reasons for stopping","Medium","Self-reported in interviews"]],"notes":"Name the length caveat before anyone else does. Genre and length move together in our list."},{"layout":"ranked-list","eyebrow":"Recommendations","heading":"A chapter letter for every 2027 title would lift completion most","lead":"Estimated effect on completion, in points.","items":[{"rank":"1","label":"Chapter letter for every title","value":"+18 pts","widthPct":100},{"rank":"2","label":"Split books over 400 pages into two volumes","value":"+11 pts","widthPct":61},{"rank":"3","label":"Pause-point bookmark at page 150","value":"+4 pts","widthPct":22}]},{"layout":"closing","eyebrow":"Decision for the board","heading":"Shorter books and chapter letters will get our books finished","lead":"Approve chapter letters for all three 2027 titles: £14k a year.","actions":[{"label":"Approve chapter letters","style":"solid","icon":"fa-solid fa-check"},{"label":"Read the full study","style":"outline","icon":"fa-solid fa-book-open"}]}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {

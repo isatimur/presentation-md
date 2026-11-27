@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Mallsoft — Launch</title>
-<meta name="description" content="Vaporwave consumer launch — vaporwave multi-slide proof." />
+<title>Mallsoft — Launch keynote, 12 December 2026</title>
+<meta name="description" content="Launch keynote for Mallsoft, a shopping app built like a 1990s mall: 3 floors, 240 independent shops, drops that open when the lobby song ends, and group carts. Opens Friday 12 December 2026." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Monoton&family=Space+Mono:wght@400;700&family=VT323&display=swap');
@@ -20,6 +20,12 @@
   --muted: #c4a8ff;
   --accent: #ff6ad5;
   --accent-2: #5ce1ff;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #1a0533;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #ff6ad5;
+  --accent-2-ink: #5ce1ff;
   --card-bg: rgba(255,106,213,0.08);
   --border: rgba(92,225,255,0.28);
   --radius: 6px;
@@ -27,6 +33,10 @@
   --heading-font: 'Monoton', display, cursive;
   --body-font: 'Space Mono', monospace;
   --heading-weight: 400;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,127 +6908,130 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="vapor-horizon">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Opening soon</span>
-  <h1>AESTHETIC MALL.</h1>
-  <p class="lead">Dusk purple. Pink chrome. Teal grid. Nostalgia with a checkout.</p>
+  <span class="eyebrow">Mallsoft · Launch keynote · Friday 12 December 2026</span>
+  <h1>A mall you can wander again, online.</h1>
+  <p class="lead">240 independent shops. Doors open Friday at dusk.</p>
 </section>
 
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Floors</span>
-  <h2>Three levels of dusk</h2>
-  <div class="grid cols-bento">
-    <div class="card">
-      <i class="fa-solid fa-shirt"></i>
-      <h3>Arcade apparel</h3>
-      <p>Drops that look like 1992 and ship tomorrow.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-music"></i>
-      <h3>Lobby mixes</h3>
-      <p>Playlists curated like fountain music.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-bag-shopping"></i>
-      <h3>Food court NFT</h3>
-      <p>Just kidding — real snacks, real lines.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-eye"></i>
-      <h3>Show, don&#39;t pad</h3>
-      <p>Asymmetry beats another identical third column.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-compass"></i>
-      <h3>Clear north star</h3>
-      <p>One decisive story beat — not a wall of equal tiles.</p>
-    </div>
+<section class="slide quote-slide" data-layout="quote">
+  <p class="quote">I open a shopping app, type what I want, and leave. I haven&#39;t discovered anything in years.</p>
+  <p class="quote-by">— Jess, 27 · beta interview, September 2026</p>
+</section>
+
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 1600 900&#39;&gt;&lt;defs&gt;&lt;linearGradient id&#x3D;&#39;s&#39; x1&#x3D;&#39;0&#39; y1&#x3D;&#39;0&#39; x2&#x3D;&#39;0&#39; y2&#x3D;&#39;1&#39;&gt;&lt;stop offset&#x3D;&#39;0&#39; stop-color&#x3D;&#39;%231a0533&#39;&#x2F;&gt;&lt;stop offset&#x3D;&#39;.6&#39; stop-color&#x3D;&#39;%232d1060&#39;&#x2F;&gt;&lt;stop offset&#x3D;&#39;1&#39; stop-color&#x3D;&#39;%23ff6ad5&#39;&#x2F;&gt;&lt;&#x2F;linearGradient&gt;&lt;&#x2F;defs&gt;&lt;rect width&#x3D;&#39;1600&#39; height&#x3D;&#39;900&#39; fill&#x3D;&#39;url(%23s)&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;Helvetica,Arial,sans-serif&#39;&gt;&lt;text x&#x3D;&#39;120&#39; y&#x3D;&#39;314&#39; font-size&#x3D;&#39;24&#39; font-weight&#x3D;&#39;700&#39; fill&#x3D;&#39;%23ff6ad5&#39; letter-spacing&#x3D;&#39;4&#39;&gt;MALLSOFT&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1480&#39; y&#x3D;&#39;314&#39; font-size&#x3D;&#39;22&#39; fill&#x3D;&#39;%23c4a8ff&#39; text-anchor&#x3D;&#39;end&#39;&gt;Floor 1 of 3 · Apparel · 84 shops open&lt;&#x2F;text&gt;&lt;g fill&#x3D;&#39;%232d1060&#39; stroke&#x3D;&#39;%23ff6ad5&#39; stroke-width&#x3D;&#39;3&#39;&gt;&lt;rect x&#x3D;&#39;120&#39; y&#x3D;&#39;334&#39; width&#x3D;&#39;316&#39; height&#x3D;&#39;220&#39; rx&#x3D;&#39;12&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;468&#39; y&#x3D;&#39;334&#39; width&#x3D;&#39;316&#39; height&#x3D;&#39;220&#39; rx&#x3D;&#39;12&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;816&#39; y&#x3D;&#39;334&#39; width&#x3D;&#39;316&#39; height&#x3D;&#39;220&#39; rx&#x3D;&#39;12&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1164&#39; y&#x3D;&#39;334&#39; width&#x3D;&#39;316&#39; height&#x3D;&#39;220&#39; rx&#x3D;&#39;12&#39;&#x2F;&gt;&lt;&#x2F;g&gt;&lt;g fill&#x3D;&#39;%235ce1ff&#39; fill-opacity&#x3D;&#39;.18&#39;&gt;&lt;rect x&#x3D;&#39;138&#39; y&#x3D;&#39;352&#39; width&#x3D;&#39;280&#39; height&#x3D;&#39;100&#39; rx&#x3D;&#39;8&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;486&#39; y&#x3D;&#39;352&#39; width&#x3D;&#39;280&#39; height&#x3D;&#39;100&#39; rx&#x3D;&#39;8&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;834&#39; y&#x3D;&#39;352&#39; width&#x3D;&#39;280&#39; height&#x3D;&#39;100&#39; rx&#x3D;&#39;8&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1182&#39; y&#x3D;&#39;352&#39; width&#x3D;&#39;280&#39; height&#x3D;&#39;100&#39; rx&#x3D;&#39;8&#39;&#x2F;&gt;&lt;&#x2F;g&gt;&lt;g font-size&#x3D;&#39;26&#39; font-weight&#x3D;&#39;700&#39; fill&#x3D;&#39;%23fff0f9&#39;&gt;&lt;text x&#x3D;&#39;140&#39; y&#x3D;&#39;494&#39;&gt;Arcade Threads&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;488&#39; y&#x3D;&#39;494&#39;&gt;Palm &amp;amp; Pixel&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;836&#39; y&#x3D;&#39;494&#39;&gt;Mono Denim Co.&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1184&#39; y&#x3D;&#39;494&#39;&gt;Velour Hours&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;g font-size&#x3D;&#39;20&#39; fill&#x3D;&#39;%23c4a8ff&#39;&gt;&lt;text x&#x3D;&#39;140&#39; y&#x3D;&#39;528&#39;&gt;Windbreakers · 1992 cuts&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;488&#39; y&#x3D;&#39;528&#39;&gt;Printed tees&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;836&#39; y&#x3D;&#39;528&#39;&gt;Raw denim&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1184&#39; y&#x3D;&#39;528&#39;&gt;Tracksuits&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;g font-size&#x3D;&#39;18&#39; font-weight&#x3D;&#39;700&#39; fill&#x3D;&#39;%231a0533&#39;&gt;&lt;rect x&#x3D;&#39;334&#39; y&#x3D;&#39;364&#39; width&#x3D;&#39;70&#39; height&#x3D;&#39;30&#39; rx&#x3D;&#39;15&#39; fill&#x3D;&#39;%235ce1ff&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;369&#39; y&#x3D;&#39;385&#39; text-anchor&#x3D;&#39;middle&#39;&gt;OPEN&lt;&#x2F;text&gt;&lt;rect x&#x3D;&#39;682&#39; y&#x3D;&#39;364&#39; width&#x3D;&#39;70&#39; height&#x3D;&#39;30&#39; rx&#x3D;&#39;15&#39; fill&#x3D;&#39;%235ce1ff&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;717&#39; y&#x3D;&#39;385&#39; text-anchor&#x3D;&#39;middle&#39;&gt;OPEN&lt;&#x2F;text&gt;&lt;rect x&#x3D;&#39;1000&#39; y&#x3D;&#39;364&#39; width&#x3D;&#39;100&#39; height&#x3D;&#39;30&#39; rx&#x3D;&#39;15&#39; fill&#x3D;&#39;%23ff6ad5&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;1050&#39; y&#x3D;&#39;385&#39; text-anchor&#x3D;&#39;middle&#39;&gt;DROP 7PM&lt;&#x2F;text&gt;&lt;rect x&#x3D;&#39;1378&#39; y&#x3D;&#39;364&#39; width&#x3D;&#39;70&#39; height&#x3D;&#39;30&#39; rx&#x3D;&#39;15&#39; fill&#x3D;&#39;%235ce1ff&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;1413&#39; y&#x3D;&#39;385&#39; text-anchor&#x3D;&#39;middle&#39;&gt;OPEN&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="Mallsoft storefront row on Floor 1: four independent apparel shops, one with a 7 pm drop badge" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">Introducing Mallsoft</span>
+    <h2>Meet Mallsoft: three floors and 240 shops to get lost in</h2>
+    <p class="lead">No search bar on the front door. You walk in.</p>
   </div>
 </section>
 
-<section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Vibe check</span>
-  <h2>Generic drop vs. mallsoft.</h2>
-  <div class="comparison-cols emphasis-right">
-    <div class="comparison-col">
-      <span class="comparison-label">Hype cycle</span>
-      <p>Black tees.
-Same font.
-Gone in a week.</p>
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">01</div>
+  <h2>How it works</h2>
+  <p class="lead">Three things no shopping app does.</p>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-2-1 cols-reverse">
+    <div class="cols-copy">
+      <span class="eyebrow">Feature 1 · Floors</span>
+      <h2>Walk the floors and find shops you never searched for</h2>
+      <p class="lead">Shops sit on floors, not in search results.
+Ride the escalator to Records &amp; tech.</p>
     </div>
-    <div class="comparison-vs" aria-hidden="true">vs</div>
-    <div class="comparison-col">
-      <span class="comparison-label">Mallsoft</span>
-      <p>Dusk palette.
-Monoton titles.
-A world you revisit.</p>
-    </div>
+    <div class="media"><img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 600 1000&#39;&gt;&lt;rect width&#x3D;&#39;600&#39; height&#x3D;&#39;1000&#39; fill&#x3D;&#39;%231a0533&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;Helvetica,Arial,sans-serif&#39;&gt;&lt;text x&#x3D;&#39;300&#39; y&#x3D;&#39;110&#39; font-size&#x3D;&#39;24&#39; fill&#x3D;&#39;%23c4a8ff&#39; letter-spacing&#x3D;&#39;3&#39; text-anchor&#x3D;&#39;middle&#39;&gt;DIRECTORY · 240 SHOPS&lt;&#x2F;text&gt;&lt;g fill&#x3D;&#39;%232d1060&#39; stroke-width&#x3D;&#39;3&#39;&gt;&lt;polygon points&#x3D;&#39;300,170 560,280 300,390 40,280&#39; stroke&#x3D;&#39;%23c4a8ff&#39;&#x2F;&gt;&lt;polygon points&#x3D;&#39;300,390 560,500 300,610 40,500&#39; stroke&#x3D;&#39;%235ce1ff&#39;&#x2F;&gt;&lt;polygon points&#x3D;&#39;300,610 560,720 300,830 40,720&#39; stroke&#x3D;&#39;%23ff6ad5&#39;&#x2F;&gt;&lt;&#x2F;g&gt;&lt;g stroke&#x3D;&#39;%23fff0f9&#39; stroke-width&#x3D;&#39;5&#39; stroke-dasharray&#x3D;&#39;4 10&#39;&gt;&lt;line x1&#x3D;&#39;170&#39; y1&#x3D;&#39;320&#39; x2&#x3D;&#39;170&#39; y2&#x3D;&#39;540&#39;&#x2F;&gt;&lt;line x1&#x3D;&#39;430&#39; y1&#x3D;&#39;540&#39; x2&#x3D;&#39;430&#39; y2&#x3D;&#39;760&#39;&#x2F;&gt;&lt;&#x2F;g&gt;&lt;g font-size&#x3D;&#39;24&#39; font-weight&#x3D;&#39;700&#39; text-anchor&#x3D;&#39;middle&#39;&gt;&lt;text x&#x3D;&#39;300&#39; y&#x3D;&#39;278&#39; fill&#x3D;&#39;%23c4a8ff&#39;&gt;3 · Home &amp;amp; light&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;300&#39; y&#x3D;&#39;498&#39; fill&#x3D;&#39;%235ce1ff&#39;&gt;2 · Records &amp;amp; tech&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;300&#39; y&#x3D;&#39;718&#39; fill&#x3D;&#39;%23ff6ad5&#39;&gt;1 · Apparel&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;circle cx&#x3D;&#39;300&#39; cy&#x3D;&#39;770&#39; r&#x3D;&#39;13&#39; fill&#x3D;&#39;%23ff6ad5&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;300&#39; cy&#x3D;&#39;770&#39; r&#x3D;&#39;26&#39; fill&#x3D;&#39;none&#39; stroke&#x3D;&#39;%23ff6ad5&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;300&#39; y&#x3D;&#39;900&#39; font-size&#x3D;&#39;24&#39; fill&#x3D;&#39;%23fff0f9&#39; text-anchor&#x3D;&#39;middle&#39;&gt;You are here · Floor 1&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="Mall directory: three stacked floors linked by escalators, with a You are here marker on Floor 1" /></div>
+    
   </div>
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232d1060%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%231a0533%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C106%2C213%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C106%2C213%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2892%2C225%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28255%2C106%2C213%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2845%2C16%2C96%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C106%2C213%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28255%2C106%2C213%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C106%2C213%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2892%2C225%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2892%2C225%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2892%2C225%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%231a0533%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.9%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22880%22%20cy%3D%22220%22%20rx%3D%22220%22%20ry%3D%22140%22%20fill%3D%22rgba%2892%2C225%2C255%2C0.220%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M0%20640%20C320%20520%20640%20780%20960%20600%20S1400%20480%201600%20560%20L1600%20900%20L0%20900%20Z%22%20fill%3D%22rgba%28255%2C106%2C213%2C0.120%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.55%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22260%22%20cy%3D%22180%22%20r%3D%2218%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22520%22%20cy%3D%22140%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22980%22%20cy%3D%22210%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22320%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221100%22%20cy%3D%22120%22%20r%3D%228%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="Mallsoft craft visual" />
+    <img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 1600 900&#39;&gt;&lt;rect width&#x3D;&#39;1600&#39; height&#x3D;&#39;900&#39; fill&#x3D;&#39;%231a0533&#39;&#x2F;&gt;&lt;g stroke&#x3D;&#39;%23ff6ad5&#39; stroke-opacity&#x3D;&#39;.25&#39; stroke-width&#x3D;&#39;3&#39; fill&#x3D;&#39;none&#39;&gt;&lt;circle cx&#x3D;&#39;1280&#39; cy&#x3D;&#39;430&#39; r&#x3D;&#39;120&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;1280&#39; cy&#x3D;&#39;430&#39; r&#x3D;&#39;180&#39;&#x2F;&gt;&lt;&#x2F;g&gt;&lt;g font-family&#x3D;&#39;Helvetica,Arial,sans-serif&#39;&gt;&lt;rect x&#x3D;&#39;160&#39; y&#x3D;&#39;290&#39; width&#x3D;&#39;900&#39; height&#x3D;&#39;280&#39; rx&#x3D;&#39;18&#39; fill&#x3D;&#39;%232d1060&#39; stroke&#x3D;&#39;%235ce1ff&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;200&#39; y&#x3D;&#39;336&#39; font-size&#x3D;&#39;20&#39; fill&#x3D;&#39;%235ce1ff&#39; letter-spacing&#x3D;&#39;4&#39;&gt;LOBBY RADIO · NOW PLAYING · DJ PALMTREE&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;200&#39; y&#x3D;&#39;388&#39; font-size&#x3D;&#39;42&#39; font-weight&#x3D;&#39;700&#39; fill&#x3D;&#39;%23fff0f9&#39;&gt;Fountain at Dusk&lt;&#x2F;text&gt;&lt;rect x&#x3D;&#39;200&#39; y&#x3D;&#39;414&#39; width&#x3D;&#39;820&#39; height&#x3D;&#39;12&#39; rx&#x3D;&#39;6&#39; fill&#x3D;&#39;%23fff0f9&#39; fill-opacity&#x3D;&#39;.15&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;200&#39; y&#x3D;&#39;414&#39; width&#x3D;&#39;676&#39; height&#x3D;&#39;12&#39; rx&#x3D;&#39;6&#39; fill&#x3D;&#39;%23ff6ad5&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;200&#39; y&#x3D;&#39;458&#39; font-size&#x3D;&#39;22&#39; fill&#x3D;&#39;%23c4a8ff&#39;&gt;2:53&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1020&#39; y&#x3D;&#39;458&#39; font-size&#x3D;&#39;22&#39; fill&#x3D;&#39;%23c4a8ff&#39; text-anchor&#x3D;&#39;end&#39;&gt;3:30&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;200&#39; y&#x3D;&#39;504&#39; font-size&#x3D;&#39;26&#39; font-weight&#x3D;&#39;700&#39; fill&#x3D;&#39;%23ff6ad5&#39;&gt;Next drop: Arcade Threads windbreaker&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;200&#39; y&#x3D;&#39;544&#39; font-size&#x3D;&#39;22&#39; fill&#x3D;&#39;%23fff0f9&#39;&gt;Opens when the song ends · 18,420 listeners in line&lt;&#x2F;text&gt;&lt;circle cx&#x3D;&#39;1280&#39; cy&#x3D;&#39;430&#39; r&#x3D;&#39;64&#39; fill&#x3D;&#39;%23ff6ad5&#39;&#x2F;&gt;&lt;polygon points&#x3D;&#39;1262,398 1262,462 1312,430&#39; fill&#x3D;&#39;%231a0533&#39;&#x2F;&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="Lobby Radio player: a song at 2:53 of 3:30, with the next drop opening when it ends and 18,420 listeners in line" />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">Opening soon</span>
-    <h2>AESTHETIC MALL.</h2>
-    <p class="lead">Dusk purple. Pink chrome. Teal grid. Nostalgia with a checkout.</p>
+    <span class="eyebrow">Feature 2 · Lobby Radio</span>
+    <h2>Each drop opens when the lobby song ends, so bots lose</h2>
+    <p class="lead">Only people listening in the lobby join the line.</p>
   </div>
 </section>
 
-<section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Hype</span>
-  <h2>The mall is metric.</h2>
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-2-1">
+    <div class="cols-copy">
+      <span class="eyebrow">Feature 3 · Food Court</span>
+      <h2>Food Court carts let four friends shop and pay together</h2>
+      <p class="lead">One cart, four phones.
+Each friend pays a share at checkout.</p>
+    </div>
+    <div class="media"><img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 600 1000&#39;&gt;&lt;rect width&#x3D;&#39;600&#39; height&#x3D;&#39;1000&#39; fill&#x3D;&#39;%231a0533&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;Helvetica,Arial,sans-serif&#39;&gt;&lt;rect x&#x3D;&#39;40&#39; y&#x3D;&#39;120&#39; width&#x3D;&#39;520&#39; height&#x3D;&#39;760&#39; rx&#x3D;&#39;20&#39; fill&#x3D;&#39;%232d1060&#39; stroke&#x3D;&#39;%23ff6ad5&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;72&#39; y&#x3D;&#39;186&#39; font-size&#x3D;&#39;28&#39; font-weight&#x3D;&#39;700&#39; fill&#x3D;&#39;%23fff0f9&#39;&gt;Food Court · Table 12&lt;&#x2F;text&gt;&lt;g font-size&#x3D;&#39;20&#39; font-weight&#x3D;&#39;700&#39; fill&#x3D;&#39;%231a0533&#39; text-anchor&#x3D;&#39;middle&#39;&gt;&lt;circle cx&#x3D;&#39;100&#39; cy&#x3D;&#39;250&#39; r&#x3D;&#39;28&#39; fill&#x3D;&#39;%23ff6ad5&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;100&#39; y&#x3D;&#39;257&#39;&gt;JS&lt;&#x2F;text&gt;&lt;circle cx&#x3D;&#39;166&#39; cy&#x3D;&#39;250&#39; r&#x3D;&#39;28&#39; fill&#x3D;&#39;%235ce1ff&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;166&#39; y&#x3D;&#39;257&#39;&gt;MK&lt;&#x2F;text&gt;&lt;circle cx&#x3D;&#39;232&#39; cy&#x3D;&#39;250&#39; r&#x3D;&#39;28&#39; fill&#x3D;&#39;%23c4a8ff&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;232&#39; y&#x3D;&#39;257&#39;&gt;AO&lt;&#x2F;text&gt;&lt;circle cx&#x3D;&#39;298&#39; cy&#x3D;&#39;250&#39; r&#x3D;&#39;28&#39; fill&#x3D;&#39;%23fff0f9&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;298&#39; y&#x3D;&#39;257&#39;&gt;RT&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;g font-size&#x3D;&#39;22&#39; fill&#x3D;&#39;%23fff0f9&#39;&gt;&lt;text x&#x3D;&#39;72&#39; y&#x3D;&#39;346&#39;&gt;Windbreaker&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;528&#39; y&#x3D;&#39;346&#39; text-anchor&#x3D;&#39;end&#39;&gt;$64.00&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;72&#39; y&#x3D;&#39;374&#39; font-size&#x3D;&#39;17&#39; fill&#x3D;&#39;%23c4a8ff&#39;&gt;Arcade Threads&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;72&#39; y&#x3D;&#39;436&#39;&gt;Mixtape vinyl&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;528&#39; y&#x3D;&#39;436&#39; text-anchor&#x3D;&#39;end&#39;&gt;$32.00&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;72&#39; y&#x3D;&#39;464&#39; font-size&#x3D;&#39;17&#39; fill&#x3D;&#39;%23c4a8ff&#39;&gt;Lobby Records&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;72&#39; y&#x3D;&#39;526&#39;&gt;Neon desk lamp&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;528&#39; y&#x3D;&#39;526&#39; text-anchor&#x3D;&#39;end&#39;&gt;$52.00&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;72&#39; y&#x3D;&#39;554&#39; font-size&#x3D;&#39;17&#39; fill&#x3D;&#39;%23c4a8ff&#39;&gt;Glow Floor&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;line x1&#x3D;&#39;72&#39; y1&#x3D;&#39;600&#39; x2&#x3D;&#39;528&#39; y2&#x3D;&#39;600&#39; stroke&#x3D;&#39;%235ce1ff&#39; stroke-opacity&#x3D;&#39;.4&#39; stroke-width&#x3D;&#39;2&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;72&#39; y&#x3D;&#39;656&#39; font-size&#x3D;&#39;26&#39; font-weight&#x3D;&#39;700&#39; fill&#x3D;&#39;%23fff0f9&#39;&gt;Total $148.00&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;72&#39; y&#x3D;&#39;700&#39; font-size&#x3D;&#39;26&#39; font-weight&#x3D;&#39;700&#39; fill&#x3D;&#39;%235ce1ff&#39;&gt;$37.00 each&lt;&#x2F;text&gt;&lt;rect x&#x3D;&#39;72&#39; y&#x3D;&#39;760&#39; width&#x3D;&#39;456&#39; height&#x3D;&#39;74&#39; rx&#x3D;&#39;37&#39; fill&#x3D;&#39;%23ff6ad5&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;300&#39; y&#x3D;&#39;806&#39; font-size&#x3D;&#39;24&#39; font-weight&#x3D;&#39;700&#39; fill&#x3D;&#39;%231a0533&#39; text-anchor&#x3D;&#39;middle&#39;&gt;Split 4 ways and pay&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="Shared Food Court cart for four friends: three items, $148 total, split to $37 each" /></div>
+    
+  </div>
+</section>
+
+<section class="slide stat-row-slide stat-row-hero" data-layout="stat-row">
+  <span class="eyebrow">Beta proof</span>
+  <h2>Beta shoppers stayed 3× longer per visit</h2>
   
   <div class="stats">
-    <div class="stat">
-      <div class="value">120k</div>
-      <div class="label">Waitlist</div>
+    <div class="stat is-mega">
+      <div class="value">14 min</div>
+      <div class="label">Average visit, 9,800 beta shoppers</div>
     </div>
     <div class="stat">
-      <div class="value">8</div>
-      <div class="label">City pop-ups</div>
+      <div class="value">3×</div>
+      <div class="label">The 4.6-minute fashion-app average</div>
     </div>
-    <div class="stat">
-      <div class="value">∞</div>
-      <div class="label">Sunset loops</div>
-    </div>
+  </div>
+</section>
+
+<section class="slide chart-slide" data-layout="chart">
+  <span class="eyebrow">Demand</span>
+  <h2>The waitlist reached 120,000 people in nine weeks</h2>
+  <p class="lead">Source: Mallsoft waitlist, cumulative signups in thousands, 6 Oct – 7 Dec 2026.</p>
+  <div class="chart-frame">
+    <svg class="pmd-chart" viewBox="0 0 920 420" width="100%" height="100%" role="img" aria-label="Chart" xmlns="http://www.w3.org/2000/svg">
+  
+  <g class="chart-grid"><line x1="52" y1="16" x2="896" y2="16" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="20" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">200</text><line x1="52" y1="106" x2="896" y2="106" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="110" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">150</text><line x1="52" y1="196" x2="896" y2="196" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="200" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">100</text><line x1="52" y1="286" x2="896" y2="286" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="290" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">50</text><line x1="52" y1="376" x2="896" y2="376" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="380" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">0</text></g>
+  <g class="chart-marks"><rect x="60" y="361.6" width="75.77777777777777" height="14.4" rx="3" fill="var(--accent-ink, var(--accent))"/><rect x="153.77777777777777" y="349" width="75.77777777777777" height="27" rx="3" fill="var(--accent-ink, var(--accent))"/><rect x="247.55555555555554" y="332.8" width="75.77777777777777" height="43.199999999999996" rx="3" fill="var(--accent-ink, var(--accent))"/><rect x="341.3333333333333" y="309.4" width="75.77777777777777" height="66.6" rx="3" fill="var(--accent-ink, var(--accent))"/><rect x="435.1111111111111" y="284.2" width="75.77777777777777" height="91.8" rx="3" fill="var(--accent-ink, var(--accent))"/><rect x="528.8888888888889" y="257.2" width="75.77777777777777" height="118.80000000000001" rx="3" fill="var(--accent-ink, var(--accent))"/><rect x="622.6666666666666" y="224.8" width="75.77777777777777" height="151.2" rx="3" fill="var(--accent-ink, var(--accent))"/><rect x="716.4444444444443" y="194.2" width="75.77777777777777" height="181.8" rx="3" fill="var(--accent-ink, var(--accent))"/><rect x="810.2222222222222" y="160" width="75.77777777777777" height="216" rx="3" fill="var(--accent-ink, var(--accent))"/></g>
+  <g class="chart-cats"><text x="98.88888888888889" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">W1</text><text x="192.66666666666666" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">W2</text><text x="286.44444444444446" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">W3</text><text x="380.2222222222222" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">W4</text><text x="474" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">W5</text><text x="567.7777777777778" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">W6</text><text x="661.5555555555555" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">W7</text><text x="755.3333333333333" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">W8</text><text x="849.1111111111111" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">W9</text></g>
+</svg>
   </div>
 </section>
 
 <section class="slide quote-slide" data-layout="quote">
-  <p class="quote">The mall never closed. It just went online and got sadder. We&#39;re fixing the lighting.</p>
-  <p class="quote-by">— Mallsoft · Founders</p>
+  <p class="quote">My windbreakers sold out in one song. Every buyer was a person, not a bot.</p>
+  <p class="quote-by">— Tomás Reyes · founder, Arcade Threads (Floor 1)</p>
 </section>
 
-<section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Drop</span>
-  <h2>Vapor without vaporware</h2>
-  <div class="comparison-cols emphasis-left">
-    <div class="comparison-col">
-      <span class="comparison-label">Aesthetic</span>
-      <p>Pink&#x2F;cyan grid.
-Palm silhouettes.
-Slow scroll, high fidelity.</p>
-    </div>
-    <div class="comparison-vs" aria-hidden="true">vs</div>
-    <div class="comparison-col">
-      <span class="comparison-label">Ship</span>
-      <p>Real SKUs.
-Real drop dates.
-No infinite waitlist theater.</p>
-    </div>
-  </div>
+<section class="slide data-table-slide" data-layout="data-table">
+  <span class="eyebrow">Price and availability</span>
+  <h2>Wandering is free, and the Mall Card costs $5 a month</h2>
+  
+  <table>
+    <thead>
+      <tr><th>Plan</th><th>Price</th><th>What you get</th><th>Available</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Guest pass</td><td>Free</td><td>Every floor and drop</td><td>12 Dec · US, Canada</td></tr>
+      <tr><td>Mall Card</td><td>$5 &#x2F; month</td><td>Free 48-hour shipping</td><td>12 Dec · US, Canada</td></tr>
+      <tr><td>Shop lease</td><td>8% per sale</td><td>A storefront</td><td>Apply now</td></tr>
+    </tbody>
+  </table>
 </section>
 
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">Enter</span>
-  <h1>Take the escalator.</h1>
-  <p class="lead">Membership opens Friday at dusk.</p>
+  <span class="eyebrow">Doors open Friday 12 December · 7 pm ET</span>
+  <h1>Walk in Friday and find something you never searched for</h1>
+  <p class="lead">120,000 people are already in line for the escalator.</p>
   <div class="cta-row">
     <a class="btn" href="#"><i class="fa-solid fa-shop"></i> Join the mall</a>
-    <a class="btn btn-outline" href="#"><i class="fa-solid fa-ticket"></i> Get a guest pass</a>
+    <a class="btn btn-outline" href="#"><i class="fa-solid fa-store"></i> Apply for a shop</a>
   </div>
 </section>
 
@@ -6884,7 +7119,7 @@ No infinite waitlist theater.</p>
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Mallsoft — Launch","company":"Mallsoft","description":"Vaporwave consumer launch — vaporwave multi-slide proof.","theme":"vaporwave"},"slides":[{"layout":"title","eyebrow":"Opening soon","heading":"AESTHETIC MALL.","lead":"Dusk purple. Pink chrome. Teal grid. Nostalgia with a checkout.","notes":"Cold open — land the one-line claim before logos."},{"layout":"feature-grid","eyebrow":"Floors","heading":"Three levels of dusk","columns":"bento","cards":[{"icon":"fa-solid fa-shirt","title":"Arcade apparel","body":"Drops that look like 1992 and ship tomorrow."},{"icon":"fa-solid fa-music","title":"Lobby mixes","body":"Playlists curated like fountain music."},{"icon":"fa-solid fa-bag-shopping","title":"Food court NFT","body":"Just kidding — real snacks, real lines."},{"icon":"fa-solid fa-eye","title":"Show, don't pad","body":"Asymmetry beats another identical third column."},{"icon":"fa-solid fa-compass","title":"Clear north star","body":"One decisive story beat — not a wall of equal tiles."}]},{"layout":"comparison","eyebrow":"Vibe check","heading":"Generic drop vs. mallsoft.","leftLabel":"Hype cycle","left":"Black tees.\nSame font.\nGone in a week.","rightLabel":"Mallsoft","right":"Dusk palette.\nMonoton titles.\nA world you revisit.","emphasis":"right","notes":"Name the loser column first, then punch the winner."},{"layout":"image-hero","eyebrow":"Opening soon","heading":"AESTHETIC MALL.","lead":"Dusk purple. Pink chrome. Teal grid. Nostalgia with a checkout.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232d1060%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%231a0533%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C106%2C213%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C106%2C213%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2892%2C225%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28255%2C106%2C213%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2845%2C16%2C96%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C106%2C213%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28255%2C106%2C213%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C106%2C213%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2892%2C225%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2892%2C225%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2892%2C225%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%231a0533%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.9%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22880%22%20cy%3D%22220%22%20rx%3D%22220%22%20ry%3D%22140%22%20fill%3D%22rgba%2892%2C225%2C255%2C0.220%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M0%20640%20C320%20520%20640%20780%20960%20600%20S1400%20480%201600%20560%20L1600%20900%20L0%20900%20Z%22%20fill%3D%22rgba%28255%2C106%2C213%2C0.120%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.55%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22260%22%20cy%3D%22180%22%20r%3D%2218%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22520%22%20cy%3D%22140%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22980%22%20cy%3D%22210%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22320%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221100%22%20cy%3D%22120%22%20r%3D%228%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Mallsoft craft visual","notes":"Hold the visual beat — let the room feel the product."},{"layout":"stat-row","eyebrow":"Hype","heading":"The mall is metric.","stats":[{"value":"120k","label":"Waitlist"},{"value":"8","label":"City pop-ups"},{"value":"∞","label":"Sunset loops"}]},{"layout":"quote","quote":"The mall never closed. It just went online and got sadder. We're fixing the lighting.","by":"Mallsoft · Founders"},{"layout":"comparison","eyebrow":"Drop","heading":"Vapor without vaporware","leftLabel":"Aesthetic","left":"Pink/cyan grid.\nPalm silhouettes.\nSlow scroll, high fidelity.","rightLabel":"Ship","right":"Real SKUs.\nReal drop dates.\nNo infinite waitlist theater.","emphasis":"left"},{"layout":"closing","eyebrow":"Enter","heading":"Take the escalator.","lead":"Membership opens Friday at dusk.","actions":[{"label":"Join the mall","href":"#","style":"solid","icon":"fa-solid fa-shop"},{"label":"Get a guest pass","href":"#","style":"outline","icon":"fa-solid fa-ticket"}]}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Mallsoft — Launch keynote, 12 December 2026","company":"Mallsoft","description":"Launch keynote for Mallsoft, a shopping app built like a 1990s mall: 3 floors, 240 independent shops, drops that open when the lobby song ends, and group carts. Opens Friday 12 December 2026.","theme":"vaporwave","genre":"launch"},"slides":[{"layout":"title","eyebrow":"Mallsoft · Launch keynote · Friday 12 December 2026","heading":"A mall you can wander again, online.","lead":"240 independent shops. Doors open Friday at dusk.","notes":"Say the headline slowly. Do not mention features yet: the next slide is about the problem."},{"layout":"quote","quote":"I open a shopping app, type what I want, and leave. I haven't discovered anything in years.","by":"Jess, 27 · beta interview, September 2026"},{"layout":"image-hero","eyebrow":"Introducing Mallsoft","heading":"Meet Mallsoft: three floors and 240 shops to get lost in","lead":"No search bar on the front door. You walk in.","image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'>\u003cdefs>\u003clinearGradient id='s' x1='0' y1='0' x2='0' y2='1'>\u003cstop offset='0' stop-color='%231a0533'/>\u003cstop offset='.6' stop-color='%232d1060'/>\u003cstop offset='1' stop-color='%23ff6ad5'/>\u003c/linearGradient>\u003c/defs>\u003crect width='1600' height='900' fill='url(%23s)'/>\u003cg font-family='Helvetica,Arial,sans-serif'>\u003ctext x='120' y='314' font-size='24' font-weight='700' fill='%23ff6ad5' letter-spacing='4'>MALLSOFT\u003c/text>\u003ctext x='1480' y='314' font-size='22' fill='%23c4a8ff' text-anchor='end'>Floor 1 of 3 · Apparel · 84 shops open\u003c/text>\u003cg fill='%232d1060' stroke='%23ff6ad5' stroke-width='3'>\u003crect x='120' y='334' width='316' height='220' rx='12'/>\u003crect x='468' y='334' width='316' height='220' rx='12'/>\u003crect x='816' y='334' width='316' height='220' rx='12'/>\u003crect x='1164' y='334' width='316' height='220' rx='12'/>\u003c/g>\u003cg fill='%235ce1ff' fill-opacity='.18'>\u003crect x='138' y='352' width='280' height='100' rx='8'/>\u003crect x='486' y='352' width='280' height='100' rx='8'/>\u003crect x='834' y='352' width='280' height='100' rx='8'/>\u003crect x='1182' y='352' width='280' height='100' rx='8'/>\u003c/g>\u003cg font-size='26' font-weight='700' fill='%23fff0f9'>\u003ctext x='140' y='494'>Arcade Threads\u003c/text>\u003ctext x='488' y='494'>Palm &amp; Pixel\u003c/text>\u003ctext x='836' y='494'>Mono Denim Co.\u003c/text>\u003ctext x='1184' y='494'>Velour Hours\u003c/text>\u003c/g>\u003cg font-size='20' fill='%23c4a8ff'>\u003ctext x='140' y='528'>Windbreakers · 1992 cuts\u003c/text>\u003ctext x='488' y='528'>Printed tees\u003c/text>\u003ctext x='836' y='528'>Raw denim\u003c/text>\u003ctext x='1184' y='528'>Tracksuits\u003c/text>\u003c/g>\u003cg font-size='18' font-weight='700' fill='%231a0533'>\u003crect x='334' y='364' width='70' height='30' rx='15' fill='%235ce1ff'/>\u003ctext x='369' y='385' text-anchor='middle'>OPEN\u003c/text>\u003crect x='682' y='364' width='70' height='30' rx='15' fill='%235ce1ff'/>\u003ctext x='717' y='385' text-anchor='middle'>OPEN\u003c/text>\u003crect x='1000' y='364' width='100' height='30' rx='15' fill='%23ff6ad5'/>\u003ctext x='1050' y='385' text-anchor='middle'>DROP 7PM\u003c/text>\u003crect x='1378' y='364' width='70' height='30' rx='15' fill='%235ce1ff'/>\u003ctext x='1413' y='385' text-anchor='middle'>OPEN\u003c/text>\u003c/g>\u003c/g>\u003c/svg>","imageAlt":"Mallsoft storefront row on Floor 1: four independent apparel shops, one with a 7 pm drop badge","notes":"Hold here for a full breath. Let the room look at the storefronts before you speak."},{"layout":"section","number":"01","heading":"How it works","lead":"Three things no shopping app does."},{"layout":"two-column","eyebrow":"Feature 1 · Floors","heading":"Walk the floors and find shops you never searched for","ratio":"2-1","reverse":true,"image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 1000'>\u003crect width='600' height='1000' fill='%231a0533'/>\u003cg font-family='Helvetica,Arial,sans-serif'>\u003ctext x='300' y='110' font-size='24' fill='%23c4a8ff' letter-spacing='3' text-anchor='middle'>DIRECTORY · 240 SHOPS\u003c/text>\u003cg fill='%232d1060' stroke-width='3'>\u003cpolygon points='300,170 560,280 300,390 40,280' stroke='%23c4a8ff'/>\u003cpolygon points='300,390 560,500 300,610 40,500' stroke='%235ce1ff'/>\u003cpolygon points='300,610 560,720 300,830 40,720' stroke='%23ff6ad5'/>\u003c/g>\u003cg stroke='%23fff0f9' stroke-width='5' stroke-dasharray='4 10'>\u003cline x1='170' y1='320' x2='170' y2='540'/>\u003cline x1='430' y1='540' x2='430' y2='760'/>\u003c/g>\u003cg font-size='24' font-weight='700' text-anchor='middle'>\u003ctext x='300' y='278' fill='%23c4a8ff'>3 · Home &amp; light\u003c/text>\u003ctext x='300' y='498' fill='%235ce1ff'>2 · Records &amp; tech\u003c/text>\u003ctext x='300' y='718' fill='%23ff6ad5'>1 · Apparel\u003c/text>\u003c/g>\u003ccircle cx='300' cy='770' r='13' fill='%23ff6ad5'/>\u003ccircle cx='300' cy='770' r='26' fill='none' stroke='%23ff6ad5' stroke-width='3'/>\u003ctext x='300' y='900' font-size='24' fill='%23fff0f9' text-anchor='middle'>You are here · Floor 1\u003c/text>\u003c/g>\u003c/svg>","imageAlt":"Mall directory: three stacked floors linked by escalators, with a You are here marker on Floor 1","body":"Shops sit on floors, not in search results.\nRide the escalator to Records & tech."},{"layout":"image-hero","eyebrow":"Feature 2 · Lobby Radio","heading":"Each drop opens when the lobby song ends, so bots lose","lead":"Only people listening in the lobby join the line.","image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'>\u003crect width='1600' height='900' fill='%231a0533'/>\u003cg stroke='%23ff6ad5' stroke-opacity='.25' stroke-width='3' fill='none'>\u003ccircle cx='1280' cy='430' r='120'/>\u003ccircle cx='1280' cy='430' r='180'/>\u003c/g>\u003cg font-family='Helvetica,Arial,sans-serif'>\u003crect x='160' y='290' width='900' height='280' rx='18' fill='%232d1060' stroke='%235ce1ff' stroke-width='3'/>\u003ctext x='200' y='336' font-size='20' fill='%235ce1ff' letter-spacing='4'>LOBBY RADIO · NOW PLAYING · DJ PALMTREE\u003c/text>\u003ctext x='200' y='388' font-size='42' font-weight='700' fill='%23fff0f9'>Fountain at Dusk\u003c/text>\u003crect x='200' y='414' width='820' height='12' rx='6' fill='%23fff0f9' fill-opacity='.15'/>\u003crect x='200' y='414' width='676' height='12' rx='6' fill='%23ff6ad5'/>\u003ctext x='200' y='458' font-size='22' fill='%23c4a8ff'>2:53\u003c/text>\u003ctext x='1020' y='458' font-size='22' fill='%23c4a8ff' text-anchor='end'>3:30\u003c/text>\u003ctext x='200' y='504' font-size='26' font-weight='700' fill='%23ff6ad5'>Next drop: Arcade Threads windbreaker\u003c/text>\u003ctext x='200' y='544' font-size='22' fill='%23fff0f9'>Opens when the song ends · 18,420 listeners in line\u003c/text>\u003ccircle cx='1280' cy='430' r='64' fill='%23ff6ad5'/>\u003cpolygon points='1262,398 1262,462 1312,430' fill='%231a0533'/>\u003c/g>\u003c/svg>","imageAlt":"Lobby Radio player: a song at 2:53 of 3:30, with the next drop opening when it ends and 18,420 listeners in line"},{"layout":"two-column","eyebrow":"Feature 3 · Food Court","heading":"Food Court carts let four friends shop and pay together","ratio":"2-1","image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 1000'>\u003crect width='600' height='1000' fill='%231a0533'/>\u003cg font-family='Helvetica,Arial,sans-serif'>\u003crect x='40' y='120' width='520' height='760' rx='20' fill='%232d1060' stroke='%23ff6ad5' stroke-width='3'/>\u003ctext x='72' y='186' font-size='28' font-weight='700' fill='%23fff0f9'>Food Court · Table 12\u003c/text>\u003cg font-size='20' font-weight='700' fill='%231a0533' text-anchor='middle'>\u003ccircle cx='100' cy='250' r='28' fill='%23ff6ad5'/>\u003ctext x='100' y='257'>JS\u003c/text>\u003ccircle cx='166' cy='250' r='28' fill='%235ce1ff'/>\u003ctext x='166' y='257'>MK\u003c/text>\u003ccircle cx='232' cy='250' r='28' fill='%23c4a8ff'/>\u003ctext x='232' y='257'>AO\u003c/text>\u003ccircle cx='298' cy='250' r='28' fill='%23fff0f9'/>\u003ctext x='298' y='257'>RT\u003c/text>\u003c/g>\u003cg font-size='22' fill='%23fff0f9'>\u003ctext x='72' y='346'>Windbreaker\u003c/text>\u003ctext x='528' y='346' text-anchor='end'>$64.00\u003c/text>\u003ctext x='72' y='374' font-size='17' fill='%23c4a8ff'>Arcade Threads\u003c/text>\u003ctext x='72' y='436'>Mixtape vinyl\u003c/text>\u003ctext x='528' y='436' text-anchor='end'>$32.00\u003c/text>\u003ctext x='72' y='464' font-size='17' fill='%23c4a8ff'>Lobby Records\u003c/text>\u003ctext x='72' y='526'>Neon desk lamp\u003c/text>\u003ctext x='528' y='526' text-anchor='end'>$52.00\u003c/text>\u003ctext x='72' y='554' font-size='17' fill='%23c4a8ff'>Glow Floor\u003c/text>\u003c/g>\u003cline x1='72' y1='600' x2='528' y2='600' stroke='%235ce1ff' stroke-opacity='.4' stroke-width='2'/>\u003ctext x='72' y='656' font-size='26' font-weight='700' fill='%23fff0f9'>Total $148.00\u003c/text>\u003ctext x='72' y='700' font-size='26' font-weight='700' fill='%235ce1ff'>$37.00 each\u003c/text>\u003crect x='72' y='760' width='456' height='74' rx='37' fill='%23ff6ad5'/>\u003ctext x='300' y='806' font-size='24' font-weight='700' fill='%231a0533' text-anchor='middle'>Split 4 ways and pay\u003c/text>\u003c/g>\u003c/svg>","imageAlt":"Shared Food Court cart for four friends: three items, $148 total, split to $37 each","body":"One cart, four phones.\nEach friend pays a share at checkout."},{"layout":"stat-row","variant":"hero","eyebrow":"Beta proof","heading":"Beta shoppers stayed 3× longer per visit","stats":[{"value":"14 min","label":"Average visit, 9,800 beta shoppers"},{"value":"3×","label":"The 4.6-minute fashion-app average"}],"notes":"This is the proof slide. Say the 14 minutes, then the comparison, then stop."},{"layout":"chart","eyebrow":"Demand","heading":"The waitlist reached 120,000 people in nine weeks","chartType":"bar","categories":["W1","W2","W3","W4","W5","W6","W7","W8","W9"],"series":[{"name":"Waitlist (thousands)","values":[8,15,24,37,51,66,84,101,120]}],"lead":"Source: Mallsoft waitlist, cumulative signups in thousands, 6 Oct – 7 Dec 2026."},{"layout":"quote","quote":"My windbreakers sold out in one song. Every buyer was a person, not a bot.","by":"Tomás Reyes · founder, Arcade Threads (Floor 1)"},{"layout":"data-table","eyebrow":"Price and availability","heading":"Wandering is free, and the Mall Card costs $5 a month","columns":["Plan","Price","What you get","Available"],"rows":[["Guest pass","Free","Every floor and drop","12 Dec · US, Canada"],["Mall Card","$5 / month","Free 48-hour shipping","12 Dec · US, Canada"],["Shop lease","8% per sale","A storefront","Apply now"]]},{"layout":"closing","eyebrow":"Doors open Friday 12 December · 7 pm ET","heading":"Walk in Friday and find something you never searched for","lead":"120,000 people are already in line for the escalator.","actions":[{"label":"Join the mall","href":"#","style":"solid","icon":"fa-solid fa-shop"},{"label":"Apply for a shop","href":"#","style":"outline","icon":"fa-solid fa-store"}],"notes":"End on the date and time. Ask makers in the room to apply tonight."}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {

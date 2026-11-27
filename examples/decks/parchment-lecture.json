@@ -1,124 +1,205 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Parchment — Lecture Deck",
+    "title": "Parchment Lectures, Vol. IV — Colour that argues",
     "company": "Parchment",
-    "description": "Academic lecture series — vellum multi-slide proof.",
-    "theme": "vellum"
+    "description": "A 90-minute workshop from the Parchment lecture series on using colour in charts: grey first, one accent for the point, and contrast that passes. Two exercises and a recap.",
+    "theme": "vellum",
+    "genre": "workshop"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Lecture · Vol. IV",
-      "heading": "Periwinkle nights. Chartreuse thought.",
-      "lead": "Italic Cormorant for the argument. DM Sans for the note.",
-      "notes": "Dim the room before advancing — the field is the argument."
+      "eyebrow": "Parchment Lectures · Vol. IV · Workshop 3 · 90 minutes",
+      "heading": "Leave with one rule: colour only what you want argued.",
+      "notes": "Ask everyone to open the sales chart file before we start. Exercise 1 needs it."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Opening image",
-      "heading": "Dim the lights. Raise the claim.",
-      "lead": "A full-bleed field before the argument — periwinkle nights, chartreuse thought.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221600%22%20height%3D%22900%22%20viewBox%3D%220%200%201600%20900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20stop-color%3D%22%232A3870%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22.55%22%20stop-color%3D%22%231F2858%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23E8D85C%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2272%25%22%20cy%3D%2228%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20stop-color%3D%22%233A7878%22%20stop-opacity%3D%22.45%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%233A7878%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%3Cfilter%20id%3D%22grain%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%222%22%20stitchTiles%3D%22stitch%22%2F%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%20.08%200%22%2F%3E%3C%2Ffilter%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23g%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23glow%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22140%22%20width%3D%22620%22%20height%3D%22620%22%20rx%3D%2228%22%20fill%3D%22rgba%28232%2C216%2C92%2C0.120%29%22%20stroke%3D%22rgba%2858%2C120%2C120%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221180%22%20cy%3D%22520%22%20r%3D%22220%22%20fill%3D%22rgba%28232%2C216%2C92%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22240%22%20r%3D%2290%22%20fill%3D%22rgba%2858%2C120%2C120%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20filter%3D%22url%28%23grain%29%22%20opacity%3D%22.55%22%2F%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Parchment atmospheric field"
+      "eyebrow": "A puzzle",
+      "heading": "Which line is the point of this chart?",
+      "lead": "Eight colours, eight channels, no answer. Take ten seconds.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201600%20900'%20font-family%3D'DM%20Sans%2CArial%2Csans-serif'%3E%20%3Crect%20width%3D'1600'%20height%3D'900'%20fill%3D'%231F2858'%2F%3E%20%3Crect%20x%3D'200'%20y%3D'230'%20width%3D'1200'%20height%3D'400'%20fill%3D'%2326316a'%20stroke%3D'%233c4a8a'%2F%3E%20%3Cg%20stroke%3D'%233c4a8a'%3E%3Cpath%20d%3D'M200%20330h1200M200%20430h1200M200%20530h1200'%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D'none'%20stroke-width%3D'5'%3E%20%3Cpath%20d%3D'M200%20560L350%20520%20500%20540%20650%20480%20800%20500%20950%20450%201100%20470%201250%20420%201400%20440'%20stroke%3D'%23ef4444'%2F%3E%20%3Cpath%20d%3D'M200%20500L350%20540%20500%20470%20650%20520%20800%20440%20950%20490%201100%20420%201250%20460%201400%20400'%20stroke%3D'%23f97316'%2F%3E%20%3Cpath%20d%3D'M200%20460L350%20430%20500%20500%20650%20440%20800%20470%20950%20400%201100%20450%201250%20380%201400%20420'%20stroke%3D'%23eab308'%2F%3E%20%3Cpath%20d%3D'M200%20420L350%20470%20500%20410%20650%20460%20800%20380%20950%20430%201100%20360%201250%20410%201400%20350'%20stroke%3D'%2322c55e'%2F%3E%20%3Cpath%20d%3D'M200%20380L350%20400%20500%20440%20650%20370%20800%20420%20950%20350%201100%20400%201250%20330%201400%20380'%20stroke%3D'%2306b6d4'%2F%3E%20%3Cpath%20d%3D'M200%20340L350%20370%20500%20350%20650%20400%20800%20330%20950%20380%201100%20320%201250%20370%201400%20300'%20stroke%3D'%233b82f6'%2F%3E%20%3Cpath%20d%3D'M200%20600L350%20570%20500%20590%20650%20550%20800%20580%20950%20530%201100%20560%201250%20510%201400%20540'%20stroke%3D'%23a855f7'%2F%3E%20%3Cpath%20d%3D'M200%20300L350%20330%20500%20300%20650%20340%20800%20290%20950%20320%201100%20280%201250%20310%201400%20270'%20stroke%3D'%23ec4899'%2F%3E%20%3C%2Fg%3E%20%3Cg%20font-size%3D'20'%20fill%3D'%23ceccb0'%3E%3Ctext%20x%3D'1420'%20y%3D'275'%3ENorth%3C%2Ftext%3E%3Ctext%20x%3D'1420'%20y%3D'305'%3EEast%3C%2Ftext%3E%3Ctext%20x%3D'1420'%20y%3D'355'%3EWest%3C%2Ftext%3E%3Ctext%20x%3D'1420'%20y%3D'385'%3ESouth%3C%2Ftext%3E%3Ctext%20x%3D'1420'%20y%3D'405'%3EOnline%3C%2Ftext%3E%3Ctext%20x%3D'1420'%20y%3D'425'%3ERetail%3C%2Ftext%3E%3Ctext%20x%3D'1420'%20y%3D'445'%3EB2B%3C%2Ftext%3E%3Ctext%20x%3D'1420'%20y%3D'545'%3EOther%3C%2Ftext%3E%3C%2Fg%3E%20%3Ctext%20x%3D'200'%20y%3D'210'%20font-size%3D'24'%20fill%3D'%23ceccb0'%3EQuarterly%20sales%20by%20channel%2C%202024%E2%80%932026%3C%2Ftext%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "A line chart of quarterly sales with eight tangled lines, each in a different bright colour, and no clear focus"
     },
     {
-      "layout": "two-column",
-      "eyebrow": "Thesis",
-      "heading": "Color is an argument, not a mood board.",
-      "body": "Parchment stages lectures where the field carries as much meaning as the sentence.",
-      "aside": "Deep periwinkle. Chartreuse italic. No pastel apology.",
-      "ratio": "3-2",
-      "notes": "Ratio 3-2 keeps the aside as a claim, not a caption."
-    },
-    {
-      "layout": "quote",
-      "quote": "Write like the lights are already dimmed.",
-      "by": "Parchment · House note"
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Stance",
-      "heading": "Mood board vs. argument.",
-      "leftLabel": "Pastel apology",
-      "left": "Safe cream.\nDecorative type.\nNo stakes.",
-      "rightLabel": "Parchment",
-      "right": "Periwinkle nights.\nChartreuse italic.\nA claim you can hold.",
-      "emphasis": "right",
-      "notes": "Right panel is the house — leave left thin."
-    },
-    {
-      "layout": "stat-row",
-      "eyebrow": "Attendance",
-      "heading": "The room fills when the claim is clear.",
-      "stats": [
+      "layout": "feature-grid",
+      "eyebrow": "By the end of today",
+      "heading": "Objectives",
+      "columns": 3,
+      "cards": [
         {
-          "value": "420",
-          "label": "Season seats"
+          "icon": "fa-solid fa-circle-half-stroke",
+          "title": "Grey first",
+          "body": "Start every chart in neutrals."
         },
         {
-          "value": "14",
-          "label": "Lectures staged"
+          "icon": "fa-solid fa-highlighter",
+          "title": "One accent",
+          "body": "Give the point one colour."
         },
         {
-          "value": "91%",
-          "label": "Return rate"
+          "icon": "fa-solid fa-eye",
+          "title": "Readable contrast",
+          "body": "Check 3:1 before you ship."
         }
       ]
     },
     {
+      "layout": "data-table",
+      "eyebrow": "Before we start",
+      "heading": "Four terms",
+      "columns": [
+        "Term",
+        "Meaning today"
+      ],
+      "rows": [
+        [
+          "Neutral",
+          "Grey for context"
+        ],
+        [
+          "Accent",
+          "The one colour that argues"
+        ],
+        [
+          "Contrast ratio",
+          "Lightness gap, e.g. 3:1"
+        ],
+        [
+          "Direct label",
+          "Name on the line, no legend"
+        ]
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "Grey first, accent last"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Worked example",
+      "heading": "Grey every series, then give the one that matters the accent",
+      "ratio": "1-2",
+      "body": "1. Set all lines to grey.\n2. Colour the claim.\n3. Label it directly.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201200%20900'%20font-family%3D'DM%20Sans%2CArial%2Csans-serif'%3E%20%3Crect%20width%3D'1200'%20height%3D'900'%20fill%3D'%231F2858'%2F%3E%20%3Ctext%20x%3D'80'%20y%3D'120'%20font-size%3D'30'%20font-style%3D'italic'%20font-family%3D'Cormorant%20Garamond%2CGeorgia%2Cserif'%20fill%3D'%23E8D85C'%3EOnline%20overtook%20retail%20in%20Q2%202025%3C%2Ftext%3E%20%3Crect%20x%3D'80'%20y%3D'160'%20width%3D'1040'%20height%3D'560'%20fill%3D'%2326316a'%2F%3E%20%3Cg%20stroke%3D'%233c4a8a'%3E%3Cpath%20d%3D'M80%20300h1040M80%20440h1040M80%20580h1040'%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D'none'%20stroke%3D'%236b739c'%20stroke-width%3D'4'%3E%20%3Cpath%20d%3D'M80%20600L210%20570%20340%20590%20470%20540%20600%20560%20730%20520%20860%20540%20990%20500%201120%20520'%2F%3E%20%3Cpath%20d%3D'M80%20520L210%20560%20340%20490%20470%20540%20600%20470%20730%20510%20860%20450%20990%20490%201120%20440'%2F%3E%20%3Cpath%20d%3D'M80%20380L210%20420%20340%20360%20470%20410%20600%20400%20730%20420%20860%20430%20990%20450%201120%20460'%2F%3E%20%3Cpath%20d%3D'M80%20660L210%20640%20340%20650%20470%20620%20600%20640%20730%20600%20860%20620%20990%20590%201120%20610'%2F%3E%20%3C%2Fg%3E%20%3Cpath%20d%3D'M80%20620L210%20590%20340%20540%20470%20480%20600%20420%20730%20360%20860%20320%20990%20270%201120%20230'%20fill%3D'none'%20stroke%3D'%23E8D85C'%20stroke-width%3D'8'%2F%3E%20%3Ccircle%20cx%3D'600'%20cy%3D'405'%20r%3D'12'%20fill%3D'%23E8D85C'%2F%3E%20%3Ctext%20x%3D'560'%20y%3D'370'%20font-size%3D'24'%20fill%3D'%23E8D85C'%3Ecrosses%20retail%3C%2Ftext%3E%20%3Ctext%20x%3D'1000'%20y%3D'215'%20font-size%3D'26'%20font-weight%3D'700'%20fill%3D'%23E8D85C'%3EOnline%3C%2Ftext%3E%20%3Ctext%20x%3D'1000'%20y%3D'490'%20font-size%3D'22'%20fill%3D'%239ca3c4'%3ERetail%3C%2Ftext%3E%20%3Ctext%20x%3D'80'%20y%3D'790'%20font-size%3D'24'%20fill%3D'%23ceccb0'%3EFour%20series%20in%20grey.%20One%20in%20the%20accent.%20One%20label.%3C%2Ftext%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "The same sales chart redrawn: four grey lines and one chartreuse line for Online, labelled where it crosses Retail in Q2 2025"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Exercise 1 · 10 minutes, alone",
+      "heading": "Recolour the sales chart so Online wins at a glance",
+      "steps": [
+        {
+          "title": "3 min",
+          "body": "Turn all eight lines grey"
+        },
+        {
+          "title": "3 min",
+          "body": "Colour Online chartreuse"
+        },
+        {
+          "title": "4 min",
+          "body": "Delete the legend, label the line"
+        }
+      ],
+      "notes": "Walk the room at minute five. Most people keep the legend; nudge them to delete it."
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "Make the accent readable"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Worked example",
+      "heading": "Lines and bars need 3:1 contrast against their background",
+      "ratio": "1-2",
+      "body": "The same colour passes on one ground and fails on another. Test both slide and print.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201200%20900'%20font-family%3D'DM%20Sans%2CArial%2Csans-serif'%3E%20%3Crect%20width%3D'1200'%20height%3D'900'%20fill%3D'%231F2858'%2F%3E%20%3Cg%20font-size%3D'30'%20font-weight%3D'700'%3E%20%3Crect%20x%3D'100'%20y%3D'120'%20width%3D'460'%20height%3D'300'%20fill%3D'%232A3870'%2F%3E%20%3Cpath%20d%3D'M140%20340L260%20300%20380%20250%20520%20180'%20fill%3D'none'%20stroke%3D'%23E8D85C'%20stroke-width%3D'10'%2F%3E%20%3Ctext%20x%3D'140'%20y%3D'180'%20fill%3D'%23E8D85C'%3E8.9%20%3A%201%3C%2Ftext%3E%20%3Ctext%20x%3D'140'%20y%3D'395'%20font-size%3D'24'%20font-weight%3D'400'%20fill%3D'%23ceccb0'%3Echartreuse%20on%20blue%20%C2%B7%20pass%3C%2Ftext%3E%20%3Crect%20x%3D'640'%20y%3D'120'%20width%3D'460'%20height%3D'300'%20fill%3D'%232A3870'%2F%3E%20%3Cpath%20d%3D'M680%20340L800%20300%20920%20250%201060%20180'%20fill%3D'none'%20stroke%3D'%233A7878'%20stroke-width%3D'10'%2F%3E%20%3Ctext%20x%3D'680'%20y%3D'180'%20fill%3D'%233A7878'%3E1.6%20%3A%201%3C%2Ftext%3E%20%3Ctext%20x%3D'680'%20y%3D'395'%20font-size%3D'24'%20font-weight%3D'400'%20fill%3D'%23ceccb0'%3Eteal%20on%20blue%20%C2%B7%20fail%3C%2Ftext%3E%20%3Crect%20x%3D'100'%20y%3D'480'%20width%3D'460'%20height%3D'300'%20fill%3D'%23F1E9D6'%2F%3E%20%3Cpath%20d%3D'M140%20700L260%20660%20380%20610%20520%20540'%20fill%3D'none'%20stroke%3D'%23c2410c'%20stroke-width%3D'10'%2F%3E%20%3Ctext%20x%3D'140'%20y%3D'540'%20fill%3D'%23c2410c'%3E4.1%20%3A%201%3C%2Ftext%3E%20%3Ctext%20x%3D'140'%20y%3D'755'%20font-size%3D'24'%20font-weight%3D'400'%20fill%3D'%2357534e'%3Erust%20on%20paper%20%C2%B7%20pass%3C%2Ftext%3E%20%3Crect%20x%3D'640'%20y%3D'480'%20width%3D'460'%20height%3D'300'%20fill%3D'%23F1E9D6'%2F%3E%20%3Cpath%20d%3D'M680%20700L800%20660%20920%20610%201060%20540'%20fill%3D'none'%20stroke%3D'%23E8D85C'%20stroke-width%3D'10'%2F%3E%20%3Ctext%20x%3D'680'%20y%3D'540'%20fill%3D'%23b8a93a'%3E1.3%20%3A%201%3C%2Ftext%3E%20%3Ctext%20x%3D'680'%20y%3D'755'%20font-size%3D'24'%20font-weight%3D'400'%20fill%3D'%2357534e'%3Echartreuse%20on%20paper%20%C2%B7%20fail%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Cpath%20d%3D'M1050%20330l30%2030M1080%20330l-30%2030M1050%20690l30%2030M1080%20690l-30%2030'%20stroke%3D'%23ef4444'%20stroke-width%3D'6'%2F%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Four swatches: chartreuse on blue at 8.9 to 1 passes, teal on blue at 1.6 to 1 fails, rust on paper at 4.1 to 1 passes, chartreuse on paper at 1.3 to 1 fails"
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Common mistakes",
+      "heading": "Most charts fail by colouring everything, not by choosing badly",
+      "leftLabel": "Wrong",
+      "left": "A colour per series\nLegend in the corner\nAccent picked by taste",
+      "rightLabel": "Right",
+      "right": "Grey for context\nLabel on the line\nAccent tested at 3:1",
+      "emphasis": "right"
+    },
+    {
       "layout": "feature-grid",
-      "eyebrow": "Series",
-      "heading": "This season",
-      "columns": "bento",
+      "eyebrow": "Exercise 2 · 15 minutes, in pairs",
+      "heading": "Fix three real charts and swap them with the next pair",
+      "columns": 3,
       "cards": [
         {
-          "icon": "fa-solid fa-feather",
-          "title": "Form",
-          "body": "Essays that hold a room."
+          "icon": "fa-solid fa-chart-column",
+          "title": "Budget bars",
+          "body": "Find the overspend; make it the accent."
         },
         {
-          "icon": "fa-solid fa-comments",
-          "title": "Dialogues",
-          "body": "Two voices, one field."
+          "icon": "fa-solid fa-chart-line",
+          "title": "Churn line",
+          "body": "Fix the teal that fails on blue."
         },
         {
-          "icon": "fa-solid fa-scroll",
-          "title": "Archives",
-          "body": "Past lectures as living pages."
+          "icon": "fa-solid fa-map",
+          "title": "Region map",
+          "body": "Cut seven colours down to two."
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Colour is an argument, not a mood board. Spend it like a sentence.",
+      "by": "Dr Helena Varga, Parchment Lectures, Vol. IV"
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Recap",
+      "heading": "Three habits replace the eight-colour chart",
+      "items": [
+        {
+          "rank": "1",
+          "label": "Start every chart in grey",
+          "value": "context",
+          "widthPct": 100
         },
         {
-          "icon": "fa-solid fa-bolt",
-          "title": "Ship the punchline",
-          "body": "Lead with the claim that survives the hallway test."
+          "rank": "2",
+          "label": "Give one series the accent",
+          "value": "claim",
+          "widthPct": 75
         },
         {
-          "icon": "fa-solid fa-eye",
-          "title": "Show, don't pad",
-          "body": "Asymmetry beats another identical third column."
+          "rank": "3",
+          "label": "Test the accent at 3:1",
+          "value": "check",
+          "widthPct": 50
         }
       ]
     },
     {
       "layout": "closing",
-      "eyebrow": "RSVP",
-      "heading": "Take a seat in the blue.",
-      "lead": "Season tickets open Friday.",
+      "eyebrow": "Before next week's workshop",
+      "heading": "Recolour one chart at work, so only your point is coloured.",
+      "lead": "Bring the before and after to Workshop 4 on 4 December.",
       "actions": [
         {
-          "label": "Reserve a seat",
-          "href": "#",
+          "label": "Download the exercise files",
           "style": "solid",
-          "icon": "fa-solid fa-calendar"
+          "icon": "fa-solid fa-download"
         },
         {
-          "label": "Read the syllabus",
-          "href": "#",
+          "label": "Reserve a seat for Workshop 4",
           "style": "outline",
-          "icon": "fa-solid fa-book"
+          "icon": "fa-solid fa-chair"
         }
-      ],
-      "notes": "Offer syllabus for people who cannot attend live."
+      ]
     }
   ]
 }

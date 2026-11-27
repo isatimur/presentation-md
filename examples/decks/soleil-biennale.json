@@ -1,121 +1,106 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Soleil — Biennale Deck",
+    "title": "Soleil — move the sun pavilion to Mestre",
     "company": "Soleil",
-    "description": "Cultural pavilion pitch — biennale-yellow multi-slide proof.",
-    "theme": "biennale-yellow"
+    "description": "Campaign deck from the Soleil collective to save their 2026 Biennale pavilion from demolition and rebuild it as a free reading room in a Mestre schoolyard: the waste, the plan, the cost, momentum and a 31 January pledge deadline.",
+    "theme": "biennale-yellow",
+    "genre": "campaign"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Pavilion · 2026",
-      "heading": "Sun on parchment. Indigo ink.",
-      "lead": "Instrument Serif for the hall. Archivo for the wall text.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Soleil collective · Campaign · Venice, December 2026",
+      "heading": "Give the sun pavilion a second life in Mestre.",
+      "lead": "Not a skip. A schoolyard.",
+      "notes": "Say Mestre clearly. Most of the room has never been there, and that is the point."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Pavilion · 2026",
-      "heading": "Sun on parchment. Indigo ink.",
-      "lead": "Instrument Serif for the hall. Archivo for the wall text.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23DCD6C4%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23E9E5DB%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28241%2C238%2C46%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28241%2C238%2C46%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28226%2C107%2C74%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28241%2C238%2C46%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28220%2C214%2C196%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28241%2C238%2C46%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28241%2C238%2C46%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28241%2C238%2C46%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28226%2C107%2C74%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28226%2C107%2C74%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28226%2C107%2C74%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23E9E5DB%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.5%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22200%22%20cy%3D%22100%22%20rx%3D%22420%22%20ry%3D%22280%22%20fill%3D%22rgba%28241%2C238%2C46%2C0.350%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221400%22%20cy%3D%22780%22%20rx%3D%22500%22%20ry%3D%22320%22%20fill%3D%22rgba%28226%2C107%2C74%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.9%22%3E%0A%20%20%20%20%3Crect%20x%3D%22180%22%20y%3D%22160%22%20width%3D%22520%22%20height%3D%22340%22%20rx%3D%228%22%20fill%3D%22%23DCD6C4%22%20stroke%3D%22rgba%28241%2C238%2C46%2C0.400%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22%23E9E5DB%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.7%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22240%22%20y%3D%22470%22%20width%3D%22180%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22780%22%20y%3D%22220%22%20width%3D%22420%22%20height%3D%22280%22%20rx%3D%228%22%20fill%3D%22%23DCD6C4%22%20stroke%3D%22rgba%28226%2C107%2C74%2C0.350%29%22%20stroke-width%3D%222%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22800%22%20y%3D%22240%22%20width%3D%22380%22%20height%3D%22220%22%20fill%3D%22rgba%28226%2C107%2C74%2C0.200%29%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Cg%20opacity%3D%220.4%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221260%22%20cy%3D%22180%22%20r%3D%2226%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221360%22%20cy%3D%22260%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221180%22%20cy%3D%22300%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Soleil craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
-    },
-    {
-      "layout": "feature-grid",
-      "eyebrow": "Rooms",
-      "heading": "Three galleries, one light",
-      "columns": "bento",
-      "cards": [
-        {
-          "icon": "fa-solid fa-sun",
-          "title": "Solar field",
-          "body": "Yellow as architecture, not decoration."
-        },
-        {
-          "icon": "fa-solid fa-book-open",
-          "title": "Wall text",
-          "body": "Short captions that survive a crowd."
-        },
-        {
-          "icon": "fa-solid fa-landmark",
-          "title": "Pavilion plan",
-          "body": "Circulation drawn before the paint."
-        },
-        {
-          "icon": "fa-solid fa-bolt",
-          "title": "Ship the punchline",
-          "body": "Lead with the claim that survives the hallway test."
-        },
-        {
-          "icon": "fa-solid fa-eye",
-          "title": "Show, don't pad",
-          "body": "Asymmetry beats another identical third column."
-        }
-      ]
-    },
-    {
-      "layout": "quote",
-      "quote": "If the yellow is timid, the room is empty.",
-      "by": "Soleil · Curatorial note"
+      "eyebrow": "What is",
+      "heading": "On 30 January, the pavilion 42,000 people visited goes to landfill",
+      "lead": "Demolition is booked. The cranes arrive the next morning.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 440'><rect width='1600' height='440' fill='%23E9E5DB'/><circle cx='640' cy='190' r='150' fill='%23F1EE2E'/><rect x='0' y='350' width='1600' height='90' fill='%23DCD6C4'/><g fill='none' stroke='%231B2566' stroke-width='10'><path d='M420 350 L420 170 Q640 40 860 170 L860 350'/><line x1='493' y1='120' x2='493' y2='350'/><line x1='566' y1='88' x2='566' y2='350'/><line x1='640' y1='78' x2='640' y2='350'/><line x1='714' y1='88' x2='714' y2='350'/><line x1='787' y1='120' x2='787' y2='350'/><line x1='420' y1='250' x2='860' y2='250'/></g><g transform='rotate(-6 1000 160)'><rect x='860' y='120' width='340' height='80' fill='%23E26B4A'/><text x='1030' y='172' font-family='sans-serif' font-weight='700' font-size='30' fill='%23E9E5DB' text-anchor='middle'>DEMOLIZIONE 30.01</text></g><path d='M1180 270 L1460 270 L1430 350 L1210 350 Z' fill='%234A5480'/><g stroke='%231B2566' stroke-width='6'><line x1='1240' y1='265' x2='1290' y2='225'/><line x1='1320' y1='265' x2='1330' y2='215'/><line x1='1380' y1='265' x2='1420' y2='230'/></g><text x='1320' y='325' font-family='sans-serif' font-size='22' fill='%23E9E5DB' text-anchor='middle'>380 t</text></svg>",
+      "imageAlt": "The Soleil pavilion, a timber arch in front of a yellow sun disk, with a coral demolition tag dated 30 January and a skip filling with beams."
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Attendance",
-      "heading": "Proof of presence.",
+      "variant": "hero",
+      "eyebrow": "The pattern",
+      "heading": "92% of Biennale pavilions are scrapped within a month of closing",
       "stats": [
-        {
-          "value": "42k",
-          "label": "Visitors"
-        },
-        {
-          "value": "11",
-          "label": "Nations"
-        },
-        {
-          "value": "1",
-          "label": "Sun"
-        }
-      ],
-      "notes": "One breath on the numbers — then move on."
+        { "value": "92%", "label": "Scrapped in 30 days, 2025 count of 86 pavilions" },
+        { "value": "380 t", "label": "Timber and steel in Soleil alone" }
+      ]
     },
     {
-      "layout": "logo-wall",
-      "eyebrow": "Trusted by",
-      "heading": "Teams building with Soleil.",
-      "cards": [
-        {
-          "title": "Northstar"
-        },
-        {
-          "title": "Harbor"
-        },
-        {
-          "title": "Fieldkit"
-        },
-        {
-          "title": "Lumen"
-        },
-        {
-          "title": "Cascade"
-        },
-        {
-          "title": "Orbit"
-        }
+      "layout": "image-hero",
+      "eyebrow": "What could be",
+      "heading": "In Mestre it becomes a free reading room for 3,000 pupils",
+      "lead": "Same arch, same sun, on the Scuola Parini schoolyard.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 440'><rect width='1600' height='440' fill='%23E9E5DB'/><circle cx='800' cy='190' r='150' fill='%23F1EE2E'/><rect x='0' y='350' width='1600' height='90' fill='%23DCD6C4'/><g fill='none' stroke='%231B2566' stroke-width='10'><path d='M580 350 L580 170 Q800 40 1020 170 L1020 350'/><line x1='653' y1='120' x2='653' y2='350'/><line x1='726' y1='88' x2='726' y2='350'/><line x1='800' y1='78' x2='800' y2='350'/><line x1='874' y1='88' x2='874' y2='350'/><line x1='947' y1='120' x2='947' y2='350'/><line x1='580' y1='250' x2='1020' y2='250'/></g><g fill='%234A5480'><circle cx='300' cy='200' r='70'/><circle cx='380' cy='240' r='55'/><circle cx='1280' cy='210' r='75'/><circle cx='1360' cy='250' r='50'/></g><g fill='%231B2566'><rect x='292' y='260' width='16' height='90'/><rect x='1272' y='270' width='16' height='80'/></g><g fill='%23E26B4A'><circle cx='680' cy='300' r='14'/><rect x='668' y='316' width='24' height='34' rx='6'/><circle cx='760' cy='300' r='14'/><rect x='748' y='316' width='24' height='34' rx='6'/><circle cx='880' cy='300' r='14'/><rect x='868' y='316' width='24' height='34' rx='6'/><circle cx='1120' cy='300' r='14'/><rect x='1108' y='316' width='24' height='34' rx='6'/><circle cx='480' cy='300' r='14'/><rect x='468' y='316' width='24' height='34' rx='6'/></g><rect x='1080' y='100' width='300' height='56' fill='%231B2566'/><text x='1230' y='137' font-family='sans-serif' font-weight='700' font-size='24' fill='%23F1EE2E' text-anchor='middle'>Biblioteca Soleil · Mestre</text></svg>",
+      "imageAlt": "The same timber arch and yellow sun rebuilt in a schoolyard, with trees, children and a sign reading Biblioteca Soleil, Mestre."
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "The obstacle",
+      "heading": "Scrapping costs €240k today; moving costs €1.8M and lasts 30 years",
+      "leftLabel": "Scrap it",
+      "left": "€240k\nGone in six weeks\n380 t of waste",
+      "rightLabel": "Move it",
+      "right": "€1.8M\n€60k a year over 30 years\nZero waste",
+      "emphasis": "right"
+    },
+    {
+      "layout": "quote",
+      "quote": "Mestre has 90,000 people and one public library. Our children cross a bridge to find culture.",
+      "by": "Giulia Bortolin · Head teacher, Scuola Parini, Mestre"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "How it moves",
+      "heading": "Every panel is numbered, so the pavilion rebuilds in nine weeks",
+      "ratio": "1-2",
+      "body": "We built Soleil to come apart: 148 bolted panels, no glue.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 900'><rect width='900' height='900' fill='%23E9E5DB'/><g fill='%23DCD6C4' stroke='%231B2566' stroke-width='4'><rect x='120' y='170' width='180' height='120'/><rect x='360' y='150' width='180' height='120' transform='rotate(-4 450 210)'/><rect x='600' y='170' width='180' height='120'/><rect x='120' y='380' width='180' height='120' transform='rotate(3 210 440)'/><rect x='360' y='390' width='180' height='120' fill='%23F1EE2E'/><rect x='600' y='380' width='180' height='120' transform='rotate(-3 690 440)'/><rect x='120' y='590' width='180' height='120'/><rect x='360' y='600' width='180' height='120' transform='rotate(4 450 660)'/><rect x='600' y='590' width='180' height='120'/></g><g font-family='monospace' font-size='26' fill='%231B2566' text-anchor='middle'><text x='210' y='240'>P-001</text><text x='450' y='220'>P-002</text><text x='690' y='240'>P-003</text><text x='210' y='450'>P-017</text><text x='450' y='460'>P-018</text><text x='690' y='450'>P-019</text><text x='210' y='660'>P-146</text><text x='450' y='670'>P-147</text><text x='690' y='660'>P-148</text></g><text x='120' y='770' font-family='sans-serif' font-size='24' fill='%234A5480'>Assembly sheet · 148 panels · 4 bolts each</text></svg>",
+      "imageAlt": "Exploded assembly sheet of the pavilion: numbered timber panels P-001 to P-148, each fixed with four bolts."
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "The plan",
+      "heading": "Three moves open the reading room in Mestre on 9 May 2027",
+      "steps": [
+        { "title": "February", "body": "Unbolt and store 148 panels" },
+        { "title": "March–April", "body": "Rebuild on the schoolyard" },
+        { "title": "9 May", "body": "Doors open, free to all" }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Momentum",
+      "heading": "214 people have already pledged €1.1M of the €1.8M",
+      "stats": [
+        { "value": "€1.1M", "label": "Pledged so far, 61% of goal" },
+        { "value": "214", "label": "Pledges since 1 November" },
+        { "value": "11", "label": "National pavilion teams signed on" }
       ],
-      "notes": "Glance the marks — social proof, not a reading list."
+      "notes": "Name two supporters in the room if they agree. Social proof beats the number."
+    },
+    {
+      "layout": "section",
+      "number": "31.01",
+      "heading": "31 January is the last day before the cranes arrive",
+      "lead": "€700k to go."
     },
     {
       "layout": "closing",
-      "eyebrow": "Invite",
-      "heading": "Bring the sun indoors.",
-      "lead": "Partnership slots for the next pavilion.",
-      "cta": {
-        "label": "Request the brief",
-        "href": "#"
-      }
+      "eyebrow": "Pledge by 31 January",
+      "heading": "Pledge now, and the sun pavilion opens in Mestre on 9 May.",
+      "lead": "Pledges start at €20, and every name goes on the arch.",
+      "actions": [
+        { "label": "Pledge to the move", "href": "#", "style": "solid", "icon": "fa-solid fa-hand-holding-heart" },
+        { "label": "Share the campaign", "href": "#", "style": "outline", "icon": "fa-solid fa-share-nodes" }
+      ]
     }
   ]
 }

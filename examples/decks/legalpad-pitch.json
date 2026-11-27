@@ -1,89 +1,144 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Legalpad — Pitch Deck",
+    "title": "Legalpad — Seed round, December 2026",
     "company": "Legalpad",
-    "description": "Legal-tech pitch — pin-and-paper multi-slide proof.",
-    "theme": "pin-and-paper"
+    "description": "Seed pitch for Legalpad, a matter workspace that pins every open issue on a legal matter until it closes: problem, product, why now, traction, market, competition, model, team and a $4.5M ask.",
+    "theme": "pin-and-paper",
+    "genre": "pitch"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Pitch",
-      "heading": "Yellow pad. Cobalt pins.",
-      "lead": "Space Grotesk for the claim. Caveat for the margin note.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Pinned open",
-      "heading": "Paper you can still argue on.",
-      "lead": "Pin & paper craft — a hero beat before the two-column brief.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221600%22%20height%3D%22900%22%20viewBox%3D%220%200%201600%20900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20stop-color%3D%22%23EFE56A%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22.55%22%20stop-color%3D%22%23F5ECA0%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23C2342B%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2272%25%22%20cy%3D%2228%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20stop-color%3D%22%23D8702A%22%20stop-opacity%3D%22.45%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23D8702A%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%3Cfilter%20id%3D%22grain%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%222%22%20stitchTiles%3D%22stitch%22%2F%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%20.08%200%22%2F%3E%3C%2Ffilter%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23g%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23glow%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22140%22%20width%3D%22620%22%20height%3D%22620%22%20rx%3D%2228%22%20fill%3D%22rgba%28194%2C52%2C43%2C0.120%29%22%20stroke%3D%22rgba%28216%2C112%2C42%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221180%22%20cy%3D%22520%22%20r%3D%22220%22%20fill%3D%22rgba%28194%2C52%2C43%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22240%22%20r%3D%2290%22%20fill%3D%22rgba%28216%2C112%2C42%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20filter%3D%22url%28%23grain%29%22%20opacity%3D%22.55%22%2F%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Legalpad atmospheric field",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Legalpad · Seed round · December 2026",
+      "heading": "No deadline on a legal matter gets lost again.",
+      "lead": "The matter workspace for law firms of 5 to 50 lawyers.",
+      "notes": "Say the sentence, pause, then name the round. Everything after this proves the sentence."
     },
     {
       "layout": "two-column",
-      "eyebrow": "Product",
-      "heading": "Lawyers' actual desk",
-      "body": "Pins: Issues stay visible until closed. Pads — Drafts that feel handwritten.",
-      "aside": "Who owns what, on one page.",
-      "ratio": "1-2"
+      "eyebrow": "The problem",
+      "heading": "Small firms track open issues in email, and one in six slips",
+      "ratio": "2-1",
+      "body": "140 live matters per 12-lawyer firm.\n30 to 60 open issues each, kept in inboxes and yellow pads.",
+      "aside": "17% passed their due date unnoticed. Audit of 48 firms, 2025."
     },
     {
-      "layout": "code",
-      "eyebrow": "API",
-      "heading": "Pin it in code.",
-      "filename": "legalpad.ts",
-      "language": "ts",
-      "code": "import { Pad } from '@legalpad/sdk';\n\nconst pad = Pad.open('matter-441');\npad.pin({ id: 'discovery', owner: 'alex' });\nawait pad.sync();\nconsole.log(pad.openPins());"
+      "layout": "image-hero",
+      "eyebrow": "The product",
+      "heading": "Legalpad pins every open issue to its matter until someone closes it",
+      "lead": "Each pin has one owner and one due date.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'><defs><pattern id='l' width='1600' height='44' patternUnits='userSpaceOnUse'><line x1='0' y1='43' x2='1600' y2='43' stroke='%231F3A8A' stroke-opacity='.18' stroke-width='2'/></pattern></defs><rect width='1600' height='900' fill='%23EFE56A'/><rect width='1600' height='900' fill='url(%23l)'/><line x1='170' y1='0' x2='170' y2='900' stroke='%23C2342B' stroke-opacity='.5' stroke-width='3'/><g font-family='Helvetica,Arial,sans-serif' fill='%231F3A8A'><rect x='110' y='250' width='1380' height='400' rx='16' fill='%23F8F1D6' stroke='%231F3A8A' stroke-width='3'/><text x='150' y='302' font-size='28' font-weight='700'>Harlow v. Meyer · Matter 441</text><text x='1450' y='302' font-size='22' text-anchor='end' fill='%23C2342B' font-weight='700'>5 open pins · 2 due this week</text><line x1='150' y1='326' x2='1450' y2='326' stroke='%231F3A8A' stroke-opacity='.25' stroke-width='2'/><g font-size='23'><circle cx='166' cy='378' r='11' fill='%23C2342B'/><text x='192' y='386'>Respond to 2nd discovery request</text><text x='740' y='386' text-anchor='end' fill='%23C2342B' font-weight='700'>Dec 4</text><text x='192' y='414' font-size='18' fill='%232e4cac'>Owner: A. Moreno</text><circle cx='166' cy='468' r='11' fill='%23C2342B'/><text x='192' y='476'>File motion to compel</text><text x='740' y='476' text-anchor='end' fill='%23C2342B' font-weight='700'>Dec 6</text><text x='192' y='504' font-size='18' fill='%232e4cac'>Owner: D. Okafor</text><circle cx='166' cy='558' r='11' fill='%23D8702A'/><text x='192' y='566'>Client sign-off on expert report</text><text x='740' y='566' text-anchor='end'>Dec 12</text><text x='192' y='594' font-size='18' fill='%232e4cac'>Owner: J. Liu</text><circle cx='876' cy='378' r='11' fill='%23D8702A'/><text x='902' y='386'>Deposition prep: Meyer CFO</text><text x='1450' y='386' text-anchor='end'>Dec 18</text><text x='902' y='414' font-size='18' fill='%232e4cac'>Owner: A. Moreno</text><circle cx='876' cy='468' r='11' fill='%23D8702A'/><text x='902' y='476'>Draft settlement range memo</text><text x='1450' y='476' text-anchor='end'>Jan 8</text><text x='902' y='504' font-size='18' fill='%232e4cac'>Owner: D. Okafor</text><circle cx='876' cy='558' r='11' fill='none' stroke='%231F3A8A' stroke-width='3'/><text x='902' y='566' fill-opacity='.5' text-decoration='line-through'>Serve subpoena on Brightline Bank</text><text x='1450' y='566' text-anchor='end' fill-opacity='.5'>Closed</text></g></g></svg>",
+      "imageAlt": "Legalpad matter view: five open pins on Harlow v. Meyer, each with an owner and a due date",
+      "notes": "Point at the two red pins. That is the whole product: an owner, a date, and it stays until closed."
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Why now",
+      "heading": "Four shifts since 2022 make deadline capture automatic",
+      "steps": [
+        { "title": "2022 · E-filing", "body": "Federal courts and 41 states file online" },
+        { "title": "2024 · Models", "body": "Dockets parse to dates, 98% accurate" },
+        { "title": "2025 · Cloud", "body": "Most small firms run cloud tools" },
+        { "title": "2026 · Insurers", "body": "Carriers discount deadline systems" }
+      ]
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Traction",
+      "heading": "ARR tripled from $0.42M to $1.34M in five months",
+      "chartType": "line",
+      "categories": ["Jun 26", "Jul 26", "Aug 26", "Sep 26", "Oct 26", "Nov 26"],
+      "series": [
+        { "name": "ARR ($M)", "values": [0.42, 0.55, 0.71, 0.89, 1.11, 1.34] }
+      ],
+      "lead": "Source: Stripe billing, month-end ARR, 2026."
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Beta",
-      "heading": "Firms on the pad.",
+      "eyebrow": "Retention",
+      "heading": "Sixty-two firms pay, and not one has left",
       "stats": [
-        {
-          "value": "62",
-          "label": "Firms"
-        },
-        {
-          "value": "4.1×",
-          "label": "Faster handoff"
-        },
-        {
-          "value": "0",
-          "label": "Lost pins"
-        }
-      ],
-      "notes": "One breath on the numbers — then move on."
+        { "value": "62", "label": "Paying firms, up from 9 in June" },
+        { "value": "0%", "label": "Logo churn since paid launch in May" },
+        { "value": "4.1×", "label": "Faster associate handoff, 310 matters" }
+      ]
     },
     {
       "layout": "quote",
-      "quote": "Clarity beats decoration — every time.",
-      "by": "Legalpad",
-      "notes": "Let the quote hang — don't rush the attribution."
+      "quote": "We used to find missed deadlines in the Friday partner meeting. Now Legalpad finds them on Monday.",
+      "by": "Rosa Delgado · Managing partner, Delgado & Finch (14 lawyers)"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "How it works",
+      "heading": "Court dockets create the pins, so nobody has to type them",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-gavel", "title": "Docket feed", "body": "Reads every new order on the matter." },
+        { "icon": "fa-solid fa-thumbtack", "title": "Auto-pin", "body": "Turns each deadline into a dated pin." },
+        { "icon": "fa-solid fa-user-check", "title": "One owner", "body": "Stays red until its owner closes it." }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Market",
+      "heading": "Mid-size US firms alone are a $1.2B yearly market",
+      "stats": [
+        { "value": "48,000", "label": "US firms with 5–50 lawyers" },
+        { "value": "16", "label": "Paid seats per firm, our median" },
+        { "value": "$1.2B", "label": "Yearly SAM at $129 per seat a month" }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Competition",
+      "heading": "Practice suites bill hours, while Legalpad closes open issues",
+      "leftLabel": "Practice-management suites",
+      "left": "Built for billing.\nTasks typed by hand.\nNobody owns the calendar.",
+      "rightLabel": "Legalpad",
+      "right": "Built for open issues.\nPins come from the docket.\nOne owner per pin.",
+      "emphasis": "right",
+      "notes": "Expect the Clio question here. Answer: we sync with it. Firms keep billing there and run the matter on Legalpad."
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "The model and the team behind it",
+      "lead": "How $129 a seat becomes $6M ARR."
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Business model",
+      "heading": "Firms pay $129 per seat a month and add 31% more seats",
+      "columns": ["Plan", "Price per seat / month", "Built for", "Share of ARR"],
+      "rows": [
+        ["Pad", "$79", "Firms of 1–4 lawyers", "9%"],
+        ["Firm", "$129", "Firms of 5–50 lawyers", "78%"],
+        ["Firm + docket feeds", "$189", "Litigation-heavy firms", "13%"]
+      ]
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Team",
+      "heading": "A litigator, a docket engineer and a legal-ops lead built it",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-scale-balanced", "title": "Dana Okafor · CEO", "body": "Litigator for 9 years. Missed one deadline, once." },
+        { "icon": "fa-solid fa-code", "title": "Priya Raman · CTO", "body": "Built e-filing parsers for 30 state courts." },
+        { "icon": "fa-solid fa-briefcase", "title": "Marcus Hale · COO", "body": "Ran legal ops at a 200-lawyer firm." }
+      ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Pilot",
-      "heading": "Pin your first matter.",
-      "lead": "Pilot seats for boutique firms.",
+      "eyebrow": "The ask · $4.5M seed",
+      "heading": "Fund $4.5M so no deadline is lost at 400 firms",
+      "lead": "24 months of runway to reach $6M ARR by December 2028.",
       "actions": [
-        {
-          "label": "Request a pilot",
-          "href": "#",
-          "style": "solid",
-          "icon": "fa-solid fa-file-signature"
-        },
-        {
-          "label": "View pricing",
-          "href": "#",
-          "style": "outline",
-          "icon": "fa-solid fa-table-list"
-        }
-      ]
+        { "label": "Book a partner meeting", "href": "#", "style": "solid", "icon": "fa-solid fa-calendar-check" },
+        { "label": "Open the data room", "href": "#", "style": "outline", "icon": "fa-solid fa-folder-open" }
+      ],
+      "notes": "Close on the cover sentence. The number is the ask, the 400 firms is the milestone, the date is the promise."
     }
   ]
 }

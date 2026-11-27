@@ -1,85 +1,140 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Coralwave — Launch",
+    "title": "Coralwave Tide — launch, 2 April 2027",
     "company": "Coralwave",
-    "description": "Consumer brand launch — coral multi-slide proof.",
-    "theme": "coral"
+    "description": "Launch deck for Coralwave Tide, a reef-safe SPF 50 sunscreen stick with a 10-second refill pod, shipping in four countries on 2 April 2027.",
+    "theme": "coral",
+    "genre": "launch"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Launch",
-      "heading": "CORAL ON CREAM.",
-      "lead": "Bebas titles. Hatch texture. Ink borders that mean business.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Coralwave · Launch event · Lisbon, 26 November 2026",
+      "heading": "Sunscreen that protects you and the reef.",
+      "lead": "Meet Tide: reef-safe SPF 50 in a stick you refill, not replace.",
+      "notes": "Hold on the cover for a beat. The next slide is a real tester's words, read them slowly."
+    },
+    {
+      "layout": "quote",
+      "quote": "Every reef-safe sunscreen I tried left me ghost-white, and the tube went in the bin after a week.",
+      "by": "Inês Duarte, surf coach in Ericeira, Coralwave beta tester"
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Launch",
-      "heading": "CORAL ON CREAM.",
-      "lead": "Bebas titles. Hatch texture. Ink borders that mean business.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23E85D5D%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23F5F0E8%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C93%2C93%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C93%2C93%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28232%2C93%2C93%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C93%2C93%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C93%2C93%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28232%2C93%2C93%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C93%2C93%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F5F0E8%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22300%22%20cy%3D%22700%22%20rx%3D%22520%22%20ry%3D%22360%22%20fill%3D%22rgba%28232%2C93%2C93%2C0.220%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221300%22%20cy%3D%22160%22%20rx%3D%22420%22%20ry%3D%22300%22%20fill%3D%22rgba%2826%2C26%2C26%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M180%20780%20C260%20520%20420%20420%20520%20280%20C560%20360%20620%20460%20640%20620%20C480%20640%20300%20700%20180%20780%20Z%22%20fill%3D%22rgba%28232%2C93%2C93%2C0.450%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M1180%20120%20C1280%20180%201380%20260%201460%20380%20C1340%20360%201240%20300%201180%20120%20Z%22%20fill%3D%22rgba%2826%2C26%2C26%2C0.400%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M980%20700%20C1080%20560%201220%20500%201360%20420%20C1380%20540%201320%20660%201220%20760%20Z%22%20fill%3D%22rgba%28232%2C93%2C93%2C0.250%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%22860%22%20cy%3D%22240%22%20r%3D%2290%22%20fill%3D%22rgba%2826%2C26%2C26%2C0.200%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22640%22%20y%3D%22360%22%20width%3D%22360%22%20height%3D%22220%22%20rx%3D%2218%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%20stroke%3D%22rgba%28232%2C93%2C93%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22420%22%20width%3D%22200%22%20height%3D%2214%22%20rx%3D%225%22%20fill%3D%22rgba%28232%2C93%2C93%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22455%22%20width%3D%22260%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Coralwave cinematic surface",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Introducing",
+      "heading": "Coralwave Tide",
+      "lead": "Non-nano zinc SPF 50. A five-year case. A pod that lasts a month.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20600%22%3E%3Crect%20width%3D%221600%22%20height%3D%22600%22%20fill%3D%22%23F5F0E8%22%2F%3E%3Cg%20stroke%3D%22%231A1A1A%22%20stroke-opacity%3D%220.1%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22M0%20100%20H1600%20M0%20200%20H1600%20M0%20300%20H1600%20M0%20400%20H1600%20M0%20500%20H1600%22%2F%3E%3C%2Fg%3E%3Cellipse%20cx%3D%22820%22%20cy%3D%22490%22%20rx%3D%22330%22%20ry%3D%2226%22%20fill%3D%22%231A1A1A%22%20fill-opacity%3D%220.12%22%2F%3E%3Cg%20transform%3D%22rotate(-70%20800%20300)%22%20stroke%3D%22%231A1A1A%22%20stroke-width%3D%227%22%3E%3Crect%20x%3D%22720%22%20y%3D%22110%22%20width%3D%22160%22%20height%3D%22380%22%20rx%3D%2234%22%20fill%3D%22%23E85D5D%22%2F%3E%3Crect%20x%3D%22720%22%20y%3D%2260%22%20width%3D%22160%22%20height%3D%22100%22%20rx%3D%2226%22%20fill%3D%22%231A1A1A%22%2F%3E%3Cpath%20d%3D%22M755%20420%20H845%20M755%20448%20H825%22%20stroke%3D%22%23F5F0E8%22%20stroke-width%3D%229%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22rotate(-70%20800%20300)%22%20font-family%3D%22Bebas%20Neue%2C%20Impact%2C%20sans-serif%22%20text-anchor%3D%22middle%22%3E%3Ctext%20x%3D%22800%22%20y%3D%22250%22%20font-size%3D%2256%22%20fill%3D%22%23F5F0E8%22%3ETIDE%3C%2Ftext%3E%3Ctext%20x%3D%22800%22%20y%3D%22330%22%20font-size%3D%2240%22%20fill%3D%22%231A1A1A%22%3ESPF%2050%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(1180%20250)%20rotate(10)%22%20stroke%3D%22%231A1A1A%22%20stroke-width%3D%227%22%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22130%22%20height%3D%22160%22%20rx%3D%2224%22%20fill%3D%22%23F5F0E8%22%2F%3E%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22130%22%20height%3D%2250%22%20rx%3D%2224%22%20fill%3D%22%23E85D5D%22%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D%22Bebas%20Neue%2C%20Impact%2C%20sans-serif%22%20font-size%3D%2240%22%3E%3Ctext%20x%3D%221245%22%20y%3D%22470%22%20fill%3D%22%231A1A1A%22%20text-anchor%3D%22middle%22%3EREFILL%20POD%20%C2%B7%2030%20DAYS%3C%2Ftext%3E%3Ctext%20x%3D%22330%22%20y%3D%22190%22%20fill%3D%22%23E85D5D%22%20text-anchor%3D%22middle%22%3ENON-NANO%20ZINC%3C%2Ftext%3E%3Ctext%20x%3D%22330%22%20y%3D%22235%22%20fill%3D%22%231A1A1A%22%20text-anchor%3D%22middle%22%3ECASE%20LASTS%205%20YEARS%3C%2Ftext%3E%3C%2Fg%3E%3Cpath%20d%3D%22M440%20225%20L590%20290%22%20stroke%3D%22%231A1A1A%22%20stroke-width%3D%224%22%2F%3E%3C%2Fsvg%3E",
+      "imageAlt": "The coral-red Tide sunscreen stick marked SPF 50, tilted, with a cream refill pod beside it."
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "How Tide works",
+      "lead": "Three things a tube cannot do."
     },
     {
       "layout": "two-column",
-      "eyebrow": "Line",
-      "heading": "Three products. One coral.",
-      "body": "Core tees: Heavyweight cotton. Coral hit on the sleeve. Tote system — Cream field. Hatch print. Built for markets.",
-      "aside": "Limited runs — sold out is the plan.",
-      "ratio": "2-1"
+      "eyebrow": "Refill",
+      "heading": "A new pod clicks into the case in ten seconds",
+      "ratio": "3-2",
+      "reverse": true,
+      "body": "Twist open, drop in, click.\nThe case lasts five years.\nEach pod is 12 g of plastic, not 38 g.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%22-40%20-170%201080%201240%22%3E%3Crect%20x%3D%22-40%22%20y%3D%22-170%22%20width%3D%221080%22%20height%3D%221240%22%20fill%3D%22%23F5F0E8%22%2F%3E%3Cg%20font-family%3D%22Bebas%20Neue%2C%20Impact%2C%20sans-serif%22%20text-anchor%3D%22middle%22%20fill%3D%22%231A1A1A%22%3E%3Ctext%20x%3D%22500%22%20y%3D%22200%22%20font-size%3D%2296%22%20fill%3D%22%23E85D5D%22%3E10%20SECONDS%3C%2Ftext%3E%3Cg%20stroke%3D%22%231A1A1A%22%20stroke-width%3D%227%22%3E%3Crect%20x%3D%22160%22%20y%3D%22290%22%20width%3D%22140%22%20height%3D%22330%22%20rx%3D%2230%22%20fill%3D%22%23E85D5D%22%2F%3E%3Crect%20x%3D%22160%22%20y%3D%22290%22%20width%3D%22140%22%20height%3D%2275%22%20rx%3D%2226%22%20fill%3D%22%231A1A1A%22%2F%3E%3Crect%20x%3D%22700%22%20y%3D%22290%22%20width%3D%22140%22%20height%3D%22330%22%20rx%3D%2230%22%20fill%3D%22%23E85D5D%22%2F%3E%3Crect%20x%3D%22700%22%20y%3D%22290%22%20width%3D%22140%22%20height%3D%2275%22%20rx%3D%2226%22%20fill%3D%22%231A1A1A%22%2F%3E%3Crect%20x%3D%22435%22%20y%3D%22360%22%20width%3D%22130%22%20height%3D%22170%22%20rx%3D%2224%22%20fill%3D%22%23F5F0E8%22%2F%3E%3Crect%20x%3D%22435%22%20y%3D%22360%22%20width%3D%22130%22%20height%3D%2250%22%20rx%3D%2224%22%20fill%3D%22%23E85D5D%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M325%20450%20H405%20M595%20450%20H675%22%20stroke%3D%22%231A1A1A%22%20stroke-width%3D%227%22%2F%3E%3Cpath%20d%3D%22M390%20434%20L408%20450%20L390%20466%20M660%20434%20L678%20450%20L660%20466%22%20stroke%3D%22%231A1A1A%22%20stroke-width%3D%227%22%20fill%3D%22none%22%2F%3E%3Ctext%20x%3D%22230%22%20y%3D%22690%22%20font-size%3D%2244%22%3E1%20%C2%B7%20TWIST%3C%2Ftext%3E%3Ctext%20x%3D%22500%22%20y%3D%22690%22%20font-size%3D%2244%22%3E2%20%C2%B7%20DROP%20IN%3C%2Ftext%3E%3Ctext%20x%3D%22770%22%20y%3D%22690%22%20font-size%3D%2244%22%3E3%20%C2%B7%20CLICK%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "Three steps: twist the case open, drop in the pod, click it shut."
     },
     {
-      "layout": "comparison",
-      "eyebrow": "Look",
-      "heading": "Soft brand vs. coral.",
-      "leftLabel": "Soft DTC",
-      "left": "Pastel mist.\nRounded everything.\nForgettable marks.",
-      "rightLabel": "Coralwave",
-      "right": "Hatch + ink.\nHard type.\nYou remember the coral.",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
+      "layout": "image-hero",
+      "eyebrow": "Clear zinc",
+      "heading": "Tide went on clear on all ten skin tones we tested",
+      "lead": "Lab panel of 40 people, Fitzpatrick types I–VI, October 2026.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20600%22%3E%3Crect%20width%3D%221600%22%20height%3D%22600%22%20fill%3D%22%23F5F0E8%22%2F%3E%3Cg%20font-family%3D%22Bebas%20Neue%2C%20Impact%2C%20sans-serif%22%20font-size%3D%2238%22%20fill%3D%22%231A1A1A%22%3E%3Ctext%20x%3D%22110%22%20y%3D%22210%22%3ELEFT%20HALF%20%C2%B7%20BARE%20SKIN%3C%2Ftext%3E%3Ctext%20x%3D%221490%22%20y%3D%22210%22%20text-anchor%3D%22end%22%20fill%3D%22%23E85D5D%22%3ERIGHT%20HALF%20%C2%B7%20TIDE%2C%202%20MG%2FCM%C2%B2%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%231A1A1A%22%20stroke-width%3D%225%22%3E%3Crect%20x%3D%22110%22%20y%3D%22230%22%20width%3D%22120%22%20height%3D%22260%22%20fill%3D%22%23F3D9C4%22%2F%3E%3Crect%20x%3D%22250%22%20y%3D%22230%22%20width%3D%22120%22%20height%3D%22260%22%20fill%3D%22%23EBC6A6%22%2F%3E%3Crect%20x%3D%22390%22%20y%3D%22230%22%20width%3D%22120%22%20height%3D%22260%22%20fill%3D%22%23DDAF88%22%2F%3E%3Crect%20x%3D%22530%22%20y%3D%22230%22%20width%3D%22120%22%20height%3D%22260%22%20fill%3D%22%23C99569%22%2F%3E%3Crect%20x%3D%22670%22%20y%3D%22230%22%20width%3D%22120%22%20height%3D%22260%22%20fill%3D%22%23B07D52%22%2F%3E%3Crect%20x%3D%22810%22%20y%3D%22230%22%20width%3D%22120%22%20height%3D%22260%22%20fill%3D%22%23946342%22%2F%3E%3Crect%20x%3D%22950%22%20y%3D%22230%22%20width%3D%22120%22%20height%3D%22260%22%20fill%3D%22%237A4E33%22%2F%3E%3Crect%20x%3D%221090%22%20y%3D%22230%22%20width%3D%22120%22%20height%3D%22260%22%20fill%3D%22%235F3B27%22%2F%3E%3Crect%20x%3D%221230%22%20y%3D%22230%22%20width%3D%22120%22%20height%3D%22260%22%20fill%3D%22%234A2D1E%22%2F%3E%3Crect%20x%3D%221370%22%20y%3D%22230%22%20width%3D%22120%22%20height%3D%22260%22%20fill%3D%22%23352015%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23FFFFFF%22%20fill-opacity%3D%220.09%22%3E%3Crect%20x%3D%22170%22%20y%3D%22233%22%20width%3D%2257%22%20height%3D%22254%22%2F%3E%3Crect%20x%3D%22310%22%20y%3D%22233%22%20width%3D%2257%22%20height%3D%22254%22%2F%3E%3Crect%20x%3D%22450%22%20y%3D%22233%22%20width%3D%2257%22%20height%3D%22254%22%2F%3E%3Crect%20x%3D%22590%22%20y%3D%22233%22%20width%3D%2257%22%20height%3D%22254%22%2F%3E%3Crect%20x%3D%22730%22%20y%3D%22233%22%20width%3D%2257%22%20height%3D%22254%22%2F%3E%3Crect%20x%3D%22870%22%20y%3D%22233%22%20width%3D%2257%22%20height%3D%22254%22%2F%3E%3Crect%20x%3D%221010%22%20y%3D%22233%22%20width%3D%2257%22%20height%3D%22254%22%2F%3E%3Crect%20x%3D%221150%22%20y%3D%22233%22%20width%3D%2257%22%20height%3D%22254%22%2F%3E%3Crect%20x%3D%221290%22%20y%3D%22233%22%20width%3D%2257%22%20height%3D%22254%22%2F%3E%3Crect%20x%3D%221430%22%20y%3D%22233%22%20width%3D%2257%22%20height%3D%22254%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23E85D5D%22%20stroke-width%3D%223%22%20stroke-dasharray%3D%2210%208%22%3E%3Cpath%20d%3D%22M170%20230%20V490%20M310%20230%20V490%20M450%20230%20V490%20M590%20230%20V490%20M730%20230%20V490%20M870%20230%20V490%20M1010%20230%20V490%20M1150%20230%20V490%20M1290%20230%20V490%20M1430%20230%20V490%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "Ten skin-tone swatches from light to deep; the lower half has Tide applied and shows no white cast."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Water resistance",
+      "heading": "SPF 50 holds for 80 minutes in salt water",
+      "ratio": "2-1",
+      "body": "Tested to ISO 16217 in sea water, not tap water.\nOne swipe covers a face; three cover arms and legs.",
+      "aside": "80 min in salt water. Most mineral sticks: 40 min."
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Drop 01",
-      "heading": "Cream sold through.",
+      "eyebrow": "Proof",
+      "heading": "Refilling Tide cuts sunscreen plastic by 68% a year",
+      "variant": "hero",
       "stats": [
         {
-          "value": "100%",
-          "label": "Sell-through"
+          "value": "−68%",
+          "label": "Plastic per user per year, 12 pods vs 12 tubes"
         },
         {
-          "value": "4h",
-          "label": "To waitlist clear"
+          "value": "0",
+          "label": "Oxybenzone or octinoxate, both banned in Hawaii"
         },
         {
-          "value": "22",
-          "label": "Stockists"
+          "value": "2,400",
+          "label": "Beta testers over summer 2026"
         }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Tide is the first stick our lifeguards wear all day. We are stocking it at all twelve beach posts.",
+      "by": "Rui Matos, head of beach safety, Cascais municipality"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Price and availability",
+      "heading": "Tide ships on 2 April 2027 from €24 in four countries",
+      "columns": [
+        "Option",
+        "Price",
+        "What you get"
+      ],
+      "rows": [
+        [
+          "Starter kit",
+          "€24",
+          "Case + 2 pods"
+        ],
+        [
+          "Refill pod",
+          "€9",
+          "About 30 days of daily use"
+        ],
+        [
+          "Tide subscription",
+          "€24 / quarter",
+          "3 pods, free shipping"
+        ],
+        [
+          "Countries",
+          "PT · ES · FR · UK",
+          "Online and 140 surf shops"
+        ]
       ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Next drop",
-      "heading": "Join the coral list.",
-      "lead": "Drop 02 in six weeks.",
+      "eyebrow": "Pre-orders open tonight",
+      "heading": "Protect your skin this summer and leave the reef alone",
+      "lead": "The first 5,000 starter kits ship on 2 April with a free spare pod.",
       "actions": [
         {
-          "label": "Join waitlist",
-          "href": "#",
+          "label": "Pre-order Tide",
           "style": "solid",
-          "icon": "fa-solid fa-envelope"
+          "icon": "fa-solid fa-cart-shopping"
         },
         {
-          "label": "Read the story",
-          "href": "#",
+          "label": "Follow @coralwave",
           "style": "outline",
-          "icon": "fa-solid fa-book-open"
+          "icon": "fa-brands fa-instagram"
         }
-      ]
+      ],
+      "notes": "Say the date twice. Pre-orders go live the moment this slide appears."
     }
   ]
 }

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Meridian × Hargrove Partners</title>
-<meta name="description" content="Sales deck — data platform for professional services." />
+<title>Meridian × Hargrove Partners — getting Mondays back</title>
+<meta name="description" content="Sales deck from Meridian, a reporting and forecasting platform for professional services firms, to Hargrove Partners: the shift to weekly client reporting, who wins, three obstacles and fixes, a reference customer, a 12-month ROI model, a nine-week plan and a dated next step." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap');
@@ -20,6 +20,12 @@
   --muted: #605b56;
   --accent: #1a4fd8;
   --accent-2: #c0392b;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #f7f5f0;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #1a4fd8;
+  --accent-2-ink: #c0392b;
   --card-bg: rgba(10,10,10,0.03);
   --border: rgba(10,10,10,0.12);
   --radius: 0px;
@@ -27,6 +33,10 @@
   --heading-font: 'Libre Baskerville', Georgia, serif;
   --body-font: 'IBM Plex Sans', system-ui, sans-serif;
   --heading-weight: 700;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,227 +6908,222 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="broadsheet-rule">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Hargrove Partners</span>
-  <h1>Data that moves the needle.</h1>
-  <p class="lead">A proposal for automated reporting, client intelligence, and forecast clarity.</p>
+  <span class="eyebrow">Prepared for Hargrove Partners · 4 December 2026</span>
+  <h1>How Hargrove Partners gets its Mondays back.</h1>
+  <p class="lead">Two analyst days a week go into reporting. They do not have to.</p>
 </section>
 
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Agenda · 45 minutes</span>
-  <h2>Four sections</h2>
-  <div class="grid cols-bento">
-    <div class="card">
-      <i class="fa-solid fa-triangle-exclamation"></i>
-      <h3>01 · Cost of inaction</h3>
-      <p>What manual reporting and fragmented tooling cost Hargrove today.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-cubes"></i>
-      <h3>02 · Recommended modules</h3>
-      <p>Three purpose-built modules scoped to your data environment.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-chart-line"></i>
-      <h3>03 · Implementation &amp; ROI</h3>
-      <p>Timeline, savings model, and a similar-client reference.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-handshake"></i>
-      <h3>04 · Pricing &amp; next steps</h3>
-      <p>Commercial terms and a concrete action plan.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-layer-group"></i>
-      <h3>Stack for scan</h3>
-      <p>Hierarchy first. Decoration second. Decoration never.</p>
-    </div>
+<section class="slide chart-slide" data-layout="chart">
+  <span class="eyebrow">The shift</span>
+  <h2>Clients now expect weekly reporting: 61% of contracts, up from 18%</h2>
+  <p class="lead">Source: survey of 300 mid-size professional services firms, Q3 2025.</p>
+  <div class="chart-frame">
+    <svg class="pmd-chart" viewBox="0 0 920 420" width="100%" height="100%" role="img" aria-label="Chart" xmlns="http://www.w3.org/2000/svg">
+  
+  <g class="chart-grid"><line x1="52" y1="16" x2="896" y2="16" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="20" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">100</text><line x1="52" y1="106" x2="896" y2="106" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="110" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">75</text><line x1="52" y1="196" x2="896" y2="196" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="200" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">50</text><line x1="52" y1="286" x2="896" y2="286" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="290" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">25</text><line x1="52" y1="376" x2="896" y2="376" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="380" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">0</text></g>
+  <g class="chart-marks"><rect x="60" y="311.2" width="193" height="64.8" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="157.5" y="305.2" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">18</text><rect x="271" y="271.6" width="193" height="104.39999999999999" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="368.5" y="265.6" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">29</text><rect x="482" y="217.6" width="193" height="158.4" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="579.5" y="211.6" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">44</text><rect x="693" y="156.4" width="193" height="219.6" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="790.5" y="150.4" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">61</text></g>
+  <g class="chart-cats"><text x="157.5" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2022</text><text x="368.5" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2023</text><text x="579.5" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2024</text><text x="790.5" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2025</text></g>
+</svg>
   </div>
 </section>
 
 <section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Pain → Module</span>
-  <h2>How each module lands</h2>
+  <span class="eyebrow">Winners and losers</span>
+  <h2>Firms that automated reporting grew fees 14%; the rest lost margin</h2>
   <div class="comparison-cols emphasis-right">
     <div class="comparison-col">
-      <span class="comparison-label">Today&#39;s pain</span>
-      <p>Manual reporting packs.
-Fragmented CRM + finance views.
-Forecasts rebuilt every Monday.</p>
+      <span class="comparison-label">Manual packs</span>
+      <p>Two analyst days a week
+Forecast rebuilt Mondays
+Margin down 2 points</p>
     </div>
     <div class="comparison-vs" aria-hidden="true">vs</div>
     <div class="comparison-col">
-      <span class="comparison-label">With Meridian</span>
-      <p>Scheduled, branded reports.
-Unified client intelligence.
-Live pipeline tied to activity.</p>
+      <span class="comparison-label">Automated</span>
+      <p>Packs out by 08:00
+Forecast within ±4%
+Fees up 14%</p>
     </div>
   </div>
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f2efe8%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f7f5f0%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28242%2C239%2C232%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f7f5f0%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%2826%2C79%2C216%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23f2efe8%22%20stroke%3D%22rgba%2826%2C79%2C216%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%28192%2C57%2C43%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%231a4fd8%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%2826%2C79%2C216%2C0.150%29%22%20stroke%3D%22rgba%28192%2C57%2C43%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%28192%2C57%2C43%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%28192%2C57%2C43%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="Meridian craft visual" />
+    <img src="data:image&#x2F;svg+xml,%3Csvg xmlns&#x3D;%22http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg%22 viewBox&#x3D;%220 0 1600 900%22 width&#x3D;%221600%22 height&#x3D;%22900%22%3E%3Crect width&#x3D;%221600%22 height&#x3D;%22900%22 fill&#x3D;%22%23f2efe8%22&#x2F;%3E%3Cg transform&#x3D;%22translate(0,25)%22%3E%3Crect x&#x3D;%22180%22 y&#x3D;%22250%22 width&#x3D;%221240%22 height&#x3D;%22400%22 fill&#x3D;%22%23ffffff%22 stroke&#x3D;%22%230a0a0a%22 stroke-width&#x3D;%222%22&#x2F;%3E%3Crect x&#x3D;%22180%22 y&#x3D;%22250%22 width&#x3D;%221240%22 height&#x3D;%2244%22 fill&#x3D;%22%230a0a0a%22&#x2F;%3E%3Cg font-family&#x3D;%22Georgia, serif%22 fill&#x3D;%22%23f7f5f0%22 font-size&#x3D;%2220%22%3E%3Ctext x&#x3D;%22205%22 y&#x3D;%22279%22%3EHargrove Partners %C2%B7 Monday 08:00 %C2%B7 live%3C&#x2F;text%3E%3C&#x2F;g%3E%3Cg font-family&#x3D;%22Helvetica, Arial, sans-serif%22%3E%3Ctext x&#x3D;%22215%22 y&#x3D;%22340%22 font-size&#x3D;%2216%22 fill&#x3D;%22%23605b56%22%3EFEES BILLED, WEEK 6%3C&#x2F;text%3E%3Ctext x&#x3D;%22215%22 y&#x3D;%22385%22 font-size&#x3D;%2240%22 font-weight&#x3D;%22bold%22 fill&#x3D;%22%230a0a0a%22%3E%241.84M%3C&#x2F;text%3E%3Ctext x&#x3D;%22215%22 y&#x3D;%22410%22 font-size&#x3D;%2216%22 fill&#x3D;%22%231a4fd8%22%3E%2B6%25 vs forecast%3C&#x2F;text%3E%3Ctext x&#x3D;%22475%22 y&#x3D;%22340%22 font-size&#x3D;%2216%22 fill&#x3D;%22%23605b56%22%3EFORECAST, Q1%3C&#x2F;text%3E%3Ctext x&#x3D;%22475%22 y&#x3D;%22385%22 font-size&#x3D;%2240%22 font-weight&#x3D;%22bold%22 fill&#x3D;%22%230a0a0a%22%3E%2411.2M%3C&#x2F;text%3E%3Ctext x&#x3D;%22475%22 y&#x3D;%22410%22 font-size&#x3D;%2216%22 fill&#x3D;%22%23605b56%22%3E%C2%B14%25 confidence%3C&#x2F;text%3E%3Ctext x&#x3D;%22735%22 y&#x3D;%22340%22 font-size&#x3D;%2216%22 fill&#x3D;%22%23605b56%22%3EACCOUNTS AT RISK%3C&#x2F;text%3E%3Ctext x&#x3D;%22735%22 y&#x3D;%22385%22 font-size&#x3D;%2240%22 font-weight&#x3D;%22bold%22 fill&#x3D;%22%23c0392b%22%3E3%3C&#x2F;text%3E%3Ctext x&#x3D;%22735%22 y&#x3D;%22410%22 font-size&#x3D;%2216%22 fill&#x3D;%22%23c0392b%22%3Eof 212 clients%3C&#x2F;text%3E%3C&#x2F;g%3E%3Cline x1&#x3D;%22215%22 y1&#x3D;%22440%22 x2&#x3D;%22960%22 y2&#x3D;%22440%22 stroke&#x3D;%22%23e2ddd2%22 stroke-width&#x3D;%222%22&#x2F;%3E%3Cpolyline points&#x3D;%22215,610 300,590 385,598 470,570 555,560 640,540 725,548 810,515 895,500 960,490%22 fill&#x3D;%22none%22 stroke&#x3D;%22%231a4fd8%22 stroke-width&#x3D;%225%22&#x2F;%3E%3Cpolyline points&#x3D;%22215,600 960,520%22 fill&#x3D;%22none%22 stroke&#x3D;%22%23605b56%22 stroke-width&#x3D;%222%22 stroke-dasharray&#x3D;%228 8%22&#x2F;%3E%3Ctext x&#x3D;%22215%22 y&#x3D;%22470%22 font-family&#x3D;%22Helvetica, Arial, sans-serif%22 font-size&#x3D;%2216%22 fill&#x3D;%22%23605b56%22%3EWeekly fees vs forecast%3C&#x2F;text%3E%3Cg font-family&#x3D;%22Helvetica, Arial, sans-serif%22 font-size&#x3D;%2218%22 fill&#x3D;%22%230a0a0a%22%3E%3Ctext x&#x3D;%221010%22 y&#x3D;%22340%22 font-size&#x3D;%2216%22 fill&#x3D;%22%23605b56%22%3ECLIENT PACKS%3C&#x2F;text%3E%3Crect x&#x3D;%221010%22 y&#x3D;%22360%22 width&#x3D;%22370%22 height&#x3D;%2250%22 fill&#x3D;%22%23f7f5f0%22&#x2F;%3E%3Ctext x&#x3D;%221025%22 y&#x3D;%22392%22%3EBrightwater Retail%3C&#x2F;text%3E%3Ctext x&#x3D;%221365%22 y&#x3D;%22392%22 text-anchor&#x3D;%22end%22 fill&#x3D;%22%231a4fd8%22%3ESent 06:10%3C&#x2F;text%3E%3Crect x&#x3D;%221010%22 y&#x3D;%22420%22 width&#x3D;%22370%22 height&#x3D;%2250%22 fill&#x3D;%22%23f7f5f0%22&#x2F;%3E%3Ctext x&#x3D;%221025%22 y&#x3D;%22452%22%3EOkonkwo Logistics%3C&#x2F;text%3E%3Ctext x&#x3D;%221365%22 y&#x3D;%22452%22 text-anchor&#x3D;%22end%22 fill&#x3D;%22%231a4fd8%22%3ESent 06:12%3C&#x2F;text%3E%3Crect x&#x3D;%221010%22 y&#x3D;%22480%22 width&#x3D;%22370%22 height&#x3D;%2250%22 fill&#x3D;%22%23f7f5f0%22&#x2F;%3E%3Ctext x&#x3D;%221025%22 y&#x3D;%22512%22%3EFenwick Health%3C&#x2F;text%3E%3Ctext x&#x3D;%221365%22 y&#x3D;%22512%22 text-anchor&#x3D;%22end%22 fill&#x3D;%22%231a4fd8%22%3ESent 06:15%3C&#x2F;text%3E%3Crect x&#x3D;%221010%22 y&#x3D;%22540%22 width&#x3D;%22370%22 height&#x3D;%2250%22 fill&#x3D;%22%23f7f5f0%22&#x2F;%3E%3Ctext x&#x3D;%221025%22 y&#x3D;%22572%22%3EMarlow Estates%3C&#x2F;text%3E%3Ctext x&#x3D;%221365%22 y&#x3D;%22572%22 text-anchor&#x3D;%22end%22 fill&#x3D;%22%23c0392b%22%3EReview%3C&#x2F;text%3E%3C&#x2F;g%3E%3C&#x2F;g%3E%3C&#x2F;svg%3E" alt="Dashboard for Hargrove Partners on Monday at 08:00: fees billed $1.84M, Q1 forecast $11.2M, three accounts at risk, and client packs sent from 06:10" />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">Hargrove Partners</span>
-    <h2>Data that moves the needle.</h2>
-    <p class="lead">A proposal for automated reporting, client intelligence, and forecast clarity.</p>
+    <span class="eyebrow">The promised land</span>
+    <h2>Partners open one live view at 08:00, not a 40-slide pack</h2>
+    <p class="lead">Fees, forecast and at-risk clients, already sent to every client.</p>
   </div>
+</section>
+
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">01</div>
+  <h2>Three obstacles, and how Meridian removes them</h2>
+  
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-2-1">
+    <div class="cols-copy">
+      <span class="eyebrow">Obstacle 1 · Reporting</span>
+      <h2>Packs eat 220 analyst hours a year; Meridian builds them overnight</h2>
+      <p class="lead">Scheduled, branded client packs.
+Analysts review instead of assemble.</p>
+    </div>
+    
+    <div class="cols-aside"><p>220 hrs × $95 &#x3D; $20,900 a year back</p></div>
+  </div>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-2-1">
+    <div class="cols-copy">
+      <span class="eyebrow">Obstacle 2 · Data</span>
+      <h2>CRM and finance disagree on 1 account in 5; Meridian reconciles nightly</h2>
+      <p class="lead">One client record across CRM, billing and time.
+No more Friday clean-up.</p>
+    </div>
+    
+    <div class="cols-aside"><p>180 hrs × $95 &#x3D; $17,100 a year back</p></div>
+  </div>
+</section>
+
+<section class="slide comparison-slide" data-layout="comparison">
+  <span class="eyebrow">Obstacle 3 · Forecast</span>
+  <h2>Partners stop rebuilding the forecast every Monday</h2>
+  <div class="comparison-cols emphasis-right">
+    <div class="comparison-col">
+      <span class="comparison-label">Today</span>
+      <p>Spreadsheet from gut feel
+±15% miss each quarter</p>
+    </div>
+    <div class="comparison-vs" aria-hidden="true">vs</div>
+    <div class="comparison-col">
+      <span class="comparison-label">With Meridian</span>
+      <p>Tied to fee-earner hours
+±4% miss, $42,000 of partner time back</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide stat-row-slide stat-row-hero" data-layout="stat-row">
+  <span class="eyebrow">Evidence · Calder &amp; Wynn, 320 staff</span>
+  <h2>A firm like Hargrove cut weekly reporting to 40 minutes</h2>
+  
+  <div class="stats">
+    <div class="stat is-mega">
+      <div class="value">40 min</div>
+      <div class="label">Weekly reporting, down from 2 days</div>
+    </div>
+    <div class="stat">
+      <div class="value">±4%</div>
+      <div class="label">Forecast miss, was ±15%</div>
+    </div>
+    <div class="stat">
+      <div class="value">1 in 50</div>
+      <div class="label">Mismatched accounts, was 1 in 5</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide quote-slide" data-layout="quote">
+  <p class="quote">We cut weekly reporting from two days to forty minutes, and partners finally trust the numbers.</p>
+  <p class="quote-by">— Helen Ashworth, COO, Calder &amp; Wynn</p>
 </section>
 
 <section class="slide logo-wall-slide" data-layout="logo-wall">
   <span class="eyebrow">Customers</span>
-  <h2>Trusted by analytics teams who ship weekly.</h2>
+  <h2>Forty firms like Hargrove report on Meridian</h2>
   
-  <div class="logo-wall cols-4">
+  <div class="logo-wall cols-3">
     <div class="logo-tile">
       
-      <span class="logo-tile-fallback">Helix</span>
-      <p class="logo-tile-caption">Data platform</p>
-    </div>
-    <div class="logo-tile">
-      
-      <span class="logo-tile-fallback">Northwind</span>
-      <p class="logo-tile-caption">Retail</p>
+      <span class="logo-tile-fallback">Calder &amp; Wynn</span>
+      <p class="logo-tile-caption">Consulting · 320</p>
     </div>
     <div class="logo-tile">
       
-      <span class="logo-tile-fallback">Cobalt</span>
-      <p class="logo-tile-caption">Fintech</p>
+      <span class="logo-tile-fallback">Ashby Rowe</span>
+      <p class="logo-tile-caption">Accounting · 410</p>
     </div>
     <div class="logo-tile">
       
-      <span class="logo-tile-fallback">Parcel</span>
-      <p class="logo-tile-caption">Logistics</p>
+      <span class="logo-tile-fallback">Lintel Advisory</span>
+      <p class="logo-tile-caption">Advisory · 180</p>
     </div>
-  </div>
-</section>
-
-<section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Current cost analysis</span>
-  <h2>Projected annual savings</h2>
-  
-  <div class="stats">
-    <div class="stat">
-      <div class="value">$118k</div>
-      <div class="label">Projected annual save</div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Pemberton Hale</span>
+      <p class="logo-tile-caption">Law · 260</p>
     </div>
-    <div class="stat">
-      <div class="value">$95&#x2F;hr</div>
-      <div class="label">Blended analyst rate</div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Orrin Partners</span>
+      <p class="logo-tile-caption">Engineering · 350</p>
     </div>
-    <div class="stat">
-      <div class="value">400+</div>
-      <div class="label">Hours reclaimed &#x2F; year</div>
-    </div>
-  </div>
-</section>
-
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Recommended modules</span>
-  <h2>Built for Hargrove&#39;s workflow</h2>
-  <div class="grid cols-3">
-    <div class="card">
-      <i class="fa-solid fa-file-lines"></i>
-      <h3>Automated Reporting</h3>
-      <p>Client-ready packs on a schedule — no spreadsheet assembly.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-users"></i>
-      <h3>Client Intelligence</h3>
-      <p>One dashboard per account: engagement, risk, opportunity.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-chart-pie"></i>
-      <h3>Pipeline Forecasting</h3>
-      <p>Revenue forecast tied to fee-earner activity, not gut feel.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide timeline-slide" data-layout="timeline">
-  <span class="eyebrow">Implementation</span>
-  <h2>Discovery to go-live</h2>
-  <div class="timeline">
-    <div class="node">
-      <div class="dot"></div>
-      <h3>2 weeks</h3>
-      <p>Discovery &amp; data mapping.</p>
-    </div>
-    <div class="node">
-      <div class="dot"></div>
-      <h3>5 weeks</h3>
-      <p>Module build &amp; integrations.</p>
-    </div>
-    <div class="node">
-      <div class="dot"></div>
-      <h3>10 days</h3>
-      <p>UAT with practice leads.</p>
-    </div>
-    <div class="node">
-      <div class="dot"></div>
-      <h3>Go-live</h3>
-      <p>Training + hypercare week.</p>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Strand Audit</span>
+      <p class="logo-tile-caption">Audit · 220</p>
     </div>
   </div>
 </section>
 
 <section class="slide data-table-slide" data-layout="data-table">
   <span class="eyebrow">12-month ROI model</span>
-  <h2>Savings detail</h2>
+  <h2>Hargrove saves $118,000 a year against a $64,000 subscription</h2>
+  
   <table>
     <thead>
-      <tr><th>Line item</th><th>Annual</th></tr>
+      <tr><th>Line item</th><th>Per year</th></tr>
     </thead>
     <tbody>
-      <tr><td>Analyst time — reporting (220 hrs × $95)</td><td>$20,900</td></tr>
-      <tr><td>Analyst time — data cleaning (180 hrs × $95)</td><td>$17,100</td></tr>
-      <tr><td>Partner time — forecast rework</td><td>$42,000</td></tr>
-      <tr><td>Tooling consolidation</td><td>$38,000</td></tr>
-      <tr><td>Total projected</td><td>$118,000</td></tr>
+      <tr><td>Analyst time: 400 hrs × $95</td><td>$38,000</td></tr>
+      <tr><td>Partner forecast rework</td><td>$42,000</td></tr>
+      <tr><td>Retired reporting tools</td><td>$38,000</td></tr>
+      <tr><td>Meridian: platform + 3 modules</td><td>−$64,000</td></tr>
+      <tr><td>Net saving, year one</td><td>$54,000</td></tr>
     </tbody>
   </table>
 </section>
 
-<section class="slide quote-slide" data-layout="quote">
-  <p class="quote">We cut weekly reporting from two days to forty minutes — and partners finally trust the numbers.</p>
-  <p class="quote-by">— COO, mid-size regional professional services firm</p>
-</section>
-
-<section class="slide section-slide" data-layout="section">
-  <div class="section-number">09</div>
-  <h2>Transparent commercial frame</h2>
-  <p class="lead">Platform + three modules · annual commit · success criteria written into the SOW.</p>
-</section>
-
-<section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Implementation</span>
-  <h2>Ninety days to first pack</h2>
-  <div class="comparison-cols emphasis-left">
-    <div class="comparison-col">
-      <span class="comparison-label">Weeks 1–6</span>
-      <p>Data map + security review.
-Pilot on two practice groups.
-Analyst training live.</p>
+<section class="slide timeline-slide" data-layout="timeline">
+  <span class="eyebrow">Plan</span>
+  <h2>Live in nine weeks: first client pack on 9 March</h2>
+  <div class="timeline">
+    <div class="node">
+      <div class="dot"></div>
+      <h3>5 Jan · Map</h3>
+      <p>Data and security, 2 wks</p>
     </div>
-    <div class="comparison-vs" aria-hidden="true">vs</div>
-    <div class="comparison-col">
-      <span class="comparison-label">Weeks 7–12</span>
-      <p>Client packs on a schedule.
-Forecast dashboard live.
-ROI readout for partners.</p>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>19 Jan · Build</h3>
+      <p>Integrations, 5 wks</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>23 Feb · Test</h3>
+      <p>Partner sign-off, 10 days</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>9 Mar · Live</h3>
+      <p>First client packs</p>
     </div>
   </div>
 </section>
 
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">Next steps</span>
-  <h1>Let&#39;s lock a start date.</h1>
-  <p class="lead">Action owners and dates go into the shared tracker this week.</p>
+  <span class="eyebrow">Next step</span>
+  <h1>Sign by 18 December and Hargrove gets Mondays back in March</h1>
+  <p class="lead">Kickoff on 5 January holds the 9 March go-live.</p>
   <div class="cta-row">
-    <a class="btn" href="https:&#x2F;&#x2F;meridian.example&#x2F;kickoff"><i class="fa-solid fa-calendar"></i> Schedule kickoff</a>
-    <a class="btn btn-outline" href="#"><i class="fa-solid fa-list-check"></i> Open the tracker</a>
+    <a class="btn" href="#"><i class="fa-solid fa-calendar-check"></i> Book kickoff for 5 January</a>
+    <a class="btn btn-outline" href="#"><i class="fa-solid fa-table"></i> Open the ROI model</a>
   </div>
 </section>
 
@@ -6984,7 +7211,7 @@ ROI readout for partners.</p>
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Meridian × Hargrove Partners","company":"Meridian","description":"Sales deck — data platform for professional services.","theme":"ft-editorial"},"slides":[{"layout":"title","eyebrow":"Hargrove Partners","heading":"Data that moves the needle.","lead":"A proposal for automated reporting, client intelligence, and forecast clarity.","notes":"Cold open — land the one-line claim before logos."},{"layout":"feature-grid","eyebrow":"Agenda · 45 minutes","heading":"Four sections","columns":"bento","cards":[{"title":"01 · Cost of inaction","body":"What manual reporting and fragmented tooling cost Hargrove today.","icon":"fa-solid fa-triangle-exclamation"},{"title":"02 · Recommended modules","body":"Three purpose-built modules scoped to your data environment.","icon":"fa-solid fa-cubes"},{"title":"03 · Implementation & ROI","body":"Timeline, savings model, and a similar-client reference.","icon":"fa-solid fa-chart-line"},{"title":"04 · Pricing & next steps","body":"Commercial terms and a concrete action plan.","icon":"fa-solid fa-handshake"},{"icon":"fa-solid fa-layer-group","title":"Stack for scan","body":"Hierarchy first. Decoration second. Decoration never."}]},{"layout":"comparison","eyebrow":"Pain → Module","heading":"How each module lands","leftLabel":"Today's pain","left":"Manual reporting packs.\nFragmented CRM + finance views.\nForecasts rebuilt every Monday.","rightLabel":"With Meridian","right":"Scheduled, branded reports.\nUnified client intelligence.\nLive pipeline tied to activity.","emphasis":"right","notes":"Name the loser column first, then punch the winner."},{"layout":"image-hero","eyebrow":"Hargrove Partners","heading":"Data that moves the needle.","lead":"A proposal for automated reporting, client intelligence, and forecast clarity.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f2efe8%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f7f5f0%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28242%2C239%2C232%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f7f5f0%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%2826%2C79%2C216%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23f2efe8%22%20stroke%3D%22rgba%2826%2C79%2C216%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%28192%2C57%2C43%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%231a4fd8%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%2826%2C79%2C216%2C0.150%29%22%20stroke%3D%22rgba%28192%2C57%2C43%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%28192%2C57%2C43%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%28192%2C57%2C43%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Meridian craft visual","notes":"Hold the visual beat — let the room feel the product."},{"layout":"logo-wall","eyebrow":"Customers","heading":"Trusted by analytics teams who ship weekly.","columns":4,"cards":[{"title":"Helix","body":"Data platform"},{"title":"Northwind","body":"Retail"},{"title":"Cobalt","body":"Fintech"},{"title":"Parcel","body":"Logistics"}]},{"layout":"stat-row","eyebrow":"Current cost analysis","heading":"Projected annual savings","stats":[{"value":"$118k","label":"Projected annual save"},{"value":"$95/hr","label":"Blended analyst rate"},{"value":"400+","label":"Hours reclaimed / year"}]},{"layout":"feature-grid","eyebrow":"Recommended modules","heading":"Built for Hargrove's workflow","columns":3,"cards":[{"icon":"fa-solid fa-file-lines","title":"Automated Reporting","body":"Client-ready packs on a schedule — no spreadsheet assembly."},{"icon":"fa-solid fa-users","title":"Client Intelligence","body":"One dashboard per account: engagement, risk, opportunity."},{"icon":"fa-solid fa-chart-pie","title":"Pipeline Forecasting","body":"Revenue forecast tied to fee-earner activity, not gut feel."}]},{"layout":"timeline","eyebrow":"Implementation","heading":"Discovery to go-live","steps":[{"title":"2 weeks","body":"Discovery & data mapping."},{"title":"5 weeks","body":"Module build & integrations."},{"title":"10 days","body":"UAT with practice leads."},{"title":"Go-live","body":"Training + hypercare week."}]},{"layout":"data-table","eyebrow":"12-month ROI model","heading":"Savings detail","columns":["Line item","Annual"],"rows":[["Analyst time — reporting (220 hrs × $95)","$20,900"],["Analyst time — data cleaning (180 hrs × $95)","$17,100"],["Partner time — forecast rework","$42,000"],["Tooling consolidation","$38,000"],["Total projected","$118,000"]]},{"layout":"quote","quote":"We cut weekly reporting from two days to forty minutes — and partners finally trust the numbers.","by":"COO, mid-size regional professional services firm"},{"layout":"section","number":"09","eyebrow":"Pricing & terms","heading":"Transparent commercial frame","lead":"Platform + three modules · annual commit · success criteria written into the SOW."},{"layout":"comparison","eyebrow":"Implementation","heading":"Ninety days to first pack","leftLabel":"Weeks 1–6","left":"Data map + security review.\nPilot on two practice groups.\nAnalyst training live.","rightLabel":"Weeks 7–12","right":"Client packs on a schedule.\nForecast dashboard live.\nROI readout for partners.","emphasis":"left"},{"layout":"closing","eyebrow":"Next steps","heading":"Let's lock a start date.","lead":"Action owners and dates go into the shared tracker this week.","actions":[{"label":"Schedule kickoff","href":"https://meridian.example/kickoff","style":"solid","icon":"fa-solid fa-calendar"},{"label":"Open the tracker","href":"#","style":"outline","icon":"fa-solid fa-list-check"}]}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Meridian × Hargrove Partners — getting Mondays back","company":"Meridian","description":"Sales deck from Meridian, a reporting and forecasting platform for professional services firms, to Hargrove Partners: the shift to weekly client reporting, who wins, three obstacles and fixes, a reference customer, a 12-month ROI model, a nine-week plan and a dated next step.","theme":"ft-editorial","genre":"sales"},"slides":[{"layout":"title","eyebrow":"Prepared for Hargrove Partners · 4 December 2026","heading":"How Hargrove Partners gets its Mondays back.","lead":"Two analyst days a week go into reporting. They do not have to.","notes":"Open on Hargrove, not on us. Our name does not appear until slide 5."},{"layout":"chart","eyebrow":"The shift","heading":"Clients now expect weekly reporting: 61% of contracts, up from 18%","chartType":"bar","categories":["2022","2023","2024","2025"],"series":[{"name":"Contracts requiring weekly reporting (%)","values":[18,29,44,61]}],"showValues":true,"lead":"Source: survey of 300 mid-size professional services firms, Q3 2025."},{"layout":"comparison","eyebrow":"Winners and losers","heading":"Firms that automated reporting grew fees 14%; the rest lost margin","leftLabel":"Manual packs","left":"Two analyst days a week\nForecast rebuilt Mondays\nMargin down 2 points","rightLabel":"Automated","right":"Packs out by 08:00\nForecast within ±4%\nFees up 14%","emphasis":"right","notes":"Name the losing column first, slowly. Then the winners. Hargrove is in the left column today."},{"layout":"image-hero","eyebrow":"The promised land","heading":"Partners open one live view at 08:00, not a 40-slide pack","lead":"Fees, forecast and at-risk clients, already sent to every client.","image":"data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 width=%221600%22 height=%22900%22%3E%3Crect width=%221600%22 height=%22900%22 fill=%22%23f2efe8%22/%3E%3Cg transform=%22translate(0,25)%22%3E%3Crect x=%22180%22 y=%22250%22 width=%221240%22 height=%22400%22 fill=%22%23ffffff%22 stroke=%22%230a0a0a%22 stroke-width=%222%22/%3E%3Crect x=%22180%22 y=%22250%22 width=%221240%22 height=%2244%22 fill=%22%230a0a0a%22/%3E%3Cg font-family=%22Georgia, serif%22 fill=%22%23f7f5f0%22 font-size=%2220%22%3E%3Ctext x=%22205%22 y=%22279%22%3EHargrove Partners %C2%B7 Monday 08:00 %C2%B7 live%3C/text%3E%3C/g%3E%3Cg font-family=%22Helvetica, Arial, sans-serif%22%3E%3Ctext x=%22215%22 y=%22340%22 font-size=%2216%22 fill=%22%23605b56%22%3EFEES BILLED, WEEK 6%3C/text%3E%3Ctext x=%22215%22 y=%22385%22 font-size=%2240%22 font-weight=%22bold%22 fill=%22%230a0a0a%22%3E%241.84M%3C/text%3E%3Ctext x=%22215%22 y=%22410%22 font-size=%2216%22 fill=%22%231a4fd8%22%3E%2B6%25 vs forecast%3C/text%3E%3Ctext x=%22475%22 y=%22340%22 font-size=%2216%22 fill=%22%23605b56%22%3EFORECAST, Q1%3C/text%3E%3Ctext x=%22475%22 y=%22385%22 font-size=%2240%22 font-weight=%22bold%22 fill=%22%230a0a0a%22%3E%2411.2M%3C/text%3E%3Ctext x=%22475%22 y=%22410%22 font-size=%2216%22 fill=%22%23605b56%22%3E%C2%B14%25 confidence%3C/text%3E%3Ctext x=%22735%22 y=%22340%22 font-size=%2216%22 fill=%22%23605b56%22%3EACCOUNTS AT RISK%3C/text%3E%3Ctext x=%22735%22 y=%22385%22 font-size=%2240%22 font-weight=%22bold%22 fill=%22%23c0392b%22%3E3%3C/text%3E%3Ctext x=%22735%22 y=%22410%22 font-size=%2216%22 fill=%22%23c0392b%22%3Eof 212 clients%3C/text%3E%3C/g%3E%3Cline x1=%22215%22 y1=%22440%22 x2=%22960%22 y2=%22440%22 stroke=%22%23e2ddd2%22 stroke-width=%222%22/%3E%3Cpolyline points=%22215,610 300,590 385,598 470,570 555,560 640,540 725,548 810,515 895,500 960,490%22 fill=%22none%22 stroke=%22%231a4fd8%22 stroke-width=%225%22/%3E%3Cpolyline points=%22215,600 960,520%22 fill=%22none%22 stroke=%22%23605b56%22 stroke-width=%222%22 stroke-dasharray=%228 8%22/%3E%3Ctext x=%22215%22 y=%22470%22 font-family=%22Helvetica, Arial, sans-serif%22 font-size=%2216%22 fill=%22%23605b56%22%3EWeekly fees vs forecast%3C/text%3E%3Cg font-family=%22Helvetica, Arial, sans-serif%22 font-size=%2218%22 fill=%22%230a0a0a%22%3E%3Ctext x=%221010%22 y=%22340%22 font-size=%2216%22 fill=%22%23605b56%22%3ECLIENT PACKS%3C/text%3E%3Crect x=%221010%22 y=%22360%22 width=%22370%22 height=%2250%22 fill=%22%23f7f5f0%22/%3E%3Ctext x=%221025%22 y=%22392%22%3EBrightwater Retail%3C/text%3E%3Ctext x=%221365%22 y=%22392%22 text-anchor=%22end%22 fill=%22%231a4fd8%22%3ESent 06:10%3C/text%3E%3Crect x=%221010%22 y=%22420%22 width=%22370%22 height=%2250%22 fill=%22%23f7f5f0%22/%3E%3Ctext x=%221025%22 y=%22452%22%3EOkonkwo Logistics%3C/text%3E%3Ctext x=%221365%22 y=%22452%22 text-anchor=%22end%22 fill=%22%231a4fd8%22%3ESent 06:12%3C/text%3E%3Crect x=%221010%22 y=%22480%22 width=%22370%22 height=%2250%22 fill=%22%23f7f5f0%22/%3E%3Ctext x=%221025%22 y=%22512%22%3EFenwick Health%3C/text%3E%3Ctext x=%221365%22 y=%22512%22 text-anchor=%22end%22 fill=%22%231a4fd8%22%3ESent 06:15%3C/text%3E%3Crect x=%221010%22 y=%22540%22 width=%22370%22 height=%2250%22 fill=%22%23f7f5f0%22/%3E%3Ctext x=%221025%22 y=%22572%22%3EMarlow Estates%3C/text%3E%3Ctext x=%221365%22 y=%22572%22 text-anchor=%22end%22 fill=%22%23c0392b%22%3EReview%3C/text%3E%3C/g%3E%3C/g%3E%3C/svg%3E","imageAlt":"Dashboard for Hargrove Partners on Monday at 08:00: fees billed $1.84M, Q1 forecast $11.2M, three accounts at risk, and client packs sent from 06:10"},{"layout":"section","number":"01","heading":"Three obstacles, and how Meridian removes them"},{"layout":"two-column","eyebrow":"Obstacle 1 · Reporting","heading":"Packs eat 220 analyst hours a year; Meridian builds them overnight","ratio":"2-1","body":"Scheduled, branded client packs.\nAnalysts review instead of assemble.","aside":"220 hrs × $95 = $20,900 a year back"},{"layout":"two-column","eyebrow":"Obstacle 2 · Data","heading":"CRM and finance disagree on 1 account in 5; Meridian reconciles nightly","ratio":"2-1","body":"One client record across CRM, billing and time.\nNo more Friday clean-up.","aside":"180 hrs × $95 = $17,100 a year back"},{"layout":"comparison","eyebrow":"Obstacle 3 · Forecast","heading":"Partners stop rebuilding the forecast every Monday","leftLabel":"Today","left":"Spreadsheet from gut feel\n±15% miss each quarter","rightLabel":"With Meridian","right":"Tied to fee-earner hours\n±4% miss, $42,000 of partner time back","emphasis":"right"},{"layout":"stat-row","eyebrow":"Evidence · Calder & Wynn, 320 staff","variant":"hero","heading":"A firm like Hargrove cut weekly reporting to 40 minutes","stats":[{"value":"40 min","label":"Weekly reporting, down from 2 days"},{"value":"±4%","label":"Forecast miss, was ±15%"},{"value":"1 in 50","label":"Mismatched accounts, was 1 in 5"}]},{"layout":"quote","quote":"We cut weekly reporting from two days to forty minutes, and partners finally trust the numbers.","by":"Helen Ashworth, COO, Calder & Wynn"},{"layout":"logo-wall","eyebrow":"Customers","heading":"Forty firms like Hargrove report on Meridian","columns":3,"cards":[{"title":"Calder & Wynn","body":"Consulting · 320"},{"title":"Ashby Rowe","body":"Accounting · 410"},{"title":"Lintel Advisory","body":"Advisory · 180"},{"title":"Pemberton Hale","body":"Law · 260"},{"title":"Orrin Partners","body":"Engineering · 350"},{"title":"Strand Audit","body":"Audit · 220"}]},{"layout":"data-table","eyebrow":"12-month ROI model","heading":"Hargrove saves $118,000 a year against a $64,000 subscription","columns":["Line item","Per year"],"rows":[["Analyst time: 400 hrs × $95","$38,000"],["Partner forecast rework","$42,000"],["Retired reporting tools","$38,000"],["Meridian: platform + 3 modules","−$64,000"],["Net saving, year one","$54,000"]],"notes":"Walk the maths line by line. Payback is about seven months. Offer the model file so their CFO can change the inputs."},{"layout":"timeline","eyebrow":"Plan","heading":"Live in nine weeks: first client pack on 9 March","steps":[{"title":"5 Jan · Map","body":"Data and security, 2 wks"},{"title":"19 Jan · Build","body":"Integrations, 5 wks"},{"title":"23 Feb · Test","body":"Partner sign-off, 10 days"},{"title":"9 Mar · Live","body":"First client packs"}]},{"layout":"closing","eyebrow":"Next step","heading":"Sign by 18 December and Hargrove gets Mondays back in March","lead":"Kickoff on 5 January holds the 9 March go-live.","actions":[{"label":"Book kickoff for 5 January","style":"solid","icon":"fa-solid fa-calendar-check"},{"label":"Open the ROI model","style":"outline","icon":"fa-solid fa-table"}]}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {

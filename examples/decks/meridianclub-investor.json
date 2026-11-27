@@ -1,148 +1,260 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Meridian Club — Investor Update",
+    "title": "Meridian Club — Series A, March 2026",
     "company": "Meridian Club",
-    "description": "Private markets investor update — art-deco multi-slide proof.",
-    "theme": "art-deco"
+    "description": "Series A pitch for a network of small members' clubs for founders and operators: problem, product, why now, traction, unit economics, market, competition, team and an $18M ask.",
+    "theme": "art-deco",
+    "genre": "pitch"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Member briefing · 2026",
-      "heading": "Intimacy at scale.",
-      "lead": "Gold rules. Emerald rooms. Capital that prefers a table to a terminal.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Meridian Club · Series A · March 2026",
+      "heading": "Small private clubs, run as one network.",
+      "lead": "Four clubs, 3,600 members, each site cash-positive in year one.",
+      "notes": "Say the sentence, pause, then the three numbers. Nothing else on the cover."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "The problem",
+      "heading": "Founders pay $6,000 a year for clubs they visit twice a month",
+      "ratio": "2-1",
+      "body": "Big-house clubs sell scarcity: 2-year waitlists, one flagship per city.\nMembers work from cafés the rest of the month.",
+      "aside": "2.1 visits a month. Our 2025 survey of 640 club members in London and New York."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "The product",
+      "heading": "One 40-seat club per neighbourhood, booked from one app",
+      "lead": "Salon, work room, bar and kitchen on 4,000 sq ft. 900 members share each floor.",
+      "image": "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 width=%221600%22 height=%22900%22%3E%3Crect width=%221600%22 height=%22900%22 fill=%22%230c2a24%22/%3E%3Cg transform=%22translate(0,262)%22%3E%3Cg fill=%22none%22 stroke=%22%23c8a24a%22 stroke-width=%225%22%3E%3Crect x=%22120%22 y=%2260%22 width=%221360%22 height=%22300%22/%3E%3Cline x1=%22520%22 y1=%2260%22 x2=%22520%22 y2=%22300%22/%3E%3Cline x1=%22880%22 y1=%2260%22 x2=%22880%22 y2=%22360%22/%3E%3Cline x1=%221180%22 y1=%22120%22 x2=%221180%22 y2=%22360%22/%3E%3C/g%3E%3Cpath d=%22M520 300 A60 60 0 0 1 580 360%22 fill=%22none%22 stroke=%22%23e2c47a%22 stroke-width=%222%22/%3E%3Cg fill=%22%23113530%22 stroke=%22%23c8a24a%22 stroke-width=%222%22%3E%3Ccircle cx=%22200%22 cy=%22130%22 r=%2224%22/%3E%3Ccircle cx=%22300%22 cy=%22130%22 r=%2224%22/%3E%3Ccircle cx=%22400%22 cy=%22130%22 r=%2224%22/%3E%3Ccircle cx=%22200%22 cy=%22230%22 r=%2224%22/%3E%3Ccircle cx=%22300%22 cy=%22230%22 r=%2224%22/%3E%3Ccircle cx=%22400%22 cy=%22230%22 r=%2224%22/%3E%3Crect x=%22580%22 y=%22110%22 width=%22240%22 height=%2250%22 rx=%226%22/%3E%3Crect x=%22580%22 y=%22200%22 width=%22240%22 height=%2250%22 rx=%226%22/%3E%3Crect x=%22920%22 y=%2290%22 width=%2230%22 height=%22230%22/%3E%3Ccircle cx=%221020%22 cy=%22140%22 r=%2218%22/%3E%3Ccircle cx=%221090%22 cy=%22200%22 r=%2218%22/%3E%3Ccircle cx=%221020%22 cy=%22260%22 r=%2218%22/%3E%3Crect x=%221220%22 y=%22160%22 width=%22220%22 height=%22140%22/%3E%3C/g%3E%3Cg fill=%22%23f5eed8%22 font-family=%22Georgia, serif%22 font-size=%2222%22 letter-spacing=%224%22 text-anchor=%22middle%22%3E%3Ctext x=%22320%22 y=%22300%22%3ESALON %C2%B7 18%3C/text%3E%3Ctext x=%22700%22 y=%22300%22%3EWORK ROOM %C2%B7 12%3C/text%3E%3Ctext x=%221030%22 y=%22340%22%3EBAR %C2%B7 10%3C/text%3E%3Ctext x=%221330%22 y=%22340%22%3EKITCHEN%3C/text%3E%3Ctext x=%221330%22 y=%22100%22%3ELIBRARY%3C/text%3E%3C/g%3E%3Cg fill=%22%23c8a24a%22 font-family=%22Georgia, serif%22 font-size=%2218%22 letter-spacing=%225%22%3E%3Ctext x=%22120%22 y=%2240%22%3ETYPICAL FLOOR %C2%B7 4,000 SQ FT %C2%B7 40 SEATS%3C/text%3E%3Ctext x=%221480%22 y=%2240%22 text-anchor=%22end%22%3ELISBON %C2%B7 OPENED MAY 2025%3C/text%3E%3C/g%3E%3C/g%3E%3C/svg%3E",
+      "imageAlt": "Floor plan of a Meridian Club site: an 18-seat salon, a 12-seat work room, a 10-seat bar, a library and a kitchen on 4,000 square feet"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Why now",
+      "heading": "Empty offices made small clubs cheap to open since 2023",
+      "steps": [
+        {
+          "title": "2020",
+          "body": "Hybrid work empties offices"
+        },
+        {
+          "title": "2023",
+          "body": "London office vacancy hits 19%"
+        },
+        {
+          "title": "2024",
+          "body": "Landlords fund 40% of fit-out"
+        },
+        {
+          "title": "2025",
+          "body": "Club four pays back in 26 months"
+        }
+      ]
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Traction",
+      "heading": "Paying members grew ninefold to 3,600 in eight quarters",
+      "chartType": "line",
+      "categories": [
+        "Q1 24",
+        "Q2 24",
+        "Q3 24",
+        "Q4 24",
+        "Q1 25",
+        "Q2 25",
+        "Q3 25",
+        "Q4 25"
+      ],
+      "series": [
+        {
+          "name": "Paying members",
+          "values": [
+            400,
+            700,
+            1100,
+            1500,
+            2000,
+            2600,
+            3100,
+            3600
+          ]
+        }
+      ],
+      "showValues": true,
+      "lead": "Source: Meridian billing system, quarter-end counts, 31 Dec 2025.",
+      "notes": "This is the slide investors return to. Point at Q2 25: club three opened full from its waitlist."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Retention",
+      "heading": "Members stay, come weekly, and each club pays back in 26 months",
+      "stats": [
+        {
+          "value": "93%",
+          "label": "12-month retention, 2024 cohort"
+        },
+        {
+          "value": "6.2",
+          "label": "Visits per member per month"
+        },
+        {
+          "value": "26 mo",
+          "label": "Payback on a $1.9M club"
+        }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "Why a small club earns like a big one",
+      "lead": "Three rules, then the market and the money."
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Rooms",
-      "heading": "Three spaces. One standard.",
-      "columns": "bento",
+      "eyebrow": "How it works",
+      "heading": "Three rules keep 40 seats full for 900 members",
+      "columns": 3,
       "cards": [
         {
-          "icon": "fa-solid fa-champagne-glasses",
-          "title": "Salon",
-          "body": "Conversation first — acoustics tuned for talk, not spectacle."
+          "icon": "fa-solid fa-chair",
+          "title": "22 members per seat",
+          "body": "Rooms stay full, never crowded."
         },
         {
-          "icon": "fa-solid fa-utensils",
-          "title": "Dining",
-          "body": "Seasonal menu, member-only hours, no flash photography."
+          "icon": "fa-solid fa-mobile-screen",
+          "title": "Seats are booked",
+          "body": "Staff match tomorrow's bookings."
         },
         {
-          "icon": "fa-solid fa-book",
-          "title": "Library",
-          "body": "Quiet desks, rare editions, evening lectures."
+          "icon": "fa-solid fa-building",
+          "title": "Landlords co-fund",
+          "body": "Revenue-share leases cut fit-out 40%."
+        }
+      ]
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Market",
+      "heading": "Twelve cities can carry 48 clubs and $133M of revenue",
+      "lead": "Bottom-up: $2.78M revenue per club.",
+      "items": [
+        {
+          "rank": "1",
+          "label": "London",
+          "value": "8 clubs",
+          "widthPct": 100
         },
         {
-          "icon": "fa-solid fa-key",
-          "title": "Residence",
-          "body": "Overnight suites for members traveling through."
+          "rank": "2",
+          "label": "New York",
+          "value": "8 clubs",
+          "widthPct": 100
         },
         {
-          "icon": "fa-solid fa-gem",
-          "title": "Craft over crowd",
-          "body": "Capacity capped so the room never becomes a queue."
+          "rank": "3",
+          "label": "Los Angeles",
+          "value": "6 clubs",
+          "widthPct": 75
+        },
+        {
+          "rank": "4",
+          "label": "Paris",
+          "value": "5 clubs",
+          "widthPct": 63
+        },
+        {
+          "rank": "5",
+          "label": "8 more cities",
+          "value": "21 clubs",
+          "widthPct": 44
         }
       ]
     },
     {
       "layout": "comparison",
-      "eyebrow": "Membership",
-      "heading": "Nightclub scarcity vs. club craft",
-      "leftLabel": "Guestlist theater",
-      "left": "Velvet rope as product.\nLoud rooms.\nNo ritual.\nChurn by design.",
-      "rightLabel": "Meridian Club",
-      "right": "Emerald + gold restraint.\nNamed rooms.\nMember rituals.\nRetention as craft.",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Member briefing · 2026",
-      "heading": "Intimacy at scale.",
-      "lead": "Gold rules. Emerald rooms. Capital that prefers a table to a terminal.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23113530%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%230c2a24%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C162%2C74%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C162%2C74%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28226%2C196%2C122%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28200%2C162%2C74%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2817%2C53%2C48%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C162%2C74%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28200%2C162%2C74%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C162%2C74%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28226%2C196%2C122%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28226%2C196%2C122%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28226%2C196%2C122%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230c2a24%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22300%22%20cy%3D%22700%22%20rx%3D%22520%22%20ry%3D%22360%22%20fill%3D%22rgba%28200%2C162%2C74%2C0.220%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221300%22%20cy%3D%22160%22%20rx%3D%22420%22%20ry%3D%22300%22%20fill%3D%22rgba%28226%2C196%2C122%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M180%20780%20C260%20520%20420%20420%20520%20280%20C560%20360%20620%20460%20640%20620%20C480%20640%20300%20700%20180%20780%20Z%22%20fill%3D%22rgba%28200%2C162%2C74%2C0.450%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M1180%20120%20C1280%20180%201380%20260%201460%20380%20C1340%20360%201240%20300%201180%20120%20Z%22%20fill%3D%22rgba%28226%2C196%2C122%2C0.400%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M980%20700%20C1080%20560%201220%20500%201360%20420%20C1380%20540%201320%20660%201220%20760%20Z%22%20fill%3D%22rgba%28200%2C162%2C74%2C0.250%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%22860%22%20cy%3D%22240%22%20r%3D%2290%22%20fill%3D%22rgba%28226%2C196%2C122%2C0.200%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22640%22%20y%3D%22360%22%20width%3D%22360%22%20height%3D%22220%22%20rx%3D%2218%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%20stroke%3D%22rgba%28200%2C162%2C74%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22420%22%20width%3D%22200%22%20height%3D%2214%22%20rx%3D%225%22%20fill%3D%22rgba%28200%2C162%2C74%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22455%22%20width%3D%22260%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Meridian Club craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Competition",
+      "heading": "Big-house clubs sell a waitlist; we sell a seat this week",
+      "leftLabel": "Big-house clubs",
+      "left": "One flagship per city\n$6,000 a year\n2.1 visits a month",
+      "rightLabel": "Meridian",
+      "right": "One per neighbourhood\n$2,400 a year\n6.2 visits a month",
+      "emphasis": "right"
     },
     {
       "layout": "quote",
-      "quote": "The rarest moat in private markets is trust you can host.",
-      "by": "Elena Voss · Managing Partner"
+      "quote": "I cancelled a $6,000 membership. I'm at Meridian four days a week now.",
+      "by": "Priya Nair, founder of Tessel, member since 2024"
     },
     {
-      "layout": "two-column",
-      "eyebrow": "Platform",
-      "heading": "What members actually use",
-      "body": "Salon evenings: Curated rooms where LPs and founders share a table, not a Zoom. Deal vault — Diligence packs with provenance — every memo dated and owned.",
-      "aside": "Who met whom, and why it mattered — private by default.",
-      "ratio": "3-2"
-    },
-    {
-      "layout": "stat-row",
-      "eyebrow": "Traction",
-      "heading": "Quiet numbers. Loud retention.",
-      "stats": [
-        {
-          "value": "312",
-          "label": "Active members"
-        },
-        {
-          "value": "94%",
-          "label": "Renewal rate"
-        },
-        {
-          "value": "$2.1B",
-          "label": "Capital at table"
-        }
-      ]
+      "layout": "data-table",
+      "eyebrow": "Business model",
+      "heading": "Each club earns $0.86M a year on $2.78M revenue",
+      "columns": [
+        "Per club, year two",
+        "Amount"
+      ],
+      "rows": [
+        [
+          "900 members × $2,400 dues",
+          "$2.16M"
+        ],
+        [
+          "Food and drink",
+          "$0.62M"
+        ],
+        [
+          "Operating cost",
+          "−$1.92M"
+        ],
+        [
+          "Club EBITDA (31%)",
+          "$0.86M"
+        ]
+      ],
+      "notes": "Build cost is $1.9M after landlord co-funding. $1.9M over $0.86M a year is the 26-month payback."
     },
     {
       "layout": "logo-wall",
-      "eyebrow": "Members & LPs",
-      "heading": "Operators who underwrite the long game.",
-      "columns": 4,
+      "eyebrow": "Team",
+      "heading": "Operators who have opened 30 hospitality sites between them",
+      "columns": 3,
       "cards": [
         {
-          "title": "Northline",
-          "body": "LP"
+          "title": "Elena Marsh",
+          "body": "CEO · 11 hotel openings"
         },
         {
-          "title": "Axiom",
-          "body": "Family office"
+          "title": "Tomás Reyes",
+          "body": "COO · 14 restaurant openings"
         },
         {
-          "title": "Harbor",
-          "body": "Growth"
-        },
-        {
-          "title": "Meridian",
-          "body": "Strategic"
+          "title": "Hana Okafor",
+          "body": "CTO · booking app, 5 gyms"
         }
-      ],
-      "notes": "Glance the marks — social proof, not a reading list."
+      ]
     },
     {
       "layout": "closing",
       "eyebrow": "The ask",
-      "heading": "Reserve the next salon.",
-      "lead": "Limited seats. Clear thesis. No pitch theater.",
+      "heading": "$18M turns four small clubs into a network of twelve",
+      "lead": "Eight new clubs by Q4 2028, 10,800 members, $33M revenue run rate.",
       "actions": [
         {
-          "label": "Request membership",
-          "href": "#",
+          "label": "Book a partner meeting",
           "style": "solid",
-          "icon": "fa-solid fa-id-card"
+          "icon": "fa-solid fa-calendar-check"
         },
         {
-          "label": "See the salon calendar",
-          "href": "#",
+          "label": "Open the data room",
           "style": "outline",
-          "icon": "fa-solid fa-calendar"
+          "icon": "fa-solid fa-folder-open"
         }
-      ]
+      ],
+      "notes": "Restate the cover: small clubs, one network. Ask for the partner meeting date in the room."
     }
   ]
 }

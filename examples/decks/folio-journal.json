@@ -1,103 +1,259 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Folio — Journal Launch",
-    "company": "Folio",
-    "description": "Vintage editorial journal launch — vintage-editorial multi-slide proof.",
-    "theme": "vintage-editorial"
+    "title": "Eastmere City Libraries — Fine-free pilot readout, 24 months",
+    "company": "Eastmere City Libraries",
+    "description": "Research readout for the Eastmere library board: 24 months after ending late fines in 11 of 19 branches, late returns fell from 9.1% to 6.4% of loans and 3,800 lapsed members came back, at a cost of €46k a year in lost fines. The board is asked to end fines in all 19 branches.",
+    "theme": "vintage-editorial",
+    "genre": "research"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Issue 01",
-      "heading": "Wit with borders.",
-      "lead": "Fraunces display. Cream field. Geometric accents that know when to stop.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Issue 01",
-      "heading": "Wit with borders.",
-      "lead": "Fraunces display. Cream field. Geometric accents that know when to stop.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23ebe7de%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f5f3ee%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C212%2C192%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C212%2C192%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28232%2C212%2C192%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28235%2C231%2C222%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C212%2C192%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28232%2C212%2C192%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C212%2C192%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f5f3ee%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22820%22%20rx%3D%22700%22%20ry%3D%22120%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23floor%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22520%22%20cy%3D%22260%22%20rx%3D%22360%22%20ry%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22220%22%20rx%3D%22300%22%20ry%3D%22220%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20desk%20product%20frame%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28430%2C170%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%22720%22%20height%3D%22460%22%20rx%3D%2228%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22450%22%20rx%3D%2226%22%20fill%3D%22%23ebe7de%22%20stroke%3D%22rgba%28232%2C212%2C192%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22%23f5f3ee%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%2290%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%226%22%20fill%3D%22rgba%28232%2C212%2C192%2C0.850%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22130%22%20width%3D%22380%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22158%22%20width%3D%22320%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%2826%2C26%2C26%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22290%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28232%2C212%2C192%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22510%22%20y%3D%22210%22%20width%3D%22140%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22280%22%20y%3D%22400%22%20width%3D%22160%22%20height%3D%2210%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Folio craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Eastmere City Libraries · Fine-free pilot, 24 months · Library board · 11 December 2026",
+      "heading": "Ending late fines brought both books and members back.",
+      "lead": "11 fine-free branches compared with the 8 that still charge, November 2024 to October 2026.",
+      "notes": "Give the answer first. The board can stop after slide 2 and still know the result, the cost and the ask."
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Sections",
-      "heading": "What's inside",
-      "columns": "bento",
+      "eyebrow": "Answer first",
+      "heading": "Two fine-free years won back books and 3,800 members for €46k",
+      "columns": 3,
       "cards": [
         {
-          "icon": "fa-solid fa-pen",
-          "title": "Essays",
-          "body": "Arguments with a punchline."
+          "icon": "fa-solid fa-book",
+          "title": "Books come back sooner",
+          "body": "Late returns fell from 9.1% to 6.4% of loans."
         },
         {
-          "icon": "fa-solid fa-camera",
-          "title": "Portfolios",
-          "body": "Photographers who caption honestly."
+          "icon": "fa-solid fa-id-card",
+          "title": "Members came back",
+          "body": "3,800 lapsed members borrowed again; 61% had owed fines."
         },
         {
-          "icon": "fa-solid fa-comments",
-          "title": "Letters",
-          "body": "Readers who write better than commenters."
-        },
-        {
-          "icon": "fa-solid fa-layer-group",
-          "title": "Stack for scan",
-          "body": "Hierarchy first. Decoration second. Decoration never."
-        },
-        {
-          "icon": "fa-solid fa-bolt",
-          "title": "Ship the punchline",
-          "body": "Lead with the claim that survives the hallway test."
+          "icon": "fa-solid fa-coins",
+          "title": "The cost is small",
+          "body": "€46k a year in lost fines, 0.3% of the €15.2M budget."
         }
       ]
     },
     {
-      "layout": "quote",
-      "quote": "Print is not nostalgia — it's attention with a spine.",
-      "by": "Editor's letter",
-      "notes": "Let the quote hang — don't rush the attribution."
+      "layout": "image-hero",
+      "eyebrow": "The question",
+      "heading": "We asked whether fines bring books back or keep readers away",
+      "lead": "Until November 2024 every branch charged €0.20 a day per item, capped at €8.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 340'><rect width='1600' height='340' fill='%23ebe7de'/><g transform='translate(700 -44) scale(.6)'><g transform='rotate(-4 400 300)'><rect x='130' y='90' width='520' height='400' fill='%23fbf9f4' stroke='%231a1a1a' stroke-width='3'/><rect x='150' y='110' width='480' height='360' fill='none' stroke='%231a1a1a' stroke-width='1'/><g font-family='Georgia,serif' fill='%231a1a1a'><text x='390' y='165' font-size='34' text-anchor='middle' font-weight='700'>Eastmere City Libraries</text><text x='390' y='200' font-size='20' text-anchor='middle' font-style='italic'>Overdue notice · Northgate branch</text><text x='180' y='260' font-size='22'>The Gruffalo · 41 days late</text><text x='180' y='300' font-size='22'>Room on the Broom · 41 days late</text><text x='180' y='340' font-size='22'>Stick Man · 38 days late</text><line x1='180' y1='365' x2='600' y2='365' stroke='%231a1a1a' stroke-width='2'/><text x='180' y='405' font-size='28' font-weight='700'>Fine owed</text><text x='600' y='405' font-size='28' font-weight='700' text-anchor='end'>€8.00</text><text x='180' y='445' font-size='18' fill='%23555555'>Card blocked until paid</text></g><line x1='420' y1='395' x2='610' y2='410' stroke='%23b0413e' stroke-width='5'/></g><g transform='rotate(-14 600 400)'><rect x='420' y='340' width='380' height='100' rx='10' fill='%23e8d4c0' fill-opacity='.9' stroke='%23b0413e' stroke-width='6'/><text x='610' y='385' font-family='Georgia,serif' font-size='30' font-weight='700' fill='%23b0413e' text-anchor='middle'>FINE-FREE</text><text x='610' y='420' font-family='Georgia,serif' font-size='20' fill='%23b0413e' text-anchor='middle'>since 1 November 2024</text></g></g><g font-family='Georgia,serif'><rect x='100' y='24' width='520' height='180' fill='%23fbf9f4' stroke='%231a1a1a' stroke-width='2'/><text x='130' y='62' font-size='22' fill='%23555555'>Before November 2024</text><text x='130' y='130' font-size='52' font-weight='700' fill='%231a1a1a'>14,200</text><text x='130' y='164' font-size='20' fill='%23555555'>cards blocked by fines</text><text x='400' y='130' font-size='52' font-weight='700' fill='%231a1a1a'>€75k</text><text x='400' y='164' font-size='20' fill='%23555555'>fines raised a year</text></g></svg>",
+      "imageAlt": "An overdue notice for three children's picture books with an €8.00 fine and a blocked card, stamped fine-free since 1 November 2024, beside a card: 14,200 cards blocked and €75k a year raised by fines before the pilot."
     },
     {
-      "layout": "timeline",
-      "eyebrow": "Cadence",
-      "heading": "Four issues a year",
-      "steps": [
+      "layout": "stat-row",
+      "eyebrow": "Method",
+      "heading": "We compared 11 fine-free branches with 8 that kept fines",
+      "stats": [
         {
-          "title": "Spring — Issue 01",
-          "body": "Cities & kitchens"
+          "value": "11 vs 8",
+          "label": "fine-free branches against branches still charging"
         },
         {
-          "title": "Summer — Issue 02",
-          "body": "Travel without itineraries"
+          "value": "1.86M",
+          "label": "loans tracked, November 2024 to October 2026"
         },
         {
-          "title": "Autumn — Issue 03",
-          "body": "Work that fits a life"
+          "value": "412",
+          "label": "survey answers from members who came back"
+        }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "Three findings",
+      "lead": "Returns, members, and what it cost."
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Finding 1",
+      "heading": "Late returns fell from 9.1% to 6.4% in fine-free branches",
+      "chartType": "bar",
+      "categories": [
+        "Year before",
+        "Pilot year 1",
+        "Pilot year 2"
+      ],
+      "series": [
+        {
+          "name": "Fines kept",
+          "values": [
+            9.0,
+            8.9,
+            8.7
+          ]
+        },
+        {
+          "name": "Fine-free",
+          "values": [
+            9.1,
+            7.2,
+            6.4
+          ]
+        }
+      ],
+      "showLegend": true,
+      "showValues": true,
+      "lead": "Loans more than 14 days late, % of loans; 11 fine-free branches, 8 kept fines. Source: library records, n = 1.86M loans.",
+      "notes": "The branches that kept fines barely moved. That control group is why we can say fines, not a citywide trend, made the difference."
+    },
+    {
+      "layout": "quote",
+      "quote": "I owed €8 on my son's picture books and stayed away for three years. Now we come every Saturday.",
+      "by": "Survey answer 214 · returning member · Northgate branch"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Finding 2 · Membership records",
+      "heading": "Families and over-65s made up two thirds of 3,800 returning members",
+      "columns": [
+        "Group",
+        "Came back",
+        "Share",
+        "Had owed fines"
+      ],
+      "rows": [
+        [
+          "Families with children",
+          "1,710",
+          "45%",
+          "72%"
+        ],
+        [
+          "Over-65s",
+          "870",
+          "23%",
+          "58%"
+        ],
+        [
+          "Students",
+          "640",
+          "17%",
+          "49%"
+        ],
+        [
+          "Other adults",
+          "580",
+          "15%",
+          "44%"
+        ]
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Finding 3 · Finance records, 2025–2026",
+      "heading": "Lost fines cost €46k a year, or €25k after the savings",
+      "stats": [
+        {
+          "value": "€46k",
+          "label": "fine income lost each year in 11 branches"
+        },
+        {
+          "value": "€21k",
+          "label": "saved each year on desk time and card fees"
+        },
+        {
+          "value": "€25k",
+          "label": "net yearly cost, 0.16% of the €15.2M budget"
+        }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "What it means",
+      "lead": "One surprise, the limits, and three moves."
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "What surprised us",
+      "heading": "We feared more lost books; losses held at 0.8% of loans",
+      "leftLabel": "What we feared",
+      "left": "Without fines, items go missing\nLate returns creep up\nStaff spend time chasing",
+      "rightLabel": "What we found",
+      "right": "Lost items held at 0.8% of loans\nLate returns fell by 30%\nDesk time moved to helping readers",
+      "emphasis": "right"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Limits and confidence",
+      "heading": "The returns finding is firm; the member count is less certain",
+      "columns": [
+        "Finding",
+        "Evidence",
+        "Confidence",
+        "Main limit"
+      ],
+      "rows": [
+        [
+          "Late returns fell",
+          "1.86M loans, control branches",
+          "High",
+          "Branches were not chosen at random"
+        ],
+        [
+          "3,800 members back",
+          "Membership records",
+          "Medium",
+          "Some would have returned anyway"
+        ],
+        [
+          "€25k net cost",
+          "Finance records, 2 years",
+          "Medium",
+          "Desk-time saving is an estimate"
+        ]
+      ],
+      "notes": "Be plain about the member count. The control branches won back 900 members in the same period, so we report the fine-free gain over that."
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Recommendations",
+      "heading": "Ending fines in the last 8 branches ranks first of three moves",
+      "lead": "Expected members won back in 2027, estimated from the pilot.",
+      "items": [
+        {
+          "rank": "1",
+          "label": "End fines in the other 8 branches (€29k a year)",
+          "value": "+2,600",
+          "widthPct": 100
+        },
+        {
+          "rank": "2",
+          "label": "Clear old fine balances on blocked cards",
+          "value": "+1,100",
+          "widthPct": 42
+        },
+        {
+          "rank": "3",
+          "label": "Write to every lapsed member",
+          "value": "+600",
+          "widthPct": 23
         }
       ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Subscribe",
-      "heading": "Get Issue 01 on paper.",
-      "lead": "Annual subscribers get the tote that doesn't apologize.",
+      "eyebrow": "Decision for the board",
+      "heading": "Bring books and readers back: end late fines in all 19 branches",
+      "lead": "The extra cost is €29k a year. Approve by 29 January and every branch goes fine-free on 1 March 2027.",
       "actions": [
         {
-          "label": "Subscribe",
-          "href": "#",
+          "label": "Approve a fine-free city",
           "style": "solid",
-          "icon": "fa-solid fa-envelope"
+          "icon": "fa-solid fa-check"
         },
         {
-          "label": "Read the story",
-          "href": "#",
+          "label": "Read the pilot report",
           "style": "outline",
-          "icon": "fa-solid fa-book-open"
+          "icon": "fa-solid fa-file-lines"
         }
       ]
     }

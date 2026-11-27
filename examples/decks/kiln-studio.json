@@ -1,80 +1,130 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Kiln — Studio Deck",
+    "title": "Kiln — studio credentials 2026",
     "company": "Kiln",
-    "description": "Craft studio credentials — mat multi-slide proof.",
-    "theme": "mat"
+    "description": "Credentials for Kiln, a Porto ceramics studio that makes tableware for restaurants and hotels: point of view, three measured cases, clients and a 16-week process.",
+    "theme": "mat",
+    "genre": "brand"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Studio",
-      "heading": "Sage walls. Orange heat.",
-      "lead": "Bricolage for the mark. DM Sans for the firing schedule.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Kiln · Ceramics studio · Porto · Credentials 2026",
+      "heading": "We make the plates a restaurant is remembered by.",
+      "lead": "Tableware for chefs and hotels, thrown and fired in Porto since 2019.",
+      "notes": "Say the line, then move straight to the work. This deck is image-first."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Studio",
-      "heading": "Sage walls. Orange heat.",
-      "lead": "Bricolage for the mark. DM Sans for the firing schedule.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232E3D30%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23232E26%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28122%2C78%2C36%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2846%2C61%2C48%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28122%2C78%2C36%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28122%2C78%2C36%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28122%2C78%2C36%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23232E26%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22300%22%20cy%3D%22700%22%20rx%3D%22520%22%20ry%3D%22360%22%20fill%3D%22rgba%28192%2C112%2C48%2C0.220%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221300%22%20cy%3D%22160%22%20rx%3D%22420%22%20ry%3D%22300%22%20fill%3D%22rgba%28122%2C78%2C36%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M180%20780%20C260%20520%20420%20420%20520%20280%20C560%20360%20620%20460%20640%20620%20C480%20640%20300%20700%20180%20780%20Z%22%20fill%3D%22rgba%28192%2C112%2C48%2C0.450%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M1180%20120%20C1280%20180%201380%20260%201460%20380%20C1340%20360%201240%20300%201180%20120%20Z%22%20fill%3D%22rgba%28122%2C78%2C36%2C0.400%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M980%20700%20C1080%20560%201220%20500%201360%20420%20C1380%20540%201320%20660%201220%20760%20Z%22%20fill%3D%22rgba%28192%2C112%2C48%2C0.250%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%22860%22%20cy%3D%22240%22%20r%3D%2290%22%20fill%3D%22rgba%28122%2C78%2C36%2C0.200%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22640%22%20y%3D%22360%22%20width%3D%22360%22%20height%3D%22220%22%20rx%3D%2218%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%20stroke%3D%22rgba%28192%2C112%2C48%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22420%22%20width%3D%22200%22%20height%3D%2214%22%20rx%3D%225%22%20fill%3D%22rgba%28192%2C112%2C48%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22455%22%20width%3D%22260%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Kiln craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Point of view",
+      "heading": "A plate is part of the dish, so we start in the kitchen",
+      "lead": "Every commission begins with a week of service beside the chef.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 400'><rect width='1600' height='400' fill='%23232E26'/><rect x='560' y='0' width='1040' height='400' fill='%232E3D30'/><circle cx='820' cy='170' r='130' fill='%23EDE6D0'/><circle cx='820' cy='170' r='92' fill='%23F0E8D2' stroke='%23C07030' stroke-width='10'/><circle cx='790' cy='150' r='26' fill='%23C07030'/><circle cx='838' cy='184' r='18' fill='%237A4E24'/><path d='M770 200 q40 -20 90 0' stroke='%235E7A4E' stroke-width='10' fill='none' stroke-linecap='round'/><circle cx='1080' cy='130' r='78' fill='%235E7A4E'/><circle cx='1080' cy='130' r='54' fill='%23EDE6D0'/><circle cx='1080' cy='270' r='56' fill='%23C07030'/><circle cx='1080' cy='270' r='36' fill='%237A4E24'/><rect x='1230' y='60' width='220' height='240' rx='6' fill='%23F0E8D2' transform='rotate(4 1340 180)'/><g font-family='Courier,monospace' font-size='22' fill='%23232E26' transform='rotate(4 1340 180)'><text x='1252' y='104'>TABLE 12</text><text x='1252' y='144'>2× sea bass</text><text x='1252' y='178'>1× tomato rice</text><text x='1252' y='212'>1× pudim</text><text x='1252' y='270' fill='%23C07030'>plate: KL-07</text></g></svg>",
+      "imageAlt": "Top view of a Kiln plate with an orange rim holding a plated dish, two glazed bowls beside it, and a kitchen ticket for table 12 that names the plate KL-07."
     },
     {
-      "layout": "two-column",
-      "eyebrow": "Craft",
-      "heading": "What leaves the kiln",
-      "body": "Ceramics: Glazes that hold the orange. Tableware — Daily pieces, not shelf trophies.",
-      "aside": "Hands in clay every Saturday.",
-      "ratio": "1-2",
-      "reverse": true
+      "layout": "feature-grid",
+      "eyebrow": "What we believe",
+      "heading": "Three rules decide every piece that leaves our kiln",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-utensils", "title": "Built for service", "body": "It stacks, survives the dishwasher, fits the pass." },
+        { "icon": "fa-solid fa-palette", "title": "Glaze from the menu", "body": "Colours tested against the food." },
+        { "icon": "fa-solid fa-scroll", "title": "Re-made from a recipe", "body": "Every piece has a recipe card." }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "Selected work",
+      "lead": "Three kitchens, three measured results."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 1 · Fennel & Ash, Porto",
+      "heading": "A thicker rim cut Fennel & Ash's breakage from 11% to 2%",
+      "lead": "2,400 pieces for a 90-cover tasting room. We rebuilt the rim after a week on the pass.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 -50 1600 400'><rect y='-50' width='1600' height='450' fill='%23232E26'/><g font-family='Helvetica,Arial' fill='%23F0E8D2'><text x='560' y='70' font-size='26'>OLD RIM · 3 mm · chipped</text><path d='M560 160 Q760 180 880 130 L884 138 Q760 192 560 170 Z' fill='%23b8b4a4'/><path d='M866 124 l18 10 l-6 8 z' fill='%23E06A2A'/><text x='930' y='70' font-size='26' fill='%23E08A40'>KILN · 5.5 mm rolled</text><path d='M930 160 Q1100 180 1180 128 Q1206 116 1204 138 Q1200 156 1180 154 Q1100 200 930 182 Z' fill='%23C07030'/></g><g fill='%23EDE6D0' stroke='%23232E26' stroke-width='4'><rect x='1220' y='250' width='280' height='26' rx='13'/><rect x='1220' y='220' width='280' height='26' rx='13'/><rect x='1220' y='190' width='280' height='26' rx='13'/><rect x='1220' y='160' width='280' height='26' rx='13'/><rect x='1220' y='130' width='280' height='26' rx='13'/><rect x='1220' y='100' width='280' height='26' rx='13'/></g></svg>",
+      "imageAlt": "Cross-section of two plate rims: the old 3 mm rim chips at the pass; the Kiln 5.5 mm rolled rim does not. Beside them, a stack of plates.",
+      "notes": "Tell the story in one breath: a week on the pass, we saw plates chip in the stack, we rebuilt the rim."
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Year",
-      "heading": "Fired and sold.",
+      "eyebrow": "Case 1 · Result",
+      "heading": "Fennel & Ash now spends €12,200 less a year on replacements",
       "stats": [
-        {
-          "value": "1.8k",
-          "label": "Pieces"
-        },
-        {
-          "value": "46",
-          "label": "Workshops"
-        },
-        {
-          "value": "12",
-          "label": "Retail doors"
-        }
-      ],
-      "notes": "One breath on the numbers — then move on."
+        { "value": "2%", "label": "pieces broken per year in 2025, down from 11%" },
+        { "value": "€2.6k", "label": "yearly replacement spend, down from €14.8k" },
+        { "value": "2,400", "label": "pieces delivered in 16 weeks" }
+      ]
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Case 2 · Hotel Alma, Lisbon",
+      "heading": "For Hotel Alma we made a sage glaze that hides cutlery marks",
+      "ratio": "1-2",
+      "reverse": true,
+      "body": "1,600 pieces for 220 breakfasts a day.\nThe glaze was tested against 400 knife strokes.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 480'><rect width='600' height='480' fill='%232E3D30'/><ellipse cx='300' cy='400' rx='240' ry='26' fill='%23232E26'/><path d='M150 300 h300 l-30 90 h-240 z' fill='%235E7A4E' stroke='%23F0E8D2' stroke-width='4'/><path d='M165 220 h270 l-26 80 h-218 z' fill='%23718F60' stroke='%23F0E8D2' stroke-width='4'/><path d='M180 150 h240 l-22 70 h-196 z' fill='%235E7A4E' stroke='%23F0E8D2' stroke-width='4'/><rect x='410' y='70' width='110' height='120' rx='14' fill='%23EDE6D0'/><path d='M520 100 q40 10 0 60' stroke='%23EDE6D0' stroke-width='14' fill='none'/><g stroke='%23b8b4a4' stroke-width='3' opacity='.6'><path d='M200 330 l60 20'/><path d='M300 250 l70 16'/></g><text x='60' y='60' font-family='Helvetica,Arial' font-size='26' fill='%23F0E8D2'>Alma breakfast set · sage</text></svg>",
+      "imageAlt": "A stack of three sage-glazed breakfast bowls and a cream cup; faint cutlery marks barely show on the glaze."
+    },
+    {
+      "layout": "metric-ring",
+      "eyebrow": "Case 2 · Result",
+      "heading": "93% of Hotel Alma's breakfast set is still in service after three years",
+      "value": "93%",
+      "label": "pieces in service, 2023–2026",
+      "pct": 93,
+      "lead": "Their previous supplier's set: 58% after three years. Source: Hotel Alma inventory counts."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 3 · Miso Bar, Braga",
+      "heading": "Miso Bar's ramen bowl sold 1,800 copies in its shop in one year",
+      "lead": "We matched the glaze to the broth. Guests asked to take the bowl home.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 400'><rect width='1600' height='400' fill='%23232E26'/><circle cx='1060' cy='200' r='230' fill='%23C07030' opacity='.12'/><ellipse cx='1060' cy='120' rx='250' ry='46' fill='%237A4E24'/><ellipse cx='1060' cy='120' rx='224' ry='36' fill='%23C98A3E'/><circle cx='980' cy='114' r='22' fill='%23F0E8D2'/><circle cx='980' cy='114' r='10' fill='%23E2A43A'/><path d='M1060 104 q60 -10 120 8' stroke='%23F0E8D2' stroke-width='6' fill='none'/><path d='M1090 118 q60 -6 110 10' stroke='%23F0E8D2' stroke-width='6' fill='none'/><path d='M810 120 Q840 330 1060 340 Q1280 330 1310 120 Z' fill='%23C07030'/><path d='M830 180 Q1060 210 1290 180' stroke='%237A4E24' stroke-width='6' fill='none'/><rect x='990' y='340' width='140' height='20' rx='6' fill='%237A4E24'/><text x='780' y='210' font-family='Helvetica,Arial' font-size='26' fill='%23F0E8D2' text-anchor='end'>Miso Bar bowl</text><text x='780' y='246' font-family='Helvetica,Arial' font-size='26' fill='%23E08A40' text-anchor='end'>1,800 sold</text></svg>",
+      "imageAlt": "A burnt-orange ramen bowl full of broth, egg and noodles; the glaze matches the colour of the broth."
+    },
+    {
+      "layout": "logo-wall",
+      "eyebrow": "Clients",
+      "heading": "Kitchens we fire for",
+      "columns": 3,
+      "cards": [
+        { "title": "Fennel & Ash", "body": "Porto · since 2023" },
+        { "title": "Hotel Alma", "body": "Lisbon · since 2023" },
+        { "title": "Miso Bar", "body": "Braga · since 2024" },
+        { "title": "Casa Brasa", "body": "Porto · since 2021" },
+        { "title": "Tasca do Rio", "body": "Coimbra · since 2022" },
+        { "title": "Pastelaria Lumen", "body": "Lisbon · since 2025" }
+      ]
     },
     {
       "layout": "quote",
-      "quote": "Heat is the brand. Everything else is cooling.",
-      "by": "Kiln"
+      "quote": "Kiln spent a week on our pass before they drew a single plate. Nobody else asked.",
+      "by": "Rui Matos, chef-owner, Fennel & Ash"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "How we work",
+      "heading": "A commission takes 16 weeks from first service to last firing",
+      "steps": [
+        { "title": "Week 1 · Service", "body": "A week beside your chef" },
+        { "title": "Weeks 2–5 · Prototype", "body": "Three test pieces per shape" },
+        { "title": "Weeks 6–9 · Trial", "body": "Prototypes run real service" },
+        { "title": "Weeks 10–16 · Fire", "body": "Full run, packed by station" }
+      ],
+      "notes": "Stress week 1. It is why the results on the case slides happened."
     },
     {
       "layout": "closing",
-      "eyebrow": "Visit",
-      "heading": "Come to the mat.",
-      "lead": "Studio hours Thu–Sun.",
+      "eyebrow": "Two slots open for March 2027",
+      "heading": "Let's make the plates your guests will remember",
+      "lead": "Start with a week in your kitchen. Studio visits Thursday to Sunday.",
       "actions": [
-        {
-          "label": "Book a visit",
-          "href": "#",
-          "style": "solid",
-          "icon": "fa-solid fa-calendar"
-        },
-        {
-          "label": "Browse the overview",
-          "href": "#",
-          "style": "outline",
-          "icon": "fa-solid fa-book"
-        }
+        { "label": "Book a kitchen visit", "style": "solid", "icon": "fa-solid fa-calendar" },
+        { "label": "Download the case studies", "style": "outline", "icon": "fa-solid fa-file-arrow-down" }
       ]
     }
   ]

@@ -1,95 +1,97 @@
 {
   "type": "deck",
   "meta": {
-    "title": "CivicPulse — Rally Deck",
+    "title": "CivicPulse — Run the 22 all night",
     "company": "CivicPulse",
-    "description": "Civic campaign deck — peoples-platform multi-slide proof.",
-    "theme": "peoples-platform"
+    "description": "Rally deck for CivicPulse's Eastside night-bus campaign in Millbrook: 6,800 night workers walk home after the last 22 bus, a £1.9M all-night service would fix it, and the council votes on 14 January 2027.",
+    "theme": "peoples-platform",
+    "genre": "campaign"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Rally · 26",
-      "heading": "Paper. Cobalt. Amber hope.",
-      "lead": "Alfa Slab One for the chant. Room for the crowd.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "CivicPulse · Eastside night-bus campaign · Millbrook, winter 2026",
+      "heading": "Our shifts end after midnight. The 22 should too.",
+      "lead": "A people's campaign for an all-night bus on Route 22.",
+      "notes": "Read the line slowly. Let the room repeat it before you go on."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Rally · 26",
-      "heading": "Paper. Cobalt. Amber hope.",
-      "lead": "Alfa Slab One for the chant. Room for the crowd.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23F4E9D6%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23F5F2EA%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2844%2C44%2C220%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2844%2C44%2C220%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28242%2C160%2C58%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2844%2C44%2C220%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28244%2C233%2C214%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2844%2C44%2C220%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2844%2C44%2C220%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2844%2C44%2C220%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28242%2C160%2C58%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28242%2C160%2C58%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28242%2C160%2C58%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F5F2EA%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.5%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22200%22%20cy%3D%22100%22%20rx%3D%22420%22%20ry%3D%22280%22%20fill%3D%22rgba%2844%2C44%2C220%2C0.350%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221400%22%20cy%3D%22780%22%20rx%3D%22500%22%20ry%3D%22320%22%20fill%3D%22rgba%28242%2C160%2C58%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.9%22%3E%0A%20%20%20%20%3Crect%20x%3D%22180%22%20y%3D%22160%22%20width%3D%22520%22%20height%3D%22340%22%20rx%3D%228%22%20fill%3D%22%23F4E9D6%22%20stroke%3D%22rgba%2844%2C44%2C220%2C0.400%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22%23F5F2EA%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.7%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22240%22%20y%3D%22470%22%20width%3D%22180%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22780%22%20y%3D%22220%22%20width%3D%22420%22%20height%3D%22280%22%20rx%3D%228%22%20fill%3D%22%23F4E9D6%22%20stroke%3D%22rgba%28242%2C160%2C58%2C0.350%29%22%20stroke-width%3D%222%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22800%22%20y%3D%22240%22%20width%3D%22380%22%20height%3D%22220%22%20fill%3D%22rgba%28242%2C160%2C58%2C0.200%29%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Cg%20opacity%3D%220.4%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221260%22%20cy%3D%22180%22%20r%3D%2226%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221360%22%20cy%3D%22260%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221180%22%20cy%3D%22300%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "CivicPulse craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
-    },
-    {
-      "layout": "feature-grid",
-      "eyebrow": "Pillars",
-      "heading": "What we fight for",
-      "columns": "bento",
-      "cards": [
-        {
-          "icon": "fa-solid fa-house",
-          "title": "Housing",
-          "body": "Keys that stay with people."
-        },
-        {
-          "icon": "fa-solid fa-bus",
-          "title": "Transit",
-          "body": "Minutes that don't punish."
-        },
-        {
-          "icon": "fa-solid fa-vote-yea",
-          "title": "Voice",
-          "body": "Ballots that count out loud."
-        },
-        {
-          "icon": "fa-solid fa-eye",
-          "title": "Show, don't pad",
-          "body": "Asymmetry beats another identical third column."
-        },
-        {
-          "icon": "fa-solid fa-compass",
-          "title": "Clear north star",
-          "body": "One decisive story beat — not a wall of equal tiles."
-        }
-      ]
+      "eyebrow": "What is",
+      "heading": "At 23:52 the last 22 leaves, and the night shift walks",
+      "lead": "Past the hospital, the depot and the retail park, in the dark.",
+      "image": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 360'><rect width='1600' height='360' fill='%230E0E14'/><g font-family='Alfa Slab One,Georgia,serif' transform='translate(160,-10) scale(.8)'><rect x='160' y='40' width='12' height='280' fill='%23F5F2EA'/><rect x='110' y='40' width='320' height='190' fill='%23F5F2EA'/><text x='130' y='100' fill='%232C2CDC' font-size='40'>ROUTE 22</text><text x='130' y='150' fill='%230E0E14' font-size='26'>LAST BUS</text><text x='130' y='205' fill='%23D7263D' font-size='44'>23:52</text><circle cx='1300' cy='100' r='50' fill='%23F2A03A' fill-opacity='.85'/><path d='M500 300 H1500' stroke='%23F5F2EA' stroke-opacity='.3' stroke-width='4' stroke-dasharray='30 20'/><g fill='%23F5F2EA'><circle cx='720' cy='230' r='16'/><rect x='708' y='248' width='24' height='52' rx='8'/><circle cx='860' cy='230' r='16'/><rect x='848' y='248' width='24' height='52' rx='8'/><circle cx='1000' cy='230' r='16'/><rect x='988' y='248' width='24' height='52' rx='8'/></g><text x='640' y='150' fill='%23F5F2EA' font-size='30'>00:40 · 4.2 KM TO GO</text></g></svg>",
+      "imageAlt": "A Route 22 bus-stop sign reading Last bus 23:52, while three night workers walk home under the moon at 00:40."
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Field",
-      "heading": "Organizing in the open.",
+      "variant": "hero",
+      "eyebrow": "The number",
+      "heading": "6,800 Eastside workers finish a shift after the last bus",
       "stats": [
-        {
-          "value": "120",
-          "label": "Blocks"
-        },
-        {
-          "value": "8k",
-          "label": "Petitions"
-        },
-        {
-          "value": "41",
-          "label": "Town halls"
-        }
-      ],
-      "notes": "One breath on the numbers — then move on."
+        { "value": "6,800", "label": "Night workers in Eastside (Millbrook travel survey, 2025)" },
+        { "value": "4.2 km", "label": "Average walk home; 61% of walkers are women" }
+      ]
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "What could be",
+      "heading": "Picture a lit 22 every 30 minutes, all night",
+      "lead": "From St Anne's Hospital to Harbour Depot, door to door by 01:00.",
+      "image": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 360'><rect width='1600' height='360' fill='%231B1BB0'/><g font-family='Alfa Slab One,Georgia,serif' transform='translate(160,-20) scale(.8)'><path d='M0 300 H1600' stroke='%23F5F2EA' stroke-width='6'/><rect x='420' y='70' width='760' height='210' rx='30' fill='%23F5F2EA'/><g fill='%23F2A03A'><rect x='460' y='105' width='120' height='80' rx='10'/><rect x='600' y='105' width='120' height='80' rx='10'/><rect x='740' y='105' width='120' height='80' rx='10'/><rect x='880' y='105' width='120' height='80' rx='10'/></g><rect x='1030' y='100' width='120' height='140' rx='10' fill='%232C2CDC'/><text x='1052' y='190' fill='%23F5F2EA' font-size='60'>22</text><circle cx='550' cy='285' r='34' fill='%230E0E14'/><circle cx='1050' cy='285' r='34' fill='%230E0E14'/><text x='470' y='245' fill='%230E0E14' font-size='30'>EVERY 30 MIN · ALL NIGHT</text></g></svg>",
+      "imageAlt": "A cream Route 22 bus with warm amber windows drives through the night on a cobalt street."
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "The obstacle",
+      "heading": "The council calls it too costly; it costs less than one junction",
+      "leftLabel": "The council's line",
+      "left": "Night buses run empty.\n£1.9M a year is unaffordable.\nTaxis fill the gap.",
+      "rightLabel": "The facts",
+      "right": "Our survey: 2,100 riders a night.\n£1.9M is a third of the A61 junction.\nA taxi home costs £18.",
+      "emphasis": "right",
+      "notes": "Do not attack councillors by name. Attack the number; the facts do the work."
     },
     {
       "layout": "quote",
-      "quote": "A platform is only as good as the people who can stand on it.",
-      "by": "CivicPulse"
+      "quote": "I finish at half twelve and walk forty minutes past the retail park. I carry my keys between my fingers every night.",
+      "by": "Grace Okafor, night nurse at St Anne's Hospital"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "The plan",
+      "heading": "Three moves get the 22 running all night by summer",
+      "ratio": "2-1",
+      "image": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 450 750'><rect width='450' height='750' fill='%23F4E9D6'/><g font-family='Alfa Slab One,Georgia,serif' font-size='22'><path d='M120 120 C320 200 120 380 300 480 S160 640 260 680' stroke='%232C2CDC' stroke-width='14' fill='none' stroke-linecap='round'/><g fill='%23F2A03A' stroke='%230E0E14' stroke-width='4'><circle cx='120' cy='120' r='18'/><circle cx='225' cy='300' r='18'/><circle cx='300' cy='480' r='18'/><circle cx='260' cy='680' r='18'/></g><g fill='%230E0E14'><text x='150' y='112'>Harbour Depot</text><text x='255' y='292'>Retail Park</text><text x='120' y='520'>St Anne's</text><text x='120' y='548'>Hospital</text><text x='90' y='725'>City Centre</text></g><text x='40' y='60' fill='%232C2CDC' font-size='34'>ROUTE 22 · NIGHT</text></g></svg>",
+      "imageAlt": "Route 22 night map: Harbour Depot, Retail Park, St Anne's Hospital and the City Centre on one cobalt line.",
+      "body": "1. Pack the chamber on 14 January.\n2. Win 8 of 15 council votes.\n3. Fund a six-month trial from April."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Momentum",
+      "heading": "11,400 neighbours and 23 employers have already signed",
+      "stats": [
+        { "value": "11,400", "label": "Petition signatures since September" },
+        { "value": "23", "label": "Employers backing us, St Anne's included" },
+        { "value": "7 of 15", "label": "Councillors pledged; we need 8" }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "14.01",
+      "heading": "14 January, 18:00, Millbrook Council Chamber.",
+      "lead": "One vote. One more councillor. Be in the room."
     },
     {
       "layout": "closing",
-      "eyebrow": "Join",
-      "heading": "Show up. Bring cobalt.",
-      "lead": "Volunteer shifts every weekend.",
-      "cta": {
-        "label": "Sign up",
-        "href": "#"
-      }
+      "eyebrow": "The ask",
+      "heading": "Come to the vote and bring the night shift home.",
+      "lead": "Sign up for a seat, then email your councillor before 10 January.",
+      "actions": [
+        { "label": "Claim a seat at the vote", "style": "solid", "icon": "fa-solid fa-landmark" },
+        { "label": "Email your councillor", "style": "outline", "icon": "fa-solid fa-envelope" }
+      ],
+      "notes": "End on the cover's promise: shifts end after midnight, so must the 22. One action tonight: claim a seat."
     }
   ]
 }

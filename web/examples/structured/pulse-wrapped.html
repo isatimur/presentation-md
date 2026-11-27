@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pulse — Year Wrapped</title>
-<meta name="description" content="Spotify-Wrapped style recap — kinetic-wrapped gallery parity via ranked-list, mega-stat, streak-grid, metric-ring, dual share pills." />
+<title>Pulse — Your 2026, Wrapped</title>
+<meta name="description" content="Year-in-review for one Pulse fitness member: 14,892 minutes moved, top workouts, a 47-day streak, top 3% worldwide, the month-by-month climb to an October peak, a 10 km personal best, the soundtrack, the crew, and a share card." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;600&display=swap');
@@ -20,6 +20,12 @@
   --muted: #c8c8c8;
   --accent: #c8ff00;
   --accent-2: #ff00cc;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #0a0a0a;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #c8ff00;
+  --accent-2-ink: #ff00cc;
   --card-bg: rgba(200,255,0,0.12);
   --border: rgba(200,255,0,0.55);
   --radius: 0px;
@@ -27,6 +33,10 @@
   --heading-font: 'Archivo Black', system-ui, sans-serif;
   --body-font: 'Inter', system-ui, sans-serif;
   --heading-weight: 400;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,98 +6908,36 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="wrapped-block">
 <section data-tone="lime" class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Pulse · 2026</span>
+  <span class="eyebrow">Pulse · Wrapped · 2026</span>
   <h1>YOUR 2026, WRAPPED.</h1>
-  <p class="lead">Every beat. Every drop of sweat. Here&#39;s what you actually did this year.</p>
+  <p class="lead">287 workouts. One year. Here&#39;s what you did with it.</p>
 </section>
 
-<section data-tone="lime" class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Year in motion</span>
-  <h2>THE BEATS THAT MATTERED.</h2>
-  <div class="grid cols-bento">
-    <div class="card">
-      <i class="fa-solid fa-person-running"></i>
-      <h3>287 workouts</h3>
-      <p>You showed up — every week, plus a spare.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-route"></i>
-      <h3>1,847 km</h3>
-      <p>Running owns the year. London → Istanbul energy.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-fire"></i>
-      <h3>47-day streak</h3>
-      <p>March 3 → April 18. No excuses.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-trophy"></i>
-      <h3>Top 3%</h3>
-      <p>Outworked 97% of 4.8M Pulse users worldwide.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-music"></i>
-      <h3>6,204 tracks</h3>
-      <p>Electronic power hours. All In on repeat.</p>
-    </div>
-  </div>
-</section>
-
-<section data-tone="magenta" class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Flex check</span>
-  <h2>Idle year vs. wrapped year.</h2>
-  <div class="comparison-cols emphasis-right">
-    <div class="comparison-col">
-      <span class="comparison-label">Could have</span>
-      <p>Rest days as default.
-No streak to defend.
-Soundtrack on shuffle.
-Forgot October.</p>
-    </div>
-    <div class="comparison-vs" aria-hidden="true">vs</div>
-    <div class="comparison-col">
-      <span class="comparison-label">You did</span>
-      <p>287 sessions logged.
-47 days straight.
-Power song on purpose.
-October crushed.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide stat-row-slide stat-row-hero" data-layout="stat-row">
-  <span class="eyebrow">Workouts</span>
-  <h2>You showed up.</h2>
-  <p class="lead">You worked out 287 times this year. That&#39;s basically every single day, plus a spare.</p>
+<section data-tone="orange" class="slide stat-row-slide stat-row-hero" data-layout="stat-row">
+  <span class="eyebrow">Minutes moved</span>
+  <h2>YOU MOVED FOR 14,892 MINUTES.</h2>
+  <p class="lead">Ten full days of motion. 52 minutes a session.</p>
   <div class="stats">
     <div class="stat is-mega">
-      <div class="value">287</div>
-      <div class="label">Workouts this year</div>
-    </div>
-    <div class="stat">
-      <div class="value">5.5×</div>
-      <div class="label">per week avg</div>
-    </div>
-    <div class="stat">
-      <div class="value">63</div>
-      <div class="label">rest days total</div>
+      <div class="value">14,892</div>
+      <div class="label">Minutes moved in 2026</div>
     </div>
     <div class="stat">
       <div class="value">+34%</div>
-      <div class="label">vs 2025</div>
+      <div class="label">vs your 2025</div>
     </div>
   </div>
 </section>
 
 <section data-tone="magenta" class="slide ranked-list-slide" data-layout="ranked-list">
-  <span class="eyebrow">Top Activity</span>
-  <h2>RUNNING IS YOUR THING.</h2>
-  <p class="lead">You ran a combined 1,847 km this year. That&#39;s London → Istanbul.</p>
+  <span class="eyebrow">Top 3</span>
+  <h2>YOUR TOP WORKOUTS</h2>
+  <p class="lead">Running owned the year: 1,847 km, about London to Rome by road.</p>
   <div class="ranked-list-stack">
     <div class="ranked-list-item is-primary">
       <span class="ranked-list-rank">01</span>
       <div class="ranked-list-track">
-        <div class="ranked-list-fill" style="width:88%">
+        <div class="ranked-list-fill" style="width:100%">
           <span class="ranked-list-label">Running</span>
           <span class="ranked-list-value">142 sessions</span>
         </div>
@@ -6776,7 +6946,7 @@ October crushed.</p>
     <div class="ranked-list-item">
       <span class="ranked-list-rank">02</span>
       <div class="ranked-list-track">
-        <div class="ranked-list-fill" style="width:58%">
+        <div class="ranked-list-fill" style="width:66%">
           <span class="ranked-list-label">Strength</span>
           <span class="ranked-list-value">94 sessions</span>
         </div>
@@ -6785,7 +6955,7 @@ October crushed.</p>
     <div class="ranked-list-item">
       <span class="ranked-list-rank">03</span>
       <div class="ranked-list-track">
-        <div class="ranked-list-fill" style="width:34%">
+        <div class="ranked-list-fill" style="width:36%">
           <span class="ranked-list-label">HIIT</span>
           <span class="ranked-list-value">51 sessions</span>
         </div>
@@ -6794,50 +6964,11 @@ October crushed.</p>
   </div>
 </section>
 
-<section data-tone="orange" class="slide stat-row-slide stat-row-hero" data-layout="stat-row">
-  <span class="eyebrow">Minutes Moved</span>
-  <h2>Ten full days of motion.</h2>
-  <p class="lead">You spent 14,892 minutes moving in 2026. That&#39;s 248 hours of pure motion.</p>
-  <div class="stats">
-    <div class="stat is-mega">
-      <div class="value">14,892</div>
-      <div class="label">Minutes moved</div>
-    </div>
-    <div class="stat">
-      <div class="value">52 min</div>
-      <div class="label">avg session</div>
-    </div>
-    <div class="stat">
-      <div class="value">248 hrs</div>
-      <div class="label">total hours</div>
-    </div>
-    <div class="stat">
-      <div class="value">41 min</div>
-      <div class="label">daily average</div>
-    </div>
-  </div>
-</section>
-
-<section data-tone="cyan" class="slide metric-ring-slide" data-layout="metric-ring">
-  <span class="eyebrow">Global Ranking</span>
-  <h2>TOP 3%.</h2>
-  <div class="pct-wrap">
-    <div class="pct-ring" role="img" aria-label="3% globally">
-      <span class="pct-num">3%</span>
-      <span class="pct-label">globally</span>
-    </div>
-    <div class="pct-desc">
-      <p class="lead">Out of 4.8 million Pulse users worldwide, you outworked 97% of them.</p>
-      <p class="pct-body">City rank #14. Age group: top 1%.</p>
-    </div>
-  </div>
-</section>
-
 <section data-tone="violet" class="slide streak-grid-slide" data-layout="streak-grid">
-  <span class="eyebrow">Best Streak</span>
-  <h2>No excuses.</h2>
-  <p class="lead">47 days straight. March 3 → April 18. The streak that changed everything.</p>
-  <div class="streak-boxes" style="--streak-cols: 10">
+  <span class="eyebrow">Best streak</span>
+  <h2>47 DAYS IN A ROW. NO EXCUSES.</h2>
+  <p class="lead">3 March to 18 April. Your longest streak ever, and 2.6× your 2025 best of 18 days.</p>
+  <div class="streak-boxes" style="--streak-cols: 15">
     <div class="streak-box"></div>
     <div class="streak-box"></div>
     <div class="streak-box"></div>
@@ -6902,80 +7033,101 @@ October crushed.</p>
   
 </section>
 
-<section data-tone="lime" class="slide stat-row-slide stat-row-hero" data-layout="stat-row">
-  <span class="eyebrow">Soundtrack</span>
-  <h2>YOU PLAYED 6,204 TRACKS.</h2>
-  <p class="lead">Most-played genre: Electronic. Power song: &quot;All In&quot; by ODESZA — 94 times during workouts.</p>
-  <div class="stats">
-    <div class="stat is-mega">
-      <div class="value">6,204</div>
-      <div class="label">tracks played</div>
+<section data-tone="cyan" class="slide metric-ring-slide" data-layout="metric-ring">
+  <span class="eyebrow">Global rank</span>
+  <h2>YOU OUTWORKED 97% OF PULSE.</h2>
+  <div class="pct-wrap">
+    <div class="pct-ring pct-ring-arc" role="img" aria-label="3% top worldwide">
+      <svg class="pct-ring-svg" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-opacity="0.15" stroke-width="10"/><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-dasharray="255.98 263.89" transform="rotate(-90 50 50)"/></svg>
+      <div class="pct-ring-center">
+        <span class="pct-num">3%</span>
+        <span class="pct-label">top worldwide</span>
+      </div>
     </div>
-    <div class="stat">
-      <div class="value">311 hrs</div>
-      <div class="label">music listened</div>
+    <div class="pct-desc">
+      <p class="lead">Ranked by minutes moved among 4.8 million Pulse members. In Manchester, you are #14.</p>
+      
     </div>
-    <div class="stat">
-      <div class="value">142 BPM</div>
-      <div class="label">your sweet spot</div>
-    </div>
+  </div>
+</section>
+
+<section data-tone="default" class="slide chart-slide" data-layout="chart">
+  <span class="eyebrow">Month by month</span>
+  <h2>YOU BUILT ALL YEAR AND PEAKED IN OCTOBER.</h2>
+  <p class="lead">Workouts per month, 287 in total. October: 34, every day plus 3 doubles.</p>
+  <div class="chart-frame">
+    <svg class="pmd-chart" viewBox="0 0 920 420" width="100%" height="100%" role="img" aria-label="Chart" xmlns="http://www.w3.org/2000/svg">
+  
+  <g class="chart-grid"><line x1="52" y1="16" x2="896" y2="16" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="20" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">50</text><line x1="52" y1="106" x2="896" y2="106" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="110" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">37.5</text><line x1="52" y1="196" x2="896" y2="196" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="200" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">25</text><line x1="52" y1="286" x2="896" y2="286" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="290" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">12.5</text><line x1="52" y1="376" x2="896" y2="376" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="380" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">0</text></g>
+  <g class="chart-marks"><rect x="58.33" y="246.4" width="55.67333333333333" height="129.6" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="87.16666666666666" y="240.4" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">18</text><rect x="128.66333333333333" y="232" width="55.67333333333333" height="144" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="157.5" y="226" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">20</text><rect x="198.99666666666667" y="152.8" width="55.67333333333333" height="223.2" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="227.83333333333334" y="146.8" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">31</text><rect x="269.33" y="181.6" width="55.67333333333333" height="194.4" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="298.16666666666663" y="175.6" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">27</text><rect x="339.6633333333333" y="203.20000000000002" width="55.67333333333333" height="172.79999999999998" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="368.49999999999994" y="197.20000000000002" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">24</text><rect x="409.9966666666666" y="217.6" width="55.67333333333333" height="158.4" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="438.83333333333326" y="211.6" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">22</text><rect x="480.33" y="239.2" width="55.67333333333333" height="136.8" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="509.16666666666663" y="233.2" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">19</text><rect x="550.6633333333333" y="224.8" width="55.67333333333333" height="151.2" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="579.5" y="218.8" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">21</text><rect x="620.9966666666667" y="188.79999999999998" width="55.67333333333333" height="187.20000000000002" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="649.8333333333334" y="182.79999999999998" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">26</text><rect x="691.33" y="131.2" width="55.67333333333333" height="244.8" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="720.1666666666667" y="125.19999999999999" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">34</text><rect x="761.6633333333333" y="196" width="55.67333333333333" height="180" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="790.5" y="190" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">25</text><rect x="831.9966666666667" y="232" width="55.67333333333333" height="144" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="860.8333333333334" y="226" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">20</text></g>
+  <g class="chart-cats"><text x="87.16666666666666" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Jan</text><text x="157.5" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Feb</text><text x="227.83333333333334" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Mar</text><text x="298.16666666666663" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Apr</text><text x="368.49999999999994" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">May</text><text x="438.83333333333326" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Jun</text><text x="509.16666666666663" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Jul</text><text x="579.5" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Aug</text><text x="649.8333333333334" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Sep</text><text x="720.1666666666667" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Oct</text><text x="790.5" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Nov</text><text x="860.8333333333334" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Dec</text></g>
+</svg>
+  </div>
+</section>
+
+<section data-tone="magenta" class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 1600 360&#39;&gt;&lt;rect width&#x3D;&#39;1600&#39; height&#x3D;&#39;360&#39; fill&#x3D;&#39;%230a0a0a&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;Archivo Black,Arial Black,Arial&#39;&gt;&lt;path d&#x3D;&#39;M120 230 C260 120 380 260 520 170 S780 90 900 180 S1160 260 1300 140 L1480 120&#39; stroke&#x3D;&#39;%23ff00cc&#39; stroke-width&#x3D;&#39;12&#39; fill&#x3D;&#39;none&#39; stroke-linecap&#x3D;&#39;round&#39;&#x2F;&gt;&lt;g fill&#x3D;&#39;%23c8ff00&#39;&gt;&lt;circle cx&#x3D;&#39;120&#39; cy&#x3D;&#39;230&#39; r&#x3D;&#39;16&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;520&#39; cy&#x3D;&#39;170&#39; r&#x3D;&#39;12&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;900&#39; cy&#x3D;&#39;180&#39; r&#x3D;&#39;12&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;1300&#39; cy&#x3D;&#39;140&#39; r&#x3D;&#39;12&#39;&#x2F;&gt;&lt;&#x2F;g&gt;&lt;circle cx&#x3D;&#39;1480&#39; cy&#x3D;&#39;120&#39; r&#x3D;&#39;22&#39; fill&#x3D;&#39;%23c8ff00&#39;&#x2F;&gt;&lt;g fill&#x3D;&#39;%23ffffff&#39; font-size&#x3D;&#39;24&#39;&gt;&lt;text x&#x3D;&#39;90&#39; y&#x3D;&#39;290&#39;&gt;START&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;480&#39; y&#x3D;&#39;225&#39;&gt;KM 3 · 4:31&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;860&#39; y&#x3D;&#39;235&#39;&gt;KM 6 · 4:22&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1240&#39; y&#x3D;&#39;195&#39;&gt;KM 9 · 4:14&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;text x&#x3D;&#39;1330&#39; y&#x3D;&#39;80&#39; fill&#x3D;&#39;%23c8ff00&#39; font-size&#x3D;&#39;40&#39;&gt;44:12&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="A magenta 10 km route line with split times at km 3, 6 and 9, finishing in 44:12." />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">Peak moment</span>
+    <h2>19 OCTOBER: 10 KM IN 44:12.</h2>
+    <p class="lead">Your fastest 10 km ever, 3 minutes 40 seconds under your 2025 best.</p>
   </div>
 </section>
 
 <section data-tone="orange" class="slide stat-row-slide stat-row-hero" data-layout="stat-row">
-  <span class="eyebrow">Peak Month</span>
-  <h2>OCTOBER WAS YOUR MONTH.</h2>
-  <p class="lead">You crushed 34 workouts in October alone. Every single day — plus 3 doubles.</p>
+  <span class="eyebrow">Soundtrack</span>
+  <h2>6,204 TRACKS. ONE POWER SONG.</h2>
+  <p class="lead">&quot;All In&quot; by ODESZA, 94 plays mid-workout.</p>
   <div class="stats">
     <div class="stat is-mega">
-      <div class="value">34</div>
-      <div class="label">workouts in Oct</div>
+      <div class="value">6,204</div>
+      <div class="label">Tracks played during workouts</div>
     </div>
     <div class="stat">
-      <div class="value">1,842</div>
-      <div class="label">minutes in Oct</div>
-    </div>
-    <div class="stat">
-      <div class="value">3</div>
-      <div class="label">personal records</div>
+      <div class="value">142 BPM</div>
+      <div class="label">Your sweet spot</div>
     </div>
   </div>
 </section>
 
-<section data-tone="orange" class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Community</span>
-  <h2>YOU&#39;RE NOT ALONE IN THIS.</h2>
-  <div class="grid cols-4">
-    <div class="card">
+<section data-tone="violet" class="slide logo-wall-slide" data-layout="logo-wall">
+  <span class="eyebrow">Your crew</span>
+  <h2>WHO MOVED WITH YOU</h2>
+  <p class="lead">382 friends on Pulse. 28 group challenges won together.</p>
+  <div class="logo-wall cols-4">
+    <div class="logo-tile">
       
-      <h3>382</h3>
-      <p>friends on Pulse</p>
+      <span class="logo-tile-fallback">Ancoats Run Club</span>
+      <p class="logo-tile-caption">61 runs together</p>
     </div>
-    <div class="card">
+    <div class="logo-tile">
       
-      <h3>28</h3>
-      <p>group challenges won</p>
+      <span class="logo-tile-fallback">Sam K.</span>
+      <p class="logo-tile-caption">1,047 high-fives traded</p>
     </div>
-    <div class="card">
+    <div class="logo-tile">
       
-      <h3>1,047</h3>
-      <p>high-fives given</p>
+      <span class="logo-tile-fallback">Iron Mondays</span>
+      <p class="logo-tile-caption">38 strength sessions</p>
     </div>
-    <div class="card">
+    <div class="logo-tile">
       
-      <h3>4.9M</h3>
-      <p>collective mins moved</p>
+      <span class="logo-tile-fallback">Northern 10K Squad</span>
+      <p class="logo-tile-caption">12 challenges won</p>
     </div>
   </div>
 </section>
 
 <section data-tone="lime" class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">Share Your Wrapped</span>
-  <h1>LET THE WORLD KNOW.</h1>
-  <p class="lead">You moved 14,892 minutes. You hit top 3% globally. You earned this flex.</p>
+  <span class="eyebrow">Share your Wrapped</span>
+  <h1>SHOW THEM YOUR 2026. THEN BEAT IT.</h1>
+  <p class="lead">14,892 minutes. Top 3%. A 47-day streak. Your 2027 goal is waiting.</p>
   <div class="cta-row">
     <a class="btn" href="#"><i class="fa-brands fa-instagram"></i> Share on Instagram</a>
-    <a class="btn btn-outline" href="#"><i class="fa-brands fa-x-twitter"></i> Post to X</a>
+    <a class="btn btn-outline" href="#"><i class="fa-solid fa-bullseye"></i> Set a 2027 goal</a>
   </div>
 </section>
 
@@ -7063,7 +7215,7 @@ October crushed.</p>
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Pulse — Year Wrapped","company":"Pulse","description":"Spotify-Wrapped style recap — kinetic-wrapped gallery parity via ranked-list, mega-stat, streak-grid, metric-ring, dual share pills.","theme":"kinetic-wrapped"},"slides":[{"layout":"title","tone":"lime","eyebrow":"Pulse · 2026","heading":"YOUR 2026, WRAPPED.","lead":"Every beat. Every drop of sweat. Here's what you actually did this year.","notes":"Cold open — yell the year before the logo."},{"layout":"feature-grid","tone":"lime","eyebrow":"Year in motion","heading":"THE BEATS THAT MATTERED.","columns":"bento","cards":[{"icon":"fa-solid fa-person-running","title":"287 workouts","body":"You showed up — every week, plus a spare."},{"icon":"fa-solid fa-route","title":"1,847 km","body":"Running owns the year. London → Istanbul energy."},{"icon":"fa-solid fa-fire","title":"47-day streak","body":"March 3 → April 18. No excuses."},{"icon":"fa-solid fa-trophy","title":"Top 3%","body":"Outworked 97% of 4.8M Pulse users worldwide."},{"icon":"fa-solid fa-music","title":"6,204 tracks","body":"Electronic power hours. All In on repeat."}],"notes":"Bento craft lead — crop-aligned for Studio Title/Bento/Compare."},{"layout":"comparison","tone":"magenta","eyebrow":"Flex check","heading":"Idle year vs. wrapped year.","leftLabel":"Could have","left":"Rest days as default.\nNo streak to defend.\nSoundtrack on shuffle.\nForgot October.","rightLabel":"You did","right":"287 sessions logged.\n47 days straight.\nPower song on purpose.\nOctober crushed.","emphasis":"right","notes":"Name the loser column first, then punch the winner."},{"layout":"stat-row","variant":"hero","eyebrow":"Workouts","heading":"You showed up.","lead":"You worked out 287 times this year. That's basically every single day, plus a spare.","stats":[{"value":"287","label":"Workouts this year"},{"value":"5.5×","label":"per week avg"},{"value":"63","label":"rest days total"},{"value":"+34%","label":"vs 2025"}],"notes":"Mega workouts — lime on black energy."},{"layout":"ranked-list","tone":"magenta","eyebrow":"Top Activity","heading":"RUNNING IS YOUR THING.","lead":"You ran a combined 1,847 km this year. That's London → Istanbul.","items":[{"rank":"01","label":"Running","value":"142 sessions","widthPct":88},{"rank":"02","label":"Strength","value":"94 sessions","widthPct":58},{"rank":"03","label":"HIIT","value":"51 sessions","widthPct":34}],"notes":"Ranked activity bars — first-class ranked-list."},{"layout":"stat-row","variant":"hero","tone":"orange","eyebrow":"Minutes Moved","heading":"Ten full days of motion.","lead":"You spent 14,892 minutes moving in 2026. That's 248 hours of pure motion.","stats":[{"value":"14,892","label":"Minutes moved"},{"value":"52 min","label":"avg session"},{"value":"248 hrs","label":"total hours"},{"value":"41 min","label":"daily average"}],"notes":"Minutes mega beat — orange field."},{"layout":"metric-ring","tone":"cyan","eyebrow":"Global Ranking","heading":"TOP 3%.","value":"3%","label":"globally","pct":100,"lead":"Out of 4.8 million Pulse users worldwide, you outworked 97% of them.","body":"City rank #14. Age group: top 1%.","notes":"Percentile flex — cyan field + metric-ring badge."},{"layout":"streak-grid","tone":"violet","eyebrow":"Best Streak","heading":"No excuses.","lead":"47 days straight. March 3 → April 18. The streak that changed everything.","filled":47,"total":60,"cols":10,"notes":"Streak grid — violet/magenta night."},{"layout":"stat-row","variant":"hero","tone":"lime","eyebrow":"Soundtrack","heading":"YOU PLAYED 6,204 TRACKS.","lead":"Most-played genre: Electronic. Power song: \"All In\" by ODESZA — 94 times during workouts.","stats":[{"value":"6,204","label":"tracks played"},{"value":"311 hrs","label":"music listened"},{"value":"142 BPM","label":"your sweet spot"}],"notes":"Soundtrack beat — lime on deep green."},{"layout":"stat-row","variant":"hero","tone":"orange","eyebrow":"Peak Month","heading":"OCTOBER WAS YOUR MONTH.","lead":"You crushed 34 workouts in October alone. Every single day — plus 3 doubles.","stats":[{"value":"34","label":"workouts in Oct"},{"value":"1,842","label":"minutes in Oct"},{"value":"3","label":"personal records"}],"notes":"Peak month — navy/orange."},{"layout":"feature-grid","tone":"orange","eyebrow":"Community","heading":"YOU'RE NOT ALONE IN THIS.","columns":4,"cards":[{"title":"382","body":"friends on Pulse"},{"title":"28","body":"group challenges won"},{"title":"1,047","body":"high-fives given"},{"title":"4.9M","body":"collective mins moved"}],"notes":"Squad proof — yellow/navy community cards."},{"layout":"closing","tone":"lime","eyebrow":"Share Your Wrapped","heading":"LET THE WORLD KNOW.","lead":"You moved 14,892 minutes. You hit top 3% globally. You earned this flex.","actions":[{"label":"Share on Instagram","href":"#","style":"solid","icon":"fa-brands fa-instagram"},{"label":"Post to X","href":"#","style":"outline","icon":"fa-brands fa-x-twitter"}],"notes":"Share close — dual solid + outline pills."}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Pulse — Your 2026, Wrapped","company":"Pulse","description":"Year-in-review for one Pulse fitness member: 14,892 minutes moved, top workouts, a 47-day streak, top 3% worldwide, the month-by-month climb to an October peak, a 10 km personal best, the soundtrack, the crew, and a share card.","theme":"kinetic-wrapped","genre":"wrap"},"slides":[{"layout":"title","tone":"lime","eyebrow":"Pulse · Wrapped · 2026","heading":"YOUR 2026, WRAPPED.","lead":"287 workouts. One year. Here's what you did with it.","notes":"Cold open. Say the year, then hit play on the first card."},{"layout":"stat-row","variant":"hero","tone":"orange","eyebrow":"Minutes moved","heading":"YOU MOVED FOR 14,892 MINUTES.","lead":"Ten full days of motion. 52 minutes a session.","stats":[{"value":"14,892","label":"Minutes moved in 2026"},{"value":"+34%","label":"vs your 2025"}]},{"layout":"ranked-list","tone":"magenta","eyebrow":"Top 3","heading":"YOUR TOP WORKOUTS","lead":"Running owned the year: 1,847 km, about London to Rome by road.","items":[{"rank":"01","label":"Running","value":"142 sessions","widthPct":100},{"rank":"02","label":"Strength","value":"94 sessions","widthPct":66},{"rank":"03","label":"HIIT","value":"51 sessions","widthPct":36}]},{"layout":"streak-grid","tone":"violet","eyebrow":"Best streak","heading":"47 DAYS IN A ROW. NO EXCUSES.","lead":"3 March to 18 April. Your longest streak ever, and 2.6× your 2025 best of 18 days.","filled":47,"total":60,"cols":15},{"layout":"metric-ring","tone":"cyan","eyebrow":"Global rank","heading":"YOU OUTWORKED 97% OF PULSE.","value":"3%","label":"top worldwide","pct":97,"lead":"Ranked by minutes moved among 4.8 million Pulse members. In Manchester, you are #14."},{"layout":"chart","tone":"default","eyebrow":"Month by month","heading":"YOU BUILT ALL YEAR AND PEAKED IN OCTOBER.","chartType":"bar","categories":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"series":[{"name":"Workouts","values":[18,20,31,27,24,22,19,21,26,34,25,20]}],"showValues":true,"lead":"Workouts per month, 287 in total. October: 34, every day plus 3 doubles.","notes":"Point at March (the streak) and October (the peak). Two spikes, one story."},{"layout":"image-hero","tone":"magenta","eyebrow":"Peak moment","heading":"19 OCTOBER: 10 KM IN 44:12.","lead":"Your fastest 10 km ever, 3 minutes 40 seconds under your 2025 best.","image":"data:image/svg+xml,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 360'>\u003crect width='1600' height='360' fill='%230a0a0a'/>\u003cg font-family='Archivo Black,Arial Black,Arial'>\u003cpath d='M120 230 C260 120 380 260 520 170 S780 90 900 180 S1160 260 1300 140 L1480 120' stroke='%23ff00cc' stroke-width='12' fill='none' stroke-linecap='round'/>\u003cg fill='%23c8ff00'>\u003ccircle cx='120' cy='230' r='16'/>\u003ccircle cx='520' cy='170' r='12'/>\u003ccircle cx='900' cy='180' r='12'/>\u003ccircle cx='1300' cy='140' r='12'/>\u003c/g>\u003ccircle cx='1480' cy='120' r='22' fill='%23c8ff00'/>\u003cg fill='%23ffffff' font-size='24'>\u003ctext x='90' y='290'>START\u003c/text>\u003ctext x='480' y='225'>KM 3 · 4:31\u003c/text>\u003ctext x='860' y='235'>KM 6 · 4:22\u003c/text>\u003ctext x='1240' y='195'>KM 9 · 4:14\u003c/text>\u003c/g>\u003ctext x='1330' y='80' fill='%23c8ff00' font-size='40'>44:12\u003c/text>\u003c/g>\u003c/svg>","imageAlt":"A magenta 10 km route line with split times at km 3, 6 and 9, finishing in 44:12."},{"layout":"stat-row","variant":"hero","tone":"orange","eyebrow":"Soundtrack","heading":"6,204 TRACKS. ONE POWER SONG.","lead":"\"All In\" by ODESZA, 94 plays mid-workout.","stats":[{"value":"6,204","label":"Tracks played during workouts"},{"value":"142 BPM","label":"Your sweet spot"}]},{"layout":"logo-wall","tone":"violet","eyebrow":"Your crew","heading":"WHO MOVED WITH YOU","lead":"382 friends on Pulse. 28 group challenges won together.","columns":4,"cards":[{"title":"Ancoats Run Club","body":"61 runs together"},{"title":"Sam K.","body":"1,047 high-fives traded"},{"title":"Iron Mondays","body":"38 strength sessions"},{"title":"Northern 10K Squad","body":"12 challenges won"}]},{"layout":"closing","tone":"lime","eyebrow":"Share your Wrapped","heading":"SHOW THEM YOUR 2026. THEN BEAT IT.","lead":"14,892 minutes. Top 3%. A 47-day streak. Your 2027 goal is waiting.","actions":[{"label":"Share on Instagram","href":"#","style":"solid","icon":"fa-brands fa-instagram"},{"label":"Set a 2027 goal","href":"#","style":"outline","icon":"fa-solid fa-bullseye"}],"notes":"Two actions only: share now, set a goal next. The close mirrors the cover: your 2026, then 2027."}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {
