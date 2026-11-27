@@ -1,104 +1,133 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Ivory & Ink — Folio Deck",
+    "title": "Ivory & Ink — Studio folio 2027",
     "company": "Ivory & Ink",
-    "description": "Editorial folio — monochrome multi-slide proof.",
-    "theme": "monochrome"
+    "description": "Credentials deck for Ivory & Ink, a book and report design studio: point of view, three rules, three cases with results (an annual report, an art monograph, a one-colour identity), clients and process.",
+    "theme": "monochrome",
+    "genre": "brand"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Folio",
-      "heading": "Ivory field. Thin ink.",
-      "lead": "Jost 200 for air. Lora italic for the line that matters.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Ivory & Ink · Book and report design · Folio 2027",
+      "heading": "We design books and reports people keep on the shelf.",
+      "lead": "A studio of six in Edinburgh. 140 titles since 2016.",
+      "notes": "Say the sentence and stop. The spread on the next slide shows what it means."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Folio",
-      "heading": "Ivory field. Thin ink.",
-      "lead": "Jost 200 for air. Lora italic for the line that matters.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23F5F0E4%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23FAFADF%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C26%2C22%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C26%2C22%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28138%2C138%2C128%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2826%2C26%2C22%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28245%2C240%2C228%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C26%2C22%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2826%2C26%2C22%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C26%2C22%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28138%2C138%2C128%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28138%2C138%2C128%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28138%2C138%2C128%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23FAFADF%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.9%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22880%22%20cy%3D%22220%22%20rx%3D%22220%22%20ry%3D%22140%22%20fill%3D%22rgba%28138%2C138%2C128%2C0.220%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M0%20640%20C320%20520%20640%20780%20960%20600%20S1400%20480%201600%20560%20L1600%20900%20L0%20900%20Z%22%20fill%3D%22rgba%2826%2C26%2C22%2C0.120%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.55%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22260%22%20cy%3D%22180%22%20r%3D%2218%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22520%22%20cy%3D%22140%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22980%22%20cy%3D%22210%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22320%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221100%22%20cy%3D%22120%22%20r%3D%228%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Ivory & Ink craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
-    },
-    {
-      "layout": "two-column",
-      "eyebrow": "Belief",
-      "heading": "Restraint is the loudest move.",
-      "body": "Ivory & Ink designs books and decks where weight is rationed and italics earn their place.",
-      "aside": "No second accent. No decoration tax.",
-      "ratio": "3-2"
+      "eyebrow": "Point of view",
+      "heading": "We cut what a reader does not need, then set the rest well",
+      "lead": "One typeface, one ink, wide margins.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'><rect width='1600' height='900' fill='%23F5F0E4'/><g font-family='Georgia,serif' fill='%231A1A16'><rect x='300' y='270' width='1000' height='330' fill='%23FAFADF' stroke='%231A1A16' stroke-width='2'/><line x1='800' y1='270' x2='800' y2='600' stroke='%2359594f' stroke-width='2'/><text x='360' y='330' font-size='16' letter-spacing='3' fill='%2359594f'>CHAPTER ONE</text><text x='360' y='400' font-size='54' font-style='italic'>On Restraint</text><line x1='360' y1='430' x2='440' y2='430' stroke='%231A1A16' stroke-width='2'/><text x='360' y='470' font-size='18' fill='%2359594f'>Notes on making less</text><text x='740' y='580' font-size='14' fill='%2359594f' text-anchor='end'>12</text><g fill='%231A1A16' fill-opacity='.55'><rect x='860' y='320' width='380' height='6'/><rect x='860' y='340' width='380' height='6'/><rect x='860' y='360' width='360' height='6'/><rect x='860' y='380' width='380' height='6'/><rect x='860' y='400' width='300' height='6'/><rect x='860' y='436' width='380' height='6'/><rect x='860' y='456' width='370' height='6'/><rect x='860' y='476' width='380' height='6'/><rect x='860' y='496' width='340' height='6'/><rect x='860' y='516' width='380' height='6'/><rect x='860' y='536' width='220' height='6'/></g><text x='860' y='580' font-size='14' fill='%2359594f'>13</text></g></svg>",
+      "imageAlt": "An open book spread: an italic chapter title, On Restraint, on the left page and a single column of text on the right",
+      "notes": "Ask the room to look at the margins. That white space is the work."
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Work",
-      "heading": "Recent commissions",
-      "columns": "bento",
+      "eyebrow": "What we believe",
+      "heading": "Three rules shape every page we set",
+      "columns": 3,
       "cards": [
-        {
-          "icon": "fa-solid fa-book",
-          "title": "Monographs",
-          "body": "Artist books with breathing room."
-        },
-        {
-          "icon": "fa-solid fa-file-invoice",
-          "title": "Annuals",
-          "body": "Reports that refuse chart junk."
-        },
-        {
-          "icon": "fa-solid fa-id-card",
-          "title": "Identity",
-          "body": "Marks that survive one color."
-        },
-        {
-          "icon": "fa-solid fa-layer-group",
-          "title": "Stack for scan",
-          "body": "Hierarchy first. Decoration second. Decoration never."
-        },
-        {
-          "icon": "fa-solid fa-bolt",
-          "title": "Ship the punchline",
-          "body": "Lead with the claim that survives the hallway test."
-        }
+        { "icon": "fa-solid fa-font", "title": "One typeface", "body": "Weight and size do the work." },
+        { "icon": "fa-solid fa-chart-simple", "title": "Charts that answer", "body": "One finding in every chart title." },
+        { "icon": "fa-solid fa-border-none", "title": "Margins first", "body": "White space is set before text." }
       ]
     },
     {
+      "layout": "section",
+      "number": "01",
+      "heading": "Selected work, 2024 to 2026",
+      "lead": "A report, a monograph and an identity."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 1 · Harrow Foundation",
+      "heading": "Harrow Foundation's annual report shrank from 96 pages to 40",
+      "lead": "Fewer pages, one finding per spread.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'><rect width='1600' height='900' fill='%23F5F0E4'/><g font-family='Georgia,serif' fill='%231A1A16'><rect x='240' y='270' width='250' height='330' fill='%23FAFADF' stroke='%231A1A16' stroke-width='2'/><text x='270' y='330' font-size='16' letter-spacing='2' fill='%2359594f'>HARROW FOUNDATION</text><text x='270' y='420' font-size='40' font-style='italic'>2025</text><text x='270' y='456' font-size='20'>Annual report</text><text x='270' y='580' font-size='14' fill='%2359594f'>40 pages</text><rect x='580' y='270' width='780' height='330' fill='%23FAFADF' stroke='%231A1A16' stroke-width='2'/><line x1='970' y1='270' x2='970' y2='600' stroke='%2359594f' stroke-width='1'/><text x='620' y='330' font-size='16' letter-spacing='2' fill='%2359594f'>WHAT YOUR GIFT DID</text><text x='620' y='400' font-size='34' font-style='italic'>12,400 children</text><text x='620' y='440' font-size='20'>read at grade level by June,</text><text x='620' y='468' font-size='20'>up from 7,900 in 2023.</text><g fill='%231A1A16'><rect x='1030' y='470' width='60' height='100' fill-opacity='.3'/><rect x='1120' y='430' width='60' height='140' fill-opacity='.3'/><rect x='1210' y='370' width='60' height='200'/></g><text x='1060' y='590' font-size='14' text-anchor='middle' fill='%2359594f'>2023</text><text x='1150' y='590' font-size='14' text-anchor='middle' fill='%2359594f'>2024</text><text x='1240' y='590' font-size='14' text-anchor='middle'>2025</text></g></svg>",
+      "imageAlt": "Harrow Foundation 2025 annual report: the cover and a spread with one finding and a three-bar chart",
+      "notes": "The point: every spread answers one donor question."
+    },
+    {
       "layout": "stat-row",
-      "eyebrow": "Signal",
-      "heading": "Ivory & Ink in numbers.",
-      "notes": "One breath on the numbers — then move on.",
+      "eyebrow": "Case 1 · Result",
+      "heading": "Gifts to Harrow rose 31% in the 60 days after the report",
       "stats": [
-        {
-          "value": "3×",
-          "label": "Faster cycles"
-        },
-        {
-          "value": "92%",
-          "label": "Retention"
-        },
-        {
-          "value": "18",
-          "label": "Shipped pilots"
-        }
+        { "value": "+31%", "label": "Gifts in 60 days, vs the same period in 2024" },
+        { "value": "4:50", "label": "Minutes read online, up from 1:20" },
+        { "value": "40", "label": "Pages, down from 96" }
+      ]
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Case 2 · Lena Varga monograph",
+      "heading": "Lena Varga's monograph sold all 3,000 copies in 11 weeks",
+      "ratio": "2-1",
+      "reverse": true,
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 1000'><rect width='600' height='1000' fill='%23F5F0E4'/><g font-family='Georgia,serif' fill='%231A1A16'><rect x='90' y='130' width='420' height='600' fill='%23FAFADF' stroke='%231A1A16' stroke-width='2'/><rect x='150' y='200' width='300' height='300' fill='%231A1A16'/><circle cx='340' cy='330' r='70' fill='%23FAFADF'/><rect x='150' y='440' width='300' height='14' fill='%23FAFADF'/><text x='150' y='580' font-size='34' font-style='italic'>Lena Varga</text><text x='150' y='616' font-size='18' fill='%2359594f'>Paintings 2010–2025</text><text x='150' y='696' font-size='14' letter-spacing='2' fill='%2359594f'>IVORY &amp; INK EDITIONS</text><text x='300' y='830' font-size='20' text-anchor='middle' fill='%2359594f'>288 pages · 1st edition of 3,000</text></g></svg>",
+      "imageAlt": "Cover of the Lena Varga monograph, Paintings 2010 to 2025: one black-and-ivory painting above the title",
+      "body": "One painting per spread, no captions on the image.\nNotes sit at the back."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 3 · Corvo Coffee",
+      "heading": "Corvo Coffee now prints one black mark on every cup and bag",
+      "lead": "One ink replaced four across 140 cafés.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'><defs><g id='m'><circle r='34' fill='%231A1A16'/><path d='M-8 -10 L26 -2 L-8 6 Z' fill='%23FAFADF'/><circle cx='-12' cy='-12' r='5' fill='%23FAFADF'/></g></defs><rect width='1600' height='900' fill='%23F5F0E4'/><g font-family='Georgia,serif' fill='%231A1A16'><path d='M330 300 L470 300 L450 560 L350 560 Z' fill='%23FAFADF' stroke='%231A1A16' stroke-width='3'/><rect x='320' y='286' width='160' height='20' rx='6' fill='%231A1A16'/><use href='%23m' x='400' y='420'/><path d='M700 300 L900 300 L920 570 L680 570 Z' fill='%23FAFADF' stroke='%231A1A16' stroke-width='3'/><path d='M700 300 L740 330 L860 330 L900 300' fill='none' stroke='%231A1A16' stroke-width='2'/><use href='%23m' x='800' y='430'/><text x='800' y='520' font-size='22' text-anchor='middle' letter-spacing='4'>CORVO</text><rect x='1080' y='300' width='280' height='200' fill='%231A1A16'/><g transform='translate(1220 380) scale(1.3)'><circle r='34' fill='%23FAFADF'/><path d='M-8 -10 L26 -2 L-8 6 Z' fill='%231A1A16'/><circle cx='-12' cy='-12' r='5' fill='%231A1A16'/></g><text x='1220' y='470' font-size='22' text-anchor='middle' fill='%23FAFADF' letter-spacing='4'>CORVO</text><line x1='1150' y1='500' x2='1150' y2='570' stroke='%231A1A16' stroke-width='6'/><line x1='1290' y1='500' x2='1290' y2='570' stroke='%231A1A16' stroke-width='6'/></g></svg>",
+      "imageAlt": "Corvo Coffee one-colour crow mark on a cup, a coffee bag and a café sign"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Case 3 · Result",
+      "heading": "One-colour printing cut Corvo's packaging bill by 38%",
+      "stats": [
+        { "value": "−38%", "label": "Packaging print cost, 2025 vs 2024" },
+        { "value": "140", "label": "Cafés rebranded in 6 weeks" },
+        { "value": "1 ink", "label": "Down from 4 on every item" }
+      ]
+    },
+    {
+      "layout": "logo-wall",
+      "eyebrow": "Clients",
+      "heading": "Foundations, publishers and makers return for a second title",
+      "columns": 3,
+      "cards": [
+        { "title": "Harrow Foundation", "body": "Annual reports · 3 editions" },
+        { "title": "Canongate Arts Trust", "body": "Exhibition books" },
+        { "title": "Corvo Coffee", "body": "Identity and packaging" },
+        { "title": "Lena Varga Studio", "body": "Monograph" },
+        { "title": "Fettes Press", "body": "Poetry series · 12 titles" },
+        { "title": "North Sea Museum", "body": "Catalogues · 4 titles" }
       ]
     },
     {
       "layout": "quote",
-      "quote": "Clarity beats decoration — every time.",
-      "by": "Ivory & Ink",
-      "notes": "Let the quote hang — don't rush the attribution."
+      "quote": "Donors told us it was the first annual report they read to the end.",
+      "by": "Claire Munro · Director, Harrow Foundation"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "How we work",
+      "heading": "A book goes from manuscript to press in 16 weeks",
+      "steps": [
+        { "title": "Week 1 · Read", "body": "The whole manuscript, first" },
+        { "title": "Week 3 · Grid", "body": "One sample spread" },
+        { "title": "Week 10 · Set", "body": "Every page proofed" },
+        { "title": "Week 16 · Press", "body": "We attend the press check" }
+      ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Commission",
-      "heading": "Stay in the ivory.",
-      "lead": "Select clients for 2027.",
-      "cta": {
-        "label": "Start a project",
-        "href": "#"
-      }
+      "eyebrow": "Commission · 4 studio slots open for 2027",
+      "heading": "Commission a book your readers keep on the shelf",
+      "lead": "Send the manuscript. We reply with a sample spread in 10 days.",
+      "actions": [
+        { "label": "Start a project", "href": "#", "style": "solid", "icon": "fa-solid fa-pen-nib" },
+        { "label": "Request the printed folio", "href": "#", "style": "outline", "icon": "fa-solid fa-book-open" }
+      ],
+      "notes": "Name the four open slots. Scarcity is true here, so say it once."
     }
   ]
 }

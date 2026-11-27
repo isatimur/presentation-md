@@ -1,123 +1,125 @@
 {
   "type": "deck",
   "meta": {
-    "title": "BubbleFlow — Launch",
+    "title": "BubbleFlow — launch keynote, 3 December 2026",
     "company": "BubbleFlow",
-    "description": "Y2K aero consumer launch — y2k-aero multi-slide proof.",
-    "theme": "y2k-aero"
+    "description": "Launch keynote for BubbleFlow, a planner app that holds only three priorities a day. Beta results, three features, pricing and availability.",
+    "theme": "y2k-aero",
+    "genre": "launch"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Launch · Aqua",
-      "heading": "Icy UI. Lime pops.",
-      "lead": "Sky bubbles. Nunito softness. Y2K energy without the clipart.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "feature-grid",
-      "eyebrow": "Product",
-      "heading": "Flow in three bubbles",
-      "columns": "bento",
-      "cards": [
-        {
-          "icon": "fa-solid fa-wand-magic-sparkles",
-          "title": "BubbleAssist",
-          "body": "Sketch to structured ideas in one tap."
-        },
-        {
-          "icon": "fa-solid fa-water",
-          "title": "Aqua boards",
-          "body": "Boards that feel like glass, not gray SaaS."
-        },
-        {
-          "icon": "fa-solid fa-share-nodes",
-          "title": "Share orbs",
-          "body": "Invite links that look like invitations."
-        },
-        {
-          "icon": "fa-solid fa-compass",
-          "title": "Clear north star",
-          "body": "One decisive story beat — not a wall of equal tiles."
-        },
-        {
-          "icon": "fa-solid fa-scissors",
-          "title": "Cut the filler",
-          "body": "If a card doesn't change the decision, it doesn't earn the pixel."
-        }
-      ]
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Feel",
-      "heading": "Gray tools vs. aero.",
-      "leftLabel": "Default SaaS",
-      "left": "Slate sidebars.\nInter everywhere.\nJoy optional.",
-      "rightLabel": "BubbleFlow",
-      "right": "Icy canvas.\nLime accents.\nJoy built in.",
-      "emphasis": "left",
-      "notes": "Name the loser column first, then punch the winner."
+      "eyebrow": "BubbleFlow · Launch · 3 December 2026",
+      "heading": "Three things a day. Everything else can float.",
+      "notes": "Hold on the cover for a beat. The next slide is the pain, so let the room feel it."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Launch · Aqua",
-      "heading": "Icy UI. Lime pops.",
-      "lead": "Sky bubbles. Nunito softness. Y2K energy without the clipart.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23bae6fd%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23e0f7ff%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2856%2C189%2C248%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2856%2C189%2C248%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28163%2C230%2C53%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2856%2C189%2C248%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28186%2C230%2C253%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2856%2C189%2C248%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2856%2C189%2C248%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2856%2C189%2C248%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28163%2C230%2C53%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28163%2C230%2C53%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28163%2C230%2C53%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23e0f7ff%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.65%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22420%22%20rx%3D%22640%22%20ry%3D%22220%22%20fill%3D%22rgba%2856%2C189%2C248%2C0.180%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20neon%20tunnel%20rings%20--%3E%0A%20%20%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22520%22%20ry%3D%22210%22%20stroke%3D%22rgba%2856%2C189%2C248%2C0.350%29%22%20stroke-width%3D%223%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22400%22%20ry%3D%22160%22%20stroke%3D%22rgba%28163%2C230%2C53%2C0.450%29%22%20stroke-width%3D%222.5%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22280%22%20ry%3D%22110%22%20stroke%3D%22rgba%2856%2C189%2C248%2C0.550%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22160%22%20ry%3D%2262%22%20stroke%3D%22rgba%28163%2C230%2C53%2C0.700%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20x%3D%22470%22%20y%3D%22300%22%20width%3D%22660%22%20height%3D%22300%22%20rx%3D%2222%22%20fill%3D%22rgba%28186%2C230%2C253%2C0.720%29%22%20stroke%3D%22rgba%2856%2C189%2C248%2C0.400%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22350%22%20width%3D%22240%22%20height%3D%2216%22%20rx%3D%226%22%20fill%3D%22rgba%2856%2C189%2C248%2C0.900%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22390%22%20width%3D%22420%22%20height%3D%2211%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.320%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22420%22%20width%3D%22360%22%20height%3D%2211%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28163%2C230%2C53%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22670%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%2856%2C189%2C248%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22830%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.5%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22240%22%20cy%3D%22180%22%20r%3D%2216%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221360%22%20cy%3D%22220%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221480%22%20cy%3D%22680%22%20r%3D%2212%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "BubbleFlow craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Today",
+      "heading": "The average to-do app holds 214 open tasks",
+      "lead": "Lists grow every day. The important three drown in them.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201600%20900'%20font-family%3D'Nunito%2CArial%2Csans-serif'%3E%20%3Crect%20width%3D'1600'%20height%3D'900'%20fill%3D'%23cfe9f5'%2F%3E%20%3Cg%20font-size%3D'22'%20fill%3D'%23475569'%3E%20%3Cg%20transform%3D'translate(140%20250)%20rotate(-4)'%3E%3Crect%20width%3D'400'%20height%3D'420'%20rx%3D'18'%20fill%3D'%23fff'%20stroke%3D'%2394a3b8'%20stroke-width%3D'2'%2F%3E%20%3Ctext%20x%3D'28'%20y%3D'50'%20font-size%3D'26'%20font-weight%3D'800'%20fill%3D'%23334155'%3EInbox%20%C2%B7%20214%20open%3C%2Ftext%3E%20%3Ctext%20x%3D'28'%20y%3D'100'%3E%E2%98%90%20Renew%20passport%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'140'%3E%E2%98%90%20Tax%20return%20(overdue)%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'180'%3E%E2%98%90%20Reply%20to%20Sam%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'220'%3E%E2%98%90%20Book%20dentist%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'260'%3E%E2%98%90%20Chapter%204%20draft%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'300'%3E%E2%98%90%20Fix%20bike%20light%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'340'%3E%E2%98%90%20Gym%203%C3%97%20this%20week%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'380'%20fill%3D'%23ef4444'%3E%E2%98%90%20Call%20landlord%20!!%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D'translate(600%20230)%20rotate(3)'%3E%3Crect%20width%3D'400'%20height%3D'420'%20rx%3D'18'%20fill%3D'%23fff'%20stroke%3D'%2394a3b8'%20stroke-width%3D'2'%2F%3E%20%3Ctext%20x%3D'28'%20y%3D'50'%20font-size%3D'26'%20font-weight%3D'800'%20fill%3D'%23334155'%3EWork%20%C2%B7%2087%20open%3C%2Ftext%3E%20%3Ctext%20x%3D'28'%20y%3D'100'%3E%E2%98%90%20Q4%20slides%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'140'%3E%E2%98%90%20Review%20Jo's%20PR%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'180'%3E%E2%98%90%20Expenses%20Oct%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'220'%3E%E2%98%90%20Expenses%20Sep%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'260'%3E%E2%98%90%201%3A1%20notes%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'300'%3E%E2%98%90%20Update%20roadmap%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'340'%3E%E2%98%90%20Read%20RFC%2012%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'380'%20fill%3D'%23ef4444'%3E%E2%98%90%20Overdue%3A%2023%20items%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D'translate(1060%20260)%20rotate(-2)'%3E%3Crect%20width%3D'400'%20height%3D'420'%20rx%3D'18'%20fill%3D'%23fff'%20stroke%3D'%2394a3b8'%20stroke-width%3D'2'%2F%3E%20%3Ctext%20x%3D'28'%20y%3D'50'%20font-size%3D'26'%20font-weight%3D'800'%20fill%3D'%23334155'%3ESomeday%20%C2%B7%20342%3C%2Ftext%3E%20%3Ctext%20x%3D'28'%20y%3D'100'%3E%E2%98%90%20Learn%20Spanish%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'140'%3E%E2%98%90%20Sort%20photos%202019%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'180'%3E%E2%98%90%20Clean%20garage%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'220'%3E%E2%98%90%20Start%20a%20podcast%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'260'%3E%E2%98%90%20Read%2030%20books%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'300'%3E%E2%98%90%20Repaint%20hallway%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'340'%3E%E2%98%90%20Write%20a%20will%3C%2Ftext%3E%3Ctext%20x%3D'28'%20y%3D'380'%3E%E2%98%90%20%E2%80%A6%3C%2Ftext%3E%3C%2Fg%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D'%23ef4444'%3E%3Ccircle%20cx%3D'530'%20cy%3D'252'%20r%3D'30'%2F%3E%3Ccircle%20cx%3D'992'%20cy%3D'240'%20r%3D'30'%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D'%23fff'%20font-size%3D'22'%20font-weight%3D'800'%20text-anchor%3D'middle'%3E%3Ctext%20x%3D'530'%20y%3D'260'%3E99%2B%3C%2Ftext%3E%3Ctext%20x%3D'992'%20y%3D'248'%3E23%3C%2Ftext%3E%3C%2Fg%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Three overflowing to-do lists with 214, 87 and 342 open tasks and red overdue badges"
     },
     {
-      "layout": "stat-row",
-      "eyebrow": "Beta",
-      "heading": "Bubbles that retained.",
-      "stats": [
-        {
-          "value": "55k",
-          "label": "Creators"
-        },
-        {
-          "value": "3.4×",
-          "label": "Ideas / week"
-        },
-        {
-          "value": "4.9★",
-          "label": "Delight score"
-        }
-      ]
+      "layout": "image-hero",
+      "eyebrow": "Introducing",
+      "heading": "BubbleFlow",
+      "lead": "A planner that holds three bubbles a day, and nothing more.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201600%20900'%20font-family%3D'Nunito%2CArial%2Csans-serif'%3E%20%3Cdefs%3E%20%3CradialGradient%20id%3D'b'%20cx%3D'35%25'%20cy%3D'30%25'%20r%3D'70%25'%3E%3Cstop%20offset%3D'0'%20stop-color%3D'%23fff'%2F%3E%3Cstop%20offset%3D'.55'%20stop-color%3D'%23bae6fd'%2F%3E%3Cstop%20offset%3D'1'%20stop-color%3D'%2338bdf8'%2F%3E%3C%2FradialGradient%3E%20%3CradialGradient%20id%3D'l'%20cx%3D'35%25'%20cy%3D'30%25'%20r%3D'70%25'%3E%3Cstop%20offset%3D'0'%20stop-color%3D'%23fff'%2F%3E%3Cstop%20offset%3D'.55'%20stop-color%3D'%23d9f99d'%2F%3E%3Cstop%20offset%3D'1'%20stop-color%3D'%23a3e635'%2F%3E%3C%2FradialGradient%3E%20%3ClinearGradient%20id%3D'bg'%20x1%3D'0'%20y1%3D'0'%20x2%3D'0'%20y2%3D'1'%3E%3Cstop%20offset%3D'0'%20stop-color%3D'%23f0fbff'%2F%3E%3Cstop%20offset%3D'1'%20stop-color%3D'%23bae6fd'%2F%3E%3C%2FlinearGradient%3E%20%3C%2Fdefs%3E%20%3Crect%20width%3D'1600'%20height%3D'900'%20fill%3D'url(%23bg)'%2F%3E%20%3Cg%20text-anchor%3D'middle'%20fill%3D'%230c4a6e'%20font-weight%3D'800'%3E%20%3Ccircle%20cx%3D'520'%20cy%3D'430'%20r%3D'150'%20fill%3D'url(%23b)'%20stroke%3D'%23fff'%20stroke-width%3D'6'%2F%3E%20%3Ctext%20x%3D'520'%20y%3D'420'%20font-size%3D'34'%3ECall%20the%3C%2Ftext%3E%3Ctext%20x%3D'520'%20y%3D'462'%20font-size%3D'34'%3Elandlord%3C%2Ftext%3E%20%3Ccircle%20cx%3D'860'%20cy%3D'400'%20r%3D'170'%20fill%3D'url(%23l)'%20stroke%3D'%23fff'%20stroke-width%3D'6'%2F%3E%20%3Ctext%20x%3D'860'%20y%3D'390'%20font-size%3D'36'%3EFinish%3C%2Ftext%3E%3Ctext%20x%3D'860'%20y%3D'434'%20font-size%3D'36'%3Echapter%204%3C%2Ftext%3E%20%3Ccircle%20cx%3D'1190'%20cy%3D'450'%20r%3D'135'%20fill%3D'url(%23b)'%20stroke%3D'%23fff'%20stroke-width%3D'6'%2F%3E%20%3Ctext%20x%3D'1190'%20y%3D'440'%20font-size%3D'32'%3ERun%3C%2Ftext%3E%3Ctext%20x%3D'1190'%20y%3D'480'%20font-size%3D'32'%3E5%20km%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D'%23fff'%20opacity%3D'.85'%3E%3Cellipse%20cx%3D'470'%20cy%3D'360'%20rx%3D'40'%20ry%3D'22'%2F%3E%3Cellipse%20cx%3D'805'%20cy%3D'320'%20rx%3D'46'%20ry%3D'24'%2F%3E%3Cellipse%20cx%3D'1148'%20cy%3D'388'%20rx%3D'36'%20ry%3D'19'%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D'none'%20stroke%3D'%2338bdf8'%20stroke-width%3D'3'%20opacity%3D'.5'%3E%20%3Ccircle%20cx%3D'1420'%20cy%3D'300'%20r%3D'34'%2F%3E%3Ccircle%20cx%3D'1490'%20cy%3D'380'%20r%3D'22'%2F%3E%3Ccircle%20cx%3D'1450'%20cy%3D'470'%20r%3D'16'%2F%3E%3Ccircle%20cx%3D'1530'%20cy%3D'290'%20r%3D'12'%2F%3E%20%3C%2Fg%3E%20%3Ctext%20x%3D'1460'%20y%3D'560'%20text-anchor%3D'middle'%20font-size%3D'24'%20font-weight%3D'700'%20fill%3D'%230369a1'%20opacity%3D'.7'%3E11%20more%20drift%3C%2Ftext%3E%20%3Ctext%20x%3D'1460'%20y%3D'592'%20text-anchor%3D'middle'%20font-size%3D'24'%20font-weight%3D'700'%20fill%3D'%230369a1'%20opacity%3D'.7'%3Eto%20tomorrow%3C%2Ftext%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Three floating bubbles labelled Call the landlord, Finish chapter 4 and Run 5 km, with smaller bubbles drifting off to tomorrow"
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "How it works",
+      "lead": "Pick, pop, float."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Pick",
+      "heading": "Each morning you choose three, and the rest moves to tomorrow",
+      "ratio": "1-2",
+      "body": "The picker takes 40 seconds. Nothing is lost; it just waits its turn.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'-200%200%201200%20900'%20font-family%3D'Nunito%2CArial%2Csans-serif'%3E%20%3Crect%20x%3D'-200'%20width%3D'1200'%20height%3D'900'%20fill%3D'%23e0f7ff'%2F%3E%20%3Crect%20x%3D'190'%20y%3D'40'%20width%3D'420'%20height%3D'820'%20rx%3D'56'%20fill%3D'%230c4a6e'%2F%3E%20%3Crect%20x%3D'206'%20y%3D'56'%20width%3D'388'%20height%3D'788'%20rx%3D'44'%20fill%3D'%23f8fdff'%2F%3E%20%3Ctext%20x%3D'240'%20y%3D'130'%20font-size%3D'20'%20font-weight%3D'700'%20fill%3D'%230369a1'%3ETuesday%20morning%3C%2Ftext%3E%20%3Ctext%20x%3D'240'%20y%3D'172'%20font-size%3D'32'%20font-weight%3D'800'%20fill%3D'%230c4a6e'%3EPick%20your%20three%3C%2Ftext%3E%20%3Cg%20font-size%3D'22'%20fill%3D'%230c4a6e'%3E%20%3Crect%20x%3D'232'%20y%3D'206'%20width%3D'336'%20height%3D'64'%20rx%3D'32'%20fill%3D'%23a3e635'%2F%3E%3Ctext%20x%3D'262'%20y%3D'246'%20font-weight%3D'800'%3E%E2%97%8F%20Finish%20chapter%204%3C%2Ftext%3E%20%3Crect%20x%3D'232'%20y%3D'284'%20width%3D'336'%20height%3D'64'%20rx%3D'32'%20fill%3D'%2338bdf8'%2F%3E%3Ctext%20x%3D'262'%20y%3D'324'%20font-weight%3D'800'%20fill%3D'%23fff'%3E%E2%97%8F%20Call%20the%20landlord%3C%2Ftext%3E%20%3Crect%20x%3D'232'%20y%3D'362'%20width%3D'336'%20height%3D'64'%20rx%3D'32'%20fill%3D'%2338bdf8'%2F%3E%3Ctext%20x%3D'262'%20y%3D'402'%20font-weight%3D'800'%20fill%3D'%23fff'%3E%E2%97%8F%20Run%205%20km%3C%2Ftext%3E%20%3Cg%20fill%3D'%230369a1'%20opacity%3D'.55'%3E%20%3Crect%20x%3D'232'%20y%3D'456'%20width%3D'336'%20height%3D'54'%20rx%3D'27'%20fill%3D'none'%20stroke%3D'%2338bdf8'%20stroke-width%3D'2'%2F%3E%3Ctext%20x%3D'262'%20y%3D'491'%3E%E2%97%8B%20Renew%20passport%3C%2Ftext%3E%20%3Crect%20x%3D'232'%20y%3D'522'%20width%3D'336'%20height%3D'54'%20rx%3D'27'%20fill%3D'none'%20stroke%3D'%2338bdf8'%20stroke-width%3D'2'%2F%3E%3Ctext%20x%3D'262'%20y%3D'557'%3E%E2%97%8B%20Fix%20bike%20light%3C%2Ftext%3E%20%3Crect%20x%3D'232'%20y%3D'588'%20width%3D'336'%20height%3D'54'%20rx%3D'27'%20fill%3D'none'%20stroke%3D'%2338bdf8'%20stroke-width%3D'2'%2F%3E%3Ctext%20x%3D'262'%20y%3D'623'%3E%E2%97%8B%20Email%20Sam%20back%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fg%3E%20%3Ctext%20x%3D'400'%20y%3D'700'%20text-anchor%3D'middle'%20font-size%3D'20'%20fill%3D'%230369a1'%3E3%20of%203%20chosen%20%C2%B7%2011%20move%20to%20Wednesday%3C%2Ftext%3E%20%3Crect%20x%3D'262'%20y%3D'740'%20width%3D'276'%20height%3D'64'%20rx%3D'32'%20fill%3D'%230c4a6e'%2F%3E%20%3Ctext%20x%3D'400'%20y%3D'781'%20text-anchor%3D'middle'%20font-size%3D'24'%20font-weight%3D'800'%20fill%3D'%23fff'%3EStart%20my%20day%3C%2Ftext%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Phone screen titled Pick your three, with three chosen bubbles and the rest greyed out"
+    },
+    {
+      "layout": "streak-grid",
+      "eyebrow": "Pop",
+      "heading": "Popped bubbles build a streak you can see at a glance",
+      "lead": "Median beta tester: bubbles popped on 23 of the last 28 days.",
+      "filled": 23,
+      "total": 28,
+      "cols": 14
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Float",
+      "heading": "Float a stuck bubble to a friend and they nudge you",
+      "ratio": "1-2",
+      "body": "Friends see only the bubble you share. One tap says \"on it\".",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'-200%200%201200%20900'%20font-family%3D'Nunito%2CArial%2Csans-serif'%3E%20%3Crect%20x%3D'-200'%20width%3D'1200'%20height%3D'900'%20fill%3D'%23e0f7ff'%2F%3E%20%3Crect%20x%3D'190'%20y%3D'40'%20width%3D'420'%20height%3D'820'%20rx%3D'56'%20fill%3D'%230c4a6e'%2F%3E%20%3Crect%20x%3D'206'%20y%3D'56'%20width%3D'388'%20height%3D'788'%20rx%3D'44'%20fill%3D'%23f8fdff'%2F%3E%20%3Ccircle%20cx%3D'262'%20cy%3D'138'%20r%3D'30'%20fill%3D'%23a3e635'%2F%3E%3Ctext%20x%3D'262'%20y%3D'147'%20text-anchor%3D'middle'%20font-size%3D'24'%20font-weight%3D'800'%20fill%3D'%230c4a6e'%3EM%3C%2Ftext%3E%20%3Ctext%20x%3D'306'%20y%3D'132'%20font-size%3D'24'%20font-weight%3D'800'%20fill%3D'%230c4a6e'%3EMaya%3C%2Ftext%3E%3Ctext%20x%3D'306'%20y%3D'160'%20font-size%3D'18'%20fill%3D'%230369a1'%3Efloated%20you%20a%20bubble%3C%2Ftext%3E%20%3Ccircle%20cx%3D'400'%20cy%3D'350'%20r%3D'130'%20fill%3D'%23bae6fd'%20stroke%3D'%2338bdf8'%20stroke-width%3D'5'%2F%3E%20%3Cellipse%20cx%3D'358'%20cy%3D'290'%20rx%3D'36'%20ry%3D'18'%20fill%3D'%23fff'%20opacity%3D'.9'%2F%3E%20%3Ctext%20x%3D'400'%20y%3D'340'%20text-anchor%3D'middle'%20font-size%3D'30'%20font-weight%3D'800'%20fill%3D'%230c4a6e'%3ERun%205%20km%3C%2Ftext%3E%20%3Ctext%20x%3D'400'%20y%3D'380'%20text-anchor%3D'middle'%20font-size%3D'20'%20fill%3D'%230369a1'%3Estill%20floating%20%C2%B7%206%20pm%3C%2Ftext%3E%20%3Crect%20x%3D'236'%20y%3D'530'%20width%3D'328'%20height%3D'92'%20rx%3D'24'%20fill%3D'%23e0f7ff'%2F%3E%20%3Ctext%20x%3D'258'%20y%3D'568'%20font-size%3D'20'%20fill%3D'%230c4a6e'%3E%22Lace%20up.%20I'll%20run%20the%3C%2Ftext%3E%3Ctext%20x%3D'258'%20y%3D'600'%20font-size%3D'20'%20fill%3D'%230c4a6e'%3Ecanal%20loop%20with%20you.%22%3C%2Ftext%3E%20%3Crect%20x%3D'236'%20y%3D'660'%20width%3D'156'%20height%3D'60'%20rx%3D'30'%20fill%3D'%23a3e635'%2F%3E%3Ctext%20x%3D'314'%20y%3D'698'%20text-anchor%3D'middle'%20font-size%3D'22'%20font-weight%3D'800'%20fill%3D'%230c4a6e'%3EOn%20it%3C%2Ftext%3E%20%3Crect%20x%3D'408'%20y%3D'660'%20width%3D'156'%20height%3D'60'%20rx%3D'30'%20fill%3D'none'%20stroke%3D'%2338bdf8'%20stroke-width%3D'3'%2F%3E%3Ctext%20x%3D'486'%20y%3D'698'%20text-anchor%3D'middle'%20font-size%3D'22'%20font-weight%3D'800'%20fill%3D'%230369a1'%3ETomorrow%3C%2Ftext%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Phone screen where a friend called Maya floats back the bubble Run 5 km with an encouraging message"
+    },
+    {
+      "layout": "metric-ring",
+      "eyebrow": "Beta proof",
+      "heading": "Beta testers finished 78% of their bubbles, against 31% of to-dos",
+      "value": "78%",
+      "pct": 78,
+      "label": "bubbles finished",
+      "lead": "41,200 beta testers, March–November 2026. In-app log, n = 3.1M bubbles."
     },
     {
       "layout": "quote",
-      "quote": "Y2K wasn't irony. It was optimism with chrome.",
-      "by": "BubbleFlow · Brand note"
+      "quote": "It's the first planner I haven't abandoned by February.",
+      "by": "Jonas Weber, beta tester since March"
     },
     {
-      "layout": "comparison",
-      "eyebrow": "Product",
-      "heading": "Soft UI. Hard retention.",
-      "leftLabel": "Feel",
-      "left": "Aqua gradients.\nBubble chrome.\nMotion that bounces, not scrolls forever.",
-      "rightLabel": "Function",
-      "right": "Flows that finish.\nNo dark patterns.\nShareable moments built in.",
-      "emphasis": "right"
+      "layout": "data-table",
+      "eyebrow": "Price and availability",
+      "heading": "Free for one person, $3.99 a month for the full flow",
+      "columns": [
+        "Plan",
+        "Price",
+        "Includes"
+      ],
+      "rows": [
+        [
+          "Free",
+          "$0",
+          "Pick and pop"
+        ],
+        [
+          "Plus",
+          "$3.99 / mo",
+          "Streaks, floats"
+        ],
+        [
+          "Family",
+          "$7.99 / mo",
+          "Plus for 5 people"
+        ]
+      ],
+      "notes": "Say the date again here: iOS and Android, 3 December, in 31 countries."
     },
     {
       "layout": "closing",
-      "eyebrow": "Splash",
-      "heading": "Start floating.",
-      "lead": "Free for individuals. Teams on Ridge pricing.",
+      "eyebrow": "iOS and Android · 31 countries · 3 December",
+      "heading": "Pick your three tomorrow morning. Let the rest float.",
+      "lead": "Free to start. Plus is free for the first 30 days.",
       "actions": [
         {
-          "label": "Open BubbleFlow",
-          "href": "#",
+          "label": "Download on the App Store",
           "style": "solid",
-          "icon": "fa-solid fa-rocket"
+          "icon": "fa-brands fa-apple"
         },
         {
-          "label": "Request a demo",
-          "href": "#",
+          "label": "Get it on Google Play",
           "style": "outline",
-          "icon": "fa-solid fa-play"
+          "icon": "fa-brands fa-google-play"
         }
       ]
     }

@@ -1,93 +1,271 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Northline — Strategy Briefing",
-    "company": "Northline",
-    "description": "Long-form strategy briefing — signal theme multi-slide proof.",
-    "theme": "signal"
+    "title": "Calderport — Protected bike lanes, 18-month readout",
+    "company": "Calderport Transport",
+    "description": "Research readout for Calderport's transport committee: 18 months on 6 corridors show protected bike lanes cut cyclist injuries by 44% while the median bus trip took only 11 seconds longer. Findings, limits, ranked corridors and the 2027 decision.",
+    "theme": "signal",
+    "genre": "research"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Board briefing · Q3",
-      "heading": "Where we double down. Where we walk away.",
-      "lead": "A single narrative for capital allocation — not a slide dump of initiatives.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Calderport Transport · Transport committee · November 2026",
+      "heading": "Protected bike lanes cut cyclist injuries 44% without slowing buses.",
+      "lead": "Eighteen months on six corridors, and what to build in 2027.",
+      "notes": "The committee's worry is buses. Say early that the bus answer is 11 seconds, then prove it."
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Answer first",
+      "heading": "Six corridors gave fewer injuries, near-equal bus times and more riders",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-person-biking",
+          "title": "Injuries down 44%",
+          "body": "From 142 to 80 cyclist injuries, 18 months before vs after."
+        },
+        {
+          "icon": "fa-solid fa-bus",
+          "title": "Buses +11 seconds",
+          "body": "Median trip on the corridors, on an 18-minute ride."
+        },
+        {
+          "icon": "fa-solid fa-arrow-trend-up",
+          "title": "Riders up 61%",
+          "body": "Daily cyclist counts at 24 automatic counters."
+        }
+      ]
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Board briefing · Q3",
-      "heading": "Where we double down. Where we walk away.",
-      "lead": "A single narrative for capital allocation — not a slide dump of initiatives.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23E6E0D4%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23F0ECE3%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C168%2C112%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C168%2C112%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2828%2C38%2C68%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28200%2C168%2C112%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28230%2C224%2C212%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C168%2C112%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28200%2C168%2C112%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C168%2C112%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2828%2C38%2C68%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2828%2C38%2C68%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2828%2C38%2C68%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F0ECE3%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%28200%2C168%2C112%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23E6E0D4%22%20stroke%3D%22rgba%28200%2C168%2C112%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%2828%2C38%2C68%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%23C8A870%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%28200%2C168%2C112%2C0.150%29%22%20stroke%3D%22rgba%2828%2C38%2C68%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%2828%2C38%2C68%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%2828%2C38%2C68%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Northline craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "The question",
+      "heading": "We split cyclists from traffic on 21.4 km of arterial road",
+      "lead": "These six routes carried a third of the city's cyclist injuries. Would a kerb fix that, and would buses pay?",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201600%20360'%3E%3Crect%20width%3D'1600'%20height%3D'360'%20fill%3D'%23E6E0D4'%2F%3E%3Cg%20stroke%3D'%231C2644'%20stroke-opacity%3D'.08'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%2090H1600M0%20180H1600M0%20270H1600M200%200V360M400%200V360M600%200V360M1000%200V360M1200%200V360M1400%200V360'%2F%3E%3C%2Fg%3E%3Cpath%20d%3D'M0%20300C300%20250%20520%20300%20760%20240S1250%20150%201600%20140'%20fill%3D'none'%20stroke%3D'%235A6270'%20stroke-opacity%3D'.3'%20stroke-width%3D'34'%2F%3E%3Ctext%20x%3D'60'%20y%3D'262'%20font-family%3D'Georgia%2Cserif'%20font-size%3D'22'%20font-style%3D'italic'%20fill%3D'%235A6270'%3ERiver%20Calder%3C%2Ftext%3E%3Cg%20fill%3D'none'%20stroke%3D'%231C2644'%20stroke-width%3D'11'%20stroke-linecap%3D'round'%3E%3Cpath%20d%3D'M800%20170L330%2060'%2F%3E%3Cpath%20d%3D'M800%20170L780%2025'%2F%3E%3Cpath%20d%3D'M800%20170L1290%2045'%2F%3E%3Cpath%20d%3D'M800%20170L1530%20175'%2F%3E%3Cpath%20d%3D'M800%20170L1240%20222'%2F%3E%3Cpath%20d%3D'M800%20170L340%20215'%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D'800'%20cy%3D'170'%20r%3D'24'%20fill%3D'%23C8A870'%20stroke%3D'%231C2644'%20stroke-width%3D'4'%2F%3E%3Cg%20font-family%3D'Georgia%2Cserif'%20font-size%3D'24'%20fill%3D'%231A2030'%3E%3Ctext%20x%3D'90'%20y%3D'52'%3EMill%20Street%20%C2%B7%203.2%20km%3C%2Ftext%3E%3Ctext%20x%3D'815'%20y%3D'38'%3ENorth%20Avenue%20%C2%B7%204.1%20km%3C%2Ftext%3E%3Ctext%20x%3D'1310'%20y%3D'52'%3EStation%20Way%20%C2%B7%203.6%20km%3C%2Ftext%3E%3Ctext%20x%3D'1330'%20y%3D'155'%3EEastgate%20%C2%B7%203.2%20km%3C%2Ftext%3E%3Ctext%20x%3D'1265'%20y%3D'228'%3EHarbour%20Road%20%C2%B7%202.9%20km%3C%2Ftext%3E%3Ctext%20x%3D'60'%20y%3D'200'%3EQueen's%20Parade%20%C2%B7%204.4%20km%3C%2Ftext%3E%3Ctext%20x%3D'830'%20y%3D'205'%20font-size%3D'20'%20fill%3D'%235A6270'%3Ecity%20centre%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "Map of Calderport with six protected bike lane corridors radiating from the city centre across the River Calder, each labelled with its name and length"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Method",
+      "heading": "How we measured it",
+      "stats": [
+        {
+          "value": "18 mo",
+          "label": "April 2025 to September 2026, vs the 18 months before"
+        },
+        {
+          "value": "6",
+          "label": "Corridors, 21.4 km; all other streets as comparison"
+        },
+        {
+          "value": "2.3M",
+          "label": "Bus trips timed by GPS on corridor routes"
+        }
+      ]
     },
     {
       "layout": "section",
       "number": "01",
-      "heading": "The operating thesis",
-      "lead": "Fewer bets. Sharper edges. Measurable kill criteria."
+      "heading": "What we found",
+      "lead": "Three findings, each with its evidence."
     },
     {
-      "layout": "two-column",
-      "eyebrow": "Focus",
-      "heading": "Three bets that earn the right to grow",
-      "body": "Enterprise core: Defend the $84M ARR franchise — expand seats, not SKUs. Adjacent wedge — Compliance workflow — $12M ARR path with existing buyers.",
-      "aside": "Consumer app, marketplace, and hardware R&D stay parked.",
-      "ratio": "3-2"
-    },
-    {
-      "layout": "data-table",
-      "eyebrow": "Allocation",
-      "heading": "Next four quarters of spend",
-      "columns": [
-        "Bet",
-        "OpEx",
-        "Headcount",
-        "Kill criteria"
+      "layout": "chart",
+      "eyebrow": "Finding 1",
+      "heading": "Corridor injuries fell 44% while the rest of the city fell 6%",
+      "chartType": "bar",
+      "categories": [
+        "Six corridors",
+        "All other streets"
       ],
-      "rows": [
-        [
-          "Enterprise core",
-          "$28M",
-          "+18",
-          "NRR < 110%"
-        ],
-        [
-          "Compliance wedge",
-          "$9M",
-          "+22",
-          "<40 logos by Q2"
-        ],
-        [
-          "Platform debt",
-          "$6M",
-          "+8",
-          "p95 > 400ms"
-        ]
+      "series": [
+        {
+          "name": "18 months before",
+          "values": [
+            142,
+            289
+          ]
+        },
+        {
+          "name": "18 months after",
+          "values": [
+            80,
+            272
+          ]
+        }
+      ],
+      "showLegend": true,
+      "showValues": true,
+      "lead": "Cyclist injuries reported to police and A&E. Source: STATS19 and Calderport General, n = 783 injuries.",
+      "notes": "The comparison matters: injuries elsewhere fell only 6%, so the drop is not a citywide trend."
+    },
+    {
+      "layout": "quote",
+      "quote": "I expected to crawl behind bikes. Now they're behind a kerb, and I've stopped braking for them.",
+      "by": "Bus driver, route 14 on Queen's Parade · 22 years at the wheel"
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Finding 2",
+      "heading": "No corridor added more than 23 seconds to the median bus trip",
+      "chartType": "bar",
+      "categories": [
+        "Harbour Rd",
+        "Mill St",
+        "North Ave",
+        "Station Way",
+        "Queen's Parade",
+        "Eastgate"
+      ],
+      "series": [
+        {
+          "name": "Change in median bus trip (seconds)",
+          "values": [
+            4,
+            7,
+            10,
+            12,
+            18,
+            23
+          ]
+        }
+      ],
+      "showValues": true,
+      "lead": "Median trip, 18 months before vs after. Source: GPS on 2.3M bus trips. All six corridors together: +11 s on an 18-minute ride."
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Finding 3",
+      "heading": "Seven in ten remaining injuries now happen at junctions",
+      "lead": "Where the 80 corridor injuries happened, April 2025 to September 2026.",
+      "items": [
+        {
+          "rank": "1",
+          "label": "Side-street junctions",
+          "value": "41%",
+          "widthPct": 100
+        },
+        {
+          "rank": "2",
+          "label": "Signalled junctions",
+          "value": "28%",
+          "widthPct": 68
+        },
+        {
+          "rank": "3",
+          "label": "Bus-stop boarding islands",
+          "value": "14%",
+          "widthPct": 34
+        },
+        {
+          "rank": "4",
+          "label": "Between junctions",
+          "value": "11%",
+          "widthPct": 27
+        },
+        {
+          "rank": "5",
+          "label": "Other",
+          "value": "6%",
+          "widthPct": 15
+        }
       ]
     },
     {
       "layout": "comparison",
-      "eyebrow": "Decision",
-      "heading": "Continue vs. cut — same facts.",
-      "leftLabel": "Continue",
-      "left": "NRR ≥ 118%.\nPipeline coverage ≥ 3.2×.\nSupport CSAT ≥ 4.6.",
-      "rightLabel": "Cut / reallocate",
-      "right": "Any KPI miss for two quarters.\nOr a competitor closes the wedge first.",
-      "emphasis": "left",
-      "notes": "Name the loser column first, then punch the winner."
+      "eyebrow": "What surprised us",
+      "heading": "Shops gained trade on the corridors instead of losing it",
+      "leftLabel": "What we expected",
+      "left": "Losing 410 parking spaces would cut shop spending.\nBuses would queue behind cyclists at stops.",
+      "rightLabel": "What we found",
+      "right": "Card spending rose 6% on the corridors, 2% citywide.\nBoarding islands kept bikes clear of buses at 38 stops.",
+      "emphasis": "right"
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "What we recommend",
+      "lead": "How sure we are, then where to build."
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Limits and confidence",
+      "heading": "We are sure about injuries and less sure about trade",
+      "columns": [
+        "Claim",
+        "Confidence",
+        "Why"
+      ],
+      "rows": [
+        [
+          "Lanes cut cyclist injuries",
+          "High",
+          "All 6 corridors fell; city fell 6%"
+        ],
+        [
+          "Buses barely slowed",
+          "High",
+          "2.3M GPS-timed trips"
+        ],
+        [
+          "Lanes raised shop spending",
+          "Low",
+          "One card panel; many other causes"
+        ]
+      ]
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Recommendations",
+      "heading": "Four corridors for 2027 could prevent about 41 injuries in 18 months",
+      "lead": "Expected cyclist injuries avoided per 18 months, at the pilot rate, with junction redesign.",
+      "items": [
+        {
+          "rank": "1",
+          "label": "Ring Road West · 4.6 km",
+          "value": "−14",
+          "widthPct": 100
+        },
+        {
+          "rank": "2",
+          "label": "Canal Street · 3.1 km",
+          "value": "−11",
+          "widthPct": 79
+        },
+        {
+          "rank": "3",
+          "label": "Hospital Hill · 3.4 km",
+          "value": "−9",
+          "widthPct": 64
+        },
+        {
+          "rank": "4",
+          "label": "Southgate · 3.1 km",
+          "value": "−7",
+          "widthPct": 50
+        }
+      ],
+      "notes": "14.2 km at the pilot cost of £0.6M per km gives the £8.5M in the ask. Junction redesign is in that figure."
     },
     {
       "layout": "closing",
-      "eyebrow": "Ask",
-      "heading": "Approve the thesis. Hold us to the kill criteria.",
-      "lead": "Next review: first Monday after quarter close.",
-      "cta": {
-        "label": "Open the memo",
-        "href": "#"
-      }
+      "eyebrow": "Decision needed · transport committee, 9 December 2026",
+      "heading": "Build four more protected corridors in 2027. Buses will barely notice.",
+      "lead": "£8.5M for 14.2 km. Six corridors cut injuries 44% for 11 seconds a bus trip.",
+      "actions": [
+        {
+          "label": "Approve the 2027 corridors",
+          "style": "solid",
+          "icon": "fa-solid fa-check"
+        },
+        {
+          "label": "Read the full readout",
+          "style": "outline",
+          "icon": "fa-solid fa-file-lines"
+        }
+      ]
     }
   ]
 }

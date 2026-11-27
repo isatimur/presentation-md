@@ -1,45 +1,45 @@
 {
-  "generated": "2026-11-25",
+  "generated": "2026-11-27",
   "decks": 153,
-  "slides": 1928,
+  "slides": 2340,
   "themes": 75,
   "editableText": {
-    "found": 11472,
-    "total": 11472,
+    "found": 13825,
+    "total": 13825,
     "pct": "100.0%"
   },
   "speakerNotes": {
-    "ok": 348,
-    "total": 348
+    "ok": 306,
+    "total": 306
   },
   "nativeCharts": {
-    "ok": 76,
-    "total": 76
+    "ok": 129,
+    "total": 129
   },
   "nativeTables": {
-    "ok": 81,
-    "total": 81
+    "ok": 145,
+    "total": 145
   },
   "layouts": [
     {
       "layout": "chart",
-      "slides": 76,
+      "slides": 129,
       "text": "100.0%",
-      "found": 151,
-      "total": 151,
+      "found": 307,
+      "total": 307,
       "flags": "none"
     },
     {
       "layout": "closing",
       "slides": 153,
       "text": "100.0%",
-      "found": 727,
-      "total": 727,
+      "found": 749,
+      "total": 749,
       "flags": "none"
     },
     {
       "layout": "code",
-      "slides": 87,
+      "slides": 86,
       "text": "100.0%",
       "found": 423,
       "total": 423,
@@ -47,122 +47,122 @@
     },
     {
       "layout": "comparison",
-      "slides": 136,
+      "slides": 123,
       "text": "100.0%",
-      "found": 1344,
-      "total": 1344,
+      "found": 1199,
+      "total": 1199,
       "flags": "none"
     },
     {
       "layout": "custom-html",
-      "slides": 75,
+      "slides": 76,
       "text": "100.0%",
-      "found": 592,
-      "total": 592,
-      "flags": "approximated ×75"
+      "found": 600,
+      "total": 600,
+      "flags": "approximated ×76"
     },
     {
       "layout": "data-table",
-      "slides": 81,
+      "slides": 145,
       "text": "100.0%",
-      "found": 1106,
-      "total": 1106,
+      "found": 2020,
+      "total": 2020,
       "flags": "none"
     },
     {
       "layout": "feature-grid",
-      "slides": 136,
+      "slides": 129,
       "text": "100.0%",
-      "found": 1411,
-      "total": 1411,
+      "found": 1182,
+      "total": 1182,
       "flags": "none"
     },
     {
       "layout": "image-hero",
-      "slides": 152,
+      "slides": 204,
       "text": "100.0%",
-      "found": 450,
-      "total": 450,
+      "found": 600,
+      "total": 600,
       "flags": "none"
     },
     {
       "layout": "logo-wall",
-      "slides": 94,
+      "slides": 97,
       "text": "100.0%",
-      "found": 611,
-      "total": 611,
+      "found": 699,
+      "total": 699,
       "flags": "none"
     },
     {
       "layout": "metric-ring",
-      "slides": 76,
+      "slides": 87,
       "text": "100.0%",
-      "found": 370,
-      "total": 370,
+      "found": 420,
+      "total": 420,
       "flags": "none"
     },
     {
       "layout": "quote",
-      "slides": 124,
+      "slides": 151,
       "text": "100.0%",
-      "found": 244,
-      "total": 244,
+      "found": 296,
+      "total": 296,
       "flags": "none"
     },
     {
       "layout": "ranked-list",
-      "slides": 76,
+      "slides": 108,
       "text": "100.0%",
-      "found": 814,
-      "total": 814,
+      "found": 1257,
+      "total": 1257,
       "flags": "none"
     },
     {
       "layout": "section",
-      "slides": 82,
+      "slides": 165,
       "text": "100.0%",
-      "found": 243,
-      "total": 243,
+      "found": 463,
+      "total": 463,
       "flags": "none"
     },
     {
       "layout": "stat-row",
-      "slides": 153,
+      "slides": 157,
       "text": "100.0%",
-      "found": 1184,
-      "total": 1184,
+      "found": 1212,
+      "total": 1212,
       "flags": "none"
     },
     {
       "layout": "streak-grid",
-      "slides": 76,
+      "slides": 77,
       "text": "100.0%",
-      "found": 222,
-      "total": 222,
+      "found": 225,
+      "total": 225,
       "flags": "none"
     },
     {
       "layout": "timeline",
-      "slides": 85,
+      "slides": 120,
       "text": "100.0%",
-      "found": 682,
-      "total": 682,
+      "found": 1014,
+      "total": 1014,
       "flags": "none"
     },
     {
       "layout": "title",
       "slides": 153,
       "text": "100.0%",
-      "found": 450,
-      "total": 450,
+      "found": 442,
+      "total": 442,
       "flags": "none"
     },
     {
       "layout": "two-column",
-      "slides": 113,
+      "slides": 180,
       "text": "100.0%",
-      "found": 448,
-      "total": 448,
+      "found": 717,
+      "total": 717,
       "flags": "none"
     }
   ],

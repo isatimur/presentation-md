@@ -1,104 +1,106 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Pillbox — Launch Deck",
+    "title": "Pillbox Pods — launch",
     "company": "Pillbox",
-    "description": "Wellness product launch — capsule multi-slide proof.",
-    "theme": "capsule"
+    "description": "Launch of Pillbox Pods: pharmacy-filled pill pods that light up at dose time, text a caregiver after a missed dose and reorder before they run out.",
+    "theme": "capsule",
+    "genre": "launch"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Launch",
-      "heading": "Modular pills. Candy clarity.",
-      "lead": "Bodoni for the brand. Space Grotesk for the dose.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Launch",
-      "heading": "Modular pills. Candy clarity.",
-      "lead": "Bodoni for the brand. Space Grotesk for the dose.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23FFFFFF%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23F5F5F0%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C93%2C78%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C93%2C78%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28196%2C217%2C78%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28232%2C93%2C78%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C93%2C78%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28232%2C93%2C78%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C93%2C78%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28196%2C217%2C78%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28196%2C217%2C78%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28196%2C217%2C78%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F5F5F0%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%28232%2C93%2C78%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22rgba%28232%2C93%2C78%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%28196%2C217%2C78%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%23E85D4E%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%28232%2C93%2C78%2C0.150%29%22%20stroke%3D%22rgba%28196%2C217%2C78%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%28196%2C217%2C78%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%28196%2C217%2C78%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Pillbox cinematic surface",
-      "notes": "Hold the visual beat — let the room feel the product."
-    },
-    {
-      "layout": "feature-grid",
-      "eyebrow": "Stack",
-      "heading": "Three daily capsules",
-      "columns": "bento",
-      "cards": [
-        {
-          "icon": "fa-solid fa-capsules",
-          "title": "Focus",
-          "body": "Coral AM — no crash afternoon."
-        },
-        {
-          "icon": "fa-solid fa-leaf",
-          "title": "Reset",
-          "body": "Lime PM — wind-down without fog."
-        },
-        {
-          "icon": "fa-solid fa-moon",
-          "title": "Sleep",
-          "body": "Lavender night — clocks that stick."
-        },
-        {
-          "icon": "fa-solid fa-layer-group",
-          "title": "Stack for scan",
-          "body": "Hierarchy first. Decoration second. Decoration never."
-        },
-        {
-          "icon": "fa-solid fa-bolt",
-          "title": "Ship the punchline",
-          "body": "Lead with the claim that survives the hallway test."
-        }
-      ]
-    },
-    {
-      "layout": "stat-row",
-      "eyebrow": "Beta",
-      "heading": "Numbers in the jar.",
-      "stats": [
-        {
-          "value": "18k",
-          "label": "Subscribers"
-        },
-        {
-          "value": "4.8",
-          "label": "App rating"
-        },
-        {
-          "value": "21",
-          "label": "Day streak avg"
-        }
-      ],
-      "notes": "One breath on the numbers — then move on."
+      "eyebrow": "Pillbox · Launch event · Lisbon · 26 November 2026",
+      "heading": "Every pill on time, without the Sunday sorting ritual.",
+      "lead": "Pillbox Pods go on sale 12 January 2027.",
+      "notes": "One sentence, then a pause. Inês's quote does the work on the next slide."
     },
     {
       "layout": "quote",
-      "quote": "If the pill looks boring, the habit dies.",
-      "by": "Pillbox"
+      "quote": "I sort fourteen pills every Sunday night, and I still can't tell if Dad took his noon dose.",
+      "by": "Inês Faria, cares for her father in Porto · pilot participant"
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Introducing",
+      "heading": "Pillbox Pods",
+      "lead": "Snap-together pods that light up at dose time and log every opening.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 260 1600 400'><rect width='1600' height='900' fill='%23F5F5F0'/><circle cx='560' cy='420' r='150' fill='%23E85D4E' opacity='.18'/><circle cx='560' cy='420' r='110' fill='%23E85D4E' opacity='.22'/><rect x='250' y='540' width='1100' height='90' rx='45' fill='%231E1E1E'/><text x='1240' y='597' font-family='Helvetica,Arial' font-size='26' fill='%23F5F5F0'>HUB</text><g stroke='%231E1E1E' stroke-width='6'><rect x='300' y='350' width='150' height='170' rx='40' fill='%23FFFFFF'/><rect x='480' y='340' width='160' height='180' rx='42' fill='%23FFFFFF'/><rect x='670' y='350' width='150' height='170' rx='40' fill='%23FFFFFF'/><rect x='850' y='350' width='150' height='170' rx='40' fill='%23FFFFFF'/><rect x='1030' y='350' width='150' height='170' rx='40' fill='%23FFFFFF'/></g><g stroke='%231E1E1E' stroke-width='5'><circle cx='375' cy='420' r='36' fill='%23C4D94E'/><circle cx='560' cy='420' r='42' fill='%23E85D4E'/><circle cx='745' cy='420' r='36' fill='%23B9A6E8'/><circle cx='925' cy='420' r='36' fill='%23C4D94E'/><circle cx='1105' cy='420' r='36' fill='%23B9A6E8'/></g><g font-family='Helvetica,Arial' font-size='24' fill='%231E1E1E' text-anchor='middle'><text x='375' y='500'>07:00</text><text x='560' y='502' font-weight='bold'>08:00</text><text x='745' y='500'>13:00</text><text x='925' y='500'>18:00</text><text x='1105' y='500'>22:00</text></g><text x='560' y='310' font-family='Helvetica,Arial' font-size='26' fill='%23E85D4E' text-anchor='middle' font-weight='bold'>TAKE NOW</text></svg>",
+      "imageAlt": "Five white Pillbox pods on a black hub, each labelled with a dose time; the 08:00 pod glows coral with the words take now.",
+      "notes": "Hold the reveal for three seconds. Say the name once."
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "How it works",
+      "lead": "Three jobs a plain weekly box cannot do."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Dose time",
+      "heading": "Each pod glows at dose time and goes dark once you take it",
+      "ratio": "1-2",
+      "reverse": true,
+      "body": "Your pharmacy pre-fills one pod per dose.\nThe ring glows for 30 minutes.\nLift the lid and the dose is logged.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 520'><rect width='600' height='520' fill='%23FFFFFF'/><circle cx='300' cy='240' r='190' fill='%23E85D4E' opacity='.12'/><rect x='150' y='90' width='300' height='300' rx='80' fill='%23F5F5F0' stroke='%231E1E1E' stroke-width='8'/><circle cx='300' cy='240' r='96' fill='none' stroke='%23E85D4E' stroke-width='22'/><circle cx='300' cy='240' r='58' fill='%23E85D4E' stroke='%231E1E1E' stroke-width='6'/><g font-family='Helvetica,Arial' text-anchor='middle' fill='%231E1E1E'><text x='300' y='440' font-size='34' font-weight='bold'>08:00 · Metformin 500 mg</text><text x='300' y='482' font-size='24' fill='%235A5A5A'>glowing until 08:30</text></g></svg>",
+      "imageAlt": "Top view of one pod: a coral light ring glows around the lid, labelled 08:00, Metformin 500 mg, glowing until 08:30."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Missed dose",
+      "heading": "A missed dose texts your caregiver within 30 minutes",
+      "lead": "No app on their side. One text with the pill name and the time.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 25 1600 400'><rect width='1600' height='500' fill='%23C4D94E'/><text x='880' y='92' font-family='Helvetica,Arial' font-size='22' fill='%231E1E1E'>Pillbox · text message · 13:30</text><rect x='880' y='110' width='560' height='200' rx='34' fill='%23FFFFFF' stroke='%231E1E1E' stroke-width='5'/><g font-family='Helvetica,Arial' font-size='30' fill='%231E1E1E'><text x='914' y='162' font-weight='bold'>Dad's 13:00 dose</text><text x='914' y='204'>Lisinopril 10 mg is not taken yet.</text></g><rect x='1180' y='236' width='230' height='56' rx='28' fill='%23E85D4E'/><text x='1295' y='273' font-family='Helvetica,Arial' font-size='24' fill='%23FFFFFF' text-anchor='middle'>Call Dad</text></svg>",
+      "imageAlt": "A phone on a lime background shows a text from Pillbox at 13:30: Dad's 13:00 dose, Lisinopril 10 mg, is not taken yet."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Refills",
+      "heading": "Refill pods arrive from your pharmacy before the last one empties",
+      "ratio": "1-2",
+      "reverse": true,
+      "body": "The hub counts the doses left.\nAt five days left, it orders the next set.\nEmpty pods go back in the same box.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 520'><rect width='600' height='520' fill='%23FFFFFF'/><rect x='60' y='120' width='480' height='120' rx='60' fill='%231E1E1E'/><text x='300' y='196' font-family='Helvetica,Arial' font-size='44' fill='%23C4D94E' text-anchor='middle' font-weight='bold'>5 days left</text><rect x='130' y='300' width='340' height='150' rx='20' fill='%23F5F5F0' stroke='%231E1E1E' stroke-width='6'/><path d='M130 350 H470' stroke='%231E1E1E' stroke-width='4'/><g font-family='Helvetica,Arial' fill='%231E1E1E' text-anchor='middle'><text x='300' y='336' font-size='24' font-weight='bold'>Refill ordered</text><text x='300' y='400' font-size='24'>21 pods · Farmácia Central</text><text x='300' y='432' font-size='22' fill='%235A5A5A'>arrives Thursday</text></g></svg>",
+      "imageAlt": "The hub display reads 5 days left; below it a parcel label says refill ordered, 21 pods from Farmácia Central, arrives Thursday."
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Pilot results",
+      "heading": "Pilot adherence held at 94% for 12 weeks, against 71% with plain boxes",
+      "chartType": "line",
+      "categories": ["Wk 1", "Wk 2", "Wk 4", "Wk 6", "Wk 8", "Wk 10", "Wk 12"],
+      "series": [
+        { "name": "Pillbox Pods (%)", "values": [96, 95, 95, 94, 94, 94, 94] },
+        { "name": "Plain weekly box (%)", "values": [88, 84, 80, 77, 74, 72, 71] }
+      ],
+      "showLegend": true,
+      "lead": "Doses taken on time, %. Pilot with adults on 4+ daily medicines, Jun–Sep 2026: Pods n = 1,140, plain box n = 380.",
+      "notes": "Point at week 12: the plain box drifts down, the pods stay flat. That gap is the product."
+    },
+    {
+      "layout": "quote",
+      "quote": "Dad hasn't missed a noon dose since August. I stopped calling him at lunch to check.",
+      "by": "Inês Faria, twelve weeks into the pilot"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Price and availability",
+      "heading": "The starter kit costs €79 and the care plan €6 a month",
+      "columns": ["Plan", "Price", "Includes", "Available"],
+      "rows": [
+        ["Starter kit", "€79 once", "Hub and 7 pods", "12 Jan 2027 · PT, ES, UK"],
+        ["Care plan", "€6 / month", "Caregiver texts, refill orders", "12 Jan 2027"],
+        ["Pharmacy refills", "Your usual pharmacy price", "Pre-filled pods, free delivery", "1,200 partner pharmacies"]
+      ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Join",
-      "heading": "Take the first capsule.",
-      "lead": "Founding members get the kit free.",
+      "eyebrow": "Pre-orders open today",
+      "heading": "Every pill on time, from 12 January",
+      "lead": "Order by 31 December and your first care-plan month is free.",
       "actions": [
-        {
-          "label": "Join waitlist",
-          "href": "#",
-          "style": "solid",
-          "icon": "fa-solid fa-envelope"
-        },
-        {
-          "label": "Read the story",
-          "href": "#",
-          "style": "outline",
-          "icon": "fa-solid fa-book-open"
-        }
+        { "label": "Pre-order the starter kit", "style": "solid", "icon": "fa-solid fa-cart-shopping" },
+        { "label": "Find a partner pharmacy", "style": "outline", "icon": "fa-solid fa-location-dot" }
       ]
     }
   ]

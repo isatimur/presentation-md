@@ -1,101 +1,193 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Borderlands — Studio Deck",
+    "title": "Borderlands — wayfinding studio credentials",
     "company": "Borderlands",
-    "description": "Design studio manifesto — raw-grid multi-slide proof.",
-    "theme": "raw-grid"
+    "description": "Credentials deck for Borderlands, a Rotterdam wayfinding studio: point of view, three principles, three measured cases (a hospital, a bike park, a campus), clients, a client's voice and how a project runs.",
+    "theme": "raw-grid",
+    "genre": "brand"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Studio",
-      "heading": "3PX BORDERS ARE THE BRAND.",
-      "lead": "White field. Black rules. Blush and sage only as relief.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Borderlands · Wayfinding studio · Rotterdam · since 2014",
+      "heading": "We design signs nobody has to think about.",
+      "lead": "Hospitals, stations and campuses where 40 million people a year find their way."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Studio",
-      "heading": "3PX BORDERS ARE THE BRAND.",
-      "lead": "White field. Black rules. Blush and sage only as relief.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23F5F5F5%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23FFFFFF%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28242%2C212%2C207%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28242%2C212%2C207%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28229%2C237%2C214%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28242%2C212%2C207%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28245%2C245%2C245%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28242%2C212%2C207%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28242%2C212%2C207%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28242%2C212%2C207%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28229%2C237%2C214%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28229%2C237%2C214%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28229%2C237%2C214%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23FFFFFF%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.5%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22200%22%20cy%3D%22100%22%20rx%3D%22420%22%20ry%3D%22280%22%20fill%3D%22rgba%28242%2C212%2C207%2C0.350%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221400%22%20cy%3D%22780%22%20rx%3D%22500%22%20ry%3D%22320%22%20fill%3D%22rgba%28229%2C237%2C214%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.9%22%3E%0A%20%20%20%20%3Crect%20x%3D%22180%22%20y%3D%22160%22%20width%3D%22520%22%20height%3D%22340%22%20rx%3D%228%22%20fill%3D%22%23F5F5F5%22%20stroke%3D%22rgba%28242%2C212%2C207%2C0.400%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22%23FFFFFF%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.7%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22240%22%20y%3D%22470%22%20width%3D%22180%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22780%22%20y%3D%22220%22%20width%3D%22420%22%20height%3D%22280%22%20rx%3D%228%22%20fill%3D%22%23F5F5F5%22%20stroke%3D%22rgba%28229%2C237%2C214%2C0.350%29%22%20stroke-width%3D%222%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22800%22%20y%3D%22240%22%20width%3D%22380%22%20height%3D%22220%22%20fill%3D%22rgba%28229%2C237%2C214%2C0.200%29%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Cg%20opacity%3D%220.4%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221260%22%20cy%3D%22180%22%20r%3D%2226%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221360%22%20cy%3D%22260%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221180%22%20cy%3D%22300%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Borderlands craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Point of view",
+      "heading": "A good sign answers the next question before you ask it",
+      "lead": "One letter, one word, one arrow per decision.",
+      "image": "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 width=%221600%22 height=%22900%22%3E%3Crect width=%221600%22 height=%22900%22 fill=%22%23F5F5F5%22/%3E%3Cline x1=%220%22 y1=%22640%22 x2=%221600%22 y2=%22640%22 stroke=%22%230A0A0A%22 stroke-width=%223%22/%3E%3Crect x=%22260%22 y=%22270%22 width=%221080%22 height=%22330%22 fill=%22%23FFFFFF%22 stroke=%22%230A0A0A%22 stroke-width=%226%22/%3E%3Cline x1=%22260%22 y1=%22380%22 x2=%221340%22 y2=%22380%22 stroke=%22%230A0A0A%22 stroke-width=%223%22/%3E%3Cline x1=%22260%22 y1=%22490%22 x2=%221340%22 y2=%22490%22 stroke=%22%230A0A0A%22 stroke-width=%223%22/%3E%3Crect x=%22263%22 y=%22273%22 width=%22110%22 height=%22104%22 fill=%22%23F2D4CF%22/%3E%3Crect x=%22263%22 y=%22383%22 width=%22110%22 height=%22104%22 fill=%22%23E5EDD6%22/%3E%3Crect x=%22263%22 y=%22493%22 width=%22110%22 height=%22104%22 fill=%22%230A0A0A%22/%3E%3Cg font-family=%22Helvetica, Arial, sans-serif%22 font-weight=%22bold%22 fill=%22%230A0A0A%22%3E%3Ctext x=%22318%22 y=%22345%22 font-size=%2256%22 text-anchor=%22middle%22%3EA%3C/text%3E%3Ctext x=%22318%22 y=%22455%22 font-size=%2256%22 text-anchor=%22middle%22%3EB%3C/text%3E%3Ctext x=%22318%22 y=%22565%22 font-size=%2256%22 text-anchor=%22middle%22 fill=%22%23FFFFFF%22%3EC%3C/text%3E%3Ctext x=%22410%22 y=%22345%22 font-size=%2252%22%3EOutpatients%3C/text%3E%3Ctext x=%22410%22 y=%22455%22 font-size=%2252%22%3ERadiology%3C/text%3E%3Ctext x=%22410%22 y=%22565%22 font-size=%2252%22%3EExit %C2%B7 Parking%3C/text%3E%3C/g%3E%3Cg fill=%22none%22 stroke=%22%230A0A0A%22 stroke-width=%2212%22 stroke-linecap=%22square%22%3E%3Cpath d=%22M1220 325 h80 M1270 295 l30 30 l-30 30%22/%3E%3Cpath d=%22M1260 465 v-70 M1230 425 l30 -30 l30 30%22/%3E%3Cpath d=%22M1300 545 h-80 M1250 515 l-30 30 l30 30%22/%3E%3C/g%3E%3C/svg%3E",
+      "imageAlt": "A black-bordered hospital sign with three rows: A Outpatients right, B Radiology ahead, C Exit and Parking left"
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Practice",
-      "heading": "What the grid allows",
-      "columns": "bento",
+      "eyebrow": "Beliefs",
+      "heading": "Three rules shape every system we draw",
+      "columns": 3,
       "cards": [
         {
-          "icon": "fa-solid fa-border-all",
-          "title": "Layouts",
-          "body": "Every edge earns its weight."
+          "icon": "fa-solid fa-1",
+          "title": "One word per decision",
+          "body": "Never two names for one place."
         },
         {
-          "icon": "fa-solid fa-image",
-          "title": "Campaigns",
-          "body": "Posters that survive crop."
+          "icon": "fa-solid fa-square",
+          "title": "Colour marks a zone",
+          "body": "Never decoration."
         },
         {
-          "icon": "fa-solid fa-code",
-          "title": "Sites",
-          "body": "DOM that looks like print."
-        },
-        {
-          "icon": "fa-solid fa-bolt",
-          "title": "Ship the punchline",
-          "body": "Lead with the claim that survives the hallway test."
-        },
-        {
-          "icon": "fa-solid fa-eye",
-          "title": "Show, don't pad",
-          "body": "Asymmetry beats another identical third column."
+          "icon": "fa-solid fa-person-walking",
+          "title": "First-timers test it",
+          "body": "200 visitors walk every prototype."
         }
       ]
     },
     {
-      "layout": "comparison",
-      "eyebrow": "Filter",
-      "heading": "We take work if…",
-      "leftLabel": "Yes",
-      "left": "Hard edges.\nFew colors.\nClear hierarchy.",
-      "rightLabel": "No",
-      "right": "Soft shadows.\nGradient soup.\nCard clutter.",
-      "emphasis": "left",
-      "notes": "Name the loser column first, then punch the winner."
+      "layout": "image-hero",
+      "eyebrow": "Case 1 · Westhaven Hospital",
+      "heading": "Three zones replaced 41 department names at Westhaven",
+      "lead": "Visitors now reach any clinic in three decisions.",
+      "image": "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 width=%221600%22 height=%22900%22%3E%3Crect width=%221600%22 height=%22900%22 fill=%22%23FFFFFF%22/%3E%3Cg stroke=%22%230A0A0A%22 stroke-width=%224%22%3E%3Crect x=%22160%22 y=%22290%22 width=%22380%22 height=%22300%22 fill=%22%23F2D4CF%22/%3E%3Crect x=%22540%22 y=%22290%22 width=%22520%22 height=%22140%22 fill=%22%23E5EDD6%22/%3E%3Crect x=%22540%22 y=%22430%22 width=%22520%22 height=%22160%22 fill=%22%23FFFFFF%22/%3E%3Crect x=%221060%22 y=%22290%22 width=%22380%22 height=%22300%22 fill=%22%23F5F5F5%22/%3E%3C/g%3E%3Cpath d=%22M300 560 V 360 H 800 V 500 H 1250%22 fill=%22none%22 stroke=%22%230A0A0A%22 stroke-width=%228%22 stroke-dasharray=%2220 14%22/%3E%3Ccircle cx=%22300%22 cy=%22560%22 r=%2216%22 fill=%22%230A0A0A%22/%3E%3Crect x=%221236%22 y=%22486%22 width=%2228%22 height=%2228%22 fill=%22%230A0A0A%22/%3E%3Cg font-family=%22Helvetica, Arial, sans-serif%22 font-weight=%22bold%22 font-size=%2230%22 fill=%22%230A0A0A%22%3E%3Ctext x=%22190%22 y=%22335%22%3EA %C2%B7 OUTPATIENTS%3C/text%3E%3Ctext x=%22570%22 y=%22335%22%3EB %C2%B7 RADIOLOGY%3C/text%3E%3Ctext x=%22570%22 y=%22475%22%3EMAIN STREET%3C/text%3E%3Ctext x=%221090%22 y=%22335%22%3EC %C2%B7 WARDS%3C/text%3E%3C/g%3E%3Cg font-family=%22Helvetica, Arial, sans-serif%22 font-size=%2222%22 fill=%22%230A0A0A%22%3E%3Ctext x=%22330%22 y=%22566%22%3EEntrance%3C/text%3E%3Ctext x=%221090%22 y=%22560%22%3EClinic 14 %C2%B7 3 decisions, 4 min%3C/text%3E%3C/g%3E%3C/svg%3E",
+      "imageAlt": "Ground-floor map of Westhaven Hospital in three coloured zones with a dashed route from the entrance to Clinic 14",
+      "notes": "Tell the problem first: 41 names, many for the same corridor. The map is the idea; the next slide is the result."
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Signal",
-      "heading": "Borderlands in numbers.",
-      "notes": "One breath on the numbers — then move on.",
+      "eyebrow": "Case 1 · Result",
+      "heading": "Front-desk questions fell 61% in the first year",
       "stats": [
         {
-          "value": "3×",
-          "label": "Faster cycles"
+          "value": "−61%",
+          "label": "Desk questions a day, 410 down to 160"
         },
         {
-          "value": "92%",
-          "label": "Retention"
+          "value": "−5 pts",
+          "label": "Late patients, 14% down to 9%"
         },
         {
-          "value": "18",
-          "label": "Shipped pilots"
+          "value": "−58%",
+          "label": "Signs on site, 1,240 down to 520"
         }
       ]
     },
     {
+      "layout": "two-column",
+      "eyebrow": "Case 2 · Rotterdam Centraal bike park",
+      "heading": "Finding a free bike space fell from 6 minutes to 90 seconds",
+      "ratio": "2-1",
+      "reverse": true,
+      "image": "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 600 900%22 width=%22600%22 height=%22900%22%3E%3Crect width=%22600%22 height=%22900%22 fill=%22%23F5F5F5%22/%3E%3Crect x=%2260%22 y=%22150%22 width=%22480%22 height=%22260%22 fill=%22%230A0A0A%22/%3E%3Cg font-family=%22Helvetica, Arial, sans-serif%22 font-weight=%22bold%22 font-size=%2230%22%3E%3Ctext x=%2290%22 y=%22225%22 fill=%22%23FFFFFF%22%3EROW 1%E2%80%938%3C/text%3E%3Ctext x=%22510%22 y=%22225%22 fill=%22%23F2D4CF%22 text-anchor=%22end%22%3EFULL%3C/text%3E%3Ctext x=%2290%22 y=%22295%22 fill=%22%23FFFFFF%22%3EROW 9%E2%80%9316%3C/text%3E%3Ctext x=%22510%22 y=%22295%22 fill=%22%23E5EDD6%22 text-anchor=%22end%22%3E212 %E2%86%92%3C/text%3E%3Ctext x=%2290%22 y=%22365%22 fill=%22%23FFFFFF%22%3EROW 17%E2%80%9324%3C/text%3E%3Ctext x=%22510%22 y=%22365%22 fill=%22%23E5EDD6%22 text-anchor=%22end%22%3E87 %E2%86%93%3C/text%3E%3C/g%3E%3Cline x1=%22300%22 y1=%22410%22 x2=%22300%22 y2=%22480%22 stroke=%22%230A0A0A%22 stroke-width=%226%22/%3E%3Cg fill=%22none%22 stroke=%22%230A0A0A%22 stroke-width=%225%22%3E%3Ccircle cx=%22150%22 cy=%22620%22 r=%2255%22/%3E%3Ccircle cx=%22310%22 cy=%22620%22 r=%2255%22/%3E%3Cpath d=%22M150 620 L215 545 H285 L310 620 M215 545 L245 620 H150%22/%3E%3C/g%3E%3Crect x=%2260%22 y=%22720%22 width=%22480%22 height=%2210%22 fill=%22%23E5EDD6%22 stroke=%22%230A0A0A%22 stroke-width=%223%22/%3E%3Ctext x=%2260%22 y=%22780%22 font-family=%22Helvetica, Arial, sans-serif%22 font-size=%2224%22 fill=%22%230A0A0A%22%3EFree spaces per row, live%3C/text%3E%3C/svg%3E",
+      "imageAlt": "A black overhead sign with live counts per row of the bike park: rows 1 to 8 full, rows 9 to 16 with 212 free spaces",
+      "body": "Live counters on every row, read from the entrance.\n12,500 spaces."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 3 · Delftland University",
+      "heading": "One naming grid cut first-week help-desk visits 47%",
+      "lead": "38 buildings named by quarter and number.",
+      "image": "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 width=%221600%22 height=%22900%22%3E%3Crect width=%221600%22 height=%22900%22 fill=%22%23FFFFFF%22/%3E%3Cpath d=%22M120 450 H1480 M800 280 V620%22 stroke=%22%230A0A0A%22 stroke-width=%2210%22/%3E%3Cg stroke=%22%230A0A0A%22 stroke-width=%224%22 font-family=%22Helvetica, Arial, sans-serif%22 font-weight=%22bold%22 font-size=%2230%22%3E%3Crect x=%22160%22 y=%22300%22 width=%22160%22 height=%22110%22 fill=%22%23F2D4CF%22/%3E%3Crect x=%22360%22 y=%22300%22 width=%22160%22 height=%22110%22 fill=%22%23F2D4CF%22/%3E%3Crect x=%22560%22 y=%22300%22 width=%22200%22 height=%22110%22 fill=%22%23F2D4CF%22/%3E%3Crect x=%22840%22 y=%22300%22 width=%22180%22 height=%22110%22 fill=%22%23E5EDD6%22/%3E%3Crect x=%221060%22 y=%22300%22 width=%22160%22 height=%22110%22 fill=%22%23E5EDD6%22/%3E%3Crect x=%221260%22 y=%22300%22 width=%22180%22 height=%22110%22 fill=%22%23E5EDD6%22/%3E%3Crect x=%22160%22 y=%22490%22 width=%22260%22 height=%22110%22 fill=%22%23F5F5F5%22/%3E%3Crect x=%22460%22 y=%22490%22 width=%22300%22 height=%22110%22 fill=%22%23F5F5F5%22/%3E%3Crect x=%22840%22 y=%22490%22 width=%22240%22 height=%22110%22 fill=%22%230A0A0A%22/%3E%3Crect x=%221120%22 y=%22490%22 width=%22320%22 height=%22110%22 fill=%22%23F5F5F5%22/%3E%3C/g%3E%3Cg font-family=%22Helvetica, Arial, sans-serif%22 font-weight=%22bold%22 font-size=%2234%22 fill=%22%230A0A0A%22 text-anchor=%22middle%22%3E%3Ctext x=%22240%22 y=%22368%22%3EN1%3C/text%3E%3Ctext x=%22440%22 y=%22368%22%3EN2%3C/text%3E%3Ctext x=%22660%22 y=%22368%22%3EN3%3C/text%3E%3Ctext x=%22930%22 y=%22368%22%3EE1%3C/text%3E%3Ctext x=%221140%22 y=%22368%22%3EE2%3C/text%3E%3Ctext x=%221350%22 y=%22368%22%3EE3%3C/text%3E%3Ctext x=%22290%22 y=%22558%22%3EW1%3C/text%3E%3Ctext x=%22610%22 y=%22558%22%3EW2%3C/text%3E%3Ctext x=%22960%22 y=%22558%22 fill=%22%23FFFFFF%22%3ES1 %C2%B7 EXAMS%3C/text%3E%3Ctext x=%221280%22 y=%22558%22%3ES2%3C/text%3E%3C/g%3E%3C/svg%3E",
+      "imageAlt": "Campus map with buildings coded N1 to N3, E1 to E3, W1, W2, S1 and S2 along two crossing axes"
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Across the work",
+      "heading": "Help-desk questions fell by half across 12 measured projects",
+      "chartType": "horizontal-bar",
+      "categories": [
+        "Hospitals (4)",
+        "Stations (3)",
+        "Campuses (3)",
+        "Museums (2)"
+      ],
+      "series": [
+        {
+          "name": "Drop in help-desk questions, year one (%)",
+          "values": [
+            58,
+            49,
+            47,
+            41
+          ]
+        }
+      ],
+      "showValues": true,
+      "lead": "Client desk logs, 12 months before vs after install, 2019–2026."
+    },
+    {
+      "layout": "logo-wall",
+      "eyebrow": "Clients",
+      "heading": "Clients",
+      "columns": 3,
+      "cards": [
+        {
+          "title": "Westhaven Hospital"
+        },
+        {
+          "title": "Rotterdam Bike Parks"
+        },
+        {
+          "title": "Delftland University"
+        },
+        {
+          "title": "Maaslijn Rail"
+        },
+        {
+          "title": "Kade Museum"
+        },
+        {
+          "title": "Noord Airport"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Our front desk used to be an information booth. Now it is a front desk again.",
+      "by": "Marieke de Wit, facilities director, Westhaven Hospital"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "How we work",
+      "heading": "Every project runs four phases in 20 weeks",
+      "steps": [
+        {
+          "title": "Walk · 3 wks",
+          "body": "Shadow new visitors"
+        },
+        {
+          "title": "Draw · 6 wks",
+          "body": "Names, zones, routes"
+        },
+        {
+          "title": "Test · 4 wks",
+          "body": "Cardboard, 200 walkers"
+        },
+        {
+          "title": "Install · 7 wks",
+          "body": "Build and measure"
+        }
+      ],
+      "notes": "Stress the cardboard test: it is where clients see the system work before they pay for metal."
+    },
+    {
       "layout": "closing",
-      "eyebrow": "Contact",
-      "heading": "DRAW THE LINE.",
-      "lead": "hello@borderlands.studio",
-      "cta": {
-        "label": "Send a brief",
-        "href": "#"
-      }
+      "eyebrow": "Start a project",
+      "heading": "Show us where people get lost, and we will draw the way out",
+      "lead": "Site walks are free and take one morning.",
+      "actions": [
+        {
+          "label": "Book a site walk",
+          "style": "solid",
+          "icon": "fa-solid fa-person-walking"
+        },
+        {
+          "label": "See all 40 projects",
+          "style": "outline",
+          "icon": "fa-solid fa-table-cells"
+        }
+      ]
     }
   ]
 }

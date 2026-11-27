@@ -1,109 +1,103 @@
 {
   "type": "deck",
   "meta": {
-    "title": "GeomSoft — App Launch",
+    "title": "GeomSoft Shapes — launch keynote, 1 December 2026",
     "company": "GeomSoft",
-    "description": "Consumer app launch — pastel-geometry multi-slide proof.",
-    "theme": "pastel-geometry"
+    "description": "Launch keynote for GeomSoft Shapes, a habit app that logs each day as a shape: the streak-guilt problem, three features, beta proof, price and availability.",
+    "theme": "pastel-geometry",
+    "genre": "launch"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Launch",
-      "heading": "Soft geometry. Sharp habits.",
-      "lead": "Sky pastel card. Vertical edge pills. Plus Jakarta that stays readable.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "GeomSoft · Launch keynote · 1 December 2026",
+      "heading": "Build habits with shapes, not guilt.",
+      "lead": "GeomSoft Shapes arrives on iOS today.",
+      "notes": "Hold the line for a beat. The whole talk proves one word: guilt."
+    },
+    {
+      "layout": "quote",
+      "quote": "I quit three habit apps because one missed day reset my streak to zero.",
+      "by": "Dana Whitfield · Beta tester, Leeds"
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Launch",
-      "heading": "Soft geometry. Sharp habits.",
-      "lead": "Sky pastel card. Vertical edge pills. Plus Jakarta that stays readable.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23b8cddd%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23c8d9e6%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28240%2C180%2C212%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28240%2C180%2C212%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28155%2C141%2C196%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28240%2C180%2C212%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28184%2C205%2C221%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28240%2C180%2C212%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28240%2C180%2C212%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28240%2C180%2C212%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28155%2C141%2C196%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28155%2C141%2C196%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28155%2C141%2C196%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23c8d9e6%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.65%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22420%22%20rx%3D%22640%22%20ry%3D%22220%22%20fill%3D%22rgba%28240%2C180%2C212%2C0.180%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20neon%20tunnel%20rings%20--%3E%0A%20%20%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22520%22%20ry%3D%22210%22%20stroke%3D%22rgba%28240%2C180%2C212%2C0.350%29%22%20stroke-width%3D%223%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22400%22%20ry%3D%22160%22%20stroke%3D%22rgba%28155%2C141%2C196%2C0.450%29%22%20stroke-width%3D%222.5%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22280%22%20ry%3D%22110%22%20stroke%3D%22rgba%28240%2C180%2C212%2C0.550%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22160%22%20ry%3D%2262%22%20stroke%3D%22rgba%28155%2C141%2C196%2C0.700%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20x%3D%22470%22%20y%3D%22300%22%20width%3D%22660%22%20height%3D%22300%22%20rx%3D%2222%22%20fill%3D%22rgba%28184%2C205%2C221%2C0.720%29%22%20stroke%3D%22rgba%28240%2C180%2C212%2C0.400%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22350%22%20width%3D%22240%22%20height%3D%2216%22%20rx%3D%226%22%20fill%3D%22rgba%28240%2C180%2C212%2C0.900%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22390%22%20width%3D%22420%22%20height%3D%2211%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.320%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22420%22%20width%3D%22360%22%20height%3D%2211%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28155%2C141%2C196%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22670%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28240%2C180%2C212%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22830%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.5%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22240%22%20cy%3D%22180%22%20r%3D%2216%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221360%22%20cy%3D%22220%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221480%22%20cy%3D%22680%22%20r%3D%2212%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "GeomSoft craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Meet Shapes",
+      "heading": "One shape a day for each habit you care about",
+      "lead": "Circles for done. Halves for partly. Outlines for rest days.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 440'><rect width='1600' height='440' fill='%23c8d9e6'/><circle cx='170' cy='150' r='80' fill='%23f0b4d4'/><path d='M1440 50 L1530 210 L1350 210 Z' fill='%23f6e3a1'/><rect x='1360' y='250' width='120' height='120' rx='20' fill='%239b8dc4' transform='rotate(12 1420 310)'/><rect x='340' y='30' width='920' height='370' rx='28' fill='%23faf9f7'/><text x='390' y='88' font-family='sans-serif' font-weight='700' font-size='30' fill='%231a1a1a'>This week</text><text x='1210' y='88' font-family='sans-serif' font-size='20' fill='%23455e51' text-anchor='end'>4 habits · 24 of 28 shapes</text><g font-family='sans-serif' font-size='20' fill='%23455e51'><text x='390' y='150'>Stretch</text><text x='390' y='215'>Read</text><text x='390' y='280'>Water</text><text x='390' y='345'>Walk</text></g><g fill='%23f0b4d4'><circle cx='600' cy='143' r='22'/><circle cx='685' cy='143' r='22'/><circle cx='770' cy='143' r='22'/><circle cx='855' cy='143' r='22'/><circle cx='1025' cy='143' r='22'/><circle cx='1110' cy='143' r='22'/></g><circle cx='940' cy='143' r='20' fill='none' stroke='%23f0b4d4' stroke-width='4'/><g fill='%239b8dc4'><rect x='578' y='186' width='44' height='44' rx='8'/><rect x='663' y='186' width='44' height='44' rx='8'/><rect x='833' y='186' width='44' height='44' rx='8'/><rect x='918' y='186' width='44' height='44' rx='8'/><rect x='1003' y='186' width='44' height='44' rx='8'/><rect x='1088' y='186' width='44' height='44' rx='8'/></g><path d='M748 230 L748 186 L792 186 Z' fill='%239b8dc4'/><g fill='%2381c3ae'><circle cx='600' cy='273' r='22'/><circle cx='685' cy='273' r='22'/><circle cx='770' cy='273' r='22'/><circle cx='855' cy='273' r='22'/><circle cx='940' cy='273' r='22'/><circle cx='1025' cy='273' r='22'/><circle cx='1110' cy='273' r='22'/></g><g fill='%23e8c96a'><path d='M600 315 L624 360 L576 360 Z'/><path d='M770 315 L794 360 L746 360 Z'/><path d='M855 315 L879 360 L831 360 Z'/><path d='M1025 315 L1049 360 L1001 360 Z'/><path d='M1110 315 L1134 360 L1086 360 Z'/></g><g fill='none' stroke='%23e8c96a' stroke-width='4'><path d='M685 318 L707 358 L663 358 Z'/><path d='M940 318 L962 358 L918 358 Z'/></g></svg>",
+      "imageAlt": "Shapes week view: four habits, each day drawn as a filled, half or outlined pastel shape.",
+      "notes": "Let the room read the screen. Say nothing for three seconds."
     },
     {
-      "layout": "feature-grid",
-      "eyebrow": "Habits",
-      "heading": "Three loops that stick",
-      "columns": "bento",
-      "cards": [
-        {
-          "icon": "fa-solid fa-calendar-check",
-          "title": "Daily check-ins",
-          "body": "One question. One color. No streak shame."
-        },
-        {
-          "icon": "fa-solid fa-shapes",
-          "title": "Shape journal",
-          "body": "Log moods as geometry — not emoji soup."
-        },
-        {
-          "icon": "fa-solid fa-users",
-          "title": "Quiet circles",
-          "body": "Small groups. Soft invites. Hard privacy."
-        },
-        {
-          "icon": "fa-solid fa-compass",
-          "title": "Clear north star",
-          "body": "One decisive story beat — not a wall of equal tiles."
-        },
-        {
-          "icon": "fa-solid fa-scissors",
-          "title": "Cut the filler",
-          "body": "If a card doesn't change the decision, it doesn't earn the pixel."
-        }
-      ]
+      "layout": "section",
+      "number": "01",
+      "heading": "How it works",
+      "lead": "Three loops. One minute a day."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Feature 1 · Check in",
+      "heading": "A daily check-in takes one tap and eight seconds",
+      "ratio": "1-2",
+      "reverse": true,
+      "body": "One question per habit. Tap full, half or rest. No typing, no timers.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 900'><rect width='900' height='900' fill='%23b8cddd'/><rect x='120' y='150' width='660' height='600' rx='40' fill='%23faf9f7'/><text x='180' y='250' font-family='sans-serif' font-size='26' fill='%23455e51'>Tuesday · Stretch</text><text x='180' y='310' font-family='sans-serif' font-weight='700' font-size='40' fill='%231a1a1a'>Did you stretch today?</text><circle cx='260' cy='480' r='80' fill='%23f0b4d4'/><path d='M450 400 A80 80 0 0 0 450 560 Z' fill='%23f0b4d4'/><circle cx='450' cy='480' r='78' fill='none' stroke='%23f0b4d4' stroke-width='4'/><circle cx='640' cy='480' r='78' fill='none' stroke='%23f0b4d4' stroke-width='4' stroke-dasharray='10 10'/><g font-family='sans-serif' font-size='24' fill='%231a1a1a' text-anchor='middle'><text x='260' y='610'>Done</text><text x='450' y='610'>Partly</text><text x='640' y='610'>Rest day</text></g><text x='450' y='700' font-family='sans-serif' font-size='20' fill='%23455e51' text-anchor='middle'>Median check-in: 8 seconds</text></svg>",
+      "imageAlt": "Check-in card asking Did you stretch today, with three choices: a full circle for done, a half circle for partly and a dashed outline for a rest day."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Feature 2 · Shape journal",
+      "heading": "Your month reads as a pattern you can scan in a second",
+      "lead": "Gaps show up as outlines, so you see a rhythm, not a failure.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 440'><rect width='1600' height='440' fill='%23faf9f7'/><text x='140' y='70' font-family='sans-serif' font-weight='700' font-size='30' fill='%231a1a1a'>November so far · 4 habits · 44 of 52 kept</text><g font-family='sans-serif' font-size='20' fill='%23455e51'><text x='140' y='132'>Stretch</text><text x='140' y='202'>Read</text><text x='140' y='272'>Walk</text><text x='140' y='342'>Water</text></g><g fill='%23f0b4d4'><circle cx='340' cy='125' r='24'/><circle cx='430' cy='125' r='24'/><circle cx='520' cy='125' r='24'/><circle cx='700' cy='125' r='24'/><circle cx='790' cy='125' r='24'/><circle cx='880' cy='125' r='24'/><circle cx='970' cy='125' r='24'/><circle cx='1150' cy='125' r='24'/><circle cx='1240' cy='125' r='24'/><circle cx='1330' cy='125' r='24'/><circle cx='1420' cy='125' r='24'/></g><g fill='none' stroke='%23f0b4d4' stroke-width='4'><circle cx='610' cy='125' r='22'/><circle cx='1060' cy='125' r='22'/></g><g fill='%239b8dc4'><rect x='316' y='171' width='48' height='48' rx='9'/><rect x='496' y='171' width='48' height='48' rx='9'/><rect x='586' y='171' width='48' height='48' rx='9'/><rect x='676' y='171' width='48' height='48' rx='9'/><rect x='856' y='171' width='48' height='48' rx='9'/><rect x='946' y='171' width='48' height='48' rx='9'/><rect x='1036' y='171' width='48' height='48' rx='9'/><rect x='1216' y='171' width='48' height='48' rx='9'/><rect x='1306' y='171' width='48' height='48' rx='9'/><rect x='1396' y='171' width='48' height='48' rx='9'/></g><g fill='none' stroke='%239b8dc4' stroke-width='4'><rect x='408' y='173' width='44' height='44' rx='9'/><rect x='768' y='173' width='44' height='44' rx='9'/><rect x='1128' y='173' width='44' height='44' rx='9'/></g><g fill='%2381c3ae'><path d='M340 241 L366 289 L314 289 Z'/><path d='M430 241 L456 289 L404 289 Z'/><path d='M610 241 L636 289 L584 289 Z'/><path d='M700 241 L726 289 L674 289 Z'/><path d='M790 241 L816 289 L764 289 Z'/><path d='M970 241 L996 289 L944 289 Z'/><path d='M1060 241 L1086 289 L1034 289 Z'/><path d='M1150 241 L1176 289 L1124 289 Z'/><path d='M1330 241 L1356 289 L1304 289 Z'/><path d='M1420 241 L1446 289 L1394 289 Z'/></g><g fill='none' stroke='%2381c3ae' stroke-width='4'><path d='M520 244 L544 287 L496 287 Z'/><path d='M880 244 L904 287 L856 287 Z'/><path d='M1240 244 L1264 287 L1216 287 Z'/></g><g fill='%23e8c96a'><circle cx='340' cy='335' r='24'/><circle cx='430' cy='335' r='24'/><circle cx='520' cy='335' r='24'/><circle cx='610' cy='335' r='24'/><circle cx='700' cy='335' r='24'/><circle cx='790' cy='335' r='24'/><circle cx='880' cy='335' r='24'/><circle cx='970' cy='335' r='24'/><circle cx='1060' cy='335' r='24'/><circle cx='1150' cy='335' r='24'/><circle cx='1240' cy='335' r='24'/><circle cx='1330' cy='335' r='24'/><circle cx='1420' cy='335' r='24'/></g></svg>",
+      "imageAlt": "Month view: four rows of pastel shapes, one per day, with a few outlined shapes marking rest days."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Feature 3",
+      "heading": "A missed day bends your pattern instead of breaking a streak",
+      "ratio": "1-2",
+      "body": "A skipped day draws an outline, and your 40-day pattern stays. Streak resets drive 31% of churn (exit survey, n = 610).",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 900'><rect width='900' height='900' fill='%23faf9f7'/><text x='90' y='150' font-family='sans-serif' font-size='28' fill='%23455e51'>Other apps, day 41</text><text x='90' y='300' font-family='sans-serif' font-weight='700' font-size='140' fill='%23b8b8b8'>0</text><text x='210' y='300' font-family='sans-serif' font-size='40' fill='%23b8b8b8'>day streak</text><line x1='90' y1='400' x2='810' y2='400' stroke='%23d8d8d8' stroke-width='3'/><text x='90' y='500' font-family='sans-serif' font-size='28' fill='%23455e51'>Shapes, day 41</text><g fill='%23f0b4d4'><circle cx='120' cy='600' r='28'/><circle cx='200' cy='600' r='28'/><circle cx='280' cy='600' r='28'/><circle cx='360' cy='600' r='28'/><circle cx='520' cy='600' r='28'/><circle cx='600' cy='600' r='28'/><circle cx='680' cy='600' r='28'/><circle cx='760' cy='600' r='28'/></g><circle cx='440' cy='600' r='26' fill='none' stroke='%23f0b4d4' stroke-width='4'/><text x='90' y='720' font-family='sans-serif' font-weight='700' font-size='44' fill='%231a1a1a'>40 of 41 days kept</text></svg>",
+      "imageAlt": "Comparison: another app shows a 0 day streak after one miss; Shapes shows a row of circles with one outline and 40 of 41 days kept."
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Beta",
-      "heading": "Soft look. Hard retention.",
+      "variant": "hero",
+      "eyebrow": "Beta proof",
+      "heading": "72% of beta users still checked in after 30 days",
       "stats": [
-        {
-          "value": "38k",
-          "label": "Waitlist"
-        },
-        {
-          "value": "72%",
-          "label": "D30 retention"
-        },
-        {
-          "value": "4.7★",
-          "label": "Beta rating"
-        }
+        { "value": "72%", "label": "Day-30 retention, 4,200 beta users" },
+        { "value": "8%", "label": "Habit-app median, 2026 industry report" },
+        { "value": "4.7★", "label": "TestFlight rating, 1,900 reviews" }
+      ],
+      "notes": "Compare 72 with 8 out loud. That gap is the launch."
+    },
+    {
+      "layout": "quote",
+      "quote": "It is the first habit app my patients still open after the second appointment.",
+      "by": "Dr Amara Osei · Physiotherapist, Bristol"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Price and availability",
+      "heading": "Shapes is free, and Plus costs $3.99 a month",
+      "columns": ["Plan", "Price", "Includes"],
+      "rows": [
+        ["Free", "$0", "Three habits, week view"],
+        ["Plus", "$3.99 / month", "Unlimited habits, month view"],
+        ["Family", "$6.99 / month", "Five people, shared shapes"]
       ]
     },
     {
-      "layout": "comparison",
-      "eyebrow": "Positioning",
-      "heading": "Pastel without the fluff.",
-      "leftLabel": "Wellness apps",
-      "left": "Guilt streaks.\nPurple everything.\nNotifications as nagging.",
-      "rightLabel": "GeomSoft",
-      "right": "Optional streaks.\nSky + pills.\nNudges you set.",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
-    },
-    {
       "layout": "closing",
-      "eyebrow": "Open",
-      "heading": "Download the soft card.",
-      "lead": "iOS first. Android follows.",
+      "eyebrow": "iOS today · Android March 2027",
+      "heading": "From today, your habits bend instead of break.",
+      "lead": "Waitlist members get one month of Plus free.",
       "actions": [
-        {
-          "label": "Get the app",
-          "href": "#",
-          "style": "solid",
-          "icon": "fa-solid fa-arrow-right"
-        },
-        {
-          "label": "Watch the demo",
-          "href": "#",
-          "style": "outline",
-          "icon": "fa-solid fa-play"
-        }
+        { "label": "Get it on the App Store", "href": "#", "style": "solid", "icon": "fa-brands fa-apple" },
+        { "label": "Join the Android waitlist", "href": "#", "style": "outline", "icon": "fa-brands fa-android" }
       ]
     }
   ]

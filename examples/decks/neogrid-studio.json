@@ -1,75 +1,134 @@
 {
   "type": "deck",
   "meta": {
-    "title": "NeoGrid — Studio Deck",
+    "title": "NeoGrid — studio credentials 2026",
     "company": "NeoGrid",
-    "description": "Design studio credentials — neo-grid-bold multi-slide proof.",
-    "theme": "neo-grid-bold"
+    "description": "Credentials for NeoGrid, a Rotterdam identity-systems studio: grids before moodboards, three measured cases (transit signs, a SaaS design system, a festival), clients and a 10-week sprint.",
+    "theme": "neo-grid-bold",
+    "genre": "brand"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Studio",
-      "heading": "LEMON ON PUTTY.",
-      "lead": "Uppercase Space Grotesk. JetBrains for the receipts. Zero soft radius.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "NeoGrid · Identity systems · Rotterdam · 2026",
+      "heading": "We build identity systems that still work in year five.",
+      "lead": "Grids, type and rules your own team can run without us.",
+      "notes": "Year five is the promise. Every case in this deck is measured after launch, not at launch."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Studio",
-      "heading": "LEMON ON PUTTY.",
-      "lead": "Uppercase Space Grotesk. JetBrains for the receipts. Zero soft radius.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23F5F4EF%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23ECECE8%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28230%2C255%2C61%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28230%2C255%2C61%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2810%2C10%2C10%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28230%2C255%2C61%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28245%2C244%2C239%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28230%2C255%2C61%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28230%2C255%2C61%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28230%2C255%2C61%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2810%2C10%2C10%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2810%2C10%2C10%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2810%2C10%2C10%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23ECECE8%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.9%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22880%22%20cy%3D%22220%22%20rx%3D%22220%22%20ry%3D%22140%22%20fill%3D%22rgba%2810%2C10%2C10%2C0.220%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M0%20640%20C320%20520%20640%20780%20960%20600%20S1400%20480%201600%20560%20L1600%20900%20L0%20900%20Z%22%20fill%3D%22rgba%28230%2C255%2C61%2C0.120%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.55%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22260%22%20cy%3D%22180%22%20r%3D%2218%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22520%22%20cy%3D%22140%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22980%22%20cy%3D%22210%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22320%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221100%22%20cy%3D%22120%22%20r%3D%228%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "NeoGrid craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Point of view",
+      "heading": "Every brand we ship starts as a grid, not a moodboard",
+      "lead": "If a new designer can't build a page from the rules, the system failed.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 -30 1600 400'><rect y='-30' width='1600' height='430' fill='%23ECECE8'/><g stroke='%230A0A0A' stroke-width='1' opacity='.35'><path d='M560 0V400M640 0V400M720 0V400M800 0V400M880 0V400M960 0V400M1040 0V400M1120 0V400M1200 0V400M1280 0V400M1360 0V400M1440 0V400M1520 0V400'/><path d='M520 60H1560M520 140H1560M520 220H1560M520 300H1560'/></g><rect x='560' y='60' width='320' height='240' fill='%23E6FF3D' stroke='%230A0A0A' stroke-width='4'/><text x='580' y='150' font-family='Helvetica,Arial' font-weight='bold' font-size='72' fill='%230A0A0A'>GRID</text><text x='580' y='220' font-family='Helvetica,Arial' font-weight='bold' font-size='72' fill='%230A0A0A'>FIRST</text><rect x='880' y='60' width='240' height='80' fill='%230A0A0A'/><text x='900' y='112' font-family='Courier,monospace' font-size='26' fill='%23E6FF3D'>12 COL · 8 PX</text><rect x='880' y='140' width='160' height='160' fill='%23F5F4EF' stroke='%230A0A0A' stroke-width='4'/><rect x='1040' y='140' width='80' height='160' fill='%230A0A0A'/><rect x='1200' y='60' width='240' height='240' fill='%23F5F4EF' stroke='%230A0A0A' stroke-width='4'/><text x='1220' y='110' font-family='Courier,monospace' font-size='22' fill='%230A0A0A'>RULE 04</text><text x='1220' y='150' font-family='Helvetica,Arial' font-size='26' fill='%230A0A0A'>Headlines span</text><text x='1220' y='184' font-family='Helvetica,Arial' font-size='26' fill='%230A0A0A'>4, 6 or 12 cols.</text><text x='1220' y='218' font-family='Helvetica,Arial' font-size='26' fill='%230A0A0A'>Never 5.</text></svg>",
+      "imageAlt": "A poster laid out on a visible 12-column grid: a lemon GRID FIRST block, a black label reading 12 col, 8 px, and a rule card that says headlines span 4, 6 or 12 columns, never 5."
     },
     {
-      "layout": "two-column",
-      "eyebrow": "Practice",
-      "heading": "What we ship",
-      "body": "Identity systems: Grids first. Moodboards later — if ever. Product UI — Interfaces with hard edges and soft copy.",
-      "aside": "2–3 beats. No particle fog.",
-      "ratio": "2-1"
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Contrast",
-      "heading": "Agency fluff vs. NeoGrid.",
-      "leftLabel": "Typical",
-      "left": "Case studies as novels.\nPastel everything.\nProcess theater.",
-      "rightLabel": "NeoGrid",
-      "right": "One page proofs.\nLemon accents.\nArtifacts > process.",
-      "emphasis": "left",
-      "notes": "Name the loser column first, then punch the winner."
-    },
-    {
-      "layout": "stat-row",
-      "eyebrow": "Outcomes",
-      "heading": "Clients kept the grid.",
-      "stats": [
-        {
-          "value": "64",
-          "label": "Shipped systems"
-        },
-        {
-          "value": "91%",
-          "label": "Retainers renewed"
-        },
-        {
-          "value": "2w",
-          "label": "Avg identity sprint"
-        }
+      "layout": "feature-grid",
+      "eyebrow": "What we believe",
+      "heading": "Five tests every NeoGrid system passes before launch",
+      "columns": "bento",
+      "cards": [
+        { "icon": "fa-solid fa-table-cells", "title": "One grid, every format", "body": "Poster, app and signage share one grid." },
+        { "icon": "fa-solid fa-font", "title": "Two typefaces", "body": "Display and data." },
+        { "icon": "fa-solid fa-book", "title": "Rules over files", "body": "20 pages, not 400 templates." },
+        { "icon": "fa-solid fa-user-secret", "title": "Stranger test", "body": "An outsider builds a page." },
+        { "icon": "fa-solid fa-ruler", "title": "Month-6 audit", "body": "We measure real use." }
       ]
     },
     {
+      "layout": "image-hero",
+      "eyebrow": "Case 1 · TramGent, Ghent",
+      "heading": "TramGent's new stop signs cut missed-stop complaints by 38%",
+      "lead": "1,140 signs on one grid. Line numbers grew from 40 mm to 120 mm.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 400'><rect width='1600' height='400' fill='%230A0A0A'/><rect x='700' y='40' width='820' height='250' fill='%23F5F4EF'/><rect x='700' y='40' width='250' height='250' fill='%23E6FF3D'/><text x='825' y='230' font-family='Helvetica,Arial' font-weight='bold' font-size='200' fill='%230A0A0A' text-anchor='middle'>4</text><g font-family='Helvetica,Arial' fill='%230A0A0A'><text x='980' y='110' font-size='54' font-weight='bold'>KORENMARKT</text><text x='980' y='160' font-size='30'>→ Gent-Sint-Pieters · 6 min</text><rect x='980' y='190' width='500' height='4'/><text x='980' y='245' font-size='30'>Next: 2 · 9 · 14 min</text></g><text x='560' y='120' font-family='Courier,monospace' font-size='22' fill='%23E6FF3D'>120 mm</text><path d='M660 50 V280' stroke='%23E6FF3D' stroke-width='3'/></svg>",
+      "imageAlt": "A TramGent stop sign: a lemon panel with a giant line number 4 at 120 mm, the stop name Korenmarkt, the direction and the next three departures.",
+      "notes": "Hold here. The 120 mm line number is the whole idea: you can read it from the tram door."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Case 1 · Result",
+      "heading": "TramGent replaced 1,140 signs five weeks early and under budget",
+      "stats": [
+        { "value": "−38%", "label": "missed-stop complaints, 2025 vs 2024" },
+        { "value": "11 wk", "label": "to replace every sign; plan was 16" },
+        { "value": "€0.9M", "label": "total cost, 12% under budget" }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "Two more systems",
+      "lead": "A product interface and a festival."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Case 2 · Quanta",
+      "heading": "Quanta's design system replaced 380 one-off parts with 46 components",
+      "ratio": "1-2",
+      "reverse": true,
+      "body": "We rebuilt 212 screens on one 8-px grid.\nThe in-house team owns it now.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 480'><rect width='600' height='480' fill='%23F5F4EF'/><rect x='40' y='40' width='520' height='400' fill='%23ECECE8' stroke='%230A0A0A' stroke-width='4'/><rect x='40' y='40' width='120' height='400' fill='%230A0A0A'/><g fill='%23E6FF3D'><rect x='60' y='70' width='80' height='14'/></g><g fill='%236b6b67'><rect x='60' y='110' width='70' height='10'/><rect x='60' y='136' width='60' height='10'/><rect x='60' y='162' width='74' height='10'/></g><rect x='184' y='64' width='352' height='70' fill='%23F5F4EF' stroke='%230A0A0A' stroke-width='3'/><text x='200' y='108' font-family='Helvetica,Arial' font-weight='bold' font-size='26' fill='%230A0A0A'>REVENUE · €2.4M</text><rect x='184' y='152' width='168' height='120' fill='%23E6FF3D' stroke='%230A0A0A' stroke-width='3'/><rect x='368' y='152' width='168' height='120' fill='%23F5F4EF' stroke='%230A0A0A' stroke-width='3'/><path d='M384 250 L420 220 L450 236 L520 176' stroke='%230A0A0A' stroke-width='4' fill='none'/><rect x='184' y='290' width='352' height='40' fill='%23F5F4EF' stroke='%230A0A0A' stroke-width='3'/><rect x='184' y='344' width='352' height='40' fill='%23F5F4EF' stroke='%230A0A0A' stroke-width='3'/><rect x='420' y='396' width='116' height='30' fill='%230A0A0A'/><text x='478' y='418' font-family='Courier,monospace' font-size='16' fill='%23E6FF3D' text-anchor='middle'>BUTTON/01</text></svg>",
+      "imageAlt": "A Quanta dashboard screen built from the design system: black sidebar, a revenue card, a lemon tile, a line chart and a standard button labelled button/01."
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Case 2 · Result",
+      "heading": "Quanta's median screen build time fell 78% in three quarters",
+      "chartType": "bar",
+      "categories": ["Q4 2025", "Q1 2026", "Q2 2026", "Q3 2026"],
+      "series": [{ "name": "Median days per screen", "values": [9.0, 6.1, 3.4, 2.0] }],
+      "showValues": true,
+      "lead": "Median days from spec to shipped screen. Source: Quanta issue tracker, n = 312 screens."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 3 · Noordzee Jazz",
+      "heading": "Noordzee Jazz sold out three days early with one poster grid",
+      "lead": "62 artist posters from one rule set. Ticket sales up 27% on 2025.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 -20 1600 400'><rect y='-20' width='1600' height='420' fill='%23ECECE8'/><g stroke='%230A0A0A' stroke-width='4' font-family='Helvetica,Arial' font-weight='bold'><rect x='640' y='40' width='200' height='220' fill='%23E6FF3D'/><rect x='870' y='40' width='200' height='220' fill='%230A0A0A'/><rect x='1100' y='40' width='200' height='220' fill='%23F5F4EF'/><rect x='1330' y='40' width='200' height='220' fill='%23E6FF3D'/></g><g font-family='Helvetica,Arial' font-weight='bold' font-size='40'><text x='656' y='100' fill='%230A0A0A'>NZJ</text><text x='886' y='100' fill='%23E6FF3D'>NZJ</text><text x='1116' y='100' fill='%230A0A0A'>NZJ</text><text x='1346' y='100' fill='%230A0A0A'>NZJ</text></g><g font-family='Helvetica,Arial' font-size='26'><text x='656' y='160' fill='%230A0A0A'>AMA KOI</text><text x='886' y='160' fill='%23F5F4EF'>THE DUNES</text><text x='1116' y='160' fill='%230A0A0A'>LIV OKAFOR</text><text x='1346' y='160' fill='%230A0A0A'>TRIO ZOUT</text></g><g font-family='Courier,monospace' font-size='18'><text x='656' y='196' fill='%230A0A0A'>FRI 18 JUL</text><text x='886' y='196' fill='%23E6FF3D'>SAT 19 JUL</text><text x='1116' y='196' fill='%230A0A0A'>SAT 19 JUL</text><text x='1346' y='196' fill='%230A0A0A'>SUN 20 JUL</text></g></svg>",
+      "imageAlt": "Four Noordzee Jazz artist posters side by side, each built on the same grid: NZJ mark top left, artist name and date in fixed positions, lemon, black and putty colourways."
+    },
+    {
+      "layout": "logo-wall",
+      "eyebrow": "Clients",
+      "heading": "Teams running our systems today",
+      "columns": 3,
+      "cards": [
+        { "title": "TramGent", "body": "Transit · since 2024" },
+        { "title": "Quanta", "body": "SaaS · since 2025" },
+        { "title": "Noordzee Jazz", "body": "Festival · since 2023" },
+        { "title": "Havenbank", "body": "Banking · since 2022" },
+        { "title": "Kade Museum", "body": "Culture · since 2021" },
+        { "title": "Fietsfabriek", "body": "Retail · since 2025" }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Two years on, our in-house team still hasn't broken the grid. That has never happened to us before.",
+      "by": "Sanne de Vries, Head of Brand, Quanta"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "How we work",
+      "heading": "Every identity runs as a 10-week sprint that ends in a stranger test",
+      "steps": [
+        { "title": "Wk 1–2 · Audit", "body": "Every touchpoint, counted" },
+        { "title": "Wk 3–5 · Grid", "body": "One grid, two typefaces" },
+        { "title": "Wk 6–8 · Rules", "body": "Rulebook and core files" },
+        { "title": "Wk 9–10 · Test", "body": "An outsider builds a page" }
+      ],
+      "notes": "The stranger test is the sales point: we hand the rulebook to a designer who has never seen the brand."
+    },
+    {
       "layout": "closing",
-      "eyebrow": "Hire",
-      "heading": "BRIEF US IN CAPS.",
-      "lead": "Capacity for two retainers this quarter.",
-      "cta": {
-        "label": "Send a brief",
-        "href": "#"
-      }
+      "eyebrow": "Two retainers open for Q1 2027",
+      "heading": "Brief us once, then run the system for years",
+      "lead": "Send one page about your brand. We reply within two working days.",
+      "actions": [
+        { "label": "Send a brief", "style": "solid", "icon": "fa-solid fa-paper-plane" },
+        { "label": "Read the TramGent case", "style": "outline", "icon": "fa-solid fa-train-tram" }
+      ]
     }
   ]
 }

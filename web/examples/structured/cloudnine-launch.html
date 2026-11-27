@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Cloudnine — Launch Deck</title>
-<meta name="description" content="Wellness app launch — pastel-dreamy multi-slide proof." />
+<title>Cloudnine — launch, 14 January 2027</title>
+<meta name="description" content="Launch deck for Cloudnine, a ten-minute evening wind-down app: the problem, the reveal, three features one per slide, beta proof, a clinician&#39;s voice, pricing and launch date." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Mulish:wght@400;600&display=swap');
@@ -20,6 +20,12 @@
   --muted: #6b5d82;
   --accent: #e893c2;
   --accent-2: #8ab4f8;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #3a2e4d;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #dd61a6;
+  --accent-2-ink: #176af1;
   --card-bg: #f5ecf9;
   --border: rgba(58,46,77,0.10);
   --radius: 28px;
@@ -27,6 +33,10 @@
   --heading-font: 'Quicksand', system-ui, sans-serif;
   --body-font: 'Mulish', system-ui, sans-serif;
   --heading-weight: 700;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,67 +6908,132 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="pastel-cloud">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Launch</span>
-  <h1>Lavender blush. Plum clarity.</h1>
-  <p class="lead">Soft field, readable ink — dreamy without disappearing.</p>
+  <span class="eyebrow">Cloudnine · Launch · 14 January 2027</span>
+  <h1>Fall asleep in 21 minutes, not 38.</h1>
+  <p class="lead">A ten-minute wind-down for your evening, on iOS and Android.</p>
+</section>
+
+<section class="slide quote-slide" data-layout="quote">
+  <p class="quote">I&#39;m in bed at eleven and still scrolling at one. Then the alarm goes at six.</p>
+  <p class="quote-by">— Maya, 31, ward nurse, beta tester</p>
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f5ecf9%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23fdf6fb%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28138%2C180%2C248%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28245%2C236%2C249%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28138%2C180%2C248%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28138%2C180%2C248%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28138%2C180%2C248%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23fdf6fb%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22820%22%20rx%3D%22700%22%20ry%3D%22120%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23floor%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22520%22%20cy%3D%22260%22%20rx%3D%22360%22%20ry%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22220%22%20rx%3D%22300%22%20ry%3D%22220%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20desk%20product%20frame%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28430%2C170%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%22720%22%20height%3D%22460%22%20rx%3D%2228%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22450%22%20rx%3D%2226%22%20fill%3D%22%23f5ecf9%22%20stroke%3D%22rgba%28232%2C147%2C194%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22%23fdf6fb%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%2290%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%226%22%20fill%3D%22rgba%28232%2C147%2C194%2C0.850%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22130%22%20width%3D%22380%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22158%22%20width%3D%22320%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28138%2C180%2C248%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22290%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28232%2C147%2C194%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22510%22%20y%3D%22210%22%20width%3D%22140%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22280%22%20y%3D%22400%22%20width%3D%22160%22%20height%3D%2210%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="Cloudnine craft visual" />
+    <img src="data:image&#x2F;svg+xml,%3Csvg xmlns&#x3D;%22http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg%22 viewBox&#x3D;%220 0 1600 900%22 width&#x3D;%221600%22 height&#x3D;%22900%22%3E%3Crect width&#x3D;%221600%22 height&#x3D;%22900%22 fill&#x3D;%22%23f5ecf9%22&#x2F;%3E%3Ccircle cx&#x3D;%221180%22 cy&#x3D;%22450%22 r&#x3D;%22300%22 fill&#x3D;%22%23fbe3f0%22&#x2F;%3E%3Ccircle cx&#x3D;%22420%22 cy&#x3D;%22450%22 r&#x3D;%22200%22 fill&#x3D;%22%23e3edfd%22&#x2F;%3E%3Cg transform&#x3D;%22translate(615,300) scale(0.72)%22%3E%3Crect x&#x3D;%220%22 y&#x3D;%220%22 width&#x3D;%22230%22 height&#x3D;%22420%22 rx&#x3D;%2234%22 fill&#x3D;%22%233a2e4d%22&#x2F;%3E%3Crect x&#x3D;%2212%22 y&#x3D;%2214%22 width&#x3D;%22206%22 height&#x3D;%22392%22 rx&#x3D;%2224%22 fill&#x3D;%22%232b2140%22&#x2F;%3E%3Ctext x&#x3D;%22115%22 y&#x3D;%2270%22 fill&#x3D;%22%23f5ecf9%22 font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2226%22 text-anchor&#x3D;%22middle%22%3E22:04%3C&#x2F;text%3E%3Ctext x&#x3D;%22115%22 y&#x3D;%2296%22 fill&#x3D;%22%23b9acd0%22 font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2213%22 text-anchor&#x3D;%22middle%22%3EWind-down %C2%B7 10 min%3C&#x2F;text%3E%3Ccircle cx&#x3D;%22115%22 cy&#x3D;%22210%22 r&#x3D;%2270%22 fill&#x3D;%22%23e893c2%22 opacity&#x3D;%220.35%22&#x2F;%3E%3Ccircle cx&#x3D;%22115%22 cy&#x3D;%22210%22 r&#x3D;%2248%22 fill&#x3D;%22%23e893c2%22&#x2F;%3E%3Ctext x&#x3D;%22115%22 y&#x3D;%22218%22 fill&#x3D;%22%232b2140%22 font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2220%22 font-weight&#x3D;%22bold%22 text-anchor&#x3D;%22middle%22%3EBegin%3C&#x2F;text%3E%3Crect x&#x3D;%2240%22 y&#x3D;%22320%22 width&#x3D;%22150%22 height&#x3D;%228%22 rx&#x3D;%224%22 fill&#x3D;%22%234a3d63%22&#x2F;%3E%3Crect x&#x3D;%2240%22 y&#x3D;%22320%22 width&#x3D;%2260%22 height&#x3D;%228%22 rx&#x3D;%224%22 fill&#x3D;%22%238ab4f8%22&#x2F;%3E%3Ctext x&#x3D;%22115%22 y&#x3D;%22360%22 fill&#x3D;%22%23b9acd0%22 font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2213%22 text-anchor&#x3D;%22middle%22%3EDim %C2%B7 Breathe %C2%B7 Drift%3C&#x2F;text%3E%3C&#x2F;g%3E%3Cg transform&#x3D;%22translate(820,300) scale(0.72)%22%3E%3Crect x&#x3D;%220%22 y&#x3D;%220%22 width&#x3D;%22230%22 height&#x3D;%22420%22 rx&#x3D;%2234%22 fill&#x3D;%22%233a2e4d%22&#x2F;%3E%3Crect x&#x3D;%2212%22 y&#x3D;%2214%22 width&#x3D;%22206%22 height&#x3D;%22392%22 rx&#x3D;%2224%22 fill&#x3D;%22%23fdf6fb%22&#x2F;%3E%3Ctext x&#x3D;%2230%22 y&#x3D;%2270%22 fill&#x3D;%22%233a2e4d%22 font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2220%22 font-weight&#x3D;%22bold%22%3ELast night%3C&#x2F;text%3E%3Ctext x&#x3D;%2230%22 y&#x3D;%22130%22 fill&#x3D;%22%23e893c2%22 font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2246%22 font-weight&#x3D;%22bold%22%3E19 min%3C&#x2F;text%3E%3Ctext x&#x3D;%2230%22 y&#x3D;%22156%22 fill&#x3D;%22%236b5d82%22 font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2213%22%3Eto fall asleep%3C&#x2F;text%3E%3Cg fill&#x3D;%22%238ab4f8%22%3E%3Crect x&#x3D;%2230%22 y&#x3D;%22300%22 width&#x3D;%2218%22 height&#x3D;%2260%22 rx&#x3D;%224%22&#x2F;%3E%3Crect x&#x3D;%2258%22 y&#x3D;%22285%22 width&#x3D;%2218%22 height&#x3D;%2275%22 rx&#x3D;%224%22&#x2F;%3E%3Crect x&#x3D;%2286%22 y&#x3D;%22300%22 width&#x3D;%2218%22 height&#x3D;%2260%22 rx&#x3D;%224%22&#x2F;%3E%3Crect x&#x3D;%22114%22 y&#x3D;%22315%22 width&#x3D;%2218%22 height&#x3D;%2245%22 rx&#x3D;%224%22&#x2F;%3E%3Crect x&#x3D;%22142%22 y&#x3D;%22325%22 width&#x3D;%2218%22 height&#x3D;%2235%22 rx&#x3D;%224%22&#x2F;%3E%3C&#x2F;g%3E%3Crect x&#x3D;%22170%22 y&#x3D;%22330%22 width&#x3D;%2218%22 height&#x3D;%2230%22 rx&#x3D;%224%22 fill&#x3D;%22%23e893c2%22&#x2F;%3E%3Ctext x&#x3D;%2230%22 y&#x3D;%22385%22 fill&#x3D;%22%236b5d82%22 font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2212%22%3EMinutes to sleep, last 6 nights%3C&#x2F;text%3E%3C&#x2F;g%3E%3C&#x2F;svg%3E" alt="Two phone screens: a dark Begin button for a 10-minute wind-down, and a morning card showing 19 minutes to fall asleep" />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">Launch</span>
-    <h2>Lavender blush. Plum clarity.</h2>
-    <p class="lead">Soft field, readable ink — dreamy without disappearing.</p>
+    <span class="eyebrow">Meet Cloudnine</span>
+    <h2>One button starts your evening and shows how you slept</h2>
+    <p class="lead">Tap Begin at bedtime. Wake to last night&#39;s number.</p>
+  </div>
+</section>
+
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">01</div>
+  <h2>How it works</h2>
+  <p class="lead">Dim, breathe, drift. Ten minutes in all.</p>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-2-1 cols-reverse">
+    <div class="cols-copy">
+      <span class="eyebrow">Step 1 · Dim</span>
+      <h2>At 22:00 your phone turns warm, dim and quiet</h2>
+      <p class="lead">Screen goes to 2700K.
+Notifications wait until 07:00.</p>
+    </div>
+    <div class="media"><img src="data:image&#x2F;svg+xml,%3Csvg xmlns&#x3D;%22http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg%22 viewBox&#x3D;%220 0 1200 900%22 width&#x3D;%221200%22 height&#x3D;%22900%22%3E%3Crect width&#x3D;%221200%22 height&#x3D;%22900%22 fill&#x3D;%22%23f5ecf9%22&#x2F;%3E%3Ccircle cx&#x3D;%22600%22 cy&#x3D;%22450%22 r&#x3D;%22330%22 fill&#x3D;%22%23fbe3f0%22&#x2F;%3E%3Cg transform&#x3D;%22translate(470,170)%22%3E%3Crect width&#x3D;%22260%22 height&#x3D;%22560%22 rx&#x3D;%2240%22 fill&#x3D;%22%233a2e4d%22&#x2F;%3E%3Crect x&#x3D;%2214%22 y&#x3D;%2216%22 width&#x3D;%22232%22 height&#x3D;%22528%22 rx&#x3D;%2228%22 fill&#x3D;%22%234a2f3f%22&#x2F;%3E%3Crect x&#x3D;%2214%22 y&#x3D;%2216%22 width&#x3D;%22232%22 height&#x3D;%22528%22 rx&#x3D;%2228%22 fill&#x3D;%22%23ffb37a%22 opacity&#x3D;%220.25%22&#x2F;%3E%3Ctext x&#x3D;%22130%22 y&#x3D;%2290%22 fill&#x3D;%22%23ffe3cc%22 font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2240%22 text-anchor&#x3D;%22middle%22%3E22:00%3C&#x2F;text%3E%3Ctext x&#x3D;%22130%22 y&#x3D;%22122%22 fill&#x3D;%22%23f3c9b0%22 font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2215%22 text-anchor&#x3D;%22middle%22%3EEvening mode is on%3C&#x2F;text%3E%3Cg font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2215%22 fill&#x3D;%22%23ffe3cc%22%3E%3Crect x&#x3D;%2234%22 y&#x3D;%22190%22 width&#x3D;%22192%22 height&#x3D;%2256%22 rx&#x3D;%2214%22 fill&#x3D;%22%235e3a4c%22&#x2F;%3E%3Ctext x&#x3D;%2254%22 y&#x3D;%22224%22%3EScreen warmth%3C&#x2F;text%3E%3Ctext x&#x3D;%22206%22 y&#x3D;%22224%22 text-anchor&#x3D;%22end%22%3E2700K%3C&#x2F;text%3E%3Crect x&#x3D;%2234%22 y&#x3D;%22262%22 width&#x3D;%22192%22 height&#x3D;%2256%22 rx&#x3D;%2214%22 fill&#x3D;%22%235e3a4c%22&#x2F;%3E%3Ctext x&#x3D;%2254%22 y&#x3D;%22296%22%3ENotifications%3C&#x2F;text%3E%3Ctext x&#x3D;%22206%22 y&#x3D;%22296%22 text-anchor&#x3D;%22end%22%3EHeld%3C&#x2F;text%3E%3Crect x&#x3D;%2234%22 y&#x3D;%22334%22 width&#x3D;%22192%22 height&#x3D;%2256%22 rx&#x3D;%2214%22 fill&#x3D;%22%235e3a4c%22&#x2F;%3E%3Ctext x&#x3D;%2254%22 y&#x3D;%22368%22%3EBrightness%3C&#x2F;text%3E%3Ctext x&#x3D;%22206%22 y&#x3D;%22368%22 text-anchor&#x3D;%22end%22%3E15%25%3C&#x2F;text%3E%3C&#x2F;g%3E%3Crect x&#x3D;%2234%22 y&#x3D;%22440%22 width&#x3D;%22192%22 height&#x3D;%2260%22 rx&#x3D;%2230%22 fill&#x3D;%22%23e893c2%22&#x2F;%3E%3Ctext x&#x3D;%22130%22 y&#x3D;%22477%22 fill&#x3D;%22%233a2e4d%22 font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2218%22 font-weight&#x3D;%22bold%22 text-anchor&#x3D;%22middle%22%3EStart breathing%3C&#x2F;text%3E%3C&#x2F;g%3E%3C&#x2F;svg%3E" alt="Phone in evening mode: screen warmth 2700K, notifications held, brightness 15 percent" /></div>
+    
+  </div>
+</section>
+
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml,%3Csvg xmlns&#x3D;%22http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg%22 viewBox&#x3D;%220 0 1600 900%22 width&#x3D;%221600%22 height&#x3D;%22900%22%3E%3Crect width&#x3D;%221600%22 height&#x3D;%22900%22 fill&#x3D;%22%23fdf6fb%22&#x2F;%3E%3Cg fill&#x3D;%22none%22 stroke&#x3D;%22%238ab4f8%22 stroke-width&#x3D;%223%22%3E%3Cpath d&#x3D;%22M120 450 C 300 300, 420 300, 560 450 S 820 600, 1000 450 S 1300 300, 1480 450%22&#x2F;%3E%3C&#x2F;g%3E%3Cg fill&#x3D;%22%23e893c2%22%3E%3Ccircle cx&#x3D;%22560%22 cy&#x3D;%22450%22 r&#x3D;%2216%22&#x2F;%3E%3C&#x2F;g%3E%3Cg fill&#x3D;%22%23fbe3f0%22 stroke&#x3D;%22%23e893c2%22 stroke-width&#x3D;%223%22%3E%3Cpath d&#x3D;%22M690 520 a70 70 0 0 1 30 -134 a95 95 0 0 1 176 -18 a80 80 0 0 1 104 82 a60 60 0 0 1 -10 70 z%22&#x2F;%3E%3C&#x2F;g%3E%3Cg font-family&#x3D;%22Helvetica, sans-serif%22 fill&#x3D;%22%233a2e4d%22 text-anchor&#x3D;%22middle%22%3E%3Ctext x&#x3D;%22850%22 y&#x3D;%22478%22 font-size&#x3D;%2240%22 font-weight&#x3D;%22bold%22%3EHold %C2%B7 7 s%3C&#x2F;text%3E%3Ctext x&#x3D;%22300%22 y&#x3D;%22300%22 font-size&#x3D;%2226%22 fill&#x3D;%22%236b5d82%22%3EIn %C2%B7 4 s%3C&#x2F;text%3E%3Ctext x&#x3D;%221300%22 y&#x3D;%22300%22 font-size&#x3D;%2226%22 fill&#x3D;%22%236b5d82%22%3EOut %C2%B7 8 s%3C&#x2F;text%3E%3C&#x2F;g%3E%3Cg fill&#x3D;%22%238ab4f8%22 opacity&#x3D;%220.5%22%3E%3Ccircle cx&#x3D;%22300%22 cy&#x3D;%22350%22 r&#x3D;%226%22&#x2F;%3E%3Ccircle cx&#x3D;%221300%22 cy&#x3D;%22350%22 r&#x3D;%226%22&#x2F;%3E%3C&#x2F;g%3E%3C&#x2F;svg%3E" alt="A breathing wave with a cloud marking the hold phase: in 4 seconds, hold 7, out 8" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">Step 2 · Breathe</span>
+    <h2>A drifting cloud paces four minutes of 4-7-8 breathing</h2>
+    <p class="lead">Follow the cloud. No counting, no screen glare.</p>
   </div>
 </section>
 
 <section class="slide two-column-slide" data-layout="two-column">
   <div class="cols ratio-2-1">
     <div class="cols-copy">
-      <span class="eyebrow">Rituals</span>
-      <h2>Three soft habits</h2>
-      <p class="lead">Breathe: Two-minute resets that stick. Wind down — Periwinkle nights, no doomscroll.</p>
+      <span class="eyebrow">Step 3 · Drift</span>
+      <h2>Stories slow from 142 to 96 words a minute as you fade</h2>
+      <p class="lead">The story stops when you stop moving.
+240 stories at launch.</p>
     </div>
+    <div class="media"><img src="data:image&#x2F;svg+xml,%3Csvg xmlns&#x3D;%22http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg%22 viewBox&#x3D;%220 0 1200 900%22 width&#x3D;%221200%22 height&#x3D;%22900%22%3E%3Crect width&#x3D;%221200%22 height&#x3D;%22900%22 fill&#x3D;%22%23f5ecf9%22&#x2F;%3E%3Ccircle cx&#x3D;%22600%22 cy&#x3D;%22450%22 r&#x3D;%22330%22 fill&#x3D;%22%23e3edfd%22&#x2F;%3E%3Cg transform&#x3D;%22translate(470,170)%22%3E%3Crect width&#x3D;%22260%22 height&#x3D;%22560%22 rx&#x3D;%2240%22 fill&#x3D;%22%233a2e4d%22&#x2F;%3E%3Crect x&#x3D;%2214%22 y&#x3D;%2216%22 width&#x3D;%22232%22 height&#x3D;%22528%22 rx&#x3D;%2228%22 fill&#x3D;%22%231f1830%22&#x2F;%3E%3Ctext x&#x3D;%2234%22 y&#x3D;%2280%22 fill&#x3D;%22%23b9acd0%22 font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2214%22%3EStory %C2%B7 The lighthouse keeper%3C&#x2F;text%3E%3Cg font-family&#x3D;%22Georgia, serif%22 fill&#x3D;%22%23f5ecf9%22%3E%3Ctext x&#x3D;%2234%22 y&#x3D;%22150%22 font-size&#x3D;%2220%22%3EThe lamp turned,%3C&#x2F;text%3E%3Ctext x&#x3D;%2234%22 y&#x3D;%22185%22 font-size&#x3D;%2220%22 opacity&#x3D;%220.8%22%3Eslow as a tide,%3C&#x2F;text%3E%3Ctext x&#x3D;%2234%22 y&#x3D;%22220%22 font-size&#x3D;%2220%22 opacity&#x3D;%220.6%22%3Eand the gulls%3C&#x2F;text%3E%3Ctext x&#x3D;%2234%22 y&#x3D;%22255%22 font-size&#x3D;%2220%22 opacity&#x3D;%220.4%22%3Esettled on%3C&#x2F;text%3E%3Ctext x&#x3D;%2234%22 y&#x3D;%22290%22 font-size&#x3D;%2220%22 opacity&#x3D;%220.2%22%3Ethe rail...%3C&#x2F;text%3E%3C&#x2F;g%3E%3Ctext x&#x3D;%2234%22 y&#x3D;%22400%22 fill&#x3D;%22%23b9acd0%22 font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2213%22%3EReading pace%3C&#x2F;text%3E%3Crect x&#x3D;%2234%22 y&#x3D;%22414%22 width&#x3D;%22192%22 height&#x3D;%228%22 rx&#x3D;%224%22 fill&#x3D;%22%233a2e4d%22&#x2F;%3E%3Crect x&#x3D;%2234%22 y&#x3D;%22414%22 width&#x3D;%2270%22 height&#x3D;%228%22 rx&#x3D;%224%22 fill&#x3D;%22%238ab4f8%22&#x2F;%3E%3Ctext x&#x3D;%2234%22 y&#x3D;%22450%22 fill&#x3D;%22%23b9acd0%22 font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2213%22%3E142 %E2%86%92 96 words a minute%3C&#x2F;text%3E%3Ctext x&#x3D;%22130%22 y&#x3D;%22505%22 fill&#x3D;%22%23e893c2%22 font-family&#x3D;%22Helvetica, sans-serif%22 font-size&#x3D;%2214%22 text-anchor&#x3D;%22middle%22%3EFades out when you stop moving%3C&#x2F;text%3E%3C&#x2F;g%3E%3C&#x2F;svg%3E" alt="Phone reading a bedtime story, each line fainter, with a reading-pace bar from 142 to 96 words a minute" /></div>
     
-    <div class="cols-aside"><p>Mood logs without guilt.</p></div>
   </div>
 </section>
 
-<section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Beta</span>
-  <h2>Calm that scales.</h2>
+<section class="slide chart-slide" data-layout="chart">
+  <span class="eyebrow">Beta results</span>
+  <h2>Testers fell asleep 17 minutes sooner within six weeks</h2>
+  <p class="lead">n &#x3D; 12,400 beta testers · phone-sensor sleep onset · Sep–Oct 2026</p>
+  <div class="chart-frame">
+    <svg class="pmd-chart" viewBox="0 0 920 420" width="100%" height="100%" role="img" aria-label="Chart" xmlns="http://www.w3.org/2000/svg">
   
-  <div class="stats">
-    <div class="stat">
-      <div class="value">52k</div>
-      <div class="label">Users</div>
+  <g class="chart-grid"><line x1="52" y1="16" x2="896" y2="16" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="20" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">50</text><line x1="52" y1="106" x2="896" y2="106" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="110" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">37.5</text><line x1="52" y1="196" x2="896" y2="196" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="200" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">25</text><line x1="52" y1="286" x2="896" y2="286" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="290" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">12.5</text><line x1="52" y1="376" x2="896" y2="376" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="380" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">0</text></g>
+  <g class="chart-marks"><polyline fill="none" stroke="var(--accent-ink, var(--accent))" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="52,102.39999999999998 192.66666666666666,138.39999999999998 333.3333333333333,167.20000000000002 474,188.79999999999998 614.6666666666666,203.20000000000002 755.3333333333334,217.6 896,224.8"/><circle cx="52" cy="102.39999999999998" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="52" y="92.39999999999998" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">38</text><circle cx="192.66666666666666" cy="138.39999999999998" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="192.66666666666666" y="128.39999999999998" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">33</text><circle cx="333.3333333333333" cy="167.20000000000002" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="333.3333333333333" y="157.20000000000002" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">29</text><circle cx="474" cy="188.79999999999998" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="474" y="178.79999999999998" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">26</text><circle cx="614.6666666666666" cy="203.20000000000002" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="614.6666666666666" y="193.20000000000002" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">24</text><circle cx="755.3333333333334" cy="217.6" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="755.3333333333334" y="207.6" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">22</text><circle cx="896" cy="224.8" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="896" y="214.8" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">21</text></g>
+  <g class="chart-cats"><text x="52" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Week 0</text><text x="192.66666666666666" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Week 1</text><text x="333.3333333333333" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Week 2</text><text x="474" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Week 3</text><text x="614.6666666666666" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Week 4</text><text x="755.3333333333334" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Week 5</text><text x="896" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">Week 6</text></g>
+</svg>
+  </div>
+</section>
+
+<section class="slide metric-ring-slide" data-layout="metric-ring">
+  <span class="eyebrow">Habit</span>
+  <h2>Four in five testers still open it nightly after six weeks</h2>
+  <div class="pct-wrap">
+    <div class="pct-ring pct-ring-arc" role="img" aria-label="81% nightly use in week 6">
+      <svg class="pct-ring-svg" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-opacity="0.15" stroke-width="10"/><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-dasharray="213.75 263.89" transform="rotate(-90 50 50)"/></svg>
+      <div class="pct-ring-center">
+        <span class="pct-num">81%</span>
+        <span class="pct-label">nightly use in week 6</span>
+      </div>
     </div>
-    <div class="stat">
-      <div class="value">4.7</div>
-      <div class="label">Rating</div>
-    </div>
-    <div class="stat">
-      <div class="value">12</div>
-      <div class="label">Min &#x2F; day</div>
+    <div class="pct-desc">
+      <p class="lead">Sleep apps average 22% by week 6.</p>
+      
     </div>
   </div>
 </section>
 
 <section class="slide quote-slide" data-layout="quote">
-  <p class="quote">Soft UI still needs hard contrast.</p>
-  <p class="quote-by">— Cloudnine</p>
+  <p class="quote">We now hand Cloudnine to every new parent who leaves our clinic.</p>
+  <p class="quote-by">— Dr Ana Ferreira, head of sleep medicine, Lumen Health</p>
+</section>
+
+<section class="slide data-table-slide" data-layout="data-table">
+  <span class="eyebrow">Price and availability</span>
+  <h2>Free to start, $4.99 a month for every story</h2>
+  
+  <table>
+    <thead>
+      <tr><th>Plan</th><th>Price</th><th>Includes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Free</td><td>$0</td><td>Dim and Breathe</td></tr>
+      <tr><td>Plus</td><td>$4.99 &#x2F; mo</td><td>All 240 stories</td></tr>
+      <tr><td>Family</td><td>$8.99 &#x2F; mo</td><td>Plus for 5 people</td></tr>
+    </tbody>
+  </table>
 </section>
 
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">Download</span>
-  <h1>Float in, stay grounded.</h1>
-  <p class="lead">iOS + Android this week.</p>
+  <span class="eyebrow">14 January 2027 · iOS and Android</span>
+  <h1>Tonight, fall asleep in 21 minutes</h1>
+  <p class="lead">Pre-order now: your first month of Plus is free.</p>
   <div class="cta-row">
-    <a class="btn" href="#"><i class="fa-solid fa-arrow-right"></i> Get the app</a>
-    <a class="btn btn-outline" href="#"><i class="fa-solid fa-play"></i> Watch the demo</a>
+    <a class="btn" href="#"><i class="fa-brands fa-apple"></i> Pre-order on the App Store</a>
+    <a class="btn btn-outline" href="#"><i class="fa-brands fa-google-play"></i> Get it on Google Play</a>
   </div>
 </section>
 
@@ -6824,7 +7121,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Cloudnine — Launch Deck","company":"Cloudnine","description":"Wellness app launch — pastel-dreamy multi-slide proof.","theme":"pastel-dreamy"},"slides":[{"layout":"title","eyebrow":"Launch","heading":"Lavender blush. Plum clarity.","lead":"Soft field, readable ink — dreamy without disappearing.","notes":"Cold open — land the one-line claim before logos."},{"layout":"image-hero","eyebrow":"Launch","heading":"Lavender blush. Plum clarity.","lead":"Soft field, readable ink — dreamy without disappearing.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f5ecf9%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23fdf6fb%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28138%2C180%2C248%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28245%2C236%2C249%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28138%2C180%2C248%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28138%2C180%2C248%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28138%2C180%2C248%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23fdf6fb%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22820%22%20rx%3D%22700%22%20ry%3D%22120%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23floor%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22520%22%20cy%3D%22260%22%20rx%3D%22360%22%20ry%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22220%22%20rx%3D%22300%22%20ry%3D%22220%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20desk%20product%20frame%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28430%2C170%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%22720%22%20height%3D%22460%22%20rx%3D%2228%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22450%22%20rx%3D%2226%22%20fill%3D%22%23f5ecf9%22%20stroke%3D%22rgba%28232%2C147%2C194%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22%23fdf6fb%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%2290%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%226%22%20fill%3D%22rgba%28232%2C147%2C194%2C0.850%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22130%22%20width%3D%22380%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22158%22%20width%3D%22320%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28138%2C180%2C248%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22290%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28232%2C147%2C194%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22510%22%20y%3D%22210%22%20width%3D%22140%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22280%22%20y%3D%22400%22%20width%3D%22160%22%20height%3D%2210%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Cloudnine craft visual","notes":"Hold the visual beat — let the room feel the product."},{"layout":"two-column","eyebrow":"Rituals","heading":"Three soft habits","body":"Breathe: Two-minute resets that stick. Wind down — Periwinkle nights, no doomscroll.","aside":"Mood logs without guilt.","ratio":"2-1"},{"layout":"stat-row","eyebrow":"Beta","heading":"Calm that scales.","stats":[{"value":"52k","label":"Users"},{"value":"4.7","label":"Rating"},{"value":"12","label":"Min / day"}],"notes":"One breath on the numbers — then move on."},{"layout":"quote","quote":"Soft UI still needs hard contrast.","by":"Cloudnine"},{"layout":"closing","eyebrow":"Download","heading":"Float in, stay grounded.","lead":"iOS + Android this week.","actions":[{"label":"Get the app","href":"#","style":"solid","icon":"fa-solid fa-arrow-right"},{"label":"Watch the demo","href":"#","style":"outline","icon":"fa-solid fa-play"}]}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Cloudnine — launch, 14 January 2027","company":"Cloudnine","description":"Launch deck for Cloudnine, a ten-minute evening wind-down app: the problem, the reveal, three features one per slide, beta proof, a clinician's voice, pricing and launch date.","theme":"pastel-dreamy","genre":"launch"},"slides":[{"layout":"title","eyebrow":"Cloudnine · Launch · 14 January 2027","heading":"Fall asleep in 21 minutes, not 38.","lead":"A ten-minute wind-down for your evening, on iOS and Android.","notes":"Read the headline slowly. Both numbers come from our beta; we prove them on slide 8."},{"layout":"quote","quote":"I'm in bed at eleven and still scrolling at one. Then the alarm goes at six.","by":"Maya, 31, ward nurse, beta tester"},{"layout":"image-hero","eyebrow":"Meet Cloudnine","heading":"One button starts your evening and shows how you slept","lead":"Tap Begin at bedtime. Wake to last night's number.","image":"data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 width=%221600%22 height=%22900%22%3E%3Crect width=%221600%22 height=%22900%22 fill=%22%23f5ecf9%22/%3E%3Ccircle cx=%221180%22 cy=%22450%22 r=%22300%22 fill=%22%23fbe3f0%22/%3E%3Ccircle cx=%22420%22 cy=%22450%22 r=%22200%22 fill=%22%23e3edfd%22/%3E%3Cg transform=%22translate(615,300) scale(0.72)%22%3E%3Crect x=%220%22 y=%220%22 width=%22230%22 height=%22420%22 rx=%2234%22 fill=%22%233a2e4d%22/%3E%3Crect x=%2212%22 y=%2214%22 width=%22206%22 height=%22392%22 rx=%2224%22 fill=%22%232b2140%22/%3E%3Ctext x=%22115%22 y=%2270%22 fill=%22%23f5ecf9%22 font-family=%22Helvetica, sans-serif%22 font-size=%2226%22 text-anchor=%22middle%22%3E22:04%3C/text%3E%3Ctext x=%22115%22 y=%2296%22 fill=%22%23b9acd0%22 font-family=%22Helvetica, sans-serif%22 font-size=%2213%22 text-anchor=%22middle%22%3EWind-down %C2%B7 10 min%3C/text%3E%3Ccircle cx=%22115%22 cy=%22210%22 r=%2270%22 fill=%22%23e893c2%22 opacity=%220.35%22/%3E%3Ccircle cx=%22115%22 cy=%22210%22 r=%2248%22 fill=%22%23e893c2%22/%3E%3Ctext x=%22115%22 y=%22218%22 fill=%22%232b2140%22 font-family=%22Helvetica, sans-serif%22 font-size=%2220%22 font-weight=%22bold%22 text-anchor=%22middle%22%3EBegin%3C/text%3E%3Crect x=%2240%22 y=%22320%22 width=%22150%22 height=%228%22 rx=%224%22 fill=%22%234a3d63%22/%3E%3Crect x=%2240%22 y=%22320%22 width=%2260%22 height=%228%22 rx=%224%22 fill=%22%238ab4f8%22/%3E%3Ctext x=%22115%22 y=%22360%22 fill=%22%23b9acd0%22 font-family=%22Helvetica, sans-serif%22 font-size=%2213%22 text-anchor=%22middle%22%3EDim %C2%B7 Breathe %C2%B7 Drift%3C/text%3E%3C/g%3E%3Cg transform=%22translate(820,300) scale(0.72)%22%3E%3Crect x=%220%22 y=%220%22 width=%22230%22 height=%22420%22 rx=%2234%22 fill=%22%233a2e4d%22/%3E%3Crect x=%2212%22 y=%2214%22 width=%22206%22 height=%22392%22 rx=%2224%22 fill=%22%23fdf6fb%22/%3E%3Ctext x=%2230%22 y=%2270%22 fill=%22%233a2e4d%22 font-family=%22Helvetica, sans-serif%22 font-size=%2220%22 font-weight=%22bold%22%3ELast night%3C/text%3E%3Ctext x=%2230%22 y=%22130%22 fill=%22%23e893c2%22 font-family=%22Helvetica, sans-serif%22 font-size=%2246%22 font-weight=%22bold%22%3E19 min%3C/text%3E%3Ctext x=%2230%22 y=%22156%22 fill=%22%236b5d82%22 font-family=%22Helvetica, sans-serif%22 font-size=%2213%22%3Eto fall asleep%3C/text%3E%3Cg fill=%22%238ab4f8%22%3E%3Crect x=%2230%22 y=%22300%22 width=%2218%22 height=%2260%22 rx=%224%22/%3E%3Crect x=%2258%22 y=%22285%22 width=%2218%22 height=%2275%22 rx=%224%22/%3E%3Crect x=%2286%22 y=%22300%22 width=%2218%22 height=%2260%22 rx=%224%22/%3E%3Crect x=%22114%22 y=%22315%22 width=%2218%22 height=%2245%22 rx=%224%22/%3E%3Crect x=%22142%22 y=%22325%22 width=%2218%22 height=%2235%22 rx=%224%22/%3E%3C/g%3E%3Crect x=%22170%22 y=%22330%22 width=%2218%22 height=%2230%22 rx=%224%22 fill=%22%23e893c2%22/%3E%3Ctext x=%2230%22 y=%22385%22 fill=%22%236b5d82%22 font-family=%22Helvetica, sans-serif%22 font-size=%2212%22%3EMinutes to sleep, last 6 nights%3C/text%3E%3C/g%3E%3C/svg%3E","imageAlt":"Two phone screens: a dark Begin button for a 10-minute wind-down, and a morning card showing 19 minutes to fall asleep"},{"layout":"section","number":"01","heading":"How it works","lead":"Dim, breathe, drift. Ten minutes in all."},{"layout":"two-column","eyebrow":"Step 1 · Dim","heading":"At 22:00 your phone turns warm, dim and quiet","ratio":"2-1","reverse":true,"image":"data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 900%22 width=%221200%22 height=%22900%22%3E%3Crect width=%221200%22 height=%22900%22 fill=%22%23f5ecf9%22/%3E%3Ccircle cx=%22600%22 cy=%22450%22 r=%22330%22 fill=%22%23fbe3f0%22/%3E%3Cg transform=%22translate(470,170)%22%3E%3Crect width=%22260%22 height=%22560%22 rx=%2240%22 fill=%22%233a2e4d%22/%3E%3Crect x=%2214%22 y=%2216%22 width=%22232%22 height=%22528%22 rx=%2228%22 fill=%22%234a2f3f%22/%3E%3Crect x=%2214%22 y=%2216%22 width=%22232%22 height=%22528%22 rx=%2228%22 fill=%22%23ffb37a%22 opacity=%220.25%22/%3E%3Ctext x=%22130%22 y=%2290%22 fill=%22%23ffe3cc%22 font-family=%22Helvetica, sans-serif%22 font-size=%2240%22 text-anchor=%22middle%22%3E22:00%3C/text%3E%3Ctext x=%22130%22 y=%22122%22 fill=%22%23f3c9b0%22 font-family=%22Helvetica, sans-serif%22 font-size=%2215%22 text-anchor=%22middle%22%3EEvening mode is on%3C/text%3E%3Cg font-family=%22Helvetica, sans-serif%22 font-size=%2215%22 fill=%22%23ffe3cc%22%3E%3Crect x=%2234%22 y=%22190%22 width=%22192%22 height=%2256%22 rx=%2214%22 fill=%22%235e3a4c%22/%3E%3Ctext x=%2254%22 y=%22224%22%3EScreen warmth%3C/text%3E%3Ctext x=%22206%22 y=%22224%22 text-anchor=%22end%22%3E2700K%3C/text%3E%3Crect x=%2234%22 y=%22262%22 width=%22192%22 height=%2256%22 rx=%2214%22 fill=%22%235e3a4c%22/%3E%3Ctext x=%2254%22 y=%22296%22%3ENotifications%3C/text%3E%3Ctext x=%22206%22 y=%22296%22 text-anchor=%22end%22%3EHeld%3C/text%3E%3Crect x=%2234%22 y=%22334%22 width=%22192%22 height=%2256%22 rx=%2214%22 fill=%22%235e3a4c%22/%3E%3Ctext x=%2254%22 y=%22368%22%3EBrightness%3C/text%3E%3Ctext x=%22206%22 y=%22368%22 text-anchor=%22end%22%3E15%25%3C/text%3E%3C/g%3E%3Crect x=%2234%22 y=%22440%22 width=%22192%22 height=%2260%22 rx=%2230%22 fill=%22%23e893c2%22/%3E%3Ctext x=%22130%22 y=%22477%22 fill=%22%233a2e4d%22 font-family=%22Helvetica, sans-serif%22 font-size=%2218%22 font-weight=%22bold%22 text-anchor=%22middle%22%3EStart breathing%3C/text%3E%3C/g%3E%3C/svg%3E","imageAlt":"Phone in evening mode: screen warmth 2700K, notifications held, brightness 15 percent","body":"Screen goes to 2700K.\nNotifications wait until 07:00."},{"layout":"image-hero","eyebrow":"Step 2 · Breathe","heading":"A drifting cloud paces four minutes of 4-7-8 breathing","lead":"Follow the cloud. No counting, no screen glare.","image":"data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 width=%221600%22 height=%22900%22%3E%3Crect width=%221600%22 height=%22900%22 fill=%22%23fdf6fb%22/%3E%3Cg fill=%22none%22 stroke=%22%238ab4f8%22 stroke-width=%223%22%3E%3Cpath d=%22M120 450 C 300 300, 420 300, 560 450 S 820 600, 1000 450 S 1300 300, 1480 450%22/%3E%3C/g%3E%3Cg fill=%22%23e893c2%22%3E%3Ccircle cx=%22560%22 cy=%22450%22 r=%2216%22/%3E%3C/g%3E%3Cg fill=%22%23fbe3f0%22 stroke=%22%23e893c2%22 stroke-width=%223%22%3E%3Cpath d=%22M690 520 a70 70 0 0 1 30 -134 a95 95 0 0 1 176 -18 a80 80 0 0 1 104 82 a60 60 0 0 1 -10 70 z%22/%3E%3C/g%3E%3Cg font-family=%22Helvetica, sans-serif%22 fill=%22%233a2e4d%22 text-anchor=%22middle%22%3E%3Ctext x=%22850%22 y=%22478%22 font-size=%2240%22 font-weight=%22bold%22%3EHold %C2%B7 7 s%3C/text%3E%3Ctext x=%22300%22 y=%22300%22 font-size=%2226%22 fill=%22%236b5d82%22%3EIn %C2%B7 4 s%3C/text%3E%3Ctext x=%221300%22 y=%22300%22 font-size=%2226%22 fill=%22%236b5d82%22%3EOut %C2%B7 8 s%3C/text%3E%3C/g%3E%3Cg fill=%22%238ab4f8%22 opacity=%220.5%22%3E%3Ccircle cx=%22300%22 cy=%22350%22 r=%226%22/%3E%3Ccircle cx=%221300%22 cy=%22350%22 r=%226%22/%3E%3C/g%3E%3C/svg%3E","imageAlt":"A breathing wave with a cloud marking the hold phase: in 4 seconds, hold 7, out 8"},{"layout":"two-column","eyebrow":"Step 3 · Drift","heading":"Stories slow from 142 to 96 words a minute as you fade","ratio":"2-1","image":"data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 900%22 width=%221200%22 height=%22900%22%3E%3Crect width=%221200%22 height=%22900%22 fill=%22%23f5ecf9%22/%3E%3Ccircle cx=%22600%22 cy=%22450%22 r=%22330%22 fill=%22%23e3edfd%22/%3E%3Cg transform=%22translate(470,170)%22%3E%3Crect width=%22260%22 height=%22560%22 rx=%2240%22 fill=%22%233a2e4d%22/%3E%3Crect x=%2214%22 y=%2216%22 width=%22232%22 height=%22528%22 rx=%2228%22 fill=%22%231f1830%22/%3E%3Ctext x=%2234%22 y=%2280%22 fill=%22%23b9acd0%22 font-family=%22Helvetica, sans-serif%22 font-size=%2214%22%3EStory %C2%B7 The lighthouse keeper%3C/text%3E%3Cg font-family=%22Georgia, serif%22 fill=%22%23f5ecf9%22%3E%3Ctext x=%2234%22 y=%22150%22 font-size=%2220%22%3EThe lamp turned,%3C/text%3E%3Ctext x=%2234%22 y=%22185%22 font-size=%2220%22 opacity=%220.8%22%3Eslow as a tide,%3C/text%3E%3Ctext x=%2234%22 y=%22220%22 font-size=%2220%22 opacity=%220.6%22%3Eand the gulls%3C/text%3E%3Ctext x=%2234%22 y=%22255%22 font-size=%2220%22 opacity=%220.4%22%3Esettled on%3C/text%3E%3Ctext x=%2234%22 y=%22290%22 font-size=%2220%22 opacity=%220.2%22%3Ethe rail...%3C/text%3E%3C/g%3E%3Ctext x=%2234%22 y=%22400%22 fill=%22%23b9acd0%22 font-family=%22Helvetica, sans-serif%22 font-size=%2213%22%3EReading pace%3C/text%3E%3Crect x=%2234%22 y=%22414%22 width=%22192%22 height=%228%22 rx=%224%22 fill=%22%233a2e4d%22/%3E%3Crect x=%2234%22 y=%22414%22 width=%2270%22 height=%228%22 rx=%224%22 fill=%22%238ab4f8%22/%3E%3Ctext x=%2234%22 y=%22450%22 fill=%22%23b9acd0%22 font-family=%22Helvetica, sans-serif%22 font-size=%2213%22%3E142 %E2%86%92 96 words a minute%3C/text%3E%3Ctext x=%22130%22 y=%22505%22 fill=%22%23e893c2%22 font-family=%22Helvetica, sans-serif%22 font-size=%2214%22 text-anchor=%22middle%22%3EFades out when you stop moving%3C/text%3E%3C/g%3E%3C/svg%3E","imageAlt":"Phone reading a bedtime story, each line fainter, with a reading-pace bar from 142 to 96 words a minute","body":"The story stops when you stop moving.\n240 stories at launch."},{"layout":"chart","eyebrow":"Beta results","heading":"Testers fell asleep 17 minutes sooner within six weeks","chartType":"line","categories":["Week 0","Week 1","Week 2","Week 3","Week 4","Week 5","Week 6"],"series":[{"name":"Median minutes to fall asleep","values":[38,33,29,26,24,22,21]}],"showValues":true,"lead":"n = 12,400 beta testers · phone-sensor sleep onset · Sep–Oct 2026","notes":"The drop is steepest in week one. Say that most people feel it by the third night."},{"layout":"metric-ring","eyebrow":"Habit","heading":"Four in five testers still open it nightly after six weeks","value":"81%","pct":81,"label":"nightly use in week 6","lead":"Sleep apps average 22% by week 6."},{"layout":"quote","quote":"We now hand Cloudnine to every new parent who leaves our clinic.","by":"Dr Ana Ferreira, head of sleep medicine, Lumen Health"},{"layout":"data-table","eyebrow":"Price and availability","heading":"Free to start, $4.99 a month for every story","columns":["Plan","Price","Includes"],"rows":[["Free","$0","Dim and Breathe"],["Plus","$4.99 / mo","All 240 stories"],["Family","$8.99 / mo","Plus for 5 people"]]},{"layout":"closing","eyebrow":"14 January 2027 · iOS and Android","heading":"Tonight, fall asleep in 21 minutes","lead":"Pre-order now: your first month of Plus is free.","actions":[{"label":"Pre-order on the App Store","style":"solid","icon":"fa-brands fa-apple"},{"label":"Get it on Google Play","style":"outline","icon":"fa-brands fa-google-play"}],"notes":"End on the cover promise. Point at the date, then stop talking."}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {

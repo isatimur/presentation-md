@@ -1,80 +1,157 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Cloudnine — Launch Deck",
+    "title": "Cloudnine — launch, 14 January 2027",
     "company": "Cloudnine",
-    "description": "Wellness app launch — pastel-dreamy multi-slide proof.",
-    "theme": "pastel-dreamy"
+    "description": "Launch deck for Cloudnine, a ten-minute evening wind-down app: the problem, the reveal, three features one per slide, beta proof, a clinician's voice, pricing and launch date.",
+    "theme": "pastel-dreamy",
+    "genre": "launch"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Launch",
-      "heading": "Lavender blush. Plum clarity.",
-      "lead": "Soft field, readable ink — dreamy without disappearing.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Launch",
-      "heading": "Lavender blush. Plum clarity.",
-      "lead": "Soft field, readable ink — dreamy without disappearing.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f5ecf9%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23fdf6fb%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28138%2C180%2C248%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28245%2C236%2C249%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C147%2C194%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28138%2C180%2C248%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28138%2C180%2C248%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28138%2C180%2C248%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23fdf6fb%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22820%22%20rx%3D%22700%22%20ry%3D%22120%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23floor%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22520%22%20cy%3D%22260%22%20rx%3D%22360%22%20ry%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22220%22%20rx%3D%22300%22%20ry%3D%22220%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20desk%20product%20frame%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28430%2C170%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%22720%22%20height%3D%22460%22%20rx%3D%2228%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22450%22%20rx%3D%2226%22%20fill%3D%22%23f5ecf9%22%20stroke%3D%22rgba%28232%2C147%2C194%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22%23fdf6fb%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%2290%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%226%22%20fill%3D%22rgba%28232%2C147%2C194%2C0.850%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22130%22%20width%3D%22380%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22158%22%20width%3D%22320%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28138%2C180%2C248%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22290%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28232%2C147%2C194%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22510%22%20y%3D%22210%22%20width%3D%22140%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22280%22%20y%3D%22400%22%20width%3D%22160%22%20height%3D%2210%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Cloudnine craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
-    },
-    {
-      "layout": "two-column",
-      "eyebrow": "Rituals",
-      "heading": "Three soft habits",
-      "body": "Breathe: Two-minute resets that stick. Wind down — Periwinkle nights, no doomscroll.",
-      "aside": "Mood logs without guilt.",
-      "ratio": "2-1"
-    },
-    {
-      "layout": "stat-row",
-      "eyebrow": "Beta",
-      "heading": "Calm that scales.",
-      "stats": [
-        {
-          "value": "52k",
-          "label": "Users"
-        },
-        {
-          "value": "4.7",
-          "label": "Rating"
-        },
-        {
-          "value": "12",
-          "label": "Min / day"
-        }
-      ],
-      "notes": "One breath on the numbers — then move on."
+      "eyebrow": "Cloudnine · Launch · 14 January 2027",
+      "heading": "Fall asleep in 21 minutes, not 38.",
+      "lead": "A ten-minute wind-down for your evening, on iOS and Android.",
+      "notes": "Read the headline slowly. Both numbers come from our beta; we prove them on slide 8."
     },
     {
       "layout": "quote",
-      "quote": "Soft UI still needs hard contrast.",
-      "by": "Cloudnine"
+      "quote": "I'm in bed at eleven and still scrolling at one. Then the alarm goes at six.",
+      "by": "Maya, 31, ward nurse, beta tester"
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Meet Cloudnine",
+      "heading": "One button starts your evening and shows how you slept",
+      "lead": "Tap Begin at bedtime. Wake to last night's number.",
+      "image": "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 width=%221600%22 height=%22900%22%3E%3Crect width=%221600%22 height=%22900%22 fill=%22%23f5ecf9%22/%3E%3Ccircle cx=%221180%22 cy=%22450%22 r=%22300%22 fill=%22%23fbe3f0%22/%3E%3Ccircle cx=%22420%22 cy=%22450%22 r=%22200%22 fill=%22%23e3edfd%22/%3E%3Cg transform=%22translate(615,300) scale(0.72)%22%3E%3Crect x=%220%22 y=%220%22 width=%22230%22 height=%22420%22 rx=%2234%22 fill=%22%233a2e4d%22/%3E%3Crect x=%2212%22 y=%2214%22 width=%22206%22 height=%22392%22 rx=%2224%22 fill=%22%232b2140%22/%3E%3Ctext x=%22115%22 y=%2270%22 fill=%22%23f5ecf9%22 font-family=%22Helvetica, sans-serif%22 font-size=%2226%22 text-anchor=%22middle%22%3E22:04%3C/text%3E%3Ctext x=%22115%22 y=%2296%22 fill=%22%23b9acd0%22 font-family=%22Helvetica, sans-serif%22 font-size=%2213%22 text-anchor=%22middle%22%3EWind-down %C2%B7 10 min%3C/text%3E%3Ccircle cx=%22115%22 cy=%22210%22 r=%2270%22 fill=%22%23e893c2%22 opacity=%220.35%22/%3E%3Ccircle cx=%22115%22 cy=%22210%22 r=%2248%22 fill=%22%23e893c2%22/%3E%3Ctext x=%22115%22 y=%22218%22 fill=%22%232b2140%22 font-family=%22Helvetica, sans-serif%22 font-size=%2220%22 font-weight=%22bold%22 text-anchor=%22middle%22%3EBegin%3C/text%3E%3Crect x=%2240%22 y=%22320%22 width=%22150%22 height=%228%22 rx=%224%22 fill=%22%234a3d63%22/%3E%3Crect x=%2240%22 y=%22320%22 width=%2260%22 height=%228%22 rx=%224%22 fill=%22%238ab4f8%22/%3E%3Ctext x=%22115%22 y=%22360%22 fill=%22%23b9acd0%22 font-family=%22Helvetica, sans-serif%22 font-size=%2213%22 text-anchor=%22middle%22%3EDim %C2%B7 Breathe %C2%B7 Drift%3C/text%3E%3C/g%3E%3Cg transform=%22translate(820,300) scale(0.72)%22%3E%3Crect x=%220%22 y=%220%22 width=%22230%22 height=%22420%22 rx=%2234%22 fill=%22%233a2e4d%22/%3E%3Crect x=%2212%22 y=%2214%22 width=%22206%22 height=%22392%22 rx=%2224%22 fill=%22%23fdf6fb%22/%3E%3Ctext x=%2230%22 y=%2270%22 fill=%22%233a2e4d%22 font-family=%22Helvetica, sans-serif%22 font-size=%2220%22 font-weight=%22bold%22%3ELast night%3C/text%3E%3Ctext x=%2230%22 y=%22130%22 fill=%22%23e893c2%22 font-family=%22Helvetica, sans-serif%22 font-size=%2246%22 font-weight=%22bold%22%3E19 min%3C/text%3E%3Ctext x=%2230%22 y=%22156%22 fill=%22%236b5d82%22 font-family=%22Helvetica, sans-serif%22 font-size=%2213%22%3Eto fall asleep%3C/text%3E%3Cg fill=%22%238ab4f8%22%3E%3Crect x=%2230%22 y=%22300%22 width=%2218%22 height=%2260%22 rx=%224%22/%3E%3Crect x=%2258%22 y=%22285%22 width=%2218%22 height=%2275%22 rx=%224%22/%3E%3Crect x=%2286%22 y=%22300%22 width=%2218%22 height=%2260%22 rx=%224%22/%3E%3Crect x=%22114%22 y=%22315%22 width=%2218%22 height=%2245%22 rx=%224%22/%3E%3Crect x=%22142%22 y=%22325%22 width=%2218%22 height=%2235%22 rx=%224%22/%3E%3C/g%3E%3Crect x=%22170%22 y=%22330%22 width=%2218%22 height=%2230%22 rx=%224%22 fill=%22%23e893c2%22/%3E%3Ctext x=%2230%22 y=%22385%22 fill=%22%236b5d82%22 font-family=%22Helvetica, sans-serif%22 font-size=%2212%22%3EMinutes to sleep, last 6 nights%3C/text%3E%3C/g%3E%3C/svg%3E",
+      "imageAlt": "Two phone screens: a dark Begin button for a 10-minute wind-down, and a morning card showing 19 minutes to fall asleep"
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "How it works",
+      "lead": "Dim, breathe, drift. Ten minutes in all."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Step 1 · Dim",
+      "heading": "At 22:00 your phone turns warm, dim and quiet",
+      "ratio": "2-1",
+      "reverse": true,
+      "image": "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 900%22 width=%221200%22 height=%22900%22%3E%3Crect width=%221200%22 height=%22900%22 fill=%22%23f5ecf9%22/%3E%3Ccircle cx=%22600%22 cy=%22450%22 r=%22330%22 fill=%22%23fbe3f0%22/%3E%3Cg transform=%22translate(470,170)%22%3E%3Crect width=%22260%22 height=%22560%22 rx=%2240%22 fill=%22%233a2e4d%22/%3E%3Crect x=%2214%22 y=%2216%22 width=%22232%22 height=%22528%22 rx=%2228%22 fill=%22%234a2f3f%22/%3E%3Crect x=%2214%22 y=%2216%22 width=%22232%22 height=%22528%22 rx=%2228%22 fill=%22%23ffb37a%22 opacity=%220.25%22/%3E%3Ctext x=%22130%22 y=%2290%22 fill=%22%23ffe3cc%22 font-family=%22Helvetica, sans-serif%22 font-size=%2240%22 text-anchor=%22middle%22%3E22:00%3C/text%3E%3Ctext x=%22130%22 y=%22122%22 fill=%22%23f3c9b0%22 font-family=%22Helvetica, sans-serif%22 font-size=%2215%22 text-anchor=%22middle%22%3EEvening mode is on%3C/text%3E%3Cg font-family=%22Helvetica, sans-serif%22 font-size=%2215%22 fill=%22%23ffe3cc%22%3E%3Crect x=%2234%22 y=%22190%22 width=%22192%22 height=%2256%22 rx=%2214%22 fill=%22%235e3a4c%22/%3E%3Ctext x=%2254%22 y=%22224%22%3EScreen warmth%3C/text%3E%3Ctext x=%22206%22 y=%22224%22 text-anchor=%22end%22%3E2700K%3C/text%3E%3Crect x=%2234%22 y=%22262%22 width=%22192%22 height=%2256%22 rx=%2214%22 fill=%22%235e3a4c%22/%3E%3Ctext x=%2254%22 y=%22296%22%3ENotifications%3C/text%3E%3Ctext x=%22206%22 y=%22296%22 text-anchor=%22end%22%3EHeld%3C/text%3E%3Crect x=%2234%22 y=%22334%22 width=%22192%22 height=%2256%22 rx=%2214%22 fill=%22%235e3a4c%22/%3E%3Ctext x=%2254%22 y=%22368%22%3EBrightness%3C/text%3E%3Ctext x=%22206%22 y=%22368%22 text-anchor=%22end%22%3E15%25%3C/text%3E%3C/g%3E%3Crect x=%2234%22 y=%22440%22 width=%22192%22 height=%2260%22 rx=%2230%22 fill=%22%23e893c2%22/%3E%3Ctext x=%22130%22 y=%22477%22 fill=%22%233a2e4d%22 font-family=%22Helvetica, sans-serif%22 font-size=%2218%22 font-weight=%22bold%22 text-anchor=%22middle%22%3EStart breathing%3C/text%3E%3C/g%3E%3C/svg%3E",
+      "imageAlt": "Phone in evening mode: screen warmth 2700K, notifications held, brightness 15 percent",
+      "body": "Screen goes to 2700K.\nNotifications wait until 07:00."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Step 2 · Breathe",
+      "heading": "A drifting cloud paces four minutes of 4-7-8 breathing",
+      "lead": "Follow the cloud. No counting, no screen glare.",
+      "image": "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 width=%221600%22 height=%22900%22%3E%3Crect width=%221600%22 height=%22900%22 fill=%22%23fdf6fb%22/%3E%3Cg fill=%22none%22 stroke=%22%238ab4f8%22 stroke-width=%223%22%3E%3Cpath d=%22M120 450 C 300 300, 420 300, 560 450 S 820 600, 1000 450 S 1300 300, 1480 450%22/%3E%3C/g%3E%3Cg fill=%22%23e893c2%22%3E%3Ccircle cx=%22560%22 cy=%22450%22 r=%2216%22/%3E%3C/g%3E%3Cg fill=%22%23fbe3f0%22 stroke=%22%23e893c2%22 stroke-width=%223%22%3E%3Cpath d=%22M690 520 a70 70 0 0 1 30 -134 a95 95 0 0 1 176 -18 a80 80 0 0 1 104 82 a60 60 0 0 1 -10 70 z%22/%3E%3C/g%3E%3Cg font-family=%22Helvetica, sans-serif%22 fill=%22%233a2e4d%22 text-anchor=%22middle%22%3E%3Ctext x=%22850%22 y=%22478%22 font-size=%2240%22 font-weight=%22bold%22%3EHold %C2%B7 7 s%3C/text%3E%3Ctext x=%22300%22 y=%22300%22 font-size=%2226%22 fill=%22%236b5d82%22%3EIn %C2%B7 4 s%3C/text%3E%3Ctext x=%221300%22 y=%22300%22 font-size=%2226%22 fill=%22%236b5d82%22%3EOut %C2%B7 8 s%3C/text%3E%3C/g%3E%3Cg fill=%22%238ab4f8%22 opacity=%220.5%22%3E%3Ccircle cx=%22300%22 cy=%22350%22 r=%226%22/%3E%3Ccircle cx=%221300%22 cy=%22350%22 r=%226%22/%3E%3C/g%3E%3C/svg%3E",
+      "imageAlt": "A breathing wave with a cloud marking the hold phase: in 4 seconds, hold 7, out 8"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Step 3 · Drift",
+      "heading": "Stories slow from 142 to 96 words a minute as you fade",
+      "ratio": "2-1",
+      "image": "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 900%22 width=%221200%22 height=%22900%22%3E%3Crect width=%221200%22 height=%22900%22 fill=%22%23f5ecf9%22/%3E%3Ccircle cx=%22600%22 cy=%22450%22 r=%22330%22 fill=%22%23e3edfd%22/%3E%3Cg transform=%22translate(470,170)%22%3E%3Crect width=%22260%22 height=%22560%22 rx=%2240%22 fill=%22%233a2e4d%22/%3E%3Crect x=%2214%22 y=%2216%22 width=%22232%22 height=%22528%22 rx=%2228%22 fill=%22%231f1830%22/%3E%3Ctext x=%2234%22 y=%2280%22 fill=%22%23b9acd0%22 font-family=%22Helvetica, sans-serif%22 font-size=%2214%22%3EStory %C2%B7 The lighthouse keeper%3C/text%3E%3Cg font-family=%22Georgia, serif%22 fill=%22%23f5ecf9%22%3E%3Ctext x=%2234%22 y=%22150%22 font-size=%2220%22%3EThe lamp turned,%3C/text%3E%3Ctext x=%2234%22 y=%22185%22 font-size=%2220%22 opacity=%220.8%22%3Eslow as a tide,%3C/text%3E%3Ctext x=%2234%22 y=%22220%22 font-size=%2220%22 opacity=%220.6%22%3Eand the gulls%3C/text%3E%3Ctext x=%2234%22 y=%22255%22 font-size=%2220%22 opacity=%220.4%22%3Esettled on%3C/text%3E%3Ctext x=%2234%22 y=%22290%22 font-size=%2220%22 opacity=%220.2%22%3Ethe rail...%3C/text%3E%3C/g%3E%3Ctext x=%2234%22 y=%22400%22 fill=%22%23b9acd0%22 font-family=%22Helvetica, sans-serif%22 font-size=%2213%22%3EReading pace%3C/text%3E%3Crect x=%2234%22 y=%22414%22 width=%22192%22 height=%228%22 rx=%224%22 fill=%22%233a2e4d%22/%3E%3Crect x=%2234%22 y=%22414%22 width=%2270%22 height=%228%22 rx=%224%22 fill=%22%238ab4f8%22/%3E%3Ctext x=%2234%22 y=%22450%22 fill=%22%23b9acd0%22 font-family=%22Helvetica, sans-serif%22 font-size=%2213%22%3E142 %E2%86%92 96 words a minute%3C/text%3E%3Ctext x=%22130%22 y=%22505%22 fill=%22%23e893c2%22 font-family=%22Helvetica, sans-serif%22 font-size=%2214%22 text-anchor=%22middle%22%3EFades out when you stop moving%3C/text%3E%3C/g%3E%3C/svg%3E",
+      "imageAlt": "Phone reading a bedtime story, each line fainter, with a reading-pace bar from 142 to 96 words a minute",
+      "body": "The story stops when you stop moving.\n240 stories at launch."
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Beta results",
+      "heading": "Testers fell asleep 17 minutes sooner within six weeks",
+      "chartType": "line",
+      "categories": [
+        "Week 0",
+        "Week 1",
+        "Week 2",
+        "Week 3",
+        "Week 4",
+        "Week 5",
+        "Week 6"
+      ],
+      "series": [
+        {
+          "name": "Median minutes to fall asleep",
+          "values": [
+            38,
+            33,
+            29,
+            26,
+            24,
+            22,
+            21
+          ]
+        }
+      ],
+      "showValues": true,
+      "lead": "n = 12,400 beta testers · phone-sensor sleep onset · Sep–Oct 2026",
+      "notes": "The drop is steepest in week one. Say that most people feel it by the third night."
+    },
+    {
+      "layout": "metric-ring",
+      "eyebrow": "Habit",
+      "heading": "Four in five testers still open it nightly after six weeks",
+      "value": "81%",
+      "pct": 81,
+      "label": "nightly use in week 6",
+      "lead": "Sleep apps average 22% by week 6."
+    },
+    {
+      "layout": "quote",
+      "quote": "We now hand Cloudnine to every new parent who leaves our clinic.",
+      "by": "Dr Ana Ferreira, head of sleep medicine, Lumen Health"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Price and availability",
+      "heading": "Free to start, $4.99 a month for every story",
+      "columns": [
+        "Plan",
+        "Price",
+        "Includes"
+      ],
+      "rows": [
+        [
+          "Free",
+          "$0",
+          "Dim and Breathe"
+        ],
+        [
+          "Plus",
+          "$4.99 / mo",
+          "All 240 stories"
+        ],
+        [
+          "Family",
+          "$8.99 / mo",
+          "Plus for 5 people"
+        ]
+      ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Download",
-      "heading": "Float in, stay grounded.",
-      "lead": "iOS + Android this week.",
+      "eyebrow": "14 January 2027 · iOS and Android",
+      "heading": "Tonight, fall asleep in 21 minutes",
+      "lead": "Pre-order now: your first month of Plus is free.",
       "actions": [
         {
-          "label": "Get the app",
-          "href": "#",
+          "label": "Pre-order on the App Store",
           "style": "solid",
-          "icon": "fa-solid fa-arrow-right"
+          "icon": "fa-brands fa-apple"
         },
         {
-          "label": "Watch the demo",
-          "href": "#",
+          "label": "Get it on Google Play",
           "style": "outline",
-          "icon": "fa-solid fa-play"
+          "icon": "fa-brands fa-google-play"
         }
-      ]
+      ],
+      "notes": "End on the cover promise. Point at the date, then stop talking."
     }
   ]
 }

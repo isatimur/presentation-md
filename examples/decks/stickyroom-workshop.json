@@ -1,103 +1,224 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Stickyroom — Workshop Deck",
+    "title": "Stickyroom — Sticky notes to a decision in 90 minutes",
     "company": "Stickyroom",
-    "description": "Facilitation workshop — scatterbrain multi-slide proof.",
-    "theme": "scatterbrain"
+    "description": "Half-day workshop deck from Stickyroom for product teams: how to run a 90-minute affinity-mapping session that ends in a written decision, with objectives, key terms, two modules, two timed exercises, common mistakes and a recap.",
+    "theme": "scatterbrain",
+    "genre": "workshop"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Workshop",
-      "heading": "Ideas stick. Literally.",
-      "lead": "Shrikhand headlines. Caveat margins. Cork-board energy for real rooms.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Stickyroom workshop · For product teams · Half day",
+      "heading": "From sticky notes to a decision in 90 minutes.",
+      "lead": "You leave able to run one on Monday.",
+      "notes": "Hand out pads and markers before you start. Everyone writes from slide 7."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Workshop",
-      "heading": "Ideas stick. Literally.",
-      "lead": "Shrikhand headlines. Caveat margins. Cork-board energy for real rooms.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23F7F5F0%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23FAF8F3%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C224%2C102%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C224%2C102%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C201%2C201%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28255%2C224%2C102%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28247%2C245%2C240%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C224%2C102%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28255%2C224%2C102%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C224%2C102%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C201%2C201%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28255%2C201%2C201%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C201%2C201%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23FAF8F3%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.9%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22880%22%20cy%3D%22220%22%20rx%3D%22220%22%20ry%3D%22140%22%20fill%3D%22rgba%28255%2C201%2C201%2C0.220%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M0%20640%20C320%20520%20640%20780%20960%20600%20S1400%20480%201600%20560%20L1600%20900%20L0%20900%20Z%22%20fill%3D%22rgba%28255%2C224%2C102%2C0.120%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.55%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22260%22%20cy%3D%22180%22%20r%3D%2218%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22520%22%20cy%3D%22140%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22980%22%20cy%3D%22210%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22320%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221100%22%20cy%3D%22120%22%20r%3D%228%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Stickyroom craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "A puzzle",
+      "heading": "Why do most sticky-note walls end as a photo nobody opens?",
+      "lead": "68% of sessions end with no decision. Survey of 312 facilitators, 2026.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23C9A577%22%2F%3E%3Cg%20opacity%3D%22.25%22%20fill%3D%22%237a5a33%22%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%22120%22%20r%3D%225%22%2F%3E%3Ccircle%20cx%3D%22400%22%20cy%3D%22780%22%20r%3D%224%22%2F%3E%3Ccircle%20cx%3D%221500%22%20cy%3D%22200%22%20r%3D%225%22%2F%3E%3Ccircle%20cx%3D%22900%22%20cy%3D%22820%22%20r%3D%224%22%2F%3E%3Ccircle%20cx%3D%221250%22%20cy%3D%22760%22%20r%3D%225%22%2F%3E%3Ccircle%20cx%3D%22260%22%20cy%3D%22420%22%20r%3D%224%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%232D2A26%22%20stroke-width%3D%222%22%3E%3Crect%20x%3D%22300%22%20y%3D%22290%22%20width%3D%22110%22%20height%3D%22110%22%20fill%3D%22%23FFE066%22%20transform%3D%22rotate(-6%20355%20345)%22%2F%3E%3Crect%20x%3D%22430%22%20y%3D%22300%22%20width%3D%22110%22%20height%3D%22110%22%20fill%3D%22%23FFC9C9%22%20transform%3D%22rotate(4%20485%20355)%22%2F%3E%3Crect%20x%3D%22560%22%20y%3D%22285%22%20width%3D%22110%22%20height%3D%22110%22%20fill%3D%22%23FFE066%22%20transform%3D%22rotate(-2%20615%20340)%22%2F%3E%3Crect%20x%3D%22690%22%20y%3D%22305%22%20width%3D%22110%22%20height%3D%22110%22%20fill%3D%22%23B5E3F5%22%20transform%3D%22rotate(7%20745%20360)%22%2F%3E%3Crect%20x%3D%22820%22%20y%3D%22290%22%20width%3D%22110%22%20height%3D%22110%22%20fill%3D%22%23FFE066%22%20transform%3D%22rotate(-5%20875%20345)%22%2F%3E%3Crect%20x%3D%22950%22%20y%3D%22300%22%20width%3D%22110%22%20height%3D%22110%22%20fill%3D%22%23FFC9C9%22%20transform%3D%22rotate(3%201005%20355)%22%2F%3E%3Crect%20x%3D%22340%22%20y%3D%22440%22%20width%3D%22110%22%20height%3D%22110%22%20fill%3D%22%23B5E3F5%22%20transform%3D%22rotate(5%20395%20495)%22%2F%3E%3Crect%20x%3D%22470%22%20y%3D%22430%22%20width%3D%22110%22%20height%3D%22110%22%20fill%3D%22%23FFE066%22%20transform%3D%22rotate(-7%20525%20485)%22%2F%3E%3Crect%20x%3D%22600%22%20y%3D%22450%22%20width%3D%22110%22%20height%3D%22110%22%20fill%3D%22%23FFC9C9%22%20transform%3D%22rotate(2%20655%20505)%22%2F%3E%3Crect%20x%3D%22730%22%20y%3D%22435%22%20width%3D%22110%22%20height%3D%22110%22%20fill%3D%22%23FFE066%22%20transform%3D%22rotate(-4%20785%20490)%22%2F%3E%3Crect%20x%3D%22860%22%20y%3D%22445%22%20width%3D%22110%22%20height%3D%22110%22%20fill%3D%22%23B5E3F5%22%20transform%3D%22rotate(6%20915%20500)%22%2F%3E%3Crect%20x%3D%22990%22%20y%3D%22430%22%20width%3D%22110%22%20height%3D%22110%22%20fill%3D%22%23FFE066%22%20transform%3D%22rotate(-3%201045%20485)%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(1150%20300)%20rotate(8)%22%3E%3Crect%20width%3D%22180%22%20height%3D%22320%22%20rx%3D%2226%22%20fill%3D%22%232D2A26%22%2F%3E%3Crect%20x%3D%2212%22%20y%3D%2240%22%20width%3D%22156%22%20height%3D%22240%22%20rx%3D%228%22%20fill%3D%22%23FAF8F3%22%2F%3E%3Cg%20fill%3D%22%23FFE066%22%3E%3Crect%20x%3D%2230%22%20y%3D%2270%22%20width%3D%2230%22%20height%3D%2230%22%2F%3E%3Crect%20x%3D%2270%22%20y%3D%2280%22%20width%3D%2230%22%20height%3D%2230%22%2F%3E%3Crect%20x%3D%22110%22%20y%3D%2270%22%20width%3D%2230%22%20height%3D%2230%22%2F%3E%3Crect%20x%3D%2240%22%20y%3D%22120%22%20width%3D%2230%22%20height%3D%2230%22%2F%3E%3Crect%20x%3D%2290%22%20y%3D%22125%22%20width%3D%2230%22%20height%3D%2230%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%2290%22%20y%3D%22230%22%20font-family%3D%22Caveat%2C%20cursive%22%20font-size%3D%2230%22%20text-anchor%3D%22middle%22%20fill%3D%22%232D2A26%22%3EIMG_4471%3C%2Ftext%3E%3C%2Fg%3E%3Ctext%20x%3D%22620%22%20y%3D%22625%22%20font-family%3D%22Caveat%2C%20cursive%22%20font-size%3D%2244%22%20fill%3D%22%232D2A26%22%20text-anchor%3D%22middle%22%3E%E2%80%A6and%20then%20what%3F%3C%2Ftext%3E%3C%2Fsvg%3E",
+      "imageAlt": "A cork board covered in sticky notes next to a phone that has just photographed it"
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Method",
-      "heading": "Three sticky laws",
-      "columns": "bento",
+      "eyebrow": "Objectives",
+      "heading": "By 12:30 you will be able to",
+      "columns": 3,
       "cards": [
         {
-          "icon": "fa-solid fa-note-sticky",
-          "title": "One idea per note",
-          "body": "If it needs a paragraph, it needs a split."
+          "icon": "fa-solid fa-pen",
+          "title": "Write notes that cluster",
+          "body": "One observation per note."
         },
         {
-          "icon": "fa-solid fa-arrows-up-down-left-right",
-          "title": "Move before polish",
-          "body": "Clusters beat perfection."
+          "icon": "fa-solid fa-object-group",
+          "title": "Cluster 60 notes fast",
+          "body": "In 15 minutes, in silence."
         },
         {
-          "icon": "fa-solid fa-hand",
-          "title": "Hands on the wall",
-          "body": "Digital only after the room agrees."
-        },
-        {
-          "icon": "fa-solid fa-compass",
-          "title": "Clear north star",
-          "body": "One decisive story beat — not a wall of equal tiles."
-        },
-        {
-          "icon": "fa-solid fa-scissors",
-          "title": "Cut the filler",
-          "body": "If a card doesn't change the decision, it doesn't earn the pixel."
+          "icon": "fa-solid fa-gavel",
+          "title": "Reach one decision",
+          "body": "Written, owned and dated."
         }
       ]
     },
     {
-      "layout": "stat-row",
-      "eyebrow": "Rooms",
-      "heading": "Workshops that leave a trail.",
-      "stats": [
+      "layout": "data-table",
+      "eyebrow": "Key terms",
+      "heading": "Four words we use all morning",
+      "columns": [
+        "Term",
+        "Meaning"
+      ],
+      "rows": [
+        [
+          "Note",
+          "One observation per sticky"
+        ],
+        [
+          "Cluster",
+          "Notes with one cause"
+        ],
+        [
+          "Label",
+          "A sentence naming the cause"
+        ],
+        [
+          "Dot vote",
+          "Three dots each, labels only"
+        ]
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "Cluster",
+      "lead": "Turn a wall of notes into a few clear problems."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Worked example",
+      "heading": "Sort by cause, not topic, and 60 notes become six problems",
+      "ratio": "2-3",
+      "reverse": true,
+      "body": "\"Onboarding\" is a topic. \"New users quit at bank link\" is a cause you can fix.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20900%22%3E%3Crect%20width%3D%221200%22%20height%3D%22900%22%20fill%3D%22%23FAF8F3%22%2F%3E%3Cg%20font-family%3D%22Caveat%2C%20cursive%22%20fill%3D%22%232D2A26%22%3E%3Ctext%20x%3D%22120%22%20y%3D%22130%22%20font-size%3D%2244%22%3Eby%20topic%3C%2Ftext%3E%3Ctext%20x%3D%22660%22%20y%3D%22130%22%20font-size%3D%2244%22%3Eby%20cause%3C%2Ftext%3E%3Cpath%20d%3D%22M600%2090V820%22%20stroke%3D%22%232D2A26%22%20stroke-width%3D%223%22%20stroke-dasharray%3D%2210%2010%22%2F%3E%3Cg%20stroke%3D%22%232D2A26%22%20stroke-width%3D%222%22%3E%3Crect%20x%3D%22110%22%20y%3D%22170%22%20width%3D%22380%22%20height%3D%22260%22%20fill%3D%22none%22%20stroke-dasharray%3D%226%206%22%2F%3E%3Cg%20fill%3D%22%23FFE066%22%3E%3Crect%20x%3D%22140%22%20y%3D%22200%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3Crect%20x%3D%22250%22%20y%3D%22210%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3Crect%20x%3D%22360%22%20y%3D%22200%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3Crect%20x%3D%22190%22%20y%3D%22310%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3Crect%20x%3D%22310%22%20y%3D%22315%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%22110%22%20y%3D%22480%22%20width%3D%22380%22%20height%3D%22260%22%20fill%3D%22none%22%20stroke-dasharray%3D%226%206%22%2F%3E%3Cg%20fill%3D%22%23FFC9C9%22%3E%3Crect%20x%3D%22140%22%20y%3D%22510%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3Crect%20x%3D%22250%22%20y%3D%22520%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3Crect%20x%3D%22360%22%20y%3D%22510%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3Crect%20x%3D%22200%22%20y%3D%22625%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23FFE066%22%3E%3Crect%20x%3D%22660%22%20y%3D%22190%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3Crect%20x%3D%22760%22%20y%3D%22200%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23FFC9C9%22%3E%3Crect%20x%3D%22860%22%20y%3D%22190%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3Crect%20x%3D%22960%22%20y%3D%22200%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%22650%22%20y%3D%22300%22%20width%3D%22420%22%20height%3D%2256%22%20fill%3D%22%232D2A26%22%2F%3E%3Cg%20fill%3D%22%23FFC9C9%22%3E%3Crect%20x%3D%22660%22%20y%3D%22430%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23FFE066%22%3E%3Crect%20x%3D%22760%22%20y%3D%22440%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3Crect%20x%3D%22860%22%20y%3D%22430%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%22650%22%20y%3D%22540%22%20width%3D%22420%22%20height%3D%2256%22%20fill%3D%22%232D2A26%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%22300%22%20y%3D%22470%22%20font-size%3D%2230%22%20text-anchor%3D%22middle%22%3E%22Onboarding%22%3C%2Ftext%3E%3Ctext%20x%3D%22300%22%20y%3D%22780%22%20font-size%3D%2230%22%20text-anchor%3D%22middle%22%3E%22Billing%22%3C%2Ftext%3E%3Ctext%20x%3D%22860%22%20y%3D%22338%22%20font-size%3D%2230%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFE066%22%3ENew%20users%20quit%20at%20bank%20link%3C%2Ftext%3E%3Ctext%20x%3D%22860%22%20y%3D%22578%22%20font-size%3D%2230%22%20text-anchor%3D%22middle%22%20fill%3D%22%23FFE066%22%3EInvoices%20arrive%20after%20payday%3C%2Ftext%3E%3Ctext%20x%3D%22860%22%20y%3D%22690%22%20font-size%3D%2234%22%20text-anchor%3D%22middle%22%3Eeach%20label%20%3D%20a%20problem%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "Left: notes grouped under topic labels Onboarding and Billing. Right: notes grouped under cause labels such as New users quit at bank link."
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Exercise 1 · 15 minutes",
+      "heading": "Cluster your team's 60 notes in silence",
+      "steps": [
         {
-          "value": "240",
-          "label": "Sessions"
+          "title": "0–3 min",
+          "body": "Read every note"
         },
         {
-          "value": "18",
-          "label": "Cities"
+          "title": "3–10 min",
+          "body": "Move notes, no talking"
         },
         {
-          "value": "9k+",
-          "label": "Stickies"
+          "title": "10–13 min",
+          "body": "Write one cause per cluster"
+        },
+        {
+          "title": "13–15 min",
+          "body": "Merge duplicates"
         }
       ],
-      "notes": "One breath on the numbers — then move on."
+      "notes": "Enforce the silence. Talking doubles the time and the loudest person wins the clusters."
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "Decide",
+      "lead": "Pick one problem and commit to it."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Worked example",
+      "heading": "Sentence labels let a dot vote pick one problem in three minutes",
+      "ratio": "3-2",
+      "body": "Topic labels split the dots across everything. Sentence labels make people choose.",
+      "aside": "Our teams: 1 clear winner in 9 of 10 votes with sentence labels."
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Common mistakes",
+      "heading": "Three habits turn a 90-minute session into three hours",
+      "leftLabel": "Wrong",
+      "left": "Discuss each note aloud\nLabel with one word\nVote on single notes",
+      "rightLabel": "Right",
+      "right": "Read in silence\nLabel with a sentence\nVote on labels only",
+      "emphasis": "right"
     },
     {
       "layout": "quote",
-      "quote": "Messy walls beat clean slides that nobody owns.",
-      "by": "Stickyroom"
+      "quote": "Our Friday retro went from three hours to 70 minutes, and it ends with an owner.",
+      "by": "Lena Brandt, design lead, after the March cohort"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Exercise 2 · 10 minutes",
+      "heading": "Vote on your clusters and write one decision",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-circle-dot",
+          "title": "Vote · 3 min",
+          "body": "Three dots each, labels only."
+        },
+        {
+          "icon": "fa-solid fa-trophy",
+          "title": "Pick · 2 min",
+          "body": "Most dots wins. No debate."
+        },
+        {
+          "icon": "fa-solid fa-signature",
+          "title": "Write · 5 min",
+          "body": "\"We will … by …\" plus an owner."
+        }
+      ]
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Recap",
+      "heading": "You can now run the whole loop in 90 minutes",
+      "lead": "Minutes per step.",
+      "items": [
+        {
+          "rank": "1",
+          "label": "Write notes",
+          "value": "20 min",
+          "widthPct": 80
+        },
+        {
+          "rank": "2",
+          "label": "Cluster in silence",
+          "value": "25 min",
+          "widthPct": 100
+        },
+        {
+          "rank": "3",
+          "label": "Label with sentences",
+          "value": "15 min",
+          "widthPct": 60
+        },
+        {
+          "rank": "4",
+          "label": "Dot vote",
+          "value": "10 min",
+          "widthPct": 40
+        },
+        {
+          "rank": "5",
+          "label": "Write the decision",
+          "value": "20 min",
+          "widthPct": 80
+        }
+      ],
+      "notes": "Ask each table to name the step they will find hardest on Monday."
     },
     {
       "layout": "closing",
-      "eyebrow": "Book",
-      "heading": "Fill the cork.",
-      "lead": "Half-day and full-day formats.",
+      "eyebrow": "Next step",
+      "heading": "Run your first session on Monday",
+      "lead": "Five people, 90 minutes, one written decision. The kit has every timer and template.",
       "actions": [
         {
-          "label": "Book a workshop",
-          "href": "#",
+          "label": "Download the facilitator kit",
           "style": "solid",
-          "icon": "fa-solid fa-cart-shopping"
+          "icon": "fa-solid fa-download"
         },
         {
-          "label": "Find a store",
-          "href": "#",
+          "label": "Book a team workshop",
           "style": "outline",
-          "icon": "fa-solid fa-location-dot"
+          "icon": "fa-solid fa-calendar-check"
         }
       ]
     }

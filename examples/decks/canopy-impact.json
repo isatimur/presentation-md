@@ -1,121 +1,150 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Canopy — Impact Deck",
+    "title": "Canopy — 2026 reforestation impact study",
     "company": "Canopy",
-    "description": "Conservation impact report — grove multi-slide proof.",
-    "theme": "grove"
+    "description": "Research readout of Canopy's five-year reforestation study across 9 sites and 412 plots: native mixes versus plantations, stream cooling, crew effects, limits and a $4.2M recommendation.",
+    "theme": "grove",
+    "genre": "research"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Impact · 2026",
-      "heading": "Forest ink. Rust accent.",
-      "lead": "Playfair for the canopy. Jost for the acreage.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Impact · 2026",
-      "heading": "Forest ink. Rust accent.",
-      "lead": "Playfair for the canopy. Jost for the acreage.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%231E3221%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23192B1B%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C82%2C74%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C82%2C74%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C228%2C214%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28200%2C82%2C74%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2830%2C50%2C33%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C82%2C74%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28200%2C82%2C74%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C82%2C74%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C228%2C214%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28232%2C228%2C214%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C228%2C214%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23192B1B%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22300%22%20cy%3D%22700%22%20rx%3D%22520%22%20ry%3D%22360%22%20fill%3D%22rgba%28200%2C82%2C74%2C0.220%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221300%22%20cy%3D%22160%22%20rx%3D%22420%22%20ry%3D%22300%22%20fill%3D%22rgba%28232%2C228%2C214%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M180%20780%20C260%20520%20420%20420%20520%20280%20C560%20360%20620%20460%20640%20620%20C480%20640%20300%20700%20180%20780%20Z%22%20fill%3D%22rgba%28200%2C82%2C74%2C0.450%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M1180%20120%20C1280%20180%201380%20260%201460%20380%20C1340%20360%201240%20300%201180%20120%20Z%22%20fill%3D%22rgba%28232%2C228%2C214%2C0.400%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M980%20700%20C1080%20560%201220%20500%201360%20420%20C1380%20540%201320%20660%201220%20760%20Z%22%20fill%3D%22rgba%28200%2C82%2C74%2C0.250%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%22860%22%20cy%3D%22240%22%20r%3D%2290%22%20fill%3D%22rgba%28232%2C228%2C214%2C0.200%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22640%22%20y%3D%22360%22%20width%3D%22360%22%20height%3D%22220%22%20rx%3D%2218%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%20stroke%3D%22rgba%28200%2C82%2C74%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22420%22%20width%3D%22200%22%20height%3D%2214%22%20rx%3D%225%22%20fill%3D%22rgba%28200%2C82%2C74%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22455%22%20width%3D%22260%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Canopy cinematic surface",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Canopy · 2026 impact study · Trustees, 9 December 2026",
+      "heading": "Native forest stands grew back 64% more canopy than plantations.",
+      "lead": "Five years, 18,000 acres, nine partner sites.",
+      "notes": "Lead with the number. The trustees decide the 2027 budget at the end of this session."
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Work",
-      "heading": "Where the money goes",
-      "columns": "bento",
+      "eyebrow": "Answer first",
+      "heading": "Three findings change where the next $4.2M should go",
+      "columns": 3,
       "cards": [
-        {
-          "icon": "fa-solid fa-tree",
-          "title": "Reforest",
-          "body": "Native stands, not monoculture."
-        },
-        {
-          "icon": "fa-solid fa-water",
-          "title": "Watersheds",
-          "body": "Protect the roots of rivers."
-        },
-        {
-          "icon": "fa-solid fa-people-group",
-          "title": "Stewards",
-          "body": "Pay the people who know the land."
-        },
-        {
-          "icon": "fa-solid fa-layer-group",
-          "title": "Stack for scan",
-          "body": "Hierarchy first. Decoration second. Decoration never."
-        },
-        {
-          "icon": "fa-solid fa-bolt",
-          "title": "Ship the punchline",
-          "body": "Lead with the claim that survives the hallway test."
-        }
-      ]
+        { "icon": "fa-solid fa-tree", "title": "Native mixes win", "body": "64% more canopy cover than single-species plots by year five." },
+        { "icon": "fa-solid fa-water", "title": "Shade cools streams", "body": "Restored catchments ran 2.1°C cooler in August." },
+        { "icon": "fa-solid fa-people-group", "title": "Local crews keep trees alive", "body": "91% sapling survival, against 58% for contractors." }
+      ],
+      "notes": "If time runs short, these three cards are the whole study."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "The question",
+      "heading": "We tested whether cheap single-species planting is a false saving",
+      "ratio": "3-2",
+      "body": "Plantations cost $1,900 per acre, native mixes $2,600. Most funders pick the cheaper option and count trees planted, not canopy that survives.",
+      "aside": "If native mixes return more canopy per dollar, our planting rule should change in 2027."
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Proof",
-      "heading": "Acres that stay.",
+      "eyebrow": "Method",
+      "heading": "We measured 412 plots on nine sites over five years",
       "stats": [
-        {
-          "value": "18k",
-          "label": "Acres"
-        },
-        {
-          "value": "64%",
-          "label": "Canopy gain"
-        },
-        {
-          "value": "9",
-          "label": "Partners"
-        }
+        { "value": "9", "label": "Partner sites, 18,000 acres in three basins" },
+        { "value": "5 yrs", "label": "Spring 2021 to spring 2026" },
+        { "value": "412", "label": "Plots surveyed by drone and on foot" }
+      ]
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Where",
+      "heading": "Nine sites span the Sauk, Skagit and Nooksack river basins",
+      "lead": "Each site paired native and single-species plots on the same slope.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 440'><rect width='1600' height='440' fill='%23192B1B'/><g fill='none' stroke='%231E3221' stroke-width='2'><path d='M0 120 C300 90 600 160 900 120 S1400 90 1600 130'/><path d='M0 200 C300 170 600 240 900 200 S1400 170 1600 210'/><path d='M0 280 C300 250 600 320 900 280 S1400 250 1600 290'/><path d='M0 360 C300 330 600 400 900 360 S1400 330 1600 370'/></g><g fill='none' stroke='%23E8E4D6' stroke-linecap='round' opacity='0.75'><path d='M180 110 C330 150 380 230 560 250 S860 300 1000 340' stroke-width='5'/><path d='M420 80 C470 140 520 180 560 250' stroke-width='3'/><path d='M640 90 C760 160 900 170 1060 190 S1340 230 1460 300' stroke-width='5'/><path d='M1100 90 C1120 140 1090 170 1060 190' stroke-width='3'/><path d='M260 300 C420 300 520 330 700 350' stroke-width='4'/></g><g font-family='serif' font-style='italic' font-size='26' fill='%23D4CFBF'><text x='200' y='95'>Nooksack</text><text x='700' y='80'>Skagit</text><text x='260' y='335'>Sauk</text></g><g fill='%23C8524A' stroke='%23192B1B' stroke-width='3'><circle cx='330' cy='150' r='13'/><circle cx='470' cy='205' r='13'/><circle cx='600' cy='262' r='13'/><circle cx='820' cy='160' r='13'/><circle cx='980' cy='182' r='13'/><circle cx='1210' cy='210' r='13'/><circle cx='1380' cy='262' r='13'/><circle cx='420' cy='305' r='13'/><circle cx='620' cy='342' r='13'/></g><g font-family='sans-serif' font-size='16' fill='%23989c8d'><text x='1180' y='380'>● partner site · 9 sites · 18,000 acres</text></g><g stroke='%23D4CFBF' stroke-width='2'><line x1='1380' y1='100' x2='1380' y2='60'/><path d='M1372 72 L1380 56 L1388 72' fill='%23D4CFBF'/></g><text x='1373' y='122' font-family='sans-serif' font-size='16' fill='%23D4CFBF'>N</text></svg>",
+      "imageAlt": "Map of three river basins, Nooksack, Skagit and Sauk, with nine rust-coloured dots marking the partner sites."
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Finding 1 · Canopy",
+      "heading": "Native mixes reached 59% canopy cover by year five, plantations 36%",
+      "chartType": "line",
+      "categories": ["Year 1", "Year 2", "Year 3", "Year 4", "Year 5"],
+      "series": [
+        { "name": "Native mix (% cover)", "values": [8, 19, 33, 47, 59] },
+        { "name": "Single species (% cover)", "values": [6, 13, 22, 30, 36] }
       ],
-      "notes": "One breath on the numbers — then move on."
+      "showLegend": true,
+      "showValues": true,
+      "lead": "Source: drone canopy survey, 412 plots, 2021–2026. 59% vs 36% is 64% more cover."
     },
     {
       "layout": "quote",
-      "quote": "A grove is a promise kept in green.",
-      "by": "Canopy"
+      "quote": "The mixed plots shaded the creek by year three. The pine rows never did.",
+      "by": "Lena Ortiz · Crew lead, Upper Sauk site"
     },
     {
-      "layout": "logo-wall",
-      "eyebrow": "Trusted by",
-      "heading": "Teams building with Canopy.",
-      "cards": [
-        {
-          "title": "Northstar"
-        },
-        {
-          "title": "Harbor"
-        },
-        {
-          "title": "Fieldkit"
-        },
-        {
-          "title": "Lumen"
-        },
-        {
-          "title": "Cascade"
-        },
-        {
-          "title": "Orbit"
-        }
+      "layout": "data-table",
+      "eyebrow": "Finding 2 · Water",
+      "heading": "Streams in restored catchments ran 2.1°C cooler in August",
+      "columns": ["Catchment", "Restored", "Unrestored", "Difference"],
+      "rows": [
+        ["Sauk", "14.2°C", "16.5°C", "−2.3°C"],
+        ["Skagit", "13.8°C", "15.9°C", "−2.1°C"],
+        ["Nooksack", "15.1°C", "17.0°C", "−1.9°C"],
+        ["Mean", "14.4°C", "16.5°C", "−2.1°C"]
+      ]
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Finding 3 · People",
+      "heading": "Sites led by local crews kept 91% of saplings alive",
+      "lead": "Five-year sapling survival by who ran the site. Source: ground counts, 412 plots.",
+      "items": [
+        { "rank": "1", "label": "Local crew, 3+ years on site", "value": "91%", "widthPct": 91 },
+        { "rank": "2", "label": "Partner NGO staff", "value": "74%", "widthPct": 74 },
+        { "rank": "3", "label": "Seasonal contractor", "value": "58%", "widthPct": 58 }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "What surprised us",
+      "heading": "We expected budget to decide survival; crew tenure did instead",
+      "leftLabel": "Expected",
+      "left": "Higher spend per acre, higher survival.\nIrrigation would matter most.",
+      "rightLabel": "Found",
+      "right": "Spend explained little once crews were stable.\nCrews with 3+ years lost a third as many saplings.",
+      "emphasis": "right",
+      "notes": "This is the finding trustees will question. The crew data is not randomised; say so before they ask."
+    },
+    {
+      "layout": "section",
+      "number": "03",
+      "heading": "How sure we are, and what we would change",
+      "lead": "Confidence first, then three ranked moves."
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Limits",
+      "heading": "Our evidence is strong on canopy and weakest on birds",
+      "columns": ["Claim", "Confidence", "Why"],
+      "rows": [
+        ["Canopy gain", "High", "412 plots, drone and ground"],
+        ["Stream cooling", "Medium", "3 catchments, 2 summers"],
+        ["Crew effect", "Medium", "Observed, not randomised"],
+        ["Bird diversity", "Low", "One season of counts"]
+      ]
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Recommendations",
+      "heading": "Put the 2027 budget into native mixes run by local crews",
+      "lead": "Ranked by canopy gained per dollar. Total $4.2M.",
+      "items": [
+        { "rank": "1", "label": "Plant only native mixes on new sites", "value": "$2.6M", "widthPct": 62 },
+        { "rank": "2", "label": "Fund 6 local crew leads for 3 years", "value": "$1.1M", "widthPct": 26 },
+        { "rank": "3", "label": "Add stream sensors in 6 catchments", "value": "$0.5M", "widthPct": 12 }
       ],
-      "notes": "Glance the marks — social proof, not a reading list."
+      "notes": "Ask for the vote on all three together; they depend on each other."
     },
     {
       "layout": "closing",
-      "eyebrow": "Partner",
-      "heading": "Stand under the canopy.",
-      "lead": "Corporate and community seats open.",
-      "cta": {
-        "label": "Partner with us",
-        "href": "#"
-      }
+      "eyebrow": "Decision for the trustees",
+      "heading": "Fund native forests and local crews with the 2027 $4.2M",
+      "lead": "Approve today and planting starts on the Sauk site in March.",
+      "actions": [
+        { "label": "Approve the 2027 plan", "href": "#", "style": "solid", "icon": "fa-solid fa-check" },
+        { "label": "Read the full study", "href": "#", "style": "outline", "icon": "fa-solid fa-file-lines" }
+      ]
     }
   ]
 }

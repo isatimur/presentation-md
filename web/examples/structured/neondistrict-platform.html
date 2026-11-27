@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Neon District — Platform Launch</title>
-<meta name="description" content="Neon Cyber &#x2F; neon-noir structured proof." />
+<title>Neon District for Lumen Hospitality — December 2026</title>
+<meta name="description" content="Sales deck from Neon District, a live venue-operations platform, to Lumen Hospitality Group&#39;s 14 clubs: the shift to last-minute nights, who wins it, two obstacles and their fixes, proof from Club Meridian, rollout and price." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Share+Tech+Mono&display=swap');
@@ -20,6 +20,12 @@
   --muted: #8884a8;
   --accent: #ff2e97;
   --accent-2: #00e5ff;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #050510;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #ff2e97;
+  --accent-2-ink: #00e5ff;
   --card-bg: rgba(255,46,151,0.07);
   --border: rgba(0,229,255,0.22);
   --radius: 10px;
@@ -27,6 +33,10 @@
   --heading-font: 'Orbitron', system-ui, sans-serif;
   --body-font: 'Share Tech Mono', monospace;
   --heading-weight: 700;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,147 +6908,179 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="neon-rain">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Platform · Night drop</span>
-  <h1>The city never sleeps. Neither should your stack.</h1>
-  <p class="lead">Realtime nightlife infrastructure — pink signal, cyan telemetry.</p>
+  <span class="eyebrow">Prepared for Lumen Hospitality Group · 9 December 2026</span>
+  <h1>How Lumen can run 14 clubs from one live board</h1>
+  <p class="lead">A plan to fill every room on a Friday, without one radio call.</p>
 </section>
 
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Layers</span>
-  <h2>Three rails under the neon</h2>
-  <div class="grid cols-bento">
-    <div class="card">
-      <i class="fa-solid fa-location-dot"></i>
-      <h3>Venue mesh</h3>
-      <p>Live capacity, door status, and VIP flow across every partner club.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-ticket"></i>
-      <h3>Ticket pulse</h3>
-      <p>Fraud-resistant tickets with instant secondary market controls.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-wave-square"></i>
-      <h3>Night ops</h3>
-      <p>Security, bar, and talent in one ops board — latency under 80ms.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-layer-group"></i>
-      <h3>Stack for scan</h3>
-      <p>Hierarchy first. Decoration second. Decoration never.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-bolt"></i>
-      <h3>Ship the punchline</h3>
-      <p>Lead with the claim that survives the hallway test.</p>
-    </div>
+<section class="slide chart-slide" data-layout="chart">
+  <span class="eyebrow">What changed</span>
+  <h2>Guests now pick a club 38 minutes before arrival, not two days</h2>
+  <p class="lead">Source: 2.4M ticket and table bookings across 120 partner venues, Jan 2019 – Oct 2026.</p>
+  <div class="chart-frame">
+    <svg class="pmd-chart" viewBox="0 0 920 420" width="100%" height="100%" role="img" aria-label="Chart" xmlns="http://www.w3.org/2000/svg">
+  
+  <g class="chart-grid"><line x1="52" y1="16" x2="896" y2="16" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="20" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">100</text><line x1="52" y1="106" x2="896" y2="106" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="110" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">75</text><line x1="52" y1="196" x2="896" y2="196" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="200" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">50</text><line x1="52" y1="286" x2="896" y2="286" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="290" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">25</text><line x1="52" y1="376" x2="896" y2="376" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="380" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">0</text></g>
+  <g class="chart-marks"><rect x="60" y="188.79999999999998" width="150.8" height="187.20000000000002" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="136.4" y="182.79999999999998" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">52</text><rect x="228.8" y="268" width="150.8" height="108" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="305.20000000000005" y="262" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">30</text><rect x="397.6" y="343.6" width="150.8" height="32.4" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="474" y="337.6" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">9</text><rect x="566.4000000000001" y="370.96" width="150.8" height="5.039999999999999" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="642.8000000000001" y="364.96" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">1.4</text><rect x="735.2" y="373.84" width="150.8" height="2.16" rx="3" fill="var(--accent-ink, var(--accent))"/><text x="811.6" y="367.84" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">0.6</text></g>
+  <g class="chart-cats"><text x="136.4" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2019</text><text x="305.20000000000005" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2021</text><text x="474" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2023</text><text x="642.8000000000001" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2025</text><text x="811.6" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2026</text></g>
+</svg>
   </div>
 </section>
 
 <section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Migration</span>
-  <h2>From radio to realtime.</h2>
+  <span class="eyebrow">Who wins</span>
+  <h2>Venues that see the night live win the last-minute guest</h2>
   <div class="comparison-cols emphasis-right">
     <div class="comparison-col">
-      <span class="comparison-label">Legacy night</span>
-      <p>Walkie-talkies.
-Spreadsheets at the door.
-No shared inventory.</p>
+      <span class="comparison-label">Radio-run venues</span>
+      <p>Queue size unknown until 200 deep.
+VIP tables sold twice.
+Turned-away guests leave.</p>
     </div>
     <div class="comparison-vs" aria-hidden="true">vs</div>
     <div class="comparison-col">
-      <span class="comparison-label">Neon District</span>
-      <p>One mesh.
-One inventory.
-One pulse for the whole district.</p>
+      <span class="comparison-label">Live-board venues</span>
+      <p>Queue visible on every phone.
+One table list, no doubles.
+Guests sent to open rooms.</p>
     </div>
   </div>
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230a0a1e%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23050510%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2810%2C10%2C30%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23050510%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22820%22%20rx%3D%22700%22%20ry%3D%22120%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23floor%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22520%22%20cy%3D%22260%22%20rx%3D%22360%22%20ry%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22220%22%20rx%3D%22300%22%20ry%3D%22220%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20desk%20product%20frame%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28430%2C170%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%22720%22%20height%3D%22460%22%20rx%3D%2228%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22450%22%20rx%3D%2226%22%20fill%3D%22%230a0a1e%22%20stroke%3D%22rgba%28255%2C46%2C151%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22%23050510%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%2290%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%226%22%20fill%3D%22rgba%28255%2C46%2C151%2C0.850%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22130%22%20width%3D%22380%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22158%22%20width%3D%22320%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%280%2C229%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22290%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C46%2C151%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22510%22%20y%3D%22210%22%20width%3D%22140%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22280%22%20y%3D%22400%22%20width%3D%22160%22%20height%3D%2210%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="Neon District craft visual" />
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23050510%22%2F%3E%20%3Cg%20stroke%3D%22%2300e5ff%22%20stroke-opacity%3D%220.18%22%20stroke-width%3D%223%22%20fill%3D%22none%22%3E%20%3Cpath%20d%3D%22M0%20360%20H1600%20M0%20470%20H1600%20M0%20560%20H1600%20M200%200%20V900%20M520%200%20V900%20M860%200%20V900%20M1180%200%20V900%20M1450%200%20V900%22%2F%3E%20%3Cpath%20d%3D%22M0%20620%20L1600%20250%22%20stroke-opacity%3D%220.28%22%20stroke-width%3D%226%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20font-family%3D%22Share%20Tech%20Mono%2C%20monospace%22%20font-size%3D%2220%22%3E%20%3Cg%20transform%3D%22translate(330%20400)%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22%2300e5ff%22%2F%3E%3Ccircle%20r%3D%2234%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-opacity%3D%220.5%22%2F%3E%3Ctext%20x%3D%2244%22%20y%3D%22-6%22%20fill%3D%22%23e8e4f0%22%3EMERIDIAN%3C%2Ftext%3E%3Ctext%20x%3D%2244%22%20y%3D%2218%22%20fill%3D%22%2300e5ff%22%3E82%25%20%C2%B7%20queue%209%20min%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(700%20330)%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22%23ff2e97%22%2F%3E%3Ccircle%20r%3D%2234%22%20fill%3D%22none%22%20stroke%3D%22%23ff2e97%22%20stroke-opacity%3D%220.6%22%2F%3E%3Ctext%20x%3D%2244%22%20y%3D%22-6%22%20fill%3D%22%23e8e4f0%22%3ELUMEN%20SOUTH%3C%2Ftext%3E%3Ctext%20x%3D%2244%22%20y%3D%2218%22%20fill%3D%22%23ff2e97%22%3E100%25%20%C2%B7%20redirect%20on%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(1000%20500)%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22%2300e5ff%22%2F%3E%3Ctext%20x%3D%2230%22%20y%3D%22-6%22%20fill%3D%22%23e8e4f0%22%3EVAULT%209%3C%2Ftext%3E%3Ctext%20x%3D%2230%22%20y%3D%2218%22%20fill%3D%22%2300e5ff%22%3E64%25%20%C2%B7%20walk%20in%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(1260%20390)%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22%2300e5ff%22%2F%3E%3Ctext%20x%3D%2230%22%20y%3D%22-6%22%20fill%3D%22%23e8e4f0%22%3EATRIUM%3C%2Ftext%3E%3Ctext%20x%3D%2230%22%20y%3D%2218%22%20fill%3D%22%2300e5ff%22%3E71%25%20%C2%B7%203%20tables%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(560%20530)%22%3E%3Ccircle%20r%3D%2212%22%20fill%3D%22%238884a8%22%2F%3E%3Ctext%20x%3D%2226%22%20y%3D%226%22%20fill%3D%22%238884a8%22%3EKILN%20%C2%B7%20opens%2023%3A00%3C%2Ftext%3E%3C%2Fg%3E%20%3C%2Fg%3E%20%3Cpath%20d%3D%22M716%20346%20Q860%20440%20984%20494%22%20stroke%3D%22%23ff2e97%22%20stroke-width%3D%224%22%20stroke-dasharray%3D%2210%208%22%20fill%3D%22none%22%2F%3E%20%3Ctext%20x%3D%22120%22%20y%3D%22320%22%20font-family%3D%22Orbitron%2C%20sans-serif%22%20font-size%3D%2222%22%20fill%3D%22%238884a8%22%3EFRI%2001%3A04%20%C2%B7%20DISTRICT%20BOARD%3C%2Ftext%3E%20%3C%2Fsvg%3E" alt="Night map of the district with live capacity and queue time for five venues and a redirect from Lumen South to Vault 9" />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">Platform · Night drop</span>
-    <h2>The city never sleeps. Neither should your stack.</h2>
-    <p class="lead">Realtime nightlife infrastructure — pink signal, cyan telemetry.</p>
+    <span class="eyebrow">Friday, 1:04 a.m.</span>
+    <h2>Every Lumen door, bar and table on one map</h2>
+    <p class="lead">Lumen South is full, so its queue walks to Vault 9 next door.</p>
   </div>
 </section>
 
 <section class="slide two-column-slide" data-layout="two-column">
   <div class="cols ratio-2-1">
     <div class="cols-copy">
-      <span class="eyebrow">Ops</span>
-      <h2>One pulse for the whole district.</h2>
-      <p class="lead">Security, bar, and talent share the same board. Capacity and VIP flow update under 80ms — so door decisions aren&#39;t radio folklore.</p>
+      <span class="eyebrow">Obstacle 1 · Blind doors</span>
+      <h2>Neon District streams every door count to the board in 47 ms</h2>
+      <p class="lead">Today: door counts reach the GM by radio, five minutes late.
+With us: clickers and scanners update one board live.</p>
     </div>
     
-    <div class="cols-aside"><p>Pink signal for alerts. Cyan for telemetry. Hierarchy that holds under neon.</p></div>
+    <div class="cols-aside"><p>47 ms p95, scan to board</p></div>
+  </div>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-1-2 cols-reverse">
+    <div class="cols-copy">
+      <span class="eyebrow">Obstacle 2 · Double-sold tables</span>
+      <h2>One table list across 14 venues blocks every double sale</h2>
+      <p class="lead">Door app, promoters and website book from the same list.</p>
+    </div>
+    <div class="media"><img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%201050%22%3E%20%3Crect%20width%3D%221200%22%20height%3D%221050%22%20fill%3D%22%230a0a1e%22%2F%3E%20%3Crect%20x%3D%2290%22%20y%3D%22150%22%20width%3D%221020%22%20height%3D%22750%22%20rx%3D%2218%22%20fill%3D%22%23050510%22%20stroke%3D%22%2300e5ff%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%222%22%2F%3E%20%3Ctext%20x%3D%22130%22%20y%3D%22210%22%20font-family%3D%22Orbitron%2C%20sans-serif%22%20font-size%3D%2226%22%20fill%3D%22%23e8e4f0%22%3EVIP%20TABLES%20%C2%B7%2014%20VENUES%20%C2%B7%20ONE%20LIST%3C%2Ftext%3E%20%3Cg%20font-family%3D%22Share%20Tech%20Mono%2C%20monospace%22%20font-size%3D%2224%22%20text-anchor%3D%22middle%22%3E%20%3Cg%20transform%3D%22translate(130%20260)%22%3E%20%3Crect%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22%23ff2e97%22%20fill-opacity%3D%220.85%22%2F%3E%3Ctext%20x%3D%22100%22%20y%3D%2258%22%20fill%3D%22%23050510%22%3ET1%20SOLD%3C%2Ftext%3E%3Ctext%20x%3D%22100%22%20y%3D%2294%22%20fill%3D%22%23050510%22%3EMeridian%3C%2Ftext%3E%20%3Crect%20x%3D%22240%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%22340%22%20y%3D%2258%22%20fill%3D%22%2300e5ff%22%3ET2%20OPEN%3C%2Ftext%3E%3Ctext%20x%3D%22340%22%20y%3D%2294%22%20fill%3D%22%2300e5ff%22%3E%24900%20min%3C%2Ftext%3E%20%3Crect%20x%3D%22480%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22%23ff2e97%22%20fill-opacity%3D%220.85%22%2F%3E%3Ctext%20x%3D%22580%22%20y%3D%2258%22%20fill%3D%22%23050510%22%3ET3%20SOLD%3C%2Ftext%3E%3Ctext%20x%3D%22580%22%20y%3D%2294%22%20fill%3D%22%23050510%22%3ELumen%20S.%3C%2Ftext%3E%20%3Crect%20x%3D%22720%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%22820%22%20y%3D%2258%22%20fill%3D%22%2300e5ff%22%3ET4%20OPEN%3C%2Ftext%3E%3Ctext%20x%3D%22820%22%20y%3D%2294%22%20fill%3D%22%2300e5ff%22%3E%241%2C200%20min%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(130%20420)%22%3E%20%3Crect%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%22100%22%20y%3D%2258%22%20fill%3D%22%2300e5ff%22%3ET5%20OPEN%3C%2Ftext%3E%3Ctext%20x%3D%22100%22%20y%3D%2294%22%20fill%3D%22%2300e5ff%22%3E%24600%20min%3C%2Ftext%3E%20%3Crect%20x%3D%22240%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22%23e8e4f0%22%20fill-opacity%3D%220.15%22%20stroke%3D%22%23e8e4f0%22%20stroke-dasharray%3D%228%206%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%22340%22%20y%3D%2258%22%20fill%3D%22%23e8e4f0%22%3ET6%20HELD%3C%2Ftext%3E%3Ctext%20x%3D%22340%22%20y%3D%2294%22%20fill%3D%22%23e8e4f0%22%3E2%3A00%20left%3C%2Ftext%3E%20%3Crect%20x%3D%22480%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22%23ff2e97%22%20fill-opacity%3D%220.85%22%2F%3E%3Ctext%20x%3D%22580%22%20y%3D%2258%22%20fill%3D%22%23050510%22%3ET7%20SOLD%3C%2Ftext%3E%3Ctext%20x%3D%22580%22%20y%3D%2294%22%20fill%3D%22%23050510%22%3EVault%209%3C%2Ftext%3E%20%3Crect%20x%3D%22720%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%22820%22%20y%3D%2258%22%20fill%3D%22%2300e5ff%22%3ET8%20OPEN%3C%2Ftext%3E%3Ctext%20x%3D%22820%22%20y%3D%2294%22%20fill%3D%22%2300e5ff%22%3E%24750%20min%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fg%3E%20%3Cg%20font-family%3D%22Share%20Tech%20Mono%2C%20monospace%22%20font-size%3D%2226%22%3E%20%3Crect%20x%3D%22130%22%20y%3D%22610%22%20width%3D%22920%22%20height%3D%222%22%20fill%3D%22%2300e5ff%22%20fill-opacity%3D%220.3%22%2F%3E%20%3Ctext%20x%3D%22130%22%20y%3D%22680%22%20fill%3D%22%238884a8%22%3ESecond%20booking%20for%20T3%20at%20Lumen%20South%3C%2Ftext%3E%20%3Ctext%20x%3D%22130%22%20y%3D%22730%22%20fill%3D%22%23ff2e97%22%3E%E2%9C%95%20Blocked%20%C2%B7%20already%20sold%2000%3A41%20by%20door%20app%3C%2Ftext%3E%20%3Ctext%20x%3D%22130%22%20y%3D%22800%22%20fill%3D%22%238884a8%22%3EDouble-sold%20tables%20since%20go-live%3C%2Ftext%3E%20%3Ctext%20x%3D%221050%22%20y%3D%22800%22%20text-anchor%3D%22end%22%20fill%3D%22%2300e5ff%22%20font-size%3D%2240%22%3E0%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E" alt="VIP table board for 14 venues showing sold, open and held tables, with a second booking for table T3 blocked" /></div>
+    
   </div>
 </section>
 
 <section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Network</span>
-  <h2>Live across three cities.</h2>
+  <span class="eyebrow">Club Meridian, Miami · 8 weeks after go-live</span>
+  <h2>Club Meridian cut its door wait from 34 to 9 minutes</h2>
   
   <div class="stats">
     <div class="stat">
-      <div class="value">120+</div>
-      <div class="label">Partner venues</div>
+      <div class="value">9 min</div>
+      <div class="label">Median door wait in Nov, down from 34 in Sep</div>
     </div>
     <div class="stat">
-      <div class="value">2.4M</div>
-      <div class="label">Tickets &#x2F; quarter</div>
+      <div class="value">0</div>
+      <div class="label">Double-sold tables, down from 41 a quarter</div>
     </div>
     <div class="stat">
-      <div class="value">47ms</div>
-      <div class="label">p95 ops latency</div>
+      <div class="value">+18%</div>
+      <div class="label">Bar revenue per guest, same 8 weeks</div>
     </div>
   </div>
 </section>
 
 <section class="slide quote-slide" data-layout="quote">
-  <p class="quote">Opening night felt like a control tower — in a good way.</p>
-  <p class="quote-by">— Rico Alvarez · GM · Club Meridian</p>
+  <p class="quote">Opening night felt like a control tower, in a good way.</p>
+  <p class="quote-by">— Rico Alvarez · GM, Club Meridian</p>
 </section>
 
 <section class="slide logo-wall-slide" data-layout="logo-wall">
-  <span class="eyebrow">Builders</span>
-  <h2>Platforms shipping in the district.</h2>
+  <span class="eyebrow">Already on the board</span>
+  <h2>120 venues in three cities run their nights on Neon District</h2>
   
-  <div class="logo-wall cols-4">
+  <div class="logo-wall cols-3">
     <div class="logo-tile">
       
-      <span class="logo-tile-fallback">Neon</span>
-      <p class="logo-tile-caption">Infra</p>
+      <span class="logo-tile-fallback">Club Meridian</span>
+      <p class="logo-tile-caption">Miami · 1,100 cap</p>
     </div>
     <div class="logo-tile">
       
-      <span class="logo-tile-fallback">Cipher</span>
-      <p class="logo-tile-caption">Security</p>
+      <span class="logo-tile-fallback">Vault 9</span>
+      <p class="logo-tile-caption">Miami · 600 cap</p>
     </div>
     <div class="logo-tile">
       
-      <span class="logo-tile-fallback">Volt</span>
-      <p class="logo-tile-caption">Devtools</p>
+      <span class="logo-tile-fallback">Atrium</span>
+      <p class="logo-tile-caption">Austin · 900 cap</p>
     </div>
     <div class="logo-tile">
       
-      <span class="logo-tile-fallback">Signal</span>
-      <p class="logo-tile-caption">Data</p>
+      <span class="logo-tile-fallback">Kiln</span>
+      <p class="logo-tile-caption">Austin · 450 cap</p>
+    </div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Low Tide</span>
+      <p class="logo-tile-caption">Brooklyn · 700 cap</p>
+    </div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Static</span>
+      <p class="logo-tile-caption">Brooklyn · 500 cap</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide timeline-slide" data-layout="timeline">
+  <span class="eyebrow">Plan</span>
+  <h2>Lumen goes live in four weeks, two venues first</h2>
+  <div class="timeline">
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Week 1 · Map</h3>
+      <p>Floor plans and door kit, 14 venues</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Week 2 · Pilot</h3>
+      <p>Lumen South and Lumen Bay go live</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Week 3 · Train</h3>
+      <p>Door, bar and VIP staff, 2 hours</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Week 4 · Roll out</h3>
+      <p>Remaining 12 venues switch on</p>
     </div>
   </div>
 </section>
 
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">Drop</span>
-  <h1>Plug into the district.</h1>
-  <p class="lead">Venue onboarding in under a week. Operators and promoters welcome.</p>
+  <span class="eyebrow">Next step · 6 January 2027</span>
+  <h1>Start the free two-venue pilot and run 14 clubs from one board</h1>
+  <p class="lead">Pilot free for 30 days. Then $1,900 per venue a month.</p>
   <div class="cta-row">
-    <a class="btn" href="#"><i class="fa-solid fa-key"></i> Request access</a>
-    <a class="btn btn-outline" href="#"><i class="fa-solid fa-calendar"></i> Book a venue</a>
+    <a class="btn" href="#"><i class="fa-solid fa-calendar-check"></i> Book the 6 January kickoff</a>
+    <a class="btn btn-outline" href="#"><i class="fa-solid fa-map"></i> Get the venue map pack</a>
   </div>
 </section>
 
@@ -6904,7 +7168,7 @@ One pulse for the whole district.</p>
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Neon District — Platform Launch","company":"Neon District","description":"Neon Cyber / neon-noir structured proof.","theme":"neon-noir"},"slides":[{"layout":"title","eyebrow":"Platform · Night drop","heading":"The city never sleeps. Neither should your stack.","lead":"Realtime nightlife infrastructure — pink signal, cyan telemetry.","notes":"Cold open — land the one-line claim before logos."},{"layout":"feature-grid","eyebrow":"Layers","heading":"Three rails under the neon","columns":"bento","cards":[{"icon":"fa-solid fa-location-dot","title":"Venue mesh","body":"Live capacity, door status, and VIP flow across every partner club."},{"icon":"fa-solid fa-ticket","title":"Ticket pulse","body":"Fraud-resistant tickets with instant secondary market controls."},{"icon":"fa-solid fa-wave-square","title":"Night ops","body":"Security, bar, and talent in one ops board — latency under 80ms."},{"icon":"fa-solid fa-layer-group","title":"Stack for scan","body":"Hierarchy first. Decoration second. Decoration never."},{"icon":"fa-solid fa-bolt","title":"Ship the punchline","body":"Lead with the claim that survives the hallway test."}]},{"layout":"comparison","eyebrow":"Migration","heading":"From radio to realtime.","leftLabel":"Legacy night","left":"Walkie-talkies.\nSpreadsheets at the door.\nNo shared inventory.","rightLabel":"Neon District","right":"One mesh.\nOne inventory.\nOne pulse for the whole district.","emphasis":"right","notes":"Name the loser column first, then punch the winner."},{"layout":"image-hero","eyebrow":"Platform · Night drop","heading":"The city never sleeps. Neither should your stack.","lead":"Realtime nightlife infrastructure — pink signal, cyan telemetry.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230a0a1e%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23050510%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2810%2C10%2C30%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C46%2C151%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23050510%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22820%22%20rx%3D%22700%22%20ry%3D%22120%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23floor%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22520%22%20cy%3D%22260%22%20rx%3D%22360%22%20ry%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22220%22%20rx%3D%22300%22%20ry%3D%22220%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20desk%20product%20frame%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28430%2C170%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%22720%22%20height%3D%22460%22%20rx%3D%2228%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22450%22%20rx%3D%2226%22%20fill%3D%22%230a0a1e%22%20stroke%3D%22rgba%28255%2C46%2C151%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22%23050510%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%2290%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%226%22%20fill%3D%22rgba%28255%2C46%2C151%2C0.850%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22130%22%20width%3D%22380%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22158%22%20width%3D%22320%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%280%2C229%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22290%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C46%2C151%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22510%22%20y%3D%22210%22%20width%3D%22140%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22280%22%20y%3D%22400%22%20width%3D%22160%22%20height%3D%2210%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Neon District craft visual","notes":"Hold the visual beat — let the room feel the product."},{"layout":"two-column","eyebrow":"Ops","heading":"One pulse for the whole district.","body":"Security, bar, and talent share the same board. Capacity and VIP flow update under 80ms — so door decisions aren't radio folklore.","aside":"Pink signal for alerts. Cyan for telemetry. Hierarchy that holds under neon.","ratio":"2-1"},{"layout":"stat-row","eyebrow":"Network","heading":"Live across three cities.","stats":[{"value":"120+","label":"Partner venues"},{"value":"2.4M","label":"Tickets / quarter"},{"value":"47ms","label":"p95 ops latency"}]},{"layout":"quote","quote":"Opening night felt like a control tower — in a good way.","by":"Rico Alvarez · GM · Club Meridian"},{"layout":"logo-wall","eyebrow":"Builders","heading":"Platforms shipping in the district.","columns":4,"cards":[{"title":"Neon","body":"Infra"},{"title":"Cipher","body":"Security"},{"title":"Volt","body":"Devtools"},{"title":"Signal","body":"Data"}],"notes":"Glance the marks — social proof, not a reading list."},{"layout":"closing","eyebrow":"Drop","heading":"Plug into the district.","lead":"Venue onboarding in under a week. Operators and promoters welcome.","actions":[{"label":"Request access","href":"#","style":"solid","icon":"fa-solid fa-key"},{"label":"Book a venue","href":"#","style":"outline","icon":"fa-solid fa-calendar"}]}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Neon District for Lumen Hospitality — December 2026","company":"Neon District","description":"Sales deck from Neon District, a live venue-operations platform, to Lumen Hospitality Group's 14 clubs: the shift to last-minute nights, who wins it, two obstacles and their fixes, proof from Club Meridian, rollout and price.","theme":"neon-noir","genre":"sales"},"slides":[{"layout":"title","eyebrow":"Prepared for Lumen Hospitality Group · 9 December 2026","heading":"How Lumen can run 14 clubs from one live board","lead":"A plan to fill every room on a Friday, without one radio call.","notes":"Open on Lumen, not on us. Our name does not appear until slide 5."},{"layout":"chart","eyebrow":"What changed","heading":"Guests now pick a club 38 minutes before arrival, not two days","chartType":"bar","categories":["2019","2021","2023","2025","2026"],"series":[{"name":"Median booking lead time (hours)","values":[52,30,9,1.4,0.6]}],"showValues":true,"lead":"Source: 2.4M ticket and table bookings across 120 partner venues, Jan 2019 – Oct 2026.","notes":"The point is not the chart, it is the consequence: the night is now decided at the door, live."},{"layout":"comparison","eyebrow":"Who wins","heading":"Venues that see the night live win the last-minute guest","leftLabel":"Radio-run venues","left":"Queue size unknown until 200 deep.\nVIP tables sold twice.\nTurned-away guests leave.","rightLabel":"Live-board venues","right":"Queue visible on every phone.\nOne table list, no doubles.\nGuests sent to open rooms.","emphasis":"right"},{"layout":"image-hero","eyebrow":"Friday, 1:04 a.m.","heading":"Every Lumen door, bar and table on one map","lead":"Lumen South is full, so its queue walks to Vault 9 next door.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23050510%22%2F%3E%20%3Cg%20stroke%3D%22%2300e5ff%22%20stroke-opacity%3D%220.18%22%20stroke-width%3D%223%22%20fill%3D%22none%22%3E%20%3Cpath%20d%3D%22M0%20360%20H1600%20M0%20470%20H1600%20M0%20560%20H1600%20M200%200%20V900%20M520%200%20V900%20M860%200%20V900%20M1180%200%20V900%20M1450%200%20V900%22%2F%3E%20%3Cpath%20d%3D%22M0%20620%20L1600%20250%22%20stroke-opacity%3D%220.28%22%20stroke-width%3D%226%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20font-family%3D%22Share%20Tech%20Mono%2C%20monospace%22%20font-size%3D%2220%22%3E%20%3Cg%20transform%3D%22translate(330%20400)%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22%2300e5ff%22%2F%3E%3Ccircle%20r%3D%2234%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-opacity%3D%220.5%22%2F%3E%3Ctext%20x%3D%2244%22%20y%3D%22-6%22%20fill%3D%22%23e8e4f0%22%3EMERIDIAN%3C%2Ftext%3E%3Ctext%20x%3D%2244%22%20y%3D%2218%22%20fill%3D%22%2300e5ff%22%3E82%25%20%C2%B7%20queue%209%20min%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(700%20330)%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22%23ff2e97%22%2F%3E%3Ccircle%20r%3D%2234%22%20fill%3D%22none%22%20stroke%3D%22%23ff2e97%22%20stroke-opacity%3D%220.6%22%2F%3E%3Ctext%20x%3D%2244%22%20y%3D%22-6%22%20fill%3D%22%23e8e4f0%22%3ELUMEN%20SOUTH%3C%2Ftext%3E%3Ctext%20x%3D%2244%22%20y%3D%2218%22%20fill%3D%22%23ff2e97%22%3E100%25%20%C2%B7%20redirect%20on%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(1000%20500)%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22%2300e5ff%22%2F%3E%3Ctext%20x%3D%2230%22%20y%3D%22-6%22%20fill%3D%22%23e8e4f0%22%3EVAULT%209%3C%2Ftext%3E%3Ctext%20x%3D%2230%22%20y%3D%2218%22%20fill%3D%22%2300e5ff%22%3E64%25%20%C2%B7%20walk%20in%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(1260%20390)%22%3E%3Ccircle%20r%3D%2216%22%20fill%3D%22%2300e5ff%22%2F%3E%3Ctext%20x%3D%2230%22%20y%3D%22-6%22%20fill%3D%22%23e8e4f0%22%3EATRIUM%3C%2Ftext%3E%3Ctext%20x%3D%2230%22%20y%3D%2218%22%20fill%3D%22%2300e5ff%22%3E71%25%20%C2%B7%203%20tables%3C%2Ftext%3E%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(560%20530)%22%3E%3Ccircle%20r%3D%2212%22%20fill%3D%22%238884a8%22%2F%3E%3Ctext%20x%3D%2226%22%20y%3D%226%22%20fill%3D%22%238884a8%22%3EKILN%20%C2%B7%20opens%2023%3A00%3C%2Ftext%3E%3C%2Fg%3E%20%3C%2Fg%3E%20%3Cpath%20d%3D%22M716%20346%20Q860%20440%20984%20494%22%20stroke%3D%22%23ff2e97%22%20stroke-width%3D%224%22%20stroke-dasharray%3D%2210%208%22%20fill%3D%22none%22%2F%3E%20%3Ctext%20x%3D%22120%22%20y%3D%22320%22%20font-family%3D%22Orbitron%2C%20sans-serif%22%20font-size%3D%2222%22%20fill%3D%22%238884a8%22%3EFRI%2001%3A04%20%C2%B7%20DISTRICT%20BOARD%3C%2Ftext%3E%20%3C%2Fsvg%3E","imageAlt":"Night map of the district with live capacity and queue time for five venues and a redirect from Lumen South to Vault 9"},{"layout":"two-column","eyebrow":"Obstacle 1 · Blind doors","heading":"Neon District streams every door count to the board in 47 ms","body":"Today: door counts reach the GM by radio, five minutes late.\nWith us: clickers and scanners update one board live.","aside":"47 ms p95, scan to board","ratio":"2-1"},{"layout":"two-column","eyebrow":"Obstacle 2 · Double-sold tables","heading":"One table list across 14 venues blocks every double sale","body":"Door app, promoters and website book from the same list.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%201050%22%3E%20%3Crect%20width%3D%221200%22%20height%3D%221050%22%20fill%3D%22%230a0a1e%22%2F%3E%20%3Crect%20x%3D%2290%22%20y%3D%22150%22%20width%3D%221020%22%20height%3D%22750%22%20rx%3D%2218%22%20fill%3D%22%23050510%22%20stroke%3D%22%2300e5ff%22%20stroke-opacity%3D%220.35%22%20stroke-width%3D%222%22%2F%3E%20%3Ctext%20x%3D%22130%22%20y%3D%22210%22%20font-family%3D%22Orbitron%2C%20sans-serif%22%20font-size%3D%2226%22%20fill%3D%22%23e8e4f0%22%3EVIP%20TABLES%20%C2%B7%2014%20VENUES%20%C2%B7%20ONE%20LIST%3C%2Ftext%3E%20%3Cg%20font-family%3D%22Share%20Tech%20Mono%2C%20monospace%22%20font-size%3D%2224%22%20text-anchor%3D%22middle%22%3E%20%3Cg%20transform%3D%22translate(130%20260)%22%3E%20%3Crect%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22%23ff2e97%22%20fill-opacity%3D%220.85%22%2F%3E%3Ctext%20x%3D%22100%22%20y%3D%2258%22%20fill%3D%22%23050510%22%3ET1%20SOLD%3C%2Ftext%3E%3Ctext%20x%3D%22100%22%20y%3D%2294%22%20fill%3D%22%23050510%22%3EMeridian%3C%2Ftext%3E%20%3Crect%20x%3D%22240%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%22340%22%20y%3D%2258%22%20fill%3D%22%2300e5ff%22%3ET2%20OPEN%3C%2Ftext%3E%3Ctext%20x%3D%22340%22%20y%3D%2294%22%20fill%3D%22%2300e5ff%22%3E%24900%20min%3C%2Ftext%3E%20%3Crect%20x%3D%22480%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22%23ff2e97%22%20fill-opacity%3D%220.85%22%2F%3E%3Ctext%20x%3D%22580%22%20y%3D%2258%22%20fill%3D%22%23050510%22%3ET3%20SOLD%3C%2Ftext%3E%3Ctext%20x%3D%22580%22%20y%3D%2294%22%20fill%3D%22%23050510%22%3ELumen%20S.%3C%2Ftext%3E%20%3Crect%20x%3D%22720%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%22820%22%20y%3D%2258%22%20fill%3D%22%2300e5ff%22%3ET4%20OPEN%3C%2Ftext%3E%3Ctext%20x%3D%22820%22%20y%3D%2294%22%20fill%3D%22%2300e5ff%22%3E%241%2C200%20min%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(130%20420)%22%3E%20%3Crect%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%22100%22%20y%3D%2258%22%20fill%3D%22%2300e5ff%22%3ET5%20OPEN%3C%2Ftext%3E%3Ctext%20x%3D%22100%22%20y%3D%2294%22%20fill%3D%22%2300e5ff%22%3E%24600%20min%3C%2Ftext%3E%20%3Crect%20x%3D%22240%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22%23e8e4f0%22%20fill-opacity%3D%220.15%22%20stroke%3D%22%23e8e4f0%22%20stroke-dasharray%3D%228%206%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%22340%22%20y%3D%2258%22%20fill%3D%22%23e8e4f0%22%3ET6%20HELD%3C%2Ftext%3E%3Ctext%20x%3D%22340%22%20y%3D%2294%22%20fill%3D%22%23e8e4f0%22%3E2%3A00%20left%3C%2Ftext%3E%20%3Crect%20x%3D%22480%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22%23ff2e97%22%20fill-opacity%3D%220.85%22%2F%3E%3Ctext%20x%3D%22580%22%20y%3D%2258%22%20fill%3D%22%23050510%22%3ET7%20SOLD%3C%2Ftext%3E%3Ctext%20x%3D%22580%22%20y%3D%2294%22%20fill%3D%22%23050510%22%3EVault%209%3C%2Ftext%3E%20%3Crect%20x%3D%22720%22%20width%3D%22200%22%20height%3D%22130%22%20rx%3D%2212%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%223%22%2F%3E%3Ctext%20x%3D%22820%22%20y%3D%2258%22%20fill%3D%22%2300e5ff%22%3ET8%20OPEN%3C%2Ftext%3E%3Ctext%20x%3D%22820%22%20y%3D%2294%22%20fill%3D%22%2300e5ff%22%3E%24750%20min%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fg%3E%20%3Cg%20font-family%3D%22Share%20Tech%20Mono%2C%20monospace%22%20font-size%3D%2226%22%3E%20%3Crect%20x%3D%22130%22%20y%3D%22610%22%20width%3D%22920%22%20height%3D%222%22%20fill%3D%22%2300e5ff%22%20fill-opacity%3D%220.3%22%2F%3E%20%3Ctext%20x%3D%22130%22%20y%3D%22680%22%20fill%3D%22%238884a8%22%3ESecond%20booking%20for%20T3%20at%20Lumen%20South%3C%2Ftext%3E%20%3Ctext%20x%3D%22130%22%20y%3D%22730%22%20fill%3D%22%23ff2e97%22%3E%E2%9C%95%20Blocked%20%C2%B7%20already%20sold%2000%3A41%20by%20door%20app%3C%2Ftext%3E%20%3Ctext%20x%3D%22130%22%20y%3D%22800%22%20fill%3D%22%238884a8%22%3EDouble-sold%20tables%20since%20go-live%3C%2Ftext%3E%20%3Ctext%20x%3D%221050%22%20y%3D%22800%22%20text-anchor%3D%22end%22%20fill%3D%22%2300e5ff%22%20font-size%3D%2240%22%3E0%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E","imageAlt":"VIP table board for 14 venues showing sold, open and held tables, with a second booking for table T3 blocked","ratio":"1-2","reverse":true},{"layout":"stat-row","eyebrow":"Club Meridian, Miami · 8 weeks after go-live","heading":"Club Meridian cut its door wait from 34 to 9 minutes","stats":[{"value":"9 min","label":"Median door wait in Nov, down from 34 in Sep"},{"value":"0","label":"Double-sold tables, down from 41 a quarter"},{"value":"+18%","label":"Bar revenue per guest, same 8 weeks"}],"notes":"Meridian is the closest match to Lumen: same city, 1,100 capacity, three rooms."},{"layout":"quote","quote":"Opening night felt like a control tower, in a good way.","by":"Rico Alvarez · GM, Club Meridian"},{"layout":"logo-wall","eyebrow":"Already on the board","heading":"120 venues in three cities run their nights on Neon District","columns":3,"cards":[{"title":"Club Meridian","body":"Miami · 1,100 cap"},{"title":"Vault 9","body":"Miami · 600 cap"},{"title":"Atrium","body":"Austin · 900 cap"},{"title":"Kiln","body":"Austin · 450 cap"},{"title":"Low Tide","body":"Brooklyn · 700 cap"},{"title":"Static","body":"Brooklyn · 500 cap"}]},{"layout":"timeline","eyebrow":"Plan","heading":"Lumen goes live in four weeks, two venues first","steps":[{"title":"Week 1 · Map","body":"Floor plans and door kit, 14 venues"},{"title":"Week 2 · Pilot","body":"Lumen South and Lumen Bay go live"},{"title":"Week 3 · Train","body":"Door, bar and VIP staff, 2 hours"},{"title":"Week 4 · Roll out","body":"Remaining 12 venues switch on"}]},{"layout":"closing","eyebrow":"Next step · 6 January 2027","heading":"Start the free two-venue pilot and run 14 clubs from one board","lead":"Pilot free for 30 days. Then $1,900 per venue a month.","actions":[{"label":"Book the 6 January kickoff","style":"solid","icon":"fa-solid fa-calendar-check"},{"label":"Get the venue map pack","style":"outline","icon":"fa-solid fa-map"}],"notes":"Ask for the date, not for a decision on all 14. The pilot sells the rest."}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {

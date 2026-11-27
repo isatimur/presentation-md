@@ -1,104 +1,146 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Mossprint — Journal Deck",
-    "company": "Mossprint",
-    "description": "Literary journal media kit — editorial-forest multi-slide proof.",
-    "theme": "editorial-forest"
+    "title": "Mossbank Growers — Pollinator survey 2025–2026",
+    "company": "Mossbank Growers Cooperative",
+    "description": "Research readout for the Mossbank Growers Cooperative members' assembly: a two-season wild bee survey on 30 orchard farms shows that farms with 2 km of new hedgerow count 2.1× more wild bees and harvest 9% more fruit, and asks members to co-fund hedgerows on 40 more farms.",
+    "theme": "editorial-forest",
+    "genre": "research"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Media kit",
-      "heading": "Cream paper. Forest + rose.",
-      "lead": "Source Serif for the essay. Mono for the folio.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Field note",
-      "heading": "Green that holds the page.",
-      "lead": "Moss, ink, and a quiet margin — the journal opens on atmosphere, not a grid.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221600%22%20height%3D%22900%22%20viewBox%3D%220%200%201600%20900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%20%20%3Cstop%20stop-color%3D%22%23efe7d4%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22.55%22%20stop-color%3D%22%23e6dcc4%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232e4a2a%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%20%20%3CradialGradient%20id%3D%22glow%22%20cx%3D%2272%25%22%20cy%3D%2228%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20stop-color%3D%22%23e89cb1%22%20stop-opacity%3D%22.45%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23e89cb1%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%3Cfilter%20id%3D%22grain%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%222%22%20stitchTiles%3D%22stitch%22%2F%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%20.08%200%22%2F%3E%3C%2Ffilter%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23g%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23glow%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22140%22%20width%3D%22620%22%20height%3D%22620%22%20rx%3D%2228%22%20fill%3D%22rgba%2846%2C74%2C42%2C0.120%29%22%20stroke%3D%22rgba%28232%2C156%2C177%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221180%22%20cy%3D%22520%22%20r%3D%22220%22%20fill%3D%22rgba%2846%2C74%2C42%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22240%22%20r%3D%2290%22%20fill%3D%22rgba%28232%2C156%2C177%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20filter%3D%22url%28%23grain%29%22%20opacity%3D%22.55%22%2F%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Mossprint atmospheric field",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Mossbank Growers Cooperative · Pollinator survey 2025–2026 · Members' assembly · 4 December",
+      "heading": "New hedgerows doubled our wild bees and lifted yields 9%.",
+      "lead": "30 member farms, two seasons, 1,440 bee walks.",
+      "notes": "Lead with the answer. Members who stop after slide 2 still know what we found and what we ask."
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Sections",
-      "heading": "Inside Vol. 12",
-      "columns": "bento",
+      "eyebrow": "Answer first",
+      "heading": "Three findings make the case for hedgerow on more member farms",
+      "columns": 3,
       "cards": [
-        {
-          "icon": "fa-solid fa-leaf",
-          "title": "Field notes",
-          "body": "Essays from the trail."
-        },
-        {
-          "icon": "fa-solid fa-feather",
-          "title": "Fiction",
-          "body": "Short stories with dirt under the nails."
-        },
-        {
-          "icon": "fa-solid fa-camera",
-          "title": "Plates",
-          "body": "Photography that breathes green."
-        },
-        {
-          "icon": "fa-solid fa-layer-group",
-          "title": "Stack for scan",
-          "body": "Hierarchy first. Decoration second. Decoration never."
-        },
-        {
-          "icon": "fa-solid fa-bolt",
-          "title": "Ship the punchline",
-          "body": "Lead with the claim that survives the hallway test."
-        }
+        { "icon": "fa-solid fa-seedling", "title": "More wild bees", "body": "Hedgerow farms counted 2.1× more wild bees per walk: 46 against 22." },
+        { "icon": "fa-solid fa-apple-whole", "title": "More fruit", "body": "Apple yield ran 9% higher: 31.6 t/ha against 29.0 t/ha." },
+        { "icon": "fa-solid fa-arrows-to-circle", "title": "Whole orchard", "body": "The gain reached the centre rows, 400 m from the nearest hedge." }
       ]
     },
     {
+      "layout": "image-hero",
+      "eyebrow": "The question",
+      "heading": "We asked whether 2 km of hedgerow pays its way on an orchard",
+      "lead": "Rented hives cost members €310 per hectare each spring. Wild bees are free, if they have a place to nest.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 340'><defs><pattern id='t' width='36' height='36' patternUnits='userSpaceOnUse'><circle cx='18' cy='18' r='10' fill='%232e4a2a'/></pattern></defs><rect width='1600' height='340' fill='%23e6dcc4'/><g transform='translate(60 6) scale(.7)'><rect x='150' y='70' width='420' height='250' fill='url(%23t)' opacity='.85'/><rect x='610' y='90' width='360' height='230' fill='url(%23t)' opacity='.85'/><path d='M130 50 C260 40 420 60 590 48 C600 160 586 250 592 340 C420 352 260 336 130 344 C138 240 122 150 130 50Z M590 48 C720 60 860 52 990 66 C984 170 996 260 990 340' fill='none' stroke='%233d6236' stroke-width='22' stroke-linejoin='round' stroke-dasharray='30 8'/><g font-family='Georgia,serif'><rect x='240' y='170' width='240' height='50' fill='%23efe7d4'/><text x='360' y='204' font-size='26' fill='%231a1a17' text-anchor='middle'>Orchard · 18 ha</text><rect x='690' y='180' width='200' height='50' fill='%23efe7d4'/><text x='790' y='214' font-size='26' fill='%231a1a17' text-anchor='middle'>Orchard · 12 ha</text><text x='140' y='34' font-size='22' fill='%233d6236'>New hedgerow, planted 2023 · 2.3 km</text></g><g fill='%23e89cb1' stroke='%231a1a17' stroke-width='2'><ellipse cx='300' cy='110' rx='12' ry='8'/><ellipse cx='520' cy='260' rx='12' ry='8'/><ellipse cx='700' cy='130' rx='12' ry='8'/><ellipse cx='880' cy='290' rx='12' ry='8'/><ellipse cx='420' cy='300' rx='12' ry='8'/><ellipse cx='940' cy='120' rx='12' ry='8'/></g></g><g font-family='Georgia,serif'><rect x='900' y='24' width='560' height='186' fill='%23efe7d4' stroke='%23555049' stroke-width='2'/><text x='930' y='64' font-size='26' fill='%231a1a17'>Wild bees per 100 m walk · 30 farms</text><rect x='930' y='86' width='120' height='40' fill='%23c9bd9f'/><text x='1065' y='116' font-size='26' fill='%23555049'>22 · no hedgerow</text><rect x='930' y='146' width='251' height='40' fill='%232e4a2a'/><text x='1195' y='176' font-size='26' font-weight='700' fill='%232e4a2a'>46 · new hedgerow</text></g></svg>",
+      "imageAlt": "Map of a member farm: two orchard blocks of 18 and 12 hectares ringed by 2.3 km of new hedgerow, with wild bees marked in the rows, beside a card showing 22 wild bees per walk without hedgerow and 46 with it."
+    },
+    {
       "layout": "stat-row",
-      "eyebrow": "Reach",
-      "heading": "Readers in the woods.",
+      "eyebrow": "Method",
+      "heading": "We walked 1,440 bee counts on 30 farms over two seasons",
       "stats": [
-        {
-          "value": "28k",
-          "label": "Subs"
-        },
-        {
-          "value": "12",
-          "label": "Vols"
-        },
-        {
-          "value": "6",
-          "label": "Awards"
-        }
+        { "value": "30 farms", "label": "14 planted ≥2 km of hedgerow in 2023–24; 16 did not" },
+        { "value": "1,440", "label": "100 m transect walks, 48 per farm" },
+        { "value": "2 seasons", "label": "April to July, 2025 and 2026" }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "Three findings",
+      "lead": "Bees, fruit, and which bees came back."
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Finding 1",
+      "heading": "Hedgerow farms counted about twice the wild bees in both seasons",
+      "chartType": "bar",
+      "categories": ["2025 season", "2026 season", "Two-season mean"],
+      "series": [
+        { "name": "No hedge", "values": [21, 23, 22] },
+        { "name": "Hedgerow", "values": [41, 51, 46] }
       ],
-      "notes": "One breath on the numbers — then move on."
+      "showLegend": true,
+      "showValues": true,
+      "lead": "Wild bees per 100 m walk, mean; 14 hedgerow farms, 16 without. Source: cooperative survey, n = 1,440 walks.",
+      "notes": "The gap grew from 1.95× in 2025 to 2.2× in 2026 as the hedges filled out. That is the point to stress: the effect is still rising."
     },
     {
       "layout": "quote",
-      "quote": "Rose is the soft edge of the forest, not a substitute for it.",
-      "by": "Mossprint"
+      "quote": "I used to rent 40 hives for bloom. Last April the hedge was humming before the hives arrived.",
+      "by": "Farm 11 · apple grower, 18 ha · planted 2.3 km of hedgerow in 2023"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Finding 2 · Farm yield records, 2025–2026",
+      "heading": "Apple yield ran 9% higher on hedgerow farms, worth €1,170 per hectare",
+      "columns": ["Measure, two-season mean", "New hedgerow (14)", "No hedgerow (16)", "Difference"],
+      "rows": [
+        ["Apple yield", "31.6 t/ha", "29.0 t/ha", "+9%"],
+        ["Fruit set, share of blossoms", "38%", "33%", "+5 pts"],
+        ["Class 1 fruit share", "82%", "79%", "+3 pts"],
+        ["Value at €450 per tonne", "€14,220/ha", "€13,050/ha", "+€1,170/ha"]
+      ]
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Finding 3",
+      "heading": "Ground-nesting mining bees made up more than half of the gain",
+      "lead": "Extra wild bees per 100 m walk on hedgerow farms, by group. Total gain: 24 bees per walk.",
+      "items": [
+        { "rank": "1", "label": "Mining bees (nest in hedge banks)", "value": "+13", "widthPct": 100 },
+        { "rank": "2", "label": "Bumblebees", "value": "+7", "widthPct": 54 },
+        { "rank": "3", "label": "Mason bees", "value": "+3", "widthPct": 23 },
+        { "rank": "4", "label": "Other solitary bees", "value": "+1", "widthPct": 8 }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "What it means",
+      "lead": "One surprise, the limits, and three actions."
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "What surprised us",
+      "heading": "We expected an edge effect; the gain reached the orchard centre",
+      "leftLabel": "What we expected",
+      "left": "Bees stay within 200 m of a hedge\nOnly the edge rows gain\nCentre rows still need hives",
+      "rightLabel": "What we found",
+      "right": "Centre rows counted 1.8× more wild bees\nYield rose 7% even 400 m from a hedge\nThe whole orchard gains",
+      "emphasis": "right"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Limits and confidence",
+      "heading": "The bee count is solid; the yield link is likely but not proven",
+      "columns": ["Finding", "Evidence", "Confidence", "Main limit"],
+      "rows": [
+        ["2.1× more wild bees", "1,440 walks, 2 seasons", "High", "Farms chose to plant; not random"],
+        ["9% higher yield", "Yield records, 30 farms", "Medium", "Hedge planters may farm better"],
+        ["€1,170/ha value", "€450/t, 2025–26 prices", "Medium", "Apple prices swing year to year"]
+      ],
+      "notes": "Say the weak point before members do: farms picked themselves. The 2028 resurvey on newly planted farms is how we test it."
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Recommendations",
+      "heading": "Co-funding hedgerows on 40 more farms ranks first of three actions",
+      "lead": "Expected yearly gain per farm, ranked. Hedgerow costs €18,000 per 2 km; the cooperative pays half.",
+      "items": [
+        { "rank": "1", "label": "Co-fund 2 km of hedgerow on 40 farms (€360k)", "value": "+€14k/yr", "widthPct": 100 },
+        { "rank": "2", "label": "Leave 3 m uncut margins beside hedges (€40k)", "value": "+€3k/yr", "widthPct": 21 },
+        { "rank": "3", "label": "Resurvey all 70 farms in 2028 (€25k)", "value": "Tests the yield link", "widthPct": 8 }
+      ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Advertise",
-      "heading": "Place a quiet ad.",
-      "lead": "Half and full pages for Vol. 13.",
+      "eyebrow": "Decision for the assembly",
+      "heading": "Hedgerows bring back the bees: co-fund 40 more farms this winter",
+      "lead": "€9,000 per farm, €360k in all. A vote today lets members plant before the season closes in March.",
       "actions": [
-        {
-          "label": "Request rates",
-          "href": "#",
-          "style": "solid",
-          "icon": "fa-solid fa-key"
-        },
-        {
-          "label": "See the calendar",
-          "href": "#",
-          "style": "outline",
-          "icon": "fa-solid fa-calendar"
-        }
+        { "label": "Vote to co-fund 40 farms", "style": "solid", "icon": "fa-solid fa-check" },
+        { "label": "Read the full survey", "style": "outline", "icon": "fa-solid fa-book-open" }
       ]
     }
   ]

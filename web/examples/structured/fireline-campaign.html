@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Fireline — Campaign Deck</title>
-<meta name="description" content="Dark editorial campaign — broadside multi-slide proof." />
+<title>Fireline — a crew in every village by 1 May 2027</title>
+<meta name="description" content="Campaign deck for Fireline, a citizen campaign to fund and train 400 volunteer fire crews in Portugal&#39;s interior villages before the 2027 fire season. €24,000 funds one crew." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
@@ -20,6 +20,12 @@
   --muted: #8d8d85;
   --accent: #E85D26;
   --accent-2: #F0ECE5;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #111111;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #E85D26;
+  --accent-2-ink: #F0ECE5;
   --card-bg: rgba(232,93,38,0.12);
   --border: rgba(40,40,38,1);
   --radius: 0px;
@@ -27,6 +33,10 @@
   --heading-font: 'Barlow', system-ui, sans-serif;
   --body-font: 'Barlow', system-ui, sans-serif;
   --heading-weight: 900;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,94 +6908,155 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="broadside-fire">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Campaign</span>
-  <h1>INK. FIRE. BARLOW.</h1>
-  <p class="lead">Massive type. Zero beige. Orange that means business.</p>
+  <span class="eyebrow">Fireline · Citizen campaign · Portugal 2027</span>
+  <h1>Every village deserves a fire crew within 15 minutes.</h1>
+  
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%231A1A18%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23111111%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28240%2C236%2C229%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C26%2C24%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28240%2C236%2C229%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28240%2C236%2C229%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28240%2C236%2C229%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23111111%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.9%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22880%22%20cy%3D%22220%22%20rx%3D%22220%22%20ry%3D%22140%22%20fill%3D%22rgba%28240%2C236%2C229%2C0.220%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M0%20640%20C320%20520%20640%20780%20960%20600%20S1400%20480%201600%20560%20L1600%20900%20L0%20900%20Z%22%20fill%3D%22rgba%28232%2C93%2C38%2C0.120%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.55%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22260%22%20cy%3D%22180%22%20r%3D%2218%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22520%22%20cy%3D%22140%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22980%22%20cy%3D%22210%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22320%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221100%22%20cy%3D%22120%22%20r%3D%228%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="Fireline craft visual" />
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D&#39;http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg&#39;%20viewBox%3D&#39;0%200%201600%20900&#39;%3E%20%3Cdefs%3E%3ClinearGradient%20id%3D&#39;s&#39;%20x1%3D&#39;0&#39;%20y1%3D&#39;0&#39;%20x2%3D&#39;0&#39;%20y2%3D&#39;1&#39;%3E%3Cstop%20offset%3D&#39;0&#39;%20stop-color%3D&#39;%233a1408&#39;%2F%3E%3Cstop%20offset%3D&#39;.6&#39;%20stop-color%3D&#39;%238a2a0c&#39;%2F%3E%3Cstop%20offset%3D&#39;1&#39;%20stop-color%3D&#39;%23111&#39;%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%20%3Crect%20width%3D&#39;1600&#39;%20height%3D&#39;900&#39;%20fill%3D&#39;url(%23s)&#39;%2F%3E%20%3Cpath%20d%3D&#39;M0%20520L220%20400%20420%20470%20640%20360%20900%20450%201120%20340%201380%20430%201600%20380V900H0z&#39;%20fill%3D&#39;%231a1a18&#39;%2F%3E%20%3Cpath%20d%3D&#39;M0%20600L300%20520%20560%20580%20860%20500%201160%20570%201600%20510V900H0z&#39;%20fill%3D&#39;%23111&#39;%2F%3E%20%3Cg%20stroke%3D&#39;%230a0a0a&#39;%20stroke-width%3D&#39;8&#39;%20stroke-linecap%3D&#39;round&#39;%3E%20%3Cpath%20d%3D&#39;M180%20430v-80M160%20380l20-14M200%20370l-20-12M500%20470v-70M520%20420l-20-10M760%20400v-90M740%20340l20-12M780%20360l-20-10M1020%20420v-70M1260%20390v-80M1240%20340l20-12M1460%20410v-70&#39;%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D&#39;%23E85D26&#39;%3E%3Cpath%20d%3D&#39;M600%20380c20-60%2060-40%2040-110%2050%2040%2070%2090%2040%20110z&#39;%2F%3E%3Cpath%20d%3D&#39;M1100%20350c16-50%2050-30%2034-90%2040%2034%2056%2076%2032%2090z&#39;%2F%3E%3Cpath%20d%3D&#39;M300%20430c14-40%2040-26%2028-70%2030%2026%2044%2058%2024%2070z&#39;%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D&#39;%23f6a04d&#39;%3E%3Cpath%20d%3D&#39;M620%20380c8-26%2024-18%2018-48%2022%2020%2028%2040%2016%2048z&#39;%2F%3E%3Cpath%20d%3D&#39;M1116%20350c6-22%2020-14%2014-38%2018%2014%2024%2032%2014%2038z&#39;%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D&#39;%232a2a28&#39;%20stroke%3D&#39;%23E85D26&#39;%20stroke-width%3D&#39;2&#39;%3E%20%3Cpath%20d%3D&#39;M760%20520h80v-50l-40-30-40%2030z&#39;%2F%3E%3Cpath%20d%3D&#39;M860%20520h70v-44l-35-26-35%2026z&#39;%2F%3E%3Cpath%20d%3D&#39;M950%20520h80v-50l-40-30-40%2030z&#39;%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D&#39;%23f6a04d&#39;%20opacity%3D&#39;.9&#39;%3E%3Ccircle%20cx%3D&#39;400&#39;%20cy%3D&#39;300&#39;%20r%3D&#39;3&#39;%2F%3E%3Ccircle%20cx%3D&#39;700&#39;%20cy%3D&#39;260&#39;%20r%3D&#39;4&#39;%2F%3E%3Ccircle%20cx%3D&#39;980&#39;%20cy%3D&#39;290&#39;%20r%3D&#39;3&#39;%2F%3E%3Ccircle%20cx%3D&#39;1200&#39;%20cy%3D&#39;250&#39;%20r%3D&#39;4&#39;%2F%3E%3Ccircle%20cx%3D&#39;560&#39;%20cy%3D&#39;240&#39;%20r%3D&#39;3&#39;%2F%3E%3Ccircle%20cx%3D&#39;1340&#39;%20cy%3D&#39;300&#39;%20r%3D&#39;3&#39;%2F%3E%3C%2Fg%3E%20%3C%2Fsvg%3E" alt="A burnt hillside at dusk with black tree trunks, small flames and three village houses at the foot of the slope" />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">Campaign</span>
-    <h2>INK. FIRE. BARLOW.</h2>
-    <p class="lead">Massive type. Zero beige. Orange that means business.</p>
+    <span class="eyebrow">Summer 2025</span>
+    <h2>Last summer, fire burned 214,000 hectares of the interior</h2>
+    <p class="lead">Most of it in villages the nearest crew could not reach in time.</p>
   </div>
 </section>
 
-<section class="slide two-column-slide" data-layout="two-column">
-  <div class="cols ratio-3-2">
-    <div class="cols-copy">
-      <span class="eyebrow">Belief</span>
-      <h2>If it whispers, it dies.</h2>
-      <p class="lead">Fireline builds posters, keynotes, and launch films that read from the back of the room.</p>
+<section class="slide stat-row-slide stat-row-hero" data-layout="stat-row">
+  <span class="eyebrow">The gap</span>
+  <h2>Help takes 47 minutes to reach an interior village</h2>
+  <p class="lead">Source: Fireline analysis of 2025 civil protection response logs, 3,912 rural fires.</p>
+  <div class="stats">
+    <div class="stat is-mega">
+      <div class="value">47 min</div>
+      <div class="label">First crew on scene, interior villages</div>
     </div>
-    
-    <div class="cols-aside"><p>Barlow 900. Cream on black. One orange strike.</p></div>
+    <div class="stat">
+      <div class="value">11 min</div>
+      <div class="label">First crew on scene, coastal towns</div>
+    </div>
   </div>
+</section>
+
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D&#39;http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg&#39;%20viewBox%3D&#39;0%200%201600%20900&#39;%20font-family%3D&#39;Barlow%2CArial%2Csans-serif&#39;%3E%20%3Cdefs%3E%3ClinearGradient%20id%3D&#39;s&#39;%20x1%3D&#39;0&#39;%20y1%3D&#39;0&#39;%20x2%3D&#39;0&#39;%20y2%3D&#39;1&#39;%3E%3Cstop%20offset%3D&#39;0&#39;%20stop-color%3D&#39;%231A1A18&#39;%2F%3E%3Cstop%20offset%3D&#39;.55&#39;%20stop-color%3D&#39;%234a3a2e&#39;%2F%3E%3Cstop%20offset%3D&#39;1&#39;%20stop-color%3D&#39;%23111&#39;%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%20%3Crect%20width%3D&#39;1600&#39;%20height%3D&#39;900&#39;%20fill%3D&#39;url(%23s)&#39;%2F%3E%20%3Ccircle%20cx%3D&#39;1300&#39;%20cy%3D&#39;330&#39;%20r%3D&#39;70&#39;%20fill%3D&#39;%23f6c38a&#39;%20opacity%3D&#39;.8&#39;%2F%3E%20%3Cpath%20d%3D&#39;M0%20470L260%20400%20520%20450%20820%20380%201100%20440%201600%20390V900H0z&#39;%20fill%3D&#39;%232b3a2a&#39;%2F%3E%20%3Cg%20fill%3D&#39;%2334502f&#39;%3E%3Ccircle%20cx%3D&#39;200&#39;%20cy%3D&#39;420&#39;%20r%3D&#39;30&#39;%2F%3E%3Ccircle%20cx%3D&#39;260&#39;%20cy%3D&#39;410&#39;%20r%3D&#39;24&#39;%2F%3E%3Ccircle%20cx%3D&#39;1180&#39;%20cy%3D&#39;420&#39;%20r%3D&#39;28&#39;%2F%3E%3Ccircle%20cx%3D&#39;1460&#39;%20cy%3D&#39;400&#39;%20r%3D&#39;30&#39;%2F%3E%3Ccircle%20cx%3D&#39;1520&#39;%20cy%3D&#39;410&#39;%20r%3D&#39;22&#39;%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D&#39;%23F0ECE5&#39;%3E%20%3Cpath%20d%3D&#39;M360%20540h110v-70l-55-40-55%2040z&#39;%2F%3E%3Cpath%20d%3D&#39;M490%20540h90v-60l-45-34-45%2034z&#39;%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D&#39;%23E85D26&#39;%3E%3Crect%20x%3D&#39;402&#39;%20y%3D&#39;500&#39;%20width%3D&#39;26&#39;%20height%3D&#39;40&#39;%2F%3E%3Crect%20x%3D&#39;522&#39;%20y%3D&#39;506&#39;%20width%3D&#39;20&#39;%20height%3D&#39;34&#39;%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D&#39;700&#39;%20y%3D&#39;450&#39;%20width%3D&#39;330&#39;%20height%3D&#39;80&#39;%20rx%3D&#39;10&#39;%20fill%3D&#39;%23E85D26&#39;%2F%3E%20%3Cpath%20d%3D&#39;M1030%20470h70l40%2040v20h-110z&#39;%20fill%3D&#39;%23E85D26&#39;%2F%3E%20%3Crect%20x%3D&#39;1050&#39;%20y%3D&#39;478&#39;%20width%3D&#39;50&#39;%20height%3D&#39;26&#39;%20fill%3D&#39;%231A1A18&#39;%2F%3E%20%3Crect%20x%3D&#39;730&#39;%20y%3D&#39;420&#39;%20width%3D&#39;200&#39;%20height%3D&#39;40&#39;%20rx%3D&#39;20&#39;%20fill%3D&#39;%23F0ECE5&#39;%2F%3E%20%3Ctext%20x%3D&#39;830&#39;%20y%3D&#39;448&#39;%20text-anchor%3D&#39;middle&#39;%20font-size%3D&#39;22&#39;%20font-weight%3D&#39;900&#39;%20fill%3D&#39;%23111&#39;%3E600%20L%3C%2Ftext%3E%20%3Cg%20fill%3D&#39;%23111&#39;%20stroke%3D&#39;%23F0ECE5&#39;%20stroke-width%3D&#39;5&#39;%3E%3Ccircle%20cx%3D&#39;780&#39;%20cy%3D&#39;540&#39;%20r%3D&#39;32&#39;%2F%3E%3Ccircle%20cx%3D&#39;1060&#39;%20cy%3D&#39;540&#39;%20r%3D&#39;32&#39;%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D&#39;%23F0ECE5&#39;%3E%3Ccircle%20cx%3D&#39;1180&#39;%20cy%3D&#39;470&#39;%20r%3D&#39;12&#39;%2F%3E%3Crect%20x%3D&#39;1170&#39;%20y%3D&#39;484&#39;%20width%3D&#39;20&#39;%20height%3D&#39;50&#39;%2F%3E%3Ccircle%20cx%3D&#39;1220&#39;%20cy%3D&#39;470&#39;%20r%3D&#39;12&#39;%2F%3E%3Crect%20x%3D&#39;1210&#39;%20y%3D&#39;484&#39;%20width%3D&#39;20&#39;%20height%3D&#39;50&#39;%2F%3E%3Ccircle%20cx%3D&#39;1260&#39;%20cy%3D&#39;470&#39;%20r%3D&#39;12&#39;%2F%3E%3Crect%20x%3D&#39;1250&#39;%20y%3D&#39;484&#39;%20width%3D&#39;20&#39;%20height%3D&#39;50&#39;%2F%3E%3C%2Fg%3E%20%3Ctext%20x%3D&#39;1225&#39;%20y%3D&#39;440&#39;%20text-anchor%3D&#39;middle&#39;%20font-size%3D&#39;26&#39;%20font-weight%3D&#39;700&#39;%20fill%3D&#39;%23F0ECE5&#39;%3ECREW%20117%20%C2%B7%20READY%3C%2Ftext%3E%20%3C%2Fsvg%3E" alt="A village at dawn with an orange pickup carrying a 600 litre water tank and three volunteers standing beside it, labelled Crew 117 ready" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">What could be</span>
+    <h2>Six trained neighbours with a pickup reach a fire in 15 minutes</h2>
+    <p class="lead">The crew lives where the fire starts.</p>
+  </div>
+</section>
+
+<section class="slide comparison-slide" data-layout="comparison">
+  <span class="eyebrow">The obstacle</span>
+  <h2>Crews sit in district towns, far from the villages that burn</h2>
+  <div class="comparison-cols emphasis-right">
+    <div class="comparison-col">
+      <span class="comparison-label">Today</span>
+      <p>Crews based in district towns
+One truck per 60 km²
+Volunteers&#39; average age: 58</p>
+    </div>
+    <div class="comparison-vs" aria-hidden="true">vs</div>
+    <div class="comparison-col">
+      <span class="comparison-label">Fireline</span>
+      <p>A crew in every village
+One pickup per village
+Six neighbours, trained in 40 hours</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide quote-slide" data-layout="quote">
+  <p class="quote">The fire reached our olive grove forty minutes before the first truck did.</p>
+  <p class="quote-by">— Rosa Antunes, farmer, Vila Moinhos, Castelo Branco district</p>
 </section>
 
 <section class="slide two-column-slide" data-layout="two-column">
   <div class="cols ratio-1-2">
     <div class="cols-copy">
-      <span class="eyebrow">Work</span>
-      <h2>What we ship</h2>
-      <p class="lead">Launch films: Cuts that start loud and stay loud. Editorial kits — Mastheads with teeth.</p>
+      <span class="eyebrow">Where</span>
+      <h2>The first 400 crews go to villages over 30 minutes from help</h2>
+      <p class="lead">We picked them from the 2025 response logs, slowest first.</p>
     </div>
+    <div class="media"><img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D&#39;http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg&#39;%20viewBox%3D&#39;0%200%201200%20900&#39;%20font-family%3D&#39;Barlow%2CArial%2Csans-serif&#39;%3E%20%3Crect%20width%3D&#39;1200&#39;%20height%3D&#39;900&#39;%20fill%3D&#39;%231A1A18&#39;%2F%3E%20%3Cpath%20d%3D&#39;M470%2060l120%2010%2070%2050%2040%2090-20%2070%2030%2080-10%20100%2020%2090-40%2090%2010%2080-60%2060-140%2010-30-60%2020-90-30-70%2020-110-30-90%2020-110-20-90%2030-60z&#39;%20fill%3D&#39;%23282826&#39;%20stroke%3D&#39;%238d8d85&#39;%20stroke-width%3D&#39;3&#39;%2F%3E%20%3Cpath%20d%3D&#39;M560%20160l60%2080-10%20110%2030%20120-20%20120%2010%20110&#39;%20fill%3D&#39;none&#39;%20stroke%3D&#39;%238d8d85&#39;%20stroke-width%3D&#39;2&#39;%20stroke-dasharray%3D&#39;8%208&#39;%2F%3E%20%3Cg%20fill%3D&#39;%23E85D26&#39;%3E%20%3Ccircle%20cx%3D&#39;600&#39;%20cy%3D&#39;170&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;640&#39;%20cy%3D&#39;210&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;610&#39;%20cy%3D&#39;250&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;660&#39;%20cy%3D&#39;280&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;630&#39;%20cy%3D&#39;320&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;670&#39;%20cy%3D&#39;360&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;620&#39;%20cy%3D&#39;380&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;650&#39;%20cy%3D&#39;420&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;680&#39;%20cy%3D&#39;450&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;630&#39;%20cy%3D&#39;470&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;660&#39;%20cy%3D&#39;510&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;610&#39;%20cy%3D&#39;540&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;650&#39;%20cy%3D&#39;570&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;620&#39;%20cy%3D&#39;610&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;660&#39;%20cy%3D&#39;640&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;600&#39;%20cy%3D&#39;680&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;640&#39;%20cy%3D&#39;700&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;590&#39;%20cy%3D&#39;300&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;700&#39;%20cy%3D&#39;310&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;690&#39;%20cy%3D&#39;400&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;600&#39;%20cy%3D&#39;440&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;700&#39;%20cy%3D&#39;540&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;580&#39;%20cy%3D&#39;580&#39;%20r%3D&#39;8&#39;%2F%3E%3Ccircle%20cx%3D&#39;690&#39;%20cy%3D&#39;600&#39;%20r%3D&#39;8&#39;%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D&#39;%23F0ECE5&#39;%3E%3Ccircle%20cx%3D&#39;470&#39;%20cy%3D&#39;300&#39;%20r%3D&#39;6&#39;%2F%3E%3Ccircle%20cx%3D&#39;450&#39;%20cy%3D&#39;420&#39;%20r%3D&#39;6&#39;%2F%3E%3Ccircle%20cx%3D&#39;480&#39;%20cy%3D&#39;560&#39;%20r%3D&#39;6&#39;%2F%3E%3Ccircle%20cx%3D&#39;520&#39;%20cy%3D&#39;740&#39;%20r%3D&#39;6&#39;%2F%3E%3C%2Fg%3E%20%3Cg%20font-size%3D&#39;24&#39;%20fill%3D&#39;%23F0ECE5&#39;%3E%20%3Ccircle%20cx%3D&#39;820&#39;%20cy%3D&#39;700&#39;%20r%3D&#39;10&#39;%20fill%3D&#39;%23E85D26&#39;%2F%3E%3Ctext%20x%3D&#39;842&#39;%20y%3D&#39;708&#39;%3Efirst%20400%20crews%3C%2Ftext%3E%20%3Ccircle%20cx%3D&#39;820&#39;%20cy%3D&#39;750&#39;%20r%3D&#39;7&#39;%20fill%3D&#39;%23F0ECE5&#39;%2F%3E%3Ctext%20x%3D&#39;842&#39;%20y%3D&#39;758&#39;%3Etoday&#39;s%20crew%20bases%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Ctext%20x%3D&#39;800&#39;%20y%3D&#39;200&#39;%20font-size%3D&#39;30&#39;%20font-weight%3D&#39;900&#39;%20fill%3D&#39;%23E85D26&#39;%3EINTERIOR%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;800&#39;%20y%3D&#39;236&#39;%20font-size%3D&#39;22&#39;%20fill%3D&#39;%238d8d85&#39;%3E30%2B%20min%20from%20a%20crew%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;260&#39;%20y%3D&#39;620&#39;%20font-size%3D&#39;22&#39;%20fill%3D&#39;%238d8d85&#39;%3EAtlantic%3C%2Ftext%3E%20%3C%2Fsvg%3E" alt="Map of mainland Portugal with orange dots for the first 400 village crews along the interior and a few white dots for today&#39;s crew bases near the coast" /></div>
     
-    <div class="cols-aside"><p>Type that survives LED walls.</p></div>
   </div>
 </section>
 
-<section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Filter</span>
-  <h2>We take the brief if…</h2>
-  <div class="comparison-cols emphasis-left">
-    <div class="comparison-col">
-      <span class="comparison-label">Yes</span>
-      <p>One idea.
-Permission to burn.
-Taste over trends.</p>
+<section class="slide timeline-slide" data-layout="timeline">
+  <span class="eyebrow">The plan</span>
+  <h2>Three moves put 400 crews in place before the fire season</h2>
+  <div class="timeline">
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Jan–Mar · Train</h3>
+      <p>2,400 volunteers, 40 hours each</p>
     </div>
-    <div class="comparison-vs" aria-hidden="true">vs</div>
-    <div class="comparison-col">
-      <span class="comparison-label">No</span>
-      <p>Safe navy.
-Committee beige.
-Logo salad.</p>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Mar–Apr · Equip</h3>
+      <p>400 pickups with 600 L tanks</p>
     </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>April · Connect</h3>
+      <p>Every crew on national dispatch</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D&#39;http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg&#39;%20viewBox%3D&#39;0%200%201600%20900&#39;%20font-family%3D&#39;Barlow%2CArial%2Csans-serif&#39;%3E%20%3Crect%20width%3D&#39;1600&#39;%20height%3D&#39;900&#39;%20fill%3D&#39;%231A1A18&#39;%2F%3E%20%3Cg%20stroke%3D&#39;%23282826&#39;%20stroke-width%3D&#39;2&#39;%3E%3Cpath%20d%3D&#39;M0%20300h1600M0%20450h1600M0%20600h1600M400%200v900M800%200v900M1200%200v900&#39;%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D&#39;260&#39;%20y%3D&#39;380&#39;%20width%3D&#39;560&#39;%20height%3D&#39;130&#39;%20rx%3D&#39;14&#39;%20fill%3D&#39;%23E85D26&#39;%2F%3E%20%3Cpath%20d%3D&#39;M820%20410h150l70%2070v30H820z&#39;%20fill%3D&#39;%23E85D26&#39;%2F%3E%20%3Crect%20x%3D&#39;850&#39;%20y%3D&#39;425&#39;%20width%3D&#39;90&#39;%20height%3D&#39;45&#39;%20fill%3D&#39;%23111&#39;%2F%3E%20%3Crect%20x%3D&#39;300&#39;%20y%3D&#39;320&#39;%20width%3D&#39;360&#39;%20height%3D&#39;70&#39;%20rx%3D&#39;35&#39;%20fill%3D&#39;%23F0ECE5&#39;%2F%3E%20%3Ctext%20x%3D&#39;480&#39;%20y%3D&#39;367&#39;%20text-anchor%3D&#39;middle&#39;%20font-size%3D&#39;34&#39;%20font-weight%3D&#39;900&#39;%20fill%3D&#39;%23111&#39;%3E600%20L%20TANK%3C%2Ftext%3E%20%3Cg%20fill%3D&#39;%23111&#39;%20stroke%3D&#39;%23F0ECE5&#39;%20stroke-width%3D&#39;6&#39;%3E%3Ccircle%20cx%3D&#39;360&#39;%20cy%3D&#39;520&#39;%20r%3D&#39;48&#39;%2F%3E%3Ccircle%20cx%3D&#39;900&#39;%20cy%3D&#39;520&#39;%20r%3D&#39;48&#39;%2F%3E%3C%2Fg%3E%20%3Cpath%20d%3D&#39;M660%20350c80-40%20120%2010%20160%2060&#39;%20fill%3D&#39;none&#39;%20stroke%3D&#39;%23F0ECE5&#39;%20stroke-width%3D&#39;6&#39;%2F%3E%20%3Cg%20font-size%3D&#39;26&#39;%20font-weight%3D&#39;700&#39;%20fill%3D&#39;%23F0ECE5&#39;%3E%20%3Cpath%20d%3D&#39;M1120%20330h40M1120%20420h40M1120%20510h40&#39;%20stroke%3D&#39;%23E85D26&#39;%20stroke-width%3D&#39;6&#39;%2F%3E%20%3Ctext%20x%3D&#39;1180&#39;%20y%3D&#39;340&#39;%3E40%20m%20hose%2C%202%20pumps%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;1180&#39;%20y%3D&#39;430&#39;%3ERadio%20on%20national%20dispatch%3C%2Ftext%3E%20%3Ctext%20x%3D&#39;1180&#39;%20y%3D&#39;520&#39;%3E6%20kits%20of%20protective%20gear%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E" alt="Side view of an orange pickup with a 600 litre tank, labelled with hose, pumps, dispatch radio and six sets of protective gear" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">The kit</span>
+    <h2>€18,000 of kit turns six neighbours into a crew</h2>
+    <p class="lead">Training adds €6,000. One crew costs €24,000 in total.</p>
   </div>
 </section>
 
 <section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Signal</span>
-  <h2>Fireline in numbers.</h2>
+  <span class="eyebrow">Momentum</span>
+  <h2>112 villages have signed up and €2.9M is already raised</h2>
   
   <div class="stats">
     <div class="stat">
-      <div class="value">3×</div>
-      <div class="label">Faster cycles</div>
+      <div class="value">112</div>
+      <div class="label">Village councils signed, of 400</div>
     </div>
     <div class="stat">
-      <div class="value">92%</div>
-      <div class="label">Retention</div>
+      <div class="value">1,350</div>
+      <div class="label">Volunteers registered, of 2,400</div>
     </div>
     <div class="stat">
-      <div class="value">18</div>
-      <div class="label">Shipped pilots</div>
+      <div class="value">€2.9M</div>
+      <div class="label">Raised, of €9.6M needed</div>
     </div>
   </div>
 </section>
 
+<section class="slide section-slide" data-layout="section">
+  
+  <h2>1 May 2027: 400 crews stand ready.</h2>
+  <p class="lead">The fire season starts in June. Kit takes eight weeks to build.</p>
+</section>
+
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">Contact</span>
-  <h1>Light the orange.</h1>
-  <p class="lead">hello@fireline.studio</p>
+  <span class="eyebrow">€24,000 funds one village crew</span>
+  <h1>Fund a crew, and put one more village 15 minutes from help.</h1>
+  <p class="lead">Every crew funded by 31 January trains this winter.</p>
   <div class="cta-row">
-    <a class="btn" href="#"><i class="fa-solid fa-arrow-right"></i> Send the brief</a>
-    <a class="btn btn-outline" href="#"><i class="fa-solid fa-calendar"></i> See the calendar</a>
+    <a class="btn" href="#"><i class="fa-solid fa-fire-extinguisher"></i> Fund a village crew</a>
+    <a class="btn btn-outline" href="#"><i class="fa-solid fa-hand-holding-heart"></i> Volunteer to train</a>
   </div>
 </section>
 
@@ -6851,7 +7144,7 @@ Logo salad.</p>
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Fireline — Campaign Deck","company":"Fireline","description":"Dark editorial campaign — broadside multi-slide proof.","theme":"broadside"},"slides":[{"layout":"title","eyebrow":"Campaign","heading":"INK. FIRE. BARLOW.","lead":"Massive type. Zero beige. Orange that means business.","notes":"Cold open — land the one-line claim before logos."},{"layout":"image-hero","eyebrow":"Campaign","heading":"INK. FIRE. BARLOW.","lead":"Massive type. Zero beige. Orange that means business.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%231A1A18%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23111111%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28240%2C236%2C229%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C26%2C24%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C93%2C38%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28240%2C236%2C229%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28240%2C236%2C229%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28240%2C236%2C229%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23111111%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.9%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22420%22%20cy%3D%22280%22%20rx%3D%22520%22%20ry%3D%22340%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22620%22%20rx%3D%22480%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22880%22%20cy%3D%22220%22%20rx%3D%22220%22%20ry%3D%22140%22%20fill%3D%22rgba%28240%2C236%2C229%2C0.220%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M0%20640%20C320%20520%20640%20780%20960%20600%20S1400%20480%201600%20560%20L1600%20900%20L0%20900%20Z%22%20fill%3D%22rgba%28232%2C93%2C38%2C0.120%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.55%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22260%22%20cy%3D%22180%22%20r%3D%2218%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22520%22%20cy%3D%22140%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22980%22%20cy%3D%22210%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22320%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221100%22%20cy%3D%22120%22%20r%3D%228%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Fireline craft visual","notes":"Hold the visual beat — let the room feel the product."},{"layout":"two-column","eyebrow":"Belief","heading":"If it whispers, it dies.","body":"Fireline builds posters, keynotes, and launch films that read from the back of the room.","aside":"Barlow 900. Cream on black. One orange strike.","ratio":"3-2"},{"layout":"two-column","eyebrow":"Work","heading":"What we ship","body":"Launch films: Cuts that start loud and stay loud. Editorial kits — Mastheads with teeth.","aside":"Type that survives LED walls.","ratio":"1-2"},{"layout":"comparison","eyebrow":"Filter","heading":"We take the brief if…","leftLabel":"Yes","left":"One idea.\nPermission to burn.\nTaste over trends.","rightLabel":"No","right":"Safe navy.\nCommittee beige.\nLogo salad.","emphasis":"left","notes":"Name the loser column first, then punch the winner."},{"layout":"stat-row","eyebrow":"Signal","heading":"Fireline in numbers.","notes":"One breath on the numbers — then move on.","stats":[{"value":"3×","label":"Faster cycles"},{"value":"92%","label":"Retention"},{"value":"18","label":"Shipped pilots"}]},{"layout":"closing","eyebrow":"Contact","heading":"Light the orange.","lead":"hello@fireline.studio","actions":[{"label":"Send the brief","href":"#","style":"solid","icon":"fa-solid fa-arrow-right"},{"label":"See the calendar","href":"#","style":"outline","icon":"fa-solid fa-calendar"}]}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Fireline — a crew in every village by 1 May 2027","company":"Fireline","description":"Campaign deck for Fireline, a citizen campaign to fund and train 400 volunteer fire crews in Portugal's interior villages before the 2027 fire season. €24,000 funds one crew.","theme":"broadside","genre":"campaign"},"slides":[{"layout":"title","eyebrow":"Fireline · Citizen campaign · Portugal 2027","heading":"Every village deserves a fire crew within 15 minutes.","notes":"Say it slowly. Then show the hillside and let the silence work."},{"layout":"image-hero","eyebrow":"Summer 2025","heading":"Last summer, fire burned 214,000 hectares of the interior","lead":"Most of it in villages the nearest crew could not reach in time.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201600%20900'%3E%20%3Cdefs%3E%3ClinearGradient%20id%3D's'%20x1%3D'0'%20y1%3D'0'%20x2%3D'0'%20y2%3D'1'%3E%3Cstop%20offset%3D'0'%20stop-color%3D'%233a1408'%2F%3E%3Cstop%20offset%3D'.6'%20stop-color%3D'%238a2a0c'%2F%3E%3Cstop%20offset%3D'1'%20stop-color%3D'%23111'%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%20%3Crect%20width%3D'1600'%20height%3D'900'%20fill%3D'url(%23s)'%2F%3E%20%3Cpath%20d%3D'M0%20520L220%20400%20420%20470%20640%20360%20900%20450%201120%20340%201380%20430%201600%20380V900H0z'%20fill%3D'%231a1a18'%2F%3E%20%3Cpath%20d%3D'M0%20600L300%20520%20560%20580%20860%20500%201160%20570%201600%20510V900H0z'%20fill%3D'%23111'%2F%3E%20%3Cg%20stroke%3D'%230a0a0a'%20stroke-width%3D'8'%20stroke-linecap%3D'round'%3E%20%3Cpath%20d%3D'M180%20430v-80M160%20380l20-14M200%20370l-20-12M500%20470v-70M520%20420l-20-10M760%20400v-90M740%20340l20-12M780%20360l-20-10M1020%20420v-70M1260%20390v-80M1240%20340l20-12M1460%20410v-70'%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D'%23E85D26'%3E%3Cpath%20d%3D'M600%20380c20-60%2060-40%2040-110%2050%2040%2070%2090%2040%20110z'%2F%3E%3Cpath%20d%3D'M1100%20350c16-50%2050-30%2034-90%2040%2034%2056%2076%2032%2090z'%2F%3E%3Cpath%20d%3D'M300%20430c14-40%2040-26%2028-70%2030%2026%2044%2058%2024%2070z'%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D'%23f6a04d'%3E%3Cpath%20d%3D'M620%20380c8-26%2024-18%2018-48%2022%2020%2028%2040%2016%2048z'%2F%3E%3Cpath%20d%3D'M1116%20350c6-22%2020-14%2014-38%2018%2014%2024%2032%2014%2038z'%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D'%232a2a28'%20stroke%3D'%23E85D26'%20stroke-width%3D'2'%3E%20%3Cpath%20d%3D'M760%20520h80v-50l-40-30-40%2030z'%2F%3E%3Cpath%20d%3D'M860%20520h70v-44l-35-26-35%2026z'%2F%3E%3Cpath%20d%3D'M950%20520h80v-50l-40-30-40%2030z'%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D'%23f6a04d'%20opacity%3D'.9'%3E%3Ccircle%20cx%3D'400'%20cy%3D'300'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'700'%20cy%3D'260'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'980'%20cy%3D'290'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'1200'%20cy%3D'250'%20r%3D'4'%2F%3E%3Ccircle%20cx%3D'560'%20cy%3D'240'%20r%3D'3'%2F%3E%3Ccircle%20cx%3D'1340'%20cy%3D'300'%20r%3D'3'%2F%3E%3C%2Fg%3E%20%3C%2Fsvg%3E","imageAlt":"A burnt hillside at dusk with black tree trunks, small flames and three village houses at the foot of the slope"},{"layout":"stat-row","eyebrow":"The gap","heading":"Help takes 47 minutes to reach an interior village","variant":"hero","lead":"Source: Fireline analysis of 2025 civil protection response logs, 3,912 rural fires.","stats":[{"value":"47 min","label":"First crew on scene, interior villages"},{"value":"11 min","label":"First crew on scene, coastal towns"}]},{"layout":"image-hero","eyebrow":"What could be","heading":"Six trained neighbours with a pickup reach a fire in 15 minutes","lead":"The crew lives where the fire starts.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201600%20900'%20font-family%3D'Barlow%2CArial%2Csans-serif'%3E%20%3Cdefs%3E%3ClinearGradient%20id%3D's'%20x1%3D'0'%20y1%3D'0'%20x2%3D'0'%20y2%3D'1'%3E%3Cstop%20offset%3D'0'%20stop-color%3D'%231A1A18'%2F%3E%3Cstop%20offset%3D'.55'%20stop-color%3D'%234a3a2e'%2F%3E%3Cstop%20offset%3D'1'%20stop-color%3D'%23111'%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%20%3Crect%20width%3D'1600'%20height%3D'900'%20fill%3D'url(%23s)'%2F%3E%20%3Ccircle%20cx%3D'1300'%20cy%3D'330'%20r%3D'70'%20fill%3D'%23f6c38a'%20opacity%3D'.8'%2F%3E%20%3Cpath%20d%3D'M0%20470L260%20400%20520%20450%20820%20380%201100%20440%201600%20390V900H0z'%20fill%3D'%232b3a2a'%2F%3E%20%3Cg%20fill%3D'%2334502f'%3E%3Ccircle%20cx%3D'200'%20cy%3D'420'%20r%3D'30'%2F%3E%3Ccircle%20cx%3D'260'%20cy%3D'410'%20r%3D'24'%2F%3E%3Ccircle%20cx%3D'1180'%20cy%3D'420'%20r%3D'28'%2F%3E%3Ccircle%20cx%3D'1460'%20cy%3D'400'%20r%3D'30'%2F%3E%3Ccircle%20cx%3D'1520'%20cy%3D'410'%20r%3D'22'%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D'%23F0ECE5'%3E%20%3Cpath%20d%3D'M360%20540h110v-70l-55-40-55%2040z'%2F%3E%3Cpath%20d%3D'M490%20540h90v-60l-45-34-45%2034z'%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D'%23E85D26'%3E%3Crect%20x%3D'402'%20y%3D'500'%20width%3D'26'%20height%3D'40'%2F%3E%3Crect%20x%3D'522'%20y%3D'506'%20width%3D'20'%20height%3D'34'%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D'700'%20y%3D'450'%20width%3D'330'%20height%3D'80'%20rx%3D'10'%20fill%3D'%23E85D26'%2F%3E%20%3Cpath%20d%3D'M1030%20470h70l40%2040v20h-110z'%20fill%3D'%23E85D26'%2F%3E%20%3Crect%20x%3D'1050'%20y%3D'478'%20width%3D'50'%20height%3D'26'%20fill%3D'%231A1A18'%2F%3E%20%3Crect%20x%3D'730'%20y%3D'420'%20width%3D'200'%20height%3D'40'%20rx%3D'20'%20fill%3D'%23F0ECE5'%2F%3E%20%3Ctext%20x%3D'830'%20y%3D'448'%20text-anchor%3D'middle'%20font-size%3D'22'%20font-weight%3D'900'%20fill%3D'%23111'%3E600%20L%3C%2Ftext%3E%20%3Cg%20fill%3D'%23111'%20stroke%3D'%23F0ECE5'%20stroke-width%3D'5'%3E%3Ccircle%20cx%3D'780'%20cy%3D'540'%20r%3D'32'%2F%3E%3Ccircle%20cx%3D'1060'%20cy%3D'540'%20r%3D'32'%2F%3E%3C%2Fg%3E%20%3Cg%20fill%3D'%23F0ECE5'%3E%3Ccircle%20cx%3D'1180'%20cy%3D'470'%20r%3D'12'%2F%3E%3Crect%20x%3D'1170'%20y%3D'484'%20width%3D'20'%20height%3D'50'%2F%3E%3Ccircle%20cx%3D'1220'%20cy%3D'470'%20r%3D'12'%2F%3E%3Crect%20x%3D'1210'%20y%3D'484'%20width%3D'20'%20height%3D'50'%2F%3E%3Ccircle%20cx%3D'1260'%20cy%3D'470'%20r%3D'12'%2F%3E%3Crect%20x%3D'1250'%20y%3D'484'%20width%3D'20'%20height%3D'50'%2F%3E%3C%2Fg%3E%20%3Ctext%20x%3D'1225'%20y%3D'440'%20text-anchor%3D'middle'%20font-size%3D'26'%20font-weight%3D'700'%20fill%3D'%23F0ECE5'%3ECREW%20117%20%C2%B7%20READY%3C%2Ftext%3E%20%3C%2Fsvg%3E","imageAlt":"A village at dawn with an orange pickup carrying a 600 litre water tank and three volunteers standing beside it, labelled Crew 117 ready"},{"layout":"comparison","eyebrow":"The obstacle","heading":"Crews sit in district towns, far from the villages that burn","leftLabel":"Today","left":"Crews based in district towns\nOne truck per 60 km²\nVolunteers' average age: 58","rightLabel":"Fireline","right":"A crew in every village\nOne pickup per village\nSix neighbours, trained in 40 hours","emphasis":"right"},{"layout":"quote","quote":"The fire reached our olive grove forty minutes before the first truck did.","by":"Rosa Antunes, farmer, Vila Moinhos, Castelo Branco district"},{"layout":"two-column","eyebrow":"Where","heading":"The first 400 crews go to villages over 30 minutes from help","ratio":"1-2","body":"We picked them from the 2025 response logs, slowest first.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201200%20900'%20font-family%3D'Barlow%2CArial%2Csans-serif'%3E%20%3Crect%20width%3D'1200'%20height%3D'900'%20fill%3D'%231A1A18'%2F%3E%20%3Cpath%20d%3D'M470%2060l120%2010%2070%2050%2040%2090-20%2070%2030%2080-10%20100%2020%2090-40%2090%2010%2080-60%2060-140%2010-30-60%2020-90-30-70%2020-110-30-90%2020-110-20-90%2030-60z'%20fill%3D'%23282826'%20stroke%3D'%238d8d85'%20stroke-width%3D'3'%2F%3E%20%3Cpath%20d%3D'M560%20160l60%2080-10%20110%2030%20120-20%20120%2010%20110'%20fill%3D'none'%20stroke%3D'%238d8d85'%20stroke-width%3D'2'%20stroke-dasharray%3D'8%208'%2F%3E%20%3Cg%20fill%3D'%23E85D26'%3E%20%3Ccircle%20cx%3D'600'%20cy%3D'170'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'640'%20cy%3D'210'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'610'%20cy%3D'250'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'660'%20cy%3D'280'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'630'%20cy%3D'320'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'670'%20cy%3D'360'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'620'%20cy%3D'380'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'650'%20cy%3D'420'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'680'%20cy%3D'450'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'630'%20cy%3D'470'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'660'%20cy%3D'510'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'610'%20cy%3D'540'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'650'%20cy%3D'570'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'620'%20cy%3D'610'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'660'%20cy%3D'640'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'600'%20cy%3D'680'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'640'%20cy%3D'700'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'590'%20cy%3D'300'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'700'%20cy%3D'310'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'690'%20cy%3D'400'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'600'%20cy%3D'440'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'700'%20cy%3D'540'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'580'%20cy%3D'580'%20r%3D'8'%2F%3E%3Ccircle%20cx%3D'690'%20cy%3D'600'%20r%3D'8'%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D'%23F0ECE5'%3E%3Ccircle%20cx%3D'470'%20cy%3D'300'%20r%3D'6'%2F%3E%3Ccircle%20cx%3D'450'%20cy%3D'420'%20r%3D'6'%2F%3E%3Ccircle%20cx%3D'480'%20cy%3D'560'%20r%3D'6'%2F%3E%3Ccircle%20cx%3D'520'%20cy%3D'740'%20r%3D'6'%2F%3E%3C%2Fg%3E%20%3Cg%20font-size%3D'24'%20fill%3D'%23F0ECE5'%3E%20%3Ccircle%20cx%3D'820'%20cy%3D'700'%20r%3D'10'%20fill%3D'%23E85D26'%2F%3E%3Ctext%20x%3D'842'%20y%3D'708'%3Efirst%20400%20crews%3C%2Ftext%3E%20%3Ccircle%20cx%3D'820'%20cy%3D'750'%20r%3D'7'%20fill%3D'%23F0ECE5'%2F%3E%3Ctext%20x%3D'842'%20y%3D'758'%3Etoday's%20crew%20bases%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Ctext%20x%3D'800'%20y%3D'200'%20font-size%3D'30'%20font-weight%3D'900'%20fill%3D'%23E85D26'%3EINTERIOR%3C%2Ftext%3E%20%3Ctext%20x%3D'800'%20y%3D'236'%20font-size%3D'22'%20fill%3D'%238d8d85'%3E30%2B%20min%20from%20a%20crew%3C%2Ftext%3E%20%3Ctext%20x%3D'260'%20y%3D'620'%20font-size%3D'22'%20fill%3D'%238d8d85'%3EAtlantic%3C%2Ftext%3E%20%3C%2Fsvg%3E","imageAlt":"Map of mainland Portugal with orange dots for the first 400 village crews along the interior and a few white dots for today's crew bases near the coast"},{"layout":"timeline","eyebrow":"The plan","heading":"Three moves put 400 crews in place before the fire season","steps":[{"title":"Jan–Mar · Train","body":"2,400 volunteers, 40 hours each"},{"title":"Mar–Apr · Equip","body":"400 pickups with 600 L tanks"},{"title":"April · Connect","body":"Every crew on national dispatch"}]},{"layout":"image-hero","eyebrow":"The kit","heading":"€18,000 of kit turns six neighbours into a crew","lead":"Training adds €6,000. One crew costs €24,000 in total.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201600%20900'%20font-family%3D'Barlow%2CArial%2Csans-serif'%3E%20%3Crect%20width%3D'1600'%20height%3D'900'%20fill%3D'%231A1A18'%2F%3E%20%3Cg%20stroke%3D'%23282826'%20stroke-width%3D'2'%3E%3Cpath%20d%3D'M0%20300h1600M0%20450h1600M0%20600h1600M400%200v900M800%200v900M1200%200v900'%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D'260'%20y%3D'380'%20width%3D'560'%20height%3D'130'%20rx%3D'14'%20fill%3D'%23E85D26'%2F%3E%20%3Cpath%20d%3D'M820%20410h150l70%2070v30H820z'%20fill%3D'%23E85D26'%2F%3E%20%3Crect%20x%3D'850'%20y%3D'425'%20width%3D'90'%20height%3D'45'%20fill%3D'%23111'%2F%3E%20%3Crect%20x%3D'300'%20y%3D'320'%20width%3D'360'%20height%3D'70'%20rx%3D'35'%20fill%3D'%23F0ECE5'%2F%3E%20%3Ctext%20x%3D'480'%20y%3D'367'%20text-anchor%3D'middle'%20font-size%3D'34'%20font-weight%3D'900'%20fill%3D'%23111'%3E600%20L%20TANK%3C%2Ftext%3E%20%3Cg%20fill%3D'%23111'%20stroke%3D'%23F0ECE5'%20stroke-width%3D'6'%3E%3Ccircle%20cx%3D'360'%20cy%3D'520'%20r%3D'48'%2F%3E%3Ccircle%20cx%3D'900'%20cy%3D'520'%20r%3D'48'%2F%3E%3C%2Fg%3E%20%3Cpath%20d%3D'M660%20350c80-40%20120%2010%20160%2060'%20fill%3D'none'%20stroke%3D'%23F0ECE5'%20stroke-width%3D'6'%2F%3E%20%3Cg%20font-size%3D'26'%20font-weight%3D'700'%20fill%3D'%23F0ECE5'%3E%20%3Cpath%20d%3D'M1120%20330h40M1120%20420h40M1120%20510h40'%20stroke%3D'%23E85D26'%20stroke-width%3D'6'%2F%3E%20%3Ctext%20x%3D'1180'%20y%3D'340'%3E40%20m%20hose%2C%202%20pumps%3C%2Ftext%3E%20%3Ctext%20x%3D'1180'%20y%3D'430'%3ERadio%20on%20national%20dispatch%3C%2Ftext%3E%20%3Ctext%20x%3D'1180'%20y%3D'520'%3E6%20kits%20of%20protective%20gear%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E","imageAlt":"Side view of an orange pickup with a 600 litre tank, labelled with hose, pumps, dispatch radio and six sets of protective gear"},{"layout":"stat-row","eyebrow":"Momentum","heading":"112 villages have signed up and €2.9M is already raised","stats":[{"value":"112","label":"Village councils signed, of 400"},{"value":"1,350","label":"Volunteers registered, of 2,400"},{"value":"€2.9M","label":"Raised, of €9.6M needed"}],"notes":"Read the denominators aloud. The gap is the ask."},{"layout":"section","eyebrow":"The deadline","heading":"1 May 2027: 400 crews stand ready.","lead":"The fire season starts in June. Kit takes eight weeks to build."},{"layout":"closing","eyebrow":"€24,000 funds one village crew","heading":"Fund a crew, and put one more village 15 minutes from help.","lead":"Every crew funded by 31 January trains this winter.","actions":[{"label":"Fund a village crew","style":"solid","icon":"fa-solid fa-fire-extinguisher"},{"label":"Volunteer to train","style":"outline","icon":"fa-solid fa-hand-holding-heart"}]}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {

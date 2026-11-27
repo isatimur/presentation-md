@@ -1,145 +1,135 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Daily Ledger — Media Kit",
+    "title": "Daily Ledger — Q1 2027 sponsorship proposal for Fairhaven Bank",
     "company": "Daily Ledger",
-    "description": "Newsroom media kit — broadsheet multi-slide proof.",
-    "theme": "broadsheet"
+    "description": "Sales deck from the Daily Ledger newspaper to Fairhaven Bank: the shift from reach to attention, a Business-section sponsorship, the Morning Briefing, proof from a credit union, and a $186,000 Q1 plan.",
+    "theme": "broadsheet",
+    "genre": "sales"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Media kit · 2026",
-      "heading": "Newsprint that still matters.",
-      "lead": "Masthead ink. Pirata weight. Audience that reads past the headline.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Prepared for Fairhaven Bank · Q1 2027 proposal",
+      "heading": "How Fairhaven Bank reaches readers who finish the story",
+      "lead": "A sponsorship plan for 12 Mondays, January to March 2027.",
+      "notes": "Open on their name, not ours. The paper's name does not appear in a heading until slide 6."
     },
     {
-      "layout": "feature-grid",
-      "eyebrow": "Inventory",
-      "heading": "Where brands show up",
-      "columns": "bento",
-      "cards": [
-        {
-          "icon": "fa-solid fa-newspaper",
-          "title": "Masthead takeovers",
-          "body": "One sponsor per day — never a carpet bomb."
-        },
-        {
-          "icon": "fa-solid fa-envelope",
-          "title": "Morning briefing",
-          "body": "Sponsored beats with editorial firewall."
-        },
-        {
-          "icon": "fa-solid fa-podcast",
-          "title": "Ledger Live",
-          "body": "Audio with host-read standards."
-        },
-        {
-          "icon": "fa-solid fa-bolt",
-          "title": "Ship the punchline",
-          "body": "Lead with the claim that survives the hallway test."
-        },
-        {
-          "icon": "fa-solid fa-eye",
-          "title": "Show, don't pad",
-          "body": "Asymmetry beats another identical third column."
-        }
-      ]
+      "layout": "chart",
+      "eyebrow": "The shift",
+      "heading": "Open-web display viewability fell from 61% to 44% in four years",
+      "chartType": "line",
+      "categories": ["2022", "2023", "2024", "2025", "2026"],
+      "series": [
+        { "name": "Viewable impressions (%)", "values": [61, 57, 52, 47, 44] }
+      ],
+      "showValues": true,
+      "lead": "Source: Ledger ad-ops panel, 3.4B open-web impressions, 2022–2026."
     },
     {
       "layout": "comparison",
-      "eyebrow": "Media kit",
-      "heading": "Spray-and-pray vs. masthead trust",
-      "leftLabel": "Programmatic blur",
-      "left": "Unknown adjacency.\nVanity impressions.\nNo editorial voice.\nRates without readers.",
-      "rightLabel": "Daily Ledger",
-      "right": "Named sections.\nSubscriber density.\nSponsorship with standards.\nInk that readers keep.",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
+      "eyebrow": "Winners and losers",
+      "heading": "Brands that buy attention now beat brands that buy reach",
+      "leftLabel": "Buying reach",
+      "left": "Unknown pages.\nUnder half ever seen.",
+      "rightLabel": "Buying attention",
+      "right": "Named reporting.\nOver 6 minutes per story.\nReaders who pay.",
+      "emphasis": "right"
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Masthead moment",
-      "heading": "Ink first. Then the numbers.",
-      "lead": "Broadsheet energy with a photographic open — the ledger as a place, not a spreadsheet.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23e8dfc8%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f2ece0%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2892%2C77%2C56%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C223%2C200%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2892%2C77%2C56%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2892%2C77%2C56%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2892%2C77%2C56%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f2ece0%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%2826%2C18%2C8%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23e8dfc8%22%20stroke%3D%22rgba%2826%2C18%2C8%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%2892%2C77%2C56%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%231a1208%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%2826%2C18%2C8%2C0.150%29%22%20stroke%3D%22rgba%2892%2C77%2C56%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%2892%2C77%2C56%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%2892%2C77%2C56%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Daily Ledger atmospheric field",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "The promised land",
+      "heading": "Fairhaven's name sits above the business story a city reads first",
+      "lead": "Every Monday, one sponsor, one section.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'><rect width='1600' height='900' fill='%23e8dfc8'/><g font-family='Georgia,Times,serif' fill='%231a1208'><rect x='120' y='270' width='1360' height='340' fill='%23f2ece0' stroke='%231a1208' stroke-width='2'/><text x='800' y='330' font-size='46' font-weight='700' text-anchor='middle'>The Daily Ledger</text><line x1='160' y1='346' x2='1440' y2='346' stroke-width='3' stroke='%231a1208'/><text x='160' y='368' font-size='16' fill='%235a4c3e'>MONDAY 11 JANUARY 2027 · BUSINESS</text><text x='1440' y='368' font-size='16' fill='%235a4c3e' text-anchor='end'>$2.50</text><rect x='160' y='380' width='1280' height='38' fill='%231a1208'/><text x='800' y='406' font-size='20' fill='%23f2ece0' text-anchor='middle' letter-spacing='3'>BUSINESS · PRESENTED BY FAIRHAVEN BANK</text><text x='160' y='462' font-size='36' font-weight='700'>Port expansion brings 2,400 jobs to the east side</text><text x='160' y='492' font-size='19' font-style='italic' fill='%235a4c3e'>Council approves $310M terminal after a two-year review</text><g fill='%231a1208' fill-opacity='.28'><rect x='160' y='512' width='390' height='8'/><rect x='160' y='530' width='370' height='8'/><rect x='160' y='548' width='390' height='8'/><rect x='580' y='512' width='390' height='8'/><rect x='580' y='530' width='390' height='8'/><rect x='580' y='548' width='360' height='8'/></g><rect x='1010' y='506' width='430' height='70' fill='none' stroke='%231a1208' stroke-width='2'/><text x='1225' y='536' font-size='20' text-anchor='middle'>Fairhaven Bank</text><text x='1225' y='562' font-size='16' font-style='italic' text-anchor='middle' fill='%235a4c3e'>Small-business loans, decided in 48 hours</text></g></svg>",
+      "imageAlt": "Daily Ledger Business section front, 11 January 2027, with a banner reading Business presented by Fairhaven Bank",
+      "notes": "Let them see their name in the banner. Do not explain the unit yet."
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "Two obstacles, two fixes",
+      "lead": "What stops banks from buying news today."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Obstacle 1 · Unknown adjacency",
+      "heading": "The Daily Ledger names the section and the day before any ad runs",
+      "ratio": "2-1",
+      "body": "One sponsor per section per day.\nThe Monday line-up arrives a week ahead.",
+      "aside": "0 brand-safety incidents in 1,900 sponsored days since 2023."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Obstacle 2 · Ignored inboxes",
+      "heading": "The Morning Briefing puts a host-read line in 412,000 inboxes",
+      "ratio": "2-1",
+      "reverse": true,
+      "body": "Sent at 6 am, read before work.\nOur editor reads the sponsor line aloud.",
+      "aside": "58% open rate, against 21% for news email."
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Audience",
-      "heading": "Readers, not scrollers.",
+      "eyebrow": "Evidence · Harbor Credit Union, spring 2026",
+      "heading": "Harbor Credit Union cut cost per enquiry from $118 to $41",
       "stats": [
-        {
-          "value": "1.1M",
-          "label": "Weekly uniques"
-        },
-        {
-          "value": "6:42",
-          "label": "Avg time on story"
-        },
-        {
-          "value": "38%",
-          "label": "Subscriber mix"
-        }
-      ]
-    },
-    {
-      "layout": "data-table",
-      "eyebrow": "Rates",
-      "heading": "Transparent units",
-      "rows": [
-        [
-          "Homepage",
-          "$48",
-          "1 day",
-          "Shared exclusivity"
-        ],
-        [
-          "Briefing",
-          "$32",
-          "1 week",
-          "Host-read add-on"
-        ],
-        [
-          "Podcast",
-          "$55",
-          "1 ep",
-          "Pre-roll only"
-        ]
-      ],
-      "columns": [
-        "Unit",
-        "CPM",
-        "Min",
-        "Notes"
+        { "value": "+34%", "label": "Mortgage enquiries vs the prior 8 weeks" },
+        { "value": "2.6×", "label": "Ad recall vs their programmatic buy" },
+        { "value": "$41", "label": "Cost per enquiry, down from $118" }
       ]
     },
     {
       "layout": "quote",
-      "quote": "The masthead is the product. Everything else is inventory.",
-      "by": "Publisher note"
+      "quote": "We stopped buying impressions and started buying Mondays. Enquiries rose in week two.",
+      "by": "Dana Whitlock · CMO, Harbor Credit Union"
+    },
+    {
+      "layout": "logo-wall",
+      "eyebrow": "Sponsors like Fairhaven",
+      "heading": "Six regional financial brands renewed their Ledger sections for 2027",
+      "columns": 3,
+      "cards": [
+        { "title": "Harbor Credit Union", "body": "Business · since 2025" },
+        { "title": "Allston Savings", "body": "Property · since 2024" },
+        { "title": "Pell & Rowe Insurance", "body": "Weather · since 2023" },
+        { "title": "Corbin Wealth", "body": "Markets · since 2025" },
+        { "title": "Greywater Realty", "body": "Property · since 2024" },
+        { "title": "Tidewell Health Plan", "body": "Health · since 2026" }
+      ]
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "The Q1 plan",
+      "heading": "Twelve Mondays across three channels cost $186,000 for the quarter",
+      "columns": ["Unit", "Rate", "Fairhaven Q1 plan", "Cost"],
+      "rows": [
+        ["Business section takeover", "$8,600 / day", "12 Mondays", "$103,200"],
+        ["Morning Briefing presenting line", "$9,500 / week", "6 weeks", "$57,000"],
+        ["Ledger Live host read", "$4,300 / episode", "6 episodes", "$25,800"],
+        ["Total", "", "Jan 11 – Mar 29", "$186,000"]
+      ],
+      "notes": "Walk the total row first, then the lines. The Monday takeovers are 55% of the spend and all of the visibility."
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Implementation",
+      "heading": "Fairhaven goes live on 11 January in four steps",
+      "steps": [
+        { "title": "15 Dec · Sign", "body": "Hold all 12 Mondays" },
+        { "title": "4 Jan · Approve", "body": "Standards desk clears copy" },
+        { "title": "11 Jan · Launch", "body": "First takeover runs" },
+        { "title": "29 Mar · Report", "body": "Enquiries and recall" }
+      ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Advertise",
-      "heading": "Buy ink that gets read.",
-      "lead": "Media kit PDF + brand safety addendum on request.",
+      "eyebrow": "Next step · by 15 December",
+      "heading": "Put Fairhaven beside the stories readers finish, from 11 January",
+      "lead": "Sign the Q1 plan by 15 December to hold all 12 Mondays.",
       "actions": [
-        {
-          "label": "Request rates",
-          "href": "#",
-          "style": "solid",
-          "icon": "fa-solid fa-file-invoice-dollar"
-        },
-        {
-          "label": "Download the kit",
-          "href": "#",
-          "style": "outline",
-          "icon": "fa-solid fa-download"
-        }
+        { "label": "Hold the 12 Mondays", "href": "#", "style": "solid", "icon": "fa-solid fa-calendar-check" },
+        { "label": "Download the media kit", "href": "#", "style": "outline", "icon": "fa-solid fa-download" }
       ]
     }
   ]

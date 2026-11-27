@@ -1,149 +1,246 @@
 {
   "type": "deck",
   "meta": {
-    "title": "LedgerLine — Payouts Sales",
+    "title": "LedgerLine — Q3 2026 board update",
     "company": "LedgerLine",
-    "description": "Fintech payouts sales deck — fintech-clean with code + asymmetric two-column.",
-    "theme": "fintech-clean"
+    "description": "Board update for a real-time marketplace payouts company: answer first, KPI scorecard, volume trend, a win, a margin miss and its fix, cash, Q4 roadmap, risks and three asks.",
+    "theme": "fintech-clean",
+    "genre": "board"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Realtime payouts",
-      "heading": "Pay sellers before they chase you.",
-      "lead": "RTP rails, idempotent APIs, reconciliation that finance trusts.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "feature-grid",
-      "eyebrow": "Product",
-      "heading": "Payouts finance can defend",
-      "columns": "bento",
-      "cards": [
-        {
-          "icon": "fa-solid fa-bolt",
-          "title": "RTP rails",
-          "body": "Seconds to settle — sellers stop chasing support."
-        },
-        {
-          "icon": "fa-solid fa-fingerprint",
-          "title": "Idempotent APIs",
-          "body": "Retry safely. Duplicate keys are a no-op, not a double pay."
-        },
-        {
-          "icon": "fa-solid fa-scale-balanced",
-          "title": "Reconciliation",
-          "body": "Receipts finance trusts without a midnight spreadsheet."
-        },
-        {
-          "icon": "fa-solid fa-shield-halved",
-          "title": "Returns automated",
-          "body": "Webhooks + exception budgets instead of ticket piles."
-        },
-        {
-          "icon": "fa-solid fa-compass",
-          "title": "Clear north star",
-          "body": "One decisive story beat — not a wall of equal tiles."
-        }
-      ]
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Economics",
-      "heading": "Cost that CFOs can defend.",
-      "leftLabel": "Legacy rails",
-      "left": "1.5% + $0.30\nT+2 settlement\nManual exception queues",
-      "rightLabel": "LedgerLine",
-      "right": "0.2% + $0.10\nSeconds on RTP\nAutomated returns + webhooks",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Realtime payouts",
-      "heading": "Pay sellers before they chase you.",
-      "lead": "RTP rails, idempotent APIs, reconciliation that finance trusts.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f0eeff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23fbfbfd%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2899%2C91%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2899%2C91%2C255%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C212%2C177%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2899%2C91%2C255%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28240%2C238%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2899%2C91%2C255%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2899%2C91%2C255%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2899%2C91%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C212%2C177%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%280%2C212%2C177%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%280%2C212%2C177%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23fbfbfd%22%2F%3E%0A%20%20%3Cpolygon%20points%3D%220%2C0%20980%2C0%20640%2C900%200%2C900%22%20fill%3D%22rgba%2899%2C91%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Cpolygon%20points%3D%22980%2C0%201600%2C0%201600%2C900%20640%2C900%22%20fill%3D%22rgba%280%2C212%2C177%2C0.180%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22280%22%20rx%3D%22260%22%20ry%3D%22200%22%20fill%3D%22rgba%2899%2C91%2C255%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22220%22%20width%3D%22620%22%20height%3D%2272%22%20fill%3D%22%23635bff%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22320%22%20width%3D%22460%22%20height%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.550%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22370%22%20width%3D%22380%22%20height%3D%2222%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22980%22%20y%3D%22520%22%20width%3D%22420%22%20height%3D%22220%22%20fill%3D%22rgba%280%2C0%2C0%2C0.220%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221000%22%20y%3D%22540%22%20width%3D%22380%22%20height%3D%22180%22%20fill%3D%22rgba%280%2C212%2C177%2C0.450%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22630%22%20r%3D%2254%22%20fill%3D%22rgba%28251%2C251%2C253%2C0.550%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.7%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "LedgerLine craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "LedgerLine · Q3 2026 board update · Confidential",
+      "heading": "Volume beat plan by 8%. Margin slipped three points.",
+      "lead": "We moved $4.1B to sellers in Q3. Two votes today win the margin back by January.",
+      "notes": "Lead with both halves of the answer. The board will ask about margin first, so do not bury it."
     },
     {
       "layout": "two-column",
-      "eyebrow": "The gap",
-      "heading": "Marketplaces still settle like it's 2014.",
-      "body": "Batch files. T+2. Support tickets that start with “where is my money?” LedgerLine collapses that to a receipt in under a minute.",
-      "aside": "Average seller chase costs $18 in support before a payout clears.",
-      "ratio": "2-1"
+      "eyebrow": "Executive summary",
+      "heading": "Gig platforms drove volume, card fees cut margin, and FedNow is the fix",
+      "ratio": "3-2",
+      "body": "Won: payout volume $4.1B, 8% over plan.\nWon: 214 live marketplaces, 14 over plan.\nMissed: gross margin 61% against a 64% plan.",
+      "aside": "Decide today: fund the $1.2M FedNow build, and add a second sponsor bank."
     },
     {
-      "layout": "code",
-      "eyebrow": "Developer experience",
-      "heading": "Trigger a payout in under five minutes",
-      "filename": "ledgerline-payout.js",
-      "language": "js",
-      "code": "const ll = new LedgerLine({ apiKey: process.env.LL_KEY });\n\nconst payout = await ll.payouts.create({\n  amount: 25000,\n  currency: 'usd',\n  destination: 'seller_9kXm2p',\n  rail: 'rtp',\n  idempotency_key: 'order_abc123',\n});\n\n// payout.status === 'settled'  (avg 68s)"
+      "layout": "data-table",
+      "eyebrow": "Scorecard",
+      "heading": "Four of five KPIs beat plan; gross margin is the exception",
+      "columns": [
+        "KPI",
+        "Q3 plan",
+        "Q3 actual",
+        "vs plan",
+        "vs Q2"
+      ],
+      "rows": [
+        [
+          "Payout volume",
+          "$3.8B",
+          "$4.1B",
+          "+8%",
+          "+24%"
+        ],
+        [
+          "Net revenue",
+          "$9.2M",
+          "$9.6M",
+          "+4%",
+          "+21%"
+        ],
+        [
+          "Live marketplaces",
+          "200",
+          "214",
+          "+14",
+          "+31"
+        ],
+        [
+          "Failed payouts",
+          "0.40%",
+          "0.31%",
+          "−0.09 pts",
+          "−0.05 pts"
+        ],
+        [
+          "Gross margin",
+          "64%",
+          "61%",
+          "−3 pts",
+          "−2 pts"
+        ]
+      ]
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "The trend that matters",
+      "heading": "Quarterly payout volume grew 2.6× in a year to $4.1B",
+      "chartType": "bar",
+      "categories": [
+        "Q3 25",
+        "Q4 25",
+        "Q1 26",
+        "Q2 26",
+        "Q3 26"
+      ],
+      "series": [
+        {
+          "name": "Payout volume ($B)",
+          "values": [
+            1.6,
+            2.1,
+            2.6,
+            3.3,
+            4.1
+          ]
+        }
+      ],
+      "showValues": true,
+      "lead": "Source: LedgerLine ledger, settled payouts only, close of 2 October 2026."
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "eyebrow": "Cause and effect",
+      "heading": "What worked, and what did not"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "What worked",
+      "heading": "Instant-to-debit payouts won gig platforms and 61% of new volume",
+      "ratio": "2-1",
+      "body": "We launched instant payouts to debit cards in June. Gig platforms pay drivers and couriers daily, so they moved first: 23 signed in the quarter.",
+      "aside": "$0.49B of $0.8B new quarterly volume came from gig platforms. Median time to cash: 38 seconds."
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "What did not",
+      "heading": "Gross margin fell 3 points when card-network fees rose 40%",
+      "leftLabel": "Plan",
+      "left": "Card push fee held at $0.18.\n30% of payouts sent to cards.\nGross margin 64%.",
+      "rightLabel": "Actual, and the fix",
+      "right": "Fee rose to $0.25 on 1 July.\n44% of payouts went to cards.\nGross margin 61%. Fix: send bank payouts on FedNow at $0.045.",
+      "emphasis": "right",
+      "notes": "Say it plainly: we priced instant payouts on the old fee. FedNow moves bank-account payouts off cards and recovers the margin."
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Traction",
-      "heading": "Numbers from live volume",
+      "eyebrow": "Cash",
+      "variant": "hero",
+      "heading": "Cash covers 34 months at today's burn",
       "stats": [
         {
-          "value": "$4.8B",
-          "label": "Annualized GPV"
+          "value": "34 mo",
+          "label": "Runway at current burn, up from 30 in Q2"
         },
         {
-          "value": "68s",
-          "label": "Median settle time"
+          "value": "$72.4M",
+          "label": "Cash at 30 Sep, down $6.3M"
         },
         {
-          "value": "0.04%",
-          "label": "Return rate"
+          "value": "$2.1M",
+          "label": "Monthly net burn, was $2.4M"
         }
       ]
     },
     {
-      "layout": "logo-wall",
-      "eyebrow": "Customers",
-      "heading": "Finance teams that move money daily.",
-      "columns": 4,
+      "layout": "timeline",
+      "eyebrow": "Next quarter",
+      "heading": "Q4 moves bank payouts to FedNow and margin back to 64%",
+      "steps": [
+        {
+          "title": "Oct · Pilot",
+          "body": "FedNow live for 3 marketplaces"
+        },
+        {
+          "title": "Nov · Bank",
+          "body": "Second sponsor bank signed"
+        },
+        {
+          "title": "Dec · Audit",
+          "body": "SOC 2 Type II renewed"
+        },
+        {
+          "title": "Jan · Scale",
+          "body": "FedNow for all; margin 64%"
+        }
+      ]
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Risks",
+      "heading": "One sponsor bank holding every dollar is now the top risk",
+      "columns": [
+        "Risk",
+        "Likelihood",
+        "Impact",
+        "Owner",
+        "Mitigation"
+      ],
+      "rows": [
+        [
+          "Sponsor bank pauses flows",
+          "Low",
+          "All volume",
+          "CEO",
+          "Second bank by Nov"
+        ],
+        [
+          "Receiving banks lag on FedNow",
+          "Medium",
+          "1 pt margin",
+          "CTO",
+          "Card fallback per payout"
+        ],
+        [
+          "Instant-payout fraud rises",
+          "Medium",
+          "$0.4M a year",
+          "CRO",
+          "Velocity limits, day-one holds"
+        ]
+      ]
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Decisions required",
+      "heading": "We ask the board for two votes and one piece of advice",
+      "columns": 3,
       "cards": [
         {
-          "title": "Harbor",
-          "body": "SaaS"
+          "icon": "fa-solid fa-bolt",
+          "title": "Vote: $1.2M for FedNow",
+          "body": "Six engineers for two quarters. Pays back in 5 months."
         },
         {
-          "title": "Cobalt",
-          "body": "Marketplace"
+          "icon": "fa-solid fa-building-columns",
+          "title": "Vote: second sponsor bank",
+          "body": "Crestline Bank term sheet, $0.3M a year."
         },
         {
-          "title": "Ridge",
-          "body": "Enterprise"
-        },
-        {
-          "title": "Pulse",
-          "body": "Consumer"
+          "icon": "fa-solid fa-earth-europe",
+          "title": "Advice: UK timing",
+          "body": "File the EMI licence now, or after FedNow ships?"
         }
       ],
-      "notes": "Glance the marks — social proof, not a reading list."
+      "notes": "Take the FedNow vote first; the bank vote depends on it. The UK question is advice, not a vote."
     },
     {
       "layout": "closing",
-      "eyebrow": "Next step",
-      "heading": "Wire sandbox. Ship Friday.",
-      "lead": "SOC2 · bank-grade KYC partners · white-glove onboarding for Series B+.",
+      "eyebrow": "Recommendation",
+      "heading": "Fund FedNow and a second bank to win margin back by January",
+      "lead": "Both votes today let the pilot start on 14 October.",
       "actions": [
         {
-          "label": "Book a walkthrough",
-          "href": "#",
+          "label": "Approve both votes",
           "style": "solid",
-          "icon": "fa-solid fa-calendar"
+          "icon": "fa-solid fa-check"
         },
         {
-          "label": "Open sandbox",
-          "href": "#",
+          "label": "Open the board pack",
           "style": "outline",
-          "icon": "fa-solid fa-flask"
+          "icon": "fa-solid fa-folder-open"
         }
       ]
     }

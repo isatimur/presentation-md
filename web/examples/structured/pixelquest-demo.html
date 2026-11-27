@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>PixelQuest — Demo Deck</title>
-<meta name="description" content="Arcade game demo — retro-arcade multi-slide proof." />
+<title>PixelQuest Network 1.0 — launch</title>
+<meta name="description" content="Launch of PixelQuest Network: a €40 board that puts any arcade cabinet on one live global ladder, with co-op raids between bars and a Lua SDK for developers." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap');
@@ -20,6 +20,12 @@
   --muted: #9090cc;
   --accent: #ff00ff;
   --accent-2: #00ffff;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #0d0015;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #ff00ff;
+  --accent-2-ink: #00ffff;
   --card-bg: rgba(255,0,255,0.08);
   --border: rgba(0,255,255,0.20);
   --radius: 0px;
@@ -27,6 +33,10 @@
   --heading-font: 'Orbitron', system-ui, sans-serif;
   --body-font: 'Share Tech Mono', monospace;
   --heading-weight: 700;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,65 +6908,57 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="scanline-neon">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Demo · v0.9</span>
-  <h1>INSERT COIN. SHIP GLORY.</h1>
-  <p class="lead">Magenta + cyan on purple-black. Orbitron for the high score.</p>
+  <span class="eyebrow">PixelQuest · Network 1.0 launch · Rotterdam · 26 November 2026</span>
+  <h1>Every arcade cabinet on one live high-score board.</h1>
+  <p class="lead">PixelQuest Network goes live 15 January 2027.</p>
+</section>
+
+<section class="slide quote-slide" data-layout="quote">
+  <p class="quote">My cabinets earn less every month. Once a high score is set, nobody comes back to beat it.</p>
+  <p class="quote-by">— Joris Bakker, owner of Bar Pacman, Utrecht · 14 cabinets</p>
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23150025%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%230d0015%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C0%2C255%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C255%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28255%2C0%2C255%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2821%2C0%2C37%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C255%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28255%2C0%2C255%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C0%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C255%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%280%2C255%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%280%2C255%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230d0015%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%28255%2C0%2C255%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23150025%22%20stroke%3D%22rgba%28255%2C0%2C255%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%280%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%23ff00ff%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%28255%2C0%2C255%2C0.150%29%22%20stroke%3D%22rgba%280%2C255%2C255%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%280%2C255%2C255%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%280%2C255%2C255%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="PixelQuest craft visual" />
+    <img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 -20 1600 400&#39;&gt;&lt;rect y&#x3D;&#39;-20&#39; width&#x3D;&#39;1600&#39; height&#x3D;&#39;420&#39; fill&#x3D;&#39;%230d0015&#39;&#x2F;&gt;&lt;g stroke&#x3D;&#39;%2300ffff&#39; stroke-width&#x3D;&#39;3&#39; stroke-dasharray&#x3D;&#39;10 8&#39; fill&#x3D;&#39;none&#39;&gt;&lt;path d&#x3D;&#39;M700 170 C800 60 900 60 1000 110&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M860 200 H1000&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M1020 250 C1100 300 1200 300 1300 200&#39;&#x2F;&gt;&lt;&#x2F;g&gt;&lt;g fill&#x3D;&#39;%23150025&#39; stroke&#x3D;&#39;%23ff00ff&#39; stroke-width&#x3D;&#39;5&#39;&gt;&lt;path d&#x3D;&#39;M600 60 h100 v40 l-14 30 v150 h-72 v-150 l-14 -30 z&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M1300 60 h100 v40 l-14 30 v150 h-72 v-150 l-14 -30 z&#39;&#x2F;&gt;&lt;&#x2F;g&gt;&lt;rect x&#x3D;&#39;612&#39; y&#x3D;&#39;70&#39; width&#x3D;&#39;76&#39; height&#x3D;&#39;54&#39; fill&#x3D;&#39;%2300ffff&#39; opacity&#x3D;&#39;.85&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1312&#39; y&#x3D;&#39;70&#39; width&#x3D;&#39;76&#39; height&#x3D;&#39;54&#39; fill&#x3D;&#39;%2300ffff&#39; opacity&#x3D;&#39;.85&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1000&#39; y&#x3D;&#39;50&#39; width&#x3D;&#39;280&#39; height&#x3D;&#39;200&#39; fill&#x3D;&#39;%23150025&#39; stroke&#x3D;&#39;%2300ffff&#39; stroke-width&#x3D;&#39;5&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;Courier,monospace&#39; font-weight&#x3D;&#39;bold&#39;&gt;&lt;text x&#x3D;&#39;1020&#39; y&#x3D;&#39;92&#39; font-size&#x3D;&#39;26&#39; fill&#x3D;&#39;%23ff00ff&#39;&gt;LIVE LADDER&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1020&#39; y&#x3D;&#39;136&#39; font-size&#x3D;&#39;22&#39; fill&#x3D;&#39;%23e0e0ff&#39;&gt;1 KIM  GHENT 98,410&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1020&#39; y&#x3D;&#39;170&#39; font-size&#x3D;&#39;22&#39; fill&#x3D;&#39;%23e0e0ff&#39;&gt;2 JOR  UTRCH 97,005&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1020&#39; y&#x3D;&#39;204&#39; font-size&#x3D;&#39;22&#39; fill&#x3D;&#39;%23e0e0ff&#39;&gt;3 AYA  OSAKA 95,880&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1020&#39; y&#x3D;&#39;236&#39; font-size&#x3D;&#39;18&#39; fill&#x3D;&#39;%2300ffff&#39;&gt;99 BARS · 12 COUNTRIES&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="Two arcade cabinets linked by cyan network lines to a live ladder screen that lists the top three scores from Ghent, Utrecht and Osaka." />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">Demo · v0.9</span>
-    <h2>INSERT COIN. SHIP GLORY.</h2>
-    <p class="lead">Magenta + cyan on purple-black. Orbitron for the high score.</p>
+    <span class="eyebrow">Introducing</span>
+    <h2>PixelQuest Network</h2>
+    <p class="lead">A €40 board turns any cabinet into one node on a live ladder.</p>
   </div>
 </section>
 
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Modes</span>
-  <h2>Three ways to play</h2>
-  <div class="grid cols-bento">
-    <div class="card">
-      <i class="fa-solid fa-gamepad"></i>
-      <h3>Arcade</h3>
-      <p>Local cabinets. Global bragging.</p>
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">01</div>
+  <h2>How it works</h2>
+  <p class="lead">Three things a lonely cabinet cannot do.</p>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-1-2 cols-reverse">
+    <div class="cols-copy">
+      <span class="eyebrow">Live ladder</span>
+      <h2>Your score climbs a ladder shared by 99 bars in 12 countries</h2>
+      <p class="lead">Every coin posts to one live board.
+Weekly resets keep the top ten open.</p>
     </div>
-    <div class="card">
-      <i class="fa-solid fa-users"></i>
-      <h3>Co-op raid</h3>
-      <p>Two pads. One boss. Zero mercy.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-trophy"></i>
-      <h3>Season ladder</h3>
-      <p>Weekly resets. Permanent ego.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-eye"></i>
-      <h3>Show, don&#39;t pad</h3>
-      <p>Asymmetry beats another identical third column.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-compass"></i>
-      <h3>Clear north star</h3>
-      <p>One decisive story beat — not a wall of equal tiles.</p>
-    </div>
+    <div class="media"><img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 600 480&#39;&gt;&lt;rect width&#x3D;&#39;600&#39; height&#x3D;&#39;480&#39; fill&#x3D;&#39;%23150025&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;40&#39; y&#x3D;&#39;40&#39; width&#x3D;&#39;520&#39; height&#x3D;&#39;400&#39; fill&#x3D;&#39;%230d0015&#39; stroke&#x3D;&#39;%23ff00ff&#39; stroke-width&#x3D;&#39;4&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;Courier,monospace&#39; font-weight&#x3D;&#39;bold&#39;&gt;&lt;text x&#x3D;&#39;70&#39; y&#x3D;&#39;96&#39; font-size&#x3D;&#39;30&#39; fill&#x3D;&#39;%2300ffff&#39;&gt;WEEK 47 · TOP 5&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;70&#39; y&#x3D;&#39;160&#39; font-size&#x3D;&#39;26&#39; fill&#x3D;&#39;%23e0e0ff&#39;&gt;1  KIM   GHENT   98,410&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;70&#39; y&#x3D;&#39;210&#39; font-size&#x3D;&#39;26&#39; fill&#x3D;&#39;%23e0e0ff&#39;&gt;2  JOR   UTRCH   97,005&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;70&#39; y&#x3D;&#39;260&#39; font-size&#x3D;&#39;26&#39; fill&#x3D;&#39;%23e0e0ff&#39;&gt;3  AYA   OSAKA   95,880&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;70&#39; y&#x3D;&#39;310&#39; font-size&#x3D;&#39;26&#39; fill&#x3D;&#39;%23ff00ff&#39;&gt;4  YOU   ROTDM   95,120&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;70&#39; y&#x3D;&#39;360&#39; font-size&#x3D;&#39;26&#39; fill&#x3D;&#39;%23e0e0ff&#39;&gt;5  LEO   LYON    94,770&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;70&#39; y&#x3D;&#39;414&#39; font-size&#x3D;&#39;20&#39; fill&#x3D;&#39;%239090cc&#39;&gt;RESETS IN 2D 06H&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="Week 47 top-five ladder: players from Ghent, Utrecht, Osaka, Rotterdam and Lyon; your score sits fourth, and the board resets in 2 days 6 hours." /></div>
+    
   </div>
 </section>
 
 <section class="slide code-slide" data-layout="code">
-  <span class="eyebrow">SDK</span>
-  <h2>Hook the cabinet.</h2>
-  
+  <span class="eyebrow">Developer SDK</span>
+  <h2>Developers put a game on the network in 10 lines of Lua</h2>
+  <p class="lead">The SDK handles coins, score posting and anti-cheat.</p>
   <div class="code-window">
     <div class="code-chrome" aria-hidden="true">
       <span class="code-dot code-dot-red"></span>
       <span class="code-dot code-dot-amber"></span>
       <span class="code-dot code-dot-green"></span>
-      <span class="code-filename">pixelquest.lua</span>
+      <span class="code-filename">main.lua</span>
       
     </div>
     <pre class="code-block"><code>local pq &#x3D; require(&#39;pixelquest&#39;)
@@ -6744,38 +6968,69 @@ pq.on(&#39;coin&#39;, function(player)
   pq.hud.flash(&#39;READY&#39;)
 end)
 
-pq.loop(function(dt)
-  pq.enemies.tick(dt)
+pq.on(&#39;game_over&#39;, function(player)
+  pq.ladder.post(player.score)
 end)</code></pre>
   </div>
 </section>
 
-<section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Beta</span>
-  <h2>The board so far.</h2>
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-1-2 cols-reverse">
+    <div class="cols-copy">
+      <span class="eyebrow">Co-op raids</span>
+      <h2>Co-op raids put two bars against one boss in real time</h2>
+      <p class="lead">Utrecht and Ghent fight the same boss.
+Damage adds up across both cabinets.</p>
+    </div>
+    <div class="media"><img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 600 480&#39;&gt;&lt;rect width&#x3D;&#39;600&#39; height&#x3D;&#39;480&#39; fill&#x3D;&#39;%230d0015&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;Courier,monospace&#39; font-weight&#x3D;&#39;bold&#39;&gt;&lt;text x&#x3D;&#39;300&#39; y&#x3D;&#39;70&#39; font-size&#x3D;&#39;28&#39; fill&#x3D;&#39;%23ff00ff&#39; text-anchor&#x3D;&#39;middle&#39;&gt;BOSS · VOID KRAKEN&lt;&#x2F;text&gt;&lt;rect x&#x3D;&#39;70&#39; y&#x3D;&#39;90&#39; width&#x3D;&#39;460&#39; height&#x3D;&#39;30&#39; fill&#x3D;&#39;%23150025&#39; stroke&#x3D;&#39;%23ff00ff&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;74&#39; y&#x3D;&#39;94&#39; width&#x3D;&#39;170&#39; height&#x3D;&#39;22&#39; fill&#x3D;&#39;%23ff00ff&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;300&#39; y&#x3D;&#39;150&#39; font-size&#x3D;&#39;20&#39; fill&#x3D;&#39;%239090cc&#39; text-anchor&#x3D;&#39;middle&#39;&gt;HP 37%&lt;&#x2F;text&gt;&lt;circle cx&#x3D;&#39;160&#39; cy&#x3D;&#39;300&#39; r&#x3D;&#39;16&#39; fill&#x3D;&#39;%2300ffff&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;440&#39; cy&#x3D;&#39;330&#39; r&#x3D;&#39;16&#39; fill&#x3D;&#39;%2300ffff&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M160 300 Q300 200 440 330&#39; stroke&#x3D;&#39;%2300ffff&#39; stroke-width&#x3D;&#39;4&#39; stroke-dasharray&#x3D;&#39;10 8&#39; fill&#x3D;&#39;none&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;160&#39; y&#x3D;&#39;356&#39; font-size&#x3D;&#39;22&#39; fill&#x3D;&#39;%23e0e0ff&#39; text-anchor&#x3D;&#39;middle&#39;&gt;UTRECHT&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;160&#39; y&#x3D;&#39;384&#39; font-size&#x3D;&#39;20&#39; fill&#x3D;&#39;%2300ffff&#39; text-anchor&#x3D;&#39;middle&#39;&gt;41,200 DMG&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;440&#39; y&#x3D;&#39;386&#39; font-size&#x3D;&#39;22&#39; fill&#x3D;&#39;%23e0e0ff&#39; text-anchor&#x3D;&#39;middle&#39;&gt;GHENT&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;440&#39; y&#x3D;&#39;414&#39; font-size&#x3D;&#39;20&#39; fill&#x3D;&#39;%2300ffff&#39; text-anchor&#x3D;&#39;middle&#39;&gt;38,900 DMG&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="Raid screen: the boss Void Kraken at 37% health, with a dashed link between Utrecht (41,200 damage) and Ghent (38,900 damage)." /></div>
+    
+  </div>
+</section>
+
+<section class="slide stat-row-slide stat-row-hero" data-layout="stat-row">
+  <span class="eyebrow">Beta results</span>
+  <h2>Connected cabinets earned 2.3× the coins of lonely ones</h2>
   
   <div class="stats">
+    <div class="stat is-mega">
+      <div class="value">2.3×</div>
+      <div class="label">coins per cabinet per week vs unconnected, Jun–Oct 2026</div>
+    </div>
     <div class="stat">
       <div class="value">1.2M</div>
-      <div class="label">Credits</div>
-    </div>
-    <div class="stat">
-      <div class="value">48k</div>
-      <div class="label">High scores</div>
-    </div>
-    <div class="stat">
-      <div class="value">99</div>
-      <div class="label">Cabinets</div>
+      <div class="label">credits played in 99 beta bars</div>
     </div>
   </div>
 </section>
 
+<section class="slide quote-slide" data-layout="quote">
+  <p class="quote">We wrote the SDK hook on a Friday. By Monday, players in Ghent were beating our own scores.</p>
+  <p class="quote-by">— Ana Ruiz, lead developer, Neon Moth Games</p>
+</section>
+
+<section class="slide data-table-slide" data-layout="data-table">
+  <span class="eyebrow">Price and availability</span>
+  <h2>Operators pay €40 per board and €9 a month per cabinet</h2>
+  
+  <table>
+    <thead>
+      <tr><th>Plan</th><th>Price</th><th>Includes</th><th>Available</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Network board</td><td>€40 once</td><td>Plug-in board, ladder, raids</td><td>15 Jan 2027 · EU, UK</td></tr>
+      <tr><td>Operator plan</td><td>€9 &#x2F; cabinet &#x2F; month</td><td>Weekly events, earnings dashboard</td><td>15 Jan 2027</td></tr>
+      <tr><td>Developer SDK</td><td>Free · 70% revenue share</td><td>Lua SDK, test cabinet</td><td>Today</td></tr>
+    </tbody>
+  </table>
+</section>
+
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">Play</span>
-  <h1>PRESS START.</h1>
-  <p class="lead">Closed beta keys drop Friday.</p>
+  <span class="eyebrow">Pre-orders open today</span>
+  <h1>Put every cabinet on the live board from 15 January</h1>
+  <p class="lead">The first 500 boards include three free months of the operator plan.</p>
   <div class="cta-row">
-    <a class="btn" href="#">Request a key</a>
+    <a class="btn" href="#"><i class="fa-solid fa-gamepad"></i> Pre-order network boards</a>
+    <a class="btn btn-outline" href="#"><i class="fa-solid fa-code"></i> Get the Lua SDK</a>
   </div>
 </section>
 
@@ -6863,7 +7118,7 @@ end)</code></pre>
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"PixelQuest — Demo Deck","company":"PixelQuest","description":"Arcade game demo — retro-arcade multi-slide proof.","theme":"retro-arcade"},"slides":[{"layout":"title","eyebrow":"Demo · v0.9","heading":"INSERT COIN. SHIP GLORY.","lead":"Magenta + cyan on purple-black. Orbitron for the high score.","notes":"Cold open — land the one-line claim before logos."},{"layout":"image-hero","eyebrow":"Demo · v0.9","heading":"INSERT COIN. SHIP GLORY.","lead":"Magenta + cyan on purple-black. Orbitron for the high score.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23150025%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%230d0015%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C0%2C255%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C255%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28255%2C0%2C255%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2821%2C0%2C37%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C0%2C255%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28255%2C0%2C255%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C0%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C255%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%280%2C255%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%280%2C255%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230d0015%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%28255%2C0%2C255%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23150025%22%20stroke%3D%22rgba%28255%2C0%2C255%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%280%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%23ff00ff%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%28255%2C0%2C255%2C0.150%29%22%20stroke%3D%22rgba%280%2C255%2C255%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%280%2C255%2C255%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%280%2C255%2C255%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"PixelQuest craft visual","notes":"Hold the visual beat — let the room feel the product."},{"layout":"feature-grid","eyebrow":"Modes","heading":"Three ways to play","columns":"bento","cards":[{"icon":"fa-solid fa-gamepad","title":"Arcade","body":"Local cabinets. Global bragging."},{"icon":"fa-solid fa-users","title":"Co-op raid","body":"Two pads. One boss. Zero mercy."},{"icon":"fa-solid fa-trophy","title":"Season ladder","body":"Weekly resets. Permanent ego."},{"icon":"fa-solid fa-eye","title":"Show, don't pad","body":"Asymmetry beats another identical third column."},{"icon":"fa-solid fa-compass","title":"Clear north star","body":"One decisive story beat — not a wall of equal tiles."}]},{"layout":"code","eyebrow":"SDK","heading":"Hook the cabinet.","filename":"pixelquest.lua","language":"lua","code":"local pq = require('pixelquest')\n\npq.on('coin', function(player)\n  player:spawn()\n  pq.hud.flash('READY')\nend)\n\npq.loop(function(dt)\n  pq.enemies.tick(dt)\nend)"},{"layout":"stat-row","eyebrow":"Beta","heading":"The board so far.","stats":[{"value":"1.2M","label":"Credits"},{"value":"48k","label":"High scores"},{"value":"99","label":"Cabinets"}],"notes":"One breath on the numbers — then move on."},{"layout":"closing","eyebrow":"Play","heading":"PRESS START.","lead":"Closed beta keys drop Friday.","cta":{"label":"Request a key","href":"#"}}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"PixelQuest Network 1.0 — launch","company":"PixelQuest","description":"Launch of PixelQuest Network: a €40 board that puts any arcade cabinet on one live global ladder, with co-op raids between bars and a Lua SDK for developers.","theme":"retro-arcade","genre":"launch"},"slides":[{"layout":"title","eyebrow":"PixelQuest · Network 1.0 launch · Rotterdam · 26 November 2026","heading":"Every arcade cabinet on one live high-score board.","lead":"PixelQuest Network goes live 15 January 2027.","notes":"Land the headline, then let Joris speak on the next slide. His problem is the whole pitch."},{"layout":"quote","quote":"My cabinets earn less every month. Once a high score is set, nobody comes back to beat it.","by":"Joris Bakker, owner of Bar Pacman, Utrecht · 14 cabinets"},{"layout":"image-hero","eyebrow":"Introducing","heading":"PixelQuest Network","lead":"A €40 board turns any cabinet into one node on a live ladder.","image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -20 1600 400'>\u003crect y='-20' width='1600' height='420' fill='%230d0015'/>\u003cg stroke='%2300ffff' stroke-width='3' stroke-dasharray='10 8' fill='none'>\u003cpath d='M700 170 C800 60 900 60 1000 110'/>\u003cpath d='M860 200 H1000'/>\u003cpath d='M1020 250 C1100 300 1200 300 1300 200'/>\u003c/g>\u003cg fill='%23150025' stroke='%23ff00ff' stroke-width='5'>\u003cpath d='M600 60 h100 v40 l-14 30 v150 h-72 v-150 l-14 -30 z'/>\u003cpath d='M1300 60 h100 v40 l-14 30 v150 h-72 v-150 l-14 -30 z'/>\u003c/g>\u003crect x='612' y='70' width='76' height='54' fill='%2300ffff' opacity='.85'/>\u003crect x='1312' y='70' width='76' height='54' fill='%2300ffff' opacity='.85'/>\u003crect x='1000' y='50' width='280' height='200' fill='%23150025' stroke='%2300ffff' stroke-width='5'/>\u003cg font-family='Courier,monospace' font-weight='bold'>\u003ctext x='1020' y='92' font-size='26' fill='%23ff00ff'>LIVE LADDER\u003c/text>\u003ctext x='1020' y='136' font-size='22' fill='%23e0e0ff'>1 KIM  GHENT 98,410\u003c/text>\u003ctext x='1020' y='170' font-size='22' fill='%23e0e0ff'>2 JOR  UTRCH 97,005\u003c/text>\u003ctext x='1020' y='204' font-size='22' fill='%23e0e0ff'>3 AYA  OSAKA 95,880\u003c/text>\u003ctext x='1020' y='236' font-size='18' fill='%2300ffff'>99 BARS · 12 COUNTRIES\u003c/text>\u003c/g>\u003c/svg>","imageAlt":"Two arcade cabinets linked by cyan network lines to a live ladder screen that lists the top three scores from Ghent, Utrecht and Osaka.","notes":"Hold the reveal. Say the price: forty euros a cabinet."},{"layout":"section","number":"01","heading":"How it works","lead":"Three things a lonely cabinet cannot do."},{"layout":"two-column","eyebrow":"Live ladder","heading":"Your score climbs a ladder shared by 99 bars in 12 countries","ratio":"1-2","reverse":true,"body":"Every coin posts to one live board.\nWeekly resets keep the top ten open.","image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 480'>\u003crect width='600' height='480' fill='%23150025'/>\u003crect x='40' y='40' width='520' height='400' fill='%230d0015' stroke='%23ff00ff' stroke-width='4'/>\u003cg font-family='Courier,monospace' font-weight='bold'>\u003ctext x='70' y='96' font-size='30' fill='%2300ffff'>WEEK 47 · TOP 5\u003c/text>\u003ctext x='70' y='160' font-size='26' fill='%23e0e0ff'>1  KIM   GHENT   98,410\u003c/text>\u003ctext x='70' y='210' font-size='26' fill='%23e0e0ff'>2  JOR   UTRCH   97,005\u003c/text>\u003ctext x='70' y='260' font-size='26' fill='%23e0e0ff'>3  AYA   OSAKA   95,880\u003c/text>\u003ctext x='70' y='310' font-size='26' fill='%23ff00ff'>4  YOU   ROTDM   95,120\u003c/text>\u003ctext x='70' y='360' font-size='26' fill='%23e0e0ff'>5  LEO   LYON    94,770\u003c/text>\u003ctext x='70' y='414' font-size='20' fill='%239090cc'>RESETS IN 2D 06H\u003c/text>\u003c/g>\u003c/svg>","imageAlt":"Week 47 top-five ladder: players from Ghent, Utrecht, Osaka, Rotterdam and Lyon; your score sits fourth, and the board resets in 2 days 6 hours."},{"layout":"code","eyebrow":"Developer SDK","heading":"Developers put a game on the network in 10 lines of Lua","filename":"main.lua","language":"lua","code":"local pq = require('pixelquest')\n\npq.on('coin', function(player)\n  player:spawn()\n  pq.hud.flash('READY')\nend)\n\npq.on('game_over', function(player)\n  pq.ladder.post(player.score)\nend)","lead":"The SDK handles coins, score posting and anti-cheat."},{"layout":"two-column","eyebrow":"Co-op raids","heading":"Co-op raids put two bars against one boss in real time","ratio":"1-2","reverse":true,"body":"Utrecht and Ghent fight the same boss.\nDamage adds up across both cabinets.","image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 480'>\u003crect width='600' height='480' fill='%230d0015'/>\u003cg font-family='Courier,monospace' font-weight='bold'>\u003ctext x='300' y='70' font-size='28' fill='%23ff00ff' text-anchor='middle'>BOSS · VOID KRAKEN\u003c/text>\u003crect x='70' y='90' width='460' height='30' fill='%23150025' stroke='%23ff00ff' stroke-width='3'/>\u003crect x='74' y='94' width='170' height='22' fill='%23ff00ff'/>\u003ctext x='300' y='150' font-size='20' fill='%239090cc' text-anchor='middle'>HP 37%\u003c/text>\u003ccircle cx='160' cy='300' r='16' fill='%2300ffff'/>\u003ccircle cx='440' cy='330' r='16' fill='%2300ffff'/>\u003cpath d='M160 300 Q300 200 440 330' stroke='%2300ffff' stroke-width='4' stroke-dasharray='10 8' fill='none'/>\u003ctext x='160' y='356' font-size='22' fill='%23e0e0ff' text-anchor='middle'>UTRECHT\u003c/text>\u003ctext x='160' y='384' font-size='20' fill='%2300ffff' text-anchor='middle'>41,200 DMG\u003c/text>\u003ctext x='440' y='386' font-size='22' fill='%23e0e0ff' text-anchor='middle'>GHENT\u003c/text>\u003ctext x='440' y='414' font-size='20' fill='%2300ffff' text-anchor='middle'>38,900 DMG\u003c/text>\u003c/g>\u003c/svg>","imageAlt":"Raid screen: the boss Void Kraken at 37% health, with a dashed link between Utrecht (41,200 damage) and Ghent (38,900 damage)."},{"layout":"stat-row","variant":"hero","eyebrow":"Beta results","heading":"Connected cabinets earned 2.3× the coins of lonely ones","stats":[{"value":"2.3×","label":"coins per cabinet per week vs unconnected, Jun–Oct 2026"},{"value":"1.2M","label":"credits played in 99 beta bars"}],"notes":"2.3 is the number operators remember. It came from 99 bars over 20 weeks, matched against their own unconnected cabinets."},{"layout":"quote","quote":"We wrote the SDK hook on a Friday. By Monday, players in Ghent were beating our own scores.","by":"Ana Ruiz, lead developer, Neon Moth Games"},{"layout":"data-table","eyebrow":"Price and availability","heading":"Operators pay €40 per board and €9 a month per cabinet","columns":["Plan","Price","Includes","Available"],"rows":[["Network board","€40 once","Plug-in board, ladder, raids","15 Jan 2027 · EU, UK"],["Operator plan","€9 / cabinet / month","Weekly events, earnings dashboard","15 Jan 2027"],["Developer SDK","Free · 70% revenue share","Lua SDK, test cabinet","Today"]]},{"layout":"closing","eyebrow":"Pre-orders open today","heading":"Put every cabinet on the live board from 15 January","lead":"The first 500 boards include three free months of the operator plan.","actions":[{"label":"Pre-order network boards","style":"solid","icon":"fa-solid fa-gamepad"},{"label":"Get the Lua SDK","style":"outline","icon":"fa-solid fa-code"}]}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {

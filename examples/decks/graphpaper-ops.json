@@ -1,81 +1,259 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Graphpaper — Ops Deck",
+    "title": "Graphpaper — Q3 2026 board update",
     "company": "Graphpaper",
-    "description": "Operations briefing — cobalt-grid multi-slide proof.",
-    "theme": "cobalt-grid"
+    "description": "Q3 2026 board update for Graphpaper, a payroll platform in 14 European countries: answer first, KPI scorecard, the late-payroll trend, the Germany win, the Poland miss, cash, Q4 plan, risks and two votes.",
+    "theme": "cobalt-grid",
+    "genre": "board"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Ops · Q3",
-      "heading": "Graph paper. Cobalt Newsreader.",
-      "lead": "Stair-step panels for people who measure twice.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Ops · Q3",
-      "heading": "Graph paper. Cobalt Newsreader.",
-      "lead": "Stair-step panels for people who measure twice.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23E6E0CE%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23F0EBDE%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2831%2C43%2C224%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2831%2C43%2C224%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2831%2C43%2C224%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2831%2C43%2C224%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28230%2C224%2C206%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2831%2C43%2C224%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2831%2C43%2C224%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2831%2C43%2C224%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2831%2C43%2C224%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2831%2C43%2C224%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2831%2C43%2C224%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F0EBDE%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22820%22%20rx%3D%22700%22%20ry%3D%22120%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23floor%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22520%22%20cy%3D%22260%22%20rx%3D%22360%22%20ry%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22220%22%20rx%3D%22300%22%20ry%3D%22220%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20desk%20product%20frame%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28430%2C170%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%22720%22%20height%3D%22460%22%20rx%3D%2228%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22450%22%20rx%3D%2226%22%20fill%3D%22%23E6E0CE%22%20stroke%3D%22rgba%2831%2C43%2C224%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22%23F0EBDE%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%2290%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%226%22%20fill%3D%22rgba%2831%2C43%2C224%2C0.850%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22130%22%20width%3D%22380%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22158%22%20width%3D%22320%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%2831%2C43%2C224%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22290%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%2831%2C43%2C224%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22510%22%20y%3D%22210%22%20width%3D%22140%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22280%22%20y%3D%22400%22%20width%3D%22160%22%20height%3D%2210%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Graphpaper craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Graphpaper · Q3 2026 board update · 14 October 2026 · Confidential",
+      "heading": "Revenue on plan. Payroll reliability slipped.",
+      "lead": "ARR reached €31.4M, 2% over plan. One outage made 41 payroll runs late; we ask you to fund the fix.",
+      "notes": "Lead with both halves. The board will ask about Poland first; tell them it is slide 7."
     },
     {
       "layout": "two-column",
-      "eyebrow": "Systems",
-      "heading": "Drawn before shipped",
-      "body": "Flows: Every handoff has a line. Scores — Metrics on the same grid.",
-      "aside": "Weekly stairs, not quarterly surprises.",
-      "ratio": "2-1"
+      "eyebrow": "Executive summary",
+      "heading": "Growth beat plan, reliability missed, and two votes set up Q4",
+      "ratio": "3-2",
+      "body": "Won: Germany added 61,000 paid employees in its first quarter.\nWon: gross margin rose to 71%.\nMissed: on-time payroll fell to 99.2% after the Poland outage.",
+      "aside": "Decide today: fund a six-person reliability team, and approve the Netherlands launch.",
+      "notes": "If the board reads one slide, it is this one."
     },
     {
-      "layout": "code",
-      "eyebrow": "Score",
-      "heading": "Keep the grid honest.",
-      "filename": "ops.py",
-      "language": "python",
-      "code": "from graphpaper import Grid\n\ng = Grid.load('q3.yaml')\nfor step in g.stairs():\n    if step.drift > 0.05:\n        g.flag(step, 'DRIFT')\n    print(step.name, step.score)"
+      "layout": "data-table",
+      "eyebrow": "Scorecard",
+      "heading": "Three of five KPIs beat plan; reliability and support did not",
+      "columns": [
+        "KPI",
+        "Q3 plan",
+        "Q3 actual",
+        "vs plan",
+        "vs Q2"
+      ],
+      "rows": [
+        [
+          "ARR",
+          "€30.8M",
+          "€31.4M",
+          "+2%",
+          "+7%"
+        ],
+        [
+          "Employees paid",
+          "400,000",
+          "412,000",
+          "+3%",
+          "+8%"
+        ],
+        [
+          "Gross margin",
+          "70%",
+          "71%",
+          "+1 pt",
+          "+1 pt"
+        ],
+        [
+          "Payroll runs on time",
+          "99.5%",
+          "99.2%",
+          "−0.3 pts",
+          "−0.4 pts"
+        ],
+        [
+          "Tickets per 1,000 employees",
+          "3.0",
+          "3.8",
+          "+27%",
+          "+19%"
+        ]
+      ]
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "The trend that matters",
+      "heading": "One outage made September our worst month: 41 late payroll runs",
+      "chartType": "bar",
+      "categories": [
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep"
+      ],
+      "series": [
+        {
+          "name": "Late payroll runs",
+          "values": [
+            5,
+            6,
+            4,
+            7,
+            9,
+            41
+          ]
+        }
+      ],
+      "showValues": true,
+      "lead": "Source: run ledger, all 14 countries, April to September 2026. A run is late when pay lands after 09:00 on payday."
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "eyebrow": "Cause and effect",
+      "heading": "What worked, and what did not"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "What worked",
+      "heading": "A DATEV connector made Germany our fastest launch yet",
+      "ratio": "2-1",
+      "body": "German accountants already keep payroll data in DATEV. Our connector imports it in one step, so firms switch in 9 days instead of 40.",
+      "aside": "38 customers and 61,000 employees in 13 weeks. Plan was 25 customers."
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "What did not",
+      "heading": "A Polish tax change overloaded our queue and paid 2,900 people late",
+      "leftLabel": "What happened",
+      "left": "New tax codes went live on 1 September.\nThe batch queue stalled for 19 hours.\n41 runs late, €84,000 in customer credits.",
+      "rightLabel": "The fix",
+      "right": "Queue rebuilt per country, live on 30 September.\nRelease freeze 10 days around every tax change.\nNo late runs from this cause since.",
+      "emphasis": "right",
+      "notes": "Own it plainly. The fix shipped; the reliability team keeps it fixed."
+    },
+    {
+      "layout": "quote",
+      "quote": "Two hundred of our staff were paid a day late. We need to know January will be different.",
+      "by": "Finance director, Kraków logistics customer · 3,100 employees"
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Quarter",
-      "heading": "Ops that hold.",
+      "eyebrow": "Cash",
+      "heading": "Burn fell to €1.3M a month and runway reaches 33 months",
       "stats": [
         {
-          "value": "99.2%",
-          "label": "SLA"
+          "value": "€43M",
+          "label": "Cash at 30 September (€42.6M), down €3.9M in Q3"
         },
         {
-          "value": "14",
-          "label": "Teams"
+          "value": "€1.3M",
+          "label": "Monthly net burn, down from €1.6M in Q2"
         },
         {
-          "value": "0",
-          "label": "Mystery owners"
+          "value": "33 mo",
+          "label": "Runway at current burn, up from 28"
+        }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "eyebrow": "Next quarter",
+      "heading": "Q4: reliability first, then the Netherlands"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Q4 plan",
+      "heading": "Q4 locks in reliability before the January tax season",
+      "steps": [
+        {
+          "title": "Oct · Hire",
+          "body": "Reliability lead and 2 engineers start"
+        },
+        {
+          "title": "Nov · Launch",
+          "body": "Netherlands opens with 12 pilot firms"
+        },
+        {
+          "title": "Dec · Drill",
+          "body": "Full January tax-change rehearsal"
+        },
+        {
+          "title": "Jan · Review",
+          "body": "On-time target 99.7% at the board"
+        }
+      ]
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Risks",
+      "heading": "January tax changes in six countries are the top risk",
+      "columns": [
+        "Risk",
+        "Likelihood",
+        "Impact",
+        "Owner",
+        "Mitigation"
+      ],
+      "rows": [
+        [
+          "Tax changes in 6 countries on 1 Jan",
+          "High",
+          "Late runs, credits",
+          "CTO",
+          "December rehearsal, freeze"
+        ],
+        [
+          "Dutch pilot firms churn after trial",
+          "Medium",
+          "€0.6M ARR",
+          "CRO",
+          "Weekly pilot reviews"
+        ],
+        [
+          "Support load keeps rising",
+          "Medium",
+          "Margin −1 pt",
+          "COO",
+          "Self-serve payslip fixes"
+        ]
+      ]
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Decisions required",
+      "heading": "We ask the board for two votes and one piece of advice",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-shield-halved",
+          "title": "Vote: €0.9M reliability team",
+          "body": "Six engineers for 12 months, hired by January."
+        },
+        {
+          "icon": "fa-solid fa-flag",
+          "title": "Vote: Netherlands launch",
+          "body": "€1.2M in H1; break-even at 140 firms."
+        },
+        {
+          "icon": "fa-solid fa-comments",
+          "title": "Advice: customer credits",
+          "body": "Should credits be automatic for any late run?"
         }
       ],
-      "notes": "One breath on the numbers — then move on."
+      "notes": "Take the votes in order. The credits question is advice, not a vote."
     },
     {
       "layout": "closing",
-      "eyebrow": "Align",
-      "heading": "Stay on the grid.",
-      "lead": "Ops review every Monday 9:00.",
+      "eyebrow": "Recommendation",
+      "heading": "Fund reliability now so growth never costs us trust",
+      "lead": "Approve both votes today and the reliability team starts before the January tax season.",
       "actions": [
         {
-          "label": "Join the review",
-          "href": "#",
+          "label": "Approve both votes",
           "style": "solid",
-          "icon": "fa-solid fa-envelope"
+          "icon": "fa-solid fa-check"
         },
         {
-          "label": "Read the story",
-          "href": "#",
+          "label": "Open the board pack",
           "style": "outline",
-          "icon": "fa-solid fa-book-open"
+          "icon": "fa-solid fa-folder-open"
         }
       ]
     }

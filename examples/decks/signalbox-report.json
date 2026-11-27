@@ -1,248 +1,134 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Signalbox — Quarterly Report",
+    "title": "Signalbox — Why mid-market accounts churn (research readout, Q3 2026)",
     "company": "Signalbox",
-    "description": "Data editorial quarterly — navy rules, signal red, asymmetric report craft.",
-    "theme": "data-editorial"
+    "description": "Research readout from Signalbox, a product-analytics company: a study of 412 churned accounts finds that accounts with a single data integration churn three times as often, and recommends an onboarding change.",
+    "theme": "data-editorial",
+    "genre": "research"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Q2 Report · Confidential",
-      "heading": "The numbers, edited.",
-      "lead": "Navy rules. Signal red for what moved. No chart junk — every slide earns the board's ten seconds.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Signalbox research · Churn study · Q3 2026 · n = 412 accounts",
+      "heading": "Accounts with one integration churn three times as often.",
+      "lead": "What 412 cancelled accounts, 38 interviews and 18 months of product logs tell us about churn.",
+      "notes": "Lead with the finding. The method comes on slide four, not slide two."
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Narrative",
-      "heading": "Three edits we made",
-      "columns": "bento",
+      "eyebrow": "Answer first",
+      "heading": "Three findings explain most of our mid-market churn",
+      "columns": 3,
       "cards": [
-        {
-          "icon": "fa-solid fa-scissors",
-          "title": "Cut vanity KPIs",
-          "body": "If it doesn't change a decision, it left the deck."
-        },
-        {
-          "icon": "fa-solid fa-flag",
-          "title": "Flag the red",
-          "body": "One signal color for risk — never decorative."
-        },
-        {
-          "icon": "fa-solid fa-book-open",
-          "title": "Write the lead",
-          "body": "Every chart opens with a sentence, not a legend."
-        },
-        {
-          "icon": "fa-solid fa-eye",
-          "title": "Show, don't pad",
-          "body": "Asymmetry beats another identical third column."
-        },
-        {
-          "icon": "fa-solid fa-compass",
-          "title": "Clear north star",
-          "body": "One decisive story beat — not a wall of equal tiles."
-        }
+        { "icon": "fa-solid fa-plug", "title": "One integration, 3× churn", "body": "31% of single-integration accounts left within a year, against 11% with two." },
+        { "icon": "fa-solid fa-hourglass-half", "title": "Day 14 decides it", "body": "Accounts that add a second integration do it in the first 14 days, or almost never." },
+        { "icon": "fa-solid fa-user-slash", "title": "Champions leave", "body": "42% of interviewees said churn followed the departure of the one person who set us up." }
       ]
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Editorial stance",
-      "heading": "What we cut vs. what we kept",
-      "leftLabel": "Vanity pack",
-      "left": "Pageviews as success.\nEqual-weight KPI walls.\nLegends without leads.\nGreen for everything.",
-      "rightLabel": "Signalbox edit",
-      "right": "Decision metrics only.\nOne red for risk.\nSentence before chart.\nAsymmetry over filler.",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Q2 Report · Confidential",
-      "heading": "The numbers, edited.",
-      "lead": "Navy rules. Signal red for what moved. No chart junk — every slide earns the board's ten seconds.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f5f5f5%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23ffffff%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2843%2C108%2C176%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2843%2C108%2C176%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28230%2C57%2C70%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2843%2C108%2C176%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28245%2C245%2C245%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2843%2C108%2C176%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2843%2C108%2C176%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2843%2C108%2C176%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28230%2C57%2C70%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28230%2C57%2C70%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28230%2C57%2C70%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23ffffff%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22480%22%20cy%3D%22300%22%20rx%3D%22420%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221200%22%20cy%3D%22560%22%20rx%3D%22460%22%20ry%3D%22320%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.92%22%3E%0A%20%20%20%20%3Crect%20x%3D%22220%22%20y%3D%22180%22%20width%3D%22460%22%20height%3D%22300%22%20rx%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.060%29%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.160%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22250%22%20y%3D%22220%22%20width%3D%22180%22%20height%3D%2216%22%20rx%3D%226%22%20fill%3D%22rgba%2843%2C108%2C176%2C0.700%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22250%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22250%22%20y%3D%22290%22%20width%3D%22240%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.160%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22560%22%20y%3D%22260%22%20width%3D%22360%22%20height%3D%22320%22%20rx%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%20stroke%3D%22rgba%28230%2C57%2C70%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22600%22%20y%3D%22320%22%20width%3D%22120%22%20height%3D%22120%22%20rx%3D%2218%22%20fill%3D%22rgba%2843%2C108%2C176%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22740%22%20y%3D%22320%22%20width%3D%22120%22%20height%3D%22120%22%20rx%3D%2218%22%20fill%3D%22rgba%28230%2C57%2C70%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22980%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%22220%22%20rx%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.050%29%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.140%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Signalbox craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "The question",
+      "heading": "Churn cost $4.1M of ARR last year, and we did not know why",
+      "image": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 360'><rect width='1600' height='360' fill='%23f5f5f5'/><g font-family='Inter,Arial'><text x='120' y='80' fill='%23616161' font-size='22' letter-spacing='2'>ARR LOST TO CHURN, FY26 · SIGNALBOX BILLING</text><rect x='120' y='105' width='1020' height='120' fill='%23e63946'/><text x='150' y='170' fill='%23ffffff' font-size='46' font-weight='700'>$2.9M</text><text x='150' y='205' fill='%23ffffff' font-size='22'>mid-market</text><rect x='1140' y='105' width='340' height='120' fill='%232b6cb0'/><text x='1165' y='170' fill='%23ffffff' font-size='40' font-weight='700'>$1.2M</text><text x='1165' y='205' fill='%23ffffff' font-size='22'>all other segments</text><text x='1480' y='80' text-anchor='end' fill='%231a1a1a' font-size='30' font-weight='700'>$4.1M total</text></g></svg>",
+      "imageAlt": "Horizontal stacked bar: $4.1M of ARR lost to churn in FY26, $2.9M of it from mid-market accounts.",
+      "lead": "Mid-market lost $2.9M. Exit surveys blamed price, yet price-matched accounts still left.",
+      "notes": "This is the situation and the complication. The question: what actually predicts churn?"
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Headline metrics",
-      "heading": "What the board needs before coffee.",
+      "eyebrow": "Method",
+      "heading": "How we studied it",
+      "lead": "Accounts cancelled between April 2025 and September 2026, compared with 1,180 retained accounts of the same size.",
       "stats": [
-        {
-          "value": "+18%",
-          "label": "Net revenue"
-        },
-        {
-          "value": "42%",
-          "label": "Gross margin"
-        },
-        {
-          "value": "1.2×",
-          "label": "Magic number"
-        },
-        {
-          "value": "91",
-          "label": "NPS (enterprise)"
-        }
+        { "value": "412", "label": "Churned mid-market accounts" },
+        { "value": "38", "label": "Exit interviews, 45 min each" },
+        { "value": "18 mo", "label": "Of product usage logs" }
       ]
     },
     {
-      "layout": "data-table",
-      "eyebrow": "Segments",
-      "heading": "Revenue by motion",
-      "columns": [
-        "Motion",
-        "ARR",
-        "Δ QoQ",
-        "NPS"
-      ],
-      "rows": [
-        [
-          "Enterprise",
-          "$48M",
-          "+12%",
-          "62"
-        ],
-        [
-          "Mid-market",
-          "$22M",
-          "+21%",
-          "54"
-        ],
-        [
-          "Self-serve",
-          "$9M",
-          "+31%",
-          "48"
-        ]
-      ]
+      "layout": "section",
+      "number": "01",
+      "heading": "What we found",
+      "lead": "Three findings, each with its evidence."
     },
     {
       "layout": "chart",
-      "eyebrow": "Trend",
-      "heading": "ARR climbed — enterprise still carries the story.",
-      "lead": "Sentence before the marks. Signal red for the motion that moved.",
+      "eyebrow": "Finding 1",
+      "heading": "One-integration accounts churned at 31%, versus 11% with two",
       "chartType": "bar",
-      "categories": [
-        "Q3",
-        "Q4",
-        "Q1",
-        "Q2"
-      ],
-      "series": [
-        {
-          "name": "Enterprise",
-          "values": [
-            38,
-            41,
-            44,
-            48
-          ]
-        },
-        {
-          "name": "Mid-market",
-          "values": [
-            14,
-            16,
-            18,
-            22
-          ]
-        },
-        {
-          "name": "Self-serve",
-          "values": [
-            5,
-            6,
-            7,
-            9
-          ]
-        }
-      ],
-      "showLegend": true,
-      "showValues": false,
-      "notes": "Board: enterprise is still ~60% of ARR — protect win rate before chasing self-serve vanity growth."
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Risk flag",
-      "heading": "Enterprise win rate cooled",
-      "leftLabel": "What happened",
-      "left": "Cycle length stretched 19 days.\nTwo logo losses to price-led competitors.\nPilot-to-close conversion at 41% (was 55%).",
-      "rightLabel": "What we do",
-      "right": "Tighten discovery scripts.\nShip ROI calculator in Q3.\nProtect margin — no across-the-board discount.",
-      "emphasis": "left"
-    },
-    {
-      "layout": "timeline",
-      "eyebrow": "Q3 plan",
-      "heading": "Three moves. One story.",
-      "steps": [
-        {
-          "title": "July",
-          "body": "Ship ROI calculator + discovery script refresh."
-        },
-        {
-          "title": "August",
-          "body": "Enterprise pilot redesign — shorter proof path."
-        },
-        {
-          "title": "September",
-          "body": "Board pack v2 with the same grammar, sharper flags."
-        }
-      ]
+      "categories": ["1 integration", "2 integrations", "3 or more"],
+      "series": [{ "name": "12-month churn (%)", "values": [31, 11, 6] }],
+      "showValues": true,
+      "lead": "Source: Signalbox product logs, n = 1,592 mid-market accounts (412 churned, 1,180 retained), April 2025–September 2026."
     },
     {
       "layout": "quote",
-      "quote": "If the red isn't doing work, it's decoration. Decoration doesn't belong in a board pack.",
-      "by": "Signalbox · Editorial desk"
+      "quote": "We only ever piped in web events. When the CFO asked about revenue, Signalbox had nothing to say, so we cancelled.",
+      "by": "Head of Data, 140-person e-commerce company, churned June 2026"
     },
     {
-      "layout": "logo-wall",
-      "eyebrow": "Sources",
-      "heading": "Teams that trust the signal.",
-      "columns": 4,
-      "cards": [
-        {
-          "title": "Helix",
-          "body": "Analytics"
-        },
-        {
-          "title": "Northwind",
-          "body": "Retail"
-        },
-        {
-          "title": "Cobalt",
-          "body": "Fintech"
-        },
-        {
-          "title": "Parcel",
-          "body": "Ops"
-        }
-      ],
-      "notes": "Glance the marks — social proof, not a reading list."
+      "layout": "chart",
+      "eyebrow": "Finding 2",
+      "heading": "Accounts add a second integration within 14 days, or almost never",
+      "chartType": "line",
+      "categories": ["Day 0", "Day 7", "Day 14", "Day 30", "Day 60", "Day 90"],
+      "series": [{ "name": "Accounts with a second integration (%)", "values": [0, 38, 61, 66, 68, 69] }],
+      "showValues": true,
+      "lead": "Source: Signalbox product logs, n = 1,592 accounts. Cumulative share by days since signup."
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Finding 3",
+      "heading": "Champion turnover was the top churn reason in interviews",
+      "lead": "Share of 38 interviewees who named each reason (more than one allowed).",
+      "items": [
+        { "rank": "01", "label": "Our champion left the company", "value": "42%", "widthPct": 42 },
+        { "rank": "02", "label": "Data did not answer finance questions", "value": "34%", "widthPct": 34 },
+        { "rank": "03", "label": "Price", "value": "18%", "widthPct": 18 },
+        { "rank": "04", "label": "Moved to a warehouse-native tool", "value": "11%", "widthPct": 11 }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "What surprised us",
+      "heading": "We expected price to drive churn; ownership drove it instead",
+      "leftLabel": "What we expected",
+      "left": "Price is the main reason to leave.\nSmall accounts churn most.\nChurn starts at renewal.",
+      "rightLabel": "What we found",
+      "right": "Price ranked third, at 18%.\nAccount size did not predict churn.\nChurn risk is set in the first 14 days.",
+      "emphasis": "right",
+      "notes": "This is the slide that changes the plan. Price cuts would not have saved these accounts."
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Limits and confidence",
+      "heading": "The integration finding is strong; the interview findings are directional",
+      "columns": ["Finding", "Evidence", "Main limit", "Confidence"],
+      "rows": [
+        ["One integration, 3× churn", "Logs, n = 1,592", "Correlation, not proven cause", "High"],
+        ["Day 14 window", "Logs, n = 1,592", "One product version", "High"],
+        ["Champion turnover", "38 interviews", "Self-reported, small sample", "Medium"]
+      ]
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Recommendations, ranked by expected impact",
+      "heading": "Getting every account to two integrations by day 14 comes first",
+      "items": [
+        { "rank": "01", "label": "Guided second integration in onboarding", "value": "−$1.3M churn a year", "widthPct": 100 },
+        { "rank": "02", "label": "Name two admins on every account", "value": "−$0.6M churn a year", "widthPct": 46 },
+        { "rank": "03", "label": "Finance-ready revenue dashboard", "value": "−$0.4M churn a year", "widthPct": 31 }
+      ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Next quarter",
-      "heading": "Fewer slides. Sharper signal.",
-      "lead": "The Q3 pack ships with the same grammar — and one less vanity chart.",
+      "eyebrow": "Decision we need",
+      "heading": "Fix the first 14 days, and halve one-integration churn.",
+      "lead": "Approve two engineers for Q1 2027. We report the 90-day result in June.",
       "actions": [
-        {
-          "label": "Download the PDF",
-          "href": "#",
-          "style": "solid",
-          "icon": "fa-solid fa-download"
-        },
-        {
-          "label": "Share with the board",
-          "href": "#",
-          "style": "outline",
-          "icon": "fa-solid fa-share-nodes"
-        }
+        { "label": "Approve the Q1 build", "style": "solid", "icon": "fa-solid fa-check" },
+        { "label": "Read the full study", "style": "outline", "icon": "fa-solid fa-file-lines" }
       ]
     }
   ]

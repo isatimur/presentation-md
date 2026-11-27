@@ -1,81 +1,142 @@
 {
   "type": "deck",
   "meta": {
-    "title": "נווה — מצגת משקיעים",
+    "title": "נווה — מצגת משקיעים, סבב A",
     "company": "נווה",
-    "description": "Hebrew right-to-left proof: native PPTX paragraphs, mirrored layouts, Noto Sans Hebrew fallback.",
+    "description": "מצגת משקיעים של נווה: קישורי תשלום בוואטסאפ לעסקים קטנים, כסף בחשבון תוך יום והתאמה אוטומטית להנהלת החשבונות. גיוס של ₪12M.",
     "theme": "fintech-clean",
-    "lang": "he"
+    "lang": "he",
+    "genre": "pitch"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "סבב A · 2026",
-      "heading": "תשלומים לעסקים קטנים, בלי ניירת.",
-      "lead": "נווה סוגרת חשבוניות תוך יום אחד במקום שלושים.",
-      "notes": "פתיחה: הבעיה במשפט אחד, לפני המספרים."
+      "eyebrow": "נווה · סבב A · נובמבר 2026",
+      "heading": "עסקים קטנים מקבלים תשלום תוך יום, לא תוך חודש.",
+      "lead": "קישור תשלום בוואטסאפ והתאמה אוטומטית להנהלת החשבונות.",
+      "notes": "פותחים במשפט אחד ועוצרים. את הבעיה מציגים בשקף הבא."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "הבעיה",
+      "heading": "עסקים קטנים מחכים 30 יום ויותר לכסף שכבר הרוויחו",
+      "ratio": "2-1",
+      "body": "החשבונית נשלחת במייל ונשכחת.\nהתשלום מגיע בהעברה או בצ'ק.\nאת ההתאמה עושים ידנית בגיליון.\nמקור הנתון: סקר נווה בקרב 1,200 עסקים, 2026.",
+      "aside": "62% מבעלי העסקים מקדישים יותר מ-4 שעות בחודש לגבייה."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "המוצר",
-      "heading": "קישור אחד. תשלום אחד. סגור.",
-      "lead": "הלקוח משלם מהטלפון — הכסף מגיע לחשבון למחרת.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221600%22%20height%3D%22900%22%20viewBox%3D%220%200%201600%20900%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230B1220%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23FF3B1F%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url(%23g)%22%2F%3E%3Ccircle%20cx%3D%221180%22%20cy%3D%22280%22%20r%3D%22180%22%20fill%3D%22%230D9488%22%20opacity%3D%22.35%22%2F%3E%3Ctext%20x%3D%2296%22%20y%3D%22780%22%20fill%3D%22%23F8FAFC%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3E%D7%A0%D7%95%D7%95%D7%94%20%E2%80%94%20%D7%9E%D7%A6%D7%92%D7%AA%20%D7%9E%D7%A9%D7%A7%D7%99%D7%A2%D7%99%D7%9D%3C%2Ftext%3E%3C%2Fsvg%3E",
-      "imageAlt": "איור מופשט של זרימת תשלום",
-      "notes": "לתת לשקף לנשום לפני המספרים."
+      "eyebrow": "הפתרון",
+      "heading": "קישור אחד בוואטסאפ, והכסף בחשבון כבר למחרת",
+      "lead": "הלקוח משלם מהטלפון, ונווה משייכת את התשלום לחשבונית הנכונה.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 -20 1600 400'><rect y='-20' width='1600' height='420' fill='%23f0eeff'/><g font-family='Arial,Helvetica,sans-serif'><rect x='950' y='40' width='420' height='230' rx='26' fill='%23ffffff' stroke='%23d9d6f5' stroke-width='3'/><rect x='950' y='40' width='420' height='60' rx='26' fill='%23635bff'/><rect x='950' y='74' width='420' height='26' fill='%23635bff'/><text x='1340' y='80' font-size='26' fill='%23ffffff' text-anchor='end'>סטודיו דנה · חשבונית 1042</text><text x='1340' y='150' font-size='54' font-weight='bold' fill='%230a0a0a' text-anchor='end'>₪3,480</text><text x='1340' y='190' font-size='24' fill='%235d636f' text-anchor='end'>עיצוב לוגו ומיתוג · נובמבר</text><rect x='990' y='212' width='340' height='44' rx='22' fill='%23635bff'/><text x='1160' y='242' font-size='24' fill='%23ffffff' text-anchor='middle'>לתשלום מהטלפון</text><path d='M920 155 H840' stroke='%23635bff' stroke-width='4' stroke-dasharray='10 8'/><path d='M850 143 l-14 12 l14 12' stroke='%23635bff' stroke-width='4' fill='none'/><rect x='420' y='70' width='390' height='170' rx='26' fill='%23ffffff' stroke='%2300d4b1' stroke-width='4'/><circle cx='760' cy='120' r='26' fill='%2300d4b1'/><path d='M747 120 l9 9 l17 -18' stroke='%23ffffff' stroke-width='5' fill='none'/><text x='715' y='130' font-size='30' font-weight='bold' fill='%230a0a0a' text-anchor='end'>התשלום התקבל</text><text x='780' y='182' font-size='24' fill='%235d636f' text-anchor='end'>הכסף בחשבון מחר בבוקר</text><text x='780' y='218' font-size='22' fill='%2300a88c' text-anchor='end'>שויך לחשבונית 1042</text></g></svg>",
+      "imageAlt": "הודעת תשלום של סטודיו דנה על חשבונית 1042 בסך ₪3,480 עם כפתור לתשלום מהטלפון, ומשמאלה אישור: התשלום התקבל, הכסף בחשבון מחר בבוקר והתשלום שויך לחשבונית."
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "למה עכשיו",
+      "heading": "שלושה שינויים מאז 2022 פתחו את הגבייה הדיגיטלית לעסקים קטנים",
+      "steps": [
+        { "title": "2022 · בנקאות פתוחה", "body": "גישה לחשבון בהסכמת הלקוח" },
+        { "title": "2024 · חשבונית דיגיטלית", "body": "מספר הקצאה מרשות המסים" },
+        { "title": "2026 · תשלום מהנייד", "body": "רוב הלקוחות כבר משלמים בטלפון" }
+      ]
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "צמיחה",
+      "heading": "נפח התשלומים החודשי גדל פי שישה בתוך 15 חודשים",
+      "chartType": "bar",
+      "categories": ["יוני 25", "ספט׳ 25", "דצמ׳ 25", "מרץ 26", "יוני 26", "ספט׳ 26"],
+      "series": [{ "name": "נפח חודשי (מיליוני ₪)", "values": [6, 11, 17, 24, 31, 38] }],
+      "showValues": true,
+      "lead": "נפח תשלומים חודשי, מיליוני ₪. מקור: נתוני המערכת, ספטמבר 2026.",
+      "notes": "המספר לזכור: ₪38M בחודש. הצמיחה הגיעה כמעט כולה מהפניות של לקוחות."
     },
     {
       "layout": "stat-row",
-      "eyebrow": "תנועה",
-      "heading": "המספרים מאז ההשקה",
+      "eyebrow": "מדדים",
+      "heading": "4,200 עסקים פעילים, ו-97% מהם נשארים אחרי שנה",
       "stats": [
-        {
-          "value": "4,200",
-          "label": "עסקים פעילים"
-        },
-        {
-          "value": "₪38M",
-          "label": "נפח חודשי"
-        },
-        {
-          "value": "97%",
-          "label": "שימור לקוחות"
-        }
-      ],
-      "notes": "לעצור על השימור — זה הסיפור."
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "למה עכשיו",
-      "heading": "לפני ואחרי נווה",
-      "leftLabel": "היום",
-      "left": "חשבונית בדואר.\nתשלום אחרי 30 יום.\nמעקב בגיליון.",
-      "rightLabel": "עם נווה",
-      "right": "קישור לתשלום בוואטסאפ.\nכסף בחשבון תוך יום.\nהתאמה אוטומטית להנהלת חשבונות.",
-      "emphasis": "right"
+        { "value": "4,200", "label": "עסקים פעילים, פי 3 משנה שעברה" },
+        { "value": "97%", "label": "מהעסקים נשארים אחרי 12 חודשים" },
+        { "value": "1.2 ימים", "label": "מחשבונית לתשלום, לעומת 31 קודם" }
+      ]
     },
     {
       "layout": "quote",
-      "quote": "פעם ראשונה שאני לא רודף אחרי לקוחות בסוף החודש.",
-      "by": "דנה, בעלת סטודיו לעיצוב בחיפה"
+      "quote": "פעם ראשונה שאני לא רודפת אחרי לקוחות בסוף החודש.",
+      "by": "דנה, בעלת סטודיו לעיצוב בחיפה · לקוחה מאז 2025"
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "איך זה עובד",
+      "heading": "שלושה רכיבים הופכים חשבונית לכסף בלי עבודה ידנית",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-brands fa-whatsapp", "title": "קישור חכם", "body": "נשלח בוואטסאפ ונפתח בלי אפליקציה" },
+        { "icon": "fa-solid fa-bolt", "title": "תשלום מיידי", "body": "בכרטיס, בהעברה או בארנק דיגיטלי" },
+        { "icon": "fa-solid fa-arrows-rotate", "title": "התאמה אוטומטית", "body": "כל תשלום נרשם בהנהלת החשבונות" }
+      ]
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "שוק",
+      "heading": "180 אלף עסקים שולחים חשבוניות מדי חודש: שוק של ₪432M בשנה",
+      "stats": [
+        { "value": "540K", "label": "עסקים קטנים ועצמאים בישראל" },
+        { "value": "180K", "label": "מהם שולחים חשבוניות ללקוחות עסקיים מדי חודש" },
+        { "value": "₪432M", "label": "הכנסה שנתית אפשרית, ₪2,400 לעסק" }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "תחרות",
+      "heading": "בנקים וחברות סליקה לא נבנו לעסק של אדם אחד",
+      "leftLabel": "העברה בנקאית ומסוף אשראי",
+      "left": "תשלום אחרי 30 יום ויותר\nעמלת מסוף ודמי מנוי חודשיים\nהתאמה ידנית לכל חשבונית",
+      "rightLabel": "נווה",
+      "right": "כסף בחשבון תוך יום\n0.9% לעסקה, בלי דמי מנוי\nהתאמה אוטומטית לכל חשבונית",
+      "emphasis": "right",
+      "notes": "משקיעים נשארים בשקף הזה הכי הרבה זמן. אומרים את הפער במשפט אחד ומצביעים על העמודה של נווה."
+    },
+    {
+      "layout": "section",
+      "heading": "המודל והצוות",
+      "lead": "איך נווה מרוויחה, ומי בונה אותה."
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "מודל עסקי",
+      "heading": "עמלת עסקה של 0.9% מביאה 82% מההכנסה החודשית",
+      "columns": ["מקור הכנסה", "תמחור", "נפח בחודש", "הכנסה בחודש"],
+      "rows": [
+        ["עמלת עסקה", "0.9% לעסקה", "₪38M", "₪342K"],
+        ["כסף באותו יום", "0.5% נוספים", "₪9M", "₪45K"],
+        ["חבילת הנהלת חשבונות", "₪29 לחודש", "1,100 עסקים", "₪32K"]
+      ]
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "צוות",
+      "heading": "שלושה מייסדים שבנו מוצרי תשלומים לעסקים קטנים",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-user-tie", "title": "מיכל לוי · מנכ״לית", "body": "8 שנים בניהול מוצרי תשלומים לעסקים" },
+        { "icon": "fa-solid fa-code", "title": "אורי כהן · סמנכ״ל טכנולוגיות", "body": "בנה מערכות סליקה בהיקף של מיליארדים" },
+        { "icon": "fa-solid fa-chart-line", "title": "רונית אזולאי · צמיחה", "body": "צירפה 20 אלף עסקים לפלטפורמה קודמת" }
+      ]
     },
     {
       "layout": "closing",
-      "eyebrow": "השלב הבא",
-      "heading": "מגייסים ₪12M להתרחבות לאירופה.",
-      "lead": "נשמח לשיחת המשך השבוע.",
+      "eyebrow": "הבקשה",
+      "heading": "מגייסים ₪12M כדי שכל עסק קטן יקבל תשלום תוך יום",
+      "lead": "18 חודשי פעילות: כניסה לקפריסין וליוון, ו-15 אלף עסקים פעילים.",
       "actions": [
-        {
-          "label": "קביעת פגישה",
-          "style": "solid",
-          "icon": "fa-solid fa-calendar"
-        },
-        {
-          "label": "הורדת המצגת",
-          "style": "outline",
-          "icon": "fa-solid fa-download"
-        }
-      ]
+        { "label": "קביעת פגישה", "style": "solid", "icon": "fa-solid fa-calendar-check" },
+        { "label": "הורדת המצגת", "style": "outline", "icon": "fa-solid fa-download" }
+      ],
+      "notes": "חוזרים למשפט מהפתיחה: תשלום תוך יום. אומרים את הסכום ושותקים."
     }
   ]
 }

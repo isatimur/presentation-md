@@ -1,147 +1,245 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Clay & Paper — Product Brief",
+    "title": "Clay & Paper — why subscribers leave in month three",
     "company": "Clay & Paper",
-    "description": "Warm high-craft product brief — claude theme multi-slide proof with asymmetric two-column.",
-    "theme": "claude"
+    "description": "Research readout for a monthly pottery-kit subscription: three findings on month-three churn, the method, evidence for each finding, a subscriber's voice, what surprised us, limits, ranked recommendations and the decision needed.",
+    "theme": "claude",
+    "genre": "research"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Product brief · 2026",
-      "heading": "Calm confidence beats loud templates.",
-      "lead": "Warm paper. Clay-coral signal. The reference craft for AI product stories.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Product brief · 2026",
-      "heading": "Calm confidence beats loud templates.",
-      "lead": "Warm paper. Clay-coral signal. The reference craft for AI product stories.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f4f3ee%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23faf9f5%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28217%2C119%2C87%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28217%2C119%2C87%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28106%2C155%2C204%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28217%2C119%2C87%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28244%2C243%2C238%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28217%2C119%2C87%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28217%2C119%2C87%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28217%2C119%2C87%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28106%2C155%2C204%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28106%2C155%2C204%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28106%2C155%2C204%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23faf9f5%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22480%22%20cy%3D%22300%22%20rx%3D%22420%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221200%22%20cy%3D%22560%22%20rx%3D%22460%22%20ry%3D%22320%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.92%22%3E%0A%20%20%20%20%3Crect%20x%3D%22220%22%20y%3D%22180%22%20width%3D%22460%22%20height%3D%22300%22%20rx%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.060%29%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.160%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22250%22%20y%3D%22220%22%20width%3D%22180%22%20height%3D%2216%22%20rx%3D%226%22%20fill%3D%22rgba%28217%2C119%2C87%2C0.700%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22250%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22250%22%20y%3D%22290%22%20width%3D%22240%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.160%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22560%22%20y%3D%22260%22%20width%3D%22360%22%20height%3D%22320%22%20rx%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%20stroke%3D%22rgba%28106%2C155%2C204%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22600%22%20y%3D%22320%22%20width%3D%22120%22%20height%3D%22120%22%20rx%3D%2218%22%20fill%3D%22rgba%28217%2C119%2C87%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22740%22%20y%3D%22320%22%20width%3D%22120%22%20height%3D%22120%22%20rx%3D%2218%22%20fill%3D%22rgba%28106%2C155%2C204%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22980%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%22220%22%20rx%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.050%29%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.140%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Clay & Paper craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
-    },
-    {
-      "layout": "two-column",
-      "eyebrow": "Positioning",
-      "heading": "Designed to feel human at billboard scale.",
-      "body": "Claude's cream paper and restrained coral accent set the bar: editorial type, quiet surfaces, hierarchy that doesn't shout. Use it when the product is sharp and the room is skeptical.",
-      "aside": "High craft. Low theater. One idea per slide.",
-      "ratio": "3-2"
+      "eyebrow": "Clay & Paper · Churn study · November 2026",
+      "heading": "Subscribers leave in month three because kits repeat, not price.",
+      "lead": "Findings from 1,284 survey answers, 36 interviews and 18 months of orders.",
+      "notes": "This is a readout, not a pitch. Lead with the finding and let the evidence carry it."
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Principles",
-      "heading": "What this surface refuses",
-      "columns": "bento",
+      "eyebrow": "Answer first",
+      "heading": "Three findings explain most of the month-three drop",
+      "columns": 3,
       "cards": [
         {
-          "icon": "fa-solid fa-ban",
-          "title": "Neon soup",
-          "body": "No glow stacks competing with the headline."
+          "icon": "fa-solid fa-repeat",
+          "title": "Repeats push people out",
+          "body": "A repeated technique triples next-month cancellations."
         },
         {
-          "icon": "fa-solid fa-ban",
-          "title": "Card farms",
-          "body": "Cards earn their border — or they leave."
+          "icon": "fa-solid fa-hourglass-half",
+          "title": "Finishing early keeps them",
+          "body": "Subscribers who finish in week one stay 11.4 months."
         },
         {
-          "icon": "fa-solid fa-ban",
-          "title": "Adjective vibes",
-          "body": "Pick from a live preview, not a mood word."
+          "icon": "fa-solid fa-tag",
+          "title": "Price matters less",
+          "body": "Only 14% of leavers name price as a reason."
+        }
+      ]
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Why it matters",
+      "heading": "Month three loses 31% of each cohort and $1.4M a year",
+      "lead": "Other months lose 6–9%. The gap costs 418 subscribers a month. What makes month three different?",
+      "image": "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 width=%221600%22 height=%22900%22%3E%3Crect width=%221600%22 height=%22900%22 fill=%22%23f4f3ee%22/%3E%3Cg font-family=%22Helvetica, Arial, sans-serif%22 font-size=%2224%22 fill=%22%23141413%22%3E%3Ctext x=%22140%22 y=%22320%22%3EMonth 1 %C2%B7 Pinch pot%3C/text%3E%3Ctext x=%22480%22 y=%22320%22%3EMonth 2 %C2%B7 Coil vase%3C/text%3E%3Ctext x=%22820%22 y=%22320%22 fill=%22%23d97757%22 font-weight=%22bold%22%3EMonth 3 %C2%B7 Pinch pot again%3C/text%3E%3Ctext x=%221160%22 y=%22320%22%3EMonth 4 %C2%B7 Slab box%3C/text%3E%3C/g%3E%3Cg stroke=%22%23141413%22 stroke-width=%223%22 fill=%22%23ffffff%22%3E%3Crect x=%22140%22 y=%22340%22 width=%22300%22 height=%22140%22 rx=%2210%22/%3E%3Crect x=%22480%22 y=%22340%22 width=%22300%22 height=%22140%22 rx=%2210%22/%3E%3Crect x=%22820%22 y=%22340%22 width=%22300%22 height=%22140%22 rx=%2210%22 fill=%22%23f6dcd0%22 stroke=%22%23d97757%22 stroke-width=%225%22/%3E%3Crect x=%221160%22 y=%22340%22 width=%22300%22 height=%22140%22 rx=%2210%22/%3E%3C/g%3E%3Cg fill=%22none%22 stroke=%22%2373706a%22 stroke-width=%224%22%3E%3Cpath d=%22M180 450 q40 -90 80 0 z%22/%3E%3Cpath d=%22M520 450 h90 M525 428 h80 M530 406 h70 M535 384 h60%22/%3E%3Cpath d=%22M860 450 q40 -90 80 0 z%22 stroke=%22%23d97757%22/%3E%3Cpath d=%22M1200 380 h90 v70 h-90 z M1200 398 h90%22/%3E%3C/g%3E%3Cg font-family=%22Helvetica, Arial, sans-serif%22 font-weight=%22bold%22 text-anchor=%22end%22 font-size=%2260%22 fill=%22%236a9bcc%22%3E%3Ctext x=%22420%22 y=%22435%22%3E6%25%3C/text%3E%3Ctext x=%22760%22 y=%22435%22%3E9%25%3C/text%3E%3Ctext x=%221100%22 y=%22440%22 font-size=%2272%22 fill=%22%23d97757%22%3E31%25%3C/text%3E%3Ctext x=%221440%22 y=%22435%22%3E8%25%3C/text%3E%3C/g%3E%3Ctext x=%22140%22 y=%22520%22 font-family=%22Helvetica, Arial, sans-serif%22 font-size=%2220%22 fill=%22%2373706a%22%3EShare of each cohort cancelling that month %C2%B7 22,800 subscribers, 2025%E2%80%9326%3C/text%3E%3C/svg%3E",
+      "imageAlt": "Four kit boxes for months one to four with cancellation rates: 6%, 9%, 31% in the month the pinch pot repeats, then 8%"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Method",
+      "heading": "How we studied it",
+      "stats": [
+        {
+          "value": "1,284",
+          "label": "Survey answers from leavers, Aug–Sep 2026"
         },
         {
-          "icon": "fa-solid fa-scissors",
-          "title": "Cut the filler",
-          "body": "If a card doesn't change the decision, it doesn't earn the pixel."
+          "value": "36",
+          "label": "Interviews, 20 UK and 16 US subscribers"
         },
         {
-          "icon": "fa-solid fa-layer-group",
-          "title": "Stack for scan",
-          "body": "Hierarchy first. Decoration second. Decoration never."
+          "value": "18 mo",
+          "label": "Order history, 22,800 subscribers"
+        }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "What we found",
+      "lead": "Three findings, each with its evidence."
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Finding 1",
+      "heading": "A repeated technique triples next-month cancellations to 24%",
+      "chartType": "bar",
+      "categories": [
+        "New technique",
+        "Repeated technique"
+      ],
+      "series": [
+        {
+          "name": "Cancel next month (%)",
+          "values": [
+            8,
+            24
+          ]
+        }
+      ],
+      "showValues": true,
+      "lead": "Source: order data, 22,800 subscribers, Jan 2025–Jun 2026. Repeat = same core technique as an earlier kit."
+    },
+    {
+      "layout": "quote",
+      "quote": "The third box was another pinch pot. I'd already made four of them.",
+      "by": "Interview 14, UK subscriber, cancelled in month three"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Finding 2",
+      "heading": "Subscribers who finish in week one stay 11.4 months, not 3.1",
+      "columns": [
+        "When the first kit is finished",
+        "Share of subscribers",
+        "Median tenure"
+      ],
+      "rows": [
+        [
+          "In week one",
+          "38%",
+          "11.4 months"
+        ],
+        [
+          "Later in month one",
+          "41%",
+          "7.2 months"
+        ],
+        [
+          "Never finished",
+          "21%",
+          "3.1 months"
+        ]
+      ]
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Finding 3",
+      "heading": "Price is fourth among reasons to cancel, named by 14%",
+      "lead": "Share of 1,284 leavers naming each reason; more than one allowed.",
+      "items": [
+        {
+          "rank": "1",
+          "label": "Kit repeated a technique",
+          "value": "46%",
+          "widthPct": 100
+        },
+        {
+          "rank": "2",
+          "label": "No time to finish",
+          "value": "33%",
+          "widthPct": 72
+        },
+        {
+          "rank": "3",
+          "label": "No room for finished pieces",
+          "value": "21%",
+          "widthPct": 46
+        },
+        {
+          "rank": "4",
+          "label": "Price",
+          "value": "14%",
+          "widthPct": 30
         }
       ]
     },
     {
       "layout": "comparison",
-      "eyebrow": "Tone",
-      "heading": "Corporate beige vs. warm craft.",
-      "leftLabel": "Default enterprise",
-      "left": "Navy + gray.\nSafe but forgettable.\nDensity without voice.",
-      "rightLabel": "claude",
-      "right": "Cream paper, clay coral.\nEditorial body type.\nQuiet authority that holds.",
+      "eyebrow": "What surprised us",
+      "heading": "We expected price to drive churn; repetition and time did",
+      "leftLabel": "What we expected",
+      "left": "Leavers find $34 a month too much.\nA discount in month three saves them.",
+      "rightLabel": "What we found",
+      "right": "Leavers want a new skill each month.\nA 15% discount test saved 2 points of churn; repeats cost 16.",
       "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
+      "notes": "Own the wrong guess. We ran the discount test in Q2 before this study; it is why we looked further."
     },
     {
-      "layout": "quote",
-      "quote": "The deck felt like a conversation, not a pitch deck template.",
-      "by": "Beta reviewer · design partner"
+      "layout": "section",
+      "number": "02",
+      "heading": "What we should do",
+      "lead": "How sure we are, then three moves in order."
     },
     {
-      "layout": "stat-row",
-      "eyebrow": "Fit",
-      "heading": "Best when the story is calm and precise.",
-      "stats": [
+      "layout": "data-table",
+      "eyebrow": "Limits",
+      "heading": "Confidence is high for UK subscribers and medium for the US",
+      "columns": [
+        "Limit",
+        "Effect on findings",
+        "Confidence"
+      ],
+      "rows": [
+        [
+          "US is 30% of the base but 44% of interviews",
+          "US time pressure may be overstated",
+          "Medium"
+        ],
+        [
+          "Survey reaches leavers only",
+          "No view of near-leavers",
+          "Medium"
+        ],
+        [
+          "Order data covers all 22,800",
+          "Findings 1 and 2 hold",
+          "High"
+        ]
+      ]
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Recommendations",
+      "heading": "Fix the kit sequence first; it reaches 46% of leavers",
+      "items": [
         {
-          "value": "AI",
-          "label": "Product launches"
+          "rank": "1",
+          "label": "No repeated technique in months 1–6",
+          "value": "46% of leavers",
+          "widthPct": 100
         },
         {
-          "value": "DX",
-          "label": "Developer tools"
+          "rank": "2",
+          "label": "A 45-minute first project",
+          "value": "33%",
+          "widthPct": 72
         },
         {
-          "value": "TL",
-          "label": "Thought leadership"
+          "rank": "3",
+          "label": "Swap or gift finished pieces",
+          "value": "21%",
+          "widthPct": 46
         }
       ]
     },
     {
-      "layout": "logo-wall",
-      "eyebrow": "Trusted by",
-      "heading": "Teams building with Clay & Paper.",
-      "cards": [
-        {
-          "title": "Northstar"
-        },
-        {
-          "title": "Harbor"
-        },
-        {
-          "title": "Fieldkit"
-        },
-        {
-          "title": "Lumen"
-        },
-        {
-          "title": "Cascade"
-        },
-        {
-          "title": "Orbit"
-        }
-      ],
-      "notes": "Glance the marks — social proof, not a reading list."
-    },
-    {
       "layout": "closing",
-      "eyebrow": "Ship",
-      "heading": "Set theme to claude. Keep the copy honest.",
-      "lead": "preview_themes → lock meta.theme → render_deck",
+      "eyebrow": "Decision needed",
+      "heading": "Approve a no-repeat kit plan before the March box ships",
+      "lead": "Kits repeat, not price. If we act by 15 January, the March cohort gets the new sequence.",
       "actions": [
         {
-          "label": "Open Studio",
-          "href": "https://presentation-md.vercel.app/studio",
+          "label": "Approve the kit plan",
           "style": "solid",
-          "icon": "fa-solid fa-rocket"
+          "icon": "fa-solid fa-check"
         },
         {
-          "label": "Read the docs",
-          "href": "#",
+          "label": "Read the full study",
           "style": "outline",
-          "icon": "fa-solid fa-book"
+          "icon": "fa-solid fa-file-lines"
         }
       ]
     }

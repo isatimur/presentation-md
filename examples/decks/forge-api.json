@@ -1,117 +1,121 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Forge — API Launch",
+    "title": "Forge — How idempotency keys ended duplicate jobs",
     "company": "Forge",
-    "description": "Developer API launch — developer-dark multi-slide proof with code layout.",
-    "theme": "developer-dark"
+    "description": "Engineering talk from the Forge jobs API team: why client retries ran jobs twice, how server-side idempotency keys work, what they cost in latency and storage, and what we would change.",
+    "theme": "developer-dark",
+    "genre": "talk"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "API · Public beta",
-      "heading": "Ship infra like you ship product.",
-      "lead": "One client. Idempotent writes. Observability that matches your IDE.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "feature-grid",
-      "eyebrow": "Why teams switch",
-      "heading": "Built for operators who live in git",
-      "columns": "bento",
-      "cards": [
-        {
-          "icon": "fa-solid fa-terminal",
-          "title": "CLI-first",
-          "body": "forge run, forge logs, forge diff — same verbs as your deploy tool."
-        },
-        {
-          "icon": "fa-solid fa-shield-halved",
-          "title": "Idempotent by default",
-          "body": "Retry safely. Duplicate keys are a no-op, not a double charge."
-        },
-        {
-          "icon": "fa-solid fa-wave-square",
-          "title": "Traces included",
-          "body": "Every job links to a span tree you can open in your APM."
-        },
-        {
-          "icon": "fa-solid fa-scissors",
-          "title": "Cut the filler",
-          "body": "If a card doesn't change the decision, it doesn't earn the pixel."
-        },
-        {
-          "icon": "fa-solid fa-layer-group",
-          "title": "Stack for scan",
-          "body": "Hierarchy first. Decoration second. Decoration never."
-        }
-      ]
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Before / After",
-      "heading": "From glue scripts to a contract.",
-      "leftLabel": "Before",
-      "left": "Cron + bash + hope.\nSilent failures at 3am.\nNo shared receipt.",
-      "rightLabel": "With Forge",
-      "right": "Typed jobs with receipts.\nRetries with budgets.\nOne pane for status.",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
+      "eyebrow": "Forge engineering · Platform talk · November 2026",
+      "heading": "Idempotency keys cut our duplicate jobs from 2.1% to 0.003%.",
+      "lead": "What broke, what we built, and what it cost.",
+      "notes": "Thesis first. Every slide after this is evidence for that one number."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "API · Public beta",
-      "heading": "Ship infra like you ship product.",
-      "lead": "One client. Idempotent writes. Observability that matches your IDE.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23161b22%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%230d1117%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2888%2C166%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2822%2C27%2C34%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2888%2C166%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2888%2C166%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2888%2C166%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230d1117%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22820%22%20rx%3D%22700%22%20ry%3D%22120%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23floor%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22520%22%20cy%3D%22260%22%20rx%3D%22360%22%20ry%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22220%22%20rx%3D%22300%22%20ry%3D%22220%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20desk%20product%20frame%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28430%2C170%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%22720%22%20height%3D%22460%22%20rx%3D%2228%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22450%22%20rx%3D%2226%22%20fill%3D%22%23161b22%22%20stroke%3D%22rgba%2863%2C185%2C80%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22%230d1117%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%2290%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%226%22%20fill%3D%22rgba%2863%2C185%2C80%2C0.850%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22130%22%20width%3D%22380%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22158%22%20width%3D%22320%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%2888%2C166%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22290%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%2863%2C185%2C80%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22510%22%20y%3D%22210%22%20width%3D%22140%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22280%22%20y%3D%22400%22%20width%3D%22160%22%20height%3D%2210%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Forge cinematic surface",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "The failure",
+      "heading": "A timeout plus a retry ran each job twice",
+      "lead": "The gateway gave up at 30 s. The worker did not.",
+      "image": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 360'><rect width='1600' height='360' fill='%230d1117'/><g font-family='JetBrains Mono,Menlo,monospace' font-size='22'><rect x='120' y='70' width='210' height='70' rx='12' fill='%23161b22' stroke='%2358a6ff' stroke-width='3'/><text x='150' y='113' fill='%23e6edf3'>client SDK</text><rect x='470' y='70' width='210' height='70' rx='12' fill='%23161b22' stroke='%2358a6ff' stroke-width='3'/><text x='515' y='113' fill='%23e6edf3'>gateway</text><rect x='820' y='70' width='210' height='70' rx='12' fill='%23161b22' stroke='%2358a6ff' stroke-width='3'/><text x='885' y='113' fill='%23e6edf3'>queue</text><rect x='1160' y='40' width='300' height='60' rx='12' fill='%23161b22' stroke='%233fb950' stroke-width='3'/><text x='1185' y='78' fill='%233fb950'>worker: job A</text><rect x='1160' y='120' width='300' height='60' rx='12' fill='%23161b22' stroke='%23f85149' stroke-width='3'/><text x='1185' y='158' fill='%23f85149'>worker: job A again</text><path d='M330 105 H470 M680 105 H820 M1030 105 C1100 105 1100 70 1160 70 M1030 105 C1100 105 1100 150 1160 150' stroke='%238b949e' stroke-width='3' fill='none'/><path d='M575 140 C575 200 225 200 225 140' stroke='%23f85149' stroke-width='3' fill='none' stroke-dasharray='10 8'/><text x='250' y='225' fill='%23f85149'>30 s gateway timeout → SDK retries the POST</text></g></svg>",
+      "imageAlt": "Diagram: client SDK to gateway to queue to workers. A 30-second gateway timeout makes the SDK retry, and a second worker runs job A again."
     },
     {
-      "layout": "code",
-      "eyebrow": "60-second start",
-      "heading": "Create a job. Get a receipt.",
-      "filename": "forge-quickstart.ts",
-      "language": "ts",
-      "code": "import { Forge } from '@forge/sdk';\n\nconst forge = new Forge({ token: process.env.FORGE_TOKEN });\n\nconst job = await forge.jobs.create({\n  pipeline: 'ingest-v3',\n  input: { bucket: 's3://events/raw' },\n  idempotencyKey: 'run_2026_07_30',\n});\n\nconsole.log(job.id, job.status); // queued → running → done"
-    },
-    {
-      "layout": "stat-row",
-      "eyebrow": "Beta signal",
-      "heading": "Ninety days. Zero paid ads.",
-      "stats": [
-        {
-          "value": "1.2k",
-          "label": "Active workspaces"
-        },
-        {
-          "value": "48M",
-          "label": "Jobs executed"
-        },
-        {
-          "value": "99.95%",
-          "label": "API success SLA"
-        }
+      "layout": "timeline",
+      "eyebrow": "Agenda",
+      "heading": "Three questions",
+      "steps": [
+        { "title": "01", "body": "Why did retries duplicate jobs?" },
+        { "title": "02", "body": "Did the fix cost us latency?" },
+        { "title": "03", "body": "What would we change?" }
       ]
     },
     {
+      "layout": "section",
+      "number": "01",
+      "heading": "Why did retries duplicate jobs?"
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Evidence",
+      "heading": "84% of duplicate jobs came from SDK retries after a timeout",
+      "chartType": "donut",
+      "categories": ["SDK retry after timeout", "Webhook replay", "Operator re-run"],
+      "series": [{ "name": "Share of duplicates (%)", "values": [84, 11, 5] }],
+      "showLegend": true,
+      "showValues": true,
+      "lead": "Source: 6,140 duplicate jobs traced in job logs, March–May 2026."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Mechanism",
+      "heading": "The server stores the first response under the key for 24 hours",
+      "ratio": "2-1",
+      "reverse": true,
+      "image": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 450 750'><rect width='450' height='750' fill='%23161b22'/><g font-family='JetBrains Mono,Menlo,monospace' font-size='20'><rect x='45' y='90' width='360' height='80' rx='10' fill='%230d1117' stroke='%2358a6ff' stroke-width='3'/><text x='70' y='138' fill='%23e6edf3'>POST + key run_0730</text><path d='M225 170 V230' stroke='%238b949e' stroke-width='3'/><rect x='45' y='230' width='360' height='80' rx='10' fill='%230d1117' stroke='%2358a6ff' stroke-width='3'/><text x='70' y='278' fill='%23e6edf3'>key seen before?</text><path d='M140 310 V380 M310 310 V380' stroke='%238b949e' stroke-width='3'/><text x='70' y='360' fill='%233fb950'>no</text><text x='325' y='360' fill='%23d29922'>yes</text><rect x='30' y='380' width='190' height='120' rx='10' fill='%230d1117' stroke='%233fb950' stroke-width='3'/><text x='50' y='428' fill='%233fb950'>run job,</text><text x='50' y='460' fill='%233fb950'>save reply</text><rect x='235' y='380' width='190' height='120' rx='10' fill='%230d1117' stroke='%23d29922' stroke-width='3'/><text x='255' y='428' fill='%23d29922'>return</text><text x='255' y='460' fill='%23d29922'>saved reply</text><text x='45' y='590' fill='%238b949e'>TTL 24 h · Redis</text><text x='45' y='625' fill='%238b949e'>1 row per key</text></g></svg>",
+      "imageAlt": "Flow: a POST with an idempotency key is checked. A new key runs the job and saves the reply; a seen key returns the saved reply.",
+      "body": "First request with a key runs the job and saves the reply. Any retry with the same key gets that saved reply, not a new job."
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "Did the fix cost us latency?"
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Before vs after · 30 days each",
+      "heading": "Duplicates fell 700× while p99 latency rose only 4 ms",
+      "leftLabel": "Before keys (May)",
+      "left": "Duplicate rate: 2.1%\np99 create latency: 182 ms\nIncidents: 9",
+      "rightLabel": "After keys (July)",
+      "right": "Duplicate rate: 0.003%\np99 create latency: 186 ms\nIncidents: 0",
+      "emphasis": "right",
+      "notes": "Let the room do the maths on 2.1 over 0.003. Then point at the 4 ms: that is the whole cost."
+    },
+    {
+      "layout": "code",
+      "eyebrow": "The code that matters",
+      "heading": "One field on create makes every retry safe",
+      "filename": "create-job.ts",
+      "language": "ts",
+      "code": "import { Forge } from '@forge/sdk';\n\nconst forge = new Forge({ token: process.env.FORGE_TOKEN });\n\n// Same key on every retry: Forge runs the job once.\nconst job = await forge.jobs.create({\n  pipeline: 'ingest-v3',\n  input: { bucket: 's3://events/raw' },\n  idempotencyKey: `ingest-${batch.id}`,\n});\n\nconsole.log(job.id, job.replayed); // replayed: true on a retry",
+      "notes": "Point at the key. It comes from the batch, not from a random UUID; a random key per retry defeats the whole design."
+    },
+    {
+      "layout": "section",
+      "number": "03",
+      "heading": "What would we change?"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Trade-offs and limits",
+      "heading": "Keys cost 38 GB of Redis and do not cover long jobs",
+      "columns": ["Trade-off", "Cost today", "Limit"],
+      "rows": [
+        ["Key storage", "38 GB Redis", "24 h window"],
+        ["Extra lookup", "+4 ms p99", "One region only"],
+        ["Jobs over 24 h", "Not covered", "Needs a job ledger"]
+      ]
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Next time",
+      "heading": "We would ship keys in the SDK on day one, not in year two",
+      "ratio": "3-2",
+      "body": "Two years of retries ran without keys. 9 incidents and 6,140 duplicate jobs came from that gap.",
+      "aside": "Rule now: every write endpoint ships with an idempotency key."
+    },
+    {
       "layout": "closing",
-      "eyebrow": "Get in",
-      "heading": "Your next deploy should feel boring.",
-      "lead": "Free tier · no card · docs that assume you can read TypeScript.",
+      "eyebrow": "Takeaway",
+      "heading": "Make every write safe to retry, and duplicates disappear.",
+      "lead": "Slides, code and the incident write-up are on the Forge engineering blog.",
       "actions": [
-        {
-          "label": "Read the docs",
-          "href": "#",
-          "style": "solid",
-          "icon": "fa-solid fa-book"
-        },
-        {
-          "label": "Get an API key",
-          "href": "#",
-          "style": "outline",
-          "icon": "fa-solid fa-key"
-        }
+        { "label": "Read the write-up", "style": "solid", "icon": "fa-solid fa-book-open" },
+        { "label": "Star the SDK", "style": "outline", "icon": "fa-brands fa-github" }
       ]
     }
   ]

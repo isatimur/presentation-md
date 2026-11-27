@@ -1,103 +1,239 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Verdure — Report Deck",
+    "title": "Verdure Rooftop Study 2026 — readout",
     "company": "Verdure",
-    "description": "Sustainability report — emerald-editorial multi-slide proof.",
-    "theme": "emerald-editorial"
+    "description": "Research readout from Verdure Urban Lab: a two-summer study of 48 Lisbon roofs shows green roofs cut top-floor cooling energy by 23% and pay back in 9 years. Recommendation and budget decision for the city council.",
+    "theme": "emerald-editorial",
+    "genre": "research"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Report · 2026",
-      "heading": "Emerald on navy. Paper truth.",
-      "lead": "Bodoni for the claim. Manrope for the footnote.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Report · 2026",
-      "heading": "Emerald on navy. Paper truth.",
-      "lead": "Bodoni for the claim. Manrope for the footnote.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232DC684%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%233CD896%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2815%2C26%2C92%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2815%2C26%2C92%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28241%2C233%2C214%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2815%2C26%2C92%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2845%2C198%2C132%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2815%2C26%2C92%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2815%2C26%2C92%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2815%2C26%2C92%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28241%2C233%2C214%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28241%2C233%2C214%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28241%2C233%2C214%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%233CD896%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.5%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22200%22%20cy%3D%22100%22%20rx%3D%22420%22%20ry%3D%22280%22%20fill%3D%22rgba%2815%2C26%2C92%2C0.350%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221400%22%20cy%3D%22780%22%20rx%3D%22500%22%20ry%3D%22320%22%20fill%3D%22rgba%28241%2C233%2C214%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.9%22%3E%0A%20%20%20%20%3Crect%20x%3D%22180%22%20y%3D%22160%22%20width%3D%22520%22%20height%3D%22340%22%20rx%3D%228%22%20fill%3D%22%232DC684%22%20stroke%3D%22rgba%2815%2C26%2C92%2C0.400%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22%233CD896%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.7%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22240%22%20y%3D%22470%22%20width%3D%22180%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22780%22%20y%3D%22220%22%20width%3D%22420%22%20height%3D%22280%22%20rx%3D%228%22%20fill%3D%22%232DC684%22%20stroke%3D%22rgba%28241%2C233%2C214%2C0.350%29%22%20stroke-width%3D%222%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22800%22%20y%3D%22240%22%20width%3D%22380%22%20height%3D%22220%22%20fill%3D%22rgba%28241%2C233%2C214%2C0.200%29%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Cg%20opacity%3D%220.4%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221260%22%20cy%3D%22180%22%20r%3D%2226%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221360%22%20cy%3D%22260%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221180%22%20cy%3D%22300%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Verdure craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Verdure Urban Lab · Rooftop Study 2026 · Readout for Lisbon City Council",
+      "heading": "Green roofs cut top-floor cooling energy by 23%.",
+      "notes": "Say the finding, then the decision we want: sedum roofs on 300 council buildings in the 2027 budget."
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Pillars",
-      "heading": "Where emerald goes",
-      "columns": "bento",
+      "eyebrow": "Answer first",
+      "heading": "Green roofs save energy, cool the roof, and pay back in 9 years",
+      "columns": 3,
       "cards": [
         {
-          "icon": "fa-solid fa-seedling",
-          "title": "Supply",
-          "body": "Traceable fibers only."
-        },
-        {
-          "icon": "fa-solid fa-recycle",
-          "title": "Cycle",
-          "body": "Take-back that actually takes back."
-        },
-        {
-          "icon": "fa-solid fa-chart-line",
-          "title": "Disclose",
-          "body": "Numbers before adjectives."
-        },
-        {
-          "icon": "fa-solid fa-layer-group",
-          "title": "Stack for scan",
-          "body": "Hierarchy first. Decoration second. Decoration never."
-        },
-        {
           "icon": "fa-solid fa-bolt",
-          "title": "Ship the punchline",
-          "body": "Lead with the claim that survives the hallway test."
+          "title": "23% less cooling energy",
+          "body": "Top floors used 20.3 kWh/m² against 26.5 kWh/m² over the 2026 summer."
+        },
+        {
+          "icon": "fa-solid fa-temperature-arrow-down",
+          "title": "31 °C cooler surfaces",
+          "body": "Peak roof surface 37 °C on sedum, 68 °C on bitumen."
+        },
+        {
+          "icon": "fa-solid fa-coins",
+          "title": "9-year payback",
+          "body": "Sedum roofs at €85/m² repay through energy and membrane life."
         }
       ]
     },
     {
+      "layout": "two-column",
+      "eyebrow": "The question",
+      "heading": "Lisbon must cut building energy 30% by 2030, and roofs were untested",
+      "ratio": "1-2",
+      "body": "Council roofs cover 1.9 km², mostly bare bitumen. Nobody had measured what greening them saves in Lisbon's climate.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201200%20900'%20font-family%3D'Manrope%2CArial%2Csans-serif'%3E%20%3Crect%20width%3D'1200'%20height%3D'900'%20fill%3D'%23F1E9D6'%2F%3E%20%3Cg%20stroke%3D'%23d8cdb2'%20stroke-width%3D'26'%20fill%3D'none'%3E%20%3Cpath%20d%3D'M0%20300C300%20280%20500%20340%201200%20250'%2F%3E%3Cpath%20d%3D'M0%20640C400%20600%20800%20700%201200%20620'%2F%3E%3Cpath%20d%3D'M380%200C400%20300%20340%20600%20420%20900'%2F%3E%3Cpath%20d%3D'M820%200C780%20300%20860%20600%20800%20900'%2F%3E%20%3C%2Fg%3E%20%3Cpath%20d%3D'M0%20820C300%20790%20700%20860%201200%20800V900H0z'%20fill%3D'%239fc8e0'%2F%3E%20%3Ctext%20x%3D'60'%20y%3D'870'%20font-size%3D'22'%20fill%3D'%230F1A5C'%20opacity%3D'.7'%3ETagus%3C%2Ftext%3E%20%3Cg%20id%3D'g'%20fill%3D'%233CD896'%20stroke%3D'%230F1A5C'%20stroke-width%3D'3'%3E%20%3Crect%20x%3D'70'%20y%3D'80'%20width%3D'70'%20height%3D'56'%2F%3E%3Crect%20x%3D'170'%20y%3D'120'%20width%3D'60'%20height%3D'60'%2F%3E%3Crect%20x%3D'250'%20y%3D'60'%20width%3D'80'%20height%3D'50'%2F%3E%20%3Crect%20x%3D'470'%20y%3D'90'%20width%3D'66'%20height%3D'60'%2F%3E%3Crect%20x%3D'580'%20y%3D'150'%20width%3D'70'%20height%3D'52'%2F%3E%3Crect%20x%3D'680'%20y%3D'70'%20width%3D'60'%20height%3D'70'%2F%3E%20%3Crect%20x%3D'900'%20y%3D'100'%20width%3D'80'%20height%3D'54'%2F%3E%3Crect%20x%3D'1010'%20y%3D'160'%20width%3D'60'%20height%3D'60'%2F%3E%3Crect%20x%3D'1090'%20y%3D'60'%20width%3D'70'%20height%3D'60'%2F%3E%20%3Crect%20x%3D'90'%20y%3D'380'%20width%3D'70'%20height%3D'60'%2F%3E%3Crect%20x%3D'200'%20y%3D'460'%20width%3D'64'%20height%3D'58'%2F%3E%3Crect%20x%3D'270'%20y%3D'370'%20width%3D'60'%20height%3D'60'%2F%3E%20%3Crect%20x%3D'480'%20y%3D'400'%20width%3D'70'%20height%3D'56'%2F%3E%3Crect%20x%3D'600'%20y%3D'470'%20width%3D'64'%20height%3D'60'%2F%3E%3Crect%20x%3D'690'%20y%3D'380'%20width%3D'60'%20height%3D'70'%2F%3E%20%3Crect%20x%3D'900'%20y%3D'420'%20width%3D'70'%20height%3D'56'%2F%3E%3Crect%20x%3D'1000'%20y%3D'360'%20width%3D'70'%20height%3D'60'%2F%3E%3Crect%20x%3D'1090'%20y%3D'470'%20width%3D'64'%20height%3D'60'%2F%3E%20%3Crect%20x%3D'100'%20y%3D'700'%20width%3D'70'%20height%3D'56'%2F%3E%3Crect%20x%3D'240'%20y%3D'690'%20width%3D'60'%20height%3D'60'%2F%3E%3Crect%20x%3D'500'%20y%3D'700'%20width%3D'70'%20height%3D'56'%2F%3E%20%3Crect%20x%3D'650'%20y%3D'720'%20width%3D'64'%20height%3D'50'%2F%3E%3Crect%20x%3D'920'%20y%3D'690'%20width%3D'70'%20height%3D'56'%2F%3E%3Crect%20x%3D'1060'%20y%3D'710'%20width%3D'64'%20height%3D'50'%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D'%23fff'%20stroke%3D'%230F1A5C'%20stroke-width%3D'3'%20stroke-dasharray%3D'6%205'%3E%20%3Crect%20x%3D'150'%20y%3D'200'%20width%3D'60'%20height%3D'50'%2F%3E%3Crect%20x%3D'60'%20y%3D'170'%20width%3D'60'%20height%3D'60'%2F%3E%3Crect%20x%3D'270'%20y%3D'160'%20width%3D'60'%20height%3D'60'%2F%3E%20%3Crect%20x%3D'500'%20y%3D'190'%20width%3D'60'%20height%3D'56'%2F%3E%3Crect%20x%3D'660'%20y%3D'190'%20width%3D'64'%20height%3D'50'%2F%3E%3Crect%20x%3D'560'%20y%3D'60'%20width%3D'60'%20height%3D'60'%2F%3E%20%3Crect%20x%3D'930'%20y%3D'190'%20width%3D'60'%20height%3D'60'%2F%3E%3Crect%20x%3D'1100'%20y%3D'160'%20width%3D'60'%20height%3D'60'%2F%3E%3Crect%20x%3D'980'%20y%3D'60'%20width%3D'60'%20height%3D'50'%2F%3E%20%3Crect%20x%3D'170'%20y%3D'370'%20width%3D'64'%20height%3D'60'%2F%3E%3Crect%20x%3D'80'%20y%3D'480'%20width%3D'60'%20height%3D'60'%2F%3E%3Crect%20x%3D'300'%20y%3D'470'%20width%3D'56'%20height%3D'56'%2F%3E%20%3Crect%20x%3D'560'%20y%3D'380'%20width%3D'64'%20height%3D'56'%2F%3E%3Crect%20x%3D'480'%20y%3D'490'%20width%3D'60'%20height%3D'56'%2F%3E%3Crect%20x%3D'700'%20y%3D'480'%20width%3D'56'%20height%3D'60'%2F%3E%20%3Crect%20x%3D'1000'%20y%3D'460'%20width%3D'64'%20height%3D'56'%2F%3E%3Crect%20x%3D'900'%20y%3D'510'%20width%3D'60'%20height%3D'50'%2F%3E%3Crect%20x%3D'1090'%20y%3D'380'%20width%3D'60'%20height%3D'60'%2F%3E%20%3Crect%20x%3D'60'%20y%3D'700'%20width%3D'0'%20height%3D'0'%2F%3E%3Crect%20x%3D'180'%20y%3D'710'%20width%3D'50'%20height%3D'50'%2F%3E%3Crect%20x%3D'320'%20y%3D'700'%20width%3D'60'%20height%3D'56'%2F%3E%20%3Crect%20x%3D'580'%20y%3D'720'%20width%3D'56'%20height%3D'50'%2F%3E%3Crect%20x%3D'730'%20y%3D'700'%20width%3D'60'%20height%3D'56'%2F%3E%3Crect%20x%3D'1000'%20y%3D'700'%20width%3D'50'%20height%3D'50'%2F%3E%3Crect%20x%3D'850'%20y%3D'720'%20width%3D'56'%20height%3D'50'%2F%3E%20%3C%2Fg%3E%20%3Crect%20x%3D'760'%20y%3D'560'%20width%3D'400'%20height%3D'110'%20fill%3D'%230F1A5C'%2F%3E%20%3Crect%20x%3D'784'%20y%3D'584'%20width%3D'28'%20height%3D'24'%20fill%3D'%233CD896'%2F%3E%3Ctext%20x%3D'826'%20y%3D'604'%20font-size%3D'22'%20fill%3D'%23F1E9D6'%3E24%20green%20retrofits%3C%2Ftext%3E%20%3Crect%20x%3D'784'%20y%3D'626'%20width%3D'28'%20height%3D'24'%20fill%3D'%23fff'%20stroke%3D'%23F1E9D6'%20stroke-dasharray%3D'5%204'%2F%3E%3Ctext%20x%3D'826'%20y%3D'646'%20font-size%3D'22'%20fill%3D'%23F1E9D6'%3E24%20matched%20controls%3C%2Ftext%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Map of central Lisbon showing 24 green retrofit roofs and 24 matched control roofs spread across the study area"
+    },
+    {
       "layout": "stat-row",
-      "eyebrow": "Year",
-      "heading": "Progress you can audit.",
+      "eyebrow": "Method",
+      "heading": "We paired 48 roofs and logged them for two summers",
       "stats": [
         {
-          "value": "−34%",
-          "label": "Emissions"
-        },
-        {
-          "value": "91%",
-          "label": "Traceable"
+          "value": "48",
+          "label": "Roofs: 24 green retrofits, 24 matched bare controls"
         },
         {
           "value": "2",
-          "label": "Factories exited"
+          "label": "Summers measured, June–September 2025 and 2026"
+        },
+        {
+          "value": "1.2M",
+          "label": "Sensor readings: energy meters, surface and air probes"
+        }
+      ]
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Study roof 12 · Arroios · 3 August 2026, 15:00",
+      "heading": "Two roofs, one street: sedum at 37 °C, bitumen at 68 °C",
+      "lead": "The hottest afternoon of the study, measured on neighbouring buildings.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201600%20900'%20font-family%3D'Manrope%2CArial%2Csans-serif'%3E%20%3Crect%20width%3D'1600'%20height%3D'900'%20fill%3D'%23F1E9D6'%2F%3E%20%3Ccircle%20cx%3D'1420'%20cy%3D'300'%20r%3D'60'%20fill%3D'%23f2c14e'%2F%3E%20%3Cg%20stroke%3D'%23f2c14e'%20stroke-width%3D'6'%3E%3Cpath%20d%3D'M1420%20210v-30M1420%20390v30M1330%20300h-30M1510%20300h30M1356%20236l-20-20M1484%20364l20%2020M1484%20236l20-20M1356%20364l-20%2020'%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D'200'%20y%3D'430'%20width%3D'520'%20height%3D'470'%20fill%3D'%230F1A5C'%2F%3E%20%3Crect%20x%3D'780'%20y%3D'430'%20width%3D'520'%20height%3D'470'%20fill%3D'%232a3168'%2F%3E%20%3Cpath%20d%3D'M190%20430h540v-26c-40-22-70%206-100-14s-60%2010-95-8-70%2012-110-6-70%2010-120-4-80%2014-115%200z'%20fill%3D'%232DC684'%20stroke%3D'%230F1A5C'%20stroke-width%3D'4'%2F%3E%20%3Cg%20fill%3D'%233CD896'%3E%3Ccircle%20cx%3D'250'%20cy%3D'402'%20r%3D'14'%2F%3E%3Ccircle%20cx%3D'330'%20cy%3D'398'%20r%3D'12'%2F%3E%3Ccircle%20cx%3D'420'%20cy%3D'404'%20r%3D'15'%2F%3E%3Ccircle%20cx%3D'520'%20cy%3D'398'%20r%3D'12'%2F%3E%3Ccircle%20cx%3D'620'%20cy%3D'402'%20r%3D'14'%2F%3E%3Ccircle%20cx%3D'690'%20cy%3D'400'%20r%3D'11'%2F%3E%3C%2Fg%3E%20%3Crect%20x%3D'770'%20y%3D'414'%20width%3D'540'%20height%3D'18'%20fill%3D'%23111'%2F%3E%20%3Cg%20fill%3D'%23F1E9D6'%20opacity%3D'.85'%3E%20%3Crect%20x%3D'250'%20y%3D'480'%20width%3D'70'%20height%3D'60'%2F%3E%3Crect%20x%3D'360'%20y%3D'480'%20width%3D'70'%20height%3D'60'%2F%3E%3Crect%20x%3D'470'%20y%3D'480'%20width%3D'70'%20height%3D'60'%2F%3E%3Crect%20x%3D'580'%20y%3D'480'%20width%3D'70'%20height%3D'60'%2F%3E%20%3Crect%20x%3D'830'%20y%3D'480'%20width%3D'70'%20height%3D'60'%2F%3E%3Crect%20x%3D'940'%20y%3D'480'%20width%3D'70'%20height%3D'60'%2F%3E%3Crect%20x%3D'1050'%20y%3D'480'%20width%3D'70'%20height%3D'60'%2F%3E%3Crect%20x%3D'1160'%20y%3D'480'%20width%3D'70'%20height%3D'60'%2F%3E%20%3C%2Fg%3E%20%3Cg%20font-weight%3D'800'%3E%20%3Crect%20x%3D'300'%20y%3D'300'%20width%3D'320'%20height%3D'66'%20fill%3D'%230F1A5C'%2F%3E%3Ctext%20x%3D'460'%20y%3D'346'%20text-anchor%3D'middle'%20font-size%3D'36'%20fill%3D'%233CD896'%3ESedum%20%C2%B7%2037%20%C2%B0C%3C%2Ftext%3E%20%3Crect%20x%3D'860'%20y%3D'300'%20width%3D'360'%20height%3D'66'%20fill%3D'%23d9480f'%2F%3E%3Ctext%20x%3D'1040'%20y%3D'346'%20text-anchor%3D'middle'%20font-size%3D'36'%20fill%3D'%23fff'%3EBitumen%20%C2%B7%2068%20%C2%B0C%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Cg%20stroke%3D'%23d9480f'%20stroke-width%3D'4'%20fill%3D'none'%20opacity%3D'.7'%3E%3Cpath%20d%3D'M960%20400c10-20-10-30%200-50M1040%20400c10-20-10-30%200-50M1120%20400c10-20-10-30%200-50'%2F%3E%3C%2Fg%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Two neighbouring buildings: the left one with a green sedum roof at 37 degrees, the right one with black bitumen at 68 degrees under the sun"
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Finding 1",
+      "heading": "Green-roof top floors used less cooling energy in every summer month",
+      "chartType": "bar",
+      "categories": [
+        "June",
+        "July",
+        "August",
+        "September"
+      ],
+      "series": [
+        {
+          "name": "Control roof (kWh/m²)",
+          "values": [
+            5.4,
+            7.3,
+            8.1,
+            5.7
+          ]
+        },
+        {
+          "name": "Green roof (kWh/m²)",
+          "values": [
+            4.1,
+            5.6,
+            6.2,
+            4.4
+          ]
         }
       ],
-      "notes": "One breath on the numbers — then move on."
+      "showLegend": true,
+      "showValues": true,
+      "lead": "Source: smart meters on top-floor flats, 2026 summer, n = 48 roofs, 212 flats. Total 26.5 vs 20.3 kWh/m², −23%."
     },
     {
       "layout": "quote",
-      "quote": "Emerald is earned in the ledger, not the logo.",
-      "by": "Verdure"
+      "quote": "The top floor used to be unlivable in August. This year we slept without the fan.",
+      "by": "Ana Ribeiro, top-floor resident, study roof 12, Arroios"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Finding 2",
+      "heading": "Sedum kept roof surfaces 31 °C cooler than bitumen at peak",
+      "columns": [
+        "Roof type",
+        "Peak surface",
+        "Air at 2 m",
+        "Roofs"
+      ],
+      "rows": [
+        [
+          "Bare bitumen",
+          "68 °C",
+          "39 °C",
+          "18 controls"
+        ],
+        [
+          "White membrane",
+          "44 °C",
+          "36 °C",
+          "6 controls"
+        ],
+        [
+          "Sedum green roof",
+          "37 °C",
+          "33 °C",
+          "24 retrofits"
+        ]
+      ]
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Finding 3",
+      "heading": "Light sedum roofs pay back fastest, in 9 years",
+      "lead": "Payback years at 2026 install prices and energy tariffs. Lower is better.",
+      "items": [
+        {
+          "rank": "1",
+          "label": "Sedum, extensive · €85/m²",
+          "value": "9 yrs",
+          "widthPct": 41
+        },
+        {
+          "rank": "2",
+          "label": "Semi-intensive · €140/m²",
+          "value": "14 yrs",
+          "widthPct": 64
+        },
+        {
+          "rank": "3",
+          "label": "Roof garden · €260/m²",
+          "value": "22 yrs",
+          "widthPct": 100
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "What surprised us",
+      "heading": "We expected rainwater gains to lead; heat savings were twice as large",
+      "leftLabel": "Expected",
+      "left": "Stormwater: the main benefit.\nEnergy: a small bonus.\nPayback: 15+ years.",
+      "rightLabel": "Found",
+      "right": "Energy: 64% of the total value.\nStormwater: 31%.\nPayback: 9 years for sedum.",
+      "emphasis": "right"
+    },
+    {
+      "layout": "section",
+      "heading": "What it means for the 2027 budget",
+      "lead": "Limits first, then three ranked recommendations."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Limits",
+      "heading": "Confidence is high on energy and medium on payback",
+      "ratio": "3-2",
+      "body": "Two summers only; a hotter or cooler year moves the result by ±4 points.\nAll roofs were flat and under 1,200 m².\nPayback assumes 2026 tariffs held for 20 years.",
+      "aside": "High confidence: the 23% energy cut. Medium: the 9-year payback."
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Recommendations",
+      "heading": "Start with 300 council roofs, then change the building code",
+      "items": [
+        {
+          "rank": "1",
+          "label": "Sedum on 300 council roofs, 2027 budget",
+          "value": "€14.0M",
+          "widthPct": 100
+        },
+        {
+          "rank": "2",
+          "label": "Require green or white flat roofs from 2028",
+          "value": "code change",
+          "widthPct": 70
+        },
+        {
+          "rank": "3",
+          "label": "White membranes where roofs cannot carry soil",
+          "value": "€2.1M",
+          "widthPct": 40
+        }
+      ],
+      "notes": "Recommendation 1 is the only one that needs money this year. 300 roofs × 550 m² × €85 = €14.0M."
     },
     {
       "layout": "closing",
-      "eyebrow": "Read",
-      "heading": "Open the full report.",
-      "lead": "PDF + methodology appendix.",
+      "eyebrow": "Decision needed · budget committee, 15 January 2027",
+      "heading": "Fund €14.0M for green roofs and cut cooling energy 23%.",
+      "lead": "Approve recommendation 1 and works start on the first 40 roofs in April.",
       "actions": [
         {
-          "label": "Download report",
-          "href": "#",
+          "label": "Approve the roof budget",
           "style": "solid",
-          "icon": "fa-solid fa-download"
+          "icon": "fa-solid fa-check"
         },
         {
-          "label": "Watch the demo",
-          "href": "#",
+          "label": "Read the full study",
           "style": "outline",
-          "icon": "fa-solid fa-play"
+          "icon": "fa-solid fa-book-open"
         }
       ]
     }

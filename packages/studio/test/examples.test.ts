@@ -31,7 +31,10 @@ describe("studio examples", () => {
     expect(slugs).toContain("pulse-wrapped");
   });
 
-  it("leads every stunning-25 flagship with title → feature-grid → comparison", async () => {
+  // Flagships are real presentations, each following its genre's spine
+  // (examples/decks, meta.genre), not one shared title → grid → compare template.
+  // Theme preview crops read /previews/<theme>.html, not these decks.
+  it("ships every stunning-25 flagship as a full genre deck that opens on a title", async () => {
     const flagshipSlugs = STUDIO_EXAMPLES.map((e) => e.slug).filter(
       (s) => s !== "acme" && s !== "briefing-signal" && s !== "posterforge-campaign"
     );
@@ -40,8 +43,8 @@ describe("studio examples", () => {
       const deck = await loadExampleDeck(slug);
       expect(deck).not.toBeNull();
       expect(deck!.slides[0]?.layout, slug).toBe("title");
-      expect(deck!.slides[1]?.layout, slug).toBe("feature-grid");
-      expect(deck!.slides[2]?.layout, slug).toBe("comparison");
+      expect(deck!.slides.length, slug).toBeGreaterThanOrEqual(10);
+      expect((deck!.meta as { genre?: string } | undefined)?.genre, slug).toBeTruthy();
     }
   });
 

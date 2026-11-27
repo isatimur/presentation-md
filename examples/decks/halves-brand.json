@@ -1,111 +1,210 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Halves — Brand Deck",
+    "title": "Halves — brand studio credentials 2026",
     "company": "Halves",
-    "description": "Dual-brand system — split-pastel multi-slide proof.",
-    "theme": "split-pastel"
+    "description": "Credentials deck for Halves, a Lisbon brand studio that designs food and drink brands for the shelf and the phone at once: point of view, three rules, three cases with results, clients, process and a sprint offer.",
+    "theme": "split-pastel",
+    "genre": "brand"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Brand",
-      "heading": "Peach left. Lavender right.",
-      "lead": "Outfit 800 for both halves of the story.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Halves · Brand studio, Lisbon · Credentials 2026",
+      "heading": "We design brands for the shelf and the screen.",
+      "lead": "Food and drink brands, both halves, from day one.",
+      "notes": "One line on who we are, then straight to the work. Credentials decks lose people in the about-us."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Brand",
-      "heading": "Peach left. Lavender right.",
-      "lead": "Outfit 800 for both halves of the story.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23e4dff0%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f5e6dc%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C240%2C216%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C240%2C216%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28240%2C212%2C224%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28200%2C240%2C216%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28228%2C223%2C240%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28200%2C240%2C216%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28200%2C240%2C216%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28200%2C240%2C216%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28240%2C212%2C224%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28240%2C212%2C224%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28240%2C212%2C224%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f5e6dc%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22820%22%20rx%3D%22700%22%20ry%3D%22120%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23floor%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22520%22%20cy%3D%22260%22%20rx%3D%22360%22%20ry%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22220%22%20rx%3D%22300%22%20ry%3D%22220%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20desk%20product%20frame%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28430%2C170%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%22720%22%20height%3D%22460%22%20rx%3D%2228%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22450%22%20rx%3D%2226%22%20fill%3D%22%23e4dff0%22%20stroke%3D%22rgba%28200%2C240%2C216%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22%23f5e6dc%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%2290%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%226%22%20fill%3D%22rgba%28200%2C240%2C216%2C0.850%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22130%22%20width%3D%22380%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22158%22%20width%3D%22320%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28240%2C212%2C224%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22290%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28200%2C240%2C216%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22510%22%20y%3D%22210%22%20width%3D%22140%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22280%22%20y%3D%22400%22%20width%3D%22160%22%20height%3D%2210%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Halves craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "System",
-      "heading": "Two moods, one brand",
-      "leftLabel": "Peach",
-      "left": "Warm invites.\nDay launches.\nSoft CTAs.",
-      "rightLabel": "Lavender",
-      "right": "Night drops.\nQuiet luxury.\nEditorial kits.",
-      "emphasis": "left",
-      "notes": "Name the loser column first, then punch the winner."
+      "eyebrow": "Our point of view",
+      "heading": "A brand gets two seconds on a shelf and one on a phone",
+      "lead": "So we design the pack and the post as one object.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%20%3Crect%20width%3D%22800%22%20height%3D%22900%22%20fill%3D%22%23f5e6dc%22%2F%3E%3Crect%20x%3D%22800%22%20width%3D%22800%22%20height%3D%22900%22%20fill%3D%22%23e4dff0%22%2F%3E%20%3Cg%20font-family%3D%22Outfit%2C%20Arial%2C%20sans-serif%22%20font-weight%3D%22800%22%20transform%3D%22translate(0%2028)%22%3E%20%3Cg%20transform%3D%22translate(560%20300)%22%3E%20%3Cpath%20d%3D%22M0%2030%20Q0%200%2030%200%20H170%20Q200%200%20200%2030%20V260%20H0%20Z%22%20fill%3D%22%23fff%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%22200%22%20height%3D%2240%22%20rx%3D%2220%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Ccircle%20cx%3D%22100%22%20cy%3D%22130%22%20r%3D%2252%22%20fill%3D%22%23c8f0d8%22%2F%3E%3Ctext%20x%3D%22100%22%20y%3D%22146%22%20text-anchor%3D%22middle%22%20font-size%3D%2244%22%20fill%3D%22%231a1a1a%22%3EPP%3C%2Ftext%3E%20%3Ctext%20x%3D%22100%22%20y%3D%22225%22%20text-anchor%3D%22middle%22%20font-size%3D%2226%22%20fill%3D%22%231a1a1a%22%3EP%C3%83O%20P%C3%83O%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Ctext%20x%3D%22560%22%20y%3D%22590%22%20font-size%3D%2222%22%20fill%3D%22%236a6570%22%20font-weight%3D%22500%22%3ESHELF%20%C2%B7%202%20SECONDS%3C%2Ftext%3E%20%3Cg%20transform%3D%22translate(900%20290)%22%3E%20%3Crect%20width%3D%22160%22%20height%3D%22290%22%20rx%3D%2226%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2214%22%20width%3D%22140%22%20height%3D%22262%22%20rx%3D%2218%22%20fill%3D%22%23fff%22%2F%3E%20%3Ccircle%20cx%3D%2280%22%20cy%3D%22110%22%20r%3D%2244%22%20fill%3D%22%23c8f0d8%22%2F%3E%3Ctext%20x%3D%2280%22%20y%3D%22124%22%20text-anchor%3D%22middle%22%20font-size%3D%2236%22%20fill%3D%22%231a1a1a%22%3EPP%3C%2Ftext%3E%20%3Crect%20x%3D%2228%22%20y%3D%22180%22%20width%3D%22104%22%20height%3D%2212%22%20rx%3D%226%22%20fill%3D%22%23f0d4e0%22%2F%3E%3Crect%20x%3D%2228%22%20y%3D%22204%22%20width%3D%2270%22%20height%3D%2212%22%20rx%3D%226%22%20fill%3D%22%23e4dff0%22%2F%3E%20%3C%2Fg%3E%20%3Ctext%20x%3D%22900%22%20y%3D%22610%22%20font-size%3D%2222%22%20fill%3D%22%236a6570%22%20font-weight%3D%22500%22%3ESCREEN%20%C2%B7%201%20SECOND%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Split image: a Pão Pão bread bag on a peach half, the same mark on a phone screen on a lavender half"
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Kit",
-      "heading": "Shared rules",
-      "columns": "bento",
+      "eyebrow": "What we believe",
+      "heading": "Three rules decide every project before we pick a colour",
+      "columns": 3,
       "cards": [
         {
+          "icon": "fa-solid fa-mobile-screen",
+          "title": "Thumb test",
+          "body": "Every mark must read at 48 px."
+        },
+        {
+          "icon": "fa-solid fa-store",
+          "title": "Arm's-length test",
+          "body": "Every pack must read from 2 metres."
+        },
+        {
           "icon": "fa-solid fa-circle-half-stroke",
-          "title": "Split field",
-          "body": "Never blend the halves."
-        },
-        {
-          "icon": "fa-solid fa-certificate",
-          "title": "Badges",
-          "body": "Mint, yellow, pink — small and loud."
-        },
-        {
-          "icon": "fa-solid fa-font",
-          "title": "Type",
-          "body": "Outfit everywhere. No serif guest stars."
-        },
-        {
-          "icon": "fa-solid fa-layer-group",
-          "title": "Stack for scan",
-          "body": "Hierarchy first. Decoration second. Decoration never."
-        },
-        {
-          "icon": "fa-solid fa-bolt",
-          "title": "Ship the punchline",
-          "body": "Lead with the claim that survives the hallway test."
+          "title": "One idea per pack",
+          "body": "If it needs two, it needs two packs."
         }
       ]
     },
     {
+      "layout": "section",
+      "number": "01",
+      "heading": "Three cases, three results",
+      "lead": "Bread, fish and kombucha."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 1 · Pão Pão bakery",
+      "heading": "Pão Pão's new bags lifted shelf sales 41% in year one",
+      "lead": "One colour dot per grain, readable from the aisle and the feed.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f5e6dc%22%2F%3E%20%3Crect%20x%3D%220%22%20y%3D%22555%22%20width%3D%221600%22%20height%3D%2222%22%20fill%3D%22%231a1a1a%22%20opacity%3D%220.8%22%2F%3E%20%3Cdefs%3E%3Cg%20id%3D%22bag%22%3E%3Cpath%20d%3D%22M0%2024%20Q0%200%2024%200%20H136%20Q160%200%20160%2024%20V240%20H0%20Z%22%20fill%3D%22%23fff%22%20stroke%3D%22%231a1a1a%22%20stroke-width%3D%223%22%2F%3E%3Crect%20width%3D%22160%22%20height%3D%2234%22%20rx%3D%2217%22%20fill%3D%22%231a1a1a%22%2F%3E%3Ctext%20x%3D%2280%22%20y%3D%22200%22%20text-anchor%3D%22middle%22%20font-family%3D%22Outfit%2C%20Arial%2C%20sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2222%22%20fill%3D%22%231a1a1a%22%3EP%C3%83O%20P%C3%83O%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fdefs%3E%20%3Cg%20font-family%3D%22Outfit%2C%20Arial%2C%20sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2234%22%20text-anchor%3D%22middle%22%3E%20%3Cuse%20href%3D%22%23bag%22%20x%3D%22360%22%20y%3D%22315%22%2F%3E%3Ccircle%20cx%3D%22440%22%20cy%3D%22425%22%20r%3D%2244%22%20fill%3D%22%23c8f0d8%22%2F%3E%3Ctext%20x%3D%22440%22%20y%3D%22437%22%3ERYE%3C%2Ftext%3E%20%3Cuse%20href%3D%22%23bag%22%20x%3D%22560%22%20y%3D%22315%22%2F%3E%3Ccircle%20cx%3D%22640%22%20cy%3D%22425%22%20r%3D%2244%22%20fill%3D%22%23f0d4e0%22%2F%3E%3Ctext%20x%3D%22640%22%20y%3D%22437%22%3EMILK%3C%2Ftext%3E%20%3Cuse%20href%3D%22%23bag%22%20x%3D%22760%22%20y%3D%22315%22%2F%3E%3Ccircle%20cx%3D%22840%22%20cy%3D%22425%22%20r%3D%2244%22%20fill%3D%22%23ffe28a%22%2F%3E%3Ctext%20x%3D%22840%22%20y%3D%22437%22%3ECORN%3C%2Ftext%3E%20%3Cuse%20href%3D%22%23bag%22%20x%3D%22960%22%20y%3D%22315%22%2F%3E%3Ccircle%20cx%3D%221040%22%20cy%3D%22425%22%20r%3D%2244%22%20fill%3D%22%23e4dff0%22%2F%3E%3Ctext%20x%3D%221040%22%20y%3D%22437%22%3ESEED%3C%2Ftext%3E%20%3Cuse%20href%3D%22%23bag%22%20x%3D%221160%22%20y%3D%22315%22%2F%3E%3Ccircle%20cx%3D%221240%22%20cy%3D%22425%22%20r%3D%2244%22%20fill%3D%22%23c8f0d8%22%2F%3E%3Ctext%20x%3D%221240%22%20y%3D%22437%22%3ESPELT%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(1390%20330)%20rotate(12)%22%3E%3Ccircle%20r%3D%2262%22%20fill%3D%22%231a1a1a%22%2F%3E%3Ctext%20y%3D%22-4%22%20text-anchor%3D%22middle%22%20font-family%3D%22Outfit%2C%20Arial%2C%20sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2234%22%20fill%3D%22%23c8f0d8%22%3E%2B41%25%3C%2Ftext%3E%3Ctext%20y%3D%2226%22%20text-anchor%3D%22middle%22%20font-family%3D%22Outfit%2C%20Arial%2C%20sans-serif%22%20font-size%3D%2216%22%20fill%3D%22%23fff%22%3Eyear%20one%3C%2Ftext%3E%3C%2Fg%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Five Pão Pão bread bags on a shelf, each with a coloured dot naming the grain, and a +41% badge"
+    },
+    {
       "layout": "stat-row",
-      "eyebrow": "Signal",
-      "heading": "Halves in numbers.",
-      "notes": "One breath on the numbers — then move on.",
+      "eyebrow": "Pão Pão · Mar 2025 – Mar 2026",
+      "heading": "The redesign tripled Pão Pão's online orders as well",
       "stats": [
         {
-          "value": "3×",
-          "label": "Faster cycles"
+          "value": "+41%",
+          "label": "Shelf sales, first 12 months"
         },
         {
-          "value": "92%",
-          "label": "Retention"
+          "value": "3×",
+          "label": "Online orders a week, 210 to 640"
         },
         {
           "value": "18",
-          "label": "Shipped pilots"
+          "label": "Supermarkets added, up from 6"
+        }
+      ],
+      "notes": "Lead with the online number here; the shelf number was on the slide before."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Case 2 · Mareia tinned fish",
+      "heading": "Mareia doubled its social reach with a tin that opens on screen",
+      "body": "Problem: a 1950s tin lost on phones.\nIdea: the lid peels open in every post.\nResult: reach 2.1×, 9 export markets.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%201050%22%3E%20%3Crect%20width%3D%22600%22%20height%3D%221050%22%20fill%3D%22%23f5e6dc%22%2F%3E%3Crect%20x%3D%22600%22%20width%3D%22600%22%20height%3D%221050%22%20fill%3D%22%23e4dff0%22%2F%3E%20%3Cg%20font-family%3D%22Outfit%2C%20Arial%2C%20sans-serif%22%20font-weight%3D%22800%22%3E%20%3Cg%20transform%3D%22translate(120%20400)%22%3E%20%3Crect%20width%3D%22380%22%20height%3D%22230%22%20rx%3D%2240%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Crect%20x%3D%2216%22%20y%3D%2216%22%20width%3D%22348%22%20height%3D%22198%22%20rx%3D%2230%22%20fill%3D%22%23f0d4e0%22%2F%3E%20%3Cpath%20d%3D%22M60%20115%20Q130%2060%20210%20115%20Q130%20170%2060%20115%20Z%20M210%20115%20L260%2080%20L260%20150%20Z%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Ctext%20x%3D%220%22%20y%3D%22290%22%20font-size%3D%2240%22%20fill%3D%22%231a1a1a%22%3EMAREIA%3C%2Ftext%3E%20%3Ctext%20x%3D%220%22%20y%3D%22325%22%20font-size%3D%2222%22%20font-weight%3D%22500%22%20fill%3D%22%231a1a1a%22%3ESARDINHAS%20%C2%B7%20SINCE%201952%3C%2Ftext%3E%20%3Crect%20x%3D%22290%22%20y%3D%22-24%22%20width%3D%2290%22%20height%3D%2240%22%20rx%3D%2220%22%20fill%3D%22%23c8f0d8%22%20transform%3D%22rotate(-18%20335%20-4)%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(730%20240)%22%3E%20%3Crect%20width%3D%22330%22%20height%3D%22600%22%20rx%3D%2244%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%2216%22%20y%3D%2222%22%20width%3D%22298%22%20height%3D%22556%22%20rx%3D%2230%22%20fill%3D%22%23fff%22%2F%3E%20%3Crect%20x%3D%2236%22%20y%3D%2270%22%20width%3D%22258%22%20height%3D%22258%22%20rx%3D%2218%22%20fill%3D%22%23f0d4e0%22%2F%3E%20%3Cpath%20d%3D%22M80%20200%20Q140%20150%20210%20200%20Q140%20250%2080%20200%20Z%20M210%20200%20L250%20170%20L250%20230%20Z%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Cpath%20d%3D%22M60%20110%20L270%2090%22%20stroke%3D%22%231a1a1a%22%20stroke-width%3D%2210%22%20stroke-linecap%3D%22round%22%2F%3E%20%3Ctext%20x%3D%2240%22%20y%3D%22380%22%20font-size%3D%2224%22%20fill%3D%22%231a1a1a%22%3Emareia.pt%3C%2Ftext%3E%20%3Ctext%20x%3D%2240%22%20y%3D%22420%22%20font-size%3D%2220%22%20font-weight%3D%22500%22%20fill%3D%22%236a6570%22%3E%E2%99%A5%2018.4k%20%C2%B7%20%E2%86%BB%202.1k%3C%2Ftext%3E%20%3Crect%20x%3D%2240%22%20y%3D%22450%22%20width%3D%22200%22%20height%3D%2214%22%20rx%3D%227%22%20fill%3D%22%23e4dff0%22%2F%3E%20%3Crect%20x%3D%2240%22%20y%3D%22480%22%20width%3D%22140%22%20height%3D%2214%22%20rx%3D%227%22%20fill%3D%22%23e4dff0%22%2F%3E%20%3C%2Fg%3E%20%3Ctext%20x%3D%22730%22%20y%3D%22900%22%20font-size%3D%2226%22%20fill%3D%22%231a1a1a%22%3EThe%20tin%2C%20opening%2C%20in%20every%20post%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Mareia sardine tin on peach, and a phone post on lavender showing the same tin with its lid peeling open",
+      "ratio": "1-2",
+      "reverse": true
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 3 · Lua kombucha",
+      "heading": "Lua launched six flavours in eight weeks on one label",
+      "lead": "Three sold out in the first month.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23e4dff0%22%2F%3E%20%3Cdefs%3E%3Cg%20id%3D%22bt%22%3E%3Cpath%20d%3D%22M24%200%20H56%20V32%20Q80%2048%2080%2080%20V208%20Q80%20224%2064%20224%20H16%20Q0%20224%200%20208%20V80%20Q0%2048%2024%2032%20Z%22%20fill%3D%22%231a1a1a%22%2F%3E%3Crect%20x%3D%227%22%20y%3D%22104%22%20width%3D%2266%22%20height%3D%2288%22%20rx%3D%2210%22%20fill%3D%22%23fff%22%2F%3E%3Ccircle%20cx%3D%2240%22%20cy%3D%22134%22%20r%3D%2218%22%2F%3E%3C%2Fg%3E%3C%2Fdefs%3E%20%3Ctext%20x%3D%22400%22%20y%3D%22322%22%20font-family%3D%22Outfit%2C%20Arial%2C%20sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2220%22%20fill%3D%22%231a1a1a%22%3ELUA%20%C2%B7%20ONE%20LABEL%2C%20SIX%20FLAVOURS%3C%2Ftext%3E%20%3Cg%20font-family%3D%22Outfit%2C%20Arial%2C%20sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2217%22%20text-anchor%3D%22middle%22%20fill%3D%22%231a1a1a%22%3E%20%3Cuse%20href%3D%22%23bt%22%20x%3D%22400%22%20y%3D%22335%22%20fill%3D%22%23ffe28a%22%2F%3E%3Ctext%20x%3D%22440%22%20y%3D%22585%22%3EYUZU%3C%2Ftext%3E%20%3Cuse%20href%3D%22%23bt%22%20x%3D%22540%22%20y%3D%22335%22%20fill%3D%22%23f0d4e0%22%2F%3E%3Ctext%20x%3D%22580%22%20y%3D%22585%22%3EHIBISCUS%3C%2Ftext%3E%20%3Cuse%20href%3D%22%23bt%22%20x%3D%22680%22%20y%3D%22335%22%20fill%3D%22%23c8f0d8%22%2F%3E%3Ctext%20x%3D%22720%22%20y%3D%22585%22%3EMINT%3C%2Ftext%3E%20%3Cuse%20href%3D%22%23bt%22%20x%3D%22820%22%20y%3D%22335%22%20fill%3D%22%23f5e6dc%22%2F%3E%3Ctext%20x%3D%22860%22%20y%3D%22585%22%3EPEACH%3C%2Ftext%3E%20%3Cuse%20href%3D%22%23bt%22%20x%3D%22960%22%20y%3D%22335%22%20fill%3D%22%23b9a8e8%22%2F%3E%3Ctext%20x%3D%221000%22%20y%3D%22585%22%3ELAVENDER%3C%2Ftext%3E%20%3Cuse%20href%3D%22%23bt%22%20x%3D%221100%22%20y%3D%22335%22%20fill%3D%22%23ffb4a2%22%2F%3E%3Ctext%20x%3D%221140%22%20y%3D%22585%22%3EGINGER%3C%2Ftext%3E%20%3C%2Fg%3E%20%3Cg%20transform%3D%22translate(1320%20380)%20rotate(10)%22%3E%3Crect%20x%3D%22-80%22%20y%3D%22-28%22%20width%3D%22160%22%20height%3D%2256%22%20rx%3D%2228%22%20fill%3D%22%231a1a1a%22%2F%3E%3Ctext%20y%3D%229%22%20text-anchor%3D%22middle%22%20font-family%3D%22Outfit%2C%20Arial%2C%20sans-serif%22%20font-weight%3D%22800%22%20font-size%3D%2224%22%20fill%3D%22%23ffe28a%22%3E3%20SOLD%20OUT%3C%2Ftext%3E%3C%2Fg%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Six Lua kombucha bottles sharing one label layout in six colours, with a 3 sold out badge"
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Results across clients",
+      "heading": "Six recent launches lifted first-year shelf sales by 22% to 47%",
+      "chartType": "horizontal-bar",
+      "categories": [
+        "Sal & Sol",
+        "Pão Pão",
+        "Mareia",
+        "Cerca",
+        "Lua",
+        "Figo"
+      ],
+      "series": [
+        {
+          "name": "Shelf sales change, first 12 months (%)",
+          "values": [
+            47,
+            41,
+            38,
+            34,
+            29,
+            22
+          ]
+        }
+      ],
+      "showValues": true,
+      "lead": "Source: client sell-out data, 12 months after launch vs 12 months before, 2023–2026."
+    },
+    {
+      "layout": "logo-wall",
+      "eyebrow": "Clients",
+      "heading": "Fourteen food and drink brands since 2023",
+      "columns": 3,
+      "cards": [
+        {
+          "title": "Pão Pão",
+          "body": "Bakery · Lisbon"
+        },
+        {
+          "title": "Mareia",
+          "body": "Tinned fish · Peniche"
+        },
+        {
+          "title": "Lua",
+          "body": "Kombucha · Porto"
+        },
+        {
+          "title": "Sal & Sol",
+          "body": "Sea salt · Aveiro"
+        },
+        {
+          "title": "Cerca",
+          "body": "Olive oil · Alentejo"
+        },
+        {
+          "title": "Figo",
+          "body": "Ice cream · Faro"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Halves gave us a bag people photograph and a feed people stop on.",
+      "by": "Inês Duarte · founder, Pão Pão"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "How we work",
+      "heading": "We go from brief to shelf in ten weeks, in four phases",
+      "steps": [
+        {
+          "title": "Weeks 1–2 · Sprint",
+          "body": "Shelf walk, feed audit, one idea"
+        },
+        {
+          "title": "Weeks 3–5 · Design",
+          "body": "Pack and post built together"
+        },
+        {
+          "title": "Weeks 6–7 · Test",
+          "body": "Thumb and arm's-length tests"
+        },
+        {
+          "title": "Weeks 8–10 · Ship",
+          "body": "Print files, motion kit, launch posts"
         }
       ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Apply",
-      "heading": "Pick a half.",
-      "lead": "Brand licensing for seasonal collabs.",
+      "eyebrow": "Start a project",
+      "heading": "Give your brand both halves, starting with a two-week sprint",
+      "lead": "€9,500 fixed. You leave with one idea tested on shelf and screen.",
       "actions": [
         {
-          "label": "Apply for a collab",
-          "href": "#",
+          "label": "Book a sprint call",
           "style": "solid",
-          "icon": "fa-solid fa-arrow-right"
+          "icon": "fa-solid fa-calendar-check"
         },
         {
-          "label": "Email the desk",
-          "href": "#",
+          "label": "See the full case studies",
           "style": "outline",
-          "icon": "fa-solid fa-envelope"
+          "icon": "fa-solid fa-book-open"
         }
-      ]
+      ],
+      "notes": "End on the sprint, not the full ten weeks. It is the low-risk first yes."
     }
   ]
 }

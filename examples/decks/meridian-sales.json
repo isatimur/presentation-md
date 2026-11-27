@@ -1,231 +1,222 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Meridian × Hargrove Partners",
+    "title": "Meridian × Hargrove Partners — getting Mondays back",
     "company": "Meridian",
-    "description": "Sales deck — data platform for professional services.",
-    "theme": "ft-editorial"
+    "description": "Sales deck from Meridian, a reporting and forecasting platform for professional services firms, to Hargrove Partners: the shift to weekly client reporting, who wins, three obstacles and fixes, a reference customer, a 12-month ROI model, a nine-week plan and a dated next step.",
+    "theme": "ft-editorial",
+    "genre": "sales"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Hargrove Partners",
-      "heading": "Data that moves the needle.",
-      "lead": "A proposal for automated reporting, client intelligence, and forecast clarity.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Prepared for Hargrove Partners · 4 December 2026",
+      "heading": "How Hargrove Partners gets its Mondays back.",
+      "lead": "Two analyst days a week go into reporting. They do not have to.",
+      "notes": "Open on Hargrove, not on us. Our name does not appear until slide 5."
     },
     {
-      "layout": "feature-grid",
-      "eyebrow": "Agenda · 45 minutes",
-      "heading": "Four sections",
-      "columns": "bento",
-      "cards": [
+      "layout": "chart",
+      "eyebrow": "The shift",
+      "heading": "Clients now expect weekly reporting: 61% of contracts, up from 18%",
+      "chartType": "bar",
+      "categories": [
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "series": [
         {
-          "title": "01 · Cost of inaction",
-          "body": "What manual reporting and fragmented tooling cost Hargrove today.",
-          "icon": "fa-solid fa-triangle-exclamation"
+          "name": "Contracts requiring weekly reporting (%)",
+          "values": [
+            18,
+            29,
+            44,
+            61
+          ]
+        }
+      ],
+      "showValues": true,
+      "lead": "Source: survey of 300 mid-size professional services firms, Q3 2025."
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Winners and losers",
+      "heading": "Firms that automated reporting grew fees 14%; the rest lost margin",
+      "leftLabel": "Manual packs",
+      "left": "Two analyst days a week\nForecast rebuilt Mondays\nMargin down 2 points",
+      "rightLabel": "Automated",
+      "right": "Packs out by 08:00\nForecast within ±4%\nFees up 14%",
+      "emphasis": "right",
+      "notes": "Name the losing column first, slowly. Then the winners. Hargrove is in the left column today."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "The promised land",
+      "heading": "Partners open one live view at 08:00, not a 40-slide pack",
+      "lead": "Fees, forecast and at-risk clients, already sent to every client.",
+      "image": "data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 width=%221600%22 height=%22900%22%3E%3Crect width=%221600%22 height=%22900%22 fill=%22%23f2efe8%22/%3E%3Cg transform=%22translate(0,25)%22%3E%3Crect x=%22180%22 y=%22250%22 width=%221240%22 height=%22400%22 fill=%22%23ffffff%22 stroke=%22%230a0a0a%22 stroke-width=%222%22/%3E%3Crect x=%22180%22 y=%22250%22 width=%221240%22 height=%2244%22 fill=%22%230a0a0a%22/%3E%3Cg font-family=%22Georgia, serif%22 fill=%22%23f7f5f0%22 font-size=%2220%22%3E%3Ctext x=%22205%22 y=%22279%22%3EHargrove Partners %C2%B7 Monday 08:00 %C2%B7 live%3C/text%3E%3C/g%3E%3Cg font-family=%22Helvetica, Arial, sans-serif%22%3E%3Ctext x=%22215%22 y=%22340%22 font-size=%2216%22 fill=%22%23605b56%22%3EFEES BILLED, WEEK 6%3C/text%3E%3Ctext x=%22215%22 y=%22385%22 font-size=%2240%22 font-weight=%22bold%22 fill=%22%230a0a0a%22%3E%241.84M%3C/text%3E%3Ctext x=%22215%22 y=%22410%22 font-size=%2216%22 fill=%22%231a4fd8%22%3E%2B6%25 vs forecast%3C/text%3E%3Ctext x=%22475%22 y=%22340%22 font-size=%2216%22 fill=%22%23605b56%22%3EFORECAST, Q1%3C/text%3E%3Ctext x=%22475%22 y=%22385%22 font-size=%2240%22 font-weight=%22bold%22 fill=%22%230a0a0a%22%3E%2411.2M%3C/text%3E%3Ctext x=%22475%22 y=%22410%22 font-size=%2216%22 fill=%22%23605b56%22%3E%C2%B14%25 confidence%3C/text%3E%3Ctext x=%22735%22 y=%22340%22 font-size=%2216%22 fill=%22%23605b56%22%3EACCOUNTS AT RISK%3C/text%3E%3Ctext x=%22735%22 y=%22385%22 font-size=%2240%22 font-weight=%22bold%22 fill=%22%23c0392b%22%3E3%3C/text%3E%3Ctext x=%22735%22 y=%22410%22 font-size=%2216%22 fill=%22%23c0392b%22%3Eof 212 clients%3C/text%3E%3C/g%3E%3Cline x1=%22215%22 y1=%22440%22 x2=%22960%22 y2=%22440%22 stroke=%22%23e2ddd2%22 stroke-width=%222%22/%3E%3Cpolyline points=%22215,610 300,590 385,598 470,570 555,560 640,540 725,548 810,515 895,500 960,490%22 fill=%22none%22 stroke=%22%231a4fd8%22 stroke-width=%225%22/%3E%3Cpolyline points=%22215,600 960,520%22 fill=%22none%22 stroke=%22%23605b56%22 stroke-width=%222%22 stroke-dasharray=%228 8%22/%3E%3Ctext x=%22215%22 y=%22470%22 font-family=%22Helvetica, Arial, sans-serif%22 font-size=%2216%22 fill=%22%23605b56%22%3EWeekly fees vs forecast%3C/text%3E%3Cg font-family=%22Helvetica, Arial, sans-serif%22 font-size=%2218%22 fill=%22%230a0a0a%22%3E%3Ctext x=%221010%22 y=%22340%22 font-size=%2216%22 fill=%22%23605b56%22%3ECLIENT PACKS%3C/text%3E%3Crect x=%221010%22 y=%22360%22 width=%22370%22 height=%2250%22 fill=%22%23f7f5f0%22/%3E%3Ctext x=%221025%22 y=%22392%22%3EBrightwater Retail%3C/text%3E%3Ctext x=%221365%22 y=%22392%22 text-anchor=%22end%22 fill=%22%231a4fd8%22%3ESent 06:10%3C/text%3E%3Crect x=%221010%22 y=%22420%22 width=%22370%22 height=%2250%22 fill=%22%23f7f5f0%22/%3E%3Ctext x=%221025%22 y=%22452%22%3EOkonkwo Logistics%3C/text%3E%3Ctext x=%221365%22 y=%22452%22 text-anchor=%22end%22 fill=%22%231a4fd8%22%3ESent 06:12%3C/text%3E%3Crect x=%221010%22 y=%22480%22 width=%22370%22 height=%2250%22 fill=%22%23f7f5f0%22/%3E%3Ctext x=%221025%22 y=%22512%22%3EFenwick Health%3C/text%3E%3Ctext x=%221365%22 y=%22512%22 text-anchor=%22end%22 fill=%22%231a4fd8%22%3ESent 06:15%3C/text%3E%3Crect x=%221010%22 y=%22540%22 width=%22370%22 height=%2250%22 fill=%22%23f7f5f0%22/%3E%3Ctext x=%221025%22 y=%22572%22%3EMarlow Estates%3C/text%3E%3Ctext x=%221365%22 y=%22572%22 text-anchor=%22end%22 fill=%22%23c0392b%22%3EReview%3C/text%3E%3C/g%3E%3C/g%3E%3C/svg%3E",
+      "imageAlt": "Dashboard for Hargrove Partners on Monday at 08:00: fees billed $1.84M, Q1 forecast $11.2M, three accounts at risk, and client packs sent from 06:10"
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "Three obstacles, and how Meridian removes them"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Obstacle 1 · Reporting",
+      "heading": "Packs eat 220 analyst hours a year; Meridian builds them overnight",
+      "ratio": "2-1",
+      "body": "Scheduled, branded client packs.\nAnalysts review instead of assemble.",
+      "aside": "220 hrs × $95 = $20,900 a year back"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Obstacle 2 · Data",
+      "heading": "CRM and finance disagree on 1 account in 5; Meridian reconciles nightly",
+      "ratio": "2-1",
+      "body": "One client record across CRM, billing and time.\nNo more Friday clean-up.",
+      "aside": "180 hrs × $95 = $17,100 a year back"
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Obstacle 3 · Forecast",
+      "heading": "Partners stop rebuilding the forecast every Monday",
+      "leftLabel": "Today",
+      "left": "Spreadsheet from gut feel\n±15% miss each quarter",
+      "rightLabel": "With Meridian",
+      "right": "Tied to fee-earner hours\n±4% miss, $42,000 of partner time back",
+      "emphasis": "right"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Evidence · Calder & Wynn, 320 staff",
+      "variant": "hero",
+      "heading": "A firm like Hargrove cut weekly reporting to 40 minutes",
+      "stats": [
+        {
+          "value": "40 min",
+          "label": "Weekly reporting, down from 2 days"
         },
         {
-          "title": "02 · Recommended modules",
-          "body": "Three purpose-built modules scoped to your data environment.",
-          "icon": "fa-solid fa-cubes"
+          "value": "±4%",
+          "label": "Forecast miss, was ±15%"
         },
         {
-          "title": "03 · Implementation & ROI",
-          "body": "Timeline, savings model, and a similar-client reference.",
-          "icon": "fa-solid fa-chart-line"
-        },
-        {
-          "title": "04 · Pricing & next steps",
-          "body": "Commercial terms and a concrete action plan.",
-          "icon": "fa-solid fa-handshake"
-        },
-        {
-          "icon": "fa-solid fa-layer-group",
-          "title": "Stack for scan",
-          "body": "Hierarchy first. Decoration second. Decoration never."
+          "value": "1 in 50",
+          "label": "Mismatched accounts, was 1 in 5"
         }
       ]
     },
     {
-      "layout": "comparison",
-      "eyebrow": "Pain → Module",
-      "heading": "How each module lands",
-      "leftLabel": "Today's pain",
-      "left": "Manual reporting packs.\nFragmented CRM + finance views.\nForecasts rebuilt every Monday.",
-      "rightLabel": "With Meridian",
-      "right": "Scheduled, branded reports.\nUnified client intelligence.\nLive pipeline tied to activity.",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Hargrove Partners",
-      "heading": "Data that moves the needle.",
-      "lead": "A proposal for automated reporting, client intelligence, and forecast clarity.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f2efe8%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f7f5f0%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28242%2C239%2C232%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C79%2C216%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28192%2C57%2C43%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f7f5f0%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%2826%2C79%2C216%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23f2efe8%22%20stroke%3D%22rgba%2826%2C79%2C216%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%28192%2C57%2C43%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%231a4fd8%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%2826%2C79%2C216%2C0.150%29%22%20stroke%3D%22rgba%28192%2C57%2C43%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%28192%2C57%2C43%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%28192%2C57%2C43%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Meridian craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "layout": "quote",
+      "quote": "We cut weekly reporting from two days to forty minutes, and partners finally trust the numbers.",
+      "by": "Helen Ashworth, COO, Calder & Wynn"
     },
     {
       "layout": "logo-wall",
       "eyebrow": "Customers",
-      "heading": "Trusted by analytics teams who ship weekly.",
-      "columns": 4,
-      "cards": [
-        {
-          "title": "Helix",
-          "body": "Data platform"
-        },
-        {
-          "title": "Northwind",
-          "body": "Retail"
-        },
-        {
-          "title": "Cobalt",
-          "body": "Fintech"
-        },
-        {
-          "title": "Parcel",
-          "body": "Logistics"
-        }
-      ]
-    },
-    {
-      "layout": "stat-row",
-      "eyebrow": "Current cost analysis",
-      "heading": "Projected annual savings",
-      "stats": [
-        {
-          "value": "$118k",
-          "label": "Projected annual save"
-        },
-        {
-          "value": "$95/hr",
-          "label": "Blended analyst rate"
-        },
-        {
-          "value": "400+",
-          "label": "Hours reclaimed / year"
-        }
-      ]
-    },
-    {
-      "layout": "feature-grid",
-      "eyebrow": "Recommended modules",
-      "heading": "Built for Hargrove's workflow",
+      "heading": "Forty firms like Hargrove report on Meridian",
       "columns": 3,
       "cards": [
         {
-          "icon": "fa-solid fa-file-lines",
-          "title": "Automated Reporting",
-          "body": "Client-ready packs on a schedule — no spreadsheet assembly."
+          "title": "Calder & Wynn",
+          "body": "Consulting · 320"
         },
         {
-          "icon": "fa-solid fa-users",
-          "title": "Client Intelligence",
-          "body": "One dashboard per account: engagement, risk, opportunity."
+          "title": "Ashby Rowe",
+          "body": "Accounting · 410"
         },
         {
-          "icon": "fa-solid fa-chart-pie",
-          "title": "Pipeline Forecasting",
-          "body": "Revenue forecast tied to fee-earner activity, not gut feel."
-        }
-      ]
-    },
-    {
-      "layout": "timeline",
-      "eyebrow": "Implementation",
-      "heading": "Discovery to go-live",
-      "steps": [
-        {
-          "title": "2 weeks",
-          "body": "Discovery & data mapping."
+          "title": "Lintel Advisory",
+          "body": "Advisory · 180"
         },
         {
-          "title": "5 weeks",
-          "body": "Module build & integrations."
+          "title": "Pemberton Hale",
+          "body": "Law · 260"
         },
         {
-          "title": "10 days",
-          "body": "UAT with practice leads."
+          "title": "Orrin Partners",
+          "body": "Engineering · 350"
         },
         {
-          "title": "Go-live",
-          "body": "Training + hypercare week."
+          "title": "Strand Audit",
+          "body": "Audit · 220"
         }
       ]
     },
     {
       "layout": "data-table",
       "eyebrow": "12-month ROI model",
-      "heading": "Savings detail",
+      "heading": "Hargrove saves $118,000 a year against a $64,000 subscription",
       "columns": [
         "Line item",
-        "Annual"
+        "Per year"
       ],
       "rows": [
         [
-          "Analyst time — reporting (220 hrs × $95)",
-          "$20,900"
-        ],
-        [
-          "Analyst time — data cleaning (180 hrs × $95)",
-          "$17,100"
-        ],
-        [
-          "Partner time — forecast rework",
-          "$42,000"
-        ],
-        [
-          "Tooling consolidation",
+          "Analyst time: 400 hrs × $95",
           "$38,000"
         ],
         [
-          "Total projected",
-          "$118,000"
+          "Partner forecast rework",
+          "$42,000"
+        ],
+        [
+          "Retired reporting tools",
+          "$38,000"
+        ],
+        [
+          "Meridian: platform + 3 modules",
+          "−$64,000"
+        ],
+        [
+          "Net saving, year one",
+          "$54,000"
         ]
+      ],
+      "notes": "Walk the maths line by line. Payback is about seven months. Offer the model file so their CFO can change the inputs."
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Plan",
+      "heading": "Live in nine weeks: first client pack on 9 March",
+      "steps": [
+        {
+          "title": "5 Jan · Map",
+          "body": "Data and security, 2 wks"
+        },
+        {
+          "title": "19 Jan · Build",
+          "body": "Integrations, 5 wks"
+        },
+        {
+          "title": "23 Feb · Test",
+          "body": "Partner sign-off, 10 days"
+        },
+        {
+          "title": "9 Mar · Live",
+          "body": "First client packs"
+        }
       ]
     },
     {
-      "layout": "quote",
-      "quote": "We cut weekly reporting from two days to forty minutes — and partners finally trust the numbers.",
-      "by": "COO, mid-size regional professional services firm"
-    },
-    {
-      "layout": "section",
-      "number": "09",
-      "eyebrow": "Pricing & terms",
-      "heading": "Transparent commercial frame",
-      "lead": "Platform + three modules · annual commit · success criteria written into the SOW."
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Implementation",
-      "heading": "Ninety days to first pack",
-      "leftLabel": "Weeks 1–6",
-      "left": "Data map + security review.\nPilot on two practice groups.\nAnalyst training live.",
-      "rightLabel": "Weeks 7–12",
-      "right": "Client packs on a schedule.\nForecast dashboard live.\nROI readout for partners.",
-      "emphasis": "left"
-    },
-    {
       "layout": "closing",
-      "eyebrow": "Next steps",
-      "heading": "Let's lock a start date.",
-      "lead": "Action owners and dates go into the shared tracker this week.",
+      "eyebrow": "Next step",
+      "heading": "Sign by 18 December and Hargrove gets Mondays back in March",
+      "lead": "Kickoff on 5 January holds the 9 March go-live.",
       "actions": [
         {
-          "label": "Schedule kickoff",
-          "href": "https://meridian.example/kickoff",
+          "label": "Book kickoff for 5 January",
           "style": "solid",
-          "icon": "fa-solid fa-calendar"
+          "icon": "fa-solid fa-calendar-check"
         },
         {
-          "label": "Open the tracker",
-          "href": "#",
+          "label": "Open the ROI model",
           "style": "outline",
-          "icon": "fa-solid fa-list-check"
+          "icon": "fa-solid fa-table"
         }
       ]
     }

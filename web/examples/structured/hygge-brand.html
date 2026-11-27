@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Hygge Home — Brand Deck</title>
-<meta name="description" content="Scandi home brand deck — scandinavian multi-slide proof." />
+<title>Hygge Home — Partner credentials 2027</title>
+<meta name="description" content="Credentials deck for Hygge Home, a Copenhagen maker of furniture and lighting, for hotels and retail partners: point of view, three design rules, three projects with results, partners, and how a partner floor opens." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Work+Sans:wght@400;600&display=swap');
@@ -20,6 +20,12 @@
   --muted: #65605c;
   --accent: #9caf88;
   --accent-2: #c9826b;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #2b2926;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #73895c;
+  --accent-2-ink: #9e523a;
   --card-bg: rgba(43,41,38,0.04);
   --border: rgba(43,41,38,0.1);
   --radius: 16px;
@@ -27,6 +33,10 @@
   --heading-font: 'Fraunces', Georgia, serif;
   --body-font: 'Work Sans', system-ui, sans-serif;
   --heading-weight: 600;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,149 +6908,203 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="hygge-soft">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Brand · Home</span>
-  <h1>Linen light. Clay warmth.</h1>
-  <p class="lead">Sage and clay for rooms that feel finished without trying.</p>
+  <span class="eyebrow">Hygge Home · Copenhagen · Partner credentials 2027</span>
+  <h1>Rooms that feel finished, built to last twenty years.</h1>
+  <p class="lead">Furniture and lighting for hotels and home stores since 2014.</p>
+</section>
+
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 1600 900&#39;&gt;&lt;defs&gt;&lt;radialGradient id&#x3D;&#39;p&#39; cx&#x3D;&#39;.5&#39; cy&#x3D;&#39;.5&#39; r&#x3D;&#39;.5&#39;&gt;&lt;stop offset&#x3D;&#39;0&#39; stop-color&#x3D;&#39;%23f6d9a8&#39; stop-opacity&#x3D;&#39;.95&#39;&#x2F;&gt;&lt;stop offset&#x3D;&#39;1&#39; stop-color&#x3D;&#39;%23f6d9a8&#39; stop-opacity&#x3D;&#39;0&#39;&#x2F;&gt;&lt;&#x2F;radialGradient&gt;&lt;&#x2F;defs&gt;&lt;rect width&#x3D;&#39;1600&#39; height&#x3D;&#39;900&#39; fill&#x3D;&#39;%23e6ddd1&#39;&#x2F;&gt;&lt;rect y&#x3D;&#39;560&#39; width&#x3D;&#39;1600&#39; height&#x3D;&#39;340&#39; fill&#x3D;&#39;%23d8ccbb&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;170&#39; y&#x3D;&#39;270&#39; width&#x3D;&#39;260&#39; height&#x3D;&#39;240&#39; fill&#x3D;&#39;%23efe9df&#39; stroke&#x3D;&#39;%2365605c&#39; stroke-width&#x3D;&#39;4&#39;&#x2F;&gt;&lt;line x1&#x3D;&#39;300&#39; y1&#x3D;&#39;270&#39; x2&#x3D;&#39;300&#39; y2&#x3D;&#39;510&#39; stroke&#x3D;&#39;%2365605c&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;ellipse cx&#x3D;&#39;1180&#39; cy&#x3D;&#39;470&#39; rx&#x3D;&#39;360&#39; ry&#x3D;&#39;200&#39; fill&#x3D;&#39;url(%23p)&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;560&#39; y&#x3D;&#39;430&#39; width&#x3D;&#39;560&#39; height&#x3D;&#39;110&#39; rx&#x3D;&#39;34&#39; fill&#x3D;&#39;%239caf88&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;560&#39; y&#x3D;&#39;380&#39; width&#x3D;&#39;560&#39; height&#x3D;&#39;80&#39; rx&#x3D;&#39;30&#39; fill&#x3D;&#39;%23a9bb95&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;540&#39; y&#x3D;&#39;420&#39; width&#x3D;&#39;60&#39; height&#x3D;&#39;130&#39; rx&#x3D;&#39;24&#39; fill&#x3D;&#39;%238ea07a&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1080&#39; y&#x3D;&#39;420&#39; width&#x3D;&#39;60&#39; height&#x3D;&#39;130&#39; rx&#x3D;&#39;24&#39; fill&#x3D;&#39;%238ea07a&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;590&#39; y&#x3D;&#39;540&#39; width&#x3D;&#39;14&#39; height&#x3D;&#39;24&#39; fill&#x3D;&#39;%2365605c&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1076&#39; y&#x3D;&#39;540&#39; width&#x3D;&#39;14&#39; height&#x3D;&#39;24&#39; fill&#x3D;&#39;%2365605c&#39;&#x2F;&gt;&lt;line x1&#x3D;&#39;1240&#39; y1&#x3D;&#39;330&#39; x2&#x3D;&#39;1240&#39; y2&#x3D;&#39;560&#39; stroke&#x3D;&#39;%232b2926&#39; stroke-width&#x3D;&#39;6&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M1190 330 L1290 330 L1270 282 L1210 282 Z&#39; fill&#x3D;&#39;%23c9826b&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1200&#39; y&#x3D;&#39;552&#39; width&#x3D;&#39;80&#39; height&#x3D;&#39;10&#39; rx&#x3D;&#39;5&#39; fill&#x3D;&#39;%232b2926&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1340&#39; y&#x3D;&#39;470&#39; width&#x3D;&#39;120&#39; height&#x3D;&#39;90&#39; fill&#x3D;&#39;%23c9a98c&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M1376 470 C1366 440 1372 420 1386 412 L1414 412 C1428 420 1434 440 1424 470 Z&#39; fill&#x3D;&#39;%23c9826b&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M1400 412 C1396 380 1380 360 1366 350 M1400 412 C1408 384 1424 366 1440 360&#39; stroke&#x3D;&#39;%239caf88&#39; stroke-width&#x3D;&#39;5&#39; fill&#x3D;&#39;none&#39;&#x2F;&gt;&lt;&#x2F;svg&gt;" alt="Living room with a sage sofa, a clay floor lamp casting a low pool of warm light, and a clay vase on a side table" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">Our point of view</span>
+    <h2>We design the light first, then the furniture around it</h2>
+    <p class="lead">A room feels warm when light pools low and soft.</p>
+  </div>
 </section>
 
 <section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Collection</span>
-  <h2>Materials that stay quiet</h2>
-  <div class="grid cols-bento">
-    <div class="card">
-      <i class="fa-solid fa-couch"></i>
-      <h3>Soft seating</h3>
-      <p>Low profiles. Honest wood. Covers you can wash.</p>
-    </div>
+  <span class="eyebrow">What we believe</span>
+  <h2>Three rules decide every piece we make</h2>
+  <div class="grid cols-3">
     <div class="card">
       <i class="fa-solid fa-lightbulb"></i>
-      <h3>Warm light</h3>
-      <p>Lamps that pool, not glare.</p>
+      <h3>Light below 2,700 K</h3>
+      <p>Warm light pools at sitting height.</p>
     </div>
     <div class="card">
-      <i class="fa-solid fa-mug-hot"></i>
-      <h3>Clay accents</h3>
-      <p>Ceramics with clay warmth — no logo shouting.</p>
+      <i class="fa-solid fa-shirt"></i>
+      <h3>Covers come off</h3>
+      <p>Every cover washes or swaps.</p>
     </div>
     <div class="card">
-      <i class="fa-solid fa-leaf"></i>
-      <h3>Repair-friendly</h3>
-      <p>Design that lasts past spring sales.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-eye"></i>
-      <h3>Show, do not pad</h3>
-      <p>Asymmetry beats another identical third column.</p>
+      <i class="fa-solid fa-screwdriver-wrench"></i>
+      <h3>Parts for 20 years</h3>
+      <p>Spares for every frame we sell.</p>
     </div>
   </div>
 </section>
 
-<section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Retail</span>
-  <h2>Trend stack vs. lasting floor</h2>
-  <div class="comparison-cols emphasis-right">
-    <div class="comparison-col">
-      <span class="comparison-label">Fast home</span>
-      <p>Seasonal noise.
-Plastic warmth.
-Discounts as identity.
-Forgettable by spring.</p>
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">01</div>
+  <h2>Three projects, three results</h2>
+  <p class="lead">A hotel, a department store and our own repair service.</p>
+</section>
+
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 1600 900&#39;&gt;&lt;rect width&#x3D;&#39;1600&#39; height&#x3D;&#39;900&#39; fill&#x3D;&#39;%23efe9df&#39;&#x2F;&gt;&lt;rect y&#x3D;&#39;560&#39; width&#x3D;&#39;1600&#39; height&#x3D;&#39;340&#39; fill&#x3D;&#39;%23e6ddd1&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M1000 330 L860 560 L1140 560 Z&#39; fill&#x3D;&#39;%23f6d9a8&#39; fill-opacity&#x3D;&#39;.55&#39;&#x2F;&gt;&lt;line x1&#x3D;&#39;1000&#39; y1&#x3D;&#39;0&#39; x2&#x3D;&#39;1000&#39; y2&#x3D;&#39;300&#39; stroke&#x3D;&#39;%232b2926&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M960 300 L1040 300 L1024 330 L976 330 Z&#39; fill&#x3D;&#39;%23c9826b&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;300&#39; y&#x3D;&#39;450&#39; width&#x3D;&#39;640&#39; height&#x3D;&#39;110&#39; rx&#x3D;&#39;10&#39; fill&#x3D;&#39;%23f7f3ec&#39; stroke&#x3D;&#39;%2365605c&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;300&#39; y&#x3D;&#39;330&#39; width&#x3D;&#39;40&#39; height&#x3D;&#39;230&#39; rx&#x3D;&#39;8&#39; fill&#x3D;&#39;%23c9a98c&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;360&#39; y&#x3D;&#39;420&#39; width&#x3D;&#39;170&#39; height&#x3D;&#39;50&#39; rx&#x3D;&#39;20&#39; fill&#x3D;&#39;%23ffffff&#39; stroke&#x3D;&#39;%2365605c&#39; stroke-width&#x3D;&#39;2&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;560&#39; y&#x3D;&#39;470&#39; width&#x3D;&#39;380&#39; height&#x3D;&#39;90&#39; fill&#x3D;&#39;%239caf88&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;980&#39; y&#x3D;&#39;470&#39; width&#x3D;&#39;110&#39; height&#x3D;&#39;90&#39; fill&#x3D;&#39;%23c9a98c&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;Georgia,serif&#39; fill&#x3D;&#39;%232b2926&#39;&gt;&lt;text x&#x3D;&#39;1180&#39; y&#x3D;&#39;330&#39; font-size&#x3D;&#39;30&#39;&gt;Room 214 · Hotel Sund&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1180&#39; y&#x3D;&#39;372&#39; font-size&#x3D;&#39;22&#39; fill&#x3D;&#39;%2365605c&#39;&gt;Pendant: Fjord 32, 2,400 K&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1180&#39; y&#x3D;&#39;406&#39; font-size&#x3D;&#39;22&#39; fill&#x3D;&#39;%2365605c&#39;&gt;Hung 62 cm above the desk&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="Hotel Sund room 214: a bed with a sage throw and a low clay pendant casting warm light over the desk" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">Case 1 · Hotel Sund, Aarhus</span>
+    <h2>Hotel Sund rebuilt 64 rooms around one low pendant lamp</h2>
+    <p class="lead">Refit completed in 9 weeks, March 2025.</p>
+  </div>
+</section>
+
+<section class="slide stat-row-slide" data-layout="stat-row">
+  <span class="eyebrow">Case 1 · Result after 18 months</span>
+  <h2>Guest scores at Hotel Sund rose from 8.1 to 9.4</h2>
+  
+  <div class="stats">
+    <div class="stat">
+      <div class="value">9.4</div>
+      <div class="label">Guest score out of 10, up from 8.1</div>
     </div>
-    <div class="comparison-vs" aria-hidden="true">vs</div>
-    <div class="comparison-col">
-      <span class="comparison-label">Hygge</span>
-      <p>Quiet materials.
-Repair-friendly design.
-Wholesale partners who stay.
-Warmth you can hold.</p>
+    <div class="stat">
+      <div class="value">+22%</div>
+      <div class="label">Average room rate, 2024 vs 2026</div>
     </div>
+    <div class="stat">
+      <div class="value">0</div>
+      <div class="label">Pieces replaced in 18 months</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-2-1 cols-reverse">
+    <div class="cols-copy">
+      <span class="eyebrow">Case 2 · Lindqvist department stores</span>
+      <h2>Lindqvist&#39;s 12 studio corners sold 2.1× more lighting</h2>
+      <p class="lead">We furnish a 40 m² corner like a real living room.
+Lamps stay lit all day.</p>
+    </div>
+    <div class="media"><img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 600 1000&#39;&gt;&lt;rect width&#x3D;&#39;600&#39; height&#x3D;&#39;1000&#39; fill&#x3D;&#39;%23efe9df&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;Georgia,serif&#39; fill&#x3D;&#39;%232b2926&#39;&gt;&lt;text x&#x3D;&#39;300&#39; y&#x3D;&#39;110&#39; font-size&#x3D;&#39;26&#39; text-anchor&#x3D;&#39;middle&#39;&gt;Studio corner · 40 m²&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;300&#39; y&#x3D;&#39;146&#39; font-size&#x3D;&#39;20&#39; text-anchor&#x3D;&#39;middle&#39; fill&#x3D;&#39;%2365605c&#39;&gt;Lindqvist Malmö, floor 3&lt;&#x2F;text&gt;&lt;rect x&#x3D;&#39;60&#39; y&#x3D;&#39;190&#39; width&#x3D;&#39;480&#39; height&#x3D;&#39;640&#39; fill&#x3D;&#39;none&#39; stroke&#x3D;&#39;%2365605c&#39; stroke-width&#x3D;&#39;4&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;130&#39; y&#x3D;&#39;330&#39; width&#x3D;&#39;340&#39; height&#x3D;&#39;300&#39; rx&#x3D;&#39;10&#39; fill&#x3D;&#39;%23e6ddd1&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;150&#39; y&#x3D;&#39;260&#39; width&#x3D;&#39;300&#39; height&#x3D;&#39;90&#39; rx&#x3D;&#39;26&#39; fill&#x3D;&#39;%239caf88&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;200&#39; y&#x3D;&#39;430&#39; width&#x3D;&#39;200&#39; height&#x3D;&#39;110&#39; rx&#x3D;&#39;8&#39; fill&#x3D;&#39;%23c9a98c&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;500&#39; cy&#x3D;&#39;260&#39; r&#x3D;&#39;56&#39; fill&#x3D;&#39;%23f6d9a8&#39; fill-opacity&#x3D;&#39;.8&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;500&#39; cy&#x3D;&#39;260&#39; r&#x3D;&#39;16&#39; fill&#x3D;&#39;%23c9826b&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;110&#39; cy&#x3D;&#39;700&#39; r&#x3D;&#39;56&#39; fill&#x3D;&#39;%23f6d9a8&#39; fill-opacity&#x3D;&#39;.8&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;110&#39; cy&#x3D;&#39;700&#39; r&#x3D;&#39;16&#39; fill&#x3D;&#39;%23c9826b&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;360&#39; y&#x3D;&#39;700&#39; width&#x3D;&#39;150&#39; height&#x3D;&#39;90&#39; fill&#x3D;&#39;%238ea07a&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;300&#39; y&#x3D;&#39;900&#39; font-size&#x3D;&#39;20&#39; text-anchor&#x3D;&#39;middle&#39; fill&#x3D;&#39;%2365605c&#39;&gt;Two lamps lit all day · price on the shade&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="Floor plan of a 40 square metre studio corner at Lindqvist Malmö: sofa, rug, table and two lit lamps" /></div>
+    
   </div>
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23e6ddd1%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23efe9df%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28201%2C130%2C107%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28230%2C221%2C209%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28201%2C130%2C107%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28201%2C130%2C107%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28201%2C130%2C107%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23efe9df%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%28156%2C175%2C136%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23e6ddd1%22%20stroke%3D%22rgba%28156%2C175%2C136%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%28201%2C130%2C107%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%239caf88%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%28156%2C175%2C136%2C0.150%29%22%20stroke%3D%22rgba%28201%2C130%2C107%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%28201%2C130%2C107%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%28201%2C130%2C107%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="Hygge Home craft visual" />
+    <img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 1600 900&#39;&gt;&lt;rect width&#x3D;&#39;1600&#39; height&#x3D;&#39;900&#39; fill&#x3D;&#39;%23e6ddd1&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;Georgia,serif&#39; fill&#x3D;&#39;%232b2926&#39;&gt;&lt;rect x&#x3D;&#39;180&#39; y&#x3D;&#39;380&#39; width&#x3D;&#39;420&#39; height&#x3D;&#39;120&#39; rx&#x3D;&#39;30&#39; fill&#x3D;&#39;%23b8ae9f&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;180&#39; y&#x3D;&#39;330&#39; width&#x3D;&#39;420&#39; height&#x3D;&#39;70&#39; rx&#x3D;&#39;26&#39; fill&#x3D;&#39;%23c4bbad&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M230 360 l40 20 M320 420 l60 -10 M450 380 l40 30&#39; stroke&#x3D;&#39;%2365605c&#39; stroke-width&#x3D;&#39;4&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;390&#39; y&#x3D;&#39;560&#39; font-size&#x3D;&#39;28&#39; text-anchor&#x3D;&#39;middle&#39;&gt;Worn cover, 2016&lt;&#x2F;text&gt;&lt;path d&#x3D;&#39;M660 420 L900 420&#39; stroke&#x3D;&#39;%23c9826b&#39; stroke-width&#x3D;&#39;8&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M900 400 L940 420 L900 440 Z&#39; fill&#x3D;&#39;%23c9826b&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;800&#39; y&#x3D;&#39;395&#39; font-size&#x3D;&#39;24&#39; text-anchor&#x3D;&#39;middle&#39; fill&#x3D;&#39;%2365605c&#39;&gt;Frame kept&lt;&#x2F;text&gt;&lt;rect x&#x3D;&#39;1000&#39; y&#x3D;&#39;380&#39; width&#x3D;&#39;420&#39; height&#x3D;&#39;120&#39; rx&#x3D;&#39;30&#39; fill&#x3D;&#39;%239caf88&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1000&#39; y&#x3D;&#39;330&#39; width&#x3D;&#39;420&#39; height&#x3D;&#39;70&#39; rx&#x3D;&#39;26&#39; fill&#x3D;&#39;%23a9bb95&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;1210&#39; y&#x3D;&#39;560&#39; font-size&#x3D;&#39;28&#39; text-anchor&#x3D;&#39;middle&#39;&gt;New linen cover, 2026&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="Before and after: a worn 2016 sofa cover replaced with a new sage linen cover on the same frame" />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">Brand · Home</span>
-    <h2>Linen light. Clay warmth.</h2>
-    <p class="lead">Sage and clay for rooms that feel finished without trying.</p>
+    <span class="eyebrow">Case 3 · Hygge Repair</span>
+    <h2>Our repair service sent 3,800 sofas back home in 2026</h2>
+    <p class="lead">New cover, same frame, 11 days on average.</p>
   </div>
 </section>
 
-<section class="slide two-column-slide" data-layout="two-column">
-  <div class="cols ratio-2-1">
-    <div class="cols-copy">
-      <span class="eyebrow">Collection</span>
-      <h2>What we make</h2>
-      <p class="lead">Soft seating: Low profiles. Honest wood. Covers you can wash. Warm light — Lamps that pool, not glare.</p>
+<section class="slide metric-ring-slide" data-layout="metric-ring">
+  <span class="eyebrow">Case 3 · Result</span>
+  <h2>96% of everything we have sold since 2014 is still in use</h2>
+  <div class="pct-wrap">
+    <div class="pct-ring pct-ring-arc" role="img" aria-label="96% Pieces still in a home or hotel">
+      <svg class="pct-ring-svg" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-opacity="0.15" stroke-width="10"/><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-dasharray="253.34 263.89" transform="rotate(-90 50 50)"/></svg>
+      <div class="pct-ring-center">
+        <span class="pct-num">96%</span>
+        <span class="pct-label">Pieces still in a home or hotel</span>
+      </div>
     </div>
-    
-    <div class="cols-aside"><p>Ceramics with clay accents — no logo shouting.</p></div>
-  </div>
-</section>
-
-<section class="slide quote-slide" data-layout="quote">
-  <p class="quote">Comfort is a design decision, not an afterthought.</p>
-  <p class="quote-by">— Astrid N. · Creative Director</p>
-</section>
-
-<section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Retail</span>
-  <h2>Calm that sells.</h2>
-  
-  <div class="stats">
-    <div class="stat">
-      <div class="value">28</div>
-      <div class="label">Studios</div>
-    </div>
-    <div class="stat">
-      <div class="value">91%</div>
-      <div class="label">In-stock rate</div>
-    </div>
-    <div class="stat">
-      <div class="value">2.1×</div>
-      <div class="label">Online YoY</div>
+    <div class="pct-desc">
+      <p class="lead">Source: owner survey, 2,140 pieces, October 2026.</p>
+      
     </div>
   </div>
 </section>
 
 <section class="slide logo-wall-slide" data-layout="logo-wall">
-  <span class="eyebrow">Homes we design for</span>
-  <h2>Quiet brands, loud clarity.</h2>
+  <span class="eyebrow">Partners</span>
+  <h2>Hotels and stores across four countries stock or specify Hygge Home</h2>
   
-  <div class="logo-wall cols-4">
+  <div class="logo-wall cols-3">
     <div class="logo-tile">
       
-      <span class="logo-tile-fallback">Cedar</span>
-      <p class="logo-tile-caption">Living</p>
+      <span class="logo-tile-fallback">Hotel Sund</span>
+      <p class="logo-tile-caption">Aarhus · 64 rooms</p>
     </div>
     <div class="logo-tile">
       
-      <span class="logo-tile-fallback">Linen</span>
-      <p class="logo-tile-caption">Apparel</p>
+      <span class="logo-tile-fallback">Lindqvist</span>
+      <p class="logo-tile-caption">Sweden · 12 stores</p>
     </div>
     <div class="logo-tile">
       
-      <span class="logo-tile-fallback">Fjord</span>
-      <p class="logo-tile-caption">Wellness</p>
+      <span class="logo-tile-fallback">Fjeld Lodge</span>
+      <p class="logo-tile-caption">Geilo · 38 rooms</p>
     </div>
     <div class="logo-tile">
       
-      <span class="logo-tile-fallback">Ember</span>
-      <p class="logo-tile-caption">Hospitality</p>
+      <span class="logo-tile-fallback">Halde &amp; Co.</span>
+      <p class="logo-tile-caption">Oslo · 3 stores</p>
+    </div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Kaisa Hotels</span>
+      <p class="logo-tile-caption">Helsinki · 2 hotels</p>
+    </div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Strand Living</span>
+      <p class="logo-tile-caption">Copenhagen · 9 stores</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide quote-slide" data-layout="quote">
+  <p class="quote">Guests write about the lamps. Nobody ever wrote about our lamps before.</p>
+  <p class="quote-by">— Mette Kjær · General manager, Hotel Sund</p>
+</section>
+
+<section class="slide timeline-slide" data-layout="timeline">
+  <span class="eyebrow">How we work</span>
+  <h2>A new partner floor opens 14 weeks after the first visit</h2>
+  <div class="timeline">
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Week 1 · Visit</h3>
+      <p>We measure your light</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Week 3 · Plan</h3>
+      <p>Layout and lamp heights</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Week 10 · Build</h3>
+      <p>Made in Vejle</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Week 14 · Open</h3>
+      <p>Install and train staff</p>
     </div>
   </div>
 </section>
 
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">Visit</span>
-  <h1>Sit before you buy.</h1>
-  <p class="lead">Studio appointments open this season.</p>
+  <span class="eyebrow">Start a project</span>
+  <h1>Build rooms that feel finished in 2027 and still feel right in 2047</h1>
+  <p class="lead">Book a studio visit in Copenhagen. Sit before you buy.</p>
   <div class="cta-row">
-    <a class="btn" href="#"><i class="fa-solid fa-calendar"></i> Book a visit</a>
-    <a class="btn btn-outline" href="#"><i class="fa-solid fa-book"></i> Browse the catalog</a>
+    <a class="btn" href="#"><i class="fa-solid fa-calendar"></i> Book a studio visit</a>
+    <a class="btn btn-outline" href="#"><i class="fa-solid fa-book"></i> Download the trade catalogue</a>
   </div>
 </section>
 
@@ -6906,7 +7192,7 @@ Warmth you can hold.</p>
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Hygge Home — Brand Deck","company":"Hygge Home","description":"Scandi home brand deck — scandinavian multi-slide proof.","theme":"scandinavian"},"slides":[{"layout":"title","eyebrow":"Brand · Home","heading":"Linen light. Clay warmth.","lead":"Sage and clay for rooms that feel finished without trying.","notes":"Cold open — land the one-line claim before logos."},{"layout":"feature-grid","eyebrow":"Collection","heading":"Materials that stay quiet","columns":"bento","cards":[{"icon":"fa-solid fa-couch","title":"Soft seating","body":"Low profiles. Honest wood. Covers you can wash."},{"icon":"fa-solid fa-lightbulb","title":"Warm light","body":"Lamps that pool, not glare."},{"icon":"fa-solid fa-mug-hot","title":"Clay accents","body":"Ceramics with clay warmth — no logo shouting."},{"icon":"fa-solid fa-leaf","title":"Repair-friendly","body":"Design that lasts past spring sales."},{"icon":"fa-solid fa-eye","title":"Show, do not pad","body":"Asymmetry beats another identical third column."}]},{"layout":"comparison","eyebrow":"Retail","heading":"Trend stack vs. lasting floor","leftLabel":"Fast home","left":"Seasonal noise.\nPlastic warmth.\nDiscounts as identity.\nForgettable by spring.","rightLabel":"Hygge","right":"Quiet materials.\nRepair-friendly design.\nWholesale partners who stay.\nWarmth you can hold.","emphasis":"right","notes":"Name the loser column first, then punch the winner."},{"layout":"image-hero","eyebrow":"Brand · Home","heading":"Linen light. Clay warmth.","lead":"Sage and clay for rooms that feel finished without trying.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23e6ddd1%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23efe9df%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28201%2C130%2C107%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28230%2C221%2C209%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28201%2C130%2C107%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28201%2C130%2C107%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28201%2C130%2C107%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23efe9df%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%28156%2C175%2C136%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23e6ddd1%22%20stroke%3D%22rgba%28156%2C175%2C136%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%28201%2C130%2C107%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%239caf88%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%28156%2C175%2C136%2C0.150%29%22%20stroke%3D%22rgba%28201%2C130%2C107%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%28201%2C130%2C107%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%28201%2C130%2C107%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Hygge Home craft visual","notes":"Hold the visual beat — let the room feel the product."},{"layout":"two-column","eyebrow":"Collection","heading":"What we make","body":"Soft seating: Low profiles. Honest wood. Covers you can wash. Warm light — Lamps that pool, not glare.","aside":"Ceramics with clay accents — no logo shouting.","ratio":"2-1"},{"layout":"quote","quote":"Comfort is a design decision, not an afterthought.","by":"Astrid N. · Creative Director"},{"layout":"stat-row","eyebrow":"Retail","heading":"Calm that sells.","stats":[{"value":"28","label":"Studios"},{"value":"91%","label":"In-stock rate"},{"value":"2.1×","label":"Online YoY"}]},{"layout":"logo-wall","eyebrow":"Homes we design for","heading":"Quiet brands, loud clarity.","columns":4,"cards":[{"title":"Cedar","body":"Living"},{"title":"Linen","body":"Apparel"},{"title":"Fjord","body":"Wellness"},{"title":"Ember","body":"Hospitality"}],"notes":"Glance the marks — social proof, not a reading list."},{"layout":"closing","eyebrow":"Visit","heading":"Sit before you buy.","lead":"Studio appointments open this season.","actions":[{"label":"Book a visit","href":"#","style":"solid","icon":"fa-solid fa-calendar"},{"label":"Browse the catalog","href":"#","style":"outline","icon":"fa-solid fa-book"}]}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Hygge Home — Partner credentials 2027","company":"Hygge Home","description":"Credentials deck for Hygge Home, a Copenhagen maker of furniture and lighting, for hotels and retail partners: point of view, three design rules, three projects with results, partners, and how a partner floor opens.","theme":"scandinavian","genre":"brand"},"slides":[{"layout":"title","eyebrow":"Hygge Home · Copenhagen · Partner credentials 2027","heading":"Rooms that feel finished, built to last twenty years.","lead":"Furniture and lighting for hotels and home stores since 2014.","notes":"One sentence, then move. The room on the next slide does the talking."},{"layout":"image-hero","eyebrow":"Our point of view","heading":"We design the light first, then the furniture around it","lead":"A room feels warm when light pools low and soft.","image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'>\u003cdefs>\u003cradialGradient id='p' cx='.5' cy='.5' r='.5'>\u003cstop offset='0' stop-color='%23f6d9a8' stop-opacity='.95'/>\u003cstop offset='1' stop-color='%23f6d9a8' stop-opacity='0'/>\u003c/radialGradient>\u003c/defs>\u003crect width='1600' height='900' fill='%23e6ddd1'/>\u003crect y='560' width='1600' height='340' fill='%23d8ccbb'/>\u003crect x='170' y='270' width='260' height='240' fill='%23efe9df' stroke='%2365605c' stroke-width='4'/>\u003cline x1='300' y1='270' x2='300' y2='510' stroke='%2365605c' stroke-width='3'/>\u003cellipse cx='1180' cy='470' rx='360' ry='200' fill='url(%23p)'/>\u003crect x='560' y='430' width='560' height='110' rx='34' fill='%239caf88'/>\u003crect x='560' y='380' width='560' height='80' rx='30' fill='%23a9bb95'/>\u003crect x='540' y='420' width='60' height='130' rx='24' fill='%238ea07a'/>\u003crect x='1080' y='420' width='60' height='130' rx='24' fill='%238ea07a'/>\u003crect x='590' y='540' width='14' height='24' fill='%2365605c'/>\u003crect x='1076' y='540' width='14' height='24' fill='%2365605c'/>\u003cline x1='1240' y1='330' x2='1240' y2='560' stroke='%232b2926' stroke-width='6'/>\u003cpath d='M1190 330 L1290 330 L1270 282 L1210 282 Z' fill='%23c9826b'/>\u003crect x='1200' y='552' width='80' height='10' rx='5' fill='%232b2926'/>\u003crect x='1340' y='470' width='120' height='90' fill='%23c9a98c'/>\u003cpath d='M1376 470 C1366 440 1372 420 1386 412 L1414 412 C1428 420 1434 440 1424 470 Z' fill='%23c9826b'/>\u003cpath d='M1400 412 C1396 380 1380 360 1366 350 M1400 412 C1408 384 1424 366 1440 360' stroke='%239caf88' stroke-width='5' fill='none'/>\u003c/svg>","imageAlt":"Living room with a sage sofa, a clay floor lamp casting a low pool of warm light, and a clay vase on a side table","notes":"Point at the pool of light beside the sofa. That pool is the brand."},{"layout":"feature-grid","eyebrow":"What we believe","heading":"Three rules decide every piece we make","columns":3,"cards":[{"icon":"fa-solid fa-lightbulb","title":"Light below 2,700 K","body":"Warm light pools at sitting height."},{"icon":"fa-solid fa-shirt","title":"Covers come off","body":"Every cover washes or swaps."},{"icon":"fa-solid fa-screwdriver-wrench","title":"Parts for 20 years","body":"Spares for every frame we sell."}]},{"layout":"section","number":"01","heading":"Three projects, three results","lead":"A hotel, a department store and our own repair service."},{"layout":"image-hero","eyebrow":"Case 1 · Hotel Sund, Aarhus","heading":"Hotel Sund rebuilt 64 rooms around one low pendant lamp","lead":"Refit completed in 9 weeks, March 2025.","image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'>\u003crect width='1600' height='900' fill='%23efe9df'/>\u003crect y='560' width='1600' height='340' fill='%23e6ddd1'/>\u003cpath d='M1000 330 L860 560 L1140 560 Z' fill='%23f6d9a8' fill-opacity='.55'/>\u003cline x1='1000' y1='0' x2='1000' y2='300' stroke='%232b2926' stroke-width='3'/>\u003cpath d='M960 300 L1040 300 L1024 330 L976 330 Z' fill='%23c9826b'/>\u003crect x='300' y='450' width='640' height='110' rx='10' fill='%23f7f3ec' stroke='%2365605c' stroke-width='3'/>\u003crect x='300' y='330' width='40' height='230' rx='8' fill='%23c9a98c'/>\u003crect x='360' y='420' width='170' height='50' rx='20' fill='%23ffffff' stroke='%2365605c' stroke-width='2'/>\u003crect x='560' y='470' width='380' height='90' fill='%239caf88'/>\u003crect x='980' y='470' width='110' height='90' fill='%23c9a98c'/>\u003cg font-family='Georgia,serif' fill='%232b2926'>\u003ctext x='1180' y='330' font-size='30'>Room 214 · Hotel Sund\u003c/text>\u003ctext x='1180' y='372' font-size='22' fill='%2365605c'>Pendant: Fjord 32, 2,400 K\u003c/text>\u003ctext x='1180' y='406' font-size='22' fill='%2365605c'>Hung 62 cm above the desk\u003c/text>\u003c/g>\u003c/svg>","imageAlt":"Hotel Sund room 214: a bed with a sage throw and a low clay pendant casting warm light over the desk","notes":"Name the one change: the lamp hangs at reading height, not at the ceiling."},{"layout":"stat-row","eyebrow":"Case 1 · Result after 18 months","heading":"Guest scores at Hotel Sund rose from 8.1 to 9.4","stats":[{"value":"9.4","label":"Guest score out of 10, up from 8.1"},{"value":"+22%","label":"Average room rate, 2024 vs 2026"},{"value":"0","label":"Pieces replaced in 18 months"}]},{"layout":"two-column","eyebrow":"Case 2 · Lindqvist department stores","heading":"Lindqvist's 12 studio corners sold 2.1× more lighting","ratio":"2-1","reverse":true,"image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 1000'>\u003crect width='600' height='1000' fill='%23efe9df'/>\u003cg font-family='Georgia,serif' fill='%232b2926'>\u003ctext x='300' y='110' font-size='26' text-anchor='middle'>Studio corner · 40 m²\u003c/text>\u003ctext x='300' y='146' font-size='20' text-anchor='middle' fill='%2365605c'>Lindqvist Malmö, floor 3\u003c/text>\u003crect x='60' y='190' width='480' height='640' fill='none' stroke='%2365605c' stroke-width='4'/>\u003crect x='130' y='330' width='340' height='300' rx='10' fill='%23e6ddd1'/>\u003crect x='150' y='260' width='300' height='90' rx='26' fill='%239caf88'/>\u003crect x='200' y='430' width='200' height='110' rx='8' fill='%23c9a98c'/>\u003ccircle cx='500' cy='260' r='56' fill='%23f6d9a8' fill-opacity='.8'/>\u003ccircle cx='500' cy='260' r='16' fill='%23c9826b'/>\u003ccircle cx='110' cy='700' r='56' fill='%23f6d9a8' fill-opacity='.8'/>\u003ccircle cx='110' cy='700' r='16' fill='%23c9826b'/>\u003crect x='360' y='700' width='150' height='90' fill='%238ea07a'/>\u003ctext x='300' y='900' font-size='20' text-anchor='middle' fill='%2365605c'>Two lamps lit all day · price on the shade\u003c/text>\u003c/g>\u003c/svg>","imageAlt":"Floor plan of a 40 square metre studio corner at Lindqvist Malmö: sofa, rug, table and two lit lamps","body":"We furnish a 40 m² corner like a real living room.\nLamps stay lit all day."},{"layout":"image-hero","eyebrow":"Case 3 · Hygge Repair","heading":"Our repair service sent 3,800 sofas back home in 2026","lead":"New cover, same frame, 11 days on average.","image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'>\u003crect width='1600' height='900' fill='%23e6ddd1'/>\u003cg font-family='Georgia,serif' fill='%232b2926'>\u003crect x='180' y='380' width='420' height='120' rx='30' fill='%23b8ae9f'/>\u003crect x='180' y='330' width='420' height='70' rx='26' fill='%23c4bbad'/>\u003cpath d='M230 360 l40 20 M320 420 l60 -10 M450 380 l40 30' stroke='%2365605c' stroke-width='4'/>\u003ctext x='390' y='560' font-size='28' text-anchor='middle'>Worn cover, 2016\u003c/text>\u003cpath d='M660 420 L900 420' stroke='%23c9826b' stroke-width='8'/>\u003cpath d='M900 400 L940 420 L900 440 Z' fill='%23c9826b'/>\u003ctext x='800' y='395' font-size='24' text-anchor='middle' fill='%2365605c'>Frame kept\u003c/text>\u003crect x='1000' y='380' width='420' height='120' rx='30' fill='%239caf88'/>\u003crect x='1000' y='330' width='420' height='70' rx='26' fill='%23a9bb95'/>\u003ctext x='1210' y='560' font-size='28' text-anchor='middle'>New linen cover, 2026\u003c/text>\u003c/g>\u003c/svg>","imageAlt":"Before and after: a worn 2016 sofa cover replaced with a new sage linen cover on the same frame"},{"layout":"metric-ring","eyebrow":"Case 3 · Result","heading":"96% of everything we have sold since 2014 is still in use","value":"96%","label":"Pieces still in a home or hotel","pct":96,"lead":"Source: owner survey, 2,140 pieces, October 2026."},{"layout":"logo-wall","eyebrow":"Partners","heading":"Hotels and stores across four countries stock or specify Hygge Home","columns":3,"cards":[{"title":"Hotel Sund","body":"Aarhus · 64 rooms"},{"title":"Lindqvist","body":"Sweden · 12 stores"},{"title":"Fjeld Lodge","body":"Geilo · 38 rooms"},{"title":"Halde & Co.","body":"Oslo · 3 stores"},{"title":"Kaisa Hotels","body":"Helsinki · 2 hotels"},{"title":"Strand Living","body":"Copenhagen · 9 stores"}]},{"layout":"quote","quote":"Guests write about the lamps. Nobody ever wrote about our lamps before.","by":"Mette Kjær · General manager, Hotel Sund"},{"layout":"timeline","eyebrow":"How we work","heading":"A new partner floor opens 14 weeks after the first visit","steps":[{"title":"Week 1 · Visit","body":"We measure your light"},{"title":"Week 3 · Plan","body":"Layout and lamp heights"},{"title":"Week 10 · Build","body":"Made in Vejle"},{"title":"Week 14 · Open","body":"Install and train staff"}]},{"layout":"closing","eyebrow":"Start a project","heading":"Build rooms that feel finished in 2027 and still feel right in 2047","lead":"Book a studio visit in Copenhagen. Sit before you buy.","actions":[{"label":"Book a studio visit","href":"#","style":"solid","icon":"fa-solid fa-calendar"},{"label":"Download the trade catalogue","href":"#","style":"outline","icon":"fa-solid fa-book"}],"notes":"Offer the visit with a date: studio slots open from 11 January."}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {

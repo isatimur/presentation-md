@@ -1,130 +1,134 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Northbridge — Board Deck",
+    "title": "Northbridge — Q3 2026 board update",
     "company": "Northbridge",
-    "description": "Board update — blue-professional multi-slide proof.",
-    "theme": "blue-professional"
+    "description": "Board update for a freight-visibility software company: answer first, KPI scorecard, one trend, a win, a miss, cash, roadmap, risks and two decisions.",
+    "theme": "blue-professional",
+    "genre": "board"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Board · Q2",
-      "heading": "Cream paper. Cobalt certainty.",
-      "lead": "Space Grotesk for the headline. Inter for the appendix.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Northbridge · Q3 2026 board update · Confidential",
+      "heading": "Ahead on revenue. Late on Europe.",
+      "lead": "ARR closed at $48.2M, 6% over plan. We ask for two decisions to keep the lead in Q4.",
+      "notes": "Open with the answer. The rest of the deck is the evidence for these two sentences."
     },
     {
-      "layout": "image-hero",
-      "eyebrow": "Board · Q2",
-      "heading": "Cream paper. Cobalt certainty.",
-      "lead": "Space Grotesk for the headline. Inter for the appendix.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23F5F2DC%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23FDFAE7%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2830%2C43%2C250%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2830%2C43%2C250%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%285%2C150%2C105%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2830%2C43%2C250%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28245%2C242%2C220%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2830%2C43%2C250%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2830%2C43%2C250%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2830%2C43%2C250%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%285%2C150%2C105%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%285%2C150%2C105%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%285%2C150%2C105%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23FDFAE7%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%2830%2C43%2C250%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23F5F2DC%22%20stroke%3D%22rgba%2830%2C43%2C250%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%285%2C150%2C105%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%231E2BFA%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%2830%2C43%2C250%2C0.150%29%22%20stroke%3D%22rgba%285%2C150%2C105%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%285%2C150%2C105%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%285%2C150%2C105%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Northbridge craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "layout": "two-column",
+      "eyebrow": "Executive summary",
+      "heading": "Revenue beat plan, Europe slipped, and two votes decide Q4",
+      "ratio": "3-2",
+      "body": "Won: mid-market carriers added $3.1M of new ARR.\nWon: net revenue retention rose to 122%.\nMissed: the Rotterdam team started 9 weeks late.",
+      "aside": "Decide today: approve 8 EU hires, and move $0.6M from brand to security.",
+      "notes": "If the board reads only one slide, it is this one."
     },
     {
-      "layout": "feature-grid",
-      "eyebrow": "Agenda",
-      "heading": "Three decisions",
-      "columns": "bento",
-      "cards": [
-        {
-          "icon": "fa-solid fa-chart-column",
-          "title": "Growth",
-          "body": "Approve the EU expansion."
-        },
-        {
-          "icon": "fa-solid fa-handshake",
-          "title": "Partnership",
-          "body": "Sign the channel deal."
-        },
-        {
-          "icon": "fa-solid fa-shield",
-          "title": "Risk",
-          "body": "Raise the security budget."
-        },
-        {
-          "icon": "fa-solid fa-compass",
-          "title": "Clear north star",
-          "body": "One decisive story beat — not a wall of equal tiles."
-        },
-        {
-          "icon": "fa-solid fa-scissors",
-          "title": "Cut the filler",
-          "body": "If a card doesn't change the decision, it doesn't earn the pixel."
-        }
+      "layout": "data-table",
+      "eyebrow": "Scorecard",
+      "heading": "Four of five KPIs beat plan; EU pipeline is the exception",
+      "columns": ["KPI", "Q3 plan", "Q3 actual", "vs plan", "vs Q2"],
+      "rows": [
+        ["ARR", "$45.5M", "$48.2M", "+6%", "+9%"],
+        ["Net revenue retention", "118%", "122%", "+4 pts", "+3 pts"],
+        ["Gross margin", "74%", "76%", "+2 pts", "+1 pt"],
+        ["CAC payback", "17 mo", "15 mo", "2 mo faster", "1 mo faster"],
+        ["EU pipeline", "$6.0M", "$4.6M", "−23%", "+4%"]
       ]
     },
     {
+      "layout": "chart",
+      "eyebrow": "The trend that matters",
+      "heading": "ARR has beaten plan four quarters in a row",
+      "chartType": "bar",
+      "categories": ["Q4 25", "Q1 26", "Q2 26", "Q3 26"],
+      "series": [
+        { "name": "Plan ($M)", "values": [36.0, 39.2, 42.3, 45.5] },
+        { "name": "Actual ($M)", "values": [36.8, 40.5, 44.2, 48.2] }
+      ],
+      "showLegend": true,
+      "showValues": true,
+      "lead": "Source: finance close, 3 October 2026."
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "eyebrow": "Cause and effect",
+      "heading": "What worked, and what did not"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "What worked",
+      "heading": "Mid-market carriers drove two thirds of new ARR",
+      "ratio": "2-1",
+      "body": "We cut onboarding from 21 days to 6 with the self-serve ELD connector. Carriers with 50–500 trucks now buy without a solutions engineer.",
+      "aside": "$3.1M of $4.7M new ARR came from mid-market. Win rate in the segment rose from 24% to 38%."
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "What did not",
+      "heading": "Europe ran 9 weeks late and cost $1.4M of pipeline",
+      "leftLabel": "Plan",
+      "left": "Rotterdam office open in June.\n6 account executives selling by July.\n$6.0M EU pipeline by September.",
+      "rightLabel": "Actual, and the fix",
+      "right": "Office opened in August after a permit delay.\n3 AEs hired, 3 still in offer stage.\n$4.6M pipeline. Fix: a partner-led motion with Kestrel Freight from November.",
+      "emphasis": "right",
+      "notes": "Own the miss plainly. The fix is the partner motion, not more hiring alone."
+    },
+    {
       "layout": "stat-row",
-      "eyebrow": "Quarter",
-      "heading": "Numbers for the room.",
+      "eyebrow": "Cash",
+      "heading": "Burn fell and runway now reaches Q2 2029",
       "stats": [
-        {
-          "value": "$48M",
-          "label": "ARR"
-        },
-        {
-          "value": "122%",
-          "label": "NRR"
-        },
-        {
-          "value": "31%",
-          "label": "Gross margin ↑"
-        }
-      ],
-      "notes": "One breath on the numbers — then move on."
+        { "value": "$61.8M", "label": "Cash at 30 Sep, down $5.7M in the quarter" },
+        { "value": "$1.9M", "label": "Monthly net burn, down from $2.4M in Q2" },
+        { "value": "32 mo", "label": "Runway at current burn, up from 26" }
+      ]
     },
     {
-      "layout": "code",
-      "eyebrow": "Appendix",
-      "heading": "One chart, no theater.",
-      "filename": "board.sql",
-      "language": "sql",
-      "code": "SELECT region, arr_m\nFROM q2_board\nWHERE approved = true\nORDER BY arr_m DESC\nLIMIT 5;"
+      "layout": "timeline",
+      "eyebrow": "Next quarter",
+      "heading": "Q4 turns the EU plan into a partner-led launch",
+      "steps": [
+        { "title": "Oct · Hire", "body": "Close the last 3 Rotterdam AEs" },
+        { "title": "Nov · Partner", "body": "Kestrel Freight co-sell goes live" },
+        { "title": "Dec · Ship", "body": "SOC 2 Type II report delivered" },
+        { "title": "Jan · Review", "body": "EU pipeline check at the board" }
+      ]
     },
     {
-      "layout": "logo-wall",
-      "eyebrow": "Trusted by",
-      "heading": "Teams building with Northbridge.",
+      "layout": "data-table",
+      "eyebrow": "Risks",
+      "heading": "Security review is now the top risk to Q4 renewals",
+      "columns": ["Risk", "Likelihood", "Impact", "Owner", "Mitigation"],
+      "rows": [
+        ["Enterprise security reviews stall renewals", "High", "$2.3M ARR", "CTO", "SOC 2 Type II by December"],
+        ["Kestrel co-sell slips past January", "Medium", "$1.2M pipeline", "CRO", "Signed launch plan, weekly review"],
+        ["Diesel price spike cuts carrier budgets", "Low", "3–5% churn", "CFO", "Usage-based tier for small fleets"]
+      ]
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Decisions required",
+      "heading": "We ask the board for two votes and one introduction",
+      "columns": 3,
       "cards": [
-        {
-          "title": "Northstar"
-        },
-        {
-          "title": "Harbor"
-        },
-        {
-          "title": "Fieldkit"
-        },
-        {
-          "title": "Lumen"
-        },
-        {
-          "title": "Cascade"
-        },
-        {
-          "title": "Orbit"
-        }
+        { "icon": "fa-solid fa-user-plus", "title": "Vote: 8 EU hires", "body": "$1.1M in H1 to staff the partner-led motion." },
+        { "icon": "fa-solid fa-shield-halved", "title": "Vote: $0.6M to security", "body": "Moved from brand spend; funds the SOC 2 audit." },
+        { "icon": "fa-solid fa-handshake", "title": "Intro: Halvard Shipping", "body": "A warm path to their carrier network team." }
       ],
-      "notes": "Glance the marks — social proof, not a reading list."
-    },
-    {
-      "layout": "quote",
-      "quote": "Clarity beats decoration — every time.",
-      "by": "Northbridge",
-      "notes": "Let the quote hang — don't rush the attribution."
+      "notes": "Take the votes in this order. The intro is an ask, not a vote."
     },
     {
       "layout": "closing",
-      "eyebrow": "Vote",
-      "heading": "Cobalt means decide.",
-      "lead": "Materials locked 48h before.",
-      "cta": {
-        "label": "Open the packet",
-        "href": "#"
-      }
+      "eyebrow": "Recommendation",
+      "heading": "Fund Europe and security now to keep the lead",
+      "lead": "Both votes today let us start hiring on 1 December.",
+      "actions": [
+        { "label": "Approve both votes", "style": "solid", "icon": "fa-solid fa-check" },
+        { "label": "Open the board pack", "style": "outline", "icon": "fa-solid fa-folder-open" }
+      ]
     }
   ]
 }
