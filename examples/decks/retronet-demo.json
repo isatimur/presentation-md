@@ -1,130 +1,126 @@
 {
   "type": "deck",
   "meta": {
-    "title": "RetroNet — Product Demo",
+    "title": "RetroNet Teams for Corvid Health — sales session, December 2026",
     "company": "RetroNet",
-    "description": "Open-source privacy browser layer demo.",
-    "theme": "crt-terminal"
+    "description": "Sales deck for RetroNet Teams, an open-source tracker-stripping browser layer, written for Corvid Health IT: the tracker shift, winners and losers, three obstacles, hospital proof, rollout plan and price.",
+    "theme": "crt-terminal",
+    "genre": "sales"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Open source · Free tier · MIT · Privacy first",
-      "heading": "Browse like it's 1999.",
-      "lead": "Strip ads, trackers, and bloat — keep the content.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Prepared for Corvid Health IT · 3 December 2026",
+      "heading": "How Corvid Health can browse the web without leaking patient data",
+      "lead": "A 40-minute working session.",
+      "notes": "Open on their risk, not our product. The product name waits until slide 5."
     },
     {
-      "layout": "feature-grid",
-      "eyebrow": "Plans",
-      "heading": "Free forever. Pro when you need it.",
-      "columns": 2,
-      "cards": [
-        {
-          "title": "Free tier · $0",
-          "body": "Ad blocking, tracker strip, MIT client. Forever."
-        },
-        {
-          "title": "Pro · $5/mo",
-          "body": "Custom filter lists, team sync, priority updates."
-        }
-      ]
+      "layout": "chart",
+      "eyebrow": "The shift",
+      "heading": "The median website now loads 41 trackers, over four times 2016",
+      "chartType": "line",
+      "categories": ["2016", "2018", "2020", "2022", "2024", "2026"],
+      "series": [{ "name": "Third-party trackers per page", "values": [9, 15, 22, 29, 35, 41] }],
+      "showValues": true,
+      "lead": "Source: crawl of the top 1,000 sites each January, n = 1,000."
     },
     {
       "layout": "comparison",
-      "eyebrow": "Before / After",
-      "heading": "Same URL. Different internet.",
-      "leftLabel": "Before",
-      "left": "Cookie walls.\nProgress bars that lie.\nNotification spam.\nScroll past four ads for one paragraph.",
-      "rightLabel": "After",
-      "right": "RETRONET clean view.\nReadable type.\nNo trackers.\nContent at the top.",
-      "emphasis": "left",
-      "notes": "Name the loser column first, then punch the winner."
+      "eyebrow": "The split",
+      "heading": "Teams that block trackers in the browser pass audits; others write reports",
+      "leftLabel": "Policy only",
+      "left": "Staff must remember.\nTrackers still fire.\n3 incidents a year.",
+      "rightLabel": "Blocked in browser",
+      "right": "Nothing to remember.\nNo third-party calls.\nClean audits.",
+      "emphasis": "right"
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Open source · Free tier · MIT · Privacy first",
-      "heading": "Browse like it's 1999.",
-      "lead": "Strip ads, trackers, and bloat — keep the content.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%231a1010%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%2306040a%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2857%2C255%2C20%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2857%2C255%2C20%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C245%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2857%2C255%2C20%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C16%2C16%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2857%2C255%2C20%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2857%2C255%2C20%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2857%2C255%2C20%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C245%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%280%2C245%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%280%2C245%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%2306040a%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22820%22%20rx%3D%22700%22%20ry%3D%22120%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23floor%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22520%22%20cy%3D%22260%22%20rx%3D%22360%22%20ry%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22220%22%20rx%3D%22300%22%20ry%3D%22220%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20desk%20product%20frame%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28430%2C170%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%22720%22%20height%3D%22460%22%20rx%3D%2228%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22450%22%20rx%3D%2226%22%20fill%3D%22%231a1010%22%20stroke%3D%22rgba%2857%2C255%2C20%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22%2306040a%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%2290%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%226%22%20fill%3D%22rgba%2857%2C255%2C20%2C0.850%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22130%22%20width%3D%22380%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22158%22%20width%3D%22320%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%280%2C245%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22290%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%2857%2C255%2C20%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22510%22%20y%3D%22210%22%20width%3D%22140%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22280%22%20y%3D%22400%22%20width%3D%22160%22%20height%3D%2210%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "RetroNet craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "After",
+      "heading": "Every Corvid laptop opens the same page with zero trackers attached",
+      "lead": "Same URL. Same article. Nothing else leaves the building.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 440'><rect width='1600' height='440' fill='%2306040a'/><rect x='160' y='80' width='1280' height='290' rx='10' fill='none' stroke='%2339ff14' stroke-width='2' opacity='0.6'/><rect x='160' y='80' width='1280' height='44' fill='%2339ff14' opacity='0.12'/><g fill='%2339ff14'><circle cx='190' cy='102' r='7'/><circle cx='215' cy='102' r='7' opacity='0.6'/><circle cx='240' cy='102' r='7' opacity='0.3'/></g><text x='280' y='110' font-family='monospace' font-size='20' fill='%23f5f0e8'>https://news.example.com/flu-season-2026</text><text x='1410' y='110' font-family='monospace' font-size='20' fill='%2339ff14' text-anchor='end'>[ CLEAN VIEW ]</text><text x='210' y='175' font-family='monospace' font-size='30' fill='%23f5f0e8'>Flu admissions rise 12% in the north</text><g fill='%23989488'><rect x='210' y='200' width='740' height='9'/><rect x='210' y='225' width='700' height='9'/><rect x='210' y='250' width='760' height='9'/><rect x='210' y='275' width='620' height='9'/><rect x='210' y='310' width='740' height='9'/></g><line x1='1030' y1='140' x2='1030' y2='350' stroke='%2339ff14' stroke-width='1' opacity='0.4'/><g font-family='monospace' font-size='21'><text x='1065' y='165' fill='%2300f5ff'>BLOCKED</text><text x='1065' y='200' fill='%2339ff14'>trackers ..... 41</text><text x='1065' y='232' fill='%2339ff14'>ad units ..... 12</text><text x='1065' y='264' fill='%2339ff14'>scripts ...... 23</text><text x='1065' y='305' fill='%23f5f0e8'>load ....... 0.6s</text><text x='1065' y='337' fill='%23f5f0e8'>third-party .. 0</text></g></svg>",
+      "imageAlt": "Terminal-style browser window showing a news article in clean view, with a side panel listing 41 trackers, 12 ad units and 23 scripts blocked."
     },
     {
       "layout": "two-column",
-      "eyebrow": "Alert status",
-      "heading": "The modern web is hostile",
-      "body": "CRITICAL: 47 ad units per session on the average page. URGENT — 380 unique tracking scripts on a news homepage.",
-      "aside": "Median load time: 0.9s (2010) → 9.3s (2026).",
+      "eyebrow": "Obstacle 1 · Staff forget",
+      "heading": "RetroNet strips 41 trackers before a page even renders",
       "ratio": "2-1",
-      "reverse": true
+      "body": "Filtering runs in the browser layer. Clinicians just click.",
+      "aside": "Nothing to install per user, nothing to remember."
     },
     {
-      "layout": "timeline",
-      "eyebrow": "Demo flow",
-      "heading": "retronet --demo-flow",
-      "steps": [
-        {
-          "title": "01 Intercept",
-          "body": "retronet intercept --url https://news.example.com"
-        },
-        {
-          "title": "02 Filter",
-          "body": "strip ads · trackers · unused scripts"
-        },
-        {
-          "title": "03 Render",
-          "body": "Serve a clean document — content only."
-        },
-        {
-          "title": "04 Verify",
-          "body": "Zero trackers. Sub-second paint."
-        }
-      ]
+      "layout": "code",
+      "eyebrow": "Obstacle 2 · Rollout effort",
+      "heading": "IT rolls out one policy file to 2,400 laptops in an afternoon",
+      "filename": "corvid-policy.toml",
+      "language": "toml",
+      "code": "[fleet]\nseats = 2400\nmode = \"strict\"\n\n[allow]\nfirst_party = true\nehr = \"*.corvid.health\"\n\n[report]\naudit = \"weekly\""
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Obstacle 3 · Broken pages",
+      "heading": "Clinical forms keep working because first-party code stays",
+      "ratio": "2-1",
+      "body": "Blockers break logins. RetroNet keeps the page's own scripts and drops the rest.",
+      "aside": "0.4% of pages needed an exception in pilots."
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "Proof from a hospital group like yours",
+      "lead": "Northgate Clinics, 1,900 seats, live since May."
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Benchmarks",
-      "heading": "Measured on real news sites",
+      "eyebrow": "Northgate Clinics · six months",
+      "heading": "Northgate cut page load by 94% and third-party calls to zero",
       "stats": [
-        {
-          "value": "94%",
-          "label": "Faster page loads"
-        },
-        {
-          "value": "ZERO",
-          "label": "Trackers loaded"
-        },
-        {
-          "value": "$0",
-          "label": "Ad revenue served"
-        }
-      ]
+        { "value": "0.6s", "label": "Median page load, was 9.3s" },
+        { "value": "0", "label": "Trackers per page, was 41" },
+        { "value": "0", "label": "Privacy incidents in six months, was 3" }
+      ],
+      "notes": "Ask what their own incident count was last year. Let them say the number."
     },
     {
       "layout": "quote",
-      "quote": "I finally read the article instead of fighting the page.",
-      "by": "devkat_88 · software engineer · Portland"
+      "quote": "Our audit found zero third-party calls from clinical laptops for the first time.",
+      "by": "Marcus Bell · CISO, Northgate Clinics"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Plan",
+      "heading": "Corvid can be fully covered in four weeks from 7 December",
+      "steps": [
+        { "title": "Week 1", "body": "Pilot on 50 laptops" },
+        { "title": "Week 2", "body": "Tune exceptions" },
+        { "title": "Week 3", "body": "Roll out 2,400 seats" },
+        { "title": "Week 4", "body": "First audit report" }
+      ]
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Price",
+      "heading": "Covering all 2,400 seats costs $9,600 a month",
+      "columns": ["Item", "Unit price", "Corvid total"],
+      "rows": [
+        ["Teams seats", "$4 / seat / month", "$9,600 / month"],
+        ["Onboarding", "One-off", "$0, waived"],
+        ["Client", "MIT open source", "$0"]
+      ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Join the network",
-      "heading": "github.com/retronet",
-      "lead": "discord.gg/retronet · docs at retronet.dev",
+      "eyebrow": "Next step",
+      "heading": "Start the 50-laptop pilot on 7 December and stop the leaks",
+      "lead": "The pilot is free. Your first audit lands 4 January.",
       "actions": [
-        {
-          "label": "Star on GitHub",
-          "href": "https://github.com/retronet",
-          "style": "solid",
-          "icon": "fa-brands fa-github"
-        },
-        {
-          "label": "Join Discord",
-          "href": "#",
-          "style": "outline",
-          "icon": "fa-brands fa-discord"
-        }
-      ]
+        { "label": "Book the pilot kickoff", "href": "#", "style": "solid", "icon": "fa-solid fa-calendar-check" },
+        { "label": "Read the source", "href": "https://github.com/retronet", "style": "outline", "icon": "fa-brands fa-github" }
+      ],
+      "notes": "Get a date, not a maybe. If 7 December fails, offer 14 December."
     }
   ]
 }

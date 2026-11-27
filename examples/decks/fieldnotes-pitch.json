@@ -1,109 +1,142 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Fieldnotes — Product Pitch",
+    "title": "Fieldnotes — Series A pitch, November 2026",
     "company": "Fieldnotes",
-    "description": "Notebook SaaS pitch — notebook-tabs multi-slide proof.",
-    "theme": "notebook-tabs"
+    "description": "Series A pitch for Fieldnotes, a tabbed team notebook: wiki problem, product, why now, traction, market, competition, model, team and a $14M ask.",
+    "theme": "notebook-tabs",
+    "genre": "pitch"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Pitch · Series A",
-      "heading": "Tabs for the way you think.",
-      "lead": "Cream paper on dark. Pastel tabs. Bodoni for the title that matters.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Fieldnotes · Series A · November 2026",
+      "heading": "Team notes that stay findable, with no wiki to maintain.",
+      "lead": "Raising $14M to take the tabbed notebook to teams.",
+      "notes": "Say the sentence, then stop. Mara presents; Jonas takes product questions."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Problem",
+      "heading": "Teams lose five hours a week hunting for their own notes",
+      "ratio": "2-1",
+      "body": "Wikis die within a quarter. Notes scatter across docs and chats. Source: 2026 survey, 1,840 workers.",
+      "aside": "5.2 hours a week, per person, spent searching."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Pitch · Series A",
-      "heading": "Tabs for the way you think.",
-      "lead": "Cream paper on dark. Pastel tabs. Bodoni for the title that matters.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23efece4%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f8f6f1%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28199%2C184%2C234%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28239%2C236%2C228%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28152%2C212%2C187%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28199%2C184%2C234%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28199%2C184%2C234%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28199%2C184%2C234%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f8f6f1%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.5%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22200%22%20cy%3D%22100%22%20rx%3D%22420%22%20ry%3D%22280%22%20fill%3D%22rgba%28152%2C212%2C187%2C0.350%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221400%22%20cy%3D%22780%22%20rx%3D%22500%22%20ry%3D%22320%22%20fill%3D%22rgba%28199%2C184%2C234%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.9%22%3E%0A%20%20%20%20%3Crect%20x%3D%22180%22%20y%3D%22160%22%20width%3D%22520%22%20height%3D%22340%22%20rx%3D%228%22%20fill%3D%22%23efece4%22%20stroke%3D%22rgba%28152%2C212%2C187%2C0.400%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22%23f8f6f1%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.7%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22240%22%20y%3D%22470%22%20width%3D%22180%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22780%22%20y%3D%22220%22%20width%3D%22420%22%20height%3D%22280%22%20rx%3D%228%22%20fill%3D%22%23efece4%22%20stroke%3D%22rgba%28199%2C184%2C234%2C0.350%29%22%20stroke-width%3D%222%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22800%22%20y%3D%22240%22%20width%3D%22380%22%20height%3D%22220%22%20fill%3D%22rgba%28199%2C184%2C234%2C0.200%29%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Cg%20opacity%3D%220.4%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221260%22%20cy%3D%22180%22%20r%3D%2226%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221360%22%20cy%3D%22260%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221180%22%20cy%3D%22300%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Fieldnotes cinematic surface",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "The product",
+      "heading": "Fieldnotes files every page under a tab you already remember",
+      "lead": "Write first. Tab later. Find it in two taps.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 440'><rect width='1600' height='440' fill='%232d2d2d'/><rect x='120' y='30' width='1240' height='400' rx='14' fill='%23f8f6f1'/><line x1='740' y1='30' x2='740' y2='430' stroke='%23d9d4c7' stroke-width='3'/><rect x='1360' y='50' width='64' height='86' rx='8' fill='%2398d4bb'/><rect x='1360' y='146' width='64' height='86' rx='8' fill='%23c7b8ea'/><rect x='1360' y='242' width='64' height='86' rx='8' fill='%23f4b6c2'/><g font-family='sans-serif' font-size='17' fill='%231a1a1a'><text x='1371' y='99'>Field</text><text x='1366' y='195'>Client</text><text x='1371' y='291'>Ideas</text></g><line x1='190' y1='30' x2='190' y2='430' stroke='%23e8a0a0' stroke-width='2'/><text x='220' y='100' font-family='serif' font-size='44' fill='%231a1a1a'>Site visit, Harbour Rd</text><text x='220' y='136' font-family='sans-serif' font-size='18' fill='%235c574c'>Tue 14 Oct · tab: Field · 3 photos</text><g stroke='%23d9d4c7' stroke-width='2'><line x1='220' y1='190' x2='700' y2='190'/><line x1='220' y1='240' x2='700' y2='240'/><line x1='220' y1='290' x2='700' y2='290'/><line x1='220' y1='340' x2='700' y2='340'/></g><g fill='%235c574c' font-family='sans-serif' font-size='20'><text x='220' y='182'>Pump room needs a second inspection.</text><text x='220' y='232'>Drainage plan due Friday.</text><text x='220' y='282'>Ask Priya for the permit number.</text></g><rect x='790' y='70' width='250' height='170' rx='8' fill='%2398d4bb'/><rect x='1065' y='70' width='250' height='170' rx='8' fill='%23c7b8ea'/><path d='M810 220 L880 150 L930 195 L970 165 L1020 220 Z' fill='%23f8f6f1' opacity='0.7'/><circle cx='1190' cy='140' r='38' fill='%23f8f6f1' opacity='0.7'/><g fill='%235c574c' font-family='sans-serif' font-size='18'><text x='790' y='272'>Pump room, north wall</text><text x='1065' y='272'>Permit board</text></g><rect x='790' y='300' width='525' height='56' rx='28' fill='%23efece4'/><text x='820' y='336' font-family='sans-serif' font-size='20' fill='%235c574c'>Search: permit · Field tab · 1 page</text></svg>",
+      "imageAlt": "Fieldnotes app: an open notebook page titled Site visit, Harbour Rd, with photos, a tab search bar and Field, Client and Ideas tabs on the edge."
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Why now",
+      "heading": "Three shifts since 2023 turned a personal notebook into a team tool",
+      "steps": [
+        { "title": "2023", "body": "Offline search on every phone" },
+        { "title": "2024", "body": "Serverless sync merges edits" },
+        { "title": "2025", "body": "61% of wikis go stale" },
+        { "title": "2026", "body": "AI recall needs tidy pages" }
+      ]
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Traction",
+      "heading": "Weekly writers grew from 21k to 92k in five quarters",
+      "chartType": "line",
+      "categories": ["Q3 25", "Q4 25", "Q1 26", "Q2 26", "Q3 26"],
+      "series": [{ "name": "Weekly active writers (k)", "values": [21, 34, 49, 70, 92] }],
+      "showValues": true,
+      "lead": "Source: Fieldnotes product analytics, weekly actives at quarter end.",
+      "notes": "No paid acquisition. 74% of sign-ups come from a shared page."
+    },
+    {
+      "layout": "stat-row",
+      "variant": "hero",
+      "eyebrow": "Retention",
+      "heading": "Six in ten writers still use Fieldnotes a year later",
+      "stats": [
+        { "value": "61%", "label": "12-month retention, Q3 2025 cohort" },
+        { "value": "18 min", "label": "Median session, category median 7 min" },
+        { "value": "4.8★", "label": "App Store, 11,400 ratings" }
+      ]
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Product",
-      "heading": "Four tabs. Zero chaos.",
-      "columns": "bento",
+      "eyebrow": "How it works",
+      "heading": "Three design choices make a notebook work for a whole team",
+      "columns": 3,
       "cards": [
-        {
-          "icon": "fa-solid fa-book",
-          "title": "Daily pages",
-          "body": "Lined for notes that don't need a database."
-        },
-        {
-          "icon": "fa-solid fa-tags",
-          "title": "Color tabs",
-          "body": "Mint, lavender, pink — projects you can feel."
-        },
-        {
-          "icon": "fa-solid fa-link",
-          "title": "Backlinks",
-          "body": "Ideas connect without becoming a wiki cult."
-        },
-        {
-          "icon": "fa-solid fa-mobile",
-          "title": "Pocket mode",
-          "body": "Capture on phone; review on paper density."
-        },
-        {
-          "icon": "fa-solid fa-compass",
-          "title": "Clear north star",
-          "body": "One decisive story beat — not a wall of equal tiles."
-        }
+        { "icon": "fa-solid fa-tags", "title": "Tabs, not folders", "body": "One tap files a page." },
+        { "icon": "fa-solid fa-plane-slash", "title": "Local first", "body": "Works offline, syncs later." },
+        { "icon": "fa-solid fa-magnifying-glass", "title": "Recall by tab", "body": "Search knows the context." }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "The business",
+      "lead": "Who pays, how many of them, and why we win."
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Market",
+      "heading": "4.1 million small teams make a $2.9B yearly market",
+      "stats": [
+        { "value": "4.1M", "label": "Teams of 5–50 in US and EU" },
+        { "value": "$59", "label": "Average team spend per month" },
+        { "value": "$2.9B", "label": "Bottom-up yearly market" }
       ]
     },
     {
       "layout": "comparison",
-      "eyebrow": "Why us",
-      "heading": "Wiki sprawl vs. a notebook.",
+      "eyebrow": "Competition",
+      "heading": "Wikis demand structure up front; Fieldnotes adds it later",
       "leftLabel": "Wikis",
-      "left": "Empty templates.\nSearch that fails.\nGuilt about structure.",
+      "left": "Templates first.\nOne owner keeps it alive.\n40 near-matches per search.",
       "rightLabel": "Fieldnotes",
-      "right": "Pages that feel finished.\nTabs you remember.\nStructure optional.",
+      "right": "Write now, tab later.\nEveryone files.\nSearch knows the tab.",
       "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
+      "notes": "Name the wikis by category, not brand. The point is the order of work."
     },
     {
-      "layout": "stat-row",
-      "eyebrow": "Traction",
-      "heading": "Writers, not hoarders.",
-      "stats": [
-        {
-          "value": "92k",
-          "label": "Weekly actives"
-        },
-        {
-          "value": "18min",
-          "label": "Avg session"
-        },
-        {
-          "value": "4.8★",
-          "label": "App Store"
-        }
+      "layout": "quote",
+      "quote": "We tried two wikis in a year. Fieldnotes is the first place my crew actually writes.",
+      "by": "Priya Raman · Site lead, Halden Civil Engineering"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Business model",
+      "heading": "Team seats bring 78% of our $6.4M ARR",
+      "columns": ["Plan", "Price", "Share of ARR"],
+      "rows": [
+        ["Pro", "$6 / month", "22%"],
+        ["Team", "$8 / seat / month", "61%"],
+        ["Business", "$14 / seat / month", "17%"]
+      ]
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Team",
+      "heading": "The founders have shipped note apps to 30 million people",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-user", "title": "Mara Lindqvist, CEO", "body": "Led mobile notes, 20M users." },
+        { "icon": "fa-solid fa-user", "title": "Jonas Okafor, CTO", "body": "Built a CRDT sync engine." },
+        { "icon": "fa-solid fa-user", "title": "Elif Demir, Design", "body": "Designed paper planners, 10M sold." }
       ]
     },
     {
       "layout": "closing",
       "eyebrow": "The ask",
-      "heading": "Fund the paper that scales.",
-      "lead": "Raising to ship teams + offline sync.",
+      "heading": "$14M takes findable team notes from 92k to 400k writers",
+      "lead": "Funds team sync, an EU data region and sales through 2028.",
       "actions": [
-        {
-          "label": "Read the memo",
-          "href": "#",
-          "style": "solid",
-          "icon": "fa-solid fa-arrow-right"
-        },
-        {
-          "label": "Explore Fieldnotes",
-          "href": "#",
-          "style": "outline",
-          "icon": "fa-solid fa-arrow-right"
-        }
+        { "label": "Read the data room", "href": "#", "style": "solid", "icon": "fa-solid fa-folder-open" },
+        { "label": "Book a product demo", "href": "#", "style": "outline", "icon": "fa-solid fa-calendar" }
       ]
     }
   ]

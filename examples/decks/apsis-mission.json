@@ -1,153 +1,176 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Apsis — Mission Deck",
+    "title": "Apsis — Four seconds to 380 milliseconds: AP-3 telemetry latency",
     "company": "Apsis",
-    "description": "Deep-tech mission deck — blueprint multi-slide proof.",
-    "theme": "blueprint"
+    "description": "Technical talk from the Apsis ground-software team: how AP-3 satellite telemetry latency fell from 4.2 s to 380 ms by removing ground-station buffers, with the evidence, the code, the trade-offs and what we would do differently.",
+    "theme": "blueprint",
+    "genre": "talk"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Mission · AP-3",
-      "heading": "Navy grid. Cyan certainty.",
-      "lead": "Engineering blueprints for missions that leave the slide.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "feature-grid",
-      "eyebrow": "Stack",
-      "heading": "Drawn like a plan",
-      "columns": "bento",
-      "cards": [
-        {
-          "icon": "fa-solid fa-drafting-compass",
-          "title": "Spec first",
-          "body": "Every module has a drawing number."
-        },
-        {
-          "icon": "fa-solid fa-microchip",
-          "title": "Flight computer",
-          "body": "Cyan paths for nominal. Amber for contingency."
-        },
-        {
-          "icon": "fa-solid fa-rocket",
-          "title": "Launch ops",
-          "body": "Checklists that look like the CAD."
-        },
-        {
-          "icon": "fa-solid fa-compass",
-          "title": "Clear north star",
-          "body": "One decisive story beat — not a wall of equal tiles."
-        },
-        {
-          "icon": "fa-solid fa-scissors",
-          "title": "Cut the filler",
-          "body": "If a card doesn't change the decision, it doesn't earn the pixel."
-        }
-      ]
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Ops",
-      "heading": "Slideware mission vs. blueprint ops",
-      "leftLabel": "Generic pitch",
-      "left": "Stock rockets.\nVague timelines.\nNo interface.\nHope as plan.",
-      "rightLabel": "Apsis",
-      "right": "Grid as identity.\nCode in the brief.\nNamed gates.\nMission as system.",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
+      "eyebrow": "Apsis ground software · SpaceOps Engineering Summit · April 2027",
+      "heading": "Our telemetry was slow because we waited, not because of physics.",
+      "lead": "How AP-3 went from 4.2 seconds to 380 milliseconds.",
+      "notes": "Ask the room: who has bought faster radios to fix latency? Then say we did too, and it saved 40 ms."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Mission · AP-3",
-      "heading": "Navy grid. Cyan certainty.",
-      "lead": "Engineering blueprints for missions that leave the slide.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230d2548%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%230a1f3d%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2813%2C37%2C72%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%280%2C229%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C255%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230a1f3d%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22480%22%20cy%3D%22300%22%20rx%3D%22420%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221200%22%20cy%3D%22560%22%20rx%3D%22460%22%20ry%3D%22320%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.92%22%3E%0A%20%20%20%20%3Crect%20x%3D%22220%22%20y%3D%22180%22%20width%3D%22460%22%20height%3D%22300%22%20rx%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.060%29%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.160%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22250%22%20y%3D%22220%22%20width%3D%22180%22%20height%3D%2216%22%20rx%3D%226%22%20fill%3D%22rgba%280%2C229%2C255%2C0.700%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22250%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22250%22%20y%3D%22290%22%20width%3D%22240%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.160%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22560%22%20y%3D%22260%22%20width%3D%22360%22%20height%3D%22320%22%20rx%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22600%22%20y%3D%22320%22%20width%3D%22120%22%20height%3D%22120%22%20rx%3D%2218%22%20fill%3D%22rgba%280%2C229%2C255%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22740%22%20y%3D%22320%22%20width%3D%22120%22%20height%3D%22120%22%20rx%3D%2218%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22980%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%22220%22%20rx%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.050%29%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.140%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Apsis craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "The system",
+      "heading": "Each AP-3 frame crossed five hops to reach an operator",
+      "lead": "Stations, buffer, decoder, bus, console.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%3Cdefs%3E%3Cpattern%20id%3D%22g%22%20width%3D%2240%22%20height%3D%2240%22%20patternUnits%3D%22userSpaceOnUse%22%3E%3Cpath%20d%3D%22M40%200H0V40%22%20fill%3D%22none%22%20stroke%3D%22%2300e5ff%22%20stroke-opacity%3D%22.08%22%2F%3E%3C%2Fpattern%3E%3Cmarker%20id%3D%22a%22%20viewBox%3D%220%200%2010%2010%22%20refX%3D%229%22%20refY%3D%225%22%20markerWidth%3D%228%22%20markerHeight%3D%228%22%20orient%3D%22auto%22%3E%3Cpath%20d%3D%22M0%200L10%205L0%2010z%22%20fill%3D%22%2300e5ff%22%2F%3E%3C%2Fmarker%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230a1f3d%22%2F%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url(%23g)%22%2F%3E%3Cg%20font-family%3D%22monospace%22%20fill%3D%22%23e8f4ff%22%20font-size%3D%2220%22%20stroke-linejoin%3D%22round%22%20transform%3D%22translate(168%2094)%20scale(.8)%22%3E%3Cg%20transform%3D%22translate(150%20300)%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%222.5%22%20fill%3D%22none%22%3E%3Crect%20x%3D%22-30%22%20y%3D%22-20%22%20width%3D%2260%22%20height%3D%2240%22%2F%3E%3Cpath%20d%3D%22M-30%200h-50M30%200h50%22%2F%3E%3Crect%20x%3D%22-130%22%20y%3D%22-16%22%20width%3D%2250%22%20height%3D%2232%22%2F%3E%3Crect%20x%3D%2280%22%20y%3D%22-16%22%20width%3D%2250%22%20height%3D%2232%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%22150%22%20y%3D%22360%22%20text-anchor%3D%22middle%22%3EAP-3%3C%2Ftext%3E%3Ctext%20x%3D%22150%22%20y%3D%22386%22%20text-anchor%3D%22middle%22%20fill%3D%22%2388b1ce%22%20font-size%3D%2216%22%3ELEO%20%C2%B7%20550%20km%3C%2Ftext%3E%3Cg%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%222%22%20stroke-dasharray%3D%228%208%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M230%20300L440%20330M230%20300L440%20450M230%20300L440%20570%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%222.5%22%20fill%3D%22%230d2548%22%3E%3Crect%20x%3D%22440%22%20y%3D%22300%22%20width%3D%22230%22%20height%3D%2260%22%2F%3E%3Crect%20x%3D%22440%22%20y%3D%22420%22%20width%3D%22230%22%20height%3D%2260%22%2F%3E%3Crect%20x%3D%22440%22%20y%3D%22540%22%20width%3D%22230%22%20height%3D%2260%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%22555%22%20y%3D%22337%22%20text-anchor%3D%22middle%22%3EGS%20Svalbard%3C%2Ftext%3E%3Ctext%20x%3D%22555%22%20y%3D%22457%22%20text-anchor%3D%22middle%22%3EGS%20Azores%3C%2Ftext%3E%3Ctext%20x%3D%22555%22%20y%3D%22577%22%20text-anchor%3D%22middle%22%3EGS%20Punta%20Arenas%3C%2Ftext%3E%3Cg%20stroke%3D%22%23ffb020%22%20stroke-width%3D%222.5%22%20fill%3D%22none%22%3E%3Crect%20x%3D%22700%22%20y%3D%22295%22%20width%3D%22110%22%20height%3D%22310%22%20stroke-dasharray%3D%226%206%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%22755%22%20y%3D%22640%22%20text-anchor%3D%22middle%22%20fill%3D%22%23ffb020%22%20font-size%3D%2218%22%3E2%20s%20buffer%3C%2Ftext%3E%3Cg%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%222.5%22%20fill%3D%22none%22%20marker-end%3D%22url(%23a)%22%3E%3Cpath%20d%3D%22M810%20450H890%22%2F%3E%3Cpath%20d%3D%22M1090%20450H1170%22%2F%3E%3Cpath%20d%3D%22M1370%20450H1430%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%22890%22%20y%3D%22400%22%20width%3D%22200%22%20height%3D%22100%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%222.5%22%20fill%3D%22%230d2548%22%2F%3E%3Ctext%20x%3D%22990%22%20y%3D%22445%22%20text-anchor%3D%22middle%22%3Edecode%3C%2Ftext%3E%3Ctext%20x%3D%22990%22%20y%3D%22474%22%20text-anchor%3D%22middle%22%20fill%3D%22%23ffb020%22%20font-size%3D%2216%22%3Ebatch%20%C2%B7%201.1%20s%3C%2Ftext%3E%3Crect%20x%3D%221170%22%20y%3D%22400%22%20width%3D%22200%22%20height%3D%22100%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%222.5%22%20fill%3D%22%230d2548%22%2F%3E%3Ctext%20x%3D%221270%22%20y%3D%22445%22%20text-anchor%3D%22middle%22%3Etelemetry%20bus%3C%2Ftext%3E%3Ctext%20x%3D%221270%22%20y%3D%22474%22%20text-anchor%3D%22middle%22%20fill%3D%22%2388b1ce%22%20font-size%3D%2216%22%3Efan-out%20%C2%B7%200.7%20s%3C%2Ftext%3E%3Crect%20x%3D%221430%22%20y%3D%22380%22%20width%3D%22130%22%20height%3D%22140%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222.5%22%20fill%3D%22%230d2548%22%2F%3E%3Ctext%20x%3D%221495%22%20y%3D%22445%22%20text-anchor%3D%22middle%22%3Eops%3C%2Ftext%3E%3Ctext%20x%3D%221495%22%20y%3D%22472%22%20text-anchor%3D%22middle%22%3Econsole%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "Blueprint diagram: AP-3 satellite downlinks to three ground stations, through a 2-second buffer, a batch decoder and a telemetry bus to the ops console"
     },
     {
-      "layout": "code",
-      "eyebrow": "Telemetry",
-      "heading": "Read the bus.",
-      "filename": "apsis-tlm.py",
-      "language": "python",
-      "code": "from apsis import Bus\n\nbus = Bus.connect('ap3://ops')\nfor frame in bus.subscribe('nav.pose'):\n    if frame.flag == 'WARN':\n        bus.alert(frame)\n    print(frame.t, frame.xyz)"
-    },
-    {
-      "layout": "stat-row",
-      "eyebrow": "Proof",
-      "heading": "Missions completed.",
-      "stats": [
+      "layout": "timeline",
+      "eyebrow": "Three questions",
+      "heading": "Agenda",
+      "steps": [
         {
-          "value": "17",
-          "label": "Flights"
+          "title": "01",
+          "body": "Where did the 4.2 seconds go?"
         },
         {
-          "value": "0",
-          "label": "Unexplained losses"
+          "title": "02",
+          "body": "What did we change?"
         },
         {
-          "value": "4",
-          "label": "Partner agencies"
+          "title": "03",
+          "body": "What did it cost?"
         }
       ]
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "Where did the 4.2 seconds go?"
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Evidence",
+      "heading": "Buffering and batch decoding ate 3.0 of the 4.2 seconds",
+      "chartType": "horizontal-bar",
+      "categories": [
+        "Radio downlink",
+        "Station buffer",
+        "Batch decode",
+        "Bus fan-out",
+        "Console render"
+      ],
+      "series": [
+        {
+          "name": "Median latency (ms)",
+          "values": [
+            120,
+            1900,
+            1100,
+            700,
+            380
+          ]
+        }
+      ],
+      "showValues": true,
+      "lead": "Median per hop, 14 days of AP-3 passes, n = 2.1M frames.",
+      "notes": "Radio is 120 ms. Everything amber in the diagram is our own software."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Mechanism",
+      "heading": "Stations held each frame until a 2-second buffer filled",
+      "ratio": "2-3",
+      "reverse": true,
+      "body": "The buffer saved bandwidth in 2014. Today it just makes the first frame wait.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20900%22%3E%3Crect%20width%3D%221200%22%20height%3D%22900%22%20fill%3D%22%230d2548%22%2F%3E%3Cg%20font-family%3D%22monospace%22%20font-size%3D%2224%22%20fill%3D%22%23e8f4ff%22%20transform%3D%22translate(110%2050)%20scale(.86)%22%3E%3Ctext%20x%3D%2280%22%20y%3D%22150%22%20fill%3D%22%23ffb020%22%3EBEFORE%20%C2%B7%20wait%2C%20then%20send%3C%2Ftext%3E%3Cg%20fill%3D%22%2300e5ff%22%20fill-opacity%3D%22.25%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%222%22%3E%3Crect%20x%3D%2280%22%20y%3D%22190%22%20width%3D%2270%22%20height%3D%2270%22%2F%3E%3Crect%20x%3D%22160%22%20y%3D%22190%22%20width%3D%2270%22%20height%3D%2270%22%2F%3E%3Crect%20x%3D%22240%22%20y%3D%22190%22%20width%3D%2270%22%20height%3D%2270%22%2F%3E%3Crect%20x%3D%22320%22%20y%3D%22190%22%20width%3D%2270%22%20height%3D%2270%22%2F%3E%3Crect%20x%3D%22400%22%20y%3D%22190%22%20width%3D%2270%22%20height%3D%2270%22%2F%3E%3Crect%20x%3D%22480%22%20y%3D%22190%22%20width%3D%2270%22%20height%3D%2270%22%2F%3E%3Crect%20x%3D%22560%22%20y%3D%22190%22%20width%3D%2270%22%20height%3D%2270%22%2F%3E%3Crect%20x%3D%22640%22%20y%3D%22190%22%20width%3D%2270%22%20height%3D%2270%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%2270%22%20y%3D%22180%22%20width%3D%22650%22%20height%3D%2290%22%20fill%3D%22none%22%20stroke%3D%22%23ffb020%22%20stroke-width%3D%223%22%20stroke-dasharray%3D%228%206%22%2F%3E%3Cpath%20d%3D%22M740%20225h220%22%20stroke%3D%22%23ffb020%22%20stroke-width%3D%224%22%2F%3E%3Cpath%20d%3D%22M955%20210l26%2015-26%2015z%22%20fill%3D%22%23ffb020%22%2F%3E%3Ctext%20x%3D%221000%22%20y%3D%22234%22%3Eops%3C%2Ftext%3E%3Ctext%20x%3D%2280%22%20y%3D%22320%22%20fill%3D%22%2388b1ce%22%3Efirst%20frame%20waits%202%2C000%20ms%3C%2Ftext%3E%3Cpath%20d%3D%22M80%20420H1120%22%20stroke%3D%22%2300e5ff%22%20stroke-opacity%3D%22.3%22%20stroke-width%3D%222%22%2F%3E%3Ctext%20x%3D%2280%22%20y%3D%22520%22%20fill%3D%22%2300e5ff%22%3EAFTER%20%C2%B7%20send%20each%20frame%3C%2Ftext%3E%3Cg%20fill%3D%22%2300e5ff%22%20fill-opacity%3D%22.25%22%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%222%22%3E%3Crect%20x%3D%2280%22%20y%3D%22560%22%20width%3D%2270%22%20height%3D%2270%22%2F%3E%3Crect%20x%3D%22300%22%20y%3D%22560%22%20width%3D%2270%22%20height%3D%2270%22%2F%3E%3Crect%20x%3D%22520%22%20y%3D%22560%22%20width%3D%2270%22%20height%3D%2270%22%2F%3E%3Crect%20x%3D%22740%22%20y%3D%22560%22%20width%3D%2270%22%20height%3D%2270%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%2300e5ff%22%20stroke-width%3D%223%22%3E%3Cpath%20d%3D%22M150%20595h140M370%20595h140M590%20595h140M810%20595h150%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M955%20580l26%2015-26%2015z%22%20fill%3D%22%2300e5ff%22%2F%3E%3Ctext%20x%3D%221000%22%20y%3D%22604%22%3Eops%3C%2Ftext%3E%3Ctext%20x%3D%2280%22%20y%3D%22690%22%20fill%3D%22%2388b1ce%22%3Eeach%20frame%20leaves%20in%2015%20ms%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "Before: eight frames wait in a dashed buffer. After: each frame goes to ops on its own."
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "What did we change?"
     },
     {
       "layout": "comparison",
-      "eyebrow": "Gates",
-      "heading": "From brief to burn",
-      "leftLabel": "Design",
-      "left": "Trajectory locked.\nMass budget signed.\nInterface reviewed.",
-      "rightLabel": "Flight",
-      "right": "Telemetry live.\nAbort criteria green.\nPost-burn report auto-filed.",
-      "emphasis": "left"
+      "eyebrow": "Before vs after",
+      "heading": "Streaming each frame cut median latency from 4.2 s to 380 ms",
+      "leftLabel": "Before · buffered",
+      "left": "2 s buffer, then batch decode\np50 4.2 s · p99 7.9 s",
+      "rightLabel": "After · streamed",
+      "right": "Decode each frame on arrival\np50 380 ms · p99 910 ms",
+      "emphasis": "right"
     },
     {
-      "layout": "logo-wall",
-      "eyebrow": "Mission partners",
-      "heading": "Crews that ship under pressure.",
-      "columns": 4,
-      "cards": [
-        {
-          "title": "Orbital",
-          "body": "Flight"
-        },
-        {
-          "title": "Vector",
-          "body": "Avionics"
-        },
-        {
-          "title": "Forge",
-          "body": "Ground"
-        },
-        {
-          "title": "Helix",
-          "body": "Research"
-        }
+      "layout": "code",
+      "eyebrow": "The code that matters",
+      "heading": "Decoding on arrival took twelve lines and one bounded queue",
+      "filename": "station/stream.py",
+      "language": "python",
+      "code": "async def forward(radio, bus):\n    q = asyncio.Queue(maxsize=256)  # bounded: drop, never block\n    async for frame in radio.frames():\n        try:\n            q.put_nowait(frame)\n        except asyncio.QueueFull:\n            metrics.dropped.inc()\n            continue\n        pkt = decode(await q.get())   # per frame, ~4 ms\n        await bus.publish(\"tlm.ap3\", pkt)\n        metrics.hop_ms.observe(pkt.age_ms())\n"
+    },
+    {
+      "layout": "section",
+      "number": "03",
+      "heading": "What did it cost?"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Trade-offs",
+      "heading": "We paid in CPU and a few dropped frames, not new hardware",
+      "columns": [
+        "Measure",
+        "Before",
+        "After"
       ],
-      "notes": "Glance the marks — social proof, not a reading list."
+      "rows": [
+        [
+          "Station CPU",
+          "22%",
+          "41%"
+        ],
+        [
+          "Downlink bandwidth",
+          "baseline",
+          "+6%"
+        ],
+        [
+          "Frames dropped",
+          "0%",
+          "0.02%, replayed"
+        ],
+        [
+          "Hardware spend",
+          "$0",
+          "$0"
+        ]
+      ]
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "What we would do differently",
+      "heading": "We bought $310k of faster radios before we timed a single hop",
+      "ratio": "3-2",
+      "body": "The radios saved 40 ms. One afternoon of per-hop tracing found 3,000.",
+      "aside": "Trace first. Buy last."
     },
     {
       "layout": "closing",
-      "eyebrow": "Partner",
-      "heading": "Bring your mission. Keep the grid.",
-      "lead": "Integration slots open for AP-4.",
+      "eyebrow": "One takeaway",
+      "heading": "Time every hop: your latency hides in buffers, not radios",
+      "lead": "The tracing kit and the full write-up are open source.",
       "actions": [
         {
-          "label": "Request ICD",
-          "href": "#",
+          "label": "Get the tracing kit",
           "style": "solid",
-          "icon": "fa-solid fa-file-lines"
+          "icon": "fa-brands fa-github"
         },
         {
-          "label": "Book a tech sync",
-          "href": "#",
+          "label": "Read the write-up",
           "style": "outline",
-          "icon": "fa-solid fa-calendar"
+          "icon": "fa-solid fa-file-lines"
         }
-      ]
+      ],
+      "notes": "End on the cover line: we waited, physics did not. Point to the repo."
     }
   ]
 }

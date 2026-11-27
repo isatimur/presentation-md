@@ -1,75 +1,114 @@
 {
   "type": "deck",
   "meta": {
-    "title": "BitOrbit — Game Pitch",
+    "title": "BitOrbit — Launch showcase, out 5 March 2027",
     "company": "BitOrbit",
-    "description": "Indie game / web3-adjacent pitch — 8-bit-orbit multi-slide proof.",
-    "theme": "8-bit-orbit"
+    "description": "Launch showcase for BitOrbit, a four-player co-op rover game: one shared rover, four seats, 20-minute sorties, drop-in from a Discord link. Demo proof, wishlist growth, price and release date.",
+    "theme": "8-bit-orbit",
+    "genre": "launch"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Indie pitch",
-      "heading": "Orbit the pixel. Escape the grind.",
-      "lead": "A co-op rover game with arcade clarity and campaign depth.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "BitOrbit · Launch showcase · On Steam 5 March 2027",
+      "heading": "Four friends, one rover, twenty minutes to escape orbit.",
+      "lead": "A co-op game you can finish before the pizza arrives.",
+      "notes": "Read the headline like a trailer card. Then go straight to the quote."
+    },
+    {
+      "layout": "quote",
+      "quote": "Our group spends 40 minutes in lobbies and menus to get 20 minutes of actual play.",
+      "by": "Reply to our Discord poll of 2,100 co-op players, May 2026"
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Indie pitch",
-      "heading": "Orbit the pixel. Escape the grind.",
-      "lead": "A co-op rover game with arcade clarity and campaign depth.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230F1B3D%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%230A0E27%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2894%2C220%2C244%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2894%2C220%2C244%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28240%2C166%2C202%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2894%2C220%2C244%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2815%2C27%2C61%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2894%2C220%2C244%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2894%2C220%2C244%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2894%2C220%2C244%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28240%2C166%2C202%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28240%2C166%2C202%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28240%2C166%2C202%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230A0E27%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%2894%2C220%2C244%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%230F1B3D%22%20stroke%3D%22rgba%2894%2C220%2C244%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%28240%2C166%2C202%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%235EDCF4%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%2894%2C220%2C244%2C0.150%29%22%20stroke%3D%22rgba%28240%2C166%2C202%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%28240%2C166%2C202%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%28240%2C166%2C202%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "BitOrbit craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Introducing BitOrbit",
+      "heading": "This is BitOrbit: one shared rover and one orbit to escape",
+      "lead": "Land, salvage, defend, launch. Then do it again.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' shape-rendering='crispEdges'><rect width='1600' height='900' fill='%230A0E27'/><g fill='%23E2D5F2'><rect x='140' y='330' width='6' height='6'/><rect x='420' y='300' width='6' height='6'/><rect x='610' y='360' width='6' height='6'/><rect x='980' y='310' width='6' height='6'/><rect x='1440' y='420' width='6' height='6'/><rect x='300' y='440' width='6' height='6'/><rect x='1120' y='450' width='6' height='6'/></g><circle cx='800' cy='1560' r='1040' fill='%230F1B3D' stroke='%235EDCF4' stroke-width='6'/><circle cx='1250' cy='380' r='54' fill='none' stroke='%23F0A6CA' stroke-width='6' stroke-dasharray='12 12'/><text x='1250' y='466' font-family='Courier New,monospace' font-size='20' fill='%23F0A6CA' text-anchor='middle'>ESCAPE GATE</text><g transform='translate(740 456)'><rect x='0' y='24' width='120' height='36' fill='%235EDCF4'/><rect x='24' y='0' width='60' height='24' fill='%235EDCF4'/><rect x='36' y='6' width='36' height='12' fill='%230A0E27'/><rect x='84' y='8' width='36' height='8' fill='%23F0A6CA'/><rect x='8' y='60' width='24' height='16' fill='%23E2D5F2'/><rect x='48' y='60' width='24' height='16' fill='%23E2D5F2'/><rect x='88' y='60' width='24' height='16' fill='%23E2D5F2'/></g><g font-family='Courier New,monospace' font-size='24' font-weight='700'><text x='120' y='310' fill='%235EDCF4'>SORTIE 03 · 12:41 LEFT</text><text x='120' y='344' fill='%23E2D5F2' font-size='20'>P1 DRIVE  P2 GUN  P3 ENG  P4 NAV</text><text x='1480' y='310' fill='%23F0A6CA' text-anchor='end'>ORBIT 68%</text><rect x='1240' y='324' width='240' height='14' fill='%230F1B3D' stroke='%23F0A6CA' stroke-width='2'/><rect x='1240' y='324' width='163' height='14' fill='%23F0A6CA'/></g></svg>",
+      "imageAlt": "BitOrbit gameplay: a pixel rover on a planet's curve, a HUD showing 12:41 left and four player seats, and an escape gate at 68% orbit",
+      "notes": "Let the screenshot sit. Point at the timer and the four seats in the HUD."
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "How it plays",
+      "lead": "Three ideas, one per slide."
     },
     {
       "layout": "two-column",
-      "eyebrow": "Gameplay",
-      "heading": "Loops that respect your time",
-      "body": "20-minute sorties: Complete a mission on a lunch break — or chain into a night raid. 2–4 player co-op — Shared ship, asymmetric roles, no lobby hell.",
-      "aside": "Hand-authored set pieces inside seeded chaos.",
-      "ratio": "1-2"
+      "eyebrow": "Idea 1 · Four seats",
+      "heading": "Each friend runs one seat, so nobody waits for a turn",
+      "ratio": "2-1",
+      "reverse": true,
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 1000' shape-rendering='crispEdges'><rect width='600' height='1000' fill='%230A0E27'/><g font-family='Courier New,monospace' font-weight='700'><text x='300' y='120' font-size='26' fill='%23E2D5F2' text-anchor='middle'>ROVER CUTAWAY</text><rect x='60' y='170' width='480' height='660' fill='%230F1B3D' stroke='%235EDCF4' stroke-width='6'/><rect x='90' y='200' width='420' height='140' fill='%235EDCF4' fill-opacity='.18' stroke='%235EDCF4' stroke-width='3'/><text x='120' y='262' font-size='30' fill='%235EDCF4'>P1 DRIVER</text><text x='120' y='302' font-size='20' fill='%23E2D5F2'>steers, boosts</text><rect x='90' y='360' width='420' height='140' fill='%23F0A6CA' fill-opacity='.18' stroke='%23F0A6CA' stroke-width='3'/><text x='120' y='422' font-size='30' fill='%23F0A6CA'>P2 GUNNER</text><text x='120' y='462' font-size='20' fill='%23E2D5F2'>turret, 360°</text><rect x='90' y='520' width='420' height='140' fill='%23E2D5F2' fill-opacity='.14' stroke='%23E2D5F2' stroke-width='3'/><text x='120' y='582' font-size='30' fill='%23FFFFFF'>P3 ENGINEER</text><text x='120' y='622' font-size='20' fill='%23E2D5F2'>shields, repairs</text><rect x='90' y='680' width='420' height='120' fill='%235EDCF4' fill-opacity='.1' stroke='%235EDCF4' stroke-width='3' stroke-dasharray='10 8'/><text x='120' y='738' font-size='30' fill='%235EDCF4'>P4 NAVIGATOR</text><text x='120' y='776' font-size='20' fill='%23E2D5F2'>map, salvage pings</text></g></svg>",
+      "imageAlt": "Cutaway of the BitOrbit rover with four seats: driver, gunner, engineer and navigator",
+      "body": "Driver, gunner, engineer, navigator.\nEvery seat is busy every second."
     },
     {
-      "layout": "comparison",
-      "eyebrow": "Market",
-      "heading": "Arcade heart. Campaign brain.",
-      "leftLabel": "Typical live service",
-      "left": "Battle pass treadmill.\nCosmetic FOMO.\nEmpty open world.",
-      "rightLabel": "BitOrbit",
-      "right": "Finite seasons.\nSkill expression first.\nStory you can finish.",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
+      "layout": "image-hero",
+      "eyebrow": "Idea 2 · Twenty-minute sorties",
+      "heading": "Every sortie ends at 20 minutes, win or lose",
+      "lead": "Four phases, one timer, no grind between runs.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' shape-rendering='crispEdges'><rect width='1600' height='900' fill='%230A0E27'/><g font-family='Courier New,monospace' font-weight='700'><rect x='200' y='300' width='1200' height='16' fill='%230F1B3D' stroke='%235EDCF4' stroke-width='2'/><rect x='200' y='300' width='760' height='16' fill='%235EDCF4'/><text x='1400' y='290' font-size='24' fill='%23F0A6CA' text-anchor='end'>12:41 / 20:00</text><line x1='260' y1='440' x2='1340' y2='440' stroke='%23E2D5F2' stroke-width='4' stroke-dasharray='14 10'/><g fill='%230F1B3D' stroke-width='5'><rect x='220' y='400' width='80' height='80' stroke='%235EDCF4'/><rect x='580' y='400' width='80' height='80' stroke='%235EDCF4'/><rect x='940' y='400' width='80' height='80' stroke='%23F0A6CA'/><rect x='1300' y='400' width='80' height='80' stroke='%23E2D5F2'/></g><rect x='956' y='416' width='48' height='48' fill='%23F0A6CA'/><g font-size='26' text-anchor='middle'><text x='260' y='530' fill='%235EDCF4'>LAND</text><text x='620' y='530' fill='%235EDCF4'>SALVAGE</text><text x='980' y='530' fill='%23F0A6CA'>DEFEND</text><text x='1340' y='530' fill='%23E2D5F2'>LAUNCH</text></g><g font-size='20' text-anchor='middle' fill='%23E2D5F2'><text x='260' y='562'>0:00</text><text x='620' y='562'>4:00</text><text x='980' y='562'>11:00</text><text x='1340' y='562'>20:00</text></g></g></svg>",
+      "imageAlt": "Sortie timeline: land at 0:00, salvage at 4:00, defend at 11:00, launch at 20:00, with the timer at 12:41"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Idea 3 · No lobby",
+      "heading": "Friends drop into a sortie from one Discord link",
+      "ratio": "2-1",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 1000' shape-rendering='crispEdges'><rect width='600' height='1000' fill='%230A0E27'/><g font-family='Courier New,monospace' font-weight='700'><rect x='50' y='180' width='500' height='620' fill='%230F1B3D' stroke='%23E2D5F2' stroke-width='4'/><text x='80' y='240' font-size='22' fill='%23E2D5F2'>%23bitorbit-crew</text><line x1='80' y1='260' x2='520' y2='260' stroke='%23E2D5F2' stroke-opacity='.3' stroke-width='2'/><text x='80' y='310' font-size='24' fill='%235EDCF4'>maya</text><text x='80' y='346' font-size='22' fill='%23FFFFFF'>one seat left, get in</text><rect x='80' y='380' width='440' height='300' fill='%230A0E27' stroke='%23F0A6CA' stroke-width='4'/><text x='110' y='432' font-size='26' fill='%23F0A6CA'>SORTIE 03</text><text x='110' y='474' font-size='22' fill='%23E2D5F2'>Seat 3 of 4 open</text><text x='110' y='510' font-size='22' fill='%23E2D5F2'>Role: ENGINEER</text><rect x='110' y='560' width='380' height='80' fill='%23F0A6CA'/><text x='300' y='612' font-size='30' fill='%230A0E27' text-anchor='middle'>JOIN SORTIE</text><text x='300' y='740' font-size='20' fill='%23E2D5F2' text-anchor='middle'>in game in 9 seconds</text></g></svg>",
+      "imageAlt": "Discord message with a BitOrbit join card: Sortie 03, seat 3 of 4 open as engineer, and a Join Sortie button",
+      "body": "Click the card, take the open seat.\nNo party codes, no lobby screen."
+    },
+    {
+      "layout": "metric-ring",
+      "eyebrow": "Proof · Steam Next Fest demo",
+      "heading": "91% of 4,300 demo reviews on Steam were positive",
+      "value": "91%",
+      "label": "Positive reviews",
+      "pct": 91,
+      "lead": "Next Fest demo, October 2026. Average session: 18 minutes, close to one full sortie.",
+      "notes": "This is the proof slide. Say the 91%, then the 18 minutes, then move on."
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Demand",
+      "heading": "Wishlists jumped from 19k to 62k after October's Next Fest",
+      "chartType": "bar",
+      "categories": ["Jul", "Aug", "Sep", "Oct", "Nov"],
+      "series": [
+        { "name": "Wishlists (thousands)", "values": [9, 13, 19, 41, 62] }
+      ],
+      "showValues": true,
+      "lead": "Source: Steamworks, cumulative wishlists in thousands, month end 2026 (November to the 25th)."
+    },
+    {
+      "layout": "quote",
+      "quote": "We finished a run, laughed, and started another one before the pizza arrived.",
+      "by": "Kit Moreau · streamer, played the demo live to 38,000 viewers"
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Demo",
-      "heading": "Steam Next Fest results",
+      "eyebrow": "Price and availability",
+      "heading": "BitOrbit lands on Steam on 5 March 2027 for $19.99",
       "stats": [
-        {
-          "value": "62k",
-          "label": "Wishlists"
-        },
-        {
-          "value": "91%",
-          "label": "Positive demo reviews"
-        },
-        {
-          "value": "18m",
-          "label": "Avg session length"
-        }
+        { "value": "$19.99", "label": "Launch price, 15% off in week one" },
+        { "value": "5 Mar", "label": "2027 release on PC and Steam Deck" },
+        { "value": "1–4", "label": "Players online, bots fill empty seats" }
       ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Ask",
-      "heading": "Fund the full campaign arc.",
-      "lead": "$2.4M production · 14 months · PC first.",
-      "cta": {
-        "label": "Play the demo",
-        "href": "#"
-      }
+      "eyebrow": "Out 5 March 2027 · Wishlist today",
+      "heading": "Grab three friends and escape orbit in twenty minutes on 5 March",
+      "lead": "62,000 players have already saved a seat.",
+      "actions": [
+        { "label": "Wishlist on Steam", "href": "#", "style": "solid", "icon": "fa-brands fa-steam" },
+        { "label": "Join the Discord", "href": "#", "style": "outline", "icon": "fa-brands fa-discord" }
+      ],
+      "notes": "End on the date. Show the Steam page QR code if the venue has a screen behind you."
     }
   ]
 }

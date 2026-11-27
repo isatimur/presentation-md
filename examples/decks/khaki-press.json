@@ -1,95 +1,146 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Khaki Press — Zine Deck",
+    "title": "Khaki Press — Reader study 2026",
     "company": "Khaki Press",
-    "description": "Indie zine pitch — retro-zine multi-slide proof.",
-    "theme": "retro-zine"
+    "description": "Research readout for Khaki Press, an independent print zine: why one in three subscribers left after Issue 05, what keeps readers, price tolerance, where copies sell, limits of the study, and ranked recommendations.",
+    "theme": "retro-zine",
+    "genre": "research"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Issue 07",
-      "heading": "KHAKI PAPER. FOREST TYPE.",
-      "lead": "Bebas Neue mastheads. Caveat scribbles in the margin.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Issue 07",
-      "heading": "KHAKI PAPER. FOREST TYPE.",
-      "lead": "Bebas Neue mastheads. Caveat scribbles in the margin.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23B8A98A%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23C8B99A%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C143%2C77%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%280%2C143%2C77%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C168%2C93%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%280%2C143%2C77%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28184%2C169%2C138%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C143%2C77%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%280%2C143%2C77%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%280%2C143%2C77%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%280%2C168%2C93%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%280%2C168%2C93%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%280%2C168%2C93%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23C8B99A%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22820%22%20rx%3D%22700%22%20ry%3D%22120%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23floor%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22520%22%20cy%3D%22260%22%20rx%3D%22360%22%20ry%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22220%22%20rx%3D%22300%22%20ry%3D%22220%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20desk%20product%20frame%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28430%2C170%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%22720%22%20height%3D%22460%22%20rx%3D%2228%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22450%22%20rx%3D%2226%22%20fill%3D%22%23B8A98A%22%20stroke%3D%22rgba%280%2C143%2C77%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22%23C8B99A%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%2290%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%226%22%20fill%3D%22rgba%280%2C143%2C77%2C0.850%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22130%22%20width%3D%22380%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22158%22%20width%3D%22320%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%280%2C168%2C93%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22290%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%280%2C143%2C77%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22510%22%20y%3D%22210%22%20width%3D%22140%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22280%22%20y%3D%22400%22%20width%3D%22160%22%20height%3D%2210%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Khaki Press craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Khaki Press · Reader study 2026 · Issues 01–07",
+      "heading": "Readers pay for the essay.",
+      "lead": "Why our print readers stay, from 1,186 replies. For the Issue 08 planning meeting.",
+      "notes": "This is a pre-read and a live deck. In the room, read the headings aloud; they carry the argument."
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Inside",
-      "heading": "This issue",
-      "columns": "bento",
+      "eyebrow": "Answer first",
+      "heading": "Three findings: the essay keeps readers, price does not, shops sell",
+      "columns": 3,
       "cards": [
-        {
-          "icon": "fa-solid fa-pen",
-          "title": "Essays",
-          "body": "Long reads that fit a pocket."
-        },
-        {
-          "icon": "fa-solid fa-camera",
-          "title": "Photo essays",
-          "body": "Grain welcome."
-        },
-        {
-          "icon": "fa-solid fa-music",
-          "title": "Playlists",
-          "body": "Cassette energy, Spotify links."
-        },
-        {
-          "icon": "fa-solid fa-compass",
-          "title": "Clear north star",
-          "body": "One decisive story beat — not a wall of equal tiles."
-        },
-        {
-          "icon": "fa-solid fa-scissors",
-          "title": "Cut the filler",
-          "body": "If a card doesn't change the decision, it doesn't earn the pixel."
-        }
+        { "icon": "fa-solid fa-book-open", "title": "The essay drives renewal", "body": "Readers who finish it renew at 71%, against 38% for skimmers." },
+        { "icon": "fa-solid fa-tag", "title": "Price is not the problem", "body": "At $11 an issue, 96% of readers would still buy." },
+        { "icon": "fa-solid fa-store", "title": "Shops outsell the post", "body": "Independent shops sell 58% of every print run." }
       ]
     },
     {
+      "layout": "image-hero",
+      "eyebrow": "The question",
+      "heading": "One in three subscribers left after Issue 05, and we needed to know why",
+      "lead": "Subscribers fell from 2,400 to 1,610. Issue 07 won back 370. What made people leave?",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'><rect width='1600' height='900' fill='%23B8A98A'/><g transform='rotate(-1.5 800 440)' font-family='Impact,Arial Narrow,sans-serif' fill='%231A1A1A'><rect x='160' y='280' width='1280' height='300' fill='%23F4EFE6' stroke='%231A1A1A' stroke-width='4'/><text x='200' y='360' font-size='64' fill='%23008F4D'>ISSUE 05</text><text x='200' y='400' font-size='26' letter-spacing='4'>CONTENTS · MARCH 2026 · $9</text><line x1='200' y1='420' x2='560' y2='420' stroke='%231A1A1A' stroke-width='4'/><g font-family='Arial,sans-serif' font-size='24'><text x='200' y='470'>p.4  Photo essay: night buses</text><text x='200' y='510'>p.14  Playlist: tape side B</text><text x='200' y='550'>p.18  Interview: two printers</text><text x='640' y='470'>p.26  Letters</text><text x='640' y='510'>p.30  Back page comic</text></g><rect x='1000' y='320' width='400' height='220' fill='none' stroke='%23008F4D' stroke-width='6' stroke-dasharray='16 10'/><text x='1200' y='420' font-family='Arial,sans-serif' font-size='34' font-weight='700' fill='%23008F4D' text-anchor='middle'>Long essay: none</text><text x='1200' y='462' font-family='Arial,sans-serif' font-size='22' fill='%23004827' text-anchor='middle'>first issue without one</text></g></svg>",
+      "imageAlt": "Contents page of Khaki Press Issue 05 with a dashed box marking the missing long essay",
+      "notes": "Do not reveal the answer here. Show the missing box and let the room guess."
+    },
+    {
       "layout": "stat-row",
-      "eyebrow": "Press",
-      "heading": "Indie math.",
+      "eyebrow": "Method",
+      "heading": "How we asked 2,400 current and former readers",
       "stats": [
-        {
-          "value": "2.4k",
-          "label": "Subs"
-        },
-        {
-          "value": "7",
-          "label": "Issues"
-        },
-        {
-          "value": "12",
-          "label": "Cities"
-        }
+        { "value": "1,186", "label": "Survey replies, 49% of everyone invited" },
+        { "value": "24", "label": "Interviews in 6 cities, Sept–Oct 2026" },
+        { "value": "7", "label": "Issues of sales and renewal records" }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "What we found",
+      "lead": "Three findings, each with its evidence."
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Finding 1",
+      "heading": "Readers who finish the long essay renew at nearly twice the rate",
+      "chartType": "horizontal-bar",
+      "categories": ["Finished the long essay", "Read photo essays only", "Skimmed the issue"],
+      "series": [
+        { "name": "Renewal rate (%)", "values": [71, 46, 38] }
       ],
-      "notes": "One breath on the numbers — then move on."
+      "showValues": true,
+      "lead": "Renewal rate by reading habit. Source: survey matched to renewal records, n = 1,186."
     },
     {
       "layout": "quote",
-      "quote": "If it looks too clean, we printed the wrong draft.",
-      "by": "Khaki Press"
+      "quote": "The essay is the reason I keep it on the shelf. Without it, Issue 05 felt like a flyer.",
+      "by": "Reader in Leeds, subscriber since Issue 01 · interview 14"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Finding 2",
+      "heading": "Raising the price from $9 to $11 would keep 96% of readers",
+      "columns": ["Price per issue", "Would still buy", "Revenue per issue"],
+      "rows": [
+        ["$9 (today)", "100%", "$17,820"],
+        ["$11", "96%", "$20,910"],
+        ["$13", "81%", "$20,850"],
+        ["$15", "58%", "$17,230"]
+      ]
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Finding 3",
+      "heading": "Independent shops sell 58% of copies, twice the share of mail",
+      "lead": "Share of Issue 07 copies sold, by channel. Source: distributor and Stripe records.",
+      "items": [
+        { "rank": "1", "label": "Independent shops (41 stockists)", "value": "58%", "widthPct": 58 },
+        { "rank": "2", "label": "Mail subscription", "value": "27%", "widthPct": 27 },
+        { "rank": "3", "label": "Zine fairs and events", "value": "9%", "widthPct": 9 },
+        { "rank": "4", "label": "Single copies online", "value": "6%", "widthPct": 6 }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "What surprised us",
+      "heading": "We expected price to explain the losses, but the missing essay did",
+      "leftLabel": "What we expected",
+      "left": "The $2 rise in Issue 04 pushed readers out.\nPost delays made renewals lapse.",
+      "rightLabel": "What we found",
+      "right": "64% of readers who left named the missing essay.\nOnly 9% named the price.",
+      "emphasis": "right",
+      "notes": "This is the slide to slow down on. The team believed the price story for six months."
+    },
+    {
+      "layout": "section",
+      "number": "03",
+      "heading": "What we recommend",
+      "lead": "How sure we are, then what to do."
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Limits and confidence",
+      "heading": "City readers answered most, so treat small-town numbers as soft",
+      "columns": ["Limit", "Effect", "Confidence"],
+      "rows": [
+        ["78% of replies from 6 cities", "Small-town views under-weighted", "Medium"],
+        ["Leavers replied less (31% vs 58%)", "Reasons for leaving may skew", "Medium"],
+        ["Price answers are stated, not observed", "Real drop-off may be higher", "Low"],
+        ["Renewal link uses matched emails", "11% of replies unmatched", "High"]
+      ]
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Recommendations",
+      "heading": "Three moves, ranked by their effect on renewals",
+      "items": [
+        { "rank": "1", "label": "Run a long essay in every issue", "value": "+12 pts renewal", "widthPct": 100 },
+        { "rank": "2", "label": "Add 20 stockists in 4 new cities", "value": "+380 copies", "widthPct": 55 },
+        { "rank": "3", "label": "Raise the price to $11 from Issue 08", "value": "+$3,090 / issue", "widthPct": 40 }
+      ],
+      "notes": "The ranking is by renewal effect, not revenue. The price move earns most per issue but keeps nobody."
     },
     {
       "layout": "closing",
-      "eyebrow": "Subscribe",
-      "heading": "Get Issue 07.",
-      "lead": "Forest green on khaki forever.",
-      "cta": {
-        "label": "Subscribe",
-        "href": "#"
-      }
+      "eyebrow": "Decision needed today",
+      "heading": "Keep the long essay.",
+      "lead": "Commit to one in every issue from Issue 08. It prints on 6 February 2027, so the essay needs a writer by 15 December.",
+      "actions": [
+        { "label": "Approve the essay slot", "href": "#", "style": "solid", "icon": "fa-solid fa-check" },
+        { "label": "Read the full study", "href": "#", "style": "outline", "icon": "fa-solid fa-file-lines" }
+      ]
     }
   ]
 }

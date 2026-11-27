@@ -1,101 +1,148 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Buttercup — Launch Deck",
+    "title": "Buttercup Growsocks — launch, 3 March 2027",
     "company": "Buttercup",
-    "description": "Kids brand launch — daisy-days multi-slide proof.",
-    "theme": "daisy-days"
+    "description": "Launch deck for Buttercup Growsocks, a kids' stretch-knit sock that fits from age 2 to age 5: the problem, the reveal, three features, beta proof, a parent's voice, price and availability.",
+    "theme": "daisy-days",
+    "genre": "launch"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Launch",
-      "heading": "Cream pastels. Charcoal outlines.",
-      "lead": "Fredoka One joy. Quicksand calm.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Buttercup · Launch · 3 March 2027",
+      "heading": "Socks that grow with your kid for three years.",
+      "lead": "Meet Growsocks: one pair from age 2 to age 5.",
+      "notes": "Say the headline slowly. Hold up a real pair before you click."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Launch",
-      "heading": "Cream pastels. Charcoal outlines.",
-      "lead": "Fredoka One joy. Quicksand calm.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23FFFDF8%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23F5F0E6%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28247%2C200%2C212%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C253%2C248%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28247%2C200%2C212%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28247%2C200%2C212%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28247%2C200%2C212%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F5F0E6%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.65%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22420%22%20rx%3D%22640%22%20ry%3D%22220%22%20fill%3D%22rgba%28126%2C205%2C192%2C0.180%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20neon%20tunnel%20rings%20--%3E%0A%20%20%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22520%22%20ry%3D%22210%22%20stroke%3D%22rgba%28126%2C205%2C192%2C0.350%29%22%20stroke-width%3D%223%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22400%22%20ry%3D%22160%22%20stroke%3D%22rgba%28247%2C200%2C212%2C0.450%29%22%20stroke-width%3D%222.5%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22280%22%20ry%3D%22110%22%20stroke%3D%22rgba%28126%2C205%2C192%2C0.550%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22160%22%20ry%3D%2262%22%20stroke%3D%22rgba%28247%2C200%2C212%2C0.700%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20x%3D%22470%22%20y%3D%22300%22%20width%3D%22660%22%20height%3D%22300%22%20rx%3D%2222%22%20fill%3D%22rgba%28255%2C253%2C248%2C0.720%29%22%20stroke%3D%22rgba%28126%2C205%2C192%2C0.400%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22350%22%20width%3D%22240%22%20height%3D%2216%22%20rx%3D%226%22%20fill%3D%22rgba%28126%2C205%2C192%2C0.900%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22390%22%20width%3D%22420%22%20height%3D%2211%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.320%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22420%22%20width%3D%22360%22%20height%3D%2211%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28247%2C200%2C212%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22670%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28126%2C205%2C192%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22830%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.5%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22240%22%20cy%3D%22180%22%20r%3D%2216%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221360%22%20cy%3D%22220%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221480%22%20cy%3D%22680%22%20r%3D%2212%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Buttercup craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Today",
+      "heading": "Kids outgrow socks every four months, so parents bin 20 pairs a year",
+      "lead": "Buttercup survey of 1,050 UK parents, 2026.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%3Cdefs%3E%3Cpath%20id%3D%22s%22%20d%3D%22M0%200h60v110q0%2020%2020%2020h50q25%200%2025%2025t-25%2025h-95q-35%200-35-35z%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%225%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F5F0E6%22%2F%3E%3Cg%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%223%22%20opacity%3D%22.6%22%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22140%22%20r%3D%2240%22%2F%3E%3Ccircle%20cx%3D%221480%22%20cy%3D%22760%22%20r%3D%2250%22%2F%3E%3Ccircle%20cx%3D%221460%22%20cy%3D%22130%22%20r%3D%2230%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(640%20348)%20scale(.62)%22%3E%3Cuse%20href%3D%22%23s%22%20fill%3D%22%23F7C8D4%22%20transform%3D%22translate(40%20-40)%20rotate(-25)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20fill%3D%22%237ECDC0%22%20transform%3D%22translate(150%20-70)%20rotate(10)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20fill%3D%22%23F9D867%22%20transform%3D%22translate(260%20-40)%20rotate(35)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20fill%3D%22%23FFFDF8%22%20transform%3D%22translate(360%20-60)%20rotate(-10)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20fill%3D%22%23F7C8D4%22%20transform%3D%22translate(440%200)%20rotate(50)%22%2F%3E%3Cpath%20d%3D%22M-20%20120h520l-50%20320h-420z%22%20fill%3D%22%23F9D867%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%226%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cg%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%20opacity%3D%22.5%22%3E%3Cpath%20d%3D%22M30%20200h440M45%20290h410M60%20380h380%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%22-40%22%20y%3D%22100%22%20width%3D%22560%22%20height%3D%2240%22%20rx%3D%2220%22%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%226%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(1060%20365)%22%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%3E%3Crect%20width%3D%22300%22%20height%3D%22170%22%20rx%3D%2224%22%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%225%22%2F%3E%3Ctext%20x%3D%22150%22%20y%3D%2288%22%20font-size%3D%2264%22%20fill%3D%22%232D2D2D%22%20text-anchor%3D%22middle%22%3E20%20pairs%3C%2Ftext%3E%3Ctext%20x%3D%22150%22%20y%3D%22134%22%20font-size%3D%2226%22%20fill%3D%22%23666%22%20text-anchor%3D%22middle%22%3Eoutgrown%20a%20year%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "A yellow laundry basket overflowing with small outgrown socks"
     },
     {
-      "layout": "feature-grid",
-      "eyebrow": "Line",
-      "heading": "Three first products",
-      "columns": "bento",
-      "cards": [
-        {
-          "icon": "fa-solid fa-socks",
-          "title": "Socks",
-          "body": "Butter yellow that survives the wash."
-        },
-        {
-          "icon": "fa-solid fa-puzzle-piece",
-          "title": "Play kits",
-          "body": "Turquoise boxes, pink stickers."
-        },
-        {
-          "icon": "fa-solid fa-book-open",
-          "title": "Story cards",
-          "body": "Short reads for bedtime."
-        },
-        {
-          "icon": "fa-solid fa-scissors",
-          "title": "Cut the filler",
-          "body": "If a card doesn't change the decision, it doesn't earn the pixel."
-        },
-        {
-          "icon": "fa-solid fa-layer-group",
-          "title": "Stack for scan",
-          "body": "Hierarchy first. Decoration second. Decoration never."
-        }
+      "layout": "image-hero",
+      "eyebrow": "Introducing",
+      "heading": "Growsocks",
+      "lead": "A stretch-knit sock that fits ages 2 to 5.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%237ECDC0%22%2F%3E%3Cg%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%3E%3Ccircle%20cx%3D%22200%22%20cy%3D%22200%22%20r%3D%2222%22%2F%3E%3Ccircle%20cx%3D%221400%22%20cy%3D%22700%22%20r%3D%2230%22%2F%3E%3Ccircle%20cx%3D%221340%22%20cy%3D%22190%22%20r%3D%2218%22%2F%3E%3Ccircle%20cx%3D%22300%22%20cy%3D%22720%22%20r%3D%2216%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(700%20285)%20scale(1.85)%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%222.4%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M0%200h60v110q0%2020%2020%2020h50q25%200%2025%2025t-25%2025h-95q-35%200-35-35z%22%20fill%3D%22%23F9D867%22%2F%3E%3Crect%20x%3D%22-4%22%20y%3D%22-6%22%20width%3D%2268%22%20height%3D%2222%22%20rx%3D%226%22%20fill%3D%22%23F7C8D4%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke-width%3D%221.6%22%20opacity%3D%22.6%22%3E%3Cpath%20d%3D%22M6%2030v70M18%2030v70M30%2030v70M42%2030v70M54%2030v70%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%232D2D2D%22%3E%3Ccircle%20cx%3D%2234%22%20cy%3D%2264%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2248%22%20cy%3D%2264%22%20r%3D%223%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M32%2076q9%208%2018%200%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M118%20150a14%2014%200%200%201%2022%200%22%20fill%3D%22%23FFFDF8%22%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%20fill%3D%22%232D2D2D%22%3E%3Cpath%20d%3D%22M1000%20360h150%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%20stroke-dasharray%3D%2210%2010%22%2F%3E%3Ctext%20x%3D%221170%22%20y%3D%22372%22%20font-size%3D%2240%22%3Efits%20age%202%20to%205%3C%2Ftext%3E%3Cpath%20d%3D%22M1020%20560h130%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%20stroke-dasharray%3D%2210%2010%22%2F%3E%3Ctext%20x%3D%221170%22%20y%3D%22572%22%20font-size%3D%2240%22%3Egrip%20dots%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "A butter-yellow Growsock with a pink cuff on a teal background",
+      "notes": "This is the reveal. Say nothing for two seconds."
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "How Growsocks work",
+      "lead": "Three small ideas in one sock."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Stretch knit",
+      "heading": "Ribbed stretch knit grows through three shoe sizes",
+      "ratio": "1-2",
+      "body": "Rib channels open as feet grow. Heel and toe stay snug from size 5 to size 12.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20900%22%3E%3Cdefs%3E%3Cpath%20id%3D%22s%22%20d%3D%22M0%200h60v110q0%2020%2020%2020h50q25%200%2025%2025t-25%2025h-95q-35%200-35-35z%22%20fill%3D%22%23F9D867%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%223%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22900%22%20fill%3D%22%23FFFDF8%22%2F%3E%3Cpath%20d%3D%22M80%20720h1040%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%2F%3E%3Cg%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%20font-size%3D%2240%22%20fill%3D%22%232D2D2D%22%20text-anchor%3D%22middle%22%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(130%20410)%20scale(1.6)%22%2F%3E%3Ctext%20x%3D%22230%22%20y%3D%22790%22%3EAge%202%3C%2Ftext%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(470%20330)%20scale(2.1)%22%2F%3E%3Ctext%20x%3D%22600%22%20y%3D%22790%22%3EAge%203%C2%BD%3C%2Ftext%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(800%20300)%20scale(2.25)%22%20fill%3D%22%237ECDC0%22%2F%3E%3Ctext%20x%3D%22960%22%20y%3D%22790%22%3EAge%205%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23F7C8D4%22%20stroke-width%3D%2210%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M240%20330q120-120%20300-110M650%20250q120-110%20260-100%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%22600%22%20y%3D%22130%22%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%20font-size%3D%2244%22%20fill%3D%22%232D2D2D%22%20text-anchor%3D%22middle%22%3Esame%20pair%2C%20three%20sizes%3C%2Ftext%3E%3C%2Fsvg%3E",
+      "imageAlt": "The same sock drawn at three sizes for ages 2, 3½ and 5"
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Grip dots",
+      "heading": "Grip dots last 200 washes, so toddlers stay upright",
+      "lead": "Natural rubber dots, tested at 40 °C.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F7C8D4%22%2F%3E%3Cg%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%3E%3Cpath%20d%3D%22M120%20640q60-40%20120%200t120%200%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M1260%20220q60-40%20120%200t120%200%22%20fill%3D%22none%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(760%20450)%20rotate(-90)%20scale(.95)%22%20stroke%3D%22%232D2D2D%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M-150-90h220q90%200%2090%2090t-90%2090h-220q-70%200-70-90t70-90z%22%20fill%3D%22%23F9D867%22%20stroke-width%3D%226%22%2F%3E%3Cg%20fill%3D%22%237ECDC0%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22-150%22%20cy%3D%22-40%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-150%22%20cy%3D%220%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-150%22%20cy%3D%2240%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-100%22%20cy%3D%22-50%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-100%22%20cy%3D%22-10%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-100%22%20cy%3D%2230%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-100%22%20cy%3D%2270%22%20r%3D%2212%22%2F%3E%3Ccircle%20cx%3D%22-40%22%20cy%3D%22-40%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-40%22%20cy%3D%220%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-40%22%20cy%3D%2240%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%22-50%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%22-10%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2230%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2270%22%20r%3D%2212%22%2F%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%22-40%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%220%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%2240%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22130%22%20cy%3D%22-20%22%20r%3D%2212%22%2F%3E%3Ccircle%20cx%3D%22130%22%20cy%3D%2220%22%20r%3D%2212%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3Cg%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%20fill%3D%22%232D2D2D%22%3E%3Crect%20x%3D%221000%22%20y%3D%22370%22%20width%3D%22340%22%20height%3D%22160%22%20rx%3D%2224%22%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%225%22%2F%3E%3Ctext%20x%3D%221170%22%20y%3D%22450%22%20font-size%3D%2256%22%20text-anchor%3D%22middle%22%3E200%20washes%3C%2Ftext%3E%3Ctext%20x%3D%221170%22%20y%3D%22496%22%20font-size%3D%2226%22%20text-anchor%3D%22middle%22%20fill%3D%22%23666%22%3Edots%20still%20on%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "The sole of a Growsock covered in teal grip dots"
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "No odd socks",
+      "heading": "Every sock in the box matches every other sock",
+      "ratio": "1-2",
+      "reverse": true,
+      "body": "One pattern, two colours per box. Any two socks make a pair, so the odd sock is gone.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20900%22%3E%3Cdefs%3E%3Cg%20id%3D%22s%22%3E%3Cpath%20d%3D%22M0%200h60v110q0%2020%2020%2020h50q25%200%2025%2025t-25%2025h-95q-35%200-35-35z%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%22-3%22%20y%3D%22-4%22%20width%3D%2266%22%20height%3D%2220%22%20rx%3D%226%22%20fill%3D%22%23F7C8D4%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%2F%3E%3C%2Fg%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22900%22%20fill%3D%22%23FFFDF8%22%2F%3E%3Cg%20fill%3D%22%23F9D867%22%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(170%20150)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(470%20150)%22%20fill%3D%22%237ECDC0%22%2F%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(770%20150)%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%237ECDC0%22%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(170%20500)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(470%20500)%22%20fill%3D%22%23F9D867%22%2F%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(770%20500)%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%225%22%20stroke-dasharray%3D%224%2014%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M260%20360q200%20120%20340%20160M560%20360q200%20120%20300%20160M860%20360q-300%2060-560%20150%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%22600%22%20y%3D%22820%22%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%20font-size%3D%2242%22%20fill%3D%22%232D2D2D%22%20text-anchor%3D%22middle%22%3Eany%20two%20make%20a%20pair%3C%2Ftext%3E%3C%2Fsvg%3E",
+      "imageAlt": "Six socks in yellow and teal joined by dotted lines to show any two pair up"
+    },
+    {
+      "layout": "metric-ring",
+      "eyebrow": "Beta proof",
+      "heading": "94% of beta pairs still fit after twelve months of wear",
+      "value": "94%",
+      "pct": 94,
+      "label": "of pairs still fit at month 12",
+      "lead": "Beta with 600 families, February 2026 to February 2027.",
+      "notes": "The 6% that failed were all size 12+ feet. The Big Kid range in autumn fixes that."
+    },
+    {
+      "layout": "quote",
+      "quote": "Eleven months in, his first pair still fits. I have stopped buying socks.",
+      "by": "Hana Begum, beta parent, Leeds"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Price",
+      "heading": "A £32 box of Growsocks replaces £120 of ordinary socks",
+      "columns": [
+        "Option",
+        "Price",
+        "Lasts",
+        "Cost a year"
+      ],
+      "rows": [
+        [
+          "Ordinary socks, 20 pairs",
+          "£40",
+          "1 year",
+          "£40"
+        ],
+        [
+          "Growsocks, 3 pairs",
+          "£18",
+          "3 years",
+          "£6"
+        ],
+        [
+          "Growsocks, 6 pairs",
+          "£32",
+          "3 years",
+          "£10.67"
+        ]
       ]
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Beta",
-      "heading": "Tiny fans, big numbers.",
+      "eyebrow": "Availability",
+      "heading": "Growsocks ship on 3 March to 48 UK stores and online",
       "stats": [
         {
-          "value": "6.2k",
-          "label": "Preorders"
+          "value": "6,200",
+          "label": "Preorders since January"
         },
         {
           "value": "48",
-          "label": "Stores"
+          "label": "UK stores on launch day"
         },
         {
-          "value": "4.9",
-          "label": "Parent rating"
+          "value": "£0",
+          "label": "Shipping in launch week"
         }
-      ],
-      "notes": "One breath on the numbers — then move on."
-    },
-    {
-      "layout": "quote",
-      "quote": "Cute without the outline is just pastel mush.",
-      "by": "Buttercup"
+      ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Shop",
-      "heading": "Pick a daisy.",
-      "lead": "Launch week free shipping.",
+      "eyebrow": "3 March 2027",
+      "heading": "Buy one box now and skip three years of sock runs",
+      "lead": "Growsocks grow with your kid. Free shipping all launch week.",
       "actions": [
         {
-          "label": "Shop Buttercup",
-          "href": "#",
+          "label": "Preorder Growsocks",
           "style": "solid",
           "icon": "fa-solid fa-cart-shopping"
         },
         {
           "label": "Find a store",
-          "href": "#",
           "style": "outline",
           "icon": "fa-solid fa-location-dot"
         }

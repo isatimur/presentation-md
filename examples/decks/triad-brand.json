@@ -1,84 +1,200 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Triad — Brand Deck",
+    "title": "Triad — art direction credentials, AW27",
     "company": "Triad",
-    "description": "Fashion brand system — editorial-tri-tone multi-slide proof.",
-    "theme": "editorial-tri-tone"
+    "description": "Credentials for Triad, a three-founder fashion art-direction studio in Antwerp: one hero photograph per season, three client cases with results, process and booking.",
+    "theme": "editorial-tri-tone",
+    "genre": "brand"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Brand",
-      "heading": "Pink. Butter. Burgundy.",
-      "lead": "Bricolage for the shout. Instrument Serif for the whisper.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Triad · Fashion art direction, Antwerp · Credentials AW27",
+      "heading": "We make collections sell from the first photograph.",
+      "lead": "Three founders. 41 collections shot since 2020.",
+      "notes": "Open on the claim. The three cases prove it with orders, not likes."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Brand",
-      "heading": "Pink. Butter. Burgundy.",
-      "lead": "Bricolage for the shout. Instrument Serif for the whisper.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23F2D86A%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23F2B6C6%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28122%2C31%2C53%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28122%2C31%2C53%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28242%2C216%2C106%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28122%2C31%2C53%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28242%2C216%2C106%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28122%2C31%2C53%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28122%2C31%2C53%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28122%2C31%2C53%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28242%2C216%2C106%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28242%2C216%2C106%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28242%2C216%2C106%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F2B6C6%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22480%22%20cy%3D%22300%22%20rx%3D%22420%22%20ry%3D%22300%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221200%22%20cy%3D%22560%22%20rx%3D%22460%22%20ry%3D%22320%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.92%22%3E%0A%20%20%20%20%3Crect%20x%3D%22220%22%20y%3D%22180%22%20width%3D%22460%22%20height%3D%22300%22%20rx%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.060%29%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.160%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22250%22%20y%3D%22220%22%20width%3D%22180%22%20height%3D%2216%22%20rx%3D%226%22%20fill%3D%22rgba%28122%2C31%2C53%2C0.700%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22250%22%20y%3D%22260%22%20width%3D%22280%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22250%22%20y%3D%22290%22%20width%3D%22240%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.160%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22560%22%20y%3D%22260%22%20width%3D%22360%22%20height%3D%22320%22%20rx%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%20stroke%3D%22rgba%28242%2C216%2C106%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22600%22%20y%3D%22320%22%20width%3D%22120%22%20height%3D%22120%22%20rx%3D%2218%22%20fill%3D%22rgba%28122%2C31%2C53%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22740%22%20y%3D%22320%22%20width%3D%22120%22%20height%3D%22120%22%20rx%3D%2218%22%20fill%3D%22rgba%28242%2C216%2C106%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22980%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%22220%22%20rx%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.050%29%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.140%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Triad craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Our point of view",
+      "heading": "One image should sell the whole season",
+      "lead": "We shoot 36 frames and build everything on one.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20490%22%20width%3D%221600%22%20height%3D%22490%22%3E%3Cdefs%3E%3Cg%20id%3D%22f%22%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-95%22%20r%3D%2226%22%20fill%3D%22%237A1F35%22%2F%3E%3Cpath%20d%3D%22M-30%20-62%20L30%20-62%20L58%20110%20L-58%20110%20Z%22%20fill%3D%22%237A1F35%22%2F%3E%3Cpath%20d%3D%22M-18%20110%20L-14%20150%20M18%20110%20L14%20150%22%20stroke%3D%22%237A1F35%22%20stroke-width%3D%2210%22%2F%3E%3C%2Fg%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22490%22%20fill%3D%22%23F2B6C6%22%2F%3E%3Crect%20x%3D%22220%22%20y%3D%2230%22%20width%3D%221160%22%20height%3D%22350%22%20fill%3D%22%23fff6f0%22%20stroke%3D%22%237A1F35%22%20stroke-width%3D%224%22%2F%3E%3Cline%20x1%3D%22800%22%20y1%3D%2230%22%20x2%3D%22800%22%20y2%3D%22380%22%20stroke%3D%22%237A1F35%22%20stroke-opacity%3D%22.3%22%20stroke-width%3D%223%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%237A1F35%22%20stroke-width%3D%223%22%20stroke-opacity%3D%22.45%22%3E%3Crect%20x%3D%22270%22%20y%3D%2280%22%20width%3D%22140%22%20height%3D%22120%22%2F%3E%3Crect%20x%3D%22430%22%20y%3D%2280%22%20width%3D%22140%22%20height%3D%22120%22%2F%3E%3Crect%20x%3D%22590%22%20y%3D%2280%22%20width%3D%22140%22%20height%3D%22120%22%2F%3E%3Crect%20x%3D%22270%22%20y%3D%22220%22%20width%3D%22140%22%20height%3D%22120%22%2F%3E%3Crect%20x%3D%22430%22%20y%3D%22220%22%20width%3D%22140%22%20height%3D%22120%22%2F%3E%3Crect%20x%3D%22590%22%20y%3D%22220%22%20width%3D%22140%22%20height%3D%22120%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%22860%22%20y%3D%2260%22%20width%3D%22460%22%20height%3D%22290%22%20fill%3D%22%23F2D86A%22%2F%3E%3Cuse%20href%3D%22%23f%22%20transform%3D%22translate(1090%20200)%20scale(.95)%22%2F%3E%3Cg%20font-family%3D%22Georgia%2Cserif%22%20font-style%3D%22italic%22%20font-size%3D%2226%22%20fill%3D%22%237A1F35%22%3E%3Ctext%20x%3D%22270%22%20y%3D%22365%22%3E36%20frames%20shot%3C%2Ftext%3E%3Ctext%20x%3D%22860%22%20y%3D%22372%22%3E1%20frame%20chosen%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "A lookbook spread: six small outtakes on the left, one large hero frame of a figure in a long coat on the right"
     },
     {
-      "layout": "two-column",
-      "eyebrow": "Palette",
-      "heading": "Three notes only",
-      "body": "Pink field: Soft entry, hard crop. Butter type — Headlines that warm the page.",
-      "aside": "Body copy with gravity.",
-      "ratio": "1-2"
+      "layout": "feature-grid",
+      "eyebrow": "What we believe",
+      "heading": "Three rules decide every frame we choose",
+      "columns": 3,
+      "cards": [
+        {
+          "icon": "fa-solid fa-image",
+          "title": "One hero frame per season",
+          "body": "Print, social and windows all use it."
+        },
+        {
+          "icon": "fa-solid fa-shirt",
+          "title": "Clothes before scenery",
+          "body": "If the set wins, the coat loses."
+        },
+        {
+          "icon": "fa-solid fa-store",
+          "title": "Shoot for the shop floor",
+          "body": "Buyers order from the photo."
+        }
+      ]
     },
     {
-      "layout": "comparison",
-      "eyebrow": "Season",
-      "heading": "SS26 filter",
-      "leftLabel": "In",
-      "left": "Tri-tone blocks.\nEditorial crops.\nOne idea per page.",
-      "rightLabel": "Out",
-      "right": "Rainbow drops.\nBusy lookbooks.\nTiny logos.",
-      "emphasis": "left",
-      "notes": "Name the loser column first, then punch the winner."
+      "layout": "section",
+      "number": "01",
+      "heading": "Three seasons, three results",
+      "lead": "Maison Rue, Okra Knitwear, Halden & Moss."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 1 · Maison Rue, SS26",
+      "heading": "Maison Rue ran one frame on every surface",
+      "lead": "Lookbook, social and shop windows, spring 2026.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20490%22%20width%3D%221600%22%20height%3D%22490%22%3E%3Cdefs%3E%3Cg%20id%3D%22f%22%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-95%22%20r%3D%2226%22%20fill%3D%22%237A1F35%22%2F%3E%3Cpath%20d%3D%22M-30%20-62%20L30%20-62%20L58%20110%20L-58%20110%20Z%22%20fill%3D%22%237A1F35%22%2F%3E%3Cpath%20d%3D%22M-18%20110%20L-14%20150%20M18%20110%20L14%20150%22%20stroke%3D%22%237A1F35%22%20stroke-width%3D%2210%22%2F%3E%3C%2Fg%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22490%22%20fill%3D%22%23F2D86A%22%2F%3E%3Cg%20font-family%3D%22Georgia%2Cserif%22%20fill%3D%22%237A1F35%22%3E%3Crect%20x%3D%22160%22%20y%3D%2230%22%20width%3D%22300%22%20height%3D%22340%22%20fill%3D%22%23F2B6C6%22%20stroke%3D%22%237A1F35%22%20stroke-width%3D%224%22%2F%3E%3Ctext%20x%3D%22310%22%20y%3D%2280%22%20text-anchor%3D%22middle%22%20font-size%3D%2230%22%20letter-spacing%3D%224%22%3EMAISON%20RUE%3C%2Ftext%3E%3Ctext%20x%3D%22310%22%20y%3D%22110%22%20text-anchor%3D%22middle%22%20font-size%3D%2220%22%20font-style%3D%22italic%22%3ESpring%E2%80%93Summer%2026%3C%2Ftext%3E%3Cuse%20href%3D%22%23f%22%20transform%3D%22translate(310%20240)%20scale(.8)%22%2F%3E%3Ctext%20x%3D%22310%22%20y%3D%22365%22%20text-anchor%3D%22middle%22%20font-size%3D%2222%22%20font-style%3D%22italic%22%20dy%3D%22-8%22%3Elookbook%3C%2Ftext%3E%3Crect%20x%3D%22640%22%20y%3D%2220%22%20width%3D%22200%22%20height%3D%22360%22%20rx%3D%2228%22%20fill%3D%22%237A1F35%22%2F%3E%3Crect%20x%3D%22655%22%20y%3D%2250%22%20width%3D%22170%22%20height%3D%22290%22%20rx%3D%2210%22%20fill%3D%22%23F2B6C6%22%2F%3E%3Cuse%20href%3D%22%23f%22%20transform%3D%22translate(740%20200)%20scale(.65)%22%2F%3E%3Ctext%20x%3D%22740%22%20y%3D%22410%22%20text-anchor%3D%22middle%22%20font-size%3D%2222%22%20font-style%3D%22italic%22%3Esocial%3C%2Ftext%3E%3Crect%20x%3D%221020%22%20y%3D%2230%22%20width%3D%22420%22%20height%3D%22300%22%20fill%3D%22%23fff6f0%22%20stroke%3D%22%237A1F35%22%20stroke-width%3D%224%22%2F%3E%3Cuse%20href%3D%22%23f%22%20transform%3D%22translate(1230%20180)%20scale(.75)%22%2F%3E%3Ctext%20x%3D%221230%22%20y%3D%22365%22%20text-anchor%3D%22middle%22%20font-size%3D%2222%22%20font-style%3D%22italic%22%3Eshop%20window%3C%2Ftext%3E%3Ctext%20x%3D%22310%22%20y%3D%22410%22%20text-anchor%3D%22middle%22%20font-size%3D%2222%22%20font-style%3D%22italic%22%3Eprint%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "The same hero frame of a figure in a long coat on a Maison Rue lookbook cover, a phone screen and a shop window"
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Signal",
-      "heading": "Triad in numbers.",
-      "notes": "One breath on the numbers — then move on.",
+      "eyebrow": "Case 1 · Result",
+      "heading": "Maison Rue wholesale orders rose 46% in one season",
       "stats": [
         {
-          "value": "3×",
-          "label": "Faster cycles"
+          "value": "+46%",
+          "label": "Wholesale orders, SS26 vs. SS25"
         },
         {
-          "value": "92%",
-          "label": "Retention"
+          "value": "9 days",
+          "label": "To sell out the 1,200-piece capsule"
         },
         {
-          "value": "18",
-          "label": "Shipped pilots"
+          "value": "3.1×",
+          "label": "Lookbook views vs. SS25"
+        }
+      ],
+      "notes": "Buyers ordered from the lookbook before samples shipped. That is the point of the hero frame."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Case 2 · Okra Knitwear, AW26",
+      "heading": "Okra's preorders funded 70% of production",
+      "ratio": "1-2",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201270%201000%22%20width%3D%221270%22%20height%3D%221000%22%3E%3Crect%20width%3D%221270%22%20height%3D%221000%22%20fill%3D%22%23fff6f0%22%2F%3E%3Cg%20font-family%3D%22Georgia%2Cserif%22%20fill%3D%22%237A1F35%22%3E%3Ctext%20x%3D%2290%22%20y%3D%22100%22%20font-size%3D%2234%22%20letter-spacing%3D%223%22%3EOKRA%20KNITWEAR%20%C2%B7%20AW26%20%C2%B7%20ROLL%204%3C%2Ftext%3E%3Cg%20stroke%3D%22%237A1F35%22%20stroke-width%3D%223%22%3E%3Crect%20x%3D%2290%22%20y%3D%22140%22%20width%3D%22340%22%20height%3D%22230%22%20fill%3D%22%23F2B6C6%22%2F%3E%3Crect%20x%3D%22465%22%20y%3D%22140%22%20width%3D%22340%22%20height%3D%22230%22%20fill%3D%22%23F2B6C6%22%2F%3E%3Crect%20x%3D%22840%22%20y%3D%22140%22%20width%3D%22340%22%20height%3D%22230%22%20fill%3D%22%23F2B6C6%22%2F%3E%3Crect%20x%3D%2290%22%20y%3D%22400%22%20width%3D%22340%22%20height%3D%22230%22%20fill%3D%22%23F2B6C6%22%2F%3E%3Crect%20x%3D%22465%22%20y%3D%22400%22%20width%3D%22340%22%20height%3D%22230%22%20fill%3D%22%23F2D86A%22%2F%3E%3Crect%20x%3D%22840%22%20y%3D%22400%22%20width%3D%22340%22%20height%3D%22230%22%20fill%3D%22%23F2B6C6%22%2F%3E%3Crect%20x%3D%2290%22%20y%3D%22660%22%20width%3D%22340%22%20height%3D%22230%22%20fill%3D%22%23F2B6C6%22%2F%3E%3Crect%20x%3D%22465%22%20y%3D%22660%22%20width%3D%22340%22%20height%3D%22230%22%20fill%3D%22%23F2B6C6%22%2F%3E%3Crect%20x%3D%22840%22%20y%3D%22660%22%20width%3D%22340%22%20height%3D%22230%22%20fill%3D%22%23F2B6C6%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%237A1F35%22%20opacity%3D%22.75%22%3E%3Ccircle%20cx%3D%22260%22%20cy%3D%22255%22%20r%3D%2250%22%2F%3E%3Ccircle%20cx%3D%22635%22%20cy%3D%22255%22%20r%3D%2240%22%2F%3E%3Ccircle%20cx%3D%221010%22%20cy%3D%22255%22%20r%3D%2255%22%2F%3E%3Ccircle%20cx%3D%22260%22%20cy%3D%22515%22%20r%3D%2245%22%2F%3E%3Ccircle%20cx%3D%221010%22%20cy%3D%22515%22%20r%3D%2245%22%2F%3E%3Ccircle%20cx%3D%22260%22%20cy%3D%22775%22%20r%3D%2250%22%2F%3E%3Ccircle%20cx%3D%22635%22%20cy%3D%22775%22%20r%3D%2245%22%2F%3E%3Ccircle%20cx%3D%221010%22%20cy%3D%22775%22%20r%3D%2240%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(635%20515)%22%3E%3Ccircle%20r%3D%2262%22%20fill%3D%22%237A1F35%22%2F%3E%3Cpath%20d%3D%22M-50%20-10%20C-20%20-40%2020%2020%2050%20-10%20M-55%2015%20C-20%20-15%2020%2045%2055%2015%22%20stroke%3D%22%23F2D86A%22%20stroke-width%3D%226%22%20fill%3D%22none%22%2F%3E%3C%2Fg%3E%3Cellipse%20cx%3D%22635%22%20cy%3D%22515%22%20rx%3D%22210%22%20ry%3D%22150%22%20fill%3D%22none%22%20stroke%3D%22%237A1F35%22%20stroke-width%3D%228%22%2F%3E%3Ctext%20x%3D%2290%22%20y%3D%22950%22%20font-size%3D%2230%22%20font-style%3D%22italic%22%3EShot%20on%20the%20knitters%20at%20the%20Donegal%20mill%2C%20not%20on%20models.%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "A contact sheet of yarn and knitters' hands at a Donegal mill, with one frame circled",
+      "body": "We shot the range on the knitters at their Donegal mill. Preorders opened before cutting began."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 3 · Halden & Moss, Christmas 2026",
+      "heading": "Six windows lifted store footfall by 18%",
+      "lead": "One frame, repeated down the whole street front.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20490%22%20width%3D%221600%22%20height%3D%22490%22%3E%3Cdefs%3E%3Cg%20id%3D%22f%22%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-95%22%20r%3D%2226%22%20fill%3D%22%237A1F35%22%2F%3E%3Cpath%20d%3D%22M-30%20-62%20L30%20-62%20L58%20110%20L-58%20110%20Z%22%20fill%3D%22%237A1F35%22%2F%3E%3Cpath%20d%3D%22M-18%20110%20L-14%20150%20M18%20110%20L14%20150%22%20stroke%3D%22%237A1F35%22%20stroke-width%3D%2210%22%2F%3E%3C%2Fg%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22490%22%20fill%3D%22%23F2B6C6%22%2F%3E%3Crect%20x%3D%22120%22%20y%3D%2220%22%20width%3D%221080%22%20height%3D%22380%22%20fill%3D%22%23fff6f0%22%20stroke%3D%22%237A1F35%22%20stroke-width%3D%225%22%2F%3E%3Crect%20x%3D%22120%22%20y%3D%2220%22%20width%3D%221080%22%20height%3D%2270%22%20fill%3D%22%237A1F35%22%2F%3E%3Ctext%20x%3D%22660%22%20y%3D%2268%22%20text-anchor%3D%22middle%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2236%22%20letter-spacing%3D%2210%22%20fill%3D%22%23F2D86A%22%3EHALDEN%20%26amp%3B%20MOSS%3C%2Ftext%3E%3Cg%20fill%3D%22%23F2D86A%22%20stroke%3D%22%237A1F35%22%20stroke-width%3D%224%22%3E%3Crect%20x%3D%22170%22%20y%3D%22120%22%20width%3D%22300%22%20height%3D%22250%22%2F%3E%3Crect%20x%3D%22510%22%20y%3D%22120%22%20width%3D%22300%22%20height%3D%22250%22%2F%3E%3Crect%20x%3D%22850%22%20y%3D%22120%22%20width%3D%22300%22%20height%3D%22250%22%2F%3E%3C%2Fg%3E%3Cuse%20href%3D%22%23f%22%20transform%3D%22translate(320%20255)%20scale(.7)%22%2F%3E%3Cuse%20href%3D%22%23f%22%20transform%3D%22translate(660%20255)%20scale(.7)%22%2F%3E%3Cuse%20href%3D%22%23f%22%20transform%3D%22translate(1000%20255)%20scale(.7)%22%2F%3E%3Cg%20font-family%3D%22Georgia%2Cserif%22%20fill%3D%22%237A1F35%22%20text-anchor%3D%22middle%22%3E%3Ctext%20x%3D%221390%22%20y%3D%22200%22%20font-size%3D%2296%22%3E%2B18%25%3C%2Ftext%3E%3Ctext%20x%3D%221390%22%20y%3D%22250%22%20font-size%3D%2226%22%20font-style%3D%22italic%22%3Efootfall%2C%20Dec%202026%3C%2Ftext%3E%3Ctext%20x%3D%221390%22%20y%3D%22285%22%20font-size%3D%2226%22%20font-style%3D%22italic%22%3Evs.%20Dec%202025%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "The Halden & Moss store front with three windows showing the same figure, and +18% footfall in December 2026"
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Across all clients",
+      "heading": "Our clients sold 79% at full price, 14 points above market",
+      "chartType": "horizontal-bar",
+      "categories": [
+        "Market average",
+        "Triad clients"
+      ],
+      "series": [
+        {
+          "name": "Full-price sell-through, 2026 (%)",
+          "values": [
+            65,
+            79
+          ]
+        }
+      ],
+      "showValues": true,
+      "lead": "Full-price sell-through, 2026. Source: 11 client brands; market from the Euromode retail panel."
+    },
+    {
+      "layout": "logo-wall",
+      "eyebrow": "Clients",
+      "heading": "Labels we shoot for",
+      "columns": 3,
+      "cards": [
+        {
+          "title": "Maison Rue",
+          "body": "Since 2021"
+        },
+        {
+          "title": "Okra Knitwear",
+          "body": "Since 2024"
+        },
+        {
+          "title": "Halden & Moss",
+          "body": "Since 2025"
+        },
+        {
+          "title": "Linnea Atelier",
+          "body": "Since 2020"
+        },
+        {
+          "title": "Paloma Swim",
+          "body": "Since 2023"
+        },
+        {
+          "title": "Studio Verve",
+          "body": "Since 2022"
+        }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Triad gave us one photograph, and buyers ordered from it before they saw a sample.",
+      "by": "Inès Laurent · Founder · Maison Rue"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "How we work",
+      "heading": "Each season runs on a ten-week calendar",
+      "steps": [
+        {
+          "title": "Weeks 1–2",
+          "body": "Line review with your designers"
+        },
+        {
+          "title": "Weeks 3–4",
+          "body": "Casting, location, styling"
+        },
+        {
+          "title": "Week 5",
+          "body": "Two-day shoot, 36 frames"
+        },
+        {
+          "title": "Weeks 6–10",
+          "body": "Lookbook, windows, social"
         }
       ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Lookbook",
-      "heading": "See the triad.",
-      "lead": "SS26 appointments open.",
+      "eyebrow": "Book a season",
+      "heading": "Let one photograph sell your next collection.",
+      "lead": "AW27 shoots are open until 31 January.",
       "actions": [
         {
-          "label": "Book a showroom",
+          "label": "Book an AW27 shoot",
           "href": "#",
           "style": "solid",
-          "icon": "fa-solid fa-calendar"
+          "icon": "fa-solid fa-camera"
         },
         {
-          "label": "Browse the overview",
+          "label": "See the SS26 lookbooks",
           "href": "#",
           "style": "outline",
-          "icon": "fa-solid fa-book"
+          "icon": "fa-solid fa-book-open"
         }
       ]
     }

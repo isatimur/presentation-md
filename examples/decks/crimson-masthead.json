@@ -1,114 +1,261 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Crimson — Masthead Deck",
+    "title": "Crimson Reader Study 2026 — readout",
     "company": "Crimson",
-    "description": "Magazine media kit — editorial-serif multi-slide proof.",
-    "theme": "editorial-serif"
+    "description": "Research readout of the Crimson Reader Study 2026: print readers keep each issue for 41 days and recall its ads far better than digital readers, which supports a new long-shelf ad package.",
+    "theme": "editorial-serif",
+    "genre": "research"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Media kit",
-      "heading": "Cream paper. Crimson masthead.",
-      "lead": "Serif ink for the story. Thin rules for the rest.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Media kit",
-      "heading": "Cream paper. Crimson masthead.",
-      "lead": "Serif ink for the story. Thin rules for the rest.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f2ede3%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23faf7f2%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28156%2C28%2C28%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28156%2C28%2C28%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28166%2C124%2C30%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28156%2C28%2C28%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28242%2C237%2C227%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28156%2C28%2C28%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28156%2C28%2C28%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28156%2C28%2C28%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28166%2C124%2C30%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28166%2C124%2C30%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28166%2C124%2C30%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23faf7f2%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.5%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22200%22%20cy%3D%22100%22%20rx%3D%22420%22%20ry%3D%22280%22%20fill%3D%22rgba%28156%2C28%2C28%2C0.350%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221400%22%20cy%3D%22780%22%20rx%3D%22500%22%20ry%3D%22320%22%20fill%3D%22rgba%28166%2C124%2C30%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.9%22%3E%0A%20%20%20%20%3Crect%20x%3D%22180%22%20y%3D%22160%22%20width%3D%22520%22%20height%3D%22340%22%20rx%3D%228%22%20fill%3D%22%23f2ede3%22%20stroke%3D%22rgba%28156%2C28%2C28%2C0.400%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22%23faf7f2%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22200%22%20y%3D%22180%22%20width%3D%22480%22%20height%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.7%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22240%22%20y%3D%22470%22%20width%3D%22180%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22780%22%20y%3D%22220%22%20width%3D%22420%22%20height%3D%22280%22%20rx%3D%228%22%20fill%3D%22%23f2ede3%22%20stroke%3D%22rgba%28166%2C124%2C30%2C0.350%29%22%20stroke-width%3D%222%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22800%22%20y%3D%22240%22%20width%3D%22380%22%20height%3D%22220%22%20fill%3D%22rgba%28166%2C124%2C30%2C0.200%29%22%20transform%3D%22rotate%284%20990%20360%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Cg%20opacity%3D%220.4%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221260%22%20cy%3D%22180%22%20r%3D%2226%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221360%22%20cy%3D%22260%22%20r%3D%2214%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221180%22%20cy%3D%22300%22%20r%3D%2210%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Crimson craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
-    },
-    {
-      "layout": "two-column",
-      "eyebrow": "Voice",
-      "heading": "Print that still matters.",
-      "body": "Crimson publishes long features for readers who keep the issue on the table.",
-      "aside": "Hairline rules. Square corners. One crimson strike.",
-      "ratio": "3-2"
+      "eyebrow": "Crimson Reader Study 2026 · Readout to the publishing board · 4 December",
+      "heading": "Crimson's print readers keep each issue for 41 days.",
+      "lead": "And they remember the ads in it nearly three times as well as our digital readers.",
+      "notes": "Lead with the 41 days. It is the number the sales team will repeat to advertisers."
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Inventory",
-      "heading": "Ad placements",
-      "columns": "bento",
+      "eyebrow": "Answer first",
+      "heading": "Three findings change how we sell print ads in 2027",
+      "columns": 3,
       "cards": [
         {
+          "icon": "fa-solid fa-calendar-days",
+          "title": "Shelf life",
+          "body": "A print issue stays in use for 41 days; a weekly news title for 9."
+        },
+        {
+          "icon": "fa-solid fa-eye",
+          "title": "Ad recall",
+          "body": "58% of print readers recalled a named advertiser, against 21% online."
+        },
+        {
           "icon": "fa-solid fa-bookmark",
-          "title": "Cover tip-on",
-          "body": "First impression, last word."
-        },
-        {
-          "icon": "fa-solid fa-columns",
-          "title": "Spread",
-          "body": "Two pages, one argument."
-        },
-        {
-          "icon": "fa-solid fa-rectangle-ad",
-          "title": "Classifieds",
-          "body": "Small type, high intent."
-        },
-        {
-          "icon": "fa-solid fa-layer-group",
-          "title": "Stack for scan",
-          "body": "Hierarchy first. Decoration second. Decoration never."
-        },
-        {
-          "icon": "fa-solid fa-bolt",
-          "title": "Ship the punchline",
-          "body": "Lead with the claim that survives the hallway test."
+          "title": "Action",
+          "body": "64% saved or tore out a page; 17% bought something they saw."
         }
       ]
     },
     {
-      "layout": "stat-row",
-      "eyebrow": "Audience",
-      "heading": "Readers who stay.",
-      "stats": [
+      "layout": "two-column",
+      "eyebrow": "The question",
+      "heading": "Advertisers pay for reach, but our readers give us time",
+      "ratio": "3-2",
+      "body": "Situation: print ad revenue fell 8% in 2025 as buyers moved to digital reach.\nComplication: our rate card sells copies, not attention.",
+      "aside": "Question: how long do readers spend with Crimson, and does that time make ads work?"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Method",
+      "heading": "Method: a survey, a diary panel and an ad recall test",
+      "columns": [
+        "Source",
+        "Who",
+        "Size",
+        "When"
+      ],
+      "rows": [
+        [
+          "Online survey",
+          "Print and digital subscribers",
+          "n = 2,140",
+          "Sep 2026"
+        ],
+        [
+          "Reading diary",
+          "Print households",
+          "36 homes, 8 weeks",
+          "Sep–Oct 2026"
+        ],
+        [
+          "Aided ad recall",
+          "Both groups, same 12 ads",
+          "n = 1,020",
+          "Oct 2026"
+        ]
+      ]
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "What the diaries showed",
+      "heading": "A copy of Crimson stays open on the table for six weeks",
+      "lead": "Household 17 opened the autumn issue on 31 of 42 days.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20600%22%3E%3Crect%20width%3D%221600%22%20height%3D%22600%22%20fill%3D%22%23f2ede3%22%2F%3E%3Cg%20transform%3D%22translate(160%2060)%20scale(0.8)%22%3E%3Cg%20transform%3D%22rotate(-6%20520%20290)%22%3E%3Crect%20x%3D%22380%22%20y%3D%22120%22%20width%3D%22300%22%20height%3D%22390%22%20fill%3D%22%23faf7f2%22%20stroke%3D%22%231c1a17%22%20stroke-width%3D%223%22%2F%3E%3Crect%20x%3D%22380%22%20y%3D%22120%22%20width%3D%22300%22%20height%3D%2280%22%20fill%3D%22%239c1c1c%22%2F%3E%3Ctext%20x%3D%22530%22%20y%3D%22178%22%20font-family%3D%22Playfair%20Display%2C%20Georgia%2C%20serif%22%20font-size%3D%2252%22%20font-weight%3D%22700%22%20fill%3D%22%23faf7f2%22%20text-anchor%3D%22middle%22%3ECRIMSON%3C%2Ftext%3E%3Ctext%20x%3D%22530%22%20y%3D%22250%22%20font-family%3D%22Georgia%2C%20serif%22%20font-style%3D%22italic%22%20font-size%3D%2228%22%20fill%3D%22%231c1a17%22%20text-anchor%3D%22middle%22%3EThe%20Slow%20Issue%3C%2Ftext%3E%3Cpath%20d%3D%22M410%20280%20H650%20M410%20305%20H620%20M410%20330%20H640%22%20stroke%3D%22%235c574c%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M630%20510%20V560%20L645%20548%20L660%20560%20V510%22%20fill%3D%22%23a67c1e%22%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D%22Georgia%2C%20serif%22%20fill%3D%22%231c1a17%22%3E%3Crect%20x%3D%22860%22%20y%3D%22120%22%20width%3D%22420%22%20height%3D%22320%22%20fill%3D%22%23faf7f2%22%20stroke%3D%22%231c1a17%22%20stroke-width%3D%222%22%2F%3E%3Ctext%20x%3D%221070%22%20y%3D%22162%22%20font-size%3D%2228%22%20text-anchor%3D%22middle%22%20font-style%3D%22italic%22%3EDiary%20%C2%B7%20household%2017%3C%2Ftext%3E%3Cg%20font-size%3D%2218%22%20fill%3D%22%235c574c%22%20text-anchor%3D%22middle%22%3E%3Ctext%20x%3D%22910%22%20y%3D%22204%22%3EM%3C%2Ftext%3E%3Ctext%20x%3D%22965%22%20y%3D%22204%22%3ET%3C%2Ftext%3E%3Ctext%20x%3D%221020%22%20y%3D%22204%22%3EW%3C%2Ftext%3E%3Ctext%20x%3D%221075%22%20y%3D%22204%22%3ET%3C%2Ftext%3E%3Ctext%20x%3D%221130%22%20y%3D%22204%22%3EF%3C%2Ftext%3E%3Ctext%20x%3D%221185%22%20y%3D%22204%22%3ES%3C%2Ftext%3E%3Ctext%20x%3D%221240%22%20y%3D%22204%22%3ES%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20fill%3D%22%239c1c1c%22%3E%3Crect%20x%3D%22890%22%20y%3D%22218%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%22945%22%20y%3D%22218%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221000%22%20y%3D%22218%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221055%22%20y%3D%22218%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221110%22%20y%3D%22218%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221165%22%20y%3D%22218%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221220%22%20y%3D%22218%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%22890%22%20y%3D%22248%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%22945%22%20y%3D%22248%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221000%22%20y%3D%22248%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221055%22%20y%3D%22248%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221110%22%20y%3D%22248%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221165%22%20y%3D%22248%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221220%22%20y%3D%22248%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%22890%22%20y%3D%22278%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%22945%22%20y%3D%22278%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221000%22%20y%3D%22278%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221055%22%20y%3D%22278%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221110%22%20y%3D%22278%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221165%22%20y%3D%22278%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221220%22%20y%3D%22278%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%22890%22%20y%3D%22308%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%22945%22%20y%3D%22308%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221000%22%20y%3D%22308%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221055%22%20y%3D%22308%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221110%22%20y%3D%22308%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221165%22%20y%3D%22308%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221220%22%20y%3D%22308%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%22890%22%20y%3D%22338%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%22945%22%20y%3D%22338%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221000%22%20y%3D%22338%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%239c1c1c%22%20stroke-width%3D%222%22%3E%3Crect%20x%3D%221055%22%20y%3D%22338%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221110%22%20y%3D%22338%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221165%22%20y%3D%22338%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221220%22%20y%3D%22338%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%22890%22%20y%3D%22368%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%22945%22%20y%3D%22368%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221000%22%20y%3D%22368%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221055%22%20y%3D%22368%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221110%22%20y%3D%22368%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221165%22%20y%3D%22368%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3Crect%20x%3D%221220%22%20y%3D%22368%22%20width%3D%2240%22%20height%3D%2224%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%221070%22%20y%3D%22424%22%20font-size%3D%2222%22%20text-anchor%3D%22middle%22%3EOpened%20on%2031%20of%2042%20days%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "The autumn issue of Crimson on a table next to a reading diary with 31 of 42 days marked."
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Finding 1 · Shelf life",
+      "heading": "A print issue lasts 41 days, four times a weekly title",
+      "chartType": "bar",
+      "categories": [
+        "Crimson print",
+        "Weekly news title",
+        "Crimson digital"
+      ],
+      "series": [
         {
-          "value": "110k",
-          "label": "Print"
-        },
-        {
-          "value": "420k",
-          "label": "Digital"
-        },
-        {
-          "value": "18m",
-          "label": "Avg time"
+          "name": "Days in use per issue (median)",
+          "values": [
+            41,
+            9,
+            2
+          ]
         }
       ],
-      "notes": "One breath on the numbers — then move on."
+      "showValues": true,
+      "lead": "Median days from first to last opening. Reading diary, 36 homes; weekly title from the same diaries. Sep–Oct 2026."
     },
     {
       "layout": "quote",
-      "quote": "Clarity beats decoration — every time.",
-      "by": "Crimson",
-      "notes": "Let the quote hang — don't rush the attribution."
+      "quote": "I never throw Crimson away. It moves from the kitchen to the bedside to my sister's house, and I still find the gallery listings in it a month later.",
+      "by": "Diary participant, household 22, Leeds"
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Finding 2 · Ad recall",
+      "heading": "Print readers recalled advertisers nearly three times as often",
+      "chartType": "horizontal-bar",
+      "categories": [
+        "Crimson print",
+        "Crimson digital",
+        "Social feed, same ads"
+      ],
+      "series": [
+        {
+          "name": "Aided recall of a named advertiser (%)",
+          "values": [
+            58,
+            21,
+            9
+          ]
+        }
+      ],
+      "showValues": true,
+      "lead": "Aided recall of 12 test ads, 48 hours after reading. n = 1,020. October 2026."
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Finding 3 · Action",
+      "heading": "Two in three print readers saved a page, and one in six bought",
+      "lead": "Share of print readers who did each in the last issue. Survey, n = 1,380 print subscribers.",
+      "items": [
+        {
+          "rank": "1",
+          "label": "Saved or tore out a page",
+          "value": "64%",
+          "widthPct": 64
+        },
+        {
+          "rank": "2",
+          "label": "Visited an advertiser's shop or site",
+          "value": "38%",
+          "widthPct": 38
+        },
+        {
+          "rank": "3",
+          "label": "Passed the issue to someone else",
+          "value": "33%",
+          "widthPct": 33
+        },
+        {
+          "rank": "4",
+          "label": "Bought something advertised",
+          "value": "17%",
+          "widthPct": 17
+        }
+      ]
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "What surprised us",
+      "heading": "Under-35s are 44% of print subscribers, not the digital-only crowd we assumed",
+      "leftLabel": "We expected",
+      "left": "Younger readers on digital.\nPrint read once, then binned.\nRecall similar across formats.",
+      "rightLabel": "We found",
+      "right": "44% of print subscribers are under 35.\nEach copy reaches 2.4 readers.\nPrint recall 58%, digital 21%.",
+      "emphasis": "right"
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "How sure we are, and what to do next",
+      "lead": "Limits first, then three recommendations."
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Limits",
+      "heading": "The direction is clear, but self-reported days may run high",
+      "columns": [
+        "Limit",
+        "Risk to the result",
+        "Confidence"
+      ],
+      "rows": [
+        [
+          "Survey is self-reported",
+          "Days kept may be inflated",
+          "Moderate"
+        ],
+        [
+          "Diary panel is 36 homes",
+          "Narrow by region",
+          "Moderate"
+        ],
+        [
+          "Recall test is aided",
+          "Real-world recall is lower",
+          "Moderate"
+        ],
+        [
+          "Print vs digital gap",
+          "Same in every age group",
+          "High"
+        ]
+      ]
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Recommendations",
+      "heading": "We recommend selling time on the shelf, starting with the spring issue",
+      "items": [
+        {
+          "rank": "1",
+          "label": "Launch a Long Shelf ad package, priced 25% above run-of-book",
+          "value": "Spring 2027"
+        },
+        {
+          "rank": "2",
+          "label": "Report days in use and recall to every advertiser",
+          "value": "Each issue"
+        },
+        {
+          "rank": "3",
+          "label": "Raise the print run from 58,000 to 64,000 copies",
+          "value": "Summer 2027"
+        }
+      ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Book",
-      "heading": "Reserve the masthead week.",
-      "lead": "Q4 inventory open.",
+      "eyebrow": "Decision needed today",
+      "heading": "Approve the Long Shelf package so advertisers buy 41 days, not one glance",
+      "lead": "Approval today lets sales open spring bookings on 5 January.",
       "actions": [
         {
-          "label": "Book a page",
-          "href": "#",
+          "label": "Approve Long Shelf",
           "style": "solid",
-          "icon": "fa-solid fa-calendar"
+          "icon": "fa-solid fa-check"
         },
         {
-          "label": "Browse the overview",
-          "href": "#",
+          "label": "Read the full study",
           "style": "outline",
-          "icon": "fa-solid fa-book"
+          "icon": "fa-solid fa-book-open"
         }
-      ]
+      ],
+      "notes": "If the board asks about the limits, the print-versus-digital gap held in every age group. That is the claim we sell."
     }
   ]
 }

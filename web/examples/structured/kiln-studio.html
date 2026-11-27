@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Kiln — Studio Deck</title>
-<meta name="description" content="Craft studio credentials — mat multi-slide proof." />
+<title>Kiln — studio credentials 2026</title>
+<meta name="description" content="Credentials for Kiln, a Porto ceramics studio that makes tableware for restaurants and hotels: point of view, three measured cases, clients and a 16-week process." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400&display=swap');
@@ -20,6 +20,12 @@
   --muted: #b8b4a4;
   --accent: #C07030;
   --accent-2: #7A4E24;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #111111;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #C07030;
+  --accent-2-ink: #c88646;
   --card-bg: #EDE6D0;
   --border: rgba(240,232,210,0.12);
   --radius: 0px;
@@ -27,6 +33,10 @@
   --heading-font: 'Bricolage Grotesque', sans-serif;
   --body-font: 'DM Sans', system-ui, sans-serif;
   --heading-weight: 800;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,67 +6908,203 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="mat-woodglow">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Studio</span>
-  <h1>Sage walls. Orange heat.</h1>
-  <p class="lead">Bricolage for the mark. DM Sans for the firing schedule.</p>
+  <span class="eyebrow">Kiln · Ceramics studio · Porto · Credentials 2026</span>
+  <h1>We make the plates a restaurant is remembered by.</h1>
+  <p class="lead">Tableware for chefs and hotels, thrown and fired in Porto since 2019.</p>
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232E3D30%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23232E26%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28122%2C78%2C36%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2846%2C61%2C48%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28122%2C78%2C36%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28122%2C78%2C36%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28122%2C78%2C36%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23232E26%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22300%22%20cy%3D%22700%22%20rx%3D%22520%22%20ry%3D%22360%22%20fill%3D%22rgba%28192%2C112%2C48%2C0.220%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221300%22%20cy%3D%22160%22%20rx%3D%22420%22%20ry%3D%22300%22%20fill%3D%22rgba%28122%2C78%2C36%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M180%20780%20C260%20520%20420%20420%20520%20280%20C560%20360%20620%20460%20640%20620%20C480%20640%20300%20700%20180%20780%20Z%22%20fill%3D%22rgba%28192%2C112%2C48%2C0.450%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M1180%20120%20C1280%20180%201380%20260%201460%20380%20C1340%20360%201240%20300%201180%20120%20Z%22%20fill%3D%22rgba%28122%2C78%2C36%2C0.400%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M980%20700%20C1080%20560%201220%20500%201360%20420%20C1380%20540%201320%20660%201220%20760%20Z%22%20fill%3D%22rgba%28192%2C112%2C48%2C0.250%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%22860%22%20cy%3D%22240%22%20r%3D%2290%22%20fill%3D%22rgba%28122%2C78%2C36%2C0.200%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22640%22%20y%3D%22360%22%20width%3D%22360%22%20height%3D%22220%22%20rx%3D%2218%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%20stroke%3D%22rgba%28192%2C112%2C48%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22420%22%20width%3D%22200%22%20height%3D%2214%22%20rx%3D%225%22%20fill%3D%22rgba%28192%2C112%2C48%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22455%22%20width%3D%22260%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="Kiln craft visual" />
+    <img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 1600 400&#39;&gt;&lt;rect width&#x3D;&#39;1600&#39; height&#x3D;&#39;400&#39; fill&#x3D;&#39;%23232E26&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;560&#39; y&#x3D;&#39;0&#39; width&#x3D;&#39;1040&#39; height&#x3D;&#39;400&#39; fill&#x3D;&#39;%232E3D30&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;820&#39; cy&#x3D;&#39;170&#39; r&#x3D;&#39;130&#39; fill&#x3D;&#39;%23EDE6D0&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;820&#39; cy&#x3D;&#39;170&#39; r&#x3D;&#39;92&#39; fill&#x3D;&#39;%23F0E8D2&#39; stroke&#x3D;&#39;%23C07030&#39; stroke-width&#x3D;&#39;10&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;790&#39; cy&#x3D;&#39;150&#39; r&#x3D;&#39;26&#39; fill&#x3D;&#39;%23C07030&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;838&#39; cy&#x3D;&#39;184&#39; r&#x3D;&#39;18&#39; fill&#x3D;&#39;%237A4E24&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M770 200 q40 -20 90 0&#39; stroke&#x3D;&#39;%235E7A4E&#39; stroke-width&#x3D;&#39;10&#39; fill&#x3D;&#39;none&#39; stroke-linecap&#x3D;&#39;round&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;1080&#39; cy&#x3D;&#39;130&#39; r&#x3D;&#39;78&#39; fill&#x3D;&#39;%235E7A4E&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;1080&#39; cy&#x3D;&#39;130&#39; r&#x3D;&#39;54&#39; fill&#x3D;&#39;%23EDE6D0&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;1080&#39; cy&#x3D;&#39;270&#39; r&#x3D;&#39;56&#39; fill&#x3D;&#39;%23C07030&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;1080&#39; cy&#x3D;&#39;270&#39; r&#x3D;&#39;36&#39; fill&#x3D;&#39;%237A4E24&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1230&#39; y&#x3D;&#39;60&#39; width&#x3D;&#39;220&#39; height&#x3D;&#39;240&#39; rx&#x3D;&#39;6&#39; fill&#x3D;&#39;%23F0E8D2&#39; transform&#x3D;&#39;rotate(4 1340 180)&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;Courier,monospace&#39; font-size&#x3D;&#39;22&#39; fill&#x3D;&#39;%23232E26&#39; transform&#x3D;&#39;rotate(4 1340 180)&#39;&gt;&lt;text x&#x3D;&#39;1252&#39; y&#x3D;&#39;104&#39;&gt;TABLE 12&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1252&#39; y&#x3D;&#39;144&#39;&gt;2× sea bass&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1252&#39; y&#x3D;&#39;178&#39;&gt;1× tomato rice&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1252&#39; y&#x3D;&#39;212&#39;&gt;1× pudim&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1252&#39; y&#x3D;&#39;270&#39; fill&#x3D;&#39;%23C07030&#39;&gt;plate: KL-07&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="Top view of a Kiln plate with an orange rim holding a plated dish, two glazed bowls beside it, and a kitchen ticket for table 12 that names the plate KL-07." />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">Studio</span>
-    <h2>Sage walls. Orange heat.</h2>
-    <p class="lead">Bricolage for the mark. DM Sans for the firing schedule.</p>
+    <span class="eyebrow">Point of view</span>
+    <h2>A plate is part of the dish, so we start in the kitchen</h2>
+    <p class="lead">Every commission begins with a week of service beside the chef.</p>
+  </div>
+</section>
+
+<section class="slide feature-grid-slide" data-layout="feature-grid">
+  <span class="eyebrow">What we believe</span>
+  <h2>Three rules decide every piece that leaves our kiln</h2>
+  <div class="grid cols-3">
+    <div class="card">
+      <i class="fa-solid fa-utensils"></i>
+      <h3>Built for service</h3>
+      <p>It stacks, survives the dishwasher, fits the pass.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-palette"></i>
+      <h3>Glaze from the menu</h3>
+      <p>Colours tested against the food.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-scroll"></i>
+      <h3>Re-made from a recipe</h3>
+      <p>Every piece has a recipe card.</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">01</div>
+  <h2>Selected work</h2>
+  <p class="lead">Three kitchens, three measured results.</p>
+</section>
+
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 -50 1600 400&#39;&gt;&lt;rect y&#x3D;&#39;-50&#39; width&#x3D;&#39;1600&#39; height&#x3D;&#39;450&#39; fill&#x3D;&#39;%23232E26&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;Helvetica,Arial&#39; fill&#x3D;&#39;%23F0E8D2&#39;&gt;&lt;text x&#x3D;&#39;560&#39; y&#x3D;&#39;70&#39; font-size&#x3D;&#39;26&#39;&gt;OLD RIM · 3 mm · chipped&lt;&#x2F;text&gt;&lt;path d&#x3D;&#39;M560 160 Q760 180 880 130 L884 138 Q760 192 560 170 Z&#39; fill&#x3D;&#39;%23b8b4a4&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M866 124 l18 10 l-6 8 z&#39; fill&#x3D;&#39;%23E06A2A&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;930&#39; y&#x3D;&#39;70&#39; font-size&#x3D;&#39;26&#39; fill&#x3D;&#39;%23E08A40&#39;&gt;KILN · 5.5 mm rolled&lt;&#x2F;text&gt;&lt;path d&#x3D;&#39;M930 160 Q1100 180 1180 128 Q1206 116 1204 138 Q1200 156 1180 154 Q1100 200 930 182 Z&#39; fill&#x3D;&#39;%23C07030&#39;&#x2F;&gt;&lt;&#x2F;g&gt;&lt;g fill&#x3D;&#39;%23EDE6D0&#39; stroke&#x3D;&#39;%23232E26&#39; stroke-width&#x3D;&#39;4&#39;&gt;&lt;rect x&#x3D;&#39;1220&#39; y&#x3D;&#39;250&#39; width&#x3D;&#39;280&#39; height&#x3D;&#39;26&#39; rx&#x3D;&#39;13&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1220&#39; y&#x3D;&#39;220&#39; width&#x3D;&#39;280&#39; height&#x3D;&#39;26&#39; rx&#x3D;&#39;13&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1220&#39; y&#x3D;&#39;190&#39; width&#x3D;&#39;280&#39; height&#x3D;&#39;26&#39; rx&#x3D;&#39;13&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1220&#39; y&#x3D;&#39;160&#39; width&#x3D;&#39;280&#39; height&#x3D;&#39;26&#39; rx&#x3D;&#39;13&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1220&#39; y&#x3D;&#39;130&#39; width&#x3D;&#39;280&#39; height&#x3D;&#39;26&#39; rx&#x3D;&#39;13&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;1220&#39; y&#x3D;&#39;100&#39; width&#x3D;&#39;280&#39; height&#x3D;&#39;26&#39; rx&#x3D;&#39;13&#39;&#x2F;&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="Cross-section of two plate rims: the old 3 mm rim chips at the pass; the Kiln 5.5 mm rolled rim does not. Beside them, a stack of plates." />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">Case 1 · Fennel &amp; Ash, Porto</span>
+    <h2>A thicker rim cut Fennel &amp; Ash&#39;s breakage from 11% to 2%</h2>
+    <p class="lead">2,400 pieces for a 90-cover tasting room. We rebuilt the rim after a week on the pass.</p>
+  </div>
+</section>
+
+<section class="slide stat-row-slide" data-layout="stat-row">
+  <span class="eyebrow">Case 1 · Result</span>
+  <h2>Fennel &amp; Ash now spends €12,200 less a year on replacements</h2>
+  
+  <div class="stats">
+    <div class="stat">
+      <div class="value">2%</div>
+      <div class="label">pieces broken per year in 2025, down from 11%</div>
+    </div>
+    <div class="stat">
+      <div class="value">€2.6k</div>
+      <div class="label">yearly replacement spend, down from €14.8k</div>
+    </div>
+    <div class="stat">
+      <div class="value">2,400</div>
+      <div class="label">pieces delivered in 16 weeks</div>
+    </div>
   </div>
 </section>
 
 <section class="slide two-column-slide" data-layout="two-column">
   <div class="cols ratio-1-2 cols-reverse">
     <div class="cols-copy">
-      <span class="eyebrow">Craft</span>
-      <h2>What leaves the kiln</h2>
-      <p class="lead">Ceramics: Glazes that hold the orange. Tableware — Daily pieces, not shelf trophies.</p>
+      <span class="eyebrow">Case 2 · Hotel Alma, Lisbon</span>
+      <h2>For Hotel Alma we made a sage glaze that hides cutlery marks</h2>
+      <p class="lead">1,600 pieces for 220 breakfasts a day.
+The glaze was tested against 400 knife strokes.</p>
     </div>
+    <div class="media"><img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 600 480&#39;&gt;&lt;rect width&#x3D;&#39;600&#39; height&#x3D;&#39;480&#39; fill&#x3D;&#39;%232E3D30&#39;&#x2F;&gt;&lt;ellipse cx&#x3D;&#39;300&#39; cy&#x3D;&#39;400&#39; rx&#x3D;&#39;240&#39; ry&#x3D;&#39;26&#39; fill&#x3D;&#39;%23232E26&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M150 300 h300 l-30 90 h-240 z&#39; fill&#x3D;&#39;%235E7A4E&#39; stroke&#x3D;&#39;%23F0E8D2&#39; stroke-width&#x3D;&#39;4&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M165 220 h270 l-26 80 h-218 z&#39; fill&#x3D;&#39;%23718F60&#39; stroke&#x3D;&#39;%23F0E8D2&#39; stroke-width&#x3D;&#39;4&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M180 150 h240 l-22 70 h-196 z&#39; fill&#x3D;&#39;%235E7A4E&#39; stroke&#x3D;&#39;%23F0E8D2&#39; stroke-width&#x3D;&#39;4&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;410&#39; y&#x3D;&#39;70&#39; width&#x3D;&#39;110&#39; height&#x3D;&#39;120&#39; rx&#x3D;&#39;14&#39; fill&#x3D;&#39;%23EDE6D0&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M520 100 q40 10 0 60&#39; stroke&#x3D;&#39;%23EDE6D0&#39; stroke-width&#x3D;&#39;14&#39; fill&#x3D;&#39;none&#39;&#x2F;&gt;&lt;g stroke&#x3D;&#39;%23b8b4a4&#39; stroke-width&#x3D;&#39;3&#39; opacity&#x3D;&#39;.6&#39;&gt;&lt;path d&#x3D;&#39;M200 330 l60 20&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M300 250 l70 16&#39;&#x2F;&gt;&lt;&#x2F;g&gt;&lt;text x&#x3D;&#39;60&#39; y&#x3D;&#39;60&#39; font-family&#x3D;&#39;Helvetica,Arial&#39; font-size&#x3D;&#39;26&#39; fill&#x3D;&#39;%23F0E8D2&#39;&gt;Alma breakfast set · sage&lt;&#x2F;text&gt;&lt;&#x2F;svg&gt;" alt="A stack of three sage-glazed breakfast bowls and a cream cup; faint cutlery marks barely show on the glaze." /></div>
     
-    <div class="cols-aside"><p>Hands in clay every Saturday.</p></div>
   </div>
 </section>
 
-<section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Year</span>
-  <h2>Fired and sold.</h2>
+<section class="slide metric-ring-slide" data-layout="metric-ring">
+  <span class="eyebrow">Case 2 · Result</span>
+  <h2>93% of Hotel Alma&#39;s breakfast set is still in service after three years</h2>
+  <div class="pct-wrap">
+    <div class="pct-ring pct-ring-arc" role="img" aria-label="93% pieces in service, 2023–2026">
+      <svg class="pct-ring-svg" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-opacity="0.15" stroke-width="10"/><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-dasharray="245.42 263.89" transform="rotate(-90 50 50)"/></svg>
+      <div class="pct-ring-center">
+        <span class="pct-num">93%</span>
+        <span class="pct-label">pieces in service, 2023–2026</span>
+      </div>
+    </div>
+    <div class="pct-desc">
+      <p class="lead">Their previous supplier&#39;s set: 58% after three years. Source: Hotel Alma inventory counts.</p>
+      
+    </div>
+  </div>
+</section>
+
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 1600 400&#39;&gt;&lt;rect width&#x3D;&#39;1600&#39; height&#x3D;&#39;400&#39; fill&#x3D;&#39;%23232E26&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;1060&#39; cy&#x3D;&#39;200&#39; r&#x3D;&#39;230&#39; fill&#x3D;&#39;%23C07030&#39; opacity&#x3D;&#39;.12&#39;&#x2F;&gt;&lt;ellipse cx&#x3D;&#39;1060&#39; cy&#x3D;&#39;120&#39; rx&#x3D;&#39;250&#39; ry&#x3D;&#39;46&#39; fill&#x3D;&#39;%237A4E24&#39;&#x2F;&gt;&lt;ellipse cx&#x3D;&#39;1060&#39; cy&#x3D;&#39;120&#39; rx&#x3D;&#39;224&#39; ry&#x3D;&#39;36&#39; fill&#x3D;&#39;%23C98A3E&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;980&#39; cy&#x3D;&#39;114&#39; r&#x3D;&#39;22&#39; fill&#x3D;&#39;%23F0E8D2&#39;&#x2F;&gt;&lt;circle cx&#x3D;&#39;980&#39; cy&#x3D;&#39;114&#39; r&#x3D;&#39;10&#39; fill&#x3D;&#39;%23E2A43A&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M1060 104 q60 -10 120 8&#39; stroke&#x3D;&#39;%23F0E8D2&#39; stroke-width&#x3D;&#39;6&#39; fill&#x3D;&#39;none&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M1090 118 q60 -6 110 10&#39; stroke&#x3D;&#39;%23F0E8D2&#39; stroke-width&#x3D;&#39;6&#39; fill&#x3D;&#39;none&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M810 120 Q840 330 1060 340 Q1280 330 1310 120 Z&#39; fill&#x3D;&#39;%23C07030&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M830 180 Q1060 210 1290 180&#39; stroke&#x3D;&#39;%237A4E24&#39; stroke-width&#x3D;&#39;6&#39; fill&#x3D;&#39;none&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;990&#39; y&#x3D;&#39;340&#39; width&#x3D;&#39;140&#39; height&#x3D;&#39;20&#39; rx&#x3D;&#39;6&#39; fill&#x3D;&#39;%237A4E24&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;780&#39; y&#x3D;&#39;210&#39; font-family&#x3D;&#39;Helvetica,Arial&#39; font-size&#x3D;&#39;26&#39; fill&#x3D;&#39;%23F0E8D2&#39; text-anchor&#x3D;&#39;end&#39;&gt;Miso Bar bowl&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;780&#39; y&#x3D;&#39;246&#39; font-family&#x3D;&#39;Helvetica,Arial&#39; font-size&#x3D;&#39;26&#39; fill&#x3D;&#39;%23E08A40&#39; text-anchor&#x3D;&#39;end&#39;&gt;1,800 sold&lt;&#x2F;text&gt;&lt;&#x2F;svg&gt;" alt="A burnt-orange ramen bowl full of broth, egg and noodles; the glaze matches the colour of the broth." />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">Case 3 · Miso Bar, Braga</span>
+    <h2>Miso Bar&#39;s ramen bowl sold 1,800 copies in its shop in one year</h2>
+    <p class="lead">We matched the glaze to the broth. Guests asked to take the bowl home.</p>
+  </div>
+</section>
+
+<section class="slide logo-wall-slide" data-layout="logo-wall">
+  <span class="eyebrow">Clients</span>
+  <h2>Kitchens we fire for</h2>
   
-  <div class="stats">
-    <div class="stat">
-      <div class="value">1.8k</div>
-      <div class="label">Pieces</div>
+  <div class="logo-wall cols-3">
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Fennel &amp; Ash</span>
+      <p class="logo-tile-caption">Porto · since 2023</p>
     </div>
-    <div class="stat">
-      <div class="value">46</div>
-      <div class="label">Workshops</div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Hotel Alma</span>
+      <p class="logo-tile-caption">Lisbon · since 2023</p>
     </div>
-    <div class="stat">
-      <div class="value">12</div>
-      <div class="label">Retail doors</div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Miso Bar</span>
+      <p class="logo-tile-caption">Braga · since 2024</p>
+    </div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Casa Brasa</span>
+      <p class="logo-tile-caption">Porto · since 2021</p>
+    </div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Tasca do Rio</span>
+      <p class="logo-tile-caption">Coimbra · since 2022</p>
+    </div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Pastelaria Lumen</span>
+      <p class="logo-tile-caption">Lisbon · since 2025</p>
     </div>
   </div>
 </section>
 
 <section class="slide quote-slide" data-layout="quote">
-  <p class="quote">Heat is the brand. Everything else is cooling.</p>
-  <p class="quote-by">— Kiln</p>
+  <p class="quote">Kiln spent a week on our pass before they drew a single plate. Nobody else asked.</p>
+  <p class="quote-by">— Rui Matos, chef-owner, Fennel &amp; Ash</p>
+</section>
+
+<section class="slide timeline-slide" data-layout="timeline">
+  <span class="eyebrow">How we work</span>
+  <h2>A commission takes 16 weeks from first service to last firing</h2>
+  <div class="timeline">
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Week 1 · Service</h3>
+      <p>A week beside your chef</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Weeks 2–5 · Prototype</h3>
+      <p>Three test pieces per shape</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Weeks 6–9 · Trial</h3>
+      <p>Prototypes run real service</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Weeks 10–16 · Fire</h3>
+      <p>Full run, packed by station</p>
+    </div>
+  </div>
 </section>
 
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">Visit</span>
-  <h1>Come to the mat.</h1>
-  <p class="lead">Studio hours Thu–Sun.</p>
+  <span class="eyebrow">Two slots open for March 2027</span>
+  <h1>Let&#39;s make the plates your guests will remember</h1>
+  <p class="lead">Start with a week in your kitchen. Studio visits Thursday to Sunday.</p>
   <div class="cta-row">
-    <a class="btn" href="#"><i class="fa-solid fa-calendar"></i> Book a visit</a>
-    <a class="btn btn-outline" href="#"><i class="fa-solid fa-book"></i> Browse the overview</a>
+    <a class="btn" href="#"><i class="fa-solid fa-calendar"></i> Book a kitchen visit</a>
+    <a class="btn btn-outline" href="#"><i class="fa-solid fa-file-arrow-down"></i> Download the case studies</a>
   </div>
 </section>
 
@@ -6824,7 +7192,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Kiln — Studio Deck","company":"Kiln","description":"Craft studio credentials — mat multi-slide proof.","theme":"mat"},"slides":[{"layout":"title","eyebrow":"Studio","heading":"Sage walls. Orange heat.","lead":"Bricolage for the mark. DM Sans for the firing schedule.","notes":"Cold open — land the one-line claim before logos."},{"layout":"image-hero","eyebrow":"Studio","heading":"Sage walls. Orange heat.","lead":"Bricolage for the mark. DM Sans for the firing schedule.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232E3D30%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23232E26%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28122%2C78%2C36%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2846%2C61%2C48%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28192%2C112%2C48%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28122%2C78%2C36%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28122%2C78%2C36%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28122%2C78%2C36%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23232E26%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22300%22%20cy%3D%22700%22%20rx%3D%22520%22%20ry%3D%22360%22%20fill%3D%22rgba%28192%2C112%2C48%2C0.220%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221300%22%20cy%3D%22160%22%20rx%3D%22420%22%20ry%3D%22300%22%20fill%3D%22rgba%28122%2C78%2C36%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M180%20780%20C260%20520%20420%20420%20520%20280%20C560%20360%20620%20460%20640%20620%20C480%20640%20300%20700%20180%20780%20Z%22%20fill%3D%22rgba%28192%2C112%2C48%2C0.450%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M1180%20120%20C1280%20180%201380%20260%201460%20380%20C1340%20360%201240%20300%201180%20120%20Z%22%20fill%3D%22rgba%28122%2C78%2C36%2C0.400%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M980%20700%20C1080%20560%201220%20500%201360%20420%20C1380%20540%201320%20660%201220%20760%20Z%22%20fill%3D%22rgba%28192%2C112%2C48%2C0.250%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%22860%22%20cy%3D%22240%22%20r%3D%2290%22%20fill%3D%22rgba%28122%2C78%2C36%2C0.200%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22640%22%20y%3D%22360%22%20width%3D%22360%22%20height%3D%22220%22%20rx%3D%2218%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%20stroke%3D%22rgba%28192%2C112%2C48%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22420%22%20width%3D%22200%22%20height%3D%2214%22%20rx%3D%225%22%20fill%3D%22rgba%28192%2C112%2C48%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22455%22%20width%3D%22260%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Kiln craft visual","notes":"Hold the visual beat — let the room feel the product."},{"layout":"two-column","eyebrow":"Craft","heading":"What leaves the kiln","body":"Ceramics: Glazes that hold the orange. Tableware — Daily pieces, not shelf trophies.","aside":"Hands in clay every Saturday.","ratio":"1-2","reverse":true},{"layout":"stat-row","eyebrow":"Year","heading":"Fired and sold.","stats":[{"value":"1.8k","label":"Pieces"},{"value":"46","label":"Workshops"},{"value":"12","label":"Retail doors"}],"notes":"One breath on the numbers — then move on."},{"layout":"quote","quote":"Heat is the brand. Everything else is cooling.","by":"Kiln"},{"layout":"closing","eyebrow":"Visit","heading":"Come to the mat.","lead":"Studio hours Thu–Sun.","actions":[{"label":"Book a visit","href":"#","style":"solid","icon":"fa-solid fa-calendar"},{"label":"Browse the overview","href":"#","style":"outline","icon":"fa-solid fa-book"}]}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Kiln — studio credentials 2026","company":"Kiln","description":"Credentials for Kiln, a Porto ceramics studio that makes tableware for restaurants and hotels: point of view, three measured cases, clients and a 16-week process.","theme":"mat","genre":"brand"},"slides":[{"layout":"title","eyebrow":"Kiln · Ceramics studio · Porto · Credentials 2026","heading":"We make the plates a restaurant is remembered by.","lead":"Tableware for chefs and hotels, thrown and fired in Porto since 2019.","notes":"Say the line, then move straight to the work. This deck is image-first."},{"layout":"image-hero","eyebrow":"Point of view","heading":"A plate is part of the dish, so we start in the kitchen","lead":"Every commission begins with a week of service beside the chef.","image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 400'>\u003crect width='1600' height='400' fill='%23232E26'/>\u003crect x='560' y='0' width='1040' height='400' fill='%232E3D30'/>\u003ccircle cx='820' cy='170' r='130' fill='%23EDE6D0'/>\u003ccircle cx='820' cy='170' r='92' fill='%23F0E8D2' stroke='%23C07030' stroke-width='10'/>\u003ccircle cx='790' cy='150' r='26' fill='%23C07030'/>\u003ccircle cx='838' cy='184' r='18' fill='%237A4E24'/>\u003cpath d='M770 200 q40 -20 90 0' stroke='%235E7A4E' stroke-width='10' fill='none' stroke-linecap='round'/>\u003ccircle cx='1080' cy='130' r='78' fill='%235E7A4E'/>\u003ccircle cx='1080' cy='130' r='54' fill='%23EDE6D0'/>\u003ccircle cx='1080' cy='270' r='56' fill='%23C07030'/>\u003ccircle cx='1080' cy='270' r='36' fill='%237A4E24'/>\u003crect x='1230' y='60' width='220' height='240' rx='6' fill='%23F0E8D2' transform='rotate(4 1340 180)'/>\u003cg font-family='Courier,monospace' font-size='22' fill='%23232E26' transform='rotate(4 1340 180)'>\u003ctext x='1252' y='104'>TABLE 12\u003c/text>\u003ctext x='1252' y='144'>2× sea bass\u003c/text>\u003ctext x='1252' y='178'>1× tomato rice\u003c/text>\u003ctext x='1252' y='212'>1× pudim\u003c/text>\u003ctext x='1252' y='270' fill='%23C07030'>plate: KL-07\u003c/text>\u003c/g>\u003c/svg>","imageAlt":"Top view of a Kiln plate with an orange rim holding a plated dish, two glazed bowls beside it, and a kitchen ticket for table 12 that names the plate KL-07."},{"layout":"feature-grid","eyebrow":"What we believe","heading":"Three rules decide every piece that leaves our kiln","columns":3,"cards":[{"icon":"fa-solid fa-utensils","title":"Built for service","body":"It stacks, survives the dishwasher, fits the pass."},{"icon":"fa-solid fa-palette","title":"Glaze from the menu","body":"Colours tested against the food."},{"icon":"fa-solid fa-scroll","title":"Re-made from a recipe","body":"Every piece has a recipe card."}]},{"layout":"section","number":"01","heading":"Selected work","lead":"Three kitchens, three measured results."},{"layout":"image-hero","eyebrow":"Case 1 · Fennel & Ash, Porto","heading":"A thicker rim cut Fennel & Ash's breakage from 11% to 2%","lead":"2,400 pieces for a 90-cover tasting room. We rebuilt the rim after a week on the pass.","image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -50 1600 400'>\u003crect y='-50' width='1600' height='450' fill='%23232E26'/>\u003cg font-family='Helvetica,Arial' fill='%23F0E8D2'>\u003ctext x='560' y='70' font-size='26'>OLD RIM · 3 mm · chipped\u003c/text>\u003cpath d='M560 160 Q760 180 880 130 L884 138 Q760 192 560 170 Z' fill='%23b8b4a4'/>\u003cpath d='M866 124 l18 10 l-6 8 z' fill='%23E06A2A'/>\u003ctext x='930' y='70' font-size='26' fill='%23E08A40'>KILN · 5.5 mm rolled\u003c/text>\u003cpath d='M930 160 Q1100 180 1180 128 Q1206 116 1204 138 Q1200 156 1180 154 Q1100 200 930 182 Z' fill='%23C07030'/>\u003c/g>\u003cg fill='%23EDE6D0' stroke='%23232E26' stroke-width='4'>\u003crect x='1220' y='250' width='280' height='26' rx='13'/>\u003crect x='1220' y='220' width='280' height='26' rx='13'/>\u003crect x='1220' y='190' width='280' height='26' rx='13'/>\u003crect x='1220' y='160' width='280' height='26' rx='13'/>\u003crect x='1220' y='130' width='280' height='26' rx='13'/>\u003crect x='1220' y='100' width='280' height='26' rx='13'/>\u003c/g>\u003c/svg>","imageAlt":"Cross-section of two plate rims: the old 3 mm rim chips at the pass; the Kiln 5.5 mm rolled rim does not. Beside them, a stack of plates.","notes":"Tell the story in one breath: a week on the pass, we saw plates chip in the stack, we rebuilt the rim."},{"layout":"stat-row","eyebrow":"Case 1 · Result","heading":"Fennel & Ash now spends €12,200 less a year on replacements","stats":[{"value":"2%","label":"pieces broken per year in 2025, down from 11%"},{"value":"€2.6k","label":"yearly replacement spend, down from €14.8k"},{"value":"2,400","label":"pieces delivered in 16 weeks"}]},{"layout":"two-column","eyebrow":"Case 2 · Hotel Alma, Lisbon","heading":"For Hotel Alma we made a sage glaze that hides cutlery marks","ratio":"1-2","reverse":true,"body":"1,600 pieces for 220 breakfasts a day.\nThe glaze was tested against 400 knife strokes.","image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 480'>\u003crect width='600' height='480' fill='%232E3D30'/>\u003cellipse cx='300' cy='400' rx='240' ry='26' fill='%23232E26'/>\u003cpath d='M150 300 h300 l-30 90 h-240 z' fill='%235E7A4E' stroke='%23F0E8D2' stroke-width='4'/>\u003cpath d='M165 220 h270 l-26 80 h-218 z' fill='%23718F60' stroke='%23F0E8D2' stroke-width='4'/>\u003cpath d='M180 150 h240 l-22 70 h-196 z' fill='%235E7A4E' stroke='%23F0E8D2' stroke-width='4'/>\u003crect x='410' y='70' width='110' height='120' rx='14' fill='%23EDE6D0'/>\u003cpath d='M520 100 q40 10 0 60' stroke='%23EDE6D0' stroke-width='14' fill='none'/>\u003cg stroke='%23b8b4a4' stroke-width='3' opacity='.6'>\u003cpath d='M200 330 l60 20'/>\u003cpath d='M300 250 l70 16'/>\u003c/g>\u003ctext x='60' y='60' font-family='Helvetica,Arial' font-size='26' fill='%23F0E8D2'>Alma breakfast set · sage\u003c/text>\u003c/svg>","imageAlt":"A stack of three sage-glazed breakfast bowls and a cream cup; faint cutlery marks barely show on the glaze."},{"layout":"metric-ring","eyebrow":"Case 2 · Result","heading":"93% of Hotel Alma's breakfast set is still in service after three years","value":"93%","label":"pieces in service, 2023–2026","pct":93,"lead":"Their previous supplier's set: 58% after three years. Source: Hotel Alma inventory counts."},{"layout":"image-hero","eyebrow":"Case 3 · Miso Bar, Braga","heading":"Miso Bar's ramen bowl sold 1,800 copies in its shop in one year","lead":"We matched the glaze to the broth. Guests asked to take the bowl home.","image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 400'>\u003crect width='1600' height='400' fill='%23232E26'/>\u003ccircle cx='1060' cy='200' r='230' fill='%23C07030' opacity='.12'/>\u003cellipse cx='1060' cy='120' rx='250' ry='46' fill='%237A4E24'/>\u003cellipse cx='1060' cy='120' rx='224' ry='36' fill='%23C98A3E'/>\u003ccircle cx='980' cy='114' r='22' fill='%23F0E8D2'/>\u003ccircle cx='980' cy='114' r='10' fill='%23E2A43A'/>\u003cpath d='M1060 104 q60 -10 120 8' stroke='%23F0E8D2' stroke-width='6' fill='none'/>\u003cpath d='M1090 118 q60 -6 110 10' stroke='%23F0E8D2' stroke-width='6' fill='none'/>\u003cpath d='M810 120 Q840 330 1060 340 Q1280 330 1310 120 Z' fill='%23C07030'/>\u003cpath d='M830 180 Q1060 210 1290 180' stroke='%237A4E24' stroke-width='6' fill='none'/>\u003crect x='990' y='340' width='140' height='20' rx='6' fill='%237A4E24'/>\u003ctext x='780' y='210' font-family='Helvetica,Arial' font-size='26' fill='%23F0E8D2' text-anchor='end'>Miso Bar bowl\u003c/text>\u003ctext x='780' y='246' font-family='Helvetica,Arial' font-size='26' fill='%23E08A40' text-anchor='end'>1,800 sold\u003c/text>\u003c/svg>","imageAlt":"A burnt-orange ramen bowl full of broth, egg and noodles; the glaze matches the colour of the broth."},{"layout":"logo-wall","eyebrow":"Clients","heading":"Kitchens we fire for","columns":3,"cards":[{"title":"Fennel & Ash","body":"Porto · since 2023"},{"title":"Hotel Alma","body":"Lisbon · since 2023"},{"title":"Miso Bar","body":"Braga · since 2024"},{"title":"Casa Brasa","body":"Porto · since 2021"},{"title":"Tasca do Rio","body":"Coimbra · since 2022"},{"title":"Pastelaria Lumen","body":"Lisbon · since 2025"}]},{"layout":"quote","quote":"Kiln spent a week on our pass before they drew a single plate. Nobody else asked.","by":"Rui Matos, chef-owner, Fennel & Ash"},{"layout":"timeline","eyebrow":"How we work","heading":"A commission takes 16 weeks from first service to last firing","steps":[{"title":"Week 1 · Service","body":"A week beside your chef"},{"title":"Weeks 2–5 · Prototype","body":"Three test pieces per shape"},{"title":"Weeks 6–9 · Trial","body":"Prototypes run real service"},{"title":"Weeks 10–16 · Fire","body":"Full run, packed by station"}],"notes":"Stress week 1. It is why the results on the case slides happened."},{"layout":"closing","eyebrow":"Two slots open for March 2027","heading":"Let's make the plates your guests will remember","lead":"Start with a week in your kitchen. Studio visits Thursday to Sunday.","actions":[{"label":"Book a kitchen visit","style":"solid","icon":"fa-solid fa-calendar"},{"label":"Download the case studies","style":"outline","icon":"fa-solid fa-file-arrow-down"}]}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {

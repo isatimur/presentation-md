@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Forge — API Launch</title>
-<meta name="description" content="Developer API launch — developer-dark multi-slide proof with code layout." />
+<title>Forge — How idempotency keys ended duplicate jobs</title>
+<meta name="description" content="Engineering talk from the Forge jobs API team: why client retries ran jobs twice, how server-side idempotency keys work, what they cost in latency and storage, and what we would change." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap');
@@ -20,6 +20,12 @@
   --muted: #8b949e;
   --accent: #3fb950;
   --accent-2: #58a6ff;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #0d1117;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #3fb950;
+  --accent-2-ink: #58a6ff;
   --card-bg: rgba(48,54,61,0.55);
   --border: rgba(48,54,61,0.9);
   --radius: 8px;
@@ -27,6 +33,10 @@
   --heading-font: 'Inter', system-ui, sans-serif;
   --body-font: 'JetBrains Mono', monospace;
   --heading-weight: 700;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,128 +6908,178 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="dev-terminal">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">API · Public beta</span>
-  <h1>Ship infra like you ship product.</h1>
-  <p class="lead">One client. Idempotent writes. Observability that matches your IDE.</p>
-</section>
-
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Why teams switch</span>
-  <h2>Built for operators who live in git</h2>
-  <div class="grid cols-bento">
-    <div class="card">
-      <i class="fa-solid fa-terminal"></i>
-      <h3>CLI-first</h3>
-      <p>forge run, forge logs, forge diff — same verbs as your deploy tool.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-shield-halved"></i>
-      <h3>Idempotent by default</h3>
-      <p>Retry safely. Duplicate keys are a no-op, not a double charge.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-wave-square"></i>
-      <h3>Traces included</h3>
-      <p>Every job links to a span tree you can open in your APM.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-scissors"></i>
-      <h3>Cut the filler</h3>
-      <p>If a card doesn&#39;t change the decision, it doesn&#39;t earn the pixel.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-layer-group"></i>
-      <h3>Stack for scan</h3>
-      <p>Hierarchy first. Decoration second. Decoration never.</p>
-    </div>
-  </div>
-</section>
-
-<section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Before &#x2F; After</span>
-  <h2>From glue scripts to a contract.</h2>
-  <div class="comparison-cols emphasis-right">
-    <div class="comparison-col">
-      <span class="comparison-label">Before</span>
-      <p>Cron + bash + hope.
-Silent failures at 3am.
-No shared receipt.</p>
-    </div>
-    <div class="comparison-vs" aria-hidden="true">vs</div>
-    <div class="comparison-col">
-      <span class="comparison-label">With Forge</span>
-      <p>Typed jobs with receipts.
-Retries with budgets.
-One pane for status.</p>
-    </div>
-  </div>
+  <span class="eyebrow">Forge engineering · Platform talk · November 2026</span>
+  <h1>Idempotency keys cut our duplicate jobs from 2.1% to 0.003%.</h1>
+  <p class="lead">What broke, what we built, and what it cost.</p>
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23161b22%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%230d1117%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2888%2C166%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2822%2C27%2C34%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2888%2C166%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2888%2C166%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2888%2C166%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230d1117%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22820%22%20rx%3D%22700%22%20ry%3D%22120%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23floor%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22520%22%20cy%3D%22260%22%20rx%3D%22360%22%20ry%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22220%22%20rx%3D%22300%22%20ry%3D%22220%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20desk%20product%20frame%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28430%2C170%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%22720%22%20height%3D%22460%22%20rx%3D%2228%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22450%22%20rx%3D%2226%22%20fill%3D%22%23161b22%22%20stroke%3D%22rgba%2863%2C185%2C80%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22%230d1117%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%2290%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%226%22%20fill%3D%22rgba%2863%2C185%2C80%2C0.850%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22130%22%20width%3D%22380%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22158%22%20width%3D%22320%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%2888%2C166%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22290%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%2863%2C185%2C80%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22510%22%20y%3D%22210%22%20width%3D%22140%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22280%22%20y%3D%22400%22%20width%3D%22160%22%20height%3D%2210%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="Forge cinematic surface" />
+    <img src="data:image&#x2F;svg+xml,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 1600 360&#39;&gt;&lt;rect width&#x3D;&#39;1600&#39; height&#x3D;&#39;360&#39; fill&#x3D;&#39;%230d1117&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;JetBrains Mono,Menlo,monospace&#39; font-size&#x3D;&#39;22&#39;&gt;&lt;rect x&#x3D;&#39;120&#39; y&#x3D;&#39;70&#39; width&#x3D;&#39;210&#39; height&#x3D;&#39;70&#39; rx&#x3D;&#39;12&#39; fill&#x3D;&#39;%23161b22&#39; stroke&#x3D;&#39;%2358a6ff&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;150&#39; y&#x3D;&#39;113&#39; fill&#x3D;&#39;%23e6edf3&#39;&gt;client SDK&lt;&#x2F;text&gt;&lt;rect x&#x3D;&#39;470&#39; y&#x3D;&#39;70&#39; width&#x3D;&#39;210&#39; height&#x3D;&#39;70&#39; rx&#x3D;&#39;12&#39; fill&#x3D;&#39;%23161b22&#39; stroke&#x3D;&#39;%2358a6ff&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;515&#39; y&#x3D;&#39;113&#39; fill&#x3D;&#39;%23e6edf3&#39;&gt;gateway&lt;&#x2F;text&gt;&lt;rect x&#x3D;&#39;820&#39; y&#x3D;&#39;70&#39; width&#x3D;&#39;210&#39; height&#x3D;&#39;70&#39; rx&#x3D;&#39;12&#39; fill&#x3D;&#39;%23161b22&#39; stroke&#x3D;&#39;%2358a6ff&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;885&#39; y&#x3D;&#39;113&#39; fill&#x3D;&#39;%23e6edf3&#39;&gt;queue&lt;&#x2F;text&gt;&lt;rect x&#x3D;&#39;1160&#39; y&#x3D;&#39;40&#39; width&#x3D;&#39;300&#39; height&#x3D;&#39;60&#39; rx&#x3D;&#39;12&#39; fill&#x3D;&#39;%23161b22&#39; stroke&#x3D;&#39;%233fb950&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;1185&#39; y&#x3D;&#39;78&#39; fill&#x3D;&#39;%233fb950&#39;&gt;worker: job A&lt;&#x2F;text&gt;&lt;rect x&#x3D;&#39;1160&#39; y&#x3D;&#39;120&#39; width&#x3D;&#39;300&#39; height&#x3D;&#39;60&#39; rx&#x3D;&#39;12&#39; fill&#x3D;&#39;%23161b22&#39; stroke&#x3D;&#39;%23f85149&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;1185&#39; y&#x3D;&#39;158&#39; fill&#x3D;&#39;%23f85149&#39;&gt;worker: job A again&lt;&#x2F;text&gt;&lt;path d&#x3D;&#39;M330 105 H470 M680 105 H820 M1030 105 C1100 105 1100 70 1160 70 M1030 105 C1100 105 1100 150 1160 150&#39; stroke&#x3D;&#39;%238b949e&#39; stroke-width&#x3D;&#39;3&#39; fill&#x3D;&#39;none&#39;&#x2F;&gt;&lt;path d&#x3D;&#39;M575 140 C575 200 225 200 225 140&#39; stroke&#x3D;&#39;%23f85149&#39; stroke-width&#x3D;&#39;3&#39; fill&#x3D;&#39;none&#39; stroke-dasharray&#x3D;&#39;10 8&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;250&#39; y&#x3D;&#39;225&#39; fill&#x3D;&#39;%23f85149&#39;&gt;30 s gateway timeout → SDK retries the POST&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="Diagram: client SDK to gateway to queue to workers. A 30-second gateway timeout makes the SDK retry, and a second worker runs job A again." />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">API · Public beta</span>
-    <h2>Ship infra like you ship product.</h2>
-    <p class="lead">One client. Idempotent writes. Observability that matches your IDE.</p>
+    <span class="eyebrow">The failure</span>
+    <h2>A timeout plus a retry ran each job twice</h2>
+    <p class="lead">The gateway gave up at 30 s. The worker did not.</p>
+  </div>
+</section>
+
+<section class="slide timeline-slide" data-layout="timeline">
+  <span class="eyebrow">Agenda</span>
+  <h2>Three questions</h2>
+  <div class="timeline">
+    <div class="node">
+      <div class="dot"></div>
+      <h3>01</h3>
+      <p>Why did retries duplicate jobs?</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>02</h3>
+      <p>Did the fix cost us latency?</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>03</h3>
+      <p>What would we change?</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">01</div>
+  <h2>Why did retries duplicate jobs?</h2>
+  
+</section>
+
+<section class="slide chart-slide" data-layout="chart">
+  <span class="eyebrow">Evidence</span>
+  <h2>84% of duplicate jobs came from SDK retries after a timeout</h2>
+  <p class="lead">Source: 6,140 duplicate jobs traced in job logs, March–May 2026.</p>
+  <div class="chart-frame">
+    <svg class="pmd-chart" viewBox="0 0 920 420" width="100%" height="100%" role="img" aria-label="Chart" xmlns="http://www.w3.org/2000/svg">
+  <g class="chart-slices"><path d="M 340 60 A 150 150 0 1 1 213.3508111746977 129.6259807531506 L 274.1424218108428 168.2055099916383 A 78 78 0 1 0 340 132 Z" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="394.91991884759557" y="309.89896152500046" text-anchor="middle" dominant-baseline="middle" font-size="13" font-weight="600" fill="var(--bg, #fff)" font-family="var(--heading-font), system-ui, sans-serif">84</text><path d="M 213.3508111746977 129.6259807531506 A 150 150 0 0 1 293.6474508437577 67.34152255572701 L 315.896674438754 135.81759172897804 A 78 78 0 0 0 274.1424218108428 168.2055099916383 Z" fill="var(--accent-2)" stroke="var(--bg, #fff)" stroke-width="2"/><text x="270.1285958835606" y="119.92232858917136" text-anchor="middle" dominant-baseline="middle" font-size="13" font-weight="600" fill="var(--bg, #fff)" font-family="var(--heading-font), system-ui, sans-serif">11</text><path d="M 293.6474508437577 67.34152255572701 A 150 150 0 0 1 339.99999999999983 60 L 339.99999999999994 132 A 78 78 0 0 0 315.896674438754 135.81759172897804 Z" fill="var(--muted)" stroke="var(--bg, #fff)" stroke-width="2"/><text x="322.1664709854136" y="97.40352917215432" text-anchor="middle" dominant-baseline="middle" font-size="13" font-weight="600" fill="var(--bg, #fff)" font-family="var(--heading-font), system-ui, sans-serif">5</text></g>
+  <g class="chart-legend"><g transform="translate(560,48)">
+      <rect width="14" height="14" rx="3" fill="var(--accent-ink, var(--accent))"/>
+      <text x="22" y="12" font-size="14" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">SDK retry after timeout <tspan fill="var(--muted)">84%</tspan></text>
+    </g><g transform="translate(560,76)">
+      <rect width="14" height="14" rx="3" fill="var(--accent-2)"/>
+      <text x="22" y="12" font-size="14" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">Webhook replay <tspan fill="var(--muted)">11%</tspan></text>
+    </g><g transform="translate(560,104)">
+      <rect width="14" height="14" rx="3" fill="var(--muted)"/>
+      <text x="22" y="12" font-size="14" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">Operator re-run <tspan fill="var(--muted)">5%</tspan></text>
+    </g></g>
+</svg>
+  </div>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-2-1 cols-reverse">
+    <div class="cols-copy">
+      <span class="eyebrow">Mechanism</span>
+      <h2>The server stores the first response under the key for 24 hours</h2>
+      <p class="lead">First request with a key runs the job and saves the reply. Any retry with the same key gets that saved reply, not a new job.</p>
+    </div>
+    <div class="media"><img src="data:image&#x2F;svg+xml,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 450 750&#39;&gt;&lt;rect width&#x3D;&#39;450&#39; height&#x3D;&#39;750&#39; fill&#x3D;&#39;%23161b22&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;JetBrains Mono,Menlo,monospace&#39; font-size&#x3D;&#39;20&#39;&gt;&lt;rect x&#x3D;&#39;45&#39; y&#x3D;&#39;90&#39; width&#x3D;&#39;360&#39; height&#x3D;&#39;80&#39; rx&#x3D;&#39;10&#39; fill&#x3D;&#39;%230d1117&#39; stroke&#x3D;&#39;%2358a6ff&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;70&#39; y&#x3D;&#39;138&#39; fill&#x3D;&#39;%23e6edf3&#39;&gt;POST + key run_0730&lt;&#x2F;text&gt;&lt;path d&#x3D;&#39;M225 170 V230&#39; stroke&#x3D;&#39;%238b949e&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;45&#39; y&#x3D;&#39;230&#39; width&#x3D;&#39;360&#39; height&#x3D;&#39;80&#39; rx&#x3D;&#39;10&#39; fill&#x3D;&#39;%230d1117&#39; stroke&#x3D;&#39;%2358a6ff&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;70&#39; y&#x3D;&#39;278&#39; fill&#x3D;&#39;%23e6edf3&#39;&gt;key seen before?&lt;&#x2F;text&gt;&lt;path d&#x3D;&#39;M140 310 V380 M310 310 V380&#39; stroke&#x3D;&#39;%238b949e&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;70&#39; y&#x3D;&#39;360&#39; fill&#x3D;&#39;%233fb950&#39;&gt;no&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;325&#39; y&#x3D;&#39;360&#39; fill&#x3D;&#39;%23d29922&#39;&gt;yes&lt;&#x2F;text&gt;&lt;rect x&#x3D;&#39;30&#39; y&#x3D;&#39;380&#39; width&#x3D;&#39;190&#39; height&#x3D;&#39;120&#39; rx&#x3D;&#39;10&#39; fill&#x3D;&#39;%230d1117&#39; stroke&#x3D;&#39;%233fb950&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;50&#39; y&#x3D;&#39;428&#39; fill&#x3D;&#39;%233fb950&#39;&gt;run job,&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;50&#39; y&#x3D;&#39;460&#39; fill&#x3D;&#39;%233fb950&#39;&gt;save reply&lt;&#x2F;text&gt;&lt;rect x&#x3D;&#39;235&#39; y&#x3D;&#39;380&#39; width&#x3D;&#39;190&#39; height&#x3D;&#39;120&#39; rx&#x3D;&#39;10&#39; fill&#x3D;&#39;%230d1117&#39; stroke&#x3D;&#39;%23d29922&#39; stroke-width&#x3D;&#39;3&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;255&#39; y&#x3D;&#39;428&#39; fill&#x3D;&#39;%23d29922&#39;&gt;return&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;255&#39; y&#x3D;&#39;460&#39; fill&#x3D;&#39;%23d29922&#39;&gt;saved reply&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;45&#39; y&#x3D;&#39;590&#39; fill&#x3D;&#39;%238b949e&#39;&gt;TTL 24 h · Redis&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;45&#39; y&#x3D;&#39;625&#39; fill&#x3D;&#39;%238b949e&#39;&gt;1 row per key&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="Flow: a POST with an idempotency key is checked. A new key runs the job and saves the reply; a seen key returns the saved reply." /></div>
+    
+  </div>
+</section>
+
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">02</div>
+  <h2>Did the fix cost us latency?</h2>
+  
+</section>
+
+<section class="slide comparison-slide" data-layout="comparison">
+  <span class="eyebrow">Before vs after · 30 days each</span>
+  <h2>Duplicates fell 700× while p99 latency rose only 4 ms</h2>
+  <div class="comparison-cols emphasis-right">
+    <div class="comparison-col">
+      <span class="comparison-label">Before keys (May)</span>
+      <p>Duplicate rate: 2.1%
+p99 create latency: 182 ms
+Incidents: 9</p>
+    </div>
+    <div class="comparison-vs" aria-hidden="true">vs</div>
+    <div class="comparison-col">
+      <span class="comparison-label">After keys (July)</span>
+      <p>Duplicate rate: 0.003%
+p99 create latency: 186 ms
+Incidents: 0</p>
+    </div>
   </div>
 </section>
 
 <section class="slide code-slide" data-layout="code">
-  <span class="eyebrow">60-second start</span>
-  <h2>Create a job. Get a receipt.</h2>
+  <span class="eyebrow">The code that matters</span>
+  <h2>One field on create makes every retry safe</h2>
   
   <div class="code-window">
     <div class="code-chrome" aria-hidden="true">
       <span class="code-dot code-dot-red"></span>
       <span class="code-dot code-dot-amber"></span>
       <span class="code-dot code-dot-green"></span>
-      <span class="code-filename">forge-quickstart.ts</span>
+      <span class="code-filename">create-job.ts</span>
       
     </div>
     <pre class="code-block"><code>import { Forge } from &#39;@forge&#x2F;sdk&#39;;
 
 const forge &#x3D; new Forge({ token: process.env.FORGE_TOKEN });
 
+&#x2F;&#x2F; Same key on every retry: Forge runs the job once.
 const job &#x3D; await forge.jobs.create({
   pipeline: &#39;ingest-v3&#39;,
   input: { bucket: &#39;s3:&#x2F;&#x2F;events&#x2F;raw&#39; },
-  idempotencyKey: &#39;run_2026_07_30&#39;,
+  idempotencyKey: &#x60;ingest-${batch.id}&#x60;,
 });
 
-console.log(job.id, job.status); &#x2F;&#x2F; queued → running → done</code></pre>
+console.log(job.id, job.replayed); &#x2F;&#x2F; replayed: true on a retry</code></pre>
   </div>
 </section>
 
-<section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Beta signal</span>
-  <h2>Ninety days. Zero paid ads.</h2>
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">03</div>
+  <h2>What would we change?</h2>
   
-  <div class="stats">
-    <div class="stat">
-      <div class="value">1.2k</div>
-      <div class="label">Active workspaces</div>
+</section>
+
+<section class="slide data-table-slide" data-layout="data-table">
+  <span class="eyebrow">Trade-offs and limits</span>
+  <h2>Keys cost 38 GB of Redis and do not cover long jobs</h2>
+  
+  <table>
+    <thead>
+      <tr><th>Trade-off</th><th>Cost today</th><th>Limit</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Key storage</td><td>38 GB Redis</td><td>24 h window</td></tr>
+      <tr><td>Extra lookup</td><td>+4 ms p99</td><td>One region only</td></tr>
+      <tr><td>Jobs over 24 h</td><td>Not covered</td><td>Needs a job ledger</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-3-2">
+    <div class="cols-copy">
+      <span class="eyebrow">Next time</span>
+      <h2>We would ship keys in the SDK on day one, not in year two</h2>
+      <p class="lead">Two years of retries ran without keys. 9 incidents and 6,140 duplicate jobs came from that gap.</p>
     </div>
-    <div class="stat">
-      <div class="value">48M</div>
-      <div class="label">Jobs executed</div>
-    </div>
-    <div class="stat">
-      <div class="value">99.95%</div>
-      <div class="label">API success SLA</div>
-    </div>
+    
+    <div class="cols-aside"><p>Rule now: every write endpoint ships with an idempotency key.</p></div>
   </div>
 </section>
 
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">Get in</span>
-  <h1>Your next deploy should feel boring.</h1>
-  <p class="lead">Free tier · no card · docs that assume you can read TypeScript.</p>
+  <span class="eyebrow">Takeaway</span>
+  <h1>Make every write safe to retry, and duplicates disappear.</h1>
+  <p class="lead">Slides, code and the incident write-up are on the Forge engineering blog.</p>
   <div class="cta-row">
-    <a class="btn" href="#"><i class="fa-solid fa-book"></i> Read the docs</a>
-    <a class="btn btn-outline" href="#"><i class="fa-solid fa-key"></i> Get an API key</a>
+    <a class="btn" href="#"><i class="fa-solid fa-book-open"></i> Read the write-up</a>
+    <a class="btn btn-outline" href="#"><i class="fa-brands fa-github"></i> Star the SDK</a>
   </div>
 </section>
 
@@ -6885,7 +7167,7 @@ console.log(job.id, job.status); &#x2F;&#x2F; queued → running → done</code>
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Forge — API Launch","company":"Forge","description":"Developer API launch — developer-dark multi-slide proof with code layout.","theme":"developer-dark"},"slides":[{"layout":"title","eyebrow":"API · Public beta","heading":"Ship infra like you ship product.","lead":"One client. Idempotent writes. Observability that matches your IDE.","notes":"Cold open — land the one-line claim before logos."},{"layout":"feature-grid","eyebrow":"Why teams switch","heading":"Built for operators who live in git","columns":"bento","cards":[{"icon":"fa-solid fa-terminal","title":"CLI-first","body":"forge run, forge logs, forge diff — same verbs as your deploy tool."},{"icon":"fa-solid fa-shield-halved","title":"Idempotent by default","body":"Retry safely. Duplicate keys are a no-op, not a double charge."},{"icon":"fa-solid fa-wave-square","title":"Traces included","body":"Every job links to a span tree you can open in your APM."},{"icon":"fa-solid fa-scissors","title":"Cut the filler","body":"If a card doesn't change the decision, it doesn't earn the pixel."},{"icon":"fa-solid fa-layer-group","title":"Stack for scan","body":"Hierarchy first. Decoration second. Decoration never."}]},{"layout":"comparison","eyebrow":"Before / After","heading":"From glue scripts to a contract.","leftLabel":"Before","left":"Cron + bash + hope.\nSilent failures at 3am.\nNo shared receipt.","rightLabel":"With Forge","right":"Typed jobs with receipts.\nRetries with budgets.\nOne pane for status.","emphasis":"right","notes":"Name the loser column first, then punch the winner."},{"layout":"image-hero","eyebrow":"API · Public beta","heading":"Ship infra like you ship product.","lead":"One client. Idempotent writes. Observability that matches your IDE.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23161b22%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%230d1117%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2888%2C166%2C255%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2822%2C27%2C34%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2863%2C185%2C80%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2888%2C166%2C255%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2888%2C166%2C255%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2888%2C166%2C255%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230d1117%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22820%22%20rx%3D%22700%22%20ry%3D%22120%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23floor%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22520%22%20cy%3D%22260%22%20rx%3D%22360%22%20ry%3D%22260%22%20fill%3D%22url%28%23orb1%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22220%22%20rx%3D%22300%22%20ry%3D%22220%22%20fill%3D%22url%28%23orb2%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20desk%20product%20frame%20--%3E%0A%20%20%3Cg%20transform%3D%22translate%28430%2C170%29%22%3E%0A%20%20%20%20%3Crect%20x%3D%2218%22%20y%3D%2228%22%20width%3D%22720%22%20height%3D%22460%22%20rx%3D%2228%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%20%20%3Crect%20width%3D%22720%22%20height%3D%22450%22%20rx%3D%2226%22%20fill%3D%22%23161b22%22%20stroke%3D%22rgba%2863%2C185%2C80%2C0.350%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22%230d1117%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2222%22%20y%3D%2222%22%20width%3D%22676%22%20height%3D%22360%22%20rx%3D%2216%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%2290%22%20width%3D%22220%22%20height%3D%2218%22%20rx%3D%226%22%20fill%3D%22rgba%2863%2C185%2C80%2C0.850%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22130%22%20width%3D%22380%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.350%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22158%22%20width%3D%22320%22%20height%3D%2212%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%2270%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%2888%2C166%2C255%2C0.280%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22290%22%20y%3D%22210%22%20width%3D%22200%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%2863%2C185%2C80%2C0.220%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22510%22%20y%3D%22210%22%20width%3D%22140%22%20height%3D%22110%22%20rx%3D%2214%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%20%20%3Crect%20x%3D%22280%22%20y%3D%22400%22%20width%3D%22160%22%20height%3D%2210%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Forge cinematic surface","notes":"Hold the visual beat — let the room feel the product."},{"layout":"code","eyebrow":"60-second start","heading":"Create a job. Get a receipt.","filename":"forge-quickstart.ts","language":"ts","code":"import { Forge } from '@forge/sdk';\n\nconst forge = new Forge({ token: process.env.FORGE_TOKEN });\n\nconst job = await forge.jobs.create({\n  pipeline: 'ingest-v3',\n  input: { bucket: 's3://events/raw' },\n  idempotencyKey: 'run_2026_07_30',\n});\n\nconsole.log(job.id, job.status); // queued → running → done"},{"layout":"stat-row","eyebrow":"Beta signal","heading":"Ninety days. Zero paid ads.","stats":[{"value":"1.2k","label":"Active workspaces"},{"value":"48M","label":"Jobs executed"},{"value":"99.95%","label":"API success SLA"}]},{"layout":"closing","eyebrow":"Get in","heading":"Your next deploy should feel boring.","lead":"Free tier · no card · docs that assume you can read TypeScript.","actions":[{"label":"Read the docs","href":"#","style":"solid","icon":"fa-solid fa-book"},{"label":"Get an API key","href":"#","style":"outline","icon":"fa-solid fa-key"}]}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Forge — How idempotency keys ended duplicate jobs","company":"Forge","description":"Engineering talk from the Forge jobs API team: why client retries ran jobs twice, how server-side idempotency keys work, what they cost in latency and storage, and what we would change.","theme":"developer-dark","genre":"talk"},"slides":[{"layout":"title","eyebrow":"Forge engineering · Platform talk · November 2026","heading":"Idempotency keys cut our duplicate jobs from 2.1% to 0.003%.","lead":"What broke, what we built, and what it cost.","notes":"Thesis first. Every slide after this is evidence for that one number."},{"layout":"image-hero","eyebrow":"The failure","heading":"A timeout plus a retry ran each job twice","lead":"The gateway gave up at 30 s. The worker did not.","image":"data:image/svg+xml,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 360'>\u003crect width='1600' height='360' fill='%230d1117'/>\u003cg font-family='JetBrains Mono,Menlo,monospace' font-size='22'>\u003crect x='120' y='70' width='210' height='70' rx='12' fill='%23161b22' stroke='%2358a6ff' stroke-width='3'/>\u003ctext x='150' y='113' fill='%23e6edf3'>client SDK\u003c/text>\u003crect x='470' y='70' width='210' height='70' rx='12' fill='%23161b22' stroke='%2358a6ff' stroke-width='3'/>\u003ctext x='515' y='113' fill='%23e6edf3'>gateway\u003c/text>\u003crect x='820' y='70' width='210' height='70' rx='12' fill='%23161b22' stroke='%2358a6ff' stroke-width='3'/>\u003ctext x='885' y='113' fill='%23e6edf3'>queue\u003c/text>\u003crect x='1160' y='40' width='300' height='60' rx='12' fill='%23161b22' stroke='%233fb950' stroke-width='3'/>\u003ctext x='1185' y='78' fill='%233fb950'>worker: job A\u003c/text>\u003crect x='1160' y='120' width='300' height='60' rx='12' fill='%23161b22' stroke='%23f85149' stroke-width='3'/>\u003ctext x='1185' y='158' fill='%23f85149'>worker: job A again\u003c/text>\u003cpath d='M330 105 H470 M680 105 H820 M1030 105 C1100 105 1100 70 1160 70 M1030 105 C1100 105 1100 150 1160 150' stroke='%238b949e' stroke-width='3' fill='none'/>\u003cpath d='M575 140 C575 200 225 200 225 140' stroke='%23f85149' stroke-width='3' fill='none' stroke-dasharray='10 8'/>\u003ctext x='250' y='225' fill='%23f85149'>30 s gateway timeout → SDK retries the POST\u003c/text>\u003c/g>\u003c/svg>","imageAlt":"Diagram: client SDK to gateway to queue to workers. A 30-second gateway timeout makes the SDK retry, and a second worker runs job A again."},{"layout":"timeline","eyebrow":"Agenda","heading":"Three questions","steps":[{"title":"01","body":"Why did retries duplicate jobs?"},{"title":"02","body":"Did the fix cost us latency?"},{"title":"03","body":"What would we change?"}]},{"layout":"section","number":"01","heading":"Why did retries duplicate jobs?"},{"layout":"chart","eyebrow":"Evidence","heading":"84% of duplicate jobs came from SDK retries after a timeout","chartType":"donut","categories":["SDK retry after timeout","Webhook replay","Operator re-run"],"series":[{"name":"Share of duplicates (%)","values":[84,11,5]}],"showLegend":true,"showValues":true,"lead":"Source: 6,140 duplicate jobs traced in job logs, March–May 2026."},{"layout":"two-column","eyebrow":"Mechanism","heading":"The server stores the first response under the key for 24 hours","ratio":"2-1","reverse":true,"image":"data:image/svg+xml,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 450 750'>\u003crect width='450' height='750' fill='%23161b22'/>\u003cg font-family='JetBrains Mono,Menlo,monospace' font-size='20'>\u003crect x='45' y='90' width='360' height='80' rx='10' fill='%230d1117' stroke='%2358a6ff' stroke-width='3'/>\u003ctext x='70' y='138' fill='%23e6edf3'>POST + key run_0730\u003c/text>\u003cpath d='M225 170 V230' stroke='%238b949e' stroke-width='3'/>\u003crect x='45' y='230' width='360' height='80' rx='10' fill='%230d1117' stroke='%2358a6ff' stroke-width='3'/>\u003ctext x='70' y='278' fill='%23e6edf3'>key seen before?\u003c/text>\u003cpath d='M140 310 V380 M310 310 V380' stroke='%238b949e' stroke-width='3'/>\u003ctext x='70' y='360' fill='%233fb950'>no\u003c/text>\u003ctext x='325' y='360' fill='%23d29922'>yes\u003c/text>\u003crect x='30' y='380' width='190' height='120' rx='10' fill='%230d1117' stroke='%233fb950' stroke-width='3'/>\u003ctext x='50' y='428' fill='%233fb950'>run job,\u003c/text>\u003ctext x='50' y='460' fill='%233fb950'>save reply\u003c/text>\u003crect x='235' y='380' width='190' height='120' rx='10' fill='%230d1117' stroke='%23d29922' stroke-width='3'/>\u003ctext x='255' y='428' fill='%23d29922'>return\u003c/text>\u003ctext x='255' y='460' fill='%23d29922'>saved reply\u003c/text>\u003ctext x='45' y='590' fill='%238b949e'>TTL 24 h · Redis\u003c/text>\u003ctext x='45' y='625' fill='%238b949e'>1 row per key\u003c/text>\u003c/g>\u003c/svg>","imageAlt":"Flow: a POST with an idempotency key is checked. A new key runs the job and saves the reply; a seen key returns the saved reply.","body":"First request with a key runs the job and saves the reply. Any retry with the same key gets that saved reply, not a new job."},{"layout":"section","number":"02","heading":"Did the fix cost us latency?"},{"layout":"comparison","eyebrow":"Before vs after · 30 days each","heading":"Duplicates fell 700× while p99 latency rose only 4 ms","leftLabel":"Before keys (May)","left":"Duplicate rate: 2.1%\np99 create latency: 182 ms\nIncidents: 9","rightLabel":"After keys (July)","right":"Duplicate rate: 0.003%\np99 create latency: 186 ms\nIncidents: 0","emphasis":"right","notes":"Let the room do the maths on 2.1 over 0.003. Then point at the 4 ms: that is the whole cost."},{"layout":"code","eyebrow":"The code that matters","heading":"One field on create makes every retry safe","filename":"create-job.ts","language":"ts","code":"import { Forge } from '@forge/sdk';\n\nconst forge = new Forge({ token: process.env.FORGE_TOKEN });\n\n// Same key on every retry: Forge runs the job once.\nconst job = await forge.jobs.create({\n  pipeline: 'ingest-v3',\n  input: { bucket: 's3://events/raw' },\n  idempotencyKey: `ingest-${batch.id}`,\n});\n\nconsole.log(job.id, job.replayed); // replayed: true on a retry","notes":"Point at the key. It comes from the batch, not from a random UUID; a random key per retry defeats the whole design."},{"layout":"section","number":"03","heading":"What would we change?"},{"layout":"data-table","eyebrow":"Trade-offs and limits","heading":"Keys cost 38 GB of Redis and do not cover long jobs","columns":["Trade-off","Cost today","Limit"],"rows":[["Key storage","38 GB Redis","24 h window"],["Extra lookup","+4 ms p99","One region only"],["Jobs over 24 h","Not covered","Needs a job ledger"]]},{"layout":"two-column","eyebrow":"Next time","heading":"We would ship keys in the SDK on day one, not in year two","ratio":"3-2","body":"Two years of retries ran without keys. 9 incidents and 6,140 duplicate jobs came from that gap.","aside":"Rule now: every write endpoint ships with an idempotency key."},{"layout":"closing","eyebrow":"Takeaway","heading":"Make every write safe to retry, and duplicates disappear.","lead":"Slides, code and the incident write-up are on the Forge engineering blog.","actions":[{"label":"Read the write-up","style":"solid","icon":"fa-solid fa-book-open"},{"label":"Star the SDK","style":"outline","icon":"fa-brands fa-github"}]}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {

@@ -1,70 +1,197 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Stickerlab — Agency Deck",
+    "title": "Stickerlab — studio credentials 2027",
     "company": "Stickerlab",
-    "description": "Creative agency pitch — playful multi-slide proof.",
-    "theme": "playful"
+    "description": "Credentials for Stickerlab, a 14-person Melbourne brand studio that builds sticker-led brand systems: three cases with results, clients, process and how to start.",
+    "theme": "playful",
+    "genre": "brand"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Agency",
-      "heading": "Coral stickers. Lime pops.",
-      "lead": "Nunito 800 energy. Rounded everything on purpose.",
-      "notes": "Cold open — land the one-line claim before logos."
+      "eyebrow": "Stickerlab · Brand studio, Melbourne · Credentials 2027",
+      "heading": "We make brands people want to stick on everything.",
+      "lead": "14 designers. 90 brands since 2018.",
+      "notes": "Hand out a sheet of client stickers before you start. The deck proves what they are holding."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Agency",
-      "heading": "Coral stickers. Lime pops.",
-      "lead": "Nunito 800 energy. Rounded everything on purpose.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff9e6%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23fffbf0%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C71%2C87%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C71%2C87%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2846%2C213%2C115%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28255%2C71%2C87%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C249%2C230%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28255%2C71%2C87%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28255%2C71%2C87%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C71%2C87%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2846%2C213%2C115%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2846%2C213%2C115%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2846%2C213%2C115%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23fffbf0%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22300%22%20cy%3D%22700%22%20rx%3D%22520%22%20ry%3D%22360%22%20fill%3D%22rgba%28255%2C71%2C87%2C0.220%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221300%22%20cy%3D%22160%22%20rx%3D%22420%22%20ry%3D%22300%22%20fill%3D%22rgba%2846%2C213%2C115%2C0.280%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M180%20780%20C260%20520%20420%20420%20520%20280%20C560%20360%20620%20460%20640%20620%20C480%20640%20300%20700%20180%20780%20Z%22%20fill%3D%22rgba%28255%2C71%2C87%2C0.450%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M1180%20120%20C1280%20180%201380%20260%201460%20380%20C1340%20360%201240%20300%201180%20120%20Z%22%20fill%3D%22rgba%2846%2C213%2C115%2C0.400%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M980%20700%20C1080%20560%201220%20500%201360%20420%20C1380%20540%201320%20660%201220%20760%20Z%22%20fill%3D%22rgba%28255%2C71%2C87%2C0.250%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%22860%22%20cy%3D%22240%22%20r%3D%2290%22%20fill%3D%22rgba%2846%2C213%2C115%2C0.200%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22640%22%20y%3D%22360%22%20width%3D%22360%22%20height%3D%22220%22%20rx%3D%2218%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%20stroke%3D%22rgba%28255%2C71%2C87%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22420%22%20width%3D%22200%22%20height%3D%2214%22%20rx%3D%225%22%20fill%3D%22rgba%28255%2C71%2C87%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22680%22%20y%3D%22455%22%20width%3D%22260%22%20height%3D%2210%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Stickerlab cinematic surface",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Our point of view",
+      "heading": "Good brands end up on people's laptops",
+      "lead": "Our test for every idea since 2018.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20490%22%20width%3D%221600%22%20height%3D%22490%22%3E%3Crect%20width%3D%221600%22%20height%3D%22490%22%20fill%3D%22%23fff9e6%22%2F%3E%3Crect%20x%3D%22330%22%20y%3D%2230%22%20width%3D%22940%22%20height%3D%22340%22%20rx%3D%2230%22%20fill%3D%22%231a1a2e%22%2F%3E%3Ccircle%20cx%3D%22800%22%20cy%3D%22200%22%20r%3D%2234%22%20fill%3D%22%232a2a44%22%2F%3E%3Cg%20font-family%3D%22Arial%20Rounded%20MT%20Bold%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%3E%3Cg%20transform%3D%22rotate(-10%20470%20120)%22%3E%3Crect%20x%3D%22380%22%20y%3D%2270%22%20width%3D%22190%22%20height%3D%22100%22%20rx%3D%2250%22%20fill%3D%22%23ff4757%22%20stroke%3D%22%23fff%22%20stroke-width%3D%228%22%2F%3E%3Ctext%20x%3D%22475%22%20y%3D%22135%22%20font-size%3D%2244%22%20fill%3D%22%23fff%22%3EPIP%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20transform%3D%22rotate(8%20660%20280)%22%3E%3Ccircle%20cx%3D%22660%22%20cy%3D%22280%22%20r%3D%2270%22%20fill%3D%22%232ed573%22%20stroke%3D%22%23fff%22%20stroke-width%3D%228%22%2F%3E%3Ctext%20x%3D%22660%22%20y%3D%22295%22%20font-size%3D%2238%22%20fill%3D%22%231a1a2e%22%3ELOOP%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20transform%3D%22rotate(-6%201000%20120)%22%3E%3Crect%20x%3D%22900%22%20y%3D%2270%22%20width%3D%22230%22%20height%3D%22110%22%20rx%3D%2220%22%20fill%3D%22%23ffd32a%22%20stroke%3D%22%23fff%22%20stroke-width%3D%228%22%2F%3E%3Ctext%20x%3D%221015%22%20y%3D%22118%22%20font-size%3D%2228%22%20fill%3D%22%231a1a2e%22%3EFERNWOOD%3C%2Ftext%3E%3Ctext%20x%3D%221015%22%20y%3D%22155%22%20font-size%3D%2228%22%20fill%3D%22%231a1a2e%22%3EREADS%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20transform%3D%22rotate(12%201140%20290)%22%3E%3Crect%20x%3D%221050%22%20y%3D%22240%22%20width%3D%22170%22%20height%3D%2290%22%20rx%3D%2245%22%20fill%3D%22%23fff%22%20stroke%3D%22%23ff4757%22%20stroke-width%3D%228%22%2F%3E%3Ctext%20x%3D%221135%22%20y%3D%22298%22%20font-size%3D%2236%22%20fill%3D%22%23ff4757%22%3EKIKO%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20transform%3D%22rotate(-14%20860%20310)%22%3E%3Cpath%20d%3D%22M800%20270%20l25%20-45%20l25%2045%20l50%208%20l-36%2036%20l9%2050%20l-48%20-24%20l-48%2024%20l9%20-50%20l-36%20-36z%22%20fill%3D%22%23ff6b81%22%20stroke%3D%22%23fff%22%20stroke-width%3D%227%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22rotate(5%20470%20300)%22%3E%3Crect%20x%3D%22400%22%20y%3D%22255%22%20width%3D%22150%22%20height%3D%2280%22%20rx%3D%2216%22%20fill%3D%22%2370a1ff%22%20stroke%3D%22%23fff%22%20stroke-width%3D%228%22%2F%3E%3Ctext%20x%3D%22475%22%20y%3D%22308%22%20font-size%3D%2230%22%20fill%3D%22%23fff%22%3ETIDAL%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "A laptop lid covered in client stickers: Pip, Loop, Fernwood Reads, Kiko and Tidal"
     },
     {
-      "layout": "two-column",
-      "eyebrow": "Services",
-      "heading": "What we slap on",
-      "body": "Brand kits: Stickers as the system. App UI — Friendly without being childish.",
-      "aside": "Campaigns that feel handmade.",
-      "ratio": "2-1"
+      "layout": "feature-grid",
+      "eyebrow": "What we believe",
+      "heading": "We hold every brief to five rules",
+      "columns": "bento",
+      "cards": [
+        {
+          "icon": "fa-solid fa-hand-holding-heart",
+          "title": "Make one mark people keep",
+          "body": "Something that leaves with the customer."
+        },
+        {
+          "icon": "fa-solid fa-face-smile",
+          "title": "Friendly, never childish"
+        },
+        {
+          "icon": "fa-solid fa-laptop",
+          "title": "Test it on a real laptop"
+        },
+        {
+          "icon": "fa-solid fa-bullseye",
+          "title": "One idea per brand"
+        },
+        {
+          "icon": "fa-solid fa-share-nodes",
+          "title": "Measure the sharing"
+        }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "Three brands, three results",
+      "lead": "Pip Oat Milk, Loop Bikes, Fernwood Libraries."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 1 · Pip Oat Milk",
+      "heading": "Pip turned its carton into a sticker sheet",
+      "lead": "Every carton since May 2026 has a peel-off mascot.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20490%22%20width%3D%221600%22%20height%3D%22490%22%3E%3Crect%20width%3D%221600%22%20height%3D%22490%22%20fill%3D%22%23ffeef0%22%2F%3E%3Cg%20font-family%3D%22Arial%20Rounded%20MT%20Bold%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20text-anchor%3D%22middle%22%3E%3Cg%3E%3Cpath%20d%3D%22M300%20110%20L360%2040%20L480%2040%20L540%20110%20L540%20380%20L300%20380%20Z%22%20fill%3D%22%23fff%22%20stroke%3D%22%231a1a2e%22%20stroke-width%3D%226%22%2F%3E%3Ctext%20x%3D%22420%22%20y%3D%22160%22%20font-size%3D%2240%22%20fill%3D%22%231a1a2e%22%3EPIP%3C%2Ftext%3E%3Ctext%20x%3D%22420%22%20y%3D%22195%22%20font-size%3D%2220%22%20fill%3D%22%2362627f%22%3EOAT%20MILK%20%C2%B7%201%20L%3C%2Ftext%3E%3Ccircle%20cx%3D%22420%22%20cy%3D%22285%22%20r%3D%2262%22%20fill%3D%22%23ff4757%22%20stroke%3D%22%231a1a2e%22%20stroke-width%3D%225%22%2F%3E%3Ccircle%20cx%3D%22398%22%20cy%3D%22272%22%20r%3D%229%22%20fill%3D%22%23fff%22%2F%3E%3Ccircle%20cx%3D%22442%22%20cy%3D%22272%22%20r%3D%229%22%20fill%3D%22%23fff%22%2F%3E%3Cpath%20d%3D%22M395%20305%20q25%2020%2050%200%22%20stroke%3D%22%23fff%22%20stroke-width%3D%227%22%20fill%3D%22none%22%2F%3E%3C%2Fg%3E%3Cg%3E%3Cpath%20d%3D%22M640%20110%20L700%2040%20L820%2040%20L880%20110%20L880%20380%20L640%20380%20Z%22%20fill%3D%22%23fff%22%20stroke%3D%22%231a1a2e%22%20stroke-width%3D%226%22%2F%3E%3Ctext%20x%3D%22760%22%20y%3D%22160%22%20font-size%3D%2240%22%20fill%3D%22%231a1a2e%22%3EPIP%3C%2Ftext%3E%3Ctext%20x%3D%22760%22%20y%3D%22195%22%20font-size%3D%2220%22%20fill%3D%22%2362627f%22%3EBARISTA%20%C2%B7%201%20L%3C%2Ftext%3E%3Ccircle%20cx%3D%22760%22%20cy%3D%22285%22%20r%3D%2262%22%20fill%3D%22%23ffd2d6%22%20stroke%3D%22%231a1a2e%22%20stroke-width%3D%225%22%20stroke-dasharray%3D%2210%208%22%2F%3E%3Ctext%20x%3D%22760%22%20y%3D%22295%22%20font-size%3D%2222%22%20fill%3D%22%231a1a2e%22%3Epeeled!%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20transform%3D%22rotate(-18%201000%20250)%22%3E%3Ccircle%20cx%3D%221000%22%20cy%3D%22250%22%20r%3D%2272%22%20fill%3D%22%23ff4757%22%20stroke%3D%22%231a1a2e%22%20stroke-width%3D%225%22%2F%3E%3Ccircle%20cx%3D%22975%22%20cy%3D%22236%22%20r%3D%2210%22%20fill%3D%22%23fff%22%2F%3E%3Ccircle%20cx%3D%221025%22%20cy%3D%22236%22%20r%3D%2210%22%20fill%3D%22%23fff%22%2F%3E%3Cpath%20d%3D%22M972%20272%20q28%2022%2056%200%22%20stroke%3D%22%23fff%22%20stroke-width%3D%227%22%20fill%3D%22none%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M830%20260%20C900%20200%20930%20210%20950%20220%22%20stroke%3D%22%231a1a2e%22%20stroke-width%3D%225%22%20fill%3D%22none%22%20stroke-dasharray%3D%2212%2010%22%2F%3E%3Crect%20x%3D%221130%22%20y%3D%22120%22%20width%3D%22330%22%20height%3D%22190%22%20rx%3D%2226%22%20fill%3D%22%232ed573%22%2F%3E%3Ctext%20x%3D%221295%22%20y%3D%22200%22%20font-size%3D%2264%22%20fill%3D%22%231a1a2e%22%3E12%3C%2Ftext%3E%3Ctext%20x%3D%221295%22%20y%3D%22250%22%20font-size%3D%2226%22%20fill%3D%22%231a1a2e%22%3Emascots%20to%20collect%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "Pip oat milk cartons with a peel-off mascot sticker, one already peeled, and a badge reading 12 mascots to collect"
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Fun",
-      "heading": "Serious results.",
+      "eyebrow": "Case 1 · Result",
+      "heading": "Pip grew retail sales 38% in six months",
       "stats": [
         {
-          "value": "90",
-          "label": "Brands"
+          "value": "+38%",
+          "label": "Retail sales, May–Oct 2026 vs. 2025"
         },
         {
-          "value": "4.9",
-          "label": "Client NPS"
+          "value": "2.1M",
+          "label": "Stickers peeled, counted by QR scans"
         },
         {
-          "value": "0",
-          "label": "Boring decks"
+          "value": "+212%",
+          "label": "Tagged posts vs. the prior six months"
         }
       ],
-      "notes": "One breath on the numbers — then move on."
+      "notes": "Lead with sales, not posts. Marketing directors get asked about sales."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Case 2 · Loop Bikes",
+      "heading": "Loop's sign-up completion rose 27 points",
+      "ratio": "1-2",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201270%201000%22%20width%3D%221270%22%20height%3D%221000%22%3E%3Crect%20width%3D%221270%22%20height%3D%221000%22%20fill%3D%22%23eafaf0%22%2F%3E%3Crect%20x%3D%22420%22%20y%3D%2260%22%20width%3D%22430%22%20height%3D%22880%22%20rx%3D%2260%22%20fill%3D%22%231a1a2e%22%2F%3E%3Crect%20x%3D%22445%22%20y%3D%22110%22%20width%3D%22380%22%20height%3D%22800%22%20rx%3D%2236%22%20fill%3D%22%23fffbf0%22%2F%3E%3Cg%20font-family%3D%22Arial%20Rounded%20MT%20Bold%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%3E%3Ctext%20x%3D%22475%22%20y%3D%22180%22%20font-size%3D%2224%22%20fill%3D%22%2362627f%22%3EStep%203%20of%204%3C%2Ftext%3E%3Crect%20x%3D%22475%22%20y%3D%22200%22%20width%3D%22320%22%20height%3D%2214%22%20rx%3D%227%22%20fill%3D%22%23e3e3ea%22%2F%3E%3Crect%20x%3D%22475%22%20y%3D%22200%22%20width%3D%22240%22%20height%3D%2214%22%20rx%3D%227%22%20fill%3D%22%232ed573%22%2F%3E%3Ctext%20x%3D%22475%22%20y%3D%22280%22%20font-size%3D%2240%22%20fill%3D%22%231a1a2e%22%3EPick%20your%3C%2Ftext%3E%3Ctext%20x%3D%22475%22%20y%3D%22328%22%20font-size%3D%2240%22%20fill%3D%22%231a1a2e%22%3Ehome%20station%3C%2Ftext%3E%3Crect%20x%3D%22475%22%20y%3D%22370%22%20width%3D%22320%22%20height%3D%2280%22%20rx%3D%2220%22%20fill%3D%22%23fff%22%20stroke%3D%22%231a1a2e%22%20stroke-width%3D%224%22%2F%3E%3Ctext%20x%3D%22500%22%20y%3D%22420%22%20font-size%3D%2228%22%20fill%3D%22%231a1a2e%22%3EFlinders%20St%3C%2Ftext%3E%3Crect%20x%3D%22475%22%20y%3D%22470%22%20width%3D%22320%22%20height%3D%2280%22%20rx%3D%2220%22%20fill%3D%22%23fff%22%20stroke%3D%22%23d0d0dc%22%20stroke-width%3D%224%22%2F%3E%3Ctext%20x%3D%22500%22%20y%3D%22520%22%20font-size%3D%2228%22%20fill%3D%22%2362627f%22%3ESouthern%20Cross%3C%2Ftext%3E%3Cg%20transform%3D%22rotate(-10%20635%20690)%22%3E%3Ccircle%20cx%3D%22635%22%20cy%3D%22690%22%20r%3D%2290%22%20fill%3D%22%23ff4757%22%20stroke%3D%22%231a1a2e%22%20stroke-width%3D%226%22%2F%3E%3Ctext%20x%3D%22635%22%20y%3D%22680%22%20text-anchor%3D%22middle%22%20font-size%3D%2226%22%20fill%3D%22%23fff%22%3EBADGE%3C%2Ftext%3E%3Ctext%20x%3D%22635%22%20y%3D%22715%22%20text-anchor%3D%22middle%22%20font-size%3D%2226%22%20fill%3D%22%23fff%22%3ELocal!%3C%2Ftext%3E%3C%2Fg%3E%3Crect%20x%3D%22475%22%20y%3D%22820%22%20width%3D%22320%22%20height%3D%2270%22%20rx%3D%2235%22%20fill%3D%22%232ed573%22%2F%3E%3Ctext%20x%3D%22635%22%20y%3D%22866%22%20text-anchor%3D%22middle%22%20font-size%3D%2228%22%20fill%3D%22%231a1a2e%22%3ENext%3C%2Ftext%3E%3Cg%20transform%3D%22rotate(-8%20230%20300)%22%3E%3Ccircle%20cx%3D%22230%22%20cy%3D%22300%22%20r%3D%2280%22%20fill%3D%22%232ed573%22%20stroke%3D%22%231a1a2e%22%20stroke-width%3D%226%22%2F%3E%3Ctext%20x%3D%22230%22%20y%3D%22310%22%20text-anchor%3D%22middle%22%20font-size%3D%2226%22%20fill%3D%22%231a1a2e%22%3E1st%20ride%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20transform%3D%22rotate(10%201040%20420)%22%3E%3Crect%20x%3D%22950%22%20y%3D%22370%22%20width%3D%22180%22%20height%3D%22100%22%20rx%3D%2250%22%20fill%3D%22%23ffd32a%22%20stroke%3D%22%231a1a2e%22%20stroke-width%3D%226%22%2F%3E%3Ctext%20x%3D%221040%22%20y%3D%22432%22%20text-anchor%3D%22middle%22%20font-size%3D%2226%22%20fill%3D%22%231a1a2e%22%3EHelmet%20on%3C%2Ftext%3E%3C%2Fg%3E%3Ctext%20x%3D%2280%22%20y%3D%22720%22%20font-size%3D%2256%22%20fill%3D%22%231a1a2e%22%3E54%25%20%E2%86%92%2081%25%3C%2Ftext%3E%3Ctext%20x%3D%2280%22%20y%3D%22770%22%20font-size%3D%2226%22%20fill%3D%22%2362627f%22%3Efinish%20sign-up%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "Loop Bikes app sign-up screen, step 3 of 4, with sticker badges for first ride, local and helmet on",
+      "body": "From 54% to 81%. We cut a nine-field form to four steps, each ending with a badge."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 3 · Fernwood Libraries",
+      "heading": "A sticker passport tripled summer reading",
+      "lead": "12,400 kids signed up across 12 libraries.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20490%22%20width%3D%221600%22%20height%3D%22490%22%3E%3Crect%20width%3D%221600%22%20height%3D%22490%22%20fill%3D%22%23fffbf0%22%2F%3E%3Crect%20x%3D%22140%22%20y%3D%2230%22%20width%3D%22820%22%20height%3D%22340%22%20rx%3D%2224%22%20fill%3D%22%23ffd32a%22%20stroke%3D%22%231a1a2e%22%20stroke-width%3D%226%22%2F%3E%3Cg%20font-family%3D%22Arial%20Rounded%20MT%20Bold%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%3E%3Ctext%20x%3D%22180%22%20y%3D%2290%22%20font-size%3D%2234%22%20fill%3D%22%231a1a2e%22%3EFERNWOOD%20SUMMER%20READING%20PASSPORT%3C%2Ftext%3E%3Ctext%20x%3D%22180%22%20y%3D%22125%22%20font-size%3D%2222%22%20fill%3D%22%2362627f%22%3EName%3A%20Mia%2C%20age%208%20%C2%B7%2012%20libraries%2C%2012%20stickers%3C%2Ftext%3E%3Cg%20stroke%3D%22%231a1a2e%22%20stroke-width%3D%224%22%3E%3Ccircle%20cx%3D%22230%22%20cy%3D%22200%22%20r%3D%2242%22%20fill%3D%22%23ff4757%22%2F%3E%3Ccircle%20cx%3D%22350%22%20cy%3D%22200%22%20r%3D%2242%22%20fill%3D%22%232ed573%22%2F%3E%3Ccircle%20cx%3D%22470%22%20cy%3D%22200%22%20r%3D%2242%22%20fill%3D%22%2370a1ff%22%2F%3E%3Ccircle%20cx%3D%22590%22%20cy%3D%22200%22%20r%3D%2242%22%20fill%3D%22%23ff6b81%22%2F%3E%3Ccircle%20cx%3D%22710%22%20cy%3D%22200%22%20r%3D%2242%22%20fill%3D%22%232ed573%22%2F%3E%3Ccircle%20cx%3D%22830%22%20cy%3D%22200%22%20r%3D%2242%22%20fill%3D%22%23ff4757%22%2F%3E%3Ccircle%20cx%3D%22230%22%20cy%3D%22305%22%20r%3D%2242%22%20fill%3D%22%2370a1ff%22%2F%3E%3Ccircle%20cx%3D%22350%22%20cy%3D%22305%22%20r%3D%2242%22%20fill%3D%22%23ff4757%22%2F%3E%3Ccircle%20cx%3D%22470%22%20cy%3D%22305%22%20r%3D%2242%22%20fill%3D%22%232ed573%22%2F%3E%3Ccircle%20cx%3D%22590%22%20cy%3D%22305%22%20r%3D%2242%22%20fill%3D%22%23fff%22%20stroke-dasharray%3D%228%207%22%2F%3E%3Ccircle%20cx%3D%22710%22%20cy%3D%22305%22%20r%3D%2242%22%20fill%3D%22%23fff%22%20stroke-dasharray%3D%228%207%22%2F%3E%3Ccircle%20cx%3D%22830%22%20cy%3D%22305%22%20r%3D%2242%22%20fill%3D%22%23fff%22%20stroke-dasharray%3D%228%207%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%221060%22%20y%3D%22150%22%20font-size%3D%2296%22%20fill%3D%22%23ff4757%22%3E12%2C400%3C%2Ftext%3E%3Ctext%20x%3D%221060%22%20y%3D%22200%22%20font-size%3D%2228%22%20fill%3D%22%231a1a2e%22%3Ekids%20signed%20up%2C%20summer%202026%3C%2Ftext%3E%3Ctext%20x%3D%221060%22%20y%3D%22250%22%20font-size%3D%2228%22%20fill%3D%22%2362627f%22%3E4%2C100%20in%20summer%202025%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "A summer reading passport with nine of twelve library stickers collected, beside 12,400 kids signed up versus 4,100 in 2025"
+    },
+    {
+      "layout": "metric-ring",
+      "eyebrow": "Repeat clients",
+      "heading": "72% of our clients come back for a second project",
+      "value": "72%",
+      "label": "repeat clients",
+      "pct": 72,
+      "body": "Of 90 clients since 2018, 65 hired us again within two years."
+    },
+    {
+      "layout": "logo-wall",
+      "eyebrow": "Clients",
+      "heading": "Brands that peel with us",
+      "columns": 3,
+      "cards": [
+        {
+          "title": "Pip Oat Milk",
+          "body": "Packaging"
+        },
+        {
+          "title": "Loop Bikes",
+          "body": "App"
+        },
+        {
+          "title": "Fernwood Libraries",
+          "body": "Campaign"
+        },
+        {
+          "title": "Kiko Ramen",
+          "body": "Identity"
+        },
+        {
+          "title": "Bright Dental",
+          "body": "Identity"
+        },
+        {
+          "title": "Tidal Swim School",
+          "body": "Campaign"
+        }
+      ]
     },
     {
       "layout": "quote",
-      "quote": "If it doesn't want to be a sticker, it isn't the idea.",
-      "by": "Stickerlab"
+      "quote": "They gave our carton a face. Kids now ask for Pip by name.",
+      "by": "Hana Lee · Head of Marketing · Pip Oat Milk"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "How we work",
+      "heading": "Your first brand system ships in eight weeks",
+      "steps": [
+        {
+          "title": "Week 1 · Sprint",
+          "body": "50 marks in five days"
+        },
+        {
+          "title": "Weeks 2–4 · System",
+          "body": "Logo, colour, type, voice"
+        },
+        {
+          "title": "Weeks 5–7 · Rollout",
+          "body": "Packaging, app, store"
+        },
+        {
+          "title": "Week 8 · Measure",
+          "body": "Scans, posts, sales"
+        }
+      ],
+      "notes": "Offer the one-week sprint as a paid trial. Most clients start there."
     },
     {
       "layout": "closing",
-      "eyebrow": "Play",
-      "heading": "Peel one off.",
-      "lead": "New client slots monthly.",
-      "cta": {
-        "label": "Start a project",
-        "href": "#"
-      }
+      "eyebrow": "Start a project",
+      "heading": "Let's make your brand the one people keep.",
+      "lead": "Two project slots open for spring 2027.",
+      "actions": [
+        {
+          "label": "Book a sticker sprint",
+          "href": "#",
+          "style": "solid",
+          "icon": "fa-solid fa-calendar-check"
+        },
+        {
+          "label": "Get the case book",
+          "href": "#",
+          "style": "outline",
+          "icon": "fa-solid fa-download"
+        }
+      ]
     }
   ]
 }

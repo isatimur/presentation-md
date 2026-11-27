@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Buttercup — Launch Deck</title>
-<meta name="description" content="Kids brand launch — daisy-days multi-slide proof." />
+<title>Buttercup Growsocks — launch, 3 March 2027</title>
+<meta name="description" content="Launch deck for Buttercup Growsocks, a kids&#39; stretch-knit sock that fits from age 2 to age 5: the problem, the reveal, three features, beta proof, a parent&#39;s voice, price and availability." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500;600;700&display=swap');
@@ -20,6 +20,12 @@
   --muted: #666666;
   --accent: #7ECDC0;
   --accent-2: #F7C8D4;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #2D2D2D;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #3a9687;
+  --accent-2-ink: #d41f4d;
   --card-bg: #FFFFFF;
   --border: #2D2D2D;
   --radius: 20px;
@@ -27,6 +33,10 @@
   --heading-font: 'Fredoka One', cursive;
   --body-font: 'Quicksand', system-ui, sans-serif;
   --heading-weight: 400;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,86 +6908,142 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="daisy-days-pastel">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Launch</span>
-  <h1>Cream pastels. Charcoal outlines.</h1>
-  <p class="lead">Fredoka One joy. Quicksand calm.</p>
+  <span class="eyebrow">Buttercup · Launch · 3 March 2027</span>
+  <h1>Socks that grow with your kid for three years.</h1>
+  <p class="lead">Meet Growsocks: one pair from age 2 to age 5.</p>
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23FFFDF8%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23F5F0E6%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28247%2C200%2C212%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C253%2C248%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28247%2C200%2C212%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28247%2C200%2C212%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28247%2C200%2C212%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F5F0E6%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.65%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22420%22%20rx%3D%22640%22%20ry%3D%22220%22%20fill%3D%22rgba%28126%2C205%2C192%2C0.180%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20neon%20tunnel%20rings%20--%3E%0A%20%20%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22520%22%20ry%3D%22210%22%20stroke%3D%22rgba%28126%2C205%2C192%2C0.350%29%22%20stroke-width%3D%223%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22400%22%20ry%3D%22160%22%20stroke%3D%22rgba%28247%2C200%2C212%2C0.450%29%22%20stroke-width%3D%222.5%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22280%22%20ry%3D%22110%22%20stroke%3D%22rgba%28126%2C205%2C192%2C0.550%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22160%22%20ry%3D%2262%22%20stroke%3D%22rgba%28247%2C200%2C212%2C0.700%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20x%3D%22470%22%20y%3D%22300%22%20width%3D%22660%22%20height%3D%22300%22%20rx%3D%2222%22%20fill%3D%22rgba%28255%2C253%2C248%2C0.720%29%22%20stroke%3D%22rgba%28126%2C205%2C192%2C0.400%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22350%22%20width%3D%22240%22%20height%3D%2216%22%20rx%3D%226%22%20fill%3D%22rgba%28126%2C205%2C192%2C0.900%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22390%22%20width%3D%22420%22%20height%3D%2211%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.320%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22420%22%20width%3D%22360%22%20height%3D%2211%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28247%2C200%2C212%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22670%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28126%2C205%2C192%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22830%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.5%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22240%22%20cy%3D%22180%22%20r%3D%2216%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221360%22%20cy%3D%22220%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221480%22%20cy%3D%22680%22%20r%3D%2212%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="Buttercup craft visual" />
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%3Cdefs%3E%3Cpath%20id%3D%22s%22%20d%3D%22M0%200h60v110q0%2020%2020%2020h50q25%200%2025%2025t-25%2025h-95q-35%200-35-35z%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%225%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F5F0E6%22%2F%3E%3Cg%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%223%22%20opacity%3D%22.6%22%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22140%22%20r%3D%2240%22%2F%3E%3Ccircle%20cx%3D%221480%22%20cy%3D%22760%22%20r%3D%2250%22%2F%3E%3Ccircle%20cx%3D%221460%22%20cy%3D%22130%22%20r%3D%2230%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(640%20348)%20scale(.62)%22%3E%3Cuse%20href%3D%22%23s%22%20fill%3D%22%23F7C8D4%22%20transform%3D%22translate(40%20-40)%20rotate(-25)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20fill%3D%22%237ECDC0%22%20transform%3D%22translate(150%20-70)%20rotate(10)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20fill%3D%22%23F9D867%22%20transform%3D%22translate(260%20-40)%20rotate(35)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20fill%3D%22%23FFFDF8%22%20transform%3D%22translate(360%20-60)%20rotate(-10)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20fill%3D%22%23F7C8D4%22%20transform%3D%22translate(440%200)%20rotate(50)%22%2F%3E%3Cpath%20d%3D%22M-20%20120h520l-50%20320h-420z%22%20fill%3D%22%23F9D867%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%226%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cg%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%20opacity%3D%22.5%22%3E%3Cpath%20d%3D%22M30%20200h440M45%20290h410M60%20380h380%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%22-40%22%20y%3D%22100%22%20width%3D%22560%22%20height%3D%2240%22%20rx%3D%2220%22%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%226%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(1060%20365)%22%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%3E%3Crect%20width%3D%22300%22%20height%3D%22170%22%20rx%3D%2224%22%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%225%22%2F%3E%3Ctext%20x%3D%22150%22%20y%3D%2288%22%20font-size%3D%2264%22%20fill%3D%22%232D2D2D%22%20text-anchor%3D%22middle%22%3E20%20pairs%3C%2Ftext%3E%3Ctext%20x%3D%22150%22%20y%3D%22134%22%20font-size%3D%2226%22%20fill%3D%22%23666%22%20text-anchor%3D%22middle%22%3Eoutgrown%20a%20year%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="A yellow laundry basket overflowing with small outgrown socks" />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">Launch</span>
-    <h2>Cream pastels. Charcoal outlines.</h2>
-    <p class="lead">Fredoka One joy. Quicksand calm.</p>
+    <span class="eyebrow">Today</span>
+    <h2>Kids outgrow socks every four months, so parents bin 20 pairs a year</h2>
+    <p class="lead">Buttercup survey of 1,050 UK parents, 2026.</p>
   </div>
 </section>
 
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Line</span>
-  <h2>Three first products</h2>
-  <div class="grid cols-bento">
-    <div class="card">
-      <i class="fa-solid fa-socks"></i>
-      <h3>Socks</h3>
-      <p>Butter yellow that survives the wash.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-puzzle-piece"></i>
-      <h3>Play kits</h3>
-      <p>Turquoise boxes, pink stickers.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-book-open"></i>
-      <h3>Story cards</h3>
-      <p>Short reads for bedtime.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-scissors"></i>
-      <h3>Cut the filler</h3>
-      <p>If a card doesn&#39;t change the decision, it doesn&#39;t earn the pixel.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-layer-group"></i>
-      <h3>Stack for scan</h3>
-      <p>Hierarchy first. Decoration second. Decoration never.</p>
-    </div>
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%237ECDC0%22%2F%3E%3Cg%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%3E%3Ccircle%20cx%3D%22200%22%20cy%3D%22200%22%20r%3D%2222%22%2F%3E%3Ccircle%20cx%3D%221400%22%20cy%3D%22700%22%20r%3D%2230%22%2F%3E%3Ccircle%20cx%3D%221340%22%20cy%3D%22190%22%20r%3D%2218%22%2F%3E%3Ccircle%20cx%3D%22300%22%20cy%3D%22720%22%20r%3D%2216%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(700%20285)%20scale(1.85)%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%222.4%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M0%200h60v110q0%2020%2020%2020h50q25%200%2025%2025t-25%2025h-95q-35%200-35-35z%22%20fill%3D%22%23F9D867%22%2F%3E%3Crect%20x%3D%22-4%22%20y%3D%22-6%22%20width%3D%2268%22%20height%3D%2222%22%20rx%3D%226%22%20fill%3D%22%23F7C8D4%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke-width%3D%221.6%22%20opacity%3D%22.6%22%3E%3Cpath%20d%3D%22M6%2030v70M18%2030v70M30%2030v70M42%2030v70M54%2030v70%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%232D2D2D%22%3E%3Ccircle%20cx%3D%2234%22%20cy%3D%2264%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2248%22%20cy%3D%2264%22%20r%3D%223%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M32%2076q9%208%2018%200%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M118%20150a14%2014%200%200%201%2022%200%22%20fill%3D%22%23FFFDF8%22%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%20fill%3D%22%232D2D2D%22%3E%3Cpath%20d%3D%22M1000%20360h150%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%20stroke-dasharray%3D%2210%2010%22%2F%3E%3Ctext%20x%3D%221170%22%20y%3D%22372%22%20font-size%3D%2240%22%3Efits%20age%202%20to%205%3C%2Ftext%3E%3Cpath%20d%3D%22M1020%20560h130%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%20stroke-dasharray%3D%2210%2010%22%2F%3E%3Ctext%20x%3D%221170%22%20y%3D%22572%22%20font-size%3D%2240%22%3Egrip%20dots%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="A butter-yellow Growsock with a pink cuff on a teal background" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">Introducing</span>
+    <h2>Growsocks</h2>
+    <p class="lead">A stretch-knit sock that fits ages 2 to 5.</p>
   </div>
 </section>
 
-<section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Beta</span>
-  <h2>Tiny fans, big numbers.</h2>
-  
-  <div class="stats">
-    <div class="stat">
-      <div class="value">6.2k</div>
-      <div class="label">Preorders</div>
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">01</div>
+  <h2>How Growsocks work</h2>
+  <p class="lead">Three small ideas in one sock.</p>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-1-2">
+    <div class="cols-copy">
+      <span class="eyebrow">Stretch knit</span>
+      <h2>Ribbed stretch knit grows through three shoe sizes</h2>
+      <p class="lead">Rib channels open as feet grow. Heel and toe stay snug from size 5 to size 12.</p>
     </div>
-    <div class="stat">
-      <div class="value">48</div>
-      <div class="label">Stores</div>
+    <div class="media"><img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20900%22%3E%3Cdefs%3E%3Cpath%20id%3D%22s%22%20d%3D%22M0%200h60v110q0%2020%2020%2020h50q25%200%2025%2025t-25%2025h-95q-35%200-35-35z%22%20fill%3D%22%23F9D867%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%223%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22900%22%20fill%3D%22%23FFFDF8%22%2F%3E%3Cpath%20d%3D%22M80%20720h1040%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%2F%3E%3Cg%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%20font-size%3D%2240%22%20fill%3D%22%232D2D2D%22%20text-anchor%3D%22middle%22%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(130%20410)%20scale(1.6)%22%2F%3E%3Ctext%20x%3D%22230%22%20y%3D%22790%22%3EAge%202%3C%2Ftext%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(470%20330)%20scale(2.1)%22%2F%3E%3Ctext%20x%3D%22600%22%20y%3D%22790%22%3EAge%203%C2%BD%3C%2Ftext%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(800%20300)%20scale(2.25)%22%20fill%3D%22%237ECDC0%22%2F%3E%3Ctext%20x%3D%22960%22%20y%3D%22790%22%3EAge%205%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23F7C8D4%22%20stroke-width%3D%2210%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M240%20330q120-120%20300-110M650%20250q120-110%20260-100%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%22600%22%20y%3D%22130%22%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%20font-size%3D%2244%22%20fill%3D%22%232D2D2D%22%20text-anchor%3D%22middle%22%3Esame%20pair%2C%20three%20sizes%3C%2Ftext%3E%3C%2Fsvg%3E" alt="The same sock drawn at three sizes for ages 2, 3½ and 5" /></div>
+    
+  </div>
+</section>
+
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F7C8D4%22%2F%3E%3Cg%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%3E%3Cpath%20d%3D%22M120%20640q60-40%20120%200t120%200%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M1260%20220q60-40%20120%200t120%200%22%20fill%3D%22none%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(760%20450)%20rotate(-90)%20scale(.95)%22%20stroke%3D%22%232D2D2D%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M-150-90h220q90%200%2090%2090t-90%2090h-220q-70%200-70-90t70-90z%22%20fill%3D%22%23F9D867%22%20stroke-width%3D%226%22%2F%3E%3Cg%20fill%3D%22%237ECDC0%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22-150%22%20cy%3D%22-40%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-150%22%20cy%3D%220%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-150%22%20cy%3D%2240%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-100%22%20cy%3D%22-50%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-100%22%20cy%3D%22-10%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-100%22%20cy%3D%2230%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-100%22%20cy%3D%2270%22%20r%3D%2212%22%2F%3E%3Ccircle%20cx%3D%22-40%22%20cy%3D%22-40%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-40%22%20cy%3D%220%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-40%22%20cy%3D%2240%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%22-50%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%22-10%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2230%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2270%22%20r%3D%2212%22%2F%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%22-40%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%220%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%2240%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22130%22%20cy%3D%22-20%22%20r%3D%2212%22%2F%3E%3Ccircle%20cx%3D%22130%22%20cy%3D%2220%22%20r%3D%2212%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3Cg%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%20fill%3D%22%232D2D2D%22%3E%3Crect%20x%3D%221000%22%20y%3D%22370%22%20width%3D%22340%22%20height%3D%22160%22%20rx%3D%2224%22%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%225%22%2F%3E%3Ctext%20x%3D%221170%22%20y%3D%22450%22%20font-size%3D%2256%22%20text-anchor%3D%22middle%22%3E200%20washes%3C%2Ftext%3E%3Ctext%20x%3D%221170%22%20y%3D%22496%22%20font-size%3D%2226%22%20text-anchor%3D%22middle%22%20fill%3D%22%23666%22%3Edots%20still%20on%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="The sole of a Growsock covered in teal grip dots" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">Grip dots</span>
+    <h2>Grip dots last 200 washes, so toddlers stay upright</h2>
+    <p class="lead">Natural rubber dots, tested at 40 °C.</p>
+  </div>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-1-2 cols-reverse">
+    <div class="cols-copy">
+      <span class="eyebrow">No odd socks</span>
+      <h2>Every sock in the box matches every other sock</h2>
+      <p class="lead">One pattern, two colours per box. Any two socks make a pair, so the odd sock is gone.</p>
     </div>
-    <div class="stat">
-      <div class="value">4.9</div>
-      <div class="label">Parent rating</div>
+    <div class="media"><img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20900%22%3E%3Cdefs%3E%3Cg%20id%3D%22s%22%3E%3Cpath%20d%3D%22M0%200h60v110q0%2020%2020%2020h50q25%200%2025%2025t-25%2025h-95q-35%200-35-35z%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%22-3%22%20y%3D%22-4%22%20width%3D%2266%22%20height%3D%2220%22%20rx%3D%226%22%20fill%3D%22%23F7C8D4%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%2F%3E%3C%2Fg%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22900%22%20fill%3D%22%23FFFDF8%22%2F%3E%3Cg%20fill%3D%22%23F9D867%22%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(170%20150)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(470%20150)%22%20fill%3D%22%237ECDC0%22%2F%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(770%20150)%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%237ECDC0%22%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(170%20500)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(470%20500)%22%20fill%3D%22%23F9D867%22%2F%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(770%20500)%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%225%22%20stroke-dasharray%3D%224%2014%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M260%20360q200%20120%20340%20160M560%20360q200%20120%20300%20160M860%20360q-300%2060-560%20150%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%22600%22%20y%3D%22820%22%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%20font-size%3D%2242%22%20fill%3D%22%232D2D2D%22%20text-anchor%3D%22middle%22%3Eany%20two%20make%20a%20pair%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Six socks in yellow and teal joined by dotted lines to show any two pair up" /></div>
+    
+  </div>
+</section>
+
+<section class="slide metric-ring-slide" data-layout="metric-ring">
+  <span class="eyebrow">Beta proof</span>
+  <h2>94% of beta pairs still fit after twelve months of wear</h2>
+  <div class="pct-wrap">
+    <div class="pct-ring pct-ring-arc" role="img" aria-label="94% of pairs still fit at month 12">
+      <svg class="pct-ring-svg" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-opacity="0.15" stroke-width="10"/><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round" stroke-dasharray="248.06 263.89" transform="rotate(-90 50 50)"/></svg>
+      <div class="pct-ring-center">
+        <span class="pct-num">94%</span>
+        <span class="pct-label">of pairs still fit at month 12</span>
+      </div>
+    </div>
+    <div class="pct-desc">
+      <p class="lead">Beta with 600 families, February 2026 to February 2027.</p>
+      
     </div>
   </div>
 </section>
 
 <section class="slide quote-slide" data-layout="quote">
-  <p class="quote">Cute without the outline is just pastel mush.</p>
-  <p class="quote-by">— Buttercup</p>
+  <p class="quote">Eleven months in, his first pair still fits. I have stopped buying socks.</p>
+  <p class="quote-by">— Hana Begum, beta parent, Leeds</p>
+</section>
+
+<section class="slide data-table-slide" data-layout="data-table">
+  <span class="eyebrow">Price</span>
+  <h2>A £32 box of Growsocks replaces £120 of ordinary socks</h2>
+  
+  <table>
+    <thead>
+      <tr><th>Option</th><th>Price</th><th>Lasts</th><th>Cost a year</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Ordinary socks, 20 pairs</td><td>£40</td><td>1 year</td><td>£40</td></tr>
+      <tr><td>Growsocks, 3 pairs</td><td>£18</td><td>3 years</td><td>£6</td></tr>
+      <tr><td>Growsocks, 6 pairs</td><td>£32</td><td>3 years</td><td>£10.67</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide stat-row-slide" data-layout="stat-row">
+  <span class="eyebrow">Availability</span>
+  <h2>Growsocks ship on 3 March to 48 UK stores and online</h2>
+  
+  <div class="stats">
+    <div class="stat">
+      <div class="value">6,200</div>
+      <div class="label">Preorders since January</div>
+    </div>
+    <div class="stat">
+      <div class="value">48</div>
+      <div class="label">UK stores on launch day</div>
+    </div>
+    <div class="stat">
+      <div class="value">£0</div>
+      <div class="label">Shipping in launch week</div>
+    </div>
+  </div>
 </section>
 
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">Shop</span>
-  <h1>Pick a daisy.</h1>
-  <p class="lead">Launch week free shipping.</p>
+  <span class="eyebrow">3 March 2027</span>
+  <h1>Buy one box now and skip three years of sock runs</h1>
+  <p class="lead">Growsocks grow with your kid. Free shipping all launch week.</p>
   <div class="cta-row">
-    <a class="btn" href="#"><i class="fa-solid fa-cart-shopping"></i> Shop Buttercup</a>
+    <a class="btn" href="#"><i class="fa-solid fa-cart-shopping"></i> Preorder Growsocks</a>
     <a class="btn btn-outline" href="#"><i class="fa-solid fa-location-dot"></i> Find a store</a>
   </div>
 </section>
@@ -6844,7 +7132,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Buttercup — Launch Deck","company":"Buttercup","description":"Kids brand launch — daisy-days multi-slide proof.","theme":"daisy-days"},"slides":[{"layout":"title","eyebrow":"Launch","heading":"Cream pastels. Charcoal outlines.","lead":"Fredoka One joy. Quicksand calm.","notes":"Cold open — land the one-line claim before logos."},{"layout":"image-hero","eyebrow":"Launch","heading":"Cream pastels. Charcoal outlines.","lead":"Fredoka One joy. Quicksand calm.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23FFFDF8%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23F5F0E6%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28247%2C200%2C212%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28255%2C253%2C248%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28126%2C205%2C192%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28247%2C200%2C212%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28247%2C200%2C212%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28247%2C200%2C212%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F5F0E6%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.65%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22420%22%20rx%3D%22640%22%20ry%3D%22220%22%20fill%3D%22rgba%28126%2C205%2C192%2C0.180%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20neon%20tunnel%20rings%20--%3E%0A%20%20%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22520%22%20ry%3D%22210%22%20stroke%3D%22rgba%28126%2C205%2C192%2C0.350%29%22%20stroke-width%3D%223%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22400%22%20ry%3D%22160%22%20stroke%3D%22rgba%28247%2C200%2C212%2C0.450%29%22%20stroke-width%3D%222.5%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22280%22%20ry%3D%22110%22%20stroke%3D%22rgba%28126%2C205%2C192%2C0.550%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22160%22%20ry%3D%2262%22%20stroke%3D%22rgba%28247%2C200%2C212%2C0.700%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20x%3D%22470%22%20y%3D%22300%22%20width%3D%22660%22%20height%3D%22300%22%20rx%3D%2222%22%20fill%3D%22rgba%28255%2C253%2C248%2C0.720%29%22%20stroke%3D%22rgba%28126%2C205%2C192%2C0.400%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22350%22%20width%3D%22240%22%20height%3D%2216%22%20rx%3D%226%22%20fill%3D%22rgba%28126%2C205%2C192%2C0.900%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22390%22%20width%3D%22420%22%20height%3D%2211%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.320%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22420%22%20width%3D%22360%22%20height%3D%2211%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28247%2C200%2C212%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22670%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28126%2C205%2C192%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22830%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.5%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22240%22%20cy%3D%22180%22%20r%3D%2216%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221360%22%20cy%3D%22220%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221480%22%20cy%3D%22680%22%20r%3D%2212%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Buttercup craft visual","notes":"Hold the visual beat — let the room feel the product."},{"layout":"feature-grid","eyebrow":"Line","heading":"Three first products","columns":"bento","cards":[{"icon":"fa-solid fa-socks","title":"Socks","body":"Butter yellow that survives the wash."},{"icon":"fa-solid fa-puzzle-piece","title":"Play kits","body":"Turquoise boxes, pink stickers."},{"icon":"fa-solid fa-book-open","title":"Story cards","body":"Short reads for bedtime."},{"icon":"fa-solid fa-scissors","title":"Cut the filler","body":"If a card doesn't change the decision, it doesn't earn the pixel."},{"icon":"fa-solid fa-layer-group","title":"Stack for scan","body":"Hierarchy first. Decoration second. Decoration never."}]},{"layout":"stat-row","eyebrow":"Beta","heading":"Tiny fans, big numbers.","stats":[{"value":"6.2k","label":"Preorders"},{"value":"48","label":"Stores"},{"value":"4.9","label":"Parent rating"}],"notes":"One breath on the numbers — then move on."},{"layout":"quote","quote":"Cute without the outline is just pastel mush.","by":"Buttercup"},{"layout":"closing","eyebrow":"Shop","heading":"Pick a daisy.","lead":"Launch week free shipping.","actions":[{"label":"Shop Buttercup","href":"#","style":"solid","icon":"fa-solid fa-cart-shopping"},{"label":"Find a store","href":"#","style":"outline","icon":"fa-solid fa-location-dot"}]}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Buttercup Growsocks — launch, 3 March 2027","company":"Buttercup","description":"Launch deck for Buttercup Growsocks, a kids' stretch-knit sock that fits from age 2 to age 5: the problem, the reveal, three features, beta proof, a parent's voice, price and availability.","theme":"daisy-days","genre":"launch"},"slides":[{"layout":"title","eyebrow":"Buttercup · Launch · 3 March 2027","heading":"Socks that grow with your kid for three years.","lead":"Meet Growsocks: one pair from age 2 to age 5.","notes":"Say the headline slowly. Hold up a real pair before you click."},{"layout":"image-hero","eyebrow":"Today","heading":"Kids outgrow socks every four months, so parents bin 20 pairs a year","lead":"Buttercup survey of 1,050 UK parents, 2026.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%3Cdefs%3E%3Cpath%20id%3D%22s%22%20d%3D%22M0%200h60v110q0%2020%2020%2020h50q25%200%2025%2025t-25%2025h-95q-35%200-35-35z%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%225%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F5F0E6%22%2F%3E%3Cg%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%223%22%20opacity%3D%22.6%22%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22140%22%20r%3D%2240%22%2F%3E%3Ccircle%20cx%3D%221480%22%20cy%3D%22760%22%20r%3D%2250%22%2F%3E%3Ccircle%20cx%3D%221460%22%20cy%3D%22130%22%20r%3D%2230%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(640%20348)%20scale(.62)%22%3E%3Cuse%20href%3D%22%23s%22%20fill%3D%22%23F7C8D4%22%20transform%3D%22translate(40%20-40)%20rotate(-25)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20fill%3D%22%237ECDC0%22%20transform%3D%22translate(150%20-70)%20rotate(10)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20fill%3D%22%23F9D867%22%20transform%3D%22translate(260%20-40)%20rotate(35)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20fill%3D%22%23FFFDF8%22%20transform%3D%22translate(360%20-60)%20rotate(-10)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20fill%3D%22%23F7C8D4%22%20transform%3D%22translate(440%200)%20rotate(50)%22%2F%3E%3Cpath%20d%3D%22M-20%20120h520l-50%20320h-420z%22%20fill%3D%22%23F9D867%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%226%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cg%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%20opacity%3D%22.5%22%3E%3Cpath%20d%3D%22M30%20200h440M45%20290h410M60%20380h380%22%2F%3E%3C%2Fg%3E%3Crect%20x%3D%22-40%22%20y%3D%22100%22%20width%3D%22560%22%20height%3D%2240%22%20rx%3D%2220%22%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%226%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(1060%20365)%22%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%3E%3Crect%20width%3D%22300%22%20height%3D%22170%22%20rx%3D%2224%22%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%225%22%2F%3E%3Ctext%20x%3D%22150%22%20y%3D%2288%22%20font-size%3D%2264%22%20fill%3D%22%232D2D2D%22%20text-anchor%3D%22middle%22%3E20%20pairs%3C%2Ftext%3E%3Ctext%20x%3D%22150%22%20y%3D%22134%22%20font-size%3D%2226%22%20fill%3D%22%23666%22%20text-anchor%3D%22middle%22%3Eoutgrown%20a%20year%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E","imageAlt":"A yellow laundry basket overflowing with small outgrown socks"},{"layout":"image-hero","eyebrow":"Introducing","heading":"Growsocks","lead":"A stretch-knit sock that fits ages 2 to 5.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%237ECDC0%22%2F%3E%3Cg%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%3E%3Ccircle%20cx%3D%22200%22%20cy%3D%22200%22%20r%3D%2222%22%2F%3E%3Ccircle%20cx%3D%221400%22%20cy%3D%22700%22%20r%3D%2230%22%2F%3E%3Ccircle%20cx%3D%221340%22%20cy%3D%22190%22%20r%3D%2218%22%2F%3E%3Ccircle%20cx%3D%22300%22%20cy%3D%22720%22%20r%3D%2216%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(700%20285)%20scale(1.85)%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%222.4%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M0%200h60v110q0%2020%2020%2020h50q25%200%2025%2025t-25%2025h-95q-35%200-35-35z%22%20fill%3D%22%23F9D867%22%2F%3E%3Crect%20x%3D%22-4%22%20y%3D%22-6%22%20width%3D%2268%22%20height%3D%2222%22%20rx%3D%226%22%20fill%3D%22%23F7C8D4%22%2F%3E%3Cg%20fill%3D%22none%22%20stroke-width%3D%221.6%22%20opacity%3D%22.6%22%3E%3Cpath%20d%3D%22M6%2030v70M18%2030v70M30%2030v70M42%2030v70M54%2030v70%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%232D2D2D%22%3E%3Ccircle%20cx%3D%2234%22%20cy%3D%2264%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%2248%22%20cy%3D%2264%22%20r%3D%223%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M32%2076q9%208%2018%200%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M118%20150a14%2014%200%200%201%2022%200%22%20fill%3D%22%23FFFDF8%22%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%20fill%3D%22%232D2D2D%22%3E%3Cpath%20d%3D%22M1000%20360h150%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%20stroke-dasharray%3D%2210%2010%22%2F%3E%3Ctext%20x%3D%221170%22%20y%3D%22372%22%20font-size%3D%2240%22%3Efits%20age%202%20to%205%3C%2Ftext%3E%3Cpath%20d%3D%22M1020%20560h130%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%20stroke-dasharray%3D%2210%2010%22%2F%3E%3Ctext%20x%3D%221170%22%20y%3D%22572%22%20font-size%3D%2240%22%3Egrip%20dots%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E","imageAlt":"A butter-yellow Growsock with a pink cuff on a teal background","notes":"This is the reveal. Say nothing for two seconds."},{"layout":"section","number":"01","heading":"How Growsocks work","lead":"Three small ideas in one sock."},{"layout":"two-column","eyebrow":"Stretch knit","heading":"Ribbed stretch knit grows through three shoe sizes","ratio":"1-2","body":"Rib channels open as feet grow. Heel and toe stay snug from size 5 to size 12.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20900%22%3E%3Cdefs%3E%3Cpath%20id%3D%22s%22%20d%3D%22M0%200h60v110q0%2020%2020%2020h50q25%200%2025%2025t-25%2025h-95q-35%200-35-35z%22%20fill%3D%22%23F9D867%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%223%22%20stroke-linejoin%3D%22round%22%2F%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22900%22%20fill%3D%22%23FFFDF8%22%2F%3E%3Cpath%20d%3D%22M80%20720h1040%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%2F%3E%3Cg%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%20font-size%3D%2240%22%20fill%3D%22%232D2D2D%22%20text-anchor%3D%22middle%22%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(130%20410)%20scale(1.6)%22%2F%3E%3Ctext%20x%3D%22230%22%20y%3D%22790%22%3EAge%202%3C%2Ftext%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(470%20330)%20scale(2.1)%22%2F%3E%3Ctext%20x%3D%22600%22%20y%3D%22790%22%3EAge%203%C2%BD%3C%2Ftext%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(800%20300)%20scale(2.25)%22%20fill%3D%22%237ECDC0%22%2F%3E%3Ctext%20x%3D%22960%22%20y%3D%22790%22%3EAge%205%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23F7C8D4%22%20stroke-width%3D%2210%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M240%20330q120-120%20300-110M650%20250q120-110%20260-100%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%22600%22%20y%3D%22130%22%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%20font-size%3D%2244%22%20fill%3D%22%232D2D2D%22%20text-anchor%3D%22middle%22%3Esame%20pair%2C%20three%20sizes%3C%2Ftext%3E%3C%2Fsvg%3E","imageAlt":"The same sock drawn at three sizes for ages 2, 3½ and 5"},{"layout":"image-hero","eyebrow":"Grip dots","heading":"Grip dots last 200 washes, so toddlers stay upright","lead":"Natural rubber dots, tested at 40 °C.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F7C8D4%22%2F%3E%3Cg%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%3E%3Cpath%20d%3D%22M120%20640q60-40%20120%200t120%200%22%20fill%3D%22none%22%2F%3E%3Cpath%20d%3D%22M1260%20220q60-40%20120%200t120%200%22%20fill%3D%22none%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(760%20450)%20rotate(-90)%20scale(.95)%22%20stroke%3D%22%232D2D2D%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M-150-90h220q90%200%2090%2090t-90%2090h-220q-70%200-70-90t70-90z%22%20fill%3D%22%23F9D867%22%20stroke-width%3D%226%22%2F%3E%3Cg%20fill%3D%22%237ECDC0%22%20stroke-width%3D%223%22%3E%3Ccircle%20cx%3D%22-150%22%20cy%3D%22-40%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-150%22%20cy%3D%220%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-150%22%20cy%3D%2240%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-100%22%20cy%3D%22-50%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-100%22%20cy%3D%22-10%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-100%22%20cy%3D%2230%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-100%22%20cy%3D%2270%22%20r%3D%2212%22%2F%3E%3Ccircle%20cx%3D%22-40%22%20cy%3D%22-40%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-40%22%20cy%3D%220%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22-40%22%20cy%3D%2240%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%22-50%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%22-10%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2230%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2220%22%20cy%3D%2270%22%20r%3D%2212%22%2F%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%22-40%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%220%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%2240%22%20r%3D%2214%22%2F%3E%3Ccircle%20cx%3D%22130%22%20cy%3D%22-20%22%20r%3D%2212%22%2F%3E%3Ccircle%20cx%3D%22130%22%20cy%3D%2220%22%20r%3D%2212%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3Cg%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%20fill%3D%22%232D2D2D%22%3E%3Crect%20x%3D%221000%22%20y%3D%22370%22%20width%3D%22340%22%20height%3D%22160%22%20rx%3D%2224%22%20fill%3D%22%23FFFDF8%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%225%22%2F%3E%3Ctext%20x%3D%221170%22%20y%3D%22450%22%20font-size%3D%2256%22%20text-anchor%3D%22middle%22%3E200%20washes%3C%2Ftext%3E%3Ctext%20x%3D%221170%22%20y%3D%22496%22%20font-size%3D%2226%22%20text-anchor%3D%22middle%22%20fill%3D%22%23666%22%3Edots%20still%20on%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E","imageAlt":"The sole of a Growsock covered in teal grip dots"},{"layout":"two-column","eyebrow":"No odd socks","heading":"Every sock in the box matches every other sock","ratio":"1-2","reverse":true,"body":"One pattern, two colours per box. Any two socks make a pair, so the odd sock is gone.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20900%22%3E%3Cdefs%3E%3Cg%20id%3D%22s%22%3E%3Cpath%20d%3D%22M0%200h60v110q0%2020%2020%2020h50q25%200%2025%2025t-25%2025h-95q-35%200-35-35z%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%20stroke-linejoin%3D%22round%22%2F%3E%3Crect%20x%3D%22-3%22%20y%3D%22-4%22%20width%3D%2266%22%20height%3D%2220%22%20rx%3D%226%22%20fill%3D%22%23F7C8D4%22%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%224%22%2F%3E%3C%2Fg%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22900%22%20fill%3D%22%23FFFDF8%22%2F%3E%3Cg%20fill%3D%22%23F9D867%22%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(170%20150)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(470%20150)%22%20fill%3D%22%237ECDC0%22%2F%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(770%20150)%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%237ECDC0%22%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(170%20500)%22%2F%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(470%20500)%22%20fill%3D%22%23F9D867%22%2F%3E%3Cuse%20href%3D%22%23s%22%20transform%3D%22translate(770%20500)%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%232D2D2D%22%20stroke-width%3D%225%22%20stroke-dasharray%3D%224%2014%22%20stroke-linecap%3D%22round%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M260%20360q200%20120%20340%20160M560%20360q200%20120%20300%20160M860%20360q-300%2060-560%20150%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%22600%22%20y%3D%22820%22%20font-family%3D%22Fredoka%20One%2C%20Fredoka%2C%20sans-serif%22%20font-size%3D%2242%22%20fill%3D%22%232D2D2D%22%20text-anchor%3D%22middle%22%3Eany%20two%20make%20a%20pair%3C%2Ftext%3E%3C%2Fsvg%3E","imageAlt":"Six socks in yellow and teal joined by dotted lines to show any two pair up"},{"layout":"metric-ring","eyebrow":"Beta proof","heading":"94% of beta pairs still fit after twelve months of wear","value":"94%","pct":94,"label":"of pairs still fit at month 12","lead":"Beta with 600 families, February 2026 to February 2027.","notes":"The 6% that failed were all size 12+ feet. The Big Kid range in autumn fixes that."},{"layout":"quote","quote":"Eleven months in, his first pair still fits. I have stopped buying socks.","by":"Hana Begum, beta parent, Leeds"},{"layout":"data-table","eyebrow":"Price","heading":"A £32 box of Growsocks replaces £120 of ordinary socks","columns":["Option","Price","Lasts","Cost a year"],"rows":[["Ordinary socks, 20 pairs","£40","1 year","£40"],["Growsocks, 3 pairs","£18","3 years","£6"],["Growsocks, 6 pairs","£32","3 years","£10.67"]]},{"layout":"stat-row","eyebrow":"Availability","heading":"Growsocks ship on 3 March to 48 UK stores and online","stats":[{"value":"6,200","label":"Preorders since January"},{"value":"48","label":"UK stores on launch day"},{"value":"£0","label":"Shipping in launch week"}]},{"layout":"closing","eyebrow":"3 March 2027","heading":"Buy one box now and skip three years of sock runs","lead":"Growsocks grow with your kid. Free shipping all launch week.","actions":[{"label":"Preorder Growsocks","style":"solid","icon":"fa-solid fa-cart-shopping"},{"label":"Find a store","style":"outline","icon":"fa-solid fa-location-dot"}]}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {

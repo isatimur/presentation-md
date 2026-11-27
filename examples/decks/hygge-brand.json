@@ -1,148 +1,132 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Hygge Home — Brand Deck",
+    "title": "Hygge Home — Partner credentials 2027",
     "company": "Hygge Home",
-    "description": "Scandi home brand deck — scandinavian multi-slide proof.",
-    "theme": "scandinavian"
+    "description": "Credentials deck for Hygge Home, a Copenhagen maker of furniture and lighting, for hotels and retail partners: point of view, three design rules, three projects with results, partners, and how a partner floor opens.",
+    "theme": "scandinavian",
+    "genre": "brand"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Brand · Home",
-      "heading": "Linen light. Clay warmth.",
-      "lead": "Sage and clay for rooms that feel finished without trying.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "feature-grid",
-      "eyebrow": "Collection",
-      "heading": "Materials that stay quiet",
-      "columns": "bento",
-      "cards": [
-        {
-          "icon": "fa-solid fa-couch",
-          "title": "Soft seating",
-          "body": "Low profiles. Honest wood. Covers you can wash."
-        },
-        {
-          "icon": "fa-solid fa-lightbulb",
-          "title": "Warm light",
-          "body": "Lamps that pool, not glare."
-        },
-        {
-          "icon": "fa-solid fa-mug-hot",
-          "title": "Clay accents",
-          "body": "Ceramics with clay warmth — no logo shouting."
-        },
-        {
-          "icon": "fa-solid fa-leaf",
-          "title": "Repair-friendly",
-          "body": "Design that lasts past spring sales."
-        },
-        {
-          "icon": "fa-solid fa-eye",
-          "title": "Show, do not pad",
-          "body": "Asymmetry beats another identical third column."
-        }
-      ]
-    },
-    {
-      "layout": "comparison",
-      "eyebrow": "Retail",
-      "heading": "Trend stack vs. lasting floor",
-      "leftLabel": "Fast home",
-      "left": "Seasonal noise.\nPlastic warmth.\nDiscounts as identity.\nForgettable by spring.",
-      "rightLabel": "Hygge",
-      "right": "Quiet materials.\nRepair-friendly design.\nWholesale partners who stay.\nWarmth you can hold.",
-      "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
+      "eyebrow": "Hygge Home · Copenhagen · Partner credentials 2027",
+      "heading": "Rooms that feel finished, built to last twenty years.",
+      "lead": "Furniture and lighting for hotels and home stores since 2014.",
+      "notes": "One sentence, then move. The room on the next slide does the talking."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Brand · Home",
-      "heading": "Linen light. Clay warmth.",
-      "lead": "Sage and clay for rooms that feel finished without trying.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23e6ddd1%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23efe9df%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28201%2C130%2C107%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28230%2C221%2C209%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28156%2C175%2C136%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28201%2C130%2C107%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28201%2C130%2C107%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28201%2C130%2C107%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23efe9df%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%28156%2C175%2C136%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23e6ddd1%22%20stroke%3D%22rgba%28156%2C175%2C136%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%28201%2C130%2C107%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%239caf88%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%28156%2C175%2C136%2C0.150%29%22%20stroke%3D%22rgba%28201%2C130%2C107%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%28201%2C130%2C107%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%28201%2C130%2C107%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Hygge Home craft visual",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "Our point of view",
+      "heading": "We design the light first, then the furniture around it",
+      "lead": "A room feels warm when light pools low and soft.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'><defs><radialGradient id='p' cx='.5' cy='.5' r='.5'><stop offset='0' stop-color='%23f6d9a8' stop-opacity='.95'/><stop offset='1' stop-color='%23f6d9a8' stop-opacity='0'/></radialGradient></defs><rect width='1600' height='900' fill='%23e6ddd1'/><rect y='560' width='1600' height='340' fill='%23d8ccbb'/><rect x='170' y='270' width='260' height='240' fill='%23efe9df' stroke='%2365605c' stroke-width='4'/><line x1='300' y1='270' x2='300' y2='510' stroke='%2365605c' stroke-width='3'/><ellipse cx='1180' cy='470' rx='360' ry='200' fill='url(%23p)'/><rect x='560' y='430' width='560' height='110' rx='34' fill='%239caf88'/><rect x='560' y='380' width='560' height='80' rx='30' fill='%23a9bb95'/><rect x='540' y='420' width='60' height='130' rx='24' fill='%238ea07a'/><rect x='1080' y='420' width='60' height='130' rx='24' fill='%238ea07a'/><rect x='590' y='540' width='14' height='24' fill='%2365605c'/><rect x='1076' y='540' width='14' height='24' fill='%2365605c'/><line x1='1240' y1='330' x2='1240' y2='560' stroke='%232b2926' stroke-width='6'/><path d='M1190 330 L1290 330 L1270 282 L1210 282 Z' fill='%23c9826b'/><rect x='1200' y='552' width='80' height='10' rx='5' fill='%232b2926'/><rect x='1340' y='470' width='120' height='90' fill='%23c9a98c'/><path d='M1376 470 C1366 440 1372 420 1386 412 L1414 412 C1428 420 1434 440 1424 470 Z' fill='%23c9826b'/><path d='M1400 412 C1396 380 1380 360 1366 350 M1400 412 C1408 384 1424 366 1440 360' stroke='%239caf88' stroke-width='5' fill='none'/></svg>",
+      "imageAlt": "Living room with a sage sofa, a clay floor lamp casting a low pool of warm light, and a clay vase on a side table",
+      "notes": "Point at the pool of light beside the sofa. That pool is the brand."
     },
     {
-      "layout": "two-column",
-      "eyebrow": "Collection",
-      "heading": "What we make",
-      "body": "Soft seating: Low profiles. Honest wood. Covers you can wash. Warm light — Lamps that pool, not glare.",
-      "aside": "Ceramics with clay accents — no logo shouting.",
-      "ratio": "2-1"
+      "layout": "feature-grid",
+      "eyebrow": "What we believe",
+      "heading": "Three rules decide every piece we make",
+      "columns": 3,
+      "cards": [
+        { "icon": "fa-solid fa-lightbulb", "title": "Light below 2,700 K", "body": "Warm light pools at sitting height." },
+        { "icon": "fa-solid fa-shirt", "title": "Covers come off", "body": "Every cover washes or swaps." },
+        { "icon": "fa-solid fa-screwdriver-wrench", "title": "Parts for 20 years", "body": "Spares for every frame we sell." }
+      ]
     },
     {
-      "layout": "quote",
-      "quote": "Comfort is a design decision, not an afterthought.",
-      "by": "Astrid N. · Creative Director"
+      "layout": "section",
+      "number": "01",
+      "heading": "Three projects, three results",
+      "lead": "A hotel, a department store and our own repair service."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 1 · Hotel Sund, Aarhus",
+      "heading": "Hotel Sund rebuilt 64 rooms around one low pendant lamp",
+      "lead": "Refit completed in 9 weeks, March 2025.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'><rect width='1600' height='900' fill='%23efe9df'/><rect y='560' width='1600' height='340' fill='%23e6ddd1'/><path d='M1000 330 L860 560 L1140 560 Z' fill='%23f6d9a8' fill-opacity='.55'/><line x1='1000' y1='0' x2='1000' y2='300' stroke='%232b2926' stroke-width='3'/><path d='M960 300 L1040 300 L1024 330 L976 330 Z' fill='%23c9826b'/><rect x='300' y='450' width='640' height='110' rx='10' fill='%23f7f3ec' stroke='%2365605c' stroke-width='3'/><rect x='300' y='330' width='40' height='230' rx='8' fill='%23c9a98c'/><rect x='360' y='420' width='170' height='50' rx='20' fill='%23ffffff' stroke='%2365605c' stroke-width='2'/><rect x='560' y='470' width='380' height='90' fill='%239caf88'/><rect x='980' y='470' width='110' height='90' fill='%23c9a98c'/><g font-family='Georgia,serif' fill='%232b2926'><text x='1180' y='330' font-size='30'>Room 214 · Hotel Sund</text><text x='1180' y='372' font-size='22' fill='%2365605c'>Pendant: Fjord 32, 2,400 K</text><text x='1180' y='406' font-size='22' fill='%2365605c'>Hung 62 cm above the desk</text></g></svg>",
+      "imageAlt": "Hotel Sund room 214: a bed with a sage throw and a low clay pendant casting warm light over the desk",
+      "notes": "Name the one change: the lamp hangs at reading height, not at the ceiling."
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Retail",
-      "heading": "Calm that sells.",
+      "eyebrow": "Case 1 · Result after 18 months",
+      "heading": "Guest scores at Hotel Sund rose from 8.1 to 9.4",
       "stats": [
-        {
-          "value": "28",
-          "label": "Studios"
-        },
-        {
-          "value": "91%",
-          "label": "In-stock rate"
-        },
-        {
-          "value": "2.1×",
-          "label": "Online YoY"
-        }
+        { "value": "9.4", "label": "Guest score out of 10, up from 8.1" },
+        { "value": "+22%", "label": "Average room rate, 2024 vs 2026" },
+        { "value": "0", "label": "Pieces replaced in 18 months" }
       ]
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Case 2 · Lindqvist department stores",
+      "heading": "Lindqvist's 12 studio corners sold 2.1× more lighting",
+      "ratio": "2-1",
+      "reverse": true,
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 1000'><rect width='600' height='1000' fill='%23efe9df'/><g font-family='Georgia,serif' fill='%232b2926'><text x='300' y='110' font-size='26' text-anchor='middle'>Studio corner · 40 m²</text><text x='300' y='146' font-size='20' text-anchor='middle' fill='%2365605c'>Lindqvist Malmö, floor 3</text><rect x='60' y='190' width='480' height='640' fill='none' stroke='%2365605c' stroke-width='4'/><rect x='130' y='330' width='340' height='300' rx='10' fill='%23e6ddd1'/><rect x='150' y='260' width='300' height='90' rx='26' fill='%239caf88'/><rect x='200' y='430' width='200' height='110' rx='8' fill='%23c9a98c'/><circle cx='500' cy='260' r='56' fill='%23f6d9a8' fill-opacity='.8'/><circle cx='500' cy='260' r='16' fill='%23c9826b'/><circle cx='110' cy='700' r='56' fill='%23f6d9a8' fill-opacity='.8'/><circle cx='110' cy='700' r='16' fill='%23c9826b'/><rect x='360' y='700' width='150' height='90' fill='%238ea07a'/><text x='300' y='900' font-size='20' text-anchor='middle' fill='%2365605c'>Two lamps lit all day · price on the shade</text></g></svg>",
+      "imageAlt": "Floor plan of a 40 square metre studio corner at Lindqvist Malmö: sofa, rug, table and two lit lamps",
+      "body": "We furnish a 40 m² corner like a real living room.\nLamps stay lit all day."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Case 3 · Hygge Repair",
+      "heading": "Our repair service sent 3,800 sofas back home in 2026",
+      "lead": "New cover, same frame, 11 days on average.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'><rect width='1600' height='900' fill='%23e6ddd1'/><g font-family='Georgia,serif' fill='%232b2926'><rect x='180' y='380' width='420' height='120' rx='30' fill='%23b8ae9f'/><rect x='180' y='330' width='420' height='70' rx='26' fill='%23c4bbad'/><path d='M230 360 l40 20 M320 420 l60 -10 M450 380 l40 30' stroke='%2365605c' stroke-width='4'/><text x='390' y='560' font-size='28' text-anchor='middle'>Worn cover, 2016</text><path d='M660 420 L900 420' stroke='%23c9826b' stroke-width='8'/><path d='M900 400 L940 420 L900 440 Z' fill='%23c9826b'/><text x='800' y='395' font-size='24' text-anchor='middle' fill='%2365605c'>Frame kept</text><rect x='1000' y='380' width='420' height='120' rx='30' fill='%239caf88'/><rect x='1000' y='330' width='420' height='70' rx='26' fill='%23a9bb95'/><text x='1210' y='560' font-size='28' text-anchor='middle'>New linen cover, 2026</text></g></svg>",
+      "imageAlt": "Before and after: a worn 2016 sofa cover replaced with a new sage linen cover on the same frame"
+    },
+    {
+      "layout": "metric-ring",
+      "eyebrow": "Case 3 · Result",
+      "heading": "96% of everything we have sold since 2014 is still in use",
+      "value": "96%",
+      "label": "Pieces still in a home or hotel",
+      "pct": 96,
+      "lead": "Source: owner survey, 2,140 pieces, October 2026."
     },
     {
       "layout": "logo-wall",
-      "eyebrow": "Homes we design for",
-      "heading": "Quiet brands, loud clarity.",
-      "columns": 4,
+      "eyebrow": "Partners",
+      "heading": "Hotels and stores across four countries stock or specify Hygge Home",
+      "columns": 3,
       "cards": [
-        {
-          "title": "Cedar",
-          "body": "Living"
-        },
-        {
-          "title": "Linen",
-          "body": "Apparel"
-        },
-        {
-          "title": "Fjord",
-          "body": "Wellness"
-        },
-        {
-          "title": "Ember",
-          "body": "Hospitality"
-        }
-      ],
-      "notes": "Glance the marks — social proof, not a reading list."
+        { "title": "Hotel Sund", "body": "Aarhus · 64 rooms" },
+        { "title": "Lindqvist", "body": "Sweden · 12 stores" },
+        { "title": "Fjeld Lodge", "body": "Geilo · 38 rooms" },
+        { "title": "Halde & Co.", "body": "Oslo · 3 stores" },
+        { "title": "Kaisa Hotels", "body": "Helsinki · 2 hotels" },
+        { "title": "Strand Living", "body": "Copenhagen · 9 stores" }
+      ]
+    },
+    {
+      "layout": "quote",
+      "quote": "Guests write about the lamps. Nobody ever wrote about our lamps before.",
+      "by": "Mette Kjær · General manager, Hotel Sund"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "How we work",
+      "heading": "A new partner floor opens 14 weeks after the first visit",
+      "steps": [
+        { "title": "Week 1 · Visit", "body": "We measure your light" },
+        { "title": "Week 3 · Plan", "body": "Layout and lamp heights" },
+        { "title": "Week 10 · Build", "body": "Made in Vejle" },
+        { "title": "Week 14 · Open", "body": "Install and train staff" }
+      ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Visit",
-      "heading": "Sit before you buy.",
-      "lead": "Studio appointments open this season.",
+      "eyebrow": "Start a project",
+      "heading": "Build rooms that feel finished in 2027 and still feel right in 2047",
+      "lead": "Book a studio visit in Copenhagen. Sit before you buy.",
       "actions": [
-        {
-          "label": "Book a visit",
-          "href": "#",
-          "style": "solid",
-          "icon": "fa-solid fa-calendar"
-        },
-        {
-          "label": "Browse the catalog",
-          "href": "#",
-          "style": "outline",
-          "icon": "fa-solid fa-book"
-        }
-      ]
+        { "label": "Book a studio visit", "href": "#", "style": "solid", "icon": "fa-solid fa-calendar" },
+        { "label": "Download the trade catalogue", "href": "#", "style": "outline", "icon": "fa-solid fa-book" }
+      ],
+      "notes": "Offer the visit with a date: studio slots open from 11 January."
     }
   ]
 }

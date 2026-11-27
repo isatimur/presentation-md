@@ -1,124 +1,245 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Inkpress — Literary Launch",
+    "title": "Inkpress — 2026 reader study",
     "company": "Inkpress",
-    "description": "Literary imprint launch — paper-ink multi-slide proof.",
-    "theme": "paper-ink"
+    "description": "Research readout for the editorial board of Inkpress, a literary imprint: nine months of e-reader and interview data from 1,840 subscribers on why readers finish or abandon books, with limits and one decision.",
+    "theme": "paper-ink",
+    "genre": "research"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Imprint · Autumn",
-      "heading": "Paper that remembers ink.",
-      "lead": "Cormorant headings. Crimson first letters. No pastel pretending to be literature.",
-      "notes": "Crimson is emphasis — never decoration. Say it once."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Imprint · Autumn",
-      "heading": "Paper that remembers ink.",
-      "lead": "Cormorant headings. Crimson first letters. No pastel pretending to be literature.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23f0eeea%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23faf9f7%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28240%2C238%2C234%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28196%2C30%2C58%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C26%2C26%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23faf9f7%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%28196%2C30%2C58%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23f0eeea%22%20stroke%3D%22rgba%28196%2C30%2C58%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%2826%2C26%2C26%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%23c41e3a%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%28196%2C30%2C58%2C0.150%29%22%20stroke%3D%22rgba%2826%2C26%2C26%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%2826%2C26%2C26%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%2826%2C26%2C26%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Inkpress craft visual"
-    },
-    {
-      "layout": "quote",
-      "quote": "A book is a room you can carry.",
-      "by": "House motto · 2011"
-    },
-    {
-      "layout": "two-column",
-      "eyebrow": "List",
-      "heading": "This season's three rooms",
-      "body": "Essays: Long arguments with short titles. Fiction — Novels that earn their page count.",
-      "aside": "Urgent ideas under 80 pages.",
-      "ratio": "1-2",
-      "reverse": true
+      "eyebrow": "Inkpress · Reader study 2026 · For the editorial board",
+      "heading": "Readers finish short books twice as often as long ones.",
+      "lead": "Nine months of reading data from 1,840 subscribers.",
+      "notes": "The board asked why sales are healthy but reviews are thin. This is the answer: people buy our books and do not finish them."
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "Craft",
-      "heading": "How the imprint holds.",
-      "columns": "bento",
+      "eyebrow": "Answer first",
+      "heading": "Length and a monthly letter decide whether a reader finishes",
+      "columns": 3,
       "cards": [
         {
-          "icon": "fa-solid fa-font",
-          "title": "Type first",
-          "body": "Every cover starts with the word, not a stock mood."
-        },
-        {
-          "icon": "fa-solid fa-camera",
-          "title": "Evidence photos",
-          "body": "Photography proves the room — it does not decorate it."
-        },
-        {
-          "icon": "fa-solid fa-droplet",
-          "title": "Crimson mark",
-          "body": "One accent for emphasis. Never a rainbow of alerts."
-        },
-        {
           "icon": "fa-solid fa-book",
-          "title": "Three a year",
-          "body": "Scarce lists beat endless catalogs."
+          "title": "Short books get finished",
+          "body": "Under 200 pages: 71% finish. Over 400: 31%."
         },
         {
-          "icon": "fa-solid fa-feather",
-          "title": "Authors as rooms",
-          "body": "Each title gets space to breathe on the page."
+          "icon": "fa-solid fa-envelope-open-text",
+          "title": "Letters bring readers back",
+          "body": "A chapter letter lifts completion by 18 points."
+        },
+        {
+          "icon": "fa-solid fa-bookmark",
+          "title": "Most stops are not verdicts",
+          "body": "Only 9% of readers who stopped disliked the book."
         }
-      ],
-      "notes": "Bento hero card carries type-first — the imprint spine."
+      ]
     },
     {
-      "layout": "comparison",
-      "eyebrow": "Position",
-      "heading": "Literature, not lifestyle.",
-      "leftLabel": "Trend presses",
-      "left": "Pastel covers.\nSeasonal filler.\nAuthors as inventory.",
-      "rightLabel": "Inkpress",
-      "right": "Cream + charcoal.\nThree titles a year.\nAuthors as rooms.",
-      "emphasis": "right"
+      "layout": "image-hero",
+      "eyebrow": "The question",
+      "heading": "We asked why a third of our books sit half-read",
+      "lead": "We publish three titles a year. Each one should be finished, not only bought.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f0eeea%22%2F%3E%20%3Cg%20transform%3D%22translate(800%20440)%20scale(0.82)%20translate(-800%20-420)%22%3E%20%3Crect%20x%3D%22200%22%20y%3D%22560%22%20width%3D%221200%22%20height%3D%2216%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Cg%20stroke%3D%22%231a1a1a%22%20stroke-width%3D%223%22%3E%20%3Crect%20x%3D%22300%22%20y%3D%22340%22%20width%3D%2256%22%20height%3D%22220%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%22356%22%20y%3D%22320%22%20width%3D%2270%22%20height%3D%22240%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Crect%20x%3D%22426%22%20y%3D%22360%22%20width%3D%2248%22%20height%3D%22200%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%22474%22%20y%3D%22300%22%20width%3D%2284%22%20height%3D%22260%22%20fill%3D%22%235c574c%22%2F%3E%20%3Crect%20x%3D%22558%22%20y%3D%22350%22%20width%3D%2252%22%20height%3D%22210%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%22610%22%20y%3D%22330%22%20width%3D%2264%22%20height%3D%22230%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Crect%20x%3D%22674%22%20y%3D%22310%22%20width%3D%2290%22%20height%3D%22250%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%22764%22%20y%3D%22355%22%20width%3D%2246%22%20height%3D%22205%22%20fill%3D%22%235c574c%22%2F%3E%20%3Crect%20x%3D%22810%22%20y%3D%22325%22%20width%3D%2272%22%20height%3D%22235%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%22882%22%20y%3D%22345%22%20width%3D%2258%22%20height%3D%22215%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Crect%20x%3D%22940%22%20y%3D%22305%22%20width%3D%2288%22%20height%3D%22255%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%221028%22%20y%3D%22340%22%20width%3D%2254%22%20height%3D%22220%22%20fill%3D%22%235c574c%22%2F%3E%20%3Crect%20x%3D%221082%22%20y%3D%22320%22%20width%3D%2266%22%20height%3D%22240%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3Crect%20x%3D%221148%22%20y%3D%22360%22%20width%3D%2248%22%20height%3D%22200%22%20fill%3D%22%231a1a1a%22%2F%3E%20%3Crect%20x%3D%221196%22%20y%3D%22315%22%20width%3D%2280%22%20height%3D%22245%22%20fill%3D%22%23faf9f7%22%2F%3E%20%3C%2Fg%3E%20%3Cg%20fill%3D%22%23c41e3a%22%3E%20%3Cpath%20d%3D%22M370%20300%20h16%20v40%20l-8%20-8%20l-8%208%20z%22%2F%3E%20%3Cpath%20d%3D%22M500%20280%20h16%20v40%20l-8%20-8%20l-8%208%20z%22%2F%3E%20%3Cpath%20d%3D%22M700%20290%20h16%20v40%20l-8%20-8%20l-8%208%20z%22%2F%3E%20%3Cpath%20d%3D%22M960%20285%20h16%20v40%20l-8%20-8%20l-8%208%20z%22%2F%3E%20%3Cpath%20d%3D%22M1215%20295%20h16%20v40%20l-8%20-8%20l-8%208%20z%22%2F%3E%20%3C%2Fg%3E%20%3Ctext%20x%3D%22800%22%20y%3D%22610%22%20text-anchor%3D%22middle%22%20font-family%3D%22Cormorant%20Garamond%2C%20Georgia%2C%20serif%22%20font-style%3D%22italic%22%20font-size%3D%2230%22%20fill%3D%22%235c574c%22%3ECrimson%20ribbons%3A%20books%20left%20half-read%2C%20all%20of%20them%20over%20300%20pages%3C%2Ftext%3E%20%3C%2Fg%3E%20%3C%2Fsvg%3E",
+      "imageAlt": "Bookshelf of fifteen spines; five long books carry crimson ribbons marking where readers stopped"
     },
     {
       "layout": "stat-row",
-      "eyebrow": "Proof",
-      "heading": "Scarce lists, durable readers.",
+      "eyebrow": "Method",
+      "heading": "How we studied 1,840 readers",
       "stats": [
         {
-          "value": "3",
-          "label": "Titles a year"
+          "value": "1,840",
+          "label": "Subscribers who opted in, of 12,000"
         },
         {
-          "value": "12k",
-          "label": "Letter subscribers"
+          "value": "9 months",
+          "label": "E-reader page data, Feb – Oct 2026"
         },
         {
-          "value": "4.9",
-          "label": "Reader rating"
+          "value": "64",
+          "label": "Reader interviews, 45 minutes each"
+        }
+      ]
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Finding 1",
+      "heading": "Completion falls from 71% to 31% once a book passes 400 pages",
+      "chartType": "bar",
+      "categories": [
+        "Under 200 pp",
+        "200–300 pp",
+        "300–400 pp",
+        "Over 400 pp"
+      ],
+      "series": [
+        {
+          "name": "Readers who finished (%)",
+          "values": [
+            71,
+            58,
+            44,
+            31
+          ]
+        }
+      ],
+      "showValues": true,
+      "lead": "Source: e-reader page data, 1,840 readers, 23 titles, Feb – Oct 2026."
+    },
+    {
+      "layout": "quote",
+      "quote": "I don't abandon long books. I stop at page 180 and mean to go back.",
+      "by": "Reader interview #22, Edinburgh"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Finding 2",
+      "heading": "A monthly chapter letter lifts completion by 18 points",
+      "columns": [
+        "Group (random split)",
+        "Readers",
+        "Finished",
+        "Median days to finish"
+      ],
+      "rows": [
+        [
+          "Got the chapter letter",
+          "920",
+          "67%",
+          "24"
+        ],
+        [
+          "No letter",
+          "920",
+          "49%",
+          "41"
+        ]
+      ],
+      "notes": "This is our strongest result: a random split, same books, same months. Lean on it."
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Finding 3",
+      "heading": "Only 9% of readers who stopped did so because they disliked the book",
+      "lead": "Main reason for stopping, the 613 readers (one in three) who did not finish.",
+      "items": [
+        {
+          "rank": "1",
+          "label": "Lost the thread after a break",
+          "value": "38%",
+          "widthPct": 38
+        },
+        {
+          "rank": "2",
+          "label": "Too long for the season",
+          "value": "27%",
+          "widthPct": 27
+        },
+        {
+          "rank": "3",
+          "label": "Started another book",
+          "value": "26%",
+          "widthPct": 26
+        },
+        {
+          "rank": "4",
+          "label": "Disliked the book",
+          "value": "9%",
+          "widthPct": 9
+        }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "02",
+      "heading": "What surprised us",
+      "lead": "And how far to trust each result."
+    },
+    {
+      "layout": "comparison",
+      "eyebrow": "Expected vs found",
+      "heading": "We blamed price for unfinished books; the gap was 2 points",
+      "leftLabel": "What we expected",
+      "left": "Cheaper editions get finished.\nReaders quit in the first chapters.",
+      "rightLabel": "What we found",
+      "right": "£12 vs £18 editions: 2-point gap.\nReaders stop at pages 150–200.",
+      "emphasis": "right"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Limits",
+      "heading": "The letter result is firm; the length result needs care",
+      "columns": [
+        "Claim",
+        "Confidence",
+        "Why"
+      ],
+      "rows": [
+        [
+          "Letters lift completion 18 pts",
+          "High",
+          "Random split, same titles"
+        ],
+        [
+          "Long books finish less",
+          "Medium",
+          "Our long titles are also denser essays"
+        ],
+        [
+          "Reasons for stopping",
+          "Medium",
+          "Self-reported in interviews"
+        ]
+      ],
+      "notes": "Name the length caveat before anyone else does. Genre and length move together in our list."
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Recommendations",
+      "heading": "A chapter letter for every 2027 title would lift completion most",
+      "lead": "Estimated effect on completion, in points.",
+      "items": [
+        {
+          "rank": "1",
+          "label": "Chapter letter for every title",
+          "value": "+18 pts",
+          "widthPct": 100
+        },
+        {
+          "rank": "2",
+          "label": "Split books over 400 pages into two volumes",
+          "value": "+11 pts",
+          "widthPct": 61
+        },
+        {
+          "rank": "3",
+          "label": "Pause-point bookmark at page 150",
+          "value": "+4 pts",
+          "widthPct": 22
         }
       ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Subscribe",
-      "heading": "Join the imprint list.",
-      "lead": "Three titles a year. One letter a month.",
+      "eyebrow": "Decision for the board",
+      "heading": "Shorter books and chapter letters will get our books finished",
+      "lead": "Approve chapter letters for all three 2027 titles: £14k a year.",
       "actions": [
         {
-          "label": "Join the list",
-          "href": "#",
+          "label": "Approve chapter letters",
           "style": "solid",
-          "icon": "fa-solid fa-envelope"
+          "icon": "fa-solid fa-check"
         },
         {
-          "label": "Request a sample",
-          "href": "#",
+          "label": "Read the full study",
           "style": "outline",
           "icon": "fa-solid fa-book-open"
         }
-      ],
-      "notes": "Sample PDF for agents; list for readers."
+      ]
     }
   ]
 }

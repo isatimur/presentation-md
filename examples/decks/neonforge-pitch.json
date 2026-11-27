@@ -1,126 +1,227 @@
 {
   "type": "deck",
   "meta": {
-    "title": "NeonForge — Product Pitch",
+    "title": "NeonForge — Series A pitch, March 2027",
     "company": "NeonForge",
-    "description": "Edgy tech startup pitch — default-tech multi-slide proof with code + asymmetric craft.",
-    "theme": "default-tech"
+    "description": "Series A pitch for NeonForge, a CLI that turns any SQL database into a typed, versioned API: problem, product, why now, traction, market, competition, model, team and a $14M ask.",
+    "theme": "default-tech",
+    "genre": "pitch"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Series A · Infra",
-      "heading": "Ship dark mode. Ship faster.",
-      "lead": "Neon accents. Typed APIs. The default stack for teams who refuse beige decks.",
-      "notes": "Cold open — land the one-line claim before logos."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Series A · Infra",
-      "heading": "Ship dark mode. Ship faster.",
-      "lead": "Neon accents. Typed APIs. The default stack for teams who refuse beige decks.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2316161d%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%230e0e12%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28124%2C58%2C237%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28124%2C58%2C237%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2834%2C211%2C238%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28124%2C58%2C237%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2822%2C22%2C29%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28124%2C58%2C237%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28124%2C58%2C237%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28124%2C58%2C237%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2834%2C211%2C238%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2834%2C211%2C238%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2834%2C211%2C238%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230e0e12%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23beam%29%22%20opacity%3D%220.65%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22420%22%20rx%3D%22640%22%20ry%3D%22220%22%20fill%3D%22rgba%28124%2C58%2C237%2C0.180%29%22%20filter%3D%22url%28%23soft2%29%22%2F%3E%0A%20%20%3C%21--%20neon%20tunnel%20rings%20--%3E%0A%20%20%3Cg%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22520%22%20ry%3D%22210%22%20stroke%3D%22rgba%28124%2C58%2C237%2C0.350%29%22%20stroke-width%3D%223%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22400%22%20ry%3D%22160%22%20stroke%3D%22rgba%2834%2C211%2C238%2C0.450%29%22%20stroke-width%3D%222.5%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22280%22%20ry%3D%22110%22%20stroke%3D%22rgba%28124%2C58%2C237%2C0.550%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%20%20%3Cellipse%20cx%3D%22800%22%20cy%3D%22450%22%20rx%3D%22160%22%20ry%3D%2262%22%20stroke%3D%22rgba%2834%2C211%2C238%2C0.700%29%22%20stroke-width%3D%222%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20x%3D%22470%22%20y%3D%22300%22%20width%3D%22660%22%20height%3D%22300%22%20rx%3D%2222%22%20fill%3D%22rgba%2822%2C22%2C29%2C0.720%29%22%20stroke%3D%22rgba%28124%2C58%2C237%2C0.400%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22350%22%20width%3D%22240%22%20height%3D%2216%22%20rx%3D%226%22%20fill%3D%22rgba%28124%2C58%2C237%2C0.900%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22390%22%20width%3D%22420%22%20height%3D%2211%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.320%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22420%22%20width%3D%22360%22%20height%3D%2211%22%20rx%3D%224%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22510%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%2834%2C211%2C238%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22670%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28124%2C58%2C237%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22830%22%20y%3D%22470%22%20width%3D%22140%22%20height%3D%2270%22%20rx%3D%2212%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.080%29%22%2F%3E%0A%20%20%3Cg%20opacity%3D%220.5%22%3E%0A%20%20%20%20%3Ccircle%20cx%3D%22240%22%20cy%3D%22180%22%20r%3D%2216%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221360%22%20cy%3D%22220%22%20r%3D%2222%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%20%20%3Ccircle%20cx%3D%221480%22%20cy%3D%22680%22%20r%3D%2212%22%20fill%3D%22url%28%23bokeh%29%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "NeonForge cinematic surface",
-      "notes": "Hold the visual beat — let the room feel the product."
+      "eyebrow": "NeonForge · Series A · March 2027",
+      "heading": "Typed APIs from any database in one command.",
+      "lead": "We are raising $14M to end hand-written backend glue.",
+      "notes": "Say the sentence, then stop. The next slide earns it."
     },
     {
       "layout": "two-column",
-      "eyebrow": "The gap",
-      "heading": "Your product is sharp. Your deck still looks like a template.",
-      "body": "Investors forgive rough slides once. Competitors with craft win the room. NeonForge turns the same Deck JSON into a surface that reads as intentional — not default-dark-with-purple.",
-      "aside": "75 themes. One schema. Zero Figma babysitting.",
-      "ratio": "2-1"
+      "eyebrow": "The problem",
+      "heading": "Backend teams lose 38% of every sprint to hand-written API glue",
+      "ratio": "2-1",
+      "body": "Every schema change means new routes, types and docs, and a broken mobile client.",
+      "aside": "38% of sprint hours lost. Survey of 412 teams, Nov 2026."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "The product",
+      "heading": "NeonForge turns your schema into a typed API in four seconds",
+      "lead": "Routes, SDK, docs and row-level auth, rebuilt on every migration.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%230e0e12%22%2F%3E%3Cg%20opacity%3D%22.3%22%20stroke%3D%22%237c3aed%22%3E%3Cpath%20d%3D%22M0%20150H1600M0%20300H1600M0%20600H1600M0%20750H1600M200%200V900M400%200V900M600%200V900M800%200V900M1000%200V900M1200%200V900M1400%200V900%22%2F%3E%3C%2Fg%3E%3Cg%20font-family%3D%22monospace%22%20transform%3D%22translate(80%2045)%20scale(.9)%22%3E%3Cg%20transform%3D%22translate(70%20300)%22%3E%3Crect%20width%3D%22560%22%20height%3D%22300%22%20rx%3D%2216%22%20fill%3D%22%2316161d%22%20stroke%3D%22%237c3aed%22%20stroke-width%3D%222%22%2F%3E%3Ccircle%20cx%3D%2226%22%20cy%3D%2224%22%20r%3D%226%22%20fill%3D%22%23f87171%22%2F%3E%3Ccircle%20cx%3D%2246%22%20cy%3D%2224%22%20r%3D%226%22%20fill%3D%22%23fbbf24%22%2F%3E%3Ccircle%20cx%3D%2266%22%20cy%3D%2224%22%20r%3D%226%22%20fill%3D%22%2334d399%22%2F%3E%3Ctext%20x%3D%2228%22%20y%3D%2282%22%20fill%3D%22%2322d3ee%22%20font-size%3D%2224%22%3E%24%20npx%20neonforge%20gen%3C%2Ftext%3E%3Ctext%20x%3D%2228%22%20y%3D%22122%22%20fill%3D%22%23a1a1aa%22%20font-size%3D%2220%22%3E42%20tables%20%C2%B7%20318%20columns%3C%2Ftext%3E%3Ctext%20x%3D%2228%22%20y%3D%22162%22%20fill%3D%22%2334d399%22%20font-size%3D%2220%22%3E%E2%9C%93%2086%20routes%20%20%E2%9C%93%20openapi.json%3C%2Ftext%3E%3Ctext%20x%3D%2228%22%20y%3D%22198%22%20fill%3D%22%2334d399%22%20font-size%3D%2220%22%3E%E2%9C%93%20typed%20SDK%20%20%E2%9C%93%20row-level%20auth%3C%2Ftext%3E%3Ctext%20x%3D%2228%22%20y%3D%22252%22%20fill%3D%22%23f4f4f5%22%20font-size%3D%2222%22%3Edone%20in%203.8s%3C%2Ftext%3E%3C%2Fg%3E%3Cpath%20d%3D%22M660%20450h90%22%20stroke%3D%22%2322d3ee%22%20stroke-width%3D%224%22%2F%3E%3Cpath%20d%3D%22M745%20436l22%2014-22%2014z%22%20fill%3D%22%2322d3ee%22%2F%3E%3Cg%20transform%3D%22translate(790%20300)%22%3E%3Crect%20width%3D%22560%22%20height%3D%22300%22%20rx%3D%2216%22%20fill%3D%22%2316161d%22%20stroke%3D%22%2322d3ee%22%20stroke-width%3D%222%22%2F%3E%3Ctext%20x%3D%2228%22%20y%3D%2256%22%20fill%3D%22%23a1a1aa%22%20font-size%3D%2218%22%3E%2F%2F%20sdk%2Fts%2Fshipments.ts%3C%2Ftext%3E%3Ctext%20x%3D%2228%22%20y%3D%22100%22%20fill%3D%22%23c084fc%22%20font-size%3D%2221%22%3Etype%20%3Ctspan%20fill%3D%22%23f4f4f5%22%3EShipment%20%3D%20%7B%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20x%3D%2258%22%20y%3D%22134%22%20fill%3D%22%23f4f4f5%22%20font-size%3D%2221%22%3Ecarrier%3A%20%3Ctspan%20fill%3D%22%2322d3ee%22%3ECarrier%3C%2Ftspan%3E%3B%20eta%3A%20%3Ctspan%20fill%3D%22%2322d3ee%22%3EDate%3C%2Ftspan%3E%3C%2Ftext%3E%3Ctext%20x%3D%2258%22%20y%3D%22168%22%20fill%3D%22%23f4f4f5%22%20font-size%3D%2221%22%3Estatus%3A%20%3Ctspan%20fill%3D%22%23fbbf24%22%3E%22open%22%20%7C%20%22late%22%3C%2Ftspan%3E%20%7D%3C%2Ftext%3E%3Ctext%20x%3D%2228%22%20y%3D%22216%22%20fill%3D%22%23f4f4f5%22%20font-size%3D%2221%22%3Eapi.shipments.list(%7B%20status%3A%20%3Ctspan%20fill%3D%22%23fbbf24%22%3E%22late%22%3C%2Ftspan%3E%20%7D)%3C%2Ftext%3E%3Crect%20x%3D%2228%22%20y%3D%22236%22%20width%3D%22380%22%20height%3D%2240%22%20rx%3D%228%22%20fill%3D%22%237c3aed%22%20fill-opacity%3D%22.25%22%2F%3E%3Ctext%20x%3D%2244%22%20y%3D%22263%22%20fill%3D%22%23c4b5fd%22%20font-size%3D%2217%22%3EShipment%5B%5D%20%C2%B7%20autocomplete%20%E2%9C%93%3C%2Ftext%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(1380%20360)%22%3E%3Crect%20width%3D%22190%22%20height%3D%22180%22%20rx%3D%2214%22%20fill%3D%22%237c3aed%22%2F%3E%3Ctext%20x%3D%2295%22%20y%3D%2262%22%20fill%3D%22%23ede9fe%22%20font-size%3D%2217%22%20text-anchor%3D%22middle%22%3Ehand-written%3C%2Ftext%3E%3Ctext%20x%3D%2295%22%20y%3D%22122%22%20fill%3D%22%23fff%22%20font-size%3D%2246%22%20text-anchor%3D%22middle%22%3E0%3C%2Ftext%3E%3Ctext%20x%3D%2295%22%20y%3D%22156%22%20fill%3D%22%23ede9fe%22%20font-size%3D%2217%22%20text-anchor%3D%22middle%22%3Elines%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "Terminal running npx neonforge gen next to the generated TypeScript client for a shipments table"
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Why now",
+      "heading": "Four shifts since 2023 made generated backends safe to ship",
+      "steps": [
+        {
+          "title": "2023",
+          "body": "TypeScript leads new backends"
+        },
+        {
+          "title": "2024",
+          "body": "Postgres is default for 49%"
+        },
+        {
+          "title": "2025",
+          "body": "AI agents need typed contracts"
+        },
+        {
+          "title": "2026",
+          "body": "Edge runs one runtime everywhere"
+        }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "Developers came first",
+      "lead": "No paid acquisition until January 2027."
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Traction",
+      "heading": "Weekly active projects grew 9× in twelve months to 41,200",
+      "chartType": "line",
+      "categories": [
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+        "Jan",
+        "Feb"
+      ],
+      "series": [
+        {
+          "name": "Weekly active projects (thousands)",
+          "values": [
+            4.6,
+            6.1,
+            8,
+            10.4,
+            13.2,
+            16.9,
+            20.5,
+            24.8,
+            29,
+            33.1,
+            37.4,
+            41.2
+          ]
+        }
+      ],
+      "lead": "Source: product analytics, March 2026 to February 2027.",
+      "notes": "Point at the slope after October: that is when the Postgres extension shipped."
+    },
+    {
+      "layout": "quote",
+      "quote": "We deleted 11,000 lines of resolver code in the first week.",
+      "by": "Priya Raman, CTO, Lattice Freight · customer since May 2026"
     },
     {
       "layout": "code",
-      "eyebrow": "60-second start",
-      "heading": "Render the vibe. Don't redesign it.",
-      "filename": "neonforge-deck.json",
-      "language": "json",
-      "code": "{\n  \"meta\": { \"theme\": \"default-tech\", \"title\": \"NeonForge\" },\n  \"slides\": [\n    { \"layout\": \"title\", \"heading\": \"Ship dark mode.\" },\n    { \"layout\": \"code\", \"filename\": \"api.ts\", \"code\": \"…\" }\n  ]\n}"
+      "eyebrow": "How it works",
+      "heading": "Your schema is the contract; ten lines of config do the rest",
+      "filename": "neonforge.config.ts",
+      "language": "typescript",
+      "code": "import { defineApi } from \"neonforge\";\n\nexport default defineApi({\n  database: process.env.DATABASE_URL,\n  expose: [\"shipments\", \"carriers\"],\n  auth: { rowLevel: \"org_id\" },\n  version: \"v1\",\n  clients: [\"ts\", \"swift\", \"kotlin\"],\n});"
     },
     {
-      "layout": "feature-grid",
-      "eyebrow": "Why teams lock it",
-      "heading": "One field swaps the whole room",
-      "columns": "bento",
-      "cards": [
+      "layout": "stat-row",
+      "eyebrow": "Market",
+      "heading": "Every backend team on SQL is a buyer: a $6.6B market",
+      "stats": [
         {
-          "icon": "fa-solid fa-bolt",
-          "title": "Neon surface, not a skin",
-          "body": "Glow, contrast, and type hierarchy baked into the surface profile — content slides stay readable."
+          "value": "2.1M",
+          "label": "Backend teams on Postgres or MySQL, 2026"
         },
         {
-          "icon": "fa-solid fa-code",
-          "title": "Code layout",
-          "body": "Real snippet chrome for API demos."
+          "value": "$3,132",
+          "label": "Per team per year at 9 seats"
         },
         {
-          "icon": "fa-solid fa-columns",
-          "title": "Asymmetric craft",
-          "body": "Ratios, asides, emphasis columns."
-        },
-        {
-          "icon": "fa-solid fa-file-export",
-          "title": "PPTX round-trip",
-          "body": "Editable Office export from the same JSON."
-        },
-        {
-          "icon": "fa-solid fa-robot",
-          "title": "Agent-native",
-          "body": "MCP render + theme preview before you commit."
+          "value": "$6.6B",
+          "label": "Serviceable market, counted bottom-up"
         }
       ]
     },
     {
       "layout": "comparison",
-      "eyebrow": "Before / After",
-      "heading": "Template energy vs. signal.",
-      "leftLabel": "Generic dark deck",
-      "left": "Purple glow everywhere.\nCards that all weigh the same.\nNo code surface. No ask.",
-      "rightLabel": "default-tech",
-      "right": "Hierarchy that holds under neon.\nAsymmetric layouts on purpose.\nSnippet proof + a clear close.",
+      "eyebrow": "Competition",
+      "heading": "Backend platforms take your data; NeonForge runs inside your cloud",
+      "leftLabel": "Backend-as-a-service",
+      "left": "Hosts your data.\nTypes stop at the dashboard.\nBills per row stored.",
+      "rightLabel": "NeonForge",
+      "right": "Uses your database.\nTypes reach every client.\nBills per API call.",
       "emphasis": "right",
-      "notes": "Name the loser column first, then punch the winner."
+      "notes": "Investors spend longest here. Name the trade-off: we never host data, so we never win on convenience alone."
     },
     {
-      "layout": "stat-row",
-      "eyebrow": "Proof",
-      "heading": "Numbers that survive a projector.",
-      "stats": [
+      "layout": "section",
+      "number": "02",
+      "heading": "The business",
+      "lead": "A free CLI that teams grow into."
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Business model",
+      "heading": "Seat and usage pricing already earns $3.1M ARR from 1,240 teams",
+      "columns": [
+        "Tier",
+        "Price",
+        "Paying teams",
+        "ARR"
+      ],
+      "rows": [
+        [
+          "Team",
+          "$29 per developer a month",
+          "1,188",
+          "$2.15M"
+        ],
+        [
+          "Scale",
+          "$1,500 a month plus usage",
+          "52",
+          "$0.94M"
+        ],
+        [
+          "Total",
+          "Average $2,500 a team",
+          "1,240",
+          "$3.1M"
+        ]
+      ]
+    },
+    {
+      "layout": "feature-grid",
+      "eyebrow": "Team",
+      "heading": "Three founders who have built and sold API platforms before",
+      "columns": 3,
+      "cards": [
         {
-          "value": "75",
-          "label": "Distinct theme surfaces"
+          "icon": "fa-solid fa-route",
+          "title": "Mara Okafor · CEO",
+          "body": "Ran a 4,000-endpoint payments API."
         },
         {
-          "value": "12",
-          "label": "Schema layouts"
+          "icon": "fa-solid fa-database",
+          "title": "Jonas Weil · CTO",
+          "body": "Postgres contributor, nine years."
         },
         {
-          "value": "1",
-          "label": "JSON field to re-theme"
+          "icon": "fa-solid fa-chart-line",
+          "title": "Ines Duarte · Growth",
+          "body": "Took a dev tool to 300k users."
         }
       ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Next",
-      "heading": "Lock the vibe. Ship the ask.",
-      "lead": "npx @presentation-md/install · preview_themes · render_deck",
+      "eyebrow": "The ask",
+      "heading": "Raise $14M to put a typed API on every database",
+      "lead": "Eighteen months to $12M ARR, 5,000 paying teams and SOC 2 Type II.",
       "actions": [
         {
-          "label": "Install presentation-md",
-          "href": "https://presentation-md.vercel.app/#install",
+          "label": "Book a partner meeting",
           "style": "solid",
-          "icon": "fa-solid fa-download"
+          "icon": "fa-solid fa-calendar-check"
         },
         {
-          "label": "Watch the demo",
-          "href": "#",
+          "label": "Try the CLI",
           "style": "outline",
-          "icon": "fa-solid fa-play"
+          "icon": "fa-solid fa-terminal"
         }
-      ]
+      ],
+      "notes": "Close on the cover line: one command, every database. Then name the date of the next step."
     }
   ]
 }

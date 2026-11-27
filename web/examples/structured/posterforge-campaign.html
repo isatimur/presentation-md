@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Posterforge — Campaign</title>
-<meta name="description" content="Campaign studio credentials — bold-poster multi-slide proof." />
+<title>Free Walls — a Posterforge campaign for Leeds</title>
+<meta name="description" content="Campaign deck by Posterforge, a Leeds poster studio, asking the city to give each of its 33 wards a free community poster wall before the council vote on 12 March 2027." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Shrikhand&family=Libre+Baskerville:wght@400;700&family=Space+Grotesk:wght@500;600&display=swap');
@@ -20,6 +20,12 @@
   --muted: #655950;
   --accent: #D8000F;
   --accent-2: #1C1410;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #FFFFFF;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #D8000F;
+  --accent-2-ink: #1C1410;
   --card-bg: #F5F2EF;
   --border: rgba(28,20,16,0.85);
   --radius: 0px;
@@ -27,6 +33,10 @@
   --heading-font: 'Shrikhand', cursive;
   --body-font: 'Libre Baskerville', Georgia, serif;
   --heading-weight: 400;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,82 +6908,156 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="bold-poster-ink">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Campaign studio</span>
-  <h1>Tomato ink. Loud type.</h1>
-  <p class="lead">Shrikhand titles. Libre Baskerville body. Posters that stop the scroll.</p>
+  <span class="eyebrow">Posterforge · Free Walls campaign · Leeds · 2027</span>
+  <h1>Give every Leeds ward a free poster wall.</h1>
+  <p class="lead">33 wards, 33 walls, £66,000. Council votes on 12 March 2027.</p>
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23F5F2EF%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23FFFFFF%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28216%2C0%2C15%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28216%2C0%2C15%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2828%2C20%2C16%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28216%2C0%2C15%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28245%2C242%2C239%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28216%2C0%2C15%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28216%2C0%2C15%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28216%2C0%2C15%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2828%2C20%2C16%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2828%2C20%2C16%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2828%2C20%2C16%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23FFFFFF%22%2F%3E%0A%20%20%3Cpolygon%20points%3D%220%2C0%20980%2C0%20640%2C900%200%2C900%22%20fill%3D%22rgba%28216%2C0%2C15%2C0.280%29%22%2F%3E%0A%20%20%3Cpolygon%20points%3D%22980%2C0%201600%2C0%201600%2C900%20640%2C900%22%20fill%3D%22rgba%2828%2C20%2C16%2C0.180%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22280%22%20rx%3D%22260%22%20ry%3D%22200%22%20fill%3D%22rgba%28216%2C0%2C15%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22220%22%20width%3D%22620%22%20height%3D%2272%22%20fill%3D%22%23D8000F%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22320%22%20width%3D%22460%22%20height%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.550%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22370%22%20width%3D%22380%22%20height%3D%2222%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22980%22%20y%3D%22520%22%20width%3D%22420%22%20height%3D%22220%22%20fill%3D%22rgba%280%2C0%2C0%2C0.220%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221000%22%20y%3D%22540%22%20width%3D%22380%22%20height%3D%22180%22%20fill%3D%22rgba%2828%2C20%2C16%2C0.450%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22630%22%20r%3D%2254%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.550%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.7%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="Posterforge cinematic surface" />
+    <img src="data:image&#x2F;svg+xml,%3Csvg xmlns&#x3D;%22http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg%22 viewBox&#x3D;%220 0 1600 900%22 width&#x3D;%221600%22 height&#x3D;%22900%22%3E%3Crect width&#x3D;%221600%22 height&#x3D;%22900%22 fill&#x3D;%22%23F5F2EF%22&#x2F;%3E%3Cg fill&#x3D;%22%23E6DED6%22 stroke&#x3D;%22%23CFC4B8%22 stroke-width&#x3D;%222%22%3E%3Crect x&#x3D;%220%22 y&#x3D;%22260%22 width&#x3D;%221600%22 height&#x3D;%22380%22&#x2F;%3E%3C&#x2F;g%3E%3Cg stroke&#x3D;%22%23CFC4B8%22 stroke-width&#x3D;%222%22%3E%3Cpath d&#x3D;%22M0 330 H1600 M0 400 H1600 M0 470 H1600 M0 540 H1600 M0 610 H1600%22&#x2F;%3E%3C&#x2F;g%3E%3Crect x&#x3D;%22300%22 y&#x3D;%22290%22 width&#x3D;%22420%22 height&#x3D;%22300%22 fill&#x3D;%22%23FFFFFF%22 stroke&#x3D;%22%231C1410%22 stroke-width&#x3D;%224%22&#x2F;%3E%3Cpath d&#x3D;%22M300 290 h140 l-30 40 l40 30 l-60 50 l20 40 h-110 z%22 fill&#x3D;%22%23D8000F%22 opacity&#x3D;%220.85%22&#x2F;%3E%3Cpath d&#x3D;%22M720 590 h-90 l20 -50 l-40 -30 z%22 fill&#x3D;%22%231C1410%22 opacity&#x3D;%220.7%22&#x2F;%3E%3Ctext x&#x3D;%22510%22 y&#x3D;%22460%22 font-family&#x3D;%22Georgia, serif%22 font-size&#x3D;%2234%22 font-weight&#x3D;%22bold%22 fill&#x3D;%22%231C1410%22 text-anchor&#x3D;%22middle%22%3ENOTICE%3C&#x2F;text%3E%3Ctext x&#x3D;%22510%22 y&#x3D;%22505%22 font-family&#x3D;%22Georgia, serif%22 font-size&#x3D;%2222%22 fill&#x3D;%22%231C1410%22 text-anchor&#x3D;%22middle%22%3EBoard removed %C2%B7 Leeds City Council%3C&#x2F;text%3E%3Ctext x&#x3D;%22510%22 y&#x3D;%22540%22 font-family&#x3D;%22Georgia, serif%22 font-size&#x3D;%2222%22 fill&#x3D;%22%231C1410%22 text-anchor&#x3D;%22middle%22%3EMarch 2024%3C&#x2F;text%3E%3Cg fill&#x3D;%22%23FFFFFF%22 opacity&#x3D;%220.9%22%3E%3Crect x&#x3D;%22900%22 y&#x3D;%22320%22 width&#x3D;%2260%22 height&#x3D;%2280%22 transform&#x3D;%22rotate(-8 930 360)%22&#x2F;%3E%3Crect x&#x3D;%221040%22 y&#x3D;%22470%22 width&#x3D;%2244%22 height&#x3D;%2260%22 transform&#x3D;%22rotate(12 1062 500)%22&#x2F;%3E%3Crect x&#x3D;%221240%22 y&#x3D;%22350%22 width&#x3D;%2270%22 height&#x3D;%2240%22 transform&#x3D;%22rotate(4 1275 370)%22&#x2F;%3E%3C&#x2F;g%3E%3Cg fill&#x3D;%22%23D8000F%22 opacity&#x3D;%220.6%22%3E%3Crect x&#x3D;%221000%22 y&#x3D;%22380%22 width&#x3D;%2230%22 height&#x3D;%2240%22 transform&#x3D;%22rotate(20 1015 400)%22&#x2F;%3E%3Crect x&#x3D;%221180%22 y&#x3D;%22520%22 width&#x3D;%2250%22 height&#x3D;%2224%22&#x2F;%3E%3C&#x2F;g%3E%3Cg fill&#x3D;%22%231C1410%22%3E%3Ccircle cx&#x3D;%22905%22 cy&#x3D;%22325%22 r&#x3D;%225%22&#x2F;%3E%3Ccircle cx&#x3D;%221245%22 cy&#x3D;%22352%22 r&#x3D;%225%22&#x2F;%3E%3Ccircle cx&#x3D;%221045%22 cy&#x3D;%22472%22 r&#x3D;%225%22&#x2F;%3E%3C&#x2F;g%3E%3C&#x2F;svg%3E" alt="A bare brick wall with a council notice where a community board used to be, scraps of old posters still pinned around it" />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">Campaign studio</span>
-    <h2>Tomato ink. Loud type.</h2>
-    <p class="lead">Shrikhand titles. Libre Baskerville body. Posters that stop the scroll.</p>
+    <span class="eyebrow">What is</span>
+    <h2>The boards where Leeds told itself what was on are gone</h2>
+    <p class="lead">Gig nights, bake sales and lost cats now have nowhere to go.</p>
+  </div>
+</section>
+
+<section class="slide stat-row-slide stat-row-hero" data-layout="stat-row">
+  <span class="eyebrow">The proof</span>
+  <h2>Leeds removed 9 in 10 free noticeboards since 2015</h2>
+  
+  <div class="stats">
+    <div class="stat is-mega">
+      <div class="value">312</div>
+      <div class="label">of 348 boards removed, 2015–2025 · council FOI reply, June 2026</div>
+    </div>
+    <div class="stat">
+      <div class="value">36</div>
+      <div class="label">boards left for 33 wards</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml,%3Csvg xmlns&#x3D;%22http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg%22 viewBox&#x3D;%220 0 1600 900%22 width&#x3D;%221600%22 height&#x3D;%22900%22%3E%3Crect width&#x3D;%221600%22 height&#x3D;%22900%22 fill&#x3D;%22%23F5F2EF%22&#x2F;%3E%3Crect x&#x3D;%2260%22 y&#x3D;%22260%22 width&#x3D;%221480%22 height&#x3D;%22380%22 fill&#x3D;%22%231C1410%22&#x2F;%3E%3Cg font-family&#x3D;%22Georgia, serif%22 font-weight&#x3D;%22bold%22 text-anchor&#x3D;%22middle%22%3E%3Crect x&#x3D;%2290%22 y&#x3D;%22285%22 width&#x3D;%22200%22 height&#x3D;%22270%22 fill&#x3D;%22%23D8000F%22&#x2F;%3E%3Ctext x&#x3D;%22190%22 y&#x3D;%22380%22 font-size&#x3D;%2244%22 fill&#x3D;%22%23FFFFFF%22%3EGIG%3C&#x2F;text%3E%3Ctext x&#x3D;%22190%22 y&#x3D;%22430%22 font-size&#x3D;%2222%22 fill&#x3D;%22%23FFFFFF%22%3EFri 9 pm%3C&#x2F;text%3E%3Crect x&#x3D;%22310%22 y&#x3D;%22300%22 width&#x3D;%22230%22 height&#x3D;%22160%22 fill&#x3D;%22%23FFFFFF%22&#x2F;%3E%3Ctext x&#x3D;%22425%22 y&#x3D;%22370%22 font-size&#x3D;%2230%22 fill&#x3D;%22%231C1410%22%3EBake sale%3C&#x2F;text%3E%3Ctext x&#x3D;%22425%22 y&#x3D;%22410%22 font-size&#x3D;%2220%22 fill&#x3D;%22%231C1410%22%3ESt Martin&#39;s %C2%B7 Sat%3C&#x2F;text%3E%3Crect x&#x3D;%22310%22 y&#x3D;%22475%22 width&#x3D;%22230%22 height&#x3D;%22140%22 fill&#x3D;%22%23F2C230%22&#x2F;%3E%3Ctext x&#x3D;%22425%22 y&#x3D;%22555%22 font-size&#x3D;%2228%22 fill&#x3D;%22%231C1410%22%3EChoir%3C&#x2F;text%3E%3Crect x&#x3D;%22560%22 y&#x3D;%22285%22 width&#x3D;%22260%22 height&#x3D;%22330%22 fill&#x3D;%22%23FFFFFF%22&#x2F;%3E%3Ctext x&#x3D;%22690%22 y&#x3D;%22380%22 font-size&#x3D;%2240%22 fill&#x3D;%22%23D8000F%22%3ECLUB%3C&#x2F;text%3E%3Ctext x&#x3D;%22690%22 y&#x3D;%22430%22 font-size&#x3D;%2240%22 fill&#x3D;%22%23D8000F%22%3ENIGHT%3C&#x2F;text%3E%3Ctext x&#x3D;%22690%22 y&#x3D;%22560%22 font-size&#x3D;%2220%22 fill&#x3D;%22%231C1410%22%3EHollin St Hall%3C&#x2F;text%3E%3Crect x&#x3D;%22840%22 y&#x3D;%22300%22 width&#x3D;%22200%22 height&#x3D;%22200%22 fill&#x3D;%22%232F6FD8%22&#x2F;%3E%3Ctext x&#x3D;%22940%22 y&#x3D;%22410%22 font-size&#x3D;%2230%22 fill&#x3D;%22%23FFFFFF%22%3EMarket%3C&#x2F;text%3E%3Crect x&#x3D;%22840%22 y&#x3D;%22515%22 width&#x3D;%22200%22 height&#x3D;%22100%22 fill&#x3D;%22%23FFFFFF%22&#x2F;%3E%3Ctext x&#x3D;%22940%22 y&#x3D;%22575%22 font-size&#x3D;%2222%22 fill&#x3D;%22%231C1410%22%3ELost cat%3C&#x2F;text%3E%3Crect x&#x3D;%221060%22 y&#x3D;%22285%22 width&#x3D;%22240%22 height&#x3D;%22330%22 fill&#x3D;%22%23D8000F%22&#x2F;%3E%3Ctext x&#x3D;%221180%22 y&#x3D;%22400%22 font-size&#x3D;%2234%22 fill&#x3D;%22%23FFFFFF%22%3EFIVE-A-%3C&#x2F;text%3E%3Ctext x&#x3D;%221180%22 y&#x3D;%22445%22 font-size&#x3D;%2234%22 fill&#x3D;%22%23FFFFFF%22%3ESIDE%3C&#x2F;text%3E%3Ctext x&#x3D;%221180%22 y&#x3D;%22560%22 font-size&#x3D;%2220%22 fill&#x3D;%22%23FFFFFF%22%3ESun 10 am%3C&#x2F;text%3E%3Crect x&#x3D;%221320%22 y&#x3D;%22300%22 width&#x3D;%22195%22 height&#x3D;%22300%22 fill&#x3D;%22%23FFFFFF%22&#x2F;%3E%3Ctext x&#x3D;%221417%22 y&#x3D;%22400%22 font-size&#x3D;%2228%22 fill&#x3D;%22%231C1410%22%3EPoetry%3C&#x2F;text%3E%3Ctext x&#x3D;%221417%22 y&#x3D;%22440%22 font-size&#x3D;%2228%22 fill&#x3D;%22%231C1410%22%3Eopen mic%3C&#x2F;text%3E%3C&#x2F;g%3E%3Ctext x&#x3D;%2260%22 y&#x3D;%22680%22 font-family&#x3D;%22Georgia, serif%22 font-size&#x3D;%2224%22 fill&#x3D;%22%231C1410%22%3EChapeltown pilot wall %C2%B7 14 posters on day one%3C&#x2F;text%3E%3C&#x2F;svg%3E" alt="A black wall covered in local posters: a gig, a bake sale, a choir, a club night, a market, a lost cat, five-a-side football and an open mic" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">What could be</span>
+    <h2>One wall per ward, open to anyone with paste and a poster</h2>
+    <p class="lead">Our Chapeltown pilot wall filled on its first day.</p>
+  </div>
+</section>
+
+<section class="slide comparison-slide" data-layout="comparison">
+  <span class="eyebrow">The obstacle</span>
+  <h2>Ad contracts earn £2.1M; free walls cost the city £66,000</h2>
+  <div class="comparison-cols emphasis-right">
+    <div class="comparison-col">
+      <span class="comparison-label">The ad contract</span>
+      <p>Sells every legal wall
+Earns £2.1M a year
+Small events priced out</p>
+    </div>
+    <div class="comparison-vs" aria-hidden="true">vs</div>
+    <div class="comparison-col">
+      <span class="comparison-label">Free Walls</span>
+      <p>One wall per ward
+£2,000 per wall, once
+3% of ad income</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide quote-slide" data-layout="quote">
+  <p class="quote">One wall on Roundhay Road used to fill our 200 seats. Now we beg on Instagram.</p>
+  <p class="quote-by">— Nadia Brooks, runs Hollin Street Hall</p>
+</section>
+
+<section class="slide image-hero-slide" data-layout="image-hero">
+  <div class="image-hero-bg">
+    <img src="data:image&#x2F;svg+xml,%3Csvg xmlns&#x3D;%22http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg%22 viewBox&#x3D;%220 0 1600 900%22 width&#x3D;%221600%22 height&#x3D;%22900%22%3E%3Crect width&#x3D;%221600%22 height&#x3D;%22900%22 fill&#x3D;%22%23F5F2EF%22&#x2F;%3E%3Crect x&#x3D;%220%22 y&#x3D;%22600%22 width&#x3D;%221600%22 height&#x3D;%22300%22 fill&#x3D;%22%23E6DED6%22&#x2F;%3E%3Crect x&#x3D;%22470%22 y&#x3D;%22250%22 width&#x3D;%22660%22 height&#x3D;%22380%22 fill&#x3D;%22%231C1410%22&#x2F;%3E%3Crect x&#x3D;%22495%22 y&#x3D;%22275%22 width&#x3D;%22610%22 height&#x3D;%22330%22 fill&#x3D;%22%23FFFFFF%22&#x2F;%3E%3Cg font-family&#x3D;%22Georgia, serif%22 font-weight&#x3D;%22bold%22 text-anchor&#x3D;%22middle%22 fill&#x3D;%22%231C1410%22%3E%3Ctext x&#x3D;%22800%22 y&#x3D;%22380%22 font-size&#x3D;%2264%22%3EYOUR AD HERE%3C&#x2F;text%3E%3Ctext x&#x3D;%22800%22 y&#x3D;%22470%22 font-size&#x3D;%2290%22 fill&#x3D;%22%23D8000F%22%3E%C2%A31,200%3C&#x2F;text%3E%3Ctext x&#x3D;%22800%22 y&#x3D;%22530%22 font-size&#x3D;%2232%22%3Eper week %C2%B7 4-week minimum%3C&#x2F;text%3E%3C&#x2F;g%3E%3Crect x&#x3D;%22785%22 y&#x3D;%22630%22 width&#x3D;%2230%22 height&#x3D;%22120%22 fill&#x3D;%22%231C1410%22&#x2F;%3E%3Ctext x&#x3D;%221180%22 y&#x3D;%22300%22 font-family&#x3D;%22Georgia, serif%22 font-size&#x3D;%2224%22 fill&#x3D;%22%231C1410%22%3EHarehills Lane%3C&#x2F;text%3E%3Ctext x&#x3D;%221180%22 y&#x3D;%22335%22 font-family&#x3D;%22Georgia, serif%22 font-size&#x3D;%2224%22 fill&#x3D;%22%231C1410%22%3EThe only legal poster%3C&#x2F;text%3E%3Ctext x&#x3D;%221180%22 y&#x3D;%22370%22 font-family&#x3D;%22Georgia, serif%22 font-size&#x3D;%2224%22 fill&#x3D;%22%231C1410%22%3Espace left in the ward%3C&#x2F;text%3E%3C&#x2F;svg%3E" alt="A backlit advertising panel on Harehills Lane reading Your ad here, £1,200 per week, four-week minimum" />
+    <div class="image-hero-scrim"></div>
+  </div>
+  <div class="image-hero-content">
+    <span class="eyebrow">What is</span>
+    <h2>In Harehills, the only legal poster space costs £1,200 a week</h2>
+    <p class="lead">A four-week minimum. No choir can pay that.</p>
   </div>
 </section>
 
 <section class="slide two-column-slide" data-layout="two-column">
   <div class="cols ratio-2-1 cols-reverse">
     <div class="cols-copy">
-      <span class="eyebrow">Work</span>
-      <h2>What we print</h2>
-      <p class="lead">Launch walls: City-scale type for product days. Tour posters — Ink that survives rain and phones.</p>
+      <span class="eyebrow">What could be</span>
+      <h2>Residents have already picked 12 of the 33 wall sites</h2>
+      <p class="lead">Each site chosen at a ward meeting.
+All on council-owned walls.</p>
     </div>
+    <div class="media"><img src="data:image&#x2F;svg+xml,%3Csvg xmlns&#x3D;%22http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg%22 viewBox&#x3D;%220 0 900 900%22 width&#x3D;%22900%22 height&#x3D;%22900%22%3E%3Crect width&#x3D;%22900%22 height&#x3D;%22900%22 fill&#x3D;%22%23F5F2EF%22&#x2F;%3E%3Cpath d&#x3D;%22M170 250 L330 150 L560 170 L730 290 L760 500 L640 700 L400 760 L200 650 L130 450 Z%22 fill&#x3D;%22%23FFFFFF%22 stroke&#x3D;%22%231C1410%22 stroke-width&#x3D;%225%22&#x2F;%3E%3Cpath d&#x3D;%22M130 450 C 300 430, 500 480, 760 500%22 fill&#x3D;%22none%22 stroke&#x3D;%22%232F6FD8%22 stroke-width&#x3D;%228%22&#x2F;%3E%3Cg stroke&#x3D;%22%23E6DED6%22 stroke-width&#x3D;%222%22 fill&#x3D;%22none%22%3E%3Cpath d&#x3D;%22M330 150 L400 760 M560 170 L450 760 M170 250 L730 290 M200 650 L760 400%22&#x2F;%3E%3C&#x2F;g%3E%3Cg fill&#x3D;%22%23D8000F%22%3E%3Ccircle cx&#x3D;%22280%22 cy&#x3D;%22300%22 r&#x3D;%2216%22&#x2F;%3E%3Ccircle cx&#x3D;%22420%22 cy&#x3D;%22260%22 r&#x3D;%2216%22&#x2F;%3E%3Ccircle cx&#x3D;%22560%22 cy&#x3D;%22300%22 r&#x3D;%2216%22&#x2F;%3E%3Ccircle cx&#x3D;%22650%22 cy&#x3D;%22380%22 r&#x3D;%2216%22&#x2F;%3E%3Ccircle cx&#x3D;%22300%22 cy&#x3D;%22420%22 r&#x3D;%2216%22&#x2F;%3E%3Ccircle cx&#x3D;%22470%22 cy&#x3D;%22390%22 r&#x3D;%2216%22&#x2F;%3E%3Ccircle cx&#x3D;%22600%22 cy&#x3D;%22560%22 r&#x3D;%2216%22&#x2F;%3E%3Ccircle cx&#x3D;%22380%22 cy&#x3D;%22560%22 r&#x3D;%2216%22&#x2F;%3E%3Ccircle cx&#x3D;%22250%22 cy&#x3D;%22560%22 r&#x3D;%2216%22&#x2F;%3E%3Ccircle cx&#x3D;%22480%22 cy&#x3D;%22660%22 r&#x3D;%2216%22&#x2F;%3E%3Ccircle cx&#x3D;%22680%22 cy&#x3D;%22470%22 r&#x3D;%2216%22&#x2F;%3E%3Ccircle cx&#x3D;%22520%22 cy&#x3D;%22500%22 r&#x3D;%2216%22&#x2F;%3E%3C&#x2F;g%3E%3Cg fill&#x3D;%22none%22 stroke&#x3D;%22%231C1410%22 stroke-width&#x3D;%223%22%3E%3Ccircle cx&#x3D;%22350%22 cy&#x3D;%22340%22 r&#x3D;%2214%22&#x2F;%3E%3Ccircle cx&#x3D;%22620%22 cy&#x3D;%22250%22 r&#x3D;%2214%22&#x2F;%3E%3Ccircle cx&#x3D;%22240%22 cy&#x3D;%22480%22 r&#x3D;%2214%22&#x2F;%3E%3Ccircle cx&#x3D;%22560%22 cy&#x3D;%22640%22 r&#x3D;%2214%22&#x2F;%3E%3Ccircle cx&#x3D;%22420%22 cy&#x3D;%22700%22 r&#x3D;%2214%22&#x2F;%3E%3Ccircle cx&#x3D;%22700%22 cy&#x3D;%22560%22 r&#x3D;%2214%22&#x2F;%3E%3C&#x2F;g%3E%3Cg font-family&#x3D;%22Georgia, serif%22 font-size&#x3D;%2226%22 fill&#x3D;%22%231C1410%22%3E%3Ccircle cx&#x3D;%22180%22 cy&#x3D;%22820%22 r&#x3D;%2214%22 fill&#x3D;%22%23D8000F%22&#x2F;%3E%3Ctext x&#x3D;%22205%22 y&#x3D;%22829%22%3ESite agreed (12)%3C&#x2F;text%3E%3Ccircle cx&#x3D;%22520%22 cy&#x3D;%22820%22 r&#x3D;%2212%22 fill&#x3D;%22none%22 stroke&#x3D;%22%231C1410%22 stroke-width&#x3D;%223%22&#x2F;%3E%3Ctext x&#x3D;%22545%22 y&#x3D;%22829%22%3EProposed%3C&#x2F;text%3E%3C&#x2F;g%3E%3Ctext x&#x3D;%22450%22 y&#x3D;%22100%22 font-family&#x3D;%22Georgia, serif%22 font-size&#x3D;%2230%22 font-weight&#x3D;%22bold%22 fill&#x3D;%22%231C1410%22 text-anchor&#x3D;%22middle%22%3ELEEDS %C2%B7 WALL SITES BY WARD%3C&#x2F;text%3E%3C&#x2F;svg%3E" alt="Map of Leeds with 12 red dots for agreed wall sites and 6 open circles for proposed ones" /></div>
     
-    <div class="cols-aside"><p>One poster system, many SKUs.</p></div>
   </div>
 </section>
 
-<section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Craft</span>
-  <h2>Template vs. poster.</h2>
-  <div class="comparison-cols emphasis-right">
-    <div class="comparison-col">
-      <span class="comparison-label">Canva default</span>
-      <p>Centered everything.
-Soft shadows.
-Forgettable.</p>
+<section class="slide timeline-slide" data-layout="timeline">
+  <span class="eyebrow">The plan</span>
+  <h2>Three moves put 33 walls up by July 2027</h2>
+  <div class="timeline">
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Map · March</h3>
+      <p>Agree the last 21 sites</p>
     </div>
-    <div class="comparison-vs" aria-hidden="true">vs</div>
-    <div class="comparison-col">
-      <span class="comparison-label">Posterforge</span>
-      <p>Edge-to-edge type.
-Tomato rules.
-You remember.</p>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Build · May</h3>
+      <p>£66,000, local joiners</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>Keep · July on</h3>
+      <p>Volunteers clear walls weekly</p>
     </div>
   </div>
 </section>
 
 <section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Impact</span>
-  <h2>Paper that performed.</h2>
+  <span class="eyebrow">Momentum</span>
+  <h2>9,800 people and 41 venues have signed in eight weeks</h2>
   
   <div class="stats">
     <div class="stat">
-      <div class="value">180+</div>
-      <div class="label">Campaigns</div>
+      <div class="value">9,800</div>
+      <div class="label">Petition signatures since 1 October</div>
     </div>
     <div class="stat">
-      <div class="value">12</div>
-      <div class="label">Award years</div>
+      <div class="value">41</div>
+      <div class="label">Venues and clubs backing us</div>
     </div>
     <div class="stat">
-      <div class="value">3.8×</div>
-      <div class="label">Avg CTR lift</div>
+      <div class="value">14</div>
+      <div class="label">Councillors pledged, of 99</div>
     </div>
   </div>
 </section>
 
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">12.03</div>
+  <h2>Full council votes on 12 March 2027</h2>
+  <p class="lead">Civic Hall, 14:00. Public gallery open.</p>
+</section>
+
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">Brief us</span>
-  <h1>Send the product. Get the wall.</h1>
-  <p class="lead">Two-week sprint from brief to press-ready.</p>
+  <span class="eyebrow">Free Walls</span>
+  <h1>Sign now, and every ward gets its wall by summer</h1>
+  <p class="lead">10,000 names by 12 March puts the walls on the agenda.</p>
   <div class="cta-row">
-    <a class="btn" href="#"><i class="fa-solid fa-rocket"></i> Start a brief</a>
-    <a class="btn btn-outline" href="#"><i class="fa-solid fa-play"></i> Watch the demo</a>
+    <a class="btn" href="#"><i class="fa-solid fa-signature"></i> Sign the petition</a>
+    <a class="btn btn-outline" href="#"><i class="fa-solid fa-print"></i> Print a poster</a>
   </div>
 </section>
 
@@ -6839,7 +7145,7 @@ You remember.</p>
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Posterforge — Campaign","company":"Posterforge","description":"Campaign studio credentials — bold-poster multi-slide proof.","theme":"bold-poster"},"slides":[{"layout":"title","eyebrow":"Campaign studio","heading":"Tomato ink. Loud type.","lead":"Shrikhand titles. Libre Baskerville body. Posters that stop the scroll.","notes":"Cold open — land the one-line claim before logos."},{"layout":"image-hero","eyebrow":"Campaign studio","heading":"Tomato ink. Loud type.","lead":"Shrikhand titles. Libre Baskerville body. Posters that stop the scroll.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23F5F2EF%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23FFFFFF%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28216%2C0%2C15%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28216%2C0%2C15%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2828%2C20%2C16%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28216%2C0%2C15%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28245%2C242%2C239%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28216%2C0%2C15%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28216%2C0%2C15%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28216%2C0%2C15%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2828%2C20%2C16%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2828%2C20%2C16%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2828%2C20%2C16%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23FFFFFF%22%2F%3E%0A%20%20%3Cpolygon%20points%3D%220%2C0%20980%2C0%20640%2C900%200%2C900%22%20fill%3D%22rgba%28216%2C0%2C15%2C0.280%29%22%2F%3E%0A%20%20%3Cpolygon%20points%3D%22980%2C0%201600%2C0%201600%2C900%20640%2C900%22%20fill%3D%22rgba%2828%2C20%2C16%2C0.180%29%22%2F%3E%0A%20%20%3Cellipse%20cx%3D%221180%22%20cy%3D%22280%22%20rx%3D%22260%22%20ry%3D%22200%22%20fill%3D%22rgba%28216%2C0%2C15%2C0.350%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22220%22%20width%3D%22620%22%20height%3D%2272%22%20fill%3D%22%23D8000F%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22320%22%20width%3D%22460%22%20height%3D%2228%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.550%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22370%22%20width%3D%22380%22%20height%3D%2222%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22980%22%20y%3D%22520%22%20width%3D%22420%22%20height%3D%22220%22%20fill%3D%22rgba%280%2C0%2C0%2C0.220%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221000%22%20y%3D%22540%22%20width%3D%22380%22%20height%3D%22180%22%20fill%3D%22rgba%2828%2C20%2C16%2C0.450%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221320%22%20cy%3D%22630%22%20r%3D%2254%22%20fill%3D%22rgba%28255%2C255%2C255%2C0.550%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.7%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Posterforge cinematic surface","notes":"Hold the visual beat — let the room feel the product."},{"layout":"two-column","eyebrow":"Work","heading":"What we print","body":"Launch walls: City-scale type for product days. Tour posters — Ink that survives rain and phones.","aside":"One poster system, many SKUs.","ratio":"2-1","reverse":true},{"layout":"comparison","eyebrow":"Craft","heading":"Template vs. poster.","leftLabel":"Canva default","left":"Centered everything.\nSoft shadows.\nForgettable.","rightLabel":"Posterforge","right":"Edge-to-edge type.\nTomato rules.\nYou remember.","emphasis":"right","notes":"Name the loser column first, then punch the winner."},{"layout":"stat-row","eyebrow":"Impact","heading":"Paper that performed.","stats":[{"value":"180+","label":"Campaigns"},{"value":"12","label":"Award years"},{"value":"3.8×","label":"Avg CTR lift"}]},{"layout":"closing","eyebrow":"Brief us","heading":"Send the product. Get the wall.","lead":"Two-week sprint from brief to press-ready.","actions":[{"label":"Start a brief","href":"#","style":"solid","icon":"fa-solid fa-rocket"},{"label":"Watch the demo","href":"#","style":"outline","icon":"fa-solid fa-play"}]}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Free Walls — a Posterforge campaign for Leeds","company":"Posterforge","description":"Campaign deck by Posterforge, a Leeds poster studio, asking the city to give each of its 33 wards a free community poster wall before the council vote on 12 March 2027.","theme":"bold-poster","genre":"campaign"},"slides":[{"layout":"title","eyebrow":"Posterforge · Free Walls campaign · Leeds · 2027","heading":"Give every Leeds ward a free poster wall.","lead":"33 wards, 33 walls, £66,000. Council votes on 12 March 2027.","notes":"Say the ask in the first ten seconds. The rest of the talk earns it."},{"layout":"image-hero","eyebrow":"What is","heading":"The boards where Leeds told itself what was on are gone","lead":"Gig nights, bake sales and lost cats now have nowhere to go.","image":"data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 width=%221600%22 height=%22900%22%3E%3Crect width=%221600%22 height=%22900%22 fill=%22%23F5F2EF%22/%3E%3Cg fill=%22%23E6DED6%22 stroke=%22%23CFC4B8%22 stroke-width=%222%22%3E%3Crect x=%220%22 y=%22260%22 width=%221600%22 height=%22380%22/%3E%3C/g%3E%3Cg stroke=%22%23CFC4B8%22 stroke-width=%222%22%3E%3Cpath d=%22M0 330 H1600 M0 400 H1600 M0 470 H1600 M0 540 H1600 M0 610 H1600%22/%3E%3C/g%3E%3Crect x=%22300%22 y=%22290%22 width=%22420%22 height=%22300%22 fill=%22%23FFFFFF%22 stroke=%22%231C1410%22 stroke-width=%224%22/%3E%3Cpath d=%22M300 290 h140 l-30 40 l40 30 l-60 50 l20 40 h-110 z%22 fill=%22%23D8000F%22 opacity=%220.85%22/%3E%3Cpath d=%22M720 590 h-90 l20 -50 l-40 -30 z%22 fill=%22%231C1410%22 opacity=%220.7%22/%3E%3Ctext x=%22510%22 y=%22460%22 font-family=%22Georgia, serif%22 font-size=%2234%22 font-weight=%22bold%22 fill=%22%231C1410%22 text-anchor=%22middle%22%3ENOTICE%3C/text%3E%3Ctext x=%22510%22 y=%22505%22 font-family=%22Georgia, serif%22 font-size=%2222%22 fill=%22%231C1410%22 text-anchor=%22middle%22%3EBoard removed %C2%B7 Leeds City Council%3C/text%3E%3Ctext x=%22510%22 y=%22540%22 font-family=%22Georgia, serif%22 font-size=%2222%22 fill=%22%231C1410%22 text-anchor=%22middle%22%3EMarch 2024%3C/text%3E%3Cg fill=%22%23FFFFFF%22 opacity=%220.9%22%3E%3Crect x=%22900%22 y=%22320%22 width=%2260%22 height=%2280%22 transform=%22rotate(-8 930 360)%22/%3E%3Crect x=%221040%22 y=%22470%22 width=%2244%22 height=%2260%22 transform=%22rotate(12 1062 500)%22/%3E%3Crect x=%221240%22 y=%22350%22 width=%2270%22 height=%2240%22 transform=%22rotate(4 1275 370)%22/%3E%3C/g%3E%3Cg fill=%22%23D8000F%22 opacity=%220.6%22%3E%3Crect x=%221000%22 y=%22380%22 width=%2230%22 height=%2240%22 transform=%22rotate(20 1015 400)%22/%3E%3Crect x=%221180%22 y=%22520%22 width=%2250%22 height=%2224%22/%3E%3C/g%3E%3Cg fill=%22%231C1410%22%3E%3Ccircle cx=%22905%22 cy=%22325%22 r=%225%22/%3E%3Ccircle cx=%221245%22 cy=%22352%22 r=%225%22/%3E%3Ccircle cx=%221045%22 cy=%22472%22 r=%225%22/%3E%3C/g%3E%3C/svg%3E","imageAlt":"A bare brick wall with a council notice where a community board used to be, scraps of old posters still pinned around it"},{"layout":"stat-row","eyebrow":"The proof","variant":"hero","heading":"Leeds removed 9 in 10 free noticeboards since 2015","stats":[{"value":"312","label":"of 348 boards removed, 2015–2025 · council FOI reply, June 2026"},{"value":"36","label":"boards left for 33 wards"}]},{"layout":"image-hero","eyebrow":"What could be","heading":"One wall per ward, open to anyone with paste and a poster","lead":"Our Chapeltown pilot wall filled on its first day.","image":"data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 width=%221600%22 height=%22900%22%3E%3Crect width=%221600%22 height=%22900%22 fill=%22%23F5F2EF%22/%3E%3Crect x=%2260%22 y=%22260%22 width=%221480%22 height=%22380%22 fill=%22%231C1410%22/%3E%3Cg font-family=%22Georgia, serif%22 font-weight=%22bold%22 text-anchor=%22middle%22%3E%3Crect x=%2290%22 y=%22285%22 width=%22200%22 height=%22270%22 fill=%22%23D8000F%22/%3E%3Ctext x=%22190%22 y=%22380%22 font-size=%2244%22 fill=%22%23FFFFFF%22%3EGIG%3C/text%3E%3Ctext x=%22190%22 y=%22430%22 font-size=%2222%22 fill=%22%23FFFFFF%22%3EFri 9 pm%3C/text%3E%3Crect x=%22310%22 y=%22300%22 width=%22230%22 height=%22160%22 fill=%22%23FFFFFF%22/%3E%3Ctext x=%22425%22 y=%22370%22 font-size=%2230%22 fill=%22%231C1410%22%3EBake sale%3C/text%3E%3Ctext x=%22425%22 y=%22410%22 font-size=%2220%22 fill=%22%231C1410%22%3ESt Martin's %C2%B7 Sat%3C/text%3E%3Crect x=%22310%22 y=%22475%22 width=%22230%22 height=%22140%22 fill=%22%23F2C230%22/%3E%3Ctext x=%22425%22 y=%22555%22 font-size=%2228%22 fill=%22%231C1410%22%3EChoir%3C/text%3E%3Crect x=%22560%22 y=%22285%22 width=%22260%22 height=%22330%22 fill=%22%23FFFFFF%22/%3E%3Ctext x=%22690%22 y=%22380%22 font-size=%2240%22 fill=%22%23D8000F%22%3ECLUB%3C/text%3E%3Ctext x=%22690%22 y=%22430%22 font-size=%2240%22 fill=%22%23D8000F%22%3ENIGHT%3C/text%3E%3Ctext x=%22690%22 y=%22560%22 font-size=%2220%22 fill=%22%231C1410%22%3EHollin St Hall%3C/text%3E%3Crect x=%22840%22 y=%22300%22 width=%22200%22 height=%22200%22 fill=%22%232F6FD8%22/%3E%3Ctext x=%22940%22 y=%22410%22 font-size=%2230%22 fill=%22%23FFFFFF%22%3EMarket%3C/text%3E%3Crect x=%22840%22 y=%22515%22 width=%22200%22 height=%22100%22 fill=%22%23FFFFFF%22/%3E%3Ctext x=%22940%22 y=%22575%22 font-size=%2222%22 fill=%22%231C1410%22%3ELost cat%3C/text%3E%3Crect x=%221060%22 y=%22285%22 width=%22240%22 height=%22330%22 fill=%22%23D8000F%22/%3E%3Ctext x=%221180%22 y=%22400%22 font-size=%2234%22 fill=%22%23FFFFFF%22%3EFIVE-A-%3C/text%3E%3Ctext x=%221180%22 y=%22445%22 font-size=%2234%22 fill=%22%23FFFFFF%22%3ESIDE%3C/text%3E%3Ctext x=%221180%22 y=%22560%22 font-size=%2220%22 fill=%22%23FFFFFF%22%3ESun 10 am%3C/text%3E%3Crect x=%221320%22 y=%22300%22 width=%22195%22 height=%22300%22 fill=%22%23FFFFFF%22/%3E%3Ctext x=%221417%22 y=%22400%22 font-size=%2228%22 fill=%22%231C1410%22%3EPoetry%3C/text%3E%3Ctext x=%221417%22 y=%22440%22 font-size=%2228%22 fill=%22%231C1410%22%3Eopen mic%3C/text%3E%3C/g%3E%3Ctext x=%2260%22 y=%22680%22 font-family=%22Georgia, serif%22 font-size=%2224%22 fill=%22%231C1410%22%3EChapeltown pilot wall %C2%B7 14 posters on day one%3C/text%3E%3C/svg%3E","imageAlt":"A black wall covered in local posters: a gig, a bake sale, a choir, a club night, a market, a lost cat, five-a-side football and an open mic"},{"layout":"comparison","eyebrow":"The obstacle","heading":"Ad contracts earn £2.1M; free walls cost the city £66,000","leftLabel":"The ad contract","left":"Sells every legal wall\nEarns £2.1M a year\nSmall events priced out","rightLabel":"Free Walls","right":"One wall per ward\n£2,000 per wall, once\n3% of ad income","emphasis":"right"},{"layout":"quote","quote":"One wall on Roundhay Road used to fill our 200 seats. Now we beg on Instagram.","by":"Nadia Brooks, runs Hollin Street Hall"},{"layout":"image-hero","eyebrow":"What is","heading":"In Harehills, the only legal poster space costs £1,200 a week","lead":"A four-week minimum. No choir can pay that.","image":"data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1600 900%22 width=%221600%22 height=%22900%22%3E%3Crect width=%221600%22 height=%22900%22 fill=%22%23F5F2EF%22/%3E%3Crect x=%220%22 y=%22600%22 width=%221600%22 height=%22300%22 fill=%22%23E6DED6%22/%3E%3Crect x=%22470%22 y=%22250%22 width=%22660%22 height=%22380%22 fill=%22%231C1410%22/%3E%3Crect x=%22495%22 y=%22275%22 width=%22610%22 height=%22330%22 fill=%22%23FFFFFF%22/%3E%3Cg font-family=%22Georgia, serif%22 font-weight=%22bold%22 text-anchor=%22middle%22 fill=%22%231C1410%22%3E%3Ctext x=%22800%22 y=%22380%22 font-size=%2264%22%3EYOUR AD HERE%3C/text%3E%3Ctext x=%22800%22 y=%22470%22 font-size=%2290%22 fill=%22%23D8000F%22%3E%C2%A31,200%3C/text%3E%3Ctext x=%22800%22 y=%22530%22 font-size=%2232%22%3Eper week %C2%B7 4-week minimum%3C/text%3E%3C/g%3E%3Crect x=%22785%22 y=%22630%22 width=%2230%22 height=%22120%22 fill=%22%231C1410%22/%3E%3Ctext x=%221180%22 y=%22300%22 font-family=%22Georgia, serif%22 font-size=%2224%22 fill=%22%231C1410%22%3EHarehills Lane%3C/text%3E%3Ctext x=%221180%22 y=%22335%22 font-family=%22Georgia, serif%22 font-size=%2224%22 fill=%22%231C1410%22%3EThe only legal poster%3C/text%3E%3Ctext x=%221180%22 y=%22370%22 font-family=%22Georgia, serif%22 font-size=%2224%22 fill=%22%231C1410%22%3Espace left in the ward%3C/text%3E%3C/svg%3E","imageAlt":"A backlit advertising panel on Harehills Lane reading Your ad here, £1,200 per week, four-week minimum"},{"layout":"two-column","eyebrow":"What could be","heading":"Residents have already picked 12 of the 33 wall sites","ratio":"2-1","reverse":true,"image":"data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 900 900%22 width=%22900%22 height=%22900%22%3E%3Crect width=%22900%22 height=%22900%22 fill=%22%23F5F2EF%22/%3E%3Cpath d=%22M170 250 L330 150 L560 170 L730 290 L760 500 L640 700 L400 760 L200 650 L130 450 Z%22 fill=%22%23FFFFFF%22 stroke=%22%231C1410%22 stroke-width=%225%22/%3E%3Cpath d=%22M130 450 C 300 430, 500 480, 760 500%22 fill=%22none%22 stroke=%22%232F6FD8%22 stroke-width=%228%22/%3E%3Cg stroke=%22%23E6DED6%22 stroke-width=%222%22 fill=%22none%22%3E%3Cpath d=%22M330 150 L400 760 M560 170 L450 760 M170 250 L730 290 M200 650 L760 400%22/%3E%3C/g%3E%3Cg fill=%22%23D8000F%22%3E%3Ccircle cx=%22280%22 cy=%22300%22 r=%2216%22/%3E%3Ccircle cx=%22420%22 cy=%22260%22 r=%2216%22/%3E%3Ccircle cx=%22560%22 cy=%22300%22 r=%2216%22/%3E%3Ccircle cx=%22650%22 cy=%22380%22 r=%2216%22/%3E%3Ccircle cx=%22300%22 cy=%22420%22 r=%2216%22/%3E%3Ccircle cx=%22470%22 cy=%22390%22 r=%2216%22/%3E%3Ccircle cx=%22600%22 cy=%22560%22 r=%2216%22/%3E%3Ccircle cx=%22380%22 cy=%22560%22 r=%2216%22/%3E%3Ccircle cx=%22250%22 cy=%22560%22 r=%2216%22/%3E%3Ccircle cx=%22480%22 cy=%22660%22 r=%2216%22/%3E%3Ccircle cx=%22680%22 cy=%22470%22 r=%2216%22/%3E%3Ccircle cx=%22520%22 cy=%22500%22 r=%2216%22/%3E%3C/g%3E%3Cg fill=%22none%22 stroke=%22%231C1410%22 stroke-width=%223%22%3E%3Ccircle cx=%22350%22 cy=%22340%22 r=%2214%22/%3E%3Ccircle cx=%22620%22 cy=%22250%22 r=%2214%22/%3E%3Ccircle cx=%22240%22 cy=%22480%22 r=%2214%22/%3E%3Ccircle cx=%22560%22 cy=%22640%22 r=%2214%22/%3E%3Ccircle cx=%22420%22 cy=%22700%22 r=%2214%22/%3E%3Ccircle cx=%22700%22 cy=%22560%22 r=%2214%22/%3E%3C/g%3E%3Cg font-family=%22Georgia, serif%22 font-size=%2226%22 fill=%22%231C1410%22%3E%3Ccircle cx=%22180%22 cy=%22820%22 r=%2214%22 fill=%22%23D8000F%22/%3E%3Ctext x=%22205%22 y=%22829%22%3ESite agreed (12)%3C/text%3E%3Ccircle cx=%22520%22 cy=%22820%22 r=%2212%22 fill=%22none%22 stroke=%22%231C1410%22 stroke-width=%223%22/%3E%3Ctext x=%22545%22 y=%22829%22%3EProposed%3C/text%3E%3C/g%3E%3Ctext x=%22450%22 y=%22100%22 font-family=%22Georgia, serif%22 font-size=%2230%22 font-weight=%22bold%22 fill=%22%231C1410%22 text-anchor=%22middle%22%3ELEEDS %C2%B7 WALL SITES BY WARD%3C/text%3E%3C/svg%3E","imageAlt":"Map of Leeds with 12 red dots for agreed wall sites and 6 open circles for proposed ones","body":"Each site chosen at a ward meeting.\nAll on council-owned walls."},{"layout":"timeline","eyebrow":"The plan","heading":"Three moves put 33 walls up by July 2027","steps":[{"title":"Map · March","body":"Agree the last 21 sites"},{"title":"Build · May","body":"£66,000, local joiners"},{"title":"Keep · July on","body":"Volunteers clear walls weekly"}]},{"layout":"stat-row","eyebrow":"Momentum","heading":"9,800 people and 41 venues have signed in eight weeks","stats":[{"value":"9,800","label":"Petition signatures since 1 October"},{"value":"41","label":"Venues and clubs backing us"},{"value":"14","label":"Councillors pledged, of 99"}],"notes":"We need 50 councillors. Name the 14 who pledged and ask the room to write to their own."},{"layout":"section","number":"12.03","heading":"Full council votes on 12 March 2027","lead":"Civic Hall, 14:00. Public gallery open."},{"layout":"closing","eyebrow":"Free Walls","heading":"Sign now, and every ward gets its wall by summer","lead":"10,000 names by 12 March puts the walls on the agenda.","actions":[{"label":"Sign the petition","style":"solid","icon":"fa-solid fa-signature"},{"label":"Print a poster","style":"outline","icon":"fa-solid fa-print"}]}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {

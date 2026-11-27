@@ -1,113 +1,132 @@
 {
   "type": "deck",
   "meta": {
-    "title": "presentation-md — Hallmark experiment pitch",
+    "title": "presentation-md — product pitch",
     "company": "presentation-md",
-    "description": "Deck JSON sibling of the Hallmark Narrative Workflow pitch PAGE. Same story beats; schema + signal theme. Not produced by Hallmark.",
-    "theme": "signal"
+    "description": "Product pitch for presentation-md, the Deck JSON sibling of the Hallmark experiment page: agents write typed Deck JSON that renders HTML, native PowerPoint and a share link, with craft gates on every render. Every number is a product fact; there are no invented metrics.",
+    "theme": "signal",
+    "genre": "launch"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Hallmark experiment · Deck JSON sibling",
-      "heading": "Notes in. Editable deck out.",
-      "lead": "Same pitch story as the Hallmark HTML page — now as typed Deck JSON you can audit, retheme, and export.",
-      "notes": "Open by naming the experiment: page skill vs deck stack."
+      "eyebrow": "presentation-md · Product pitch · November 2026",
+      "heading": "Agents write the deck. You can still edit it.",
+      "lead": "Typed Deck JSON in. HTML, PowerPoint and a share link out.",
+      "notes": "Say the purpose sentence, then stop. The next slide earns the problem."
     },
     {
       "layout": "image-hero",
-      "eyebrow": "Visual beat",
-      "heading": "presentation-md — Hallmark experiment pitch",
-      "lead": "Show the product, place, or atmosphere — not an icon grid.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221600%22%20height%3D%22900%22%20viewBox%3D%220%200%201600%20900%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%230B1220%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23FF3B1F%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url(%23g)%22%2F%3E%3Ccircle%20cx%3D%221180%22%20cy%3D%22280%22%20r%3D%22180%22%20fill%3D%22%230D9488%22%20opacity%3D%22.35%22%2F%3E%3Ctext%20x%3D%2296%22%20y%3D%22780%22%20fill%3D%22%23F8FAFC%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2254%22%20font-weight%3D%22700%22%3Epresentation-md%20%E2%80%94%20Hallmark%20experiment%20pitch%3C%2Ftext%3E%3C%2Fsvg%3E",
-      "imageAlt": "presentation-md — Hallmark experiment pitch craft field"
+      "eyebrow": "Problem",
+      "heading": "Agent-made slides look sharp once, then break on the first edit",
+      "lead": "Teams regenerate the whole deck to fix one slide. Fonts drift and the PowerPoint export fails.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-120 -10 1840 430'><rect x='-120' y='-10' width='1840' height='430' fill='%231C2644'/><g font-family='Courier,monospace'><rect x='70' y='70' width='230' height='130' rx='5' fill='%23F0ECE3'/><rect x='92' y='94' width='140' height='14' fill='%231C2644'/><rect x='92' y='120' width='170' height='7' fill='%235A6270'/><rect x='92' y='134' width='150' height='7' fill='%235A6270'/><text x='92' y='184' font-size='14' fill='%235A6270'>slide 1</text><rect x='330' y='82' width='230' height='130' rx='5' fill='%23F0ECE3'/><rect x='356' y='102' width='100' height='22' fill='%23C8A870'/><rect x='348' y='138' width='190' height='7' fill='%235A6270'/><text x='348' y='196' font-size='14' fill='%235A6270'>slide 2</text><rect x='590' y='64' width='230' height='130' rx='5' fill='%23E6E0D4' transform='rotate(-3 705 129)'/><rect x='610' y='86' width='190' height='11' fill='%231C2644' transform='rotate(-3 705 129)'/><rect x='610' y='106' width='190' height='11' fill='%231C2644' transform='rotate(-3 705 129)'/><rect x='610' y='126' width='120' height='11' fill='%231C2644' transform='rotate(-3 705 129)'/><rect x='850' y='76' width='230' height='130' rx='5' fill='%23F0ECE3'/><circle cx='910' cy='136' r='34' fill='%23C8A870'/><text x='956' y='190' font-size='14' fill='%235A6270'>slide 5</text><rect x='1110' y='70' width='230' height='150' rx='5' fill='%23F0ECE3' stroke='%23C8A870' stroke-width='4'/><text x='1132' y='118' font-size='30' fill='%231C2644'>Slide 7</text><text x='1132' y='150' font-size='16' fill='%235A6270'>overflow: 340px</text><rect x='1132' y='170' width='240' height='9' fill='%231C2644'/><rect x='1370' y='76' width='190' height='130' rx='5' fill='none' stroke='%23C8A870' stroke-width='3' stroke-dasharray='9 7'/><text x='1390' y='130' font-size='22' fill='%23C8A870'>deck.pptx</text><text x='1390' y='160' font-size='16' fill='%23C8A870'>export failed</text></g></svg>",
+      "imageAlt": "A row of slide thumbnails from one generated deck: fonts, margins and sizes drift, slide 7 overflows, and the PowerPoint export failed."
+    },
+    {
+      "layout": "two-column",
+      "eyebrow": "Solution",
+      "heading": "One typed file renders HTML, native PowerPoint and a share link",
+      "ratio": "2-3",
+      "body": "The agent fills typed slide beats.\nCraft gates flag weak slides before you see them.\nChange one field and re-render that slide alone.",
+      "image": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-20 -50 640 520'><rect x='-20' y='-50' width='640' height='520' fill='%23E6E0D4'/><g font-family='Courier,monospace'><rect x='30' y='120' width='200' height='180' rx='6' fill='%231C2644'/><text x='50' y='155' font-size='18' fill='%23C8A870'>deck.json</text><text x='50' y='190' font-size='13' fill='%23F0ECE3'>layout: chart</text><text x='50' y='212' font-size='13' fill='%23F0ECE3'>heading: ...</text><text x='50' y='234' font-size='13' fill='%23F0ECE3'>series: [...]</text><text x='50' y='270' font-size='13' fill='%23C8A870'>audit ✓ judge ✓</text><path d='M240 210 H300' stroke='%231C2644' stroke-width='3'/><path d='M300 210 L360 90 M300 210 H360 M300 210 L360 330' stroke='%231C2644' stroke-width='3' fill='none'/><rect x='370' y='55' width='200' height='70' rx='6' fill='%23F0ECE3' stroke='%231C2644' stroke-width='2'/><text x='392' y='97' font-size='18' fill='%231C2644'>deck.html</text><rect x='370' y='175' width='200' height='70' rx='6' fill='%23F0ECE3' stroke='%231C2644' stroke-width='2'/><text x='392' y='217' font-size='18' fill='%231C2644'>deck.pptx</text><rect x='370' y='295' width='200' height='70' rx='6' fill='%23C8A870'/><text x='392' y='337' font-size='18' fill='%231C2644'>Studio link</text></g></svg>",
+      "imageAlt": "Diagram: one deck.json file passes audit and judge, then renders deck.html, a native deck.pptx and a Studio share link."
+    },
+    {
+      "layout": "timeline",
+      "eyebrow": "Why now",
+      "heading": "Three shifts since 2024 put deck writing in the agent's hands",
+      "steps": [
+        { "title": "2024 · MCP ships", "body": "Agents get a standard tool protocol" },
+        { "title": "2025 · Agents code daily", "body": "The agent now writes the files" },
+        { "title": "2026 · Agents make decks", "body": "Still no deck format they can check" }
+      ]
     },
     {
       "layout": "section",
       "number": "01",
-      "heading": "The gap",
-      "lead": "Anti-slop skills for pages. Nothing for decks."
+      "heading": "What you get",
+      "lead": "Free, MIT licensed, no account."
     },
     {
-      "layout": "feature-grid",
-      "eyebrow": "Problem",
-      "heading": "Why freeform HTML slides fail the room",
-      "columns": 3,
-      "cards": [
-        {
-          "title": "Pretty once",
-          "body": "One-shot HTML looks sharp until slide 7 needs a rewrite or a theme swap.",
-          "icon": "fa-solid fa-bolt"
-        },
-        {
-          "title": "No craft loop",
-          "body": "Without audit/judge gates, “looks fine” is the only check that ships.",
-          "icon": "fa-solid fa-layer-group"
-        },
-        {
-          "title": "No handoff",
-          "body": "Stakeholders ask for PowerPoint. Screenshot decks die in the room.",
-          "icon": "fa-solid fa-compass"
-        }
+      "layout": "stat-row",
+      "eyebrow": "In the box",
+      "heading": "75 themes and 18 layouts, driven by 16 agent tools",
+      "stats": [
+        { "value": "75", "label": "themes, each with native PowerPoint chrome" },
+        { "value": "18", "label": "typed slide layouts, from title to chart" },
+        { "value": "16", "label": "MCP tools: scaffold, audit, judge, edit, export" }
+      ],
+      "notes": "These are product counts, not usage numbers. Say them once and move on."
+    },
+    {
+      "layout": "code",
+      "eyebrow": "How it works",
+      "heading": "The agent writes typed beats, so every slide can be checked",
+      "filename": "deck.json",
+      "language": "json",
+      "code": "{\n  \"layout\": \"chart\",\n  \"heading\": \"ARR beat plan four quarters in a row\",\n  \"chartType\": \"bar\",\n  \"series\": [{ \"values\": [36.8, 40.5, 44.2, 48.2] }],\n  \"lead\": \"Source: finance close, Oct 2026\"\n}",
+      "lead": "Schema errors fail fast. The judge scores headings, density and rhythm."
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Where it runs",
+      "heading": "One install command puts it in six agent setups",
+      "columns": ["Agent", "Install"],
+      "rows": [
+        ["Claude Code", "npx @presentation-md/install claude-code"],
+        ["Cursor", "npx @presentation-md/install cursor"],
+        ["GitHub Copilot", "npx @presentation-md/install copilot"],
+        ["Codex", "npx @presentation-md/install codex"],
+        ["Gemini CLI · plain CLI", "npx @presentation-md/install gemini-cli · cli"]
       ]
     },
     {
-      "layout": "section",
-      "number": "02",
-      "heading": "The product",
-      "lead": "Deck JSON. Seventy-five themes. MCP craft."
+      "layout": "quote",
+      "quote": "Use Hallmark for the site. Use presentation-md for the deck.",
+      "by": "The one-line version of this pitch"
     },
     {
       "layout": "comparison",
-      "eyebrow": "Different jobs",
-      "heading": "Hallmark owns pages. We own decks.",
-      "leftLabel": "Hallmark",
-      "left": "Landing pages & UI\nMacrostructure + theme rotation\n57 slop-test gates\naudit / redesign / study",
+      "eyebrow": "Competition",
+      "heading": "Slide editors and page skills leave the agent's deck unchecked",
+      "leftLabel": "Slide editors and page skills",
+      "left": "Built for clicks or for web pages\nAI output is a one-way draft\nNo gate before the room sees it",
       "rightLabel": "presentation-md",
-      "right": "Slide decks as schema\n75 theme proofs\naudit_deck / judge_deck\nStudio + native PPTX",
+      "right": "Built for agents, through MCP\nEvery edit stays in typed JSON\nAudit and judge gate each render",
       "emphasis": "right",
-      "notes": "Punch the right column — this deck is the proof."
+      "notes": "Name the gap in one breath, then point at the right column."
     },
     {
-      "layout": "section",
-      "number": "03",
-      "heading": "The flow",
-      "lead": "Scaffold. Fill. Audit. Share."
+      "layout": "two-column",
+      "eyebrow": "Export",
+      "heading": "PowerPoint export keeps every visible word as editable text",
+      "ratio": "3-2",
+      "body": "Native shapes, charts and tables, not screenshots.\nA fidelity report lists what PowerPoint will change.\nOffice-safe fonts look the same on every machine.",
+      "aside": "A CI scorecard fails the build if any text on an HTML slide is missing from its PowerPoint twin."
     },
     {
-      "layout": "timeline",
-      "eyebrow": "Agent path",
-      "heading": "Four moves from notes to handoff",
-      "steps": [
-        {
-          "title": "Scaffold",
-          "body": "Recipe skeleton with craft floors — Studio share link in one hop."
-        },
-        {
-          "title": "Fill",
-          "body": "Agent writes copy into typed beats; you stay on schema."
-        },
-        {
-          "title": "Audit",
-          "body": "Craft gates catch empty beats, weak hierarchy, theme honesty leftovers."
-        },
-        {
-          "title": "Export",
-          "body": "Self-contained HTML you own — or editable PowerPoint for Keynote / Slides."
-        }
+      "layout": "feature-grid",
+      "eyebrow": "Four verbs",
+      "heading": "Scaffold, audit, retheme and share cover the whole job",
+      "columns": 4,
+      "cards": [
+        { "icon": "fa-solid fa-layer-group", "title": "Scaffold", "body": "A genre skeleton and a Studio link in one call" },
+        { "icon": "fa-solid fa-clipboard-check", "title": "Audit", "body": "Craft floors and a judge before anyone sees it" },
+        { "icon": "fa-solid fa-palette", "title": "Retheme", "body": "Swap any of 75 themes; content stays put" },
+        { "icon": "fa-solid fa-share-nodes", "title": "Share", "body": "An editable Studio link, HTML or PowerPoint" }
       ]
     },
     {
       "layout": "closing",
-      "eyebrow": "Ask",
-      "heading": "Use Hallmark for the site. Use presentation-md for the deck.",
-      "lead": "Same refusal energy. Different artifact.",
-      "cta": {
-        "label": "Compare honestly",
-        "href": "https://presentation-md.vercel.app/vs/hallmark",
-        "icon": "fa-solid fa-arrow-right"
-      },
-      "notes": "Point to the Hallmark HTML experiment for the page-shaped twin."
+      "eyebrow": "Try it",
+      "heading": "Let your agent write the deck you can still edit",
+      "lead": "Free, MIT licensed, no account. Studio in 10 languages, right-to-left included.",
+      "actions": [
+        { "label": "Open the Studio", "href": "https://presentation-md.vercel.app/studio", "style": "solid", "icon": "fa-solid fa-arrow-up-right-from-square" },
+        { "label": "Read the Hallmark comparison", "href": "https://presentation-md.vercel.app/vs/hallmark", "style": "outline", "icon": "fa-solid fa-scale-balanced" }
+      ],
+      "notes": "Restate the cover: agents write, people edit. Then hand over the Studio link."
     }
   ]
 }

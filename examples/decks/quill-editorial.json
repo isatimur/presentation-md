@@ -1,158 +1,283 @@
 {
   "type": "deck",
   "meta": {
-    "title": "Quill & Field — Editorial Pitch",
-    "company": "Quill & Field",
-    "description": "Literary imprint pitch — Soft Editorial theme multi-slide proof.",
-    "theme": "soft-editorial"
+    "title": "The Night Shift Study — St Brennan's Hospital, board readout 2026",
+    "company": "St Brennan's Hospital",
+    "description": "Research readout for the hospital board: a 14-month study of 212 night nurses on 3 wards found that an earlier 06:30 handover and a 20-minute protected rest cut night-shift medication errors by 37%. Findings, limits, ranked recommendations and one funding decision.",
+    "theme": "soft-editorial",
+    "genre": "research"
   },
   "slides": [
     {
       "layout": "title",
-      "eyebrow": "Imprint · Spring list",
-      "heading": "Stories that leave a margin.",
-      "lead": "A small press for writers who treat the page like architecture.",
-      "notes": "Open on the margin metaphor — pause before the list."
-    },
-    {
-      "layout": "image-hero",
-      "eyebrow": "Imprint · Spring list",
-      "heading": "Stories that leave a margin.",
-      "lead": "A small press for writers who treat the page like architecture.",
-      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23ECE6D2%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23F2EEDF%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28183%2C199%2C168%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28183%2C199%2C168%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28225%2C164%2C194%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%28183%2C199%2C168%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28236%2C230%2C210%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28183%2C199%2C168%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%28183%2C199%2C168%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28183%2C199%2C168%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%28225%2C164%2C194%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%28225%2C164%2C194%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28225%2C164%2C194%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23F2EEDF%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%28183%2C199%2C168%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23ECE6D2%22%20stroke%3D%22rgba%28183%2C199%2C168%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%28225%2C164%2C194%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%23B7C7A8%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%28183%2C199%2C168%2C0.150%29%22%20stroke%3D%22rgba%28225%2C164%2C194%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%28225%2C164%2C194%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%28225%2C164%2C194%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E",
-      "imageAlt": "Quill & Field craft visual"
-    },
-    {
-      "layout": "quote",
-      "quote": "We publish books you want to leave open on the table — not close and forget.",
-      "by": "Editorial letter · Quill & Field"
+      "eyebrow": "St Brennan's Hospital · The Night Shift Study · Board readout, November 2026",
+      "heading": "Rested night nurses made 37% fewer medication errors.",
+      "lead": "Fourteen months, three wards, 212 nurses, and one decision for the board.",
+      "notes": "Say the ask up front: we want funding for rest rooms on nine more wards. The rest of the deck is the evidence."
     },
     {
       "layout": "feature-grid",
-      "eyebrow": "The list",
-      "heading": "Three pillars this season",
-      "columns": "bento",
+      "eyebrow": "Answer first",
+      "heading": "Two cheap changes cut night-shift medication errors by 37%",
+      "columns": 3,
       "cards": [
         {
-          "icon": "fa-solid fa-book-open",
-          "title": "Narrative nonfiction",
-          "body": "Reported essays with the patience of novels — place, craft, and consequence."
+          "icon": "fa-solid fa-clock",
+          "title": "Handover moved to 06:30",
+          "body": "Nurses hand over before the hour when most errors happened."
         },
         {
-          "icon": "fa-solid fa-feather",
-          "title": "Quiet fiction",
-          "body": "Novellas and short collections that trust the reader to lean in."
+          "icon": "fa-solid fa-bed",
+          "title": "20 minutes of protected rest",
+          "body": "Taken on 81% of shifts, covered by a float nurse."
         },
         {
-          "icon": "fa-solid fa-map",
-          "title": "Field guides",
-          "body": "Practical books for makers — type, gardens, kitchens, studios."
+          "icon": "fa-solid fa-pills",
+          "title": "Errors fell from 4.1 to 2.6",
+          "body": "Per 1,000 night doses; comparison wards fell 5%."
+        }
+      ],
+      "notes": "If the board reads one slide, it is this one."
+    },
+    {
+      "layout": "image-hero",
+      "eyebrow": "Why we asked",
+      "heading": "Most night errors happened in the two hours before handover",
+      "lead": "Errors climbed through the night and peaked after 05:00, when nurses had been awake longest.",
+      "image": "data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201600%20360'%3E%3Crect%20width%3D'1600'%20height%3D'360'%20fill%3D'%23F7F3E6'%2F%3E%3Cg%20font-family%3D'Georgia%2Cserif'%20fill%3D'%232A241B'%3E%3Ctext%20x%3D'120'%20y%3D'52'%20font-size%3D'26'%20font-style%3D'italic'%3ENight-shift%20medication%20errors%20by%20hour%20%C2%B7%203%20wards%20%C2%B7%20Sep%E2%80%93Dec%202025%3C%2Ftext%3E%3Crect%20x%3D'1024'%20y%3D'70'%20width%3D'38'%20height%3D'180'%20fill%3D'%23E1A4C2'%20opacity%3D'.6'%2F%3E%3Cg%20fill-opacity%3D'.28'%3E%3Crect%20x%3D'136'%20y%3D'218'%20width%3D'80'%20height%3D'32'%2F%3E%3Crect%20x%3D'249'%20y%3D'214'%20width%3D'80'%20height%3D'36'%2F%3E%3Crect%20x%3D'362'%20y%3D'214'%20width%3D'80'%20height%3D'36'%2F%3E%3Crect%20x%3D'475'%20y%3D'210'%20width%3D'80'%20height%3D'40'%2F%3E%3Crect%20x%3D'588'%20y%3D'207'%20width%3D'80'%20height%3D'43'%2F%3E%3Crect%20x%3D'701'%20y%3D'203'%20width%3D'80'%20height%3D'47'%2F%3E%3Crect%20x%3D'814'%20y%3D'200'%20width%3D'80'%20height%3D'50'%2F%3E%3Crect%20x%3D'927'%20y%3D'192'%20width%3D'80'%20height%3D'58'%2F%3E%3Crect%20x%3D'1040'%20y%3D'185'%20width%3D'80'%20height%3D'65'%2F%3E%3Crect%20x%3D'1153'%20y%3D'178'%20width%3D'80'%20height%3D'72'%2F%3E%3C%2Fg%3E%3Crect%20x%3D'1266'%20y%3D'113'%20width%3D'80'%20height%3D'137'%20fill%3D'%23B4527F'%2F%3E%3Crect%20x%3D'1379'%20y%3D'80'%20width%3D'80'%20height%3D'170'%20fill%3D'%23B4527F'%2F%3E%3Cpath%20d%3D'M110%20250H1500'%20stroke%3D'%232A241B'%20stroke-width%3D'3'%2F%3E%3Cg%20font-size%3D'20'%20fill%3D'%234A4338'%20text-anchor%3D'middle'%3E%3Ctext%20x%3D'120'%20y%3D'280'%3E19%3A00%3C%2Ftext%3E%3Ctext%20x%3D'346'%20y%3D'280'%3E21%3A00%3C%2Ftext%3E%3Ctext%20x%3D'572'%20y%3D'280'%3E23%3A00%3C%2Ftext%3E%3Ctext%20x%3D'798'%20y%3D'280'%3E01%3A00%3C%2Ftext%3E%3Ctext%20x%3D'1024'%20y%3D'280'%3E03%3A00%3C%2Ftext%3E%3Ctext%20x%3D'1250'%20y%3D'280'%3E05%3A00%3C%2Ftext%3E%3Ctext%20x%3D'1476'%20y%3D'280'%3E07%3A00%3C%2Ftext%3E%3C%2Fg%3E%3Cpath%20d%3D'M1476%2060V250'%20stroke%3D'%232A241B'%20stroke-width%3D'3'%20stroke-dasharray%3D'10%208'%2F%3E%3Cpath%20d%3D'M1419%2060V250'%20stroke%3D'%23B4527F'%20stroke-width%3D'5'%2F%3E%3Cg%20font-size%3D'22'%20text-anchor%3D'end'%3E%3Ctext%20x%3D'1250'%20y%3D'62'%20fill%3D'%23B4527F'%20font-weight%3D'700'%3Enew%20handover%2006%3A30%3C%2Ftext%3E%3Ctext%20x%3D'1250'%20y%3D'90'%20fill%3D'%234A4338'%3Eold%20handover%2007%3A00%3C%2Ftext%3E%3Ctext%20x%3D'1010'%20y%3D'95'%20fill%3D'%232A241B'%3Enew%3A%2020-min%20protected%20rest%3C%2Ftext%3E%3Ctext%20x%3D'1250'%20y%3D'150'%20font-size%3D'24'%20font-style%3D'italic'%3E39%25%20of%20errors%20in%20the%20last%20two%20hours%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "imageAlt": "Bar chart of night-shift medication errors by hour from 19:00 to 07:00, rising slowly then peaking at 05:00 and 06:00, with the new 06:30 handover and a 20-minute rest band at 03:00 marked"
+    },
+    {
+      "layout": "stat-row",
+      "eyebrow": "Method",
+      "heading": "212 nurses on three wards, compared with three wards unchanged",
+      "stats": [
+        {
+          "value": "212",
+          "label": "Night nurses on 3 pilot wards; 3 matched wards kept the old rota"
         },
         {
-          "icon": "fa-solid fa-bolt",
-          "title": "Ship the punchline",
-          "body": "Lead with the claim that survives the hallway test."
+          "value": "14 mo",
+          "label": "Sep 2025 to Oct 2026: 4 months baseline, 10 months changed"
         },
         {
-          "icon": "fa-solid fa-eye",
-          "title": "Show, don't pad",
-          "body": "Asymmetry beats another identical third column."
+          "value": "153,000",
+          "label": "Night-shift doses checked by pharmacy audit"
+        }
+      ]
+    },
+    {
+      "layout": "section",
+      "number": "01",
+      "heading": "What we found",
+      "lead": "Three findings, each with its evidence."
+    },
+    {
+      "layout": "chart",
+      "eyebrow": "Finding 1",
+      "heading": "Pilot-ward errors fell 37% while comparison wards barely moved",
+      "chartType": "line",
+      "categories": [
+        "Baseline Sep–Dec 25",
+        "Jan–Apr 26",
+        "May–Jul 26",
+        "Aug–Oct 26"
+      ],
+      "series": [
+        {
+          "name": "Pilot wards",
+          "values": [
+            4.1,
+            3,
+            2.5,
+            2.2
+          ]
+        },
+        {
+          "name": "Comparison wards",
+          "values": [
+            4,
+            3.9,
+            3.8,
+            3.7
+          ]
+        }
+      ],
+      "showLegend": true,
+      "showValues": true,
+      "lead": "Errors per 1,000 night doses. Source: pharmacy audit, n = 153,000 pilot doses. Ten-month average: 2.6 vs 3.8.",
+      "notes": "The pilot line drops in the first quarter and keeps falling. That rules out a one-off burst of attention."
+    },
+    {
+      "layout": "quote",
+      "quote": "At half five I used to read a chart three times. Now I'm handing over before that fog comes in.",
+      "by": "Staff nurse, Ward 7 surgical · 11 years on nights"
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Finding 2",
+      "heading": "The last two hours of the night gave the biggest fall",
+      "columns": [
+        "Time of error",
+        "Before (per 1,000 doses)",
+        "After",
+        "Change"
+      ],
+      "rows": [
+        [
+          "19:00–01:00",
+          "1.2",
+          "1.0",
+          "−17%"
+        ],
+        [
+          "01:00–05:00",
+          "1.3",
+          "0.9",
+          "−31%"
+        ],
+        [
+          "05:00–handover",
+          "1.6",
+          "0.7",
+          "−56%"
+        ],
+        [
+          "Whole night",
+          "4.1",
+          "2.6",
+          "−37%"
+        ]
+      ]
+    },
+    {
+      "layout": "ranked-list",
+      "eyebrow": "Finding 3",
+      "heading": "Late and missed doses fell most; wrong-patient errors barely moved",
+      "lead": "Change in each error type on pilot wards, baseline vs the 10 changed months.",
+      "items": [
+        {
+          "rank": "1",
+          "label": "Dose given late",
+          "value": "−52%",
+          "widthPct": 100
+        },
+        {
+          "rank": "2",
+          "label": "Dose missed",
+          "value": "−41%",
+          "widthPct": 79
+        },
+        {
+          "rank": "3",
+          "label": "Wrong dose",
+          "value": "−33%",
+          "widthPct": 63
+        },
+        {
+          "rank": "4",
+          "label": "Wrong patient",
+          "value": "−10%",
+          "widthPct": 19
         }
       ]
     },
     {
       "layout": "comparison",
-      "eyebrow": "Positioning",
-      "heading": "Not another content mill.",
-      "leftLabel": "Algorithm presses",
-      "left": "Trend-chasing covers.\nDisposable titles.\nAuthors as inventory.",
-      "rightLabel": "Quill & Field",
-      "right": "Slow lists.\nDurable design.\nAuthors as partners.",
-      "emphasis": "right",
-      "notes": "Emphasize right panel: authors as partners, not inventory."
+      "eyebrow": "What surprised us",
+      "heading": "Day staff welcomed the 06:30 start, and call bells waited no longer",
+      "leftLabel": "What we expected",
+      "left": "Day nurses would resist starting 30 minutes earlier.\nRest breaks would leave the ward short and slow call bells.",
+      "rightLabel": "What we found",
+      "right": "78% of day nurses preferred 06:30; it beats the rush hour.\nMedian call-bell wait stayed at 2.1 minutes, against 2.0 before.",
+      "emphasis": "right"
     },
     {
-      "layout": "stat-row",
-      "eyebrow": "Proof",
-      "heading": "Readers stay. Bookstores reorder.",
-      "stats": [
-        {
-          "value": "68%",
-          "label": "Sell-through year one"
-        },
-        {
-          "value": "22",
-          "label": "Indie bookstore partners"
-        },
-        {
-          "value": "4.8",
-          "label": "Avg. reader rating"
-        }
+      "layout": "section",
+      "number": "02",
+      "heading": "What it means for the hospital",
+      "lead": "How far to trust it, and what to fund."
+    },
+    {
+      "layout": "data-table",
+      "eyebrow": "Limits",
+      "heading": "The effect is clear on general wards and untested in intensive care",
+      "columns": [
+        "Limit",
+        "Likely effect",
+        "Confidence"
       ],
-      "notes": "Sell-through and bookstore partners are the proof beat."
-    },
-    {
-      "layout": "timeline",
-      "eyebrow": "Season",
-      "heading": "Three moves. One list.",
-      "steps": [
-        {
-          "title": "Now",
-          "body": "Close spring acquisitions — narrative nonfiction first."
-        },
-        {
-          "title": "Summer",
-          "body": "Design partnerships for covers that age on the shelf."
-        },
-        {
-          "title": "Fall",
-          "body": "Bookstore tour + field-guide pre-orders."
-        }
-      ],
-      "notes": "Keep the timeline short — one decision per season."
-    },
-    {
-      "layout": "logo-wall",
-      "eyebrow": "Partners",
-      "heading": "Bookstores that reorder.",
-      "cards": [
-        {
-          "title": "Harbor Books"
-        },
-        {
-          "title": "Field & Spine"
-        },
-        {
-          "title": "Maple Leaf"
-        },
-        {
-          "title": "North Desk"
-        },
-        {
-          "title": "Quiet Shelf"
-        },
-        {
-          "title": "Letterpress Co."
-        }
+      "rows": [
+        [
+          "Wards chose to join; not randomised",
+          "Keen wards may improve faster",
+          "Medium"
+        ],
+        [
+          "Errors are partly self-reported",
+          "Reporting could drop, not errors",
+          "Medium: audit agrees"
+        ],
+        [
+          "Medical and surgical wards only",
+          "No evidence for ICU or A&E",
+          "Low for ICU"
+        ],
+        [
+          "One winter in the changed period",
+          "Season may shift the size",
+          "Medium"
+        ]
       ]
     },
     {
-      "layout": "closing",
-      "eyebrow": "Partnership",
-      "heading": "Join the spring list.",
-      "lead": "Manuscripts welcome through September. Design partnerships year-round.",
-      "actions": [
+      "layout": "ranked-list",
+      "eyebrow": "Recommendations",
+      "heading": "Rest rooms plus the 06:30 handover would prevent about 590 errors a year",
+      "lead": "Options for 9 more wards, ranked by night-shift medication errors avoided per year, from pilot rates.",
+      "items": [
         {
-          "label": "Submit a manuscript",
-          "href": "#",
-          "style": "solid",
-          "icon": "fa-solid fa-feather"
+          "rank": "1",
+          "label": "Rest rooms and 06:30 handover",
+          "value": "≈ 590",
+          "widthPct": 100
         },
         {
-          "label": "Request the brand kit",
-          "href": "#",
+          "rank": "2",
+          "label": "06:30 handover only",
+          "value": "≈ 310",
+          "widthPct": 53
+        },
+        {
+          "rank": "3",
+          "label": "Rest breaks without a room",
+          "value": "≈ 170",
+          "widthPct": 29
+        },
+        {
+          "rank": "4",
+          "label": "Keep the current rota",
+          "value": "0",
+          "widthPct": 2
+        }
+      ],
+      "notes": "Option 3 is weak because, without a room, nurses took their rest on only 54% of shifts in the first month. A float nurse per three wards covers the break; that cost is already in the ward budget."
+    },
+    {
+      "layout": "closing",
+      "eyebrow": "Decision needed · hospital board, 10 December 2026",
+      "heading": "Fund rest rooms on nine wards and cut night errors by a third.",
+      "lead": "£540,000 once, £60,000 per ward. Rested nurses give safer doses.",
+      "actions": [
+        {
+          "label": "Approve the rest rooms",
+          "style": "solid",
+          "icon": "fa-solid fa-check"
+        },
+        {
+          "label": "Read the full study",
           "style": "outline",
-          "icon": "fa-solid fa-book-open"
+          "icon": "fa-solid fa-file-lines"
         }
       ]
     }

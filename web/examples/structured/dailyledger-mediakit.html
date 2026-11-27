@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Daily Ledger — Media Kit</title>
-<meta name="description" content="Newsroom media kit — broadsheet multi-slide proof." />
+<title>Daily Ledger — Q1 2027 sponsorship proposal for Fairhaven Bank</title>
+<meta name="description" content="Sales deck from the Daily Ledger newspaper to Fairhaven Bank: the shift from reach to attention, a Business-section sponsorship, the Morning Briefing, proof from a credit union, and a $186,000 Q1 plan." />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Pirata+One&family=Playfair+Display:wght@500;700&family=Lora:wght@400;600&display=swap');
@@ -20,6 +20,12 @@
   --muted: #5a4c3e;
   --accent: #1a1208;
   --accent-2: #5c4d38;
+  /* Text on an accent fill: bg, text, white or near-black, whichever reads best. */
+  --on-accent: #f2ece0;
+  /* The accent as an ink for figures (numbers, bars, cells): at least 3:1 on bg.
+     Pastel accents stay pastel as fills. */
+  --accent-ink: #1a1208;
+  --accent-2-ink: #5c4d38;
   --card-bg: rgba(26,18,8,0.04);
   --border: rgba(26,18,8,0.18);
   --radius: 0px;
@@ -27,6 +33,10 @@
   --heading-font: 'Playfair Display', Georgia, serif;
   --body-font: 'Lora', Georgia, serif;
   --heading-weight: 700;
+  /* Aliases: surfaces.css and older rules spell these without the hyphen.
+     An undefined var() voids the whole declaration, so those effects never rendered. */
+  --accent2: var(--accent-2);
+  --bg2: var(--bg-2);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -81,7 +91,8 @@ h1, h2, h3 {
 .slide > * { position: relative; z-index: 1; }
 
 .eyebrow {
-  color: var(--accent-2);
+  /* Small text: accent-2 moved to 4.5:1 on bg (pastel accent-2 vanished on cream). */
+  color: var(--accent-2-ink);
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -124,13 +135,15 @@ h1, h2, h3 {
 .cols.ratio-2-3 > .media,
 .cols.ratio-2-3 > .cols-aside { flex: 1.55; }
 .cols .cols-copy h2 { max-width: 18ch; }
+/* Keep the author's line breaks: a body of three findings stays three lines. */
+.cols .cols-copy .lead { white-space: pre-line; }
 .cols .media { height: 100%; align-self: stretch; }
 .cols img {
   width: 100%;
   height: 100%;
   min-height: 280px;
   object-fit: cover;
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   display: block;
 }
 .cols-aside {
@@ -140,7 +153,7 @@ h1, h2, h3 {
   padding: 36px 40px;
   background: color-mix(in srgb, var(--accent) 10%, var(--card-bg));
   border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
-  border-radius: var(--radius);
+  border-radius: min(var(--radius), 28px);
   border-left: 4px solid var(--accent);
   position: relative;
 }
@@ -194,13 +207,14 @@ h1, h2, h3 {
   z-index: 1;
   padding: 64px;
   width: 100%;
-  max-width: 52ch;
+  /* 52ch of body text left ~330px for a 64px headline: one word per line. */
+  max-width: min(100%, 920px);
   animation: pmd-hero-copy 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
   animation-delay: 120ms;
 }
 .image-hero-content h2 {
   font-size: clamp(36px, 4.6vw, 64px);
-  max-width: 16ch;
+  max-width: 20ch;
   text-shadow: 0 12px 40px color-mix(in srgb, var(--bg) 55%, transparent);
 }
 .image-hero-content .lead {
@@ -218,17 +232,21 @@ h1, h2, h3 {
 
 /* comparison — side-by-side contrast */
 .comparison-slide { justify-content: flex-start; }
+/* Columns take their content height and centre in the space under the
+   heading; full-height panels with three lines at the top read as empty boxes. */
 .comparison-slide .comparison-cols {
   display: flex;
   gap: 16px;
   align-items: stretch;
-  flex: 1;
-  margin-top: 28px;
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   min-height: 0;
 }
 .comparison-col {
   flex: 1;
-  padding: 32px 36px;
+  padding: 40px 44px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: calc(var(--radius) * 0.75);
@@ -264,8 +282,8 @@ h1, h2, h3 {
 }
 .comparison-col p {
   color: var(--muted);
-  font-size: 18px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.55;
   white-space: pre-line;
   flex: 1;
 }
@@ -355,8 +373,19 @@ h1, h2, h3 {
   min-height: 0;
 }
 .card i { color: var(--accent); font-size: 26px; margin-bottom: 16px; display: block; }
-.card h3 { font-size: 20px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.card p { color: var(--muted); font-size: 15px; line-height: 1.45; }
+.card h3 { font-size: 22px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.card p { color: var(--muted); font-size: 16.5px; line-height: 1.45; }
+/* Uniform grids take their content height and centre under the heading, like
+   the comparison and timeline blocks. Full-height cards with two lines of copy
+   read as empty boxes. A floor keeps short cards from collapsing to a strip. */
+.feature-grid-slide .grid:not(.cols-bento) {
+  flex: 0 1 auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
+}
+.grid:not(.cols-bento) .card { min-height: 200px; }
+.grid:not(.cols-bento) .card > i:first-child { margin-bottom: auto; padding-bottom: 20px; }
 
 /* quote */
 .quote-slide {
@@ -385,12 +414,13 @@ h1, h2, h3 {
 
 /* data table */
 .data-table-slide { justify-content: flex-start; }
-table { width: 100%; border-collapse: collapse; margin-top: 28px; font-size: 17px; }
-th, td { text-align: left; padding: 18px 22px; border-bottom: 1px solid var(--border); }
+.data-table-slide .lead { margin-top: 12px; }
+table { width: 100%; border-collapse: collapse; margin-top: 36px; font-size: 20px; }
+th, td { text-align: left; padding: 24px 26px; border-bottom: 1px solid var(--border); }
 thead th {
   background: color-mix(in srgb, var(--accent) 16%, transparent);
   font-family: var(--heading-font);
-  font-size: 13px;
+  font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
@@ -402,34 +432,42 @@ tbody tr:hover td {
 
 /* stat row */
 .stat-row-slide { justify-content: flex-start; }
+/* The stat row centres as one block in the space under the heading, with
+   numbers large enough to carry the slide. */
 .stats {
   display: flex;
-  gap: 20px;
+  gap: 28px;
   margin-top: 40px;
   flex-wrap: wrap;
   flex: 1;
-  align-items: stretch;
+  align-items: flex-start;
+  align-content: center;
 }
 .stat {
   flex: 1;
   min-width: 140px;
   padding: 8px 8px 8px 0;
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, var(--border));
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .stat .value {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(44px, 5.4vw, 76px);
-  color: var(--accent);
+  font-size: clamp(52px, 7vw, 104px);
+  color: var(--accent-ink);
   line-height: 0.95;
   letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+/* Four or five stats share the row: step the size down so values stay on one line. */
+.stats:has(> .stat:nth-child(4)) .stat .value {
+  font-size: clamp(36px, 4.4vw, 66px);
 }
 .stat .label {
   color: var(--muted);
-  font-size: 15px;
-  margin-top: 12px;
-  max-width: 18ch;
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 22ch;
   line-height: 1.35;
 }
 
@@ -487,9 +525,11 @@ tbody tr:hover td {
 .ranked-list-stack {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 640px;
-  margin-top: 20px;
+  gap: 16px;
+  max-width: 860px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 20px;
   width: 100%;
 }
 .ranked-list-item {
@@ -519,8 +559,8 @@ tbody tr:hover td {
   align-items: baseline;
   justify-content: space-between;
   gap: 12px;
-  padding: 14px 18px;
-  background: color-mix(in srgb, var(--accent) 22%, var(--bg2));
+  padding: 18px 22px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg-2));
   color: var(--text);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
@@ -528,13 +568,14 @@ tbody tr:hover td {
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  min-width: 4ch;
+  /* A short bar grows to fit its own label and value instead of overprinting them. */
+  min-width: max-content;
 }
 .ranked-list-item.is-primary .ranked-list-fill {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
-.ranked-list-label { flex: 1; min-width: 0; }
+.ranked-list-label { flex: 1 0 auto; }
 .ranked-list-value {
   opacity: 0.85;
   font-size: 0.85em;
@@ -550,7 +591,9 @@ tbody tr:hover td {
 .logo-wall {
   display: grid;
   gap: 16px;
-  margin-top: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: 28px;
   width: 100%;
   align-items: stretch;
 }
@@ -565,8 +608,8 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  min-height: 96px;
-  padding: 18px 14px;
+  min-height: 140px;
+  padding: 24px 18px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -587,7 +630,7 @@ tbody tr:hover td {
 .logo-tile-fallback {
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(18px, 2.2vw, 26px);
   color: var(--text);
   letter-spacing: -0.02em;
 }
@@ -615,7 +658,8 @@ tbody tr:hover td {
   display: flex;
   align-items: stretch;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
-  border-radius: calc(var(--radius) + 2px);
+  /* Capped for pill themes: a stadium frame clipped axis labels. */
+  border-radius: min(calc(var(--radius) + 2px), 30px);
   background: color-mix(in srgb, var(--card-bg) 88%, transparent);
   padding: 18px 20px 12px;
   overflow: hidden;
@@ -640,6 +684,9 @@ tbody tr:hover td {
 /* timeline — horizontal flow with connected rail */
 .timeline-slide { justify-content: flex-start; }
 .timeline { display: flex; gap: 0; margin-top: 48px; flex: 1; }
+/* Centre the rail as one block in the space under the heading; the steps
+   stay top-aligned to each other so the dots form one line. */
+.timeline-slide .timeline { flex: 0 0 auto; margin-top: auto; margin-bottom: auto; padding-top: 24px; }
 .timeline .node { flex: 1; position: relative; padding-right: 28px; min-width: 0; }
 .timeline .node::before {
   content: "";
@@ -655,13 +702,13 @@ tbody tr:hover td {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--accent-ink);
   position: relative;
   z-index: 1;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent);
 }
-.timeline .node h3 { font-size: 18px; margin: 22px 0 8px; letter-spacing: -0.01em; }
-.timeline .node p { color: var(--muted); font-size: 14px; line-height: 1.4; }
+.timeline .node h3 { font-size: 21px; margin: 24px 0 10px; letter-spacing: -0.01em; }
+.timeline .node p { color: var(--muted); font-size: 16px; line-height: 1.45; }
 
 /* Vertical process stack (orientation: "vertical") */
 .timeline.is-vertical {
@@ -693,25 +740,31 @@ tbody tr:hover td {
 /* code — API / snippet proof slide */
 .code-slide { justify-content: flex-start; }
 .code-slide .lead { margin-bottom: 8px; }
+/* The code text is always light (#e8eaed), so the window is always a dark
+   panel. Mixing from --text made it pale on dark themes: light on light. */
 .code-window {
-  margin-top: 24px;
-  flex: 1;
+  margin-top: auto;
+  margin-bottom: auto;
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: 100%;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: calc(var(--radius) * 0.9);
+  /* Capped: pill themes (radius 9999px) turned the window into a stadium
+     that clipped the code. */
+  border-radius: min(calc(var(--radius) * 0.9), 28px);
   overflow: hidden;
-  background: color-mix(in srgb, var(--text) 92%, var(--bg));
-  box-shadow: 0 18px 48px color-mix(in srgb, var(--text) 12%, transparent);
+  background: color-mix(in srgb, #0b0f17 92%, var(--accent));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
 }
 .code-chrome {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 12px 16px;
-  background: color-mix(in srgb, var(--text) 88%, var(--bg));
-  border-bottom: 1px solid color-mix(in srgb, var(--text) 78%, var(--bg));
+  background: #161b26;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 .code-dot {
@@ -736,7 +789,7 @@ tbody tr:hover td {
   overflow: auto;
   flex: 1;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: clamp(13px, 1.15vw, 15.5px);
+  font-size: clamp(15px, 1.4vw, 19px);
   line-height: 1.65;
   color: #e8eaed;
   white-space: pre;
@@ -777,7 +830,7 @@ tbody tr:hover td {
   padding: 14px 26px;
   border-radius: 999px;
   background: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   font-weight: 600;
   width: fit-content;
   text-decoration: none;
@@ -804,10 +857,15 @@ tbody tr:hover td {
 .streak-boxes {
   display: grid;
   grid-template-columns: repeat(var(--streak-cols, 10), minmax(0, 1fr));
-  gap: 8px;
-  max-width: min(580px, 100%);
-  color: var(--accent);
+  gap: 10px;
+  width: min(780px, 100%);
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--accent-ink);
 }
+/* With a caption, the caption takes the bottom margin so it stays under the grid. */
+.streak-boxes:has(+ .streak-caption) { margin-bottom: 0; }
+.streak-boxes + .streak-caption { margin-bottom: auto; }
 .streak-box {
   aspect-ratio: 1;
   border-radius: 6px;
@@ -826,15 +884,17 @@ tbody tr:hover td {
 /* metric-ring — circular KPI badge / arc */
 .metric-ring-slide { justify-content: flex-start; }
 .pct-wrap {
-  margin-top: clamp(20px, 2.5vw, 40px);
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: clamp(20px, 2.5vw, 40px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: clamp(24px, 4vw, 60px);
   flex-wrap: wrap;
 }
 .pct-ring {
-  width: clamp(160px, 28vw, 280px);
-  height: clamp(160px, 28vw, 280px);
+  width: clamp(200px, 30vw, 340px);
+  height: clamp(200px, 30vw, 340px);
   border-radius: 50%;
   border: clamp(10px, 2vw, 20px) solid currentColor;
   color: var(--text);
@@ -862,17 +922,22 @@ tbody tr:hover td {
   align-items: center;
   justify-content: center;
 }
+/* Size the number to the ring, not the viewport, so it stays inside the stroke. */
+.pct-ring { container-type: size; }
 .pct-num {
   font-family: var(--heading-font);
   font-weight: 800;
-  font-size: clamp(44px, 7vw, 88px);
+  font-size: 22cqi;
+  max-width: 72cqi;
   line-height: 0.9;
   letter-spacing: -0.04em;
 }
 .pct-label {
   font-family: var(--body-font);
   font-weight: 700;
-  font-size: clamp(9px, 1vw, 13px);
+  font-size: clamp(10px, 4.6cqi, 14px);
+  max-width: 64cqi;
+  text-align: center;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -2200,6 +2265,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Content slides: keep the blobs off the reading plane (cards, tables, bars). */
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::before,
+.deck[data-surface="riso-print"] .slide:not(.title-slide):not(.closing-slide):not(.section-slide)::after {
+  opacity: 0.4;
+}
 /* Hero/closing: stronger overprint + slight misregistration */
 .deck[data-surface="riso-print"] .title-slide::before,
 .deck[data-surface="riso-print"] .closing-slide::before {
@@ -2247,6 +2317,22 @@ html.pmd-shot-mode .pmd-edit-toggle {
     0 0 40px color-mix(in srgb, var(--accent2) 35%, transparent);
 }
 
+/* Dark neon themes: the ring takes the accent, not the text colour. */
+.deck[data-surface="neon-rain"] .pct-ring,
+.deck[data-surface="vapor-horizon"] .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="neon-rain"] .pct-ring-center,
+.deck[data-surface="vapor-horizon"] .pct-ring-center {
+  color: var(--text);
+}
+/* The outline display face is unreadable at bar-label size, worst on the
+   pink primary bar. */
+.deck[data-surface="vapor-horizon"] .ranked-list-fill {
+  font-family: var(--body-font);
+  font-weight: 700;
+}
+
 /* ── vapor-horizon (vaporwave) ── */
 .deck[data-surface="vapor-horizon"] .slide {
   --slide-bg: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 48%, #3a1048 100%);
@@ -2274,6 +2360,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   right: auto;
   background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
   filter: drop-shadow(0 0 10px var(--accent));
+}
+/* The horizon line sits at 48%, where centred content lives: keep it to the
+   title, section and closing slides. The perspective grid stays on every slide. */
+.deck[data-surface="vapor-horizon"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::after {
+  display: none;
 }
 .deck[data-surface="vapor-horizon"] .slide h1 {
   text-shadow: 2px 0 color-mix(in srgb, var(--accent2) 50%, transparent),
@@ -3029,6 +3120,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="creative-voltage-split"] .closing-slide .eyebrow {
   color: #ffffff;
 }
+/* Keep title/closing copy inside the left panel (split at 48–50%). 45% of
+   the padded content box ends ~40px before the split. */
+.deck[data-surface="creative-voltage-split"] .title-slide > *,
+.deck[data-surface="split-pastel-panels"] .title-slide > * {
+  max-width: 45%;
+}
+.deck[data-surface="creative-voltage-split"] .title-slide h1,
+.deck[data-surface="split-pastel-panels"] .title-slide h1 {
+  font-size: clamp(36px, 4.6vw, 64px);
+  overflow-wrap: break-word;
+}
 
 /* ── signal-briefing (signal) ── */
 .deck[data-surface="signal-briefing"] .slide {
@@ -3103,6 +3205,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="electric-studio-split"] .closing-slide > p,
 .deck[data-surface="electric-studio-split"] .closing-slide .eyebrow {
   color: #ffffff;
+}
+/* The headline straddled the white/blue split; seat all copy in the blue
+   half (bottom 48%) and give the button a white pill. */
+.deck[data-surface="electric-studio-split"] .title-slide {
+  justify-content: flex-end;
+}
+.deck[data-surface="electric-studio-split"] .title-slide h1 {
+  color: #ffffff;
+  font-size: clamp(34px, 4.4vw, 60px);
+  line-height: 1.02;
+}
+.deck[data-surface="electric-studio-split"] .title-slide .lead {
+  margin-top: 10px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide > .cta-row {
+  margin-top: 20px;
+}
+.deck[data-surface="electric-studio-split"] .closing-slide .btn:not(.btn-outline):not(.btn-ghost) {
+  background: #ffffff;
+  color: #0a0a0a;
+  padding: 12px 26px;
+  border-radius: 999px;
 }
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .lead,
 .deck[data-surface="electric-studio-split"] .slide:not(.title-slide):not(.closing-slide) .eyebrow,
@@ -3390,14 +3514,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
   height: 10px;
   background: var(--accent);
 }
+/* An empty bg-2 box read as a missing image; a solid ink block reads as a
+   poster mark. */
 .deck[data-surface="bold-poster-ink"] .slide::after {
-  width: 28%;
-  height: 28%;
-  right: 40px;
-  bottom: 40px;
+  width: 120px;
+  height: 120px;
+  right: 48px;
+  bottom: 48px;
   top: auto;
-  background: var(--bg-2);
-  border: 2px solid var(--text);
+  background: var(--accent);
+  border: none;
+  box-shadow: 10px 10px 0 var(--text);
   filter: none;
 }
 .deck[data-surface="bold-poster-ink"] .slide h1 {
@@ -3468,10 +3595,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background-size: 5px 5px, 7px 7px, 6px 6px, auto;
   background-position: 0 0, 2px 3px, 1px 4px, 0 0;
 }
+/* Masthead rules live in the 64px padding; at 14% they struck through
+   headings. */
 .deck[data-surface="emerald-editorial-masthead"] .slide::before {
   left: 12%;
   right: 12%;
-  top: 14%;
+  top: 30px;
   height: 3px;
   background: linear-gradient(
     180deg,
@@ -3483,7 +3612,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="emerald-editorial-masthead"] .slide::after {
   left: 12%;
   right: 12%;
-  bottom: 14%;
+  bottom: 30px;
   top: auto;
   height: 3px;
   background: linear-gradient(
@@ -3635,9 +3764,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="block-frame-brutal"] .title-slide::after,
 .deck[data-surface="block-frame-brutal"] .closing-slide::after {
+  /* Bottom-right: bottom-left sat under the closing button. */
   width: 16%;
   height: 22%;
-  left: 6%;
+  right: 10%;
+  left: auto;
   bottom: 10%;
   top: auto;
   background: #C0F7FE;
@@ -3672,6 +3803,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 28px;
   border: 2px solid var(--border);
   box-shadow: 8px 10px 0 rgba(26, 26, 26, 0.08);
+}
+/* Content slides: dots sit in the 64px padding ring; mid-slide they showed
+   through chart frames and next to axis labels. */
+.deck[data-surface="capsule-pills"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    radial-gradient(circle at 32px calc(100% - 34px), color-mix(in srgb, #C5B5E0 70%, transparent) 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 34px) 32px, color-mix(in srgb, #8BB4F7 70%, transparent) 0 12px, transparent 13px),
+    radial-gradient(circle at 78% calc(100% - 30px), color-mix(in srgb, #C4D94E 70%, transparent) 0 10px, transparent 11px),
+    var(--bg);
 }
 .deck[data-surface="capsule-pills"] .slide::before {
   width: 120px;
@@ -3731,6 +3871,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide::after {
+  display: none;
+}
+/* The corner triangle paints over charts, code and stats; keep it on the
+   slides with open space. */
+.deck[data-surface="cobalt-grid-paper"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide)::before {
   display: none;
 }
 .deck[data-surface="cobalt-grid-paper"] .slide h1 {
@@ -3883,7 +4028,7 @@ html.pmd-shot-mode .pmd-edit-toggle {
   --slide-bg:
     linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat 72% 12% / 180px 140px,
     linear-gradient(160deg, #A5D8FF 0%, #74C0FC 100%) no-repeat 88% 58% / 150px 120px,
-    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 8% 62% / 130px 110px,
+    linear-gradient(200deg, #FFC9C9 0%, #FF9F9F 100%) no-repeat 62% 94% / 130px 110px,
     radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
     repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
     var(--bg);
@@ -3892,6 +4037,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   box-shadow:
     6px 8px 0 rgba(45, 42, 38, 0.06),
     inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+/* Stickers at fixed spots sat on headings, stats and tables; content slides
+   keep one small note inside the bottom-right padding. */
+.deck[data-surface="scatterbrain-cork"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg:
+    linear-gradient(135deg, #FFE066 0%, #FFD43B 100%) no-repeat right 22px bottom 18px / 84px 40px,
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255, 224, 102, 0.22), transparent 55%),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(45, 42, 38, 0.05) 39px, rgba(45, 42, 38, 0.05) 40px),
+    var(--bg);
 }
 .deck[data-surface="scatterbrain-cork"] .slide::before {
   width: 16px;
@@ -4052,6 +4206,15 @@ html.pmd-shot-mode .pmd-edit-toggle {
   filter: none;
   opacity: 1;
 }
+/* Title/closing copy starts right of the 22% column rule instead of
+   crossing it. */
+.deck[data-surface="raw-grid-brutal"] .title-slide {
+  padding-left: calc(22% + 44px);
+}
+/* Eyebrows sit on the pink band, where accent-2 ink fell below AA. */
+.deck[data-surface="raw-grid-brutal"] .eyebrow {
+  color: var(--text);
+}
 .deck[data-surface="raw-grid-brutal"] .slide::after {
   width: 3px;
   left: 22%;
@@ -4161,9 +4324,28 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 /* Dual-surface: cream cards need dark muted; roles.muted stays light for sage slides */
 .deck[data-surface="mat-woodglow"] .card p,
-.deck[data-surface="mat-woodglow"] .card .lead,
-.deck[data-surface="mat-woodglow"] .stat .label {
+.deck[data-surface="mat-woodglow"] .card .lead {
   color: #454038;
+}
+/* Stats sit on the sage slide, not a cream card. */
+.deck[data-surface="mat-woodglow"] .stat .label {
+  color: var(--muted);
+}
+/* Other cream panels (logo tiles, the two-column aside) carried cream text. */
+.deck[data-surface="mat-woodglow"] .logo-tile,
+.deck[data-surface="mat-woodglow"] .cols-aside {
+  color: #1E2820;
+}
+.deck[data-surface="mat-woodglow"] .cols-aside *,
+.deck[data-surface="mat-woodglow"] .logo-tile-fallback {
+  color: inherit;
+}
+.deck[data-surface="mat-woodglow"] .logo-tile-caption {
+  color: #454038;
+}
+/* Muted chart labels were pale on a cream frame; use the sage panel. */
+.deck[data-surface="mat-woodglow"] .chart-frame {
+  background: var(--bg-2);
 }
 .deck[data-surface="mat-woodglow"] .card h3,
 .deck[data-surface="mat-woodglow"] .card i {
@@ -4223,10 +4405,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border: 1px solid var(--border);
   box-shadow: none;
 }
+/* Axes sit inside the 64px padding: at 6%/10% they cut through eyebrows,
+   headings and the first card row. */
 .deck[data-surface="cartesian-draft"] .slide::before {
-  left: 6%;
-  right: 6%;
-  top: 10%;
+  left: 32px;
+  right: 32px;
+  top: 32px;
   height: 1px;
   background: var(--border);
   filter: none;
@@ -4234,13 +4418,17 @@ html.pmd-shot-mode .pmd-edit-toggle {
 }
 .deck[data-surface="cartesian-draft"] .slide::after {
   width: 1px;
-  left: 6%;
-  top: 10%;
-  bottom: 10%;
+  left: 32px;
+  top: 32px;
+  bottom: 32px;
   height: auto;
   background: var(--border);
   filter: none;
   border-radius: 0;
+}
+/* The compass circles overlapped the top-right card and chart. */
+.deck[data-surface="cartesian-draft"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide) {
+  --slide-bg: var(--bg);
 }
 .deck[data-surface="cartesian-draft"] .slide h1 {
   font-weight: 400;
@@ -4347,10 +4535,11 @@ html.pmd-shot-mode .pmd-edit-toggle {
 /* ── daisy-days-pastel (daisy-days) ── */
 .deck[data-surface="daisy-days-pastel"] .slide {
   --slide-bg:
-    radial-gradient(circle at 12% 18%, #FDE68A 0 14px, transparent 15px),
-    radial-gradient(circle at 88% 22%, #F7C8D4 0 18px, transparent 19px),
-    radial-gradient(circle at 78% 82%, #7ECDC0 0 16px, transparent 17px),
-    radial-gradient(circle at 18% 78%, #D4A5E8 0 12px, transparent 13px),
+    /* Dots sit in the 64px padding ring; mid-slide they landed on leads and tables. */
+    radial-gradient(circle at 32px 32px, #FDE68A 0 14px, transparent 15px),
+    radial-gradient(circle at calc(100% - 32px) 52%, #F7C8D4 0 18px, transparent 19px),
+    radial-gradient(circle at 78% calc(100% - 30px), #7ECDC0 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 64%, #D4A5E8 0 12px, transparent 13px),
     var(--bg);
   border-radius: 28px;
   border: 3px solid #2D2D2D;
@@ -5196,6 +5385,33 @@ html.pmd-shot-mode .pmd-edit-toggle {
   color: #0a0a0a;
 }
 
+/* Toned slides set their own ink; the attribution and ring kept the white
+   text colour and vanished on cyan and lime. */
+.deck[data-surface="wrapped-block"] .slide[data-tone] .quote-by,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-ring,
+.deck[data-surface="wrapped-block"] .slide[data-tone] .pct-desc .lead {
+  color: inherit;
+}
+/* On the black field the ring takes the lime accent, like the stats. */
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring {
+  color: var(--accent);
+}
+.deck[data-surface="wrapped-block"] .slide:not([data-tone]) .pct-ring-center {
+  color: var(--text);
+}
+/* Lime cover/closing: the solid button was lime on lime, the outline white. */
+.deck[data-surface="wrapped-block"] .closing-slide .btn {
+  background: #0a0a0a;
+  color: var(--accent);
+  border-color: #0a0a0a;
+}
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-outline,
+.deck[data-surface="wrapped-block"] .closing-slide .btn.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 2px solid #0a0a0a;
+}
+
 /* Auto-cycle body slides when tone is omitted — Spotify-Wrapped energy */
 .deck[data-surface="wrapped-block"] .slide:nth-child(4n+3):not(.title-slide):not(.closing-slide):not([data-tone]) {
   border-color: var(--accent2);
@@ -5395,6 +5611,13 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child h3,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child p,
 .deck[data-surface="coral-hatch"] .grid.cols-bento .card:first-child i { color: #1a1a1a; }
+/* The full coral diagonal hides coral figures and timeline steps; content
+   slides keep it as a tint, title/section/closing keep the bold plane. */
+.deck[data-surface="coral-hatch"] .slide:not(.title-slide):not(.section-slide):not(.closing-slide):not(.image-hero-slide) {
+  --slide-bg:
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(26, 26, 26, 0.045) 10px, rgba(26, 26, 26, 0.045) 12px),
+    linear-gradient(135deg, var(--bg) 0 62%, color-mix(in srgb, var(--bg-2) 16%, var(--bg)) 62% 100%);
+}
 .deck[data-surface="botanical-leaf"] .stat {
   border-top: 1px solid var(--accent);
 }
@@ -5717,7 +5940,8 @@ html.pmd-shot-mode .pmd-edit-toggle {
   background: #fff;
   border: 2px solid var(--text);
   border-radius: 9999px;
-  padding: 14px 22px;
+  /* Inset past the pill's curve: at 22px the labels touched the rounded edge. */
+  padding: 18px 48px;
 }
 .deck[data-surface="capsule-pills"] .stat .value { color: var(--accent); }
 .deck[data-surface="capsule-pills"] .comparison-col {
@@ -6023,11 +6247,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-left: 5px solid var(--text);
   font-weight: 800;
 }
+/* Pink and yellow rules vanish on the pink field and the yellow wedge. */
 .deck[data-surface="tri-tone-blocks"] .stat {
-  border-top: 6px solid #f2b6c6;
+  border-top: 6px solid var(--text);
 }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(2) { border-top-color: #f2d86a; }
-.deck[data-surface="tri-tone-blocks"] .stat:nth-child(3) { border-top-color: #7a1f35; }
 .deck[data-surface="tri-tone-blocks"] .comparison-col {
   border-radius: 0;
   border: 2px solid var(--text);
@@ -6093,7 +6316,10 @@ html.pmd-shot-mode .pmd-edit-toggle {
   border-radius: 0;
   background: transparent;
   border-top: 2px solid var(--accent);
-  padding-left: 0;
+  padding: 22px 26px;
+}
+.deck[data-surface="emerald-editorial-masthead"] .comparison-label {
+  color: var(--text);
 }
 .deck[data-surface="emerald-editorial-masthead"] .quote {
   border-left: none;
@@ -6461,6 +6687,12 @@ html.pmd-shot-mode .pmd-edit-toggle {
 .deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
   color: #fff;
 }
+/* glass-mist's pale blue hero failed white text; use the navy ink. */
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child h3,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child p,
+.deck[data-surface="glass-mist"] .grid.cols-bento .card:first-child i {
+  color: var(--text);
+}
 .deck[data-surface="aurora-glass"] .comparison-col:last-child,
 .deck[data-surface="glass-mist"] .comparison-col:last-child {
   background: color-mix(in srgb, var(--accent) 22%, var(--card-bg));
@@ -6676,124 +6908,202 @@ html.pmd-shot-mode .pmd-edit-toggle {
 <body>
 <main class="deck" data-surface="newsprint-masthead">
 <section class="slide title-slide" data-layout="title">
-  <span class="eyebrow">Media kit · 2026</span>
-  <h1>Newsprint that still matters.</h1>
-  <p class="lead">Masthead ink. Pirata weight. Audience that reads past the headline.</p>
+  <span class="eyebrow">Prepared for Fairhaven Bank · Q1 2027 proposal</span>
+  <h1>How Fairhaven Bank reaches readers who finish the story</h1>
+  <p class="lead">A sponsorship plan for 12 Mondays, January to March 2027.</p>
 </section>
 
-<section class="slide feature-grid-slide" data-layout="feature-grid">
-  <span class="eyebrow">Inventory</span>
-  <h2>Where brands show up</h2>
-  <div class="grid cols-bento">
-    <div class="card">
-      <i class="fa-solid fa-newspaper"></i>
-      <h3>Masthead takeovers</h3>
-      <p>One sponsor per day — never a carpet bomb.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-envelope"></i>
-      <h3>Morning briefing</h3>
-      <p>Sponsored beats with editorial firewall.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-podcast"></i>
-      <h3>Ledger Live</h3>
-      <p>Audio with host-read standards.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-bolt"></i>
-      <h3>Ship the punchline</h3>
-      <p>Lead with the claim that survives the hallway test.</p>
-    </div>
-    <div class="card">
-      <i class="fa-solid fa-eye"></i>
-      <h3>Show, don&#39;t pad</h3>
-      <p>Asymmetry beats another identical third column.</p>
-    </div>
+<section class="slide chart-slide" data-layout="chart">
+  <span class="eyebrow">The shift</span>
+  <h2>Open-web display viewability fell from 61% to 44% in four years</h2>
+  <p class="lead">Source: Ledger ad-ops panel, 3.4B open-web impressions, 2022–2026.</p>
+  <div class="chart-frame">
+    <svg class="pmd-chart" viewBox="0 0 920 420" width="100%" height="100%" role="img" aria-label="Chart" xmlns="http://www.w3.org/2000/svg">
+  
+  <g class="chart-grid"><line x1="52" y1="16" x2="896" y2="16" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="20" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">100</text><line x1="52" y1="106" x2="896" y2="106" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="110" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">75</text><line x1="52" y1="196" x2="896" y2="196" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="200" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">50</text><line x1="52" y1="286" x2="896" y2="286" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="290" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">25</text><line x1="52" y1="376" x2="896" y2="376" stroke="var(--border)" stroke-width="1" opacity="0.55"/><text x="44" y="380" text-anchor="end" font-size="11" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">0</text></g>
+  <g class="chart-marks"><polyline fill="none" stroke="var(--accent-ink, var(--accent))" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="52,156.4 263,170.8 474,188.79999999999998 685,206.8 896,217.6"/><circle cx="52" cy="156.4" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="52" y="146.4" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">61</text><circle cx="263" cy="170.8" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="263" y="160.8" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">57</text><circle cx="474" cy="188.79999999999998" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="474" y="178.79999999999998" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">52</text><circle cx="685" cy="206.8" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="685" y="196.8" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">47</text><circle cx="896" cy="217.6" r="4.5" fill="var(--accent-ink, var(--accent))" stroke="var(--bg, #fff)" stroke-width="2"/><text x="896" y="207.6" text-anchor="middle" font-size="11" fill="var(--text)" font-family="var(--body-font), system-ui, sans-serif">44</text></g>
+  <g class="chart-cats"><text x="52" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2022</text><text x="263" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2023</text><text x="474" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2024</text><text x="685" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2025</text><text x="896" y="406" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="var(--body-font), system-ui, sans-serif">2026</text></g>
+</svg>
   </div>
 </section>
 
 <section class="slide comparison-slide" data-layout="comparison">
-  <span class="eyebrow">Media kit</span>
-  <h2>Spray-and-pray vs. masthead trust</h2>
+  <span class="eyebrow">Winners and losers</span>
+  <h2>Brands that buy attention now beat brands that buy reach</h2>
   <div class="comparison-cols emphasis-right">
     <div class="comparison-col">
-      <span class="comparison-label">Programmatic blur</span>
-      <p>Unknown adjacency.
-Vanity impressions.
-No editorial voice.
-Rates without readers.</p>
+      <span class="comparison-label">Buying reach</span>
+      <p>Unknown pages.
+Under half ever seen.</p>
     </div>
     <div class="comparison-vs" aria-hidden="true">vs</div>
     <div class="comparison-col">
-      <span class="comparison-label">Daily Ledger</span>
-      <p>Named sections.
-Subscriber density.
-Sponsorship with standards.
-Ink that readers keep.</p>
+      <span class="comparison-label">Buying attention</span>
+      <p>Named reporting.
+Over 6 minutes per story.
+Readers who pay.</p>
     </div>
   </div>
 </section>
 
 <section class="slide image-hero-slide" data-layout="image-hero">
   <div class="image-hero-bg">
-    <img src="data:image&#x2F;svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23e8dfc8%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f2ece0%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2892%2C77%2C56%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C223%2C200%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2892%2C77%2C56%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2892%2C77%2C56%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2892%2C77%2C56%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f2ece0%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%2826%2C18%2C8%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23e8dfc8%22%20stroke%3D%22rgba%2826%2C18%2C8%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%2892%2C77%2C56%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%231a1208%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%2826%2C18%2C8%2C0.150%29%22%20stroke%3D%22rgba%2892%2C77%2C56%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%2892%2C77%2C56%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%2892%2C77%2C56%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E" alt="Daily Ledger atmospheric field" />
+    <img src="data:image&#x2F;svg+xml;utf8,&lt;svg xmlns&#x3D;&#39;http:&#x2F;&#x2F;www.w3.org&#x2F;2000&#x2F;svg&#39; viewBox&#x3D;&#39;0 0 1600 900&#39;&gt;&lt;rect width&#x3D;&#39;1600&#39; height&#x3D;&#39;900&#39; fill&#x3D;&#39;%23e8dfc8&#39;&#x2F;&gt;&lt;g font-family&#x3D;&#39;Georgia,Times,serif&#39; fill&#x3D;&#39;%231a1208&#39;&gt;&lt;rect x&#x3D;&#39;120&#39; y&#x3D;&#39;270&#39; width&#x3D;&#39;1360&#39; height&#x3D;&#39;340&#39; fill&#x3D;&#39;%23f2ece0&#39; stroke&#x3D;&#39;%231a1208&#39; stroke-width&#x3D;&#39;2&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;800&#39; y&#x3D;&#39;330&#39; font-size&#x3D;&#39;46&#39; font-weight&#x3D;&#39;700&#39; text-anchor&#x3D;&#39;middle&#39;&gt;The Daily Ledger&lt;&#x2F;text&gt;&lt;line x1&#x3D;&#39;160&#39; y1&#x3D;&#39;346&#39; x2&#x3D;&#39;1440&#39; y2&#x3D;&#39;346&#39; stroke-width&#x3D;&#39;3&#39; stroke&#x3D;&#39;%231a1208&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;160&#39; y&#x3D;&#39;368&#39; font-size&#x3D;&#39;16&#39; fill&#x3D;&#39;%235a4c3e&#39;&gt;MONDAY 11 JANUARY 2027 · BUSINESS&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1440&#39; y&#x3D;&#39;368&#39; font-size&#x3D;&#39;16&#39; fill&#x3D;&#39;%235a4c3e&#39; text-anchor&#x3D;&#39;end&#39;&gt;$2.50&lt;&#x2F;text&gt;&lt;rect x&#x3D;&#39;160&#39; y&#x3D;&#39;380&#39; width&#x3D;&#39;1280&#39; height&#x3D;&#39;38&#39; fill&#x3D;&#39;%231a1208&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;800&#39; y&#x3D;&#39;406&#39; font-size&#x3D;&#39;20&#39; fill&#x3D;&#39;%23f2ece0&#39; text-anchor&#x3D;&#39;middle&#39; letter-spacing&#x3D;&#39;3&#39;&gt;BUSINESS · PRESENTED BY FAIRHAVEN BANK&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;160&#39; y&#x3D;&#39;462&#39; font-size&#x3D;&#39;36&#39; font-weight&#x3D;&#39;700&#39;&gt;Port expansion brings 2,400 jobs to the east side&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;160&#39; y&#x3D;&#39;492&#39; font-size&#x3D;&#39;19&#39; font-style&#x3D;&#39;italic&#39; fill&#x3D;&#39;%235a4c3e&#39;&gt;Council approves $310M terminal after a two-year review&lt;&#x2F;text&gt;&lt;g fill&#x3D;&#39;%231a1208&#39; fill-opacity&#x3D;&#39;.28&#39;&gt;&lt;rect x&#x3D;&#39;160&#39; y&#x3D;&#39;512&#39; width&#x3D;&#39;390&#39; height&#x3D;&#39;8&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;160&#39; y&#x3D;&#39;530&#39; width&#x3D;&#39;370&#39; height&#x3D;&#39;8&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;160&#39; y&#x3D;&#39;548&#39; width&#x3D;&#39;390&#39; height&#x3D;&#39;8&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;580&#39; y&#x3D;&#39;512&#39; width&#x3D;&#39;390&#39; height&#x3D;&#39;8&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;580&#39; y&#x3D;&#39;530&#39; width&#x3D;&#39;390&#39; height&#x3D;&#39;8&#39;&#x2F;&gt;&lt;rect x&#x3D;&#39;580&#39; y&#x3D;&#39;548&#39; width&#x3D;&#39;360&#39; height&#x3D;&#39;8&#39;&#x2F;&gt;&lt;&#x2F;g&gt;&lt;rect x&#x3D;&#39;1010&#39; y&#x3D;&#39;506&#39; width&#x3D;&#39;430&#39; height&#x3D;&#39;70&#39; fill&#x3D;&#39;none&#39; stroke&#x3D;&#39;%231a1208&#39; stroke-width&#x3D;&#39;2&#39;&#x2F;&gt;&lt;text x&#x3D;&#39;1225&#39; y&#x3D;&#39;536&#39; font-size&#x3D;&#39;20&#39; text-anchor&#x3D;&#39;middle&#39;&gt;Fairhaven Bank&lt;&#x2F;text&gt;&lt;text x&#x3D;&#39;1225&#39; y&#x3D;&#39;562&#39; font-size&#x3D;&#39;16&#39; font-style&#x3D;&#39;italic&#39; text-anchor&#x3D;&#39;middle&#39; fill&#x3D;&#39;%235a4c3e&#39;&gt;Small-business loans, decided in 48 hours&lt;&#x2F;text&gt;&lt;&#x2F;g&gt;&lt;&#x2F;svg&gt;" alt="Daily Ledger Business section front, 11 January 2027, with a banner reading Business presented by Fairhaven Bank" />
     <div class="image-hero-scrim"></div>
   </div>
   <div class="image-hero-content">
-    <span class="eyebrow">Masthead moment</span>
-    <h2>Ink first. Then the numbers.</h2>
-    <p class="lead">Broadsheet energy with a photographic open — the ledger as a place, not a spreadsheet.</p>
+    <span class="eyebrow">The promised land</span>
+    <h2>Fairhaven&#39;s name sits above the business story a city reads first</h2>
+    <p class="lead">Every Monday, one sponsor, one section.</p>
+  </div>
+</section>
+
+<section class="slide section-slide" data-layout="section">
+  <div class="section-number">02</div>
+  <h2>Two obstacles, two fixes</h2>
+  <p class="lead">What stops banks from buying news today.</p>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-2-1">
+    <div class="cols-copy">
+      <span class="eyebrow">Obstacle 1 · Unknown adjacency</span>
+      <h2>The Daily Ledger names the section and the day before any ad runs</h2>
+      <p class="lead">One sponsor per section per day.
+The Monday line-up arrives a week ahead.</p>
+    </div>
+    
+    <div class="cols-aside"><p>0 brand-safety incidents in 1,900 sponsored days since 2023.</p></div>
+  </div>
+</section>
+
+<section class="slide two-column-slide" data-layout="two-column">
+  <div class="cols ratio-2-1 cols-reverse">
+    <div class="cols-copy">
+      <span class="eyebrow">Obstacle 2 · Ignored inboxes</span>
+      <h2>The Morning Briefing puts a host-read line in 412,000 inboxes</h2>
+      <p class="lead">Sent at 6 am, read before work.
+Our editor reads the sponsor line aloud.</p>
+    </div>
+    
+    <div class="cols-aside"><p>58% open rate, against 21% for news email.</p></div>
   </div>
 </section>
 
 <section class="slide stat-row-slide" data-layout="stat-row">
-  <span class="eyebrow">Audience</span>
-  <h2>Readers, not scrollers.</h2>
+  <span class="eyebrow">Evidence · Harbor Credit Union, spring 2026</span>
+  <h2>Harbor Credit Union cut cost per enquiry from $118 to $41</h2>
   
   <div class="stats">
     <div class="stat">
-      <div class="value">1.1M</div>
-      <div class="label">Weekly uniques</div>
+      <div class="value">+34%</div>
+      <div class="label">Mortgage enquiries vs the prior 8 weeks</div>
     </div>
     <div class="stat">
-      <div class="value">6:42</div>
-      <div class="label">Avg time on story</div>
+      <div class="value">2.6×</div>
+      <div class="label">Ad recall vs their programmatic buy</div>
     </div>
     <div class="stat">
-      <div class="value">38%</div>
-      <div class="label">Subscriber mix</div>
+      <div class="value">$41</div>
+      <div class="label">Cost per enquiry, down from $118</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide quote-slide" data-layout="quote">
+  <p class="quote">We stopped buying impressions and started buying Mondays. Enquiries rose in week two.</p>
+  <p class="quote-by">— Dana Whitlock · CMO, Harbor Credit Union</p>
+</section>
+
+<section class="slide logo-wall-slide" data-layout="logo-wall">
+  <span class="eyebrow">Sponsors like Fairhaven</span>
+  <h2>Six regional financial brands renewed their Ledger sections for 2027</h2>
+  
+  <div class="logo-wall cols-3">
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Harbor Credit Union</span>
+      <p class="logo-tile-caption">Business · since 2025</p>
+    </div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Allston Savings</span>
+      <p class="logo-tile-caption">Property · since 2024</p>
+    </div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Pell &amp; Rowe Insurance</span>
+      <p class="logo-tile-caption">Weather · since 2023</p>
+    </div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Corbin Wealth</span>
+      <p class="logo-tile-caption">Markets · since 2025</p>
+    </div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Greywater Realty</span>
+      <p class="logo-tile-caption">Property · since 2024</p>
+    </div>
+    <div class="logo-tile">
+      
+      <span class="logo-tile-fallback">Tidewell Health Plan</span>
+      <p class="logo-tile-caption">Health · since 2026</p>
     </div>
   </div>
 </section>
 
 <section class="slide data-table-slide" data-layout="data-table">
-  <span class="eyebrow">Rates</span>
-  <h2>Transparent units</h2>
+  <span class="eyebrow">The Q1 plan</span>
+  <h2>Twelve Mondays across three channels cost $186,000 for the quarter</h2>
+  
   <table>
     <thead>
-      <tr><th>Unit</th><th>CPM</th><th>Min</th><th>Notes</th></tr>
+      <tr><th>Unit</th><th>Rate</th><th>Fairhaven Q1 plan</th><th>Cost</th></tr>
     </thead>
     <tbody>
-      <tr><td>Homepage</td><td>$48</td><td>1 day</td><td>Shared exclusivity</td></tr>
-      <tr><td>Briefing</td><td>$32</td><td>1 week</td><td>Host-read add-on</td></tr>
-      <tr><td>Podcast</td><td>$55</td><td>1 ep</td><td>Pre-roll only</td></tr>
+      <tr><td>Business section takeover</td><td>$8,600 &#x2F; day</td><td>12 Mondays</td><td>$103,200</td></tr>
+      <tr><td>Morning Briefing presenting line</td><td>$9,500 &#x2F; week</td><td>6 weeks</td><td>$57,000</td></tr>
+      <tr><td>Ledger Live host read</td><td>$4,300 &#x2F; episode</td><td>6 episodes</td><td>$25,800</td></tr>
+      <tr><td>Total</td><td></td><td>Jan 11 – Mar 29</td><td>$186,000</td></tr>
     </tbody>
   </table>
 </section>
 
-<section class="slide quote-slide" data-layout="quote">
-  <p class="quote">The masthead is the product. Everything else is inventory.</p>
-  <p class="quote-by">— Publisher note</p>
+<section class="slide timeline-slide" data-layout="timeline">
+  <span class="eyebrow">Implementation</span>
+  <h2>Fairhaven goes live on 11 January in four steps</h2>
+  <div class="timeline">
+    <div class="node">
+      <div class="dot"></div>
+      <h3>15 Dec · Sign</h3>
+      <p>Hold all 12 Mondays</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>4 Jan · Approve</h3>
+      <p>Standards desk clears copy</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>11 Jan · Launch</h3>
+      <p>First takeover runs</p>
+    </div>
+    <div class="node">
+      <div class="dot"></div>
+      <h3>29 Mar · Report</h3>
+      <p>Enquiries and recall</p>
+    </div>
+  </div>
 </section>
 
 <section class="slide title-slide closing-slide" data-layout="closing">
-  <span class="eyebrow">Advertise</span>
-  <h1>Buy ink that gets read.</h1>
-  <p class="lead">Media kit PDF + brand safety addendum on request.</p>
+  <span class="eyebrow">Next step · by 15 December</span>
+  <h1>Put Fairhaven beside the stories readers finish, from 11 January</h1>
+  <p class="lead">Sign the Q1 plan by 15 December to hold all 12 Mondays.</p>
   <div class="cta-row">
-    <a class="btn" href="#"><i class="fa-solid fa-file-invoice-dollar"></i> Request rates</a>
-    <a class="btn btn-outline" href="#"><i class="fa-solid fa-download"></i> Download the kit</a>
+    <a class="btn" href="#"><i class="fa-solid fa-calendar-check"></i> Hold the 12 Mondays</a>
+    <a class="btn btn-outline" href="#"><i class="fa-solid fa-download"></i> Download the media kit</a>
   </div>
 </section>
 
@@ -6881,7 +7191,7 @@ Ink that readers keep.</p>
   </div>
 </div>
 <footer class="pmd-attribution">Made with <a href="https://presentation-md.vercel.app/?ref=deck" target="_blank" rel="noopener">presentation-md</a></footer>
-<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Daily Ledger — Media Kit","company":"Daily Ledger","description":"Newsroom media kit — broadsheet multi-slide proof.","theme":"broadsheet"},"slides":[{"layout":"title","eyebrow":"Media kit · 2026","heading":"Newsprint that still matters.","lead":"Masthead ink. Pirata weight. Audience that reads past the headline.","notes":"Cold open — land the one-line claim before logos."},{"layout":"feature-grid","eyebrow":"Inventory","heading":"Where brands show up","columns":"bento","cards":[{"icon":"fa-solid fa-newspaper","title":"Masthead takeovers","body":"One sponsor per day — never a carpet bomb."},{"icon":"fa-solid fa-envelope","title":"Morning briefing","body":"Sponsored beats with editorial firewall."},{"icon":"fa-solid fa-podcast","title":"Ledger Live","body":"Audio with host-read standards."},{"icon":"fa-solid fa-bolt","title":"Ship the punchline","body":"Lead with the claim that survives the hallway test."},{"icon":"fa-solid fa-eye","title":"Show, don't pad","body":"Asymmetry beats another identical third column."}]},{"layout":"comparison","eyebrow":"Media kit","heading":"Spray-and-pray vs. masthead trust","leftLabel":"Programmatic blur","left":"Unknown adjacency.\nVanity impressions.\nNo editorial voice.\nRates without readers.","rightLabel":"Daily Ledger","right":"Named sections.\nSubscriber density.\nSponsorship with standards.\nInk that readers keep.","emphasis":"right","notes":"Name the loser column first, then punch the winner."},{"layout":"image-hero","eyebrow":"Masthead moment","heading":"Ink first. Then the numbers.","lead":"Broadsheet energy with a photographic open — the ledger as a place, not a spreadsheet.","image":"data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20900%22%20width%3D%221600%22%20height%3D%22900%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%3Cfilter%20id%3D%22grain%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%20result%3D%22n%22%2F%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200%201%20%200%200%200%200.18%200%22%20in%3D%22n%22%20result%3D%22g%22%2F%3E%0A%20%20%20%20%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22g%22%20mode%3D%22soft-light%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2228%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3Cfilter%20id%3D%22soft2%22%20x%3D%22-30%25%22%20y%3D%22-30%25%22%20width%3D%22160%25%22%20height%3D%22160%25%22%3E%0A%20%20%20%20%3CfeGaussianBlur%20stdDeviation%3D%2248%22%2F%3E%0A%20%20%3C%2Ffilter%3E%0A%20%20%3CradialGradient%20id%3D%22vig%22%20cx%3D%2250%25%22%20cy%3D%2245%25%22%20r%3D%2270%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23e8dfc8%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2270%25%22%20stop-color%3D%22%23f2ece0%22%20stop-opacity%3D%220.15%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23000%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22floor%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.000%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.280%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3ClinearGradient%20id%3D%22beam%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2892%2C77%2C56%2C0.550%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2245%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%28232%2C223%2C200%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FlinearGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb1%22%20cx%3D%2235%25%22%20cy%3D%2230%25%22%20r%3D%2245%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.750%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2255%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.180%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2826%2C18%2C8%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22orb2%22%20cx%3D%2272%25%22%20cy%3D%2258%25%22%20r%3D%2240%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22rgba%2892%2C77%2C56%2C0.650%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2260%25%22%20stop-color%3D%22rgba%2892%2C77%2C56%2C0.160%29%22%20%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22rgba%2892%2C77%2C56%2C0.000%29%22%20%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%20%20%3CradialGradient%20id%3D%22bokeh%22%20cx%3D%2250%25%22%20cy%3D%2250%25%22%20r%3D%2250%25%22%3E%0A%20%20%20%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%2240%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220.12%22%2F%3E%0A%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%23fff%22%20stop-opacity%3D%220%22%2F%3E%0A%20%20%3C%2FradialGradient%3E%0A%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Cg%20filter%3D%22url%28%23grain%29%22%3E%0A%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22%23f2ece0%22%2F%3E%0A%20%20%3Crect%20x%3D%220%22%20y%3D%220%22%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22rgba%2826%2C18%2C8%2C0.080%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22120%22%20y%3D%22110%22%20width%3D%22880%22%20height%3D%22680%22%20fill%3D%22%23e8dfc8%22%20stroke%3D%22rgba%2826%2C18%2C8%2C0.250%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22rgba%2892%2C77%2C56%2C0.180%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22160%22%20y%3D%22150%22%20width%3D%22800%22%20height%3D%22420%22%20fill%3D%22url%28%23orb1%29%22%20opacity%3D%220.55%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22600%22%20width%3D%22280%22%20height%3D%2222%22%20fill%3D%22%231a1208%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22640%22%20width%3D%22520%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.350%29%22%2F%3E%0A%20%20%3Crect%20x%3D%22200%22%20y%3D%22670%22%20width%3D%22440%22%20height%3D%2212%22%20fill%3D%22rgba%280%2C0%2C0%2C0.200%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221080%22%20y%3D%22160%22%20width%3D%22380%22%20height%3D%22520%22%20fill%3D%22rgba%2826%2C18%2C8%2C0.150%29%22%20stroke%3D%22rgba%2892%2C77%2C56%2C0.300%29%22%20stroke-width%3D%221.5%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22210%22%20width%3D%22300%22%20height%3D%2214%22%20fill%3D%22rgba%2892%2C77%2C56%2C0.700%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22250%22%20width%3D%22260%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.280%29%22%2F%3E%0A%20%20%3Crect%20x%3D%221120%22%20y%3D%22280%22%20width%3D%22220%22%20height%3D%2210%22%20fill%3D%22rgba%280%2C0%2C0%2C0.180%29%22%2F%3E%0A%20%20%3Ccircle%20cx%3D%221270%22%20cy%3D%22460%22%20r%3D%2290%22%20fill%3D%22rgba%2892%2C77%2C56%2C0.250%29%22%20filter%3D%22url%28%23soft%29%22%2F%3E%0A%20%20%3Crect%20width%3D%221600%22%20height%3D%22900%22%20fill%3D%22url%28%23vig%29%22%20opacity%3D%220.55%22%2F%3E%0A%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E","imageAlt":"Daily Ledger atmospheric field","notes":"Hold the visual beat — let the room feel the product."},{"layout":"stat-row","eyebrow":"Audience","heading":"Readers, not scrollers.","stats":[{"value":"1.1M","label":"Weekly uniques"},{"value":"6:42","label":"Avg time on story"},{"value":"38%","label":"Subscriber mix"}]},{"layout":"data-table","eyebrow":"Rates","heading":"Transparent units","rows":[["Homepage","$48","1 day","Shared exclusivity"],["Briefing","$32","1 week","Host-read add-on"],["Podcast","$55","1 ep","Pre-roll only"]],"columns":["Unit","CPM","Min","Notes"]},{"layout":"quote","quote":"The masthead is the product. Everything else is inventory.","by":"Publisher note"},{"layout":"closing","eyebrow":"Advertise","heading":"Buy ink that gets read.","lead":"Media kit PDF + brand safety addendum on request.","actions":[{"label":"Request rates","href":"#","style":"solid","icon":"fa-solid fa-file-invoice-dollar"},{"label":"Download the kit","href":"#","style":"outline","icon":"fa-solid fa-download"}]}]}</script>
+<script type="application/json" id="pmd-deck">{"type":"deck","meta":{"title":"Daily Ledger — Q1 2027 sponsorship proposal for Fairhaven Bank","company":"Daily Ledger","description":"Sales deck from the Daily Ledger newspaper to Fairhaven Bank: the shift from reach to attention, a Business-section sponsorship, the Morning Briefing, proof from a credit union, and a $186,000 Q1 plan.","theme":"broadsheet","genre":"sales"},"slides":[{"layout":"title","eyebrow":"Prepared for Fairhaven Bank · Q1 2027 proposal","heading":"How Fairhaven Bank reaches readers who finish the story","lead":"A sponsorship plan for 12 Mondays, January to March 2027.","notes":"Open on their name, not ours. The paper's name does not appear in a heading until slide 6."},{"layout":"chart","eyebrow":"The shift","heading":"Open-web display viewability fell from 61% to 44% in four years","chartType":"line","categories":["2022","2023","2024","2025","2026"],"series":[{"name":"Viewable impressions (%)","values":[61,57,52,47,44]}],"showValues":true,"lead":"Source: Ledger ad-ops panel, 3.4B open-web impressions, 2022–2026."},{"layout":"comparison","eyebrow":"Winners and losers","heading":"Brands that buy attention now beat brands that buy reach","leftLabel":"Buying reach","left":"Unknown pages.\nUnder half ever seen.","rightLabel":"Buying attention","right":"Named reporting.\nOver 6 minutes per story.\nReaders who pay.","emphasis":"right"},{"layout":"image-hero","eyebrow":"The promised land","heading":"Fairhaven's name sits above the business story a city reads first","lead":"Every Monday, one sponsor, one section.","image":"data:image/svg+xml;utf8,\u003csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'>\u003crect width='1600' height='900' fill='%23e8dfc8'/>\u003cg font-family='Georgia,Times,serif' fill='%231a1208'>\u003crect x='120' y='270' width='1360' height='340' fill='%23f2ece0' stroke='%231a1208' stroke-width='2'/>\u003ctext x='800' y='330' font-size='46' font-weight='700' text-anchor='middle'>The Daily Ledger\u003c/text>\u003cline x1='160' y1='346' x2='1440' y2='346' stroke-width='3' stroke='%231a1208'/>\u003ctext x='160' y='368' font-size='16' fill='%235a4c3e'>MONDAY 11 JANUARY 2027 · BUSINESS\u003c/text>\u003ctext x='1440' y='368' font-size='16' fill='%235a4c3e' text-anchor='end'>$2.50\u003c/text>\u003crect x='160' y='380' width='1280' height='38' fill='%231a1208'/>\u003ctext x='800' y='406' font-size='20' fill='%23f2ece0' text-anchor='middle' letter-spacing='3'>BUSINESS · PRESENTED BY FAIRHAVEN BANK\u003c/text>\u003ctext x='160' y='462' font-size='36' font-weight='700'>Port expansion brings 2,400 jobs to the east side\u003c/text>\u003ctext x='160' y='492' font-size='19' font-style='italic' fill='%235a4c3e'>Council approves $310M terminal after a two-year review\u003c/text>\u003cg fill='%231a1208' fill-opacity='.28'>\u003crect x='160' y='512' width='390' height='8'/>\u003crect x='160' y='530' width='370' height='8'/>\u003crect x='160' y='548' width='390' height='8'/>\u003crect x='580' y='512' width='390' height='8'/>\u003crect x='580' y='530' width='390' height='8'/>\u003crect x='580' y='548' width='360' height='8'/>\u003c/g>\u003crect x='1010' y='506' width='430' height='70' fill='none' stroke='%231a1208' stroke-width='2'/>\u003ctext x='1225' y='536' font-size='20' text-anchor='middle'>Fairhaven Bank\u003c/text>\u003ctext x='1225' y='562' font-size='16' font-style='italic' text-anchor='middle' fill='%235a4c3e'>Small-business loans, decided in 48 hours\u003c/text>\u003c/g>\u003c/svg>","imageAlt":"Daily Ledger Business section front, 11 January 2027, with a banner reading Business presented by Fairhaven Bank","notes":"Let them see their name in the banner. Do not explain the unit yet."},{"layout":"section","number":"02","heading":"Two obstacles, two fixes","lead":"What stops banks from buying news today."},{"layout":"two-column","eyebrow":"Obstacle 1 · Unknown adjacency","heading":"The Daily Ledger names the section and the day before any ad runs","ratio":"2-1","body":"One sponsor per section per day.\nThe Monday line-up arrives a week ahead.","aside":"0 brand-safety incidents in 1,900 sponsored days since 2023."},{"layout":"two-column","eyebrow":"Obstacle 2 · Ignored inboxes","heading":"The Morning Briefing puts a host-read line in 412,000 inboxes","ratio":"2-1","reverse":true,"body":"Sent at 6 am, read before work.\nOur editor reads the sponsor line aloud.","aside":"58% open rate, against 21% for news email."},{"layout":"stat-row","eyebrow":"Evidence · Harbor Credit Union, spring 2026","heading":"Harbor Credit Union cut cost per enquiry from $118 to $41","stats":[{"value":"+34%","label":"Mortgage enquiries vs the prior 8 weeks"},{"value":"2.6×","label":"Ad recall vs their programmatic buy"},{"value":"$41","label":"Cost per enquiry, down from $118"}]},{"layout":"quote","quote":"We stopped buying impressions and started buying Mondays. Enquiries rose in week two.","by":"Dana Whitlock · CMO, Harbor Credit Union"},{"layout":"logo-wall","eyebrow":"Sponsors like Fairhaven","heading":"Six regional financial brands renewed their Ledger sections for 2027","columns":3,"cards":[{"title":"Harbor Credit Union","body":"Business · since 2025"},{"title":"Allston Savings","body":"Property · since 2024"},{"title":"Pell & Rowe Insurance","body":"Weather · since 2023"},{"title":"Corbin Wealth","body":"Markets · since 2025"},{"title":"Greywater Realty","body":"Property · since 2024"},{"title":"Tidewell Health Plan","body":"Health · since 2026"}]},{"layout":"data-table","eyebrow":"The Q1 plan","heading":"Twelve Mondays across three channels cost $186,000 for the quarter","columns":["Unit","Rate","Fairhaven Q1 plan","Cost"],"rows":[["Business section takeover","$8,600 / day","12 Mondays","$103,200"],["Morning Briefing presenting line","$9,500 / week","6 weeks","$57,000"],["Ledger Live host read","$4,300 / episode","6 episodes","$25,800"],["Total","","Jan 11 – Mar 29","$186,000"]],"notes":"Walk the total row first, then the lines. The Monday takeovers are 55% of the spend and all of the visibility."},{"layout":"timeline","eyebrow":"Implementation","heading":"Fairhaven goes live on 11 January in four steps","steps":[{"title":"15 Dec · Sign","body":"Hold all 12 Mondays"},{"title":"4 Jan · Approve","body":"Standards desk clears copy"},{"title":"11 Jan · Launch","body":"First takeover runs"},{"title":"29 Mar · Report","body":"Enquiries and recall"}]},{"layout":"closing","eyebrow":"Next step · by 15 December","heading":"Put Fairhaven beside the stories readers finish, from 11 January","lead":"Sign the Q1 plan by 15 December to hold all 12 Mondays.","actions":[{"label":"Hold the 12 Mondays","href":"#","style":"solid","icon":"fa-solid fa-calendar-check"},{"label":"Download the media kit","href":"#","style":"outline","icon":"fa-solid fa-download"}]}]}</script>
 <script type="application/json" id="pmd-chrome">{"navHint":"← → · E edit · G overview · F strip · L laser · D ink · B/W · S notes · T timer · P pace · O speaker · ? help","editButtonTitle":"Edit mode (E)","editButton":"Edit","slideNavLabel":"Slide navigation","blackoutHint":"Blackout · B or click to restore","whiteoutHint":"Whiteout · W or click to restore","notesRailLabel":"Speaker notes","notesRailHint":"Speaker notes · S to hide","upNext":"Up next","filmstripPeekLabel":"Slide filmstrip peek","filmstripLabel":"Slide filmstrip","presenterControlsLabel":"Presenter controls","timerTitleInitial":"Elapsed · P pace · T pause · R reset","btnSpeakerTitle":"Speaker notes window (O)","btnSpeaker":"Speaker · O","btnNotesTitle":"Toggle speaker notes (S)","btnNotes":"Notes · S","btnStripTitle":"Toggle filmstrip peek (F)","btnStripHide":"Hide strip · F","btnOverviewTitle":"Overview grid (G)","btnOverview":"Overview · G","btnEditTitle":"Edit text (E) · ⌘/Ctrl+S saves","btnEdit":"Edit · E","btnSaveTitle":"Save HTML (⌘/Ctrl+S)","btnSave":"Save · ⌘S","btnLaserTitle":"Laser pointer (L)","btnLaser":"Laser · L","btnInkTitle":"Ink / draw (D) · C clears","btnInk":"Ink · D","btnInkClearTitle":"Clear ink (C)","btnInkClear":"Clear ink · C","btnBlackoutTitle":"Blackout (B)","btnBlackout":"Blackout · B","btnWhiteoutTitle":"Whiteout (W)","btnWhiteout":"Whiteout · W","btnHelpTitle":"Shortcuts (?)","overviewLabel":"Slide overview","overviewHead":"Overview · G or Esc to close","close":"Close","helpLabel":"Presenter shortcuts","helpHead":"Shortcuts · ? or Esc","helpPrevNext":"Previous / next slide","helpJump":"Jump to slide","helpFirstLast":"First / last slide","helpOverview":"Overview grid","helpFilmstrip":"Filmstrip peek","helpEdit":"Edit text","helpSave":"Save HTML (when editing)","helpNotes":"Speaker notes","helpLaser":"Laser pointer","helpInk":"Ink / draw","helpClearInk":"Clear ink (when drawing)","helpBlackout":"Blackout","helpWhiteout":"Whiteout","helpTimer":"Pause / resume timer","helpReset":"Reset timer","helpPace":"Pace target (5–30m countdown)","helpSpeaker":"Speaker notes window","helpShortcuts":"Shortcuts","helpClose":"Close overlay","btnLaserOff":"Laser off · L","btnInkOff":"Ink off · D","btnOverviewClose":"Close grid · G","slideFallback":"Slide {n}","goToSlideTitled":"Go to slide {n}: {title}","goToSlide":"Go to slide {n}","btnStripShow":"Strip · F","btnEditDone":"Done · E","editButtonDone":"Done","lastSlideNote":"Last slide — wrap or take questions.","upNextTitled":"Up next · {title}","timerOver":"OVER","cueAhead":"ahead","cueBehind":"behind","cueOnPace":"on pace","timerLeft":"{time} left","timerPaused":"paused","noNotesSlide":"No notes on this slide.","noNotesDeck":"No speaker notes in this deck.","speakerWinEnd":"— end —","speakerWinTitle":"Speaker · {n}/{total}","speakerWinNotesLabel":"Speaker notes","speakerWinHint":"Follows the deck window · O focuses","btnBlackoutRestore":"Restore · B","btnWhiteoutRestore":"Restore · W","btnNotesHide":"Hide notes · S","timerTitlePace":"Pace {minutes}m · P cycle · T pause · R reset","timerTitleNoPace":"Elapsed · P set pace · T pause · R reset"}</script>
 <script>
 (function () {
